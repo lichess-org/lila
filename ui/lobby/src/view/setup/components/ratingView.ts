@@ -19,16 +19,16 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
       opts.hideRatings
         ? [h('i', perfIconAttrs), perfOrSpeed.name]
         : [
-            ...ctrl.trans.vdom(
-              'perfRatingX',
-              h(
-                'strong',
-                perfIconAttrs,
-                data.ratingMap[selectedPerf].rating + (data.ratingMap[selectedPerf].prov ? '?' : '')
-              )
-            ),
-            perfOrSpeed.name,
-          ]
+          ...ctrl.trans.vdom(
+            'perfRatingX',
+            h(
+              'strong',
+              perfIconAttrs,
+              data.ratingMap[selectedPerf].rating + (data.ratingMap[selectedPerf].prov ? '?' : '')
+            )
+          ),
+          perfOrSpeed.name,
+        ]
     );
   }
   return undefined;

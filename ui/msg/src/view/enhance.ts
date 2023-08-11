@@ -44,9 +44,11 @@ const expandTeamMessage = (html: string) =>
   html.replace(
     teamMessageRegex,
     (_: string, url: string) =>
-      `${expandLink(
-        url
-      )} <form action="${url}/subscribe" class="unsub" method="post"><button type="submit" class="button button-empty button-thin button-red">Unsubscribe from these messages</button></form>`
+      `${
+        expandLink(
+          url
+        )
+      } <form action="${url}/subscribe" class="unsub" method="post"><button type="submit" class="button button-empty button-thin button-red">Unsubscribe from these messages</button></form>`
   );
 
 export const enhance = (str: string) =>

@@ -45,17 +45,17 @@ function stats(ctrl: TournamentController): VNode | undefined {
     h('div.tour__stats__links.force-ltr', [
       ...(data.teamBattle
         ? [
-            h(
-              'a',
-              {
-                attrs: {
-                  href: `/tournament/${data.id}/teams`,
-                },
+          h(
+            'a',
+            {
+              attrs: {
+                href: `/tournament/${data.id}/teams`,
               },
-              trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length)
-            ),
-            h('br'),
-          ]
+            },
+            trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length)
+          ),
+          h('br'),
+        ]
         : []),
       h(
         'a.text',
@@ -68,18 +68,18 @@ function stats(ctrl: TournamentController): VNode | undefined {
         },
         'Download all games'
       ),
-      data.me &&
-        h(
-          'a.text',
-          {
-            attrs: {
-              'data-icon': licon.Download,
-              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
-              download: true,
-            },
+      data.me
+      && h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': licon.Download,
+            href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
+            download: true,
           },
-          'Download my games'
-        ),
+        },
+        'Download my games'
+      ),
       h(
         'a.text',
         {

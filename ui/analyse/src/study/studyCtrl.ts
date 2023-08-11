@@ -33,7 +33,7 @@ import {
   WithWho,
   WithPosition,
   TagArray,
-  StudyChapterRelay,
+  StudyChapterRelay
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -78,7 +78,7 @@ interface Handlers {
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-export default function (
+export default function(
   data: StudyData,
   ctrl: AnalyseCtrl,
   tagTypes: TagTypes,
@@ -161,11 +161,11 @@ export default function (
     (d, isNew) => {
       send('editStudy', d);
       if (
-        isNew &&
-        data.chapter.setup.variant.key === 'standard' &&
-        ctrl.mainline.length === 1 &&
-        !data.chapter.setup.fromFen &&
-        !relay
+        isNew
+        && data.chapter.setup.variant.key === 'standard'
+        && ctrl.mainline.length === 1
+        && !data.chapter.setup.fromFen
+        && !relay
       )
         chapters.newForm.openInitial();
     },
@@ -224,9 +224,9 @@ export default function (
   }
 
   const isGamebookPlay = () =>
-    data.chapter.gamebook &&
-    vm.gamebookOverride !== 'analyse' &&
-    (vm.gamebookOverride === 'play' || !members.canContribute());
+    data.chapter.gamebook
+    && vm.gamebookOverride !== 'analyse'
+    && (vm.gamebookOverride === 'play' || !members.canContribute());
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
   else if (data.chapter.relay && !defined(ctrl.requestInitialPly)) ctrl.userJump(data.chapter.relay.path);
@@ -238,8 +238,8 @@ export default function (
     lichess.pubsub.emit('chat.writeable', data.features.chat);
     lichess.pubsub.emit('chat.permissions', { local: canContribute });
     lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
-    const computer: boolean =
-      !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
+    const computer: boolean = !isGamebookPlay()
+      && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
@@ -288,8 +288,8 @@ export default function (
 
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
-      nextPath =
-        (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
+      nextPath = (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId])
+        || data.position.path;
     } else {
       nextPath = sameChapter
         ? prevPath
@@ -466,8 +466,8 @@ export default function (
       ctrl.tree.addDests(d.d, newPath);
       if (sticky) data.position.path = newPath;
       if (
-        (sticky && vm.mode.sticky) ||
-        (position.path === ctrl.path && position.path === treePath.fromNodeList(ctrl.mainline))
+        (sticky && vm.mode.sticky)
+        || (position.path === ctrl.path && position.path === treePath.fromNodeList(ctrl.mainline))
       )
         ctrl.jump(newPath);
       redraw();
@@ -663,10 +663,10 @@ export default function (
     canJumpTo(path: Tree.Path) {
       if (gamebookPlay) return gamebookPlay.canJumpTo(path);
       return (
-        data.chapter.conceal === undefined ||
-        isChapterOwner() ||
-        treePath.contains(ctrl.path, path) || // can always go back
-        ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!
+        data.chapter.conceal === undefined
+        || isChapterOwner()
+        || treePath.contains(ctrl.path, path) // can always go back
+        || ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!
       );
     },
     onJump() {

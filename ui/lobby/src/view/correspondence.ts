@@ -13,10 +13,9 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     {
       key: seek.id,
       attrs: {
-        title:
-          seek.action === 'joinSeek'
-            ? noarg('joinTheGame') + ' - ' + perfNames[seek.perf.key]
-            : noarg('cancel'),
+        title: seek.action === 'joinSeek'
+          ? noarg('joinTheGame') + ' - ' + perfNames[seek.perf.key]
+          : noarg('cancel'),
         'data-id': seek.id,
       },
     },
@@ -24,12 +23,12 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       h('span.is.color-icon.' + (seek.color || 'random')),
       seek.rating
         ? h(
-            'span.ulpt',
-            {
-              attrs: { 'data-href': '/@/' + seek.username },
-            },
-            seek.username
-          )
+          'span.ulpt',
+          {
+            attrs: { 'data-href': '/@/' + seek.username },
+          },
+          seek.username
+        )
         : 'Anonymous',
       seek.rating && !ctrl.opts.hideRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? ctrl.trans.pluralSame('nbDays', seek.days) : '∞',
@@ -61,7 +60,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
   return;
 }
 
-export default function (ctrl: LobbyController): MaybeVNodes {
+export default function(ctrl: LobbyController): MaybeVNodes {
   return [
     h('table.hooks__list', [
       h('thead', [

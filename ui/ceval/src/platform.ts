@@ -25,9 +25,9 @@ export function detectPlatform(
 
   if (externalEngine) technology = 'external';
   else if (
-    typeof WebAssembly === 'object' &&
-    typeof WebAssembly.validate === 'function' &&
-    WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
+    typeof WebAssembly === 'object'
+    && typeof WebAssembly.validate === 'function'
+    && WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
   ) {
     technology = 'wasm'; // WebAssembly 1.0
     const sharedMem = sendableSharedWasmMemory(1, 2);
@@ -40,7 +40,67 @@ export function detectPlatform(
         // memory growth not supported
       }
       // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
-      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1, 11]); // prettier-ignore
+      const sourceWithSimd = Uint8Array.from([
+        0,
+        97,
+        115,
+        109,
+        1,
+        0,
+        0,
+        0,
+        1,
+        12,
+        2,
+        96,
+        2,
+        123,
+        123,
+        1,
+        123,
+        96,
+        1,
+        123,
+        1,
+        123,
+        3,
+        3,
+        2,
+        0,
+        1,
+        7,
+        9,
+        2,
+        1,
+        97,
+        0,
+        0,
+        1,
+        98,
+        0,
+        1,
+        10,
+        19,
+        2,
+        9,
+        0,
+        32,
+        0,
+        32,
+        1,
+        253,
+        186,
+        1,
+        11,
+        7,
+        0,
+        32,
+        0,
+        253,
+        253,
+        1,
+        11,
+      ]); // prettier-ignore
       supportsNnue = WebAssembly.validate(sourceWithSimd);
       if (supportsNnue && officialStockfish && enableNnue) technology = 'nnue';
     }
@@ -50,9 +110,9 @@ export function detectPlatform(
     ? externalEngine.maxThreads
     : technology == 'nnue' || technology == 'hce'
     ? Math.min(
-        Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-        growableSharedMem ? 32 : officialStockfish ? 2 : 1
-      )
+      Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+      growableSharedMem ? 32 : officialStockfish ? 2 : 1
+    )
     : 1;
 
   // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even

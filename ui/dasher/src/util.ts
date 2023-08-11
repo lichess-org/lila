@@ -16,7 +16,7 @@ export function defined<A>(v: A | undefined): v is A {
 // like mithril prop but with type safety
 export function prop<A>(initialValue: A): Prop<A> {
   let value = initialValue;
-  const fun = function (v: A | undefined) {
+  const fun = function(v: A | undefined) {
     if (typeof v !== 'undefined') value = v;
     return value;
   };

@@ -13,9 +13,9 @@ export interface Scenario {
 export type ScenarioLevel = (
   | Uci
   | {
-      move: Uci;
-      shapes: ground.Shape[];
-    }
+    move: Uci;
+    shapes: ground.Shape[];
+  }
 )[];
 
 interface ScenarioOpts {
@@ -23,8 +23,8 @@ interface ScenarioOpts {
   makeChessDests(): ground.Dests;
 }
 
-export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
-  const steps = (blueprint || []).map(function (step) {
+export default function(blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
+  const steps = (blueprint || []).map(function(step) {
     if (typeof step !== 'string') return step;
     return {
       move: step,
@@ -35,12 +35,12 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
   let it = 0;
   let isFailed = false;
 
-  const fail = function () {
+  const fail = function() {
     isFailed = true;
     return false;
   };
 
-  const opponent = function () {
+  const opponent = function() {
     const step = steps[it];
     if (!step) return;
     const move = util.decomposeUci(step.move);
@@ -49,21 +49,21 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     it++;
     ground.fen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
     if (step.shapes)
-      timeouts.setTimeout(function () {
+      timeouts.setTimeout(function() {
         ground.setShapes(step.shapes);
       }, 500);
     return;
   };
 
   return {
-    isComplete: function () {
+    isComplete: function() {
       return it === steps.length;
     },
-    isFailed: function () {
+    isFailed: function() {
       return isFailed;
     },
     opponent: opponent,
-    player: function (move: Uci) {
+    player: function(move: Uci) {
       const step = steps[it];
       if (!step) return false;
       if (step.move !== move) return fail();

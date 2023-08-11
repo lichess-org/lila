@@ -92,10 +92,9 @@ async function buildThemedScss() {
         if (fs.existsSync(themed)) {
           continue;
         }
-        const code =
-          `@import '../../../common/css/dir/${direction}';\n` +
-          `@import '../../../common/css/theme/${theme}';\n` +
-          `@import '${partial}';\n`;
+        const code = `@import '../../../common/css/dir/${direction}';\n`
+          + `@import '../../../common/css/theme/${theme}';\n`
+          + `@import '${partial}';\n`;
         try {
           await fs.promises.writeFile(themed, code);
         } catch (e) {
@@ -122,10 +121,12 @@ function compile(sources: string[], tellTheWorld = true) {
       env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
       sources.map(
         (src: string) =>
-          `${src}:${path.join(
-            env.cssDir,
-            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css')
-          )}`
+          `${src}:${
+            path.join(
+              env.cssDir,
+              path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css')
+            )
+          }`
       )
     )
   );

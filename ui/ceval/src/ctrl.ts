@@ -5,7 +5,7 @@ import {
   WebWorker,
   ThreadedWasmWorker,
   ExternalEngine,
-  ExternalWorker,
+  ExternalWorker
 } from './worker';
 import { Cache } from './cache';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
@@ -71,15 +71,15 @@ export default class CevalCtrl {
 
     this.externalEngine = this.opts.externalEngines?.find(
       e =>
-        e.id == this.selectedEngine() &&
-        (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
+        e.id == this.selectedEngine()
+        && (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
     );
     this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
     this.technology = this.platform.technology;
 
     this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
-    this.cachable =
-      this.technology == 'nnue' || this.technology == 'hce' || !!this.externalEngine?.officialStockfish;
+    this.cachable = this.technology == 'nnue' || this.technology == 'hce'
+      || !!this.externalEngine?.officialStockfish;
   }
 
   storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
@@ -202,10 +202,9 @@ export default class CevalCtrl {
       else
         this.worker = new WebWorker(
           {
-            url:
-              this.technology == 'wasm'
-                ? 'vendor/stockfish.js/stockfish.wasm.js'
-                : 'vendor/stockfish.js/stockfish.js',
+            url: this.technology == 'wasm'
+              ? 'vendor/stockfish.js/stockfish.wasm.js'
+              : 'vendor/stockfish.js/stockfish.js',
           },
           this.opts.redraw
         );
@@ -280,9 +279,9 @@ export default class CevalCtrl {
     lichess.reload();
   };
   canGoDeeper = () =>
-    this.curDepth() < 99 &&
-    !this.isDeeper() &&
-    ((!this.infinite() && this.getState() !== CevalState.Computing) || this.showingCloud());
+    this.curDepth() < 99
+    && !this.isDeeper()
+    && ((!this.infinite() && this.getState() !== CevalState.Computing) || this.showingCloud());
   shortEngineName = () => engineName(this.technology, this.externalEngine);
   longEngineName = () => this.worker?.engineName();
   destroy = () => this.worker?.destroy();

@@ -5,7 +5,7 @@ import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
 
-export default function (ctrl: Controller): VNode {
+export default function(ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.setChessground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),

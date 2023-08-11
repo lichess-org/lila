@@ -152,22 +152,21 @@ class Env {
     this.log(colors.good('No errors') + env.watch ? ` - ${colors.grey('Watching')}...` : '', { ctx: ctx });
   }
   log(d: any, { ctx = 'build', error = false, warn = false } = {}) {
-    let text: string =
-      typeof d === 'string'
-        ? d
-        : d instanceof Buffer
-        ? d.toString('utf8')
-        : Array.isArray(d)
-        ? d.join('\n')
-        : JSON.stringify(d, undefined, 2);
+    let text: string = typeof d === 'string'
+      ? d
+      : d instanceof Buffer
+      ? d.toString('utf8')
+      : Array.isArray(d)
+      ? d.join('\n')
+      : JSON.stringify(d, undefined, 2);
 
     const esc = this.opts.color !== false ? escape : (text: string, _: any) => text;
 
     if (this.opts.color === false) text = stripColorEscapes(text);
 
     const prefix = (
-      (this.opts.time === false ? '' : prettyTime()) +
-      (!ctx || this.opts.ctx === false ? '' : `[${esc(ctx, colorForCtx(ctx, this.opts.color))}] `)
+      (this.opts.time === false ? '' : prettyTime())
+      + (!ctx || this.opts.ctx === false ? '' : `[${esc(ctx, colorForCtx(ctx, this.opts.color))}] `)
     ).trim();
 
     lines(text).forEach(line =>
@@ -184,8 +183,8 @@ class Env {
     const allDone = this.exitCode.size === 3;
 
     this.log(
-      `${code === 0 ? 'Done' : colors.red('Failed')}` +
-        (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
+      `${code === 0 ? 'Done' : colors.red('Failed')}`
+        + (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
       {
         ctx: ctx,
       }

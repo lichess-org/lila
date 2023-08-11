@@ -13,11 +13,11 @@ const announce = (d: LichessAnnouncement) => {
   if (d.msg) {
     $('body')
       .append(
-        '<div id="announce" class="announce">' +
-          escapeHtml(d.msg) +
-          (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
-          '<div class="actions"><a class="close">×</a></div>' +
-          '</div>'
+        '<div id="announce" class="announce">'
+          + escapeHtml(d.msg)
+          + (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '')
+          + '<div class="actions"><a class="close">×</a></div>'
+          + '</div>'
       )
       .find('#announce .close')
       .on('click', kill);

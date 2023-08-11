@@ -12,10 +12,10 @@ var i,
   it = 0;
 var dat = new Date().getTime() / 1000;
 
-gamesToMigrate.forEach(function (game) {
+gamesToMigrate.forEach(function(game) {
   var prev = '',
     uids = [];
-  game.p.forEach(function (p) {
+  game.p.forEach(function(p) {
     if (p.uid && p.uid != prev) {
       uids.push(p.uid);
       prev = p.uid;

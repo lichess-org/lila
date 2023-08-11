@@ -6,11 +6,7 @@
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
-  "keywords": [
-    "chess",
-    "lichess",
-    "webrtc"
-  ],
+  "keywords": ["chess", "lichess", "webrtc"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

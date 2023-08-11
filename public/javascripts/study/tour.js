@@ -1,9 +1,8 @@
 function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
     const dataTheme = $('body').data('theme');
-    const theme =
-      'shepherd-theme-' +
-      (dataTheme === 'system'
+    const theme = 'shepherd-theme-'
+      + (dataTheme === 'system'
         ? window.matchMedia('(prefers-color-scheme: light)').matches
           ? 'default'
           : 'dark'
@@ -11,28 +10,28 @@ function loadShepherd(f) {
         ? 'default'
         : 'dark');
     lichess.loadCss('vendor/' + theme + '.css');
-    lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
-      lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
+    lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function() {
+      lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function() {
         f(theme);
       });
     });
   }
 }
-lichess.studyTour = function (study) {
+lichess.studyTour = function(study) {
   const helpButtonSelector = 'main.analyse .study__buttons .help';
   if (!$(helpButtonSelector).length) return;
-  loadShepherd(function (theme) {
-    var onTab = function (tab) {
+  loadShepherd(function(theme) {
+    var onTab = function(tab) {
       return {
-        'before-show': function () {
+        'before-show': function() {
           study.setTab(tab);
         },
       };
     };
 
-    var closeActionMenu = function () {
+    var closeActionMenu = function() {
       return {
-        'before-show': function () {
+        'before-show': function() {
           study.closeActionMenu();
         },
       };
@@ -48,12 +47,11 @@ lichess.studyTour = function (study) {
     [
       {
         title: 'Welcome to Lichess Study!',
-        text:
-          'This is a shared analysis board.<br><br>' +
-          'Use it to analyse and annotate games,<br>' +
-          'discuss positions with friends,<br>' +
-          'and of course for chess lessons!<br><br>' +
-          "It's a powerful tool, let's take some time to see how it works.",
+        text: 'This is a shared analysis board.<br><br>'
+          + 'Use it to analyse and annotate games,<br>'
+          + 'discuss positions with friends,<br>'
+          + 'and of course for chess lessons!<br><br>'
+          + "It's a powerful tool, let's take some time to see how it works.",
         attachTo: helpButtonSelector + ' top',
       },
       {
@@ -64,62 +62,57 @@ lichess.studyTour = function (study) {
       },
       {
         title: 'Study members',
-        text:
-          "<i data-icon=''></i> Spectators can view the study and talk in the chat.<br>" +
-          "<br><i data-icon=''></i> Contributors can make moves and update the study.",
+        text: "<i data-icon=''></i> Spectators can view the study and talk in the chat.<br>"
+          + "<br><i data-icon=''></i> Contributors can make moves and update the study.",
         attachTo: '.study__members right',
         when: onTab('members'),
       },
       study.isOwner
         ? {
-            title: 'Invite members',
-            text:
-              "By clicking the <i data-icon=''></i> button.<br>" + 'Then decide who can contribute or not.',
-            attachTo: '.study__members .add right',
-            when: onTab('members'),
-          }
+          title: 'Invite members',
+          text: "By clicking the <i data-icon=''></i> button.<br>"
+            + 'Then decide who can contribute or not.',
+          attachTo: '.study__members .add right',
+          when: onTab('members'),
+        }
         : null,
       {
         title: 'Study chapters',
-        text:
-          'A study can contain several chapters.<br>' +
-          'Each chapter has a distinct initial position and move tree.',
+        text: 'A study can contain several chapters.<br>'
+          + 'Each chapter has a distinct initial position and move tree.',
         attachTo: '.study__chapters right',
         when: onTab('chapters'),
       },
       study.isContrib
         ? {
-            title: 'Create new chapters',
-            text: "By clicking the <i data-icon=''></i> button.",
-            attachTo: '.study__chapters .add right',
-            when: onTab('chapters'),
-          }
+          title: 'Create new chapters',
+          text: "By clicking the <i data-icon=''></i> button.",
+          attachTo: '.study__chapters .add right',
+          when: onTab('chapters'),
+        }
         : null,
       study.isContrib
         ? {
-            title: 'Comment on a position',
-            text:
-              "With the <i data-icon=''></i> button, or a right click on the move list on the right.<br>" +
-              'Comments are shared and persisted.',
-            attachTo: '.study__buttons .left-buttons .comments top',
-          }
+          title: 'Comment on a position',
+          text: "With the <i data-icon=''></i> button, or a right click on the move list on the right.<br>"
+            + 'Comments are shared and persisted.',
+          attachTo: '.study__buttons .left-buttons .comments top',
+        }
         : null,
       study.isContrib
         ? {
-            title: 'Annotate a position',
-            text:
-              'With the !? button, or a right click on the move list on the right.<br>' +
-              'Annotation glyphs are shared and persisted.',
-            attachTo: '.study__buttons .left-buttons .glyphs top',
-          }
+          title: 'Annotate a position',
+          text: 'With the !? button, or a right click on the move list on the right.<br>'
+            + 'Annotation glyphs are shared and persisted.',
+          attachTo: '.study__buttons .left-buttons .glyphs top',
+        }
         : null,
       {
         title: 'Thanks for your time',
-        text:
-          "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
-          "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
-          'Power users might want to press "?" to see keyboard shortcuts.<br>' +
-          'Have fun!',
+        text: "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>"
+          + "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>"
+          + 'Power users might want to press "?" to see keyboard shortcuts.<br>'
+          + 'Have fun!',
         buttons: [
           {
             text: 'Done',
@@ -129,10 +122,10 @@ lichess.studyTour = function (study) {
         attachTo: helpButtonSelector + ' top',
       },
     ]
-      .filter(function (v) {
+      .filter(function(v) {
         return v;
       })
-      .forEach(function (s) {
+      .forEach(function(s) {
         tour.addStep(s.title, s);
       });
     tour.start();

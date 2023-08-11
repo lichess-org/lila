@@ -21,19 +21,16 @@
     { "in": "six", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "sept", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "huit", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "pion", "tok": "P", "tags": ["role", "move"] },
     { "in": "cavalier", "tok": "N", "tags": ["role", "move"] },
     { "in": "fou", "tok": "B", "tags": ["role", "move"] },
     { "in": "tour", "tok": "R", "tags": ["role", "move"] },
     { "in": "dame", "tok": "Q", "tags": ["role", "move"] },
     { "in": "roi", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "roc", "val": "castle", "tags": ["move"] },
     { "in": "prendre", "val": "x", "tags": ["move"] },
     { "in": "capturer", "val": "x", "tags": ["move"] },
     { "in": "promouvoir", "val": "=", "tags": ["move"] },
-
     { "in": "annuler", "val": "takeback", "tags": ["command"] },
     { "in": "oops", "val": "takeback", "tags": ["command"] },
     { "in": "partie null", "val": "draw", "tags": ["command", "round"] },
@@ -49,10 +46,8 @@
     { "in": "aider", "val": "help", "tags": ["command"] },
     { "in": "arrêt", "val": "stop", "tags": ["command"] },
     { "in": "arrête d'écouter", "val": "mic-off", "tags": ["command"] },
-
     { "in": "oui", "val": "yes", "tags": ["choice"] },
     { "in": "non", "val": "no", "tags": ["choice"] },
-
     { "in": "bleu", "val": "blue", "tags": ["color", "choice"] },
     { "in": "verte", "val": "green", "tags": ["color", "choice"] },
     { "in": "jaune", "val": "yellow", "tags": ["color", "choice"] },
@@ -62,7 +57,6 @@
     { "in": "orange", "val": "orange", "tags": ["color", "choice"] },
     { "in": "brun", "val": "brown", "tags": ["color", "choice"] },
     { "in": "blanc", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "alfa", "val": "a", "tags": ["file", "move", "phonetic"] },
     { "in": "bravo", "val": "b", "tags": ["file", "move", "phonetic"] },
     { "in": "charlie", "val": "c", "tags": ["file", "move", "phonetic"] },
@@ -71,7 +65,6 @@
     { "in": "fox-trot", "val": "f", "tags": ["file", "move", "phonetic"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "phonetic"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "phonetic"] },
-
     { "in": "uh", "val": "", "tags": ["ignore"] },
     { "in": "le", "val": "", "tags": ["ignore"] },
     { "in": "la", "val": "", "tags": ["ignore"] }

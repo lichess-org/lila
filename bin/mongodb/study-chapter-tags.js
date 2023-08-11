@@ -5,7 +5,7 @@ db.study_chapter
       $exists: false,
     },
   })
-  .forEach(function (c) {
+  .forEach(function(c) {
     var tags = c.setup.fromPgn ? c.setup.fromPgn.tags : [];
     db.study_chapter.update(
       {

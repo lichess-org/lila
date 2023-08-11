@@ -19,8 +19,8 @@ export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
     'div.setting.' + fullId + (t.cls ? '.' + t.cls : ''),
     t.title
       ? {
-          attrs: { title: trans.noarg(t.title) },
-        }
+        attrs: { title: trans.noarg(t.title) },
+      }
       : {},
     [
       h('div.switch', [

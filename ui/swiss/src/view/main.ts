@@ -13,10 +13,13 @@ import podium from './podium';
 import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
 
-export default function (ctrl: SwissCtrl) {
+export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
-  const content =
-    d.status == 'created' ? created(ctrl) : d.status == 'started' ? started(ctrl) : finished(ctrl);
+  const content = d.status == 'created'
+    ? created(ctrl)
+    : d.status == 'started'
+    ? started(ctrl)
+    : finished(ctrl);
   return h(
     'main.' + ctrl.opts.classes,
     {
@@ -42,8 +45,8 @@ export default function (ctrl: SwissCtrl) {
       h('div.swiss__main', [h('div.box.swiss__main-' + d.status, content), boards.many(d.boards, ctrl.opts)]),
       ctrl.opts.chat
         ? h('div.chat__members.none', {
-            hook: onInsert(lichess.watchers),
-          })
+          hook: onInsert(lichess.watchers),
+        })
         : null,
     ]
   );
@@ -162,45 +165,45 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     return ctrl.joinSpinner
       ? spinner()
       : h(
-          'button.fbt.text.highlight',
-          {
-            attrs: dataIcon(licon.PlayTriangle),
-            hook: bind(
-              'click',
-              _ => {
-                if (d.password) {
-                  const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
-                  if (p !== null) ctrl.join(p);
-                } else ctrl.join();
-              },
-              ctrl.redraw
-            ),
-          },
-          ctrl.trans.noarg('join')
-        );
+        'button.fbt.text.highlight',
+        {
+          attrs: dataIcon(licon.PlayTriangle),
+          hook: bind(
+            'click',
+            _ => {
+              if (d.password) {
+                const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
+                if (p !== null) ctrl.join(p);
+              } else ctrl.join();
+            },
+            ctrl.redraw
+          ),
+        },
+        ctrl.trans.noarg('join')
+      );
 
   if (d.me && d.status != 'finished')
     return d.me.absent
       ? ctrl.joinSpinner
         ? spinner()
         : h(
-            'button.fbt.text.highlight',
-            {
-              attrs: dataIcon(licon.PlayTriangle),
-              hook: bind('click', _ => ctrl.join(), ctrl.redraw),
-            },
-            ctrl.trans.noarg('join')
-          )
+          'button.fbt.text.highlight',
+          {
+            attrs: dataIcon(licon.PlayTriangle),
+            hook: bind('click', _ => ctrl.join(), ctrl.redraw),
+          },
+          ctrl.trans.noarg('join')
+        )
       : ctrl.joinSpinner
       ? spinner()
       : h(
-          'button.fbt.text',
-          {
-            attrs: dataIcon(licon.FlagOutline),
-            hook: bind('click', ctrl.withdraw, ctrl.redraw),
-          },
-          ctrl.trans.noarg('withdraw')
-        );
+        'button.fbt.text',
+        {
+          attrs: dataIcon(licon.FlagOutline),
+          hook: bind('click', ctrl.withdraw, ctrl.redraw),
+        },
+        ctrl.trans.noarg('withdraw')
+      );
 
   return;
 }
@@ -209,22 +212,22 @@ function joinTheGame(ctrl: SwissCtrl) {
   const gameId = ctrl.data.me?.gameId;
   return gameId
     ? h(
-        'a.swiss__ur-playing.button.is.is-after',
-        {
-          attrs: { href: '/' + gameId },
-        },
-        [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')]
-      )
+      'a.swiss__ur-playing.button.is.is-after',
+      {
+        attrs: { href: '/' + gameId },
+      },
+      [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')]
+    )
     : undefined;
 }
 
 function confetti(data: SwissData): VNode | undefined {
   return data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id)
     ? h('canvas#confetti', {
-        hook: {
-          insert: _ => lichess.loadIife('javascripts/confetti.js'),
-        },
-      })
+      hook: {
+        insert: _ => lichess.loadIife('javascripts/confetti.js'),
+      },
+    })
     : undefined;
 }
 
@@ -234,83 +237,83 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
     slots = ctrl.data.round * ctrl.data.nbPlayers;
   return s
     ? h('div.swiss__stats', [
-        h('h2', noarg('tournamentComplete')),
-        h('table', [
-          ctrl.opts.showRatings ? numberRow(noarg('averageElo'), s.averageRating, 'raw') : null,
-          numberRow(noarg('gamesPlayed'), s.games),
-          numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
-          numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),
-          numberRow(noarg('draws'), [s.draws, slots], 'percent'),
-          numberRow('Byes', [s.byes, slots], 'percent'),
-          numberRow('Absences', [s.absences, slots], 'percent'),
-        ]),
-        h('div.swiss__stats__links', [
-          h(
-            'a',
-            {
-              attrs: {
-                href: `/swiss/${ctrl.data.id}/round/1`,
-              },
+      h('h2', noarg('tournamentComplete')),
+      h('table', [
+        ctrl.opts.showRatings ? numberRow(noarg('averageElo'), s.averageRating, 'raw') : null,
+        numberRow(noarg('gamesPlayed'), s.games),
+        numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
+        numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),
+        numberRow(noarg('draws'), [s.draws, slots], 'percent'),
+        numberRow('Byes', [s.byes, slots], 'percent'),
+        numberRow('Absences', [s.absences, slots], 'percent'),
+      ]),
+      h('div.swiss__stats__links', [
+        h(
+          'a',
+          {
+            attrs: {
+              href: `/swiss/${ctrl.data.id}/round/1`,
             },
-            ctrl.trans('viewAllXRounds', ctrl.data.round)
-          ),
-          h('br'),
-          h(
-            'a.text',
-            {
-              attrs: {
-                'data-icon': licon.Download,
-                href: `/swiss/${ctrl.data.id}.trf`,
-                download: true,
-              },
+          },
+          ctrl.trans('viewAllXRounds', ctrl.data.round)
+        ),
+        h('br'),
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': licon.Download,
+              href: `/swiss/${ctrl.data.id}.trf`,
+              download: true,
             },
-            'Download TRF file'
-          ),
-          h(
-            'a.text',
-            {
-              attrs: {
-                'data-icon': licon.Download,
-                href: `/api/swiss/${ctrl.data.id}/games`,
-                download: true,
-              },
+          },
+          'Download TRF file'
+        ),
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': licon.Download,
+              href: `/api/swiss/${ctrl.data.id}/games`,
+              download: true,
             },
-            'Download all games'
-          ),
-          h(
-            'a.text',
-            {
-              attrs: {
-                'data-icon': licon.Download,
-                href: `/api/swiss/${ctrl.data.id}/results`,
-                download: true,
-              },
+          },
+          'Download all games'
+        ),
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': licon.Download,
+              href: `/api/swiss/${ctrl.data.id}/results`,
+              download: true,
             },
-            'Download results as NDJSON'
-          ),
-          h(
-            'a.text',
-            {
-              attrs: {
-                'data-icon': licon.Download,
-                href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
-                download: true,
-              },
+          },
+          'Download results as NDJSON'
+        ),
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': licon.Download,
+              href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
+              download: true,
             },
-            'Download results as CSV'
-          ),
-          h('br'),
-          h(
-            'a.text',
-            {
-              attrs: {
-                'data-icon': licon.InfoCircle,
-                href: 'https://lichess.org/api#tag/Swiss-tournaments',
-              },
+          },
+          'Download results as CSV'
+        ),
+        h('br'),
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': licon.InfoCircle,
+              href: 'https://lichess.org/api#tag/Swiss-tournaments',
             },
-            'Swiss API documentation'
-          ),
-        ]),
-      ])
+          },
+          'Swiss API documentation'
+        ),
+      ]),
+    ])
     : undefined;
 }

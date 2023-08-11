@@ -27,7 +27,6 @@
     { "in": "шесть", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "семь", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "восемь", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "пешка", "tok": "P", "tags": ["role", "move"] },
     { "in": "конь", "tok": "N", "tags": ["role", "move"] },
     { "in": "лошадь", "tok": "N", "tags": ["role", "move"] },
@@ -38,7 +37,6 @@
     { "in": "ферзь", "tok": "Q", "tags": ["role", "move"] },
     { "in": "королева", "tok": "Q", "tags": ["role", "move"] },
     { "in": "король", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "рокировка", "val": "castle", "tags": ["move"] },
     { "in": "короткая рокировка", "val": "O-O", "tags": ["move"] },
     { "in": "два нуля", "val": "O-O", "tags": ["move"] },
@@ -52,7 +50,6 @@
     { "in": "бьёт", "val": "x", "tags": ["move"] },
     { "in": "становится", "val": "=", "tags": ["move"] },
     { "in": "повышается", "val": "=", "tags": ["move"] },
-
     { "in": "упс", "val": "takeback", "tags": ["command"] },
     { "in": "переиграть", "val": "takeback", "tags": ["command"] },
     { "in": "предложить переиграть ход", "val": "takeback", "tags": ["command"] },
@@ -81,7 +78,6 @@
     { "in": "остановить запись", "val": "stop", "tags": ["command"] },
     { "in": "остановить", "val": "stop", "tags": ["command"] },
     { "in": "стоп", "val": "stop", "tags": ["command"] },
-
     { "in": "да", "val": "yes", "tags": ["choice"] },
     { "in": "ок", "val": "yes", "tags": ["choice"] },
     { "in": "принять", "val": "yes", "tags": ["choice"] },
@@ -90,7 +86,6 @@
     { "in": "отменить", "val": "no", "tags": ["choice"] },
     { "in": "закрыть", "val": "no", "tags": ["choice"] },
     { "in": "убрать", "val": "no", "tags": ["choice"] },
-
     { "in": "синий", "val": "blue", "tags": ["color", "choice"] },
     { "in": "голубой", "val": "blue", "tags": ["color", "choice"] },
     { "in": "зеленый", "val": "green", "tags": ["color", "choice"] },
@@ -101,7 +96,6 @@
     { "in": "оранжевый", "val": "orange", "tags": ["color", "choice"] },
     { "in": "коричневый", "val": "brown", "tags": ["color", "choice"] },
     { "in": "белый", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "альфа", "val": "a", "tags": ["file", "move", "nato"] },
     { "in": "браво", "val": "b", "tags": ["file", "move", "nato"] },
     { "in": "чарли", "val": "c", "tags": ["file", "move", "nato"] },
@@ -110,7 +104,6 @@
     { "in": "фокстрот", "val": "f", "tags": ["file", "move", "nato"] },
     { "in": "гольф", "val": "g", "tags": ["file", "move", "nato"] },
     { "in": "отель", "val": "h", "tags": ["file", "move", "nato"] },
-
     { "in": "шахмат", "val": "", "tags": ["move", "ignore"] },
     { "in": "мат", "val": "", "tags": ["move", "ignore"] },
     { "in": "шах", "val": "", "tags": ["move", "ignore"] },

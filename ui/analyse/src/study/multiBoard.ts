@@ -169,8 +169,8 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
         'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
       },
       class: {
-        active:
-          !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
+        active: !study.multiBoard.loading && study.vm.chapterId == preview.id
+          && !study.relay?.tourShow.active,
       },
       hook: {
         insert(vnode) {
@@ -206,13 +206,12 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
     ]
   );
 
-const userName = (u: ChapterPreviewPlayer) =>
-  u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];
+const userName = (u: ChapterPreviewPlayer) => u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];
 
 function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefined {
   return (
-    player &&
-    h('span.mini-game__player', [
+    player
+    && h('span.mini-game__player', [
       h('span.mini-game__user', [
         h('span.name', userName(player)),
         player.rating && h('span.rating', ' ' + player.rating),

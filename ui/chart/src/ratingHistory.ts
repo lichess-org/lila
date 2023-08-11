@@ -34,7 +34,7 @@ export async function initModule({ data, singlePerfName, perfIndex }: Opts) {
   // support: Fx when user bio overflows
   const disabled = { enabled: false };
   const noText = { text: null };
-  $el.each(function (this: HTMLElement) {
+  $el.each(function(this: HTMLElement) {
     const dashStyles = [
       // order of perfs from RatingChartApi.scala
       'Solid', // Bullet

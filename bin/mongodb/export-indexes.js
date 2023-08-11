@@ -1,11 +1,11 @@
 const colls = ['tournament2'];
 
-colls.forEach(function (coll) {
+colls.forEach(function(coll) {
   indexes = db[coll].getIndexes();
   if (indexes && indexes.length > 0) {
     print('//Indexes for ' + coll + ':');
   }
-  indexes.forEach(function (index) {
+  indexes.forEach(function(index) {
     var options = {};
     if (index.unique) {
       options.unique = index.unique;

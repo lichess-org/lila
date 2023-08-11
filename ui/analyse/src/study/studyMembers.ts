@@ -87,7 +87,7 @@ export function ctrl(opts: Opts): StudyMemberCtrl {
   function updateOnline() {
     online = {};
     const members: StudyMemberMap = dict();
-    spectatorIds.forEach(function (id) {
+    spectatorIds.forEach(function(id) {
       if (members[id]) online[id] = true;
     });
     if (opts.tab() === 'members') opts.redraw();
@@ -290,31 +290,31 @@ export function view(ctrl: StudyCtrl): VNode {
         .reduce((a, b) => a.concat(b), []),
       isOwner && ordered.length < members.max
         ? h(
-            'div.add',
-            {
-              key: 'add',
-              hook: bind('click', members.inviteForm.toggle),
-            },
-            [
-              h('div.left', [
-                h('span.status', iconTag(licon.PlusButton)),
-                h('div.user-link', ctrl.trans.noarg('addMembers')),
-              ]),
-            ]
-          )
+          'div.add',
+          {
+            key: 'add',
+            hook: bind('click', members.inviteForm.toggle),
+          },
+          [
+            h('div.left', [
+              h('span.status', iconTag(licon.PlusButton)),
+              h('div.user-link', ctrl.trans.noarg('addMembers')),
+            ]),
+          ]
+        )
         : null,
       !members.canContribute() && ctrl.data.admin
         ? h(
-            'form.admin',
-            {
-              key: ':admin',
-              hook: bindNonPassive('submit', () => {
-                xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
-                return false;
-              }),
-            },
-            [h('button.button.button-red.button-thin', 'Enter as admin')]
-          )
+          'form.admin',
+          {
+            key: ':admin',
+            hook: bindNonPassive('submit', () => {
+              xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+              return false;
+            }),
+          },
+          [h('button.button.button-red.button-thin', 'Enter as admin')]
+        )
         : null,
     ]
   );

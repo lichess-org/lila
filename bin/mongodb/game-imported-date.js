@@ -1,4 +1,4 @@
-db.game5.find({ so: 7, 'pgni.user': { $exists: true } }).forEach(function (g) {
+db.game5.find({ so: 7, 'pgni.user': { $exists: true } }).forEach(function(g) {
   delete g.ua;
   delete g.tv;
   g.pgni.ca = g.ca;

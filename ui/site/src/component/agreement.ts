@@ -1,6 +1,6 @@
 import { formToXhr } from 'common/xhr';
 
-export default function () {
+export default function() {
   $('#agreement form').on('submit', (e: Event) => {
     const form = e.target as HTMLFormElement;
     formToXhr(form);

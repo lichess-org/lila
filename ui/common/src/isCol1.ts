@@ -1,6 +1,6 @@
 let cache: 'init' | 'rec' | boolean = 'init';
 
-export default function (): boolean {
+export default function(): boolean {
   if (typeof cache == 'string') {
     if (cache == 'init') {
       // only once

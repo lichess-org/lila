@@ -12,12 +12,12 @@ function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
 function insufficientMaterial(variant: VariantKey, fullFen: Fen): boolean {
   // TODO: atomic and antichess
   if (
-    variant === 'horde' ||
-    variant === 'kingOfTheHill' ||
-    variant === 'racingKings' ||
-    variant === 'crazyhouse' ||
-    variant === 'atomic' ||
-    variant === 'antichess'
+    variant === 'horde'
+    || variant === 'kingOfTheHill'
+    || variant === 'racingKings'
+    || variant === 'crazyhouse'
+    || variant === 'atomic'
+    || variant === 'antichess'
   )
     return false;
   let fen = fullFen.split(' ')[0].replace(/[^a-z]/gi, '');
@@ -55,9 +55,11 @@ export default function status(ctrl: Ctrl): string {
         case 'black':
           return noarg('whiteLeftTheGame') + winnerSuffix;
         default:
-          return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')} • ${noarg(
-            'draw'
-          )}`;
+          return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')} • ${
+            noarg(
+              'draw'
+            )
+          }`;
       }
     case 'draw': {
       if (insufficientMaterial(d.game.variant.key, d.game.fen))

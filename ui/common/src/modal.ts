@@ -33,7 +33,7 @@ export default function modal(opts: Modal) {
   opts.content.clone().removeClass('none').appendTo($wrap);
   opts.onInsert && opts.onInsert($wrap);
   modal.onClose = opts.onClose;
-  $wrap.find('.close,.cancel').each(function (this: HTMLElement) {
+  $wrap.find('.close,.cancel').each(function(this: HTMLElement) {
     bindClose(this, modal.close);
   });
   $('body').addClass('overlayed').prepend($overlay);
@@ -43,7 +43,7 @@ export default function modal(opts: Modal) {
 
 modal.close = () => {
   $('body').removeClass('overlayed');
-  $(`#${overlayId}`).each(function (this: HTMLElement) {
+  $(`#${overlayId}`).each(function(this: HTMLElement) {
     if (modal.onClose) modal.onClose();
     $(this).remove();
   });
@@ -59,10 +59,10 @@ export function snabModal(opts: SnabModal): VNode {
     opts.noClickAway
       ? {}
       : {
-          hook: bind('mousedown', (event: MouseEvent) => {
-            if ((event.target as HTMLElement).id == overlayId) close();
-          }),
-        },
+        hook: bind('mousedown', (event: MouseEvent) => {
+          if ((event.target as HTMLElement).id == overlayId) close();
+        }),
+      },
     [
       h(
         'div#modal-wrap.' + opts.class,

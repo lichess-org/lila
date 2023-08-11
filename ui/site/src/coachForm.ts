@@ -6,7 +6,7 @@ import Tagify from '@yaireo/tagify';
 lichess.load.then(() => {
   const $editor = $('.coach-edit');
 
-  const todo = (function () {
+  const todo = (function() {
     const $overview = $editor.find('.overview');
     const $el = $overview.find('.todo');
     const $listed = $editor.find('#form3-listed');
@@ -37,7 +37,7 @@ lichess.load.then(() => {
         html: 'Fill at least 3 description texts',
         check() {
           return (
-            $editor.find('.panel.texts textarea').filter(function (this: HTMLTextAreaElement) {
+            $editor.find('.panel.texts textarea').filter(function(this: HTMLTextAreaElement) {
               return !!$(this).val();
             }).length >= 3
           );
@@ -45,7 +45,7 @@ lichess.load.then(() => {
       },
     ];
 
-    return function () {
+    return function() {
       const points: Cash[] = must.filter(o => !o.check()).map(o => $('<li>').html(o.html));
       const $ul = $el.find('ul').empty();
       points.forEach(p => $ul.append(p));
@@ -78,7 +78,7 @@ lichess.load.then(() => {
     );
   }
 
-  $editor.find('.tabs > div').on('click', function (this: HTMLElement) {
+  $editor.find('.tabs > div').on('click', function(this: HTMLElement) {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
@@ -94,13 +94,13 @@ lichess.load.then(() => {
     });
   }, 1000);
 
-  $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
+  $('.coach_picture form.upload input[type=file]').on('change', function(this: HTMLInputElement) {
     $('.picture_wrap').html(lichess.spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
   setTimeout(() => {
-    $editor.find('input, textarea, select').on('input paste change keyup', function () {
+    $editor.find('input, textarea, select').on('input paste change keyup', function() {
       $editor.find('div.status').removeClass('saved');
       submit();
     });

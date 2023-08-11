@@ -3,12 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org swiss tournament",
-  "keywords": [
-    "chess",
-    "lichess",
-    "swiss",
-    "tournament"
-  ],
+  "keywords": ["chess", "lichess", "swiss", "tournament"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

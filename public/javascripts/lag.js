@@ -1,10 +1,10 @@
 lichess.load.then(() => {
-  Highcharts.makeFont = function (size) {
+  Highcharts.makeFont = function(size) {
     return (
       size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
     );
   };
-  Highcharts.theme = (function () {
+  Highcharts.theme = (function() {
     var light = $('body').hasClass('light');
     var text = {
       weak: light ? '#a0a0a0' : '#707070',
@@ -49,7 +49,7 @@ lichess.load.then(() => {
         series: {
           dataLabels: {
             align: 'left',
-            formatter: function () {
+            formatter: function() {
               return this.y >= 0 ? this.y : '?';
             },
           },
@@ -66,13 +66,13 @@ lichess.load.then(() => {
           },
           stops: light
             ? [
-                [0, 'rgba(200, 200, 200, .8)'],
-                [1, 'rgba(250, 250, 250, .8)'],
-              ]
+              [0, 'rgba(200, 200, 200, .8)'],
+              [1, 'rgba(250, 250, 250, .8)'],
+            ]
             : [
-                [0, 'rgba(56, 56, 56, .8)'],
-                [1, 'rgba(16, 16, 16, .8)'],
-              ],
+              [0, 'rgba(56, 56, 56, .8)'],
+              [1, 'rgba(16, 16, 16, .8)'],
+            ],
         },
         borderWidth: 0,
         style: {
@@ -84,7 +84,7 @@ lichess.load.then(() => {
   })();
   Highcharts.setOptions(Highcharts.theme);
 
-  var buildChart = function (opt) {
+  var buildChart = function(opt) {
     return {
       chart: {
         type: 'gauge',
@@ -213,7 +213,7 @@ lichess.load.then(() => {
     buildChart({
       title: 'SERVER',
     }),
-    function (c) {
+    function(c) {
       charts.server = c;
     }
   );
@@ -222,7 +222,7 @@ lichess.load.then(() => {
     buildChart({
       title: 'PING',
     }),
-    function (c) {
+    function(c) {
       charts.network = c;
     }
   );
@@ -231,7 +231,7 @@ lichess.load.then(() => {
     network: -1,
   };
 
-  var updateAnswer = function () {
+  var updateAnswer = function() {
     if (values.server === -1 || values.network === -1) return;
     var c;
     if (values.server <= 100 && values.network <= 500) c = 'nope-nope';
@@ -253,7 +253,7 @@ lichess.load.then(() => {
     updateAnswer();
   });
 
-  setInterval(function () {
+  setInterval(function() {
     const v = Math.round(lichess.socket.averageLag);
     if (v) {
       charts.network.series[0].points[0].update(v);

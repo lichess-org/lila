@@ -29,7 +29,7 @@ function command(q: string) {
   const parts = q.split(' '),
     exec = parts[0];
 
-  const is = function (commands: string) {
+  const is = function(commands: string) {
     return commands.split(' ').includes(exec);
   };
 
@@ -44,12 +44,12 @@ function command(q: string) {
 
 function commandHelp(aliases: string, args: string, desc: string) {
   return (
-    '<div class="command"><div>' +
-    aliases
+    '<div class="command"><div>'
+    + aliases
       .split(' ')
       .map(a => `<p>${a} ${lichess.escapeHtml(args)}</p>`)
-      .join('') +
-    `</div> <span>${desc}<span></div>`
+      .join('')
+    + `</div> <span>${desc}<span></div>`
   );
 }
 
@@ -57,17 +57,17 @@ function help() {
   lichess.loadCssPath('clinput.help');
   modal({
     content: $(
-      '<div><h3>Commands</h3>' +
-        commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
-        commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
-        commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
-        commandHelp('/stream', '<user>', 'Watch someone stream') +
-        '<h3>Global hotkeys</h3>' +
-        commandHelp('s', '', 'Search for a user') +
-        commandHelp('/', '', 'Type a command') +
-        commandHelp('c', '', 'Focus the chat input') +
-        commandHelp('esc', '', 'Close modals like this one') +
-        '</div>'
+      '<div><h3>Commands</h3>'
+        + commandHelp('/tv /follow', ' <user>', 'Watch someone play')
+        + commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play')
+        + commandHelp('/light /dark /transp /system', '', 'Change the background theme')
+        + commandHelp('/stream', '<user>', 'Watch someone stream')
+        + '<h3>Global hotkeys</h3>'
+        + commandHelp('s', '', 'Search for a user')
+        + commandHelp('/', '', 'Type a command')
+        + commandHelp('c', '', 'Focus the chat input')
+        + commandHelp('esc', '', 'Close modals like this one')
+        + '</div>'
     ),
     class: 'clinput-help',
   });

@@ -15,10 +15,8 @@ const selectData = (onClick: (v: { value: string }) => void, getValue: () => str
   },
 });
 
-const optgroup =
-  <T>(callback: (item: T) => MaybeVNode) =>
-  (categ: Categ<T>) =>
-    h('optgroup', { attrs: { label: categ.name } }, categ.items.map(callback));
+const optgroup = <T>(callback: (item: T) => MaybeVNode) => (categ: Categ<T>) =>
+  h('optgroup', { attrs: { label: categ.name } }, categ.items.map(callback));
 
 const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimension') =>
   h(
@@ -38,7 +36,7 @@ const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimensio
     item.name
   );
 
-export default function (ctrl: Ctrl, attrs: any = null) {
+export default function(ctrl: Ctrl, attrs: any = null) {
   return h('div.axis-form', attrs, [
     h(
       'select.ms.metric',

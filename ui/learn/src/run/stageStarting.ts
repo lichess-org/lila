@@ -2,7 +2,7 @@ import m from '../mithrilFix';
 import * as util from '../util';
 import { Ctrl } from './runCtrl';
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   return m(
     'div.learn__screen-overlay',
     {

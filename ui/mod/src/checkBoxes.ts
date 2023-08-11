@@ -37,8 +37,7 @@ export const checkBoxAll = (table: HTMLTableElement) =>
     .on('change', (e: MouseEvent) =>
       $(table)
         .find('tbody input:not(:disabled)')
-        .prop('checked', (e.target as HTMLInputElement).checked)
-    );
+        .prop('checked', (e.target as HTMLInputElement).checked));
 
 export const selector =
   (table: HTMLTableElement, select: HTMLSelectElement) => (f: (action: string) => void) =>

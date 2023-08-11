@@ -16,7 +16,7 @@ puzzles
       $lt: 60121,
     },
   })
-  .forEach(function (p) {
+  .forEach(function(p) {
     var newMoveNumber = fullMoveNumber(p);
     var newFen = changeFenMoveNumber(p.fen, newMoveNumber);
     puzzles.update(

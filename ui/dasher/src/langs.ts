@@ -57,18 +57,16 @@ export function view(ctrl: LangsCtrl): VNode {
   ]);
 }
 
-const langView =
-  (current: Code, accepted: Set<Code>) =>
-  ([code, name]: Lang) =>
-    h(
-      'button' + (current === code ? '.current' : '') + (accepted.has(code) ? '.accepted' : ''),
-      {
-        attrs: {
-          type: 'submit',
-          name: 'lang',
-          value: code,
-          title: code,
-        },
+const langView = (current: Code, accepted: Set<Code>) => ([code, name]: Lang) =>
+  h(
+    'button' + (current === code ? '.current' : '') + (accepted.has(code) ? '.accepted' : ''),
+    {
+      attrs: {
+        type: 'submit',
+        name: 'lang',
+        value: code,
+        title: code,
       },
-      name
-    );
+    },
+    name
+  );

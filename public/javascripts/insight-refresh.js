@@ -1,7 +1,7 @@
 lichess.refreshInsightForm = () => {
   $('form.insight-refresh:not(.armed)')
     .addClass('armed')
-    .on('submit', function () {
+    .on('submit', function() {
       fetch(this.action, {
         method: 'post',
         credentials: 'same-origin',

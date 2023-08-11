@@ -150,9 +150,9 @@ export class Protocol {
         // manually ensuring Stockfish gets to spend a minimum amount of
         // time/nodes on each position.
         if (
-          depth >= this.work.maxDepth &&
-          elapsedMs > 8000 &&
-          nodes > 4000 * Math.exp(this.work.maxDepth * 0.3)
+          depth >= this.work.maxDepth
+          && elapsedMs > 8000
+          && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3)
         )
           this.stop();
       }

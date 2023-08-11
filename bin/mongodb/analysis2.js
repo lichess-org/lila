@@ -84,7 +84,7 @@ collection.drop();
 
 var nb = 0,
   dat = new Date().getTime() / 1000;
-gamesToMigrate.forEach(function (a) {
+gamesToMigrate.forEach(function(a) {
   var encoded = a.encoded;
   if (!encoded) return;
   if (typeof encoded == 'undefined') return;

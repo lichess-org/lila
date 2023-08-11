@@ -27,12 +27,12 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h('span.is.color-icon.' + (hook.c || 'random')),
       hook.rating
         ? h(
-            'span.ulink.ulpt',
-            {
-              attrs: { 'data-href': '/@/' + hook.u },
-            },
-            hook.u
-          )
+          'span.ulink.ulpt',
+          {
+            attrs: { 'data-href': '/@/' + hook.u },
+          },
+          hook.u
+        )
         : noarg('anonymous'),
       hook.rating && !ctrl.opts.hideRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
@@ -76,20 +76,20 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
     ...standards.map(render),
     variants.length
       ? h(
-          'tr.variants',
-          {
-            key: 'variants',
-          },
-          [
-            h(
-              'td',
-              {
-                attrs: { colspan: 5 },
-              },
-              '— ' + ctrl.trans('variant') + ' —'
-            ),
-          ]
-        )
+        'tr.variants',
+        {
+          key: 'variants',
+        },
+        [
+          h(
+            'td',
+            {
+              attrs: { colspan: 5 },
+            },
+            '— ' + ctrl.trans('variant') + ' —'
+          ),
+        ]
+      )
       : null,
     ...variants.map(render),
   ];

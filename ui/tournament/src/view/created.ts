@@ -19,8 +19,8 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     h('blockquote.pull-quote', [h('p', ctrl.data.quote.text), h('footer', ctrl.data.quote.author)]),
     ctrl.opts.$faq
       ? h('div', {
-          hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq)),
-        })
+        hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq)),
+      })
       : null,
   ];
 }

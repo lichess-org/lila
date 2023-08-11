@@ -11,19 +11,19 @@ const key2pos = chessground.util.key2pos;
 let promoting:
   | false
   | {
-      orig: Key;
-      dest: Key;
-      callback: PromotionCallback;
-    } = false;
+    orig: Key;
+    dest: Key;
+    callback: PromotionCallback;
+  } = false;
 
 type PromotionCallback = (orig: Key, dest: Key, role: PromotionRole) => void;
 
 export function start(orig: Key, dest: Key, callback: PromotionCallback) {
   const piece = ground.pieces()[dest];
   if (
-    piece &&
-    piece.role == 'pawn' &&
-    ((dest[1] == '1' && piece.color == 'black') || (dest[1] == '8' && piece.color == 'white'))
+    piece
+    && piece.role == 'pawn'
+    && ((dest[1] == '1' && piece.color == 'black') || (dest[1] == '8' && piece.color == 'white'))
   ) {
     promoting = {
       orig: orig,
@@ -60,12 +60,12 @@ function renderPromotion(
   const vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion-choice.' + vertical, [
-    ...pieces.map(function (serverRole, i) {
+    ...pieces.map(function(serverRole, i) {
       return m(
         'square',
         {
           style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
-          onclick: function (e: Event) {
+          onclick: function(e: Event) {
             e.stopPropagation();
             finish(serverRole);
           },

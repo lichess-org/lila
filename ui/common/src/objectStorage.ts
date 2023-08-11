@@ -1,4 +1,4 @@
-/* 
+/*
 usage:
   const store = await objectStorage<MyObject>({store: 'my-store'});
   const value = await store.get(key);

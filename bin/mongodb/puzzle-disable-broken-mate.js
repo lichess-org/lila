@@ -26,7 +26,7 @@ puzzles
       $gt: -8000,
     },
   })
-  .forEach(function (p) {
+  .forEach(function(p) {
     var depth = depthOf(p);
     if (depth % 2 === 1) {
       count++;

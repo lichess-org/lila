@@ -68,18 +68,18 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function playable(node: Tree.Node): boolean {
     const ceval = node.ceval;
     return ceval
-      ? ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth()) ||
-          (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
+      ? ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth())
+        || (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
       : false;
   }
 
   function tbhitToEval(hit: Tree.TablebaseHit | undefined | null) {
     return (
-      hit &&
-      (hit.winner
+      hit
+      && (hit.winner
         ? {
-            mate: hit.winner === 'white' ? 10 : -10,
-          }
+          mate: hit.winner === 'white' ? 10 : -10,
+        }
         : { cp: 0 })
     );
   }
@@ -94,16 +94,17 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if (outcome && outcome.winner) verdict = 'goodMove';
     else {
       const isFiftyMoves = node.fen.split(' ')[4] === '100';
-      const nodeEval: Eval =
-        tbhitToEval(node.tbhit) ||
-        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves ? { cp: 0 } : (node.ceval as Eval));
+      const nodeEval: Eval = tbhitToEval(node.tbhit)
+        || (node.threefold || (outcome && !outcome.winner) || isFiftyMoves
+          ? { cp: 0 }
+          : (node.ceval as Eval));
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);
       if (
-        best === node.uci ||
-        (node.san!.startsWith('O-O') && best === (altCastles as Dictionary<Uci>)[node.uci!])
+        best === node.uci
+        || (node.san!.startsWith('O-O') && best === (altCastles as Dictionary<Uci>)[node.uci!])
       )
         best = undefined;
 
@@ -121,12 +122,12 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best
         ? {
-            uci: best,
-            san: root.position(prev).unwrap(
-              pos => makeSan(pos, parseUci(best!)!),
-              _ => '--'
-            ),
-          }
+          uci: best,
+          san: root.position(prev).unwrap(
+            pos => makeSan(pos, parseUci(best!)!),
+            _ => '--'
+          ),
+        }
         : undefined,
     };
   }

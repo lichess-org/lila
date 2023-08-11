@@ -73,11 +73,11 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           'a.feedback.win',
           ctrl.nextChapter()
             ? {
-                hook: bind('click', ctrl.goToNextChapter),
-              }
+              hook: bind('click', ctrl.goToNextChapter),
+            }
             : {
-                attrs: { href: '/practice' },
-              },
+              attrs: { href: '/practice' },
+            },
           [h('span', 'Success!'), ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu']
         ),
       ];
@@ -133,7 +133,7 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       ctrl.chapters
         .list()
-        .map(function (chapter) {
+        .map(function(chapter) {
           const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
             active = !ctrl.vm.loading && current && current.id === chapter.id,
             completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
@@ -151,8 +151,9 @@ export function side(ctrl: StudyCtrl): VNode {
               [
                 h('span.status.' + completion, {
                   attrs: {
-                    'data-icon':
-                      (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
+                    'data-icon': (loading || active) && completion === 'ongoing'
+                      ? licon.PlayTriangle
+                      : licon.Checkmark,
                   },
                 }),
                 h('h3', chapter.name),

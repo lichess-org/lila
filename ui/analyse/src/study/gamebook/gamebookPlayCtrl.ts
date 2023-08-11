@@ -42,8 +42,8 @@ export default class GamebookPlayCtrl {
       parPath = treePath.init(this.root.path),
       parNode = this.root.tree.nodeAtPath(parPath);
     if (
-      (this.root.onMainline && !node.children[0]) ||
-      (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath))
+      (this.root.onMainline && !node.children[0])
+      || (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath))
     ) {
       state.feedback = 'end';
     } else if (this.isMyMove()) {

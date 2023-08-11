@@ -21,7 +21,7 @@ import {
   renderSan,
   selectionHandler,
   Style,
-  styleSetting,
+  styleSetting
 } from 'nvui/chess';
 import { Chessground } from 'chessground';
 import { makeConfig } from '../view/chessground';
@@ -331,9 +331,9 @@ function onCommand(ctrl: Controller, notify: (txt: string) => void, c: string, s
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
   else
     notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`
+      commands.piece.apply(c, pieces, style)
+        || commands.scan.apply(c, pieces, style)
+        || `Invalid command: ${c}`
     );
 }
 

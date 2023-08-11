@@ -11,10 +11,10 @@ export function initModule(opts: TeamOpts) {
 
   if (opts.chat) lichess.makeChat(opts.chat);
 
-  $('#team-subscribe').on('change', function (this: HTMLInputElement) {
+  $('#team-subscribe').on('change', function(this: HTMLInputElement) {
     $(this)
       .parents('form')
-      .each(function (this: HTMLFormElement) {
+      .each(function(this: HTMLFormElement) {
         xhr.formToXhr(this);
       });
   });

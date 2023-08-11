@@ -33,37 +33,14 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   return h(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
     contrib && !isEmpty
       ? h('div.contrib', [
-          h('span', descTitle(chapter)),
-          isEmpty
-            ? null
-            : h('a', {
-                attrs: {
-                  'data-icon': licon.Pencil,
-                  title: 'Edit',
-                },
-                hook: bind(
-                  'click',
-                  _ => {
-                    desc.edit = true;
-                  },
-                  desc.redraw
-                ),
-              }),
-          h('a', {
+        h('span', descTitle(chapter)),
+        isEmpty
+          ? null
+          : h('a', {
             attrs: {
-              'data-icon': licon.Trash,
-              title: 'Delete',
+              'data-icon': licon.Pencil,
+              title: 'Edit',
             },
-            hook: bind('click', () => {
-              if (confirm('Delete permanent description?')) desc.save('');
-            }),
-          }),
-        ])
-      : null,
-    isEmpty
-      ? h(
-          'a.text.button',
-          {
             hook: bind(
               'click',
               _ => {
@@ -71,9 +48,32 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               },
               desc.redraw
             ),
+          }),
+        h('a', {
+          attrs: {
+            'data-icon': licon.Trash,
+            title: 'Delete',
           },
-          descTitle(chapter)
-        )
+          hook: bind('click', () => {
+            if (confirm('Delete permanent description?')) desc.save('');
+          }),
+        }),
+      ])
+      : null,
+    isEmpty
+      ? h(
+        'a.text.button',
+        {
+          hook: bind(
+            'click',
+            _ => {
+              desc.edit = true;
+            },
+            desc.redraw
+          ),
+        },
+        descTitle(chapter)
+      )
       : h('div.text', { hook: richHTML(desc.text) }),
   ]);
 }

@@ -9,7 +9,7 @@ coll
       _id: 1,
     }
   )
-  .forEach(function (u) {
+  .forEach(function(u) {
     coll.update(
       {
         _id: u._id,

@@ -20,10 +20,10 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
       value,
     },
     hook: onInsert<HTMLInputElement>(el => {
-      el.onblur = function () {
+      el.onblur = function() {
         submit(el.value, el);
       };
-      el.onkeydown = function (e) {
+      el.onkeydown = function(e) {
         if (e.key === 'Enter') el.blur();
       };
     }),
@@ -68,7 +68,7 @@ function renderPgnTags(
                 $(el)
                   .parents('tr')
                   .find('input')
-                  .each(function (this: HTMLInputElement) {
+                  .each(function(this: HTMLInputElement) {
                     this.focus();
                   });
               });
@@ -99,7 +99,7 @@ function renderPgnTags(
     'table.study__tags.slist',
     h(
       'tbody',
-      rows.map(function (r) {
+      rows.map(function(r) {
         return h(
           'tr',
           {
@@ -113,7 +113,7 @@ function renderPgnTags(
 }
 
 export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: string[]): TagsCtrl {
-  const submit = throttle(500, function (name: string, value: string) {
+  const submit = throttle(500, function(name: string, value: string) {
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
       name,

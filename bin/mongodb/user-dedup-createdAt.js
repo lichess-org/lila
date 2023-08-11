@@ -7,7 +7,7 @@ db.user4
       $gt: ISODate('2015-02-03T20:00:09.148Z'),
     },
   })
-  .forEach(function (u) {
+  .forEach(function(u) {
     db.user4.update(
       {
         _id: u._id,

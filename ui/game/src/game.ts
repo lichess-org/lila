@@ -23,11 +23,11 @@ export const abortable = (data: GameData): boolean =>
 export const rematchable = (data: GameData): boolean => !data.game.rules?.includes('noRematch');
 
 export const takebackable = (data: GameData): boolean =>
-  playable(data) &&
-  data.takebackable &&
-  bothPlayersHavePlayed(data) &&
-  !data.player.proposingTakeback &&
-  !data.opponent.proposingTakeback;
+  playable(data)
+  && data.takebackable
+  && bothPlayersHavePlayed(data)
+  && !data.player.proposingTakeback
+  && !data.opponent.proposingTakeback;
 
 export const drawable = (data: GameData): boolean =>
   playable(data) && data.game.turns >= 2 && !data.player.offeringDraw && !hasAi(data) && drawableSwiss(data);
@@ -41,11 +41,11 @@ export const berserkableBy = (data: GameData): boolean =>
   !!data.tournament && data.tournament.berserkable && isPlayerPlaying(data) && !bothPlayersHavePlayed(data);
 
 export const moretimeable = (data: GameData): boolean =>
-  isPlayerPlaying(data) &&
-  data.moretimeable &&
-  (!!data.clock ||
-    (!!data.correspondence &&
-      data.correspondence[data.opponent.color] < data.correspondence.increment - 3600));
+  isPlayerPlaying(data)
+  && data.moretimeable
+  && (!!data.clock
+    || (!!data.correspondence
+      && data.correspondence[data.opponent.color] < data.correspondence.increment - 3600));
 
 const imported = (data: GameData): boolean => data.game.source === 'import';
 

@@ -20,7 +20,7 @@ lichess.load.then(() => {
   const loadNotes = () => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
-    $notes.find('form button[type=submit]').on('click', function (this: HTMLButtonElement) {
+    $notes.find('form button[type=submit]').on('click', function(this: HTMLButtonElement) {
       $(this)
         .parents('form')
         .each((_, form: HTMLFormElement) =>
@@ -53,11 +53,11 @@ lichess.load.then(() => {
     $('#inquiry input.auto-next').val('0');
   }
 
-  $('#inquiry .switcher input').on('change', function (this: HTMLInputElement) {
+  $('#inquiry .switcher input').on('change', function(this: HTMLInputElement) {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });
-  $('#inquiry .actions.close').on('click', function (this: HTMLInputElement) {
+  $('#inquiry .actions.close').on('click', function(this: HTMLInputElement) {
     if (noteStore.get() && !hasSeenNonEmptyNoteWarning) {
       event!.preventDefault();
       const readTime = 1000;
@@ -70,11 +70,12 @@ lichess.load.then(() => {
     }
   });
 
-  lichess.mousetrap.bind('d', () =>
-    $('#inquiry .actions.close form.process button[type="submit"]').trigger('click')
+  lichess.mousetrap.bind(
+    'd',
+    () => $('#inquiry .actions.close form.process button[type="submit"]').trigger('click')
   );
 
-  $('#inquiry .atom p').each(function (this: HTMLParagraphElement) {
+  $('#inquiry .atom p').each(function(this: HTMLParagraphElement) {
     $(this).html(
       expandMentions(
         $(this)
@@ -87,7 +88,7 @@ lichess.load.then(() => {
     );
   });
 
-  $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
+  $('#communication').on('click', '.line.author, .post.author', function(this: HTMLElement) {
     // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
     // the notes cannot be mistakenly attributed to user A.
     const username = $('#communication').find('.title').text().split(' ')[0];

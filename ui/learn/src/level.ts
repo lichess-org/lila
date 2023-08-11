@@ -40,7 +40,7 @@ export interface AssertData {
   vm: LevelVm;
 }
 
-export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
+export default function(blueprint: Level, opts: LevelOpts): LevelCtrl {
   const items = makeItems({
     apples: blueprint.apples,
   });
@@ -54,12 +54,12 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     nbMoves: 0,
   };
 
-  const complete = function () {
+  const complete = function() {
     vm.willComplete = true;
     vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
     opts.onCompleteImmediate();
     timeouts.setTimeout(
-      function () {
+      function() {
         vm.lastStep = false;
         vm.completed = true;
         sound.levelEnd();
@@ -74,7 +74,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
   // cheat
   // lichess.mousetrap.bind(['shift+enter'], complete);
 
-  const assertData = function (): AssertData {
+  const assertData = function(): AssertData {
     return {
       scenario: scenario,
       chess: chess,
@@ -82,18 +82,18 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     };
   };
 
-  const detectFailure = function () {
+  const detectFailure = function() {
     const failed = blueprint.failure && blueprint.failure(assertData());
     if (failed) sound.failure();
     return !!failed;
   };
 
-  const detectSuccess = function () {
+  const detectSuccess = function() {
     if (blueprint.success) return blueprint.success(assertData());
     else return !items.hasItem('apple');
   };
 
-  const detectCapture = function () {
+  const detectCapture = function() {
     if (!blueprint.detectCapture) return false;
     const fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
     const move = chess[fun]();
@@ -105,7 +105,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     return true;
   };
 
-  const sendMove = function (orig: Key, dest: Key, prom?: PromotionRole) {
+  const sendMove = function(orig: Key, dest: Key, prom?: PromotionRole) {
     vm.nbMoves++;
     const move = chess.move(orig, dest, prom);
     if (move) ground.fen(chess.fen(), blueprint.color, {});
@@ -119,7 +119,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     let took = false,
       inScenario,
       captured = false;
-    items.withItem(move.to, function () {
+    items.withItem(move.to, function() {
       vm.score += scoring.apple;
       items.remove(move.to);
       took = true;
@@ -144,7 +144,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     else sound.move();
     if (vm.failed) {
       if (blueprint.showFailureFollowUp && !captured)
-        timeouts.setTimeout(function () {
+        timeouts.setTimeout(function() {
           const rm = chess.playRandomMove();
           if (!rm) return;
           ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
@@ -159,13 +159,13 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     m.redraw();
   };
 
-  const makeChessDests = function () {
+  const makeChessDests = function() {
     return chess.dests({
       illegal: blueprint.offerIllegalMove,
     });
   };
 
-  const onMove = function (orig: Key, dest: Key) {
+  const onMove = function(orig: Key, dest: Key) {
     const piece = ground.get(dest);
     if (!piece || piece.color !== blueprint.color) return;
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
@@ -187,7 +187,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     orientation: blueprint.color,
     onMove: onMove,
     items: {
-      render: function (_pos: unknown, key: Key) {
+      render: function(_pos: unknown, key: Key) {
         return items.withItem(key, itemView);
       },
     },
@@ -198,7 +198,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     blueprint: blueprint,
     vm: vm,
     scenario: scenario,
-    start: function () {
+    start: function() {
       sound.levelStart();
       if (chess.color() !== blueprint.color) timeouts.setTimeout(scenario.opponent, 1000);
     },

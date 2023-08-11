@@ -43,12 +43,12 @@ lichess.load.then(() => {
     if (chatMembers) watchers(chatMembers);
 
     $('#main-wrap')
-      .on('click', '.autoselect', function (this: HTMLInputElement) {
+      .on('click', '.autoselect', function(this: HTMLInputElement) {
         this.select();
       })
-      .on('click', 'button.copy', function (this: HTMLElement) {
+      .on('click', 'button.copy', function(this: HTMLElement) {
         const showCheckmark = () => $(this).attr('data-icon', licon.Checkmark);
-        $('#' + $(this).data('rel')).each(function (this: HTMLInputElement) {
+        $('#' + $(this).data('rel')).each(function(this: HTMLInputElement) {
           try {
             navigator.clipboard.writeText(this.value).then(showCheckmark);
           } catch (e) {
@@ -58,7 +58,7 @@ lichess.load.then(() => {
         return false;
       });
 
-    $('body').on('click', 'a.relation-button', function (this: HTMLAnchorElement) {
+    $('body').on('click', 'a.relation-button', function(this: HTMLAnchorElement) {
       const $a = $(this).addClass('processing').css('opacity', 0.3);
       xhr.text(this.href, { method: 'post' }).then(html => {
         if (html.includes('relation-actions')) $a.parent().replaceWith(html);
@@ -67,7 +67,7 @@ lichess.load.then(() => {
       return false;
     });
 
-    $('.mselect .button').on('click', function (this: HTMLElement) {
+    $('.mselect .button').on('click', function(this: HTMLElement) {
       const $p = $(this).parent();
       $p.toggleClass('shown');
       requestIdleCallback(() => {
@@ -90,7 +90,7 @@ lichess.load.then(() => {
 
     window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
 
-    $('.user-autocomplete').each(function (this: HTMLInputElement) {
+    $('.user-autocomplete').each(function(this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
         userComplete({
@@ -104,11 +104,11 @@ lichess.load.then(() => {
       else $(this).one('focus', start);
     });
 
-    $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
+    $('input.confirm, button.confirm').on('click', function(this: HTMLElement) {
       return confirm(this.title || 'Confirm this action?');
     });
 
-    $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
+    $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLAnchorElement) {
       const t = $(this).toggleClass('bookmarked');
       xhr.text(this.href, { method: 'post' });
       const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
@@ -164,11 +164,17 @@ lichess.load.then(() => {
       lichess.unload.expected = true;
       lichess.redirect(d);
     });
-    pubsub.on('socket.in.fen', e =>
-      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
+    pubsub.on(
+      'socket.in.fen',
+      e =>
+        document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
     );
-    pubsub.on('socket.in.finish', e =>
-      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.finish(el, e.win))
+    pubsub.on(
+      'socket.in.finish',
+      e =>
+        document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) =>
+          miniGame.finish(el, e.win)
+        )
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
@@ -183,7 +189,7 @@ lichess.load.then(() => {
                 $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
                   .attr('href', url + '/withdraw')
                   .text(siteTrans('pause'))
-                  .on('click', function (this: HTMLAnchorElement) {
+                  .on('click', function(this: HTMLAnchorElement) {
                     xhr.text(this.href, { method: 'post' });
                     $('#announce').remove();
                     return false;

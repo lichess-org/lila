@@ -1,0 +1,59 @@
+{
+  "excludes": [
+    "**/dist/",
+    "**/node_modules/",
+    "**/target/",
+    ".vscode/",
+    ".bloop/",
+    ".bsp/",
+    ".git/",
+    ".metals/",
+    "modules/",
+    "app/",
+    "project/",
+    "local/",
+    "public/css/",
+    "public/piece-css/",
+    "public/compiled/",
+    "public/javascripts/vendor/",
+    "public/vendor/",
+    "translation/dest/",
+    "ui/voice/@build/crowdv/*.json",
+    "**/*.min.js",
+    "pnpm-lock.yaml",
+    "public/glyphs.json",
+    "COPYING.md"
+  ],
+  "indentWidth": 2,
+  "lineWidth": 110,
+  "typescript": {
+    "quoteStyle": "preferSingle",
+    "useBraces": "maintain",
+    "bracePosition": "sameLine",
+    "semiColons": "prefer",
+    "arrowFunction.useParentheses": "preferNone",
+    "trailingCommas": "never",
+    "arrayExpression.trailingCommas": "onlyMultiLine",
+    "objectExpression.trailingCommas": "onlyMultiLine",
+    "commentLine.forceSpaceAfterSlashes": false,
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain",
+    "importDeclaration.sortNamedImports": "maintain",
+    "exportDeclaration.sortNamedExports": "maintain"
+  },
+  "json": {
+    "array.preferSingleLine": true,
+    "object.preferSingleLine": false
+  },
+  "markdown": {
+  },
+  "toml": {
+  },
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.86.1.wasm",
+    "https://plugins.dprint.dev/json-0.17.4.wasm",
+    "https://plugins.dprint.dev/markdown-0.15.3.wasm",
+    "https://plugins.dprint.dev/toml-0.5.4.wasm"
+  ],
+  "$schema": "https://dprint.dev/schemas/v0.json"
+}

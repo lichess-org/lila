@@ -15,7 +15,7 @@ import {
   loadIife,
   hopscotch,
   userComplete,
-  loadEsm,
+  loadEsm
 } from './component/assets';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';

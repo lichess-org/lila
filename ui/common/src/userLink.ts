@@ -3,10 +3,10 @@ import { h, VNode } from 'snabbdom';
 export default function userLink(u: string, title?: string, patron?: boolean): VNode {
   const line = patron
     ? h('line.line.patron', {
-        attrs: {
-          title: 'Lichess Patron',
-        },
-      })
+      attrs: {
+        title: 'Lichess Patron',
+      },
+    })
     : undefined;
   return h(
     'a',

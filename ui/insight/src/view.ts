@@ -121,10 +121,10 @@ function portraitView(ctrl: Ctrl) {
       ctrl.vm.view === 'insights'
         ? [header(ctrl), thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)])]
         : h('div.left-side', [
-            info(ctrl),
-            ctrl.vm.view === 'filters' ? clearBtn(ctrl) : null,
-            ctrl.vm.view === 'presets' ? presets(ctrl) : filters(ctrl),
-          ])
+          info(ctrl),
+          ctrl.vm.view === 'filters' ? clearBtn(ctrl) : null,
+          ctrl.vm.view === 'presets' ? presets(ctrl) : filters(ctrl),
+        ])
     ),
   ]);
 }
@@ -171,11 +171,10 @@ const widthStyle = (width: number) => ({ attrs: { style: `width: ${width}px;` } 
 const containerStyle = () => ({
   attrs: {
     // i would encrypt this if i could.  just look away
-    style:
-      ` width: ${availW()}px;` +
-      ` --header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
-      ` --drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 800, y: 200 })}px;` +
-      ` --chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
+    style: ` width: ${availW()}px;`
+      + ` --header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;`
+      + ` --drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 800, y: 200 })}px;`
+      + ` --chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
   },
 });
 

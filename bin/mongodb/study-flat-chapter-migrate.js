@@ -84,11 +84,15 @@ db.study_chapter_backup
       const percent = (100 * i) / totalNb;
       const minutesLeft = Math.round((totalNb - i) / perSecond / 60);
       print(
-        `${i} ${percent.toFixed(2)}% ${perSecond}/s ETA ${minutesLeft} minutes | size:${(
-          sumSizeFrom / batchSize
-        ).toFixed(0)}->${(sumSizeTo / batchSize).toFixed(0)} moves:${(sumMoves / batchSize).toFixed(
-          0
-        )} big:${tooBigNb} deep:${tooDeepNb}`
+        `${i} ${percent.toFixed(2)}% ${perSecond}/s ETA ${minutesLeft} minutes | size:${
+          (
+            sumSizeFrom / batchSize
+          ).toFixed(0)
+        }->${(sumSizeTo / batchSize).toFixed(0)} moves:${
+          (sumMoves / batchSize).toFixed(
+            0
+          )
+        } big:${tooBigNb} deep:${tooDeepNb}`
       );
       lastAt = at;
       sumSizeFrom = 0;

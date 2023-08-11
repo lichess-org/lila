@@ -33,7 +33,7 @@ db.tournament
       },
     }
   )
-  .result.forEach(function (r) {
+  .result.forEach(function(r) {
     db.trophy.insert({
       _id: 'survivor/' + r._id,
       kind: 'marathonSurvivor',

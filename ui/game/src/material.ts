@@ -33,11 +33,11 @@ export function getMaterialDiff(fenLike: string): MaterialDiff {
 
 export function getScore(diff: MaterialDiff): number {
   return (
-    (diff.white.queen - diff.black.queen) * 9 +
-    (diff.white.rook - diff.black.rook) * 5 +
-    (diff.white.bishop - diff.black.bishop) * 3 +
-    (diff.white.knight - diff.black.knight) * 3 +
-    (diff.white.pawn - diff.black.pawn)
+    (diff.white.queen - diff.black.queen) * 9
+    + (diff.white.rook - diff.black.rook) * 5
+    + (diff.white.bishop - diff.black.bishop) * 3
+    + (diff.white.knight - diff.black.knight) * 3
+    + (diff.white.pawn - diff.black.pawn)
   );
 }
 

@@ -24,7 +24,7 @@ export const init = (node: HTMLElement) => {
       turnColor = fenColor(fen);
     domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
     ['white', 'black'].forEach((color: Color) =>
-      $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
+      $el.find('.mini-game__clock--' + color).each(function(this: HTMLElement) {
         clockWidget(this, {
           time: parseInt(this.getAttribute('data-time')!),
           pause: color != turnColor || !clockIsRunning(fen, color),

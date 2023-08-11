@@ -84,23 +84,23 @@ export function view(ctrl: BoardCtrl): VNode {
       isNaN(domZoom)
         ? [h('p', 'No board to zoom here!')]
         : [
-            h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom, '%']),
-            h('input.range', {
-              attrs: {
-                type: 'range',
-                min: 0,
-                max: 100,
-                step: 1,
-                value: ctrl.readZoom(),
+          h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom, '%']),
+          h('input.range', {
+            attrs: {
+              type: 'range',
+              min: 0,
+              max: 100,
+              step: 1,
+              value: ctrl.readZoom(),
+            },
+            hook: {
+              insert(vnode) {
+                const input = vnode.elm as HTMLInputElement;
+                $(input).on('input', () => ctrl.setZoom(parseInt(input.value)));
               },
-              hook: {
-                insert(vnode) {
-                  const input = vnode.elm as HTMLInputElement;
-                  $(input).on('input', () => ctrl.setZoom(parseInt(input.value)));
-                },
-              },
-            }),
-          ]
+            },
+          }),
+        ]
     ),
   ]);
 }

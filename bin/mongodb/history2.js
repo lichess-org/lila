@@ -19,7 +19,7 @@ function flush(cache) {
 }
 
 var cache = {};
-games.forEach(function (game) {
+games.forEach(function(game) {
   for (pi in game.p) {
     try {
       var p = game.p[pi],

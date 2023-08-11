@@ -67,7 +67,7 @@ export function ctrl(
 
   function loadVariants() {
     if (!vm.variants.length)
-      xhrVariants().then(function (vs) {
+      xhrVariants().then(function(vs) {
         vm.variants = vs;
         root.redraw();
       });
@@ -125,7 +125,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   const trans = ctrl.root.trans,
     study = ctrl.root.study!;
   const activeTab = ctrl.vm.tab();
-  const makeTab = function (key: string, name: string, title: string) {
+  const makeTab = function(key: string, name: string, title: string) {
     return h(
       'span.' + key,
       {
@@ -158,12 +158,12 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       activeTab === 'edit'
         ? null
         : h('h2', [
-            noarg('newChapter'),
-            h('i.help', {
-              attrs: { 'data-icon': licon.InfoCircle },
-              hook: bind('click', ctrl.startTour),
-            }),
-          ]),
+          noarg('newChapter'),
+          h('i.help', {
+            attrs: { 'data-icon': licon.InfoCircle },
+            hook: bind('click', ctrl.startTour),
+          }),
+        ]),
       h(
         'form.form3',
         {
@@ -197,7 +197,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               hook: onInsert<HTMLInputElement>(el => {
                 if (!el.value) {
                   el.value = trans('chapterX', ctrl.vm.initial() ? 1 : ctrl.chapters().length + 1);
-                  el.onchange = function () {
+                  el.onchange = function() {
                     ctrl.vm.isDefaultName = false;
                   };
                   el.select();
@@ -215,118 +215,119 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           ]),
           activeTab === 'edit'
             ? h(
-                'div.board-editor-wrap',
-                {
-                  hook: {
-                    insert(vnode) {
-                      xhr.json('/editor.json').then(async data => {
-                        data.el = vnode.elm;
-                        data.fen = ctrl.root.node.fen;
-                        data.embed = true;
-                        data.options = {
-                          inlineCastling: true,
-                          orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorFen,
-                        };
-                        ctrl.vm.editor = await lichess.loadEsm<LichessEditor>('editor', { init: data });
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
-                      });
-                    },
-                    destroy: _ => {
-                      ctrl.vm.editor = null;
-                    },
+              'div.board-editor-wrap',
+              {
+                hook: {
+                  insert(vnode) {
+                    xhr.json('/editor.json').then(async data => {
+                      data.el = vnode.elm;
+                      data.fen = ctrl.root.node.fen;
+                      data.embed = true;
+                      data.options = {
+                        inlineCastling: true,
+                        orientation: currentChapter.setup.orientation,
+                        onChange: ctrl.vm.editorFen,
+                      };
+                      ctrl.vm.editor = await lichess.loadEsm<LichessEditor>('editor', { init: data });
+                      ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                    });
+                  },
+                  destroy: _ => {
+                    ctrl.vm.editor = null;
                   },
                 },
-                [spinner()]
-              )
+              },
+              [spinner()]
+            )
             : null,
           activeTab === 'game'
             ? h('div.form-group', [
-                h(
-                  'label.form-label',
-                  {
-                    attrs: { for: 'chapter-game' },
-                  },
-                  trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')
-                ),
-                h('textarea#chapter-game.form-control', {
-                  attrs: {
-                    placeholder: noarg('urlOfTheGame'),
-                  },
-                  hook: onInsert((el: HTMLTextAreaElement) => {
-                    el.addEventListener('change', () => el.reportValidity());
-                    el.addEventListener('input', _ => {
-                      const ok = el.value
-                        .trim()
-                        .split('\n')
-                        .every(line =>
-                          line
-                            .trim()
-                            .match(
-                              new RegExp(
-                                `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`
-                              )
+              h(
+                'label.form-label',
+                {
+                  attrs: { for: 'chapter-game' },
+                },
+                trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')
+              ),
+              h('textarea#chapter-game.form-control', {
+                attrs: {
+                  placeholder: noarg('urlOfTheGame'),
+                },
+                hook: onInsert((el: HTMLTextAreaElement) => {
+                  el.addEventListener('change', () => el.reportValidity());
+                  el.addEventListener('input', _ => {
+                    const ok = el.value
+                      .trim()
+                      .split('\n')
+                      .every(line =>
+                        line
+                          .trim()
+                          .match(
+                            new RegExp(
+                              `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`
                             )
-                        );
-                      el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
-                    });
-                  }),
+                          )
+                      );
+                    el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
+                  });
                 }),
-              ])
+              }),
+            ])
             : null,
           activeTab === 'fen'
             ? h('div.form-group', [
-                h('input#chapter-fen.form-control', {
-                  attrs: {
-                    value: ctrl.root.node.fen,
-                    placeholder: noarg('loadAPositionFromFen'),
-                  },
-                  hook: onInsert((el: HTMLInputElement) => {
-                    el.addEventListener('change', () => el.reportValidity());
-                    el.addEventListener('input', _ =>
-                      el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN')
-                    );
-                  }),
+              h('input#chapter-fen.form-control', {
+                attrs: {
+                  value: ctrl.root.node.fen,
+                  placeholder: noarg('loadAPositionFromFen'),
+                },
+                hook: onInsert((el: HTMLInputElement) => {
+                  el.addEventListener('change', () => el.reportValidity());
+                  el.addEventListener(
+                    'input',
+                    _ => el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN')
+                  );
                 }),
-              ])
+              }),
+            ])
             : null,
           activeTab === 'pgn'
             ? h('div.form-group', [
-                h('textarea#chapter-pgn.form-control', {
+              h('textarea#chapter-pgn.form-control', {
+                attrs: {
+                  placeholder: trans.pluralSame('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax),
+                },
+              }),
+              h(
+                'a.button.button-empty',
+                {
+                  hook: bind('click', () => {
+                    xhr
+                      .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                      .then(pgnData => $('#chapter-pgn').val(pgnData));
+                  }),
+                },
+                trans('importFromChapterX', study.currentChapter().name)
+              ),
+              window.FileReader
+                ? h('input#chapter-pgn-file.form-control', {
                   attrs: {
-                    placeholder: trans.pluralSame('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax),
+                    type: 'file',
+                    accept: '.pgn',
                   },
-                }),
-                h(
-                  'a.button.button-empty',
-                  {
-                    hook: bind('click', () => {
-                      xhr
-                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
-                        .then(pgnData => $('#chapter-pgn').val(pgnData));
-                    }),
-                  },
-                  trans('importFromChapterX', study.currentChapter().name)
-                ),
-                window.FileReader
-                  ? h('input#chapter-pgn-file.form-control', {
-                      attrs: {
-                        type: 'file',
-                        accept: '.pgn',
-                      },
-                      hook: bind('change', e => {
-                        const file = (e.target as HTMLInputElement).files![0];
-                        if (!file) return;
-                        const reader = new FileReader();
-                        reader.onload = function () {
-                          (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value =
-                            reader.result as string;
-                        };
-                        reader.readAsText(file);
-                      }),
-                    })
-                  : null,
-              ])
+                  hook: bind('change', e => {
+                    const file = (e.target as HTMLInputElement).files![0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function() {
+                      (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value = reader
+                        .result as string;
+                    };
+                    reader.readAsText(file);
+                  }),
+                })
+                : null,
+            ])
             : null,
           h('div.form-split', [
             h('div.form-group.form-half', [
@@ -344,14 +345,14 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 },
                 gameOrPgn
                   ? [
-                      h(
-                        'option',
-                        {
-                          attrs: { value: 'standard' },
-                        },
-                        noarg('automatic')
-                      ),
-                    ]
+                    h(
+                      'option',
+                      {
+                        attrs: { value: 'standard' },
+                      },
+                      noarg('automatic')
+                    ),
+                  ]
                   : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
               ),
             ]),
@@ -367,8 +368,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 'select#chapter-orientation.form-control',
                 {
                   hook: bind('change', e => {
-                    ctrl.vm.editor &&
-                      ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value as Color);
+                    ctrl.vm.editor
+                      && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value as Color);
                   }),
                 },
                 [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>

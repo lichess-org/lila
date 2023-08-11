@@ -5,7 +5,7 @@ import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
 import EditorCtrl from './ctrl';
 
-export default function (ctrl: EditorCtrl): VNode {
+export default function(ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
@@ -20,7 +20,7 @@ export default function (ctrl: EditorCtrl): VNode {
 
 function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   const handler = onMouseEvent(ctrl);
-  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
+  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
     el.addEventListener(ev, handler);
   });
 }
@@ -42,7 +42,7 @@ let lastKey: Key | undefined;
 let placeDelete: boolean | undefined;
 
 function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
-  return function (e: MouchEvent): void {
+  return function(e: MouchEvent): void {
     const sel = ctrl.selected();
 
     // do not generate corresponding mouse event
@@ -52,10 +52,10 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
       if (
-        sel === 'pointer' ||
-        (ctrl.chessground &&
-          ctrl.chessground.state.draggable.current &&
-          ctrl.chessground.state.draggable.current.newPiece)
+        sel === 'pointer'
+        || (ctrl.chessground
+          && ctrl.chessground.state.draggable.current
+          && ctrl.chessground.state.draggable.current.newPiece)
       )
         return;
       const pos = util.eventPosition(e);
@@ -70,8 +70,8 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           color: sel[0],
           role: sel[1],
         };
-        const samePiece =
-          existingPiece && piece.color == existingPiece.color && piece.role == existingPiece.role;
+        const samePiece = existingPiece && piece.color == existingPiece.color
+          && piece.role == existingPiece.role;
 
         if ((e.type === 'mousedown' || e.type === 'touchstart') && samePiece) {
           deleteOrHidePiece(ctrl, key, e);

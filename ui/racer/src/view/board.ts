@@ -25,10 +25,10 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
               ctrl.isRacing() && ctrl.isPlayer()
                 ? makeCgOpts(ctrl.run, true, ctrl.flipped)
                 : {
-                    fen: INITIAL_BOARD_FEN,
-                    orientation: ctrl.run.pov,
-                    movable: { color: ctrl.run.pov },
-                  },
+                  fen: INITIAL_BOARD_FEN,
+                  orientation: ctrl.run.pov,
+                  movable: { color: ctrl.run.pov },
+                },
               ctrl.pref,
               ctrl.userMove
             )

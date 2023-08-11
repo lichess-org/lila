@@ -17,7 +17,7 @@ function timer(pov: NowPlaying) {
   );
 }
 
-export default function (ctrl: LobbyController) {
+export default function(ctrl: LobbyController) {
   return h(
     'div.now-playing',
     ctrl.data.nowPlaying.map(pov =>

@@ -52,13 +52,13 @@ export function readFen(fen: string) {
 }
 
 function kingMovesTo(s: number) {
-  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function (o) {
+  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function(o) {
     return o >= 0 && o < 64 && squareDist(s, o) === 1;
   });
 }
 
 function knightMovesTo(s: number) {
-  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function (o) {
+  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function(o) {
     return o >= 0 && o < 64 && squareDist(s, o) <= 2;
   });
 }
@@ -69,7 +69,7 @@ const QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
 function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   const result: number[] = [];
-  deltas.forEach(function (delta) {
+  deltas.forEach(function(delta) {
     for (
       let square = s + delta;
       square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
@@ -137,7 +137,7 @@ function sanOf(board: Board, uci: string) {
 export function sanWriter(fen: string, ucis: string[]): SanToUci {
   const board = readFen(fen);
   const sans: SanToUci = {};
-  ucis.forEach(function (uci) {
+  ucis.forEach(function(uci) {
     const san = sanOf(board, uci);
     sans[san] = uci;
     if (san.includes('x')) sans[san.replace('x', '')] = uci;

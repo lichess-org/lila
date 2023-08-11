@@ -29,7 +29,7 @@ import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 
-export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
+export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
     next: defer<PuzzleData>(),
   } as Vm;
@@ -166,13 +166,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
       ? {
-          color: dests.size > 0 ? color : undefined,
-          dests,
-        }
+        color: dests.size > 0 ? color : undefined,
+        dests,
+      }
       : {
-          color: undefined,
-          dests: new Map(),
-        };
+        color: undefined,
+        dests: new Map(),
+      };
     const config = {
       fen: node.fen,
       orientation: flipped ? opposite(vm.pov) : vm.pov,
@@ -401,13 +401,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       },
       initialFen: undefined, // always standard starting position
       possible: true,
-      emit: function (ev, work) {
-        tree.updateAt(work.path, function (node) {
+      emit: function(ev, work) {
+        tree.updateAt(work.path, function(node) {
           if (work.threatMode) {
             const threat = ev as Tree.LocalEval;
             if (!node.threat || node.threat.depth <= threat.depth || node.threat.maxDepth < threat.maxDepth)
               node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth) node.ceval = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth)
+            node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -440,7 +441,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
   }
 
-  const doStartCeval = throttle(800, function () {
+  const doStartCeval = throttle(800, function() {
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 

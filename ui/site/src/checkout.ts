@@ -17,7 +17,7 @@ const showErrorThenReload = (error: string) => {
   location.assign('/patron');
 };
 
-export default (window as any).checkoutStart = function (stripePublicKey: string, pricing: Pricing) {
+export default (window as any).checkoutStart = function(stripePublicKey: string, pricing: Pricing) {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -30,7 +30,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('input.default').trigger('click');
 
-  const onFreqChange = function () {
+  const onFreqChange = function() {
     const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
@@ -57,7 +57,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
     toggleCheckout();
   });
 
-  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', function(this: HTMLLabelElement) {
     let amount: number;
     const raw: string = prompt(this.title) || '';
     try {
@@ -95,10 +95,9 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
 
   const getAmountToCharge = () => {
     const freq = getFreq(),
-      amount =
-        freq == 'lifetime'
-          ? pricing.lifetime
-          : parseFloat($checkout.find('group.amount input:checked').data('amount'));
+      amount = freq == 'lifetime'
+        ? pricing.lifetime
+        : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
   };
 
@@ -202,7 +201,7 @@ function stripeStart(
   getAmount: () => number | undefined
 ) {
   const stripe = window.Stripe(publicKey);
-  $checkout.find('.service .stripe').on('click', function () {
+  $checkout.find('.service .stripe').on('click', function() {
     const amount = getAmount();
     if (!amount) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
@@ -226,7 +225,7 @@ function stripeStart(
   });
 
   // Close Checkout on page navigation:
-  $(window).on('popstate', function () {
+  $(window).on('popstate', function() {
     window.stripeHandler.close();
   });
 }

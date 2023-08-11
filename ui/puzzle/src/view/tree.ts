@@ -89,7 +89,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
     {
       class: { single: !!nodes[1] },
     },
-    nodes.map(function (n) {
+    nodes.map(function(n) {
       return h(
         'line',
         renderMoveAndChildrenOf(ctx, n, {
@@ -161,12 +161,12 @@ export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
     node.san,
-    ev &&
-      (defined(ev.cp)
-        ? renderEval(normalizeEval(ev.cp))
-        : defined(ev.mate)
-        ? renderEval('#' + ev.mate)
-        : undefined),
+    ev
+    && (defined(ev.cp)
+      ? renderEval(normalizeEval(ev.cp))
+      : defined(ev.mate)
+      ? renderEval('#' + ev.mate)
+      : undefined),
     puzzleGlyph(ctx, node),
   ];
 }

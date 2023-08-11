@@ -23,16 +23,16 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
   return [
     ...(high
       ? [
-          h(
-            'div.storm--end__high.storm--end__high-daily.bar-glider',
-            h('div.storm--end__high__content', [
-              h('div.storm--end__high__text', [
-                h('strong', noarg(newHighI18n[high.key])),
-                high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null,
-              ]),
-            ])
-          ),
-        ]
+        h(
+          'div.storm--end__high.storm--end__high-daily.bar-glider',
+          h('div.storm--end__high__content', [
+            h('div.storm--end__high__text', [
+              h('strong', noarg(newHighI18n[high.key])),
+              high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null,
+            ]),
+          ])
+        ),
+      ]
       : []),
     h('div.storm--end__score', [
       h(

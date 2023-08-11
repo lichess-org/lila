@@ -12,7 +12,7 @@ export type Dests = Map<Key, Key[]>;
 export function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
   for (const [orig, d] of dests) {
-    d.forEach(function (dest) {
+    d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
   }
@@ -57,22 +57,20 @@ export type Role = typeof Roles[number];
 export const RoleChars = ['K', 'Q', 'R', 'B', 'N', 'P'] as const;
 export type RoleChar = typeof RoleChars[number];
 
-export const roleChar = (role: string) =>
-  ({
-    king: 'K',
-    queen: 'Q',
-    rook: 'R',
-    bishop: 'B',
-    knight: 'N',
-    pawn: 'P',
-  }[role] as RoleChar);
-export const charRole = (char: string) =>
-  ({
-    P: 'pawn',
-    N: 'knight',
-    B: 'bishop',
-    R: 'rook',
-    Q: 'queen',
-    K: 'king',
-  }[char] as Role);
+export const roleChar = (role: string) => ({
+  king: 'K',
+  queen: 'Q',
+  rook: 'R',
+  bishop: 'B',
+  knight: 'N',
+  pawn: 'P',
+}[role] as RoleChar);
+export const charRole = (char: string) => ({
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+}[char] as Role);
 export const promo = (uci: Uci) => charRole(uci.slice(4, 5).toUpperCase() as RoleChar);

@@ -27,12 +27,12 @@ export async function loadHighcharts(tpe: string) {
   // Drop-in fix for Highcharts issue #8477 on older Highcharts versions. The
   // issue is fixed since Highcharts v6.1.1.
   const Highcharts = window.Highcharts;
-  Highcharts.wrap(Highcharts.Axis.prototype, 'getPlotLinePath', function (this: any, proceed: any) {
+  Highcharts.wrap(Highcharts.Axis.prototype, 'getPlotLinePath', function(this: any, proceed: any) {
     const path = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
     if (path) path.flat = false;
     return path;
   });
-  Highcharts.makeFont = function (size: number) {
+  Highcharts.makeFont = function(size: number) {
     return (
       size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
     );
@@ -156,13 +156,13 @@ export async function loadHighcharts(tpe: string) {
           },
           stops: light
             ? [
-                [0, 'rgba(200, 200, 200, .8)'],
-                [1, 'rgba(250, 250, 250, .8)'],
-              ]
+              [0, 'rgba(200, 200, 200, .8)'],
+              [1, 'rgba(250, 250, 250, .8)'],
+            ]
             : [
-                [0, 'rgba(56, 56, 56, .8)'],
-                [1, 'rgba(16, 16, 16, .8)'],
-              ],
+              [0, 'rgba(56, 56, 56, .8)'],
+              [1, 'rgba(16, 16, 16, .8)'],
+            ],
         },
         borderWidth: 0,
         style: {
@@ -202,56 +202,56 @@ export async function loadHighcharts(tpe: string) {
       rangeSelector: light
         ? {}
         : {
-            buttonTheme: {
-              fill: '#505053',
-              stroke: '#000000',
-              style: {
-                color: '#CCC',
-              },
-              states: {
-                hover: {
-                  fill: '#707073',
-                  stroke: '#000000',
-                  style: {
-                    color: 'white',
-                  },
-                },
-                select: {
-                  fill: '#000003',
-                  stroke: '#000000',
-                  style: {
-                    color: 'white',
-                  },
+          buttonTheme: {
+            fill: '#505053',
+            stroke: '#000000',
+            style: {
+              color: '#CCC',
+            },
+            states: {
+              hover: {
+                fill: '#707073',
+                stroke: '#000000',
+                style: {
+                  color: 'white',
                 },
               },
-            },
-            inputBoxBorderColor: '#505053',
-            inputStyle: {
-              backgroundColor: '#333',
-              color: 'silver',
-            },
-            labelStyle: {
-              color: 'silver',
+              select: {
+                fill: '#000003',
+                stroke: '#000000',
+                style: {
+                  color: 'white',
+                },
+              },
             },
           },
+          inputBoxBorderColor: '#505053',
+          inputStyle: {
+            backgroundColor: '#333',
+            color: 'silver',
+          },
+          labelStyle: {
+            color: 'silver',
+          },
+        },
 
       navigator: light
         ? {}
         : {
-            handles: {
-              backgroundColor: '#666',
-              borderColor: '#AAA',
-            },
-            outlineColor: '#CCC',
-            maskFill: 'rgba(255,255,255,0.1)',
-            series: {
-              color: '#7798BF',
-              lineColor: '#A6C7ED',
-            },
-            xAxis: {
-              gridLineColor: '#505053',
-            },
+          handles: {
+            backgroundColor: '#666',
+            borderColor: '#AAA',
           },
+          outlineColor: '#CCC',
+          maskFill: 'rgba(255,255,255,0.1)',
+          series: {
+            color: '#7798BF',
+            lineColor: '#A6C7ED',
+          },
+          xAxis: {
+            gridLineColor: '#505053',
+          },
+        },
     };
   })();
   Highcharts.setOptions(Highcharts.theme);

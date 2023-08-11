@@ -3,24 +3,13 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org: the forever free, adless and open source chess server",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lichess-org/lila.git"
-  },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
+  "repository": { "type": "git", "url": "https://github.com/lichess-org/lila.git" },
+  "keywords": ["chess", "lichess"],
   "author": "Thibault Duplessis and the gang",
   "license": "AGPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/lichess-org/lila/issues"
-  },
+  "bugs": { "url": "https://github.com/lichess-org/lila/issues" },
   "homepage": "https://lichess.org",
-  "engines": {
-    "node": ">=14",
-    "pnpm": "^8.6"
-  },
+  "engines": { "node": ">=14", "pnpm": "^8.6" },
   "dependencies": {
     "@types/node": "^18.16.18",
     "@types/web": "^0.0.84",
@@ -28,14 +17,13 @@
     "@typescript-eslint/parser": "^5.60.1",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^8.3.11",
+    "dprint": "^0.40.2",
     "eslint": "^8.43.0",
-    "eslint-config-prettier": "^8.8.0",
-    "prettier": "2.8.1",
     "typescript": "^5.1.5"
   },
   "scripts": {
-    "format": "prettier --write . --loglevel warn",
-    "check-format": "prettier --check . --loglevel warn",
+    "format": "dprint fmt",
+    "check-format": "dprint check",
     "lint": "eslint . --ext .ts",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",

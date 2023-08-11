@@ -4,7 +4,7 @@ import { game as gameRoute } from 'game/router';
 import { menu as menuDropdown } from 'board/menu';
 import { boolPrefXhrToggle } from 'common/controls';
 
-export default function (ctrl: RoundController) {
+export default function(ctrl: RoundController) {
   return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
       spectator = d.player.spectator;

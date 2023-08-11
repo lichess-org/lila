@@ -10,29 +10,29 @@ const renderVote = (ctrl: Controller): VNode =>
     ctrl.autoNexting()
       ? []
       : [
-          ctrl.session.isNew() && ctrl.getData().user?.provisional
-            ? h('div.puzzle__vote__help', [
-                h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
-                h('p', ctrl.trans.noarg('voteToLoadNextOne')),
-              ])
-            : null,
-          h(
-            'div.puzzle__vote__buttons',
-            {
-              class: {
-                enabled: !ctrl.vm.voteDisabled,
-              },
+        ctrl.session.isNew() && ctrl.getData().user?.provisional
+          ? h('div.puzzle__vote__help', [
+            h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
+            h('p', ctrl.trans.noarg('voteToLoadNextOne')),
+          ])
+          : null,
+        h(
+          'div.puzzle__vote__buttons',
+          {
+            class: {
+              enabled: !ctrl.vm.voteDisabled,
             },
-            [
-              h('div.vote.vote-up', {
-                hook: bind('click', () => ctrl.vote(true)),
-              }),
-              h('div.vote.vote-down', {
-                hook: bind('click', () => ctrl.vote(false)),
-              }),
-            ]
-          ),
-        ]
+          },
+          [
+            h('div.vote.vote-up', {
+              hook: bind('click', () => ctrl.vote(true)),
+            }),
+            h('div.vote.vote-down', {
+              hook: bind('click', () => ctrl.vote(false)),
+            }),
+          ]
+        ),
+      ]
   );
 
 const renderContinue = (ctrl: Controller) =>
@@ -58,7 +58,7 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
   ),
 ];
 
-export default function (ctrl: Controller): VNode {
+export default function(ctrl: Controller): VNode {
   const data = ctrl.getData();
   const win = ctrl.vm.lastFeedback == 'win';
   return h(
@@ -66,28 +66,28 @@ export default function (ctrl: Controller): VNode {
     ctrl.streak && !win
       ? renderStreak(ctrl)
       : [
-          h('div.complete', ctrl.trans.noarg(win ? 'puzzleSuccess' : 'puzzleComplete')),
-          data.user ? renderVote(ctrl) : renderContinue(ctrl),
-          h('div.puzzle__more', [
-            h('a', {
-              attrs: {
-                'data-icon': licon.Bullseye,
-                href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
-                title: ctrl.trans.noarg('playWithTheMachine'),
-                target: '_blank',
-                rel: 'noopener',
+        h('div.complete', ctrl.trans.noarg(win ? 'puzzleSuccess' : 'puzzleComplete')),
+        data.user ? renderVote(ctrl) : renderContinue(ctrl),
+        h('div.puzzle__more', [
+          h('a', {
+            attrs: {
+              'data-icon': licon.Bullseye,
+              href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
+              title: ctrl.trans.noarg('playWithTheMachine'),
+              target: '_blank',
+              rel: 'noopener',
+            },
+          }),
+          data.user && !ctrl.autoNexting()
+            ? h(
+              'a',
+              {
+                hook: bind('click', ctrl.nextPuzzle),
               },
-            }),
-            data.user && !ctrl.autoNexting()
-              ? h(
-                  'a',
-                  {
-                    hook: bind('click', ctrl.nextPuzzle),
-                  },
-                  ctrl.trans.noarg(ctrl.streak ? 'continueTheStreak' : 'continueTraining')
-                )
-              : undefined,
-          ]),
-        ]
+              ctrl.trans.noarg(ctrl.streak ? 'continueTheStreak' : 'continueTraining')
+            )
+            : undefined,
+        ]),
+      ]
   );
 }

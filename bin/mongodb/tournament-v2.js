@@ -58,7 +58,7 @@ var it = 0;
 var max = cursor.count();
 var dat = new Date().getTime() / 1000;
 
-cursor.forEach(function (o) {
+cursor.forEach(function(o) {
   dest.insert(mkTour(o));
   insertPlayers(o);
   insertPairings(o);

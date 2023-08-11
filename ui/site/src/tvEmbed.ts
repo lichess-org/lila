@@ -6,8 +6,8 @@ window.Chessground = Chessground;
 function resize() {
   const el = document.querySelector('#featured-game') as HTMLElement;
   if (el.offsetHeight > window.innerHeight)
-    el.style.maxWidth =
-      window.innerHeight - (el.querySelector('.mini-game__player') as HTMLElement).offsetHeight * 2 + 'px';
+    el.style.maxWidth = window.innerHeight
+      - (el.querySelector('.mini-game__player') as HTMLElement).offsetHeight * 2 + 'px';
 }
 
 window.onload = () => {

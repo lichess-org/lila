@@ -104,12 +104,10 @@ export class ExplorerConfigCtrl {
     this.data.playerName.open(false);
   };
 
-  toggleMany =
-    <T>(c: StoredJsonProp<T[]>) =>
-    (value: T) => {
-      if (!c().includes(value)) c(c().concat([value]));
-      else if (c().length > 1) c(c().filter(v => v !== value));
-    };
+  toggleMany = <T>(c: StoredJsonProp<T[]>) => (value: T) => {
+    if (!c().includes(value)) c(c().concat([value]));
+    else if (c().length > 1) c(c().filter(v => v !== value));
+  };
 
   toggleColor = () => this.data.color(opposite(this.data.color()));
 
@@ -122,11 +120,11 @@ export class ExplorerConfigCtrl {
   };
 
   fullHouse = () =>
-    this.data.byDb().since() <= `${minYear}-01` &&
-    (!this.data.byDb().until() || new Date().toISOString().slice(0, 7) <= this.data.byDb().until()) &&
-    (this.data.db() === 'masters' || this.data.speed().length == allSpeeds.length) &&
-    (this.data.db() !== 'lichess' || this.data.rating().length == allRatings.length) &&
-    (this.data.db() !== 'player' || this.data.mode().length == allModes.length);
+    this.data.byDb().since() <= `${minYear}-01`
+    && (!this.data.byDb().until() || new Date().toISOString().slice(0, 7) <= this.data.byDb().until())
+    && (this.data.db() === 'masters' || this.data.speed().length == allSpeeds.length)
+    && (this.data.db() !== 'lichess' || this.data.rating().length == allRatings.length)
+    && (this.data.db() !== 'player' || this.data.mode().length == allModes.length);
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -201,8 +199,7 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>, render?: (t: T) => VNode) =>
-  (v: T) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>, render?: (t: T) => VNode) => (v: T) =>
     h(
       'button',
       {

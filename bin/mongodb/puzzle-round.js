@@ -8,7 +8,7 @@ var shift = 60000,
 
 var noWin = (1 << 30) - 1;
 
-Number.prototype.pad = function (size) {
+Number.prototype.pad = function(size) {
   var s = String(this);
   while (s.length < (size || 2)) {
     s = '0' + s;

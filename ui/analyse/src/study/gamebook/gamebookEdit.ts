@@ -7,10 +7,10 @@ import { h, Hooks, VNode } from 'snabbdom';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (
-    !!ctrl.study &&
-    ctrl.study.data.chapter.gamebook &&
-    !ctrl.gamebookPlay() &&
-    ctrl.study.vm.gamebookOverride !== 'analyse'
+    !!ctrl.study
+    && ctrl.study.data.chapter.gamebook
+    && !ctrl.gamebookPlay()
+    && ctrl.study.vm.gamebookOverride !== 'analyse'
   );
 }
 
@@ -29,7 +29,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
       study.vm.toolTab('comments');
       lichess.requestIdleCallback(
         () =>
-          $('#comment-text').each(function (this: HTMLTextAreaElement) {
+          $('#comment-text').each(function(this: HTMLTextAreaElement) {
             this.focus();
           }),
         500
@@ -99,15 +99,15 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hasVariation
           ? null
           : h(
-              'div.legend.clickable',
-              {
-                hook: bind('click', () => control.prev(ctrl), ctrl.redraw),
-              },
-              [
-                iconTag(licon.PlayTriangle),
-                h('p', 'Add variation moves to explain why specific other moves are wrong.'),
-              ]
-            ),
+            'div.legend.clickable',
+            {
+              hook: bind('click', () => control.prev(ctrl), ctrl.redraw),
+            },
+            [
+              iconTag(licon.PlayTriangle),
+              h('p', 'Add variation moves to explain why specific other moves are wrong.'),
+            ]
+          ),
         renderDeviation(ctrl),
       ];
   } else

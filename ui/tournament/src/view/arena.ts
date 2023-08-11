@@ -48,11 +48,11 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
         'td.rank',
         player.withdraw
           ? h('i', {
-              attrs: {
-                'data-icon': licon.Pause,
-                title: ctrl.trans.noarg('pause'),
-              },
-            })
+            attrs: {
+              'data-icon': licon.Pause,
+              title: ctrl.trans.noarg('pause'),
+            },
+          })
           : player.rank
       ),
       h('td.player', [
@@ -89,11 +89,11 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
     h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game
       ? [
-          h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-          berserkable
-            ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
-            : null,
-        ]
+        h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
+        berserkable
+          ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
+          : null,
+      ]
       : []),
   ]);
 }

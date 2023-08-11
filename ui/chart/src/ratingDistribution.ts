@@ -5,7 +5,7 @@ export async function initModule(data: any) {
   const trans = lichess.trans(data.i18n);
   const Highcharts = window.Highcharts;
   const disabled = { enabled: false };
-  $('#rating_distribution_chart').each(function (this: HTMLElement) {
+  $('#rating_distribution_chart').each(function(this: HTMLElement) {
     const colors = Highcharts.getOptions().colors;
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
@@ -15,24 +15,24 @@ export async function initModule(data: any) {
       const right = v > 1800;
       return v
         ? [
-            {
-              label: {
-                text: label,
-                verticalAlign: 'top',
-                align: right ? 'right' : 'left',
-                y: yCoord,
-                x: right ? -5 : 5,
-                style: {
-                  color: color,
-                },
-                rotation: -0,
+          {
+            label: {
+              text: label,
+              verticalAlign: 'top',
+              align: right ? 'right' : 'left',
+              y: yCoord,
+              x: right ? -5 : 5,
+              style: {
+                color: color,
               },
-              dashStyle: 'dash',
-              color: color,
-              width: 3,
-              value: v,
+              rotation: -0,
             },
-          ]
+            dashStyle: 'dash',
+            color: color,
+            width: 3,
+            value: v,
+          },
+        ]
         : [];
     };
     for (let i = 0; i < data.freq.length; i++)
@@ -67,7 +67,7 @@ export async function initModule(data: any) {
           name: trans.noarg('cumulative'),
           type: 'line',
           yAxis: 1,
-          data: cumul.map(function (p, i) {
+          data: cumul.map(function(p, i) {
             return [ratingAt(i), p];
           }),
           color: Highcharts.Color(colors[11]).setOpacity(0.8).get('rgba'),

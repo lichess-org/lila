@@ -81,107 +81,106 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   const infos = data.history
     ? h(
-        'div.infos.block',
-        [numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
-          .map(t => t && h('span', t))
-          .concat([
-            h(
-              'a',
-              {
-                attrs: {
-                  href: '/@/' + data.username + '?mod',
-                },
+      'div.infos.block',
+      [numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
+        .map(t => t && h('span', t))
+        .concat([
+          h(
+            'a',
+            {
+              attrs: {
+                href: '/@/' + data.username + '?mod',
               },
-              'profile'
-            ),
-          ])
-          .concat(
-            perms.shadowban
-              ? [
-                  h(
-                    'a',
-                    {
-                      attrs: {
-                        href: '/mod/' + data.username + '/communication',
-                      },
-                    },
-                    'coms'
-                  ),
-                ]
-              : []
-          )
-      )
-    : undefined;
-
-  const timeout =
-    perms.timeout || perms.broadcast
-      ? h('div.timeout.block', [
-          h('strong', 'Timeout 15 minutes for'),
-          ...ctrl.opts.reasons.map(r =>
-            h(
-              'a.text',
-              {
-                attrs: { 'data-icon': licon.Clock },
-                hook: bind('click', () => ctrl.timeout(r, data.text)),
-              },
-              r.name
-            )
+            },
+            'profile'
           ),
         ])
-      : h('div.timeout.block', [
-          h('strong', 'Moderation'),
-          ...[
-            h(
-              'a.text',
-              {
-                attrs: { 'data-icon': licon.Clock },
-                hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
-              },
-              'Timeout 15 minutes'
-            ),
-            h(
-              'a.text',
-              {
-                attrs: { 'data-icon': licon.Clock },
-                hook: bind('click', () => {
-                  reportUserText(ctrl.opts.resourceId, data.username, data.text);
-                  ctrl.timeout(ctrl.opts.reasons[0], data.text);
-                }),
-              },
-              'Timeout and report to Lichess'
-            ),
-          ],
-        ]);
+        .concat(
+          perms.shadowban
+            ? [
+              h(
+                'a',
+                {
+                  attrs: {
+                    href: '/mod/' + data.username + '/communication',
+                  },
+                },
+                'coms'
+              ),
+            ]
+            : []
+        )
+    )
+    : undefined;
+
+  const timeout = perms.timeout || perms.broadcast
+    ? h('div.timeout.block', [
+      h('strong', 'Timeout 15 minutes for'),
+      ...ctrl.opts.reasons.map(r =>
+        h(
+          'a.text',
+          {
+            attrs: { 'data-icon': licon.Clock },
+            hook: bind('click', () => ctrl.timeout(r, data.text)),
+          },
+          r.name
+        )
+      ),
+    ])
+    : h('div.timeout.block', [
+      h('strong', 'Moderation'),
+      ...[
+        h(
+          'a.text',
+          {
+            attrs: { 'data-icon': licon.Clock },
+            hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
+          },
+          'Timeout 15 minutes'
+        ),
+        h(
+          'a.text',
+          {
+            attrs: { 'data-icon': licon.Clock },
+            hook: bind('click', () => {
+              reportUserText(ctrl.opts.resourceId, data.username, data.text);
+              ctrl.timeout(ctrl.opts.reasons[0], data.text);
+            }),
+          },
+          'Timeout and report to Lichess'
+        ),
+      ],
+    ]);
 
   const history = data.history
     ? h('div.history.block', [
-        h('strong', 'Timeout history'),
+      h('strong', 'Timeout history'),
+      h(
+        'table',
         h(
-          'table',
-          h(
-            'tbody.slist',
-            {
-              hook: {
-                insert() {
-                  lichess.contentLoaded();
-                },
+          'tbody.slist',
+          {
+            hook: {
+              insert() {
+                lichess.contentLoaded();
               },
             },
-            data.history.map(function (e) {
-              return h('tr', [
-                h('td.reason', e.reason),
-                h('td.mod', e.mod),
-                h(
-                  'td',
-                  h('time.timeago', {
-                    attrs: { datetime: e.date },
-                  })
-                ),
-              ]);
-            })
-          )
-        ),
-      ])
+          },
+          data.history.map(function(e) {
+            return h('tr', [
+              h('td.reason', e.reason),
+              h('td.mod', e.mod),
+              h(
+                'td',
+                h('time.timeago', {
+                  attrs: { datetime: e.date },
+                })
+              ),
+            ]);
+          })
+        )
+      ),
+    ])
     : undefined;
 
   return [

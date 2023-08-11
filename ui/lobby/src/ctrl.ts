@@ -17,7 +17,7 @@ import {
   PoolMember,
   GameType,
   ForceSetupOptions,
-  LobbyMe,
+  LobbyMe
 } from './interfaces';
 import LobbySocket from './socket';
 import Filter from './filter';

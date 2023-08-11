@@ -17,8 +17,8 @@ var i,
   times,
   it = 0;
 var dat = new Date().getTime() / 1000;
-gamesToMigrate.forEach(function (g) {
-  g.p.forEach(function (p) {
+gamesToMigrate.forEach(function(g) {
+  g.p.forEach(function(p) {
     if (typeof p.mts != 'undefined') {
       if (p.mts === null || p.mts.length === 0) {
         delete p.mts;

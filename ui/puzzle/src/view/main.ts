@@ -68,7 +68,7 @@ function controls(ctrl: Controller): VNode {
 
 let cevalShown = false;
 
-export default function (ctrl: Controller): VNode {
+export default function(ctrl: Controller): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.vm.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
@@ -103,25 +103,24 @@ export default function (ctrl: Controller): VNode {
       h(
         'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
         {
-          hook:
-            'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
-              ? undefined
-              : bindNonPassive(
-                  'wheel',
-                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                    const target = e.target as HTMLElement;
-                    if (
-                      target.tagName !== 'PIECE' &&
-                      target.tagName !== 'SQUARE' &&
-                      target.tagName !== 'CG-BOARD'
-                    )
-                      return;
-                    e.preventDefault();
-                    if (e.deltaY > 0 && scroll) control.next(ctrl);
-                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-                    ctrl.redraw();
-                  })
-                ),
+          hook: 'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
+            ? undefined
+            : bindNonPassive(
+              'wheel',
+              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                const target = e.target as HTMLElement;
+                if (
+                  target.tagName !== 'PIECE'
+                  && target.tagName !== 'SQUARE'
+                  && target.tagName !== 'CG-BOARD'
+                )
+                  return;
+                e.preventDefault();
+                if (e.deltaY > 0 && scroll) control.next(ctrl);
+                else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                ctrl.redraw();
+              })
+            ),
         },
         [chessground(ctrl), ctrl.promotion.view()]
       ),
@@ -153,12 +152,11 @@ function session(ctrl: Controller) {
     current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd =
-        round.ratingDiff && ctrl.showRatings
-          ? round.ratingDiff > 0
-            ? '+' + round.ratingDiff
-            : round.ratingDiff
-          : null;
+      const rd = round.ratingDiff && ctrl.showRatings
+        ? round.ratingDiff > 0
+          ? '+' + round.ratingDiff
+          : round.ratingDiff
+        : null;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
@@ -178,22 +176,22 @@ function session(ctrl: Controller) {
       ? ctrl.streak
         ? null
         : h('a.session-new', {
-            key: 'new',
-            attrs: {
-              href: `/training/${ctrl.session.theme}`,
-            },
-          })
-      : h(
-          'a.result-cursor.current',
-          {
-            key: current,
-            attrs: ctrl.streak
-              ? {}
-              : {
-                  href: `/training/${ctrl.session.theme}/${current}`,
-                },
+          key: 'new',
+          attrs: {
+            href: `/training/${ctrl.session.theme}`,
           },
-          ctrl.streak?.data.index
-        ),
+        })
+      : h(
+        'a.result-cursor.current',
+        {
+          key: current,
+          attrs: ctrl.streak
+            ? {}
+            : {
+              href: `/training/${ctrl.session.theme}/${current}`,
+            },
+        },
+        ctrl.streak?.data.index
+      ),
   ]);
 }

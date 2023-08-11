@@ -24,6 +24,6 @@ shuffle(list);
 
 let it = 0;
 
-export default function () {
+export default function() {
   return list[it++ % list.length];
 }

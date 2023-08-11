@@ -11,7 +11,7 @@ print('Migrating ' + max + ' user histories');
 collection.drop();
 
 var game;
-historyToMigrate.forEach(function (h) {
+historyToMigrate.forEach(function(h) {
   var h2 = { _id: h._id, entries: [] };
   for (ts in h.entries) {
     var e = h.entries[ts];

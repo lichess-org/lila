@@ -1,10 +1,10 @@
 print('user.settings should not be an empty array, but an empty object');
-db.user2.find({ settings: { $in: [{}, []] } }).forEach(function (user) {
+db.user2.find({ settings: { $in: [{}, []] } }).forEach(function(user) {
   db.user2.update({ _id: user['_id'] }, { $unset: { settings: true } });
 });
 
 print('user.roles should not be an empty array, but an empty object');
-db.user2.find({ roles: { $in: [{}, []] } }).forEach(function (user) {
+db.user2.find({ roles: { $in: [{}, []] } }).forEach(function(user) {
   db.user2.update({ _id: user['_id'] }, { $unset: { roles: true } });
 });
 
@@ -12,7 +12,7 @@ print('rename user.isChatBan -> user.troll');
 db.user2.update({}, { $rename: { isChatBan: 'troll' } }, { multi: true });
 
 print('add troll fields to the forum topics');
-db.f_topic.find().forEach(function (topic) {
+db.f_topic.find().forEach(function(topic) {
   db.f_topic.update(
     { _id: topic['_id'] },
     {
@@ -27,7 +27,7 @@ db.f_topic.find().forEach(function (topic) {
 });
 
 print('add troll fields to the forum categs');
-db.f_categ.find().forEach(function (categ) {
+db.f_categ.find().forEach(function(categ) {
   db.f_categ.update(
     { _id: categ['_id'] },
     {
@@ -67,11 +67,11 @@ db.f_topic.ensureIndex({ categId: 1, troll: 1 });
 db.f_topic.ensureIndex({ categId: 1, updatedAt: -1, troll: 1 });
 
 print('user.settings.{chat,sound} should be a string');
-['settings.chat', 'settings.sound'].forEach(function (name) {
-  [true, false].forEach(function (value) {
+['settings.chat', 'settings.sound'].forEach(function(name) {
+  [true, false].forEach(function(value) {
     var sel = {};
     sel[name] = value;
-    db.user2.find(sel).forEach(function (user) {
+    db.user2.find(sel).forEach(function(user) {
       var up = {};
       up[name] = value.toString();
       db.user2.update({ _id: user['_id'] }, { $set: up });

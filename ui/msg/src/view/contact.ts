@@ -33,8 +33,8 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
           ),
           isNew
             ? h('i.msg-app__side__contact__new', {
-                attrs: { 'data-icon': licon.BellOutline },
-              })
+              attrs: { 'data-icon': licon.BellOutline },
+            })
             : null,
         ]),
       ]),

@@ -9,7 +9,7 @@ function nn(x) {
   return (x | '') !== '';
 }
 
-usersToMigrate.forEach(function (u) {
+usersToMigrate.forEach(function(u) {
   if ((u.bio | '') !== '') u.profile = { bio: u.bio };
   delete u.bio;
 

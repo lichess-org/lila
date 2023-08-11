@@ -79,11 +79,10 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
     active: path === ctx.ctrl.path,
     'context-menu': path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
-    nongame:
-      !ctx.currentPath &&
-      !!ctx.ctrl.gamePath &&
-      treePath.contains(path, ctx.ctrl.gamePath) &&
-      path !== ctx.ctrl.gamePath,
+    nongame: !ctx.currentPath
+      && !!ctx.ctrl.gamePath
+      && treePath.contains(path, ctx.ctrl.gamePath)
+      && path !== ctx.ctrl.gamePath,
     inaccuracy: glyphIds.includes(6),
     mistake: glyphIds.includes(2),
     blunder: glyphIds.includes(4),
@@ -96,9 +95,9 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   let cur;
   return (
-    (!c.synthetic && playable(c.data) && c.initialPath) ||
-    (c.retro && (cur = c.retro.current()) && cur.prev.path) ||
-    (c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path)
+    (!c.synthetic && playable(c.data) && c.initialPath)
+    || (c.retro && (cur = c.retro.current()) && cur.prev.path)
+    || (c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path)
   );
 }
 

@@ -2,7 +2,7 @@ import { loadHighcharts, MovePoint, selectPly } from './common';
 import divisionLines from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
 
-export default async function (el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans) {
+export default async function(el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans) {
   await loadHighcharts('highchart');
 
   const area = window.Highcharts.theme.lichess.area;
@@ -113,7 +113,7 @@ export default async function (el: HTMLElement, data: AnalyseData, mainline: Tre
       },
     },
     tooltip: {
-      pointFormatter: function (this: any, format: string) {
+      pointFormatter: function(this: any, format: string) {
         format = format.replace('{series.name}', trans('advantage'));
         const ev = mainline[this.x + 1].eval;
         if (!ev) return;
@@ -171,5 +171,4 @@ const glyphProperties = (node: Tree.Node) => {
   else return [undefined, undefined];
 };
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+const toBlurArray = (player: Player) => player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];

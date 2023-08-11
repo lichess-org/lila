@@ -5,7 +5,7 @@ import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
 
-export default function (ctrl: SimulCtrl) {
+export default function(ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 }
 

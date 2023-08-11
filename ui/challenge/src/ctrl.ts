@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import { Ctrl, ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
-export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
+export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
   let trans = (key: string) => key;
   let redirecting = false;
   let reasons: Reasons = {};

@@ -21,7 +21,7 @@ import {
   Race,
   UpdatableData,
   RaceStatus,
-  WithGround,
+  WithGround
 } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
@@ -226,8 +226,8 @@ export default class RacerCtrl implements PuzCtrl {
     this.isPlayer()
       ? makeCgOpts(this.run, this.isRacing(), this.flipped)
       : {
-          orientation: this.run.pov,
-        };
+        orientation: this.run.pov,
+      };
 
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 

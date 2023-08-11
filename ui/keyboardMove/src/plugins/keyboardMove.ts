@@ -60,11 +60,11 @@ export function initModule(opts: Opts) {
       else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
       clear();
     } else if (
-      legalSans &&
-      selectedKey &&
-      (selectedKey + v).match(ambiguousPromotionCaptureRegex) &&
-      legalSans[selectedKey.slice(0, 1) + v.slice(0, 2)] &&
-      !submitOpts.force
+      legalSans
+      && selectedKey
+      && (selectedKey + v).match(ambiguousPromotionCaptureRegex)
+      && legalSans[selectedKey.slice(0, 1) + v.slice(0, 2)]
+      && !submitOpts.force
     ) {
       // ambiguous capture+promotion when a promotable pawn is selected; do nothing
     } else if (legalSans && isKey(v)) {
@@ -73,8 +73,9 @@ export function initModule(opts: Opts) {
     } else if (legalSans && v.match(fileRegex)) {
       // do nothing
     } else if (legalSans && (selectedKey.slice(0, 1) + v).match(promotionRegex)) {
-      const promotionSan =
-        selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
+      const promotionSan = selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1)
+        ? selectedKey.slice(0, 1) + v
+        : v;
       const foundUci = sanToUci(promotionSan.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
       opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
@@ -204,7 +205,7 @@ function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
 function sanCandidates(san: string, legalSans: SanToUci): San[] {
   // replace '=' in promotion moves (#7326)
   const lowered = san.replace('=', '').toLowerCase();
-  return Object.keys(legalSans).filter(function (s) {
+  return Object.keys(legalSans).filter(function(s) {
     return s.toLowerCase().startsWith(lowered);
   });
 }
@@ -219,12 +220,11 @@ function readClocks(clockCtrl: any | undefined) {
   const msgs = ['white', 'black'].map(color => {
     const time = clockCtrl.millisOf(color);
     const date = new Date(time);
-    const msg =
-      (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
-      ' ' +
-      simplePlural(date.getUTCMinutes(), 'minute') +
-      ' ' +
-      simplePlural(date.getUTCSeconds(), 'second');
+    const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '')
+      + ' '
+      + simplePlural(date.getUTCMinutes(), 'minute')
+      + ' '
+      + simplePlural(date.getUTCSeconds(), 'second');
     return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));

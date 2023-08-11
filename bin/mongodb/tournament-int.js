@@ -1,5 +1,5 @@
 function toInt(obj) {
-  return function (prop) {
+  return function(prop) {
     if (typeof obj[prop] != 'undefined') obj[prop] = NumberInt(obj[prop]);
   };
 }
@@ -7,18 +7,18 @@ function toInt(obj) {
 db.tournament
   .find()
   .sort({ createdAt: -1 })
-  .forEach(function (tour) {
+  .forEach(function(tour) {
     ['status', 'mode', 'variant', 'system', 'minutes', 'minPlayers'].forEach(toInt(tour));
     if (tour.pairings)
-      tour.pairings.forEach(function (pairing) {
+      tour.pairings.forEach(function(pairing) {
         ['s', 't'].forEach(toInt(pairing));
       });
     if (tour.players)
-      tour.players.forEach(function (player) {
+      tour.players.forEach(function(player) {
         ['rating', 'score'].forEach(toInt(player));
       });
     if (tour.events)
-      tour.events.forEach(function (event) {
+      tour.events.forEach(function(event) {
         toInt(event)('i');
       });
     if (tour.clock) ['limit', 'increment'].forEach(toInt(tour.clock));

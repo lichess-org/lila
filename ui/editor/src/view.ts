@@ -91,7 +91,7 @@ const allVariants: Array<[Rules, string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  const endgamePosition2option = function (pos: Editor.EndgamePosition): VNode {
+  const endgamePosition2option = function(pos: Editor.EndgamePosition): VNode {
     return h(
       'option',
       {
@@ -139,7 +139,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               value: ctrl.turn,
             },
           },
-          ['whitePlays', 'blackPlays'].map(function (key) {
+          ['whitePlays', 'blackPlays'].map(function(key) {
             return h(
               'option',
               {
@@ -168,146 +168,145 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     ...(ctrl.cfg.embed || !ctrl.cfg.positions || !ctrl.cfg.endgamePositions
       ? []
       : [
-          (() => {
-            const positionOption = (pos: Editor.OpeningPosition): VNode =>
-              h(
-                'option',
-                {
-                  attrs: {
-                    value: pos.epd || pos.fen,
-                    'data-fen': pos.fen,
-                  },
-                },
-                pos.eco ? `${pos.eco} ${pos.name}` : pos.name
-              );
-            const epd = state.fen.split(' ').slice(0, 4).join(' ');
-            const value =
-              (
-                ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) ||
-                ctrl.cfg.endgamePositions.find(p => p.epd == epd)
-              )?.epd || '';
-            return h(
-              'select.positions',
+        (() => {
+          const positionOption = (pos: Editor.OpeningPosition): VNode =>
+            h(
+              'option',
               {
-                props: { value },
-                on: {
-                  insert(vnode) {
-                    (vnode.elm as HTMLSelectElement).value = state.fen.split(' ').slice(0, 4).join(' ');
-                  },
-                  change(e) {
-                    const el = e.target as HTMLSelectElement;
-                    const value = el.selectedOptions[0].getAttribute('data-fen');
-                    if (!value || !ctrl.setFen(value)) el.value = '';
-                  },
+                attrs: {
+                  value: pos.epd || pos.fen,
+                  'data-fen': pos.fen,
                 },
               },
-              [
-                h('option', { attrs: { value: '' } }, ctrl.trans.noarg('setTheBoard')),
-                optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(positionOption)),
-                optgroup(
-                  ctrl.trans.noarg('endgamePositions'),
-                  ctrl.cfg.endgamePositions.map(endgamePosition2option)
-                ),
-              ]
+              pos.eco ? `${pos.eco} ${pos.name}` : pos.name
             );
-          })(),
-        ]),
+          const epd = state.fen.split(' ').slice(0, 4).join(' ');
+          const value = (
+            ctrl.cfg.positions.find(p => p.fen.startsWith(epd))
+            || ctrl.cfg.endgamePositions.find(p => p.epd == epd)
+          )?.epd || '';
+          return h(
+            'select.positions',
+            {
+              props: { value },
+              on: {
+                insert(vnode) {
+                  (vnode.elm as HTMLSelectElement).value = state.fen.split(' ').slice(0, 4).join(' ');
+                },
+                change(e) {
+                  const el = e.target as HTMLSelectElement;
+                  const value = el.selectedOptions[0].getAttribute('data-fen');
+                  if (!value || !ctrl.setFen(value)) el.value = '';
+                },
+              },
+            },
+            [
+              h('option', { attrs: { value: '' } }, ctrl.trans.noarg('setTheBoard')),
+              optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(positionOption)),
+              optgroup(
+                ctrl.trans.noarg('endgamePositions'),
+                ctrl.cfg.endgamePositions.map(endgamePosition2option)
+              ),
+            ]
+          );
+        })(),
+      ]),
     ...(ctrl.cfg.embed
       ? [h('div.actions', [buttonStart(), buttonClear()])]
       : [
-          h('div', [
-            h(
-              'select',
-              {
-                attrs: { id: 'variants' },
-                on: {
-                  change(e) {
-                    ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
-                  },
+        h('div', [
+          h(
+            'select',
+            {
+              attrs: { id: 'variants' },
+              on: {
+                change(e) {
+                  ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
                 },
               },
-              allVariants.map(x => variant2option(x[0], x[1], ctrl))
-            ),
-          ]),
-          h('div.actions', [
-            buttonStart(licon.Reload),
-            buttonClear(licon.Trash),
-            h(
-              'button.button.button-empty.text',
-              {
-                attrs: { 'data-icon': licon.ChasingArrows },
-                on: {
-                  click() {
-                    ctrl.chessground!.toggleOrientation();
-                    ctrl.onChange();
-                  },
-                },
-              },
-              ctrl.trans.noarg('flipBoard')
-            ),
-            h(
-              'a',
-              {
-                attrs: {
-                  'data-icon': licon.Microscope,
-                  rel: 'nofollow',
-                  ...(state.legalFen
-                    ? { href: ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) }
-                    : {}),
-                },
-                class: {
-                  button: true,
-                  'button-empty': true,
-                  text: true,
-                  disabled: !state.legalFen,
-                },
-              },
-              ctrl.trans.noarg('analysis')
-            ),
-            h(
-              'button',
-              {
-                class: {
-                  button: true,
-                  'button-empty': true,
-                  disabled: !state.playable,
-                },
-                on: {
-                  click: () => {
-                    if (state.playable)
-                      modal({
-                        content: $('.continue-with'),
-                      });
-                  },
-                },
-              },
-              [h('span.text', { attrs: { 'data-icon': licon.Swords } }, ctrl.trans.noarg('continueFromHere'))]
-            ),
-            studyButton(ctrl, state),
-          ]),
-          h('div.continue-with.none', [
-            h(
-              'a.button',
-              {
-                attrs: {
-                  href: '/?fen=' + state.legalFen + '#ai',
-                  rel: 'nofollow',
-                },
-              },
-              ctrl.trans.noarg('playWithTheMachine')
-            ),
-            h(
-              'a.button',
-              {
-                attrs: {
-                  href: '/?fen=' + state.legalFen + '#friend',
-                  rel: 'nofollow',
-                },
-              },
-              ctrl.trans.noarg('playWithAFriend')
-            ),
-          ]),
+            },
+            allVariants.map(x => variant2option(x[0], x[1], ctrl))
+          ),
         ]),
+        h('div.actions', [
+          buttonStart(licon.Reload),
+          buttonClear(licon.Trash),
+          h(
+            'button.button.button-empty.text',
+            {
+              attrs: { 'data-icon': licon.ChasingArrows },
+              on: {
+                click() {
+                  ctrl.chessground!.toggleOrientation();
+                  ctrl.onChange();
+                },
+              },
+            },
+            ctrl.trans.noarg('flipBoard')
+          ),
+          h(
+            'a',
+            {
+              attrs: {
+                'data-icon': licon.Microscope,
+                rel: 'nofollow',
+                ...(state.legalFen
+                  ? { href: ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) }
+                  : {}),
+              },
+              class: {
+                button: true,
+                'button-empty': true,
+                text: true,
+                disabled: !state.legalFen,
+              },
+            },
+            ctrl.trans.noarg('analysis')
+          ),
+          h(
+            'button',
+            {
+              class: {
+                button: true,
+                'button-empty': true,
+                disabled: !state.playable,
+              },
+              on: {
+                click: () => {
+                  if (state.playable)
+                    modal({
+                      content: $('.continue-with'),
+                    });
+                },
+              },
+            },
+            [h('span.text', { attrs: { 'data-icon': licon.Swords } }, ctrl.trans.noarg('continueFromHere'))]
+          ),
+          studyButton(ctrl, state),
+        ]),
+        h('div.continue-with.none', [
+          h(
+            'a.button',
+            {
+              attrs: {
+                href: '/?fen=' + state.legalFen + '#ai',
+                rel: 'nofollow',
+              },
+            },
+            ctrl.trans.noarg('playWithTheMachine')
+          ),
+          h(
+            'a.button',
+            {
+              attrs: {
+                href: '/?fen=' + state.legalFen + '#friend',
+                rel: 'nofollow',
+              },
+            },
+            ctrl.trans.noarg('playWithAFriend')
+          ),
+        ]),
+      ]),
   ]);
 }
 
@@ -372,7 +371,7 @@ let lastTouchMovePos: NumberPair | undefined;
 function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
 
-  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function (role) {
+  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return [color, role];
   });
 
@@ -389,16 +388,15 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
         class: className,
         ...(s !== 'pointer' && s !== 'trash'
           ? {
-              'data-color': s[0],
-              'data-role': s[1],
-            }
+            'data-color': s[0],
+            'data-role': s[1],
+          }
           : {}),
       };
-      const selectedSquare =
-        selectedClass === className &&
-        (!ctrl.chessground ||
-          !ctrl.chessground.state.draggable.current ||
-          !ctrl.chessground.state.draggable.current.newPiece);
+      const selectedSquare = selectedClass === className
+        && (!ctrl.chessground
+          || !ctrl.chessground.state.draggable.current
+          || !ctrl.chessground.state.draggable.current.newPiece);
       return h(
         'div',
         {
@@ -423,7 +421,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
 }
 
 function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e: MouchEvent) => void {
-  return function (e: MouchEvent): void {
+  return function(e: MouchEvent): void {
     e.preventDefault();
     if (s === 'pointer' || s === 'trash') {
       ctrl.selected(s);
@@ -464,7 +462,7 @@ function makeCursor(selected: Selected): string {
   return `url('${url}'), default !important`;
 }
 
-export default function (ctrl: EditorCtrl): VNode {
+export default function(ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 

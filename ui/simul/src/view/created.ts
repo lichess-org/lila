@@ -7,7 +7,7 @@ import xhr from '../xhr';
 import * as util from './util';
 import modal from 'common/modal';
 
-export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
+export default function(showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
     const candidates = ctrl.candidates().sort(byName),
       accepted = ctrl.accepted().sort(byName),
@@ -16,8 +16,8 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
     const variantIconFor = (a: Applicant) => {
       const variant = ctrl.data.variants.find(v => a.variant == v.key);
       return (
-        variant &&
-        h('td.variant', {
+        variant
+        && h('td.variant', {
           attrs: {
             'data-icon': variant.icon,
           },
@@ -34,49 +34,49 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
               ? [startOrCancel(ctrl, accepted), randomButton(ctrl)]
               : ctrl.containsMe()
               ? h(
-                  'a.button',
-                  {
-                    hook: bind('click', () => xhr.withdraw(ctrl.data.id)),
-                  },
-                  ctrl.trans('withdraw')
-                )
+                'a.button',
+                {
+                  hook: bind('click', () => xhr.withdraw(ctrl.data.id)),
+                },
+                ctrl.trans('withdraw')
+              )
               : h(
-                  'a.button.text' + (canJoin ? '' : '.disabled'),
-                  {
-                    attrs: {
-                      disabled: !canJoin,
-                      'data-icon': licon.PlayTriangle,
-                    },
-                    hook: canJoin
-                      ? bind('click', () => {
-                          if (ctrl.data.variants.length === 1)
-                            xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
-                          else {
-                            modal({
-                              content: $('.simul .continue-with'),
-                              onInsert($wrap) {
-                                $wrap.find('button').on('click', function (this: HTMLElement) {
-                                  modal.close();
-                                  xhr.join(ctrl.data.id, $(this).data('variant'));
-                                });
-                              },
-                            });
-                          }
-                        })
-                      : {},
-                  },
-                  ctrl.trans('join')
-                )
-            : h(
-                'a.button.text',
+                'a.button.text' + (canJoin ? '' : '.disabled'),
                 {
                   attrs: {
+                    disabled: !canJoin,
                     'data-icon': licon.PlayTriangle,
-                    href: '/login?referrer=' + window.location.pathname,
                   },
+                  hook: canJoin
+                    ? bind('click', () => {
+                      if (ctrl.data.variants.length === 1)
+                        xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
+                      else {
+                        modal({
+                          content: $('.simul .continue-with'),
+                          onInsert($wrap) {
+                            $wrap.find('button').on('click', function(this: HTMLElement) {
+                              modal.close();
+                              xhr.join(ctrl.data.id, $(this).data('variant'));
+                            });
+                          },
+                        });
+                      }
+                    })
+                    : {},
                 },
-                ctrl.trans('signIn')
+                ctrl.trans('join')
               )
+            : h(
+              'a.button.text',
+              {
+                attrs: {
+                  'data-icon': licon.PlayTriangle,
+                  href: '/login?referrer=' + window.location.pathname,
+                },
+              },
+              ctrl.trans('signIn')
+            )
         ),
       ]),
       showText(ctrl),
@@ -130,14 +130,14 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                         'td.action',
                         isHost
                           ? [
-                              h('a.button', {
-                                attrs: {
-                                  'data-icon': licon.Checkmark,
-                                  title: 'Accept',
-                                },
-                                hook: bind('click', () => xhr.accept(applicant.player.id)(ctrl.data.id)),
-                              }),
-                            ]
+                            h('a.button', {
+                              attrs: {
+                                'data-icon': licon.Checkmark,
+                                title: 'Accept',
+                              },
+                              hook: bind('click', () => xhr.accept(applicant.player.id)(ctrl.data.id)),
+                            }),
+                          ]
                           : []
                       ),
                     ]
@@ -182,13 +182,13 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                         'td.action',
                         isHost
                           ? [
-                              h('a.button.button-red', {
-                                attrs: {
-                                  'data-icon': licon.X,
-                                },
-                                hook: bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
-                              }),
-                            ]
+                            h('a.button.button-red', {
+                              attrs: {
+                                'data-icon': licon.X,
+                              },
+                              hook: bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
+                            }),
+                          ]
                           : []
                       ),
                     ]
@@ -225,42 +225,42 @@ const byName = (a: Applicant, b: Applicant) => (a.player.name > b.player.name ? 
 const randomButton = (ctrl: SimulCtrl) =>
   ctrl.candidates().length
     ? h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': licon.Checkmark,
-          },
-          hook: bind('click', () => {
-            const candidates = ctrl.candidates();
-            const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
-            xhr.accept(randomCandidate.player.id)(ctrl.data.id);
-          }),
+      'a.button.text',
+      {
+        attrs: {
+          'data-icon': licon.Checkmark,
         },
-        'Accept random candidate'
-      )
+        hook: bind('click', () => {
+          const candidates = ctrl.candidates();
+          const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
+          xhr.accept(randomCandidate.player.id)(ctrl.data.id);
+        }),
+      },
+      'Accept random candidate'
+    )
     : null;
 
 const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
   accepted.length > 1
     ? h(
-        'a.button.button-green.text',
-        {
-          attrs: {
-            'data-icon': licon.PlayTriangle,
-          },
-          hook: bind('click', () => xhr.start(ctrl.data.id)),
+      'a.button.button-green.text',
+      {
+        attrs: {
+          'data-icon': licon.PlayTriangle,
         },
-        `Start (${accepted.length})`
-      )
+        hook: bind('click', () => xhr.start(ctrl.data.id)),
+      },
+      `Start (${accepted.length})`
+    )
     : h(
-        'a.button.button-red.text',
-        {
-          attrs: {
-            'data-icon': licon.X,
-          },
-          hook: bind('click', () => {
-            if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
-          }),
+      'a.button.button-red.text',
+      {
+        attrs: {
+          'data-icon': licon.X,
         },
-        ctrl.trans('cancel')
-      );
+        hook: bind('click', () => {
+          if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
+        }),
+      },
+      ctrl.trans('cancel')
+    );

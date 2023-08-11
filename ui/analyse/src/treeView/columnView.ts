@@ -15,7 +15,7 @@ import {
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
-  renderComment,
+  renderComment
 } from './common';
 
 interface Ctx extends BaseCtx {
@@ -62,10 +62,10 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
     const mainChildren = main.forceVariation
       ? undefined
       : renderChildrenOf(ctx, main, {
-          parentPath: opts.parentPath + main.id,
-          isMainline: true,
-          conceal,
-        });
+        parentPath: opts.parentPath + main.id,
+        isMainline: true,
+        conceal,
+      });
     const passOpts = {
       parentPath: opts.parentPath,
       isMainline: !main.forceVariation,
@@ -120,8 +120,8 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
     },
     nodes.map(n => {
       return (
-        retroLine(ctx, n) ||
-        h(
+        retroLine(ctx, n)
+        || h(
           'line',
           renderMoveAndChildrenOf(ctx, n, {
             parentPath: opts.parentPath,
@@ -230,13 +230,13 @@ function renderMainlineCommentsOf(
   });
 }
 
-const emptyConcealOf: ConcealOf = function () {
-  return function () {
+const emptyConcealOf: ConcealOf = function() {
+  return function() {
     return null;
   };
 };
 
-export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
+export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl,

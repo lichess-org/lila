@@ -7,17 +7,17 @@ Client builds are performed by the ui/build script. Stick to `ui/build -w` and l
 Usage examples:
 
 ```
-  ui/build                     # builds all client assets in dev mode
-  ui/build -w                  # builds all client assets and watches for changes
-  ui/build -p                  # builds minified client assets (prod builds)
-  ui/build --no-install        # no pnpm install (to preserve local links you have set up)
-  ui/build analyse site msg    # specify modules (don't build everything)
-  ui/build -w dasher chart     # watch mode but only for given modules
-  ui/build --tsc -w            # watch mode but type checking only
-  ui/build --sass msg notify   # build css only for msg and notify modules
-  ui/build --no-color          # don't use color in logs
-  ui/build --no-time           # don't log the time
-  ui/build --no-context        # don't log the context ([sass], [esbuild], etc)
+ui/build                     # builds all client assets in dev mode
+ui/build -w                  # builds all client assets and watches for changes
+ui/build -p                  # builds minified client assets (prod builds)
+ui/build --no-install        # no pnpm install (to preserve local links you have set up)
+ui/build analyse site msg    # specify modules (don't build everything)
+ui/build -w dasher chart     # watch mode but only for given modules
+ui/build --tsc -w            # watch mode but type checking only
+ui/build --sass msg notify   # build css only for msg and notify modules
+ui/build --no-color          # don't use color in logs
+ui/build --no-time           # don't log the time
+ui/build --no-context        # don't log the context ([sass], [esbuild], etc)
 ```
 
 ## Testing

@@ -6,10 +6,7 @@
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
+  "keywords": ["chess", "lichess"],
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

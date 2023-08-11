@@ -4,7 +4,7 @@ import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
 import SimulCtrl from '../ctrl';
 
-export default function (ctrl: SimulCtrl) {
+export default function(ctrl: SimulCtrl) {
   return h('div.results', [
     h(
       'div',

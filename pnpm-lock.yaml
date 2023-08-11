@@ -26,15 +26,12 @@ importers:
       chessground:
         specifier: ^8.3.11
         version: 8.3.11
+      dprint:
+        specifier: ^0.40.2
+        version: 0.40.2
       eslint:
         specifier: ^8.43.0
         version: 8.43.0
-      eslint-config-prettier:
-        specifier: ^8.8.0
-        version: 8.8.0(eslint@8.43.0)
-      prettier:
-        specifier: 2.8.1
-        version: 2.8.1
       typescript:
         specifier: ^5.1.5
         version: 5.1.5
@@ -2181,6 +2178,54 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: false
 
+  /@dprint/darwin-arm64@0.40.2:
+    resolution: {integrity: sha512-qharMFhxpNq9brgvHLbqzzAgVgPWSHLfzNLwWWhKcGOUUDUIilfAo3SlvOz6w4nQiIifLpYZOvZqK7Lpf9mSSw==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@dprint/darwin-x64@0.40.2:
+    resolution: {integrity: sha512-FPDdOTVr1JfqtLBTCvqlihWslTy3LBUoi3H1gaqIazCKMj2dB9voFWkBiMT+REMHDrlVsoSpFAfsliNr/y7HPA==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@dprint/linux-arm64-glibc@0.40.2:
+    resolution: {integrity: sha512-GmUWfKwEwXA+onvewX9hEJSMcd9V184+uRbEhI5tG28tBP9+IjQhrY7jCjxPvaZA+EvzNPnAy5D1wbJdlNLBNA==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@dprint/linux-x64-glibc@0.40.2:
+    resolution: {integrity: sha512-vMHAHdsOY+2thieSWbIrIioDfPgvipwUgd0MZUWOqycTrXU6kLyi2B+5J/2Jc+QO3CiLIbumQd2FH/0vB1eWqA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@dprint/linux-x64-musl@0.40.2:
+    resolution: {integrity: sha512-nFSbDWd9ORyOhJ7a+RmE39WbuPoQ3OQutIgfAmfikiu/wENzEwxxv4QJ7aFnBaoZb0wuVEEpXShr8vY4p0exkg==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@dprint/win32-x64@0.40.2:
+    resolution: {integrity: sha512-qF4VCQzFTZYD61lbQqXLU/IwUTbLK22CancO+uVtXmZRoKU9GaVjcBhMUB7URxsa8rvxWHhHT6ldillI/aOWCg==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /@esbuild/android-arm64@0.18.4:
     resolution: {integrity: sha512-yQVgO+V307hA2XhzELQ6F91CBGX7gSnlVGAj5YIqjQOxThDpM7fOcHT2YLJbE6gNdPtgRSafQrsK8rJ9xHCaZg==}
     engines: {node: '>=12'}
@@ -3728,6 +3773,19 @@ packages:
     resolution: {integrity: sha512-ewwFzHzrrneRjxzmK6oVz/rZn9VWspGFRDb4/rRtIsM1n36t9AKma/ye8syCpcw+XJ25kOK/hOG7t1j2I2yBqA==}
     dev: false
 
+  /dprint@0.40.2:
+    resolution: {integrity: sha512-3LdyUV0itEW59UPtsRA2StOWOu8FyOW+BgvJpH/tACRHKi0z5gaQnvSxdS3mbG7dgtEhdRnGg6JoiQyGib6NTg==}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@dprint/darwin-arm64': 0.40.2
+      '@dprint/darwin-x64': 0.40.2
+      '@dprint/linux-arm64-glibc': 0.40.2
+      '@dprint/linux-x64-glibc': 0.40.2
+      '@dprint/linux-x64-musl': 0.40.2
+      '@dprint/win32-x64': 0.40.2
+    dev: false
+
   /dragscroll@0.0.8:
     resolution: {integrity: sha512-nMrx/KErHpEkiKZlrghcT/nLWCj8vEJgv6s6TF84gmgn6uROPx2wRvClkcnjSEyvppYY9okOI1DIv573Toql1w==}
     dev: false
@@ -3812,15 +3870,6 @@ packages:
       optionator: 0.8.3
     optionalDependencies:
       source-map: 0.6.1
-    dev: false
-
-  /eslint-config-prettier@8.8.0(eslint@8.43.0):
-    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
-    hasBin: true
-    peerDependencies:
-      eslint: '>=7.0.0'
-    dependencies:
-      eslint: 8.43.0
     dev: false
 
   /eslint-scope@5.1.1:
@@ -5393,12 +5442,6 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
-    dev: false
-
-  /prettier@2.8.1:
-    resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
     dev: false
 
   /pretty-format@28.1.3:

@@ -21,7 +21,6 @@
     { "in": "sei", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "sette", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "otto", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "pedone", "tok": "P", "tags": ["role", "move"] },
     { "in": "cavallo", "tok": "N", "tags": ["role", "move"] },
     { "in": "alfiere", "tok": "B", "tags": ["role", "move"] },
@@ -29,7 +28,6 @@
     { "in": "donna", "tok": "Q", "tags": ["role", "move"] },
     { "in": "regina", "tok": "Q", "tags": ["role", "move"] },
     { "in": "re", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "arrocco", "val": "castle", "tags": ["move"] },
     { "in": "arrocco corto", "val": "O-O", "tags": ["move"] },
     { "in": "arrocco lungo", "val": "O-O-O", "tags": ["move"] },
@@ -39,7 +37,6 @@
     { "in": "cattura", "val": "x", "tags": ["move"] },
     { "in": "promuove", "val": "=", "tags": ["move"] },
     { "in": "promozione", "val": "=", "tags": ["move"] },
-
     { "in": "oops", "val": "takeback", "tags": ["command"] },
     { "in": "patta", "val": "draw", "tags": ["command", "round"] },
     { "in": "propongo patta", "val": "draw", "tags": ["command", "round"] },
@@ -57,13 +54,11 @@
     { "in": "soluzione", "val": "solve", "tags": ["command", "puzzle"] },
     { "in": "aiuto", "val": "help", "tags": ["command"] },
     { "in": "stop", "val": "stop", "tags": ["command"] },
-
     { "in": "si", "val": "yes", "tags": ["choice"] },
     { "in": "no", "val": "no", "tags": ["choice"] },
     { "in": "chiudi", "val": "no", "tags": ["choice"] },
     { "in": "cancella", "val": "no", "tags": ["choice"] },
     { "in": "annulla", "val": "no", "tags": ["choice"] },
-
     { "in": "blu", "val": "blue", "tags": ["color", "choice"] },
     { "in": "verde", "val": "green", "tags": ["color", "choice"] },
     { "in": "giallo", "val": "yellow", "tags": ["color", "choice"] },
@@ -74,7 +69,6 @@
     { "in": "arancione", "val": "orange", "tags": ["color", "choice"] },
     { "in": "marrone", "val": "brown", "tags": ["color", "choice"] },
     { "in": "bianco", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "alfa", "val": "a", "tags": ["file", "move", "nato"] },
     { "in": "bravo", "val": "b", "tags": ["file", "move", "nato"] },
     { "in": "charlie", "val": "c", "tags": ["file", "move", "nato"] },
@@ -83,7 +77,6 @@
     { "in": "foxtrot", "val": "f", "tags": ["file", "move", "nato"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "nato"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "nato"] },
-
     { "in": "matto", "val": "", "tags": ["move", "ignore"] },
     { "in": "scacco matto", "val": "", "tags": ["move", "ignore"] },
     { "in": "scacco", "val": "", "tags": ["move", "ignore"] },

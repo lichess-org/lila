@@ -24,7 +24,7 @@ lichess.load.then(() => {
     );
     renderButton();
 
-    $('#communication .chat').each(function () {
+    $('#communication .chat').each(function() {
       this.scrollTop = 99999;
     });
 
@@ -38,14 +38,14 @@ lichess.load.then(() => {
         $('.auto-refresh').removeClass('hold');
       });
 
-    $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
+    $('#communication').on('click', '.line:not(.lichess)', function(this: HTMLDivElement) {
       const $l = $(this);
       modal({
         content: $('.timeout-modal'),
         onInsert($wrap) {
           $wrap.find('.username').text($l.find('.user-link').text());
           $wrap.find('.text').text($l.text().split(' ').slice(1).join(' '));
-          $wrap.on('click', '.button', function (this: HTMLButtonElement) {
+          $wrap.on('click', '.button', function(this: HTMLButtonElement) {
             const roomId = $l.parents('.game').data('room');
             const chan = $l.parents('.game').data('chan');
             text('/mod/public-chat/timeout', {
@@ -66,7 +66,7 @@ lichess.load.then(() => {
   };
   onPageReload();
 
-  setInterval(function () {
+  setInterval(function() {
     if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
     reloadNow();
   }, 5000);

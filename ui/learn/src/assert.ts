@@ -13,7 +13,7 @@ function pieceMatch(piece: Piece | null, matcher: Matcher) {
 }
 
 function pieceOnAnyOf(matcher: Matcher, keys: Key[]) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     for (const i in keys) if (pieceMatch(level.chess.get(keys[i]), matcher)) return true;
     return false;
   };
@@ -27,20 +27,20 @@ function fenToMatcher(fenPiece: string): Matcher {
 }
 
 export function pieceOn(fenPiece: string, key: Key) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     return pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
   };
 }
 
 export function pieceNotOn(fenPiece: string, key: Key) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     return !pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
   };
 }
 
 export function noPieceOn(keys: string | Key[]) {
   keys = readKeys(keys);
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     for (const key in level.chess.occupation()) if (!keys.includes(key as Key)) return true;
     return false;
   };
@@ -51,7 +51,7 @@ export function whitePawnOnAnyOf(keys: string | Key[]) {
 }
 
 export function extinct(color: string) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     const fen = level.chess.fen().split(' ')[0].replace(/\//g, '');
     return fen === (color === 'white' ? fen.toLowerCase() : fen.toUpperCase());
   };
@@ -66,20 +66,20 @@ export function mate(level: AssertData) {
 }
 
 export function lastMoveSan(san: string) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     const moves = level.chess.instance.history();
     return moves[moves.length - 1] === san;
   };
 }
 
 export function checkIn(nbMoves: number) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     return level.vm.nbMoves <= nbMoves && level.chess.instance.in_check();
   };
 }
 
 export function noCheckIn(nbMoves: number) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     return level.vm.nbMoves >= nbMoves && !level.chess.instance.in_check();
   };
 }
@@ -87,22 +87,22 @@ export function noCheckIn(nbMoves: number) {
 type Assert = (level: AssertData) => boolean;
 
 export function not(assert: Assert) {
-  return function (level: AssertData) {
+  return function(level: AssertData) {
     return !assert(level);
   };
 }
 
 export function and(...asserts: Assert[]) {
-  return function (level: AssertData) {
-    return asserts.every(function (a) {
+  return function(level: AssertData) {
+    return asserts.every(function(a) {
       return a(level);
     });
   };
 }
 
 export function or(...asserts: Assert[]) {
-  return function (level: AssertData) {
-    return asserts.some(function (a) {
+  return function(level: AssertData) {
+    return asserts.some(function(a) {
       return a(level);
     });
   };

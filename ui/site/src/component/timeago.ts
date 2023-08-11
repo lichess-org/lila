@@ -31,18 +31,16 @@ const formatDiff = (seconds: number): string => {
 
 let formatterInst: (date: Date) => string;
 
-export const formatter = () =>
-  (formatterInst =
-    formatterInst ||
-    (window.Intl && Intl.DateTimeFormat
-      ? new Intl.DateTimeFormat(document.documentElement.lang, {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-        }).format
-      : d => d.toLocaleString()));
+export const formatter = () => (formatterInst = formatterInst
+  || (window.Intl && Intl.DateTimeFormat
+    ? new Intl.DateTimeFormat(document.documentElement.lang, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format
+    : d => d.toLocaleString()));
 
 export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).getTime()) / 1000);
 

@@ -11,15 +11,15 @@ interface Opts<Result> {
   regex?: RegExp;
 }
 
-export default function <Result>(opts: Opts<Result>) {
+export default function<Result>(opts: Opts<Result>) {
   const minLength = opts.minLength || 3,
     empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>'),
     cache = new Map<string, Result[]>(),
     fetchResults: Fetch<Result> = term => {
       if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)!), 50));
       else if (
-        term.length > 3 &&
-        Array.from({ length: term.length - 3 }, (_, i) => -i - 1)
+        term.length > 3
+        && Array.from({ length: term.length - 3 }, (_, i) => -i - 1)
           .map(i => term.slice(0, i))
           .some(sub => cache.has(sub) && !cache.get(sub)!.length)
       )
@@ -80,9 +80,8 @@ export default function <Result>(opts: Opts<Result>) {
       }
       if (e.code == 'Enter') {
         $container.addClass('none');
-        const result =
-          selectedResult() ||
-          (renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value
+        const result = selectedResult()
+          || (renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value
             ? renderedResults[0]
             : undefined);
         if (result) {

@@ -42,29 +42,29 @@ export function initModule(opts: Opts): void {
     render(o: LightUserOnline) {
       const tag = opts.tag || 'a';
       return (
-        '<' +
-        tag +
-        ' class="complete-result ulpt user-link' +
-        (o.online ? ' online' : '') +
-        '" ' +
-        (tag === 'a' ? '' : 'data-') +
-        'href="/@/' +
-        o.name +
-        '">' +
-        '<i class="line' +
-        (o.patron ? ' patron' : '') +
-        '"></i>' +
-        (o.title
-          ? '<span class="utitle"' +
-            (o.title == 'BOT' ? ' data-bot="data-bot" ' : '') +
-            '>' +
-            o.title +
-            '</span>&nbsp;'
-          : '') +
-        o.name +
-        '</' +
-        tag +
-        '>'
+        '<'
+        + tag
+        + ' class="complete-result ulpt user-link'
+        + (o.online ? ' online' : '')
+        + '" '
+        + (tag === 'a' ? '' : 'data-')
+        + 'href="/@/'
+        + o.name
+        + '">'
+        + '<i class="line'
+        + (o.patron ? ' patron' : '')
+        + '"></i>'
+        + (o.title
+          ? '<span class="utitle"'
+            + (o.title == 'BOT' ? ' data-bot="data-bot" ' : '')
+            + '>'
+            + o.title
+            + '</span>&nbsp;'
+          : '')
+        + o.name
+        + '</'
+        + tag
+        + '>'
       );
     },
     populate: opts.populate || (r => r.name),

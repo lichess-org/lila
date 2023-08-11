@@ -4,10 +4,10 @@ db.simul
   .find({
     status: 20,
   })
-  .forEach(function (s) {
+  .forEach(function(s) {
     var finished = true;
     printjson(s);
-    s.pairings.forEach(function (p) {
+    s.pairings.forEach(function(p) {
       if (p.status < 25 && p.status !== 10) finished = false;
     });
     if (finished) ids.push(s._id);

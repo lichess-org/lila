@@ -61,18 +61,18 @@ function requestButton(ctrl: ServerEval) {
       : !root.study!.members.canContribute()
       ? [noarg('onlyContributorsCanRequestAnalysis')]
       : [
-          h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
-          h(
-            'a.button.text',
-            {
-              attrs: {
-                'data-icon': licon.BarChart,
-                disabled: root.mainline.length < 5,
-              },
-              hook: bind('click', ctrl.request, root.redraw),
+        h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
+        h(
+          'a.button.text',
+          {
+            attrs: {
+              'data-icon': licon.BarChart,
+              disabled: root.mainline.length < 5,
             },
-            noarg('requestAComputerAnalysis')
-          ),
-        ]
+            hook: bind('click', ctrl.request, root.redraw),
+          },
+          noarg('requestAComputerAnalysis')
+        ),
+      ]
   );
 }

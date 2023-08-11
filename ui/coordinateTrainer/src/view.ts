@@ -9,27 +9,26 @@ import side from './side';
 const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   return ctrl.playing && ctrl.mode() === 'findSquare'
     ? h(
-        'svg.coords-svg',
-        { attrs: { viewBox: '0 0 100 100' } },
-        ['current', 'next'].map((modifier: CoordModifier) =>
-          h(
-            `g.${modifier}`,
-            {
-              key: `${ctrl.score}-${modifier}`,
-              style:
-                modifier === 'current'
-                  ? ({
-                      remove: {
-                        opacity: 0,
-                        transform: 'translate(-8px, 60px)',
-                      },
-                    } as unknown as VNodeStyle)
-                  : undefined,
-            },
-            h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey)
-          )
+      'svg.coords-svg',
+      { attrs: { viewBox: '0 0 100 100' } },
+      ['current', 'next'].map((modifier: CoordModifier) =>
+        h(
+          `g.${modifier}`,
+          {
+            key: `${ctrl.score}-${modifier}`,
+            style: modifier === 'current'
+              ? ({
+                remove: {
+                  opacity: 0,
+                  transform: 'translate(-8px, 60px)',
+                },
+              } as unknown as VNodeStyle)
+              : undefined,
+          },
+          h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey)
         )
       )
+    )
     : null;
 };
 
@@ -54,12 +53,12 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
     ctrl.playing
       ? null
       : h(
-          'button.start.button.button-fat',
-          {
-            hook: bind('click', ctrl.start),
-          },
-          ctrl.trans('startTraining')
-        ),
+        'button.start.button.button-fat',
+        {
+          hook: bind('click', ctrl.start),
+        },
+        ctrl.trans('startTraining')
+      ),
   ]);
 };
 
@@ -76,24 +75,24 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
   const coordinateInput = [
     ctrl.coordinateInputMethod() === 'buttons'
       ? h(
-          'div.files-ranks',
-          'abcdefgh12345678'.split('').map((fileOrRank: string) =>
-            h(
-              'button.file-rank',
-              {
-                on: {
-                  click: () => {
-                    if (ctrl.playing) {
-                      ctrl.keyboardInput.value += fileOrRank;
-                      ctrl.checkKeyboardInput();
-                    }
-                  },
+        'div.files-ranks',
+        'abcdefgh12345678'.split('').map((fileOrRank: string) =>
+          h(
+            'button.file-rank',
+            {
+              on: {
+                click: () => {
+                  if (ctrl.playing) {
+                    ctrl.keyboardInput.value += fileOrRank;
+                    ctrl.checkKeyboardInput();
+                  }
                 },
               },
-              fileOrRank
-            )
+            },
+            fileOrRank
           )
         )
+      )
       : null,
     h('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')),
     h('div.keyboard-container', [

@@ -14,29 +14,29 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   return h('div.gamebook-buttons', [
     root.path
       ? h(
-          'button.fbt.text.back',
-          {
-            attrs: {
-              'data-icon': licon.LessThan,
-              type: 'button',
-            },
-            hook: bind('click', () => root.userJump(''), ctrl.redraw),
+        'button.fbt.text.back',
+        {
+          attrs: {
+            'data-icon': licon.LessThan,
+            type: 'button',
           },
-          root.trans.noarg('back')
-        )
+          hook: bind('click', () => root.userJump(''), ctrl.redraw),
+        },
+        root.trans.noarg('back')
+      )
       : null,
     myTurn
       ? h(
-          'button.fbt.text.solution',
-          {
-            attrs: {
-              'data-icon': licon.PlayTriangle,
-              type: 'button',
-            },
-            hook: bind('click', ctrl.solution, ctrl.redraw),
+        'button.fbt.text.solution',
+        {
+          attrs: {
+            'data-icon': licon.PlayTriangle,
+            type: 'button',
           },
-          root.trans.noarg('viewTheSolution')
-        )
+          hook: bind('click', ctrl.solution, ctrl.redraw),
+        },
+        root.trans.noarg('viewTheSolution')
+      )
       : undefined,
     overrideButton(study),
   ]);

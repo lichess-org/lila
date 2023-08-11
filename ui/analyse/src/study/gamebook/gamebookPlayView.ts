@@ -16,24 +16,24 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
     [
       state.comment || state.feedback == 'play' || state.feedback == 'end'
         ? h(
-            'div.comment',
-            {
-              class: { hinted: state.showHint },
-            },
-            [
-              state.comment
-                ? h('div.content', { hook: richHTML(state.comment) })
-                : h(
-                    'div.content',
-                    state.feedback == 'play'
-                      ? ctrl.trans('whatWouldYouPlay')
-                      : state.feedback == 'end'
-                      ? ctrl.trans('youCompletedThisLesson')
-                      : undefined
-                  ),
-              hintZone(ctrl),
-            ]
-          )
+          'div.comment',
+          {
+            class: { hinted: state.showHint },
+          },
+          [
+            state.comment
+              ? h('div.content', { hook: richHTML(state.comment) })
+              : h(
+                'div.content',
+                state.feedback == 'play'
+                  ? ctrl.trans('whatWouldYouPlay')
+                  : state.feedback == 'end'
+                  ? ctrl.trans('youCompletedThisLesson')
+                  : undefined
+              ),
+            hintZone(ctrl),
+          ]
+        )
         : undefined,
       h('div.floor', [
         renderFeedback(ctrl, state),
@@ -88,15 +88,15 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       'div',
       fb === 'play'
         ? [
-            h('div.no-square', h('piece.king.' + color)),
-            h('div.instruction', [
-              h('strong', ctrl.trans.noarg('yourTurn')),
-              h(
-                'em',
-                ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')
-              ),
-            ]),
-          ]
+          h('div.no-square', h('piece.king.' + color)),
+          h('div.instruction', [
+            h('strong', ctrl.trans.noarg('yourTurn')),
+            h(
+              'em',
+              ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')
+            ),
+          ]),
+        ]
         : ctrl.trans.noarg('goodMove')
     )
   );
@@ -107,16 +107,16 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
   return h('div.feedback.end', [
     study.nextChapter()
       ? h(
-          'button.next.text',
-          {
-            attrs: {
-              'data-icon': licon.PlayTriangle,
-              type: 'button',
-            },
-            hook: bind('click', study.goToNextChapter),
+        'button.next.text',
+        {
+          attrs: {
+            'data-icon': licon.PlayTriangle,
+            type: 'button',
           },
-          study.trans.noarg('nextChapter')
-        )
+          hook: bind('click', study.goToNextChapter),
+        },
+        study.trans.noarg('nextChapter')
+      )
       : undefined,
     h(
       'button.retry',

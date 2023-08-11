@@ -121,13 +121,13 @@ function imageInput(ctrl: BackgroundCtrl) {
         insert: vnode => {
           $(vnode.elm as HTMLElement).on(
             'change keyup paste',
-            debounce(function (this: HTMLInputElement) {
+            debounce(function(this: HTMLInputElement) {
               const url = (this.value as string).trim();
               // modules/pref/src/main/PrefForm.scala
               if (
-                (url.startsWith('https://') || url.startsWith('//')) &&
-                url.length >= 10 &&
-                url.length <= 400
+                (url.startsWith('https://') || url.startsWith('//'))
+                && url.length >= 10
+                && url.length <= 400
               )
                 ctrl.setImage(url);
             }, 300)
@@ -153,11 +153,11 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     const other = active === 'dark' ? 'light' : 'dark';
     $('link[href*=".' + other + '."]').remove();
-    $('link[href*=".' + active + '."]').each(function (this: HTMLLinkElement) {
+    $('link[href*=".' + active + '."]').each(function(this: HTMLLinkElement) {
       replaceStylesheet(this, active, sheet);
     });
   } else {
-    $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
+    $('link[href*=".' + prev + '."]').each(function(this: HTMLLinkElement) {
       if (sheet === 'system') {
         if (supportsSystemTheme()) {
           replaceStylesheet(this, prev, 'light', 'light');
@@ -174,8 +174,8 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     bgData
       ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
       : $('head').append(
-          '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>'
-        );
+        '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>'
+      );
   }
 }
 

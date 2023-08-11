@@ -5,12 +5,7 @@
   "description": "lichess.org lobby",
   "type": "module",
   "module": "src/main.js",
-  "keywords": [
-    "chess",
-    "lichess",
-    "lobby",
-    "seek"
-  ],
+  "keywords": ["chess", "lichess", "lobby", "seek"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

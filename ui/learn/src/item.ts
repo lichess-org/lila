@@ -12,32 +12,32 @@ export interface Items<T> {
 
 export function ctrl(blueprint: { apples: string | Key[] }): Items<'apple'> {
   const items: Partial<Record<Key, 'apple'>> = {};
-  util.readKeys(blueprint.apples).forEach(function (key: Key) {
+  util.readKeys(blueprint.apples).forEach(function(key: Key) {
     items[key] = 'apple';
   });
 
-  const get = function (key: Key) {
+  const get = function(key: Key) {
     return items[key];
   };
 
-  const list = function () {
+  const list = function() {
     return Object.values(items);
   };
 
   return {
     get: get,
-    withItem: function <U>(key: Key, f: (item: 'apple') => U) {
+    withItem: function<U>(key: Key, f: (item: 'apple') => U) {
       const item = items[key];
       if (item) return f(item);
       return;
     },
-    remove: function (key: Key) {
+    remove: function(key: Key) {
       delete items[key];
     },
-    hasItem: function (item: 'apple') {
+    hasItem: function(item: 'apple') {
       return list().includes(item);
     },
-    appleKeys: function () {
+    appleKeys: function() {
       const keys: Key[] = [];
       for (const k in items) if (items[k as Key] === 'apple') keys.push(k as Key);
       return keys;

@@ -29,7 +29,7 @@ import {
   castlingFlavours,
   supportedVariant,
   Style,
-  inputToLegalUci,
+  inputToLegalUci
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -68,9 +68,8 @@ export function initModule(): NvuiPlugin {
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope =
-          !supportedVariant(d.game.variant.key) &&
-          'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
+        variantNope = !supportedVariant(d.game.variant.key)
+          && 'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
           Chessground(document.createElement('div'), {
@@ -134,35 +133,35 @@ export function initModule(): NvuiPlugin {
           ),
           ...(ctrl.isPlaying()
             ? [
-                h('h2', 'Move form'),
-                h(
-                  'form',
-                  {
-                    hook: onInsert(el => {
-                      const $form = $(el as HTMLFormElement),
-                        $input = $form.find('.move').val('');
-                      $input[0]!.focus();
-                      nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
-                      $form.on('submit', () => nvui.submitMove?.());
+              h('h2', 'Move form'),
+              h(
+                'form',
+                {
+                  hook: onInsert(el => {
+                    const $form = $(el as HTMLFormElement),
+                      $input = $form.find('.move').val('');
+                    $input[0]!.focus();
+                    nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
+                    $form.on('submit', () => nvui.submitMove?.());
+                  }),
+                },
+                [
+                  h('label', [
+                    d.player.color === d.game.player ? 'Your move' : 'Waiting',
+                    h('input.move.mousetrap', {
+                      attrs: {
+                        name: 'move',
+                        type: 'text',
+                        autocomplete: 'off',
+                        autofocus: true,
+                        disabled: !!variantNope,
+                        title: variantNope,
+                      },
                     }),
-                  },
-                  [
-                    h('label', [
-                      d.player.color === d.game.player ? 'Your move' : 'Waiting',
-                      h('input.move.mousetrap', {
-                        attrs: {
-                          name: 'move',
-                          type: 'text',
-                          autocomplete: 'off',
-                          autofocus: true,
-                          disabled: !!variantNope,
-                          title: variantNope,
-                        },
-                      }),
-                    ]),
-                  ]
-                ),
-              ]
+                  ]),
+                ]
+              ),
+            ]
             : []),
           h('h2', 'Your clock'),
           h('div.botc', anyClock(ctrl, 'bottom')),
@@ -373,9 +372,9 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else {
     const pieces = ctrl.chessground.state.pieces;
     notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`
+      commands.piece.apply(c, pieces, style)
+        || commands.scan.apply(c, pieces, style)
+        || `Invalid command: ${c}`
     );
   }
 }
@@ -384,10 +383,10 @@ function anyClock(ctrl: RoundController, position: Position) {
   const d = ctrl.data,
     player = ctrl.playerAt(position);
   return (
-    (ctrl.clock && renderClock(ctrl, player, position)) ||
-    (d.correspondence &&
-      renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player)) ||
-    undefined
+    (ctrl.clock && renderClock(ctrl, player, position))
+    || (d.correspondence
+      && renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player))
+    || undefined
   );
 }
 
@@ -417,16 +416,16 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
     ? h('span', [
-        h(
-          'a',
-          {
-            attrs: { href: '/@/' + user.username },
-          },
-          user.title ? `${user.title} ${user.username}` : user.username
-        ),
-        rating ? ` ${rating}` : ``,
-        ' ' + ratingDiff,
-      ])
+      h(
+        'a',
+        {
+          attrs: { href: '/@/' + user.username },
+        },
+        user.title ? `${user.title} ${user.username}` : user.username
+      ),
+      rating ? ` ${rating}` : ``,
+      ' ' + ratingDiff,
+    ])
     : 'Anonymous';
 }
 

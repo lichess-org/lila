@@ -22,11 +22,11 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
         'td.rank',
         player.absent && ctrl.data.status != 'finished'
           ? h('i', {
-              attrs: {
-                'data-icon': licon.Pause,
-                title: 'Absent',
-              },
-            })
+            attrs: {
+              'data-icon': licon.Pause,
+              title: 'Absent',
+            },
+          })
           : [player.rank]
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
@@ -43,16 +43,16 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                 : p == 'late'
                 ? h(p, title('Late'), '½')
                 : h(
-                    'a.glpt.' + (p.o ? 'ongoing' : p.w === true ? 'win' : p.w === false ? 'loss' : 'draw'),
-                    {
-                      attrs: {
-                        key: p.g,
-                        href: `/${p.g}`,
-                      },
-                      hook: onInsert(lichess.powertip.manualGame),
+                  'a.glpt.' + (p.o ? 'ongoing' : p.w === true ? 'win' : p.w === false ? 'loss' : 'draw'),
+                  {
+                    attrs: {
+                      key: p.g,
+                      href: `/${p.g}`,
                     },
-                    p.o ? '*' : p.w === true ? '1' : p.w === false ? '0' : '½'
-                  )
+                    hook: onInsert(lichess.powertip.manualGame),
+                  },
+                  p.o ? '*' : p.w === true ? '1' : p.w === false ? '0' : '½'
+                )
             )
             .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r')))
         )

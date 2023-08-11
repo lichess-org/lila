@@ -9,7 +9,7 @@ import { presetView } from './preset';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
-export default function (ctrl: Ctrl): Array<VNode | undefined> {
+export default function(ctrl: Ctrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
@@ -37,12 +37,16 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
               lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             if (hasMod)
-              $el.on('click', '.mod', (e: Event) =>
-                ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement)
+              $el.on(
+                'click',
+                '.mod',
+                (e: Event) => ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement)
               );
             else
-              $el.on('click', '.flag', (e: Event) =>
-                report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
+              $el.on(
+                'click',
+                '.flag',
+                (e: Event) => report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
               );
             scrollCb(vnode);
           },
@@ -108,7 +112,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
 
       if (txt === '')
-        $('.input-move input').each(function (this: HTMLInputElement) {
+        $('.input-move input').each(function(this: HTMLInputElement) {
           this.focus();
         });
       else {
@@ -130,8 +134,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
       el.removeAttribute('placeholder');
       if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
       storage.set(txt);
-    })
-  );
+    }));
 
   lichess.mousetrap.bind('c', () => chatEl.focus());
 
@@ -163,10 +166,10 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   let prev: Line | undefined;
   ctrl.data.lines.forEach(line => {
     if (
-      !line.d &&
-      (!prev || !sameLines(prev, line)) &&
-      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
-      !spam.skip(line.t)
+      !line.d
+      && (!prev || !sameLines(prev, line))
+      && (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId)
+      && !spam.skip(line.t)
     )
       ls.push(line);
     prev = line;
@@ -210,9 +213,8 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   const userId = line.u?.toLowerCase();
 
   const myUserId = ctrl.data.userId;
-  const mentioned =
-    !!myUserId &&
-    !!line.t
+  const mentioned = !!myUserId
+    && !!line.t
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
@@ -228,17 +230,17 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
     ctrl.moderation()
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
-            ? h('i.flag', {
-                attrs: {
-                  'data-icon': licon.CautionTriangle,
-                  title: 'Report',
-                },
-              })
-            : null,
-          userNode,
-          ' ',
-          textNode,
-        ]
+        myUserId && line.u && myUserId != line.u
+          ? h('i.flag', {
+            attrs: {
+              'data-icon': licon.CautionTriangle,
+              title: 'Report',
+            },
+          })
+          : null,
+        userNode,
+        ' ',
+        textNode,
+      ]
   );
 }

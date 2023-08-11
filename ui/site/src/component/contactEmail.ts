@@ -1,5 +1,5 @@
-export default function () {
-  $('a.contact-email-obfuscated').one('click', function (this: HTMLLinkElement) {
+export default function() {
+  $('a.contact-email-obfuscated').one('click', function(this: HTMLLinkElement) {
     $(this).html('...');
     setTimeout(() => {
       const address = atob($(this).data('email'));

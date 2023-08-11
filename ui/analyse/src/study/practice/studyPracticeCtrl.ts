@@ -7,7 +7,7 @@ import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
-export default function (
+export default function(
   root: AnalyseCtrl,
   studyData: StudyData,
   data: StudyPracticeData

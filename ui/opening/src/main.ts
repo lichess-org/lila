@@ -12,7 +12,7 @@ export function initModule(data?: OpeningPage): void {
 }
 
 function page(data: OpeningPage) {
-  $('.opening__intro .lpv').each(function (this: HTMLElement) {
+  $('.opening__intro .lpv').each(function(this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',
@@ -47,7 +47,7 @@ const cgConfig: Config = {
 const loadExampleGames = () =>
   $('.opening__games .lpv--todo')
     .removeClass('lpv--todo')
-    .each(function (this: HTMLElement) {
+    .each(function(this: HTMLElement) {
       Lpv(this, {
         pgn: this.dataset['pgn']!,
         initialPly: parseInt(this.dataset['ply'] || '99'),
@@ -65,7 +65,7 @@ const loadExampleGames = () =>
     });
 
 const highlightNextPieces = () => {
-  $('.opening__next cg-board').each(function (this: HTMLElement) {
+  $('.opening__next cg-board').each(function(this: HTMLElement) {
     Array.from($(this).find('.last-move'))
       .map(el => el!.style.transform)
       .forEach(transform => {

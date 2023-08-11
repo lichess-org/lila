@@ -8,18 +8,10 @@
   },
   "typesVersions": {
     "*": {
-      "*": [
-        "dist/*"
-      ]
+      "*": ["dist/*"]
     }
   },
-  "keywords": [
-    "chess",
-    "lichess",
-    "non-visual",
-    "blind",
-    "accessibility"
-  ],
+  "keywords": ["chess", "lichess", "non-visual", "blind", "accessibility"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

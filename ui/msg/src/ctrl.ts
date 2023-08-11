@@ -8,7 +8,7 @@ import {
   SearchResult,
   Typing,
   Pane,
-  Redraw,
+  Redraw
 } from './interfaces';
 import throttle from 'common/throttle';
 import * as network from './network';
@@ -63,10 +63,10 @@ export default class MsgCtrl {
     if (this.data.convo && this.canGetMoreSince)
       network.getMore(this.data.convo.user.id, this.canGetMoreSince).then(data => {
         if (
-          !this.data.convo ||
-          !data.convo ||
-          data.convo.user.id != this.data.convo.user.id ||
-          !data.convo.msgs[0]
+          !this.data.convo
+          || !data.convo
+          || data.convo.user.id != this.data.convo.user.id
+          || !data.convo.msgs[0]
         )
           return;
         if (data.convo.msgs[0].date >= this.data.convo.msgs[this.data.convo.msgs.length - 1].date) return;

@@ -4,7 +4,7 @@ db.puzzle
       $exists: false,
     },
   })
-  .forEach(function (o) {
+  .forEach(function(o) {
     db.puzzle.update(
       {
         _id: o._id,
@@ -28,7 +28,7 @@ db.puzzle
       $exists: false,
     },
   })
-  .forEach(function (o) {
+  .forEach(function(o) {
     db.puzzle.update(
       {
         _id: o._id,

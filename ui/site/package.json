@@ -76,23 +76,18 @@
         "src/soundMove.ts": "soundMove"
       }
     },
-    "copy": [
-      {
-        "src": "node_modules/hopscotch/dist/**",
-        "dest": "../../public/vendor/hopscotch/dist"
-      },
-      {
-        "src": "node_modules/highcharts/*.js",
-        "dest": "../../public/vendor/highcharts-4.2.5"
-      },
-      {
-        "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
-        "dest": "../../public/vendor/tagify"
-      },
-      {
-        "src": "node_modules/stockfish*/*.{js,wasm}",
-        "dest": "../../public/vendor"
-      }
-    ]
+    "copy": [{
+      "src": "node_modules/hopscotch/dist/**",
+      "dest": "../../public/vendor/hopscotch/dist"
+    }, {
+      "src": "node_modules/highcharts/*.js",
+      "dest": "../../public/vendor/highcharts-4.2.5"
+    }, {
+      "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
+      "dest": "../../public/vendor/tagify"
+    }, {
+      "src": "node_modules/stockfish*/*.{js,wasm}",
+      "dest": "../../public/vendor"
+    }]
   }
 }

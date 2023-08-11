@@ -3,7 +3,7 @@ import { menu as menuDropdown } from 'board/menu';
 import { Controller } from '../interfaces';
 import { boolPrefXhrToggle } from 'common/controls';
 
-export default function (ctrl: Controller) {
+export default function(ctrl: Controller) {
   return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => [
     h('section', [menu.flip(ctrl.trans.noarg('flipBoard'), ctrl.flipped(), ctrl.flip)]),
     h('section', [

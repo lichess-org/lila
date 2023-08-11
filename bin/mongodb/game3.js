@@ -57,7 +57,7 @@ var finishedPlayerFieldsToRemove = [
   'isProposingTakeback',
 ];
 
-gamesToMigrate.forEach(function (g) {
+gamesToMigrate.forEach(function(g) {
   cleanOrRename(g, 'castles', 'cs');
   if (g.cc === 'white') {
     delete g.cc;
@@ -103,7 +103,7 @@ gamesToMigrate.forEach(function (g) {
     }
   }
   rename(g, 'players', 'p');
-  g.p.forEach(function (p) {
+  g.p.forEach(function(p) {
     delete p.c;
     map(p, 'ps', removeSpace);
     if (finishedOrAborted(g) && typeof p.blurs !== 'undefined' && p.blurs < 7) {

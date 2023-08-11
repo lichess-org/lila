@@ -4,7 +4,7 @@ import { DasherCtrl, Mode } from './dasher';
 import { view as pingView } from './ping';
 import { bind } from './util';
 
-export default function (ctrl: DasherCtrl): VNode {
+export default function(ctrl: DasherCtrl): VNode {
   const d = ctrl.data,
     trans = ctrl.trans,
     noarg = trans.noarg;
@@ -12,47 +12,47 @@ export default function (ctrl: DasherCtrl): VNode {
   function userLinks(): VNode | null {
     return d.user
       ? h('div.links', [
-          h(
-            'a.user-link.online.text.is-green',
-            linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
-            noarg('profile')
+        h(
+          'a.user-link.online.text.is-green',
+          linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
+          noarg('profile')
+        ),
+
+        h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
+
+        h(
+          'a.text',
+          linkCfg(
+            '/account/preferences/display',
+            licon.Gear,
+            ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
           ),
+          noarg('preferences')
+        ),
 
-          h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
+        !d.coach ? null : h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
 
-          h(
-            'a.text',
-            linkCfg(
-              '/account/preferences/display',
-              licon.Gear,
-              ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
-            ),
-            noarg('preferences')
-          ),
+        !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
 
-          !d.coach ? null : h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
-
-          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
-
-          h(
-            'form.logout',
-            {
-              attrs: { method: 'post', action: '/logout' },
-            },
-            [
-              h(
-                'button.text',
-                {
-                  attrs: {
-                    type: 'submit',
-                    'data-icon': licon.Power,
-                  },
+        h(
+          'form.logout',
+          {
+            attrs: { method: 'post', action: '/logout' },
+          },
+          [
+            h(
+              'button.text',
+              {
+                attrs: {
+                  type: 'submit',
+                  'data-icon': licon.Power,
                 },
-                noarg('logOut')
-              ),
-            ]
-          ),
-        ])
+              },
+              noarg('logOut')
+            ),
+          ]
+        ),
+      ])
       : null;
   }
 
@@ -70,19 +70,19 @@ export default function (ctrl: DasherCtrl): VNode {
 
   const zenToggle = ctrl.opts.zenable
     ? h('div.zen.selector', [
-        h(
-          'button.text',
-          {
-            attrs: {
-              'data-icon': licon.DiscBigOutline,
-              title: 'Keyboard: z',
-              type: 'button',
-            },
-            hook: bind('click', () => lichess.pubsub.emit('zen')),
+      h(
+        'button.text',
+        {
+          attrs: {
+            'data-icon': licon.DiscBigOutline,
+            title: 'Keyboard: z',
+            type: 'button',
           },
-          noarg('zenMode')
-        ),
-      ])
+          hook: bind('click', () => lichess.pubsub.emit('zen')),
+        },
+        noarg('zenMode')
+      ),
+    ])
     : null;
 
   return h('div', [

@@ -13,10 +13,12 @@ export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,})/.test(str);
 
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
-  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(
-    /https?:\/\//,
-    ''
-  )}</a>`;
+  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${
+    url.replace(
+      /https?:\/\//,
+      ''
+    )
+  }</a>`;
 }
 
 export const autolink = (str: string, callback: (str: string) => string): string =>
@@ -87,7 +89,7 @@ function toYouTubeEmbedUrl(url: string) {
   );
   if (!m) return;
   let start = 0;
-  m[2].split('&').forEach(function (p) {
+  m[2].split('&').forEach(function(p) {
     const s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
       if (s[1].match(/^\d+$/)) start = parseInt(s[1]);

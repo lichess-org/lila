@@ -9,7 +9,7 @@ import { RelayTab, StudyCtrl } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { scrollToInnerSelector } from 'common';
 
-export default function (ctrl: AnalyseCtrl): VNode | undefined {
+export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
   const relay = study?.relay;
   if (!study || !relay?.tourShow.active) return undefined;
@@ -30,12 +30,11 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     makeTab('schedule', 'Schedule'),
     relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);
-  const content =
-    relay.tab() == 'overview'
-      ? overview(relay, study)
-      : relay.tab() == 'schedule'
-      ? schedule(relay)
-      : leaderboard(relay);
+  const content = relay.tab() == 'overview'
+    ? overview(relay, study)
+    : relay.tab() == 'schedule'
+    ? schedule(relay)
+    : leaderboard(relay);
 
   return h('div.relay-tour', [tabs, ...content]);
 }
@@ -93,19 +92,19 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
             ? study.trans.noarg('playingRightNow')
             : round.startsAt
             ? h(
-                'time.timeago',
-                {
-                  hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
-                },
-                lichess.timeago(round.startsAt)
-              )
+              'time.timeago',
+              {
+                hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
+              },
+              lichess.timeago(round.startsAt)
+            )
             : null,
         ]
       ),
       relay.data.tour.markup
         ? h('div', {
-            hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
-          })
+          hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+        })
         : h('div', relay.data.tour.description),
     ]),
     study.looksNew() ? null : multiBoardView(study.multiBoard, study),
@@ -180,11 +179,11 @@ export function rounds(ctrl: StudyCtrl): VNode {
             roundStateIcon(round),
             canContribute
               ? h('a.act', {
-                  attrs: {
-                    ...dataIcon(licon.Gear),
-                    href: `/broadcast/round/${round.id}/edit`,
-                  },
-                })
+                attrs: {
+                  ...dataIcon(licon.Gear),
+                  href: `/broadcast/round/${round.id}/edit`,
+                },
+              })
               : null,
           ]
         )
@@ -192,20 +191,20 @@ export function rounds(ctrl: StudyCtrl): VNode {
       .concat(
         canContribute
           ? [
+            h(
+              'div.add',
               h(
-                'div.add',
-                h(
-                  'a.text',
-                  {
-                    attrs: {
-                      href: `/broadcast/${relay.data.tour.id}/new`,
-                      'data-icon': licon.PlusButton,
-                    },
+                'a.text',
+                {
+                  attrs: {
+                    href: `/broadcast/${relay.data.tour.id}/new`,
+                    'data-icon': licon.PlusButton,
                   },
-                  ctrl.trans.noarg('addRound')
-                )
-              ),
-            ]
+                },
+                ctrl.trans.noarg('addRound')
+              )
+            ),
+          ]
           : []
       )
   );

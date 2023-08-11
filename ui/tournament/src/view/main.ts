@@ -6,7 +6,7 @@ import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
 
-export default function (ctrl: TournamentController) {
+export default function(ctrl: TournamentController) {
   let handler: {
     name: string;
     main(ctrl: TournamentController): MaybeVNodes;
@@ -41,8 +41,8 @@ export default function (ctrl: TournamentController) {
     ),
     ctrl.opts.chat
       ? h('div.chat__members.none', {
-          hook: onInsert(lichess.watchers),
-        })
+        hook: onInsert(lichess.watchers),
+      })
       : null,
     ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);

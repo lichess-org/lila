@@ -22,21 +22,18 @@
     { "in": "sex", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "sju", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "åtta", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "bonde", "tok": "P", "tags": ["role", "move"] },
     { "in": "springar", "tok": "N", "tags": ["role", "move"] },
     { "in": "löpar", "tok": "B", "tags": ["role", "move"] },
     { "in": "torn", "tok": "R", "tags": ["role", "move"] },
     { "in": "dame", "tok": "Q", "tags": ["role", "move"] },
     { "in": "kunge", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "rockad", "val": "castle", "tags": ["move"] },
     { "in": "kort rockad", "val": "0-0", "tags": ["move"] },
     { "in": "slå", "val": "x", "tags": ["move"] },
     { "in": "slag", "val": "x", "tags": ["move"] },
     { "in": "promovering", "val": "=", "tags": ["move"] },
     { "in": "förvandling", "val": "=", "tags": ["move"] },
-
     { "in": "hoppsan", "val": "takeback", "tags": ["command"] },
     { "in": "gör om", "val": "takeback", "tags": ["command"] },
     { "in": "remi", "val": "draw", "tags": ["command", "round"] },
@@ -55,10 +52,8 @@
     { "in": "hjälp", "val": "help", "tags": ["command"] },
     { "in": "sluta lyssna", "val": "stop", "tags": ["command"] },
     { "in": "sluta spela in", "val": "stop", "tags": ["command"] },
-
     { "in": "ja", "val": "yes", "tags": ["choice"] },
     { "in": "nej", "val": "no", "tags": ["choice"] },
-
     { "in": "blå", "val": "blue", "tags": ["color", "choice"] },
     { "in": "grön", "val": "green", "tags": ["color", "choice"] },
     { "in": "gul", "val": "yellow", "tags": ["color", "choice"] },
@@ -69,7 +64,6 @@
     { "in": "orange", "val": "orange", "tags": ["color", "choice"] },
     { "in": "brun", "val": "brown", "tags": ["color", "choice"] },
     { "in": "vit", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "alfa", "val": "a", "tags": ["file", "move", "nato"] },
     { "in": "bravo", "val": "b", "tags": ["file", "move", "nato"] },
     { "in": "charlie", "val": "c", "tags": ["file", "move", "nato"] },
@@ -78,7 +72,6 @@
     { "in": "foxtrot", "val": "f", "tags": ["file", "move", "nato"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "nato"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "nato"] },
-
     { "in": "hmm", "val": "", "tags": ["ignore"] },
     { "in": "eh", "val": "", "tags": ["ignore"] },
     { "in": "tja", "val": "", "tags": ["ignore"] }

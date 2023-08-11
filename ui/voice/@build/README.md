@@ -12,7 +12,6 @@ needed by makeGrammar
 the lexicon folder contains <grammar>-lex.jsons and optional <grammar>-patch.jsons (where
 manual substitutions can be defined). patch entries should only be applied to
 vocabulary words that lack a sufficient sample in the crowdv data.
-
 ```
 
 # usage:
@@ -43,7 +42,6 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
 # some terminology:
 
 ```
-
   grammar - a list of entries for input words recognized by kaldi
 
   entry - a single entry in the grammar contains the input word (sometimes more than one), a
@@ -85,7 +83,7 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
 # see also:
 
 ```
-  * src/makeGrammar.ts
-  * ui/site/component/mic.ts
-  * ui/voice/src/plugins/voiceMove.ts
+* src/makeGrammar.ts
+* ui/site/component/mic.ts
+* ui/voice/src/plugins/voiceMove.ts
 ```

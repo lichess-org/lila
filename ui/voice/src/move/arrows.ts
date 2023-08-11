@@ -84,11 +84,10 @@ function timerShape(uci: Uci, offset: [number, number], duration: number, color:
   return {
     orig: src(uci),
     brush: 'v-grey',
-    customSvg:
-      (color !== 'grey'
-        ? `<svg width="100" height="100">`
-        : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
-      `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
+    customSvg: (color !== 'grey'
+      ? `<svg width="100" height="100">`
+      : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`)
+      + `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
                stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
          <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
                   values="0 ${Math.PI * 50}; ${Math.PI * 50} ${Math.PI * 50}"/>

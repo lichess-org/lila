@@ -44,7 +44,7 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
   );
 };
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   return h(
     'div.filters',
     h(

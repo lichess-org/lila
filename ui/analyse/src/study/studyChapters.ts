@@ -12,7 +12,7 @@ import {
   StudyChapterConfig,
   StudyChapterMeta,
   StudyCtrl,
-  TagArray,
+  TagArray
 } from './interfaces';
 
 export default class StudyChaptersCtrl {
@@ -86,7 +86,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = function () {
+      const makeSortable = function() {
         vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
@@ -107,8 +107,8 @@ export function view(ctrl: StudyCtrl): VNode {
         insert(vnode) {
           (vnode.elm as HTMLElement).addEventListener('click', e => {
             const target = e.target as HTMLElement;
-            const id =
-              (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+            const id = (target.parentNode as HTMLElement).getAttribute('data-id')
+              || target.getAttribute('data-id');
             if (!id) return;
             if (target.className === 'act') {
               const chapter = ctrl.chapters.get(id);
@@ -156,14 +156,14 @@ export function view(ctrl: StudyCtrl): VNode {
       .concat(
         ctrl.members.canContribute()
           ? [
-              h(
-                'div.add',
-                {
-                  hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw),
-                },
-                [h('span', iconTag(licon.PlusButton)), h('h3', ctrl.trans.noarg('addNewChapter'))]
-              ),
-            ]
+            h(
+              'div.add',
+              {
+                hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw),
+              },
+              [h('span', iconTag(licon.PlusButton)), h('h3', ctrl.trans.noarg('addNewChapter'))]
+            ),
+          ]
           : []
       )
   );

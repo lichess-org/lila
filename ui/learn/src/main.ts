@@ -50,7 +50,7 @@ export function initModule({ data, i18n }: LearnServerOpts) {
 
   opts.side = {
     ctrl: sideCtrl,
-    view: function () {
+    view: function() {
       return side.view(sideCtrl);
     },
   };

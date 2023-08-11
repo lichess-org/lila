@@ -55,8 +55,10 @@ async function main() {
   });
   const patch = `lexicon/${grammar}-patch.json`;
   if (fs.existsSync(patch))
-    for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ??
-      []) {
+    for (
+      const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[])
+        ?? []
+    ) {
       builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
     }
   writeGrammar(`../grammar/${grammar}.json`);
@@ -149,15 +151,15 @@ function ppCost(key: string, e: SubInfo) {
   const prettyPair = (k: string, v: string) => `${nameC(k)}${grey(':')} ${valueC(v)}`;
   const [from, to] = key.split(' ').map(x => builder.wordsOf(x));
   console.log(
-    `'${opC(from)}${grey(' => ')}${to === '' ? red('<delete>') : opC(to)}'${grey(':')} { ` +
-      [
+    `'${opC(from)}${grey(' => ')}${to === '' ? red('<delete>') : opC(to)}'${grey(':')} { `
+      + [
         prettyPair('count', `${e.count}`),
         prettyPair('all', `${e.all}`),
         prettyPair('conf', (e.conf / e.count).toFixed(2)),
         prettyPair('freq', e.freq.toFixed(3)),
         prettyPair('cost', e.cost?.toFixed(2) ?? '1'),
-      ].join(grey(', ')) +
-      ` }${grey(',')}`
+      ].join(grey(', '))
+      + ` }${grey(',')}`
   );
 }
 
@@ -329,9 +331,9 @@ class Builder {
     return this.wordTok.has(phrase)
       ? this.tokenOf(phrase)
       : phrase
-          .split(' ')
-          .map(word => this.tokenOf(word))
-          .join('');
+        .split(' ')
+        .map(word => this.tokenOf(word))
+        .join('');
   }
   decode(tokens: string) {
     return [...tokens].map(token => this.fromToken(token)).join(' ');
@@ -344,26 +346,28 @@ class Builder {
   stringify() {
     // output like prettier
     return (
-      '[\n  {\n    ' +
-      this.entries
+      '[\n  {\n    '
+      + this.entries
         .map(
           e =>
-            `in: '${e.in}',\n    ` +
-            (e.val !== undefined ? `val: '${e.val ?? ''}',\n    ` : '') +
-            `tok: '${e.tok}',\n    ` +
-            `tags: [${e.tags?.map(t => `'${t}'`).join(', ')}],` +
-            (e.subs
-              ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs
+            `in: '${e.in}',\n    `
+            + (e.val !== undefined ? `val: '${e.val ?? ''}',\n    ` : '')
+            + `tok: '${e.tok}',\n    `
+            + `tags: [${e.tags?.map(t => `'${t}'`).join(', ')}],`
+            + (e.subs
+              ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${
+                e.subs
                   .map(s => {
                     let c = s.cost.toFixed(2);
                     if (c.slice(-1) === '0') c = c.slice(0, -1);
                     return `{ to: '${s.to}', cost: ${c} }`;
                   })
-                  .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`
+                  .join(',\n      ')
+              }${e.subs.length > 1 ? ',\n    ],' : '],'}`
               : '')
         )
-        .join('\n  },\n  {\n    ') +
-      '\n  },\n]'
+        .join('\n  },\n  {\n    ')
+      + '\n  },\n]'
     ).replaceAll('\\', '\\\\');
   }
 }

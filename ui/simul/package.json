@@ -3,11 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org simul",
-  "keywords": [
-    "chess",
-    "lichess",
-    "simul"
-  ],
+  "keywords": ["chess", "lichess", "simul"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

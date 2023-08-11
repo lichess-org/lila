@@ -21,7 +21,6 @@
     { "in": "sáu", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "bảy", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "tám", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "tốt", "tok": "P", "tags": ["role", "move"] },
     { "in": "ngựa", "tok": "N", "tags": ["role", "move"] },
     { "in": "mã", "tok": "N", "tags": ["role", "move"] },
@@ -30,7 +29,6 @@
     { "in": "xe", "tok": "R", "tags": ["role", "move"] },
     { "in": "hậu", "tok": "Q", "tags": ["role", "move"] },
     { "in": "vua", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "nhập thành", "val": "castle", "tags": ["move"] },
     { "in": "nhập thành gần", "val": "O-O", "tags": ["move"] },
     { "in": "nhập thành cánh vua", "val": "O-O", "tags": ["move"] },
@@ -38,7 +36,6 @@
     { "in": "nhập thành cánh hậu", "val": "O-O-O", "tags": ["move"] },
     { "in": "ăn", "val": "x", "tags": ["move"] },
     { "in": "phong", "val": "=", "tags": ["move"] },
-
     { "in": "hoãn", "val": "takeback", "tags": ["command"] },
     { "in": "khoan", "val": "takeback", "tags": ["command"] },
     { "in": "hoà", "val": "draw", "tags": ["command", "round"] },
@@ -58,7 +55,6 @@
     { "in": "giải quyết", "val": "solve", "tags": ["command", "puzzle"] },
     { "in": "giúp đỡ", "val": "help", "tags": ["command"] },
     { "in": "dừng", "val": "stop", "tags": ["command"] },
-
     { "in": "đúng", "val": "yes", "tags": ["choice"] },
     { "in": "ok", "val": "yes", "tags": ["choice"] },
     { "in": "xác nhận", "val": "yes", "tags": ["choice"] },
@@ -67,7 +63,6 @@
     { "in": "xoá", "val": "no", "tags": ["choice"] },
     { "in": "đóng", "val": "no", "tags": ["choice"] },
     { "in": "huỷ bỏ", "val": "no", "tags": ["choice"] },
-
     { "in": "xanh", "val": "green", "tags": ["color", "choice"] },
     { "in": "vàng", "val": "yellow", "tags": ["color", "choice"] },
     { "in": "đỏ", "val": "red", "tags": ["color", "choice"] },
@@ -77,7 +72,6 @@
     { "in": "nâu", "val": "brown", "tags": ["color", "choice"] },
     { "in": "trắng", "val": "white", "tags": ["color", "choice"] },
     { "in": "xanh nước biển", "val": "blue", "tags": ["color", "choice"] },
-
     { "in": "chiếu hết", "val": "", "tags": ["move", "ignore"] },
     { "in": "chiếu", "val": "", "tags": ["move", "ignore"] },
     { "in": "cờ thế", "val": "", "tags": ["ignore"] },

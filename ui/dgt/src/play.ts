@@ -5,7 +5,7 @@ import { NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
 import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 
-export default function (token: string) {
+export default function(token: string) {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
   const consoleOutput = document.getElementById('dgt-play-zone-log') as HTMLPreElement;
 
@@ -126,7 +126,7 @@ export default function (token: string) {
     function fixLoggingFunc(name: string) {
       console['old' + name] = console[name];
       //Rewire function
-      console[name] = function () {
+      console[name] = function() {
         //Return a promise so execution is not delayed by string manipulation
         return new Promise<void>(resolve => {
           let output = '';
@@ -148,9 +148,8 @@ export default function (token: string) {
           const maxLogBytes = verbose ? -1048576 : -8192;
           let isScrolledToBottom = false;
           if (autoScroll) {
-            isScrolledToBottom =
-              eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <=
-              eleOverflowLocator.scrollTop + 1;
+            isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight
+              <= eleOverflowLocator.scrollTop + 1;
           }
           eleLocator.innerHTML = eleLocator.innerHTML.slice(maxLogBytes) + output;
           if (isScrolledToBottom) {
@@ -184,7 +183,7 @@ export default function (token: string) {
    *
    * Example
    * {"id":"andrescavallin","username":"andrescavallin","online":true,"perfs":{"blitz":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"bullet":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"correspondence":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"classical":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"rapid":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true}},"createdAt":1599930231644,"seenAt":1599932744930,"playTime":{"total":0,"tv":0},"url":"http://localhost:9663/@/andrescavallin","nbFollowing":0,"nbFollowers":0,"count":{"all":0,"rated":0,"ai":0,"draw":0,"drawH":0,"loss":0,"lossH":0,"win":0,"winH":0,"bookmark":0,"playing":0,"import":0,"me":0},"followable":true,"following":false,"blocking":false,"followsYou":false}
-   * */
+   */
   function getProfile() {
     //Log intention
     if (verbose) console.log('getProfile - About to call /api/account');
@@ -208,7 +207,7 @@ export default function (token: string) {
       });
   }
 
-  /** 
+  /**
     GET /api/stream/event
     Stream incoming events
 
@@ -218,7 +217,7 @@ export default function (token: string) {
 
     challenge Incoming challenge
     gameStart Start of a game
-    gameFinish to signal that game ended 
+    gameFinish to signal that game ended
     When the stream opens, all current challenges and games are sent.
 
     Examples:
@@ -287,20 +286,20 @@ export default function (token: string) {
 
   /**
   Stream Board game state
-   
+
   GET /api/board/game/stream/{gameId}
-   
+
   Stream the state of a game being played with the Board API, as ndjson.
   Use this endpoint to get updates about the game in real-time, with a single request.
   Each line is a JSON object containing a type field. Possible values are:
-   
+
   gameFull Full game data. All values are immutable, except for the state field.
   gameState Current state of the game. Immutable values not included. Sent when a move is played, a draw is offered, or when the game ends.
   chatLine Chat message sent by a user in the room "player" or "spectator".
   The first line is always of type gameFull.
-   
+
   Examples:
-   
+
   New Game
   {"id":"972RKuuq","variant":{"key":"standard","name":"Standard","short":"Std"},"clock":{"initial":900000,"increment":10000},"speed":"rapid","perf":{"name":"Rapid"},"rated":false,"createdAt":1586647003562,"white":{"id":"godking666","name":"Godking666","title":null,"rating":1761},"black":{"id":"andrescavallin","name":"andrescavallin","title":null,"rating":1362,"provisional":true},"initialFen":"startpos","type":"gameFull","state":{"type":"gameState","moves":"e2e4","wtime":900000,"btime":900000,"winc":10000,"binc":10000,"wdraw":false,"bdraw":false,"status":"started"}}
   First Move
@@ -408,11 +407,11 @@ export default function (token: string) {
     // Pad function to pad with 0 to 2 or 3 digits, default is 2
     const pad = (n: number, z = 2) => `00${n}`.slice(-z);
     return (
-      pad((timer / 3.6e6) | 0) +
-      ':' +
-      pad(((timer % 3.6e6) / 6e4) | 0) +
-      ':' +
-      pad(((timer % 6e4) / 1000) | 0)
+      pad((timer / 3.6e6) | 0)
+      + ':'
+      + pad(((timer % 3.6e6) / 6e4) | 0)
+      + ':'
+      + pad(((timer % 6e4) / 1000) | 0)
     ); //+ '.' + pad(timer % 1000, 3);
   }
 
@@ -464,7 +463,7 @@ export default function (token: string) {
       attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
       console.log('Active game updated. currentGameId: ' + currentGameId);
     }
-    else 
+    else
     */
     if (playableGames.length == 0) {
       console.log(
@@ -498,15 +497,15 @@ export default function (token: string) {
         console.error('Position on board does not match any ongoing game.');
         //No position match found
         if (
-          gameStateMap.has(currentGameId) &&
-          gameConnectionMap.get(currentGameId)!.connected &&
-          gameStateMap.get(currentGameId).status == 'started'
+          gameStateMap.has(currentGameId)
+          && gameConnectionMap.get(currentGameId)!.connected
+          && gameStateMap.get(currentGameId).status == 'started'
         ) {
           //No match found but there is a valid currentGameId , so keep it
           if (verbose)
             console.log(
-              'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' +
-                currentGameId
+              'chooseCurrentGame - Board will remain attached to current game. currentGameId: '
+                + currentGameId
             );
         } else {
           //No match and No valid current game but there are active games
@@ -529,8 +528,8 @@ export default function (token: string) {
           //The board matches currentGameId . No need to do anything.
           if (verbose)
             console.log(
-              'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' +
-                currentGameId
+              'chooseCurrentGame - Board will remain attached to current game. currentGameId: '
+                + currentGameId
             );
         }
       }
@@ -553,7 +552,7 @@ export default function (token: string) {
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] != '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          const uciMove = <NormalMove>parseUci(moves[i]);
+          const uciMove = <NormalMove> parseUci(moves[i]);
           const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
@@ -591,7 +590,7 @@ export default function (token: string) {
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] != '') {
             //Make the new move
-            const uciMove = <NormalMove>parseUci(moves[i]);
+            const uciMove = <NormalMove> parseUci(moves[i]);
             const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
@@ -664,19 +663,17 @@ export default function (token: string) {
         const gameInfo = gameInfoMap.get(keys[i]);
         //var gameState = gameStateMap.get(keys[i]);
         const lastMove = getLastUCIMove(keys[i]);
-        const versus =
-          gameInfo.black.id == me.id
-            ? (gameInfo.white.title !== null ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name
-            : (gameInfo.black.title !== null ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
+        const versus = gameInfo.black.id == me.id
+          ? (gameInfo.white.title !== null ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name
+          : (gameInfo.black.title !== null ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
         playableGames.push({
           gameId: gameInfo.id,
           versus: versus,
           'vs rating': gameInfo.black.id == me.id ? gameInfo.white.rating : gameInfo.black.rating,
           'game rating': gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated'),
-          Timer:
-            gameInfo.speed +
-            ' ' +
-            (gameInfo.clock !== null
+          Timer: gameInfo.speed
+            + ' '
+            + (gameInfo.clock !== null
               ? String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''"
               : '∞'),
           'Last Move': lastMove.player + ' ' + lastMove.move + ' by ' + lastMove.by,
@@ -707,21 +704,23 @@ export default function (token: string) {
       });
       */
       const innerTable =
-        `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>` +
-        `<tr><td>White</td><td>${gameInfo.white.title !== null ? gameInfo.white.title : '@'}</td><td>${
-          gameInfo.white.name
-        }</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${
-          lastMove.player == 'white' ? lastMove.move : '?'
-        }</td><td>${
-          gameInfo.speed +
-          ' ' +
-          (gameInfo.clock !== null
+        `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>`
+        + `<tr><td>White</td><td>${
+          gameInfo.white.title !== null ? gameInfo.white.title : '@'
+        }</td><td>${gameInfo.white.name}</td><td>${gameInfo.white.rating}</td><td>${
+          formattedTimer(gameState.wtime)
+        }</td><td>${lastMove.player == 'white' ? lastMove.move : '?'}</td><td>${
+          gameInfo.speed
+          + ' '
+          + (gameInfo.clock !== null
             ? String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''"
             : '∞')
-        }</td></tr>` +
-        `<tr><td>Black</td><td>${gameInfo.black.title !== null ? gameInfo.black.title : '@'}</td><td>${
-          gameInfo.black.name
-        }</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${
+        }</td></tr>`
+        + `<tr><td>Black</td><td>${
+          gameInfo.black.title !== null ? gameInfo.black.title : '@'
+        }</td><td>${gameInfo.black.name}</td><td>${gameInfo.black.rating}</td><td>${
+          formattedTimer(gameState.btime)
+        }</td><td>${
           lastMove.player == 'black' ? lastMove.move : '?'
         }</td><td>Status: ${gameState.status}</td></tr>`;
       console.log(innerTable);
@@ -891,9 +890,9 @@ export default function (token: string) {
         //Send setup with stating position
 
         if (
-          gameStateMap.has(currentGameId) &&
-          gameConnectionMap.get(currentGameId)!.connected &&
-          gameStateMap.get(currentGameId).status == 'started'
+          gameStateMap.has(currentGameId)
+          && gameConnectionMap.get(currentGameId)!.connected
+          && gameStateMap.get(currentGameId).status == 'started'
         ) {
           //There is a game in progress, setup the board as per lichess board
           if (currentGameId != DGTgameId) {
@@ -910,8 +909,8 @@ export default function (token: string) {
         if (message.param.san.length == 0) {
           if (verbose) console.info('onmessage - san is empty');
         } else if (
-          lastLegalParam !== undefined &&
-          JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
+          lastLegalParam !== undefined
+          && JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
         ) {
           //Prevent duplicates since LiveChess may send the same move twice
           //It looks like a duplicate, so just ignore it
@@ -942,11 +941,10 @@ export default function (token: string) {
                   'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretation received.'
                 );
                 return;
-              }
-              //There is a chance that the same move came twice and quarantined twice before updating lastLegalParam
+              } //There is a chance that the same move came twice and quarantined twice before updating lastLegalParam
               else if (
-                lastLegalParam !== undefined &&
-                JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
+                lastLegalParam !== undefined
+                && JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
               ) {
                 //It looks like a duplicate, so just ignore it
                 if (verbose)
@@ -963,7 +961,7 @@ export default function (token: string) {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
             if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-            const moveObject = <NormalMove | undefined>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            const moveObject = <NormalMove | undefined> parseSan(localBoard, SANMove); //get move from DGT LiveChess
             //if valid move on local chessops
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');
@@ -1012,8 +1010,8 @@ export default function (token: string) {
                 //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-synchronization
                 if (verbose)
                   console.error(
-                    'onmessage - invalidMove - Position Mismatch between DGT Board and internal in-memory Board. SAN: ' +
-                      SANMove
+                    'onmessage - invalidMove - Position Mismatch between DGT Board and internal in-memory Board. SAN: '
+                      + SANMove
                   );
                 announceInvalidMove();
                 console.info(board(localBoard.board));
@@ -1046,8 +1044,8 @@ export default function (token: string) {
       } else {
         //Websocket is fine but still no board detected
         console.warn(
-          'Connection to DGT Live Chess is Fine but no board is detected. Attempting re-connection. Attempt: ' +
-            attempts
+          'Connection to DGT Live Chess is Fine but no board is detected. Attempting re-connection. Attempt: '
+            + attempts
         );
         liveChessConnection.send('{"id":1,"call":"eboards"}');
       }
@@ -1104,9 +1102,9 @@ export default function (token: string) {
     //While there is not an active game, keep trying to find one so the move is not lost
     while (
       !(
-        gameStateMap.has(currentGameId) &&
-        gameConnectionMap.get(currentGameId)!.connected &&
-        gameStateMap.get(currentGameId).status == 'started'
+        gameStateMap.has(currentGameId)
+        && gameConnectionMap.get(currentGameId)!.connected
+        && gameStateMap.get(currentGameId).status == 'started'
       )
     ) {
       //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
@@ -1186,7 +1184,6 @@ export default function (token: string) {
   }
 
   /**
-   *
    * @param moveString The move in SAN or UCI
    *
    * @returns {String} - The move with spaces before the numbers for better TTS
@@ -1245,10 +1242,10 @@ export default function (token: string) {
         if (lastMove.startsWith(uciMove.substring(0, 2))) {
           //it was the same starting position for the king
           if (
-            lastMove.startsWith('e1g1') ||
-            lastMove.startsWith('e1c1') ||
-            lastMove.startsWith('e8c8') ||
-            lastMove.startsWith('e8g8')
+            lastMove.startsWith('e1g1')
+            || lastMove.startsWith('e1c1')
+            || lastMove.startsWith('e8c8')
+            || lastMove.startsWith('e8g8')
           ) {
             //and the last move looks like a castling too
             return true;

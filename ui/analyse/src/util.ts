@@ -1,7 +1,7 @@
 export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'black');
 
 export function readOnlyProp<A>(value: A): () => A {
-  return function (): A {
+  return function(): A {
     return value;
   };
 }

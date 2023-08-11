@@ -38,7 +38,7 @@ function ribbon(ctrl: MapCtrl, s: stages.Stage, status: string, res: StageProgre
 }
 
 function whatNext(ctrl: MapCtrl) {
-  const makeStage = function (href: string, img: string, title: string, subtitle: string, done?: boolean) {
+  const makeStage = function(href: string, img: string, title: string, subtitle: string, done?: boolean) {
     const transTitle = ctrl.trans.noarg(title);
     return m(
       'a',
@@ -76,16 +76,16 @@ function titleVerbosityClass(title: string) {
   return title.length > 13 ? (title.length > 18 ? ' vvv' : ' vv') : '';
 }
 
-export default function (ctrl: MapCtrl) {
+export default function(ctrl: MapCtrl) {
   return m('div.learn.learn--map', [
     m('div.learn__side', ctrl.opts.side.view()),
     m('div.learn__main.learn-stages', [
-      ...stages.categs.map(function (categ) {
+      ...stages.categs.map(function(categ) {
         return m('div.categ', [
           m('h2', ctrl.trans.noarg(categ.name)),
           m(
             'div.categ_stages',
-            categ.stages.map(function (s) {
+            categ.stages.map(function(s) {
               const res = ctrl.data.stages[s.key];
               const complete = ctrl.isStageIdComplete(s.id);
               const prevComplete = ctrl.isStageIdComplete(s.id - 1);

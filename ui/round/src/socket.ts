@@ -28,7 +28,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
   let timer: number | undefined;
   let lastExec = 0;
 
-  return function (this: any, ...args: any[]): void {
+  return function(this: any, ...args: any[]): void {
     const self: any = this;
     const elapsed = performance.now() - lastExec;
 
@@ -133,12 +133,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulPlayerMove(gameId: string) {
       if (
-        ctrl.opts.userId &&
-        ctrl.data.simul &&
-        ctrl.opts.userId == ctrl.data.simul.hostId &&
-        gameId !== ctrl.data.game.id &&
-        ctrl.moveOn.get() &&
-        !game.isPlayerTurn(ctrl.data)
+        ctrl.opts.userId
+        && ctrl.data.simul
+        && ctrl.opts.userId == ctrl.data.simul.hostId
+        && gameId !== ctrl.data.game.id
+        && ctrl.moveOn.get()
+        && !game.isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
         sound.move();

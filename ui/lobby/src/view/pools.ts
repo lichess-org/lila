@@ -7,9 +7,8 @@ export function hooks(ctrl: LobbyController): Hooks {
   return bind(
     'click',
     e => {
-      const id =
-        (e.target as HTMLElement).getAttribute('data-id') ||
-        ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
+      const id = (e.target as HTMLElement).getAttribute('data-id')
+        || ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
       if (id === 'custom') ctrl.setupCtrl.openModal('hook');
       else if (id) ctrl.clickPool(id);
     },

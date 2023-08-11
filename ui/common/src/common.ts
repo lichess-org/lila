@@ -32,16 +32,14 @@ export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): 
   };
 };
 
-export const withEffect =
-  <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> =>
-  (v?: T) => {
-    let returnValue;
-    if (defined(v)) {
-      returnValue = prop(v);
-      effect(v);
-    } else returnValue = prop();
-    return returnValue;
-  };
+export const withEffect = <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> => (v?: T) => {
+  let returnValue;
+  if (defined(v)) {
+    returnValue = prop(v);
+    effect(v);
+  } else returnValue = prop();
+  return returnValue;
+};
 
 export interface Toggle extends PropWithEffect<boolean> {
   toggle(): void;
@@ -56,7 +54,7 @@ export const toggle = (initialValue: boolean, effect: (value: boolean) => void =
 };
 
 // Only computes a value once. The computed value must not be undefined.
-export const memoize = <A>(compute: () => A): (() => A) => {
+export const memoize = <A>(compute: () => A): () => A => {
   let computed: A;
   return () => {
     if (computed === undefined) computed = compute();

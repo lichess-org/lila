@@ -2,7 +2,7 @@ import divisionLines from './division';
 import { loadHighcharts, MovePoint, selectPly } from './common';
 import { AnalyseData } from './interface';
 
-export default async function (el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean) {
+export default async function(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean) {
   const moveCentis = data.game.moveCentis;
   if (!moveCentis) return; // imported games
   await loadHighcharts('highchart');
@@ -133,19 +133,19 @@ export default async function (el: HTMLElement, data: AnalyseData, trans: Trans,
     series: [
       ...(showTotal
         ? [
-            {
-              name: 'White Clock Area',
-              type: 'area',
-              yAxis: 1,
-              data: totalSeries.white,
-            },
-            {
-              name: 'Black Clock Area',
-              type: 'area',
-              yAxis: 1,
-              data: totalSeries.black,
-            },
-          ]
+          {
+            name: 'White Clock Area',
+            type: 'area',
+            yAxis: 1,
+            data: totalSeries.white,
+          },
+          {
+            name: 'Black Clock Area',
+            type: 'area',
+            yAxis: 1,
+            data: totalSeries.black,
+          },
+        ]
         : []),
       {
         name: 'White Move Time',
@@ -163,19 +163,19 @@ export default async function (el: HTMLElement, data: AnalyseData, trans: Trans,
       },
       ...(showTotal
         ? [
-            {
-              name: 'White Clock Line',
-              type: 'line',
-              yAxis: 1,
-              data: totalSeries.white,
-            },
-            {
-              name: 'Black Clock Line',
-              type: 'line',
-              yAxis: 1,
-              data: totalSeries.black,
-            },
-          ]
+          {
+            name: 'White Clock Line',
+            type: 'line',
+            yAxis: 1,
+            data: totalSeries.white,
+          },
+          {
+            name: 'Black Clock Line',
+            type: 'line',
+            yAxis: 1,
+            data: totalSeries.black,
+          },
+        ]
         : []),
     ],
     chart: {
@@ -197,7 +197,7 @@ export default async function (el: HTMLElement, data: AnalyseData, trans: Trans,
       },
     },
     tooltip: {
-      formatter: function (this: any) {
+      formatter: function(this: any) {
         return labels[this.x];
       },
     },
@@ -209,15 +209,15 @@ export default async function (el: HTMLElement, data: AnalyseData, trans: Trans,
         ...(hunter
           ? foregrondLineOptions
           : {
-              ...clickableOptions,
-              lineWidth: 0,
-              states: {
-                hover: {
-                  lineWidth: 0,
-                },
+            ...clickableOptions,
+            lineWidth: 0,
+            states: {
+              hover: {
+                lineWidth: 0,
               },
-              marker: disabled,
-            }),
+            },
+            marker: disabled,
+          }),
         trackByArea: true,
         fillColor: whiteAreaFill,
         negativeFillColor: blackAreaFill,
@@ -286,10 +286,9 @@ const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player
 const formatClock = (centis: number) => {
   let result = '';
   if (centis >= 60 * 60 * 100) result += Math.floor(centis / 60 / 6000) + ':';
-  result +=
-    Math.floor((centis % (60 * 6000)) / 6000)
-      .toString()
-      .padStart(2, '0') + ':';
+  result += Math.floor((centis % (60 * 6000)) / 6000)
+    .toString()
+    .padStart(2, '0') + ':';
   const secs = (centis % 6000) / 100;
   if (centis < 6000) result += secs.toFixed(2).padStart(5, '0');
   else result += Math.floor(secs).toString().padStart(2, '0');

@@ -45,10 +45,10 @@ function renderTournament(tour: Tournament, day: Date) {
         'span.icon',
         tour.perf
           ? {
-              attrs: {
-                'data-icon': iconOf(tour),
-              },
-            }
+            attrs: {
+              'data-icon': iconOf(tour),
+            },
+          }
           : {}
       ),
       h('span.body', [tour.fullName]),
@@ -80,7 +80,7 @@ function makeLanes(tours: Tournament[]): Lanes {
 }
 
 function renderDay(ctrl: Ctrl) {
-  return function (day: Date): VNode {
+  return function(day: Date): VNode {
     const dayEnd = addDays(day, 1);
     const tours = ctrl.data.tournaments.filter(t => t.bounds.start < dayEnd && t.bounds.end > day);
     return h('day', [
@@ -102,7 +102,7 @@ function renderDay(ctrl: Ctrl) {
 }
 
 function renderGroup(ctrl: Ctrl) {
-  return function (group: Date[]): VNode {
+  return function(group: Date[]): VNode {
     return h('group', [renderTimeline(), h('days', group.map(renderDay(ctrl)))]);
   };
 }
@@ -136,7 +136,7 @@ function makeGroups(days: Date[]): Date[][] {
   return groups;
 }
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   const days = eachDayOfInterval({
     start: new Date(ctrl.data.since),
     end: new Date(ctrl.data.to),

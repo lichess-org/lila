@@ -53,18 +53,17 @@ db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
           by: p.user,
           at: p.createdAt,
         },
-        updated:
-          p.createdAt != p.updatedAt
-            ? {
-                by: p.user,
-                at: p.updatedAt,
-              }
-            : undefined,
+        updated: p.createdAt != p.updatedAt
+          ? {
+            by: p.user,
+            at: p.updatedAt,
+          }
+          : undefined,
         lived: p.liveAt
           ? {
-              by: p.user,
-              at: p.liveAt,
-            }
+            by: p.user,
+            at: p.liveAt,
+          }
           : undefined,
         likers: [],
         likes: NumberInt(0),

@@ -5,7 +5,7 @@ var ids = db.game4
   .find({ t: { $lt: 2 }, ca: { $lt: d } }, { _id: 1 })
   .limit(1000)
   .toArray()
-  .map(function (g) {
+  .map(function(g) {
     return g._id;
   });
 var nb = ids.length;

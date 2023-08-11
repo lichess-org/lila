@@ -58,8 +58,9 @@ export function view(ctrl: SearchCtrl) {
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
         hook: onInsert((el: HTMLInputElement) => {
-          el.addEventListener('input', (e: KeyboardEvent) =>
-            ctrl.query((e.target as HTMLInputElement).value.trim())
+          el.addEventListener(
+            'input',
+            (e: KeyboardEvent) => ctrl.query((e.target as HTMLInputElement).value.trim())
           );
           el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
         }),
@@ -79,11 +80,11 @@ export function view(ctrl: SearchCtrl) {
                 {
                   hook: highlightRegex
                     ? {
-                        insert(vnode: VNode) {
-                          const el = vnode.elm as HTMLElement;
-                          el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
-                        },
-                      }
+                      insert(vnode: VNode) {
+                        const el = vnode.elm as HTMLElement;
+                        el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
+                      },
+                    }
                     : {},
                 },
                 c.name

@@ -21,19 +21,19 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
       h('div.msg-app__convo__msgs__content', [
         ctrl.canGetMoreSince
           ? h(
-              'button.msg-app__convo__msgs__more.button.button-empty',
-              {
-                key: 'more',
-                attrs: {
-                  type: 'button',
-                },
-                hook: bind('click', _ => {
-                  scroller.setMarker();
-                  ctrl.getMore();
-                }),
+            'button.msg-app__convo__msgs__more.button.button-empty',
+            {
+              key: 'more',
+              attrs: {
+                type: 'button',
               },
-              'Load more'
-            )
+              hook: bind('click', _ => {
+                scroller.setMarker();
+                ctrl.getMore();
+              }),
+            },
+            'Load more'
+          )
           : null,
         ...contentMsgs(ctrl, convo.msgs),
         h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
@@ -116,20 +116,18 @@ const sameDay = (d: Date, e: Date) =>
 const renderText = (msg: Msg) =>
   enhance.isMoreThanText(msg.text)
     ? h('t', {
-        hook: {
-          create(_, vnode: VNode) {
-            const el = vnode.elm as HTMLElement;
-            el.innerHTML = enhance.enhance(msg.text);
-            el.querySelectorAll('img').forEach(c =>
-              c.addEventListener('load', scroller.auto, { once: true })
-            );
-            $('form.unsub', el).on('submit', function (this: HTMLFormElement) {
-              teamUnsub(this);
-              return false;
-            });
-          },
+      hook: {
+        create(_, vnode: VNode) {
+          const el = vnode.elm as HTMLElement;
+          el.innerHTML = enhance.enhance(msg.text);
+          el.querySelectorAll('img').forEach(c => c.addEventListener('load', scroller.auto, { once: true }));
+          $('form.unsub', el).on('submit', function(this: HTMLFormElement) {
+            teamUnsub(this);
+            return false;
+          });
         },
-      })
+      },
+    })
     : h('t', msg.text);
 
 const setupMsgs = (ctrl: MsgCtrl, insert: boolean) => (vnode: VNode) => {

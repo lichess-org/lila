@@ -33,15 +33,15 @@ export const fenInput = (ctrl: LobbyController) => {
       setupCtrl.fenError || !setupCtrl.lastValidFen
         ? null
         : h(
-            'span.preview',
-            h('div.position.mini-board.cg-wrap.is2d', {
-              attrs: { 'data-state': `${setupCtrl.lastValidFen},white` },
-              hook: {
-                insert: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
-                update: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
-              },
-            })
-          )
+          'span.preview',
+          h('div.position.mini-board.cg-wrap.is2d', {
+            attrs: { 'data-state': `${setupCtrl.lastValidFen},white` },
+            hook: {
+              insert: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
+              update: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
+            },
+          })
+        )
     ),
   ]);
 };

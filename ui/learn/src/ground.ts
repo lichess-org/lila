@@ -74,7 +74,7 @@ export function set(opts: GroundOpts) {
     },
     disableContextMenu: true,
   });
-  setTimeout(function () {
+  setTimeout(function() {
     cg.set({
       animation: {
         enabled: true,
@@ -120,7 +120,7 @@ export function check(chess: ChessCtrl) {
   });
   if (checks)
     cg.setShapes(
-      checks.map(function (move) {
+      checks.map(function(move) {
         return arrow(move.orig + move.dest, 'yellow');
       })
     );
@@ -158,10 +158,10 @@ export function get(key: Key) {
 }
 
 export function showCapture(move: CgMove) {
-  requestAnimationFrame(function () {
+  requestAnimationFrame(function() {
     const $square = $('#learn-app piece[data-key=' + move.orig + ']');
     $square.addClass('wriggle');
-    timeouts.setTimeout(function () {
+    timeouts.setTimeout(function() {
       $square.removeClass('wriggle');
       cg.setShapes([]);
       cg.apiMove(move.orig, move.dest);
@@ -178,10 +178,10 @@ export function showCheckmate(chess: ChessCtrl) {
     .moves({
       verbose: true,
     })
-    .filter(function (m) {
+    .filter(function(m) {
       return m.to === kingKey;
     })
-    .map(function (m) {
+    .map(function(m) {
       return arrow(m.from + m.to, 'red');
     });
   cg.set({

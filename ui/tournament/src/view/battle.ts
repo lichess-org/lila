@@ -26,37 +26,37 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
         h('br'),
         ...(tb.joinWith.length
           ? [
-              h('p', 'Which team will you represent in this battle?'),
-              ...tb.joinWith.map(id =>
-                h(
-                  'button.button.team-picker__team',
-                  {
-                    attrs: {
-                      'data-id': id,
-                    },
-                  },
-                  tb.teams[id]
-                )
-              ),
-            ]
-          : [
-              h('p', 'You must join one of these teams to participate!'),
+            h('p', 'Which team will you represent in this battle?'),
+            ...tb.joinWith.map(id =>
               h(
-                'ul',
-                shuffleArray(Object.keys(tb.teams)).map((t: string) =>
+                'button.button.team-picker__team',
+                {
+                  attrs: {
+                    'data-id': id,
+                  },
+                },
+                tb.teams[id]
+              )
+            ),
+          ]
+          : [
+            h('p', 'You must join one of these teams to participate!'),
+            h(
+              'ul',
+              shuffleArray(Object.keys(tb.teams)).map((t: string) =>
+                h(
+                  'li',
                   h(
-                    'li',
-                    h(
-                      'a',
-                      {
-                        attrs: { href: '/team/' + t },
-                      },
-                      tb.teams[t]
-                    )
+                    'a',
+                    {
+                      attrs: { href: '/team/' + t },
+                    },
+                    tb.teams[t]
                   )
                 )
-              ),
-            ]),
+              )
+            ),
+          ]),
       ]),
     ],
   });
@@ -68,11 +68,11 @@ export function teamStanding(ctrl: TournamentController, klass?: string): VNode 
     bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing
     ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
-        h('tbody', [
-          ...standing.map(rt => teamTr(ctrl, battle, rt)),
-          ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
-        ]),
-      ])
+      h('tbody', [
+        ...standing.map(rt => teamTr(ctrl, battle, rt)),
+        ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
+      ]),
+    ])
     : null;
 }
 

@@ -33,12 +33,12 @@ function xhrReset() {
   });
 }
 
-export default function (d?: LearnProgress): Storage {
+export default function(d?: LearnProgress): Storage {
   const data: LearnProgress = d || JSON.parse(lichess.storage.get(key)!) || defaultValue;
 
   return {
     data: data,
-    saveScore: function (stage: Stage, level: { id: number }, score: number) {
+    saveScore: function(stage: Stage, level: { id: number }, score: number) {
       if (!data.stages[stage.key])
         data.stages[stage.key] = {
           scores: [],
@@ -48,10 +48,10 @@ export default function (d?: LearnProgress): Storage {
       if (data._id) xhrSaveScore(stage.key, level.id, score);
       else lichess.storage.set(key, JSON.stringify(data));
     },
-    reset: function () {
+    reset: function() {
       data.stages = {};
       if (data._id)
-        xhrReset().then(function () {
+        xhrReset().then(function() {
           location.reload();
         });
       else {

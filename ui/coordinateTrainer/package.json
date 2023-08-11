@@ -3,12 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "lichess.org coordinate trainer",
-  "keywords": [
-    "chess",
-    "lichess.org",
-    "coordinate",
-    "trainer"
-  ],
+  "keywords": ["chess", "lichess.org", "coordinate", "trainer"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

@@ -25,13 +25,13 @@ declare module 'chess.js' {
   }
 }
 
-export default function (fen: string, appleKeys: Key[]): ChessCtrl {
+export default function(fen: string, appleKeys: Key[]): ChessCtrl {
   const chess = new Chess(fen);
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
     const color = chess.turn() === 'w' ? 'b' : 'w';
-    appleKeys.forEach(function (key) {
+    appleKeys.forEach(function(key) {
       chess.put(
         {
           type: 'p',
@@ -57,15 +57,15 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     }
   }
 
-  const findCaptures = function () {
+  const findCaptures = function() {
     return chess
       .moves({
         verbose: true,
       })
-      .filter(function (move) {
+      .filter(function(move) {
         return move.captured;
       })
-      .map(function (move) {
+      .map(function(move) {
         return {
           orig: move.from,
           dest: move.to,
@@ -81,16 +81,16 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
   }
 
   return {
-    dests: function (opts?: { illegal?: boolean }) {
+    dests: function(opts?: { illegal?: boolean }) {
       const dests: Dests = {};
-      chess.SQUARES.forEach(function (s) {
+      chess.SQUARES.forEach(function(s) {
         const ms = chess.moves({
           square: s,
           verbose: true,
           legal: !opts?.illegal,
         });
         if (ms.length)
-          dests[s] = ms.map(function (m) {
+          dests[s] = ms.map(function(m) {
             return m.to;
           });
       });
@@ -98,45 +98,45 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     },
     color,
     fen: chess.fen,
-    move: function (orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') {
+    move: function(orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') {
       return chess.move({
         from: orig,
         to: dest,
         promotion: prom ? (isRole(prom) ? roleToSan[prom] : prom) : undefined,
       });
     },
-    occupation: function () {
+    occupation: function() {
       const map: Partial<Record<Key, Piece>> = {};
-      chess.SQUARES.forEach(function (s) {
+      chess.SQUARES.forEach(function(s) {
         const p = chess.get(s);
         if (p) map[s] = p;
       });
       return map;
     },
-    kingKey: function (color: Color) {
+    kingKey: function(color: Color) {
       for (const i in chess.SQUARES) {
         const p = chess.get(chess.SQUARES[i]);
         if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b')) return chess.SQUARES[i];
       }
       return undefined;
     },
-    findCapture: function () {
+    findCapture: function() {
       return findCaptures()[0];
     },
-    findUnprotectedCapture: function () {
-      return findCaptures().find(function (capture) {
+    findUnprotectedCapture: function() {
+      return findCaptures().find(function(capture) {
         const clone = new Chess(chess.fen());
         clone.move({ from: capture.orig, to: capture.dest });
         return !clone
           .moves({
             verbose: true,
           })
-          .some(function (m) {
+          .some(function(m) {
             return m.captured && m.to === capture.dest;
           });
       });
     },
-    checks: function () {
+    checks: function() {
       if (!chess.in_check()) return null;
       const color = getColor();
       setColor(color === 'white' ? 'black' : 'white');
@@ -144,10 +144,10 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
         .moves({
           verbose: true,
         })
-        .filter(function (move) {
+        .filter(function(move) {
           return (move.captured as PieceType) === 'k';
         })
-        .map(function (move) {
+        .map(function(move) {
           return {
             orig: move.from,
             dest: move.to,
@@ -156,7 +156,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       setColor(color);
       return checks;
     },
-    playRandomMove: function () {
+    playRandomMove: function() {
       const moves = chess.moves({
         verbose: true,
       });

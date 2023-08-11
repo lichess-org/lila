@@ -182,19 +182,19 @@ const feedback = {
             nothing
               ? ctrl.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack')
               : ctrl.noarg(
-                  ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes'
-                )
+                ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes'
+              )
           ),
           h('div.choices.end', [
             nothing
               ? null
               : h(
-                  'a',
-                  {
-                    hook: bind('click', ctrl.reset),
-                  },
-                  ctrl.noarg('doItAgain')
-                ),
+                'a',
+                {
+                  hook: bind('click', ctrl.reset),
+                },
+                ctrl.noarg('doItAgain')
+              ),
             h(
               'a',
               {
@@ -217,7 +217,7 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
   return feedback[fb](ctrl);
 }
 
-export default function (root: AnalyseCtrl): VNode | undefined {
+export default function(root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
   const fb = ctrl.feedback(),

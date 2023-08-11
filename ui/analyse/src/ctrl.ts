@@ -15,7 +15,7 @@ import {
   Key,
   JustCaptured,
   NvuiPlugin,
-  Redraw,
+  Redraw
 } from './interfaces';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
@@ -182,8 +182,10 @@ export default class AnalyseCtrl {
       this.redraw();
     });
 
-    lichess.pubsub.on('ply.trigger', () =>
-      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
+    lichess.pubsub.on(
+      'ply.trigger',
+      () =>
+        lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
     );
     lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
@@ -207,10 +209,9 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     if (this.explorer) this.explorer.destroy();
     this.explorer = new ExplorerCtrl(this, this.opts.explorer, this.explorer);
-    this.gamePath =
-      this.synthetic || this.ongoing
-        ? undefined
-        : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+    this.gamePath = this.synthetic || this.ongoing
+      ? undefined
+      : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
@@ -476,11 +477,10 @@ export default class AnalyseCtrl {
 
   changeFen(fen: Fen): void {
     this.redirecting = true;
-    window.location.href =
-      '/analysis/' +
-      this.data.game.variant.key +
-      '/' +
-      encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+    window.location.href = '/analysis/'
+      + this.data.game.variant.key
+      + '/'
+      + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
@@ -577,12 +577,12 @@ export default class AnalyseCtrl {
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
     if (
-      (count.nodes >= 10 || count.comments > 0) &&
-      !confirm(
-        'Delete ' +
-          plural('move', count.nodes) +
-          (count.comments ? ' and ' + plural('comment', count.comments) : '') +
-          '?'
+      (count.nodes >= 10 || count.comments > 0)
+      && !confirm(
+        'Delete '
+          + plural('move', count.nodes)
+          + (count.comments ? ' and ' + plural('comment', count.comments) : '')
+          + '?'
       )
     )
       return;
@@ -670,15 +670,14 @@ export default class AnalyseCtrl {
       redraw: this.redraw,
       ...(this.opts.study && this.opts.practice
         ? {
-            storageKeyPrefix: 'practice',
-            multiPvDefault: 1,
-          }
+          storageKeyPrefix: 'practice',
+          multiPvDefault: 1,
+        }
         : {}),
-      externalEngines:
-        this.data.externalEngines?.map(engine => ({
-          ...engine,
-          endpoint: this.opts.externalEngineEndpoint,
-        })) || [],
+      externalEngines: this.data.externalEngines?.map(engine => ({
+        ...engine,
+        endpoint: this.opts.externalEngineEndpoint,
+      })) || [],
     });
   }
 
@@ -899,10 +898,10 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
-          this.ceval?.cachable &&
-          this.canEvalGet() &&
+          this.ceval?.cachable
+          && this.canEvalGet()
           // if not in study, only put decent opening moves
-          (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
+          && (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
         ),
       getNode: () => this.node,
       send: this.opts.socketSend,

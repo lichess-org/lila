@@ -10,7 +10,7 @@ import { renderRace } from './race';
 import { renderBoard } from './board';
 import { povMessage } from 'puz/run';
 
-export default function (ctrl: RacerCtrl): VNode {
+export default function(ctrl: RacerCtrl): VNode {
   return h(
     'div.racer.racer-app.racer--play',
     {
@@ -35,48 +35,48 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       const povMsg = h('p.racer__pre__message__pov', ctrl.trans(povMessage(ctrl.run)));
       return ctrl.race.lobby
         ? [
-            waitingToStart(noarg),
-            h('div.racer__pre__message.racer__pre__message--with-skip', [
-              h('div.racer__pre__message__text', [
-                h(
-                  'p',
-                  ctrl.knowsSkip()
-                    ? noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers')
-                    : skipHelp(noarg)
-                ),
-                povMsg,
-              ]),
-              ctrl.knowsSkip() ? null : renderSkip(ctrl),
-            ]),
-            comboZone(ctrl),
-          ]
-        : [
-            waitingToStart(noarg),
-            h('div.racer__pre__message', [
-              ...(ctrl.raceFull()
-                ? ctrl.isPlayer()
-                  ? [renderStart(ctrl)]
-                  : []
-                : ctrl.isPlayer()
-                ? [renderLink(ctrl), renderStart(ctrl)]
-                : [renderJoin(ctrl)]),
+          waitingToStart(noarg),
+          h('div.racer__pre__message.racer__pre__message--with-skip', [
+            h('div.racer__pre__message__text', [
+              h(
+                'p',
+                ctrl.knowsSkip()
+                  ? noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers')
+                  : skipHelp(noarg)
+              ),
               povMsg,
             ]),
-            comboZone(ctrl),
-          ];
+            ctrl.knowsSkip() ? null : renderSkip(ctrl),
+          ]),
+          comboZone(ctrl),
+        ]
+        : [
+          waitingToStart(noarg),
+          h('div.racer__pre__message', [
+            ...(ctrl.raceFull()
+              ? ctrl.isPlayer()
+                ? [renderStart(ctrl)]
+                : []
+              : ctrl.isPlayer()
+              ? [renderLink(ctrl), renderStart(ctrl)]
+              : [renderJoin(ctrl)]),
+            povMsg,
+          ]),
+          comboZone(ctrl),
+        ];
     }
     case 'racing': {
       const clock = renderClock(ctrl.run, ctrl.end, false);
       return ctrl.isPlayer()
         ? [playerScore(ctrl), h('div.puz-clock', [clock, renderSkip(ctrl)]), comboZone(ctrl)]
         : [
-            spectating(noarg),
-            h('div.racer__spectating', [
-              h('div.puz-clock', clock),
-              ctrl.race.lobby ? lobbyNext(ctrl) : waitForRematch(noarg),
-            ]),
-            comboZone(ctrl),
-          ];
+          spectating(noarg),
+          h('div.racer__spectating', [
+            h('div.puz-clock', clock),
+            ctrl.race.lobby ? lobbyNext(ctrl) : waitForRematch(noarg),
+          ]),
+          comboZone(ctrl),
+        ];
     }
     case 'post': {
       const nextRace = ctrl.race.lobby ? lobbyNext(ctrl) : friendNext(ctrl);
@@ -167,21 +167,21 @@ const renderLink = (ctrl: RacerCtrl) =>
 const renderStart = (ctrl: RacerCtrl) =>
   ctrl.isOwner() && !ctrl.vm.startsAt
     ? h(
-        'div.puz-side__start',
-        h(
-          'button.button.button-fat',
-          {
-            class: {
-              disabled: ctrl.players().length < 2,
-            },
-            hook: bind('click', ctrl.start),
-            attrs: {
-              disabled: ctrl.players().length < 2,
-            },
+      'div.puz-side__start',
+      h(
+        'button.button.button-fat',
+        {
+          class: {
+            disabled: ctrl.players().length < 2,
           },
-          ctrl.trans.noarg('startTheRace')
-        )
+          hook: bind('click', ctrl.start),
+          attrs: {
+            disabled: ctrl.players().length < 2,
+          },
+        },
+        ctrl.trans.noarg('startTheRace')
       )
+    )
     : null;
 
 const renderJoin = (ctrl: RacerCtrl) =>

@@ -140,164 +140,162 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ctrl.ongoing
         ? null
         : h(
-            'a.button.button-empty',
-            {
-              attrs: {
-                href: d.userAnalysis
-                  ? '/editor?' +
-                    new URLSearchParams({
-                      fen: ctrl.node.fen,
-                      variant: d.game.variant.key,
-                      color: ctrl.chessground.state.orientation,
-                    })
-                  : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
-                'data-icon': licon.Pencil,
-                rel: 'nofollow',
-              },
+          'a.button.button-empty',
+          {
+            attrs: {
+              href: d.userAnalysis
+                ? '/editor?'
+                  + new URLSearchParams({
+                    fen: ctrl.node.fen,
+                    variant: d.game.variant.key,
+                    color: ctrl.chessground.state.orientation,
+                  })
+                : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
+              'data-icon': licon.Pencil,
+              rel: 'nofollow',
             },
-            noarg('boardEditor')
-          ),
+          },
+          noarg('boardEditor')
+        ),
       canContinue
         ? h(
-            'a.button.button-empty',
-            {
-              hook: bind('click', _ =>
-                modal({
-                  content: $('.continue-with.g_' + d.game.id),
-                })
-              ),
-              attrs: dataIcon(licon.Swords),
-            },
-            noarg('continueFromHere')
-          )
+          'a.button.button-empty',
+          {
+            hook: bind('click', _ =>
+              modal({
+                content: $('.continue-with.g_' + d.game.id),
+              })),
+            attrs: dataIcon(licon.Swords),
+          },
+          noarg('continueFromHere')
+        )
         : null,
       studyButton(ctrl),
     ]),
   ];
 
-  const notSupported =
-    (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
+  const notSupported = (ceval?.technology == 'external' ? 'Engine' : 'Browser')
+    + ' does not support this option';
 
-  const cevalConfig: MaybeVNodes =
-    ceval?.possible && ceval.allowed()
-      ? [
-          h('h2', noarg('computerAnalysis')),
+  const cevalConfig: MaybeVNodes = ceval?.possible && ceval.allowed()
+    ? [
+      h('h2', noarg('computerAnalysis')),
+      ctrlToggle(
+        {
+          name: 'enable',
+          title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+          id: 'all',
+          checked: ctrl.showComputer(),
+          disabled: mandatoryCeval,
+          change: ctrl.toggleComputer,
+        },
+        ctrl
+      ),
+      ...(ctrl.showComputer()
+        ? [
           ctrlToggle(
             {
-              name: 'enable',
-              title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-              id: 'all',
-              checked: ctrl.showComputer(),
-              disabled: mandatoryCeval,
-              change: ctrl.toggleComputer,
+              name: 'bestMoveArrow',
+              title: 'Hotkey: a',
+              id: 'shapes',
+              checked: ctrl.showAutoShapes(),
+              change: ctrl.toggleAutoShapes,
             },
             ctrl
           ),
-          ...(ctrl.showComputer()
-            ? [
-                ctrlToggle(
-                  {
-                    name: 'bestMoveArrow',
-                    title: 'Hotkey: a',
-                    id: 'shapes',
-                    checked: ctrl.showAutoShapes(),
-                    change: ctrl.toggleAutoShapes,
-                  },
-                  ctrl
+          ctrlToggle(
+            {
+              name: 'evaluationGauge',
+              id: 'gauge',
+              checked: ctrl.showGauge(),
+              change: ctrl.toggleGauge,
+            },
+            ctrl
+          ),
+          ctrlToggle(
+            {
+              name: 'infiniteAnalysis',
+              title: 'removesTheDepthLimit',
+              id: 'infinite',
+              checked: ceval.infinite(),
+              change: ctrl.cevalSetInfinite,
+            },
+            ctrl
+          ),
+          ceval.technology != 'external'
+            ? ctrlToggle(
+              {
+                name: 'Use NNUE',
+                title: ceval.platform.supportsNnue
+                  ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+                  : notSupported,
+                id: 'enable-nnue',
+                checked: ceval.platform.supportsNnue && ceval.enableNnue(),
+                change: ceval.enableNnue,
+                disabled: !ceval.platform.supportsNnue,
+              },
+              ctrl
+            )
+            : null,
+          (id => {
+            const max = 5;
+            return h('div.setting', [
+              h('label', { attrs: { for: id } }, noarg('multipleLines')),
+              h('input#' + id, {
+                attrs: {
+                  type: 'range',
+                  min: 0,
+                  max,
+                  step: 1,
+                },
+                hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv),
+              }),
+              h('div.range_value', ceval.multiPv() + ' / ' + max),
+            ]);
+          })('analyse-multipv'),
+          (id => {
+            return h('div.setting', [
+              h('label', { attrs: { for: id } }, noarg('cpus')),
+              h('input#' + id, {
+                attrs: {
+                  type: 'range',
+                  min: 1,
+                  max: ceval.platform.maxThreads,
+                  step: 1,
+                  disabled: ceval.platform.maxThreads <= 1,
+                  ...(ceval.platform.maxThreads <= 1 ? { title: notSupported } : null),
+                },
+                hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
+              }),
+              h(
+                'div.range_value',
+                `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`
+              ),
+            ]);
+          })('analyse-threads'),
+          (id =>
+            h('div.setting', [
+              h('label', { attrs: { for: id } }, noarg('memory')),
+              h('input#' + id, {
+                attrs: {
+                  type: 'range',
+                  min: 4,
+                  max: Math.floor(Math.log2(ceval.platform.maxHashSize())),
+                  step: 1,
+                  disabled: ceval.platform.maxHashSize() <= 16,
+                  ...(ceval.platform.maxHashSize() <= 16 ? { title: notSupported } : null),
+                },
+                hook: rangeConfig(
+                  () => Math.floor(Math.log2(ceval.hashSize())),
+                  v => ctrl.cevalSetHashSize(Math.pow(2, v))
                 ),
-                ctrlToggle(
-                  {
-                    name: 'evaluationGauge',
-                    id: 'gauge',
-                    checked: ctrl.showGauge(),
-                    change: ctrl.toggleGauge,
-                  },
-                  ctrl
-                ),
-                ctrlToggle(
-                  {
-                    name: 'infiniteAnalysis',
-                    title: 'removesTheDepthLimit',
-                    id: 'infinite',
-                    checked: ceval.infinite(),
-                    change: ctrl.cevalSetInfinite,
-                  },
-                  ctrl
-                ),
-                ceval.technology != 'external'
-                  ? ctrlToggle(
-                      {
-                        name: 'Use NNUE',
-                        title: ceval.platform.supportsNnue
-                          ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
-                          : notSupported,
-                        id: 'enable-nnue',
-                        checked: ceval.platform.supportsNnue && ceval.enableNnue(),
-                        change: ceval.enableNnue,
-                        disabled: !ceval.platform.supportsNnue,
-                      },
-                      ctrl
-                    )
-                  : null,
-                (id => {
-                  const max = 5;
-                  return h('div.setting', [
-                    h('label', { attrs: { for: id } }, noarg('multipleLines')),
-                    h('input#' + id, {
-                      attrs: {
-                        type: 'range',
-                        min: 0,
-                        max,
-                        step: 1,
-                      },
-                      hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv),
-                    }),
-                    h('div.range_value', ceval.multiPv() + ' / ' + max),
-                  ]);
-                })('analyse-multipv'),
-                (id => {
-                  return h('div.setting', [
-                    h('label', { attrs: { for: id } }, noarg('cpus')),
-                    h('input#' + id, {
-                      attrs: {
-                        type: 'range',
-                        min: 1,
-                        max: ceval.platform.maxThreads,
-                        step: 1,
-                        disabled: ceval.platform.maxThreads <= 1,
-                        ...(ceval.platform.maxThreads <= 1 ? { title: notSupported } : null),
-                      },
-                      hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
-                    }),
-                    h(
-                      'div.range_value',
-                      `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`
-                    ),
-                  ]);
-                })('analyse-threads'),
-                (id =>
-                  h('div.setting', [
-                    h('label', { attrs: { for: id } }, noarg('memory')),
-                    h('input#' + id, {
-                      attrs: {
-                        type: 'range',
-                        min: 4,
-                        max: Math.floor(Math.log2(ceval.platform.maxHashSize())),
-                        step: 1,
-                        disabled: ceval.platform.maxHashSize() <= 16,
-                        ...(ceval.platform.maxHashSize() <= 16 ? { title: notSupported } : null),
-                      },
-                      hook: rangeConfig(
-                        () => Math.floor(Math.log2(ceval.hashSize())),
-                        v => ctrl.cevalSetHashSize(Math.pow(2, v))
-                      ),
-                    }),
-                    h('div.range_value', formatHashSize(ceval.hashSize())),
-                  ]))('analyse-memory'),
-              ]
-            : []),
+              }),
+              h('div.range_value', formatHashSize(ceval.hashSize())),
+            ]))('analyse-memory'),
         ]
-      : [];
+        : []),
+    ]
+    : [];
 
   const notationConfig = [
     ctrlToggle(
@@ -333,31 +331,31 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
     canContinue
       ? h('div.continue-with.none.g_' + d.game.id, [
-          h(
-            'a.button',
-            {
-              attrs: {
-                href: d.userAnalysis
-                  ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
-                  : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow',
-              },
+        h(
+          'a.button',
+          {
+            attrs: {
+              href: d.userAnalysis
+                ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
+                : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow',
             },
-            noarg('playWithTheMachine')
-          ),
-          h(
-            'a.button',
-            {
-              attrs: {
-                href: d.userAnalysis
-                  ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
-                  : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow',
-              },
+          },
+          noarg('playWithTheMachine')
+        ),
+        h(
+          'a.button',
+          {
+            attrs: {
+              href: d.userAnalysis
+                ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
+                : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow',
             },
-            noarg('playWithAFriend')
-          ),
-        ])
+          },
+          noarg('playWithAFriend')
+        ),
+      ])
       : null,
   ]);
 }

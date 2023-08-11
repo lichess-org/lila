@@ -45,19 +45,19 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       return h('div.study__comment.' + comment.id, [
         study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {
-              attrs: {
-                'data-icon': licon.Trash,
-                title: 'Delete',
+            attrs: {
+              'data-icon': licon.Trash,
+              title: 'Delete',
+            },
+            hook: bind(
+              'click',
+              _ => {
+                if (confirm('Delete ' + authorText(by) + "'s comment?"))
+                  study.commentForm.delete(chapter.id, ctrl.path, comment.id);
               },
-              hook: bind(
-                'click',
-                _ => {
-                  if (confirm('Delete ' + authorText(by) + "'s comment?"))
-                    study.commentForm.delete(chapter.id, ctrl.path, comment.id);
-                },
-                ctrl.redraw
-              ),
-            })
+              ctrl.redraw
+            ),
+          })
           : null,
         authorDom(by),
         ...(node.san ? [' on ', h('span.node', nodeFullName(node))] : []),

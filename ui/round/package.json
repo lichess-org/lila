@@ -3,12 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org round",
-  "keywords": [
-    "chess",
-    "lichess",
-    "play",
-    "replay"
-  ],
+  "keywords": ["chess", "lichess", "play", "replay"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

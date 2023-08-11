@@ -29,7 +29,7 @@ function setup(vnode: VNode) {
   p.manualGameIn(el);
 }
 
-export default function (ctrl: TournamentController): VNode {
+export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   const noarg = ctrl.trans.noarg;
   const tag = 'div.tour__player-info.tour__actor-info';
@@ -59,12 +59,12 @@ export default function (ctrl: TournamentController): VNode {
         playerTitle(data.player),
         data.player.team
           ? h(
-              'team',
-              {
-                hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw),
-              },
-              [teamName(ctrl.data.teamBattle!, data.player.team)]
-            )
+            'team',
+            {
+              hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw),
+            },
+            [teamName(ctrl.data.teamBattle!, data.player.team)]
+          )
           : null,
         h('table', [
           ctrl.opts.showRatings && data.player.performance
@@ -73,10 +73,10 @@ export default function (ctrl: TournamentController): VNode {
           numberRow(noarg('gamesPlayed'), nb.game),
           ...(nb.game
             ? [
-                numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
-                numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-                ctrl.opts.showRatings ? numberRow(noarg('averageOpponent'), avgOp, 'raw') : null,
-              ]
+              numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
+              numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
+              ctrl.opts.showRatings ? numberRow(noarg('averageOpponent'), avgOp, 'raw') : null,
+            ]
             : []),
         ]),
       ]),
@@ -89,7 +89,7 @@ export default function (ctrl: TournamentController): VNode {
               if (href) window.open(href, '_blank', 'noopener');
             }),
           },
-          data.pairings.map(function (p, i) {
+          data.pairings.map(function(p, i) {
             const res = result(p.win, p.status);
             return h(
               'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),

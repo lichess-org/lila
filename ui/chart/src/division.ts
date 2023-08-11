@@ -19,7 +19,7 @@ const divisionLine = (division: string, ply: number) => {
   };
 };
 
-export default function (div: Division | undefined, trans: Trans) {
+export default function(div: Division | undefined, trans: Trans) {
   const lines = [];
   lines.push({
     color: window.Highcharts.theme.lichess.line.accent,

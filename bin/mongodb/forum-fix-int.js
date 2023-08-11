@@ -4,7 +4,7 @@ db.f_categ
       $type: 1,
     },
   })
-  .forEach(function (o) {
+  .forEach(function(o) {
     print(o.name);
     db.f_categ.update(
       {

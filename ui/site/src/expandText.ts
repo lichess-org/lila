@@ -75,9 +75,7 @@ lichess.load.then(() => {
   function expandTwitter(a: Candidate) {
     $(a.element).replaceWith(
       $(
-        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${
-          a.src
-        }">${a.src}</a></blockquote>`
+        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${a.src}">${a.src}</a></blockquote>`
       )
     );
     if (!twitterLoaded) {
@@ -85,7 +83,7 @@ lichess.load.then(() => {
 
       // polyfill document.createElement so that iframes created by twitter get the `credentialless` attribute
       const originalCreateElement = document.createElement;
-      document.createElement = function () {
+      document.createElement = function() {
         const element = originalCreateElement.apply(this, arguments as any);
         if (element instanceof HTMLIFrameElement) {
           (element as any).credentialless = true;

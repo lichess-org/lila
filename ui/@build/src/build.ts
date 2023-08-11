@@ -91,10 +91,9 @@ async function globCopy(cp: Copy): Promise<Set<string>> {
   const dest = path.join(cp.mod.root, cp.dest) + path.sep;
 
   const globIndex = cp.src.search(globRe);
-  const globRoot =
-    globIndex > 0 && cp.src[globIndex - 1] === path.sep
-      ? cp.src.slice(0, globIndex - 1)
-      : path.dirname(cp.src.slice(0, globIndex));
+  const globRoot = globIndex > 0 && cp.src[globIndex - 1] === path.sep
+    ? cp.src.slice(0, globIndex - 1)
+    : path.dirname(cp.src.slice(0, globIndex));
 
   const srcs = await globArray(cp.src, { cwd: cp.mod.root, abs: false });
 

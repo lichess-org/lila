@@ -21,14 +21,12 @@
     { "in": "altı", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "yedi", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "sekiz", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "piyon", "tok": "P", "tags": ["role", "move"] },
     { "in": "at", "tok": "N", "tags": ["role", "move"] },
     { "in": "fil", "tok": "B", "tags": ["role", "move"] },
     { "in": "kale", "tok": "R", "tags": ["role", "move"] },
     { "in": "veziri", "tok": "Q", "tags": ["role", "move"] },
     { "in": "şah", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "rok", "val": "castle", "tags": ["move"] },
     { "in": "kısa rok", "val": "O-O", "tags": ["move"] },
     { "in": "şah kanadı", "val": "O-O", "tags": ["move"] },
@@ -43,7 +41,6 @@
     { "in": "terfi ettir", "val": "=", "tags": ["move"] },
     { "in": "terfi eder", "val": "=", "tags": ["move"] },
     { "in": "terfi", "val": "=", "tags": ["move"] },
-
     { "in": "geri al", "val": "takeback", "tags": ["command"] },
     { "in": "berabere", "val": "draw", "tags": ["command", "round"] },
     { "in": "berabere teklif et", "val": "draw", "tags": ["command", "round"] },
@@ -62,14 +59,12 @@
     { "in": "dur", "val": "stop", "tags": ["command"] },
     { "in": "dinlemeyi durdur", "val": "mic-off", "tags": ["command"] },
     { "in": "kaydı durdur", "val": "mic-off", "tags": ["command"] },
-
     { "in": "evet", "val": "yes", "tags": ["choice"] },
     { "in": "onayla", "val": "yes", "tags": ["choice"] },
     { "in": "hayır", "val": "no", "tags": ["choice"] },
     { "in": "temizle", "val": "no", "tags": ["choice"] },
     { "in": "kapat", "val": "no", "tags": ["choice"] },
     { "in": "iptal", "val": "no", "tags": ["choice"] },
-
     { "in": "mavi", "val": "blue", "tags": ["color", "choice"] },
     { "in": "yeşil", "val": "green", "tags": ["color", "choice"] },
     { "in": "sarı", "val": "yellow", "tags": ["color", "choice"] },
@@ -79,7 +74,6 @@
     { "in": "turuncu", "val": "orange", "tags": ["color", "choice"] },
     { "in": "kahverengi", "val": "brown", "tags": ["color", "choice"] },
     { "in": "beyaz", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "alfa", "val": "a", "tags": ["file", "move", "nato"] },
     { "in": "bravo", "val": "b", "tags": ["file", "move", "nato"] },
     { "in": "charlie", "val": "c", "tags": ["file", "move", "nato"] },
@@ -88,7 +82,6 @@
     { "in": "foxtrot", "val": "f", "tags": ["file", "move", "nato"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "nato"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "nato"] },
-
     { "in": "mat", "val": "", "tags": ["move", "ignore"] },
     { "in": "şah", "val": "", "tags": ["move", "ignore"] },
     { "in": "bulmaca", "val": "", "tags": ["ignore"] },

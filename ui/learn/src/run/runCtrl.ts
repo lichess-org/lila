@@ -24,16 +24,15 @@ export interface Vm {
   stageCompleted: _mithril.MithrilBasicProperty<boolean>;
 }
 
-export default function (opts: LearnOpts, trans: Trans): Ctrl {
+export default function(opts: LearnOpts, trans: Trans): Ctrl {
   timeouts.clearTimeouts();
 
   const stage = stages.byId[Number(m.route.param('stage'))];
   if (!stage) m.route('/');
   opts.side.ctrl.setStage(stage);
 
-  const levelId =
-    m.route.param('level') ||
-    (function () {
+  const levelId = m.route.param('level')
+    || (function() {
       const result = opts.storage.data.stages[stage.key];
       let it = 0;
       if (result) while (result.scores[it]) it++;
@@ -56,12 +55,12 @@ export default function (opts: LearnOpts, trans: Trans): Ctrl {
     },
   });
 
-  const stageScore = function () {
+  const stageScore = function() {
     const res = opts.storage.data.stages[stage.key];
     return res
-      ? res.scores.reduce(function (a, b) {
-          return a + b;
-        })
+      ? res.scores.reduce(function(a, b) {
+        return a + b;
+      })
       : 0;
   };
 
@@ -77,7 +76,7 @@ export default function (opts: LearnOpts, trans: Trans): Ctrl {
 
   isRestarting.set(false);
 
-  const getNext = function () {
+  const getNext = function() {
     return stages.byId[stage.id + 1];
   };
   if (vm.stageStarting()) sound.stageStart();
@@ -99,12 +98,12 @@ export default function (opts: LearnOpts, trans: Trans): Ctrl {
     progress: makeProgress(stage, level, opts.storage.data),
     stageScore: stageScore,
     getNext: getNext,
-    hideStartingPane: function () {
+    hideStartingPane: function() {
       if (!vm.stageStarting()) return;
       vm.stageStarting(false);
       level.start();
     },
-    restart: function () {
+    restart: function() {
       isRestarting.set(true);
       m.route('/' + stage.id + '/' + level.blueprint.id);
     },

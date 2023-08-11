@@ -2,10 +2,7 @@
   "name": "ui",
   "version": "2.0.0",
   "private": true,
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
+  "keywords": ["chess", "lichess"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

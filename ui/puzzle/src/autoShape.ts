@@ -29,7 +29,7 @@ function makeAutoShapesFromUci(
   ];
 }
 
-export default function (opts: Opts): DrawShape[] {
+export default function(opts: Opts): DrawShape[] {
   const n = opts.vm.node,
     hovering = opts.ceval.hovering(),
     color = n.fen.includes(' w ') ? 'white' : 'black';
@@ -43,13 +43,13 @@ export default function (opts: Opts): DrawShape[] {
       if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
       if (
-        opts.ceval.enabled() &&
-        n.ceval &&
-        n.ceval.pvs &&
-        n.ceval.pvs[1] &&
-        !(opts.threatMode && n.threat && n.threat.pvs[2])
+        opts.ceval.enabled()
+        && n.ceval
+        && n.ceval.pvs
+        && n.ceval.pvs[1]
+        && !(opts.threatMode && n.threat && n.threat.pvs[2])
       ) {
-        n.ceval.pvs.forEach(function (pv) {
+        n.ceval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, n.ceval!.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
@@ -65,7 +65,7 @@ export default function (opts: Opts): DrawShape[] {
   if (opts.ceval.enabled() && opts.threatMode && n.threat) {
     if (n.threat.pvs[1]) {
       shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'paleRed'));
-      n.threat.pvs.slice(1).forEach(function (pv) {
+      n.threat.pvs.slice(1).forEach(function(pv) {
         const shift = winningChances.povDiff(opposite(color), pv, n.threat!.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
         shapes = shapes.concat(

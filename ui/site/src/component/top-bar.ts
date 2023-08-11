@@ -2,7 +2,7 @@ import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './assets';
 import { memoize } from 'common';
 
-export default function () {
+export default function() {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
@@ -15,11 +15,12 @@ export default function () {
   if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
     $('#topnav > section > a').removeAttr('href');
 
-  $('#topnav-toggle').on('change', e =>
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
+  $('#topnav-toggle').on(
+    'change',
+    e => document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
   );
 
-  $('#top').on('click', '.toggle', function (this: HTMLElement) {
+  $('#top').on('click', '.toggle', function(this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {
@@ -39,7 +40,7 @@ export default function () {
     const $toggle = $('#challenge-toggle'),
       $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
-    const load = function (data?: any) {
+    const load = function(data?: any) {
       if (instance) return;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
@@ -127,7 +128,7 @@ export default function () {
   {
     // dasher
     const load = memoize(() => loadEsm('dasher'));
-    $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
+    $('#top .dasher .toggle').one('mouseover click', function(this: HTMLElement) {
       $(this).removeAttr('href');
       loadCssPath('dasher');
       load();

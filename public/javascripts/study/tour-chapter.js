@@ -1,8 +1,7 @@
 function loadShepherd(f) {
   const dataTheme = $('body').data('theme');
-  const theme =
-    'shepherd-theme-' +
-    (dataTheme === 'system'
+  const theme = 'shepherd-theme-'
+    + (dataTheme === 'system'
       ? window.matchMedia('(prefers-color-scheme: light)').matches
         ? 'default'
         : 'dark'
@@ -10,17 +9,17 @@ function loadShepherd(f) {
       ? 'default'
       : 'dark');
   lichess.loadCss('vendor/' + theme + '.css');
-  lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
-    lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
+  lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function() {
+    lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function() {
       f(theme);
     });
   });
 }
-lichess.studyTourChapter = function (study) {
-  loadShepherd(function (theme) {
-    var onTab = function (tab) {
+lichess.studyTourChapter = function(study) {
+  loadShepherd(function(theme) {
+    var onTab = function(tab) {
       return {
-        'before-show': function () {
+        'before-show': function() {
           study.setTab(tab);
         },
       };
@@ -35,10 +34,9 @@ lichess.studyTourChapter = function (study) {
     [
       {
         title: "Let's create a study chapter",
-        text:
-          'A study can have several chapters.<br>' +
-          'Each chapter has a distinct move tree,<br>' +
-          'and can be created in various ways.',
+        text: 'A study can have several chapters.<br>'
+          + 'Each chapter has a distinct move tree,<br>'
+          + 'and can be created in various ways.',
         attachTo: '#modal-wrap label[for=chapter-name] left',
       },
       {
@@ -55,19 +53,17 @@ lichess.studyTourChapter = function (study) {
       },
       {
         title: 'Load an existing lichess game',
-        text:
-          'Paste a lichess game URL<br>' +
-          '(like lichess.org/7fHIU0XI)<br>' +
-          'to load the game moves in the chapter.',
+        text: 'Paste a lichess game URL<br>'
+          + '(like lichess.org/7fHIU0XI)<br>'
+          + 'to load the game moves in the chapter.',
         attachTo: '#modal-wrap .tabs-horiz .game top',
         when: onTab('game'),
       },
       {
         title: 'From a FEN string',
-        text:
-          'Paste a position in FEN format<br>' +
-          '<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>' +
-          'to start the chapter from a position.',
+        text: 'Paste a position in FEN format<br>'
+          + '<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>'
+          + 'to start the chapter from a position.',
         attachTo: '#modal-wrap .tabs-horiz .fen top',
         when: onTab('fen'),
       },
@@ -94,7 +90,7 @@ lichess.studyTourChapter = function (study) {
         ],
         attachTo: '#modal-wrap .help bottom',
       },
-    ].forEach(function (s) {
+    ].forEach(function(s) {
       tour.addStep(s.title, s);
     });
     tour.start();

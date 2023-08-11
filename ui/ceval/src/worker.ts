@@ -9,7 +9,7 @@ export enum CevalState {
   Loading,
   Idle,
   Computing,
-  Failed,
+  Failed
 }
 
 export interface CevalWorker {

@@ -1,7 +1,7 @@
 import { OpeningPage } from './interfaces';
 
 export default async function wikiTheory(data: OpeningPage) {
-  $('.opening__wiki__markup__placeholder').each(function (this: HTMLDivElement) {
+  $('.opening__wiki__markup__placeholder').each(function(this: HTMLDivElement) {
     const wrap = $(this);
     fetchAndRender(data, html => wrap.html(html));
   });
@@ -27,8 +27,8 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
     `<p><a target="_blank" href="${wikiBooksUrl}/wiki/${title}">Read more on WikiBooks</a></p>`;
 
   const transform = (html: string, title: string) =>
-    removeH1(removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html))))) +
-    readMore(title);
+    removeH1(removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html)))))
+    + readMore(title);
 
   const plyPrefix = (ply: number) => `${Math.floor((ply + 1) / 2)}${ply % 2 === 1 ? '._' : '...'}`;
   const pathParts = data.sans.map((san, i) => `${plyPrefix(i + 1)}${san}`);

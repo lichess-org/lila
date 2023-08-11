@@ -5,11 +5,7 @@
   "description": "lichess.org chess performance statistics",
   "type": "module",
   "module": "src/main.js",
-  "keywords": [
-    "chess",
-    "lichess",
-    "learn"
-  ],
+  "keywords": ["chess", "lichess", "learn"],
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

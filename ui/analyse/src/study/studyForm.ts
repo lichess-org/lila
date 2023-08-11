@@ -50,7 +50,7 @@ const select = (s: Select): VNode =>
     ),
     h(
       `select#study-${s.key}.form-control`,
-      s.choices.map(function (o) {
+      s.choices.map(function(o) {
         return h(
           'option',
           {
@@ -231,24 +231,24 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ]),
           ctrl.relay
             ? h('div.form-actions-secondary', [
-                h(
-                  'a.text',
-                  {
-                    attrs: {
-                      'data-icon': licon.RadioTower,
-                      href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
-                    },
+              h(
+                'a.text',
+                {
+                  attrs: {
+                    'data-icon': licon.RadioTower,
+                    href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
                   },
-                  'Tournament settings'
-                ),
-                h(
-                  'a.text',
-                  {
-                    attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` },
-                  },
-                  'Round settings'
-                ),
-              ])
+                },
+                'Tournament settings'
+              ),
+              h(
+                'a.text',
+                {
+                  attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` },
+                },
+                'Round settings'
+              ),
+            ])
             : null,
           h('div.form-actions', [
             h('div', { attrs: { style: 'display: flex' } }, [
@@ -262,8 +262,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   hook: bindNonPassive(
                     'submit',
                     _ =>
-                      isNew ||
-                      prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim()
+                      isNew
+                      || prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim()
                   ),
                 },
                 [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))]
@@ -271,18 +271,19 @@ export function view(ctrl: StudyFormCtrl): VNode {
               isNew
                 ? null
                 : h(
-                    'form',
-                    {
-                      attrs: {
-                        action: '/study/' + data.id + '/clear-chat',
-                        method: 'post',
-                      },
-                      hook: bindNonPassive('submit', _ =>
-                        confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'))
-                      ),
+                  'form',
+                  {
+                    attrs: {
+                      action: '/study/' + data.id + '/clear-chat',
+                      method: 'post',
                     },
-                    [h(emptyRedButton, ctrl.trans.noarg('clearChat'))]
-                  ),
+                    hook: bindNonPassive(
+                      'submit',
+                      _ => confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'))
+                    ),
+                  },
+                  [h(emptyRedButton, ctrl.trans.noarg('clearChat'))]
+                ),
             ]),
             h(
               'button.button',

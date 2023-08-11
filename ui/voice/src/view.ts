@@ -29,13 +29,13 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
     ]),
     ctrl.showPrefs()
       ? h('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showPrefs(false))) }, [
-          deviceSelector(ctrl, redraw),
-          langSetting(ctrl),
-          ...(ctrl.module()?.prefNodes(redraw) ?? []),
-          pushTalkSetting(ctrl),
-          h('br'),
-          ctrl.moduleId === 'move' ? voiceDisable() : null,
-        ])
+        deviceSelector(ctrl, redraw),
+        langSetting(ctrl),
+        ...(ctrl.module()?.prefNodes(redraw) ?? []),
+        pushTalkSetting(ctrl),
+        h('br'),
+        ctrl.moduleId === 'move' ? voiceDisable() : null,
+      ])
       : null,
 
     ctrl.showHelp() ? renderHelpModal(ctrl) : null,
@@ -74,26 +74,26 @@ function langSetting(ctrl: VoiceCtrl) {
   return supportedLangs.length < 2
     ? null
     : h('div.voice-setting', [
-        h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
-        h(
-          'select#voice-lang',
-          {
-            attrs: { name: 'lang' },
-            hook: bind('change', e => ctrl.lang((e.target as HTMLSelectElement).value)),
-          },
-          [
-            ...supportedLangs.map(l =>
-              h(
-                'option',
-                {
-                  attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] },
-                },
-                l[1]
-              )
-            ),
-          ]
-        ),
-      ]);
+      h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      h(
+        'select#voice-lang',
+        {
+          attrs: { name: 'lang' },
+          hook: bind('change', e => ctrl.lang((e.target as HTMLSelectElement).value)),
+        },
+        [
+          ...supportedLangs.map(l =>
+            h(
+              'option',
+              {
+                attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] },
+              },
+              l[1]
+            )
+          ),
+        ]
+      ),
+    ]);
 }
 
 let devices: InputDeviceInfo[] | undefined;
@@ -132,29 +132,27 @@ function voiceDisable() {
   return !$('body').data('user')
     ? null
     : h(
-        'a.button',
-        {
-          attrs: {
-            title: 'Also set in Preferences -> Display',
-          },
-          hook: bind('click', () =>
-            xhr
-              .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
-              .then(() => window.location.reload())
-          ),
+      'a.button',
+      {
+        attrs: {
+          title: 'Also set in Preferences -> Display',
         },
-        'Disable voice recognition'
-      );
+        hook: bind('click', () =>
+          xhr
+            .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
+            .then(() => window.location.reload())),
+      },
+      'Disable voice recognition'
+    );
 }
 
 function renderHelpModal(ctrl: VoiceCtrl) {
   const showMoveList = (el: Cash) => {
     let html = '<table id="big-table"><tbody>';
-    const all =
-      ctrl
-        .module()
-        ?.allPhrases()
-        ?.sort((a, b) => a[0].localeCompare(b[0])) ?? [];
+    const all = ctrl
+      .module()
+      ?.allPhrases()
+      ?.sort((a, b) => a[0].localeCompare(b[0])) ?? [];
     const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
     const rows = Math.ceil(all.length / cols);
     for (let row = 0; row < rows; row++) {
@@ -190,7 +188,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic'))
         )?.in;
-      $('.val-to-word', el).each(function (this: HTMLElement) {
+      $('.val-to-word', el).each(function(this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
         this.innerText = this.innerText

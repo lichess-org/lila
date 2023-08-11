@@ -3,12 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org board editor",
-  "keywords": [
-    "chess",
-    "lichess.org",
-    "board",
-    "editor"
-  ],
+  "keywords": ["chess", "lichess.org", "board", "editor"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

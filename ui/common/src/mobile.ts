@@ -21,8 +21,7 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
 }
 
 export const bindMobileMousedown =
-  (f: (e: Event) => unknown, redraw?: () => void) =>
-  (el: HTMLElement): void => {
+  (f: (e: Event) => unknown, redraw?: () => void) => (el: HTMLElement): void => {
     for (const mousedownEvent of ['touchstart', 'mousedown']) {
       el.addEventListener(
         mousedownEvent,

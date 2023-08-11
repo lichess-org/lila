@@ -8,7 +8,7 @@ interface Team {
 }
 
 lichess.load.then(() => {
-  $('#form3-teams').each(function (this: HTMLTextAreaElement) {
+  $('#form3-teams').each(function(this: HTMLTextAreaElement) {
     const textarea = this;
 
     const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea), {
@@ -40,7 +40,7 @@ lichess.load.then(() => {
       },
     ]);
 
-    textcomplete.on('rendered', function () {
+    textcomplete.on('rendered', function() {
       if (textcomplete.dropdown.items.length) {
         // Activate the first item by default.
         textcomplete.dropdown.items[0].activate();

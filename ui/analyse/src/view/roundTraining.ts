@@ -34,10 +34,10 @@ const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
     );
   return h(
     'span',
-    p.name ||
-      (p.ai && 'Stockfish level ' + p.ai) ||
-      (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
-      'Anonymous'
+    p.name
+      || (p.ai && 'Stockfish level ' + p.ai)
+      || (ctrl.study && findTag(ctrl.study.data.chapter.tags, color))
+      || 'Anonymous'
   );
 };
 
@@ -107,13 +107,13 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
       hook: {
         insert: vnode => {
           $(vnode.elm as HTMLElement)
-            .on('click', 'div.symbol', function (this: Element) {
+            .on('click', 'div.symbol', function(this: Element) {
               ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
             })
-            .on('mouseenter', 'div.symbol', function (this: Element) {
+            .on('mouseenter', 'div.symbol', function(this: Element) {
               showMarkers(this, true);
             })
-            .on('mouseleave', 'div.symbol', function (this: Element) {
+            .on('mouseleave', 'div.symbol', function(this: Element) {
               showMarkers(this, false);
             });
         },
@@ -124,14 +124,14 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
       ctrl.study
         ? null
         : h(
-            'a.button.text',
-            {
-              class: { active: !!ctrl.retro },
-              attrs: dataIcon(licon.PlayTriangle),
-              hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
-            },
-            ctrl.trans.noarg('learnFromYourMistakes')
-          ),
+          'a.button.text',
+          {
+            class: { active: !!ctrl.retro },
+            attrs: dataIcon(licon.PlayTriangle),
+            hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
+          },
+          ctrl.trans.noarg('learnFromYourMistakes')
+        ),
       playerTable(ctrl, 'black'),
     ]
   );
@@ -140,8 +140,8 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
 export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
   const puzzle = ctrl.data.puzzle;
   return (
-    puzzle &&
-    h(
+    puzzle
+    && h(
       'div.analyse__puzzle',
       h(
         'a.button-link.text',

@@ -40,14 +40,13 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
   if (g.initialFen && g.initialFen !== initialFen) tags.push(['FEN', g.initialFen]);
   if (tags.length)
-    txt =
-      tags
-        .map(function (t) {
-          return '[' + t[0] + ' "' + t[1] + '"]';
-        })
-        .join('\n') +
-      '\n\n' +
-      txt;
+    txt = tags
+      .map(function(t) {
+        return '[' + t[0] + ' "' + t[1] + '"]';
+      })
+      .join('\n')
+      + '\n\n'
+      + txt;
   return txt;
 }
 

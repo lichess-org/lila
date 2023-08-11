@@ -6,7 +6,7 @@ import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
 
-export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
+export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard!);
 
   $('#adv-chart').attr('id', 'acpl-chart');
@@ -80,7 +80,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const storage = lichess.storage.make('analysis.panel');
-  const setPanel = function (panel: string) {
+  const setPanel = function(panel: string) {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
     $panels
@@ -95,15 +95,14 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);
   };
-  $menu.on('mousedown', 'span', function (this: HTMLElement) {
+  $menu.on('mousedown', 'span', function(this: HTMLElement) {
     const panel = $(this).data('panel');
     storage.set(panel);
     setPanel(panel);
   });
   const stored = storage.get();
-  const foundStored =
-    stored &&
-    $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {
+  const foundStored = stored
+    && $menu.children(`[data-panel="${stored}"]`).filter(function(this: HTMLElement) {
       const display = window.getComputedStyle(this).display;
       return !!display && display != 'none';
     }).length;
@@ -113,7 +112,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
+    $panels.find('form.future-game-analysis').on('submit', function(this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
@@ -130,29 +129,29 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  $panels.on('click', '.pgn', function (this: HTMLElement) {
+  $panels.on('click', '.pgn', function(this: HTMLElement) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);
     selection!.removeAllRanges();
     selection!.addRange(range);
   });
-  $panels.on('click', '.embed-howto', function (this: HTMLElement) {
+  $panels.on('click', '.embed-howto', function(this: HTMLElement) {
     // location.hash is percent encoded, so no need to escape and make &bg=...
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
     modal({
       content: $(
-        '<div><strong style="font-size:1.5em">' +
-          $(this).html() +
-          '</strong><br /><br />' +
-          '<pre>' +
-          lichess.escapeHtml(iframe) +
-          '</pre><br />' +
-          iframe +
-          '<br /><br />' +
-          `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`
+        '<div><strong style="font-size:1.5em">'
+          + $(this).html()
+          + '</strong><br /><br />'
+          + '<pre>'
+          + lichess.escapeHtml(iframe)
+          + '</pre><br />'
+          + iframe
+          + '<br /><br />'
+          + `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`
       ),
     });
   });

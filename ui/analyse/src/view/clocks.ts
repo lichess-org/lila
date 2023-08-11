@@ -16,8 +16,8 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     relay = study && study.data.chapter.relay;
 
   const lastMoveAt =
-    (relay?.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter) && relay.lastMoveAt) ||
-    ctrl.autoplay.lastMoveAt;
+    (relay?.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter) && relay.lastMoveAt)
+    || ctrl.autoplay.lastMoveAt;
 
   if (lastMoveAt) {
     const spent = (Date.now() - lastMoveAt) / 10;

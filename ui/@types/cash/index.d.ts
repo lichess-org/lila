@@ -204,9 +204,9 @@ interface Cash {
   offset():
     | undefined
     | {
-        top: number;
-        left: number;
-      };
+      top: number;
+      left: number;
+    };
 }
 interface Cash {
   offsetParent(): Cash;
@@ -215,9 +215,9 @@ interface Cash {
   position():
     | undefined
     | {
-        top: number;
-        left: number;
-      };
+      top: number;
+      left: number;
+    };
 }
 interface Cash {
   children(comparator?: Comparator): Cash;

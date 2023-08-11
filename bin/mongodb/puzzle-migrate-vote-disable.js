@@ -6,7 +6,7 @@ puzzles
   .find({
     'vote.ratio': { $exists: false },
   })
-  .forEach(function (p) {
+  .forEach(function(p) {
     puzzles.update(
       {
         _id: p._id,

@@ -12,7 +12,7 @@ import {
   InputMethod,
   Mode,
   ModeScores,
-  Redraw,
+  Redraw
 } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
@@ -180,8 +180,9 @@ export default class CoordinateTrainerCtrl {
     this.chessground?.redrawAll();
   };
 
-  showPieces = withEffect<boolean>(storedBooleanProp('coordinateTrainer.showPieces', true), () =>
-    this.onShowPiecesChange()
+  showPieces = withEffect<boolean>(
+    storedBooleanProp('coordinateTrainer.showPieces', true),
+    () => this.onShowPiecesChange()
   );
 
   onShowPiecesChange = () => {

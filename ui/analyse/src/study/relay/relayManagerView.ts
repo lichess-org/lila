@@ -4,29 +4,29 @@ import { h, VNode } from 'snabbdom';
 import { LogEvent } from './interfaces';
 import RelayCtrl from './relayCtrl';
 
-export default function (ctrl: RelayCtrl): VNode | undefined {
+export default function(ctrl: RelayCtrl): VNode | undefined {
   return ctrl.members.canContribute()
     ? h(
-        'div.relay-admin',
-        {
-          hook: onInsert(_ => lichess.loadCssPath('analyse.relay-admin')),
-        },
-        [
-          h('h2', [
-            h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-            h('a', {
-              attrs: {
-                href: `/broadcast/round/${ctrl.id}/edit`,
-                'data-icon': licon.Gear,
-              },
-            }),
-          ]),
-          ctrl.data.sync?.url || ctrl.data.sync?.ids
-            ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
-            : null,
-          renderLog(ctrl),
-        ]
-      )
+      'div.relay-admin',
+      {
+        hook: onInsert(_ => lichess.loadCssPath('analyse.relay-admin')),
+      },
+      [
+        h('h2', [
+          h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
+          h('a', {
+            attrs: {
+              href: `/broadcast/round/${ctrl.id}/edit`,
+              'data-icon': licon.Gear,
+            },
+          }),
+        ]),
+        ctrl.data.sync?.url || ctrl.data.sync?.ids
+          ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
+          : null,
+        renderLog(ctrl),
+      ]
+    )
     : undefined;
 }
 
@@ -42,18 +42,17 @@ function renderLog(ctrl: RelayCtrl) {
     .slice(0)
     .reverse()
     .map(e => {
-      const err =
-        e.error &&
-        h(
+      const err = e.error
+        && h(
           'a',
           url
             ? {
-                attrs: {
-                  href: url,
-                  target: '_blank',
-                  rel: 'noopener nofollow',
-                },
-              }
+              attrs: {
+                href: url,
+                target: '_blank',
+                rel: 'noopener nofollow',
+              },
+            }
             : {},
           e.error
         );
@@ -85,10 +84,10 @@ function stateOn(ctrl: RelayCtrl) {
         'div',
         url
           ? [
-              sync.delay ? `Connected with ${sync.delay}s delay` : 'Connected to source',
-              h('br'),
-              url.replace(/https?:\/\//, ''),
-            ]
+            sync.delay ? `Connected with ${sync.delay}s delay` : 'Connected to source',
+            h('br'),
+            url.replace(/https?:\/\//, ''),
+          ]
           : ids
           ? ['Connected to', h('br'), ids.length, ' game(s)']
           : []
@@ -111,16 +110,15 @@ let cachedDateFormatter: (date: Date) => string;
 
 function getDateFormatter(): (date: Date) => string {
   if (!cachedDateFormatter)
-    cachedDateFormatter =
-      window.Intl && Intl.DateTimeFormat
-        ? new Intl.DateTimeFormat(document.documentElement!.lang, {
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-          }).format
-        : d => d.toLocaleString();
+    cachedDateFormatter = window.Intl && Intl.DateTimeFormat
+      ? new Intl.DateTimeFormat(document.documentElement!.lang, {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      }).format
+      : d => d.toLocaleString();
 
   return cachedDateFormatter;
 }

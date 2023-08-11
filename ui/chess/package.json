@@ -12,15 +12,10 @@
   },
   "typesVersions": {
     "*": {
-      "*": [
-        "dist/*"
-      ]
+      "*": ["dist/*"]
     }
   },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
+  "keywords": ["chess", "lichess"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

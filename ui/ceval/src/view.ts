@@ -29,10 +29,9 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
     if (state == CevalState.Failed) return [trans.noarg('engineFailed')];
     const mb = ceval.downloadProgress() / 1024 / 1024;
-    const localEvalText =
-      state == CevalState.Loading
-        ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
-        : trans.noarg('calculatingMoves');
+    const localEvalText = state == CevalState.Loading
+      ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
+      : trans.noarg('calculatingMoves');
     return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
@@ -82,38 +81,38 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.shortEngineName()),
     ctrl.technology == 'external'
       ? h(
-          'span.technology.good',
-          {
-            attrs: {
-              title: 'Engine running outside of the browser',
-            },
+        'span.technology.good',
+        {
+          attrs: {
+            title: 'Engine running outside of the browser',
           },
-          'EXTERNAL'
-        )
+        },
+        'EXTERNAL'
+      )
       : ctrl.technology == 'nnue'
       ? h(
-          'span.technology.good',
-          {
-            attrs: {
-              title:
-                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
-            },
+        'span.technology.good',
+        {
+          attrs: {
+            title:
+              'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
           },
-          'NNUE'
-        )
+        },
+        'NNUE'
+      )
       : ctrl.technology == 'hce'
       ? h(
-          'span.technology.good',
-          { attrs: { title: 'Multi-threaded WebAssembly (classical hand crafted evaluation)' } },
-          'HCE'
-        )
+        'span.technology.good',
+        { attrs: { title: 'Multi-threaded WebAssembly (classical hand crafted evaluation)' } },
+        'HCE'
+      )
       : ctrl.technology == 'wasm'
       ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly fallback (slow)' } }, 'WASM')
       : h(
-          'span.technology',
-          { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } },
-          'ASMJS'
-        ),
+        'span.technology',
+        { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } },
+        'ASMJS'
+      ),
   ];
 }
 
@@ -128,9 +127,9 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
 
   // Prefer localEv if it exceeds fishnet node limit or finds a better mate.
   if (
-    localEv.nodes > serverNodes ||
-    (typeof localEv.mate !== 'undefined' &&
-      (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate)))
+    localEv.nodes > serverNodes
+    || (typeof localEv.mate !== 'undefined'
+      && (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate)))
   )
     return localEv;
 
@@ -192,72 +191,71 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
 
   const progressBar: VNode | null = enabled
     ? h(
-        'div.bar',
-        h('span', {
-          class: { threat: threatMode },
-          attrs: { style: `width: ${percent}%` },
-          hook: {
-            postpatch: (old, vnode) => {
-              if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
-                const el = vnode.elm as HTMLElement;
-                const p = el.parentNode as HTMLElement;
-                p.removeChild(el);
-                p.appendChild(el);
-              }
-              vnode.data!.percent = percent;
-              vnode.data!.threatMode = threatMode;
-            },
+      'div.bar',
+      h('span', {
+        class: { threat: threatMode },
+        attrs: { style: `width: ${percent}%` },
+        hook: {
+          postpatch: (old, vnode) => {
+            if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
+              const el = vnode.elm as HTMLElement;
+              const p = el.parentNode as HTMLElement;
+              p.removeChild(el);
+              p.appendChild(el);
+            }
+            vnode.data!.percent = percent;
+            vnode.data!.threatMode = threatMode;
           },
-        })
-      )
+        },
+      })
+    )
     : null;
 
   const body: Array<VNode | null> = enabled
     ? [
-        h('pearl', [pearl]),
-        h('div.engine', [
-          ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
-          h(
-            'span.info',
-            ctrl.outcome()
-              ? [trans.noarg('gameOver')]
-              : ctrl.getNode().threefold
-              ? [trans.noarg('threefoldRepetition')]
-              : threatMode
-              ? [threatInfo(ctrl, threat)]
-              : localEvalInfo(ctrl, evs)
-          ),
-        ]),
-      ]
+      h('pearl', [pearl]),
+      h('div.engine', [
+        ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
+        h(
+          'span.info',
+          ctrl.outcome()
+            ? [trans.noarg('gameOver')]
+            : ctrl.getNode().threefold
+            ? [trans.noarg('threefoldRepetition')]
+            : threatMode
+            ? [threatInfo(ctrl, threat)]
+            : localEvalInfo(ctrl, evs)
+        ),
+      ]),
+    ]
     : [
-        pearl ? h('pearl', [pearl]) : null,
-        h('help', [
-          ...engineName(instance),
-          h('br'),
-          instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
-        ]),
-      ];
+      pearl ? h('pearl', [pearl]) : null,
+      h('help', [
+        ...engineName(instance),
+        h('br'),
+        instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
+      ]),
+    ];
 
-  const switchButton: VNode | null =
-    ctrl.mandatoryCeval && ctrl.mandatoryCeval()
-      ? null
-      : h(
-          'div.switch',
-          {
-            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (L)' },
+  const switchButton: VNode | null = ctrl.mandatoryCeval && ctrl.mandatoryCeval()
+    ? null
+    : h(
+      'div.switch',
+      {
+        attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (L)' },
+      },
+      [
+        h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
+          attrs: {
+            type: 'checkbox',
+            checked: enabled,
+            disabled: !instance.analysable,
           },
-          [
-            h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
-              attrs: {
-                type: 'checkbox',
-                checked: enabled,
-                disabled: !instance.analysable,
-              },
-              hook: bind('change', ctrl.toggleCeval),
-            }),
-            h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
-          ]
-        );
+          hook: bind('change', ctrl.toggleCeval),
+        }),
+        h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
+      ]
+    );
 
   return h(
     'div.ceval' + (enabled ? '.enabled' : ''),
@@ -295,7 +293,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
     .closest('div.pv')
     .children()
     .filter('span.pv-san')
-    .each(function () {
+    .each(function() {
       pvMoves.push($(this).attr('data-board'));
     });
 

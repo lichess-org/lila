@@ -1,5 +1,5 @@
 lichess.load.then(() => {
-  $('.event .countdown').each(function () {
+  $('.event .countdown').each(function() {
     var $el = $(this);
     var seconds = parseInt($(this).data('seconds')) - 1;
     var target = new Date().getTime() + seconds * 1000;
@@ -9,7 +9,7 @@ lichess.load.then(() => {
       hour = minute * 60,
       day = hour * 24;
 
-    var redraw = function () {
+    var redraw = function() {
       var distance = target - new Date().getTime();
 
       if (distance > 0) {

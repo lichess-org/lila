@@ -5,7 +5,7 @@ import {
   RadarController,
   RadialLinearScale,
   Tooltip,
-  Filler,
+  Filler
 } from 'chart.js';
 import { currentTheme } from 'common/theme';
 

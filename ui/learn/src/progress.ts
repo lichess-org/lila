@@ -23,7 +23,7 @@ export function ctrl(stage: Stage, level: LevelCtrl, data: LearnProgress): Progr
   return {
     stage: stage,
     level: level,
-    score: function (level: Level) {
+    score: function(level: Level) {
       return data.stages[stage.key] ? data.stages[stage.key].scores[level.id - 1] : 0;
     },
   };
@@ -32,7 +32,7 @@ export function ctrl(stage: Stage, level: LevelCtrl, data: LearnProgress): Progr
 export function view(ctrl: Progress) {
   return m(
     'div.progress',
-    ctrl.stage.levels.map(function (level: Level) {
+    ctrl.stage.levels.map(function(level: Level) {
       const score = ctrl.score(level);
       const status = level.id === ctrl.level.blueprint.id ? 'active' : score ? 'done' : 'future';
       const label = score ? makeStars(level, score) : m('span.id', level.id);

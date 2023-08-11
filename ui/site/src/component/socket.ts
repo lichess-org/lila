@@ -206,13 +206,12 @@ export default class StrongSocket {
   pingNow = () => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
-    const pingData =
-      this.options.isAuth && this.pongCount % 10 == 2
-        ? JSON.stringify({
-            t: 'p',
-            l: Math.round(0.1 * this.averageLag),
-          })
-        : 'null';
+    const pingData = this.options.isAuth && this.pongCount % 10 == 2
+      ? JSON.stringify({
+        t: 'p',
+        l: Math.round(0.1 * this.averageLag),
+      })
+      : 'null';
     try {
       this.ws!.send(pingData);
       this.lastPingTime = performance.now();
@@ -282,7 +281,11 @@ export default class StrongSocket {
     if (ws) {
       this.debug('Disconnect');
       this.autoReconnect = false;
-      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => {};
+      ws.onerror =
+        ws.onclose =
+        ws.onopen =
+        ws.onmessage =
+          () => {};
       ws.close();
     }
   };

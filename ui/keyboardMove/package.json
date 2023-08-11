@@ -6,11 +6,7 @@
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
-  "keywords": [
-    "chess",
-    "lichess",
-    "keyboard"
-  ],
+  "keywords": ["chess", "lichess", "keyboard"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

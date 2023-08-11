@@ -10,7 +10,7 @@ interface RoundApi {
   moveOn: MoveOn;
 }
 
-export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
+export default async function(opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
   const data = opts.data;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   const socketUrl = opts.data.player.spectator
@@ -28,8 +28,8 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
               ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
-                  .filter(x => x)
-                  .join('&nbsp')
+                .filter(x => x)
+                .join('&nbsp')
               : 'Anonymous'
           );
       },
@@ -44,8 +44,8 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
         });
       },
       tourStanding(s: TourPlayer[]) {
-        opts.chat?.plugin &&
-          opts.chat?.instance?.then(chat => {
+        opts.chat?.plugin
+          && opts.chat?.instance?.then(chat => {
             (opts.chat!.plugin as TourStandingCtrl).set(s);
             chat.redraw();
           });
@@ -55,7 +55,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
 
   const startTournamentClock = () => {
     if (data.tournament)
-      $('.game__tournament .clock').each(function (this: HTMLElement) {
+      $('.game__tournament .clock').each(function(this: HTMLElement) {
         lichess.clockWidget(this, {
           time: parseFloat($(this).data('time')),
         });

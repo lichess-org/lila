@@ -15,24 +15,24 @@ const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
 function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | undefined {
   return p
     ? h(
-        'div.' + pos,
-        {
-          class: {
-            lame: !!p.lame,
-          },
+      'div.' + pos,
+      {
+        class: {
+          lame: !!p.lame,
         },
-        [
-          h('div.trophy'),
-          h(
-            'a.text.ulpt.user-link',
-            {
-              attrs: { href: '/@/' + p.user.name },
-            },
-            userName(p.user)
-          ),
-          podiumStats(p, ctrl),
-        ]
-      )
+      },
+      [
+        h('div.trophy'),
+        h(
+          'a.text.ulpt.user-link',
+          {
+            attrs: { href: '/@/' + p.user.name },
+          },
+          userName(p.user)
+        ),
+        podiumStats(p, ctrl),
+      ]
+    )
     : undefined;
 }
 

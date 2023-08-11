@@ -50,9 +50,7 @@ export function initModule(): VoskModule {
 
     if (LOG_LEVEL >= -1)
       console.info(
-        `Created ${opts.audioCtx.sampleRate.toFixed()}Hz recognizer '${
-          opts.recId
-        }' with buffer size ${bufSize}`,
+        `Created ${opts.audioCtx.sampleRate.toFixed()}Hz recognizer '${opts.recId}' with buffer size ${bufSize}`,
         opts.words
       );
 

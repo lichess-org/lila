@@ -10,14 +10,14 @@ function makeStars(rank: number) {
   return stars;
 }
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   const stage = ctrl.stage;
   const next = ctrl.getNext();
   const score = ctrl.stageScore();
   return m(
     'div.learn__screen-overlay',
     {
-      onclick: function (e: MouseEvent) {
+      onclick: function(e: MouseEvent) {
         if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) m.route('/');
       },
     },
@@ -31,9 +31,9 @@ export default function (ctrl: Ctrl) {
           m(
             'span',
             {
-              config: function (el: HTMLElement, isUpdate: boolean) {
+              config: function(el: HTMLElement, isUpdate: boolean) {
                 if (!isUpdate)
-                  setTimeout(function () {
+                  setTimeout(function() {
                     numberSpread(el, 50, 3000, 0)(score);
                   }, 300);
               },
@@ -46,13 +46,13 @@ export default function (ctrl: Ctrl) {
       m('div.buttons', [
         next
           ? m(
-              'a.next',
-              {
-                href: '/' + next.id,
-                config: m.route,
-              },
-              [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', m('i[data-icon=]')]
-            )
+            'a.next',
+            {
+              href: '/' + next.id,
+              config: m.route,
+            },
+            [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', m('i[data-icon=]')]
+          )
           : null,
         m(
           'a.back.text[data-icon=]',

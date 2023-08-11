@@ -14,10 +14,9 @@ export function nextGlyphSymbol(
   const fromIndex = fromPly - mainline[0].ply;
   for (let i = 1; i < len; i++) {
     const node = mainline[(fromIndex + i) % len];
-    const found =
-      node.ply % 2 === (color === 'white' ? 1 : 0) &&
-      node.glyphs &&
-      node.glyphs.find(function (g) {
+    const found = node.ply % 2 === (color === 'white' ? 1 : 0)
+      && node.glyphs
+      && node.glyphs.find(function(g) {
         return g.symbol === symbol;
       });
     if (found) return node;
@@ -34,8 +33,8 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
     if (nodeFilter(node) && node.eval && prev.eval) {
       const diff = Math.abs(winningChances.povDiff('white', prev.eval, node.eval));
       if (
-        hasCompChild(prev) &&
-        (diff > threshold || (prev.eval.mate && !node.eval.mate && Math.abs(prev.eval.mate) <= 3))
+        hasCompChild(prev)
+        && (diff > threshold || (prev.eval.mate && !node.eval.mate && Math.abs(prev.eval.mate) <= 3))
       ) {
         found.push(node);
       }

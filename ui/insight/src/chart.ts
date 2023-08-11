@@ -50,7 +50,7 @@ interface Theme {
   colors?: string[];
 }
 
-const theme = (function () {
+const theme = (function() {
   const light = currentTheme() === 'light';
   const t: Theme = {
     light: light,
@@ -107,11 +107,11 @@ function makeChart(el: HTMLElement, data: Chart) {
       },
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: (function () {
+        pointFormat: (function() {
           return (
-            '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' +
-            metricDataTypeFormat(s.dataType) +
-            '</b><br/>'
+            '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>'
+            + metricDataTypeFormat(s.dataType)
+            + '</b><br/>'
           );
         })(),
         shared: true,
@@ -133,7 +133,8 @@ function makeChart(el: HTMLElement, data: Chart) {
       plotShadow: false,
       plotBorderWidth: 0,
       style: {
-        font: "12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+        font:
+          "12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
       },
     },
     title: {
@@ -141,7 +142,7 @@ function makeChart(el: HTMLElement, data: Chart) {
     },
     xAxis: {
       type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
-      categories: data.xAxis.categories.map(function (v) {
+      categories: data.xAxis.categories.map(function(v) {
         return (data.xAxis.dataType === 'date' ? v * 1000 : v) as any;
       }),
       crosshair: true,
@@ -162,12 +163,12 @@ function makeChart(el: HTMLElement, data: Chart) {
       lineColor: theme.line.strong,
       tickColor: theme.line.strong,
     },
-    yAxis: [data.valueYaxis, data.sizeYaxis].map(function (a, i) {
+    yAxis: [data.valueYaxis, data.sizeYaxis].map(function(a, i) {
       const isPercent = data.valueYaxis.dataType === 'percent';
       const isSize = i % 2 === 1;
       const isStack = data.series[0].stack;
-      const isAuto =
-        isSize || ['acpl', 'blurs', 'timeVariance', 'accuracy', 'movetime'].includes(data.question.metric);
+      const isAuto = isSize
+        || ['acpl', 'blurs', 'timeVariance', 'accuracy', 'movetime'].includes(data.question.metric);
       const c: Highcharts.AxisOptions = {
         opposite: isSize,
         min: isAuto ? undefined : isStack ? 0 : Math.min(...data.series[0].data),
@@ -227,13 +228,13 @@ function makeChart(el: HTMLElement, data: Chart) {
         },
         stops: theme.light
           ? [
-              [0, 'rgba(200, 200, 200, .8)'],
-              [1, 'rgba(250, 250, 250, .8)'],
-            ]
+            [0, 'rgba(200, 200, 200, .8)'],
+            [1, 'rgba(250, 250, 250, .8)'],
+          ]
           : [
-              [0, 'rgba(56, 56, 56, .8)'],
-              [1, 'rgba(16, 16, 16, .8)'],
-            ],
+            [0, 'rgba(56, 56, 56, .8)'],
+            [1, 'rgba(16, 16, 16, .8)'],
+          ],
       },
       style: {
         fontWeight: 'bold',
@@ -272,7 +273,7 @@ function chartHook(vnode: VNode, ctrl: Ctrl) {
   }
 }
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
   if (!ctrl.vm.answer?.series.length) return empty('No data. Try widening or clearing the filters.');
   return h('div.chart', {

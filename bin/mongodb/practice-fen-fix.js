@@ -1,5 +1,5 @@
-var studyIds =
-  '8yadFPpU BJy6fEDf Rg2cMBZ6 fE4k21MW 8yadFPpU PDkQDt6u 96Lij7wH 9ogFv8Ac xebrDvFe A4ujYOer'.split(' ');
+var studyIds = '8yadFPpU BJy6fEDf Rg2cMBZ6 fE4k21MW 8yadFPpU PDkQDt6u 96Lij7wH 9ogFv8Ac xebrDvFe A4ujYOer'
+  .split(' ');
 
 // from 4r1qk/5p1p/pp2rPpR/2pbP1Q1/3pR3/2P5/P5PP/2B3K1 w - - 2 28
 // to   4r1qk/5p1p/pp2rPpR/2pbP1Q1/3pR3/2P5/P5PP/2B3K1 w - - 0 1
@@ -20,7 +20,7 @@ var chapters = db.study_chapter
       $in: studyIds,
     },
   })
-  .forEach(function (chapter) {
+  .forEach(function(chapter) {
     var fen = chapter.root.f;
     var fixed = fixFen(fen);
     if (fixed != fen) {

@@ -1,7 +1,7 @@
 interface Chessground {
-  new (container: HTMLElement, options?: chessground.Options): chessground.Api;
+  new(container: HTMLElement, options?: chessground.Options): chessground.Api;
   controller: {
-    new (options?: chessground.Options): chessground.Ctrl;
+    new(options?: chessground.Options): chessground.Ctrl;
   };
   view(ctrl: chessground.Ctrl): {
     tag: string;
@@ -184,16 +184,16 @@ declare namespace chessground {
       duration: number;
       current:
         | {
-            start?: number;
-            duration?: number;
-            anims: Partial<Record<Key, [[number, number], [number, number]]>>;
-            fading: {
-              pos: [number, number];
-              opacity: number;
-              role: Role;
-              color: Color;
-            }[];
-          }
+          start?: number;
+          duration?: number;
+          anims: Partial<Record<Key, [[number, number], [number, number]]>>;
+          fading: {
+            pos: [number, number];
+            opacity: number;
+            role: Role;
+            color: Color;
+          }[];
+        }
         | Record<string, never>;
     };
     movable: {
@@ -260,21 +260,21 @@ declare namespace chessground {
       showGhost: boolean;
       current:
         | {
-            /** orig key of dragging piece */
-            orig: Key;
-            /** x, y of the piece at original position */
-            rel: [number, number];
-            /** relative current position */
-            pos: [number, number];
-            /** piece center decay */
-            dec: [number, number];
-            /** square being moused over */
-            over: Key;
-            /** current cached board bounds */
-            bounds: any;
-            /** whether the drag has started, as per the distance setting */
-            started: boolean;
-          }
+          /** orig key of dragging piece */
+          orig: Key;
+          /** x, y of the piece at original position */
+          rel: [number, number];
+          /** relative current position */
+          pos: [number, number];
+          /** piece center decay */
+          dec: [number, number];
+          /** square being moused over */
+          over: Key;
+          /** current cached board bounds */
+          bounds: any;
+          /** whether the drag has started, as per the distance setting */
+          started: boolean;
+        }
         | Record<string, never>;
     };
     selectable: {
@@ -313,17 +313,17 @@ declare namespace chessground {
       autoShapes: Shapes;
       current:
         | {
-            /** orig key of drawing */
-            orig: Key;
-            /** relative current position */
-            pos: [number, number];
-            /** square being moused over */
-            dest: Key;
-            /** current cached board bounds */
-            bounds: any;
-            /** brush name for shape */
-            brush: BrushName;
-          }
+          /** orig key of drawing */
+          orig: Key;
+          /** relative current position */
+          pos: [number, number];
+          /** square being moused over */
+          dest: Key;
+          /** current cached board bounds */
+          bounds: any;
+          /** brush name for shape */
+          brush: BrushName;
+        }
         | Record<string, never>;
       brushes: Record<
         BrushName,

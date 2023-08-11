@@ -76,10 +76,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
 
   const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
     kbd.bind(key, () =>
-      $(selector).each(function (this: HTMLElement) {
+      $(selector).each(function(this: HTMLElement) {
         this.dispatchEvent(new MouseEvent(eventName));
-      })
-    );
+      }));
 
   //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
   keyToMouseEvent(

@@ -33,7 +33,7 @@ export function getLevelRank(l: Level, score: number) {
 }
 
 function getStageMaxScore(s: Stage) {
-  return s.levels.reduce(function (sum, s) {
+  return s.levels.reduce(function(sum, s) {
     return sum + getLevelMaxScore(s);
   }, 0);
 }

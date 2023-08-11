@@ -3,10 +3,10 @@ import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
-  $('#form3-leaders').each(function (this: HTMLInputElement) {
+  $('#form3-leaders').each(function(this: HTMLInputElement) {
     initTagify(this, 10);
   });
-  $('#form3-members').each(function (this: HTMLInputElement) {
+  $('#form3-members').each(function(this: HTMLInputElement) {
     initTagify(this, 100);
   });
 });

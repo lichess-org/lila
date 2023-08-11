@@ -193,8 +193,9 @@ export default class Mousetrap {
 
     for (const binding of this.getMatches(e)) {
       if (
-        binding.combination == 'esc' ||
-        (el.tagName != 'INPUT' && el.tagName != 'SELECT' && el.tagName != 'TEXTAREA' && !el.isContentEditable)
+        binding.combination == 'esc'
+        || (el.tagName != 'INPUT' && el.tagName != 'SELECT' && el.tagName != 'TEXTAREA'
+          && !el.isContentEditable)
       ) {
         binding.callback(e);
         e.preventDefault();
@@ -209,11 +210,12 @@ export default class Mousetrap {
     const modifiers = action == 'keyup' && isModifier(key) ? [key] : eventModifiers(e);
     return (this.bindings[key] || []).filter(
       binding =>
-        action == binding.action &&
+        action == binding.action
         // Chrome will not fire a keypress if meta or control is down,
         // Safari will fire a keypress if meta or meta+shift is down,
         // Firefox will fire a keypress if meta or control is down
-        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers))
+        && ((action == 'keypress' && !e.metaKey && !e.ctrlKey)
+          || modifiersMatch(modifiers, binding.modifiers))
     );
   };
 }

@@ -32,7 +32,7 @@ function formatClockTime(trans: Trans, time: Millis) {
   return str;
 }
 
-export default function (
+export default function(
   ctrl: CorresClockController,
   trans: Trans,
   color: Color,
@@ -56,10 +56,10 @@ export default function (
     [
       ctrl.data.showBar
         ? h('div.bar', [
-            h('span', {
-              attrs: { style: `width: ${ctrl.timePercent(color)}%` },
-            }),
-          ])
+          h('span', {
+            attrs: { style: `width: ${ctrl.timePercent(color)}%` },
+          }),
+        ])
         : null,
       h('div.time', {
         attrs: direction && { style: `direction: ${direction}` },

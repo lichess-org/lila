@@ -22,11 +22,11 @@ export function subscribe(ctrl: RoundController): void {
     const d = ctrl.data,
       step = lastStep(ctrl.data);
     if (
-      !found &&
-      step.ply > 14 &&
-      ctrl.isPlaying() &&
-      e.value &&
-      truncateFen(step.fen) === truncateFen(e.value)
+      !found
+      && step.ply > 14
+      && ctrl.isPlaying()
+      && e.value
+      && truncateFen(step.fen) === truncateFen(e.value)
     ) {
       xhr.text(`/jslog/${d.game.id}${d.player.id}?n=ceval`, { method: 'post' });
       found = true;

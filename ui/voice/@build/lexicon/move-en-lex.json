@@ -22,14 +22,12 @@
     { "in": "six", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "seven", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "eight", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "pawn", "tok": "P", "tags": ["role", "move"] },
     { "in": "knight", "tok": "N", "tags": ["role", "move"] },
     { "in": "bishop", "tok": "B", "tags": ["role", "move"] },
     { "in": "rook", "tok": "R", "tags": ["role", "move"] },
     { "in": "queen", "tok": "Q", "tags": ["role", "move"] },
     { "in": "king", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "castle", "val": "castle", "tags": ["move"] },
     { "in": "short castle", "val": "O-O", "tags": ["move"] },
     { "in": "king side castle", "val": "O-O", "tags": ["move"] },
@@ -44,7 +42,6 @@
     { "in": "promote", "val": "=", "tags": ["move"] },
     { "in": "promotes", "val": "=", "tags": ["move"] },
     { "in": "promotion", "val": "=", "tags": ["move"] },
-
     { "in": "takeback", "val": "takeback", "tags": ["command", "round"] },
     { "in": "undo", "val": "takeback", "tags": ["command", "round"] },
     { "in": "oops", "val": "takeback", "tags": ["command", "round"] },
@@ -68,7 +65,6 @@
     { "in": "list", "val": "list", "tags": ["command"] },
     { "in": "list moves", "val": "list", "tags": ["command"] },
     { "in": "show moves", "val": "list", "tags": ["command"] },
-
     { "in": "yes", "val": "yes", "tags": ["choice"] },
     { "in": "confirm", "val": "yes", "tags": ["choice"] },
     { "in": "accept", "val": "yes", "tags": ["choice"] },
@@ -78,7 +74,6 @@
     { "in": "cancel", "val": "no", "tags": ["choice"] },
     { "in": "decline", "val": "no", "tags": ["choice"] },
     { "in": "abort", "val": "no", "tags": ["choice"] },
-
     { "in": "blue", "val": "blue", "tags": ["color", "choice"] },
     { "in": "green", "val": "green", "tags": ["color", "choice"] },
     { "in": "yellow", "val": "yellow", "tags": ["color", "choice"] },
@@ -88,7 +83,6 @@
     { "in": "orange", "val": "orange", "tags": ["color", "choice"] },
     { "in": "brown", "val": "brown", "tags": ["color", "choice"] },
     { "in": "white", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "alfa", "val": "a", "tags": ["file", "move", "phonetic"] },
     { "in": "bravo", "val": "b", "tags": ["file", "move", "phonetic"] },
     { "in": "charlie", "val": "c", "tags": ["file", "move", "phonetic"] },
@@ -97,7 +91,6 @@
     { "in": "foxtrot", "val": "f", "tags": ["file", "move", "phonetic"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "phonetic"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "phonetic"] },
-
     { "in": "mate", "val": "", "tags": ["move", "ignore"] },
     { "in": "check", "val": "", "tags": ["move", "ignore"] },
     { "in": "puzzle", "val": "", "tags": ["ignore"] },

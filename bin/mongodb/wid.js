@@ -19,7 +19,7 @@ var gamesToMigrate = db.game5.find(
   }
 );
 
-gamesToMigrate.forEach(function (g) {
+gamesToMigrate.forEach(function(g) {
   if (g.w && typeof g.us[0] != 'undefined' && g.us[0]) {
     db.game5.update(
       {

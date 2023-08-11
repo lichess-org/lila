@@ -43,9 +43,9 @@ export default (ctrl: PuzCtrl): VNode => {
       ctrl.run.history
         .filter(
           r =>
-            (!r.win || !filters.fail()) &&
-            (!slowIds || slowIds.has(r.puzzle.id)) &&
-            (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId)
+            (!r.win || !filters.fail())
+            && (!slowIds || slowIds.has(r.puzzle.id))
+            && (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId)
         )
         .map(round =>
           h(

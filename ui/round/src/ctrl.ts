@@ -44,7 +44,7 @@ import {
   SocketOpts,
   MoveMetadata,
   Position,
-  NvuiPlugin,
+  NvuiPlugin
 } from './interfaces';
 import { defined, Toggle, toggle } from 'common';
 import { Redraw } from 'common/snabbdom';
@@ -287,9 +287,9 @@ export default class RoundController {
   replayEnabledByPref = (): boolean => {
     const d = this.data;
     return (
-      d.pref.replay === Prefs.Replay.Always ||
-      (d.pref.replay === Prefs.Replay.OnlySlowGames &&
-        (d.game.speed === 'classical' || d.game.speed === 'correspondence'))
+      d.pref.replay === Prefs.Replay.Always
+      || (d.pref.replay === Prefs.Replay.OnlySlowGames
+        && (d.game.speed === 'classical' || d.game.speed === 'correspondence'))
     );
   };
 
@@ -432,8 +432,8 @@ export default class RoundController {
         const keys = uciToMove(o.uci)!,
           pieces = this.chessground.state.pieces;
         if (
-          !o.castle ||
-          (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')
+          !o.castle
+          || (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')
         ) {
           this.chessground.move(keys[0], keys[1]);
         }
@@ -546,9 +546,9 @@ export default class RoundController {
     d.game.fen = d.steps[d.steps.length - 1].fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
-      o.status.name === 'outoftime' &&
-      d.player.color !== o.winner &&
-      this.chessground.state.turnColor === d.opponent.color
+      o.status.name === 'outoftime'
+      && d.player.color !== o.winner
+      && this.chessground.state.turnColor === d.opponent.color
     ) {
       this.reload(d);
     }
@@ -561,11 +561,11 @@ export default class RoundController {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
       lichess.sound.play(key);
       if (
-        key != 'victory' &&
-        d.game.turns > 6 &&
-        !d.tournament &&
-        !d.swiss &&
-        lichess.storage.boolean('courtesy').get()
+        key != 'victory'
+        && d.game.turns > 6
+        && !d.tournament
+        && !d.swiss
+        && lichess.storage.boolean('courtesy').get()
       )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
@@ -596,7 +596,7 @@ export default class RoundController {
     lichess.pubsub.emit('challenge-app.open');
     if (lichess.once('rematch-challenge'))
       setTimeout(() => {
-        lichess.hopscotch(function () {
+        lichess.hopscotch(function() {
           window.hopscotch
             .configure({
               i18n: { doneBtn: 'OK, got it' },
@@ -678,8 +678,9 @@ export default class RoundController {
   };
 
   opponentRequest(req: string, i18nKey: string) {
-    this.voiceMove?.listenForResponse(req, (v: boolean) =>
-      this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`)
+    this.voiceMove?.listenForResponse(
+      req,
+      (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`)
     );
     notify(this.noarg(i18nKey));
   }
@@ -779,11 +780,11 @@ export default class RoundController {
   opponentGone = (): number | boolean => {
     const d = this.data;
     return (
-      defined(d.opponent.isGone) &&
-      d.opponent.isGone !== false &&
-      !game.isPlayerTurn(d) &&
-      game.resignable(d) &&
-      d.opponent.isGone
+      defined(d.opponent.isGone)
+      && d.opponent.isGone !== false
+      && !game.isPlayerTurn(d)
+      && game.resignable(d)
+      && d.opponent.isGone
     );
   };
 
@@ -804,9 +805,9 @@ export default class RoundController {
   }
 
   canOfferDraw = (): boolean =>
-    !this.preventDrawOffer &&
-    game.drawable(this.data) &&
-    (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
+    !this.preventDrawOffer
+    && game.drawable(this.data)
+    && (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
 
   cancelTakebackPreventDraws = () => {
     this.socket.sendLoading('takeback-no');

@@ -29,12 +29,12 @@ export const tourStandingCtrl = (
       [
         team
           ? h(
-              'h3.text',
-              {
-                attrs: { 'data-icon': licon.Group },
-              },
-              team.name
-            )
+            'h3.text',
+            {
+              attrs: { 'data-icon': licon.Group },
+            },
+            team.name
+          )
           : null,
         h('table.slist', [
           h(
@@ -55,9 +55,9 @@ export const tourStandingCtrl = (
                   'td.total',
                   p.f
                     ? {
-                        class: { 'is-gold': true },
-                        attrs: { 'data-icon': licon.Fire },
-                      }
+                      class: { 'is-gold': true },
+                      attrs: { 'data-icon': licon.Fire },
+                    }
                     : {},
                   '' + p.s
                 ),

@@ -4,7 +4,7 @@ import {
   eventListenersModule,
   classModule,
   propsModule,
-  styleModule,
+  styleModule
 } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import { Chessground } from 'chessground';

@@ -73,10 +73,10 @@ export function view(ctrl: GlyphCtrl): VNode {
     },
     all
       ? [
-          h('div.move', all.move.map(renderGlyph(ctrl, node))),
-          h('div.position', all.position.map(renderGlyph(ctrl, node))),
-          h('div.observation', all.observation.map(renderGlyph(ctrl, node))),
-        ]
+        h('div.move', all.move.map(renderGlyph(ctrl, node))),
+        h('div.position', all.position.map(renderGlyph(ctrl, node))),
+        h('div.observation', all.observation.map(renderGlyph(ctrl, node))),
+      ]
       : [h('div.study__message', spinner())]
   );
 }

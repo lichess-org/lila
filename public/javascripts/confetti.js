@@ -9,14 +9,13 @@ var retina = window.devicePixelRatio,
   // Local WindowAnimationTiming interface
   rAF = window.requestAnimationFrame,
   cAF = window.cancelAnimationFrame || window.cancelRequestAnimationFrame,
-  _now =
-    Date.now ||
-    function () {
+  _now = Date.now
+    || function() {
       return new Date().getTime();
     };
 
 // Local WindowAnimationTiming interface polyfill
-(function (w) {
+(function(w) {
   /**
    * Fallback implementation.
    */
@@ -37,12 +36,12 @@ var retina = window.devicePixelRatio,
 
   rAF = w.requestAnimationFrame || w.webkitRequestAnimationFrame || fallback;
 
-  cAF = function (id) {
+  cAF = function(id) {
     cancel.call(w, id);
   };
 })(window);
 
-(function () {
+(function() {
   var speed = 50,
     duration = 1.0 / speed,
     confettiRibbonCount = 11,
@@ -61,29 +60,29 @@ var retina = window.devicePixelRatio,
 
   function Vector2(_x, _y) {
     (this.x = _x), (this.y = _y);
-    this.Length = function () {
+    this.Length = function() {
       return sqrt(this.SqrLength());
     };
-    this.SqrLength = function () {
+    this.SqrLength = function() {
       return this.x * this.x + this.y * this.y;
     };
-    this.Add = function (_vec) {
+    this.Add = function(_vec) {
       this.x += _vec.x;
       this.y += _vec.y;
     };
-    this.Sub = function (_vec) {
+    this.Sub = function(_vec) {
       this.x -= _vec.x;
       this.y -= _vec.y;
     };
-    this.Div = function (_f) {
+    this.Div = function(_f) {
       this.x /= _f;
       this.y /= _f;
     };
-    this.Mul = function (_f) {
+    this.Mul = function(_f) {
       this.x *= _f;
       this.y *= _f;
     };
-    this.Normalize = function () {
+    this.Normalize = function() {
       var sqrLen = this.SqrLength();
       if (sqrLen != 0) {
         var factor = 1.0 / sqrt(sqrLen);
@@ -91,7 +90,7 @@ var retina = window.devicePixelRatio,
         this.y *= factor;
       }
     };
-    this.Normalized = function () {
+    this.Normalized = function() {
       var sqrLen = this.SqrLength();
       if (sqrLen != 0) {
         var factor = 1.0 / sqrt(sqrLen);
@@ -100,31 +99,31 @@ var retina = window.devicePixelRatio,
       return new Vector2(0, 0);
     };
   }
-  Vector2.Lerp = function (_vec0, _vec1, _t) {
+  Vector2.Lerp = function(_vec0, _vec1, _t) {
     return new Vector2((_vec1.x - _vec0.x) * _t + _vec0.x, (_vec1.y - _vec0.y) * _t + _vec0.y);
   };
-  Vector2.Distance = function (_vec0, _vec1) {
+  Vector2.Distance = function(_vec0, _vec1) {
     return sqrt(Vector2.SqrDistance(_vec0, _vec1));
   };
-  Vector2.SqrDistance = function (_vec0, _vec1) {
+  Vector2.SqrDistance = function(_vec0, _vec1) {
     var x = _vec0.x - _vec1.x;
     var y = _vec0.y - _vec1.y;
     return x * x + y * y + z * z;
   };
-  Vector2.Scale = function (_vec0, _vec1) {
+  Vector2.Scale = function(_vec0, _vec1) {
     return new Vector2(_vec0.x * _vec1.x, _vec0.y * _vec1.y);
   };
-  Vector2.Min = function (_vec0, _vec1) {
+  Vector2.Min = function(_vec0, _vec1) {
     return new Vector2(Math.min(_vec0.x, _vec1.x), Math.min(_vec0.y, _vec1.y));
   };
-  Vector2.Max = function (_vec0, _vec1) {
+  Vector2.Max = function(_vec0, _vec1) {
     return new Vector2(Math.max(_vec0.x, _vec1.x), Math.max(_vec0.y, _vec1.y));
   };
-  Vector2.ClampMagnitude = function (_vec0, _len) {
+  Vector2.ClampMagnitude = function(_vec0, _len) {
     var vecNorm = _vec0.Normalized;
     return new Vector2(vecNorm.x * _len, vecNorm.y * _len);
   };
-  Vector2.Sub = function (_vec0, _vec1) {
+  Vector2.Sub = function(_vec0, _vec1) {
     return new Vector2(_vec0.x - _vec1.x, _vec0.y - _vec1.y, _vec0.z - _vec1.z);
   };
 
@@ -133,10 +132,10 @@ var retina = window.devicePixelRatio,
     this.drag = _drag;
     this.force = new Vector2(0, 0);
     this.velocity = new Vector2(0, 0);
-    this.AddForce = function (_f) {
+    this.AddForce = function(_f) {
       this.force.Add(_f);
     };
-    this.Integrate = function (_dt) {
+    this.Integrate = function(_dt) {
       var acc = this.CurrentForce(this.position);
       var posDelta = new Vector2(this.velocity.x, this.velocity.y);
       posDelta.Mul(_dt);
@@ -145,7 +144,7 @@ var retina = window.devicePixelRatio,
       this.velocity.Add(acc);
       this.force = new Vector2(0, 0);
     };
-    this.CurrentForce = function (_pos, _vel) {
+    this.CurrentForce = function(_pos, _vel) {
       var totalForce = new Vector2(this.force.x, this.force.y);
       var speed = this.velocity.Length();
       var dragVel = new Vector2(this.velocity.x, this.velocity.y);
@@ -175,7 +174,7 @@ var retina = window.devicePixelRatio,
       var dy = sin(this.angle + DEG_TO_RAD * (i * 90 + 45));
       this.corners[i] = new Vector2(dx, dy);
     }
-    this.Update = function (_dt) {
+    this.Update = function(_dt) {
       this.time += _dt;
       this.rotation += this.rotationSpeed * _dt;
       this.cosA = cos(DEG_TO_RAD * this.rotation);
@@ -186,7 +185,7 @@ var retina = window.devicePixelRatio,
         this.pos.y = 0;
       }
     };
-    this.Draw = function (_g) {
+    this.Draw = function(_g) {
       if (this.cosA > 0) {
         _g.fillStyle = this.frontColor;
       } else {
@@ -229,7 +228,7 @@ var retina = window.devicePixelRatio,
     for (var i = 0; i < this.particleCount; i++) {
       this.particles[i] = new EulerMass(_x, _y - i * this.particleDist, this.particleDrag);
     }
-    this.Update = function (_dt) {
+    this.Update = function(_dt) {
       var i = 0;
       this.time += _dt * this.oscillationSpeed;
       this.position.y += this.ySpeed * _dt;
@@ -260,7 +259,7 @@ var retina = window.devicePixelRatio,
         this.Reset();
       }
     };
-    this.Reset = function () {
+    this.Reset = function() {
       this.position.y = -random() * ConfettiRibbon.bounds.y;
       this.position.x = random() * ConfettiRibbon.bounds.x;
       this.prevPosition = new Vector2(this.position.x, this.position.y);
@@ -281,7 +280,7 @@ var retina = window.devicePixelRatio,
         );
       }
     };
-    this.Draw = function (_g) {
+    this.Draw = function(_g) {
       for (var i = 0; i < this.particleCount - 1; i++) {
         var p0 = new Vector2(
           this.particles[i].position.x + this.xOff,
@@ -361,13 +360,13 @@ var retina = window.devicePixelRatio,
         }
       }
     };
-    this.Side = function (x1, y1, x2, y2, x3, y3) {
+    this.Side = function(x1, y1, x2, y2, x3, y3) {
       return (x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2);
     };
   }
   ConfettiRibbon.bounds = new Vector2(0, 0);
   confetti = {};
-  confetti.Context = function (id) {
+  confetti.Context = function(id) {
     var i = 0;
     var canvas = document.getElementById(id);
     var canvasParent = canvas.parentNode;
@@ -395,7 +394,7 @@ var retina = window.devicePixelRatio,
     for (i = 0; i < confettiPaperCount; i++) {
       confettiPapers[i] = new ConfettiPaper(random() * canvasWidth, random() * canvasHeight);
     }
-    this.resize = function () {
+    this.resize = function() {
       canvasWidth = canvasParent.offsetWidth;
       canvasHeight = canvasParent.offsetHeight;
       canvas.width = canvasWidth * retina;
@@ -403,15 +402,15 @@ var retina = window.devicePixelRatio,
       ConfettiPaper.bounds = new Vector2(canvasWidth, canvasHeight);
       ConfettiRibbon.bounds = new Vector2(canvasWidth, canvasHeight);
     };
-    this.start = function () {
+    this.start = function() {
       this.stop();
       var context = this;
       this.update();
     };
-    this.stop = function () {
+    this.stop = function() {
       cAF(this.interval);
     };
-    this.update = function () {
+    this.update = function() {
       var i = 0;
       context.clearRect(0, 0, canvas.width, canvas.height);
       for (i = 0; i < confettiPaperCount; i++) {
@@ -422,7 +421,7 @@ var retina = window.devicePixelRatio,
         confettiRibbons[i].Update(duration);
         confettiRibbons[i].Draw(context);
       }
-      this.interval = rAF(function () {
+      this.interval = rAF(function() {
         confetti.update();
       });
     };
@@ -430,14 +429,14 @@ var retina = window.devicePixelRatio,
   var id = 'confetti';
   var confetti = new confetti.Context(id);
   confetti.start();
-  setTimeout(function () {
+  setTimeout(function() {
     var $el = $('#' + id).addClass('faded');
-    setTimeout(function () {
+    setTimeout(function() {
       confetti.stop();
       $el.hide();
     }, 25000);
   }, 5000);
-  window.addEventListener('resize', function (event) {
+  window.addEventListener('resize', function(event) {
     confetti.resize();
   });
 })();

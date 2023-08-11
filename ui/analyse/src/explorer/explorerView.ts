@@ -13,7 +13,7 @@ import {
   OpeningData,
   OpeningMoveStats,
   OpeningGame,
-  ExplorerDb,
+  ExplorerDb
 } from './interfaces';
 import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
@@ -37,19 +37,18 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
   const sumTotal = data.white + data.black + data.draws;
-  const movesWithCurrent =
-    data.moves.length > 1
-      ? [
-          ...data.moves,
-          {
-            white: data.white,
-            black: data.black,
-            draws: data.draws,
-            uci: '',
-            san: 'Σ',
-          } as OpeningMoveStats,
-        ]
-      : data.moves;
+  const movesWithCurrent = data.moves.length > 1
+    ? [
+      ...data.moves,
+      {
+        white: data.white,
+        black: data.black,
+        draws: data.draws,
+        uci: '',
+        san: 'Σ',
+      } as OpeningMoveStats,
+    ]
+    : data.moves;
 
   return h('table.moves', [
     h('thead', [
@@ -132,38 +131,38 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
         return openedId === game.id
           ? gameActions(ctrl, game)
           : h(
-              'tr',
-              {
-                key: game.id,
-                attrs: { 'data-id': game.id, 'data-uci': game.uci || '' },
-              },
-              [
-                ctrl.explorer.opts.showRatings
-                  ? h(
-                      'td',
-                      [game.white, game.black].map(p => h('span', '' + p.rating))
-                    )
-                  : null,
-                h(
+            'tr',
+            {
+              key: game.id,
+              attrs: { 'data-id': game.id, 'data-uci': game.uci || '' },
+            },
+            [
+              ctrl.explorer.opts.showRatings
+                ? h(
                   'td',
-                  [game.white, game.black].map(p => h('span', p.name))
+                  [game.white, game.black].map(p => h('span', '' + p.rating))
+                )
+                : null,
+              h(
+                'td',
+                [game.white, game.black].map(p => h('span', p.name))
+              ),
+              h('td', showResult(game.winner)),
+              h('td', game.month || game.year),
+              isMasters
+                ? undefined
+                : h(
+                  'td',
+                  game.speed
+                    && h('i', {
+                      attrs: {
+                        title: ucfirst(game.speed),
+                        ...dataIcon(perf.icons[game.speed]),
+                      },
+                    })
                 ),
-                h('td', showResult(game.winner)),
-                h('td', game.month || game.year),
-                isMasters
-                  ? undefined
-                  : h(
-                      'td',
-                      game.speed &&
-                        h('i', {
-                          attrs: {
-                            title: ucfirst(game.speed),
-                            ...dataIcon(perf.icons[game.speed]),
-                          },
-                        })
-                    ),
-              ]
-            );
+            ]
+          );
       })
     ),
   ]);
@@ -210,23 +209,23 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
             ),
             ...(ctrl.study
               ? [
-                  h(
-                    'a.text',
-                    {
-                      attrs: dataIcon(licon.BubbleSpeech),
-                      hook: bind('click', _ => send(false), ctrl.redraw),
-                    },
-                    'Cite'
-                  ),
-                  h(
-                    'a.text',
-                    {
-                      attrs: dataIcon(licon.PlusButton),
-                      hook: bind('click', _ => send(true), ctrl.redraw),
-                    },
-                    'Insert'
-                  ),
-                ]
+                h(
+                  'a.text',
+                  {
+                    attrs: dataIcon(licon.BubbleSpeech),
+                    hook: bind('click', _ => send(false), ctrl.redraw),
+                  },
+                  'Cite'
+                ),
+                h(
+                  'a.text',
+                  {
+                    attrs: dataIcon(licon.PlusButton),
+                    hook: bind('click', _ => send(true), ctrl.redraw),
+                  },
+                  'Insert'
+                ),
+              ]
               : []),
             h(
               'a.text',
@@ -290,17 +289,17 @@ const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
     },
     opening
       ? [
-          h(
-            'a',
-            {
-              attrs: {
-                href: `/opening/${opening.name}`,
-                target: '_blank',
-              },
+        h(
+          'a',
+          {
+            attrs: {
+              href: `/opening/${opening.name}`,
+              target: '_blank',
             },
-            title
-          ),
-        ]
+          },
+          title
+        ),
+      ]
       : [showTitle(ctrl, ctrl.data.game.variant)]
   );
 };
@@ -411,21 +410,21 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     db == 'player'
       ? playerName
         ? active(
-            [
-              h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
-              explorer.isIndexing() && !explorer.config.data.open()
-                ? h('i.ddloader', {
-                    attrs: {
-                      title: queuePosition
-                        ? `Indexing ${queuePosition} other players first ...`
-                        : 'Indexing ...',
-                    },
-                  })
-                : undefined,
-            ],
-            explorer.root.trans('switchSides')
-          )
+          [
+            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+            ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
+            explorer.isIndexing() && !explorer.config.data.open()
+              ? h('i.ddloader', {
+                attrs: {
+                  title: queuePosition
+                    ? `Indexing ${queuePosition} other players first ...`
+                    : 'Indexing ...',
+                },
+              })
+              : undefined,
+          ],
+          explorer.root.trans('switchSides')
+        )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),
   ]);
@@ -454,7 +453,7 @@ function showFailing(ctrl: AnalyseCtrl) {
 
 let lastFen: Fen = '';
 
-export default function (ctrl: AnalyseCtrl): VNode | undefined {
+export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
   const data = explorer.current(),

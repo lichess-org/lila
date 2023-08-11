@@ -4,7 +4,7 @@ import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 
-export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
+export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   const data = opts.data;
   data.domVersion = 1; // increment to force redraw
   const maxLines = 200;
@@ -112,11 +112,11 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const note = opts.noteId
     ? noteCtrl({
-        id: opts.noteId,
-        text: opts.noteText,
-        trans,
-        redraw,
-      })
+      id: opts.noteId,
+      text: opts.noteText,
+      trans,
+      redraw,
+    })
     : undefined;
 
   const preset = presetCtrl({

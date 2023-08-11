@@ -28,16 +28,16 @@ function analysisButton(ctrl: RoundController): VNode | null {
     url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return game.replayable(d)
     ? h(
-        'a.fbt',
-        {
-          attrs: { href: url },
-          hook: util.bind('click', _ => {
-            // force page load in case the URL is the same
-            if (location.pathname === url.split('#')[0]) location.reload();
-          }),
-        },
-        ctrl.noarg('analysis')
-      )
+      'a.fbt',
+      {
+        attrs: { href: url },
+        hook: util.bind('click', _ => {
+          // force page load in case the URL is the same
+          if (location.pathname === url.split('#')[0]) location.reload();
+        }),
+      },
+      ctrl.noarg('analysis')
+    )
     : null;
 }
 
@@ -51,16 +51,16 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
   return [
     them
       ? h(
-          'button.rematch-decline',
-          {
-            attrs: {
-              'data-icon': licon.X,
-              title: noarg('decline'),
-            },
-            hook: util.bind('click', () => ctrl.socket.send('rematch-no')),
+        'button.rematch-decline',
+        {
+          attrs: {
+            'data-icon': licon.X,
+            title: noarg('decline'),
           },
-          ctrl.nvui ? noarg('decline') : ''
-        )
+          hook: util.bind('click', () => ctrl.socket.send('rematch-no')),
+        },
+        ctrl.nvui ? noarg('decline') : ''
+      )
       : null,
     h(
       'button.fbt.rematch.white',
@@ -126,26 +126,26 @@ export function opponentGone(ctrl: RoundController) {
   if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
     ? h('div.suggestion', [
-        h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
-        h(
-          'button.button',
-          {
-            hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')),
-          },
-          ctrl.noarg('forceResignation')
-        ),
-        h(
-          'button.button',
-          {
-            hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')),
-          },
-          ctrl.noarg('forceDraw')
-        ),
-      ])
+      h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
+      h(
+        'button.button',
+        {
+          hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')),
+        },
+        ctrl.noarg('forceResignation')
+      ),
+      h(
+        'button.button',
+        {
+          hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')),
+        },
+        ctrl.noarg('forceDraw')
+      ),
+    ])
     : gone
     ? h('div.suggestion', [
-        h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
-      ])
+      h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
+    ])
     : null;
 }
 
@@ -178,8 +178,7 @@ export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) 
     'button.button.draw-yes',
     {
       hook: util.bind('click', () =>
-        condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : undefined
-      ),
+        condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : undefined),
       attrs: {
         title: ctrl.noarg(condition(ctrl.data)?.overrideHint || 'claimADraw'),
         disabled: !condition(ctrl.data).enabled,
@@ -194,14 +193,14 @@ export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) 
 export function threefoldSuggestion(ctrl: RoundController) {
   return ctrl.data.game.threefold
     ? h('div.suggestion', [
-        h(
-          'p',
-          {
-            hook: onSuggestionHook,
-          },
-          ctrl.noarg('threefoldRepetition')
-        ),
-      ])
+      h(
+        'p',
+        {
+          hook: onSuggestionHook,
+        },
+        ctrl.noarg('threefoldRepetition')
+      ),
+    ])
     : null;
 }
 
@@ -224,29 +223,29 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data;
   return d.tournament?.running
     ? h('div.follow-up', [
-        h(
-          'a.text.fbt.strong.glowing',
-          {
-            attrs: {
-              'data-icon': licon.PlayTriangle,
-              href: '/tournament/' + d.tournament.id,
-            },
-            hook: util.bind('click', ctrl.setRedirecting),
+      h(
+        'a.text.fbt.strong.glowing',
+        {
+          attrs: {
+            'data-icon': licon.PlayTriangle,
+            href: '/tournament/' + d.tournament.id,
           },
-          ctrl.noarg('backToTournament')
-        ),
-        h(
-          'form',
-          {
-            attrs: {
-              method: 'post',
-              action: '/tournament/' + d.tournament.id + '/withdraw',
-            },
+          hook: util.bind('click', ctrl.setRedirecting),
+        },
+        ctrl.noarg('backToTournament')
+      ),
+      h(
+        'form',
+        {
+          attrs: {
+            method: 'post',
+            action: '/tournament/' + d.tournament.id + '/withdraw',
           },
-          [h('button.text.fbt.weak', util.justIcon(licon.Pause), 'Pause')]
-        ),
-        analysisButton(ctrl),
-      ])
+        },
+        [h('button.text.fbt.weak', util.justIcon(licon.Pause), 'Pause')]
+      ),
+      analysisButton(ctrl),
+    ])
     : undefined;
 }
 
@@ -254,80 +253,78 @@ export function backToSwiss(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data;
   return d.swiss?.running
     ? h('div.follow-up', [
-        h(
-          'a.text.fbt.strong.glowing',
-          {
-            attrs: {
-              'data-icon': licon.PlayTriangle,
-              href: '/swiss/' + d.swiss.id,
-            },
-            hook: util.bind('click', ctrl.setRedirecting),
+      h(
+        'a.text.fbt.strong.glowing',
+        {
+          attrs: {
+            'data-icon': licon.PlayTriangle,
+            href: '/swiss/' + d.swiss.id,
           },
-          ctrl.noarg('backToTournament')
-        ),
-        analysisButton(ctrl),
-      ])
+          hook: util.bind('click', ctrl.setRedirecting),
+        },
+        ctrl.noarg('backToTournament')
+      ),
+      analysisButton(ctrl),
+    ])
     : undefined;
 }
 
 export function moretime(ctrl: RoundController) {
   return game.moretimeable(ctrl.data)
     ? h('a.moretime', {
-        attrs: {
-          title: ctrl.data.clock
-            ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime)
-            : ctrl.noarg('giveMoreTime'),
-          'data-icon': licon.PlusButton,
-        },
-        hook: util.bind('click', ctrl.socket.moreTime),
-      })
+      attrs: {
+        title: ctrl.data.clock
+          ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime)
+          : ctrl.noarg('giveMoreTime'),
+        'data-icon': licon.PlusButton,
+      },
+      hook: util.bind('click', ctrl.socket.moreTime),
+    })
     : null;
 }
 
 export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
-    rematchable =
-      !d.game.rematch &&
-      (status.finished(d) ||
-        (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
-      !d.tournament &&
-      !d.simul &&
-      !d.swiss &&
-      !d.game.boosted,
-    newable =
-      (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
+    rematchable = !d.game.rematch
+      && (status.finished(d)
+        || (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source))))
+      && !d.tournament
+      && !d.simul
+      && !d.swiss
+      && !d.game.boosted,
+    newable = (status.finished(d) || status.aborted(d))
+      && (d.game.source === 'lobby' || d.game.source === 'pool'),
     rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament
       ? h(
-          'a.fbt',
-          {
-            attrs: { href: '/tournament/' + d.tournament.id },
-          },
-          ctrl.noarg('viewTournament')
-        )
+        'a.fbt',
+        {
+          attrs: { href: '/tournament/' + d.tournament.id },
+        },
+        ctrl.noarg('viewTournament')
+      )
       : null,
     d.swiss
       ? h(
-          'a.fbt',
-          {
-            attrs: { href: '/swiss/' + d.swiss.id },
-          },
-          ctrl.noarg('viewTournament')
-        )
+        'a.fbt',
+        {
+          attrs: { href: '/swiss/' + d.swiss.id },
+        },
+        ctrl.noarg('viewTournament')
+      )
       : null,
     newable
       ? h(
-          'a.fbt',
-          {
-            attrs: {
-              href:
-                d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
-            },
+        'a.fbt',
+        {
+          attrs: {
+            href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
           },
-          ctrl.noarg('newOpponent')
-        )
+        },
+        ctrl.noarg('newOpponent')
+      )
       : null,
     analysisButton(ctrl),
   ]);
@@ -338,32 +335,32 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
     content = [
       d.game.rematch
         ? h(
-            'a.fbt.text',
-            {
-              attrs: {
-                href: `/${d.game.rematch}/${d.opponent.color}`,
-              },
+          'a.fbt.text',
+          {
+            attrs: {
+              href: `/${d.game.rematch}/${d.opponent.color}`,
             },
-            ctrl.noarg('viewRematch')
-          )
+          },
+          ctrl.noarg('viewRematch')
+        )
         : null,
       d.tournament
         ? h(
-            'a.fbt',
-            {
-              attrs: { href: '/tournament/' + d.tournament.id },
-            },
-            ctrl.noarg('viewTournament')
-          )
+          'a.fbt',
+          {
+            attrs: { href: '/tournament/' + d.tournament.id },
+          },
+          ctrl.noarg('viewTournament')
+        )
         : null,
       d.swiss
         ? h(
-            'a.fbt',
-            {
-              attrs: { href: '/swiss/' + d.swiss.id },
-            },
-            ctrl.noarg('viewTournament')
-          )
+          'a.fbt',
+          {
+            attrs: { href: '/swiss/' + d.swiss.id },
+          },
+          ctrl.noarg('viewTournament')
+        )
         : null,
       analysisButton(ctrl),
     ];

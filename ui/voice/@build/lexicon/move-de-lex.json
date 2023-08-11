@@ -21,7 +21,6 @@
     { "in": "sechs", "tok": "6", "tags": ["rank", "move", "choice"] },
     { "in": "sieben", "tok": "7", "tags": ["rank", "move", "choice"] },
     { "in": "acht", "tok": "8", "tags": ["rank", "move", "choice"] },
-
     { "in": "bauer", "tok": "P", "tags": ["role", "move"] },
     { "in": "springer", "tok": "N", "tags": ["role", "move"] },
     { "in": "pferd", "tok": "N", "tags": ["role", "move"] },
@@ -29,7 +28,6 @@
     { "in": "turm", "tok": "R", "tags": ["role", "move"] },
     { "in": "dame", "tok": "Q", "tags": ["role", "move"] },
     { "in": "könig", "tok": "K", "tags": ["role", "move"] },
-
     { "in": "rochade", "val": "castle", "tags": ["move"] },
     { "in": "kurze rochade", "val": "O-O", "tags": ["move"] },
     { "in": "rochieren kurz", "val": "O-O", "tags": ["move"] },
@@ -39,7 +37,6 @@
     { "in": "schlägt", "val": "x", "tags": ["move"] },
     { "in": "wird", "val": "=", "tags": ["move"] },
     { "in": "umwandlung", "val": "=", "tags": ["move"] },
-
     { "in": "ups", "val": "takeback", "tags": ["command"] },
     { "in": "zurück", "val": "takeback", "tags": ["command"] },
     { "in": "rückgängig", "val": "takeback", "tags": ["command"] },
@@ -60,14 +57,12 @@
     { "in": "lösung", "val": "solve", "tags": ["command", "puzzle"] },
     { "in": "hilfe", "val": "help", "tags": ["command"] },
     { "in": "stoppen", "val": "stop", "tags": ["command"] },
-
     { "in": "ja", "val": "yes", "tags": ["choice"] },
     { "in": "bestätigen", "val": "yes", "tags": ["choice"] },
     { "in": "nein", "val": "no", "tags": ["choice"] },
     { "in": "abbrechen", "val": "no", "tags": ["choice"] },
     { "in": "abbruch", "val": "no", "tags": ["choice"] },
     { "in": "schließen", "val": "no", "tags": ["choice"] },
-
     { "in": "blau", "val": "blue", "tags": ["color", "choice"] },
     { "in": "grün", "val": "green", "tags": ["color", "choice"] },
     { "in": "gelb", "val": "yellow", "tags": ["color", "choice"] },
@@ -78,7 +73,6 @@
     { "in": "orange", "val": "orange", "tags": ["color", "choice"] },
     { "in": "braun", "val": "brown", "tags": ["color", "choice"] },
     { "in": "weiß", "val": "white", "tags": ["color", "choice"] },
-
     { "in": "alfa", "val": "a", "tags": ["file", "move", "phonetic"] },
     { "in": "bravo", "val": "b", "tags": ["file", "move", "phonetic"] },
     { "in": "charlie", "val": "c", "tags": ["file", "move", "phonetic"] },
@@ -87,7 +81,6 @@
     { "in": "foxtrot", "val": "f", "tags": ["file", "move", "phonetic"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "phonetic"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "phonetic"] },
-
     { "in": "matt", "val": "", "tags": ["move", "ignore"] },
     { "in": "schachmatt", "val": "", "tags": ["move", "ignore"] },
     { "in": "schach", "val": "", "tags": ["move", "ignore"] },

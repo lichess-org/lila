@@ -64,13 +64,13 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
-              attrs: { 'data-state': `${c.initialFen},${myColor}` },
-              hook: {
-                insert(vnode) {
-                  lichess.miniBoard.init(vnode.elm as HTMLElement);
-                },
+            attrs: { 'data-state': `${c.initialFen},${myColor}` },
+            hook: {
+              insert(vnode) {
+                lichess.miniBoard.init(vnode.elm as HTMLElement);
               },
-            })
+            },
+          })
           : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ]
@@ -180,10 +180,10 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
         u.lag === undefined
           ? []
           : [1, 2, 3, 4].map(i =>
-              h('i', {
-                class: { off: u.lag! < i },
-              })
-            )
+            h('i', {
+              class: { off: u.lag! < i },
+            })
+          )
       ),
     ]
   );

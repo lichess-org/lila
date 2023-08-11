@@ -3,7 +3,7 @@ import modal from 'common/modal';
 
 lichess.load.then(() => {
   $('.forum')
-    .on('click', 'a.delete', function (this: HTMLAnchorElement) {
+    .on('click', 'a.delete', function(this: HTMLAnchorElement) {
       const link = this;
       modal({
         content: $('.forum-delete-modal'),
@@ -11,7 +11,7 @@ lichess.load.then(() => {
           $wrap
             .find('form')
             .attr('action', link.href)
-            .on('submit', function (this: HTMLFormElement, e: Event) {
+            .on('submit', function(this: HTMLFormElement, e: Event) {
               e.preventDefault();
               xhr.formToXhr(this);
               modal.close();
@@ -21,13 +21,13 @@ lichess.load.then(() => {
       });
       return false;
     })
-    .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
+    .on('click', 'form.unsub button', function(this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
       xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
       return false;
     });
 
-  $('.forum-post__message').each(function (this: HTMLElement) {
+  $('.forum-post__message').each(function(this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
@@ -49,7 +49,7 @@ lichess.load.then(() => {
 
   $('.edit.button')
     .add('.edit-post-cancel')
-    .on('click', function (this: HTMLButtonElement, e) {
+    .on('click', function(this: HTMLButtonElement, e) {
       e.preventDefault();
 
       const $post = $(this).closest('.forum-post'),
@@ -62,7 +62,7 @@ lichess.load.then(() => {
 
   const quoted = new Set<string>();
 
-  $('.quote.button').on('click', function (this: HTMLButtonElement) {
+  $('.quote.button').on('click', function(this: HTMLButtonElement) {
     const $post = $(this).closest('.forum-post'),
       authorUsername = $post.find('.author').attr('href')?.substring(3),
       author = authorUsername ? '@' + authorUsername : $post.find('.author').text(),
@@ -83,20 +83,19 @@ lichess.load.then(() => {
     quote = `${author} said in ${anchor}:\n${quote}\n`;
     if (!quoted.has(quote)) {
       quoted.add(quote);
-      response.value =
-        response.value.substring(0, response.selectionStart) +
-        quote +
-        response.value.substring(response.selectionEnd);
+      response.value = response.value.substring(0, response.selectionStart)
+        + quote
+        + response.value.substring(response.selectionEnd);
     }
   });
 
-  $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
+  $('.post-text-area').one('focus', function(this: HTMLTextAreaElement) {
     const textarea = this,
       topicId = $(this).attr('data-topic');
 
     if (topicId)
-      lichess.loadIife('vendor/textcomplete.min.js').then(function () {
-        const searchCandidates = function (term: string, candidateUsers: string[]) {
+      lichess.loadIife('vendor/textcomplete.min.js').then(function() {
+        const searchCandidates = function(term: string, candidateUsers: string[]) {
           return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
         };
 
@@ -111,10 +110,10 @@ lichess.load.then(() => {
           [
             {
               match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
-              search: function (term: string, callback: (names: string[]) => void) {
+              search: function(term: string, callback: (names: string[]) => void) {
                 // Initially we only autocomplete by participants in the thread. As the user types more,
                 // we can autocomplete against all users on the site.
-                threadParticipants.then(function (participants) {
+                threadParticipants.then(function(participants) {
                   const forumParticipantCandidates = searchCandidates(term, participants);
 
                   if (forumParticipantCandidates.length != 0) {

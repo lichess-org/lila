@@ -74,18 +74,18 @@ const renderTrack = (
 export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
   player.userId
     ? h(
-        'a.user-link.ulpt',
-        {
-          attrs: { href: '/@/' + player.name },
-        },
-        player.title ? [h('span.utitle', player.title), player.name] : [player.name]
-      )
+      'a.user-link.ulpt',
+      {
+        attrs: { href: '/@/' + player.name },
+      },
+      player.title ? [h('span.utitle', player.title), player.name] : [player.name]
+    )
     : h(
-        'anonymous',
-        {
-          attrs: {
-            title: 'Anonymous player',
-          },
+      'anonymous',
+      {
+        attrs: {
+          title: 'Anonymous player',
         },
-        [player.name, isMe ? ' (you)' : undefined]
-      );
+      },
+      [player.name, isMe ? ' (you)' : undefined]
+    );

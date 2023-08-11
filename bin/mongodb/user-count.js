@@ -1,5 +1,5 @@
 print('move user nb* to user.count.*');
-db.user2.find().forEach(function (user) {
+db.user2.find().forEach(function(user) {
   db.user2.update(
     {
       _id: user['_id'],

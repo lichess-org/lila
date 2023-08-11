@@ -36,22 +36,21 @@ function renderCompleted(ctrl: Ctrl, level: LevelCtrl) {
   );
 }
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   const stage = ctrl.stage;
   const level = ctrl.level;
 
   return m(
     'div',
     {
-      class:
-        'learn learn--run ' +
-        stage.cssClass +
-        ' ' +
-        level.blueprint.cssClass +
-        (level.vm.starting ? ' starting' : '') +
-        (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +
-        (level.vm.lastStep ? ' last-step' : '') +
-        (level.blueprint.showPieceValues ? ' piece-values' : ''),
+      class: 'learn learn--run '
+        + stage.cssClass
+        + ' '
+        + level.blueprint.cssClass
+        + (level.vm.starting ? ' starting' : '')
+        + (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '')
+        + (level.vm.lastStep ? ' last-step' : '')
+        + (level.blueprint.showPieceValues ? ' piece-values' : ''),
     },
     [
       m('div.learn__side', ctrl.opts.side.view()),

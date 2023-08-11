@@ -4,7 +4,7 @@ import {
   Redraw,
   CastlingToggle,
   CastlingToggles,
-  CASTLING_TOGGLES,
+  CASTLING_TOGGLES
 } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { Rules, Square } from 'chessops/types';

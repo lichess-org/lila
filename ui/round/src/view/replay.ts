@@ -21,25 +21,27 @@ const scrollMax = 99999,
   movesTag = 'l4x',
   rmovesTag = 'rm6';
 
-const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
-  window.requestAnimationFrame(() => {
-    if (ctrl.data.steps.length < 7) return;
-    let st: number | undefined;
-    if (ctrl.ply < 3) st = 0;
-    else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
-    else {
-      const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
-      if (plyEl)
-        st = isCol1()
-          ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
-          : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
-    }
-    if (typeof st == 'number') {
-      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-      else if (isCol1()) movesEl.scrollLeft = st;
-      else movesEl.scrollTop = st;
-    }
-  })
+const autoScroll = throttle(
+  100,
+  (movesEl: HTMLElement, ctrl: RoundController) =>
+    window.requestAnimationFrame(() => {
+      if (ctrl.data.steps.length < 7) return;
+      let st: number | undefined;
+      if (ctrl.ply < 3) st = 0;
+      else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
+      else {
+        const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
+        if (plyEl)
+          st = isCol1()
+            ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
+            : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+      }
+      if (typeof st == 'number') {
+        if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+        else if (isCol1()) movesEl.scrollLeft = st;
+        else movesEl.scrollTop = st;
+      }
+    })
 );
 
 const renderDrawOffer = () =>
@@ -56,17 +58,17 @@ const renderDrawOffer = () =>
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? h(
-        moveTag,
-        {
-          class: {
-            a1t: step.ply === curPly,
-          },
+      moveTag,
+      {
+        class: {
+          a1t: step.ply === curPly,
         },
-        [
-          step.san[0] === 'P' ? step.san.slice(1) : step.san,
-          drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
-        ]
-      )
+      },
+      [
+        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
+      ]
+    )
     : orEmpty
     ? h(moveTag, '…')
     : undefined;
@@ -135,19 +137,19 @@ export function analysisButton(ctrl: RoundController): VNode | undefined {
   const forecastCount = ctrl.data.forecastCount;
   return game.userAnalysable(ctrl.data)
     ? h(
-        'a.fbt.analysis',
-        {
-          class: {
-            text: !!forecastCount,
-          },
-          attrs: {
-            title: ctrl.noarg('analysis'),
-            href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-            'data-icon': licon.Microscope,
-          },
+      'a.fbt.analysis',
+      {
+        class: {
+          text: !!forecastCount,
         },
-        forecastCount ? ['' + forecastCount] : []
-      )
+        attrs: {
+          title: ctrl.noarg('analysis'),
+          href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+          'data-icon': licon.Microscope,
+        },
+      },
+      forecastCount ? ['' + forecastCount] : []
+    )
     : undefined;
 }
 
@@ -194,16 +196,16 @@ function renderButtons(ctrl: RoundController) {
 
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
-  return (ctrl.replayEnabledByPref() || !isCol1()) &&
-    game.playable(d) &&
-    d.game.turns === 0 &&
-    !d.player.spectator
+  return (ctrl.replayEnabledByPref() || !isCol1())
+      && game.playable(d)
+      && d.game.turns === 0
+      && !d.player.spectator
     ? h('div.message', util.justIcon(licon.InfoCircle), [
-        h('div', [
-          ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
-          ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
-        ]),
-      ])
+      h('div', [
+        ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
+        ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
+      ]),
+    ])
     : null;
 }
 
@@ -223,9 +225,8 @@ const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: 
 
 export function render(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data,
-    moves =
-      ctrl.replayEnabledByPref() &&
-      h(
+    moves = ctrl.replayEnabledByPref()
+      && h(
         movesTag,
         {
           hook: util.onInsert(el => {
@@ -252,15 +253,15 @@ export function render(ctrl: RoundController): VNode | undefined {
   return ctrl.nvui
     ? undefined
     : h(rmovesTag, [
-        renderButtons(ctrl),
-        boardMenu(ctrl),
-        initMessage(ctrl) ||
-          (isCol1()
-            ? h('div.col1-moves', [
-                col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
-                renderMovesOrResult,
-                col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
-              ])
-            : renderMovesOrResult),
-      ]);
+      renderButtons(ctrl),
+      boardMenu(ctrl),
+      initMessage(ctrl)
+      || (isCol1()
+        ? h('div.col1-moves', [
+          col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
+          renderMovesOrResult,
+          col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
+        ])
+        : renderMovesOrResult),
+    ]);
 }

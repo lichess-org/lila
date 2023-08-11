@@ -18,7 +18,7 @@ import {
   pushMap,
   movesTo,
   as,
-  findTransforms,
+  findTransforms
 } from '../util';
 
 // shimmed to prevent pop-in while not overly complicating root controller's view construction
@@ -285,8 +285,8 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     }
     if (timer()) return ambiguate(m);
     if (
-      (m.length === 1 && m[0][1].cost < 0.4) ||
-      (m.length > 1 && m[1][1].cost - m[0][1].cost > [0.7, 0.5, 0.3][clarityPref()])
+      (m.length === 1 && m[0][1].cost < 0.4)
+      || (m.length > 1 && m[1][1].cost - m[0][1].cost > [0.7, 0.5, 0.3][clarityPref()])
     ) {
       console.info('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1].cost}`);
       submit(m[0][0]);
@@ -403,14 +403,14 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
       roles
         ? lichess.mic.addListener(
-            (text: string) => {
-              const val = matchOneTags(text, ['role'], ['no']);
-              lichess.mic.stopPropagation();
-              if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
-              else if (val === 'no') ctrl.cancel();
-            },
-            { listenerId: 'promotion' }
-          )
+          (text: string) => {
+            const val = matchOneTags(text, ['role'], ['no']);
+            lichess.mic.stopPropagation();
+            if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
+            else if (val === 'no') ctrl.cancel();
+          },
+          { listenerId: 'promotion' }
+        )
         : lichess.mic.removeListener('promotion');
   }
 

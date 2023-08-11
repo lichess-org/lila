@@ -58,7 +58,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
               .on('click', () => ctrl.clickHook(hook.id));
           },
         });
-        setTimeout(function () {
+        setTimeout(function() {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
       },
@@ -116,7 +116,7 @@ const yMarks = [1000, 1200, 1400, 1500, 1600, 1800, 2000];
 
 function renderYAxis() {
   const tags: VNode[] = [];
-  yMarks.forEach(function (v) {
+  yMarks.forEach(function(v) {
     const b = ratingY(v);
     tags.push(
       h(

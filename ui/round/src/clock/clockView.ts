@@ -37,23 +37,23 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
     },
     clock.opts.nvui
       ? [
-          h('div.time', {
-            attrs: { role: 'timer' },
-            hook: timeHook,
-          }),
-        ]
+        h('div.time', {
+          attrs: { role: 'timer' },
+          hook: timeHook,
+        }),
+      ]
       : [
-          clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
-          h('div.time', {
-            class: {
-              hour: millis > 3600 * 1000,
-            },
-            hook: timeHook,
-          }),
-          renderBerserk(ctrl, player.color, position),
-          isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
-          tourRank(ctrl, player.color, position),
-        ]
+        clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
+        h('div.time', {
+          class: {
+            hour: millis > 3600 * 1000,
+          },
+          hook: timeHook,
+        }),
+        renderBerserk(ctrl, player.color, position),
+        isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
+        tourRank(ctrl, player.color, position),
+      ]
   );
 }
 
@@ -65,11 +65,11 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
   const date = new Date(time);
   if (nvui)
     return (
-      (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
-      date.getUTCMinutes() +
-      'M:' +
-      date.getUTCSeconds() +
-      'S'
+      (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '')
+      + date.getUTCMinutes()
+      + 'M:'
+      + date.getUTCSeconds()
+      + 'S'
     );
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
@@ -154,11 +154,11 @@ const tourRank = (ctrl: RoundController, color: Color, position: Position) => {
     ranks = d.tournament?.ranks || d.swiss?.ranks;
   return ranks && !showBerserk(ctrl, color)
     ? h(
-        'div.tour-rank.' + position,
-        {
-          attrs: { title: 'Current tournament rank' },
-        },
-        '#' + ranks[color]
-      )
+      'div.tour-rank.' + position,
+      {
+        attrs: { title: 'Current tournament rank' },
+      },
+      '#' + ranks[color]
+    )
     : null;
 };

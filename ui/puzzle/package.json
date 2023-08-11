@@ -3,12 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org puzzle solver",
-  "keywords": [
-    "chess",
-    "lichess",
-    "puzzle",
-    "training"
-  ],
+  "keywords": ["chess", "lichess", "puzzle", "training"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

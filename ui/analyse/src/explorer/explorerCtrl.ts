@@ -15,7 +15,7 @@ import {
   ExplorerDb,
   OpeningData,
   SimpleTablebaseHit,
-  ExplorerOpts,
+  ExplorerOpts
 } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
@@ -64,8 +64,9 @@ export default class ExplorerCtrl {
     this.allowed = prop(previous ? previous.allowed() : true);
     this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
-    this.effectiveVariant =
-      root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
+    this.effectiveVariant = root.data.game.variant.key === 'fromPosition'
+      ? 'standard'
+      : root.data.game.variant.key;
     this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload, previous?.config);
     window.addEventListener('hashchange', this.checkHash, false);
     this.checkHash();

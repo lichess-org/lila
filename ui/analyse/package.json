@@ -3,14 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org analysis board",
-  "keywords": [
-    "chess",
-    "lichess",
-    "play",
-    "replay",
-    "analysis",
-    "study"
-  ],
+  "keywords": ["chess", "lichess", "play", "replay", "analysis", "study"],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

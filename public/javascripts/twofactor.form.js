@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
   var issuer = window.location.host; // lichess.org
   var user = $(document.body).data('user');
   var secret = $('input[name=secret]').val();

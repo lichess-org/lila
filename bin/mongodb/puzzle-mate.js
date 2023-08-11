@@ -1,4 +1,4 @@
-db.puzzle.find({ tags: { $exists: true } }).forEach(function (o) {
+db.puzzle.find({ tags: { $exists: true } }).forEach(function(o) {
   db.puzzle.update(
     {
       _id: o._id,

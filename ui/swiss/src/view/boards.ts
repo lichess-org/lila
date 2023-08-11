@@ -12,33 +12,31 @@ export function top(boards: Board[], opts: SwissOpts): VNode {
   return h('div.swiss__board__top.swiss__table', boards.slice(0, 1).map(renderBoard(opts)));
 }
 
-const renderBoard =
-  (opts: SwissOpts) =>
-  (board: Board): VNode =>
-    h(
-      `div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`,
-      {
-        key: board.id,
-        attrs: {
-          'data-state': `${board.fen},${board.orientation},${board.lastMove}`,
-          'data-live': board.id,
-        },
-        hook: {
-          insert(vnode) {
-            lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
-          },
+const renderBoard = (opts: SwissOpts) => (board: Board): VNode =>
+  h(
+    `div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`,
+    {
+      key: board.id,
+      attrs: {
+        'data-state': `${board.fen},${board.orientation},${board.lastMove}`,
+        'data-live': board.id,
+      },
+      hook: {
+        insert(vnode) {
+          lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
         },
       },
-      [
-        boardPlayer(board, opposite(board.orientation), opts),
-        h('a.cg-wrap', {
-          attrs: {
-            href: `/${board.id}/${board.orientation}`,
-          },
-        }),
-        boardPlayer(board, board.orientation, opts),
-      ]
-    );
+    },
+    [
+      boardPlayer(board, opposite(board.orientation), opts),
+      h('a.cg-wrap', {
+        attrs: {
+          href: `/${board.id}/${board.orientation}`,
+        },
+      }),
+      boardPlayer(board, board.orientation, opts),
+    ]
+  );
 
 function boardPlayer(board: Board, color: Color, opts: SwissOpts) {
   const player = board[color];

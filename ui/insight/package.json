@@ -5,12 +5,7 @@
   "description": "lichess.org chess insights",
   "type": "module",
   "module": "src/main.js",
-  "keywords": [
-    "chess",
-    "lichess",
-    "insight",
-    "analysis"
-  ],
+  "keywords": ["chess", "lichess", "insight", "analysis"],
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

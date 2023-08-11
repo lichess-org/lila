@@ -33,10 +33,10 @@ const presets = new Set([
 ]);
 
 const isTextGarbage = text =>
-  text.indexOf(' ') < 0 ||
-  text.length < 9 ||
-  presets.has(text) ||
-  text.indexOf("I'm studying this game") == 0;
+  text.indexOf(' ') < 0
+  || text.length < 9
+  || presets.has(text)
+  || text.indexOf("I'm studying this game") == 0;
 
 const numberFormat = n => `${Math.round(n / 1000)}k`;
 

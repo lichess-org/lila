@@ -8,8 +8,8 @@ import { numberFormat } from 'common/number';
 export default function table(ctrl: LobbyController) {
   const { data, trans, opts } = ctrl;
   const hasOngoingRealTimeGame = ctrl.hasOngoingRealTimeGame();
-  const hookDisabled =
-    opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
+  const hookDisabled = opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot
+    || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;
   return h('div.lobby__table', [
     h('div.bg-switch', { attrs: { title: 'Dark mode' } }, [
@@ -32,10 +32,10 @@ export default function table(ctrl: LobbyController) {
               hook: disabled
                 ? {}
                 : bind(
-                    lichess.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.setupCtrl.openModal(gameType),
-                    ctrl.redraw
-                  ),
+                  lichess.blindMode ? 'click' : 'mousedown',
+                  () => ctrl.setupCtrl.openModal(gameType),
+                  ctrl.redraw
+                ),
             },
             trans(transKey)
           )

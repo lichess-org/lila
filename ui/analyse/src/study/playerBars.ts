@@ -10,7 +10,7 @@ interface PlayerNames {
   black: string;
 }
 
-export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
+export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const tags = study.data.chapter.tags,

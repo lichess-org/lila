@@ -1,4 +1,4 @@
-db.tournament.find({}, { players: 1 }).forEach(function (tour) {
+db.tournament.find({}, { players: 1 }).forEach(function(tour) {
   for (var i in tour.players) {
     var p = tour.players[i];
     p.rating = p.elo;

@@ -11,7 +11,7 @@ import {
   renderInlineCommentsOf,
   retroLine,
   Ctx,
-  Opts,
+  Opts
 } from './common';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
@@ -30,13 +30,13 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         ...(main.forceVariation
           ? []
           : [
-              renderMoveOf(ctx, main, {
-                parentPath: opts.parentPath,
-                isMainline: true,
-                withIndex: opts.withIndex,
-              }),
-              ...renderInlineCommentsOf(ctx, main, opts.parentPath),
-            ]),
+            renderMoveOf(ctx, main, {
+              parentPath: opts.parentPath,
+              isMainline: true,
+              withIndex: opts.withIndex,
+            }),
+            ...renderInlineCommentsOf(ctx, main, opts.parentPath),
+          ]),
         h(
           'interrupt',
           renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
@@ -47,10 +47,10 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         ...(main.forceVariation
           ? []
           : renderChildrenOf(ctx, main, {
-              parentPath: opts.parentPath + main.id,
-              isMainline: true,
-              withIndex: true,
-            }) || []),
+            parentPath: opts.parentPath + main.id,
+            isMainline: true,
+            withIndex: true,
+          }) || []),
       ]
     );
   }
@@ -75,8 +75,8 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
     'lines',
     nodes.map(n => {
       return (
-        retroLine(ctx, n) ||
-        h(
+        retroLine(ctx, n)
+        || h(
           'line',
           renderMoveAndChildrenOf(ctx, n, {
             parentPath: opts.parentPath,
@@ -137,7 +137,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   );
 }
 
-export default function (ctrl: AnalyseCtrl): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,

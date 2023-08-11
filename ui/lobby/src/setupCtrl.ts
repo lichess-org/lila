@@ -11,7 +11,7 @@ import {
   PoolMember,
   RealValue,
   SetupStore,
-  TimeMode,
+  TimeMode
 } from './interfaces';
 import {
   daysVToDays,
@@ -20,7 +20,7 @@ import {
   sliderInitVal,
   timeModes,
   timeVToTime,
-  variants,
+  variants
 } from './options';
 
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
@@ -136,8 +136,8 @@ export default class SetupController {
   };
 
   private savePropsToStore = (override: Partial<SetupStore> = {}) =>
-    this.gameType &&
-    this.store[this.gameType]({
+    this.gameType
+    && this.store[this.gameType]({
       variant: this.variant(),
       fen: this.fen(),
       timeMode: this.timeMode(),
@@ -152,8 +152,8 @@ export default class SetupController {
     });
 
   private savePropsToStoreExceptRating = () =>
-    this.gameType &&
-    this.savePropsToStore({
+    this.gameType
+    && this.savePropsToStore({
       ratingMin: this.store[this.gameType]().ratingMin,
       ratingMax: this.store[this.gameType]().ratingMax,
     });
@@ -228,14 +228,14 @@ export default class SetupController {
 
   ratedModeDisabled = (): boolean =>
     // anonymous games cannot be rated
-    !this.root.me ||
+    !this.root.me
     // unlimited games cannot be rated
-    (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
+    || (this.gameType === 'hook' && this.timeMode() === 'unlimited')
     // variants with very low time cannot be rated
-    (this.variant() !== 'standard' &&
-      (this.timeMode() !== 'realTime' ||
-        (this.time() < 0.5 && this.increment() == 0) ||
-        (this.time() == 0 && this.increment() < 2)));
+    || (this.variant() !== 'standard'
+      && (this.timeMode() !== 'realTime'
+        || (this.time() < 0.5 && this.increment() == 0)
+        || (this.time() == 0 && this.increment() < 2)));
 
   selectedPerf = (): Perf => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
 
@@ -246,18 +246,17 @@ export default class SetupController {
   };
 
   hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
-    const valid =
-      color == 'random' &&
-      this.gameType === 'hook' &&
-      this.variant() == 'standard' &&
-      this.gameMode() == 'rated' &&
-      this.timeMode() == 'realTime';
+    const valid = color == 'random'
+      && this.gameType === 'hook'
+      && this.variant() == 'standard'
+      && this.gameMode() == 'rated'
+      && this.timeMode() == 'realTime';
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {
-          id,
-          range: this.ratingRange(),
-        }
+        id,
+        range: this.ratingRange(),
+      }
       : null;
   };
 
@@ -283,10 +282,10 @@ export default class SetupController {
   validFen = (): boolean => this.variant() !== 'fromPosition' || !this.fenError;
   validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
   validAiTime = (): boolean =>
-    this.gameType !== 'ai' ||
-    this.timeMode() !== 'realTime' ||
-    this.variant() !== 'fromPosition' ||
-    this.time() >= 1;
+    this.gameType !== 'ai'
+    || this.timeMode() !== 'realTime'
+    || this.variant() !== 'fromPosition'
+    || this.time() >= 1;
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
 
   submit = async (color: Color | 'random') => {
@@ -324,8 +323,8 @@ export default class SetupController {
       alert(
         errs
           ? Object.keys(errs)
-              .map(k => `${k}: ${errs[k]}`)
-              .join('\n')
+            .map(k => `${k}: ${errs[k]}`)
+            .join('\n')
           : 'Invalid setup'
       );
       if (response.status == 403) {

@@ -54,19 +54,20 @@ export class PromotionCtrl {
       const premovePiece = g.state.pieces.get(orig);
       const piece = premovePiece || g.state.pieces.get(dest);
       if (
-        piece?.role == 'pawn' &&
-        ((dest[1] == '8' && g.state.turnColor == 'black') || (dest[1] == '1' && g.state.turnColor == 'white'))
+        piece?.role == 'pawn'
+        && ((dest[1] == '8' && g.state.turnColor == 'black')
+          || (dest[1] == '1' && g.state.turnColor == 'white'))
       ) {
         if (this.prePromotionRole && meta?.premove) {
           this.doPromote({ orig, dest, hooks }, this.prePromotionRole);
           return true;
         }
         if (
-          !meta?.ctrlKey &&
-          !this.promoting &&
-          (this.autoQueenPref === Prefs.AutoQueen.Always ||
-            (this.autoQueenPref === Prefs.AutoQueen.OnPremove && premovePiece) ||
-            forceAutoQueen)
+          !meta?.ctrlKey
+          && !this.promoting
+          && (this.autoQueenPref === Prefs.AutoQueen.Always
+            || (this.autoQueenPref === Prefs.AutoQueen.OnPremove && premovePiece)
+            || forceAutoQueen)
         ) {
           if (premovePiece) this.setPrePromotion(dest, 'queen');
           else this.doPromote({ orig, dest, hooks }, 'queen');

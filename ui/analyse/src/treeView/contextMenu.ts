@@ -46,13 +46,13 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
     windowWidth = window.innerWidth,
     windowHeight = window.innerHeight;
 
-  menu.style.left =
-    windowWidth - coords.x < menuWidth ? windowWidth - menuWidth + 'px' : (menu.style.left = coords.x + 'px');
+  menu.style.left = windowWidth - coords.x < menuWidth
+    ? windowWidth - menuWidth + 'px'
+    : (menu.style.left = coords.x + 'px');
 
-  menu.style.top =
-    windowHeight - coords.y < menuHeight
-      ? windowHeight - menuHeight + 'px'
-      : (menu.style.top = coords.y + 'px');
+  menu.style.top = windowHeight - coords.y < menuHeight
+    ? windowHeight - menuHeight + 'px'
+    : (menu.style.top = coords.y + 'px');
 }
 
 function action(icon: string, text: string, handler: () => void): VNode {
@@ -99,15 +99,15 @@ function view(opts: Opts, coords: Coords): VNode {
   );
 }
 
-export default function (e: MouseEvent, opts: Opts): void {
+export default function(e: MouseEvent, opts: Opts): void {
   let pos = getPosition(e);
   if (pos === null) {
     if (opts.root.contextMenuPath) return;
     pos = { x: 0, y: 0 };
   }
 
-  const el = ($('#' + elementId)[0] ||
-    $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
+  const el = ($('#' + elementId)[0]
+    || $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
   opts.root.contextMenuPath = opts.path;
   function close(e: MouseEvent) {
     if (e.button === 2) return; // right click

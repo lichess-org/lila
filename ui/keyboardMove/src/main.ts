@@ -165,17 +165,17 @@ export function render(ctrl: KeyboardMove) {
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
       ? snabModal({
-          class: 'keyboard-move-help',
-          content: [h('div.scrollable', spinner())],
-          onClose: () => ctrl.helpModalOpen(false),
-          onInsert: async ($wrap: Cash) => {
-            const [, html] = await Promise.all([
-              lichess.loadCssPath('keyboardMove.help'),
-              xhr.text(xhr.url('/help/keyboard-move', {})),
-            ]);
-            $wrap.find('.scrollable').html(html);
-          },
-        })
+        class: 'keyboard-move-help',
+        content: [h('div.scrollable', spinner())],
+        onClose: () => ctrl.helpModalOpen(false),
+        onInsert: async ($wrap: Cash) => {
+          const [, html] = await Promise.all([
+            lichess.loadCssPath('keyboardMove.help'),
+            xhr.text(xhr.url('/help/keyboard-move', {})),
+          ]);
+          $wrap.find('.scrollable').html(html);
+        },
+      })
       : null,
   ]);
 }

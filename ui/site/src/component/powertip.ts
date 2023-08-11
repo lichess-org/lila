@@ -26,17 +26,17 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
         const u = url.slice(3);
         const name = $(el).data('name') || $(el).html();
         $('#powerTip').html(
-          '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
-            name +
-            '</span></div></div><div class="upt__actions btn-rack">' +
-            uptA('/@/' + u + '/tv', licon.AnalogTv) +
-            uptA('/inbox/new?user=' + u, licon.BubbleSpeech) +
-            uptA('/?user=' + u + '#friend', licon.Swords) +
-            '<a class="btn-rack__btn relation-button" disabled></a></div>'
+          '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">'
+            + name
+            + '</span></div></div><div class="upt__actions btn-rack">'
+            + uptA('/@/' + u + '/tv', licon.AnalogTv)
+            + uptA('/inbox/new?user=' + u, licon.BubbleSpeech)
+            + uptA('/?user=' + u + '#friend', licon.Swords)
+            + '<a class="btn-rack__btn relation-button" disabled></a></div>'
         );
       }),
-      placement:
-        pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (inCrosstable(el) ? 'n' : 's'),
+      placement: pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement)
+        || (inCrosstable(el) ? 'n' : 's'),
     });
 
 const gamePowertip = (el: HTMLElement) =>
@@ -118,7 +118,7 @@ const Collision = {
   right: 8,
 };
 
-$.fn.powerTip = function (opts) {
+$.fn.powerTip = function(opts) {
   // don't do any work if there were no matched elements
   if (!this.length) {
     return this;
@@ -148,10 +148,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter: function(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave: function() {
       $.powerTip.hide(this);
     },
   });
@@ -587,9 +587,9 @@ class TooltipController {
       this.tipElement.css(coords);
     } while (
       // sanity check: limit to 5 iterations, and...
-      ++iterationCount <= 5 &&
+      ++iterationCount <= 5
       // try again if the dimensions changed after placement
-      (tipWidth !== this.tipElement.outerWidth() || tipHeight !== this.tipElement.outerHeight())
+      && (tipWidth !== this.tipElement.outerWidth() || tipHeight !== this.tipElement.outerHeight())
     );
 
     return coords;
@@ -616,9 +616,9 @@ class TooltipController {
         // for tooltips opened via the api: we need to check if it has
         // the forcedOpen flag.
         if (
-          !isMouseOver(this.scoped.activeHover) &&
-          !this.scoped.activeHover.is(':focus') &&
-          !this.scoped.activeHover[0].forcedOpen
+          !isMouseOver(this.scoped.activeHover)
+          && !this.scoped.activeHover.is(':focus')
+          && !this.scoped.activeHover[0].forcedOpen
         ) {
           if (!isMouseOver(this.tipElement)) {
             isDesynced = true;
@@ -653,7 +653,7 @@ function initTracking() {
     // hook viewport dimensions tracking
     window.addEventListener(
       'resize',
-      function () {
+      function() {
         session.windowWidth = $window.width();
         session.windowHeight = $window.height();
       },
@@ -662,7 +662,7 @@ function initTracking() {
 
     window.addEventListener(
       'scroll',
-      function () {
+      function() {
         const x = window.scrollX,
           y = window.scrollY;
         if (x !== session.scrollLeft) {
@@ -687,10 +687,10 @@ function trackMouse(event: PointerEvent) {
 function isMouseOver(element: Cash) {
   const elementPosition = element.offset()!;
   return (
-    session.currentX >= elementPosition.left &&
-    session.currentX <= elementPosition.left + element.width() &&
-    session.currentY >= elementPosition.top &&
-    session.currentY <= elementPosition.top + element.height()
+    session.currentX >= elementPosition.left
+    && session.currentX <= elementPosition.left + element.width()
+    && session.currentY >= elementPosition.top
+    && session.currentY <= elementPosition.top + element.height()
   );
 }
 
@@ -702,14 +702,14 @@ function getViewportCollisions(coords: Coords, elementWidth: number, elementHeig
   let collisions = Collision.none;
 
   if (
-    coords.top < viewportTop ||
-    Math.abs(Number(coords.bottom) - session.windowHeight) - elementHeight < viewportTop
+    coords.top < viewportTop
+    || Math.abs(Number(coords.bottom) - session.windowHeight) - elementHeight < viewportTop
   ) {
     collisions |= Collision.top;
   }
   if (
-    Number(coords.top) + elementHeight > viewportBottom ||
-    Math.abs(Number(coords.bottom) - session.windowHeight) > viewportBottom
+    Number(coords.top) + elementHeight > viewportBottom
+    || Math.abs(Number(coords.bottom) - session.windowHeight) > viewportBottom
   ) {
     collisions |= Collision.bottom;
   }

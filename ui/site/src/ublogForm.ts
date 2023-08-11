@@ -5,13 +5,13 @@ import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
 
 lichess.load.then(() => {
-  $('.ublog-post-form__image').each(function (this: HTMLFormElement) {
+  $('.ublog-post-form__image').each(function(this: HTMLFormElement) {
     setupImage(this);
   });
-  $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
+  $('#markdown-editor').each(function(this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
-  $('#form3-topics').each(function (this: HTMLTextAreaElement) {
+  $('#form3-topics').each(function(this: HTMLTextAreaElement) {
     setupTopics(this);
   });
   $('.flash').addClass('fade');

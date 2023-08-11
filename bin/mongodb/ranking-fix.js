@@ -10,13 +10,13 @@ ranking
       user: 1,
     }
   )
-  .forEach(function (r) {
+  .forEach(function(r) {
     if (
-      r.user &&
-      users.count({
-        _id: r.user,
-        engine: true,
-      }) > 0
+      r.user
+      && users.count({
+          _id: r.user,
+          engine: true,
+        }) > 0
     )
       cheats.push(r._id);
   });
@@ -24,7 +24,7 @@ ranking
 print('Found ' + cheats.length);
 print(cheats.join(', '));
 
-cheats.forEach(function (id) {
+cheats.forEach(function(id) {
   ranking.remove({
     _id: id,
   });
