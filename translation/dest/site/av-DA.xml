@@ -320,6 +320,7 @@
     <item quantity="one">%s секунд кьезе</item>
     <item quantity="other">%s секунд кьезе</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Гьаб аккаунталъ Lichess-алъул Сервисазул шартӀал хвезаруна</string>
   <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="bookmarkThisGame">Гьаб хӀай хъвазе</string>
@@ -487,11 +488,13 @@
   <string name="savingMovesHelp">Нижеца кидаго дур вариантал дур браузералъул кешалда цӀунула.</string>
   <string name="makeAStudy">ЦӀунизеги гӀахьал гьабизеги, цӀех-рех гьабизе бегьула.</string>
   <string name="clearSavedMoves">Хъурщиял нахъе росизе</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Воре, хӀай рейтингалъул буго амма гьелъул сагӀат гьечӀо!</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s хӀай</item>
     <item quantity="other">%s хӀай</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Хъурщаралдаса автоматик хадусеб хӀаялде жувазе</string>
   <string name="autoSwitch">Авто хиси</string>
   <string name="puzzles">Масъала</string>
   <string name="tournamentWinners">Турниралда бергьарал</string>
@@ -582,8 +585,13 @@
   <string name="community">ЖамагӀат</string>
   <string name="tools">Алатал</string>
   <string name="increment">ТӀаде бачӀин</string>
+  <string name="error.required">Гьаб авлахъ тӀадаб буго</string>
+  <string name="error.email">Гьаб электронияб адресс мекъаб буго</string>
+  <string name="error.email_unique">Электронияб адресс мекъаб яги цебего босараб буго</string>
+  <string name="error.email_different">Гьаб цебего дур электронияб адресс ккола</string>
   <string name="ifRatingIsPlusMinusX">Рейтинг ± %s батани</string>
   <string name="ifRegistered">ХӀисабалде восун ватани</string>
+  <string name="onlyExistingConversations">ЦохӀо ругел гара-чӀвариял</string>
   <string name="onlyFriends">ЦохӀо гьудулзабазе</string>
   <string name="menu">Мену</string>
   <string name="castling">Рокировка</string>
@@ -613,6 +621,7 @@
   <string name="createdSimuls">Дагьаб цебегӀан гьабураб сеанс</string>
   <string name="hostANewSimul">ЦӀияб сеанс гьабизе</string>
   <string name="noSimulFound">Сеанс батичӀо</string>
+  <string name="returnToSimulHomepage">Сеансазул гьумералде тӀадвуссине</string>
   <string name="create">Гьабизе</string>
   <string name="simulHostExtraTime">Хосталъул тӀаде жубалеб заман</string>
   <string name="simulHostExtraTimePerPlayer">Щивав хӀалесе хосталъул тӀаде жубалеб заман</string>
@@ -631,6 +640,7 @@
   <string name="keyNextMistake">Хадусеб гъалатӀ</string>
   <string name="keyNextInaccuracy">Хадусеб гьитӀинаб гъалатӀ</string>
   <string name="newTournament">ЦӀияб турнир</string>
+  <string name="tournamentHomeTitle">БатӀи-батӀиял заманалда тӀад хъаравуллъиги варинталги ругел шахматазул турнирал</string>
   <string name="tournamentNotFound">Турнир батичӀо</string>
   <string name="tournamentDoesNotExist">Гьадинаб турнир гьечӀо.</string>
   <string name="returnToTournamentsHomepage">Туниразул бетӀераб гьумер</string>
@@ -649,6 +659,7 @@
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="checkYourEmail">Хал гьабе дур электронияб почалъухъ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Нижеца духъе кагъат. Дур аккаун биччазе кагътида жаниб бухьеналда тӀадецуй.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">ХӀисабалде воси гьабиялъ, мун %sда разилъула.</string>
   <string name="readAboutOur">Нижер %s-ялъул цӀале.</string>
   <string name="downloadAnnotated">Аннотациягун рещтӀинабизе</string>
   <string name="downloadRaw">Бугеб куцалъ рещтӀинабизе</string>
@@ -712,6 +723,8 @@
   <string name="skipThisMove">Гьаб хъурщи гьоркьоб тезе</string>
   <string name="next">Хадусеб</string>
   <string name="xWasPlayed">%s гьабуна</string>
+  <string name="findBetterMoveForWhite">Жеги лъикӀаб хъурщи хъахӀазе балагье</string>
+  <string name="findBetterMoveForBlack">Жеги лъикӀаб хъурщи чӀегӀеразе балагье</string>
   <string name="youCanDoBetter">Жеги лъикӀаб буго</string>
   <string name="solution">БитӀун гьаби</string>
   <string name="waitingForAnalysis">Анализалъухъ балагьун чӀун</string>
@@ -733,6 +746,8 @@
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
+  <string name="temporaryInconvenience">Заманаялъе бугеб къварилъиялда нижеда тӀаса лъугьа,</string>
+  <string name="wishYouGreatGames">цӀакъал хӀаял кьеги дуе lichess.org-алда.</string>
   <string name="thankYouForReading">ЦӀаларалъухъ баркала!</string>
   <string name="currentMatchScore">Гьанжесеб мачалъул рикӀкӀин</string>
   <string name="edit">Хисизе</string>
@@ -791,6 +806,7 @@
   <string name="showHelpDialog">Квербакъиялъул хъвай-хъвагӀай бихьзабизе</string>
   <string name="reopenYourAccount">Дур аккаунт цӀидасан рагье</string>
   <string name="onlyWorksOnce">Гьаб цо нухалъ хӀалтӀизе буго.</string>
+  <string name="cantDoThisTwice">Дуца дур аккаунт кӀиабилеб нухалъ къани, гъоркь букӀахъе гьабизе рес букӀине гьечӀо.</string>
   <string name="sentEmailWithLink">Нижеца духъе бухьенгун кагъат битӀана.</string>
   <string name="tournamentEntryCode">Турниралде лъугьине код</string>
   <string name="hangOn">ЧӀая цо!</string>
