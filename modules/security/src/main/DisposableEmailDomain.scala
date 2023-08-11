@@ -85,6 +85,7 @@ private object DisposableEmailDomain:
     "protonmail.com",
     "protonmail.ch",
     "pm.me",
+    "proton.me",
     /* Other global domains */
     "email.com",
     "games.com" /* AOL */,

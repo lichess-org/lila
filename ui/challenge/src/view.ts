@@ -166,7 +166,7 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
   return h(
     'a.ulpt.user-link',
     {
-      attrs: { href: `/@/${u.name}` },
+      attrs: { href: `/@/${u.name}`, 'data-pt-pos': 'w' },
       class: { online: !!u.online },
     },
     [
