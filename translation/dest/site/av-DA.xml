@@ -788,6 +788,7 @@
   <string name="coachManager">Мударибзабазе</string>
   <string name="streamerManager">Стрим менежер</string>
   <string name="tournDescription">Турниралъул бицин</string>
+  <string name="tournDescriptionHelp">Щиб бугониги гӀахьалчагӀазда бицине бокьараб бугищ? Къокъ гьабизе хӀаракат бахъе. Markdown бухьенал рагьарал руго: [name](https://url)</string>
   <string name="onlyMembersOfTeam">ЦохӀо къокъаялъул лугбузе</string>
   <string name="noRestriction">ГӀорхъаби гьечӀо</string>
   <string name="minimumRatedGames">Бищун дагьаб рейтингалъул хӀай</string>
