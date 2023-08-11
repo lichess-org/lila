@@ -120,6 +120,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">РакӀалдачӀей</string>
   <string name="infiniteAnalysis">ЛъугӀи гьечӀеб анализ</string>
+  <string name="removesTheDepthLimit">Гъварилъиялъул гӀорхъи хвезабула, гьединго дур компутер бахьизабула</string>
   <string name="engineManager">МухӀарик менежер</string>
   <string name="blunder">КӀудияб гъалатӀ</string>
   <string name="mistake">ГъалатӀ</string>
@@ -381,6 +382,7 @@
   <string name="gameAsGIF">GIF-лъун цӀунизе</string>
   <string name="pasteTheFenStringHere">FEN текст гьаниб лъе</string>
   <string name="pasteThePgnStringHere">PGN текст гьаниб лъе</string>
+  <string name="orUploadPgnFile">Яги гьанибе PNG файл рещтӀинабе</string>
   <string name="fromPosition">Ругеб бакӀалдаса</string>
   <string name="continueFromHere">Гьаниса хӀазе</string>
   <string name="toStudy">ЦӀех-рех</string>
