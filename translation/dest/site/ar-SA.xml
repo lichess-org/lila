@@ -79,7 +79,7 @@
   <string name="variantWin">فوز بطريقة خاصة</string>
   <string name="insufficientMaterial">قطع غير كافية لإنهاء المباراة</string>
   <string name="pawnMove">نقلة بيدق</string>
-  <string name="capture">التقاط</string>
+  <string name="capture">أسر</string>
   <string name="close">إغلاق</string>
   <string name="winning">فائزة</string>
   <string name="losing">خاسرة</string>
@@ -619,7 +619,7 @@
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
   <string name="biography">نبذة عنك</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">العلم</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
@@ -826,6 +826,11 @@ https://lichess. org/study</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
+  <string name="keyRequestComputerAnalysis">اطلب تحليل الحاسوب وتعلم من أخطائك</string>
+  <string name="keyNextLearnFromYourMistakes">التالي (تعلم من أخطائك)</string>
+  <string name="keyNextBlunder">الخطأ الفادح التالي</string>
+  <string name="keyNextMistake">الخطأ التالي</string>
+  <string name="keyNextInaccuracy">النقلة غير الدقيقة التالية</string>
   <string name="newTournament">مسابقة جديدة</string>
   <string name="tournamentHomeTitle">مسابقات بانواع شطرنج مختلفة وساعات مختلفة</string>
   <string name="tournamentHomeDescription">العب مسابقات شطرنج بكل السرعات. انضم للمسابقات الرسمية المجدولة، أو ابدأ مسابقاتك الخاصة.</string>
@@ -845,6 +850,7 @@ https://lichess. org/study</string>
   <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s أنت أفضل من %2$s من %3$s اللاعبين.</string>
+  <string name="betterThanPercentPlayers">أفضل من %1$s بالمائة من لاعبي الشطرنج %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
   <string name="yourRating">تقييمك</string>
   <string name="cumulative">جمعا</string>
@@ -931,6 +937,7 @@ https://lichess. org/study</string>
   <string name="invalidFen">FEN غير صالح</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
+  <string name="notificationsX">الإشعارات %1$s</string>
   <string name="perfRatingX">التقييم: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
@@ -1037,6 +1044,8 @@ https://lichess. org/study</string>
   <string name="useTheReportForm">إستخدم نموذج التبليغ</string>
   <string name="toRequestSupport">لطلب الدعم، %1$s</string>
   <string name="tryTheContactPage">جرب صفحة الإتصال</string>
+  <string name="makeSureToRead">تحقق من قراءة %1$s</string>
+  <string name="theForumEtiquette">آداب المنتدى</string>
   <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
   <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
   <string name="teamNamedX">فريق %1$s</string>

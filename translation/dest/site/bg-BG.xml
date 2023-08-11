@@ -504,7 +504,7 @@
   <string name="firstName">Име</string>
   <string name="lastName">Презиме</string>
   <string name="biography">Животопис</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или знаме</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Флаг</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
@@ -706,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Вашият %1$s рейтинг е %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вие сте по-добър от %1$s от %2$s играчите.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s в по-добър от %2$s от %3$s играчите.</string>
+  <string name="betterThanPercentPlayers">По-добър от %1$s от %2$s играчите</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Нямате установен %s рейтинг.</string>
   <string name="yourRating">Вашият рейтинг</string>
   <string name="cumulative">С натрупване</string>

@@ -72,6 +72,7 @@ private object DisposableEmailDomain:
     "google.com",
     "hotmail.com",
     "hotmail.co.uk",
+    "ikmail.com",
     "mac.com",
     "me.com",
     "mail.com",
@@ -185,6 +186,10 @@ private object DisposableEmailDomain:
     "fibertel.com.ar",
     "speedy.com.ar",
     "arnet.com.ar",
+    /* Domains used in Vietnam */
+    "outlook.com.vn",
+    "yahoo.com.vn",
+    "vnnic.vn",
     /* Domains used in Mexico */
     "yahoo.com.mx",
     "live.com.mx",
@@ -205,6 +210,9 @@ private object DisposableEmailDomain:
     "globo.com",
     "globomail.com",
     "oi.com.br",
+    /* Domains used in Portugal */
+    "sapo.pt",
+    "outlook.pt",
     /* Domains without an A record */
     "cabletv.on.ca",
     "live.ca",

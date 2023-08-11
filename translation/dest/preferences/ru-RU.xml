@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Позволяет скрыть все рейтинги на сайте, чтобы помочь сосредоточиться на игре. Сами партии останутся рейтинговыми, просто вы не будете это видеть.</string>
   <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
   <string name="onlyOnInitialPosition">Только в начальном положении</string>
+  <string name="inGameOnly">Только в игре</string>
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="chessClock">Шахматные часы</string>
   <string name="tenthsOfSeconds">Десятые доли секунд</string>

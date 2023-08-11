@@ -254,7 +254,7 @@ export default class AnalyseCtrl {
   flip = () => {
     this.flipped = !this.flipped;
     this.study?.onFlip();
-    this.chessground.set({
+    this.chessground?.set({
       orientation: this.bottomColor(),
     });
     if (this.retro && this.data.game.variant.key !== 'racingKings') {
@@ -810,7 +810,6 @@ export default class AnalyseCtrl {
     if (!this.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
-      this.chessground && this.chessground.setAutoShapes([]);
     } else this.resetAutoShapes();
   }
 

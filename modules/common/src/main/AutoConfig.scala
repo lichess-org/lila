@@ -65,6 +65,16 @@ object AutoConfig:
 
             // Get the type of this class member
             TypeRepr.of[T].memberType(param).asType match
+              case '[Option[t]] =>
+                Expr.summon[ConfigLoader[t]] match
+                  case None =>
+                    report.errorAndAbort(
+                      s"Could not find an instance of ConfigLoader for type ${TypeRepr.of[t].show}"
+                    )
+                  case Some(value) =>
+                    '{
+                      optionalConfig[t](using $value).load($confTerm, $nameOverride)
+                    }
               case '[t] =>
                 // summon ConfigLoader for the type of this parameter
                 Expr.summon[ConfigLoader[t]] match

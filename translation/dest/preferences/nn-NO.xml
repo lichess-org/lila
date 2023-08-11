@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Dette gjer det mogleg å skjule all rating frå nettsida, for å hjelpa til med å halde fokuset på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
+  <string name="inGameOnly">Berre under eit parti</string>
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>

@@ -12,7 +12,7 @@
   </plurals>
   <string name="newPatrons">Novos Patróns</string>
   <string name="freeChess">Xadrez gratis para todos, para sempre!</string>
-  <string name="noAdsNoSubs">Sen anuncios, sen subscricións; só código aberto e paixón.</string>
+  <string name="noAdsNoSubs">Sen anuncios nin subscricións; só código aberto e paixón.</string>
   <string name="thankYou">Grazas pola túa doazón!</string>
   <string name="youHaveLifetime">Tes unha conta de Patrón Vitalicia. Iso si que presta!</string>
   <string name="patronUntil">Tes unha conta de Patrón ata o %s.</string>
@@ -35,7 +35,7 @@
   <string name="whereMoneyGoes">Onde van os cartos?</string>
   <string name="serversAndDeveloper">En primeiro lugar, a servidores potentes.
 Logo pagamos a un desenvolvedor a tempo completo: %s, o fundador de Liches.</string>
-  <string name="costBreakdown">Vexa a análise detallada de custos</string>
+  <string name="costBreakdown">Ver a análise detallada de custos</string>
   <string name="officialNonProfit">É Lichess unha organización oficial sen ánimo de lucro?</string>
   <string name="actOfCreation">Si, aquí está a acta fundacional (en francés)</string>
   <string name="changeMonthlySupport">Podo cambiar/cancelar a miña achega mensual?</string>
@@ -46,10 +46,10 @@ Ou podes %s.</string>
   <string name="lichessIsRegisteredWith">Lichess está rexistrada en %s.</string>
   <string name="bankTransfers">Tamén aceptamos transferencias bancarias</string>
   <string name="onlyDonationFromAbove">Ten en conta que só a doazón a través do formulario anterior garante o status de Patrón.</string>
-  <string name="patronFeatures">Hai algunhas características reservadas aos patróns?</string>
+  <string name="patronFeatures">Hai funcionalidades reservadas aos Patróns?</string>
   <string name="noPatronFeatures">Non, porque Lichess é totalmente gratuíto, para sempre, para todos. Isto é unha promesa.
 Porén, os Patróns poden gabarse da súa nova icona de perfil.</string>
-  <string name="featuresComparison">Ver a comparación detallada das características</string>
+  <string name="featuresComparison">Ver a comparación detallada das funcionalidades</string>
   <plurals name="patronForMonths">
     <item quantity="one">Patrón de Lichess por un mes</item>
     <item quantity="other">Patrón de Lichess por %s meses</item>
@@ -59,10 +59,10 @@ Porén, os Patróns poden gabarse da súa nova icona de perfil.</string>
   <string name="currentStatus">Estado actual</string>
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Cobrarémosche %1$s o %2$s.</string>
-  <string name="makeAdditionalDonation">Fai unha doazón adicional</string>
+  <string name="makeAdditionalDonation">Fai agora unha doazón adicional</string>
   <string name="giftPatronWings">Agasalla ás de Patrón a un xogador</string>
   <string name="update">Actualiza</string>
-  <string name="changeMonthlyAmount">Cambia a cantidade mensual (%s)</string>
+  <string name="changeMonthlyAmount">Cambia o importe mensual (%s)</string>
   <string name="cancelSupport">Cancela o teu apoio</string>
   <string name="xOrY">%1$s ou %2$s</string>
   <string name="decideHowMuch">Decide canto vale Lichess para ti:</string>
