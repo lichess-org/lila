@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Denne innstillingen skjuler alle ratingene på nettstedet, slik at du kan fokusere på sjakken. Du kan fortsatt spille ratede partier.</string>
   <string name="displayBoardResizeHandle">Vis håndtak for brettstørrelse</string>
   <string name="onlyOnInitialPosition">Kun for utgangsstillingen</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Bare under partier</string>
   <string name="blindfoldChess">Blindsjakk (usynlige brikker)</string>
   <string name="chessClock">Sjakkur</string>
   <string name="tenthsOfSeconds">Tidels sekunder</string>
