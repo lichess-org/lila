@@ -34,8 +34,8 @@
   <string name="newOpponent">ЦӀияв дандеяв</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Дур дандеясе цӀидасан бокьун буго мунгун хӀазе</string>
   <string name="joinTheGame">ХӀаялде жувазе</string>
-  <string name="whitePlays">ХъахӀазул ин</string>
-  <string name="blackPlays">ЧӀегӀеразул ин</string>
+  <string name="whitePlays">ХъахӀазул ирга</string>
+  <string name="blackPlays">ЧӀегӀеразул ирга</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
     <item quantity="other">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
@@ -70,7 +70,7 @@
   <string name="makeMainLine">Аслияблъун гьабизе</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
   <string name="forceVariation">Вариантлъун гьабизе</string>
-  <string name="move">Ин</string>
+  <string name="move">Хъурщи</string>
   <string name="variantLoss">Вариант къола</string>
   <string name="variantWin">Вариант бергьуна</string>
   <string name="insufficientMaterial">Материал гӀунгутӀи</string>
@@ -86,7 +86,7 @@
   <string name="averageRatingX">Гьоркьохъеб рейтинг: %s</string>
   <string name="recentGames">Дагьал цере рукӀарал хӀаял</string>
   <string name="topGames">Бищун лъикӀал хӀаял</string>
-  <string name="masterDbExplanation">%2$s-даса %3$s сон щвезегӀан %1$s+ FIDE рейтингалъул хӀалезул 2 миллион хъорщода нахъа хӀаял</string>
+  <string name="masterDbExplanation">%2$s-даса %3$s сон щвезегӀан %1$s+ FIDE рейтингалъул хӀалезул 2 миллион хъорщода нахъа гьарурал хӀаял</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s бащдаб хъурщиялдаса мат</item>
     <item quantity="other">%s бащдаб хъурщиялдаса мат</item>
@@ -622,6 +622,7 @@
   <string name="hostANewSimul">ЦӀияб сеанс гьабизе</string>
   <string name="noSimulFound">Сеанс батичӀо</string>
   <string name="returnToSimulHomepage">Сеансазул гьумералде тӀадвуссине</string>
+  <string name="aboutSimulImage">50 хӀаялдаса Фишер бергьана 47-ялда, ващад ккан 2-ялда, къуна 1-ялда.</string>
   <string name="create">Гьабизе</string>
   <string name="simulHostExtraTime">Хосталъул тӀаде жубалеб заман</string>
   <string name="simulHostExtraTimePerPlayer">Щивав хӀалесе хосталъул тӀаде жубалеб заман</string>
@@ -670,6 +671,7 @@
   <string name="shareYourInsightsData">Дур шахматазул аналитика гӀахьал гьабизе</string>
   <string name="withFriends">Гьудулзабигун</string>
   <string name="withEverybody">Кинавгогун</string>
+  <string name="sessions">Сессияби</string>
   <string name="playChessEverywhere">Шахматаби кибго хӀай</string>
   <string name="zeroAdvertisement">Реклама гьечӀо</string>
   <string name="phoneAndTablet">Телефонги планшетги</string>
@@ -688,13 +690,17 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Нужер рикӀкӀин: %s</string>
   <string name="language">МацӀ</string>
+  <string name="background">НахъабакӀ</string>
   <string name="light">КанчӀаб</string>
   <string name="dark">БецӀаб</string>
   <string name="transparent">Гъорлъан канлъи бихьулеб</string>
   <string name="deviceTheme">Девайсалъул куц</string>
+  <string name="backgroundImageUrl">НахъабакӀалъул сураталъул URL:</string>
+  <string name="boardGeometry">Хъорщол куцги кӀодолъиги</string>
   <string name="boardTheme">Хъорщол куц</string>
   <string name="boardSize">Хъорщол кӀодолъи</string>
   <string name="pieceSet">Кескил куц</string>
+  <string name="embedInYourWebsite">Дур сайталда лъезе</string>
   <string name="usernameAlreadyUsed">Гьеб хӀалтӀизабулесда цӀар ккун буго, хӀалбихье цогидаб.</string>
   <string name="usernamePrefixInvalid">ХӀалтӀизабулесда цӀар хӀарпалдаса байбихьизе ккола.</string>
   <string name="playChessInStyle">Шахматазул къагӀидаялъ хӀазе</string>
@@ -746,6 +752,8 @@
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
+  <string name="howToAvoidThis">Кин гьелдаса ворчӀизе?</string>
+  <string name="resignLostGames">Хьул къотӀарал хӀаязда къун чӀа (заман лъугӀизегӀан чӀоге).</string>
   <string name="temporaryInconvenience">Заманаялъе бугеб къварилъиялда нижеда тӀаса лъугьа,</string>
   <string name="wishYouGreatGames">цӀакъал хӀаял кьеги дуе lichess.org-алда.</string>
   <string name="thankYouForReading">ЦӀаларалъухъ баркала!</string>
@@ -779,6 +787,7 @@
   <string name="welcome">ЛъикӀ щварав!</string>
   <string name="coachManager">Мударибзабазе</string>
   <string name="streamerManager">Стрим менежер</string>
+  <string name="tournDescription">Турниралъул бицин</string>
   <string name="onlyMembersOfTeam">ЦохӀо къокъаялъул лугбузе</string>
   <string name="noRestriction">ГӀорхъаби гьечӀо</string>
   <string name="minimumRatedGames">Бищун дагьаб рейтингалъул хӀай</string>
@@ -811,6 +820,7 @@
   <string name="tournamentEntryCode">Турниралде лъугьине код</string>
   <string name="hangOn">ЧӀая цо!</string>
   <string name="gameInProgress">Дур %sгун хӀай унеб буго.</string>
+  <string name="resignTheGame">Къун чӀезе</string>
   <string name="since">-даса</string>
   <string name="until">ЩвезегӀан</string>
   <string name="lichessDbExplanation">Lichess-алда хӀарал рейтингалъул хӀаял</string>
