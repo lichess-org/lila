@@ -9,7 +9,7 @@ import controllers.routes
 
 object bits:
 
-  def menu(year: Option[Int], active: Option[String])(using ctx: PageContext) =
+  def menu(year: Option[Int], active: Option[String])(using ctx: Context) =
     st.nav(cls := "page-menu__menu subnav force-ltr")(
       a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
         "Community blogs"
@@ -32,7 +32,7 @@ object bits:
       post: MiniPost,
       postClass: Option[String] = None,
       header: Tag = h2
-  )(using PageContext) =
+  )(using Context) =
     a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
       st.img(src := post.image),
       div(cls := "content")(
@@ -44,7 +44,7 @@ object bits:
 
   private[blog] def metas(
       doc: io.prismic.Document
-  )(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
+  )(using ctx: Context, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
