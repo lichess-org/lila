@@ -450,7 +450,6 @@
   <string name="firstName">Nav</string>
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Welat an jî al</string>
   <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>

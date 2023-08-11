@@ -28,6 +28,11 @@
   <string name="keepGoing">استمر…</string>
   <string name="puzzleSuccess">تم بنجاح!</string>
   <string name="puzzleComplete">تم حل اللغز!</string>
+  <string name="byOpenings">من الافتتاحات</string>
+  <string name="puzzlesByOpenings">ألغاز من الافتتاحات</string>
+  <string name="openingsYouPlayedTheMost">الافتتاحات التي استخدمتها في معظم المبارايات المقيمة</string>
+  <string name="useFindInPage">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
+  <string name="useCtrlF">أضغط Ctrl و f لتبحث عن افتتاحك المفضل!</string>
   <string name="notTheMove">هذه ليست الحركة الصحيحة!</string>
   <string name="trySomethingElse">جرب شيئا آخر.</string>
   <string name="ratingX">التقييم: %s</string>

@@ -72,10 +72,16 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
 Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
   <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>
   <string name="numberOfByesA">Hráč dostane bod zdarma pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="earlyDrawsQ">Co se stane s brzkými remízami?</string>
+  <string name="earlyDrawsA">Hráč dostane bod zdarma pokaždé, když pro něj systém nenajde soupeře. Navíc, půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
   <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
   <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
 Takového hráče systém diskvalifikuje, aby neprohrál více partií.
 Do turnaje se mohou připojit kdykoliv.</string>
+  <string name="protectionAgainstNoShowQ">Co se stane, když se hráč nedostaví?</string>
+  <string name="protectionAgainstNoShowA">Hráči, kteří se přihlásí k švýcarským turnajům, ale nehrají své hry, mohou být problematičtí.
+Pro zmírnění tohoto problému Lichess zabraňuje hráčům, kteří nehráli hru, aby se připojili k novému švýcarskému turnaji po určitou dobu.
+Správce švýcarského turnaje může rozhodnout, zda hráče nechá znovu připojit.</string>
   <string name="lateJoinQ">Mohou se hráči připojit po začátku?</string>
   <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12 kolovém turnaji do začátku 7. kola.
 Hráči, kteří se připojí pozdě, dostanou jeden bod zdarma i když se nezúčastní více kol.</string>
@@ -118,4 +124,5 @@ Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je mo�
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
   <string name="predefinedUsers">Povolit připojení pouze předem definovaným uživatelům</string>
   <string name="forbiddedUsers">Pokud nebude tento seznam prázdný. Uživatelé uvedení v tomto seznamu se nebudou moct připojit. Pište jedno uživatelské jméno na řádek.</string>
+  <string name="playYourGames">Hrajte své hry</string>
 </resources>

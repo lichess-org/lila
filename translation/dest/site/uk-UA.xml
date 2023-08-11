@@ -571,7 +571,7 @@
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
   <string name="biography">Біографія</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна або прапор</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Прапор</string>
   <string name="thankYou">Дякуємо!</string>
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
@@ -783,7 +783,7 @@
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг становить %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви сильніше %1$s гравців у %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s сильніше %2$s гравців у %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Кращі за %1$s з %2$s гравців</string>
+  <string name="betterThanPercentPlayers">Кращі за %1$s з %2$s гравців</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг %s ще не визначений.</string>
   <string name="yourRating">Ваш рейтинг</string>
   <string name="cumulative">Сукупний</string>

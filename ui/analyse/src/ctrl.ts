@@ -810,7 +810,6 @@ export default class AnalyseCtrl {
     if (!this.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
-      this.chessground && this.chessground.setAutoShapes([]);
     } else this.resetAutoShapes();
   }
 

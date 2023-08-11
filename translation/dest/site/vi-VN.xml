@@ -471,7 +471,7 @@
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc quốc kỳ</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
   <string name="thankYou">Cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL mỗi dòng.</string>
@@ -668,7 +668,7 @@
   <string name="yourPerfTypeRatingIsRating">Xếp hạng %1$s của bạn là %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Bạn giỏi hơn %1$s người chơi %2$s</string>
+  <string name="betterThanPercentPlayers">Bạn giỏi hơn %1$s người chơi %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
   <string name="yourRating">Xếp hạng của bạn</string>
   <string name="cumulative">Tích luỹ</string>

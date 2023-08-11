@@ -461,7 +461,6 @@
   <string name="firstName">Fornafn</string>
   <string name="lastName">Eftirnafn</string>
   <string name="biography">Lífssaga</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eða fáni</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="socialMediaLinks">Samfélagsmiðlatengill</string>
   <string name="oneUrlPerLine">Eitt URL í hverri línu.</string>

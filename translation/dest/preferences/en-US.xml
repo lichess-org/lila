@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see.</string>
   <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">In-game only</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>

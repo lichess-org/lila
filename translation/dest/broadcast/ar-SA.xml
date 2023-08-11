@@ -27,4 +27,5 @@
   <string name="deleteRound">حذف هذه الجولة</string>
   <string name="definitivelyDeleteRound">قم بحذف الجولة وألعابها نهائيا.</string>
   <string name="deleteAllGamesOfThisRound">احذف جميع ألعاب هذه الجولة. سوف يحتاج المصدر إلى أن يكون نشطا من أجل إعادة إنشائها.</string>
+  <string name="deleteTournament">حذف هذه المسابقة</string>
 </resources>

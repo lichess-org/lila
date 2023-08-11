@@ -86,7 +86,7 @@
   <string name="averageRatingX">Gjennomsnittsrating: %s</string>
   <string name="recentGames">Nylige partier</string>
   <string name="topGames">Topp-partier</string>
-  <string name="masterDbExplanation">To millioner spill av %1$s+ FIDE ratede spillere fra %2$s til %3$s</string>
+  <string name="masterDbExplanation">Brettsjakkpartier med spillere som har FIDE-rating %1$s+ fra %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
@@ -504,7 +504,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Etternavn</string>
   <string name="biography">Biografi</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale medier</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er bedre enn %2$s av %3$s-spillerne.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Bedre enn %1$s av spillerne i %2$s</string>
+  <string name="betterThanPercentPlayers">Bedre enn %1$s av spillerne i %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke fått en etablert %s-rating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Akkumulert</string>

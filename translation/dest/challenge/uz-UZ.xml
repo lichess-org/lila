@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">Chorlovlar: %1$s</string>
   <string name="challengeToPlay">O\'yinga chorlov</string>
   <string name="challengeDeclined">Chorlovni rad etildi</string>
   <string name="challengeAccepted">Chorlov qabul qilindi!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">Ayni damda ushbu variantda oʻynashga men tayyor emasman.</string>
   <string name="declineNoBot">Ayni damda men botlardan chorlovlarni qabul qila olmayman.</string>
   <string name="declineOnlyBot">Men faqat botlardan chorlovlarni qabul qila olaman.</string>
+  <string name="inviteLichessUser">Yoki Lichess foydalanuvchisini taklif eting:</string>
 </resources>

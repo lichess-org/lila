@@ -504,7 +504,6 @@
   <string name="firstName">Όνομα</string>
   <string name="lastName">Επώνυμο</string>
   <string name="biography">Βιογραφικό</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Χώρα ή σημαία</string>
   <string name="thankYou">Ευχαριστούμε!</string>
   <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
