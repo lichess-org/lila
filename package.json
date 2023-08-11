@@ -7,10 +7,7 @@
     "type": "git",
     "url": "https://github.com/lichess-org/lila.git"
   },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
+  "keywords": ["chess", "lichess"],
   "author": "Thibault Duplessis and the gang",
   "license": "AGPL-3.0-or-later",
   "bugs": {
@@ -28,19 +25,18 @@
     }
   },
   "lint-staged": {
-    "*.css": "prettier --write",
-    "*.scss": "prettier --write",
-    "*.{js,ts,md,json,toml,yaml}": "dprint fmt"
+    "ui/**/*.scss": "prettier --write",
+    "*.{js,ts,md,json}": "dprint fmt"
   },
   "dependencies": {
     "@types/node": "^18.16.18",
     "@types/web": "^0.0.84",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^8.3.11",
     "dprint": "^0.40.2",
-    "eslint": "^8.43.0",
+    "eslint": "^8.47.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.1",

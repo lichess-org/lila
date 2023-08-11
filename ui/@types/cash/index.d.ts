@@ -18,8 +18,7 @@ declare type EventCallback = {
   (event: any, data?: any): any;
   guid?: number;
 };
-declare class Cash {
-  constructor(selector?: Selector, context?: Context | Cash);
+interface Cash {
   init(selector?: Selector, context?: Context | Cash): Cash;
 }
 declare const cash: ((selector?: Selector, context?: Context | Cash) => Cash) & CashStatic;

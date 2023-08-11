@@ -30,4 +30,4 @@ jobs:
       - uses: github/codeql-action/analyze@v2
       - run: pnpm install
       - run: pnpm run lint
-      - run: pnpm run check-format
+      - run: pnpm run format-check
