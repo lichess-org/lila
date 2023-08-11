@@ -354,33 +354,28 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(
-          name => {
-            const selfButton = name == ctrl.myName;
-            return h(
-              `button.button${selfButton ? '.button-green' : ''}`,
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(name =>
+          h('div',[
+            h(
+              `button.button${name === ctrl.myName ? '.button-green' : ''}`,
               {
                 hook: bind('click', () => onSelect(name)),
               },
-              selfButton || ctrl.participants.includes(name)
-                ? name
-                : [
-                    name,
-                    h('button.remove', {
-                      attrs: {
-                        title: ctrl.root.trans.noarg('Delete'),
-                        ...dataIcon(licon.X),
-                      },
-                      hook: bind('click', event => {
-                        event.stopPropagation();
-                        onRemove(name);
-                      }),
-                    }),
-                  ]
-            );
-          }
+              name
+            ),
+            name !== ctrl.myName ? 
+            h(
+              'button.remove',
+              {
+                attrs: {
+                  ...dataIcon(licon.X),
+                },
+                hook: bind('click', () => onRemove(name)),
+              },
+            ) : null,
+          ])
         )
-      ),
+      )
     ],
   });
 };

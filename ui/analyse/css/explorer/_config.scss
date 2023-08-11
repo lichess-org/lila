@@ -117,14 +117,18 @@
     }
     .previous {
       @extend %flex-wrap;
+      grid-template-columns: auto auto;
+      column-gap: 0.5em;
       .button {
-        margin: 1.3em 0.2em;
+        margin: 0.3em 0.2em;
         text-transform: none;
       }
       .remove {
-        float: right;
-        top: -1.4em;
-        right: -1.6em;
+        margin-left: -1.75em;
+        width:1.75em;
+        height:1.75em;
+        top: -1.5em;
+        right: -0.65em;
         background-color: rgb(60, 60, 50);
         position: relative;
         border-radius: 50%;
