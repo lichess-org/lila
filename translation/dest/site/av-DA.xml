@@ -212,7 +212,7 @@
   <string name="changePassword">Парол хисизе</string>
   <string name="changeEmail">Электронияб поч хисизе</string>
   <string name="email">Электронияб поч</string>
-  <string name="passwordReset">Парол нахъе рехизе</string>
+  <string name="passwordReset">Парол цӀидасан чӀезабизе</string>
   <string name="forgotPassword">Парол кӀочонищ тараб?</string>
   <string name="error.weakPassword">Гьаб парол кутакалда тӀибитӀараб буго, гьединго гьалда нахъгӀунтӀизе цӀакъ бигьаго буго.</string>
   <string name="error.namePassword">Дур хӀалтӀизабулесда цӀар пароллъун хӀалтӀизабуге.</string>
@@ -612,6 +612,7 @@
   <string name="webmasters">Web-устарал</string>
   <string name="about">ХӀакъалъулъ</string>
   <string name="aboutX">%s-(а)лъул</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ккола мухь босулареб (%2$s), реклама гьечӀеб рагьараб кьучӀаб код бугеб шахматазул сервер.</string>
   <string name="really">унго</string>
   <string name="contribute">Квербакъизе</string>
   <string name="termsOfService">Сервисазул шартӀал</string>
@@ -663,6 +664,7 @@
   <string name="checkYourEmail">Хал гьабе дур электронияб почалъухъ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Нижеца духъе кагъат. Дур аккаун биччазе кагътида жаниб бухьеналда тӀадецуй.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Кагъат бихьулев гьечӀони, спамалда яги цогидал бакӀазда балагье.</string>
+  <string name="weHaveSentYouAnEmailTo">Нижеца %s-(и)хъе кагъатӀ битӀана. Дур парол цӀидасан чӀезабизе почалда бухьеналда тӀаде цуй.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ХӀисабалде воси гьабиялъ, мун %sда разилъула.</string>
   <string name="readAboutOur">Нижер %s-ялъул цӀале.</string>
   <string name="downloadAnnotated">Аннотациягун рещтӀинабизе</string>
