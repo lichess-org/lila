@@ -533,6 +533,7 @@
   <string name="noNoteYet">Жеги хъвай-хъвагӀай гьечӀо</string>
   <string name="invalidUsernameOrPassword">Мекъаб цӀар яги парол</string>
   <string name="incorrectPassword">Мекъаб парол</string>
+  <string name="invalidAuthenticationCode">Мекъаб тасдикъ гьавиялъул код</string>
   <string name="emailMeALink">Дир почалъе бухьен битӀе</string>
   <string name="currentPassword">Гьанжесеб парол</string>
   <string name="newPassword">ЦӀияб парол</string>
