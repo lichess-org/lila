@@ -41,6 +41,11 @@
     "importDeclaration.sortNamedImports": "maintain",
     "exportDeclaration.sortNamedExports": "maintain"
   },
+  "prettier": {
+    "includes": ["**/_*.scss"],
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
   "json": {
     "array.preferSingleLine": true,
     "object.preferSingleLine": false
@@ -50,7 +55,8 @@
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.86.1.wasm",
     "https://plugins.dprint.dev/json-0.17.4.wasm",
-    "https://plugins.dprint.dev/markdown-0.15.3.wasm"
+    "https://plugins.dprint.dev/markdown-0.15.3.wasm",
+    "https://plugins.dprint.dev/prettier-0.27.0.json@3557a62b4507c55a47d8cde0683195b14d13c41dda66d0f0b0e111aed107e2fe"
   ],
   "$schema": "https://dprint.dev/schemas/v0.json"
 }

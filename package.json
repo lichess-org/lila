@@ -25,8 +25,7 @@
     }
   },
   "lint-staged": {
-    "ui/**/*.scss": "prettier --write",
-    "*.{js,ts,md,json}": "dprint fmt"
+    "*.{js,ts,md,json,scss}": "dprint fmt"
   },
   "dependencies": {
     "@types/node": "^18.16.18",
@@ -39,12 +38,11 @@
     "eslint": "^8.47.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "prettier": "^3.0.1",
     "typescript": "^5.1.5"
   },
   "scripts": {
-    "format": "pnpm dprint fmt && pnpm prettier --write ui/**/_*.scss",
-    "format-check": "pnpm dprint check && pnpm prettier --check ui/**/_*.scss",
+    "format": "pnpm dprint fmt",
+    "format-check": "pnpm dprint check",
     "lint": "eslint . --ext .ts",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",

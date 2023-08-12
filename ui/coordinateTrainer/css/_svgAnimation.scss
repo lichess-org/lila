@@ -33,9 +33,7 @@ svg.coords-svg {
     }
 
     // for animating the removal of this element
-    transition:
-      opacity $timing,
-      transform $timing;
+    transition: opacity $timing, transform $timing;
   }
 
   g.next {

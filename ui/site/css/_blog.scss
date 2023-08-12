@@ -233,9 +233,7 @@
     position: relative;
 
     &:hover {
-      box-shadow:
-        0 0 5px $c-link,
-        0 0 20px $c-link;
+      box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;
     }
 
     time {
