@@ -17,13 +17,9 @@ object Namer:
   private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
     player.aiLevel.fold(
       user.fold(player.name | "Anon.") { u =>
-        ratingString(player)
-          .ifTrue(withRating)
-          .fold(
-            u.titleName
-          ) { rating =>
-            s"${u.titleName} ($rating)"
-          }
+        ratingString(player).ifTrue(withRating).fold(u.titleName) { rating =>
+          s"${u.titleName} ($rating)"
+        }
       }
     ) { level =>
       s"Stockfish level $level"
