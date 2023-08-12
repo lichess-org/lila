@@ -1505,6 +1505,7 @@ object I18nKeys:
     val `nextPayment` = I18nKey("patron:nextPayment")
     val `youWillBeChargedXOnY` = I18nKey("patron:youWillBeChargedXOnY")
     val `makeAdditionalDonation` = I18nKey("patron:makeAdditionalDonation")
+    val `giftPatronWingsShort` = I18nKey("patron:giftPatronWingsShort")
     val `giftPatronWings` = I18nKey("patron:giftPatronWings")
     val `update` = I18nKey("patron:update")
     val `changeMonthlyAmount` = I18nKey("patron:changeMonthlyAmount")
