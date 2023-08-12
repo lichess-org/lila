@@ -671,6 +671,8 @@
   <string name="downloadAnnotated">Аннотациягун рещтӀинабизе</string>
   <string name="downloadRaw">Бугеб куцалъ рещтӀинабизе</string>
   <string name="downloadImported">Жаниб лъураб рещтӀинабизе</string>
+  <string name="crosstable">РикӀкӀин</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Хъурщиял рихьизе, гӀонкӀкӀол гьакибер сверизабе.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Компутералъул вариантах рихьизе, гьел реге.</string>
   <string name="analysisShapesHowTo">Хъорщода горалги чӀоралги рахъизе, shift+click яги right-click гьабе.</string>
   <string name="letOtherPlayersMessageYou">Цогидазе духъе хабар битӀизе биччазе</string>
@@ -680,6 +682,7 @@
   <string name="withEverybody">Кинавгогун</string>
   <string name="sessions">Сессияби</string>
   <string name="playChessEverywhere">Шахматаби кибго хӀай</string>
+  <string name="asFreeAsLichess">Lichess гӀадин мугь босулареб буго</string>
   <string name="zeroAdvertisement">Реклама гьечӀо</string>
   <string name="phoneAndTablet">Телефонги планшетги</string>
   <string name="bulletBlitzClassical">Гулла, blitz, киласик</string>
