@@ -525,6 +525,7 @@
   <string name="ratingManipulation">Рейтингалъулъ рекӀкӀ гьаби</string>
   <string name="other">Цогидаб</string>
   <string name="reportDescriptionHelp">ХӀаял(з)де бухьен лъе цинги гьав хӀалесул хьвада-чӀвадиялда щиб мекъи бугебали бице. ЦохӀо \"гьес рекӀкӀ гьабунилан\" абуге, дуда кин гьедин ккараб бице. Дур гӀарзаялъухъ жеги хехго балагьила гьеб ингилис мацӀалъ хъван батани.</string>
+  <string name="error.provideOneCheatedGameLink">РекӀкӀ гьабураб цо хӀаялдениги бухьен кье.</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
   <string name="thisTopicIsNowClosed">Гьаб тема къан буго.</string>
@@ -815,6 +816,7 @@
 ХӀай гӀадатаб бакӀалдаса байбихьизе чӀобого те.</string>
   <string name="simulHostcolor">Щибаб хӀаялда хосталъул кьер</string>
   <string name="simulFeatured">%s-алда бихьизе</string>
+  <string name="simulFeaturedHelp">Дур сеанс %s-алда киназдаго бихьизе. Рахчарал сеансазе свинабизе.</string>
   <string name="simulDescription">Сеансалъул бицин</string>
   <string name="simulDescriptionHelp">Щибниги гӀахьалчагӀазда абизе бокьун бугищ?</string>
   <string name="markdownAvailable">%s рагьараб буго жеги цебетӀураб синтаксисалде.</string>
@@ -825,12 +827,16 @@
   <string name="onlyTeamLeaders">ЦохӀо къокъадул церехъаби</string>
   <string name="onlyTeamMembers">ЦохӀо къокъадул лугбал</string>
   <string name="mouseTricks">ГӀонкӀкӀол багъари</string>
+  <string name="toggleLocalAnalysis">БакӀалъулаб компутералъул анализ биччазе</string>
+  <string name="toggleAllAnalysis">Киналго компутеразул анализ биччазе</string>
   <string name="playComputerMove">Бищун лъикӀаб компутералъул хъурщи гьабизе</string>
   <string name="analysisOptions">Анализалъул параметраби</string>
+  <string name="focusChat">Чат рагьизе</string>
   <string name="showHelpDialog">Квербакъиялъул хъвай-хъвагӀай бихьзабизе</string>
   <string name="reopenYourAccount">Дур аккаунт цӀидасан рагье</string>
   <string name="onlyWorksOnce">Гьаб цо нухалъ хӀалтӀизе буго.</string>
   <string name="cantDoThisTwice">Дуца дур аккаунт кӀиабилеб нухалъ къани, гъоркь букӀахъе гьабизе рес букӀине гьечӀо.</string>
+  <string name="emailAssociatedToaccount">Аккаунталда бухьараб почалъул адресс</string>
   <string name="sentEmailWithLink">Нижеца духъе бухьенгун кагъат битӀана.</string>
   <string name="tournamentEntryCode">Турниралде лъугьине код</string>
   <string name="hangOn">ЧӀая цо!</string>
