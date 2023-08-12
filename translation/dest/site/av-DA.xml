@@ -671,6 +671,7 @@
   <string name="downloadRaw">Бугеб куцалъ рещтӀинабизе</string>
   <string name="downloadImported">Жаниб лъураб рещтӀинабизе</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Компутералъул вариантах рихьизе, гьел реге.</string>
+  <string name="analysisShapesHowTo">Хъорщода горалги чӀоралги рахъизе, shift+click яги right-click гьабе.</string>
   <string name="letOtherPlayersMessageYou">Цогидазе духъе хабар битӀизе биччазе</string>
   <string name="receiveForumNotifications">Форумалда рехсолаго ругьалаби росизе</string>
   <string name="shareYourInsightsData">Дур шахматазул аналитика гӀахьал гьабизе</string>
@@ -787,12 +788,16 @@
   <string name="xInvitedYouToY">%1$s-(и)ца мун \"%2$s\"-ялде ахӀана.</string>
   <string name="youAreNowPartOfTeam">Мун гьанже къокъаялда вуго.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
+  <string name="congratsYouWon">Баркула, мун бергьана!</string>
   <string name="gameVsX">%1$s-(и)да данде хӀай</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="refundXpointsTimeControlY">ТӀадбуссинаби: %1$s %2$s рейтингалъул бал.</string>
   <string name="timeAlmostUp">Заман лъугӀизехъин буго!</string>
+  <string name="clickToRevealEmailAddress">[Электронияб почалъул адресс ричӀизе, тӀадецуй]</string>
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
+  <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
+Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
   <string name="coachManager">Мударибзабазе</string>
   <string name="streamerManager">Стрим менежер</string>
   <string name="tournDescription">Турниралъул бицин</string>
