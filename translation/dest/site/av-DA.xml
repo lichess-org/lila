@@ -662,6 +662,7 @@
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="checkYourEmail">Хал гьабе дур электронияб почалъухъ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Нижеца духъе кагъат. Дур аккаун биччазе кагътида жаниб бухьеналда тӀадецуй.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Кагъат бихьулев гьечӀони, спамалда яги цогидал бакӀазда балагье.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ХӀисабалде воси гьабиялъ, мун %sда разилъула.</string>
   <string name="readAboutOur">Нижер %s-ялъул цӀале.</string>
   <string name="downloadAnnotated">Аннотациягун рещтӀинабизе</string>
