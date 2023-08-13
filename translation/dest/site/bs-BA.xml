@@ -123,6 +123,7 @@
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računar može analizirati, i održava toplinu računara</string>
+  <string name="engineManager">Upravitelj šahovskog programa</string>
   <string name="blunder">Grubi previd</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
@@ -527,7 +528,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Biografija</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili zastava</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="oneUrlPerLine">Jedan link po redu.</string>
@@ -734,6 +735,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je bolji od %2$s %3$s igrača.</string>
+  <string name="betterThanPercentPlayers">Bolje od %1$s igrača %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate utvrđen %s rejting.</string>
   <string name="yourRating">Vaš rejting</string>
   <string name="cumulative">Kumulativno</string>

@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Dette gør det muligt at skjule alle ratings på hjemmesiden, så du kan fokusere på skakspillet. Partier kan stadig være ratede, det handler kun om, hvad du får at se.</string>
   <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
+  <string name="inGameOnly">Kun i spillet</string>
   <string name="blindfoldChess">Blindskak</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedele sekunder</string>

@@ -22,7 +22,7 @@ object show:
         .some,
       moreCss = cssTag("blog"),
       csp = bits.csp.map(_.withInlineIconFont)
-    )(
+    ):
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
         div(cls := s"blog page-menu__content box post force-ltr ${~doc.getText("blog.cssClasses")}")(
@@ -60,4 +60,3 @@ object show:
             )
         )
       )
-    )

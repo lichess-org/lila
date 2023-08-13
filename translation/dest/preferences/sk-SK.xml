@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Týmto môžete na webovej stránke skryť všetky hodnotenia, aby ste sa mohli sústrediť na šach. Partie môžu byť stále hodnotené, ide len o to, čo sa Vám zobrazí.</string>
   <string name="displayBoardResizeHandle">Zobraziť tlačidlo na zmenu veľkosti šachovnice</string>
   <string name="onlyOnInitialPosition">Iba v základnom postavení</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Iba pri partii</string>
   <string name="blindfoldChess">Šach naslepo (neviditeľné figúrky)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desatiny sekundy</string>

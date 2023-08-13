@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Isto permite ocultar todas as puntuacións do sitio, para axudar a centrarse no xadrez. As partidas poden ser puntuadas, isto só afecta ó que podes ver.</string>
   <string name="displayBoardResizeHandle">Mostrar o control de redimensionamento do taboleiro</string>
   <string name="onlyOnInitialPosition">Só na posición inicial</string>
+  <string name="inGameOnly">Só durante a partida</string>
   <string name="blindfoldChess">Xadrez a cegas (pezas invisibles)</string>
   <string name="chessClock">Reloxo de xadrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>

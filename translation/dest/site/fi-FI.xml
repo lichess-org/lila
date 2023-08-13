@@ -500,7 +500,7 @@
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
   <string name="biography">Kuvaus</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai lippu</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lippu</string>
   <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="oneUrlPerLine">Yksi URL per rivi.</string>
@@ -702,7 +702,7 @@
   <string name="yourPerfTypeRatingIsRating">Sinun %1$s-vahvuuslukusi on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Olet parempi kuin %1$s %2$s-pelaajista.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parempi kuin %2$s %3$s-pelaajista.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Parempi kuin %1$s %2$s -pelaajista</string>
+  <string name="betterThanPercentPlayers">Parempi kuin %1$s %2$s -pelaajista</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sinulla ei ole luotettavaa %s-vahvuuslukua.</string>
   <string name="yourRating">Vahvuuslukusi</string>
   <string name="cumulative">Kumulatiivinen</string>

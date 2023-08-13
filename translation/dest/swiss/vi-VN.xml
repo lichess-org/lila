@@ -63,6 +63,7 @@ Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộn
   <string name="whatIfOneDoesntPlayA">Đồng hồ của họ vẫn sẽ đếm ngược, họ sẽ bị xử thua theo thời gian.
 Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
 Họ có thể tham gia lại bất cứ lúc nào.</string>
+  <string name="protectionAgainstNoShowQ">Những gì được thực hiện liên quan đến vắng mặt?</string>
   <string name="protectionAgainstNoShowA">Người chơi đăng ký các sự kiện của Thụy Sĩ nhưng không chơi trò chơi của họ có thể gặp vấn đề.
 Để giải quyết vấn đề này, Lichess ngăn những người chơi không chơi được trò chơi tham gia một sự kiện Thụy Sĩ mới trong một khoảng thời gian nhất định.
 Người tạo sự kiện ở Thụy Sĩ vẫn có thể quyết định cho phép họ tham gia sự kiện đó.</string>
