@@ -29,6 +29,7 @@
   <string name="otherAmount">अन्य</string>
   <string name="pleaseEnterAmountInX">कृपया %s में राशि दर्ज करें</string>
   <string name="withCreditCard">क्रेडिट कार्ड</string>
+  <string name="logInToDonate">दान करने के लिए लॉग इन करें</string>
   <string name="weAreSmallTeam">हमारी एक छोटी टीम हैं, इसलिए आपका समर्थन हमारे लिए बहुत बड़ी बात है!</string>
   <string name="celebratedPatrons">प्रसिद्ध संरक्षक जो लिचेस को संभव बनाते हैं</string>
   <string name="whereMoneyGoes">पैसा कहां जाता है?</string>
@@ -42,7 +43,9 @@
 या आप %s कर सकते हैं।</string>
   <string name="contactSupport">लिचेस समर्थन से संपर्क करें</string>
   <string name="otherMethods">दान की अन्य विधियाँ?</string>
+  <string name="lichessIsRegisteredWith">लाइकेस %s के साथ पंजीकृत है।</string>
   <string name="bankTransfers">हम बैंक हस्तांतरण को भी स्वीकार करते हैं</string>
+  <string name="onlyDonationFromAbove">कृपया ध्यान दें कि केवल उपरोक्त दान प्रपत्र ही संरक्षक का दर्जा प्रदान करेगा।</string>
   <string name="patronFeatures">क्या कुछ विशेषताएं संरक्षक के लिए आरक्षित हैं?</string>
   <string name="noPatronFeatures">नहीं, क्योंकि Lichess पूरी तरह से मुक्त है, हमेशा के लिए, और सभी के लिए। यह एक वादा है।
 हालाँकि, Patrons को एक नए आकर्षक प्रोफ़ाइल आइकन के साथ डींग मारने का अधिकार मिलता है।</string>
