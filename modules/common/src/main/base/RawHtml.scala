@@ -168,14 +168,12 @@ object RawHtml:
   private[this] val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[Html] =
-    System.out.println("imgUrl: " + url)
     url match {
       case imgurRegex(id)   => Some(s"""https://i.imgur.com/$id.jpg""")
       case giphyRegex(id)   => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
       case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
       case _                => None
     } map { img =>
-      System.out.println("bcomes: " + img)
       Html(s"""<img class="embed" src="$img" alt="$url"/>""")
     }
 
