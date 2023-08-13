@@ -323,6 +323,7 @@
   <string name="thisAccountViolatedTos">Гьаб аккаунталъ Lichess-алъул Сервисазул шартӀал хвезаруна</string>
   <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
+  <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьаб хӀай хъвазе</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирал</string>
