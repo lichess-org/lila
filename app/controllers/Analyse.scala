@@ -78,7 +78,7 @@ final class Analyse(
                       pov,
                       data,
                       initialFen,
-                      env.analyse.annotator(pgn, pov.game, analysis).toString,
+                      env.analyse.annotator(pgn, pov.game, analysis).render,
                       analysis,
                       analysisInProgress,
                       simul,
