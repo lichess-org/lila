@@ -324,6 +324,7 @@
   <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
+  <string name="takebackPropositionCanceled">ТӀадбуссинаби гьабичӀого тана</string>
   <string name="bookmarkThisGame">Гьаб хӀай хъвазе</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирал</string>
