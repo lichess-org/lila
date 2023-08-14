@@ -20,8 +20,8 @@ case class PuzzleOpeningCollection(
   val familyMap  = families.mapBy(_.family.key)
   val openingMap = openings.mapBy(_.opening.key)
 
-  val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
-    tree.updatedWith(op.opening.family) {
+  val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty): (tree, op) =>
+    tree.updatedWith(op.opening.family):
       case None =>
         (
           families.find(_.family.key == op.opening.family.key).so(_.count),
@@ -29,15 +29,15 @@ case class PuzzleOpeningCollection(
         ).some
       case Some((famCount, ops)) =>
         (famCount, if op.opening.ref.variation.isDefined then ops incl op else ops).some
-    }
-  }
+
   val treePopular: TreeList = treeMap.toList
     .map { case (family, (famCount, ops)) =>
       FamilyWithCount(family, famCount) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1.count)
+
   val treeAlphabetical: TreeList = treePopular
-    .map { case (fam, ops) =>
+    .map { (fam, ops) =>
       fam -> ops.sortBy(_.opening.name.value)
     }
     .sortBy(_._1.family.name.value)
@@ -113,7 +113,7 @@ final class PuzzleOpeningApi(
     collection.dmap: coll =>
       key.fold(f => coll.familyMap.get(f).so(_.count), o => coll.openingMap.get(o).so(_.count))
 
-  def recomputeAll: Funit = colls.puzzle {
+  def recomputeAll: Funit = colls.puzzle:
     _.find($doc(Puzzle.BSONFields.opening $exists true))
       .cursor[Puzzle]()
       .documentSource()
@@ -123,7 +123,6 @@ final class PuzzleOpeningApi(
       .log(logger)(count => s"Done updating $count puzzle openings")
       .result
       .void
-  }
 
   private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) so {
