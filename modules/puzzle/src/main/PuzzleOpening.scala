@@ -85,9 +85,12 @@ final class PuzzleOpeningApi(
                   case None =>
                     SimpleOpening
                       .find(keyStr)
-                      .filter(_.ref.variation != SimpleOpening.otherVariations)
                       .fold(acc): op =>
-                        acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
+                        if op.isFamily
+                        then acc.copy(families = FamilyWithCount(op.family, count) :: acc.families)
+                        else if op.ref.variation != SimpleOpening.otherVariations
+                        then acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
+                        else acc
         } map { case PuzzleOpeningCollection(families, openings) =>
           PuzzleOpeningCollection(families.reverse, openings.reverse)
         }
