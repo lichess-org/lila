@@ -42,7 +42,7 @@ case class PuzzleOpeningCollection(
     }
     .sortBy(_._1.family.name.value)
 
-  def treeList(order: Order) = order match
+  def treeList(order: Order): TreeList = order match
     case Order.Popular      => treePopular
     case Order.Alphabetical => treeAlphabetical
 
@@ -61,54 +61,44 @@ final class PuzzleOpeningApi(
   import SimpleOpening.*
   import PuzzleOpening.*
 
-  private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24 hours) { _ =>
+  private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24 hours): _ =>
     import Puzzle.BSONFields.*
-    colls.puzzle {
-      _.aggregateList(maxOpenings) { framework =>
+    colls.puzzle:
+      _.aggregateList(maxOpenings): framework =>
         import framework.*
         UnwindField(opening) -> List(
           PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
           Limit(maxOpenings)
         )
-      }
-    }
-  }
 
   private val collectionCache =
-    cacheApi.unit[PuzzleOpeningCollection] {
-      _.refreshAfterWrite(1 hour)
-        .buildAsyncFuture { _ =>
-          countedCache.get(()) map {
-            _.foldLeft(PuzzleOpeningCollection(Nil, Nil)) { case (acc, obj) =>
-              val count = ~obj.int("count")
-              obj.string("_id").fold(acc) { keyStr =>
+    cacheApi.unit[PuzzleOpeningCollection]:
+      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+        countedCache.get(()) map {
+          _.foldLeft(PuzzleOpeningCollection(Nil, Nil)): (acc, obj) =>
+            val count = ~obj.int("count")
+            obj
+              .string("_id")
+              .fold(acc): keyStr =>
                 LilaOpeningFamily.find(keyStr) match
                   case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
                   case None =>
                     SimpleOpening
                       .find(keyStr)
                       .filter(_.ref.variation != SimpleOpening.otherVariations)
-                      .fold(acc) { op =>
+                      .fold(acc): op =>
                         acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
-                      }
-              }
-            }
-          } map { case PuzzleOpeningCollection(families, openings) =>
-            PuzzleOpeningCollection(families.reverse, openings.reverse)
-          }
+        } map { case PuzzleOpeningCollection(families, openings) =>
+          PuzzleOpeningCollection(families.reverse, openings.reverse)
         }
-    }
 
   def getClosestTo(
       opening: Opening
   ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
-    SimpleOpening(opening) so { lilaOp =>
-      collection map { coll =>
-        coll.openingMap.get(lilaOp.key).map(Right.apply) orElse {
+    SimpleOpening(opening).so: lilaOp =>
+      collection.map: coll =>
+        coll.openingMap.get(lilaOp.key).map(Right.apply) orElse
           coll.familyMap.get(lilaOp.family.key).map(Left.apply)
-        }
-      }
-    }
 
   def find(family: OpeningFamily): Fu[Option[PuzzleOpening.FamilyWithCount]] =
     find(family.key into LilaOpeningFamily.Key)
@@ -120,9 +110,8 @@ final class PuzzleOpeningApi(
     collectionCache get {}
 
   def count(key: Either[LilaOpeningFamily.Key, SimpleOpening.Key]): Fu[Int] =
-    collection dmap { coll =>
+    collection.dmap: coll =>
       key.fold(f => coll.familyMap.get(f).so(_.count), o => coll.openingMap.get(o).so(_.count))
-    }
 
   def recomputeAll: Funit = colls.puzzle {
     _.find($doc(Puzzle.BSONFields.opening $exists true))
@@ -141,14 +130,12 @@ final class PuzzleOpeningApi(
       gameRepo gameFromSecondary puzzle.gameId flatMapz { game =>
         OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
           case None =>
-            fuccess {
+            fuccess:
               logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
-            }
           case Some(o) =>
             val keys = List(o.family.key.value, o.key.value)
-            colls.puzzle {
+            colls.puzzle:
               _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
-            }
       }
     }
 
