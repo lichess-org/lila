@@ -56,41 +56,41 @@ final class Analyse(
               analysis = none,
               PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
             )
-          ).flatMapN { case (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
-            env.api.roundApi.review(
-              pov,
-              users,
-              tv = userTv.map: u =>
-                lila.round.OnTv.User(u.id),
-              analysis,
-              initialFen = initialFen,
-              withFlags = WithFlags(
-                movetimes = true,
-                clocks = true,
-                division = true,
-                opening = true,
-                rating = ctx.pref.showRatings,
-                lichobileCompat = HTTPRequest.isLichobile(ctx.req),
-                puzzles = true
-              )
-            ) flatMap { data =>
-              Ok.page(
-                html.analyse.replay(
-                  pov,
-                  data,
-                  initialFen,
-                  env.analyse.annotator(pgn, pov.game, analysis).render,
-                  analysis,
-                  analysisInProgress,
-                  simul,
-                  crosstable,
-                  userTv,
-                  chat,
-                  bookmarked = bookmarked
+          ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
+            env.api.roundApi
+              .review(
+                pov,
+                users,
+                tv = userTv.map: u =>
+                  lila.round.OnTv.User(u.id),
+                analysis,
+                initialFen = initialFen,
+                withFlags = WithFlags(
+                  movetimes = true,
+                  clocks = true,
+                  division = true,
+                  opening = true,
+                  rating = ctx.pref.showRatings,
+                  lichobileCompat = HTTPRequest.isLichobile(ctx.req),
+                  puzzles = true
                 )
-              ).map(_.enableSharedArrayBuffer)
-            }
-          }
+              )
+              .flatMap: data =>
+                Ok.page(
+                  html.analyse.replay(
+                    pov,
+                    data,
+                    initialFen,
+                    env.analyse.annotator(pgn, pov.game, analysis).render,
+                    analysis,
+                    analysisInProgress,
+                    simul,
+                    crosstable,
+                    userTv,
+                    chat,
+                    bookmarked = bookmarked
+                  )
+                ).map(_.enableSharedArrayBuffer)
       yield res
 
   def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)

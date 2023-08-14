@@ -62,11 +62,20 @@ final class UserApi(
             bookmarkApi.countByUser(u.user),
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
-            withTrophies.soFu(getTrophiesAndAwards(u.user))
+            (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user))
           ).mapN:
-              // format: off
-              case (gameOption,nbGamesWithMe,following,followable, relation,isFollowed,nbBookmarks,nbPlaying,nbImported,trophiesAndAwards)=>
-              // format: on
+            (
+                gameOption,
+                nbGamesWithMe,
+                following,
+                followable,
+                relation,
+                isFollowed,
+                nbBookmarks,
+                nbPlaying,
+                nbImported,
+                trophiesAndAwards
+            ) =>
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
                 Json
                   .obj(
@@ -91,7 +100,7 @@ final class UserApi(
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
-                  .add("trophies", trophiesAndAwards ifFalse u.lame map trophiesJson) ++
+                  .add("trophies", trophiesAndAwards map trophiesJson) ++
                   as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,

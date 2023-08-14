@@ -122,6 +122,6 @@ object UserInfo:
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer"),
         coachApi.isListedCoach(user).mon(_.user segment "coach"),
         (user.count.rated >= 10).so(insightShare.grant(user))
-      ).mapN(UserInfo.apply(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
+      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.nameCache.preloadMany(info.teamIds)
