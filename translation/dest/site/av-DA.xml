@@ -254,6 +254,7 @@
     <item quantity="one">%s мунгун хӀай</item>
     <item quantity="other">%s мунгун хӀай</item>
   </plurals>
+  <string name="cancel">ГьабичӀого тезе</string>
   <string name="whiteTimeOut">ХъахӀазул заман тӀагӀана</string>
   <string name="blackTimeOut">ЧӀегӀеразул заман тӀагӀана</string>
   <string name="drawOfferSent">Ращадккей гьабизе абуна</string>
@@ -270,6 +271,7 @@
   <string name="finished">ТӀубана</string>
   <string name="finishesX">%s лъугӀула</string>
   <string name="abortGame">ХӀаялъул</string>
+  <string name="gameAborted">ХӀай лъугӀизабичӀого тана</string>
   <string name="standard">ГӀадатаб</string>
   <string name="unlimited">ГьечӀо</string>
   <string name="mode">КъагӀида</string>
@@ -281,7 +283,9 @@
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Реванш бегьана</string>
   <string name="rematchOfferAccepted">Реваншалда разилъана</string>
+  <string name="rematchOfferCanceled">Реванш кьеян абичӀого тана</string>
   <string name="rematchOfferDeclined">Реванш нахъчӀвана</string>
+  <string name="cancelRematchOffer">Реванш кьеян абичӀого тезе</string>
   <string name="viewRematch">Реваншалъухъ балагьизе</string>
   <string name="confirmMove">Хъурщи тасдикъ гьабизе</string>
   <string name="play">ХӀазе</string>
@@ -323,8 +327,11 @@
   <string name="thisAccountViolatedTos">Гьаб аккаунталъ Lichess-алъул Сервисазул шартӀал хвезаруна</string>
   <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
+  <string name="proposeATakeback">Тlадбуссинабизе биччаян абизе</string>
   <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
+  <string name="takebackPropositionDeclined">ТӀадбуссинаби нахъчӀвана</string>
   <string name="takebackPropositionCanceled">ТӀадбуссинаби гьабичӀого тана</string>
+  <string name="yourOpponentProposesATakeback">Дур дандеяс тӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьаб хӀай хъвазе</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирал</string>
