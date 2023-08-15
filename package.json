@@ -18,12 +18,6 @@
     "node": ">=14",
     "pnpm": "^8.6"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "pnpm format-check && pnpm lint"
-    }
-  },
   "lint-staged": {
     "*.{js,ts,md,json,scss}": "dprint fmt"
   },
@@ -36,13 +30,14 @@
     "chessground": "^8.3.11",
     "dprint": "^0.40.2",
     "eslint": "^8.47.0",
-    "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "typescript": "^5.1.5"
   },
   "scripts": {
     "format": "pnpm dprint fmt",
     "format-check": "pnpm dprint check",
+    "add-hooks": "git config --add core.hooksPath bin/git-hooks",
+    "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint . --ext .ts",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
