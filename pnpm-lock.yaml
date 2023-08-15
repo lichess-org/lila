@@ -22,7 +22,7 @@ importers:
         version: 6.4.0(eslint@8.47.0)(typescript@5.1.6)
       ab:
         specifier: github:lichess-org/ab-stub
-        version: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
+        version: git@github.com+lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
         specifier: ^8.4.0
         version: 8.4.0
@@ -423,7 +423,7 @@ importers:
         version: link:../@types/lichess
       chess.js:
         specifier: github:ornicar/chess.js#learn
-        version: github.com/ornicar/chess.js/ad0709c0b07773d9d0da8e4605a9a2a28f00d249
+        version: git@github.com+ornicar/chess.js/ad0709c0b07773d9d0da8e4605a9a2a28f00d249
       chessground:
         specifier: '=4.4.2'
         version: 4.4.2
@@ -432,7 +432,7 @@ importers:
         version: link:../common
       mithril:
         specifier: github:ornicar/mithril.js#lila-1
-        version: github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb
+        version: git@github.com+ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb
 
   ui/lobby:
     dependencies:
@@ -788,8 +788,8 @@ importers:
         specifier: ^4.6.13
         version: 4.6.13
       highcharts:
-        specifier: '=4.2.5'
-        version: 4.2.5
+        specifier: '=9.0.0'
+        version: 9.0.0
       hopscotch:
         specifier: ^0.3.1
         version: 0.3.1
@@ -3541,7 +3541,7 @@ packages:
     resolution: {integrity: sha512-cCAaTjsnE30hkWSPQRBOr2vlWSmxHS1hzz2kBM+b1VwLjvZRj5bohWtfZsznIgegfZUxZMOvtHsyde8/hhazLg==}
     dependencies:
       merge: 1.2.0
-      mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
+      mithril: git@github.com+ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
     dev: false
 
   /chessground@8.4.0:
@@ -4235,8 +4235,8 @@ packages:
       function-bind: 1.1.1
     dev: false
 
-  /highcharts@4.2.5:
-    resolution: {integrity: sha512-u6LPuWXaWPoU6MeGHoF/E4HSqN7tJTtWi0xDvtYJX1vRmhDe4LCNzTP5n+Mo9UudRhdIb30nyeJuvjipHn07Vg==}
+  /highcharts@9.0.0:
+    resolution: {integrity: sha512-MJCtidFytGSQvsV3OEM+vFTLpjUcp7jmFpLn8h3oL4WKp0gxUOQg6Nw00sqMWGdiadst0gOZO4804zynTcYjZQ==}
     dev: false
 
   /hopscotch@0.3.1:
@@ -6469,26 +6469,26 @@ packages:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
     dev: false
 
-  github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0:
-    resolution: {tarball: https://codeload.github.com/lichess-org/ab-stub/tar.gz/94236bf34dbc9c05daf50f4c9842d859b9142be0}
+  git@github.com+lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0:
+    resolution: {commit: 94236bf34dbc9c05daf50f4c9842d859b9142be0, repo: git@github.com:lichess-org/ab-stub.git, type: git}
     name: ab
     version: 1.0.0
     dev: false
 
-  github.com/ornicar/chess.js/ad0709c0b07773d9d0da8e4605a9a2a28f00d249:
-    resolution: {tarball: https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249}
+  git@github.com+ornicar/chess.js/ad0709c0b07773d9d0da8e4605a9a2a28f00d249:
+    resolution: {commit: ad0709c0b07773d9d0da8e4605a9a2a28f00d249, repo: git@github.com:ornicar/chess.js.git, type: git}
     name: chess.js
     version: 0.10.2
     dev: false
 
-  github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4:
-    resolution: {tarball: https://codeload.github.com/ornicar/mithril.js/tar.gz/d99d36d445fad1b22f4b285963ea065291d99ad4}
+  git@github.com+ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4:
+    resolution: {commit: d99d36d445fad1b22f4b285963ea065291d99ad4, repo: git@github.com:ornicar/mithril.js.git, type: git}
     name: mithril
     version: 0.2.1
     dev: false
 
-  github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb:
-    resolution: {tarball: https://codeload.github.com/ornicar/mithril.js/tar.gz/dd92827aec63f921149ca9a3460ccd981e7025bb}
+  git@github.com+ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb:
+    resolution: {commit: dd92827aec63f921149ca9a3460ccd981e7025bb, repo: git@github.com:ornicar/mithril.js.git, type: git}
     name: mithril
     version: 0.2.1-lila
     dev: false
