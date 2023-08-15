@@ -30,7 +30,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
           ? h('span', ctrl.trans.pluralSame('andSaveNbPremoveLines', lines.length))
           : h('span', ctrl.trans.noarg('noConditionalPremoves')),
       ]),
-    ]
+    ],
   );
 }
 
@@ -43,7 +43,7 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
       uci: node.uci!,
       san: node.san!,
       check: node.check,
-    }))
+    })),
   );
 }
 
@@ -72,7 +72,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                     const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
                     ctrl.userJump(path);
                   },
-                  ctrl.redraw
+                  ctrl.redraw,
                 ),
               },
               [
@@ -81,9 +81,9 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   attrs: { 'data-icon': licon.X, type: 'button' },
                 }),
                 h('sans', renderNodesHtml(nodes)),
-              ]
-            )
-          )
+              ],
+            ),
+          ),
         ),
         h(
           'button.add.text',
@@ -99,10 +99,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   h('sans', renderNodesHtml(cNodes)),
                 ])
               : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
-          ]
+          ],
         ),
       ]),
       fctrl.onMyTurn() ? onMyTurn(ctrl, fctrl, cNodes) : null,
-    ]
+    ],
   );
 }

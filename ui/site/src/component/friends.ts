@@ -30,7 +30,7 @@ export default class OnlineFriends {
     this.users = new Map();
     pubsub.on('socket.in.following_onlines', this.receive);
     (['enters', 'leaves', 'playing', 'stopped_playing'] as const).forEach(k =>
-      pubsub.on('socket.in.following_' + k, this[k])
+      pubsub.on('socket.in.following_' + k, this[k]),
     );
   }
   receive = (friends: TitleName[], msg: { playing: string[]; patrons: string[] }) => {
@@ -53,7 +53,7 @@ export default class OnlineFriends {
         this.titleEl.innerHTML = siteTrans.pluralSame(
           'nbFriendsOnline',
           ids.length,
-          this.loaded ? `<strong>${ids.length}</strong>` : '-'
+          this.loaded ? `<strong>${ids.length}</strong>` : '-',
         );
         this.el.querySelector('.nobody')?.classList.toggle('none', !!ids[0]);
         this.el.querySelector('.list')!.innerHTML = ids

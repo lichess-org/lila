@@ -29,7 +29,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
           }),
           h('label', { class: { disabled }, attrs: { for: `sf_mode_${key}` } }, name),
         ]);
-      })
-    )
+      }),
+    ),
   );
 };

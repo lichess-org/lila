@@ -27,5 +27,5 @@ export const setZen = throttlePromiseDelay(
     xhr.text('/pref/zen', {
       method: 'post',
       body: xhr.form({ zen: zen ? 1 : 0 }),
-    })
+    }),
 );

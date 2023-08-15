@@ -122,7 +122,7 @@ export function check(chess: ChessCtrl) {
     cg.setShapes(
       checks.map(function (move) {
         return arrow(move.orig + move.dest, 'yellow');
-      })
+      }),
     );
 }
 

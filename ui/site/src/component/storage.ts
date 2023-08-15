@@ -11,7 +11,7 @@ const builder = (storage: Storage): LichessStorageHelper => {
           sri,
           nonce: Math.random(), // ensure item changes
           value: v,
-        })
+        }),
       ),
     remove: (k: string) => storage.removeItem(k),
     make: (k: string) => ({

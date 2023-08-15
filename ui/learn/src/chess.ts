@@ -37,7 +37,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
           type: 'p',
           color: color,
         },
-        key
+        key,
       );
     });
   }

@@ -28,5 +28,5 @@ db.simul.update(
   },
   {
     multi: 1,
-  }
+  },
 );

@@ -26,7 +26,7 @@ interface MultipleSelect {
       | 'focus'
       | 'blur'
       | 'refresh'
-      | 'close'
+      | 'close',
   ): void;
   (option: MultiSelectOpts): void;
 }

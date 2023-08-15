@@ -37,7 +37,7 @@ const renderBoard =
           },
         }),
         boardPlayer(board, board.orientation, opts),
-      ]
+      ],
     );
 
 function boardPlayer(board: Board, color: Color, opts: SwissOpts) {

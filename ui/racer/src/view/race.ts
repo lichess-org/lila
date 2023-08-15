@@ -30,7 +30,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
         style: `height:${players.length * trackHeight + 14}px`,
       },
     },
-    h('div.racer__race__tracks', tracks)
+    h('div.racer__race__tracks', tracks),
   );
 };
 
@@ -40,7 +40,7 @@ const renderTrack = (
   bestScore: number,
   boost: Boost,
   player: PlayerWithScore,
-  index: number
+  index: number,
 ) => {
   return h(
     'div.racer__race__track',
@@ -64,10 +64,10 @@ const renderTrack = (
         [
           h(`div.racer__race__player__car.car-${index}`, [0]),
           h('span.racer__race__player__name', playerLink(player, isMe)),
-        ]
+        ],
       ),
       h('div.racer__race__score', player.score),
-    ]
+    ],
   );
 };
 
@@ -78,7 +78,7 @@ export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
         {
           attrs: { href: '/@/' + player.name },
         },
-        player.title ? [h('span.utitle', player.title), player.name] : [player.name]
+        player.title ? [h('span.utitle', player.title), player.name] : [player.name],
       )
     : h(
         'anonymous',
@@ -87,5 +87,5 @@ export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
             title: 'Anonymous player',
           },
         },
-        [player.name, isMe ? ' (you)' : undefined]
+        [player.name, isMe ? ' (you)' : undefined],
       );

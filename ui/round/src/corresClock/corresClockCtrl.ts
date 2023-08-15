@@ -27,7 +27,7 @@ interface Times {
 export function ctrl(
   root: RoundController,
   data: CorresClockData,
-  onFlag: () => void
+  onFlag: () => void,
 ): CorresClockController {
   const timePercentDivisor = 0.1 / data.increment;
 

@@ -19,7 +19,7 @@ export default class GamebookPlayCtrl {
     readonly root: AnalyseCtrl,
     readonly chapterId: string,
     readonly trans: Trans,
-    readonly redraw: () => void
+    readonly redraw: () => void,
   ) {
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -108,7 +108,7 @@ export default class GamebookPlayCtrl {
 
   solution = () => {
     this.root.chessground.setShapes(
-      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green')
+      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green'),
     );
   };
 

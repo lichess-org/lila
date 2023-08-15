@@ -23,13 +23,13 @@ lichess.load.then(() => {
     if (select)
       selector(
         table,
-        select as HTMLSelectElement
+        select as HTMLSelectElement,
       )(async action => {
         if (action == 'alt') {
           const usernames = Array.from(
             $(table)
               .find('td:last-child input:checked')
-              .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort'))
+              .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort')),
           );
           if (usernames.length > 0 && confirm(`Close ${usernames.length} alt accounts?`)) {
             console.log(usernames);

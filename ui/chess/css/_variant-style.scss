@@ -1,6 +1,8 @@
 .variant-racingKings .cg-wrap {
   &.cg-wrap cg-container::before {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-shadow:
+      0 14px 28px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.22);
     background: hsla(0, 0%, 90%, 0.2);
     width: 100%;
     height: 12.5%;

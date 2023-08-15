@@ -24,7 +24,7 @@ export default function (ctrl: RacerCtrl): VNode {
       h('div.puz-side', selectScreen(ctrl)),
       renderRace(ctrl),
       ctrl.status() === 'post' && ctrl.run.history.length > 0 ? renderHistory(ctrl) : null,
-    ]
+    ],
   );
 }
 
@@ -42,7 +42,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
                   'p',
                   ctrl.knowsSkip()
                     ? noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers')
-                    : skipHelp(noarg)
+                    : skipHelp(noarg),
                 ),
                 povMsg,
               ]),
@@ -100,7 +100,7 @@ const renderSkip = (ctrl: RacerCtrl) =>
       },
       hook: bind('click', ctrl.skip),
     },
-    ctrl.trans.noarg('skip')
+    ctrl.trans.noarg('skip'),
   );
 
 const skipHelp = (noarg: TransNoArg) => h('p', noarg('skipHelp'));
@@ -110,13 +110,13 @@ const puzzleRacer = () => h('strong', 'Puzzle Racer');
 const waitingToStart = (noarg: TransNoArg) =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [puzzleRacer(), h('span', noarg('waitingToStart'))])
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', noarg('waitingToStart'))]),
   );
 
 const spectating = (noarg: TransNoArg) =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [puzzleRacer(), h('span', noarg('spectating'))])
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', noarg('spectating'))]),
   );
 
 const renderBonus = (bonus: number) => `+${bonus}`;
@@ -134,7 +134,7 @@ const renderControls = (ctrl: RacerCtrl): VNode =>
         title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: bind('click', ctrl.flip),
-    })
+    }),
   );
 
 const comboZone = (ctrl: RacerCtrl) =>
@@ -179,8 +179,8 @@ const renderStart = (ctrl: RacerCtrl) =>
               disabled: ctrl.players().length < 2,
             },
           },
-          ctrl.trans.noarg('startTheRace')
-        )
+          ctrl.trans.noarg('startTheRace'),
+        ),
       )
     : null;
 
@@ -192,8 +192,8 @@ const renderJoin = (ctrl: RacerCtrl) =>
       {
         hook: bind('click', ctrl.join),
       },
-      ctrl.trans.noarg('joinTheRace')
-    )
+      ctrl.trans.noarg('joinTheRace'),
+    ),
   );
 
 const yourRank = (ctrl: RacerCtrl) => {
@@ -210,7 +210,7 @@ const waitForRematch = (noarg: TransNoArg) =>
     {
       attrs: { disabled: true },
     },
-    noarg('waitForRematch')
+    noarg('waitForRematch'),
   );
 
 const lobbyNext = (ctrl: RacerCtrl) =>
@@ -225,9 +225,9 @@ const lobbyNext = (ctrl: RacerCtrl) =>
     [
       h(
         `button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`,
-        ctrl.trans.noarg('nextRace')
+        ctrl.trans.noarg('nextRace'),
       ),
-    ]
+    ],
   );
 
 const friendNext = (ctrl: RacerCtrl) =>
@@ -237,7 +237,7 @@ const friendNext = (ctrl: RacerCtrl) =>
       {
         attrs: { href: `/racer/${ctrl.race.id}/rematch` },
       },
-      ctrl.trans.noarg('joinRematch')
+      ctrl.trans.noarg('joinRematch'),
     ),
     h(
       'form.racer__post__next__new',
@@ -254,7 +254,7 @@ const friendNext = (ctrl: RacerCtrl) =>
             type: 'submit',
           },
         },
-        ctrl.trans.noarg('createNewGame')
-      )
+        ctrl.trans.noarg('createNewGame'),
+      ),
     ),
   ]);

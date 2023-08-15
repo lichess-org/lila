@@ -22,7 +22,7 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
           enabled: false,
           visible: false,
         },
-      })
+      }),
     );
   }
 };

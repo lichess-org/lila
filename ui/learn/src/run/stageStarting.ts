@@ -19,9 +19,9 @@ export default function (ctrl: Ctrl) {
           {
             onclick: ctrl.hideStartingPane,
           },
-          ctrl.trans.noarg('letsGo')
-        )
+          ctrl.trans.noarg('letsGo'),
+        ),
       ),
-    ])
+    ]),
   );
 }

@@ -26,12 +26,12 @@ export default function (ctrl: RoundController) {
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/display' } },
-          'Game display preferences'
+          'Game display preferences',
         ),
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },
-          'Game behavior preferences'
+          'Game behavior preferences',
         ),
       ]),
     ];

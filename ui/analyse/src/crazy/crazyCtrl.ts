@@ -20,7 +20,7 @@ export function valid(
   chessground: ChessgroundApi,
   possibleDrops: string | undefined | null,
   piece: cg.Piece,
-  pos: Key
+  pos: Key,
 ): boolean {
   if (piece.color !== chessground.state.movable.color) return false;
 

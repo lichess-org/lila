@@ -150,7 +150,7 @@ interface Cash {
     selector: string | null | undefined,
     data: any,
     callback: EventCallback,
-    _one?: boolean
+    _one?: boolean,
   ): this;
 }
 interface Cash {

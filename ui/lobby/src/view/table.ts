@@ -34,13 +34,13 @@ export default function table(ctrl: LobbyController) {
                 : bind(
                     lichess.blindMode ? 'click' : 'mousedown',
                     () => ctrl.setupCtrl.openModal(gameType),
-                    ctrl.redraw
+                    ctrl.redraw,
                   ),
             },
-            trans(transKey)
-          )
-        )
-      )
+            trans(transKey),
+          ),
+        ),
+      ),
     ),
     renderSetupModal(ctrl),
     // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
@@ -63,9 +63,9 @@ export default function table(ctrl: LobbyController) {
                     ctrl.spreadPlayersNumber = ctrl.initNumberSpreader(elm, 10, members);
                   }),
                 },
-                numberFormat(members)
-              )
-            )
+                numberFormat(members),
+              ),
+            ),
           ),
           h(
             'a',
@@ -81,12 +81,12 @@ export default function table(ctrl: LobbyController) {
                     ctrl.spreadGamesNumber = ctrl.initNumberSpreader(elm, 8, rounds);
                   }),
                 },
-                numberFormat(rounds)
-              )
-            )
+                numberFormat(rounds),
+              ),
+            ),
           ),
         ]),
-      []
+      [],
     ),
   ]);
 }

@@ -17,7 +17,7 @@ function doCountDown(targetTime: number) {
       const nextTick = Math.min(10, bestTick - 1);
       countDownTimeout = setTimeout(
         curCounter,
-        1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick))
+        1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick)),
       );
     }
 
@@ -50,7 +50,7 @@ export function countDown(data: TournamentData) {
 
   countDownTimeout = setTimeout(
     doCountDown(window.performance.now() + 1000 * data.secondsToStart - 100),
-    900
+    900,
   ); // wait 900ms before starting countdown.
 
   // Preload countdown sounds.

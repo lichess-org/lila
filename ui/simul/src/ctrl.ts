@@ -7,7 +7,10 @@ export default class SimulCtrl {
   trans: Trans;
   socket: SimulSocket;
 
-  constructor(readonly opts: SimulOpts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: SimulOpts,
+    readonly redraw: () => void,
+  ) {
     this.data = opts.data;
     this.trans = lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
@@ -24,7 +27,7 @@ export default class SimulCtrl {
       },
       () => {
         hostIsAround = true;
-      }
+      },
     );
     setInterval(() => {
       if (this.data.isCreated && hostIsAround) xhr.ping(this.data.id);

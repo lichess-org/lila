@@ -6,7 +6,10 @@ export class PingCtrl {
   ping: number | undefined;
   server: number | undefined;
 
-  constructor(readonly trans: Trans, readonly redraw: Redraw) {
+  constructor(
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+  ) {
     lichess.pubsub.on('dasher.toggle', v => (v ? this.connect() : this.disconnect()));
   }
 
@@ -58,14 +61,14 @@ export const view = (ctrl: PingCtrl): VNode =>
         {
           attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') },
         },
-        showMillis('PING', ctrl.ping)
+        showMillis('PING', ctrl.ping),
       ),
       h(
         'span.server',
         {
           attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') },
         },
-        showMillis('SERVER', ctrl.server)
+        showMillis('SERVER', ctrl.server),
       ),
-    ]
+    ],
   );

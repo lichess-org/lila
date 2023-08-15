@@ -22,7 +22,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => relay.tab(key), relay.redraw),
       },
-      name
+      name,
     );
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
@@ -55,7 +55,7 @@ const leaderboard = (relay: RelayCtrl): VNode[] => {
               withRating ? h('th', 'Elo') : undefined,
               h('th', 'Score'),
               h('th', 'Games'),
-            ])
+            ]),
           ),
           h(
             'tbody',
@@ -65,8 +65,8 @@ const leaderboard = (relay: RelayCtrl): VNode[] => {
                 withRating ? h('td', player.rating) : undefined,
                 h('td', player.score),
                 h('td', player.played),
-              ])
-            )
+              ]),
+            ),
           ),
         ]),
       ]),
@@ -97,10 +97,10 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
                 {
                   hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
                 },
-                lichess.timeago(round.startsAt)
+                lichess.timeago(round.startsAt),
               )
             : null,
-        ]
+        ],
       ),
       relay.data.tour.markup
         ? h('div', {
@@ -130,17 +130,17 @@ const schedule = (relay: RelayCtrl): VNode[] => [
                   {
                     attrs: { href: relay.roundPath(round) },
                   },
-                  round.name
-                )
+                  round.name,
+                ),
               ),
               h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
               h(
                 'td',
-                roundStateIcon(round) || (round.startsAt ? lichess.timeago(round.startsAt) : undefined)
+                roundStateIcon(round) || (round.startsAt ? lichess.timeago(round.startsAt) : undefined),
               ),
-            ])
-          )
-        )
+            ]),
+          ),
+        ),
       ),
     ]),
   ]),
@@ -175,7 +175,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
               {
                 attrs: { href: relay.roundPath(round) },
               },
-              round.name
+              round.name,
             ),
             roundStateIcon(round),
             canContribute
@@ -186,8 +186,8 @@ export function rounds(ctrl: StudyCtrl): VNode {
                   },
                 })
               : null,
-          ]
-        )
+          ],
+        ),
       )
       .concat(
         canContribute
@@ -202,11 +202,11 @@ export function rounds(ctrl: StudyCtrl): VNode {
                       'data-icon': licon.PlusButton,
                     },
                   },
-                  ctrl.trans.noarg('addRound')
-                )
+                  ctrl.trans.noarg('addRound'),
+                ),
               ),
             ]
-          : []
-      )
+          : [],
+      ),
   );
 }

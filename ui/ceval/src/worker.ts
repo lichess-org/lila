@@ -29,7 +29,10 @@ export class WebWorker implements CevalWorker {
   private protocol = new Protocol();
   private worker: Worker | undefined;
 
-  constructor(private opts: WebWorkerOpts, private redraw: Redraw) {}
+  constructor(
+    private opts: WebWorkerOpts,
+    private redraw: Redraw,
+  ) {}
 
   getState() {
     return !this.worker
@@ -56,7 +59,7 @@ export class WebWorker implements CevalWorker {
           this.failed = true;
           this.redraw();
         },
-        true
+        true,
       );
       this.protocol.connected(cmd => this.worker?.postMessage(cmd));
     }
@@ -112,7 +115,10 @@ export class ThreadedWasmWorker implements CevalWorker {
   private static protocols = { Stockfish: new Protocol(), StockfishMv: new Protocol() };
   private static sf: { Stockfish?: Promise<void>; StockfishMv?: Promise<void> } = {};
 
-  constructor(private opts: ThreadedWasmWorkerOpts, private redraw: Redraw) {}
+  constructor(
+    private opts: ThreadedWasmWorkerOpts,
+    private redraw: Redraw,
+  ) {}
 
   getState() {
     return !ThreadedWasmWorker.sf[this.opts.module]
@@ -190,7 +196,7 @@ export class ThreadedWasmWorker implements CevalWorker {
           console.error(err);
           ThreadedWasmWorker.failed[this.opts.module] = true;
           this.redraw();
-        }
+        },
       );
     }
   }
@@ -240,7 +246,10 @@ export class ExternalWorker implements CevalWorker {
   private sessionId = randomToken();
   private req: AbortController | undefined;
 
-  constructor(private opts: ExternalEngine, private redraw: Redraw) {}
+  constructor(
+    private opts: ExternalEngine,
+    private redraw: Redraw,
+  ) {}
 
   getState() {
     return this.state;

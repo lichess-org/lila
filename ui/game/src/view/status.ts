@@ -56,7 +56,7 @@ export default function status(ctrl: Ctrl): string {
           return noarg('whiteLeftTheGame') + winnerSuffix;
         default:
           return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')} • ${noarg(
-            'draw'
+            'draw',
           )}`;
       }
     case 'draw': {

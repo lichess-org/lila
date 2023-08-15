@@ -26,7 +26,7 @@ export const variantsBlindMode: Variant[] = variants.filter(({ key }: Variant) =
     'atomic',
     'racingKings',
     'horde',
-  ].includes(key)
+  ].includes(key),
 );
 
 export const variantsForGameType = (baseVariants: Variant[], gameType: GameType): Variant[] =>
@@ -148,7 +148,7 @@ export const daysVToDays = (v: InputValue): RealValue => {
 export const sliderInitVal = (
   v: RealValue,
   f: (x: InputValue) => RealValue,
-  max: InputValue
+  max: InputValue,
 ): InputValue | undefined => {
   for (let i = 0; i < max; i++) {
     if (f(i) === v) return i;

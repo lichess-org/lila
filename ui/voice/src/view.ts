@@ -88,10 +88,10 @@ function langSetting(ctrl: VoiceCtrl) {
                 {
                   attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] },
                 },
-                l[1]
-              )
+                l[1],
+              ),
             ),
-          ]
+          ],
         ),
       ]);
 }
@@ -121,9 +121,9 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
               selected: d.deviceId === ctrl.micId(),
             },
           },
-          d.label
-        )
-      )
+          d.label,
+        ),
+      ),
     ),
   ]);
 }
@@ -140,10 +140,10 @@ function voiceDisable() {
           hook: bind('click', () =>
             xhr
               .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
-              .then(() => window.location.reload())
+              .then(() => window.location.reload()),
           ),
         },
-        'Disable voice recognition'
+        'Disable voice recognition',
       );
 }
 
@@ -188,7 +188,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       el.find('.scrollable').html(html);
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(
-          (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic'))
+          (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
         )?.in;
       $('.val-to-word', el).each(function (this: HTMLElement) {
         const tryPhonetic = (val: string) =>

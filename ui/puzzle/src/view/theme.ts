@@ -19,7 +19,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
     : ctrl.vm.isDaily
     ? h(
         'div.puzzle__side__theme.puzzle__side__theme--daily',
-        puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle')))
+        puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))),
       )
     : h('div.puzzle__side__theme', [
         puzzleMenu(
@@ -30,8 +30,8 @@ export default function theme(ctrl: Controller): MaybeVNode {
                 long: angle.name.length > 20,
               },
             },
-            ['« ', angle.name]
-          )
+            ['« ', angle.name],
+          ),
         ),
         angle.opening
           ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
@@ -50,7 +50,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
                       rel: 'noopener',
                     },
                   },
-                  [' ', ctrl.trans.noarg('example')]
+                  [' ', ctrl.trans.noarg('example')],
                 ),
             ]),
         showEditor
@@ -101,7 +101,7 @@ const editor = (ctrl: Controller): VNode[] => {
                   title: trans(`${key}Description`),
                 },
               },
-              trans(key)
+              trans(key),
             ),
             !allThemes
               ? null
@@ -113,7 +113,7 @@ const editor = (ctrl: Controller): VNode[] => {
                           'div.puzzle__themes__lock',
                           h('i', {
                             attrs: dataIcon(licon.Padlock),
-                          })
+                          }),
                         ),
                       ]
                     : [
@@ -125,11 +125,11 @@ const editor = (ctrl: Controller): VNode[] => {
                           class: { active: votedThemes[key] === false },
                           attrs: { 'data-theme': key },
                         }),
-                      ]
+                      ],
                 ),
-          ]
-        )
-      )
+          ],
+        ),
+      ),
     ),
     ...(availableThemes
       ? [
@@ -152,7 +152,7 @@ const editor = (ctrl: Controller): VNode[] => {
                 {
                   attrs: { value: '', selected: true },
                 },
-                trans('addAnotherTheme')
+                trans('addAnotherTheme'),
               ),
               ...availableThemes.map(theme =>
                 h(
@@ -163,10 +163,10 @@ const editor = (ctrl: Controller): VNode[] => {
                       title: trans(`${theme}Description`),
                     },
                   },
-                  trans(theme)
-                )
+                  trans(theme),
+                ),
               ),
-            ]
+            ],
           ),
           h(
             'a.puzzle__themes__study.text',
@@ -178,7 +178,7 @@ const editor = (ctrl: Controller): VNode[] => {
                 rel: 'noopener',
               },
             },
-            'About puzzle themes'
+            'About puzzle themes',
           ),
         ]
       : []),

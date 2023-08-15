@@ -33,19 +33,25 @@
         &.red {
           background: $c-red;
           &.active {
-            box-shadow: 0 0 2em $c-red, 0 0 4em $c-red;
+            box-shadow:
+              0 0 2em $c-red,
+              0 0 4em $c-red;
           }
         }
         &.orange {
           background: $c-brag;
           &.active {
-            box-shadow: 0 0 2em $c-brag, 0 0 4em $c-brag;
+            box-shadow:
+              0 0 2em $c-brag,
+              0 0 4em $c-brag;
           }
         }
         &.green {
           background: $c-good;
           &.active {
-            box-shadow: 0 0 2em $c-good, 0 0 4em $c-good;
+            box-shadow:
+              0 0 2em $c-good,
+              0 0 4em $c-good;
           }
         }
       }

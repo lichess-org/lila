@@ -28,7 +28,7 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
   return h(`div.clock.clock-created.time-cache-${next.at}`, [
     h(
       'span.shy',
-      ctrl.data.status == 'created' ? ctrl.trans.noarg('startingIn') : ctrl.trans.noarg('nextRound')
+      ctrl.data.status == 'created' ? ctrl.trans.noarg('startingIn') : ctrl.trans.noarg('nextRound'),
     ),
     h('span.time.text', {
       hook: startClock(next.in + 1),
@@ -60,11 +60,11 @@ export default function (ctrl: SwissCtrl): VNode {
                   rel: 'noopener',
                 },
               },
-              greatPlayer.name
+              greatPlayer.name,
             ),
             ' Tournament',
           ]
-        : [ctrl.data.name]
+        : [ctrl.data.name],
     ),
     ctrl.data.status == 'finished' ? undefined : clock(ctrl) || ongoing(ctrl),
   ]);

@@ -26,9 +26,9 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
                     } as unknown as VNodeStyle)
                   : undefined,
             },
-            h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey)
-          )
-        )
+            h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey),
+          ),
+        ),
       )
     : null;
 };
@@ -58,7 +58,7 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
           {
             hook: bind('click', ctrl.start),
           },
-          ctrl.trans('startTraining')
+          ctrl.trans('startTraining'),
         ),
   ]);
 };
@@ -68,7 +68,7 @@ const progress = (ctrl: CoordinateTrainerCtrl): VNode => {
     'div.progress',
     ctrl.hasPlayed
       ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } })
-      : null
+      : null,
   );
 };
 
@@ -90,9 +90,9 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
                   },
                 },
               },
-              fileOrRank
-            )
-          )
+              fileOrRank,
+            ),
+          ),
         )
       : null,
     h('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')),
@@ -111,7 +111,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
       h(
         'a',
         { on: { click: () => ctrl.toggleInputMethod() } },
-        ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons'
+        ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons',
       ),
     ]),
   ];
@@ -133,7 +133,7 @@ const view = (ctrl: CoordinateTrainerCtrl): VNode =>
       table(ctrl),
       progress(ctrl),
       coordinateInput(ctrl),
-    ]
+    ],
   );
 
 export default view;

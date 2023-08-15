@@ -18,6 +18,6 @@ db.study_chapter
         $unset: {
           'setup.fromPgn': !!c.setup.fromPgn,
         },
-      }
+      },
     );
   });

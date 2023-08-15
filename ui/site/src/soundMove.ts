@@ -28,7 +28,7 @@ export async function initModule(): Promise<SoundMove> {
   const load = async (instrument: string, index: number, filename: string) =>
     lichess.sound.load(
       `orchestra.${instrument}.${index}`,
-      `${lichess.sound.baseUrl}/instrument/${instrument}/${filename}`
+      `${lichess.sound.baseUrl}/instrument/${instrument}/${filename}`,
     );
 
   const isPawn = (san: string) => san[0] === san[0].toLowerCase();
