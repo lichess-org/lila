@@ -111,7 +111,7 @@ export default function (token: string) {
   function rewireLoggingToElement(
     eleLocator: HTMLPreElement,
     eleOverflowLocator: HTMLDivElement,
-    autoScroll: boolean
+    autoScroll: boolean,
   ) {
     //Clear the console
     eleLocator.innerHTML = '';
@@ -444,7 +444,7 @@ export default function (token: string) {
       console.warn('No connection to event stream. Attempting re-connection. Attempt: ' + attempts);
     }
     console.error(
-      'No connection to event stream after maximum number of attempts 20. Reload page to start again.'
+      'No connection to event stream after maximum number of attempts 20. Reload page to start again.',
     );
   }
 
@@ -468,13 +468,13 @@ export default function (token: string) {
     */
     if (playableGames.length == 0) {
       console.log(
-        'No started playable games, challenges or games are disconnected. Please start a new game or fix connection.'
+        'No started playable games, challenges or games are disconnected. Please start a new game or fix connection.',
       );
       //TODO What happens if the games reconnect and this move is not sent?
     } else {
       if (playableGames.length > 1) {
         console.warn(
-          'Multiple active games detected. Current game will be selected based on board position.'
+          'Multiple active games detected. Current game will be selected based on board position.',
         );
         console.table(playableGames);
       }
@@ -506,7 +506,7 @@ export default function (token: string) {
           if (verbose)
             console.log(
               'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' +
-                currentGameId
+                currentGameId,
             );
         } else {
           //No match and No valid current game but there are active games
@@ -520,7 +520,7 @@ export default function (token: string) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
             console.log(
-              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId
+              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId,
             );
           currentGameId = playableGames[Number(index)].gameId;
           attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
@@ -530,7 +530,7 @@ export default function (token: string) {
           if (verbose)
             console.log(
               'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' +
-                currentGameId
+                currentGameId,
             );
         }
       }
@@ -736,21 +736,21 @@ export default function (token: string) {
           announceWinner(
             keywords[gameState.winner],
             'flag',
-            keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['timeout']
+            keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['timeout'],
           );
           break;
         case 'resign':
           announceWinner(
             keywords[gameState.winner],
             'resign',
-            keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['resignation']
+            keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['resignation'],
           );
           break;
         case 'mate':
           announceWinner(
             keywords[lastMove.player],
             'mate',
-            keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#']
+            keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#'],
           );
           break;
         case 'draw':
@@ -778,7 +778,7 @@ export default function (token: string) {
         const moves = gameState.moves.split(' ');
         if (verbose)
           console.log(
-            `getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`
+            `getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`,
           );
         if (moves.length % 2 == 0)
           return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
@@ -928,7 +928,7 @@ export default function (token: string) {
           if (movesToProcess > 1) {
             if (verbose)
               console.warn(
-                'onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess
+                'onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess,
               );
             if (localBoard.turn == currentGameColor) {
               //If more than one move is received when it's the DGT board player's turn this may be a invalid move
@@ -939,7 +939,7 @@ export default function (token: string) {
               if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarantinedlastLegalParam.san)) {
                 //lastLegalParam was altered, this mean a new move was received from LiveChess during quarantine
                 console.warn(
-                  'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretation received.'
+                  'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretation received.',
                 );
                 return;
               }
@@ -951,7 +951,7 @@ export default function (token: string) {
                 //It looks like a duplicate, so just ignore it
                 if (verbose)
                   console.info(
-                    'onmessage - Duplicate position and san move received after quarantine and will be ignored'
+                    'onmessage - Duplicate position and san move received after quarantine and will be ignored',
                   );
                 return;
               }
@@ -1013,7 +1013,7 @@ export default function (token: string) {
                 if (verbose)
                   console.error(
                     'onmessage - invalidMove - Position Mismatch between DGT Board and internal in-memory Board. SAN: ' +
-                      SANMove
+                      SANMove,
                   );
                 announceInvalidMove();
                 console.info(board(localBoard.board));
@@ -1047,13 +1047,13 @@ export default function (token: string) {
         //Websocket is fine but still no board detected
         console.warn(
           'Connection to DGT Live Chess is Fine but no board is detected. Attempting re-connection. Attempt: ' +
-            attempts
+            attempts,
         );
         liveChessConnection.send('{"id":1,"call":"eboards"}');
       }
     }
     console.error(
-      'No connection to DGT Live Chess after maximum number of attempts (20). Reload page to start again.'
+      'No connection to DGT Live Chess after maximum number of attempts (20). Reload page to start again.',
     );
   }
 
@@ -1088,7 +1088,7 @@ export default function (token: string) {
     } else {
       console.error('WebSocket is not open or is not ready to receive setup - cannot send setup command.');
       console.error(
-        `isLiveChessConnected: ${isLiveChessConnected} - DGTgameId: ${DGTgameId} - currentSerialnr: ${currentSerialnr} - currentGameId: ${currentGameId}`
+        `isLiveChessConnected: ${isLiveChessConnected} - DGTgameId: ${DGTgameId} - currentSerialnr: ${currentSerialnr} - currentGameId: ${currentGameId}`,
       );
     }
   }
@@ -1111,7 +1111,7 @@ export default function (token: string) {
     ) {
       //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
       console.warn(
-        'validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...'
+        'validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...',
       );
       await sleep(2000);
       //Now attempt to select for which game is this command intended
@@ -1176,7 +1176,7 @@ export default function (token: string) {
       try {
         extendedSanMove = extendedSanMove.replace(
           keywordsBase[i],
-          ' ' + keywords[keywordsBase[i]].toLowerCase() + ' '
+          ' ' + keywords[keywordsBase[i]].toLowerCase() + ' ',
         );
       } catch (error) {
         console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${error}`);

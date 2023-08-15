@@ -32,7 +32,7 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
             uptA('/@/' + u + '/tv', licon.AnalogTv) +
             uptA('/inbox/new?user=' + u, licon.BubbleSpeech) +
             uptA('/?user=' + u + '#friend', licon.Swords) +
-            '<a class="btn-rack__btn relation-button" disabled></a></div>'
+            '<a class="btn-rack__btn relation-button" disabled></a></div>',
         );
       }),
       placement:
@@ -58,7 +58,7 @@ function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) 
 function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
   requestIdleCallback(
     () => Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)), // do not codegolf to `f`
-    800
+    800,
   );
 }
 
@@ -248,7 +248,11 @@ class DisplayController {
   hoverTimer?: number;
   el: WithTooltip;
 
-  constructor(readonly element: Cash, readonly options: Options, readonly tipController: TooltipController) {
+  constructor(
+    readonly element: Cash,
+    readonly options: Options,
+    readonly tipController: TooltipController,
+  ) {
     this.el = un$(element);
     this.scoped = session.scoped[options.popupId!];
     // expose the methods
@@ -326,7 +330,7 @@ function placementCalculator() {
       placement: PowerTip.Placement,
       tipWidth: number,
       tipHeight: number,
-      offset: number
+      offset: number,
     ) {
       const placementBase = placement.split('-')[0], // ignore 'alt' for corners
         coords = cssCoordinates(),
@@ -541,7 +545,7 @@ class TooltipController {
         const collisions = getViewportCollisions(
           this.placeTooltip(element, pos),
           this.tipElement.outerWidth() || this.options.defaultSize[0],
-          this.tipElement.outerHeight() || this.options.defaultSize[1]
+          this.tipElement.outerHeight() || this.options.defaultSize[1],
         );
 
         // break if there were no collisions
@@ -580,7 +584,7 @@ class TooltipController {
         placement,
         tipWidth,
         tipHeight,
-        this.options.offset!
+        this.options.offset!,
       );
 
       // place the tooltip
@@ -657,7 +661,7 @@ function initTracking() {
         session.windowWidth = $window.width();
         session.windowHeight = $window.height();
       },
-      { passive: true }
+      { passive: true },
     );
 
     window.addEventListener(
@@ -674,7 +678,7 @@ function initTracking() {
           session.scrollTop = y;
         }
       },
-      { passive: true }
+      { passive: true },
     );
   }
 }

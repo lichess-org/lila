@@ -29,7 +29,7 @@ export const init = (node: HTMLElement) => {
           time: parseInt(this.getAttribute('data-time')!),
           pause: color != turnColor || !clockIsRunning(fen, color),
         });
-      })
+      }),
     );
   }
   return node.getAttribute('data-live');

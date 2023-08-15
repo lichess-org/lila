@@ -18,7 +18,7 @@ import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
-  h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } })
+  h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
 );
 
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
@@ -49,7 +49,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
           'data-icon': licon.PlusButton,
         },
         hook: bind('click', ceval.goDeeper),
-      })
+      }),
     );
   else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
   return t;
@@ -88,7 +88,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               title: 'Engine running outside of the browser',
             },
           },
-          'EXTERNAL'
+          'EXTERNAL',
         )
       : ctrl.technology == 'nnue'
       ? h(
@@ -99,20 +99,20 @@ function engineName(ctrl: CevalCtrl): VNode[] {
                 'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
             },
           },
-          'NNUE'
+          'NNUE',
         )
       : ctrl.technology == 'hce'
       ? h(
           'span.technology.good',
           { attrs: { title: 'Multi-threaded WebAssembly (classical hand crafted evaluation)' } },
-          'HCE'
+          'HCE',
         )
       : ctrl.technology == 'wasm'
       ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly fallback (slow)' } }, 'WASM')
       : h(
           'span.technology',
           { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } },
-          'ASMJS'
+          'ASMJS',
         ),
   ];
 }
@@ -153,7 +153,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
         reverse: ctrl.getOrientation() === 'black',
       },
     },
-    [h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks]
+    [h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks],
   );
 }
 
@@ -208,7 +208,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               vnode.data!.threatMode = threatMode;
             },
           },
-        })
+        }),
       )
     : null;
 
@@ -225,7 +225,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               ? [trans.noarg('threefoldRepetition')]
               : threatMode
               ? [threatInfo(ctrl, threat)]
-              : localEvalInfo(ctrl, evs)
+              : localEvalInfo(ctrl, evs),
           ),
         ]),
       ]
@@ -256,7 +256,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               hook: bind('change', ctrl.toggleCeval),
             }),
             h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
-          ]
+          ],
         );
 
   return h(
@@ -266,7 +266,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         computing: percent < 100 && instance.getState() === CevalState.Computing,
       },
     },
-    [progressBar, ...body, threatButton(ctrl), switchButton]
+    [progressBar, ...body, threatButton(ctrl), switchButton],
   );
 }
 
@@ -305,7 +305,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   lichess.requestIdleCallback(
     () => instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
-    500
+    500,
   );
 }
 
@@ -361,7 +361,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   ctrl.getCeval().setPvBoard({ fen, uci });
                 }
               }
-            })
+            }),
           );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
@@ -384,10 +384,10 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     },
     [
       ...[...Array(multiPv).keys()].map(i =>
-        renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined)
+        renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined),
       ),
       renderPvBoard(ctrl),
-    ]
+    ],
   );
 }
 
@@ -457,8 +457,8 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
             'data-board': `${fen}|${uci}`,
           },
         },
-        san
-      )
+        san,
+      ),
     );
   }
   return vnodes;

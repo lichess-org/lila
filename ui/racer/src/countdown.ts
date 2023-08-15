@@ -3,7 +3,11 @@ import { Clock } from 'puz/clock';
 export class Countdown {
   played = new Set<number>();
 
-  public constructor(readonly clock: Clock, readonly onStart: () => void, readonly redraw: () => void) {
+  public constructor(
+    readonly clock: Clock,
+    readonly onStart: () => void,
+    readonly redraw: () => void,
+  ) {
     for (let i = 10; i >= 0; i--) lichess.sound.load(`countDown${i}`);
   }
 

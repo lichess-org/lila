@@ -182,7 +182,7 @@ export class Protocol {
         'UCI_Variant',
         this.work.variant === 'antichess'
           ? 'giveaway' // for old asmjs fallback
-          : lichessRules(this.work.variant)
+          : lichessRules(this.work.variant),
       );
       this.setOption('Threads', this.work.threads);
       this.setOption('Hash', this.work.hashSize || 16);
@@ -192,7 +192,7 @@ export class Protocol {
       this.send(
         this.work.maxDepth >= 99
           ? `go depth ${maxStockfishPlies}` // 'go infinite' would not finish even if entire tree search completed
-          : 'go movetime 90000'
+          : 'go movetime 90000',
       );
     }
   }

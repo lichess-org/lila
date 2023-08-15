@@ -15,9 +15,9 @@ export default function (ctrl: Ctrl) {
           attrs: { 'data-icon': licon.Target },
           hook: bind('click', () => ctrl.setQuestion(p)),
         },
-        p.name
-      )
-    )
+        p.name,
+      ),
+    ),
   );
 }
 

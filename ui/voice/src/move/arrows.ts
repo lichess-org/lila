@@ -21,7 +21,7 @@ const LABEL_SIZE = 40; // size of arrow labels in svg user units, 100 is the wid
 export function numberedArrows(
   choices: [string, Uci][],
   timer: number | undefined,
-  asWhite: boolean
+  asWhite: boolean,
 ): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
@@ -43,8 +43,8 @@ export function numberedArrows(
         choices.length > 1 ? labelOffset(choices[0][1], dests, asWhite) : [0, 0],
         timer,
         choices.length > 1 ? 'grey' : 'white',
-        0.6
-      )
+        0.6,
+      ),
     );
   }
   if (choices.length > 1)
@@ -105,7 +105,7 @@ function labelShape(
   uci: Uci,
   dests: Map<Key, number | Set<number>>,
   label: string,
-  asWhite: boolean
+  asWhite: boolean,
 ): DrawShape {
   const fontSize = Math.round(LABEL_SIZE * 0.82);
   const r = LABEL_SIZE / 2;

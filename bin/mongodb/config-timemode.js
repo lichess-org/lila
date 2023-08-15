@@ -15,7 +15,7 @@
       {
         $set: sets,
         $unset: unsets,
-      }
+      },
     );
   });
 });

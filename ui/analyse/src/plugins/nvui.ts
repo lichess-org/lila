@@ -82,7 +82,7 @@ export function initModule(ctrl: AnalyseController) {
           h('h1', 'Textual representation'),
           h('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
-            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))])
+            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
           ),
           h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
@@ -95,7 +95,7 @@ export function initModule(ctrl: AnalyseController) {
                 'aria-live': 'off',
               },
             },
-            renderCurrentLine(ctrl, style)
+            renderCurrentLine(ctrl, style),
           ),
           ...(!ctrl.studyPractice
             ? [
@@ -107,7 +107,7 @@ export function initModule(ctrl: AnalyseController) {
                     },
                     hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
-                  ctrl.trans.noarg('openingExplorerAndTablebase')
+                  ctrl.trans.noarg('openingExplorerAndTablebase'),
                 ),
                 explorerView(ctrl),
               ]
@@ -124,7 +124,7 @@ export function initModule(ctrl: AnalyseController) {
               },
             },
             // make sure consecutive positions are different so that they get re-read
-            renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' ')
+            renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
           h('h2', 'Move form'),
           h(
@@ -151,7 +151,7 @@ export function initModule(ctrl: AnalyseController) {
                   },
                 }),
               ]),
-            ]
+            ],
           ),
           notify.render(),
           // h('h2', 'Actions'),
@@ -176,7 +176,7 @@ export function initModule(ctrl: AnalyseController) {
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on(
                     'keypress',
-                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())
+                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                   );
                   $buttons.on('keypress', positionJumpHandler());
                   $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
@@ -189,8 +189,8 @@ export function initModule(ctrl: AnalyseController) {
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
-              boardStyle.get()
-            )
+              boardStyle.get(),
+            ),
           ),
           h(
             'div.boardstatus',
@@ -200,7 +200,7 @@ export function initModule(ctrl: AnalyseController) {
                 'aria-atomic': 'true',
               },
             },
-            ''
+            '',
           ),
           h('div.content', {
             hook: {
@@ -374,7 +374,7 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
           uci.slice(0, 2) as Key,
           uci.slice(2, 4) as Key,
           undefined,
-          namePiece[uci.slice(4)] as Role | undefined
+          namePiece[uci.slice(4)] as Role | undefined,
         );
       else notify('Invalid command');
     }
@@ -410,7 +410,7 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
     notify(
       commands.piece.apply(c, pieces, style) ||
         commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`
+        `Invalid command: ${c}`,
     );
   }
 }
@@ -421,7 +421,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
   const analysisNodes = ctrl.mainline.filter(n =>
-    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol))
+    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)),
   );
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
@@ -434,7 +434,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
           hook: bind(
             'change',
             e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
-            ctrl.redraw
+            ctrl.redraw,
           ),
         },
         analysisNodes
@@ -449,11 +449,11 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
                 },
               },
               [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
-                ' '
-              )
-            )
-          )
-      )
+                ' ',
+              ),
+            ),
+          ),
+      ),
     );
   });
   return res;
@@ -462,7 +462,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
 function requestAnalysisButton(
   ctrl: AnalyseController,
   inProgress: Prop<boolean>,
-  notify: (msg: string) => void
+  notify: (msg: string) => void,
 ) {
   if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
@@ -479,11 +479,11 @@ function requestAnalysisButton(
               inProgress(true);
               notify('Server-side analysis in progress');
             },
-            _ => notify('Cannot run server-side analysis')
-          )
+            _ => notify('Cannot run server-side analysis'),
+          ),
       ),
     },
-    'Request a computer analysis'
+    'Request a computer analysis',
   );
 }
 
@@ -532,7 +532,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
           {
             attrs: { href: '/@/' + user.username },
           },
-          user.title ? `${user.title} ${user.username}` : user.username
+          user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,

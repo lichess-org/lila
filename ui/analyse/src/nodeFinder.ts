@@ -7,7 +7,7 @@ export function nextGlyphSymbol(
   color: Color,
   symbol: string,
   mainline: Tree.Node[],
-  fromPly: number
+  fromPly: number,
 ): Tree.Node | undefined {
   const len = mainline.length;
   if (!len) return;

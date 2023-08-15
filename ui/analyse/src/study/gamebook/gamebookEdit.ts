@@ -32,10 +32,10 @@ export function render(ctrl: AnalyseCtrl): VNode {
           $('#comment-text').each(function (this: HTMLTextAreaElement) {
             this.focus();
           }),
-        500
+        500,
       );
     },
-    ctrl.redraw
+    ctrl.redraw,
   );
 
   if (!ctrl.path) {
@@ -47,7 +47,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag(licon.BubbleSpeech), h('p', 'Help the player find the initial move, with a comment.')]
+          [iconTag(licon.BubbleSpeech), h('p', 'Help the player find the initial move, with a comment.')],
         ),
         renderHint(ctrl),
       ];
@@ -58,7 +58,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           {
             hook: commentHook,
           },
-          [iconTag(licon.BubbleSpeech), h('p', 'Introduce the gamebook with a comment')]
+          [iconTag(licon.BubbleSpeech), h('p', 'Introduce the gamebook with a comment')],
         ),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
           iconTag(licon.PlayTriangle),
@@ -77,7 +77,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           [
             iconTag(licon.BubbleSpeech),
             h('p', 'Explain the opponent move, and help the player find the next move, with a comment.'),
-          ]
+          ],
         ),
         renderHint(ctrl),
       ];
@@ -92,9 +92,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
             iconTag(licon.BubbleSpeech),
             h(
               'p',
-              "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move."
+              "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move.",
             ),
-          ]
+          ],
         ),
         hasVariation
           ? null
@@ -106,7 +106,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
               [
                 iconTag(licon.PlayTriangle),
                 h('p', 'Add variation moves to explain why specific other moves are wrong.'),
-              ]
+              ],
             ),
         renderDeviation(ctrl),
       ];
@@ -118,7 +118,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           hook: commentHook,
           class: { done: isCommented },
         },
-        [iconTag(licon.BubbleSpeech), h('p', 'Explain why this move is wrong in a comment')]
+        [iconTag(licon.BubbleSpeech), h('p', 'Explain why this move is wrong in a comment')],
       ),
       h('div.legend', [h('p', 'Or promote it as the mainline if it is the right move.')]),
     ];
@@ -128,7 +128,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     {
       hook: { insert: _ => lichess.loadCssPath('analyse.gamebook.edit') },
     },
-    content
+    content,
   );
 }
 

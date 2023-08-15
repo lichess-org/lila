@@ -83,7 +83,11 @@ export default class StrongSocket {
     StrongSocket.resolveFirstConnect = r;
   });
 
-  constructor(readonly url: string, version: number | false, settings: Partial<Settings> = {}) {
+  constructor(
+    readonly url: string,
+    version: number | false,
+    settings: Partial<Settings> = {},
+  ) {
     this.settings = {
       receive: settings.receive,
       events: settings.events || {},
@@ -309,7 +313,7 @@ export default class StrongSocket {
           this.options.idle = false;
           if (this.ws) clearTimeout(disconnectTimeout);
           else location.reload();
-        }
+        },
       );
     }
   };

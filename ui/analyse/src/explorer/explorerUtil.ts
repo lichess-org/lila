@@ -28,7 +28,7 @@ export const moveArrowAttributes = (ctrl: AnalyseCtrl, opts: MoveArrowOpts) => (
           $(el).attr('data-fen')!,
           $(e.target as HTMLElement)
             .parents('tr')
-            .attr('data-uci')
+            .attr('data-uci'),
         );
       });
       el.addEventListener('mouseout', _ => {

@@ -110,7 +110,7 @@ export default function <Result>(opts: Opts<Result>) {
             if (opts.onSelect) opts.onSelect(result);
             return true;
           })
-          .appendTo($container)
+          .appendTo($container),
       );
     else $container.html(empty());
     renderedResults = results;

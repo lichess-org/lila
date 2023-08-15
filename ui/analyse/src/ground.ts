@@ -34,7 +34,7 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
             promoted: true,
           },
         ],
-      ])
+      ]),
     );
   }
 }

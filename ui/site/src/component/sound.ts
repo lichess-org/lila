@@ -231,7 +231,10 @@ class Sound {
   node: GainNode;
   ctx: AudioContext;
 
-  constructor(ctx: AudioContext, readonly buffer: AudioBuffer) {
+  constructor(
+    ctx: AudioContext,
+    readonly buffer: AudioBuffer,
+  ) {
     this.rewire(ctx);
   }
 

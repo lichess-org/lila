@@ -30,14 +30,14 @@ const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
       {
         attrs: { href: '/@/' + p.user.username },
       },
-      [p.user.username, ' ', renderRatingDiff(p.ratingDiff)]
+      [p.user.username, ' ', renderRatingDiff(p.ratingDiff)],
     );
   return h(
     'span',
     p.name ||
       (p.ai && 'Stockfish level ' + p.ai) ||
       (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
-      'Anonymous'
+      'Anonymous',
   );
 };
 
@@ -79,7 +79,7 @@ const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
   h(
     'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : ''),
     { attrs: nb ? { 'data-color': color, 'data-symbol': advice.symbol } : {} },
-    ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb))
+    ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb)),
   );
 
 const markerColorPrefix = (el: Element): string => {
@@ -130,10 +130,10 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            ctrl.trans.noarg('learnFromYourMistakes')
+            ctrl.trans.noarg('learnFromYourMistakes'),
           ),
       playerTable(ctrl, 'black'),
-    ]
+    ],
   );
 };
 
@@ -151,8 +151,8 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
             href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
           },
         },
-        ['Recommended puzzle training', h('br'), puzzle.name]
-      )
+        ['Recommended puzzle training', h('br'), puzzle.name],
+      ),
     )
   );
 }

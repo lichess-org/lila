@@ -53,7 +53,7 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
           renderBerserk(ctrl, player.color, position),
           isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
           tourRank(ctrl, player.color, position),
-        ]
+        ],
   );
 }
 
@@ -158,7 +158,7 @@ const tourRank = (ctrl: RoundController, color: Color, position: Position) => {
         {
           attrs: { title: 'Current tournament rank' },
         },
-        '#' + ranks[color]
+        '#' + ranks[color],
       )
     : null;
 };

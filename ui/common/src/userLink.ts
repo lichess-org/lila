@@ -20,6 +20,6 @@ export default function userLink(u: string, title?: string, patron?: boolean): V
         href: '/@/' + u,
       },
     },
-    title && title != 'BOT' ? [line, h('span.utitle', title), u] : [line, u]
+    title && title != 'BOT' ? [line, h('span.utitle', title), u] : [line, u],
   );
 }

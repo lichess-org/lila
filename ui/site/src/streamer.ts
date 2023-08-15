@@ -10,7 +10,7 @@ lichess.load.then(() => {
           $(this)
             .data('action')
             .replace(/set=[^&]+/, `set=${target.checked}`),
-          { method: 'post' }
+          { method: 'post' },
         );
       });
   });

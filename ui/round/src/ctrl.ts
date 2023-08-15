@@ -92,7 +92,11 @@ export default class RoundController {
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
 
-  constructor(readonly opts: RoundOpts, readonly redraw: Redraw, readonly nvui?: NvuiPlugin) {
+  constructor(
+    readonly opts: RoundOpts,
+    readonly redraw: Redraw,
+    readonly nvui?: NvuiPlugin,
+  ) {
     round.massage(opts.data);
 
     const d = (this.data = opts.data);
@@ -126,7 +130,7 @@ export default class RoundController {
         xhr.reload(this).then(this.reload, lichess.reload);
       },
       this.redraw,
-      d.pref.autoQueen
+      d.pref.autoQueen,
     );
 
     this.setQuietMode();
@@ -199,7 +203,7 @@ export default class RoundController {
         show: this.voiceMove?.promotionHook(),
       },
       meta,
-      this.keyboardMove?.justSelected()
+      this.keyboardMove?.justSelected(),
     );
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -424,7 +428,7 @@ export default class RoundController {
             role: o.role,
             color: playedColor,
           },
-          o.uci.slice(2, 4) as cg.Key
+          o.uci.slice(2, 4) as cg.Key,
         );
       else {
         // This block needs to be idempotent, even for castling moves in
@@ -636,7 +640,7 @@ export default class RoundController {
       lichess.quietMode = is;
       $('body').toggleClass(
         'no-select',
-        is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5
+        is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5,
       );
     }
   };
@@ -679,7 +683,7 @@ export default class RoundController {
 
   opponentRequest(req: string, i18nKey: string) {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
-      this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`)
+      this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
     notify(this.noarg(i18nKey));
   }

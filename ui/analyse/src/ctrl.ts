@@ -122,7 +122,11 @@ export default class AnalyseCtrl {
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
 
-  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw, makeStudy?: typeof makeStudyCtrl) {
+  constructor(
+    readonly opts: AnalyseOpts,
+    readonly redraw: Redraw,
+    makeStudy?: typeof makeStudyCtrl,
+  ) {
     this.data = opts.data;
     this.element = opts.element;
     this.trans = opts.trans;
@@ -130,7 +134,7 @@ export default class AnalyseCtrl {
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
-      this.redraw
+      this.redraw,
     );
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
@@ -183,7 +187,7 @@ export default class AnalyseCtrl {
     });
 
     lichess.pubsub.on('ply.trigger', () =>
-      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
+      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply),
     );
     lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
@@ -582,7 +586,7 @@ export default class AnalyseCtrl {
         'Delete ' +
           plural('move', count.nodes) +
           (count.comments ? ' and ' + plural('comment', count.comments) : '') +
-          '?'
+          '?',
       )
     )
       return;
@@ -687,7 +691,7 @@ export default class AnalyseCtrl {
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
-      _ => undefined
+      _ => undefined,
     );
   }
 
@@ -830,7 +834,7 @@ export default class AnalyseCtrl {
     if (data.analysis)
       data.analysis.partial = !!treeOps.findInMainline(
         data.tree,
-        n => !n.eval && !!n.children.length && n.ply <= 300
+        n => !n.eval && !!n.children.length && n.ply <= 300,
       );
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
@@ -850,7 +854,7 @@ export default class AnalyseCtrl {
         makeSquare(move.from),
         to,
         capture && piece && capture.color !== piece.color ? capture : undefined,
-        move.promotion
+        move.promotion,
       );
     } else
       this.chessground.newPiece(
@@ -858,7 +862,7 @@ export default class AnalyseCtrl {
           color: this.chessground.state.movable.color as Color,
           role: move.role,
         },
-        to
+        to,
       );
   }
 

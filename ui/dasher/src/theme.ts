@@ -28,7 +28,7 @@ export function ctrl(
   trans: Trans,
   dimension: () => keyof ThemeData,
   redraw: Redraw,
-  close: Close
+  close: Close,
 ): ThemeCtrl {
   function dimensionData() {
     return data[dimension()];
@@ -72,7 +72,7 @@ function themeView(current: Theme, set: (t: Theme) => void) {
         attrs: { title: t, type: 'button' },
         class: { active: current === t },
       },
-      [h('span.' + t)]
+      [h('span.' + t)],
     );
 }
 

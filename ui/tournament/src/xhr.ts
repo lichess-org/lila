@@ -27,7 +27,7 @@ export const join = throttlePromiseDelay(
             if (t.error) alert(t.error);
             else lichess.reload();
           });
-      }, onFail)
+      }, onFail),
 );
 
 export const withdraw = throttlePromiseDelay(
@@ -37,7 +37,7 @@ export const withdraw = throttlePromiseDelay(
       .text('/tournament/' + ctrl.data.id + '/withdraw', {
         method: 'POST',
       })
-      .then(() => {}, onFail)
+      .then(() => {}, onFail),
 );
 
 export const loadPage = throttlePromiseDelay(
@@ -47,7 +47,7 @@ export const loadPage = throttlePromiseDelay(
       ctrl.loadPage(data);
       callback?.();
       ctrl.redraw();
-    }, onFail)
+    }, onFail),
 );
 
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
@@ -71,7 +71,7 @@ export const reloadNow: (ctrl: TournamentController) => Promise<void> = finallyD
       {
         ...xhr.defaultInit,
         headers: xhr.jsonHeader,
-      }
+      },
     )
       .then(res => xhr.ensureOk(res).json())
       .then(
@@ -84,8 +84,8 @@ export const reloadNow: (ctrl: TournamentController) => Promise<void> = finallyD
             ctrl.data.reloadEndpoint = reloadEndpointFallback(ctrl);
             return reloadNow(ctrl);
           } else return onFail();
-        }
-      )
+        },
+      ),
 );
 
 export const reloadSoon = throttlePromiseDelay(() => 4000 + Math.floor(Math.random() * 1000), reloadNow);

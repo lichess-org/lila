@@ -50,7 +50,7 @@ function renderPromotion(
   pieces: PromotionRole[],
   color: Color,
   orientation: Color,
-  explain: boolean
+  explain: boolean,
 ) {
   if (!promoting) return;
 
@@ -70,7 +70,7 @@ function renderPromotion(
             finish(serverRole);
           },
         },
-        m('piece.' + serverRole + '.' + color)
+        m('piece.' + serverRole + '.' + color),
       );
     }),
     explain ? renderExplanation(ctrl) : null,
@@ -96,7 +96,7 @@ export function view(ctrl: Ctrl, stage: LevelCtrl) {
     pieces,
     opposite(ground.data().turnColor),
     ground.data().orientation,
-    !!stage.blueprint.explainPromotion
+    !!stage.blueprint.explainPromotion,
   );
 }
 

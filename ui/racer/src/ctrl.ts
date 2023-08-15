@@ -46,7 +46,10 @@ export default class RacerCtrl implements PuzCtrl {
   flipped = false;
   redrawInterval: Timeout;
 
-  constructor(opts: RacerOpts, readonly redraw: () => void) {
+  constructor(
+    opts: RacerOpts,
+    readonly redraw: () => void,
+  ) {
     this.data = opts.data;
     this.race = this.data.race;
     this.pref = opts.pref;
@@ -74,7 +77,7 @@ export default class RacerCtrl implements PuzCtrl {
         this.run.current.moveIndex = 0;
         this.setGround();
       },
-      () => setTimeout(this.redraw)
+      () => setTimeout(this.redraw),
     );
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
@@ -267,7 +270,7 @@ export default class RacerCtrl implements PuzCtrl {
       xhr.text('/pref/zen', {
         method: 'post',
         body: xhr.form({ zen: zen ? 1 : 0 }),
-      })
+      }),
   );
 
   private toggleZen = () => lichess.pubsub.emit('zen');

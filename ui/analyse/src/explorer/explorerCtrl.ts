@@ -60,7 +60,11 @@ export default class ExplorerCtrl {
   private abortController: AbortController | undefined;
   private cache: Dictionary<ExplorerData> = {};
 
-  constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly opts: ExplorerOpts,
+    previous?: ExplorerCtrl,
+  ) {
     this.allowed = prop(previous ? previous.allowed() : true);
     this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
@@ -134,16 +138,16 @@ export default class ExplorerCtrl {
                 withGames: this.withGames,
               },
               processData,
-              this.abortController.signal
+              this.abortController.signal,
             )
             .catch(onError)
-            .then(_ => true)
+            .then(_ => true),
         );
         this.lastStream.promise.then(() => this.root.redraw());
       }
     },
     250,
-    true
+    true,
   );
 
   private empty: OpeningData = {
@@ -213,7 +217,7 @@ export default class ExplorerCtrl {
         play: [],
         fen,
       },
-      deferred.resolve
+      deferred.resolve,
     );
     return await deferred.promise;
   };

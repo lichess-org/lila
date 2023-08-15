@@ -8,7 +8,7 @@ export function storedProp<V>(
   key: string,
   defaultValue: V,
   fromStr: (str: string) => V,
-  toStr: (v: V) => string
+  toStr: (v: V) => string,
 ): StoredProp<V> {
   const compatKey = 'analyse.' + key;
   let cached: V;
@@ -34,7 +34,7 @@ export const storedStringProp = (k: string, defaultValue: string): StoredProp<st
     k,
     defaultValue,
     str => str,
-    v => v
+    v => v,
   );
 
 export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<boolean> =>
@@ -42,19 +42,19 @@ export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<
     k,
     defaultValue,
     str => str === 'true',
-    v => v.toString()
+    v => v.toString(),
   );
 
 export const storedStringPropWithEffect = (
   k: string,
   defaultValue: string,
-  effect: (v: string) => void
+  effect: (v: string) => void,
 ): Prop<string> => withEffect(storedStringProp(k, defaultValue), effect);
 
 export const storedBooleanPropWithEffect = (
   k: string,
   defaultValue: boolean,
-  effect: (v: boolean) => void
+  effect: (v: boolean) => void,
 ): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
 
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
@@ -62,13 +62,13 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
     k,
     defaultValue,
     str => parseInt(str),
-    v => v + ''
+    v => v + '',
   );
 
 export const storedIntPropWithEffect = (
   k: string,
   defaultValue: number,
-  effect: (v: number) => void
+  effect: (v: number) => void,
 ): Prop<number> => withEffect(storedIntProp(k, defaultValue), effect);
 
 export type StoredJsonProp<V> = Prop<V>;

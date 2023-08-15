@@ -9,7 +9,11 @@ export type Save = (t: string) => void;
 export class DescriptionCtrl {
   edit = false;
 
-  constructor(public text: string | undefined, readonly doSave: Save, readonly redraw: () => void) {}
+  constructor(
+    public text: string | undefined,
+    readonly doSave: Save,
+    readonly redraw: () => void,
+  ) {}
 
   save(t: string) {
     this.text = t;
@@ -46,7 +50,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
                   _ => {
                     desc.edit = true;
                   },
-                  desc.redraw
+                  desc.redraw,
                 ),
               }),
           h('a', {
@@ -69,10 +73,10 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               _ => {
                 desc.edit = true;
               },
-              desc.redraw
+              desc.redraw,
             ),
           },
-          descTitle(chapter)
+          descTitle(chapter),
         )
       : h('div.text', { hook: richHTML(desc.text) }),
   ]);
@@ -92,7 +96,7 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
           () => {
             ctrl.edit = false;
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       }),
     ]),

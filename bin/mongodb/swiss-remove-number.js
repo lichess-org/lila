@@ -15,7 +15,7 @@ db.swiss.find().forEach(swiss => {
           p: [index[p.p[0]], index[p.p[1]]],
           t: p.t == p.p[0] ? NumberInt(0) : p.t == p.p[1] ? NumberInt(1) : p.t,
         },
-      }
+      },
     );
   });
 
@@ -24,5 +24,5 @@ db.swiss.find().forEach(swiss => {
 
 db.swiss.ensureIndex(
   { nbPlayers: -1 },
-  { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } }
+  { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } },
 );

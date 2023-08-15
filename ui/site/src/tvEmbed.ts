@@ -26,7 +26,7 @@ window.onload = () => {
           miniGame.update(findGame(), msg.d);
         }
       },
-      false
+      false,
     );
   resize();
   window.addEventListener('resize', resize);

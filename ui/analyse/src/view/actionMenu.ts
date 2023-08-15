@@ -58,9 +58,9 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
           },
           hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw),
         },
-        ctrl.trans.noarg(speed.name)
+        ctrl.trans.noarg(speed.name),
       );
-    })
+    }),
   );
 }
 
@@ -80,7 +80,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
           'data-icon': licon.StudyBoard,
         },
       },
-      ctrl.trans.noarg('openStudy')
+      ctrl.trans.noarg('openStudy'),
     );
   if (ctrl.study || ctrl.ongoing) return;
   return h(
@@ -111,9 +111,9 @@ export function studyButton(ctrl: AnalyseCtrl) {
             'data-icon': licon.StudyBoard,
           },
         },
-        ctrl.trans.noarg('toStudy')
+        ctrl.trans.noarg('toStudy'),
       ),
-    ]
+    ],
   );
 }
 
@@ -135,7 +135,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             title: 'Hotkey: f',
           },
         },
-        noarg('flipBoard')
+        noarg('flipBoard'),
       ),
       ctrl.ongoing
         ? null
@@ -155,7 +155,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 rel: 'nofollow',
               },
             },
-            noarg('boardEditor')
+            noarg('boardEditor'),
           ),
       canContinue
         ? h(
@@ -164,11 +164,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
               hook: bind('click', _ =>
                 modal({
                   content: $('.continue-with.g_' + d.game.id),
-                })
+                }),
               ),
               attrs: dataIcon(licon.Swords),
             },
-            noarg('continueFromHere')
+            noarg('continueFromHere'),
           )
         : null,
       studyButton(ctrl),
@@ -191,7 +191,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               disabled: mandatoryCeval,
               change: ctrl.toggleComputer,
             },
-            ctrl
+            ctrl,
           ),
           ...(ctrl.showComputer()
             ? [
@@ -203,7 +203,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     checked: ctrl.showAutoShapes(),
                     change: ctrl.toggleAutoShapes,
                   },
-                  ctrl
+                  ctrl,
                 ),
                 ctrlToggle(
                   {
@@ -212,7 +212,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     checked: ctrl.showGauge(),
                     change: ctrl.toggleGauge,
                   },
-                  ctrl
+                  ctrl,
                 ),
                 ctrlToggle(
                   {
@@ -222,7 +222,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     checked: ceval.infinite(),
                     change: ctrl.cevalSetInfinite,
                   },
-                  ctrl
+                  ctrl,
                 ),
                 ceval.technology != 'external'
                   ? ctrlToggle(
@@ -236,7 +236,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                         change: ceval.enableNnue,
                         disabled: !ceval.platform.supportsNnue,
                       },
-                      ctrl
+                      ctrl,
                     )
                   : null,
                 (id => {
@@ -271,7 +271,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     }),
                     h(
                       'div.range_value',
-                      `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`
+                      `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`,
                     ),
                   ]);
                 })('analyse-threads'),
@@ -289,7 +289,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       },
                       hook: rangeConfig(
                         () => Math.floor(Math.log2(ceval.hashSize())),
-                        v => ctrl.cevalSetHashSize(Math.pow(2, v))
+                        v => ctrl.cevalSetHashSize(Math.pow(2, v)),
                       ),
                     }),
                     h('div.range_value', formatHashSize(ceval.hashSize())),
@@ -311,7 +311,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           ctrl.actionMenu.toggle();
         },
       },
-      ctrl
+      ctrl,
     ),
     ctrlToggle(
       {
@@ -321,7 +321,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         checked: ctrl.showMoveAnnotation(),
         change: ctrl.toggleMoveAnnotation,
       },
-      ctrl
+      ctrl,
     ),
   ];
 
@@ -343,7 +343,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 rel: 'nofollow',
               },
             },
-            noarg('playWithTheMachine')
+            noarg('playWithTheMachine'),
           ),
           h(
             'a.button',
@@ -355,7 +355,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 rel: 'nofollow',
               },
             },
-            noarg('playWithAFriend')
+            noarg('playWithAFriend'),
           ),
         ])
       : null,
