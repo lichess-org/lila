@@ -7,6 +7,5 @@
     "types": ["lichess", "web", "cash", "dom-screen-wake-lock"],
     "composite": true,
     "incremental": true
-  },
-  "isolatedModules": true
+  }
 }

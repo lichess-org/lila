@@ -175,7 +175,7 @@ object layout:
 
   private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: PageContext) =
     frag(
-      chessground option chessgroundTag,
+      chessground option jsModule("chessground"),
       ctx.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
       frag(cashTag, jsModule("lichess")),

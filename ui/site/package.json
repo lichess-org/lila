@@ -78,6 +78,10 @@
     },
     "copy": [
       {
+        "src": "../../node_modules/chessground/dist/chessground*.js",
+        "dest": "../../public/compiled"
+      },
+      {
         "src": "node_modules/hopscotch/dist/**",
         "dest": "../../public/vendor/hopscotch/dist"
       },
