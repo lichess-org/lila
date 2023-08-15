@@ -25,15 +25,15 @@
     "*.{js,ts,md,json,scss}": "prettier --write"
   },
   "dependencies": {
-    "@types/node": "^18.17.5",
-    "@types/web": "^0.0.84",
+    "@types/node": "^20.5.0",
+    "@types/web": "^0.0.113",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
     "ab": "github:lichess-org/ab-stub",
-    "chessground": "^8.4.0",
+    "chessground": "^9.0.0",
     "eslint": "^8.47.0",
-    "lint-staged": "^13.3.0",
-    "prettier": "^3.0.1",
+    "lint-staged": "^14.0.0",
+    "prettier": "^3.0.2",
     "typescript": "^5.1.6"
   },
   "scripts": {
