@@ -5,7 +5,7 @@
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành một Lichess Patron</string>
-  <string name="xBecamePatron">%s trở thành một Lichess Patron</string>
+  <string name="xBecamePatron">%s đã trở thành một Lichess Patron</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="other">%1$s là Lichess Patron trong %2$s tháng</item>
   </plurals>
