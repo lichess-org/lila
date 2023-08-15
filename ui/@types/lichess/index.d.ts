@@ -54,6 +54,7 @@ interface Lichess {
     update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
+  makeChessground: (el: HTMLElement, config: any) => Promise<any>;
   // socket.js
   StrongSocket: {
     new (url: string, version: number | false, cfg?: any): any;
@@ -301,10 +302,9 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   lichess: Lichess;
-  un$<T>(cash: Cash): T;
+  $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
-  Chessground: any;
   readonly hopscotch: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
@@ -575,4 +575,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const un$: <T>(cash: Cash) => T;
+declare const $as: <T>(cash: Cash) => T;

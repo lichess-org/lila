@@ -30,7 +30,7 @@ import { format as timeago, formatter as dateFormat } from './component/timeago'
 import watchers from './component/watchers';
 
 export default () => {
-  window.un$ = <T>(cash: Cash) => cash[0] as T;
+  window.$as = <T>(cash: Cash) => cash[0] as T;
   const l = window.lichess;
   l.StrongSocket = StrongSocket;
   l.mousetrap = new Mousetrap(document);
@@ -68,4 +68,6 @@ export default () => {
   l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
   l.blindMode = document.body.classList.contains('blind-mode');
   l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
+  l.makeChessground = (el: HTMLElement, config: any) =>
+    lichess.loadEsm('chessground.min', { init: { el, config } });
 };

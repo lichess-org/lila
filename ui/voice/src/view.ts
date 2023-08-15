@@ -96,7 +96,7 @@ function langSetting(ctrl: VoiceCtrl) {
       ]);
 }
 
-let devices: InputDeviceInfo[] | undefined;
+let devices: MediaDeviceInfo[] | undefined;
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),

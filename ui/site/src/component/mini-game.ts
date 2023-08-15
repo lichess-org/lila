@@ -5,24 +5,23 @@ import clockWidget from './clock-widget';
 import StrongSocket from './socket';
 
 export const init = (node: HTMLElement) => {
-  if (!window.Chessground) setTimeout(() => init(node), 200);
-  else {
-    const [fen, orientation, lm] = node.getAttribute('data-state')!.split(','),
-      config = {
-        coordinates: false,
-        viewOnly: true,
-        fen,
-        orientation,
-        lastMove: uciToMove(lm),
-        drawable: {
-          enabled: false,
-          visible: false,
-        },
+  const [fen, orientation, lm] = node.getAttribute('data-state')!.split(','),
+    config = {
+      coordinates: false,
+      viewOnly: true,
+      fen,
+      orientation,
+      lastMove: uciToMove(lm),
+      drawable: {
+        enabled: false,
+        visible: false,
       },
-      $el = $(node).removeClass('mini-game--init'),
-      $cg = $el.find('.cg-wrap'),
-      turnColor = fenColor(fen);
-    domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
+    },
+    $el = $(node).removeClass('mini-game--init'),
+    $cg = $el.find('.cg-wrap'),
+    turnColor = fenColor(fen);
+  lichess.makeChessground($as<HTMLElement>($cg), config).then(cg => {
+    domData.set($cg[0] as HTMLElement, 'chessground', cg);
     ['white', 'black'].forEach((color: Color) =>
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
         clockWidget(this, {
@@ -31,7 +30,7 @@ export const init = (node: HTMLElement) => {
         });
       }),
     );
-  }
+  });
   return node.getAttribute('data-live');
 };
 

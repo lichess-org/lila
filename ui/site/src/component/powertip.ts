@@ -253,7 +253,7 @@ class DisplayController {
     readonly options: Options,
     readonly tipController: TooltipController,
   ) {
-    this.el = un$(element);
+    this.el = $as(element);
     this.scoped = session.scoped[options.popupId!];
     // expose the methods
   }
@@ -458,7 +458,7 @@ class TooltipController {
   }
 
   showTip(element: Cash) {
-    un$<WithTooltip>(element).hasActiveHover = true;
+    $as<WithTooltip>(element).hasActiveHover = true;
     this.doShowTip(element);
   }
 
@@ -468,7 +468,7 @@ class TooltipController {
     // in the code. if that happens then we need to not proceed or we may
     // have the fadeout callback for the last tooltip execute immediately
     // after this code runs, causing bugs.
-    if (!un$<WithTooltip>(element).hasActiveHover) return;
+    if (!$as<WithTooltip>(element).hasActiveHover) return;
 
     // if the tooltip is open and we got asked to open another one then the
     // old one is still in its fadeOut cycle, so wait and try again
@@ -486,7 +486,7 @@ class TooltipController {
 
     // trigger powerTipPreRender event
     if (this.options.preRender) {
-      this.options.preRender(un$(element));
+      this.options.preRender($as(element));
     }
 
     this.scoped.activeHover = element;
@@ -513,8 +513,8 @@ class TooltipController {
     this.scoped.desyncTimeout = clearInterval(this.scoped.desyncTimeout);
 
     // reset element state
-    un$<WithTooltip>(element).hasActiveHover = false;
-    un$<WithTooltip>(element).forcedOpen = false;
+    $as<WithTooltip>(element).hasActiveHover = false;
+    $as<WithTooltip>(element).forcedOpen = false;
 
     // fade out
     this.tipElement.hide();

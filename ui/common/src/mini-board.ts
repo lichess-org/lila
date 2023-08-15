@@ -7,24 +7,19 @@ export const init = (node: HTMLElement): void => {
 };
 
 export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?: string): void => {
-  if (!window.Chessground) setTimeout(() => init(node), 500);
-  else {
-    domData.set(
-      node,
-      'chessground',
-      window.Chessground(node, {
-        orientation,
-        coordinates: false,
-        viewOnly: !node.getAttribute('data-playable'),
-        fen,
-        lastMove: uciToMove(lm),
-        drawable: {
-          enabled: false,
-          visible: false,
-        },
-      }),
-    );
-  }
+  lichess
+    .makeChessground(node, {
+      orientation,
+      coordinates: false,
+      viewOnly: !node.getAttribute('data-playable'),
+      fen,
+      lastMove: uciToMove(lm),
+      drawable: {
+        enabled: false,
+        visible: false,
+      },
+    })
+    .then(cg => domData.set(node, 'chessground', cg));
 };
 
 export const initAll = (parent?: HTMLElement) =>
