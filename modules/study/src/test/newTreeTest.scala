@@ -30,12 +30,6 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
 
-  test("conversion check"):
-    forAll(genRoot(Situation(chess.variant.Standard))): root =>
-      val oldRoot = root.toRoot
-      val newRoot = oldRoot.toNewRoot
-      assertEquals(root, newRoot)
-
   test("PgnImport works"):
     PgnFixtures.all.foreach: pgn =>
       val x = PgnImport(pgn, Nil).toOption.get
@@ -45,3 +39,14 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       assertEquals(y.tags, x.tags)
       val oldRoot = x.root.toNewRoot.cleanup
       assertEquals(y.root.cleanup, oldRoot)
+
+  test("conversion check"):
+    forAll(genRoot(Situation(chess.variant.Standard))): root =>
+      val oldRoot = root.toRoot
+      val newRoot = oldRoot.toNewRoot
+      assertEquals(root, newRoot)
+
+  test("path exists check"):
+    forAll(genRootWithPath(Situation(chess.variant.Standard))): (root, path) =>
+      val oldRoot = root.toRoot
+      oldRoot.pathExists(path) == root.pathExists(path)

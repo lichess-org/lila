@@ -3,7 +3,8 @@ package lila.study
 import chess.{ Move, Ply, Game as ChessGame, Situation }
 import chess.{ WithMove, FromMove, Generator, GameTree }
 import chess.ChessTreeArbitraries
-import chess.ChessTreeArbitraries.{ *, given }
+import chess.NodeArbitraries
+import chess.ChessTreeArbitraries.{ given, * }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.format.pgn.{ Pgn, Move as PgnMove, Tags, InitialComments, Glyphs }
 import org.scalacheck.{ Arbitrary, Gen }
@@ -21,6 +22,16 @@ object StudyArbitraries:
       metas <- genMetas(seed, ply)
       pgn = NewRoot(metas, pgnTree)
     yield pgn
+
+  def genRootWithPath(seed: Situation): Gen[(NewRoot, UciPath)] =
+    val ply = Ply.initial
+    for
+      tree <- genNodeWithPath(seed)
+      pgnTree = tree._1.map(_.map(_.data))
+      metas <- genMetas(seed, ply)
+      pgn = NewRoot(metas, pgnTree)
+      path = tree._2.map(_.id)
+    yield (pgn, UciPath.fromIds(path))
 
   given FromMove[NewBranch] with
     override def ply(a: NewBranch): Ply = a.ply
