@@ -306,7 +306,15 @@ object student:
             href  := clasRoutes.studentClose(clas.id.value, s.user.username),
             cls   := "button button-empty button-red",
             title := trans.clas.closeDesc1.txt()
-          )(trans.clas.closeStudent())
+          )(trans.clas.closeStudent()),
+          !s.student.isActive && !s.student.managed option
+            postForm(
+              action := clasRoutes.studentClosePost(clas.id.value, s.user.username)
+            )(
+              form3.submit(trans.clas.closeStudent(), icon = none)(
+                cls := "confirm button-red button-empty"
+              )
+            )
         )
       )
     )
