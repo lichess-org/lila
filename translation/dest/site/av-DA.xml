@@ -141,7 +141,7 @@
   <string name="flipBoard">Хъарщи сверизабизе</string>
   <string name="threefoldRepetition">ЛъабцӀул такрар гьаби</string>
   <string name="claimADraw">Ращад ккей тӀалаб гьабизе</string>
-  <string name="offerDraw">Ращад ккей кьезе</string>
+  <string name="offerDraw">Ращад ккеялда разилъаян абизе</string>
   <string name="draw">Ращад ккей</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s хӀалев</item>
@@ -257,13 +257,14 @@
   <string name="cancel">ГьабичӀого тезе</string>
   <string name="whiteTimeOut">ХъахӀазул заман тӀагӀана</string>
   <string name="blackTimeOut">ЧӀегӀеразул заман тӀагӀана</string>
-  <string name="drawOfferSent">Ращадккей гьабизе абуна</string>
+  <string name="drawOfferSent">Ращад ккеялда разилъаян абуна</string>
   <string name="drawOfferAccepted">Ращадккеялда разилъана</string>
-  <string name="whiteOffersDraw">ХъахӀаз ращадккей бегьулеб буго</string>
-  <string name="blackOffersDraw">ЧӀегӀераз ращадккей бегьулеб буго</string>
+  <string name="drawOfferCanceled">Ращад ккеялда разилъаян абичӀого тана</string>
+  <string name="whiteOffersDraw">ХъахӀаз ращад ккеялда разилъаян абуна</string>
+  <string name="blackOffersDraw">ЧӀегӀераз ращад ккеялда разилъаян абуна</string>
   <string name="whiteDeclinesDraw">ХъахӀаз ращадккей нахъчӀвана</string>
   <string name="blackDeclinesDraw">ЧӀегӀераз ращадккей нахъчӀвана</string>
-  <string name="yourOpponentOffersADraw">Дур дандеяс ращадккей бегьулеб буго</string>
+  <string name="yourOpponentOffersADraw">Дур дандеяс ращад ккеялда разилъаян абуна</string>
   <string name="accept">Разилъизе</string>
   <string name="decline">НахъчӀвазе</string>
   <string name="playingRightNow">ХӀай унеб буго гьабсагӀат</string>
@@ -329,7 +330,8 @@
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="proposeATakeback">Тlадбуссинабизе биччаян абизе</string>
   <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
-  <string name="takebackPropositionDeclined">ТӀадбуссинаби нахъчӀвана</string>
+  <string name="takebackPropositionDeclined">ТӀадбуссинабизе биччачӀо</string>
+  <string name="takebackPropositionAccepted">ТӀадбуссинабизе биччана</string>
   <string name="takebackPropositionCanceled">ТӀадбуссинаби гьабичӀого тана</string>
   <string name="yourOpponentProposesATakeback">Дур дандеяс тӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьаб хӀай хъвазе</string>
