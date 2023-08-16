@@ -28,8 +28,10 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
     });
   });
   if (timer) {
-    shapes[0].modifiers!.overlayCustomSvg = choices.length > 1 ? 'label' : 'orig';
-    shapes[0].customSvg = timerShape(timer, choices.length > 1 ? 'grey' : 'white', 0.6);
+    shapes[0].customSvg = {
+      center: choices.length > 1 ? 'label' : 'orig',
+      html: timerShape(timer, choices.length > 1 ? 'grey' : 'white', 0.6),
+    };
   }
   return shapes;
 }
@@ -47,8 +49,7 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
     });
   });
   if (timer) {
-    shapes[0].modifiers!.overlayCustomSvg = 'orig';
-    shapes[0].customSvg = timerShape(timer, brushes.values().next().value.color);
+    shapes[0].customSvg = { center: 'orig', html: timerShape(timer, brushes.values().next().value.color) };
   }
   return shapes;
 }

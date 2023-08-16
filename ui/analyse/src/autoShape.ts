@@ -21,7 +21,7 @@ export function makeShapesFromUci(
   uci: Uci,
   brush: string,
   modifiers?: DrawModifiers,
-  label?: string
+  label?: string,
 ): DrawShape[] {
   if (uci === 'Current Position') return [];
   const move = parseUci(uci)!;
@@ -101,7 +101,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
             shapes = shapes.concat(
               makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
                 lineWidth: Math.round(12 - shift * 50), // 12 to 2
-              })
+              }),
             );
           }
         });
@@ -119,35 +119,13 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         shapes = shapes.concat(
           makeShapesFromUci(rcolor, pv.moves[0], 'paleRed', {
             lineWidth: Math.round(11 - shift * 45), // 11 to 2
-          })
+          }),
         );
       }
     });
   }
-  if (ctrl.showMoveAnnotation()) {
-    const { uci, glyphs, san } = ctrl.node;
-    if (uci && san && glyphs && glyphs.length > 0) {
-      const glyph = glyphs[0];
-      const svg = (glyphToSvg as Dictionary<string>)[glyph.symbol];
-      if (svg) {
-        const move = parseUci(uci)!;
-        const destSquare = san.startsWith('O-O') // castle, short or long
-          ? squareRank(move.to) === 0 // white castle
-            ? san.startsWith('O-O-O')
-              ? 'c1'
-              : 'g1'
-            : san.startsWith('O-O-O')
-            ? 'c8'
-            : 'g8'
-          : makeSquare(move.to);
-        shapes = shapes.concat({
-          orig: destSquare,
-          customSvg: svg,
-          brush: '',
-        });
-      }
-    }
-  }
+  shapes = shapes.concat(annotationShapes(ctrl));
+
   if (ctrl.showAutoShapes() && ctrl.node.children.length > 1) {
     ctrl.node.children.forEach((node, i) => {
       const existing = shapes.find(s => s.orig === node.uci!.slice(0, 2) && s.dest === node.uci!.slice(2, 4));
@@ -172,6 +150,36 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   return shapes;
 }
 
+function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
+  const shapes: DrawShape[] = [];
+  const { uci, glyphs, san } = ctrl.node;
+  if (ctrl.showMoveAnnotation() && uci && san && glyphs && glyphs.length > 0) {
+    const glyphColors: { [k: string]: string } = {
+      '??': '#df5353',
+      '?': '#e69f00',
+      '?!': '#56b4e9',
+      '!': '#22ac38',
+      '!!': '#168226',
+      '!?': '#ea45d8',
+    };
+    const move = parseUci(uci)!;
+    const destSquare = san.startsWith('O-O') // castle, short or long
+      ? squareRank(move.to) === 0 // white castle
+        ? san.startsWith('O-O-O')
+          ? 'c1'
+          : 'g1'
+        : san.startsWith('O-O-O')
+        ? 'c8'
+        : 'g8'
+      : makeSquare(move.to);
+    shapes.push({
+      orig: destSquare,
+      label: { text: glyphs[0].symbol, fill: glyphColors[glyphs[0].symbol] },
+    });
+  }
+  return shapes;
+}
+/*
 const prependDropShadow = (svgBase: string) =>
   `
 <defs>
@@ -234,3 +242,4 @@ const glyphToSvg = {
 </g>
 `),
 };
+*/
