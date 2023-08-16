@@ -26,7 +26,7 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "lichess-pgn-viewer": "^2.0.0",
+    "lichess-pgn-viewer": "npm:schlawg-pgn-viewer@2.0.0",
     "snabbdom": "^3.5.1",
     "tablesort": "^5.3.0"
   },

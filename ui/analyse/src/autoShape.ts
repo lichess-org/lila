@@ -136,7 +136,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           existing.modifiers ??= {};
           existing.modifiers.hilite = true;
         }
-        if (symbol) existing.label = { text: symbol };
+        if (symbol) existing.label = { text: symbol, fill: glyphColors[symbol] };
       } else
         shapes.push({
           orig: node.uci!.slice(0, 2) as Key,
