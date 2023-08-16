@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="coordinates">Tọa độ</string>
-  <string name="coordinateTraining">Luyện tập tọa độ</string>
+  <string name="coordinates">Tầm nhìn</string>
+  <string name="coordinateTraining">Luyện tập tầm nhìn</string>
   <string name="averageScoreAsWhiteX">Điểm trung bình quân trắng: %s</string>
   <string name="averageScoreAsBlackX">Điểm trung bình quân đen: %s</string>
   <string name="knowingTheChessBoard">Biết tọa độ bàn cờ là kỹ năng rất quan trọng khi chơi cờ:</string>
