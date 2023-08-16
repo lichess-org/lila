@@ -29,10 +29,10 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
                       ? ctrl.trans('whatWouldYouPlay')
                       : state.feedback == 'end'
                       ? ctrl.trans('youCompletedThisLesson')
-                      : undefined
+                      : undefined,
                   ),
               hintZone(ctrl),
-            ]
+            ],
           )
         : undefined,
       h('div.floor', [
@@ -45,7 +45,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
           },
         }),
       ]),
-    ]
+    ],
   );
 }
 
@@ -70,7 +70,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
         attrs: { type: 'button' },
         hook: bind('click', ctrl.retry),
       },
-      [iconTag(licon.Reload), h('span', ctrl.trans.noarg('retry'))]
+      [iconTag(licon.Reload), h('span', ctrl.trans.noarg('retry'))],
     );
   if (fb === 'good' && state.comment)
     return h(
@@ -79,7 +79,10 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
         attrs: { type: 'button' },
         hook: bind('click', ctrl.next),
       },
-      [h('span.text', { attrs: dataIcon(licon.PlayTriangle) }, ctrl.trans.noarg('next')), h('kbd', '<space>')]
+      [
+        h('span.text', { attrs: dataIcon(licon.PlayTriangle) }, ctrl.trans.noarg('next')),
+        h('kbd', '<space>'),
+      ],
     );
   if (fb === 'end') return renderEnd(ctrl);
   return h(
@@ -93,12 +96,12 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
               h('strong', ctrl.trans.noarg('yourTurn')),
               h(
                 'em',
-                ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')
+                ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
               ),
             ]),
           ]
-        : ctrl.trans.noarg('goodMove')
-    )
+        : ctrl.trans.noarg('goodMove'),
+    ),
   );
 }
 
@@ -115,7 +118,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
             },
             hook: bind('click', study.goToNextChapter),
           },
-          study.trans.noarg('nextChapter')
+          study.trans.noarg('nextChapter'),
         )
       : undefined,
     h(
@@ -127,7 +130,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
-      study.trans.noarg('playAgain')
+      study.trans.noarg('playAgain'),
     ),
     h(
       'button.analyse',
@@ -138,7 +141,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         },
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
       },
-      study.trans.noarg('analysis')
+      study.trans.noarg('analysis'),
     ),
   ]);
 }

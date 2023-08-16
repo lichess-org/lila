@@ -133,7 +133,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         jump(initialPath);
         redraw();
       },
-      opts.pref.animation.duration > 0 ? 500 : 0
+      opts.pref.animation.duration > 0 ? 500 : 0,
     );
 
     // just to delay button display
@@ -250,7 +250,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         check: defined(check) ? makeSquare(check) : undefined,
         children: [],
       },
-      path
+      path,
     );
   }
 
@@ -316,10 +316,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
-      setTimeout(() => {
-        const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
-        sendMoveAt(progress.path, pos, progress.move);
-      }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
+      setTimeout(
+        () => {
+          const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
+          sendMoveAt(progress.path, pos, progress.move);
+        },
+        opts.pref.animation.duration * (autoNext() ? 1 : 1.5),
+      );
     }
   }
 
@@ -341,7 +344,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       rated,
       data.replay,
       streak,
-      opts.settings.color
+      opts.settings.color,
     );
     const next = res.next;
     if (next?.user && data.user) {
@@ -407,7 +410,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
             const threat = ev as Tree.LocalEval;
             if (!node.threat || node.threat.depth <= threat.depth || node.threat.maxDepth < threat.maxDepth)
               node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth) node.ceval = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth)
+            node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -427,7 +431,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           ground: g,
           threatMode: threatMode(),
           nextNodeBest: nextNodeBest(),
-        })
+        }),
       );
     });
   }

@@ -33,6 +33,6 @@ db.relay.find().forEach(relay => {
         markup: true,
         credit: true,
       },
-    }
+    },
   );
 });

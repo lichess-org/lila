@@ -213,7 +213,7 @@ export default class Mousetrap {
         // Chrome will not fire a keypress if meta or control is down,
         // Safari will fire a keypress if meta or meta+shift is down,
         // Firefox will fire a keypress if meta or control is down
-        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers))
+        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers)),
     );
   };
 }

@@ -10,7 +10,7 @@ export function findTransforms(
   pos = 0, // for recursion
   line: Transform[] = [], // for recursion
   lines: Transform[][] = [], // for recursion
-  crumbs = new Map<string, number>() // for (finite) recursion
+  crumbs = new Map<string, number>(), // for (finite) recursion
 ): Transform[][] {
   if (h === x) return [line];
   if (pos >= x.length && !mode.del) return [];
@@ -24,8 +24,8 @@ export function findTransforms(
       pos + (op === 'skip' ? 1 : op.to.length),
       op === 'skip' ? line : [...line, op],
       lines,
-      crumbs
-    )
+      crumbs,
+    ),
   );
 }
 
@@ -57,7 +57,7 @@ export function movesTo(s: number, role: string, board: cs.Board): number[] {
     return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
   const dests: number[] = [];
   for (const delta of deltas(
-    role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : []
+    role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : [],
   )) {
     for (
       let square = s + delta;

@@ -47,10 +47,10 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                       title: fileLetter,
                     },
                   },
-                  fileLetter
+                  fileLetter,
                 ),
-              ])
-            )
+              ]),
+            ),
           ),
         ]),
         h('form.ranks.buttons', [
@@ -82,10 +82,10 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                       title: rank,
                     },
                   },
-                  rank
+                  rank,
                 ),
-              ])
-            )
+              ]),
+            ),
           ),
         ]),
       ]
@@ -124,14 +124,14 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               attrs: {
                 for: `coord_mode_${mode}`,
                 title: ctrl.trans(
-                  mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'
+                  mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation',
                 ),
               },
             },
-            ctrl.trans(mode)
+            ctrl.trans(mode),
           ),
-        ])
-      )
+        ]),
+      ),
     ),
   ]),
   h('form.timeControl.buttons', [
@@ -161,14 +161,14 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               attrs: {
                 for: `coord_timeControl_${timeControl}`,
                 title: ctrl.trans(
-                  timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'
+                  timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant',
                 ),
               },
             },
-            timeControlLabel
+            timeControlLabel,
           ),
-        ])
-      )
+        ]),
+      ),
     ),
   ]),
   h('form.color.buttons', [
@@ -200,10 +200,10 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 title: ctrl.trans.noarg(i18n),
               },
             },
-            h('i')
+            h('i'),
           ),
-        ])
-      )
+        ]),
+      ),
     ),
   ]),
 ];
@@ -232,9 +232,9 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
                 },
               }),
             ])
-          : null
-      )
-    )
+          : null,
+      ),
+    ),
   );
 
 const scoreBox = (ctrl: CoordinateTrainerCtrl): VNode =>
@@ -254,8 +254,8 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
       {
         hook: bind('click', ctrl.stop),
       },
-      `« ${ctrl.trans('back')}`
-    )
+      `« ${ctrl.trans('back')}`,
+    ),
   );
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
@@ -270,19 +270,19 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
             change: ctrl.selectionEnabled,
           },
           trans,
-          redraw
+          redraw,
         )
       : null,
     ...filesAndRanksSelection(ctrl),
     toggle(
       { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
       trans,
-      redraw
+      redraw,
     ),
     toggle(
       { name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces },
       trans,
-      redraw
+      redraw,
     ),
   ]);
 };
@@ -292,7 +292,7 @@ const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
     h(`label.color_${ctrl.orientation}`, h('i')),
     h(
       'em',
-      ctrl.trans.noarg(ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces')
+      ctrl.trans.noarg(ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
     ),
   ]);
 };

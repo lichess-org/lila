@@ -76,7 +76,10 @@ export class ClockController {
 
   private tickCallback?: number;
 
-  constructor(d: RoundData, readonly opts: ClockOpts) {
+  constructor(
+    d: RoundData,
+    readonly opts: ClockOpts,
+  ) {
     const cdata = d.clock!;
 
     if (cdata.showTenths === Prefs.ShowClockTenths.Never) this.showTenths = () => false;
@@ -132,7 +135,7 @@ export class ClockController {
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay
+      this.opts.nvui ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay,
     );
   };
 

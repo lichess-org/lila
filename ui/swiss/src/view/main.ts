@@ -45,7 +45,7 @@ export default function (ctrl: SwissCtrl) {
             hook: onInsert(lichess.watchers),
           })
         : null,
-    ]
+    ],
   );
 }
 
@@ -125,10 +125,10 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
             onClose() {
               (el.parentNode as HTMLFormElement).submit();
             },
-          })
+          }),
         ),
       }),
-    ]
+    ],
   );
 }
 
@@ -143,7 +143,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
           'data-icon': licon.PlayTriangle,
         },
       },
-      ctrl.trans('signIn')
+      ctrl.trans('signIn'),
     );
 
   if (d.joinTeam)
@@ -155,7 +155,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
           'data-icon': licon.Group,
         },
       },
-      ctrl.trans.noarg('joinTeam')
+      ctrl.trans.noarg('joinTeam'),
     );
 
   if (d.canJoin)
@@ -173,10 +173,10 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },
-              ctrl.redraw
+              ctrl.redraw,
             ),
           },
-          ctrl.trans.noarg('join')
+          ctrl.trans.noarg('join'),
         );
 
   if (d.me && d.status != 'finished')
@@ -189,7 +189,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => ctrl.join(), ctrl.redraw),
             },
-            ctrl.trans.noarg('join')
+            ctrl.trans.noarg('join'),
           )
       : ctrl.joinSpinner
       ? spinner()
@@ -199,7 +199,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
             attrs: dataIcon(licon.FlagOutline),
             hook: bind('click', ctrl.withdraw, ctrl.redraw),
           },
-          ctrl.trans.noarg('withdraw')
+          ctrl.trans.noarg('withdraw'),
         );
 
   return;
@@ -213,7 +213,7 @@ function joinTheGame(ctrl: SwissCtrl) {
         {
           attrs: { href: '/' + gameId },
         },
-        [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')]
+        [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')],
       )
     : undefined;
 }
@@ -252,7 +252,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 href: `/swiss/${ctrl.data.id}/round/1`,
               },
             },
-            ctrl.trans('viewAllXRounds', ctrl.data.round)
+            ctrl.trans('viewAllXRounds', ctrl.data.round),
           ),
           h('br'),
           h(
@@ -264,7 +264,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 download: true,
               },
             },
-            'Download TRF file'
+            'Download TRF file',
           ),
           h(
             'a.text',
@@ -275,7 +275,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 download: true,
               },
             },
-            'Download all games'
+            'Download all games',
           ),
           h(
             'a.text',
@@ -286,7 +286,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 download: true,
               },
             },
-            'Download results as NDJSON'
+            'Download results as NDJSON',
           ),
           h(
             'a.text',
@@ -297,7 +297,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 download: true,
               },
             },
-            'Download results as CSV'
+            'Download results as CSV',
           ),
           h('br'),
           h(
@@ -308,7 +308,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 href: 'https://lichess.org/api#tag/Swiss-tournaments',
               },
             },
-            'Swiss API documentation'
+            'Swiss API documentation',
           ),
         ]),
       ])

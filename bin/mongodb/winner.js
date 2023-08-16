@@ -12,7 +12,7 @@ var gamesToMigrate = db.game5
     },
     {
       'p0.w': true,
-    }
+    },
   )
   .sort({ ca: -1 });
 
@@ -37,7 +37,7 @@ gamesToMigrate.forEach(function (g) {
     {
       _id: g._id,
     },
-    update
+    update,
   );
 });
 

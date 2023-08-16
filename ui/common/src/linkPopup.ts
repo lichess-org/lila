@@ -24,12 +24,12 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
             ${trans('proceedToX', url.host)}
           </a>
         </div>
-      </div>`
+      </div>`,
       ),
       onInsert($wrap) {
         $wrap.find('.cancel').on('click', modal.close);
       },
-    })
+    }),
   );
   return false;
 };

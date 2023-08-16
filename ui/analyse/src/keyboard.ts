@@ -85,14 +85,14 @@ export const bind = (ctrl: AnalyseCtrl) => {
     kbd.bind(key, () =>
       $(selector).each(function (this: HTMLElement) {
         this.dispatchEvent(new MouseEvent(eventName));
-      })
+      }),
     );
 
   //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
   keyToMouseEvent(
     'r',
     'click',
-    '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button'
+    '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
   );
   //'Next' button ("in Learn From Your Mistake")
   keyToMouseEvent('enter', 'click', '.analyse__tools .training-box a.continue');

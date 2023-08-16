@@ -24,7 +24,7 @@ const toggleButton = (prop: Toggle, title: string): VNode =>
       },
       hook: onInsert(e => e.addEventListener('click', prop.toggle)),
     },
-    title
+    title,
   );
 
 export default (ctrl: PuzCtrl): VNode => {
@@ -45,7 +45,7 @@ export default (ctrl: PuzCtrl): VNode => {
           r =>
             (!r.win || !filters.fail()) &&
             (!slowIds || slowIds.has(r.puzzle.id)) &&
-            (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId)
+            (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId),
         )
         .map(round =>
           h(
@@ -74,9 +74,9 @@ export default (ctrl: PuzCtrl): VNode => {
                 ]),
                 h('span.puz-history__round__id', '#' + round.puzzle.id),
               ]),
-            ]
-          )
-        )
+            ],
+          ),
+        ),
     ),
   ]);
 };

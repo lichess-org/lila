@@ -39,7 +39,7 @@ for (k of Object.keys(ratings)) {
             re: [],
           },
         },
-      }
+      },
     );
   }
 }

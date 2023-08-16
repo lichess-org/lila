@@ -50,7 +50,7 @@ import { SearchCtrl } from './studySearch';
 interface Handlers {
   path(d: WithWhoAndPos): void;
   addNode(
-    d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay }
+    d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay },
   ): void;
   deleteNode(d: WithWhoAndPos): void;
   promote(d: WithWhoAndPos & { toMainline: boolean }): void;
@@ -83,7 +83,7 @@ export default function (
   ctrl: AnalyseCtrl,
   tagTypes: TagTypes,
   practiceData?: StudyPracticeData,
-  relayData?: RelayData
+  relayData?: RelayData,
 ): StudyCtrl {
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
@@ -144,7 +144,7 @@ export default function (
     send,
     () => setTab('chapters'),
     chapterId => xhr.chapterConfig(data.id, chapterId),
-    ctrl
+    ctrl,
   );
 
   const currentChapter = (): StudyChapterMeta => chapters.get(vm.chapterId)!;
@@ -172,7 +172,7 @@ export default function (
     () => data,
     ctrl.trans,
     redraw,
-    relay
+    relay,
   );
 
   const isWriting = (): boolean => vm.mode.write && !isGamebookPlay();
@@ -194,7 +194,7 @@ export default function (
       data.description = t;
       send('descStudy', t);
     }, 500),
-    redraw
+    redraw,
   );
   const chapterDesc = new DescriptionCtrl(
     data.chapter.description,
@@ -202,7 +202,7 @@ export default function (
       data.chapter.description = t;
       send('descChapter', { id: vm.chapterId, desc: t });
     }, 500),
-    redraw
+    redraw,
   );
 
   const serverEval = new ServerEval(ctrl, () => vm.chapterId);
@@ -213,7 +213,7 @@ export default function (
     topics => send('setTopics', topics),
     () => data.topics || [],
     ctrl.trans,
-    redraw
+    redraw,
   );
 
   function addChapterId<T>(req: T): T & { ch: string } {
@@ -317,7 +317,7 @@ export default function (
       return xhr
         .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
         .then(onReload, lichess.reload);
-    }
+    },
   );
 
   const onSetPath = throttle(300, (path: Tree.Path) => {
@@ -326,7 +326,7 @@ export default function (
         'setPath',
         addChapterId({
           path,
-        })
+        }),
       );
   });
 
@@ -346,7 +346,7 @@ export default function (
     bottomColor,
     relay,
     redraw,
-    ctrl.trans
+    ctrl.trans,
   );
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
@@ -371,7 +371,7 @@ export default function (
           addChapterId({
             path: ctrl.path,
             shapes,
-          })
+          }),
         );
       }
       gamebookPlay && gamebookPlay.onShapeChange(shapes);
@@ -688,7 +688,7 @@ export default function (
         addChapterId({
           path,
           jumpTo: ctrl.path,
-        })
+        }),
       );
     },
     promote(path, toMainline) {
@@ -697,7 +697,7 @@ export default function (
         addChapterId({
           toMainline,
           path,
-        })
+        }),
       );
     },
     forceVariation(path, force) {
@@ -706,7 +706,7 @@ export default function (
         addChapterId({
           force,
           path,
-        })
+        }),
       );
     },
     setChapter,

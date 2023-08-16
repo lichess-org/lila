@@ -21,7 +21,7 @@ export default function (ctrl: Ctrl): VNode {
         destroy: ctrl.destroy,
       },
     },
-    moderationView(mod) || normalView(ctrl)
+    moderationView(mod) || normalView(ctrl),
   );
 }
 
@@ -66,7 +66,7 @@ function normalView(ctrl: Ctrl) {
         ? [noteView(ctrl.note, ctrl.vm.autofocus)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
         ? [ctrl.plugin.view()]
-        : discussionView(ctrl)
+        : discussionView(ctrl),
     ),
   ];
 }
@@ -79,7 +79,7 @@ const renderTab = (ctrl: Ctrl, tab: Tab, active: Tab) =>
       class: { 'mchat__tab-active': tab === active },
       hook: bind('click', () => ctrl.setTab(tab)),
     },
-    tabName(ctrl, tab)
+    tabName(ctrl, tab),
   );
 
 function tabName(ctrl: Ctrl, tab: Tab) {

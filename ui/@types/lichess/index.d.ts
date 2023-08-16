@@ -78,7 +78,7 @@ interface LichessMousetrap {
   bind(
     keys: string | string[],
     callback: (e: KeyboardEvent) => void,
-    action?: 'keypress' | 'keydown' | 'keyup'
+    action?: 'keypress' | 'keydown' | 'keyup',
   ): LichessMousetrap;
 }
 
@@ -230,7 +230,7 @@ declare namespace Voice {
         partial?: boolean; // = false
         listener?: Listener; // = undefined
         listenerId?: string; // = recId (specify for multiple listeners on same recId)
-      }
+      },
     ): void;
     setRecognizer(recId: string): void;
 
@@ -239,7 +239,7 @@ declare namespace Voice {
       also?: {
         recId?: string; // = 'default'
         listenerId?: string; // = recId
-      }
+      },
     ): void;
     removeListener(listenerId: string): void;
     setController(listener: Listener): void; // for status display, indicators, etc
@@ -301,10 +301,9 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   lichess: Lichess;
-  un$<T>(cash: Cash): T;
+  $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
-  Chessground: any;
   readonly hopscotch: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
@@ -575,4 +574,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const un$: <T>(cash: Cash) => T;
+declare const $as: <T>(cash: Cash) => T;

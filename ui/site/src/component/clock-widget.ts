@@ -14,7 +14,10 @@ export default function (el: HTMLElement, opts: Opts) {
 class ClockWidget {
   target: number;
   interval: number;
-  constructor(readonly el: HTMLElement, private opts: Opts) {
+  constructor(
+    readonly el: HTMLElement,
+    private opts: Opts,
+  ) {
     this.target = opts.time * 1000 + Date.now();
     if (!opts.pause) this.interval = setInterval(this.render, 1000);
     this.render();

@@ -25,9 +25,9 @@ export default function (ctrl: Ctrl) {
                   rel: 'noopener',
                 },
               },
-              shareText
+              shareText,
             )
-          : shareText
+          : shareText,
       ),
     ]),
     h(
@@ -51,12 +51,12 @@ export default function (ctrl: Ctrl) {
                   {
                     hook: onInsert(el => el.insertAdjacentHTML('afterbegin', lichess.spinnerHtml)),
                   },
-                  [h('br'), h('p', h('strong', 'Now crunching data just for you!'))]
+                  [h('br'), h('p', h('strong', 'Now crunching data just for you!'))],
                 ),
-              ]
+              ],
             ),
           ])
-        : null
+        : null,
     ),
   ]);
 }

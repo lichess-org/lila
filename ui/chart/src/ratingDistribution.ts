@@ -100,7 +100,7 @@ export async function initModule(data: any) {
         gridZIndex: -1,
         tickInterval: 100,
         plotLines: buildRatingLine(data.myRating, colors[2], 13, trans.noarg('yourRating')).concat(
-          buildRatingLine(data.otherRating, colors[6], 50, data.otherPlayer)
+          buildRatingLine(data.otherRating, colors[6], 50, data.otherPlayer),
         ),
       },
       yAxis: [

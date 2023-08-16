@@ -29,5 +29,5 @@ export const option = (value: string, current: string | undefined, name: string)
         selected: value === current,
       },
     },
-    name
+    name,
   );

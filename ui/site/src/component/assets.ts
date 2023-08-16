@@ -19,7 +19,7 @@ export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> =>
       url,
       new Promise<void>(resolve => {
         el.onload = () => resolve();
-      })
+      }),
     );
     document.head.append(el);
   }
@@ -31,7 +31,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
   const load = (theme: string, media?: 'dark' | 'light') =>
     loadCss(
       `css/${key}.${document.dir || 'ltr'}.${theme}.${$('body').data('dev') ? 'dev' : 'min'}.css`,
-      media
+      media,
     );
   if (theme === 'system') {
     if (supportsSystemTheme()) {
@@ -54,7 +54,7 @@ export const loadIife = (url: string, opts: AssetUrlOpts = {}): Promise<void> =>
 
 export async function loadEsm<T, ModuleOpts = any>(
   name: string,
-  opts?: { init?: ModuleOpts; url?: AssetUrlOpts }
+  opts?: { init?: ModuleOpts; url?: AssetUrlOpts },
 ): Promise<T> {
   const module = await import(assetUrl(jsModule(name), opts?.url));
   return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);

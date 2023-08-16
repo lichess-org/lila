@@ -12,7 +12,7 @@ chart.Chart.register(
   chart.Tooltip,
   chart.Filler,
   chart.Title,
-  chart.TimeScale
+  chart.TimeScale,
 );
 
 const firstDate = new Date('2017-01-01');

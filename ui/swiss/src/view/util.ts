@@ -16,7 +16,7 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
     [
       h('span.name', userName(p.user)),
       withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
-    ]
+    ],
   );
 }
 
@@ -33,7 +33,7 @@ export function numberRow(name: string, value: any, typ?: string) {
         ? value[1] > 0
           ? ratio2percent(value[0] / value[1])
           : 0
-        : numberFormat(value)
+        : numberFormat(value),
     ),
   ]);
 }

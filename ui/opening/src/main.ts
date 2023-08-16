@@ -19,7 +19,7 @@ function page(data: OpeningPage) {
       showMoves: 'bottom',
       showClocks: false,
       showPlayers: false,
-      chessground: cgConfig,
+      chessground: cgConfig as any, // 'as any' temporary
       menu: {
         getPgn: {
           enabled: true,
@@ -54,7 +54,7 @@ const loadExampleGames = () =>
         showMoves: 'bottom',
         showClocks: false,
         showPlayers: true,
-        chessground: cgConfig,
+        chessground: cgConfig as any, // as any temporary
         menu: {
           getPgn: {
             enabled: true,

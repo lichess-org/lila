@@ -70,7 +70,7 @@ export function initModule() {
                 'aria-live': 'off',
               },
             },
-            renderMainline(ctrl.vm.mainline, ctrl.vm.path, moveStyle.get())
+            renderMainline(ctrl.vm.mainline, ctrl.vm.path, moveStyle.get()),
           ),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ground.state.pieces, moveStyle.get())),
@@ -84,7 +84,7 @@ export function initModule() {
                 'aria-atomic': 'true',
               },
             },
-            renderStatus(ctrl)
+            renderStatus(ctrl),
           ),
           h('div.replay', renderReplay(ctrl)),
           ...(ctrl.streak ? renderStreak(ctrl) : []),
@@ -97,7 +97,7 @@ export function initModule() {
                 'aria-atomic': 'true',
               },
             },
-            lastMove(ctrl, moveStyle.get())
+            lastMove(ctrl, moveStyle.get()),
           ),
           h('h2', 'Move form'),
           h(
@@ -122,7 +122,7 @@ export function initModule() {
                   },
                 }),
               ]),
-            ]
+            ],
           ),
           notify.render(),
           h('h2', 'Actions'),
@@ -140,13 +140,13 @@ export function initModule() {
                 const opponentColor = ctrl.vm.pov === 'white' ? 'black' : 'white';
                 $board.on(
                   'click',
-                  selectionHandler(() => opponentColor, selectSound)
+                  selectionHandler(() => opponentColor, selectSound),
                 );
                 $board.on('keydown', arrowKeyHandler(ctrl.vm.pov, borderSound));
                 $board.on('keypress', boardCommandsHandler());
                 $buttons.on(
                   'keypress',
-                  lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())
+                  lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                 );
                 $buttons.on(
                   'keypress',
@@ -157,8 +157,8 @@ export function initModule() {
                     () => ground.state.pieces,
                     'standard',
                     () => ground.state.movable.dests,
-                    uciSteps
-                  )
+                    uciSteps,
+                  ),
                 );
                 $buttons.on('keypress', positionJumpHandler());
                 $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
@@ -170,8 +170,8 @@ export function initModule() {
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
-              boardStyle.get()
-            )
+              boardStyle.get(),
+            ),
           ),
           h(
             'div.boardstatus',
@@ -181,7 +181,7 @@ export function initModule() {
                 'aria-atomic': 'true',
               },
             },
-            ''
+            '',
           ),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
@@ -243,7 +243,7 @@ export function initModule() {
             h('br'),
             'Omission results in promotion to queen',
           ]),
-        ])
+        ]),
       );
     },
   };
@@ -280,7 +280,7 @@ function onSubmit(
   notify: (txt: string) => void,
   style: () => Style,
   $input: Cash,
-  ground: Api
+  ground: Api,
 ): () => false {
   return () => {
     let input = castlingFlavours(($input.val() as string).trim());
@@ -333,7 +333,7 @@ function onCommand(ctrl: Controller, notify: (txt: string) => void, c: string, s
     notify(
       commands.piece.apply(c, pieces, style) ||
         commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`
+        `Invalid command: ${c}`,
     );
 }
 
@@ -389,7 +389,7 @@ function playActions(ctrl: Controller): VNode {
       ctrl.trans.noarg('skip'),
       ctrl.skip,
       ctrl.trans.noarg('streakSkipExplanation'),
-      !ctrl.streak.data.skip
+      !ctrl.streak.data.skip,
     );
   else return h('div.actions_play', button('View the solution', ctrl.viewSolution));
 }
@@ -400,7 +400,7 @@ function afterActions(ctrl: Controller): VNode {
     'div.actions_after',
     ctrl.streak && !win
       ? anchor(ctrl.trans.noarg('newStreak'), '/streak')
-      : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)]
+      : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)],
   );
 }
 
@@ -424,7 +424,7 @@ function anchor(text: string, href: string): VNode {
     {
       attrs: { href },
     },
-    text
+    text,
   );
 }
 
@@ -438,6 +438,6 @@ function button(text: string, action: (e: Event) => void, title?: string, disabl
         disabled: !!disabled,
       },
     },
-    text
+    text,
   );
 }

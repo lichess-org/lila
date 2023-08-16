@@ -21,7 +21,9 @@ $c-tabs-active: $c-accent !default;
     position: relative;
     border-bottom: 2px solid transparent;
 
-    transition: color 0.25s, border-color 0.25s;
+    transition:
+      color 0.25s,
+      border-color 0.25s;
 
     min-width: 15%;
     letter-spacing: -0.5px;

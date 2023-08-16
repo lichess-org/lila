@@ -29,7 +29,7 @@ lichess.load.then(() => {
             .then(html => $notes.replaceWith(html))
             .then(noteStore.remove)
             .then(() => loadNotes())
-            .catch(() => alert('Invalid note, is it too short or too long?'))
+            .catch(() => alert('Invalid note, is it too short or too long?')),
         );
       return false;
     });
@@ -71,7 +71,7 @@ lichess.load.then(() => {
   });
 
   lichess.mousetrap.bind('d', () =>
-    $('#inquiry .actions.close form.process button[type="submit"]').trigger('click')
+    $('#inquiry .actions.close form.process button[type="submit"]').trigger('click'),
   );
 
   $('#inquiry .atom p').each(function (this: HTMLParagraphElement) {
@@ -81,9 +81,9 @@ lichess.load.then(() => {
           .html()
           .replace(
             /(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)=@-]|[?.]\w)+)/gi,
-            '<a href="/$1">lichess.org/$1</a>'
-          )
-      )
+            '<a href="/$1">lichess.org/$1</a>',
+          ),
+      ),
     );
   });
 

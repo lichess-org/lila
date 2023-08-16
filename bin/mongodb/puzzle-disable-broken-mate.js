@@ -42,7 +42,7 @@ puzzles
               sum: NumberInt(-9000),
             },
           },
-        }
+        },
       );
       print(p._id);
     }

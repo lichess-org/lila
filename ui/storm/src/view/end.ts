@@ -30,7 +30,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
                 h('strong', noarg(newHighI18n[high.key])),
                 high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null,
               ]),
-            ])
+            ]),
           ),
         ]
       : []),
@@ -40,7 +40,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
         {
           hook: onInsert(el => numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score)),
         },
-        '0'
+        '0',
       ),
       h('p', noarg('puzzlesSolved')),
     ]),
@@ -64,7 +64,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       {
         attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {},
       },
-      noarg('playAgain')
+      noarg('playAgain'),
     ),
   ];
 };

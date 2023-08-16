@@ -30,7 +30,7 @@ object LilaOpeningFamily:
   def find(key: String): Option[LilaOpeningFamily] = apply(Key(key))
 
   lazy val families: Map[Key, LilaOpeningFamily] = OpeningDb.all
-    .foldLeft(Map.empty[Key, LilaOpeningFamily]) { (acc, fullOp) =>
+    .foldLeft(Map.empty[Key, LilaOpeningFamily]): (acc, fullOp) =>
       val fam =
         LilaOpeningFamily(fullOp.family, if fullOp.variation.isEmpty then Left(fullOp) else Right(fullOp))
       acc.get(fam.key) match
@@ -40,6 +40,5 @@ object LilaOpeningFamily:
           else acc
         case Some(_) => acc
         case None    => acc.updated(fam.key, fam)
-    }
 
   lazy val familyList = families.values.toList.sortBy(_.name.value)

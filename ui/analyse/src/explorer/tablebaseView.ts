@@ -8,7 +8,7 @@ export function showTablebase(
   fen: Fen,
   title: string,
   tooltip: string | undefined,
-  moves: TablebaseMoveStats[]
+  moves: TablebaseMoveStats[],
 ): VNode[] {
   if (!moves.length) return [];
   return [
@@ -24,9 +24,9 @@ export function showTablebase(
               key: move.uci,
               attrs: { 'data-uci': move.uci },
             },
-            [h('td', move.san), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])]
-          )
-        )
+            [h('td', move.san), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])],
+          ),
+        ),
       ),
     ]),
   ];
@@ -41,7 +41,7 @@ function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
           title: ctrl.trans.pluralSame('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)',
         },
       },
-      'DTM ' + Math.abs(move.dtm)
+      'DTM ' + Math.abs(move.dtm),
     );
   return undefined;
 }
@@ -66,6 +66,6 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
         title: trans('dtzWithRounding') + ' (Distance To Zeroing)',
       },
     },
-    'DTZ ' + Math.abs(move.dtz)
+    'DTZ ' + Math.abs(move.dtz),
   );
 }

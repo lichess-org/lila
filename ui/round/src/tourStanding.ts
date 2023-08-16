@@ -11,7 +11,7 @@ export interface TourStandingCtrl extends ChatPlugin {
 export const tourStandingCtrl = (
   players: TourPlayer[],
   team: Team | undefined,
-  name: string
+  name: string,
 ): TourStandingCtrl => ({
   set(d: TourPlayer[]) {
     players = d;
@@ -33,7 +33,7 @@ export const tourStandingCtrl = (
               {
                 attrs: { 'data-icon': licon.Group },
               },
-              team.name
+              team.name,
             )
           : null,
         h('table.slist', [
@@ -48,7 +48,7 @@ export const tourStandingCtrl = (
                     {
                       attrs: { href: `/@/${p.n}` },
                     },
-                    (p.t ? p.t + ' ' : '') + p.n
+                    (p.t ? p.t + ' ' : '') + p.n,
                   ),
                 ]),
                 h(
@@ -59,13 +59,13 @@ export const tourStandingCtrl = (
                         attrs: { 'data-icon': licon.Fire },
                       }
                     : {},
-                  '' + p.s
+                  '' + p.s,
                 ),
               ]);
-            })
+            }),
           ),
         ]),
-      ]
+      ],
     );
   },
 });

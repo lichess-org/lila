@@ -17,13 +17,13 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
                 ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
             },
           },
-          colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor()))
+          colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor())),
         ),
       ]),
   h(
     'button',
     { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } },
-    'Create the game'
+    'Create the game',
   ),
 ];
 
@@ -54,8 +54,8 @@ export const colorButtons = (ctrl: LobbyController) => {
               attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
               on: { click: () => ctrl.setupCtrl.submit(key) },
             },
-            h('i')
-          )
-        )
+            h('i'),
+          ),
+        ),
   );
 };

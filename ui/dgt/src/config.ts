@@ -58,7 +58,7 @@ export default function () {
       [true, false].forEach(v => {
         const input = document.getElementById(`${k}_${v}`) as HTMLInputElement;
         input.checked = localStorage.getItem(k) == '' + v;
-      })
+      }),
     );
     ['san', 'uci'].forEach(v => {
       const k = 'dgt-speech-announce-move-format';

@@ -37,7 +37,7 @@ const miniGame = (game: Game) =>
           game.user2.title ? ' ' + game.user2.title : '',
         ]),
       ]),
-    ]
+    ],
   );
 
 export default function (ctrl: Ctrl, attrs: any = null) {

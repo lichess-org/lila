@@ -32,8 +32,8 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       color,
       ticking === color,
       ctrl.bottomColor() !== color,
-      study.data.hideRatings && looksLikeLichessGame(tags)
-    )
+      study.data.hideRatings && looksLikeLichessGame(tags),
+    ),
   );
 }
 
@@ -45,7 +45,7 @@ function renderPlayer(
   color: Color,
   ticking: boolean,
   top: boolean,
-  hideRatings?: boolean
+  hideRatings?: boolean,
 ): VNode {
   const title = findTag(tags, `${color}title`),
     elo = hideRatings ? undefined : findTag(tags, `${color}elo`),
@@ -66,6 +66,6 @@ function renderPlayer(
       ]),
       materialDiffs[top ? 0 : 1],
       clocks?.[color === 'white' ? 0 : 1],
-    ]
+    ],
   );
 }

@@ -15,7 +15,7 @@ export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(
     /https?:\/\//,
-    ''
+    '',
   )}</a>`;
 }
 
@@ -83,7 +83,7 @@ export function enhance(text: string, parseMoves: boolean): string {
 function toYouTubeEmbedUrl(url: string) {
   if (!url) return;
   const m = url.match(
-    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i,
   );
   if (!m) return;
   let start = 0;

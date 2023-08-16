@@ -21,7 +21,7 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
             onClick: view =>
               ctrl.setFilter(
                 dimension.key,
-                single ? [view.value] : $(vnode.elm).multipleSelect('getSelects')
+                single ? [view.value] : $(vnode.elm).multipleSelect('getSelects'),
               ),
           }),
         postpatch: (_oldVnode, vnode) => {
@@ -38,9 +38,9 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
             selected: ctrl.vm.filters[dimension.key]?.includes(value.key),
           },
         },
-        value.name
-      )
-    )
+        value.name,
+      ),
+    ),
   );
 };
 
@@ -50,8 +50,8 @@ export default function (ctrl: Ctrl) {
     h(
       'div.items',
       ctrl.ui.dimensionCategs.map(categ =>
-        h('div.categ.box', [h('div.top', categ.name), ...categ.items.map(select(ctrl))])
-      )
-    )
+        h('div.categ.box', [h('div.top', categ.name), ...categ.items.map(select(ctrl))]),
+      ),
+    ),
   );
 }

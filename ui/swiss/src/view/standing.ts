@@ -27,7 +27,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                 title: 'Absent',
               },
             })
-          : [player.rank]
+          : [player.rank],
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
       h(
@@ -51,15 +51,15 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                       },
                       hook: onInsert(lichess.powertip.manualGame),
                     },
-                    p.o ? '*' : p.w === true ? '1' : p.w === false ? '0' : '½'
-                  )
+                    p.o ? '*' : p.w === true ? '1' : p.w === false ? '0' : '½',
+                  ),
             )
-            .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r')))
-        )
+            .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r'))),
+        ),
       ),
       h('td.points', title('Points'), '' + player.points),
       h('td.tieBreak', title('Tie Break'), '' + player.tieBreak),
-    ]
+    ],
   );
 }
 
@@ -94,8 +94,8 @@ export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): V
             },
           },
         },
-        tableBody
+        tableBody,
       ),
-    ]
+    ],
   );
 }

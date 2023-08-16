@@ -157,7 +157,7 @@ export function render(ctrl: KeyboardMove) {
         autocomplete: 'off',
       },
       hook: onInsert((input: HTMLInputElement) =>
-        loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m))
+        loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m)),
       ),
     }),
     ctrl.isFocused()

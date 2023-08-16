@@ -18,7 +18,7 @@ object opening:
       title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
       moreJs = jsModule("puzzle.opening")
-    )(
+    ):
       main(cls := "page-menu")(
         bits.pageMenu("openings", ctx.me),
         div(cls := "page-menu__content box")(
@@ -48,53 +48,42 @@ object opening:
           )
         )
       )
-    )
 
-  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(using PageContext) =
-    div(cls := "puzzle-openings__list")(families map { fam =>
-      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(fam.family.key.value))(
-        h3(
-          fam.family.name,
-          em(fam.count.localize)
-        )
-      )
-    })
+  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(using Context) =
+    div(cls := "puzzle-openings__list"):
+      families.map: fam =>
+        a(cls := "puzzle-openings__link", href := routes.Puzzle.show(fam.family.key.value)):
+          h3(fam.family.name, em(fam.count.localize))
 
-  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using PageContext) =
-    openings map { (fam, openings) =>
+  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using Context) =
+    openings.map: (fam, openings) =>
       div(cls := "puzzle-openings__tree__family")(
         h2(
           familyLink(fam.family, mine),
           em(fam.count.localize)
         ),
-        openings.nonEmpty option div(cls := "puzzle-openings__list")(openings.map { op =>
-          a(
-            dataFen := op.opening.ref.fen,
-            cls := List(
-              "blpt puzzle-openings__link" -> true,
-              "opening-mine"               -> mine.exists(_.variationKeys(op.opening.key))
-            ),
-            href := routes.Puzzle.show(op.opening.key.value)
-          )(
-            h3(
-              op.opening.variation,
-              em(op.count.localize)
-            )
-          )
-        })
+        openings.nonEmpty option div(cls := "puzzle-openings__list"):
+          openings.map: op =>
+            a(
+              dataFen := op.opening.ref.fen,
+              cls := List(
+                "blpt puzzle-openings__link" -> true,
+                "opening-mine"               -> mine.exists(_.variationKeys(op.opening.key))
+              ),
+              href := routes.Puzzle.show(op.opening.key.value)
+            ):
+              h3(op.opening.variation, em(op.count.localize))
       )
-    }
 
   private def familyLink(family: LilaOpeningFamily, mine: Option[PuzzleOpening.Mine]): Tag = a(
     cls     := List("blpt" -> true, "opening-mine" -> mine.exists(_.familyKeys(family.key))),
     dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
-  def orderSelect(order: Order)(using PageContext) =
+  def orderSelect(order: Order)(using Context) =
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      Order.list.map { o =>
+      Order.list.map: o =>
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
-      }
     )

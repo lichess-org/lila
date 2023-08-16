@@ -34,7 +34,7 @@ function emptyMove(conceal?: Conceal): VNode {
     {
       class: c,
     },
-    '...'
+    '...',
   );
 }
 
@@ -49,7 +49,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
       commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(
-        nonEmpty
+        nonEmpty,
       );
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
@@ -57,7 +57,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
           parentPath: opts.parentPath,
           isMainline: true,
           conceal,
-        }) || []
+        }) || [],
       );
     const mainChildren = main.forceVariation
       ? undefined
@@ -75,7 +75,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
       .concat(
         main.forceVariation
           ? []
-          : [renderMoveOf(ctx, main, passOpts), isWhite ? emptyMove(passOpts.conceal) : null]
+          : [renderMoveOf(ctx, main, passOpts), isWhite ? emptyMove(passOpts.conceal) : null],
       )
       .concat([
         h(
@@ -86,12 +86,12 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
               isMainline: passOpts.isMainline,
               conceal,
               noConceal: !conceal,
-            })
-          )
+            }),
+          ),
         ),
       ] as MaybeVNodes)
       .concat(
-        isWhite && mainChildren ? [moveView.renderIndex(main.ply, false), emptyMove(passOpts.conceal)] : []
+        isWhite && mainChildren ? [moveView.renderIndex(main.ply, false), emptyMove(passOpts.conceal)] : [],
       )
       .concat(mainChildren || []);
   }
@@ -129,10 +129,10 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
             withIndex: true,
             noConceal: opts.noConceal,
             truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
-          })
+          }),
         )
       );
-    })
+    }),
   );
 }
 
@@ -150,7 +150,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    moveView.renderMove(ctx, node)
+    moveView.renderMove(ctx, node),
   );
 }
 
@@ -167,7 +167,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    content
+    content,
   );
 }
 
@@ -180,7 +180,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
         {
           attrs: { p: path },
         },
-        [h('index', '[...]')]
+        [h('index', '[...]')],
       ),
     ];
   return [
@@ -205,7 +205,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       isMainline: false,
       noConceal: opts.noConceal,
       truncate: opts.truncate,
-    })
+    }),
   );
 }
 
@@ -214,7 +214,7 @@ function renderMainlineCommentsOf(
   node: Tree.Node,
   conceal: Conceal,
   withColor: boolean,
-  path: string
+  path: string,
 ): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
@@ -264,7 +264,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
       renderChildrenOf(ctx, root, {
         parentPath: '',
         isMainline: true,
-      }) || []
-    )
+      }) || [],
+    ),
   );
 }

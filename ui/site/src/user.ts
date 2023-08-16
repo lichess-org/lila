@@ -22,7 +22,7 @@ export function initModule(opts: { i18n: I18nDict }): void {
             .formToXhr(form, this)
             .then(html => $zone.replaceWith(html))
             .then(() => loadNoteZone())
-            .catch(() => alert('Invalid note, is it too short or too long?'))
+            .catch(() => alert('Invalid note, is it too short or too long?')),
         );
       return false;
     });

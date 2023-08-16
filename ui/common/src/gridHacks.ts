@@ -7,7 +7,7 @@ export const runner = (hacks: () => void, throttleMs = 100): void => {
     requestAnimationFrame(() => {
       hacks();
       schedule();
-    })
+    }),
   );
 
   function schedule() {

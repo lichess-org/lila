@@ -34,7 +34,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
             [
               h('i.line' + (user.id == 'lichess' ? '.moderator' : user.patron ? '.patron' : '')),
               h('span', userName(user)),
-            ]
+            ],
           ),
         ]),
         h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
@@ -49,7 +49,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           ? renderInteract(ctrl, user)
           : blocked(`${user.name} doesn't accept new messages.`),
       ]),
-    ]
+    ],
   );
 }
 
@@ -59,5 +59,5 @@ const blocked = (msg: string) =>
     {
       attrs: { 'data-icon': licon.NotAllowed },
     },
-    msg
+    msg,
   );

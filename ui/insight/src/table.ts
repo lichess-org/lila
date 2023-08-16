@@ -28,7 +28,7 @@ export function vert(ctrl: Ctrl, attrs: any = null) {
           h('th', answer.xAxis.name),
           ...answer.series.map(serie => h('th', serie.name)),
           h('th', answer.sizeYaxis.name),
-        ])
+        ]),
       ),
       h(
         'tbody',
@@ -38,8 +38,8 @@ export function vert(ctrl: Ctrl, attrs: any = null) {
             ...answer.series.map(serie => h('td.data', formatNumber(serie.dataType, serie.data[i]))),
             h('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i])),
           ]);
-        })
+        }),
       ),
-    ])
+    ]),
   );
 }

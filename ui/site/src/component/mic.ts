@@ -106,7 +106,7 @@ export const mic = new (class implements Voice.Microphone {
       partial?: boolean;
       listener?: Voice.Listener;
       listenerId?: string;
-    } = {}
+    } = {},
   ) {
     if (words.length === 0) {
       this.recs.delete(also.recId);
@@ -268,7 +268,7 @@ export const mic = new (class implements Voice.Microphone {
         this.broadcast(
           e.total <= 0
             ? 'Downloading...'
-            : `Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`
+            : `Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`,
         );
       };
 

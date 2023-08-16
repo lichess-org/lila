@@ -35,7 +35,7 @@ const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimensio
         // disabled: !ctrl.validCombination(item, ctrl.vm.metric),
       },
     },
-    item.name
+    item.name,
   );
 
 export default function (ctrl: Ctrl, attrs: any = null) {
@@ -44,20 +44,20 @@ export default function (ctrl: Ctrl, attrs: any = null) {
       'select.ms.metric',
       selectData(
         v => ctrl.setMetric(v.value),
-        () => ctrl.vm.metric.key
+        () => ctrl.vm.metric.key,
       ),
-      ctrl.ui.metricCategs.map(optgroup(y => option(ctrl, y, 'metric')))
+      ctrl.ui.metricCategs.map(optgroup(y => option(ctrl, y, 'metric'))),
     ),
     h('span.by', 'by'),
     h(
       'select.ms.dimension',
       selectData(
         v => ctrl.setDimension(v.value),
-        () => ctrl.vm.dimension.key
+        () => ctrl.vm.dimension.key,
       ),
       ctrl.ui.dimensionCategs.map(
-        optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined))
-      )
+        optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined)),
+      ),
     ),
   ]);
 }

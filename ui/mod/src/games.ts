@@ -39,7 +39,7 @@ const setupActionForm = () => {
         const reload = confirm('Analysis completed. Reload the page?');
         if (reload) lichess.reload();
       }),
-    1000
+    1000,
   );
   $(form).on('click', 'button', (e: Event) => {
     const button = e.target as HTMLButtonElement;

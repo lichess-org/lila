@@ -19,7 +19,7 @@ puzzles
         $unset: {
           'vote.sum': true,
         },
-      }
+      },
     );
     modified += 1;
   });

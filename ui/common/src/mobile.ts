@@ -31,7 +31,7 @@ export const bindMobileMousedown =
           e.preventDefault();
           if (redraw) redraw();
         },
-        { passive: false }
+        { passive: false },
       );
     }
   };

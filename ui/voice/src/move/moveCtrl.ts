@@ -119,7 +119,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   function initTimerRec() {
     if (timer() === 0) return;
     const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w =>
-      valWord(w)
+      valWord(w),
     );
     lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
@@ -187,7 +187,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
 
     const chosen = matchOne(
       heard,
-      [...choices].map(([w, uci]) => [wordVal(w), [uci]])
+      [...choices].map(([w, uci]) => [wordVal(w), [uci]]),
     );
     if (!chosen) {
       clearMoveProgress();
@@ -239,7 +239,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   function matchOneTags(heard: string, tags: string[], vals: string[] = []): string | false {
     return matchOne(heard, [...vals.map(v => [v, [v]]), ...byTags(tags).map(e => [e.val!, [e.val!]])] as [
       string,
-      string[]
+      string[],
     ][]);
   }
 
@@ -290,7 +290,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     options = options
       .filter(
         ([uci, _], keepIfFirst) =>
-          options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
+          options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst,
       )
       .slice(0, maxArrows());
 
@@ -321,11 +321,14 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     console.info('ambiguate', choices);
     choiceTimeout = 0;
     if (preferred && timer()) {
-      choiceTimeout = setTimeout(() => {
-        submit(options[0][0]);
-        choiceTimeout = undefined;
-        lichess.mic.setRecognizer('default');
-      }, timer() * 1000 + 100);
+      choiceTimeout = setTimeout(
+        () => {
+          submit(options[0][0]);
+          choiceTimeout = undefined;
+          lichess.mic.setRecognizer('default');
+        },
+        timer() * 1000 + 100,
+      );
       lichess.mic.setRecognizer('timer');
     }
     makeArrows();
@@ -341,7 +344,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     if (!choices) return;
     const arrowTime = choiceTimeout ? timer() : undefined;
     cg.setShapes(
-      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime) //, cg.state.orientation === 'white')
+      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime), //, cg.state.orientation === 'white')
     );
   }
 
@@ -396,7 +399,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
               if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
               else if (val === 'no') ctrl.cancel();
             },
-            { listenerId: 'promotion' }
+            { listenerId: 'promotion' },
           )
         : lichess.mic.removeListener('promotion');
   }

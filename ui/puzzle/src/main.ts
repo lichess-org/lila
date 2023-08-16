@@ -2,7 +2,6 @@ import { attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view/main';
-import { Chessground } from 'chessground';
 import { PuzzleOpts, NvuiPlugin } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
@@ -22,7 +21,3 @@ export async function initModule(opts: PuzzleOpts) {
 
   menuHover();
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

@@ -19,9 +19,9 @@ const viewSolution = (ctrl: Controller): VNode =>
                 title: ctrl.trans.noarg('streakSkipExplanation'),
               },
             },
-            ctrl.trans.noarg('skip')
+            ctrl.trans.noarg('skip'),
           ),
-        ]
+        ],
       )
     : h(
         'div.view_solution',
@@ -34,9 +34,9 @@ const viewSolution = (ctrl: Controller): VNode =>
             {
               hook: bind('click', ctrl.viewSolution),
             },
-            ctrl.trans.noarg('viewTheSolution')
+            ctrl.trans.noarg('viewTheSolution'),
           ),
-        ]
+        ],
       );
 
 const initial = (ctrl: Controller): VNode =>
@@ -47,7 +47,7 @@ const initial = (ctrl: Controller): VNode =>
         h('strong', ctrl.trans.noarg('yourTurn')),
         h(
           'em',
-          ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')
+          ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
         ),
       ]),
     ]),
