@@ -3,7 +3,6 @@ import { defined, prop, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
 import { AnalyseData } from '../interfaces';
 import { Player } from 'game';
 import {
@@ -71,7 +70,7 @@ export function initModule(ctrl: AnalyseController) {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
-        ctrl.chessground = Chessground(document.createElement('div'), {
+        ctrl.chessground = lichess.makeChessground(document.createElement('div'), {
           ...makeCgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },

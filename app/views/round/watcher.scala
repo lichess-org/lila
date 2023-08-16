@@ -46,8 +46,7 @@ object watcher:
           )
         )
       ),
-      openGraph = povOpenGraph(pov).some,
-      chessground = false
+      openGraph = povOpenGraph(pov).some
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
@@ -65,8 +64,7 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
-      openGraph = povOpenGraph(pov).some,
-      chessground = false
+      openGraph = povOpenGraph(pov).some
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(

@@ -3,7 +3,6 @@ import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
@@ -73,7 +72,7 @@ export function initModule(): NvuiPlugin {
           'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
-          Chessground(document.createElement('div'), {
+          lichess.makeChessground(document.createElement('div'), {
             ...makeCgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },

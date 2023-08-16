@@ -12,9 +12,8 @@ export interface ForkCtrl {
     displayed: boolean;
   };
   selected(): number | undefined;
-  next: (cycle?: boolean) => boolean | undefined;
-  prev: (cycle?: boolean) => boolean | undefined;
-  onJump: () => void;
+  next: () => boolean;
+  prev: () => boolean;
   hover: (uci: Uci | null | undefined) => void;
   highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
@@ -42,25 +41,17 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         displayed: displayed(),
       };
     },
-    next(cycle = false) {
-      if (displayed()) {
-        selected = cycle
-          ? (selected + 1) % root.node.children.length
-          : Math.min(root.node.children.length - 1, selected + 1);
-        selections.set(root.path, selected);
-        return true;
-      }
-      return undefined;
+    next() {
+      if (!displayed()) return false;
+      selected = (selected + 1) % root.node.children.length;
+      selections.set(root.path, selected);
+      return true;
     },
-    prev(cycle = false) {
-      if (displayed()) {
-        selected = cycle
-          ? (selected + root.node.children.length - 1) % root.node.children.length
-          : Math.max(0, selected - 1);
-        selections.set(root.path, selected);
-        return true;
-      }
-      return undefined;
+    prev() {
+      if (!displayed()) return false;
+      selected = (selected + root.node.children.length - 1) % root.node.children.length;
+      selections.set(root.path, selected);
+      return true;
     },
     hover(uci: Uci | undefined | null) {
       hovering = root.node.children.findIndex(n => n.uci === uci);
@@ -79,12 +70,6 @@ export function make(root: AnalyseCtrl): ForkCtrl {
       const uci = defined(nodeUci) ? nodeUci : null;
 
       root.explorer.setHovering(root.node.fen, uci);
-    },
-    onJump() {
-      //console.log('onJump', selections);
-      //if (!displayed()) return;
-      //selected = selections.get(root.path) ?? 0;
-      //if (selected >= root.node.children.length) selected = 0;
     },
     proceed(it) {
       if (displayed()) {

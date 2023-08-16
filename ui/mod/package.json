@@ -6,9 +6,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
     "@types/debounce-promise": "^3.1.6",
-    "@types/lichess": "workspace:*",
     "@types/yaireo__tagify": "^4.16.0",
     "@yaireo/tagify": "^4.17.6",
     "apexcharts": "^3.36.3",

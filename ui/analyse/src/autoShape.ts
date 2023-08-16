@@ -21,22 +21,13 @@ export function makeShapesFromUci(
   uci: Uci,
   brush: string,
   modifiers?: DrawModifiers,
-  label?: string,
 ): DrawShape[] {
   if (uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
 
-  const shapes: DrawShape[] = [
-    {
-      orig: makeSquare(move.from),
-      dest: to,
-      brush,
-      modifiers,
-      label: label ? { text: label } : undefined,
-    },
-  ];
+  const shapes: DrawShape[] = [{ orig: makeSquare(move.from), dest: to, brush, modifiers }];
   if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
   return shapes;
 }
@@ -136,7 +127,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           existing.modifiers ??= {};
           existing.modifiers.hilite = true;
         }
-        if (symbol) existing.label = { text: symbol };
+        if (symbol) existing.label = { text: symbol, fill: glyphColors[symbol] };
       } else
         shapes.push({
           orig: node.uci!.slice(0, 2) as Key,

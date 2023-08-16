@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object helpModal:
+object help:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
@@ -66,8 +66,8 @@ object helpModal:
       table(
         tbody(
           navigateMoves,
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("→")), trans.keyEnterOrExitVariation()),
-          row(frag(kbd("shift"), kbd("J"), or, kbd("shift"), kbd("K")), trans.keyEnterOrExitVariation()),
+          row(kbd("shift"), "Cycle selected move arrow"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("J")), "Rewind to mainline"),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
@@ -101,6 +101,24 @@ object helpModal:
                 li(trans.analysisShapesHowTo())
               )
             )
+          )
+        )
+      )
+    )
+
+  def analyseShiftKey(using Lang) =
+    frag(
+      div(cls := "help-ephemeral")(
+        ul(
+          li("Purple arrow is mainline move"),
+          li("Pink arrows are variations"),
+          li("Blue arrow is eval best move")
+        ),
+        table(
+          tbody(
+            row(kbd("shift"), "cycle selected move arrow"),
+            row(kbd("→"), "play selected move"),
+            row(span(kbd("shift"), or, kbd("←")), "return to previous mainline move")
           )
         )
       )

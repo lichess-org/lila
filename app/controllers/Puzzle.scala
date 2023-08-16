@@ -500,7 +500,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.page(html.site.helpModal.puzzle)
+    Ok.page(html.site.help.puzzle)
 
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>

@@ -1,3 +1,6 @@
+// eslint-disable-next-line
+/// <reference path="./chessground.d.ts" />
+
 interface Lichess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
@@ -19,6 +22,7 @@ interface Lichess {
   userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
+  makeChessground(el: HTMLElement, config: CgConfig): CgApi;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
