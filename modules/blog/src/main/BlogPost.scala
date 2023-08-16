@@ -4,11 +4,13 @@ import java.time.LocalDate
 
 case class BlogPost(doc: io.prismic.Document, coll: String = "blog", imgSize: String = "wide"):
   export doc.*
-  def title     = getText(s"$coll.title")
-  def shortlede = ~getText(s"$coll.shortlede")
-  def date      = getDate(s"$coll.date").map(_.value)
-  def image     = getImage(s"$coll.image", imgSize).map(_.url)
-  def forKids   = getText(s"$coll.kidsafe").fold(true)(_ == "true")
+  def title: Option[String]    = getText(s"$coll.title")
+  def shortlede: String        = ~getText(s"$coll.shortlede")
+  def date: Option[LocalDate]  = getDate(s"$coll.date").map(_.value)
+  def image: Option[String]    = getImage(s"$coll.image", imgSize).map(_.url)
+  def forKids: Boolean         = getText(s"$coll.kidsafe").fold(true)(_ == "true")
+  def author: Option[String]   = getText(s"$coll.author")
+  def category: Option[String] = getText(s"$coll.category")
 
 case class MiniPost(
     id: String,
