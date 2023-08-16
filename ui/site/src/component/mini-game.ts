@@ -1,5 +1,5 @@
 import { uciToMove } from 'chessground/util';
-import { fenColor } from 'common/mini-game';
+import { fenColor, makeChessground } from 'common/mini-board';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
@@ -20,7 +20,7 @@ export const init = (node: HTMLElement) => {
     $el = $(node).removeClass('mini-game--init'),
     $cg = $el.find('.cg-wrap'),
     turnColor = fenColor(fen);
-  lichess.makeChessground($as<HTMLElement>($cg), config).then(cg => {
+  makeChessground($as<HTMLElement>($cg), config).then(cg => {
     domData.set($cg[0] as HTMLElement, 'chessground', cg);
     ['white', 'black'].forEach((color: Color) =>
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {

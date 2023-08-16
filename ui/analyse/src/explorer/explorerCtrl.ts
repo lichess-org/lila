@@ -1,7 +1,7 @@
 import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
-import { fenColor } from 'common/mini-game';
+import { fenColor } from 'common/mini-board';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';

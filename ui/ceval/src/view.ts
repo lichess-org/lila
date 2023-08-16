@@ -2,6 +2,7 @@ import * as winningChances from './winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { bind } from 'common/snabbdom';
+import { makeChessground } from 'common/mini-board';
 import { defined, notNull } from 'common';
 import { Eval, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
@@ -485,7 +486,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
   };
   const cgVNode = h('div.cg-wrap.is2d', {
     hook: {
-      insert: (vnode: any) => lichess.makeChessground(vnode.elm, cgConfig).then(cg => (vnode.elm._cg = cg)),
+      insert: (vnode: any) => makeChessground(vnode.elm, cgConfig).then(cg => (vnode.elm._cg = cg)),
       update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
       destroy: (vnode: any) => vnode.elm._cg?.destroy(),
     },

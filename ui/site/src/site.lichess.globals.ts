@@ -68,6 +68,4 @@ export default () => {
   l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
   l.blindMode = document.body.classList.contains('blind-mode');
   l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
-  l.makeChessground = (el: HTMLElement, config: any) =>
-    lichess.loadEsm('chessground.min', { init: { el, config } });
 };

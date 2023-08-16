@@ -54,7 +54,6 @@ interface Lichess {
     update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
-  makeChessground: (el: HTMLElement, config: any) => Promise<any>;
   // socket.js
   StrongSocket: {
     new (url: string, version: number | false, cfg?: any): any;
