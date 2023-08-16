@@ -282,11 +282,11 @@
   <string name="ratedTournament">Рейтингияб</string>
   <string name="thisGameIsRated">ХӀай рейтингияб буго</string>
   <string name="rematch">Реванш</string>
-  <string name="rematchOfferSent">Реванш бегьана</string>
-  <string name="rematchOfferAccepted">Реваншалда разилъана</string>
-  <string name="rematchOfferCanceled">Реванш кьеян абичӀого тана</string>
-  <string name="rematchOfferDeclined">Реванш нахъчӀвана</string>
-  <string name="cancelRematchOffer">Реванш кьеян абичӀого тезе</string>
+  <string name="rematchOfferSent">Цоги нухалъ хӀаян абизе</string>
+  <string name="rematchOfferAccepted">Цоги нухалъ хӀана</string>
+  <string name="rematchOfferCanceled">Цоги нухалъ хӀаян абичӀого тана</string>
+  <string name="rematchOfferDeclined">Цоги нухалъ хӀачӀо</string>
+  <string name="cancelRematchOffer">Цоги нухалъ хӀаян абичӀого тезе</string>
   <string name="viewRematch">Реваншалъухъ балагьизе</string>
   <string name="confirmMove">Хъурщи тасдикъ гьабизе</string>
   <string name="play">ХӀазе</string>
@@ -299,6 +299,7 @@
   <string name="subject">Тема</string>
   <string name="send">БитӀизе</string>
   <string name="incrementInSeconds">Секунд тӀаде жубай</string>
+  <string name="freeOnlineChess">Мухь босуларел онлайн шахматал</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтингияб</item>
     <item quantity="other">%s рейтингияб</item>
@@ -379,6 +380,7 @@
   <string name="mustBeInTeam">%s къокъаялда вукӀине ккола</string>
   <string name="youAreNotInTeam">Мун %s къокъаялда гьечӀо</string>
   <string name="backToGame">ХӀаялде вуссине</string>
+  <string name="siteDescription">Мухь босулареб шахматазул сервер. Реклама гьечӀого шахматал хӀай. Хъвай-хъвагӀайги плагинги къваригӀунаро. Компутералда, гьудуласда яги цогидазда цадахъ шахматал хӀай.</string>
   <string name="xJoinedTeamY">%1$s %2$s къокъаялде жувана</string>
   <string name="xCreatedTeamY">%1$s(и)ца %2$s къокъа гьабуна</string>
   <string name="startedStreaming">стрим байбихьана</string>
@@ -413,6 +415,10 @@
   <string name="blackCheckmatesInOneMove">ЧӀегӀерал цо хъурщиялъ мат гьабула</string>
   <string name="retry">ЦӀидасан хӀалбихьизе</string>
   <string name="reconnecting">Бухьен цӀидасан лъугьунеб буго</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s гьудул онлайн</item>
+    <item quantity="other">%s гьудул онлайн</item>
+  </plurals>
   <string name="favoriteOpponents">ТӀаса рищарал дандеял</string>
   <string name="follow">Нахъвилълъине</string>
   <string name="following">Нахърилълъунел</string>
@@ -499,6 +505,7 @@
   <string name="savingMovesHelp">Нижеца кидаго дур вариантал дур браузералъул кешалда цӀунула.</string>
   <string name="makeAStudy">ЦӀунизеги гӀахьал гьабизеги, цӀех-рех гьабизе бегьула.</string>
   <string name="clearSavedMoves">Хъурщиял нахъе росизе</string>
+  <string name="onlinePlayers">Онлайн хӀалел</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Воре, хӀай рейтингалъул буго амма гьелъул сагӀат гьечӀо!</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
