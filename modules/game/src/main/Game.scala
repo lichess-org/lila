@@ -56,7 +56,7 @@ case class Game(
   def player: Player = players(turnColor)
 
   def hasUserIds(userId1: UserId, userId2: UserId) =
-    players.reduce((w, b) => w.userId.has(userId1) && b.userId.has(userId2))
+    hasUserId(userId1) && hasUserId(userId2)
 
   def hasUserId(userId: UserId) = players.exists(_.userId.has(userId))
 
