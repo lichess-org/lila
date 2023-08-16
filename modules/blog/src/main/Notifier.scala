@@ -1,8 +1,5 @@
 package lila.blog
 
-import io.prismic.Document
-
-import lila.hub.actorApi.timeline.BlogPost
 import lila.timeline.EntryApi
 
 final private[blog] class Notifier(
@@ -16,8 +13,8 @@ final private[blog] class Notifier(
         s"No such document: $id" flatMap doSend
     }
 
-  private def doSend(post: Document): Funit =
+  private def doSend(post: BlogPost): Funit =
     post.getText("blog.title") so { title =>
       timelineApi.broadcast.insert:
-        BlogPost(id = post.id, slug = post.slug, title = title)
+        lila.hub.actorApi.timeline.BlogPost(id = post.id, slug = post.slug, title = title)
     }

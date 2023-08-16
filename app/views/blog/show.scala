@@ -2,12 +2,13 @@ package views.html.blog
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.blog.BlogPost
 
 import controllers.routes
 
 object show:
 
-  def apply(doc: io.prismic.Document)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
+  def apply(doc: BlogPost)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
       moreJs = jsModule("expandText"),

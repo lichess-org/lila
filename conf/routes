@@ -107,7 +107,6 @@ GET   /dasher                          controllers.Dasher.get
 
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1)
-GET   /blog/all                        controllers.Blog.all
 GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id)
 GET   /blog/topic                      controllers.Ublog.topics
