@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Access token API cá nhân mới</string>
-  <string name="tokenGrantsPermission">Một token cấp cho người khác quyền sử dụng tài khoản của bạn.</string>
+  <string name="newAccessToken">Mã truy cập API cá nhân mới</string>
+  <string name="tokenGrantsPermission">Mã thông báo để cấp cho người khác quyền sử dụng tài khoản của bạn.</string>
   <string name="carefullySelect">Cẩn thận khi lựa chọn những gì được phép làm thay bạn.</string>
-  <string name="tokenDescription">Mô tả token</string>
+  <string name="tokenDescription">Mô tả mã thông báo</string>
   <string name="rememberTokenUse">Vì vậy bạn nhớ được token này dùng để</string>
-  <string name="whatTheTokenCanDo">Những gì token có thể làm thay bạn:</string>
+  <string name="whatTheTokenCanDo">Những gì mà mã thông báo có thể làm thay bạn:</string>
   <string name="doNotShareIt">Token sẽ cấp quyền truy cập vào tài khoản của bạn. KHÔNG chia sẻ nó với bất kỳ ai!</string>
-  <string name="copyTokenNow">Bây giờ hãy đảm bảo bạn đã sao chép access token cá nhân mới. Bạn sẽ không còn có thể nhìn thấy nó sau này nữa!</string>
+  <string name="copyTokenNow">Đảm bảo rằng bạn đã sao chép mã  truy cập cá nhân mới ngay bây giờ. Bạn sẽ không thể nhìn thấy nó lần nữa!</string>
   <string name="preferenceRead">Tùy chọn đọc</string>
   <string name="preferenceWrite">Tùy chọn viết</string>
   <string name="emailRead">Đọc địa chỉ email</string>
