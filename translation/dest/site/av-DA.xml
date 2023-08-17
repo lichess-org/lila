@@ -663,6 +663,7 @@
   <string name="noSimulFound">Сеанс батичӀо</string>
   <string name="noSimulExplanation">Гьеб цого заманалда хӀай гьечӀо.</string>
   <string name="returnToSimulHomepage">Сеансазул гьумералде тӀадвуссине</string>
+  <string name="aboutSimul">Сеансалда цо хӀалев чи цого заманалда чангоязда данде хӀала.</string>
   <string name="aboutSimulImage">50 хӀаялдаса Фишер бергьана 47-ялда, ващад ккан 2-ялда, къуна 1-ялда.</string>
   <string name="create">Гьабизе</string>
   <string name="simulHostExtraTime">Хосталъул тӀаде жубалеб заман</string>
