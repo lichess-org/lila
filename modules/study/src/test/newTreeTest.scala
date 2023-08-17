@@ -9,11 +9,12 @@ import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import cats.syntax.all.*
-import StudyArbitraries.*
+import StudyArbitraries.{ *, given }
 import org.scalacheck.Prop.forAll
 import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
+import chess.format.pgn.Glyph
 
 class NewTreeTest extends munit.ScalaCheckSuite:
 
@@ -41,12 +42,31 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       assertEquals(y.root.cleanup, oldRoot)
 
   test("conversion check"):
-    forAll(genRoot(Situation(chess.variant.Standard))): root =>
+    forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
       val newRoot = oldRoot.toNewRoot
       assertEquals(root, newRoot)
 
-  test("path exists check"):
-    forAll(genRootWithPath(Situation(chess.variant.Standard))): (root, path) =>
+  test("path exists"):
+    forAll: (rp: RootWithPath) =>
+      val (root, path) = rp
       val oldRoot = root.toRoot
       oldRoot.pathExists(path) == root.pathExists(path)
+
+  test("setShapesAt"):
+    forAll: (rp: RootWithPath, shapes: Shapes) =>
+      val (root, path) = rp
+      val oldRoot = root.toRoot
+      oldRoot.setShapesAt(shapes, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(shapes = shapes))
+
+  test("toggleGlyphAt"):
+    forAll: (rp: RootWithPath, glyph: Glyph) =>
+      val (root, path) = rp
+      val oldRoot = root.toRoot
+      oldRoot.toggleGlyphAt(glyph, path).map(_.toNewRoot) == root.modifyAt(path, _.toggleGlyph(glyph))
+
+  test("setClockAt"):
+    forAll: (rp: RootWithPath, clock: Option[Centis]) =>
+      val (root, path) = rp
+      val oldRoot = root.toRoot
+      oldRoot.setClockAt(clock, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(clock = clock))

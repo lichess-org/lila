@@ -195,6 +195,8 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def pathExists(path: UciPath): Boolean =
     path.isEmpty || tree.exists(_.pathExists(path.ids))
 
+  def nodeAt(path: UciPath): Option[Tree[NewBranch]] = ???
+
   def deleteNodeAt(path: UciPath): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(tree = none).some
     else tree.flatMap(_.deleteAt(path.ids)).flatten.map(x => copy(tree = x.some))
@@ -216,7 +218,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
 
   def modifyAt(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     def b(n: NewBranch): NewBranch = n.focus(_.metas).modify(f)
-    if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
+    if path.isEmpty then copy(metas = f(metas)).some
     else
       tree.flatMap(
         _.modifyAt(path.ids, Tree.liftOption(b)).map(x => copy(tree = x.some))
