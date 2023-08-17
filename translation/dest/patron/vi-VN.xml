@@ -50,7 +50,7 @@ Hoặc bạn có thể %s.</string>
 Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
   <string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
   <plurals name="patronForMonths">
-    <item quantity="other">Lichess Patron cho %s tháng</item>
+    <item quantity="other">Lichess Patron trong %s tháng</item>
   </plurals>
   <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
   <string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
