@@ -838,8 +838,10 @@
   <string name="why">Щай?</string>
   <string name="pleasantChessExperience">Нилъеца киназего шахматазда лъикӀаб хӀалбихьи щвезе жигар бахъула.</string>
   <string name="goodPractice">Гьеб щвезе, нилъеда щивас къагӀидаби цӀунулел ругелали ракӀчӀун лъазе ккола.</string>
+  <string name="potentialProblem">Къварилъи батараб мехалъ, нижеца гьаб хабар бихьизабула.</string>
   <string name="howToAvoidThis">Кин гьелдаса ворчӀизе?</string>
   <string name="playEveryGame">Дуца щибаб байбихьараб хӀай гьоркьоб къотӀичӀого лъугӀизабе.</string>
+  <string name="tryToWin">Дур щибаб хӀаялда бергьине (яги ващад ккезениги) хӀалбихье.</string>
   <string name="resignLostGames">Хьул къотӀарал хӀаязда къун чӀа (заман лъугӀизегӀан чӀоге).</string>
   <string name="temporaryInconvenience">Заманаялъе бугеб къварилъиялда нижеда тӀаса лъугьа,</string>
   <string name="wishYouGreatGames">цӀакъал хӀаял кьеги дуе lichess.org-алда.</string>
