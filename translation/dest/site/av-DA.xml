@@ -281,7 +281,7 @@
   <string name="casualTournament">Гьадингояб</string>
   <string name="ratedTournament">Рейтингияб</string>
   <string name="thisGameIsRated">ХӀай рейтингияб буго</string>
-  <string name="rematch">Реванш</string>
+  <string name="rematch">ЦӀияб хӀай</string>
   <string name="rematchOfferSent">Цоги нухалъ хӀаян абизе</string>
   <string name="rematchOfferAccepted">Цоги нухалъ хӀана</string>
   <string name="rematchOfferCanceled">Цоги нухалъ хӀаян абичӀого тана</string>
@@ -375,8 +375,8 @@
   <string name="yourPerfRatingIsTooHigh">Дур %1$s рейтинг (%2$s) цӀакъ цӀикӀкӀараб буго</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дур щибаб анкьил %1$s рейтинг (%2$s) цӀакъ цӀикӀкӀараб буго</string>
   <string name="yourPerfRatingIsTooLow">Дур %1$s рейтинг (%2$s) цӀакъ дагьаб буго</string>
-  <string name="ratedMoreThanInPerf">%2$s-алда рейтинг ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">Ахирисеб анкьалъ %2$s-алда рейтинг ≤ %1$s</string>
+  <string name="ratedMoreThanInPerf">%2$s-алда ≥ %1$s рейтинг</string>
+  <string name="ratedLessThanInPerf">Ахирисеб анкьалъ %2$s-алда ≤ %1$s рейтинг</string>
   <string name="mustBeInTeam">%s къокъаялда вукӀине ккола</string>
   <string name="youAreNotInTeam">Мун %s къокъаялда гьечӀо</string>
   <string name="backToGame">ХӀаялде вуссине</string>
