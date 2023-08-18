@@ -467,7 +467,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         if s.student.managed then
           env.clas.api.student.closeAccount(s) >>
             env.api.accountClosure.close(s.user) inject redirectTo(clas).flashSuccess
-        else if !s.student.isActive then
+        else if s.student.isArchived then
           env.clas.api.student.closeAccount(s) >>
             redirectTo(clas).flashSuccess
         else redirectTo(clas)
