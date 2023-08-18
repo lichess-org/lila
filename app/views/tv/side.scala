@@ -55,29 +55,21 @@ object side:
             )
           )
         ),
-        div(cls := "game__meta__players")(
-          game.players.mapList { p =>
-            div(cls := s"player color-icon is ${p.color.name} text")(
+        div(cls := "game__meta__players"):
+          game.players.mapList: p =>
+            div(cls := s"player color-icon is ${p.color.name} text"):
               playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
-            )
-          }
-        )
       ),
-      game.tournamentId map { tourId =>
-        st.section(cls := "game__tournament-link")(
-          a(href := routes.Tournament.show(tourId), dataIcon := licon.Trophy, cls := "text")(
+      game.tournamentId.map: tourId =>
+        st.section(cls := "game__tournament-link"):
+          a(href := routes.Tournament.show(tourId), dataIcon := licon.Trophy, cls := "text"):
             tournamentIdToName(tourId)
-          )
-        )
-      }
     )
 
   def sides(
       pov: lila.game.Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(using PageContext) =
-    div(cls := "sides")(
-      cross.map {
+  )(using Context) =
+    div(cls := "sides"):
+      cross.map:
         views.html.game.crosstable(_, pov.gameId.some)
-      }
-    )
