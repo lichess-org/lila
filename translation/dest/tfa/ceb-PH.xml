@@ -4,7 +4,6 @@
   <string name="twoFactorHelp">Ang Ikaduhang panghimatuod kay naga dugang proteksyon sa imong account.</string>
   <string name="scanTheCode">Iscan ang QR gamit ang application.</string>
   <string name="enterPassword">Ibutang ang imong password apil ang authentication code na gipakita sa app para ma kompleto na ang pag setup. Kinahanglan permi ang authentication code kada mag login sa account.</string>
-  <string name="ifYouCannotScanEnterX">Kung dili ma scan ang code, ibutang nalang ang key sa app.</string>
   <string name="authenticationCode">Authentication Code</string>
   <string name="ifYouLoseAccess">Pahibalo: Kung nawala ang imong mga authentication codes, pwede nimo usabon imong password gamit ang imong email.</string>
   <string name="enableTwoFactor">Mag two-factor authentication</string>
