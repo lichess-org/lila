@@ -1,3 +1,0 @@
-#!/bin/sh
-
-pnpm check-format && pnpm lint
