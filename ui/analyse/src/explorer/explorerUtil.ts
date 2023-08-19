@@ -1,6 +1,6 @@
 import { TablebaseMoveStats } from './interfaces';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'common/mini-game';
+import { fenColor } from 'common/mini-board';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 

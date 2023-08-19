@@ -1,6 +1,6 @@
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
-import { renderClock, fenColor } from 'common/mini-game';
+import { renderClock, fenColor } from 'common/mini-board';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';

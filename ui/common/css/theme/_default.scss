@@ -10,6 +10,11 @@
   @return mix(#000, $color, $weight);
 }
 
+@function set-alpha($color, $alpha) {
+  // set alpha channel if it already exists, add it if not
+  @return rgba(red($color), green($color), blue($color), $alpha);
+}
+
 $c-site-hue: 37;
 
 $c-bg-page: hsl($c-site-hue, 10%, 92%);

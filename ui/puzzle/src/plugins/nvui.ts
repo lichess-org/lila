@@ -23,7 +23,6 @@ import {
   Style,
   styleSetting,
 } from 'nvui/chess';
-import { Chessground } from 'chessground';
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -45,11 +44,18 @@ export function initModule() {
     pieceStyle = pieceSetting(),
     positionStyle = positionSetting(),
     boardStyle = boardSetting();
-
   return {
     render(ctrl: Controller): VNode {
       notify.redraw = ctrl.redraw;
-      const ground = ctrl.ground() || createGround(ctrl);
+      const ground =
+        ctrl.ground() ||
+        lichess.makeChessground(document.createElement('div'), {
+          ...makeConfig(ctrl),
+          animation: { enabled: false },
+          drawable: { enabled: false },
+          coordinates: false,
+        });
+      ctrl.ground(ground);
 
       return h(
         `main.puzzle.puzzle--nvui.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${
@@ -262,17 +268,6 @@ function lastMove(ctrl: Controller, style: Style): string {
   if (node.ply === 0) return 'Initial position';
   // make sure consecutive moves are different so that they get re-read
   return renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
-}
-
-function createGround(ctrl: Controller): Api {
-  const ground = Chessground(document.createElement('div'), {
-    ...makeConfig(ctrl),
-    animation: { enabled: false },
-    drawable: { enabled: false },
-    coordinates: false,
-  });
-  ctrl.ground(ground);
-  return ground;
 }
 
 function onSubmit(

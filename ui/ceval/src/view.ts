@@ -485,9 +485,9 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
   };
   const cgVNode = h('div.cg-wrap.is2d', {
     hook: {
-      insert: (vnode: any) => (vnode.elm._cg = window.Chessground(vnode.elm, cgConfig)),
-      update: (vnode: any) => vnode.elm._cg.set(cgConfig),
-      destroy: (vnode: any) => vnode.elm._cg.destroy(),
+      insert: (vnode: any) => (vnode.elm._cg = lichess.makeChessground(vnode.elm, cgConfig)),
+      update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
+      destroy: (vnode: any) => vnode.elm._cg?.destroy(),
     },
   });
   return h('div.pv-board', h('div.pv-board-square', cgVNode));

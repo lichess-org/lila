@@ -1,7 +1,6 @@
 import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import StormCtrl from './ctrl';
-import { Chessground } from 'chessground';
 import { StormOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
@@ -26,7 +25,3 @@ export function initModule(opts: StormOpts) {
   menuHover();
   $('script').remove();
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

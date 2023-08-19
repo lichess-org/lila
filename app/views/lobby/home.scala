@@ -30,7 +30,6 @@ object home:
           )
       ),
       moreCss = cssTag("lobby"),
-      chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
