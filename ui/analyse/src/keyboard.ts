@@ -144,10 +144,11 @@ export function maybeShowShiftKeyHelp() {
   Promise.all([lichess.loadCssPath('analyse.keyboard'), xhr.text('/help/analyse/shift-key')]).then(
     ([, html]) => {
       $('.cg-wrap').append($(html).attr('id', 'analyse-shift-key-tooltip'));
-      $(document).on('mousedown keydown wheel', () => {
-        $(document).off('mousedown keydown wheel');
+      const cb = () => {
+        $(document).off('mousedown keydown wheel', cb);
         $('#analyse-shift-key-tooltip').remove();
-      });
+      };
+      $(document).on('mousedown keydown wheel', cb);
     },
   );
 }
