@@ -47,4 +47,6 @@
   <string name="normal">இயல்பு</string>
   <string name="easier">இலகுவானது</string>
   <string name="easiest">மிகவும் இலகுவானது</string>
+  <string name="harder">கடினமானது</string>
+  <string name="hardest">மிகக்கடினமானது</string>
 </resources>
