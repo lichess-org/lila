@@ -56,17 +56,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
 
-  const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
-  const loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(() => lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
+  const loadSound = (file: string, volume?: number) => {
+    lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`);
     return () => lichess.sound.play(file, volume);
   };
   const sound = {
-    move: throttleSound('move'),
-    capture: throttleSound('capture'),
-    check: throttleSound('check'),
-    good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
-    end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
+    good: loadSound('lisp/PuzzleStormGood', 0.7),
+    end: loadSound('lisp/PuzzleStormEnd', 1),
   };
 
   let flipped = false;
@@ -483,15 +479,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (pathChanged) {
       if (isForwardStep) {
         lichess.sound.saySan(vm.node.san);
-        lichess.sound.move({ uci: vm.node.uci }); // music
-        // TODO - consolidate piece move handling for music & other sound sets
-        if (!vm.node.uci) sound.move();
-        // initial position
-        else if (!vm.justPlayed || vm.node.uci.includes(vm.justPlayed)) {
-          if (vm.node.san!.includes('x')) sound.capture();
-          else sound.move();
-        }
-        if (/\+|#/.test(vm.node.san!)) sound.check();
+        lichess.sound.move(vm.node);
       }
       threatMode(false);
       ceval.stop();

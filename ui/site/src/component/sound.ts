@@ -1,7 +1,8 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS, isIOSChrome } from 'common/mobile';
+import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
 type Name = string;
@@ -49,8 +50,7 @@ export default new (class implements SoundI {
     let dir = this.theme;
     if (this.theme === 'music' || this.speech()) {
       if (['move', 'capture', 'check'].includes(name)) return;
-      if (name === 'genericNotify' || this.speech()) dir = 'standard';
-      else dir = 'instrument';
+      dir = 'standard';
     }
     return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
   }
@@ -68,11 +68,16 @@ export default new (class implements SoundI {
     });
   }
 
-  async move(node?: { san?: string; uci?: string }) {
-    if (this.theme !== 'music') return;
-    this.soundMove ??= await lichess.loadEsm<SoundMove>('soundMove');
-    this.soundMove(node);
-  }
+  move: SoundMove = throttle(100, async node => {
+    if (this.theme === 'music') {
+      this.soundMove ??= await lichess.loadEsm<SoundMove>('soundMove');
+      this.soundMove(node);
+      return;
+    }
+    if (node?.san?.includes('x')) this.play('capture');
+    else this.play('move');
+    if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
+  });
 
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
@@ -218,7 +223,7 @@ export default new (class implements SoundI {
   }
 
   primer = () => {
-    if (isIOS({ below: 13 })) {
+    if (isIOS({ below: 13 }) || isIOSChrome()) {
       this.ctx = makeAudioContext()!;
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     } else if (this.ctx?.state === 'suspended') this.ctx.resume();

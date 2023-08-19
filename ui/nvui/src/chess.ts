@@ -348,7 +348,7 @@ export function renderBoard(
     return h(
       'button',
       {
-        attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color },
+        attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color, 'trap-bypass': true },
       },
       text,
     );
