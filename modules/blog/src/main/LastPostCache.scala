@@ -21,7 +21,7 @@ final class LastPostCache(
   private def fetch: Fu[Option[MiniPost]] = {
     api.prismicApi flatMap { prismic =>
       api.recent(prismic, page = 1, lila.common.config.MaxPerPage(2), none) mapz {
-        _.currentPageResults.toList.flatMap(MiniPost.fromDocument(config.collection, "ublog")).headOption
+        _.currentPageResults.toList.map(_.copy(imgSize = "ublog")).flatMap(MiniPost.apply).headOption
       }
     }
   } addEffect maybeNotifyLastPost
