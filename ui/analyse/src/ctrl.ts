@@ -218,7 +218,6 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
-    lichess.sound.move();
   }
 
   private makeInitialPath = (): string => {
@@ -355,14 +354,6 @@ export default class AnalyseCtrl {
     return config;
   }
 
-  private throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
-
-  private sound = {
-    move: this.throttleSound('move'),
-    capture: this.throttleSound('capture'),
-    check: this.throttleSound('check'),
-  };
-
   private onChange: () => void = throttle(300, () => {
     lichess.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
@@ -384,15 +375,7 @@ export default class AnalyseCtrl {
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
-      if (isForwardStep) {
-        if (!this.node.uci) this.sound.move();
-        // initial position
-        else if (!this.playedLastMoveMyself()) {
-          if (this.node.san!.includes('x')) this.sound.capture();
-          else this.sound.move();
-        }
-        if (/\+|#/.test(this.node.san!)) this.sound.check();
-      }
+      if (isForwardStep) lichess.sound.move(this.node);
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
@@ -408,7 +391,6 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    lichess.sound.move(this.node);
     lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }
@@ -492,7 +474,7 @@ export default class AnalyseCtrl {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
-      this.sound.move();
+      lichess.sound.move();
       const drop = {
         role: piece.role,
         pos,
@@ -509,9 +491,6 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    const piece = this.chessground.state.pieces.get(dest);
-    const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
-    this.sound[isCapture ? 'capture' : 'move']();
     if (
       !this.promotion.start(orig, dest, {
         submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom),
