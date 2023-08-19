@@ -179,14 +179,6 @@
     <item quantity="one">%s adlaw</item>
     <item quantity="other">%s mga adlaw</item>
   </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">Oras</item>
-    <item quantity="other">Mga oras</item>
-  </plurals>
-  <plurals name="nbMinutes">
-    <item quantity="one">Minuto</item>
-    <item quantity="other">Mga minuto</item>
-  </plurals>
   <string name="time">Oras</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
@@ -235,14 +227,6 @@
   <plurals name="nbRated">
     <item quantity="one">%s rated</item>
     <item quantity="other">%s rated</item>
-  </plurals>
-  <plurals name="nbWins">
-    <item quantity="one">Daog</item>
-    <item quantity="other">Mga daog</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">Pilde</item>
-    <item quantity="other">Mga Pilde</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s Tabla</item>
