@@ -61,7 +61,6 @@ object player:
         )
       ),
       openGraph = povOpenGraph(pov).some,
-      chessground = false,
       playing = true,
       zenable = true
     ):

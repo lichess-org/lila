@@ -8,11 +8,9 @@
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@toast-ui/editor": "=3.1.7",
-    "@types/cash": "workspace:*",
     "@types/debounce-promise": "^3.1.6",
     "@types/fnando__sparkline": "^0.3.4",
     "@types/highcharts": "=4.2.57",
-    "@types/lichess": "workspace:*",
     "@types/yaireo__tagify": "^4.17.0",
     "@types/zxcvbn": "^4.4.1",
     "@yaireo/tagify": "^4.17.6",
@@ -39,7 +37,7 @@
   },
   "lichess": {
     "modules": {
-      "iife": {},
+      "iife": { },
       "esm": {
         "src/site.ts": "lichess",
         "src/tvEmbed.ts": "tvEmbed",

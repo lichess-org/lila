@@ -21,7 +21,6 @@ object storm:
       title = "Puzzle Storm",
       zoomable = true,
       zenable = true,
-      chessground = false,
       withHrefLangs = LangPath(routes.Storm.home).some
     ) {
       main(

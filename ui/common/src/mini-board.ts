@@ -1,7 +1,6 @@
 import { h } from 'snabbdom';
 import * as domData from './data';
 import { uciToMove } from 'chessground/util';
-import { Api } from 'chessground/api';
 
 export const init = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -9,17 +8,21 @@ export const init = (node: HTMLElement): void => {
 };
 
 export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?: string): void => {
-  makeChessground(node, {
-    orientation,
-    coordinates: false,
-    viewOnly: !node.getAttribute('data-playable'),
-    fen,
-    lastMove: uciToMove(lm),
-    drawable: {
-      enabled: false,
-      visible: false,
-    },
-  }).then(cg => domData.set(node, 'chessground', cg));
+  domData.set(
+    node,
+    'chessground',
+    lichess.makeChessground(node, {
+      orientation,
+      coordinates: false,
+      viewOnly: !node.getAttribute('data-playable'),
+      fen,
+      lastMove: uciToMove(lm),
+      drawable: {
+        enabled: false,
+        visible: false,
+      },
+    }),
+  );
 };
 
 export const initAll = (parent?: HTMLElement) =>
@@ -37,6 +40,3 @@ export const renderClock = (color: Color, time: number) =>
       'data-managed': 1,
     },
   });
-
-export const makeChessground = (el: HTMLElement, config: any) =>
-  lichess.loadEsm<Api>('chessground.min', { init: { el, config } });

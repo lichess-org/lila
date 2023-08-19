@@ -1,16 +1,16 @@
 import { uciToMove } from 'chessground/util';
-import { fenColor, makeChessground } from 'common/mini-board';
+import { fenColor } from 'common/mini-board';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
 
 export const init = (node: HTMLElement) => {
-  const [fen, orientation, lm] = node.getAttribute('data-state')!.split(','),
+  const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
     config = {
       coordinates: false,
       viewOnly: true,
       fen,
-      orientation,
+      orientation: color as Color,
       lastMove: uciToMove(lm),
       drawable: {
         enabled: false,
@@ -20,17 +20,17 @@ export const init = (node: HTMLElement) => {
     $el = $(node).removeClass('mini-game--init'),
     $cg = $el.find('.cg-wrap'),
     turnColor = fenColor(fen);
-  makeChessground($as<HTMLElement>($cg), config).then(cg => {
-    domData.set($cg[0] as HTMLElement, 'chessground', cg);
-    ['white', 'black'].forEach((color: Color) =>
-      $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
-        clockWidget(this, {
-          time: parseInt(this.getAttribute('data-time')!),
-          pause: color != turnColor || !clockIsRunning(fen, color),
-        });
-      }),
-    );
-  });
+
+  domData.set($as($cg), 'chessground', lichess.makeChessground($as($cg), config));
+
+  ['white', 'black'].forEach((color: Color) =>
+    $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
+      clockWidget(this, {
+        time: parseInt(this.getAttribute('data-time')!),
+        pause: color != turnColor || !clockIsRunning(fen, color),
+      });
+    }),
+  );
   return node.getAttribute('data-live');
 };
 

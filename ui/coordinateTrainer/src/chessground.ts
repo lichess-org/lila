@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import resizeHandle from 'common/resize';
@@ -10,7 +9,7 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+        ctrl.chessground = lichess.makeChessground(el, makeConfig(ctrl));
       },
       destroy: () => ctrl.chessground!.destroy(),
     },

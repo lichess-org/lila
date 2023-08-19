@@ -29,7 +29,6 @@ object show:
         )
       ),
       csp = analysisCsp.some,
-      chessground = false,
       zoomable = true
     ) {
       main(cls := "analyse")

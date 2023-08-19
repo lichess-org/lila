@@ -13,9 +13,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@types/cash": "workspace:*",
     "@types/fnando__sparkline": "^0.3.4",
-    "@types/lichess": "workspace:*",
     "common": "workspace:*",
     "snabbdom": "^3.5.1",
     "voice": "workspace:*"

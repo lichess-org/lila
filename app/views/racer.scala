@@ -39,8 +39,7 @@ object racer:
       moreJs = jsModuleInit("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
       title = "Puzzle Racer",
       zoomable = true,
-      zenable = true,
-      chessground = false
+      zenable = true
     ) {
       main(
         div(cls := "racer racer-app racer--play")(

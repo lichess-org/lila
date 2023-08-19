@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
@@ -10,7 +9,7 @@ export default function (ctrl: EditorCtrl): VNode {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+        ctrl.chessground = lichess.makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
       destroy: _ => ctrl.chessground!.destroy(),

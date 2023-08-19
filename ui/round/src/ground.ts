@@ -2,7 +2,6 @@ import * as round from './round';
 import * as util from './util';
 import resizeHandle from 'common/resize';
 import RoundController from './ctrl';
-import { Chessground } from 'chessground';
 import { Config } from 'chessground/config';
 import { h } from 'snabbdom';
 import { plyStep } from './round';
@@ -99,5 +98,5 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
 
 export const render = (ctrl: RoundController) =>
   h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl)))),
+    hook: util.onInsert(el => ctrl.setChessground(lichess.makeChessground(el, makeConfig(ctrl)))),
   });
