@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS, isIOSChrome } from 'common/mobile';
 import { charRole } from 'chess';
 
 type Name = string;
@@ -218,12 +218,12 @@ export default new (class implements SoundI {
   }
 
   primer = () => {
-    if (isIOS({ below: 13 })) {
+    if (isIOS({ below: 13 }) || isIOSChrome()) {
       this.ctx = makeAudioContext()!;
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     } else if (this.ctx?.state === 'suspended') this.ctx.resume();
     $('body').off('click touchstart', this.primer);
-    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+    setTimeout(() => $('#warn-no-autoplay').remove(), 500);
   };
 })();
 

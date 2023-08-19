@@ -52,6 +52,8 @@ export const isIOS = (constraint?: { below?: number; atLeast?: number }) => {
   return answer;
 };
 
+export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
+
 export const isTouchDevice = () => !hasMouse();
 
 // some newer iPads pretend to be Macs, hence checking for "Macintosh"
