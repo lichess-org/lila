@@ -15,7 +15,7 @@ db.pref.find().forEach(function (p) {
     },
     {
       $unset: set,
-    }
+    },
   );
   db.pref.update(
     {
@@ -23,7 +23,7 @@ db.pref.find().forEach(function (p) {
     },
     {
       $set: set,
-    }
+    },
   );
 });
 

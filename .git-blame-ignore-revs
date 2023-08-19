@@ -39,3 +39,6 @@ eea12a89f8550d74518f19ec9cda404e3f73b3d0
 
 # Scala Steward: Reformat with scalafmt 3.7.12
 6fb1e4363f3ed03acbf7aaffa10c63bc591a099f
+
+# prettier 3.0.1 update from 2.x
+72d993c45d9b9d17395e0f0a2726af325ef0621c

@@ -10,12 +10,12 @@ lichess.load.then(() => {
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) => xhr.json(xhr.url('/study/topic/autocomplete', { term })),
-    300
+    300,
   );
   let clickDebounce: Timeout | undefined; // https://yaireo.github.io/tagify/#section-advance-options
   tagify
     .on('input', e => {
-      const term = e.detail.value.trim();
+      const term = (e.detail as Tagify.TagData).value.trim();
       if (term.length < 2) return;
       tagify.settings.whitelist!.length = 0; // reset the whitelist
       // show loading animation and hide the suggestions dropdown

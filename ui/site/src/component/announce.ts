@@ -17,7 +17,7 @@ const announce = (d: LichessAnnouncement) => {
           escapeHtml(d.msg) +
           (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
           '<div class="actions"><a class="close">×</a></div>' +
-          '</div>'
+          '</div>',
       )
       .find('#announce .close')
       .on('click', kill);

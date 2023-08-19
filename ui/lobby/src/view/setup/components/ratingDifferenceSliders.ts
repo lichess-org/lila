@@ -63,6 +63,6 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
           },
         }),
       ]),
-    ]
+    ],
   );
 };

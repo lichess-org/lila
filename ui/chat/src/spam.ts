@@ -41,7 +41,7 @@ const spamRegex = new RegExp(
     'trasderk.blogspot.com',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
-    .join('|')
+    .join('|'),
 );
 
 const suspLink = (txt: string) => !!txt.match(spamRegex);

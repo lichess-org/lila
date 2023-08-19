@@ -27,6 +27,6 @@ puzzles
         $set: {
           fen: newFen,
         },
-      }
+      },
     );
   });

@@ -7,7 +7,7 @@ db.ublog_post.createIndex(
   {
     partialFilterExpression: { live: true },
     name: 'liveByBlog',
-  }
+  },
 );
 db.ublog_post.createIndex(
   {
@@ -17,21 +17,21 @@ db.ublog_post.createIndex(
   {
     partialFilterExpression: { live: false },
     name: 'draftByBlog',
-  }
+  },
 );
 db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true }, name: 'liveByRank' });
 db.ublog_post.dropIndex('liveByLang');
 db.ublog_post.createIndex(
   { language: 1, rank: -1 },
-  { partialFilterExpression: { live: true }, name: 'liveByLanguage' }
+  { partialFilterExpression: { live: true }, name: 'liveByLanguage' },
 );
 db.ublog_post.createIndex(
   { likers: 1, rank: -1 },
-  { partialFilterExpression: { live: true }, name: 'liveByLiked' }
+  { partialFilterExpression: { live: true }, name: 'liveByLiked' },
 );
 db.ublog_post.createIndex(
   { topic: 1, rank: -1 },
-  { partialFilterExpression: { live: true }, name: 'liveByTopic' }
+  { partialFilterExpression: { live: true }, name: 'liveByTopic' },
 );
 
 db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
@@ -77,6 +77,6 @@ db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
         liveAt: 1,
         troll: 1,
       },
-    }
+    },
   );
 });

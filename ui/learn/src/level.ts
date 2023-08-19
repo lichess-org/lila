@@ -67,7 +67,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
         m.redraw();
         if (!blueprint.nextButton) timeouts.setTimeout(opts.onComplete, 1200);
       },
-      ground.data().stats.dragged ? 1 : 250
+      ground.data().stats.dragged ? 1 : 250,
     );
   };
 

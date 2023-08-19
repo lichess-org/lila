@@ -20,7 +20,7 @@ export function search(q: string): Promise<SearchResult> {
       ({
         ...res,
         contacts: res.contacts.map(upgradeContact),
-      } as SearchResult)
+      }) as SearchResult,
   );
 }
 

@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Elrejthető a játékosok értékszáma, hogy könnyebb legyen a játékra koncentrálni. A játszmák ettől függetlenül lehetnek értékeltek, ez csak a megjelenítésre vonatkozik.</string>
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
+  <string name="inGameOnly">Csak játék közben</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>

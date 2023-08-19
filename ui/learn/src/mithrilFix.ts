@@ -18,12 +18,12 @@ interface MithrilFixed extends _mithril.MithrilStatic {
   <T extends _mithril.MithrilController>(
     selector: string,
     attributes: Record<string, unknown>,
-    children?: Children<T>
+    children?: Children<T>,
   ): _mithril.MithrilVirtualElement<T>;
 
   <T extends _mithril.MithrilController>(
     selector: string,
-    children?: Children<T>
+    children?: Children<T>,
   ): _mithril.MithrilVirtualElement<T>;
 }
 

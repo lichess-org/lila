@@ -48,7 +48,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         parsed.variant,
-        resolveOrientation(data, parsed.root, parsed.tags)
+        resolveOrientation(data, parsed.root, userId, parsed.tags)
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -71,12 +71,15 @@ final private class ChapterMaker(
           vsFromPgnTags.orElse(parsed.tags("Event")).filter(_.nonEmpty)
       .getOrElse(data.name)
 
-  private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
+  private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
+    def isMe(name: Option[String]) = name.flatMap(UserStr.read).exists(_.id == userId)
     data.orientation match
-      case Orientation.Fixed(color)    => color
-      case _ if tags.outcome.isDefined => Color.white
-      case _ if data.isGamebook        => !root.lastMainlineNode.color
-      case _                           => root.lastMainlineNode.color
+      case Orientation.Fixed(color)      => color
+      case _ if isMe(tags.players.white) => Color.white
+      case _ if isMe(tags.players.black) => Color.black
+      case _ if tags.outcome.isDefined   => Color.white
+      case _ if data.isGamebook          => !root.lastMainlineNode.color
+      case _                             => root.lastMainlineNode.color
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
@@ -98,7 +101,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         variant,
-        resolveOrientation(data, root),
+        resolveOrientation(data, root, userId),
         fromFen = isFromFen option true
       ),
       root = root,

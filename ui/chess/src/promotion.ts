@@ -33,7 +33,7 @@ export function promote(g: CgApi, key: Key, role: cg.Role): void {
             promoted: true,
           },
         ],
-      ])
+      ]),
     );
   }
 }
@@ -46,7 +46,7 @@ export class PromotionCtrl {
     private withGround: <A>(f: (cg: CgApi) => A) => A | false | undefined,
     private onCancel: () => void,
     private redraw: () => void,
-    private autoQueenPref: Prefs.AutoQueen = Prefs.AutoQueen.Never
+    private autoQueenPref: Prefs.AutoQueen = Prefs.AutoQueen.Never,
   ) {}
 
   start = (orig: Key, dest: Key, hooks: Hooks, meta?: cg.MoveMetadata, forceAutoQueen = false): boolean =>
@@ -108,8 +108,8 @@ export class PromotionCtrl {
           promoting.dest,
           antichess ? PROMOTABLE_ROLES.concat('king') : PROMOTABLE_ROLES,
           cgUtil.opposite(g.state.turnColor),
-          g.state.orientation
-        )
+          g.state.orientation,
+        ),
       ) || null
     );
   };
@@ -143,7 +143,7 @@ export class PromotionCtrl {
           },
           brush: '',
         } as DrawShape,
-      ])
+      ]),
     );
   }
 
@@ -174,9 +174,9 @@ export class PromotionCtrl {
               this.finish(serverRole);
             }),
           },
-          [h('piece.' + serverRole + '.' + color)]
+          [h('piece.' + serverRole + '.' + color)],
         );
-      })
+      }),
     );
   }
 }

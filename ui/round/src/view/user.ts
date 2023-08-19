@@ -21,7 +21,7 @@ export function botHtml(ctrl: RoundController, player: Player, position: Positio
       h('span', [h('img', { attrs: { src: player.image!, width: 64, height: 64 } }), h('name', player.name)]),
       h('rating', player.rating),
       //h('rating', player.ratingDiff),
-    ]
+    ],
   );
 }
 
@@ -77,7 +77,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
                 ' ',
                 user.username,
               ]
-            : [user.username]
+            : [user.username],
         ),
         rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
         rating ? ratingDiff : null,
@@ -89,7 +89,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
               },
             })
           : null,
-      ]
+      ],
     );
   }
   const connecting = !player.onGame && ctrl.firstSeconds;
@@ -109,7 +109,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         },
       }),
       h('name', player.name || ctrl.noarg('anonymous')),
-    ]
+    ],
   );
 }
 

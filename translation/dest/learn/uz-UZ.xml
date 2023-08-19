@@ -141,6 +141,12 @@ Ot = 3
 Piyoda = 1
 Qirol qiymati bebaho! Uni yo\'qotish o\'yinni yo\'qotish degani.</string>
   <string name="queenOverBishop">Qiymati baland sipohlarni oling! Farzin &gt; Fil</string>
+  <string name="pieceValueExchange">Yuqoriroq qiymatli figurani oling!
+ Qiymati yuqori
+ figuralarni past qiymatli figuralarga almashmang.</string>
+  <string name="pieceValueLegal">Yuqori
+qiymatli figurani oling!
+Yurish mumkinligiga ishonch xozil qiling!</string>
   <string name="takeThePieceWithTheHighestValue">Qiymati baland sipohlarni oling!</string>
   <string name="pieceValueComplete">Tabriklaymiz! Siz sipohlar qiymatlarini bilasiz!
 Farzin = 9
@@ -181,6 +187,7 @@ Piyoda = 1</string>
   <string name="rightOn">To\'g\'ri yo\'ldasiz!</string>
   <string name="stageXComplete">%s etap hal bo\'ldi</string>
   <string name="next">Keyingi</string>
+  <string name="nextX">Navbatdagi: %s</string>
   <string name="backToMenu">Menuga qaytish</string>
   <string name="puzzleFailed">Boshqotirma yechilmadi!</string>
   <string name="retry">Qayta urinish</string>

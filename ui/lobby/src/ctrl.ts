@@ -45,7 +45,10 @@ export default class LobbyController {
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
-  constructor(readonly opts: LobbyOpts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: LobbyOpts,
+    readonly redraw: () => void,
+  ) {
     this.data = opts.data;
     this.data.hooks = [];
     this.me = opts.data.me;

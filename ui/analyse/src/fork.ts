@@ -11,8 +11,11 @@ export interface ForkCtrl {
     selected: number;
     displayed: boolean;
   };
-  next: () => boolean | undefined;
-  prev: () => boolean | undefined;
+  selected(): number | undefined;
+  next: (cycle?: boolean) => boolean | undefined;
+  prev: (cycle?: boolean) => boolean | undefined;
+  onJump: () => void;
+  hover: (uci: Uci | null | undefined) => void;
   highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
 }
@@ -20,6 +23,9 @@ export interface ForkCtrl {
 export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
   let selected = 0;
+  let hovering: number | undefined;
+  const selections = new Map<Tree.Path, number>();
+
   function displayed() {
     return root.node.children.length > 1;
   }
@@ -36,19 +42,32 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         displayed: displayed(),
       };
     },
-    next() {
+    next(cycle = false) {
       if (displayed()) {
-        selected = Math.min(root.node.children.length - 1, selected + 1);
+        selected = cycle
+          ? (selected + 1) % root.node.children.length
+          : Math.min(root.node.children.length - 1, selected + 1);
+        selections.set(root.path, selected);
         return true;
       }
       return undefined;
     },
-    prev() {
+    prev(cycle = false) {
       if (displayed()) {
-        selected = Math.max(0, selected - 1);
+        selected = cycle
+          ? (selected + root.node.children.length - 1) % root.node.children.length
+          : Math.max(0, selected - 1);
+        selections.set(root.path, selected);
         return true;
       }
       return undefined;
+    },
+    hover(uci: Uci | undefined | null) {
+      hovering = root.node.children.findIndex(n => n.uci === uci);
+      if (hovering < 0) hovering = undefined;
+    },
+    selected() {
+      return hovering ?? selected;
     },
     highlight(it) {
       if (!displayed() || !defined(it)) {
@@ -61,9 +80,15 @@ export function make(root: AnalyseCtrl): ForkCtrl {
 
       root.explorer.setHovering(root.node.fen, uci);
     },
+    onJump() {
+      //console.log('onJump', selections);
+      //if (!displayed()) return;
+      //selected = selections.get(root.path) ?? 0;
+      //if (selected >= root.node.children.length) selected = 0;
+    },
     proceed(it) {
       if (displayed()) {
-        it = defined(it) ? it : selected;
+        it = defined(it) ? it : hovering ? hovering : selected;
 
         const childNode = root.node.children[it];
         if (defined(childNode)) {
@@ -79,7 +104,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
 const eventToIndex = (e: MouseEvent): number | undefined => {
   const target = e.target as HTMLElement;
   return parseInt(
-    (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
+    (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || '',
   );
 };
 
@@ -115,10 +140,10 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
               showEval: root.showComputer(),
               showGlyphs: root.showComputer(),
             },
-            node
-          )!
+            node,
+          )!,
         );
       return undefined;
-    })
+    }),
   );
 }

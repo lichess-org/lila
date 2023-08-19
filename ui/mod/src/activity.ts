@@ -59,8 +59,8 @@ function activity(data: any) {
         ...conf('Closed reports', data.common.xaxis),
         series: data.reports.series,
       },
-      extend
-    )
+      extend,
+    ),
   ).render();
 
   new ApexCharts(
@@ -70,8 +70,8 @@ function activity(data: any) {
         ...conf('Mod actions', data.common.xaxis),
         series: data.actions.series,
       },
-      extend
-    )
+      extend,
+    ),
   ).render();
 }
 
@@ -92,7 +92,7 @@ function queues(data: any) {
           stacked: true,
         },
         colors: ['#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800'],
-      }
+      },
     );
     new ApexCharts($('<div>').appendTo($grid)[0], cfg).render();
   });

@@ -13,14 +13,14 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
       {
         hook: bind('click', ctrl.viewSolution, ctrl.redraw),
       },
-      ctrl.noarg('viewTheSolution')
+      ctrl.noarg('viewTheSolution'),
     ),
     h(
       'a',
       {
         hook: bind('click', ctrl.skip),
       },
-      ctrl.noarg('skipThisMove')
+      ctrl.noarg('skipThisMove'),
     ),
   ]);
 }
@@ -31,7 +31,7 @@ function jumpToNext(ctrl: RetroCtrl) {
     {
       hook: bind('click', ctrl.jumpToNext),
     },
-    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), ctrl.noarg('next')]
+    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), ctrl.noarg('next')],
   );
 }
 
@@ -47,7 +47,7 @@ function renderEvalProgress(node: Tree.Node): VNode {
           node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0
         }`,
       },
-    })
+    }),
   );
 }
 
@@ -69,10 +69,10 @@ const feedback = {
                     showGlyphs: true,
                     showEval: false,
                   },
-                  ctrl.current()!.fault.node
-                )!
-              )
-            )
+                  ctrl.current()!.fault.node,
+                )!,
+              ),
+            ),
           ),
           h('em', ctrl.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
           skipOrViewSolution(ctrl),
@@ -93,7 +93,7 @@ const feedback = {
               {
                 hook: bind('click', ctrl.jumpToNext),
               },
-              ctrl.noarg('resumeLearning')
+              ctrl.noarg('resumeLearning'),
             ),
           ]),
         ]),
@@ -116,7 +116,7 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', ctrl.noarg('goodMove')))])
+        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', ctrl.noarg('goodMove')))]),
       ),
       jumpToNext(ctrl),
     ];
@@ -140,13 +140,13 @@ const feedback = {
                       withDots: true,
                       showEval: false,
                     },
-                    ctrl.current()!.solution.node
-                  )!
-                )
-              )
+                    ctrl.current()!.solution.node,
+                  )!,
+                ),
+              ),
             ),
           ]),
-        ])
+        ]),
       ),
       jumpToNext(ctrl),
     ];
@@ -160,7 +160,7 @@ const feedback = {
             h('strong', ctrl.noarg('evaluatingYourMove')),
             renderEvalProgress(ctrl.node()),
           ]),
-        ])
+        ]),
       ),
     ];
   },
@@ -169,7 +169,7 @@ const feedback = {
       return [
         h(
           'div.half.top',
-          h('div.player', [h('div.icon', spinner()), h('div.instruction', ctrl.noarg('waitingForAnalysis'))])
+          h('div.player', [h('div.icon', spinner()), h('div.instruction', ctrl.noarg('waitingForAnalysis'))]),
         ),
       ];
     const nothing = !ctrl.completion()[1];
@@ -182,8 +182,8 @@ const feedback = {
             nothing
               ? ctrl.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack')
               : ctrl.noarg(
-                  ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes'
-                )
+                  ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes',
+                ),
           ),
           h('div.choices.end', [
             nothing
@@ -193,14 +193,14 @@ const feedback = {
                   {
                     hook: bind('click', ctrl.reset),
                   },
-                  ctrl.noarg('doItAgain')
+                  ctrl.noarg('doItAgain'),
                 ),
             h(
               'a',
               {
                 hook: bind('click', ctrl.flip),
               },
-              ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes')
+              ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'),
             ),
           ]),
         ]),

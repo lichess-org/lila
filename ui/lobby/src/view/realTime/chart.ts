@@ -100,13 +100,13 @@ function renderXAxis() {
         {
           attrs: { style: 'left:' + percents(l - 1.5) },
         },
-        '' + v
-      )
+        '' + v,
+      ),
     );
     tags.push(
       h('div.grid.vert', {
         attrs: { style: 'width:' + percents(l) },
-      })
+      }),
     );
   });
   return tags;
@@ -124,13 +124,13 @@ function renderYAxis() {
         {
           attrs: { style: 'bottom:' + percents(b + 1) },
         },
-        '' + v
-      )
+        '' + v,
+      ),
     );
     tags.push(
       h('div.grid.horiz', {
         attrs: { style: 'height:' + percents(b + 0.8) },
-      })
+      }),
     );
   });
   return tags;
@@ -155,10 +155,10 @@ export function render(ctrl: LobbyController, hooks: Hook[]) {
             if ((e.target as HTMLElement).classList.contains('plot'))
               ctrl.clickHook((e.target as HTMLElement).id);
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       },
-      hooks.map(hook => renderPlot(ctrl, hook))
+      hooks.map(hook => renderPlot(ctrl, hook)),
     ),
     ...renderYAxis(),
     ...renderXAxis(),

@@ -19,7 +19,7 @@ db.puzzle
         $unset: {
           rating: true,
         },
-      }
+      },
     );
   });
 db.puzzle
@@ -41,6 +41,6 @@ db.puzzle
             sum: NumberInt(0),
           },
         },
-      }
+      },
     );
   });

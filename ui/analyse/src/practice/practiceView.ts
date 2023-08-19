@@ -22,8 +22,8 @@ function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVN
               destroy: () => ctrl.commentShape(false),
             },
           },
-          c.best.san
-        )
+          c.best.san,
+        ),
       )
     : [];
 }
@@ -67,7 +67,7 @@ function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
           node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0
         }`,
       },
-    })
+    }),
   );
 }
 
@@ -91,11 +91,13 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
                 {
                   hook: bind('click', () => root.practice!.hint(), ctrl.redraw),
                 },
-                root.trans.noarg(hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint')
+                root.trans.noarg(
+                  hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint',
+                ),
               )
             : '',
-        ])
-      )
+        ]),
+      ),
     ),
   ]);
 }
@@ -111,7 +113,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     h('div.title', root.trans.noarg('practiceWithComputer')),
     h(
       'div.feedback',
-      !running ? renderOffTrack(root, ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl)
+      !running ? renderOffTrack(root, ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
     ),
     running
       ? h(
@@ -119,9 +121,9 @@ export default function (root: AnalyseCtrl): VNode | undefined {
           (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
               ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
-                  commentBest(comment, root, ctrl)
+                  commentBest(comment, root, ctrl),
                 )
-              : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))])
+              : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]),
         )
       : null,
   ]);

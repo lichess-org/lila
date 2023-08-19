@@ -1,6 +1,7 @@
 package lila.team
 
 import play.api.libs.json.{ JsSuccess, Json, Reads }
+import play.api.mvc.RequestHeader
 import scala.util.chaining.*
 import scala.util.Try
 
@@ -282,8 +283,12 @@ final class TeamApi(
         Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
     }
 
-  def kickMembers(team: Team, json: String)(using me: Me) =
-    parseTagifyInput(json).map(kick(team, _))
+  def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
+    val users  = parseTagifyInput(json).toList
+    val client = lila.common.HTTPRequest.printClient(req)
+    logger.info:
+      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
+    users.traverse_(kick(team, _))
 
   private case class TagifyUser(value: String)
   private given Reads[TagifyUser] = Json.reads

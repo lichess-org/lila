@@ -23,7 +23,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
               res();
             }
           },
-          { passive: true }
+          { passive: true },
         );
     })
       .then(() => {
@@ -41,7 +41,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
         e => {
           console.log(e);
           nav.remove();
-        }
+        },
       );
 }
 

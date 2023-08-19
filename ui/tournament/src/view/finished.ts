@@ -52,7 +52,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
                   href: `/tournament/${data.id}/teams`,
                 },
               },
-              trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length)
+              trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length),
             ),
             h('br'),
           ]
@@ -66,7 +66,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
             download: true,
           },
         },
-        'Download all games'
+        'Download all games',
       ),
       data.me &&
         h(
@@ -78,7 +78,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
               download: true,
             },
           },
-          'Download my games'
+          'Download my games',
         ),
       h(
         'a.text',
@@ -89,7 +89,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
             download: true,
           },
         },
-        'Download results as NDJSON'
+        'Download results as NDJSON',
       ),
       h(
         'a.text',
@@ -100,7 +100,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
             download: true,
           },
         },
-        'Download results as CSV'
+        'Download results as CSV',
       ),
       h('br'),
       h(
@@ -111,7 +111,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
             href: 'https://lichess.org/api#tag/Arena-tournaments',
           },
         },
-        'Arena API documentation'
+        'Arena API documentation',
       ),
     ]),
   ]);

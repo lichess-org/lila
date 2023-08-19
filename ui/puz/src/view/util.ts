@@ -40,9 +40,9 @@ export const renderCombo =
                   active: l < level,
                 },
               },
-              h('span', renderBonus(config.combo.levels[l + 1][1]))
-            )
-          )
+              h('span', renderBonus(config.combo.levels[l + 1][1])),
+            ),
+          ),
         ),
       ]),
     ]);

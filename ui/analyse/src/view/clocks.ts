@@ -39,7 +39,7 @@ const renderClock = (centis: number | undefined, active: boolean, cls: string, s
     {
       class: { active },
     },
-    clockContent(centis, showTenths)
+    clockContent(centis, showTenths),
   );
 
 function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {

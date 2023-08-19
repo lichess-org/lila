@@ -7,7 +7,7 @@ export default async function () {
     assetUrl(jsModule('serviceWorker'), {
       sameDomain: true,
     }),
-    self.location.href // eslint-disable-line no-restricted-globals
+    self.location.href, // eslint-disable-line no-restricted-globals
   );
   workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
   if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');

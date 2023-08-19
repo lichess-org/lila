@@ -10,6 +10,6 @@ db.puzzle.find({ tags: { $exists: true } }).forEach(function (o) {
       $unset: {
         tags: true,
       },
-    }
+    },
   );
 });

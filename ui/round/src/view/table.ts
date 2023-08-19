@@ -64,7 +64,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
                   licon.Back,
                   'proposeATakeback',
                   'takeback-yes',
-                  ctrl.takebackYes
+                  ctrl.takebackYes,
                 ),
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
@@ -85,7 +85,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
                   licon.OneHalf,
                   'offerDraw',
                   'draw-yes',
-                  () => ctrl.offerDraw(true)
+                  () => ctrl.offerDraw(true),
                 ),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
@@ -95,7 +95,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
                   licon.FlagOutline,
                   'resign',
                   'resign',
-                  () => ctrl.resign(true)
+                  () => ctrl.resign(true),
                 ),
             replay.analysisButton(ctrl),
             boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
@@ -111,7 +111,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
         {
           class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm) },
         },
-        icons
+        icons,
       ),
       ...buttons,
     ]),
@@ -127,7 +127,7 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
           'div.rclock-turn__text',
           d.player.spectator
             ? ctrl.trans(d.game.player + 'Plays')
-            : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent')
+            : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'),
         )
       : null,
   ]);

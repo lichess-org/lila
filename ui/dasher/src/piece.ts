@@ -28,7 +28,7 @@ export function ctrl(
   trans: Trans,
   dimension: () => keyof PieceData,
   redraw: Redraw,
-  close: Close
+  close: Close,
 ): PieceCtrl {
   function dimensionData() {
     return data[dimension()];
@@ -84,7 +84,7 @@ function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
         h('piece', {
           attrs: { style: `background-image:url(${lichess.assetUrl(pieceImage(t, is3d))})` },
         }),
-      ]
+      ],
     );
 }
 

@@ -17,7 +17,10 @@ export default class Filter {
   data: FilterData | null;
   open = false;
 
-  constructor(storage: LichessStorage, readonly root: LobbyController) {
+  constructor(
+    storage: LichessStorage,
+    readonly root: LobbyController,
+  ) {
     this.store = makeStore(storage);
     this.set(this.store.get());
   }

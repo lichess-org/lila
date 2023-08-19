@@ -30,9 +30,9 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
                     movable: { color: ctrl.run.pov },
                   },
               ctrl.pref,
-              ctrl.userMove
-            )
-          )
+              ctrl.userMove,
+            ),
+          ),
         ),
     },
   });

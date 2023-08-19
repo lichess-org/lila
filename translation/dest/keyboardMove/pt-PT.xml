@@ -6,7 +6,7 @@
   <string name="moveKnightToC3">Mova o cavalo para c3</string>
   <string name="kingsideCastle">Roque pequeno</string>
   <string name="queensideCastle">Roque grande</string>
-  <string name="promoteC8ToQueen">Promover c8 a rainha</string>
+  <string name="promoteC8ToQueen">Promover c8 a dama</string>
   <string name="dropARookAtB4">Colocar uma torre em b4 (apenas em Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Oferecer ou aceitar empate</string>
   <string name="readOutClocks">Ler os relógios</string>

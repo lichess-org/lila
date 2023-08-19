@@ -28,7 +28,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
           disabled: !connected,
         },
       }),
-    ]
+    ],
   );
 }
 
@@ -76,7 +76,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
       // and save content
       storage.set(text);
       ctrl.sendTyping(contact);
-    })
+    }),
   );
 
   // restore previously saved content

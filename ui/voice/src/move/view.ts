@@ -7,7 +7,7 @@ export function settingNodes(
   colors: Prop<boolean>,
   clarity: Prop<number>,
   timer: Prop<number>,
-  redraw: () => void
+  redraw: () => void,
 ) {
   return [colorsSetting(colors, redraw), claritySetting(clarity, redraw), timerSetting(timer, redraw)];
 }
@@ -24,9 +24,9 @@ export function colorsSetting(colors: Prop<boolean>, redraw: () => void) {
             class: { active: colors() === (pref === 'Colors') },
             hook: bind('click', () => colors(pref === 'Colors'), redraw),
           },
-          pref
-        )
-      )
+          pref,
+        ),
+      ),
     ),
   ]);
 }

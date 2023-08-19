@@ -29,7 +29,7 @@ const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> =>
 
 const reload = (ctrl: SwissCtrl) =>
   json(
-    `/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`
+    `/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`,
   ).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
@@ -50,7 +50,7 @@ const readSheetMin = (str: string) =>
               g: s.slice(0, 8),
               o: s[8] == 'o',
               w: s[8] == 'w' ? true : s[8] == 'l' ? false : undefined,
-            }
+            },
       )
     : [];
 

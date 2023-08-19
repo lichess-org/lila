@@ -37,7 +37,7 @@ const expandUrls = (html: string) =>
 const expandGameIds = (html: string) =>
   html.replace(
     /\s#([\w]{8})($|[^\w-])/g,
-    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix
+    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix,
   );
 
 const expandTeamMessage = (html: string) =>
@@ -45,14 +45,14 @@ const expandTeamMessage = (html: string) =>
     teamMessageRegex,
     (_: string, url: string) =>
       `${expandLink(
-        url
-      )} <form action="${url}/subscribe" class="unsub" method="post"><button type="submit" class="button button-empty button-thin button-red">Unsubscribe from these messages</button></form>`
+        url,
+      )} <form action="${url}/subscribe" class="unsub" method="post"><button type="submit" class="button button-empty button-thin button-red">Unsubscribe from these messages</button></form>`,
   );
 
 export const enhance = (str: string) =>
   expandTeamMessage(expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str))))).replace(
     newLineRegex,
-    '<br>'
+    '<br>',
   );
 
 interface Expandable {
@@ -68,7 +68,7 @@ type LinkType = 'game';
 
 const domain = window.location.host;
 const gameRegex = new RegExp(
-  `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:(?:#)(\\d+))?$`
+  `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:(?:#)(\\d+))?$`,
 );
 const notGames = [
   'training',

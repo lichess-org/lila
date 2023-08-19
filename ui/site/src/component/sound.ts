@@ -223,7 +223,7 @@ export default new (class implements SoundI {
       this.ctx = makeAudioContext()!;
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     } else if (this.ctx?.state === 'suspended') this.ctx.resume();
-    $('body').off('click touchstart', this.primer);
+    $('body').off('click touchstart keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };
 })();
@@ -232,7 +232,10 @@ class Sound {
   node: GainNode;
   ctx: AudioContext;
 
-  constructor(ctx: AudioContext, readonly buffer: AudioBuffer) {
+  constructor(
+    ctx: AudioContext,
+    readonly buffer: AudioBuffer,
+  ) {
     this.rewire(ctx);
   }
 

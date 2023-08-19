@@ -124,7 +124,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
             uci: best,
             san: root.position(prev).unwrap(
               pos => makeSan(pos, parseUci(best!)!),
-              _ => '--'
+              _ => '--',
             ),
           }
         : undefined,
@@ -183,7 +183,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
         () => {
           if (!defined(root.node.tbhit)) root.node.tbhit = null;
           checkCeval();
-        }
+        },
       );
     else checkCeval();
   }

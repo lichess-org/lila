@@ -101,7 +101,7 @@ export async function initModule({ data, singlePerfName, perfIndex }: Opts) {
         .filter((v: any) => !singlePerfName || v.name === singlePerfName)
         .map((serie: any, i: number) => {
           const originalDatesAndRatings = serie.points.map((r: any) =>
-            singlePerfName && serie.name !== singlePerfName ? [] : [Date.UTC(r[0], r[1], r[2]), r[3]]
+            singlePerfName && serie.name !== singlePerfName ? [] : [Date.UTC(r[0], r[1], r[2]), r[3]],
           );
           return {
             name: serie.name,

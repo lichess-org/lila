@@ -32,7 +32,7 @@ export function ctrl(
   send: StudySocketSend,
   chapterConfig: (id: string) => Promise<StudyChapterConfig>,
   trans: Trans,
-  redraw: Redraw
+  redraw: Redraw,
 ): StudyChapterEditFormCtrl {
   const current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
 
@@ -115,7 +115,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   {
                     attrs: { for: 'chapter-name' },
                   },
-                  noarg('name')
+                  noarg('name'),
                 ),
                 h('input#chapter-name.form-control', {
                   attrs: {
@@ -132,7 +132,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                 }),
               ]),
               ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()]),
-            ]
+            ],
           ),
         ],
       })
@@ -159,13 +159,13 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           {
             attrs: { for: 'chapter-orientation' },
           },
-          noarg('orientation')
+          noarg('orientation'),
         ),
         h(
           'select#chapter-orientation.form-control',
           ['white', 'black'].map(function (color) {
             return option(color, data.orientation, noarg(color));
-          })
+          }),
         ),
       ]),
       h('div.form-group.form-half', [
@@ -174,13 +174,13 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           {
             attrs: { for: 'chapter-mode' },
           },
-          noarg('analysisMode')
+          noarg('analysisMode'),
         ),
         h(
           'select#chapter-mode.form-control',
           chapterForm.modeChoices.map(c => {
             return option(c[0], mode, noarg(c[1]));
-          })
+          }),
         ),
       ]),
     ]),
@@ -190,14 +190,14 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
         {
           attrs: { for: 'chapter-description' },
         },
-        noarg('pinnedChapterComment')
+        noarg('pinnedChapterComment'),
       ),
       h(
         'select#chapter-description.form-control',
         [
           ['', noarg('noPinnedComment')],
           ['1', noarg('rightUnderTheBoard')],
-        ].map(v => option(v[0], data.description ? '1' : '', v[1]))
+        ].map(v => option(v[0], data.description ? '1' : '', v[1])),
       ),
     ]),
     h('div.form-actions-secondary.destructive', [
@@ -209,11 +209,11 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
             _ => {
               if (confirm(noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
             },
-            ctrl.redraw
+            ctrl.redraw,
           ),
           attrs: { type: 'button', title: noarg('clearAllCommentsInThisChapter') },
         },
-        noarg('clearAnnotations')
+        noarg('clearAnnotations'),
       ),
       h(
         emptyRedButton,
@@ -223,11 +223,11 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
             _ => {
               if (confirm(noarg('clearVariations'))) ctrl.clearVariations(data.id);
             },
-            ctrl.redraw
+            ctrl.redraw,
           ),
           attrs: { type: 'button' },
         },
-        noarg('clearVariations')
+        noarg('clearVariations'),
       ),
     ]),
     h('div.form-actions', [
@@ -239,18 +239,18 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
             _ => {
               if (confirm(noarg('deleteThisChapter'))) ctrl.delete(data.id);
             },
-            ctrl.redraw
+            ctrl.redraw,
           ),
           attrs: { type: 'button', title: noarg('deleteThisChapter') },
         },
-        noarg('deleteChapter')
+        noarg('deleteChapter'),
       ),
       h(
         'button.button',
         {
           attrs: { type: 'submit' },
         },
-        noarg('saveChapter')
+        noarg('saveChapter'),
       ),
     ]),
   ];

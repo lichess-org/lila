@@ -18,7 +18,7 @@ db.f_categ
           nbTopicsTroll: 1,
           nbPostsTroll: 1,
         },
-      }
+      },
     );
     db.f_categ.update(
       {
@@ -32,6 +32,6 @@ db.f_categ
           nbTopicsTroll: NumberInt(o.nbTopicsTroll),
           nbPostsTroll: NumberInt(o.nbPostsTroll),
         },
-      }
+      },
     );
   });

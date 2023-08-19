@@ -50,7 +50,7 @@ declare namespace chessground {
           viewOnly: boolean;
           minimalDom: boolean;
         }
-      >
+      >,
     ): void;
     /** change the view angle */
     toggleOrientation(): void;

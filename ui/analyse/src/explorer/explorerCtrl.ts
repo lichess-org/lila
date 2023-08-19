@@ -1,7 +1,7 @@
 import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
-import { fenColor } from 'common/mini-game';
+import { fenColor } from 'common/mini-board';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
@@ -60,7 +60,11 @@ export default class ExplorerCtrl {
   private abortController: AbortController | undefined;
   private cache: Dictionary<ExplorerData> = {};
 
-  constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly opts: ExplorerOpts,
+    previous?: ExplorerCtrl,
+  ) {
     this.allowed = prop(previous ? previous.allowed() : true);
     this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
@@ -114,7 +118,6 @@ export default class ExplorerCtrl {
           this.root.redraw();
         }
       };
-      console.log(this);
       this.abortController?.abort();
       this.abortController = new AbortController();
       if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))
@@ -135,16 +138,16 @@ export default class ExplorerCtrl {
                 withGames: this.withGames,
               },
               processData,
-              this.abortController.signal
+              this.abortController.signal,
             )
             .catch(onError)
-            .then(_ => true)
+            .then(_ => true),
         );
         this.lastStream.promise.then(() => this.root.redraw());
       }
     },
     250,
-    true
+    true,
   );
 
   private empty: OpeningData = {
@@ -194,6 +197,7 @@ export default class ExplorerCtrl {
     }
   };
   setHovering = (fen: Fen, uci: Uci | null) => {
+    this.root.fork.hover(uci);
     this.hovering(uci ? { fen, uci } : null);
     this.root.setAutoShapes();
   };
@@ -214,7 +218,7 @@ export default class ExplorerCtrl {
         play: [],
         fen,
       },
-      deferred.resolve
+      deferred.resolve,
     );
     return await deferred.promise;
   };

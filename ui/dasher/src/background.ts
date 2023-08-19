@@ -66,7 +66,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
             method: 'post',
           })
           .then(reloadAllTheThings, announceFail);
-      }
+      },
     ),
     getImage: () => data.image,
     setImage(i: string) {
@@ -100,9 +100,9 @@ export function view(ctrl: BackgroundCtrl): VNode {
             attrs: { 'data-icon': licon.Checkmark, title: bg.title || '', type: 'button' },
             hook: bind('click', () => ctrl.set(bg.key)),
           },
-          bg.name
+          bg.name,
         );
-      })
+      }),
     ),
     cur !== 'transp' ? null : ctrl.data.gallery ? galleryInput(ctrl) : imageInput(ctrl),
   ]);
@@ -130,7 +130,7 @@ function imageInput(ctrl: BackgroundCtrl) {
                 url.length <= 400
               )
                 ctrl.setImage(url);
-            }, 300)
+            }, 300),
           );
         },
       },
@@ -174,7 +174,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     bgData
       ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
       : $('head').append(
-          '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>'
+          '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>',
         );
   }
 }
@@ -216,8 +216,8 @@ function galleryInput(ctrl: BackgroundCtrl) {
           return h(`div#${urlId(assetUrl)}${divClass}`, {
             hook: bind('click', () => setImg(assetUrl)),
           });
-        })
-      )
+        }),
+      ),
     ),
     h('span#url', [
       h('label', 'URL'),
@@ -226,8 +226,8 @@ function galleryInput(ctrl: BackgroundCtrl) {
         hook: onInsert((el: HTMLInputElement) =>
           $(el).on(
             'change keyup paste',
-            debounce(() => setImg(el.value.trim()), 300)
-          )
+            debounce(() => setImg(el.value.trim()), 300),
+          ),
         ),
       }),
     ]),

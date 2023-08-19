@@ -4,9 +4,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "types": ["lichess", "web", "cash", "dom-screen-wake-lock"],
+    "types": ["lichess", "web", "cash"],
     "composite": true,
     "incremental": true
-  },
-  "isolatedModules": true
+  }
 }
