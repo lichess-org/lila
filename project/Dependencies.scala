@@ -20,13 +20,13 @@ object Dependencies {
   val chess       = "org.lichess"                  %% "scalachess"                      % "15.6.5"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.1"
+  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.2"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.19.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.5.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.6.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.96.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M8" % Test

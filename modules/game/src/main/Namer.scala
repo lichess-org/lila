@@ -14,11 +14,11 @@ object Namer:
       playerTextUser(player, _, withRating)
     }
 
-  def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
+  private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
     player.aiLevel.fold(
       user.fold(player.name | "Anon.") { u =>
-        player.rating.ifTrue(withRating).fold(u.titleName) { r =>
-          s"${u.titleName} ($r)"
+        ratingString(player).ifTrue(withRating).fold(u.titleName) { rating =>
+          s"${u.titleName} ($rating)"
         }
       }
     ) { level =>
