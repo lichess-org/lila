@@ -145,12 +145,8 @@ export function maybeShowShiftKeyHelp() {
     ([, html]) => {
       $('.cg-wrap').append($(html).attr('id', 'analyse-shift-key-tooltip'));
       $(document).on('mousedown keydown wheel', () => {
-        setTimeout(() => {
-          $(document).off('mousedown keydown wheel');
-          $('#analyse-shift-key-tooltip').addClass('fade-out');
-
-          setTimeout(() => $('#analyse-shift-key-tooltip').remove(), 500);
-        }, 700);
+        $(document).off('mousedown keydown wheel');
+        $('#analyse-shift-key-tooltip').remove();
       });
     },
   );
