@@ -9,7 +9,7 @@
   <string name="yourTurn">Đến lượt bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
-  <string name="strength">Độ mạnh</string>
+  <string name="strength">Sức mạnh</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
   <string name="chat">Trò chuyện</string>
   <string name="resign">Bỏ cuộc</string>
@@ -88,6 +88,7 @@
   <string name="masterDbExplanation">Hai triệu ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến năm %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
+	
   </plurals>
   <string name="dtzWithRounding">DTZ50\" được làm tròn, dựa vào số nước đi quân cho tới nước bắt quân hoặc đi tốt tiếp theo</string>
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
@@ -152,7 +153,7 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s Đánh dấu</item>
-  </plurals>
+  </plurals
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
