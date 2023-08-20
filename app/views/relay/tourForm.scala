@@ -35,7 +35,7 @@ object tourForm:
       postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
         inner(form),
         form3.actions(
-          a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(trans.cancel()),
+          a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),
           form3.submit(trans.apply())
         )
       ),
