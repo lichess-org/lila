@@ -153,7 +153,7 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s Đánh dấu</item>
-  </plurals
+  </plurals>
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
