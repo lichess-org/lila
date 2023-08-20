@@ -113,7 +113,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 此外，随着时间的推移，置信区间将会逐步增大。这使你获得/损失的分值能够更快速地匹配你在此段时间内棋力的变化。</string>
   <string name="whatIsProvisionalRating">为什么在等级分旁边有一个问号 (?) ？</string>
   <string name="provisionalRatingExplanation">问号标记表示等级分是暂时的。原因包括：</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中与%1$s完成足够多的评分棋局。</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">用户还没有在变体中与%1$s完成足够多的排位棋局。</string>
   <string name="similarOpponents">相近实力的对手</string>
   <string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
   <string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示Glicko-2标准差大于110。标准差是等级分的可靠性，标准差越低，等级分就越稳定。</string>
