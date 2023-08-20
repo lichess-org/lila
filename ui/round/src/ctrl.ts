@@ -684,7 +684,7 @@ export default class RoundController {
     } else if (this.data.opponent.proposingTakeback)
       return {
         prompt: this.noarg('yourOpponentProposesATakeback'),
-        yes: { action: () => this.socket.send('takeback-yes'), icon: licon.Back },
+        yes: { action: this.takebackYes, icon: licon.Back },
         no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.data.opponent.offeringDraw)
