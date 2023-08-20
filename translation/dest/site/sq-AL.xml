@@ -706,6 +706,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="yourPerfTypeRatingIsRating">Vlerësimi juaj në %1$s është %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ju jeni më mirë se %1$s nga %2$s lojtarë.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s është më mirë se %2$s nga %3$s lojtarë.</string>
+  <string name="betterThanPercentPlayers">Më mirë se %1$s nga %2$s lojtarë gjithsej</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">S’keni një vlerësim të caktuar në %s.</string>
   <string name="yourRating">Vlerësimi juaj</string>
   <string name="cumulative">Gjithsej</string>
