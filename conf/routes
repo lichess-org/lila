@@ -32,6 +32,7 @@ GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Main.movedPermanently(to = "/api/tv/channels")
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey)
+GET   /tv/:chanKey/frame               controllers.Tv.frameChannel(chanKey)
 GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId, color)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)

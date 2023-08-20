@@ -103,6 +103,14 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
           .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
       else apiC.sourceToNdJson(source)
     }
+  
+  def frameChannel(chanKey: String) = Anon:
+    Channel.byKey.get(chanKey) so { channel =>
+      env.tv.tv.getChannelGame(channel).flatMap:
+        _.fold(notFoundText()): game =>
+          InEmbedContext:
+            Ok(views.html.tv.embed(Pov naturalOrientation game))
+    }
 
   def frame = Anon:
     env.tv.tv.getBestGame.flatMap:
