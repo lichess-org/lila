@@ -43,7 +43,7 @@
   <string name="inviteDesc4">从不向任意玩家发送未经请求的邀请。</string>
   <string name="createANewLichessAccount">创建一个新的 Lichess 账户</string>
   <string name="createDesc1">如果学生还没有 Lichess 帐户，您可以在此为他们创建一个。</string>
-  <string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
+  <string name="createDesc2">无需邮箱地址。密码将自动生成，将其发给学生以让他们登录。</string>
   <string name="createDesc3">重要：学生不得拥有多个帐户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
   <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
