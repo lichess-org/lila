@@ -71,7 +71,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
                   h('th', '' + round),
                   h('td.outcome', { attrs: { colspan: 3 } }, p),
                   h('td', p == 'absent' ? '-' : p == 'bye' ? '1' : '½'),
-                ]
+                ],
               );
             const res = result(p);
             return h(
@@ -89,12 +89,12 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
                 ctrl.opts.showRatings ? h('td', '' + p.rating) : null,
                 h('td.is.color-icon.' + (p.c ? 'white' : 'black')),
                 h('td', res),
-              ]
+              ],
             );
-          })
+          }),
         ),
       ]),
-    ]
+    ],
   );
 }
 

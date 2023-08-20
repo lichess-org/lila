@@ -109,7 +109,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
       $('<input type="hidden">')
         .attr('name', name)
         .val($(`input[name=${name}]:checked`).val())
-        .appendTo($currencyForm)
+        .appendTo($currencyForm),
     );
     ($currencyForm[0] as HTMLFormElement).submit();
   });
@@ -199,7 +199,7 @@ function stripeStart(
   $checkout: Cash,
   publicKey: string,
   pricing: Pricing,
-  getAmount: () => number | undefined
+  getAmount: () => number | undefined,
 ) {
   const stripe = window.Stripe(publicKey);
   $checkout.find('.service .stripe').on('click', function () {

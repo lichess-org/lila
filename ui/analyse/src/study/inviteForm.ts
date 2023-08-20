@@ -24,7 +24,7 @@ export function makeCtrl(
   members: Prop<StudyMemberMap>,
   setTab: () => void,
   redraw: () => void,
-  trans: Trans
+  trans: Trans,
 ): StudyInviteFormCtrl {
   const open = prop(false),
     spectators = prop<string[]>([]);
@@ -70,7 +70,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
       h(
         'p.info',
         { attrs: { 'data-icon': licon.InfoCircle } },
-        ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')
+        ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow'),
       ),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
@@ -90,7 +90,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                   ctrl.redraw();
                 },
               })
-              .then(() => input.focus())
+              .then(() => input.focus()),
           ),
         }),
       ]),
@@ -106,9 +106,9 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                     ctrl.invite(username);
                   }),
                 },
-                username
+                username,
               );
-            })
+            }),
           )
         : undefined,
     ],

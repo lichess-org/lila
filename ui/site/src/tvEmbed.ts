@@ -1,7 +1,4 @@
-import { Chessground } from 'chessground';
 import * as miniGame from './component/mini-game';
-
-window.Chessground = Chessground;
 
 function resize() {
   const el = document.querySelector('#featured-game') as HTMLElement;
@@ -26,7 +23,7 @@ window.onload = () => {
           miniGame.update(findGame(), msg.d);
         }
       },
-      false
+      false,
     );
   resize();
   window.addEventListener('resize', resize);

@@ -14,7 +14,7 @@
     <item quantity="other">%s óra múlva</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">%s napon belül</item>
+    <item quantity="one">%s nap múlva</item>
     <item quantity="other">%s nap múlva</item>
   </plurals>
   <plurals name="inNbWeeks">

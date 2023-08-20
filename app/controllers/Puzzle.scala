@@ -277,16 +277,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using Context) =
-    negotiate(
-      html = Ok.pageAsync:
-        env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
-      ,
-      json = JsonOk:
-        env.puzzle.api.angles.map(lila.puzzle.JsonView.angles)
-    )
+    env.puzzle.api.angles.flatMap: angles =>
+      negotiate(
+        html = Ok.page(views.html.puzzle.theme.list(angles)),
+        json = Ok(lila.puzzle.JsonView.angles(angles))
+      )
 
   def openings(order: String) = Open:
-    env.puzzle.opening.collection flatMap { collection =>
+    env.puzzle.opening.collection.flatMap: collection =>
       ctx.me
         .so: me =>
           env.insight.api.insightUser(me) map {
@@ -295,8 +293,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             }
           }
         .flatMap: mine =>
-          Ok.page(views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order)))
-    }
+          negotiate(
+            html = Ok.page:
+              views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
+            ,
+            json = Ok(lila.puzzle.JsonView.openings(collection, mine))
+          )
 
   def show(angleOrId: String) = Open(serveShow(angleOrId))
   def showLang(lang: String, angleOrId: String) =
@@ -498,7 +500,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.page(html.site.helpModal.puzzle)
+    Ok.page(html.site.help.puzzle)
 
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>

@@ -231,3 +231,24 @@ object JsonView:
                 "count" -> count
               )
   )
+
+  def openings(all: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine])(using Lang): JsObject =
+    Json.obj(
+      "openings" ->
+        all
+          .treeList(lila.puzzle.PuzzleOpening.Order.Popular)
+          .map: (fam, ops) =>
+            Json.obj(
+              "family" -> Json.obj(
+                "key"   -> fam.family.key,
+                "name"  -> fam.family.name,
+                "count" -> fam.count
+              ),
+              "openings" -> ops.map: op =>
+                Json.obj(
+                  "key"   -> op.opening.key,
+                  "name"  -> op.opening.variation,
+                  "count" -> op.count
+                )
+            )
+    )

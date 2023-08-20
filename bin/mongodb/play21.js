@@ -22,7 +22,7 @@ db.f_topic.find().forEach(function (topic) {
         nbPostsTroll: topic['nbPosts'],
         lastPostIdTroll: topic['lastPostId'],
       },
-    }
+    },
   );
 });
 
@@ -36,7 +36,7 @@ db.f_categ.find().forEach(function (categ) {
         nbPostsTroll: categ['nbPosts'],
         lastPostIdTroll: categ['lastPostId'],
       },
-    }
+    },
   );
 });
 
@@ -44,7 +44,7 @@ print('remove useless author names in forum posts');
 db.f_post.update(
   { author: { $exists: true }, userId: { $exists: true } },
   { $unset: { author: true } },
-  { multi: true }
+  { multi: true },
 );
 
 print('mark all forum posts as not troll');

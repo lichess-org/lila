@@ -18,7 +18,7 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
   const removeTableExpl = (html: string) =>
     html.replace(
       /For explanation of theory tables see theory table and for notation see algebraic notation.?/,
-      ''
+      '',
     );
   const removeContributing = (html: string) =>
     html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');

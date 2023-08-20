@@ -32,7 +32,7 @@ export async function initModule() {
     toggle,
     {
       attributes: true,
-    }
+    },
   );
 
   return ctrl;

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
-import { renderClock } from 'common/mini-game';
+import { renderClock } from 'common/mini-board';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
@@ -36,7 +36,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
           [
             h('span.name', player.title ? [h('span.utitle', player.title), ' ', player.name] : [player.name]),
             ...(ctrl.opts.showRatings ? [' ', h('span.rating', player.rating)] : []),
-          ]
+          ],
         ),
         game.clock
           ? renderClock(opposite(game.orient), game.clock[opposite(game.orient)])
@@ -53,6 +53,6 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
           ? renderClock(game.orient, game.clock[game.orient])
           : h('span.mini-game__result', game.winner ? (game.winner == game.orient ? 1 : 0) : '½'),
       ]),
-    ]
+    ],
   );
 };

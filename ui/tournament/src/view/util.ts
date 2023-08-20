@@ -14,7 +14,7 @@ export const player = (
   asLink: boolean,
   withRating: boolean,
   defender = false,
-  leader = false
+  leader = false,
 ) =>
   h(
     'a.ulpt.user-link' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
@@ -28,10 +28,10 @@ export const player = (
       h(
         'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
         defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
-        playerName(p)
+        playerName(p),
       ),
       withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
-    ]
+    ],
   );
 
 export function numberRow(name: string, value: number): VNode;
@@ -48,7 +48,7 @@ export function numberRow(name: string, value: any, typ?: string) {
         ? value[1] > 0
           ? ratio2percent(value[0] / value[1])
           : 0
-        : numberFormat(value)
+        : numberFormat(value),
     ),
   ]);
 }

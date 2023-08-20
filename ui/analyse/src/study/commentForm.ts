@@ -126,6 +126,6 @@ export function view(root: AnalyseCtrl): VNode {
         }),
       ]),
       h('div.analyse__wiki.study__wiki.force-ltr'),
-    ]
+    ],
   );
 }

@@ -75,7 +75,7 @@ trait ResponseBuilder(using Executor)
       .dmap(_.withHeaders(VARY -> "Accept"))
 
   def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if HTTPRequest.acceptsJson(ctx.req)
+    if HTTPRequest.acceptsJson(ctx.req) || ctx.isOAuth
     then json.dmap(_.withHeaders(VARY -> "Accept").as(JSON))
     else html.dmap(_.withHeaders(VARY -> "Accept"))
 

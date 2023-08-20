@@ -42,8 +42,7 @@ object vsBot:
           url = s"$netBaseUrl${controllers.routes.LocalPlay.vsBot}"
         )
         .some,
-      zoomable = true,
-      chessground = false
+      zoomable = true
     ) {
       main(cls := "round")(
         st.aside(cls := "round__side")(

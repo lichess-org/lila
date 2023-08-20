@@ -13,8 +13,6 @@
   "license": "AGPL-3.0-or-later",
   "types": "dist/interfaces.d.ts",
   "dependencies": {
-    "@types/cash": "workspace:*",
-    "@types/lichess": "workspace:*",
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",

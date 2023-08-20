@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">対局中のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
   <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>

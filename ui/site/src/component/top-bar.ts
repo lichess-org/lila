@@ -16,7 +16,7 @@ export default function () {
     $('#topnav > section > a').removeAttr('href');
 
   $('#topnav-toggle').on('change', e =>
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
+    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked),
   );
 
   $('#top').on('click', '.toggle', function (this: HTMLElement) {

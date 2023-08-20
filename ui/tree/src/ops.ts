@@ -5,7 +5,7 @@ export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T)
 
 export function findInMainline(
   fromNode: Tree.Node,
-  predicate: (node: Tree.Node) => boolean
+  predicate: (node: Tree.Node) => boolean,
 ): Tree.Node | undefined {
   const findFrom = function (node: Tree.Node): Tree.Node | undefined {
     if (predicate(node)) return node;

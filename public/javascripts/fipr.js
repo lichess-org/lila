@@ -163,7 +163,7 @@ window.fipr = (function () {
                 } catch (t) {
                   return n.ERROR;
                 }
-              }
+              },
             ))
           : e.push(n.NOT_AVAILABLE),
         navigator.plugins && (e = e.concat(i(n))),
@@ -286,13 +286,13 @@ window.fipr = (function () {
         a = o.createShader(o.VERTEX_SHADER);
       o.shaderSource(
         a,
-        'attribute vec2 attrVertex;varying vec2 varyinTexCoordinate;uniform vec2 uniformOffset;void main(){varyinTexCoordinate=attrVertex+uniformOffset;gl_Position=vec4(attrVertex,0,1);}'
+        'attribute vec2 attrVertex;varying vec2 varyinTexCoordinate;uniform vec2 uniformOffset;void main(){varyinTexCoordinate=attrVertex+uniformOffset;gl_Position=vec4(attrVertex,0,1);}',
       ),
         o.compileShader(a);
       var i = o.createShader(o.FRAGMENT_SHADER);
       o.shaderSource(
         i,
-        'precision mediump float;varying vec2 varyinTexCoordinate;void main() {gl_FragColor=vec4(varyinTexCoordinate,0,1);}'
+        'precision mediump float;varying vec2 varyinTexCoordinate;void main() {gl_FragColor=vec4(varyinTexCoordinate,0,1);}',
       ),
         o.compileShader(i),
         o.attachShader(r, a),
@@ -328,10 +328,10 @@ window.fipr = (function () {
                 return 0 === n && (n = 2), n;
               }
               return null;
-            })(o)
+            })(o),
         ),
         c.push(
-          'webgl max combined texture image units:' + o.getParameter(o.MAX_COMBINED_TEXTURE_IMAGE_UNITS)
+          'webgl max combined texture image units:' + o.getParameter(o.MAX_COMBINED_TEXTURE_IMAGE_UNITS),
         ),
         c.push('webgl max cube map texture size:' + o.getParameter(o.MAX_CUBE_MAP_TEXTURE_SIZE)),
         c.push('webgl max fragment uniform vectors:' + o.getParameter(o.MAX_FRAGMENT_UNIFORM_VECTORS)),
@@ -588,7 +588,7 @@ window.fipr = (function () {
               navigator.userLanguage ||
               navigator.browserLanguage ||
               navigator.systemLanguage ||
-              t.NOT_AVAILABLE
+              t.NOT_AVAILABLE,
           );
         },
       },
@@ -903,7 +903,7 @@ window.fipr = (function () {
               o[e[0]] !== undefined &&
                 'function' == typeof o[e[0]].setValueAtTime &&
                 o[e[0]].setValueAtTime(e[1], a.currentTime);
-            }
+            },
           ),
             i.connect(o),
             o.connect(a.destination),
@@ -914,7 +914,7 @@ window.fipr = (function () {
               console.warn(
                 'Audio fingerprint timed out. Please report bug at https://github.com/Valve/fingerprintjs2 with your user agent: "' +
                   navigator.userAgent +
-                  '".'
+                  '".',
               ),
               (a.oncomplete = function () {}),
               (a = null),
@@ -1092,5 +1092,5 @@ lichess.load.then(() =>
       };
     if (storage.get()) send(storage.get());
     else fipr.get(c => send(fipr.x64hash128(c.map(x => x.value).join(''), 31)));
-  }, 1000)
+  }, 1000),
 );

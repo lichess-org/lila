@@ -34,8 +34,8 @@ export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
               fill: 'none',
             },
           },
-          pathAttrs.map(attrs => h('path', { attrs }))
+          pathAttrs.map(attrs => h('path', { attrs })),
         ),
       ]),
-    ]
+    ],
   );

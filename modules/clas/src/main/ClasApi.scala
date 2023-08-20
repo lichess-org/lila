@@ -316,9 +316,8 @@ ${clas.desc}""",
           .void
           .flatMap: _ =>
             sendInviteMessage(teacher, user, clas, invite)
-          .recover {
+          .recover:
             lila.db.recoverDuplicateKey(_ => Found)
-          }
       }
 
     def get(id: ClasInvite.Id) = colls.invite.one[ClasInvite]($id(id))

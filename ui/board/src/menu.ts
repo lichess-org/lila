@@ -20,7 +20,7 @@ export const menu = (
   trans: Trans,
   redraw: Redraw,
   toggle: Toggle,
-  content: (menu: BoardMenu) => MaybeVNodes
+  content: (menu: BoardMenu) => MaybeVNodes,
 ): MaybeVNode =>
   toggle()
     ? h(
@@ -28,12 +28,15 @@ export const menu = (
         {
           hook: onInsert(onClickAway(() => toggle(false))),
         },
-        content(new BoardMenu(trans, redraw))
+        content(new BoardMenu(trans, redraw)),
       )
     : undefined;
 
 export class BoardMenu {
-  constructor(readonly trans: Trans, readonly redraw: Redraw) {}
+  constructor(
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+  ) {}
 
   flip = (name: string, active: boolean, onChange: () => void) =>
     h(
@@ -46,7 +49,7 @@ export class BoardMenu {
         },
         hook: onInsert(bindMobileMousedown(onChange)),
       },
-      name
+      name,
     );
 
   zenMode = (enabled = true) =>

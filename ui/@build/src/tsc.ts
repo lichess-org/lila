@@ -16,7 +16,7 @@ export async function tsc(): Promise<void> {
 
     const tsc = cps.spawn(
       'tsc',
-      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force'])
+      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']),
     );
 
     env.log(`Checking typescript`, { ctx: 'tsc' });

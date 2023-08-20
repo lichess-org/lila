@@ -23,8 +23,8 @@ print(
       },
       $unset: { p1: true },
     },
-    multi
-  ).nModified + ' done'
+    multi,
+  ).nModified + ' done',
 );
 
 print('Set white games as anon');
@@ -40,8 +40,8 @@ print(
       },
       $unset: { p0: true },
     },
-    multi
-  ).nModified + ' done'
+    multi,
+  ).nModified + ' done',
 );
 print('done');
 
@@ -49,42 +49,42 @@ print('Delete old PMs');
 print(
   db.m_thread.remove({
     visibleByUserIds: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete new PMs');
 print(
   db.msg_thread.remove({
     users: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete mod log');
 print(
   db.modlog.remove({
     user: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete rating history');
 print(
   db.history3.remove({
     _id: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete bookmarks');
 print(
   db.bookmark.remove({
     u: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete learn progress');
 print(
   db.learn_progress.remove({
     _id: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete perf stats');
@@ -99,70 +99,70 @@ print('Delete prefs');
 print(
   db.pref.remove({
     _id: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete relations from');
 print(
   db.relation.remove({
     u1: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete relations to');
 print(
   db.relation.remove({
     u2: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete security data');
 print(
   db.security.remove({
     user: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete team membership');
 print(
   db.team_member.remove({
     user: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete playbans');
 print(
   db.playban.remove({
     _id: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete perf stats');
 print(
   db.perf_stat.remove({
     _id: new RegExp('^' + userId + '/'),
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete activity');
 print(
   db.activity.remove({
     _id: new RegExp('^' + userId + ':'),
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete assessments');
 print(
   db.player_assessment.remove({
     userId: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('Delete user');
 print(
   db.user4.remove({
     _id: userId,
-  }).nRemoved + ' done'
+  }).nRemoved + ' done',
 );
 
 print('\n complete.');

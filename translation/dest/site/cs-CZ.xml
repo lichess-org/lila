@@ -97,11 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' s zaokrouhlením na základě počtu půltahů do dalšího braní nebo tahu pěšcem</string>
   <string name="noGameFound">Žádná hra nenalezena</string>
+  <string name="maxDepthReached">Maximální hloubka dosažena!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openings">Zahájení</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
   <string name="openingEndgameExplorer">Průzkumník zahájení/koncovek</string>
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Hrát první tah průzkumníka zahájení/koncovek</string>
   <string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
   <string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
   <string name="winOr50MovesByPriorMistake">Výhra nebo 50 tahů po předchozí chybě</string>
@@ -123,6 +125,7 @@
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
+  <string name="engineManager">Správce enginu</string>
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepřesnost</string>
@@ -386,6 +389,7 @@
   </plurals>
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
+  <string name="noDrawBeforeSwissLimit">Nemůžete remízovat dříve, než se odehraje 30 tahů švýcarského turnaje.</string>
   <string name="thematic">Tématický</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s hodnocená hra</item>
@@ -554,7 +558,7 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo vlajka</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vlajka</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
@@ -744,6 +748,11 @@
   <string name="keyGoToStartOrEnd">běžte na začátek/konec</string>
   <string name="keyShowOrHideComments">zobrazte/skryjte komentáře</string>
   <string name="keyEnterOrExitVariation">Zobraz variantu</string>
+  <string name="keyRequestComputerAnalysis">Vyžádejte si počítačovou analýzu, poučte se ze svých chyb</string>
+  <string name="keyNextLearnFromYourMistakes">Další (poučit se z chyb)</string>
+  <string name="keyNextBlunder">Další hrubá chyba</string>
+  <string name="keyNextMistake">Další chyba</string>
+  <string name="keyNextInaccuracy">Další nepřesnost</string>
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachové turnaje nabízejí různé časové možnosti a varianty</string>
   <string name="tournamentHomeDescription">Zahrajte si rychlý šachový turnaj! Připojte se k oficiálnímu plánovanému turnaji, nebo si vytvořte vlastní. Bullet, Blitz, Klasické, Chess960(Fisherovky), Král v centru, Tři šachy a další možnosti jsou k dispozici pro nekonečnou šachovou zábavu.</string>
@@ -761,6 +770,7 @@
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnocení je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jste lepší než %1$s z %2$s hráčů.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je lepší než %2$s z hráčů %3$s.</string>
+  <string name="betterThanPercentPlayers">Lepší než %1$s hráčů %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte stanovené %s hodnocení.</string>
   <string name="yourRating">Tvoje hodnocení</string>
   <string name="cumulative">Kumulativně</string>
@@ -845,6 +855,7 @@
   <string name="invalidFen">Neplatný formát FEN</string>
   <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
+  <string name="notificationsX">Oznámení: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na první tah</item>
@@ -945,6 +956,8 @@
   <string name="useTheReportForm">použijte nahlašovací formulář</string>
   <string name="toRequestSupport">Chcete-li požádat o podporu, %1$s</string>
   <string name="tryTheContactPage">vyzkoušejte stránku s kontakty</string>
+  <string name="makeSureToRead">Určitě si přečtěte %1$s</string>
+  <string name="theForumEtiquette">pravidla chování ve fórech</string>
   <string name="thisTopicIsArchived">Toto téma se archivovalo a nelze na něj dále odpovídat.</string>
   <string name="joinTheTeamXToPost">Připojte se k %1$s, chcete-li přidávat příspěvky na toto fórum</string>
   <string name="teamNamedX">%1$s tým</string>

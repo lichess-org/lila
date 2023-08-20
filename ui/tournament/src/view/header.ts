@@ -33,7 +33,7 @@ function clock(d: TournamentData): VNode | undefined {
             insert(vnode) {
               (vnode.elm as HTMLElement).setAttribute(
                 'datetime',
-                '' + (Date.now() + d.secondsToStart! * 1000)
+                '' + (Date.now() + d.secondsToStart! * 1000),
               );
             },
           },
@@ -72,7 +72,7 @@ function title(ctrl: TournamentController) {
         {
           attrs: { href: '/tournament/shields' },
         },
-        perfIcons[d.perf.key]
+        perfIcons[d.perf.key],
       ),
       d.fullName,
     ]);
@@ -89,12 +89,12 @@ function title(ctrl: TournamentController) {
                 rel: 'noopener',
               },
             },
-            d.greatPlayer.name
+            d.greatPlayer.name,
           ),
           ' Arena',
         ]
       : [d.fullName]
-    ).concat(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : [])
+    ).concat(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : []),
   );
 }
 

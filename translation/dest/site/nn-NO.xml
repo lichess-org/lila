@@ -403,7 +403,7 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
-  <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN-fila via ein studie.</string>
+  <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN\'en via ein studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte parti</item>
@@ -475,7 +475,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
-  <string name="resume">Hald fram</string>
+  <string name="resume">Fortsett</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="berserkRate">Berserkfrekvens</string>
@@ -505,7 +505,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
   <string name="biography">Biografi</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="oneUrlPerLine">Ein URL per line.</string>
@@ -707,7 +707,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="yourPerfTypeRatingIsRating">Ratinga di i %1$s er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betre enn %2$s av %3$s-spelarane.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Betre enn %1$s av %2$s spelarar</string>
+  <string name="betterThanPercentPlayers">Betre enn %1$s av %2$s spelarar</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
   <string name="yourRating">Ratinga di i er</string>
   <string name="cumulative">Akkumulert</string>

@@ -425,7 +425,6 @@
   <string name="firstName">ఇచ్చిన పేరు</string>
   <string name="lastName">ఇంటిపేరు</string>
   <string name="biography">జీవిత చరిత్ర</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">మీ దేశం లేదా జెండా</string>
   <string name="thankYou">ధన్యవాదాలు!</string>
   <string name="socialMediaLinks">సోషల్ మీడియా లింక్‌లు</string>
   <string name="oneUrlPerLine">పంక్తికి ఒక URL.</string>

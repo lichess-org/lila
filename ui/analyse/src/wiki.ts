@@ -22,7 +22,7 @@ export default function wikiTheory(): WikiTheory {
   const removeTableExpl = (html: string) =>
     html.replace(
       /For explanation of theory tables see theory table and for notation see algebraic notation.?/,
-      ''
+      '',
     );
   const removeContributing = (html: string) =>
     html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');
@@ -68,7 +68,7 @@ export default function wikiTheory(): WikiTheory {
       }
     },
     500,
-    true
+    true,
   );
 }
 

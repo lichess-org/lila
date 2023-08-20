@@ -22,8 +22,7 @@ object botVsBot:
           url = s"$netBaseUrl${controllers.routes.LocalPlay.botVsBot}"
         )
         .some,
-      zoomable = true,
-      chessground = false
+      zoomable = true
     ) {
       main
     }

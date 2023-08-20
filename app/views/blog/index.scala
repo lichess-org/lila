@@ -2,7 +2,7 @@ package views.html.blog
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.blog.MiniPost
+import lila.blog.{ BlogPost, MiniPost }
 import lila.common.paginator.Paginator
 
 import controllers.routes
@@ -10,7 +10,7 @@ import controllers.routes
 object index:
 
   def apply(
-      pager: Paginator[io.prismic.Document]
+      pager: Paginator[BlogPost]
   )(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
 
     val primaryPost = (pager.currentPage == 1).so(pager.currentPageResults.headOption)
@@ -35,7 +35,7 @@ object index:
             )
           },
           div(cls := "blog-cards box__pad list infinite-scroll")(
-            pager.currentPageResults flatMap MiniPost.fromDocument("blog", "wide") map { post =>
+            pager.currentPageResults flatMap MiniPost.apply map { post =>
               primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
             },
             pagerNext(pager, np => routes.Blog.index(np).url)
@@ -61,9 +61,7 @@ object index:
       )
     )
 
-  private def latestPost(
-      doc: io.prismic.Document
-  )(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
+  private def latestPost(doc: BlogPost)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
     st.article(
       doc.getText("blog.title").map { title =>
         h2(a(href := routes.Blog.show(doc.id, doc.slug, prismic.maybeRef))(title))

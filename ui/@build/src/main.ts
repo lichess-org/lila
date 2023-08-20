@@ -174,8 +174,8 @@ class Env {
       console.log(
         `${prefix ? prefix + ' - ' : ''}${
           error ? esc(line, codes.error) : warn ? esc(line, codes.warn) : line
-        }`
-      )
+        }`,
+      ),
     );
   }
   done(code: number, ctx: 'sass' | 'tsc' | 'esbuild'): void {
@@ -188,7 +188,7 @@ class Env {
         (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
       {
         ctx: ctx,
-      }
+      },
     );
 
     if (allDone) {

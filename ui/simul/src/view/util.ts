@@ -18,7 +18,7 @@ export function player(p: Player, ctrl: SimulCtrl) {
       h(`i.line${p.patron ? '.patron' : ''}`),
       h('span.name', userName(p)),
       ctrl.opts.showRatings ? h('em', ` ${p.rating}${p.provisional ? '?' : ''}`) : null,
-    ]
+    ],
   );
 }
 

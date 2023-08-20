@@ -29,7 +29,7 @@ export function readDests(lines?: string): Dests | null {
         line
           .slice(1)
           .split('')
-          .map(c => uciChar[c])
+          .map(c => uciChar[c]),
       );
     }
   return dests;
@@ -48,14 +48,14 @@ export const altCastles = {
 };
 
 // we must strive to redefine roles and promotions in each and every module
-export const src = (uci: Uci) => uci.slice(0, 2) as Key;
-export const dest = (uci: Uci) => uci.slice(2, 4) as Key;
+export const from = (uci: Uci) => uci.slice(0, 2) as Key;
+export const to = (uci: Uci) => uci.slice(2, 4) as Key;
 
 export const Roles = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'] as const;
-export type Role = typeof Roles[number];
+export type Role = (typeof Roles)[number];
 
 export const RoleChars = ['K', 'Q', 'R', 'B', 'N', 'P'] as const;
-export type RoleChar = typeof RoleChars[number];
+export type RoleChar = (typeof RoleChars)[number];
 
 export const roleChar = (role: string) =>
   ({
@@ -65,7 +65,7 @@ export const roleChar = (role: string) =>
     bishop: 'B',
     knight: 'N',
     pawn: 'P',
-  }[role] as RoleChar);
+  })[role] as RoleChar;
 export const charRole = (char: string) =>
   ({
     P: 'pawn',
@@ -74,5 +74,5 @@ export const charRole = (char: string) =>
     R: 'rook',
     Q: 'queen',
     K: 'king',
-  }[char] as Role);
+  })[char] as Role;
 export const promo = (uci: Uci) => charRole(uci.slice(4, 5).toUpperCase() as RoleChar);

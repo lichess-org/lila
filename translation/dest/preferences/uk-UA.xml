@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Дозволяє приховувати всі рейтинги з сайту, щоб допомогти зосередитись на шахах. Ігри все ще рейтингові, це лише для того, щоб його не бачити.</string>
   <string name="displayBoardResizeHandle">Показати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Лише в початковій позиції</string>
+  <string name="inGameOnly">Лише під час гри</string>
   <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
   <string name="chessClock">Шаховий годинник</string>
   <string name="tenthsOfSeconds">Десяті частки секунди</string>

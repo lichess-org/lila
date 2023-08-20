@@ -30,7 +30,7 @@ function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
           active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
         },
       },
-      [glyph.name]
+      [glyph.name],
     );
 }
 
@@ -50,7 +50,7 @@ export function ctrl(root: AnalyseCtrl): GlyphCtrl {
       'toggleGlyph',
       root.study!.withPosition({
         id,
-      })
+      }),
     );
     root.redraw();
   });
@@ -77,6 +77,6 @@ export function view(ctrl: GlyphCtrl): VNode {
           h('div.position', all.position.map(renderGlyph(ctrl, node))),
           h('div.observation', all.observation.map(renderGlyph(ctrl, node))),
         ]
-      : [h('div.study__message', spinner())]
+      : [h('div.study__message', spinner())],
   );
 }

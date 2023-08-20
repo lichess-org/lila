@@ -8,11 +8,11 @@ db.note
       from: { $nin: ['watcherbot', 'lichess'] },
       text: { $not: /^Appeal reply:/ },
     },
-    { _id: 1 }
+    { _id: 1 },
   )
   .forEach(n => db.note.updateOne(n, { $set: { s: true } }));
 
 db.note.createIndex(
   { text: 'text', from: 'text', to: 'text', dox: 1, date: -1 },
-  { name: 'search', partialFilterExpression: { s: true } }
+  { name: 'search', partialFilterExpression: { s: true } },
 );

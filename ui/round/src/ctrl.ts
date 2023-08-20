@@ -20,7 +20,6 @@ import { CorresClockController, ctrl as makeCorresClock } from './corresClock/co
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
 import * as atomic from './atomic';
-import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
@@ -94,10 +93,13 @@ export default class RoundController {
   preDrop?: cg.Role;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
-
   zerofish?: Zerofish;
 
-  constructor(readonly opts: RoundOpts, readonly redraw: Redraw, readonly nvui?: NvuiPlugin) {
+  constructor(
+    readonly opts: RoundOpts,
+    readonly redraw: Redraw,
+    readonly nvui?: NvuiPlugin,
+  ) {
     round.massage(opts.data);
 
     const d = (this.data = opts.data);
@@ -131,7 +133,7 @@ export default class RoundController {
         xhr.reload(this).then(this.reload, lichess.reload);
       },
       this.redraw,
-      d.pref.autoQueen
+      d.pref.autoQueen,
     );
 
     this.setQuietMode();
@@ -202,10 +204,10 @@ export default class RoundController {
   private onMove = (orig: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
     if (captured || this.enpassant(orig, dest)) {
       if (this.data.game.variant.key === 'atomic') {
-        sound.explode();
+        lichess.sound.play('explosion');
         atomic.capture(this, dest);
-      } else sound.capture();
-    } else sound.move();
+      }
+    }
   };
 
   private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -217,7 +219,7 @@ export default class RoundController {
         show: this.voiceMove?.promotionHook(),
       },
       meta,
-      this.keyboardMove?.justSelected()
+      this.keyboardMove?.justSelected(),
     );
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -227,7 +229,7 @@ export default class RoundController {
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
-    sound.move();
+    lichess.sound.move();
   };
 
   private onPredrop = (role: cg.Role | undefined, _?: Key) => {
@@ -289,11 +291,7 @@ export default class RoundController {
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
     this.chessground.set(config);
-    if (s.san && isForwardStep) {
-      if (s.san.includes('x')) sound.capture();
-      else sound.move();
-      if (/[+#]/.test(s.san)) sound.check();
-    }
+    if (isForwardStep) lichess.sound.move(s);
     this.autoScroll();
     const canMove = ply === this.lastPly() && this.data.player.color === config.turnColor;
 
@@ -444,7 +442,7 @@ export default class RoundController {
             role: o.role,
             color: playedColor,
           },
-          o.uci.slice(2, 4) as cg.Key
+          o.uci.slice(2, 4) as cg.Key,
         );
       else {
         // This block needs to be idempotent, even for castling moves in
@@ -466,7 +464,6 @@ export default class RoundController {
         },
         check: !!o.check,
       });
-      if (o.check) sound.check();
       blur.onMove();
       lichess.pubsub.emit('ply', this.ply);
     }
@@ -659,7 +656,7 @@ export default class RoundController {
       lichess.quietMode = is;
       $('body').toggleClass(
         'no-select',
-        is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5
+        is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5,
       );
     }
   };
@@ -687,7 +684,7 @@ export default class RoundController {
     } else if (this.data.opponent.proposingTakeback)
       return {
         prompt: this.noarg('yourOpponentProposesATakeback'),
-        yes: { action: () => this.socket.send('takeback-yes'), icon: licon.Back },
+        yes: { action: this.takebackYes, icon: licon.Back },
         no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.data.opponent.offeringDraw)
@@ -702,7 +699,7 @@ export default class RoundController {
 
   opponentRequest(req: string, i18nKey: string) {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
-      this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`)
+      this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
     notify(this.noarg(i18nKey));
   }

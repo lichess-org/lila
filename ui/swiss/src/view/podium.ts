@@ -28,10 +28,10 @@ function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | 
             {
               attrs: { href: '/@/' + p.user.name },
             },
-            userName(p.user)
+            userName(p.user),
           ),
           podiumStats(p, ctrl),
-        ]
+        ],
       )
     : undefined;
 }

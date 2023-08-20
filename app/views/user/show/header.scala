@@ -223,7 +223,7 @@ object header:
             )
           )
       ,
-      info.ublog.so(_.latests).nonEmpty option div(cls := "user-show__blog ublog-post-cards")(
+      (ctx.noKid && info.ublog.so(_.latests).nonEmpty) option div(cls := "user-show__blog ublog-post-cards")(
         info.ublog.so(_.latests) map { views.html.ublog.post.card(_, showAuthor = false) }
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
@@ -248,9 +248,7 @@ object header:
             span(
               cls   := "unread",
               title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
-            )(
-              info.nbs.playing
-            )
+            )(info.nbs.playing)
         )
       )
     )

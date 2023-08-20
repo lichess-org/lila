@@ -37,7 +37,7 @@ export default function (
   trans: Trans,
   color: Color,
   position: Position,
-  runningColor: Color
+  runningColor: Color,
 ) {
   const millis = ctrl.millisOf(color),
     update = (el: HTMLElement) => {
@@ -69,6 +69,6 @@ export default function (
         },
       }),
       isPlayer ? null : moretime(ctrl.root),
-    ]
+    ],
   );
 }

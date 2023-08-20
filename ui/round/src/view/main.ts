@@ -20,7 +20,7 @@ export function main(ctrl: RoundController): VNode {
       ctrl.stepAt(ctrl.ply).fen,
       !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
       ctrl.data.steps,
-      ctrl.ply
+      ctrl.ply,
     );
 
   return ctrl.nvui
@@ -43,10 +43,10 @@ export function main(ctrl: RoundController): VNode {
                       }
                     }),
                     undefined,
-                    false
+                    false,
                   ),
           },
-          [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
+          [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')],
         ),
         ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw) : null,
         ctrl.keyboardHelp ? keyboard.view(ctrl) : null,

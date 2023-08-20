@@ -14,7 +14,7 @@ class Scroller {
         const el = this.element;
         this.enable(!!el && el.offsetHeight + el.scrollTop > el.scrollHeight - 20);
       }),
-      { passive: true }
+      { passive: true },
     );
   };
   auto = () => {

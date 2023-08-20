@@ -5,7 +5,7 @@ function makeIndexes() {
   db.msg_thread.ensureIndex({ users: 1, 'lastMsg.date': -1 }, { background: 1 });
   db.msg_thread.ensureIndex(
     { users: 1 },
-    { partialFilterExpression: { 'lastMsg.read': false }, background: 1 }
+    { partialFilterExpression: { 'lastMsg.read': false }, background: 1 },
   );
   db.msg_msg.ensureIndex({ tid: 1, date: -1 }, { background: 1 });
 }

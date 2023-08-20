@@ -57,6 +57,12 @@
   </plurals>
   <string name="harder">Těžší</string>
   <string name="hardest">Nejtěžší</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Jeden bod nad vaším ratingem</item>
+    <item quantity="few">%s body nad vaším ratingem</item>
+    <item quantity="many">%s bodů nad vaším ratingem</item>
+    <item quantity="other">%s bodů nad vaším ratingem</item>
+  </plurals>
   <string name="example">Příklad</string>
   <string name="addAnotherTheme">Přidat další téma</string>
   <string name="nextPuzzle">Další úloha</string>

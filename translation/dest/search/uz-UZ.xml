@@ -24,4 +24,16 @@
   <string name="sortBy">Saralash turi</string>
   <string name="analysis">Tahlillar</string>
   <string name="onlyAnalysed">Kompyuter tahlil qilish imkoni mavjud oʻyinlar</string>
+  <string name="color">Rang</string>
+  <string name="evaluation">Baholash</string>
+  <string name="maxNumber">Maksimal son</string>
+  <string name="maxNumberExplanation">Qaytarmoq uchun maksimum o‘yinlar soni</string>
+  <string name="include">O‘z ichiga olgan</string>
+  <string name="descending">Kamayish bo\'yicha</string>
+  <string name="ascending">O‘sish tartibida</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s o‘yin topildi</item>
+    <item quantity="other">%s o‘yinlar topildi</item>
+  </plurals>
+  <string name="ratingExplanation">Ikkala o‘yinchining o‘rtacha ballari</string>
 </resources>

@@ -20,7 +20,7 @@ export function ctrl(initialValue: TreeViewKey = 'column'): TreeView {
     'treeView',
     initialValue,
     str => str as TreeViewKey,
-    v => v
+    v => v,
   );
   function inline() {
     return value() === 'inline';

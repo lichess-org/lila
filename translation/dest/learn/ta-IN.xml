@@ -28,6 +28,9 @@
   <string name="theKing">அரசன்</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
   <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
+  <string name="protection">பாதுகாப்பு</string>
+  <string name="keepYourPiecesSafe">பாதுகாப்பு</string>
+  <string name="protectionIntro">பாதுகாப்பு!</string>
   <string name="combat">போர்</string>
   <string name="checkInOne">ஒரு நகர்வில் வெற்றி</string>
   <string name="attackTheOpponentsKing">எதிர்ப்பாளரின் அரசன்</string>

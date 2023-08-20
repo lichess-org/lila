@@ -33,7 +33,7 @@ var chapters = db.study_chapter
           $set: {
             'root.f': fixed,
           },
-        }
+        },
       );
     }
 
@@ -48,7 +48,7 @@ var chapters = db.study_chapter
           $set: {
             'root.p': NumberInt(ply),
           },
-        }
+        },
       );
     }
   });

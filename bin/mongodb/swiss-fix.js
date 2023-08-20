@@ -18,7 +18,7 @@ db.swiss
           nextRoundAt: 1,
           featurable: 1,
         },
-      }
+      },
     );
   });
 

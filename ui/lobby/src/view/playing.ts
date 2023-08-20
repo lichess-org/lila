@@ -13,7 +13,7 @@ function timer(pov: NowPlaying) {
         },
       },
     },
-    lichess.timeago(date)
+    lichess.timeago(date),
   );
 }
 
@@ -48,11 +48,11 @@ export default function (ctrl: LobbyController) {
                 ? pov.secondsLeft && pov.hasMoved
                   ? timer(pov)
                   : [ctrl.trans.noarg('yourTurn')]
-                : h('span', '\xa0')
+                : h('span', '\xa0'),
             ), // &nbsp;
           ]),
-        ]
-      )
-    )
+        ],
+      ),
+    ),
   );
 }

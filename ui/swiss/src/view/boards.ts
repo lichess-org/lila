@@ -1,5 +1,5 @@
 import { Board, SwissOpts } from '../interfaces';
-import { renderClock } from 'common/mini-game';
+import { renderClock } from 'common/mini-board';
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer } from './util';
@@ -37,7 +37,7 @@ const renderBoard =
           },
         }),
         boardPlayer(board, board.orientation, opts),
-      ]
+      ],
     );
 
 function boardPlayer(board: Board, color: Color, opts: SwissOpts) {

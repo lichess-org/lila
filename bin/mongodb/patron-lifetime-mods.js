@@ -4,7 +4,7 @@ db.user4
       enabled: true,
       roles: { $in: ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_HUNTER', 'ROLE_SEE_REPORT'] },
     },
-    { _id: 1, plan: 1 }
+    { _id: 1, plan: 1 },
   )
   .forEach(user => {
     var userId = user._id;
@@ -22,7 +22,7 @@ db.user4
             since: prev.since || new Date(),
           },
         },
-      }
+      },
     );
 
     db.plan_patron.update(
@@ -31,6 +31,6 @@ db.user4
         lastLevelUp: new Date(),
         lifetime: true,
       },
-      { upsert: true }
+      { upsert: true },
     );
   });

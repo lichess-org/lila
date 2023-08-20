@@ -43,8 +43,8 @@ export function view(ctrl: Progress) {
           config: m.route,
           class: status,
         },
-        label
+        label,
       );
-    })
+    }),
   );
 }

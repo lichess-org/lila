@@ -286,7 +286,7 @@ final class Study(
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
       env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
         case None       => Redirect(routes.Study.mine("hot"))
-        case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
+        case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
       }
 
   }
