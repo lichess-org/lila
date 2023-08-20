@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 19
+          java-version: 18
           cache: sbt
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
       - run: ./lila -Depoll=true "test;stage"
