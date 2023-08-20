@@ -148,7 +148,7 @@
     <item quantity="other">查看所有%s个对局</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="other">%2$s 個場次內的%1$s 積分</item>
+    <item quantity="other">%2$s 场对局后的 %1$s 等级分</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">书签里有%s盘棋</item>
@@ -343,12 +343,12 @@
   <plurals name="needNbMoreGames">
     <item quantity="other">您需要再完成 %s 局排位赛</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">您的 %s 等级分是暂时的</string>
-  <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分 (%2$s) 过高</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 等级分 (%2$s) 过高</string>
-  <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分 (%2$s) 过低</string>
-  <string name="ratedMoreThanInPerf">%2$s 等级分必须不低于 %1$s</string>
-  <string name="ratedLessThanInPerf">%2$s 等级分不能超过 %1$s</string>
+  <string name="yourPerfRatingIsProvisional">你的 %s 等级分是暂时的</string>
+  <string name="yourPerfRatingIsTooHigh">你的 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">你本周 %1$s 的最高等级分 (%2$s) 过高</string>
+  <string name="yourPerfRatingIsTooLow">你的 %1$s 等级分 (%2$s) 过低</string>
+  <string name="ratedMoreThanInPerf">%2$s 等级分不低于 %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s 等级分不超过 %1$s</string>
   <string name="mustBeInTeam">您必须属于 %s 队</string>
   <string name="youAreNotInTeam">您不属于 %s 队</string>
   <string name="backToGame">返回棋局</string>
@@ -860,13 +860,13 @@
   <string name="congratsYouWon">恭喜恭喜，你获胜了！</string>
   <string name="gameVsX">与 %1$s 对局</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="lostAgainstTOSViolator">您输给了违反 Lichess 服务条款的用户</string>
+  <string name="lostAgainstTOSViolator">你输给了违反 Lichess 服务条款的用户</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等级分。</string>
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
   <string name="welcome">欢迎！</string>
-  <string name="lichessPatronInfo">Lichess 是一个非盈利的，完全免费、自由的开源软件，所有的运维成本、开发以及内容完全来自于用户捐赠。</string>
+  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="coachManager">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
@@ -875,10 +875,10 @@
   <string name="ratedFormHelp">排位赛
 将影响玩家的等级分</string>
   <string name="onlyMembersOfTeam">仅团队成员</string>
-  <string name="noRestriction">没有限制</string>
+  <string name="noRestriction">无限制</string>
   <string name="minimumRatedGames">最少排位赛局数</string>
   <string name="minimumRating">最低等级分</string>
-  <string name="maximumWeeklyRating">每周最高评分</string>
+  <string name="maximumWeeklyRating">本周最高等级分</string>
   <string name="onlyTitled">仅限有头衔玩家</string>
   <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
   <string name="positionInputHelp">将一个有效的 FEN 粘贴于此作为所有对局的起始位置。
