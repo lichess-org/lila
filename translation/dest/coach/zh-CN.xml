@@ -8,7 +8,7 @@
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">向 %s 发送电邮，我们将会审查您的请求。</string>
   <string name="location">所在地</string>
   <string name="languages">语言</string>
-  <string name="rating">评级</string>
+  <string name="rating">等级分</string>
   <string name="hourlyRate">小时费率</string>
   <string name="availability">是否接受新学生</string>
   <string name="accepting">接收学生</string>
