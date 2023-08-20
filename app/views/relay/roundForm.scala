@@ -116,7 +116,7 @@ object roundForm:
           )(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(trans.cancel()),
+        a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

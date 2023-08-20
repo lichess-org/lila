@@ -37,7 +37,7 @@
   },
   "lichess": {
     "modules": {
-      "iife": { },
+      "iife": {},
       "esm": {
         "src/site.ts": "lichess",
         "src/tvEmbed.ts": "tvEmbed",

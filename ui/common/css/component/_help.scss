@@ -67,19 +67,15 @@
 }
 
 .help-ephemeral {
-  @extend %help;
+  @extend %help, %box-radius, %popup-shadow;
   @include back-blur();
   position: absolute;
   z-index: 100;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: auto;
   align-items: center;
-  background: set-alpha($c-bg-popup, 0.8);
-  box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
-  color: $c-font-clear;
-  border-radius: 0.5em;
+  background: $c-bg-popup;
   padding: 1em 2em;
   user-select: none;
   pointer-events: none;

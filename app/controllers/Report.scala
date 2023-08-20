@@ -158,7 +158,7 @@ final class Report(
             page <- renderPage(html.report.form(err, user))
           yield BadRequest(page),
         data =>
-          if me.is(data.user.id) then notFound
+          if me.is(data.user.id) then BadRequest("You cannot report yourself")
           else
             api.create(data, Reporter(me)) inject
               Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)

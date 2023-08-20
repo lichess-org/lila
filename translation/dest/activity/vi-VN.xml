@@ -3,19 +3,19 @@
   <string name="activity">Hoạt động</string>
   <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng như một %2$s</item>
+    <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">Đã tập %1$s thế cờ ở %2$s</item>
+    <item quantity="other">Đã luyện tập %1$s thế cờ ở %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Đã giải %s bài chiến thuật</item>
+    <item quantity="other">Đã giải %s thế cờ</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">Đã viết %1$s lần trong chủ đề %2$s</item>
+    <item quantity="other">Đã viết %1$s bình luận trong chủ đề %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">Đã chơi %1$s nước</item>
@@ -24,7 +24,7 @@
     <item quantity="other">trong %1$s ván qua thư tín</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">Hoàn tất %s ván qua thư tín</item>
+    <item quantity="other">Đã hoàn tất %s ván qua thư tín</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">Đã theo dõi %s người chơi</item>

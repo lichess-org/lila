@@ -30,10 +30,10 @@ object create:
           br,
           h2(ot.whatTheTokenCanDo()),
           div(cls := "scopes")(
-            lila.oauth.OAuthScope.classified.map { (categ, scopes) =>
+            lila.oauth.OAuthScope.classified.map: (categ, scopes) =>
               fieldset(
                 legend(categ()),
-                scopes.map { scope =>
+                scopes.map: scope =>
                   val disabled = {
                     me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
                   } || {
@@ -59,9 +59,7 @@ object create:
                       em(scope.key)
                     )
                   )
-                }
               )
-            }
           ),
           form3.actions(
             a(href := routes.OAuthToken.index)("Cancel"),
