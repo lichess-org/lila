@@ -10,9 +10,9 @@
   <string name="dailyClassical">Cờ chậm Hàng ngày</string>
   <string name="dailyXArena">Đấu trường %s Hàng ngày</string>
   <string name="dailyX">%s Hàng ngày</string>
-  <string name="easternRapidArena">Đấu trường Cờ nhanh Phương Đông</string>
+  <string name="easternRapidArena">Đấu trường Cờ nhanh phương Đông</string>
   <string name="easternRapid">Cờ nhanh Phương Đông</string>
-  <string name="easternClassicalArena">Đấu rường Cờ chậm Phương Đông</string>
+  <string name="easternClassicalArena">Đấu rường Cờ chậm phương Đông</string>
   <string name="hourlyRapidArena">Đấu Trường Cờ Nhanh Hàng Giờ</string>
   <string name="hourlyRapid">Cờ nhanh hàng giờ</string>
   <string name="hourlyXArena">Đấu trường %s hàng giờ</string>
