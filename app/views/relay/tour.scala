@@ -65,7 +65,9 @@ object tour:
       main(cls := "page-small page-menu")(
         pageMenu(active),
         div(cls := "page-menu__content box box-pad page")(
-          boxTop(title),
+          boxTop:
+            bits.broadcastH1(title)
+          ,
           div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
         )
       )
