@@ -119,12 +119,12 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示Glicko-2标准差大于110。标准差是等级分的可靠性，标准差越低，等级分就越稳定。</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
-  <string name="ratingLeaderboards">排行榜：</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">在给定的评级中进行过至少30场排位赛，</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此评级中进行过至少一场排位赛，</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋棋局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
-  <string name="beInTopTen">在此排名中获得前十。</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
+  <string name="ratingLeaderboards">排行榜</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">在特定变体中进行过至少30场排位赛</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此变体中进行过至少一场排位赛</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋的等级分偏差小于 %1$s，变体则小于 %2$s</string>
+  <string name="beInTopTen">在此变体中获得前十</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了防止不再使用的账号占用排行榜。</string>
   <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
   <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响等级分的绝对数值。
 
