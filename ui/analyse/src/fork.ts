@@ -11,8 +11,10 @@ export interface ForkCtrl {
     selected: number;
     displayed: boolean;
   };
-  next: () => boolean | undefined;
-  prev: () => boolean | undefined;
+  selected(): number | undefined;
+  next: () => boolean;
+  prev: () => boolean;
+  hover: (uci: Uci | null | undefined) => void;
   highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
 }
@@ -20,6 +22,9 @@ export interface ForkCtrl {
 export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
   let selected = 0;
+  let hovering: number | undefined;
+  const selections = new Map<Tree.Path, number>();
+
   function displayed() {
     return root.node.children.length > 1;
   }
@@ -37,18 +42,23 @@ export function make(root: AnalyseCtrl): ForkCtrl {
       };
     },
     next() {
-      if (displayed()) {
-        selected = Math.min(root.node.children.length - 1, selected + 1);
-        return true;
-      }
-      return undefined;
+      if (!displayed()) return false;
+      selected = (selected + 1) % root.node.children.length;
+      selections.set(root.path, selected);
+      return true;
     },
     prev() {
-      if (displayed()) {
-        selected = Math.max(0, selected - 1);
-        return true;
-      }
-      return undefined;
+      if (!displayed()) return false;
+      selected = (selected + root.node.children.length - 1) % root.node.children.length;
+      selections.set(root.path, selected);
+      return true;
+    },
+    hover(uci: Uci | undefined | null) {
+      hovering = root.node.children.findIndex(n => n.uci === uci);
+      if (hovering < 0) hovering = undefined;
+    },
+    selected() {
+      return hovering ?? selected;
     },
     highlight(it) {
       if (!displayed() || !defined(it)) {
@@ -63,7 +73,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
     },
     proceed(it) {
       if (displayed()) {
-        it = defined(it) ? it : selected;
+        it = defined(it) ? it : hovering ? hovering : selected;
 
         const childNode = root.node.children[it];
         if (defined(childNode)) {

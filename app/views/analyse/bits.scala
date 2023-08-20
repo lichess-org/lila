@@ -18,7 +18,6 @@ object bits:
       moreCss = moreCss,
       moreJs = moreJs,
       openGraph = openGraph,
-      chessground = false,
       robots = false,
       zoomable = true,
       csp = analysisCsp.withPeer.withInlineIconFont.some

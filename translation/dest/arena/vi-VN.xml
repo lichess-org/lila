@@ -43,8 +43,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="minimumGameLength">Độ dài ván đấu tối thiểu</string>
   <string name="history">Lịch sử đấu trường</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="other">Xem đội
-Xem tất cả %s đội</item>
+    <item quantity="other">Xem tất cả %s đội</item>
   </plurals>
   <string name="newTeamBattle">Giải đấu đội mới</string>
   <string name="customStartDate">Chọn thời điểm bắt đầu</string>

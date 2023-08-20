@@ -68,8 +68,8 @@ case class Game(
   lazy val naturalOrientation =
     if variant.racingKings then White else Color.fromWhite(players.reduce(_ before _))
 
-  def turnOf(p: Player): Boolean = p === player
-  def turnOf(c: Color): Boolean  = c === turnColor
+  def turnOf(p: Player): Boolean = p == player
+  def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u) so turnOf
 
   def playedTurns = ply - startedAtPly
@@ -272,8 +272,7 @@ case class Game(
   def playableEvenImported = status < Status.Aborted
 
   def playableBy(p: Player): Boolean = playable && turnOf(p)
-
-  def playableBy(c: Color): Boolean = playableBy(player(c))
+  def playableBy(c: Color): Boolean  = playable && turnOf(c)
 
   def playableByAi: Boolean = playable && player.isAi
 

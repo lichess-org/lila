@@ -1,5 +1,4 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { Chessground } from 'chessground';
 import { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
 
@@ -32,7 +31,3 @@ export function initModule(opts: SwissOpts) {
 
   redraw();
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

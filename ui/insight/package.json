@@ -14,9 +14,7 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
     "@types/highcharts": "=4.2.57",
-    "@types/lichess": "workspace:*",
     "common": "workspace:*",
     "numeral": "^2.0.6",
     "snabbdom": "^3.5.1"

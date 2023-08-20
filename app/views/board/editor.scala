@@ -24,7 +24,6 @@ object editor:
         jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
       ),
       moreCss = cssTag("editor"),
-      chessground = false,
       zoomable = true,
       openGraph = lila.app.ui
         .OpenGraph(
