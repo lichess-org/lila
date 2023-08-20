@@ -85,7 +85,7 @@
   <string name="averageRatingX">平均等级分：%s</string>
   <string name="recentGames">最近对局</string>
   <string name="topGames">名局</string>
-  <string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上选手的两百万局棋谱</string>
+  <string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上棋手的两百万局棋谱</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">离将死剩%s着</item>
   </plurals>
@@ -338,10 +338,10 @@
     <item quantity="other">完成至少 %1$s 局 %2$s 排位赛</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">您需要再完成 %1$s 局 %2$s 排位赛</item>
+    <item quantity="other">你需要再完成 %1$s 局 %2$s 排位赛</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">您需要再完成 %s 局排位赛</item>
+    <item quantity="other">你需要再完成 %s 局排位赛</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">你的 %s 等级分是暂时的</string>
   <string name="yourPerfRatingIsTooHigh">你的 %1$s 等级分 (%2$s) 过高</string>
@@ -630,7 +630,7 @@
   <string name="aboutSimulImage">菲舍尔同时挑战50个对手，胜47局，和2局，负1局。</string>
   <string name="aboutSimulRealLife">这个概念来自真实的国际比赛。在现实中，这涉及到车轮战主持在桌与桌之间来回穿梭走棋。</string>
   <string name="aboutSimulRules">当车轮战开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，车轮战就结束了。</string>
-  <string name="aboutSimulSettings">车轮战总是非排位赛。重赛、悔棋和\"加时\"功能被禁用。</string>
+  <string name="aboutSimulSettings">车轮战都是休闲对局。重赛、悔棋和加时功能被禁用。</string>
   <string name="create">创建</string>
   <string name="whenCreateSimul">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您选择几种变体，每个棋手都能选择其中之一。</string>
@@ -921,7 +921,7 @@
   <string name="youCantStartNewGame">在本局结束前，你不能开始新的对局。</string>
   <string name="since">自</string>
   <string name="until">直到</string>
-  <string name="lichessDbExplanation">来自 Lichess 用户的所有 Rated 游戏</string>
+  <string name="lichessDbExplanation">来自 Lichess 的排位对局</string>
   <string name="switchSides">更换所持颜色</string>
   <string name="closingAccountWithdrawAppeal">关闭您的帐户将撤回您的上诉</string>
   <string name="ourEventTips">举办赛事的小建议</string>
