@@ -3,9 +3,9 @@
   <string name="arenaTournaments">竞技场</string>
   <string name="isItRated">锦标赛有积分吗？</string>
   <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋是无碍的。</string>
-  <string name="isRated">本锦标赛计分并会影响您的排名。</string>
-  <string name="isNotRated">本锦标赛*不*计分，所以它*不*会影响您的排名。</string>
-  <string name="someRated">有些锦标赛是计分的并会影响您的排名。</string>
+  <string name="isRated">本锦标赛计分，会影响你的等级分。</string>
+  <string name="isNotRated">本锦标赛不计分，不会影响你的等级分。</string>
+  <string name="someRated">部分锦标赛是计分的，会影响你的等级分。</string>
   <string name="howAreScoresCalculated">分数是如何计算的？</string>
   <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你输为止。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
 
