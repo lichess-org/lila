@@ -12,9 +12,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
     "@types/dragscroll": "0.0.0",
-    "@types/lichess": "workspace:*",
     "common": "workspace:*",
     "dragscroll": "^0.0.8",
     "snabbdom": "^3.5.1"

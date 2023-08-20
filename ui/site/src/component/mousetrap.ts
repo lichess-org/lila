@@ -194,7 +194,11 @@ export default class Mousetrap {
     for (const binding of this.getMatches(e)) {
       if (
         binding.combination == 'esc' ||
-        (el.tagName != 'INPUT' && el.tagName != 'SELECT' && el.tagName != 'TEXTAREA' && !el.isContentEditable)
+        (el.tagName != 'INPUT' &&
+          el.tagName != 'SELECT' &&
+          el.tagName != 'TEXTAREA' &&
+          !el.isContentEditable &&
+          !el.hasAttribute('trap-bypass'))
       ) {
         binding.callback(e);
         e.preventDefault();

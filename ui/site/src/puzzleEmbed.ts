@@ -1,4 +1,3 @@
-import { Chessground } from 'chessground';
 import { uciToMove } from 'chessground/util';
 
 window.onload = () => {
@@ -6,7 +5,7 @@ window.onload = () => {
     board = el.querySelector('.mini-board') as HTMLAnchorElement,
     [fen, orientation, lm] = board.getAttribute('data-state')!.split(',');
 
-  Chessground(board.firstChild as HTMLElement, {
+  lichess.makeChessground(board.firstChild as HTMLElement, {
     coordinates: false,
     drawable: { enabled: false, visible: false },
     viewOnly: true,

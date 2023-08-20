@@ -252,8 +252,8 @@ export default class CoordinateTrainerCtrl {
 
     if (this.mode() === 'nameSquare')
       this.chessground?.setShapes([
-        { orig: this.currentKey as Key, customSvg: targetSvg('current'), brush: '' },
-        { orig: this.nextKey as Key, customSvg: targetSvg('next'), brush: '' },
+        { orig: this.currentKey as Key, customSvg: { html: targetSvg('current') } },
+        { orig: this.nextKey as Key, customSvg: { html: targetSvg('next') } },
       ]);
 
     this.redraw();

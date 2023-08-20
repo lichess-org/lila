@@ -1,5 +1,4 @@
 import { init, classModule, attributesModule } from 'snabbdom';
-import { Chessground } from 'chessground';
 import { TournamentOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
@@ -33,7 +32,3 @@ export function initModule(opts: TournamentOpts) {
     vnode = patch(vnode, view(ctrl));
   }
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

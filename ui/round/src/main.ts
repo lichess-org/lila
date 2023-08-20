@@ -2,7 +2,6 @@ import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
 import menuHover from 'common/menuHover';
 import RoundController from './ctrl';
-import { Chessground } from 'chessground';
 import { main as view } from './view/main';
 import { RoundOpts, NvuiPlugin } from './interfaces';
 
@@ -34,7 +33,3 @@ function app(opts: RoundOpts, nvui?: NvuiPlugin) {
     moveOn: ctrl.moveOn,
   };
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

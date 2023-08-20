@@ -32,7 +32,6 @@ object index:
         )
         .some,
       zoomable = true,
-      chessground = false,
       withHrefLangs = LangPath(routes.Learn.index).some
     ) {
       main(id := "learn-app")
