@@ -597,7 +597,7 @@
   <string name="name">Имя</string>
   <string name="description">Описание</string>
   <string name="descPrivate">Описание для членов команды</string>
-  <string name="descPrivateHelp">Описание, которое будут видеть только члены клуба. Если установлено, то заменяет публичное описание для всех членов клуба.</string>
+  <string name="descPrivateHelp">Текст, который будут видеть только члены команды(добавленный текст заменит публичное описание для членов команды).</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
   <string name="help">Помощь:</string>

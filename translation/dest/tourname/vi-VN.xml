@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Đấu trường cờ nhanh hàng giờ</string>
+  <string name="hourlyRapidArena">Đấu Trường Cờ Nhanh Hàng Giờ</string>
   <string name="hourlyRapid">Cờ nhanh hàng giờ</string>
   <string name="hourlyXArena">Đấu trường %s hàng giờ</string>
   <string name="hourlyX">%s hàng giờ</string>

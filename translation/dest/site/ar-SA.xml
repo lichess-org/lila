@@ -129,6 +129,7 @@
   <string name="memory">الذاكرة</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
+  <string name="engineManager">مدير المحركات</string>
   <string name="blunder">خطأ فادح</string>
   <string name="mistake">خطأ</string>
   <string name="inaccuracy">غير دقيق</string>
