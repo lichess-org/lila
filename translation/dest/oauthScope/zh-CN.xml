@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">新的个人API访问令牌</string>
-  <string name="tokenGrantsPermission">一个令牌授予其他人使用您的帐户的权限。</string>
+  <string name="tokenGrantsPermission">一个令牌授予其他人使用你账户的权限。</string>
   <string name="carefullySelect">仔细选择允许代表您进行的操作。</string>
   <string name="tokenDescription">令牌描述</string>
   <string name="rememberTokenUse">所以你记得这个令牌是</string>
