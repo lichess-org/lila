@@ -128,6 +128,10 @@ export default class AnalyseCtrl {
     makeStudy?: typeof makeStudyCtrl,
   ) {
     this.data = opts.data;
+    if(opts.data.game.variant.key==='standard'||opts.data.game.variant.key==='fromPosition'){
+      const new_fen=this.returnStandardCastlingFen(opts.data.game.fen);
+      opts.data.game.fen=new_fen
+      opts.data.treeParts[0].fen=new_fen}
     this.element = opts.element;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl('column');
@@ -462,9 +466,6 @@ export default class AnalyseCtrl {
 
   changeFen(fen: Fen): void {
     this.redirecting = true;
-    if(this.data.game.variant.key=='standard'||this.data.game.variant.key=='fromPosition'){
-      fen=this.returnStandardCastlingFen(fen)
-    }
     window.location.href =
       '/analysis/' +
       this.data.game.variant.key +
