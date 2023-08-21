@@ -37,7 +37,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的对手已离开棋局。你将在 %s 秒后胜利。</item>
+    <item quantity="other">你的对手已离开棋局。你可以在 %s 秒后宣布胜利。</item>
   </plurals>
   <string name="opponentLeftChoices">你的对手可能已离开棋局。你可以宣布胜利，和棋，或继续等待。</string>
   <string name="forceResignation">宣布胜利</string>
@@ -118,7 +118,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">无限分析</string>
-  <string name="removesTheDepthLimit">取消深度限制，使您的电脑发热</string>
+  <string name="removesTheDepthLimit">取消深度限制，会使电脑发热</string>
   <string name="engineManager">开炮</string>
   <string name="blunder">失策</string>
   <string name="mistake">失误</string>
@@ -204,15 +204,15 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="error.weakPassword">这个密码太常见了，而且很容易猜到。</string>
   <string name="error.namePassword">请不要把密码设为用户名。</string>
-  <string name="blankedPassword">您已在另一个站点使用了相同的密码，该站点已经失效。 为确保您的Lichess帐户安全，我们需要您设置一个新密码。感谢您的理解。</string>
-  <string name="youAreLeavingLichess">您正在离开Lichess</string>
-  <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
+  <string name="blankedPassword">你已在别的站点使用了相同的密码，这些站点已经失效。 为确保你的 Lichess 账户安全，你需要设置一个新密码。感谢你的理解。</string>
+  <string name="youAreLeavingLichess">你正在离开 Lichess</string>
+  <string name="neverTypeYourPassword">永远不要在其他网站输入你的 Lichess 密码！</string>
   <string name="proceedToX">前往 %s</string>
-  <string name="passwordSuggestion">不要使用他人建议的密码，他们会用此密码盗取您的账号。</string>
-  <string name="emailSuggestion">不要使用其他人提供的电子邮件地址。他们有可能使用它来盗取您的帐户。</string>
+  <string name="passwordSuggestion">不要使用他人建议的密码，他们会用此密码盗取你的账户。</string>
+  <string name="emailSuggestion">不要使用他人提供的邮箱地址，他们会用它盗取你的账户。</string>
   <string name="emailConfirmHelp">协助邮件确认</string>
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
-  <string name="whatSignupUsername">您想用什么用户名注册？</string>
+  <string name="whatSignupUsername">你用了什么用户名注册？</string>
   <string name="usernameNotFound">我们找不到用户名为 %s 的用户</string>
   <string name="usernameCanBeUsedForNewAccount">您可以使用这个用户名来创建账户</string>
   <string name="emailSent">我们已经向 %s 发送了一封电子邮件。</string>
@@ -543,7 +543,7 @@
   <string name="privacyPolicy">隐私政策</string>
   <string name="letOtherPlayersFollowYou">允许其他用户关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
-  <string name="letOtherPlayersInviteYouToStudy">允许其他用户邀请您参加研讨</string>
+  <string name="letOtherPlayersInviteYouToStudy">允许其他用户邀请你参加研讨</string>
   <string name="sound">声音</string>
   <string name="none">无</string>
   <string name="fast">快</string>
@@ -769,7 +769,7 @@
   <string name="evaluatingYourMove">评估走法中……</string>
   <string name="whiteWinsGame">白方胜</string>
   <string name="blackWinsGame">黑方胜</string>
-  <string name="learnFromYourMistakes">从您的失误中吸取教训</string>
+  <string name="learnFromYourMistakes">从你的失误中学习</string>
   <string name="learnFromThisMistake">从这个失误中吸取教训</string>
   <string name="skipThisMove">跳过此步</string>
   <string name="next">继续</string>
@@ -915,7 +915,7 @@
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
   <string name="hangOn">等等！</string>
-  <string name="gameInProgress">您正在与 %s 进行对局。</string>
+  <string name="gameInProgress">你正在与 %s 进行对局。</string>
   <string name="abortTheGame">中止本局</string>
   <string name="resignTheGame">认输</string>
   <string name="youCantStartNewGame">在本局结束前，你不能开始新的对局。</string>
