@@ -54,6 +54,10 @@ final class StreamerApi(
 
   def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 
+  def listed[U: UserIdOf](u: U): Fu[Option[Streamer]] =
+    val id = u.id into Streamer.Id
+    cache.isListed(id).flatMapz(byId(id))
+
   def setSeenAt(user: User): Funit =
     cache.listedIds.getUnit.flatMap: ids =>
       ids.contains(user.id into Streamer.Id) so
@@ -204,6 +208,8 @@ final class StreamerApi(
     val listedIds = cacheApi.unit[Set[Streamer.Id]]:
       _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
         coll.secondaryPreferred.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
+
+    def isListed(id: Streamer.Id): Fu[Boolean] = listedIds.getUnit.dmap(_ contains id)
 
     val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
       _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>

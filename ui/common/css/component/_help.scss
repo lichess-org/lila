@@ -68,7 +68,6 @@
 
 .help-ephemeral {
   @extend %help, %box-radius, %popup-shadow;
-  @include back-blur();
   position: absolute;
   z-index: 100;
   top: 50%;
@@ -77,7 +76,7 @@
   align-items: center;
   background: $c-bg-popup;
   padding: 1em 2em;
-  user-select: none;
+  white-space: nowrap;
   pointer-events: none;
 
   kbd {

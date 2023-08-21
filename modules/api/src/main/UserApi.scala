@@ -18,6 +18,7 @@ final class UserApi(
     userApi: lila.user.UserApi,
     userCache: lila.user.Cached,
     prefApi: lila.pref.PrefApi,
+    streamerApi: lila.streamer.StreamerApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     trophyApi: lila.user.TrophyApi,
@@ -62,7 +63,8 @@ final class UserApi(
             bookmarkApi.countByUser(u.user),
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
-            (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user))
+            (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
+            streamerApi.listed(u.user)
           ).mapN:
             (
                 gameOption,
@@ -74,7 +76,8 @@ final class UserApi(
                 nbBookmarks,
                 nbPlaying,
                 nbImported,
-                trophiesAndAwards
+                trophiesAndAwards,
+                streamer
             ) =>
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
                 Json
@@ -100,7 +103,23 @@ final class UserApi(
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
-                  .add("trophies", trophiesAndAwards map trophiesJson) ++
+                  .add("trophies", trophiesAndAwards map trophiesJson)
+                  .add(
+                    "streamer",
+                    streamer.map: s =>
+                      Json
+                        .obj()
+                        .add(
+                          "twitch",
+                          s.twitch.map: t =>
+                            Json.obj("channel" -> t.fullUrl)
+                        )
+                        .add(
+                          "youTube",
+                          s.youTube.map: y =>
+                            Json.obj("channel" -> y.fullUrl)
+                        )
+                  ) ++
                   as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,
