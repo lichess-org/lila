@@ -214,17 +214,17 @@
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
   <string name="whatSignupUsername">你用了什么用户名注册？</string>
   <string name="usernameNotFound">我们找不到用户名为 %s 的用户</string>
-  <string name="usernameCanBeUsedForNewAccount">您可以使用这个用户名来创建账户</string>
+  <string name="usernameCanBeUsedForNewAccount">你可以使用这个用户名来创建账户</string>
   <string name="emailSent">我们已经向 %s 发送了一封电子邮件。</string>
   <string name="emailCanTakeSomeTime">可能需要一些时间才能收到。</string>
-  <string name="refreshInboxAfterFiveMinutes">稍等 5 分钟后刷新您的收件箱。</string>
-  <string name="checkSpamFolder">尝试检查您的垃圾邮件文件夹，它可能最终会在那里。如果是，请将其标记为不是垃圾邮件。</string>
+  <string name="refreshInboxAfterFiveMinutes">稍等 5 分钟并刷新你的收件箱。</string>
+  <string name="checkSpamFolder">尝试检查你的垃圾邮件收件箱，它可能在那里。如果在，请将其标记为非垃圾邮件。</string>
   <string name="emailForSignupHelp">如果还是不行，请向我们发送这封邮件：</string>
   <string name="copyTextToEmail">复制上面的文本并发送到 %s</string>
-  <string name="waitForSignupHelp">我们将很快给你回复，帮助您完成注册。</string>
+  <string name="waitForSignupHelp">我们很快就会给你回复，帮助你完成注册。</string>
   <string name="accountConfirmed">用户 %s 已成功注册。</string>
-  <string name="accountCanLogin">您现在可以使用 %s 登录。</string>
-  <string name="accountConfirmationEmailNotNeeded">您不需要确认电子邮件。</string>
+  <string name="accountCanLogin">你可以使用 %s 登录了。</string>
+  <string name="accountConfirmationEmailNotNeeded">你不需要确认电子邮件。</string>
   <string name="accountClosed">账户 %s 已被关闭。</string>
   <string name="accountRegisteredWithoutEmail">账户 %s 未使用电子邮件注册。</string>
   <string name="rank">排名</string>
@@ -349,8 +349,8 @@
   <string name="yourPerfRatingIsTooLow">你的 %1$s 等级分 (%2$s) 过低</string>
   <string name="ratedMoreThanInPerf">%2$s 等级分不低于 %1$s</string>
   <string name="ratedLessThanInPerf">%2$s 等级分不超过 %1$s</string>
-  <string name="mustBeInTeam">您必须属于 %s 队</string>
-  <string name="youAreNotInTeam">您不属于 %s 队</string>
+  <string name="mustBeInTeam">必须属于 %s 队</string>
+  <string name="youAreNotInTeam">你不在 %s 队里</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面简洁的免费在线国际象棋平台。免注册，无广告，无需插件。与电脑，朋友或随机对手一起对战吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s队</string>
@@ -379,7 +379,7 @@
     <item quantity="other">%s盘导入的棋局</item>
   </plurals>
   <string name="thisIsAChessCaptcha">这是一个国际象棋验证码。</string>
-  <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋来证明你是人类。</string>
+  <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋以证明你是人类。</string>
   <string name="captcha.fail">请解决国际象棋验证码。</string>
   <string name="notACheckmate">沒有将死</string>
   <string name="whiteCheckmatesInOneMove">白方一步将死</string>
@@ -398,7 +398,7 @@
   <string name="block">加入黑名单</string>
   <string name="blocked">已加入黑名单</string>
   <string name="unblock">移出黑名单</string>
-  <string name="followsYou">关注你</string>
+  <string name="followsYou">关注了你</string>
   <string name="xStartedFollowingY">%1$s开始关注%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">有%s个关注者</item>
@@ -425,10 +425,10 @@
   <string name="conditionOfEntry">参赛条件：</string>
   <string name="advancedSettings">高级设置</string>
   <string name="safeTournamentName">为锦标赛提出一个无争议的名称。</string>
-  <string name="inappropriateNameWarning">即使只有一点点违规的内容都可能导致您的帐号被封禁。</string>
+  <string name="inappropriateNameWarning">即使只有一点点违规的内容都可能导致你的账户被封禁。</string>
   <string name="emptyTournamentName">若留空，将会随机选择一位著名的大师的名字作为锦标赛名称。</string>
-  <string name="recommendNotTouching">我们建议您不要碰这些设置。</string>
-  <string name="fewerPlayers">如果您设置参赛条件，您的锦标赛的玩家将会更少。</string>
+  <string name="recommendNotTouching">我们建议你不更改这些设置。</string>
+  <string name="fewerPlayers">如果你设置参赛条件，锦标赛的玩家将会更少。</string>
   <string name="showAdvancedSettings">显示高级设置</string>
   <string name="makePrivateTournament">设置比赛私有，并用密码限制访问</string>
   <string name="join">参与锦标赛</string>
@@ -439,7 +439,7 @@
   <string name="createdBy">创建者:</string>
   <string name="tournamentIsStarting">锦标赛已开始</string>
   <string name="tournamentPairingsAreNowClosed">本锦标赛已不再产生新的对局</string>
-  <string name="standByX">%s请做好准备，您马上就要开始对局了！</string>
+  <string name="standByX">%s 做好准备，你马上就要开始对局了！</string>
   <string name="pause">暂停</string>
   <string name="resume">继续</string>
   <string name="youArePlaying">你已加入锦标赛！</string>
@@ -737,7 +737,7 @@
   <string name="boardTheme">棋盘主题</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子设定</string>
-  <string name="embedInYourWebsite">嵌入到您的网站上</string>
+  <string name="embedInYourWebsite">嵌入到你的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
   <string name="usernamePrefixInvalid">用户名必须以字母开头。</string>
   <string name="usernameSuffixInvalid">用户名必须以字母或数字结尾。</string>
@@ -836,18 +836,18 @@
   <string name="correspondenceDesc">非即时对战：每步一天或数天</string>
   <string name="puzzleDesc">国际象棋战术训练</string>
   <string name="important">重要</string>
-  <string name="yourQuestionMayHaveBeenAnswered">您的问题可能已经%1$s有了答案</string>
+  <string name="yourQuestionMayHaveBeenAnswered">你的问题可能已经%1$s有了答案</string>
   <string name="inTheFAQ">在常见问题中</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">要举报用户作弊或不良行为，%1$s</string>
   <string name="useTheReportForm">请使用举报表单</string>
   <string name="toRequestSupport">要请求支持，%1$s</string>
   <string name="tryTheContactPage">请尝试使用联系页面</string>
-  <string name="makeSureToRead">请确保您已阅读 %1$s</string>
+  <string name="makeSureToRead">请确保你已阅读 %1$s</string>
   <string name="theForumEtiquette">论坛礼仪</string>
   <string name="thisTopicIsArchived">此话题已被存档且不能再回复。</string>
   <string name="joinTheTeamXToPost">加入%1$s，以在此论坛发表意见</string>
   <string name="teamNamedX">%1$s 团队</string>
-  <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
+  <string name="youCannotPostYetPlaySomeGames">你还不能在论坛发表意见。再下几盘棋吧！</string>
   <string name="subscribe">订阅</string>
   <string name="unsubscribe">取消订阅</string>
   <string name="mentionedYouInX">在 “%1$s” 中提到了你。</string>
@@ -871,7 +871,7 @@
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>
-  <string name="tournDescriptionHelp">您有其他的信息要告诉参加者们吗？请不要写太多。可以使用Markdown来写链接：[文字](https://url)</string>
+  <string name="tournDescriptionHelp">你还有其他信息要告诉参赛者们吗？请不要写太多。可以使用Markdown来写链接：[文字](https://url)</string>
   <string name="ratedFormHelp">排位赛
 将影响玩家的等级分</string>
   <string name="onlyMembersOfTeam">仅团队成员</string>
@@ -889,12 +889,12 @@
   <string name="simulHostcolor">主持所执方</string>
   <string name="estimatedStart">预计开始时间</string>
   <string name="simulFeatured">展示在 %s</string>
-  <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的车轮战，对私人车轮战无效。</string>
+  <string name="simulFeaturedHelp">在 %s 上向所有人展示你主持的车轮战，对私人车轮战无效。</string>
   <string name="simulDescription">车轮战描述</string>
-  <string name="simulDescriptionHelp">写下您想要告诉参与者的任何内容</string>
+  <string name="simulDescriptionHelp">写下你想要告诉参与者的任何内容</string>
   <string name="markdownAvailable">%s 可用于更高级的格式。</string>
   <string name="embedsAvailable">粘贴对局URL或学习章节URL来嵌入。</string>
-  <string name="inYourLocalTimezone">在您的本地时区</string>
+  <string name="inYourLocalTimezone">在你的本地时区</string>
   <string name="tournChat">比赛聊天</string>
   <string name="noChat">关闭聊天</string>
   <string name="onlyTeamLeaders">仅限队长</string>
@@ -907,12 +907,12 @@
   <string name="analysisOptions">分析选项</string>
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">显示此帮助对话框</string>
-  <string name="reopenYourAccount">重新打开您的帐户</string>
-  <string name="closedAccountChangedMind">如果您关闭了帐户，但此后又改变了主意，您可以获得一次恢复账户的机会。</string>
+  <string name="reopenYourAccount">恢复你的账户</string>
+  <string name="closedAccountChangedMind">如果你关闭了账户，但此后又改变了主意，你可以获得一次恢复账户的机会。</string>
   <string name="onlyWorksOnce">账户关闭后只能恢复一次</string>
-  <string name="cantDoThisTwice">如果您第二次关闭您的帐户，将无法恢复。</string>
+  <string name="cantDoThisTwice">如果你第二次关闭账户，将无法恢复。</string>
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
-  <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
+  <string name="sentEmailWithLink">我们已经向你发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
   <string name="hangOn">等等！</string>
   <string name="gameInProgress">你正在与 %s 进行对局。</string>
@@ -923,6 +923,6 @@
   <string name="until">直到</string>
   <string name="lichessDbExplanation">来自 Lichess 的排位对局</string>
   <string name="switchSides">更换所持颜色</string>
-  <string name="closingAccountWithdrawAppeal">关闭您的帐户将撤回您的上诉</string>
+  <string name="closingAccountWithdrawAppeal">关闭账户将撤回你的上诉</string>
   <string name="ourEventTips">举办赛事的小建议</string>
 </resources>
