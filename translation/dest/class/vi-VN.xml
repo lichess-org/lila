@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lớp</string>
+  <string name="lichessClasses">Lớp học</string>
   <string name="teachClassesOfChessStudents">Dạy các lớp học sinh chơi cờ với bộ công cụ Lớp học Lichess.</string>
   <string name="features">Tính năng</string>
   <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho học viên</string>

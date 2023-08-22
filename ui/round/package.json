@@ -12,8 +12,6 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
-    "@types/lichess": "workspace:*",
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",

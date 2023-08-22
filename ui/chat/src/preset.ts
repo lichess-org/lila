@@ -83,9 +83,9 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
                 !disabled && ctrl.post(p);
               }),
             },
-            p.key
+            p.key,
           );
-        })
+        }),
       )
     : undefined;
 }

@@ -146,17 +146,24 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else
       userRepo.addTitle(user.id, Title.BOT) >>
+        userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
 
-  def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, ?] =
+  def visibleBotsByIds(ids: Iterable[UserId], max: Int = 200): Fu[List[User.WithPerfs]] =
     userRepo.coll
-      .find($inIds(ids) ++ userRepo.botSelect(true))
-      .cursor[User](ReadPref.priTemp)
-      .documentSource(nb | Int.MaxValue)
-      .grouped(40)
-      .mapAsync(1)(perfsRepo.withPerfs(_))
-      .throttle(1, 1 second)
-      .mapConcat(identity)
+      .aggregateList(max, _.priTemp): framework =>
+        import framework.*
+        Match($inIds(ids) ++ userRepo.botWithBioSelect) -> List(
+          Sort(Descending(User.BSONFields.roles), Descending(User.BSONFields.seenAt)),
+          Limit(max),
+          PipelineOperator(perfsRepo.aggregate.lookup)
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- doc.asOpt[User]
+          perfs = perfsRepo.aggregate.readFirst(doc, user)
+        yield User.WithPerfs(user, perfs)
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User.WithPerfs]] =

@@ -63,7 +63,7 @@ export default function (ctrl: TournamentController): VNode {
               {
                 hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw),
               },
-              [teamName(ctrl.data.teamBattle!, data.player.team)]
+              [teamName(ctrl.data.teamBattle!, data.player.team)],
             )
           : null,
         h('table', [
@@ -106,11 +106,11 @@ export default function (ctrl: TournamentController): VNode {
                 ctrl.opts.showRatings ? h('td', p.op.rating) : null,
                 h('td.is.color-icon.' + p.color),
                 h('td', res),
-              ]
+              ],
             );
-          })
+          }),
         ),
       ]),
-    ]
+    ],
   );
 }

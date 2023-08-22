@@ -107,4 +107,5 @@
   <string name="unlimitedAndFree">無制限で無料</string>
   <string name="predefinedUsers">事前に指定したユーザーだけが参加できる</string>
   <string name="forbiddedUsers">このリストにユーザー名を入力すると、それ以外のユーザーは参加できません。1 行ごとに 1 人です。</string>
+  <string name="playYourGames">対局は最後まで</string>
 </resources>

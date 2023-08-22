@@ -472,7 +472,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
@@ -669,7 +669,7 @@
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s は全体の %2$s の %3$s 参加者より上です。</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">全体の %1$s の %2$s 参加者より上</string>
+  <string name="betterThanPercentPlayers">全体の %1$s の %2$s 参加者より上</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">まだ %s レーティングが確定していません。</string>
   <string name="yourRating">あなたの位置</string>
   <string name="cumulative">累積百分率</string>

@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Isto permite ocultar todas as avaliações do site, para o ajudar a concentrar-se no xadrez. Os jogos continuam a poder ser avaliados, trata-se apenas do que poderá ver.</string>
   <string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
+  <string name="inGameOnly">Apenas em Jogo</string>
   <string name="blindfoldChess">Xadrez às cegas (peças invisíveis)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>

@@ -32,13 +32,13 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
                   ctrl.getMore();
                 }),
               },
-              'Load more'
+              'Load more',
             )
           : null,
         ...contentMsgs(ctrl, convo.msgs),
         h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
       ]),
-    ]
+    ],
   );
 }
 
@@ -55,8 +55,8 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
     ...daily.msgs.map(group =>
       h(
         'group',
-        group.map(msg => renderMsg(ctrl, msg))
-      )
+        group.map(msg => renderMsg(ctrl, msg)),
+      ),
     ),
   ];
 }
@@ -121,7 +121,7 @@ const renderText = (msg: Msg) =>
             const el = vnode.elm as HTMLElement;
             el.innerHTML = enhance.enhance(msg.text);
             el.querySelectorAll('img').forEach(c =>
-              c.addEventListener('load', scroller.auto, { once: true })
+              c.addEventListener('load', scroller.auto, { once: true }),
             );
             $('form.unsub', el).on('submit', function (this: HTMLFormElement) {
               teamUnsub(this);

@@ -45,7 +45,7 @@ export const registerMultipleSelect = () => {
           `<span class="placeholder">${this.options.placeholder}</span>`,
           '<div></div>',
           '</button>',
-        ].join('')
+        ].join(''),
       );
       this.$drop = $(`<div class="ms-drop ${this.options.position}"/>`);
       this.$el.after(this.$parent);
@@ -87,7 +87,7 @@ export const registerMultipleSelect = () => {
             '<div class="ms-search">',
             '<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">',
             '</div>',
-          ].join('')
+          ].join(''),
         );
       }
       if (this.options.selectAll && !this.options.single) {
@@ -101,7 +101,7 @@ export const registerMultipleSelect = () => {
             this.options.selectAllDelimiter?.[1] || '',
             '</label>',
             '</li>',
-          ].join('')
+          ].join(''),
         );
       }
       $.each(this.$el.children(), function (i, elm) {
@@ -149,7 +149,7 @@ export const registerMultipleSelect = () => {
             text,
             '</label>',
             '</li>',
-          ].join('')
+          ].join(''),
         );
         return $el;
       }
@@ -168,7 +168,7 @@ export const registerMultipleSelect = () => {
             label,
             '</label>',
             '</li>',
-          ].join('')
+          ].join(''),
         );
         $.each($elm.children(), function (i, elm) {
           $group.append(that.optionToHtml(i, elm!, group, disabled));
@@ -346,7 +346,7 @@ export const registerMultipleSelect = () => {
           .html(
             this.options.countSelected
               .replace('#', selects.length + '')
-              .replace('%', this.$selectItems.length + this.$disableItems.length + '')
+              .replace('%', this.$selectItems.length + this.$disableItems.length + ''),
           );
       } else {
         $span.removeClass('placeholder').text(selects.join(this.options.delimiter));
@@ -427,7 +427,7 @@ export const registerMultipleSelect = () => {
       });
       this.$selectAll.prop(
         'checked',
-        this.$selectItems.length === this.$selectItems.filter(':checked').length
+        this.$selectItems.length === this.$selectItems.filter(':checked').length,
       );
       $.each(that.$selectGroups!, function (_i, val) {
         const group = $(val).parent().attr('data-group'),

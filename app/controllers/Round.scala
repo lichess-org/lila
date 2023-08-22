@@ -305,4 +305,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok.page(html.site.helpModal.round)
+    Ok.page(html.site.help.round)

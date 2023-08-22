@@ -13,18 +13,26 @@
   <string name="specialMoves">বিশেশ চাল</string>
   <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
   <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>
+  <string name="upVote">ধাঁধা কে আপ-ভোট করুন</string>
+  <string name="downVote">ধাঁধা কে ডাউন-ভোট করুন</string>
   <string name="yourPuzzleRatingWillNotChange">আপনার ধাঁধার রেটিং পরিবর্তীত হবে না। উল্লেখ্য, ধাঁধা প্রতিযোগীতামূলক নয়। আপনার রেটিং আপনার দক্ষতা অনুযায়ী ধাঁধা বাছাই করতে সাহায্য করে।</string>
   <string name="findTheBestMoveForWhite">সাদার জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="toGetPersonalizedPuzzles">আপনার ব্যাক্তিগত পাজল পেতে:</string>
-  <string name="puzzleId">পাজল %s</string>
+  <string name="puzzleId">ধাঁধা %s</string>
   <string name="puzzleOfTheDay">আজকের দিনের সেরা ধাঁধা</string>
+  <string name="dailyPuzzle">দৈনিক ধাঁধা</string>
   <string name="clickToSolve">সমাধানের জন্য ক্লিক করুন</string>
   <string name="goodMove">ভালো মানের মুভ</string>
   <string name="bestMove">সেরা মানের মুভ!</string>
   <string name="keepGoing">চালিয়ে যান…</string>
   <string name="puzzleSuccess">সফল হয়েছে!</string>
   <string name="puzzleComplete">পাজল সম্পন্ন!</string>
+  <string name="byOpenings">ওপেনিং অনুযায়ী</string>
+  <string name="puzzlesByOpenings">ওপেনিং অনুযায়ী ধাঁধা</string>
+  <string name="openingsYouPlayedTheMost">রেটেড খেলায় আপনি যে ওপেনিংগুলো সবথেকে বেশি খেলেছেন</string>
+  <string name="useFindInPage">আপনার প্রিয় ওপেনিংগুলি খুঁজতে ব্রাউসার মেনুতে \"ফাইন্ড ইন পেজ\" ব্যবহার করুন!</string>
+  <string name="useCtrlF">আপনার প্রিয় ওপেনিং খুঁজতে Ctrl + F ব্যবহার করুন!</string>
   <string name="notTheMove">এটা সঠিক চাল না!</string>
   <string name="trySomethingElse">অন্য কিছু চেষ্টা করুন.</string>
   <string name="ratingX">রেটিংস: %s</string>
@@ -63,7 +71,9 @@
   <string name="yourStreakX">আপনার স্কোর: %s</string>
   <string name="streakSkipExplanation">আপনার ধারাবাহিক জয় বজায় রাখতে এই চাল বাদ(skip) করুন। প্রতিবার প্রচেষ্টায় একবার করে এমনটা করতে পারবেন।</string>
   <string name="continueTheStreak">পরবর্তী ধাঁধায় যান</string>
+  <string name="newStreak">নতুন ধাঁধার ধারা</string>
   <string name="fromMyGames">আমার খেলা গুলো থেকে</string>
+  <string name="lookupOfPlayer">একজন খেলোয়াড়ের খেলা থেকে ধাঁধা দেখুন</string>
   <string name="fromXGames">%s এর খেলা থেকে নেয়া ধাঁধা</string>
   <string name="searchPuzzles">ধাঁধা খুজুন</string>
   <string name="fromMyGamesNone">ডাটাবেজে আপনার কোনো ধাঁধা নেই।
@@ -80,5 +90,6 @@
   </plurals>
   <string name="percentSolved">%s সমাধান করেছেন।</string>
   <string name="noPuzzlesToShow">প্রদর্শনের কিছু নেই। প্রথমে কিছু ধাঁধা খেলুন।</string>
+  <string name="improvementAreasDescription">আপনার প্রগতির জন্য এইগুলোতে প্রশিক্ষণ করুন!</string>
   <string name="strengthDescription">আপনি এই ধাঁচের গুলোয় ভালো খেলেন।</string>
 </resources>

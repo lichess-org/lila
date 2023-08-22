@@ -12,7 +12,7 @@ function button(
   icon: string,
   click: () => void,
   enable: boolean,
-  ctrl: TournamentController
+  ctrl: TournamentController,
 ): VNode {
   return h('button.fbt.is', {
     attrs: {

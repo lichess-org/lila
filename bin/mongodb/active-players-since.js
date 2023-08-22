@@ -37,7 +37,7 @@ var result = db.game5.aggregate(
   },
   {
     $limit: 10,
-  }
+  },
 );
 
 printjson(result);

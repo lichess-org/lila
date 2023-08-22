@@ -5,7 +5,7 @@ export default function extendTablesortNumber() {
   tablesort.extend(
     'number',
     (item: string) => item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/),
-    (a: string, b: string) => compareNumber(cleanNumber(b), cleanNumber(a))
+    (a: string, b: string) => compareNumber(cleanNumber(b), cleanNumber(a)),
   );
 }
 

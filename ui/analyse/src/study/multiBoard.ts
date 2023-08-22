@@ -1,6 +1,6 @@
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
-import { renderClock, fenColor } from 'common/mini-game';
+import { renderClock, fenColor } from 'common/mini-board';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
@@ -15,7 +15,11 @@ export class MultiBoardCtrl {
   pager?: Paginator<ChapterPreview>;
   playing = false;
 
-  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
+  constructor(
+    readonly studyId: string,
+    readonly redraw: () => void,
+    readonly trans: Trans,
+  ) {}
 
   addNode = (pos: Position, node: Tree.Node) => {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
@@ -100,7 +104,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
         },
       },
     },
-    ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()]
+    ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()],
   );
 }
 
@@ -149,7 +153,7 @@ function pagerButton(
   icon: string,
   click: () => void,
   enable: boolean,
-  ctrl: MultiBoardCtrl
+  ctrl: MultiBoardCtrl,
 ): VNode {
   return h('button.fbt', {
     attrs: {
@@ -184,7 +188,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
             if (preview.outcome) {
               lichess.miniGame.finish(
                 vnode.elm as HTMLElement,
-                preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined
+                preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined,
               );
             } else {
               lichess.miniGame.update(vnode.elm as HTMLElement, {
@@ -203,7 +207,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
       boardPlayer(preview, CgOpposite(preview.orientation)),
       h('span.cg-wrap'),
       boardPlayer(preview, preview.orientation),
-    ]
+    ],
   );
 
 const userName = (u: ChapterPreviewPlayer) =>

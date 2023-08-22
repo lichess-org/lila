@@ -180,4 +180,4 @@ final class UserAnalysis(
 
   def help = Open:
     Ok.page:
-      html.site.helpModal.analyse(getBool("study"))
+      html.site.help.analyse(getBool("study"))

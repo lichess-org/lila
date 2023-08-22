@@ -21,6 +21,6 @@ userIds.forEach(id => {
     db.tournament_player.update(
       { uid: id, r: 1500, m: 1500 },
       { $set: { r: NumberInt(perf.gl.r), m: NumberInt(perf.gl.r) } },
-      { multi: 1 }
+      { multi: 1 },
     );
 });

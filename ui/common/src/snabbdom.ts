@@ -20,8 +20,8 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
         redraw?.();
         return res;
       },
-      { passive }
-    )
+      { passive },
+    ),
   );
 }
 

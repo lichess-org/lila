@@ -1,3 +1,4 @@
+import { h } from 'snabbdom';
 import * as domData from './data';
 import { uciToMove } from 'chessground/util';
 
@@ -7,28 +8,35 @@ export const init = (node: HTMLElement): void => {
 };
 
 export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?: string): void => {
-  if (!window.Chessground) setTimeout(() => init(node), 500);
-  else {
-    domData.set(
-      node,
-      'chessground',
-      window.Chessground(node, {
-        orientation,
-        coordinates: false,
-        viewOnly: !node.getAttribute('data-playable'),
-        fen,
-        lastMove: uciToMove(lm),
-        drawable: {
-          enabled: false,
-          visible: false,
-        },
-      })
-    );
-  }
+  domData.set(
+    node,
+    'chessground',
+    lichess.makeChessground(node, {
+      orientation,
+      coordinates: false,
+      viewOnly: !node.getAttribute('data-playable'),
+      fen,
+      lastMove: uciToMove(lm),
+      drawable: {
+        enabled: false,
+        visible: false,
+      },
+    }),
+  );
 };
 
 export const initAll = (parent?: HTMLElement) =>
   Array.from((parent || document).getElementsByClassName('mini-board--init')).forEach((el: HTMLElement) => {
     el.classList.remove('mini-board--init');
     init(el);
+  });
+
+export const fenColor = (fen: string) => (fen.includes(' w') ? 'white' : 'black');
+
+export const renderClock = (color: Color, time: number) =>
+  h(`span.mini-game__clock.mini-game__clock--${color}`, {
+    attrs: {
+      'data-time': time,
+      'data-managed': 1,
+    },
   });

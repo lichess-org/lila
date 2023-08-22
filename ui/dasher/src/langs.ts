@@ -42,7 +42,7 @@ export function view(ctrl: LangsCtrl): VNode {
       {
         attrs: { method: 'post', action: '/translation/select' },
       },
-      ctrl.list().map(langView(ctrl.current, ctrl.accepted))
+      ctrl.list().map(langView(ctrl.current, ctrl.accepted)),
     ),
     h(
       'a.help.text',
@@ -52,7 +52,7 @@ export function view(ctrl: LangsCtrl): VNode {
           'data-icon': licon.Heart,
         },
       },
-      'Help translate Lichess'
+      'Help translate Lichess',
     ),
   ]);
 }
@@ -70,5 +70,5 @@ const langView =
           title: code,
         },
       },
-      name
+      name,
     );

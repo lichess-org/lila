@@ -53,7 +53,6 @@ object show:
         )
       ),
       robots = s.isPublic,
-      chessground = false,
       zoomable = true,
       csp = analysisCsp.withPeer.withWikiBooks.some,
       openGraph = lila.app.ui

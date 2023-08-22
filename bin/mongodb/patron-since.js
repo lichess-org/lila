@@ -7,5 +7,5 @@ function monthDiff(dateFrom, dateTo) {
 
 db.user4.update(
   { _id: u },
-  { $set: { 'plan.months': NumberInt(monthDiff(since, new Date()) + 1), 'plan.since': since } }
+  { $set: { 'plan.months': NumberInt(monthDiff(since, new Date()) + 1), 'plan.since': since } },
 );

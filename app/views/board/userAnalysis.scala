@@ -42,7 +42,6 @@ object userAnalysis:
         )
       ),
       csp = analysisCsp.withWikiBooks.some,
-      chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess analysis board",

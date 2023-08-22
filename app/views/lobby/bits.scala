@@ -88,20 +88,22 @@ object bits:
       ctx: Context
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
-      lichess.map: post =>
-        val imgSize = UblogPost.thumbnail.Size.Small
-        a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
-          img(
-            src     := post.image,
-            cls     := "ublog-post-card__image",
-            widthA  := imgSize.width,
-            heightA := imgSize.height
-          ),
-          span(cls := "ublog-post-card__content")(
-            h2(cls := "ublog-post-card__title")(post.title),
-            semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
+      lichess
+        .filter(_.forKids || ctx.noKid)
+        .map: post =>
+          val imgSize = UblogPost.thumbnail.Size.Small
+          a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
+            img(
+              src     := post.image,
+              cls     := "ublog-post-card__image",
+              widthA  := imgSize.width,
+              heightA := imgSize.height
+            ),
+            span(cls := "ublog-post-card__content")(
+              h2(cls := "ublog-post-card__title")(post.title),
+              semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
+            )
           )
-        )
       ,
       ctx.noKid option uposts.map:
         views.html.ublog.post.card(_, showAuthor = false, showIntro = false)

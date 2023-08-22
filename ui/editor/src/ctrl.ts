@@ -91,7 +91,7 @@ export default class EditorCtrl {
     const boardFen = this.chessground?.getFen() || this.initialFen;
     const board = parseFen(boardFen).unwrap(
       setup => setup.board,
-      _ => Board.empty()
+      _ => Board.empty(),
     );
     return {
       board,
@@ -112,14 +112,14 @@ export default class EditorCtrl {
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
       pos => makeFen(pos.toSetup()),
-      _ => undefined
+      _ => undefined,
     );
   }
 
   private isPlayable(): boolean {
     return setupPosition(this.rules, this.getSetup()).unwrap(
       pos => !pos.isEnd(),
-      _ => false
+      _ => false,
     );
   }
 
@@ -191,7 +191,7 @@ export default class EditorCtrl {
         this.onChange();
         return true;
       },
-      _ => false
+      _ => false,
     );
   }
 

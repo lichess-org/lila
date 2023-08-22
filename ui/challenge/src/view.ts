@@ -30,7 +30,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
         postpatch: userPowertips,
       },
     },
-    d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out')))
+    d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))),
   );
 }
 
@@ -54,7 +54,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
               h('span.is.color-icon.' + myColor),
               ' • ',
               [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
-                ' • '
+                ' • ',
               ),
             ]),
           ]),
@@ -73,7 +73,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
             })
           : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
-      ]
+      ],
     );
   };
 }
@@ -99,7 +99,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
           },
           hook: onClick(ctrl.onRedirect),
         }),
-      ]
+      ],
     ),
     h('button.button.decline', {
       attrs: {
@@ -120,8 +120,8 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
         },
       },
       Object.entries(ctrl.reasons()).map(([key, name]) =>
-        h('option', { attrs: { value: key } }, key == 'generic' ? '' : name)
-      )
+        h('option', { attrs: { value: key } }, key == 'generic' ? '' : name),
+      ),
     ),
   ];
 }
@@ -166,7 +166,7 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
   return h(
     'a.ulpt.user-link',
     {
-      attrs: { href: `/@/${u.name}` },
+      attrs: { href: `/@/${u.name}`, 'data-pt-pos': 'w' },
       class: { online: !!u.online },
     },
     [
@@ -182,10 +182,10 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
           : [1, 2, 3, 4].map(i =>
               h('i', {
                 class: { off: u.lag! < i },
-              })
-            )
+              }),
+            ),
       ),
-    ]
+    ],
   );
 }
 
@@ -197,7 +197,7 @@ const empty = (): VNode =>
         'data-icon': licon.InfoCircle,
       },
     },
-    'No challenges.'
+    'No challenges.',
   );
 
 const onClick = (f: (e: Event) => void) => ({

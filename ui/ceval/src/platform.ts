@@ -17,7 +17,7 @@ export interface CevalPlatform {
 export function detectPlatform(
   officialStockfish: boolean,
   enableNnue: boolean,
-  externalEngine?: ExternalEngine
+  externalEngine?: ExternalEngine,
 ): CevalPlatform {
   let technology: CevalTechnology = 'asmjs',
     growableSharedMem = false,
@@ -51,7 +51,7 @@ export function detectPlatform(
     : technology == 'nnue' || technology == 'hce'
     ? Math.min(
         Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-        growableSharedMem ? 32 : officialStockfish ? 2 : 1
+        growableSharedMem ? 32 : officialStockfish ? 2 : 1,
       )
     : 1;
 

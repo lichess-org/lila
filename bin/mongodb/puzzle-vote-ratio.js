@@ -64,7 +64,7 @@ db.puzzle2_round
     ],
     {
       allowDiskUse: true,
-    }
+    },
   )
   .forEach(r => {
     db.puzzle2_puzzle.update(
@@ -75,12 +75,12 @@ db.puzzle2_round
           vd: NumberInt(r.vd),
           vu: NumberInt(r.vu),
         },
-      }
+      },
     );
   });
 
 db.puzzle2_puzzle.update(
   { vu: { $exists: 0 }, vd: { $exists: 0 } },
   { $set: { vote: 1, vu: NumberInt(1), vd: NumberInt(0) } },
-  { multi: 1 }
+  { multi: 1 },
 );

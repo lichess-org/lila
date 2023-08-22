@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Ukrywa wszystkie rankingi na stronie internetowej, aby pomóc skupić się na grze. Partie nadal mogą być oceniane, opcja ukrywa tylko widok rankingu.</string>
   <string name="displayBoardResizeHandle">Pokaż uchwyt od zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
+  <string name="inGameOnly">Tylko w partii</string>
   <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>

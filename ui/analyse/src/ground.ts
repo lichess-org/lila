@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-import { Chessground } from 'chessground';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
@@ -12,7 +11,7 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
-        ctrl.chessground = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl));
+        ctrl.chessground = lichess.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl));
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
         ctrl.cgVersion.dom = ctrl.cgVersion.js;
@@ -34,7 +33,7 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
             promoted: true,
           },
         ],
-      ])
+      ]),
     );
   }
 }

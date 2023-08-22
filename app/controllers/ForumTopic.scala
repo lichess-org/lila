@@ -56,8 +56,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           canRead     <- access.isGrantedRead(categ.slug)
           canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
           canModCateg <- access.isGrantedMod(categ.slug)
-          inOwnTeam <- ~(categ.team, ctx.me).mapN: (teamId, me) =>
-            env.team.cached.isLeader(teamId, me)
+          inOwnTeam   <- ~(categ.team, ctx.me).mapN(env.team.cached.isLeader(_, _))
           form <- ctx.me
             .filter(_ => canWrite && topic.open && !topic.isOld)
             .soUse: _ ?=>

@@ -107,7 +107,6 @@ GET   /dasher                          controllers.Dasher.get
 
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1)
-GET   /blog/all                        controllers.Blog.all
 GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id)
 GET   /blog/topic                      controllers.Ublog.topics
@@ -242,7 +241,7 @@ POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
-GET   /broadcast/:rs/$anyId<\w{8}>            controllers.RelayTour.redirectOrApiTour(rs, anyId)
+GET   /broadcast/:ts/$anyId<\w{8}>            controllers.RelayTour.show(ts, anyId)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
@@ -850,6 +849,7 @@ GET   /variant/:key                    controllers.ContentPage.variant(key)
 # Help
 GET   /help/contribute                 controllers.ContentPage.help
 GET   /help/master                     controllers.ContentPage.master
+GET   /help/analyse/shift-key          controllers.Main.analyseShiftKeyHelp
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

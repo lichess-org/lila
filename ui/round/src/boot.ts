@@ -30,7 +30,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
               ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
                   .filter(x => x)
                   .join('&nbsp')
-              : 'Anonymous'
+              : 'Anonymous',
           );
       },
       endData() {
@@ -72,7 +72,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
 
   const round: RoundApi = roundMain(
     opts,
-    lichess.blindMode ? await lichess.loadEsm<NvuiPlugin>('round.nvui') : undefined
+    lichess.blindMode ? await lichess.loadEsm<NvuiPlugin>('round.nvui') : undefined,
   );
   const chatOpts = opts.chat;
   if (chatOpts) {

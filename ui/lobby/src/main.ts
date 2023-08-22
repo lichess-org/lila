@@ -1,5 +1,4 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
-import { Chessground } from 'chessground';
 import { LobbyOpts } from './interfaces';
 
 import makeCtrl from './ctrl';
@@ -23,7 +22,3 @@ export default function main(opts: LobbyOpts) {
 
   return ctrl;
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

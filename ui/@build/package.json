@@ -6,8 +6,8 @@
   "license": "AGPL-3.0-or-later",
   "type": "commonjs",
   "dependencies": {
-    "esbuild": "^0.18.4",
-    "fast-glob": "^3.2.12"
+    "esbuild": "^0.19.2",
+    "fast-glob": "^3.3.1"
   },
   "scripts": {
     "dev": "tsc && node dist/main.js"

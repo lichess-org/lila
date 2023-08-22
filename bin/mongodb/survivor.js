@@ -31,7 +31,7 @@ db.tournament
           $gte: 5,
         },
       },
-    }
+    },
   )
   .result.forEach(function (r) {
     db.trophy.insert({

@@ -22,8 +22,8 @@ lichess.load.then(() => {
             $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
             $('.ublog-post__like__nb').text(likes);
           });
-      }
-    )
+      },
+    ),
   );
   $('.ublog-post__follow button').on(
     'click',
@@ -37,8 +37,8 @@ lichess.load.then(() => {
             method: 'post',
           })
           .then(() => button.parent().toggleClass(followClass));
-      }
-    )
+      },
+    ),
   );
   $('#form3-tier').on('change', function (this: HTMLSelectElement) {
     (this.parentNode as HTMLFormElement).submit();

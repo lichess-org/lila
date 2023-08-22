@@ -36,7 +36,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
           body: xhr.form({ set }),
           method: 'post',
         })
-        .catch(() => lichess.announce({ msg: 'Failed to save sound preference' }))
+        .catch(() => lichess.announce({ msg: 'Failed to save sound preference' })),
   );
 
   return {
@@ -104,7 +104,7 @@ export function view(ctrl: SoundCtrl): VNode {
         }),
         h('div.selector', ctrl.makeList().map(soundView(ctrl, current))),
       ]),
-    ]
+    ],
   );
 }
 
@@ -116,5 +116,5 @@ const soundView = (ctrl: SoundCtrl, current: Key) => (s: Sound) =>
       class: { active: current === s[0] },
       attrs: { 'data-icon': licon.Checkmark, type: 'button' },
     },
-    s[1]
+    s[1],
   );

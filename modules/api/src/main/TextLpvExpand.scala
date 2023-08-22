@@ -18,70 +18,52 @@ final class TextLpvExpand(
     net: lila.common.config.NetConfig
 )(using Executor):
 
-  def getPgn(id: GameId)                = gamePgnCache get id
+  def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache get id
   def getChapterPgn(id: StudyChapterId) = chapterPgnCache get id
+  def getStudyPgn(id: StudyId)          = studyPgnCache get id
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] = for
-    gameMatches <- regex.gameLinkRenderRe
+  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
+    regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
-      .toList
-      .flatMap: m =>
-        Option(m.group(2)).filter(id => !notGames(id)).map(m.group(1) -> _)
-      .map: (matched, id) =>
-        gamePgnCache.get(GameId(id)) map2 { matched -> _ }
+      .map(_.group(1))
+      .map:
+        case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(url -> _)
+        case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(url -> _)
+        case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(url -> _)
+        case link                        => fuccess(link -> link)
       .parallel
-      .map(_.flatten.toMap)
-    chapterMatches <- regex.chapterLinkRenderRe
-      .findAllMatchIn(text)
-      .toList
-      .flatMap: m =>
-        Option(m.group(2)).filter(id => !notGames(id)).map(m.group(1) -> _)
-      .map: (matched, id) =>
-        chapterPgnCache.get(StudyChapterId(id)) map2 { matched -> _ }
-      .parallel
-      .map(_.flatten.toMap)
-    allMatches = gameMatches ++ chapterMatches
-  yield (url, _) =>
-    allMatches
-      .get(url)
-      .map: pgn =>
-        div(
-          cls              := "lpv--autostart is2d",
-          attr("data-pgn") := pgn.value,
-          plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
-          (url contains "/black").option(attr("data-orientation") := "black")
-        )
+      .map:
+        _.collect { case (url, Some(pgn)) => url -> pgn }.toMap
+      .map: pgns =>
+        (url, _) =>
+          pgns
+            .get(url)
+            .map: pgn =>
+              div(
+                cls              := "lpv--autostart is2d",
+                attr("data-pgn") := pgn.value,
+                plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
+                (url contains "/black").option(attr("data-orientation") := "black")
+              )
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
   def allPgnsFromText(text: String): Fu[Map[String, PgnStr]] =
-    gamePgnsFromText(text) zip chapterPgnsFromText(text) map { (g, c) =>
-      g.mapKeys(_.value) ++ c.mapKeys(_.value)
-    }
-
-  private def gamePgnsFromText(text: String): Fu[Map[GameId, PgnStr]] =
-    val gameIds = GameId from
-      regex.gamePgnsRe
-        .findAllMatchIn(text)
-        .toList
-        .flatMap { m => Option(m.group(1)) filterNot notGames.contains }
-        .distinct
-    gamePgnCache getAll gameIds map {
-      _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
-    }
-
-  private def chapterPgnsFromText(text: String): Fu[Map[StudyChapterId, PgnStr]] =
-    val chapterIds = StudyChapterId from
-      regex.chapterPgnsRe
-        .findAllMatchIn(text)
-        .toList
-        .flatMap { m => Option(m.group(1)) }
-        .distinct
-    chapterPgnCache getAll chapterIds map {
-      _.collect { case (chapterId, Some(pgn)) => chapterId -> pgn }
-    }
+    regex.blogPgnCandidatesRe
+      .findAllMatchIn(text)
+      .map(_.group(1))
+      .map:
+        case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(id -> _)
+        case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(id -> _)
+        case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(id -> _)
+        case link                        => fuccess(link -> link)
+      .parallel
+      .map:
+        _.collect:
+          case (id, Some(pgn)) => id -> pgn
+        .toMap
 
   private val regex = LpvGameRegex(net.domain)
   private val plyRe = raw"#(\d+)\z".r
@@ -96,7 +78,10 @@ final class TextLpvExpand(
     _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
 
   private val chapterPgnCache = cacheApi[StudyChapterId, Option[PgnStr]](512, "textLpvExpand.pgn.chapter"):
-    _.expireAfterWrite(10 minutes).buildAsyncFuture(chapterIdToPgn)
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(studyChapterIdToPgn)
+
+  private val studyPgnCache = cacheApi[StudyId, Option[PgnStr]](512, "textLpvExpand.pgn.firstChapter"):
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMapz { g =>
@@ -105,26 +90,29 @@ final class TextLpvExpand(
       }
     }
 
-  private def chapterIdToPgn(id: StudyChapterId): Fu[Option[PgnStr]] =
+  private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[PgnStr]] =
     val flags = lila.study.PgnDump.fullFlags
     studyApi.byChapterId(id) flatMapz { sc =>
       studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) dmap some
+    }
+
+  private def studyIdToPgn(id: StudyId): Fu[Option[PgnStr]] =
+    val flags = lila.study.PgnDump.fullFlags
+    studyApi.byId(id) flatMapz { s =>
+      studyPgnDump.ofFirstChapter(s, flags)
     }
 
 final class LpvGameRegex(domain: NetDomain):
 
   private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
 
-// linkified forum hrefs are relative but these regexes run pre-linkify, match path & id
-  val gameLinkRenderRe =
-    raw"(?m)^(?:(?:https?://)?$quotedDomain)?(/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?)\b".r
-  val chapterLinkRenderRe =
-    raw"(?m)^(?:(?:https?://)?$quotedDomain)?(/study/(?:embed/)?(?:\w{8})/(\w{8})(?:(#|\b)))\b".r
+  val pgnCandidates = raw"""(?:https?://)?(?:lichess\.org|$quotedDomain)(/[/\w#]{8,})\b"""
 
-// for blogs, only allow absolute links and match id
-  val gamePgnsRe =
-    raw"(?:https?://)?$quotedDomain/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?\b".r
+  val blogPgnCandidatesRe  = pgnCandidates.r
+  val forumPgnCandidatesRe = raw"(?m)^$pgnCandidates".r
 
-// for blogs, only allow absolute links and match id
-  val chapterPgnsRe =
-    raw"(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\w{8})/(\w{8})(?:(#|\b))".r
+  val params = raw"""(?:#(?:last|\d{1,4}))?"""
+
+  val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
+  val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
+  val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r

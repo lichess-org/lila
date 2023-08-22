@@ -505,7 +505,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="firstName">Emër</string>
   <string name="lastName">Mbiemër</string>
   <string name="biography">Jetëshkrim</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Shteti apo flamuri</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="socialMediaLinks">Lidhje mediash shoqërore</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
@@ -707,6 +706,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="yourPerfTypeRatingIsRating">Vlerësimi juaj në %1$s është %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ju jeni më mirë se %1$s nga %2$s lojtarë.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s është më mirë se %2$s nga %3$s lojtarë.</string>
+  <string name="betterThanPercentPlayers">Më mirë se %1$s nga %2$s lojtarë gjithsej</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">S’keni një vlerësim të caktuar në %s.</string>
   <string name="yourRating">Vlerësimi juaj</string>
   <string name="cumulative">Gjithsej</string>

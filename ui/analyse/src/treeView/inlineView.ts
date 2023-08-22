@@ -42,7 +42,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
           renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
             parentPath: opts.parentPath,
             isMainline: true,
-          })
+          }),
         ),
         ...(main.forceVariation
           ? []
@@ -83,10 +83,10 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
             isMainline: false,
             withIndex: true,
             truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
-          })
+          }),
         )
       );
-    })
+    }),
   );
 }
 
@@ -103,7 +103,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
         isMainline: opts.isMainline,
         truncate: opts.truncate ? opts.truncate - 1 : undefined,
         withIndex: !!comments[0],
-      }) || []
+      }) || [],
     );
 }
 
@@ -116,7 +116,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       withIndex: true,
       parentPath: opts.parentPath,
       isMainline: false,
-    })
+    }),
   );
 }
 
@@ -133,7 +133,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: nodeClasses(ctx, node, path),
     },
-    content
+    content,
   );
 }
 
@@ -157,6 +157,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
         parentPath: '',
         isMainline: true,
       }) || []),
-    ]
+    ],
   );
 }

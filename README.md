@@ -19,7 +19,7 @@ It features a [search engine](https://lichess.org/games/search),
 [tactic trainer](https://lichess.org/training),
 a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
-The UI is available in more than [130 languages](https://crowdin.com/project/lichess) thanks to the community.
+The UI is available in more than [140 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 3](https://www.scala-lang.org/),
 and relies on the [Play 2.8](https://www.playframework.com/) framework.

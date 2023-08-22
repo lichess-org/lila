@@ -38,6 +38,9 @@ final class Paginator[A] private[paginator] (
   def mapResults[B](f: A => B): Paginator[B] =
     withCurrentPageResults(currentPageResults map f)
 
+  def mapList[B](f: Seq[A] => Seq[B]): Paginator[B] =
+    withCurrentPageResults(f(currentPageResults))
+
   def mapFutureResults[B](f: A => Fu[B])(using Executor): Fu[Paginator[B]] =
     currentPageResults.map(f).parallel dmap withCurrentPageResults
 

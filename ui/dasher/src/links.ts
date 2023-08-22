@@ -15,7 +15,7 @@ export default function (ctrl: DasherCtrl): VNode {
           h(
             'a.user-link.online.text.is-green',
             linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
-            noarg('profile')
+            noarg('profile'),
           ),
 
           h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
@@ -25,9 +25,9 @@ export default function (ctrl: DasherCtrl): VNode {
             linkCfg(
               '/account/preferences/display',
               licon.Gear,
-              ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
+              ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
             ),
-            noarg('preferences')
+            noarg('preferences'),
           ),
 
           !d.coach ? null : h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
@@ -48,9 +48,9 @@ export default function (ctrl: DasherCtrl): VNode {
                     'data-icon': licon.Power,
                   },
                 },
-                noarg('logOut')
+                noarg('logOut'),
               ),
-            ]
+            ],
           ),
         ])
       : null;
@@ -80,7 +80,7 @@ export default function (ctrl: DasherCtrl): VNode {
             },
             hook: bind('click', () => lichess.pubsub.emit('zen')),
           },
-          noarg('zenMode')
+          noarg('zenMode'),
         ),
       ])
     : null;

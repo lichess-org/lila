@@ -46,7 +46,7 @@ const select = (s: Select): VNode =>
       {
         attrs: { for: 'study-' + s.key },
       },
-      s.name
+      s.name,
     ),
     h(
       `select#study-${s.key}.form-control`,
@@ -59,9 +59,9 @@ const select = (s: Select): VNode =>
               selected: s.selected === o[0],
             },
           },
-          o[1]
+          o[1],
         );
-      })
+      }),
     ),
   ]);
 
@@ -70,7 +70,7 @@ export function ctrl(
   getData: () => StudyData,
   trans: Trans,
   redraw: Redraw,
-  relay?: RelayCtrl
+  relay?: RelayCtrl,
 ): StudyFormCtrl {
   const initAt = Date.now();
 
@@ -145,7 +145,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 sticky: getVal('sticky') as 'true' | 'false',
                 description: getVal('description') as 'true' | 'false',
               },
-              isNew
+              isNew,
             );
           }, ctrl.redraw),
         },
@@ -239,14 +239,14 @@ export function view(ctrl: StudyFormCtrl): VNode {
                       href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
                     },
                   },
-                  'Tournament settings'
+                  'Tournament settings',
                 ),
                 h(
                   'a.text',
                   {
                     attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` },
                   },
-                  'Round settings'
+                  'Round settings',
                 ),
               ])
             : null,
@@ -263,10 +263,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
                     'submit',
                     _ =>
                       isNew ||
-                      prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim()
+                      prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim(),
                   ),
                 },
-                [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))]
+                [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))],
               ),
               isNew
                 ? null
@@ -278,10 +278,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
                         method: 'post',
                       },
                       hook: bindNonPassive('submit', _ =>
-                        confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'))
+                        confirm(ctrl.trans.noarg('deleteTheStudyChatHistory')),
                       ),
                     },
-                    [h(emptyRedButton, ctrl.trans.noarg('clearChat'))]
+                    [h(emptyRedButton, ctrl.trans.noarg('clearChat'))],
                   ),
             ]),
             h(
@@ -289,10 +289,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
               {
                 attrs: { type: 'submit' },
               },
-              ctrl.trans.noarg(isNew ? 'start' : 'save')
+              ctrl.trans.noarg(isNew ? 'start' : 'save'),
             ),
           ]),
-        ]
+        ],
       ),
     ],
   });

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Praepositiones</string>
+  <string name="display">Exhibitio</string>
+  <string name="privacy">Privatum</string>
+  <string name="notifications">Nuntii</string>
   <string name="pieceAnimation">Scacci motabiles</string>
   <string name="materialDifference">Discrimen materiei</string>
   <string name="boardHighlights">Designanda in tabula (motus ultimus et matus)</string>
@@ -11,6 +14,7 @@
   <string name="chessPieceSymbol">Signum scaccarii</string>
   <string name="pgnLetter">Ars (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modus Zenonis</string>
+  <string name="showPlayerRatings">Monstra indices ludicorum</string>
   <string name="blindfoldChess">Scacci obligati (calculi cryptici)</string>
   <string name="chessClock">Horologium lantruncularium</string>
   <string name="tenthsOfSeconds">Decimas secundarum</string>

@@ -129,7 +129,7 @@ export const renderComment = (
   sel: string,
   ctx: Ctx,
   path: string,
-  maxLength: number
+  maxLength: number,
 ) => {
   if (comment.by === 'lichess' && !ctx.showComputer) return;
   const by = !others[1] ? '' : `<span class="by">${commentAuthorText(comment.by)}</span>`,

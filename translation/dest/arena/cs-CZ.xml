@@ -61,4 +61,5 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="noArenaStreaks">Žádné arénové série</string>
   <string name="averagePerformance">Průměrný výkon</string>
   <string name="averageScore">Průměrné skóre</string>
+  <string name="myTournaments">Moje turnaje</string>
 </resources>

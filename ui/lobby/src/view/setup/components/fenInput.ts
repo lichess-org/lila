@@ -40,8 +40,8 @@ export const fenInput = (ctrl: LobbyController) => {
                 insert: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
                 update: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
               },
-            })
-          )
+            }),
+          ),
     ),
   ]);
 };

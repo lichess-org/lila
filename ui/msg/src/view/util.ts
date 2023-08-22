@@ -10,7 +10,7 @@ export function userIcon(user: User, cls: string): VNode {
         offline: !user.online,
       },
     },
-    [h('i.line' + (user.patron ? '.patron' : ''))]
+    [h('i.line' + (user.patron ? '.patron' : ''))],
   );
 }
 

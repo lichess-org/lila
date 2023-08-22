@@ -27,7 +27,7 @@ function resultBar(move: OpeningMoveStats): VNode {
       {
         attrs: { style: 'width: ' + Math.round((move[key] * 1000) / sum) / 10 + '%' },
       },
-      percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
+      percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : '',
     );
   };
   return h('div.bar', ['white', 'draws', 'black'].map(section));
@@ -77,9 +77,9 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
             h('td', ((total / sumTotal) * 100).toFixed(0) + '%'),
             h('td', numberFormat(total)),
             h('td', { attrs: { title: moveTooltip(ctrl, move) } }, resultBar(move)),
-          ]
+          ],
         );
-      })
+      }),
     ),
   ]);
 }
@@ -141,12 +141,12 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                 ctrl.explorer.opts.showRatings
                   ? h(
                       'td',
-                      [game.white, game.black].map(p => h('span', '' + p.rating))
+                      [game.white, game.black].map(p => h('span', '' + p.rating)),
                     )
                   : null,
                 h(
                   'td',
-                  [game.white, game.black].map(p => h('span', p.name))
+                  [game.white, game.black].map(p => h('span', p.name)),
                 ),
                 h('td', showResult(game.winner)),
                 h('td', game.month || game.year),
@@ -160,11 +160,11 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                             title: ucfirst(game.speed),
                             ...dataIcon(perf.icons[game.speed]),
                           },
-                        })
+                        }),
                     ),
-              ]
+              ],
             );
-      })
+      }),
     ),
   ]);
 }
@@ -197,7 +197,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
         [
           h(
             'div.game_title',
-            `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`
+            `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
           ),
           h('div.menu', [
             h(
@@ -206,7 +206,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                 attrs: dataIcon(licon.Eye),
                 hook: bind('click', _ => openGame(ctrl, game.id)),
               },
-              'View'
+              'View',
             ),
             ...(ctrl.study
               ? [
@@ -216,7 +216,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                       attrs: dataIcon(licon.BubbleSpeech),
                       hook: bind('click', _ => send(false), ctrl.redraw),
                     },
-                    'Cite'
+                    'Cite',
                   ),
                   h(
                     'a.text',
@@ -224,7 +224,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                       attrs: dataIcon(licon.PlusButton),
                       hook: bind('click', _ => send(true), ctrl.redraw),
                     },
-                    'Insert'
+                    'Insert',
                   ),
                 ]
               : []),
@@ -234,12 +234,12 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                 attrs: dataIcon(licon.X),
                 hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw),
               },
-              'Close'
+              'Close',
             ),
           ]),
-        ]
+        ],
       ),
-    ]
+    ],
   );
 }
 
@@ -250,7 +250,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
       attrs: dataIcon(licon.X),
       hook: bind('click', ctrl.toggleExplorer, ctrl.redraw),
     },
-    ctrl.trans.noarg('close')
+    ctrl.trans.noarg('close'),
   );
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
@@ -260,7 +260,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
     h('div.message', [
       h(
         'strong',
-        ctrl.trans.noarg(ctrl.explorer.root.node.ply >= MAX_DEPTH ? 'maxDepthReached' : 'noGameFound')
+        ctrl.trans.noarg(ctrl.explorer.root.node.ply >= MAX_DEPTH ? 'maxDepthReached' : 'noGameFound'),
       ),
       data?.queuePosition
         ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
@@ -298,10 +298,10 @@ const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
                 target: '_blank',
               },
             },
-            title
+            title,
           ),
         ]
-      : [showTitle(ctrl, ctrl.data.game.variant)]
+      : [showTitle(ctrl, ctrl.data.game.variant)],
   );
 };
 
@@ -333,7 +333,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         data.fen,
         trans(title),
         tooltip && trans(tooltip),
-        data.moves.filter(m => m.category == category)
+        data.moves.filter(m => m.category == category),
       );
     if (data.moves.length)
       lastShow = h('div.data', [
@@ -364,7 +364,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
         attrs: { title },
         hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
       },
-      name
+      name,
     );
   const playerLink = () =>
     h(
@@ -380,10 +380,10 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               explorer.config.data.open(true);
             }
           },
-          explorer.reload
+          explorer.reload,
         ),
       },
-      explorer.root.trans('player')
+      explorer.root.trans('player'),
     );
   const active = (nodes: MaybeVNodes, title: string) =>
     h(
@@ -392,7 +392,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
         attrs: { title, ...dataIcon(licon.Book) },
         hook: db == 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
       },
-      nodes
+      nodes,
     );
   const playerName = explorer.config.data.playerName.value();
   const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2022-10'),
@@ -424,7 +424,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
                   })
                 : undefined,
             ],
-            explorer.root.trans('switchSides')
+            explorer.root.trans('switchSides'),
           )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),
@@ -488,6 +488,6 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
         },
         hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
       }),
-    ]
+    ],
   );
 }

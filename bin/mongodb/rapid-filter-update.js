@@ -3,6 +3,6 @@ var speedId = 5;
   coll.update(
     { 'filter.s.2': { $exists: true } },
     { $push: { 'filter.s': NumberInt(speedId) } },
-    { multi: true }
+    { multi: true },
   );
 });

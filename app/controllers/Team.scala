@@ -138,7 +138,7 @@ final class Team(
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
-      forms.members.bindFromRequest().value so { api.kickMembers(team, _).parallel } inject Redirect(
+      forms.members.bindFromRequest().value so { api.kickMembers(team, _) } inject Redirect(
         routes.Team.show(team.id)
       ).flashSuccess
   }
