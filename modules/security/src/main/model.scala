@@ -52,6 +52,6 @@ enum UserClient:
   case PC, Mob, App
 object UserClient:
   def apply(ua: UserAgent): UserClient =
-    if ua.value contains "Lichobile" then UserClient.App
-    else if Mobile.LichessMobileUaTrim.is(ua) then UserClient.Mob
+    if ua.value.contains("Lichobile") || Mobile.LichessMobileUaTrim.is(ua) then UserClient.App
+    else if ua.value.contains("Mobile") then UserClient.Mob
     else UserClient.PC
