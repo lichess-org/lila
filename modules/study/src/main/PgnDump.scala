@@ -24,6 +24,12 @@ final class PgnDump(
       .orderedByStudySource(study.id)
       .mapAsync(1)(ofChapter(study, flags))
 
+  def ofFirstChapter(study: Study, flags: WithFlags): Fu[Option[PgnStr]] =
+    chapterRepo
+      .firstByStudy(study.id)
+      .flatMapz: chapter =>
+        ofChapter(study, flags)(chapter).map(some)
+
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
     chapter.serverEval.exists(_.done) so analyser.byId(chapter.id into Analysis.Id) map { analysis =>
       ofChapter(study, flags)(chapter, analysis)
