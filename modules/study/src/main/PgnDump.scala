@@ -27,9 +27,8 @@ final class PgnDump(
   def ofFirstChapter(study: Study, flags: WithFlags): Fu[Option[PgnStr]] =
     chapterRepo
       .firstByStudy(study.id)
-      .flatMap:
-        case None          => fuccess(none)
-        case Some(chapter) => ofChapter(study, flags)(chapter).map(some)
+      .flatMapz: chapter =>
+        ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
     chapter.serverEval.exists(_.done) so analyser.byId(chapter.id into Analysis.Id) map { analysis =>
