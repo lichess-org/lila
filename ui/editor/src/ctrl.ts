@@ -61,7 +61,9 @@ export default class EditorCtrl {
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
     this.rules = this.cfg.embed ? 'chess' : lichessRules((params.get('variant') || 'standard') as VariantKey);
-    this.variant=this.cfg.embed ? 'Standard': this.getVariantFromParams((params.get('variant') || 'Standard'));
+    this.variant = this.cfg.embed
+      ? 'Standard'
+      : this.getVariantFromParams(params.get('variant') || 'Standard');
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
     this.redraw = () => {};
@@ -80,8 +82,8 @@ export default class EditorCtrl {
     this.options.onChange?.(fen);
     this.redraw();
   }
-  private getVariantFromParams(paramVariant:string){
-    switch (paramVariant){
+  private getVariantFromParams(paramVariant: string) {
+    switch (paramVariant) {
       case 'standard':
         return 'Standard';
       case 'chess960':
@@ -95,7 +97,6 @@ export default class EditorCtrl {
       default:
         return paramVariant.charAt(0).toUpperCase() + paramVariant.slice(1);
     }
-
   }
   private castlingToggleFen(): string {
     let fen = '';
@@ -150,13 +151,29 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalFen: string, orientation: Color = 'white'): string {
-    const variant = this.rules === 'chess' ? this.variant=='Chess 960'? 'chess960/': '' : lichessVariant(this.rules) + '/';
+    const variant =
+      this.rules === 'chess'
+        ? this.variant == 'Chess 960'
+          ? 'chess960/'
+          : ''
+        : lichessVariant(this.rules) + '/';
     return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}`;
   }
 
   makeEditorUrl(fen: string, orientation: Color = 'white'): string {
-    if (fen === INITIAL_FEN && this.rules === 'chess' && orientation === 'white' && this.variant=== 'Standard') return this.cfg.baseUrl;
-    const variant = this.rules === 'chess' ? this.variant=='Chess 960'? '?variant=chess960': '' : '?variant=' + lichessVariant(this.rules);
+    if (
+      fen === INITIAL_FEN &&
+      this.rules === 'chess' &&
+      orientation === 'white' &&
+      this.variant === 'Standard'
+    )
+      return this.cfg.baseUrl;
+    const variant =
+      this.rules === 'chess'
+        ? this.variant == 'Chess 960'
+          ? '?variant=chess960'
+          : ''
+        : '?variant=' + lichessVariant(this.rules);
     const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
     return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}`;
   }
@@ -221,8 +238,8 @@ export default class EditorCtrl {
     else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
     this.onChange();
   }
-  setVariant(variant: string): void{
-    this.variant=variant;
+  setVariant(variant: string): void {
+    this.variant = variant;
   }
 
   setOrientation(o: Color): void {
