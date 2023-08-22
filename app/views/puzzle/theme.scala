@@ -59,11 +59,13 @@ object theme:
           )
         ,
         cat.value == "puzzle:origin" option
-          a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer()):
+          a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
+            img(src := assetUrl("images/puzzle-themes/playerGames.svg")),
             span(
               h3(trans.puzzleTheme.playerGames()),
               span(trans.puzzleTheme.playerGamesDescription())
             )
+          )
       )
     )
 
