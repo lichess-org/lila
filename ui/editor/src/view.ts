@@ -72,7 +72,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
     {
       attrs: {
         value: key,
-        selected: key == ctrl.rules,
+        selected: key == ctrl.rules && name==ctrl.variant,
       },
     },
     `${ctrl.trans.noarg('variant')} | ${name}`,
@@ -81,6 +81,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
 
 const allVariants: Array<[Rules, string]> = [
   ['chess', 'Standard'],
+  ['chess', 'Chess 960'],
   ['antichess', 'Antichess'],
   ['atomic', 'Atomic'],
   ['crazyhouse', 'Crazyhouse'],
@@ -222,7 +223,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { id: 'variants' },
                 on: {
                   change(e) {
-                    ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+                    const option=(e.target as HTMLSelectElement).item((e.target as HTMLSelectElement).selectedIndex);
+                    if(option)ctrl.setVariant(option.text.slice(10));
+                    ctrl.setRules((e.target as HTMLSelectElement).value as Rules);                                     
                   },
                 },
               },
