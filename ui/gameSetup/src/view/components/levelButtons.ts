@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import { SetupCtrl } from '../../ctrl';
 import { option } from './option';
 
-export const levelButtons = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+export const levelButtons = (setupCtrl: SetupCtrl) => {
+  const trans = setupCtrl.root.trans;
   return lichess.blindMode
     ? [
         h('label', { attrs: { for: 'sf_level' } }, trans('strength')),

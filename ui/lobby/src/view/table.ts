@@ -2,7 +2,6 @@ import { h, thunk } from 'snabbdom';
 import { bind, onInsert } from 'common/snabbdom';
 import LobbyController from '../ctrl';
 import { GameType } from '../interfaces';
-import renderSetupModal from './setup/modal';
 import { numberFormat } from 'common/number';
 
 export default function table(ctrl: LobbyController) {
@@ -27,22 +26,22 @@ export default function table(ctrl: LobbyController) {
           h(
             `button.button.button-metal.config_${gameType}`,
             {
-              class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
+              class: { active: ctrl.setupCtrl?.gameType === gameType, disabled },
               attrs: { type: 'button' },
               hook: disabled
                 ? {}
-                : bind(
-                    lichess.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.setupCtrl.openModal(gameType),
-                    ctrl.redraw,
-                  ),
+                : bind(lichess.blindMode ? 'click' : 'mousedown', async () => {
+                    await ctrl.loadSetupCtrl();
+                    ctrl.leavePool();
+                    ctrl.setupCtrl.openModal(gameType);
+                  }),
             },
             trans(transKey),
           ),
         ),
       ),
     ),
-    renderSetupModal(ctrl),
+    ctrl.setupCtrl?.renderModal(),
     // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
     thunk(
       'div.lobby__counters',

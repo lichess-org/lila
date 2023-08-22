@@ -16,7 +16,9 @@ export default function main(opts: LobbyOpts) {
   let tableVNode = patch(opts.tableElement, tableView(ctrl));
 
   function redraw() {
+    console.log('wtf');
     appVNode = patch(appVNode, appView(ctrl));
+    console.log('patching table view');
     tableVNode = patch(tableVNode, tableView(ctrl));
   }
 

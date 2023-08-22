@@ -1,8 +1,8 @@
 import { Prop } from 'common';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
-import { InputValue, TimeMode } from '../../../interfaces';
-import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
+import { SetupCtrl } from '../../ctrl';
+import { InputValue, TimeMode } from '../../interfaces';
+import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../options';
 import { option } from './option';
 
 const showTime = (v: number) => {
@@ -12,10 +12,10 @@ const showTime = (v: number) => {
   return v.toString();
 };
 
-const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boolean) => {
-  const { trans, setupCtrl } = ctrl;
+const renderBlindModeTimePickers = (setupCtrl: SetupCtrl, allowAnonymous: boolean) => {
+  const trans = setupCtrl.root.trans;
   return [
-    renderTimeModePicker(ctrl, allowAnonymous),
+    renderTimeModePicker(setupCtrl, allowAnonymous),
     setupCtrl.timeMode() === 'realTime'
       ? h('div.time-choice', [
           h('label', { attrs: { for: 'sf_time' } }, trans('minutesPerSide')),
@@ -75,9 +75,9 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
   ];
 };
 
-const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => {
-  const { trans, setupCtrl } = ctrl;
-  return ctrl.me || allowAnonymous
+const renderTimeModePicker = (setupCtrl: SetupCtrl, allowAnonymous = false) => {
+  const trans = setupCtrl.root.trans;
+  return setupCtrl.root.user || allowAnonymous
     ? h('div.label-select', [
         h('label', { attrs: { for: 'sf_timeMode' } }, trans('timeControl')),
         h(
@@ -102,14 +102,14 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
     },
   });
 
-export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
-  const { trans, setupCtrl } = ctrl;
+export const timePickerAndSliders = (setupCtrl: SetupCtrl, allowAnonymous = false) => {
+  const trans = setupCtrl.root.trans;
   return h(
     'div.time-mode-config.optional-config',
     lichess.blindMode
-      ? renderBlindModeTimePickers(ctrl, allowAnonymous)
+      ? renderBlindModeTimePickers(setupCtrl, allowAnonymous)
       : [
-          renderTimeModePicker(ctrl, allowAnonymous),
+          renderTimeModePicker(setupCtrl, allowAnonymous),
           setupCtrl.timeMode() === 'realTime'
             ? h('div.time-choice.range', [
                 `${trans('minutesPerSide')}: `,

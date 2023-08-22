@@ -1,24 +1,23 @@
 import { h } from 'snabbdom';
 import { MaybeVNodes } from 'common/snabbdom';
-import userLink from 'common/userLink';
-import LobbyController from '../../ctrl';
+import { SetupCtrl } from '../ctrl';
+
 import { variantPicker } from './components/variantPicker';
-import { fenInput } from './components/fenInput';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { gameModeButtons } from './components/gameModeButtons';
+import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 
-export default function friendContent(ctrl: LobbyController): MaybeVNodes {
-  const { trans } = ctrl;
+export default function hookContent(ctrl: SetupCtrl): MaybeVNodes {
+  const trans = ctrl.root.trans;
   return [
-    h('h2', trans('playWithAFriend')),
+    h('h2', trans('createAGame')),
     h('div.setup-content', [
-      ctrl.setupCtrl.friendUser ? userLink(ctrl.setupCtrl.friendUser) : null,
       variantPicker(ctrl),
-      fenInput(ctrl),
-      timePickerAndSliders(ctrl, true),
+      timePickerAndSliders(ctrl),
       gameModeButtons(ctrl),
+      ratingDifferenceSliders(ctrl),
       colorButtons(ctrl),
     ]),
     ratingView(ctrl),

@@ -136,9 +136,3 @@ export interface SetupStore {
   increment: number;
   days: number;
 }
-
-export interface ForceSetupOptions {
-  variant?: VariantKey;
-  fen?: string;
-  timeMode?: TimeMode;
-}

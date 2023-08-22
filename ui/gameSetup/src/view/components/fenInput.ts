@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
 import * as licon from 'common/licon';
-import LobbyController from '../../../ctrl';
+import { SetupCtrl } from '../../ctrl';
 
-export const fenInput = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+export const fenInput = (setupCtrl: SetupCtrl) => {
+  const trans = setupCtrl.root.trans;
   if (setupCtrl.variant() !== 'fromPosition') return null;
   const fen = setupCtrl.fen();
   return h('div.fen.optional-config', [

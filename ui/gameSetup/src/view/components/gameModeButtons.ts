@@ -1,13 +1,13 @@
 import { MaybeVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
-import { GameMode } from '../../../interfaces';
-import { gameModes } from '../../../options';
+import { SetupCtrl } from '../../ctrl';
+import { GameMode } from '../../interfaces';
+import { gameModes } from '../../options';
 
-export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
-  if (!ctrl.me) return null;
+export const gameModeButtons = (setupCtrl: SetupCtrl): MaybeVNode => {
+  if (!setupCtrl.root.user) return null;
 
-  const { trans, setupCtrl } = ctrl;
+  const trans = setupCtrl.root.trans;
   return h(
     'div.mode-choice.buttons',
     h(

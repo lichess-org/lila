@@ -5,25 +5,12 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import {
-  LobbyOpts,
-  LobbyData,
-  Tab,
-  Mode,
-  Sort,
-  Hook,
-  Seek,
-  Pool,
-  PoolMember,
-  GameType,
-  ForceSetupOptions,
-  LobbyMe,
-} from './interfaces';
+import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember, LobbyMe } from './interfaces';
+import { ParentCtrl, ForceSetupOptions, GameType, GameSetup, SetupCtrl } from 'gameSetup';
 import LobbySocket from './socket';
 import Filter from './filter';
-import SetupController from './setupCtrl';
 
-export default class LobbyController {
+export default class LobbyController implements ParentCtrl {
   data: LobbyData;
   playban: any;
   me?: LobbyMe;
@@ -39,7 +26,7 @@ export default class LobbyController {
   trans: Trans;
   pools: Pool[];
   filter: Filter;
-  setupCtrl: SetupController;
+  setupCtrl: SetupCtrl;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -55,7 +42,7 @@ export default class LobbyController {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
-    this.setupCtrl = new SetupController(this);
+    this.redraw = redraw;
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
@@ -67,30 +54,7 @@ export default class LobbyController {
     this.sort = this.stores.sort.get();
     this.trans = opts.trans;
 
-    const locationHash = location.hash.replace('#', '');
-    if (['ai', 'friend', 'hook'].includes(locationHash)) {
-      let friendUser;
-      const forceOptions: ForceSetupOptions = {};
-      const urlParams = new URLSearchParams(location.search);
-      if (locationHash === 'hook') {
-        if (urlParams.get('time') === 'realTime') {
-          this.tab = 'real_time';
-          forceOptions.timeMode = 'realTime';
-        } else if (urlParams.get('time') === 'correspondence') {
-          this.tab = 'seeks';
-          forceOptions.timeMode = 'correspondence';
-        }
-      } else if (urlParams.get('fen')) {
-        forceOptions.fen = urlParams.get('fen')!;
-        forceOptions.variant = 'fromPosition';
-      } else {
-        friendUser = urlParams.get('user')!;
-      }
-
-      this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
-      history.replaceState(null, '', '/');
-    }
-
+    this.locationHashSetupModal();
     this.poolInStorage = lichess.storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
       // when another tab joins a pool
@@ -118,7 +82,6 @@ export default class LobbyController {
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
     });
-
     window.addEventListener('beforeunload', () => this.leavePool());
   }
 
@@ -236,6 +199,24 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
+  acquire = ({ id, gameType, color, variant, timeMode, gameMode, range }: GameSetup) => {
+    const pool =
+      color == 'random' &&
+      gameType === 'hook' &&
+      variant == 'standard' &&
+      gameMode == 'rated' &&
+      timeMode == 'realTime' &&
+      this.pools.find(p => p.id === id)
+        ? {
+            id,
+            range: range,
+          }
+        : null;
+    if (!pool && gameType === 'hook') this.setTab(timeMode === 'realTime' ? 'real_time' : 'seeks');
+    if (pool) this.enterPool(pool);
+    return pool !== null;
+  };
+
   hasOngoingRealTimeGame = () =>
     !!this.data.nowPlaying.find(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
 
@@ -275,6 +256,48 @@ export default class LobbyController {
         xhr.seeks().then(this.setSeeks);
         break;
     }
+  };
+
+  get user() {
+    return this.me?.username.toLowerCase();
+  }
+
+  get ratingMap() {
+    return this.data.ratingMap ? this.data.ratingMap : undefined;
+  }
+
+  hasPool = (id: string) => this.pools.some(p => p.id === id);
+
+  loadSetupCtrl = async () => {
+    return (this.setupCtrl = await lichess.loadEsm<SetupCtrl>('gameSetup', { init: this }));
+  };
+
+  private locationHashSetupModal = async () => {
+    const locationHash = location.hash.replace('#', '');
+    if (!['ai', 'friend', 'hook', 'local'].includes(locationHash)) return;
+
+    await this.loadSetupCtrl();
+
+    let friendUser;
+    const forceOptions: ForceSetupOptions = {};
+    const urlParams = new URLSearchParams(location.search);
+    if (locationHash === 'hook') {
+      if (urlParams.get('time') === 'realTime') {
+        this.tab = 'real_time';
+        forceOptions.timeMode = 'realTime';
+      } else if (urlParams.get('time') === 'correspondence') {
+        this.tab = 'seeks';
+        forceOptions.timeMode = 'correspondence';
+      }
+    } else if (urlParams.get('fen')) {
+      forceOptions.fen = urlParams.get('fen')!;
+      forceOptions.variant = 'fromPosition';
+    } else {
+      friendUser = urlParams.get('user')!;
+    }
+    this.leavePool();
+    this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+    history.replaceState(null, '', '/');
   };
 
   // after click on round "new opponent" button
