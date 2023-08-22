@@ -146,6 +146,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else
       userRepo.addTitle(user.id, Title.BOT) >>
+        userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
 
   def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, ?] =
