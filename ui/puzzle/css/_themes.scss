@@ -28,13 +28,14 @@
     img {
       flex: 0 0 8em;
       height: 4.5em;
+      opacity: 0.8;
     }
 
     &:hover {
       background: mix($c-bg-box, $c-link, 90%);
 
-      &::before {
-        color: $c-primary;
+      img {
+        opacity: 1;
       }
     }
 
