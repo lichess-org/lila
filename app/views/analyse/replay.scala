@@ -2,6 +2,7 @@ package views.html.analyse
 
 import bits.dataPanel
 import chess.format.Fen
+import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
 import controllers.routes
 import play.api.i18n.Lang
@@ -22,7 +23,7 @@ object replay:
       pov: Pov,
       data: play.api.libs.json.JsObject,
       initialFen: Option[chess.format.Fen.Epd],
-      pgn: String,
+      pgn: PgnStr,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],

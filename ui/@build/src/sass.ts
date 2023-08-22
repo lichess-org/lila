@@ -20,7 +20,7 @@ export async function sass(): Promise<void> {
 
   // filter to modules we're actually building
   builder.sources = new Set<string>(
-    allSources.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`)))
+    allSources.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`))),
   );
 
   for (const build of builder.sources) {
@@ -79,7 +79,7 @@ async function buildThemedScss() {
   env.log('Building themed scss', { ctx: 'sass' });
 
   const partials: string[] = (await globArray('./*/css/build/_*.scss', { abs: false })).filter(
-    (f: string) => !f.endsWith('.abstract.scss')
+    (f: string) => !f.endsWith('.abstract.scss'),
   );
   for (const file of partials) {
     const match = partialRe.exec(file);
@@ -124,10 +124,10 @@ function compile(sources: string[], tellTheWorld = true) {
         (src: string) =>
           `${src}:${path.join(
             env.cssDir,
-            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css')
-          )}`
-      )
-    )
+            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css'),
+          )}`,
+      ),
+    ),
   );
 
   proc.stdout?.on('data', (buf: Buffer) => {

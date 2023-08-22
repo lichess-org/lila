@@ -31,9 +31,8 @@ final class Tv(
           game <- gameId so roundProxyGame
           games <-
             historyIds
-              .map { id =>
+              .map: id =>
                 roundProxyGame(id) orElse gameRepo.game(id)
-              }
               .parallel
               .dmap(_.flatten)
           history = games map Pov.naturalOrientation
@@ -59,7 +58,7 @@ object Tv:
   import chess.{ variant as V, Speed as S }
   import lila.rating.{ PerfType as P }
 
-  case class Champion(user: LightUser, rating: IntRating, gameId: GameId)
+  case class Champion(user: LightUser, rating: IntRating, gameId: GameId, color: chess.Color)
   case class Champions(channels: Map[Channel, Champion]):
     def get = channels.get
 
@@ -73,7 +72,7 @@ object Tv:
   ):
     def isFresh(g: Game): Boolean     = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
-    val key                           = s"${toString.head.toLower}${toString.drop(1)}"
+    val key                           = lila.common.String.lcfirst(toString)
     case Best
         extends Channel(
           name = "Top Rated",

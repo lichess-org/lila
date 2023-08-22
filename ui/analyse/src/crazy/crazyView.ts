@@ -43,9 +43,9 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
               'data-color': color,
               'data-nb': nb,
             },
-          })
-        )
+          }),
+        ),
       );
-    })
+    }),
   );
 }

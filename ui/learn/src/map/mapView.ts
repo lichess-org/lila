@@ -12,7 +12,7 @@ function makeStars(nb: number) {
     stars.push(
       m('i', {
         'data-icon': licon.Star,
-      })
+      }),
     );
   return stars;
 }
@@ -32,8 +32,8 @@ function ribbon(ctrl: MapCtrl, s: stages.Stage, status: string, res: StageProgre
       {
         class: status,
       },
-      content
-    )
+      content,
+    ),
   );
 }
 
@@ -52,7 +52,7 @@ function whatNext(ctrl: MapCtrl) {
           src: util.assetUrl + 'images/learn/' + img + '.svg',
         }),
         m('div.text', [m('h3', transTitle), m('p.subtitle', ctrl.trans.noarg(subtitle))]),
-      ]
+      ],
     );
   };
   const userId = ctrl.data._id;
@@ -106,9 +106,9 @@ export default function (ctrl: MapCtrl) {
                     src: s.image,
                   }),
                   m('div.text', [m('h3', title), m('p.subtitle', ctrl.trans.noarg(s.subtitle))]),
-                ]
+                ],
               );
-            })
+            }),
           ),
         ]);
       }),

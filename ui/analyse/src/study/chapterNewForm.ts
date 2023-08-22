@@ -51,7 +51,7 @@ export function ctrl(
   send: StudySocketSend,
   chapters: Prop<StudyChapterMeta[]>,
   setTab: () => void,
-  root: AnalyseCtrl
+  root: AnalyseCtrl,
 ): StudyChapterNewFormCtrl {
   const multiPgnMax = 32;
 
@@ -133,7 +133,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         attrs: { role: 'tab', title },
         hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
       },
-      name
+      name,
     );
   };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
@@ -187,7 +187,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               {
                 attrs: { for: 'chapter-name' },
               },
-              noarg('name')
+              noarg('name'),
             ),
             h('input#chapter-name.form-control', {
               attrs: {
@@ -237,7 +237,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     },
                   },
                 },
-                [spinner()]
+                [spinner()],
               )
             : null,
           activeTab === 'game'
@@ -247,7 +247,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   {
                     attrs: { for: 'chapter-game' },
                   },
-                  trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')
+                  trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com'),
                 ),
                 h('textarea#chapter-game.form-control', {
                   attrs: {
@@ -264,9 +264,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                             .trim()
                             .match(
                               new RegExp(
-                                `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`
-                              )
-                            )
+                                `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`,
+                              ),
+                            ),
                         );
                       el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
                     });
@@ -284,7 +284,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   hook: onInsert((el: HTMLInputElement) => {
                     el.addEventListener('change', () => el.reportValidity());
                     el.addEventListener('input', _ =>
-                      el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN')
+                      el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN'),
                     );
                   }),
                 }),
@@ -306,7 +306,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         .then(pgnData => $('#chapter-pgn').val(pgnData));
                     }),
                   },
-                  trans('importFromChapterX', study.currentChapter().name)
+                  trans('importFromChapterX', study.currentChapter().name),
                 ),
                 window.FileReader
                   ? h('input#chapter-pgn-file.form-control', {
@@ -335,7 +335,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   attrs: { for: 'chapter-variant' },
                 },
-                noarg('Variant')
+                noarg('Variant'),
               ),
               h(
                 'select#chapter-variant.form-control',
@@ -349,10 +349,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         {
                           attrs: { value: 'standard' },
                         },
-                        noarg('automatic')
+                        noarg('automatic'),
                       ),
                     ]
-                  : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
+                  : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
               ),
             ]),
             h('div.form-group.form-half', [
@@ -361,7 +361,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   attrs: { for: 'chapter-orientation' },
                 },
-                noarg('orientation')
+                noarg('orientation'),
               ),
               h(
                 'select#chapter-orientation.form-control',
@@ -372,8 +372,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   }),
                 },
                 [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>
-                  option(c, currentChapter.setup.orientation, noarg(c))
-                )
+                  option(c, currentChapter.setup.orientation, noarg(c)),
+                ),
               ),
             ]),
           ]),
@@ -383,11 +383,11 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               {
                 attrs: { for: 'chapter-mode' },
               },
-              noarg('analysisMode')
+              noarg('analysisMode'),
             ),
             h(
               'select#chapter-mode.form-control',
-              modeChoices.map(c => option(c[0], mode, noarg(c[1])))
+              modeChoices.map(c => option(c[0], mode, noarg(c[1]))),
             ),
           ]),
           h(
@@ -397,10 +397,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               {
                 attrs: { type: 'submit' },
               },
-              noarg('createChapter')
-            )
+              noarg('createChapter'),
+            ),
           ),
-        ]
+        ],
       ),
     ],
   });

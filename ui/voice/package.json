@@ -15,8 +15,6 @@
   "dependencies": {
     "@jest/globals": "^29.3.1",
     "@types/audioworklet": "^0.0.36",
-    "@types/cash": "workspace:*",
-    "@types/lichess": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
     "snabbdom": "^3.5.1",

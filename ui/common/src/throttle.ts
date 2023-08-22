@@ -4,7 +4,7 @@
  * the previous call to complete.
  */
 export function throttlePromise<T extends (...args: any) => Promise<any>>(
-  wrapped: T
+  wrapped: T,
 ): (...args: Parameters<T>) => void {
   let current: Promise<void> | undefined;
   let afterCurrent: (() => void) | undefined;
@@ -32,7 +32,7 @@ export function throttlePromise<T extends (...args: any) => Promise<any>>(
  */
 export function finallyDelay<T extends (...args: any) => Promise<any>>(
   delay: (...args: Parameters<T>) => number,
-  wrapped: T
+  wrapped: T,
 ): (...args: Parameters<T>) => Promise<void> {
   return function (this: any, ...args: Parameters<T>): Promise<void> {
     const self = this;
@@ -48,7 +48,7 @@ export function finallyDelay<T extends (...args: any) => Promise<any>>(
  */
 export function throttlePromiseDelay<T extends (...args: any) => Promise<any>>(
   delay: (...args: Parameters<T>) => number,
-  wrapped: T
+  wrapped: T,
 ): (...args: Parameters<T>) => void {
   return throttlePromise(finallyDelay(delay, wrapped));
 }
@@ -59,7 +59,7 @@ export function throttlePromiseDelay<T extends (...args: any) => Promise<any>>(
  */
 export default function throttle<T extends (...args: any) => void>(
   delay: number,
-  wrapped: T
+  wrapped: T,
 ): (...args: Parameters<T>) => void {
   return throttlePromise(function (this: any, ...args: Parameters<T>) {
     wrapped.apply(this, args);

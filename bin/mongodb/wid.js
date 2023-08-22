@@ -16,7 +16,7 @@ var gamesToMigrate = db.game5.find(
   {
     us: 1,
     w: 1,
-  }
+  },
 );
 
 gamesToMigrate.forEach(function (g) {
@@ -29,7 +29,7 @@ gamesToMigrate.forEach(function (g) {
         $set: {
           wid: g.us[0],
         },
-      }
+      },
     );
   } else if (!g.w && typeof g.us[1] != 'undefined' && g.us[1]) {
     db.game5.update(
@@ -40,7 +40,7 @@ gamesToMigrate.forEach(function (g) {
         $set: {
           wid: g.us[1],
         },
-      }
+      },
     );
   }
 });

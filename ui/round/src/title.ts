@@ -12,7 +12,7 @@ const F = ['/assets/logo/lichess-favicon-32.png', '/assets/logo/lichess-favicon-
       (document.getElementById('favicon') as HTMLAnchorElement).href = path;
       curFaviconIdx = i;
     }
-  }
+  },
 );
 
 let tickerTimer: Timeout | undefined;

@@ -34,8 +34,15 @@ object student:
         s.student.archived map { archived =>
           div(cls := "student-show__archived archived")(
             bits.showArchived(archived),
-            postForm(action := clasRoutes.studentArchive(clas.id.value, s.user.username, v = false))(
-              form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(cls := "confirm button-empty")
+            div(cls := "student-show__archived__actions")(
+              postForm(action := clasRoutes.studentArchive(clas.id.value, s.user.username, v = false)):
+                form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(cls := "confirm button-empty")
+              ,
+              postForm(action := clasRoutes.studentClosePost(clas.id.value, s.user.username)):
+                form3.submit(trans.clas.removeStudent(), icon = none)(
+                  cls   := "confirm button-red button-empty",
+                  title := "Fully erase the student from the class archives."
+                )
             )
           )
         },

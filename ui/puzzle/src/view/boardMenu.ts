@@ -15,7 +15,7 @@ export default function (ctrl: Controller) {
       h(
         'a',
         { attrs: { target: '_blank', href: '/account/preferences/display' } },
-        'Game display preferences'
+        'Game display preferences',
       ),
     ]),
   ]);

@@ -8,7 +8,7 @@ export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
   return h(
     'div#notify-app.links.dropdown',
-    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]
+    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())],
   );
 }
 
@@ -22,7 +22,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
     h(`div.pager.prev${pager.previousPage ? '' : '.disabled'}`, {
       attrs: { 'data-icon': licon.UpTriangle },
       hook: clickHook(ctrl.previousPage),
-    })
+    }),
   );
 
   if (nb > 0)
@@ -33,7 +33,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
           title: 'Clear',
         },
         hook: clickHook(ctrl.clear),
-      })
+      }),
     );
 
   nodes.push(nb ? recentNotifications(d, ctrl.scrolling()) : empty());
@@ -43,7 +43,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
       h('div.pager.next', {
         attrs: { 'data-icon': licon.DownTriangle },
         hook: clickHook(ctrl.nextPage),
-      })
+      }),
     );
 
   if (!('Notification' in window))
@@ -68,7 +68,7 @@ function notificationDenied(): VNode {
         rel: 'noopener',
       },
     },
-    'Notification popups disabled by browser setting'
+    'Notification popups disabled by browser setting',
   );
 }
 
@@ -101,7 +101,7 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
         postpatch: contentLoaded,
       },
     },
-    d.pager.currentPageResults.map(n => asHtml(n, trans)) as VNode[]
+    d.pager.currentPageResults.map(n => asHtml(n, trans)) as VNode[],
   );
 }
 

@@ -13,7 +13,7 @@ export default {
   abort: post('abort'),
   join: throttlePromiseDelay(
     () => 4000,
-    (id: string, variant: VariantKey) => post(`join/${variant}`)(id)
+    (id: string, variant: VariantKey) => post(`join/${variant}`)(id),
   ),
   withdraw: post('withdraw'),
   accept: (user: string) => post(`accept/${user}`),

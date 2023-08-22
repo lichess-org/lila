@@ -16,7 +16,7 @@ function renderFailed(ctrl: Ctrl) {
     {
       onclick: ctrl.restart,
     },
-    [m('h2', ctrl.trans.noarg('puzzleFailed')), m('button', ctrl.trans.noarg('retry'))]
+    [m('h2', ctrl.trans.noarg('puzzleFailed')), m('button', ctrl.trans.noarg('retry'))],
   );
 }
 
@@ -32,7 +32,7 @@ function renderCompleted(ctrl: Ctrl, level: LevelCtrl) {
       level.blueprint.nextButton
         ? m('button', ctrl.trans.noarg('next'))
         : makeStars(level.blueprint, level.vm.score),
-    ]
+    ],
   );
 }
 
@@ -80,6 +80,6 @@ export default function (ctrl: Ctrl) {
           renderProgress(ctrl.progress),
         ]),
       ]),
-    ]
+    ],
   );
 }

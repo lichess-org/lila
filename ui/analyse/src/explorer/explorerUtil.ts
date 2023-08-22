@@ -1,6 +1,6 @@
 import { TablebaseMoveStats } from './interfaces';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'common/mini-game';
+import { fenColor } from 'common/mini-board';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 
@@ -28,7 +28,7 @@ export const moveArrowAttributes = (ctrl: AnalyseCtrl, opts: MoveArrowOpts) => (
           $(el).attr('data-fen')!,
           $(e.target as HTMLElement)
             .parents('tr')
-            .attr('data-uci')
+            .attr('data-uci'),
         );
       });
       el.addEventListener('mouseout', _ => {

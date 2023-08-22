@@ -173,9 +173,8 @@ object layout:
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: PageContext) =
+  private def loadScripts(moreJs: Frag)(using ctx: PageContext) =
     frag(
-      chessground option chessgroundTag,
       ctx.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
       frag(cashTag, jsModule("lichess")),
@@ -228,7 +227,6 @@ object layout:
       moreJs: Frag = emptyFrag,
       playing: Boolean = false,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
-      chessground: Boolean = true,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
@@ -360,7 +358,7 @@ object layout:
                 button(cls := "button")("OK")
             ),
           spinnerMask,
-          loadScripts(moreJs, chessground)
+          loadScripts(moreJs)
         )
       )
     )

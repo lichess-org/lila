@@ -7,7 +7,7 @@ import type * as studyDeps from './study/studyDeps';
 
 export default function (
   patch: (oldVnode: VNode | Element | DocumentFragment, vnode: VNode) => VNode,
-  deps?: typeof studyDeps
+  deps?: typeof studyDeps,
 ) {
   return function (opts: AnalyseOpts): AnalyseApi {
     opts.element = document.querySelector('main.analyse') as HTMLElement;

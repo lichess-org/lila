@@ -40,7 +40,7 @@
     <item quantity="one">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
     <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik, az ellenfeled kilépett. Győzelmet vagy döntetlent igényelhetsz, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
@@ -137,7 +137,7 @@
     <item quantity="one">%s pontatlanság</item>
     <item quantity="other">%s pontatlanság</item>
   </plurals>
-  <string name="moveTimes">Lépésidők</string>
+  <string name="moveTimes">Lépésidő</string>
   <string name="flipBoard">Tábla megfordítása</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="claimADraw">Döntetlen igénylése</string>
@@ -183,7 +183,7 @@
   <string name="variants">Variánsok</string>
   <string name="timeControl">Játékidő</string>
   <string name="realTime">Valós idő</string>
-  <string name="correspondence">Levelezős</string>
+  <string name="correspondence">Levelező</string>
   <string name="daysPerTurn">Nap lépésenként</string>
   <string name="oneDay">Egy nap</string>
   <plurals name="nbDays">
@@ -204,8 +204,8 @@
   <string name="username">Felhasználónév</string>
   <string name="usernameOrEmail">Felhasználónév vagy email</string>
   <string name="changeUsername">Felhasználónév váltás</string>
-  <string name="changeUsernameNotSame">Csak a kis-nagy betűket cserélheted a névben. Pl. \"johndoe\" - \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kisbetű-nagybetű váltás engedélyezett a felhasználónévben.</string>
+  <string name="changeUsernameNotSame">Csak a kis- és nagybetűket cserélheted a névben. Például: \"gipszjakab\" - \"GipszJakab\".</string>
+  <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kis- és nagybetű váltás engedélyezett a felhasználónévben.</string>
   <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
   <string name="signupEmailHint">Csak jelszó-visszaállításhoz használjuk.</string>
   <string name="password">Jelszó</string>
@@ -214,9 +214,9 @@
   <string name="email">E-mail cím</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
-  <string name="error.weakPassword">Ez a jelszó rettentő gyakori, és túl könnyű kitalálni.</string>
-  <string name="error.namePassword">Kérjük ne használja a felhasználónevét a jelszavának.</string>
-  <string name="blankedPassword">Ugyanezt a jelszót már használta egy másik webhelyen, és az a webhely veszélybe került. A Lichess-fiókjának biztonsága érdekében új jelszót kell megadnia. Köszönjük megértését.</string>
+  <string name="error.weakPassword">Ez a jelszó rettentő gyakori és túl könnyű kitalálni.</string>
+  <string name="error.namePassword">Kérjük, ne a felhasználónevedet add meg jelszónak.</string>
+  <string name="blankedPassword">Ugyanezt a jelszót már használtad egy másik webhelyen, ami veszélybe került. A Lichess fiókod biztonsága érdekében új jelszót kell megadnod. Köszönjük megértésed.</string>
   <string name="youAreLeavingLichess">Elhagyja a Lichess-t</string>
   <string name="neverTypeYourPassword">Soha ne írja be a Lichess jelszavát más oldalon!</string>
   <string name="proceedToX">Tovább a(z) %s oldalra</string>
@@ -416,8 +416,8 @@
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s elérhető barát</item>
-    <item quantity="other">%s elérhető barát</item>
+    <item quantity="one">%s barát online</item>
+    <item quantity="other">%s barát online</item>
   </plurals>
   <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
@@ -439,7 +439,7 @@
     <item quantity="other">%s követve</item>
   </plurals>
   <string name="more">Több</string>
-  <string name="memberSince">Tagság kezdete</string>
+  <string name="memberSince">Tagság kezdete:</string>
   <string name="lastSeenActive">Utoljára aktív: %s</string>
   <string name="player">Játékos</string>
   <string name="list">Lista</string>
@@ -504,7 +504,7 @@
   <string name="firstName">Keresztnév</string>
   <string name="lastName">Vezetéknév</string>
   <string name="biography">Bemutatkozás</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ország vagy zászló</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ország</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">A te %1$s pontszámod %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jobb vagy, mint a %2$s játékosok %1$s-a.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jobb, mint a %3$s játékosok %2$s-a.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Jobb vagy, mint a %2$s játékosok %1$s -a</string>
+  <string name="betterThanPercentPlayers">Jobb vagy, mint a %2$s játékosok %1$s -a</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Még nincs meghatározott %s pontszámod.</string>
   <string name="yourRating">Értékszámod</string>
   <string name="cumulative">Összesített</string>

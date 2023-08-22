@@ -8,7 +8,7 @@ function renderMaterialDiff(
   material: MaterialDiffSide,
   score: number,
   position: 'top' | 'bottom',
-  checks?: number
+  checks?: number,
 ): VNode {
   const children: VNode[] = [];
   let role: cg.Role;
@@ -30,7 +30,7 @@ export function renderMaterialDiffs(
   fen: Fen,
   showChecks: boolean,
   checkStates: CheckState[],
-  ply: Ply
+  ply: Ply,
 ): [VNode, VNode] {
   const material = getMaterialDiff(showCaptured ? fen : '');
   const score = getScore(material) * (bottomColor === 'white' ? 1 : -1);

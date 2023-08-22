@@ -500,7 +500,7 @@
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lando aŭ flago</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flago</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
@@ -702,7 +702,7 @@
   <string name="yourPerfTypeRatingIsRating">Via rango je %1$s estas %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vi estas pli bona ol %1$s de %2$s ludantoj.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s estas pli bona ol %2$s el %3$s ludantoj.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Pli bone ol %1$s el %2$s ludantoj</string>
+  <string name="betterThanPercentPlayers">Pli bone ol %1$s el %2$s ludantoj</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan rangon je %s.</string>
   <string name="yourRating">Via rango</string>
   <string name="cumulative">Akumulita</string>
@@ -807,7 +807,7 @@
   <string name="blackWinsGame">Nigro venkas</string>
   <string name="learnFromYourMistakes">Lerni de viaj eraroj</string>
   <string name="learnFromThisMistake">Lerni de tiu ĉi eraro</string>
-  <string name="skipThisMove">Preterpasi tion ĉi movon</string>
+  <string name="skipThisMove">Preterpasi tiun ĉi movon</string>
   <string name="next">Sekva</string>
   <string name="xWasPlayed">%s ludita</string>
   <string name="findBetterMoveForWhite">Trovi plibonan movon por blanka</string>

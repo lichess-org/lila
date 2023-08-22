@@ -12,6 +12,7 @@
   <string name="teachersX">Oʻqituvchilar: %s</string>
   <string name="newClass">Yangi sinf</string>
   <string name="closeClass">Sinfni yopish</string>
+  <string name="removedByX">%s tomonidan o‘chirilgan</string>
   <string name="reopen">Qayta ochish</string>
   <string name="removeStudent">Oʻquvchini oʻchirish</string>
   <string name="removedStudents">Oʻchirildi</string>
@@ -45,6 +46,7 @@ Paroli: %3$s</string>
   <string name="createDesc2">Email manzil talab etilmaydi. Parol generatsiya qilinadi va siz uni oʻquvchiga berishingiz mumkin. Soʻng u login qila oladi.</string>
   <string name="createDesc3">Muhim: oʻquvchi bir nechta hisobga ega boʻlmasligi kerak.</string>
   <string name="createDesc4">Agar bor boʻlsa yaratish oʻrniga taklif yuboring.</string>
+  <string name="createStudentWarning">Faqat haqiqiy talabalarga hisob yarating. O‘zingizga bir nechta hisob yaratish maqsadida ishlatmang. Siz aks holda bloklanasiz.</string>
   <string name="lichessUsername">Lichess foydalanuvchi nomi</string>
   <string name="generateANewUsername">Yangi foydalanuvchi nomini generatsiya qilish</string>
   <string name="welcomeToClass">%s : sinfiga xush kelibsiz!</string>
@@ -64,6 +66,10 @@ Paroli: %3$s</string>
   <string name="releaseDesc1">Toʻla qonli hisobga aylantirilgan hisob boshqatdan boshqariladigan etib yaratilmaydi. Oʻquvchi oʻzi bola rejimi va parolni qayta tiklash ishlarini qila oladi.</string>
   <string name="releaseDesc2">Oʻquvchi uning hisobi toʻla qonli hisobga aylanganda ham sinfda qoladi.</string>
   <string name="realUniqueEmail">Oʻquvchining haqiqiy, unikal email manzili. Biz unga emailni tasdiqlash linkini yuboramiz.</string>
+  <string name="closeStudent">Hisobni yopish</string>
+  <string name="closeTheAccount">Talaba hisobini doimiyga yopish.</string>
+  <string name="closeDesc1">Talaba ushbu hisobni ishlatishga hech qachon imkoni bo‘lmaydi. Yopish yakuni. Talabalar tushunishganini va bunga rozi ekanligiga ishonch xosil qiling.</string>
+  <string name="closeDesc2">Siz buning or‘niga hisobni boshqarishni talabaning o‘ziga berishingiz mumkin va ular uni ishlatishni davom ettirishadi.</string>
   <string name="teachers">Oʻqituvchilar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Oʻqituvchi</item>
@@ -82,6 +88,9 @@ Paroli: %3$s</string>
   <string name="variantXOverLastY">Oxirgi %2$s dan %1$s koʻproq</string>
   <string name="winrate">Gʻalaba uchun imkoniyat</string>
   <string name="na">Mavjud emas</string>
+  <string name="overview">Umumiy ko‘rinish</string>
+  <string name="news">Yangiliklar</string>
+  <string name="classNews">Sinf yangiliklari</string>
   <string name="editNews">Yangiliklarni tahrirlash</string>
   <string name="notifyAllStudents">Barcha oʻquvchilarni habardor etish</string>
   <string name="nothingHere">Xozirda, bu yerda hech nima yoʻq.</string>
@@ -89,4 +98,19 @@ Paroli: %3$s</string>
   <string name="newsEdit2">Yangi habarlarni tepaga qoʻshing. Avvalgi yangiliklarni oʻchirmang.</string>
   <string name="newsEdit3">Yangiliklarni --- 
 bilan ajrating, u gorizontal chiziqni tasvirlaydi.</string>
+  <string name="invite">Taklif etish</string>
+  <string name="youHaveBeenInvitedByX">Siz %s tomonidan taklif etilgansiz.</string>
+  <string name="youAcceptedThisInvitation">Siz ushbu taklifni qabul qilgansiz.</string>
+  <string name="youDeclinedThisInvitation">Siz ushbu taklifni rad etgansiz.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">yoki</string>
+  <string name="createMultipleAccounts">Bir vaqtni o‘zida bir nechta Lichess hisobini yaratish</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Siz shuningdek %s ni qila olasiz talabalar nomlarini ro‘yhatiga mos Lichess hisoblarini yaratish uchun.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">ushbu shaklni ishlating</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">E‘tibor bering sinfda %1$s talaba bo‘lishi mumkin. Agar bu kamlik qilsa, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">ko‘proq sinflar yarating</string>
+  <string name="studentsRealNamesOnePerLine">Bitta qatorda talabalar nomlari</string>
+  <string name="xisNowAStudentOfTheClass">%s endi sinf talabasi</string>
+  <string name="anInvitationHasBeenSentToX">%s ga taklif yuboriladi</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ga taklif yuborilgan</string>
+  <string name="xIsAKidAccountWarning">%1$s bola akkounti, shu sababli sizning xabaringizni qabul qila olmaydi. Siz ularga taklif URL ini qo‘lingiz bilan yetkazishingiz kerak: %2$s</string>
 </resources>

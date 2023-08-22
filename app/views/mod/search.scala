@@ -108,9 +108,7 @@ object search:
           ),
           div(cls := "mod-search__ip-data box__pad")(
             p(
-              "Location: ",
-              data.location.toString,
-              br,
+              isGranted(_.Admin) option frag("Location: ", data.location.toString, br),
               "Proxy: ",
               data.proxy.toString
             )

@@ -64,7 +64,7 @@ export function roundSvg(url: string) {
     'div.round-svg',
     m('img', {
       src: url,
-    })
+    }),
   );
 }
 

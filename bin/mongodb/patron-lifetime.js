@@ -12,7 +12,7 @@ db.user4.update(
         since: prev.since || new Date(),
       },
     },
-  }
+  },
 );
 
 db.plan_patron.update(
@@ -21,5 +21,5 @@ db.plan_patron.update(
     lastLevelUp: new Date(),
     lifetime: true,
   },
-  { upsert: true }
+  { upsert: true },
 );

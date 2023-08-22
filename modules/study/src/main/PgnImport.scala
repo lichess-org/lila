@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.{ Centis, ErrorStr, Node as PgnNode }
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
+import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
 

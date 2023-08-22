@@ -52,11 +52,11 @@ export class ExplorerConfigCtrl {
     readonly root: AnalyseCtrl,
     readonly variant: VariantKey,
     readonly onClose: () => void,
-    previous?: ExplorerConfigCtrl
+    previous?: ExplorerConfigCtrl,
   ) {
     this.myName = document.body.dataset['user'];
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
-      name => name && name != this.myName
+      name => name && name != this.myName,
     );
     if (variant === 'standard') this.allDbs.unshift('masters');
     const byDbData = {} as ByDbSettings;
@@ -73,7 +73,7 @@ export class ExplorerConfigCtrl {
         'explorer.db2.' + variant,
         this.allDbs[0],
         str => str as ExplorerDb,
-        v => v
+        v => v,
       ),
       rating: storedJsonProp('analyse.explorer.rating', () => allRatings.slice(1)),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds.slice(1)),
@@ -144,8 +144,8 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
           attrs: dataIcon(licon.Checkmark),
           hook: bind('click', ctrl.toggleOpen),
         },
-        ctrl.root.trans.noarg('allSet')
-      )
+        ctrl.root.trans.noarg('allSet'),
+      ),
     ),
   ];
 }
@@ -167,8 +167,8 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
               hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
               attrs: name ? { title: selectText } : undefined,
             },
-            name || selectText
-          )
+            name || selectText,
+          ),
         ),
         h(
           'button.button-link.text.color',
@@ -176,7 +176,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ' ' + ctrl.root.trans(ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack')
+          ' ' + ctrl.root.trans(ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack'),
         ),
       ]),
     ]),
@@ -209,7 +209,7 @@ const radioButton =
         attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : ctrl.root.trans.noarg('' + v)
+      render ? render(v) : ctrl.root.trans.noarg('' + v),
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -338,7 +338,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
                 tag: 'span',
                 onSelect: v => onSelect(v.name),
               })
-              .then(() => input.focus())
+              .then(() => input.focus()),
           ),
         }),
       ]),
@@ -351,9 +351,9 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
               {
                 hook: bind('click', () => onSelect(name)),
               },
-              name
-            )
-        )
+              name,
+            ),
+        ),
       ),
     ],
   });

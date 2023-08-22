@@ -32,7 +32,7 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
             uptA('/@/' + u + '/tv', licon.AnalogTv) +
             uptA('/inbox/new?user=' + u, licon.BubbleSpeech) +
             uptA('/?user=' + u + '#friend', licon.Swords) +
-            '<a class="btn-rack__btn relation-button" disabled></a></div>'
+            '<a class="btn-rack__btn relation-button" disabled></a></div>',
         );
       }),
       placement:
@@ -58,7 +58,7 @@ function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) 
 function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
   requestIdleCallback(
     () => Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)), // do not codegolf to `f`
-    800
+    800,
   );
 }
 
@@ -248,8 +248,12 @@ class DisplayController {
   hoverTimer?: number;
   el: WithTooltip;
 
-  constructor(readonly element: Cash, readonly options: Options, readonly tipController: TooltipController) {
-    this.el = un$(element);
+  constructor(
+    readonly element: Cash,
+    readonly options: Options,
+    readonly tipController: TooltipController,
+  ) {
+    this.el = $as(element);
     this.scoped = session.scoped[options.popupId!];
     // expose the methods
   }
@@ -326,7 +330,7 @@ function placementCalculator() {
       placement: PowerTip.Placement,
       tipWidth: number,
       tipHeight: number,
-      offset: number
+      offset: number,
     ) {
       const placementBase = placement.split('-')[0], // ignore 'alt' for corners
         coords = cssCoordinates(),
@@ -454,7 +458,7 @@ class TooltipController {
   }
 
   showTip(element: Cash) {
-    un$<WithTooltip>(element).hasActiveHover = true;
+    $as<WithTooltip>(element).hasActiveHover = true;
     this.doShowTip(element);
   }
 
@@ -464,7 +468,7 @@ class TooltipController {
     // in the code. if that happens then we need to not proceed or we may
     // have the fadeout callback for the last tooltip execute immediately
     // after this code runs, causing bugs.
-    if (!un$<WithTooltip>(element).hasActiveHover) return;
+    if (!$as<WithTooltip>(element).hasActiveHover) return;
 
     // if the tooltip is open and we got asked to open another one then the
     // old one is still in its fadeOut cycle, so wait and try again
@@ -482,7 +486,7 @@ class TooltipController {
 
     // trigger powerTipPreRender event
     if (this.options.preRender) {
-      this.options.preRender(un$(element));
+      this.options.preRender($as(element));
     }
 
     this.scoped.activeHover = element;
@@ -509,8 +513,8 @@ class TooltipController {
     this.scoped.desyncTimeout = clearInterval(this.scoped.desyncTimeout);
 
     // reset element state
-    un$<WithTooltip>(element).hasActiveHover = false;
-    un$<WithTooltip>(element).forcedOpen = false;
+    $as<WithTooltip>(element).hasActiveHover = false;
+    $as<WithTooltip>(element).forcedOpen = false;
 
     // fade out
     this.tipElement.hide();
@@ -541,7 +545,7 @@ class TooltipController {
         const collisions = getViewportCollisions(
           this.placeTooltip(element, pos),
           this.tipElement.outerWidth() || this.options.defaultSize[0],
-          this.tipElement.outerHeight() || this.options.defaultSize[1]
+          this.tipElement.outerHeight() || this.options.defaultSize[1],
         );
 
         // break if there were no collisions
@@ -580,7 +584,7 @@ class TooltipController {
         placement,
         tipWidth,
         tipHeight,
-        this.options.offset!
+        this.options.offset!,
       );
 
       // place the tooltip
@@ -657,7 +661,7 @@ function initTracking() {
         session.windowWidth = $window.width();
         session.windowHeight = $window.height();
       },
-      { passive: true }
+      { passive: true },
     );
 
     window.addEventListener(
@@ -674,7 +678,7 @@ function initTracking() {
           session.scrollTop = y;
         }
       },
-      { passive: true }
+      { passive: true },
     );
   }
 }

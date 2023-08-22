@@ -50,9 +50,9 @@ export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode
             selected: key === v,
           },
         },
-        name
+        name,
       );
-    })
+    }),
   );
 }
 

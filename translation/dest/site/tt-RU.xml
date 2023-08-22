@@ -161,6 +161,9 @@
   <plurals name="nbHours">
     <item quantity="other">%s сәгатъ</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s минут</item>
+  </plurals>
   <string name="time">Вакыт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистикасы</string>
@@ -404,6 +407,7 @@
   <string name="firstName">Исем</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрак</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
   <string name="inlineNotation">Кертелгән билгеләнеш</string>
@@ -758,4 +762,5 @@
   <string name="lostAgainstTOSViolator">Сез Lichess TOS кагыйдәләрене бозган кешегә оттырдыгыз</string>
   <string name="refundXpointsTimeControlY">Кире кайтару %1$s %2$s рейтинг накате.</string>
   <string name="timeAlmostUp">Вакыт тугады диярлек!</string>
+  <string name="download">Йөкләп алу</string>
 </resources>

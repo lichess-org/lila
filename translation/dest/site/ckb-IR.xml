@@ -504,7 +504,6 @@
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
   <string name="biography">ژیاننامە</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">وڵات یان ئاڵا</string>
   <string name="thankYou">سوپاس!</string>
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
@@ -706,7 +705,7 @@
   <string name="yourPerfTypeRatingIsRating">هەڵسەنگاندنی تۆ لە %1$s بریتییە لە %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">تۆ باشتریت لە %1$s تا %2$s یاریزان.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s باشترە لە %2$s تا %3$s یاریزان.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">تۆ باشتریت لە %1$s لە %2$s یاریزانەکان</string>
+  <string name="betterThanPercentPlayers">تۆ باشتریت لە %1$s لە %2$s یاریزانەکان</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">تۆ هەڵسەنگاندنێکی جێگیرت نییە لە %s.</string>
   <string name="yourRating">هەڵسەنگاندنی تۆ</string>
   <string name="cumulative">کۆکراوە</string>

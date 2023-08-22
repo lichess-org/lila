@@ -14,7 +14,7 @@ object tourForm:
 
   def create(form: Form[Data])(using PageContext) =
     layout(newBroadcast.txt(), menu = "new".some)(
-      boxTop(h1(newBroadcast())),
+      boxTop(h1(dataIcon := licon.RadioTower, cls := "text")(newBroadcast())),
       postForm(cls := "form3", action := routes.RelayTour.create)(
         inner(form),
         form3.actions(
@@ -26,11 +26,16 @@ object tourForm:
 
   def edit(t: RelayTour, form: Form[Data])(using PageContext) =
     layout(t.name, menu = none)(
-      boxTop(h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(t.name))),
+      boxTop:
+        bits.broadcastH1(
+          "Edit ",
+          a(href := routes.RelayTour.show(t.slug, t.id))(t.name)
+        )
+      ,
       postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
         inner(form),
         form3.actions(
-          a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(trans.cancel()),
+          a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),
           form3.submit(trans.apply())
         )
       ),

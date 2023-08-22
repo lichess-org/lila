@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Això permet amagar totes les puntuacions de la pàgina web per a centrar-se en els escacs. Les partides poden ser puntuades, això només canvia el que es veu.</string>
   <string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
   <string name="onlyOnInitialPosition">Només en posició inicial</string>
+  <string name="inGameOnly">Només durant la partida</string>
   <string name="blindfoldChess">Escacs a cegues (peces invisibles)</string>
   <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>

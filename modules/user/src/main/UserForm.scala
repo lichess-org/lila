@@ -29,7 +29,7 @@ final class UserForm:
 
   val profile: Form[Profile] = Form(
     mapping(
-      "country"    -> optional(text.verifying(Flags.codeSet contains _)),
+      "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
       "location"   -> optional(cleanNonEmptyText(maxLength = 80)),
       "bio"        -> optional(cleanNonEmptyText(maxLength = 400)),
       "firstName"  -> nameField,

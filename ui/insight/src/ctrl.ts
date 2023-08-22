@@ -27,11 +27,11 @@ export default class {
 
     this.dimensions = Array.prototype.concat.apply(
       [],
-      env.ui.dimensionCategs.map(c => c.items)
+      env.ui.dimensionCategs.map(c => c.items),
     );
     this.metrics = Array.prototype.concat.apply(
       [],
-      env.ui.metricCategs.map(c => c.items)
+      env.ui.metricCategs.map(c => c.items),
     );
 
     this.vm = {
@@ -100,13 +100,13 @@ export default class {
                   this.vm.loading = false;
                   this.vm.broken = true;
                   this.redraw();
-                }
+                },
               )
               .finally(resolve),
-          1
+          1,
         );
       });
-    }
+    },
   );
 
   makeUrl(dKey: string, mKey: string, filters: Filters) {

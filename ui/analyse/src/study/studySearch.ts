@@ -14,7 +14,7 @@ export class SearchCtrl {
     readonly studyName: string,
     readonly chapters: Prop<StudyChapterMeta[]>,
     readonly rootSetChapter: (id: string) => void,
-    readonly redraw: Redraw
+    readonly redraw: Redraw,
   ) {
     this.open = propWithEffect(false, () => this.query(''));
     lichess.pubsub.on('study.search.open', () => this.open(true));
@@ -59,7 +59,7 @@ export function view(ctrl: SearchCtrl) {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
         hook: onInsert((el: HTMLInputElement) => {
           el.addEventListener('input', (e: KeyboardEvent) =>
-            ctrl.query((e.target as HTMLInputElement).value.trim())
+            ctrl.query((e.target as HTMLInputElement).value.trim()),
           );
           el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
         }),
@@ -86,13 +86,13 @@ export function view(ctrl: SearchCtrl) {
                       }
                     : {},
                 },
-                c.name
+                c.name,
               ),
               c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
               !c.ongoing && c.res ? h('res', c.res) : null,
-            ]
-          )
-        )
+            ],
+          ),
+        ),
       ),
     ],
   });

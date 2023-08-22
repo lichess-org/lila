@@ -6,7 +6,7 @@ db.tournament2
     {
       id: 1,
       startsAt: 1,
-    }
+    },
   )
   .forEach(d => {
     if (d.startsAt.getSeconds() === 0) {
@@ -18,7 +18,7 @@ db.tournament2
           $set: {
             startsAt: d.startsAt,
           },
-        }
+        },
       );
     }
   });

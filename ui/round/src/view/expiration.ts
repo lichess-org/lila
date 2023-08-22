@@ -25,6 +25,6 @@ export default function (ctrl: RoundController): MaybeVNode {
         'bar-glider': myTurn,
       },
     },
-    ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft))
+    ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft)),
   );
 }

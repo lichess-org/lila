@@ -67,7 +67,7 @@ function help() {
         commandHelp('/', '', 'Type a command') +
         commandHelp('c', '', 'Focus the chat input') +
         commandHelp('esc', '', 'Close modals like this one') +
-        '</div>'
+        '</div>',
     ),
     class: 'clinput-help',
   });

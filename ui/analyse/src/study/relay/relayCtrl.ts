@@ -18,7 +18,7 @@ export default class RelayCtrl {
     readonly send: AnalyseSocketSend,
     readonly redraw: () => void,
     readonly members: StudyMemberCtrl,
-    chapter: StudyChapter
+    chapter: StudyChapter,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = {

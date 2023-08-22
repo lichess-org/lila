@@ -11,5 +11,5 @@ db.streamer.update(
   },
   {
     multi: 1,
-  }
+  },
 );

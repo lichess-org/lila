@@ -12,7 +12,7 @@ export const levelButtons = (ctrl: LobbyController) => {
           {
             on: { change: (e: Event) => setupCtrl.aiLevel(parseInt((e.target as HTMLSelectElement).value)) },
           },
-          '12345678'.split('').map(key => option({ key, name: key }, setupCtrl.aiLevel().toString()))
+          '12345678'.split('').map(key => option({ key, name: key }, setupCtrl.aiLevel().toString())),
         ),
       ]
     : [
@@ -37,16 +37,16 @@ export const levelButtons = (ctrl: LobbyController) => {
                     },
                   }),
                   h('label', { attrs: { for: `sf_level_${level}` } }, level),
-                ])
-              )
-            )
+                ]),
+              ),
+            ),
           ),
           h(
             'div.ai_info',
             h(
               `div.sf_level_${setupCtrl.aiLevel()}`,
-              trans('aiNameLevelAiLevel', 'Fairy-Stockfish 14', setupCtrl.aiLevel())
-            )
+              trans('aiNameLevelAiLevel', 'Fairy-Stockfish 14', setupCtrl.aiLevel()),
+            ),
           ),
         ]),
       ];

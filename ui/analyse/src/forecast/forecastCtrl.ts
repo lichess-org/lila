@@ -10,7 +10,11 @@ export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);
   loading = prop(false);
 
-  constructor(readonly cfg: ForecastData, readonly data: AnalyseData, readonly redraw: () => void) {
+  constructor(
+    readonly cfg: ForecastData,
+    readonly data: AnalyseData,
+    readonly redraw: () => void,
+  ) {
     this.forecasts(cfg.steps || []);
     this.fixAll();
   }
@@ -47,11 +51,11 @@ export default class ForecastCtrl {
   fixAll = () => {
     // remove contained forecasts
     this.update(fcs =>
-      fcs.filter((fc, i) => fcs.filter((f, j) => i !== j && this.contains(f, fc)).length === 0)
+      fcs.filter((fc, i) => fcs.filter((f, j) => i !== j && this.contains(f, fc)).length === 0),
     );
     // remove colliding forecasts
     this.update(fcs =>
-      fcs.filter((fc, i) => fcs.filter((f, j) => i < j && this.collides(f, fc)).length === 0)
+      fcs.filter((fc, i) => fcs.filter((f, j) => i < j && this.collides(f, fc)).length === 0),
     );
   };
 
@@ -98,7 +102,7 @@ export default class ForecastCtrl {
         body: JSON.stringify(
           this.findStartingWithNode(node)
             .filter(notEmpty)
-            .map(fc => fc.slice(1))
+            .map(fc => fc.slice(1)),
         ),
         headers: { 'Content-Type': 'application/json' },
       })
@@ -127,7 +131,7 @@ export default class ForecastCtrl {
           id: moveId,
           children: [],
         },
-        path // the path before this is its parent
+        path, // the path before this is its parent
       );
       path += moveId;
     });

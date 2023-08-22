@@ -9,7 +9,7 @@ const pubsub: Pubsub = {
     if (cbs)
       for (const i in cbs) {
         if (cbs[i] === cb) {
-          cbs.splice(+i);
+          cbs.splice(Number(i), 1);
           break;
         }
       }

@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
+  <string name="inGameOnly">Alleen tijdens partij</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>

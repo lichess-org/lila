@@ -9,7 +9,7 @@
           $push: {
             'filter.v': NumberInt(8),
           },
-        }
+        },
       );
     }
   });

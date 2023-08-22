@@ -29,7 +29,7 @@ export function initModule(opts: LobbyOpts) {
         lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
         setTimeout(
           () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          lichess.socket.pingInterval() / 2
+          lichess.socket.pingInterval() / 2,
         );
       },
       reload_timeline() {
@@ -61,7 +61,7 @@ export function initModule(opts: LobbyOpts) {
       xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }),
       {
         method: 'post',
-      }
+      },
     );
     lobbyCtrl.setTab('real_time');
     lobbyCtrl.redraw();
@@ -83,6 +83,8 @@ function suggestBgSwitch() {
   $('.bg-switch')
     .addClass('active')
     .on('click', () =>
-      loadDasher().then(m => m.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'))
+      loadDasher().then(m =>
+        m.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'),
+      ),
     );
 }

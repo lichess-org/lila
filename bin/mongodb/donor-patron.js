@@ -16,7 +16,7 @@ db.user4.update(
   },
   {
     multi: true,
-  }
+  },
 );
 
 var userIds = [];
@@ -61,7 +61,7 @@ function donationToPatron(donation) {
           since: donation.date,
         },
       },
-    }
+    },
   );
 }
 

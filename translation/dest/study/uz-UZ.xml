@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Qo\'shilgan vaqt (eskiroq)</string>
   <string name="recentlyUpdated">Yaqinda yangilangan</string>
   <string name="mostPopular">Eng ommabop</string>
+  <string name="alphabetical">Alfavitli</string>
   <string name="addNewChapter">Yangi bo\'lim qo\'shish</string>
   <plurals name="nbChapters">
     <item quantity="one">%s bo\'lim</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">Siz xozir kuzatuvchisiz</string>
   <string name="pgnTags">PGN yorliqlar</string>
   <string name="like">Yoqdi</string>
+  <string name="unlike">O‘xshamagan</string>
   <string name="newTag">Yangi yorliq</string>
   <string name="commentThisPosition">Ushbu holatga izoh berish</string>
   <string name="commentThisMove">Ushbu yurishga izoh berish</string>
@@ -60,6 +62,8 @@
   <string name="studyPgn">PGN o\'rganish</string>
   <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
   <string name="chapterPgn">PGN bo\'limi</string>
+  <string name="copyChapterPgn">PGN ni nusxalash</string>
+  <string name="copyChapterPgnDescription">Bo‘lim PGN ini bufferga nushalash.</string>
   <string name="downloadGame">Oʻyinni yuklab olish</string>
   <string name="studyUrl">URL o\'rganish</string>
   <string name="currentChapterUrl">Joriy bo\'lim URL i</string>
@@ -74,11 +78,13 @@
   <string name="studyNotFound">Ta\'lim topilmadi</string>
   <string name="editChapter">Bo\'limni tahrirlash</string>
   <string name="newChapter">Yangi bo\'lim</string>
+  <string name="importFromChapterX">%s dan import qilish</string>
   <string name="orientation">Joylashuv</string>
   <string name="analysisMode">Tahlil qilish holati</string>
   <string name="pinnedChapterComment">Bo\'lim mahkamlangan kommenti</string>
   <string name="saveChapter">Bo\'limni saqlash</string>
   <string name="clearAnnotations">Annotatsiyalarni tozalash</string>
+  <string name="clearVariations">Variantlarni tozalash</string>
   <string name="deleteChapter">Bo\'limni o\'chirish</string>
   <string name="deleteThisChapter">Ushbu bo\'lim o\'chirilsinmi? Amalni ortga qaytarib bo\'lmaydi!</string>
   <string name="clearAllCommentsInThisChapter">Ushbu bo\'limdagi barcha kommentlar, rasmlar, sipohlar, shakllar tozalansinmi?</string>
@@ -124,5 +130,41 @@
   <string name="clearChat">Suhbatni tozalash</string>
   <string name="deleteTheStudyChatHistory">Ta\'lim suhbatini o\'chirilsinmi? Bundan keyin uni ortga qaytarib bo\'lmaydi!</string>
   <string name="deleteStudy">Ta\'limni o\'chirish</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ta‘limni to‘laligicha o‘chirilsinmi? Ortga yo‘l yo‘q! Tasdiqlash uchun %s ta‘lim nomini kiriting</string>
   <string name="whereDoYouWantToStudyThat">Buni qayerda o\'rganmoqchisiz?</string>
+  <string name="goodMove">Yaxshi yurish</string>
+  <string name="mistake">Xato</string>
+  <string name="brilliantMove">Zo‘r yurish</string>
+  <string name="blunder">Qo\'pol xato</string>
+  <string name="interestingMove">Qiziq yurish</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Shubhali yurish</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Yagona yurish</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Sugsvang</string>
+  <string name="equalPosition">Teng holat</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Noaniq holat</string>
+  <string name="whiteIsSlightlyBetter">Oqlarda vaziyat yaxshiroq</string>
+  <string name="blackIsSlightlyBetter">Qoralarda vaziyat yaxshiroq</string>
+  <string name="whiteIsBetter">Oqlarda vaziyat zo‘r</string>
+  <string name="blackIsBetter">Qoralarda vaziyat zo‘r</string>
+  <string name="whiteIsWinning">Oqlar yutayabdi</string>
+  <string name="blackIsWinning">Qoralar yutayabdi</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Yangi</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Ishlab chiqish</string>
+  <string name="initiative">Initsiativa</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Hujum</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Qarshi o‘yin</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vaqt yetishmovchiligi</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompensatsiya bilan</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">G‘oya bilan</string>
+  <string name="nextChapter">Navbatdagi bo‘lim</string>
+  <string name="prevChapter">Avvalgi bo‘lim</string>
+  <string name="studyActions">Ta‘lim harakatlari</string>
+  <string name="topics">Mavzular</string>
+  <string name="myTopics">Mening mavzularim</string>
+  <string name="popularTopics">Nomdor mavzular</string>
+  <string name="manageTopics">Mavzularni boshqarish</string>
+  <string name="back">Ortga</string>
+  <string name="playAgain">Qayta o‘ynash</string>
+  <string name="whatWouldYouPlay">Ushbu holatda qanday o‘ynagan bo‘lardingiz?</string>
+  <string name="youCompletedThisLesson">Tabriklaymiz! Siz bu darsni tugatdingiz.</string>
 </resources>
