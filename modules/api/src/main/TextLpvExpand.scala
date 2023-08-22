@@ -1,7 +1,6 @@
 package lila.api
 
 import scalatags.Text.all.*
-import util.chaining.scalaUtilChainingOps
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.game.GameRepo
@@ -29,25 +28,25 @@ final class TextLpvExpand(
     regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
-      .map: link =>
-        link match
-          case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(pgn => url -> pgn)
-          case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(pgn => url -> pgn)
-          case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(pgn => url -> pgn)
-          case _                           => fuccess(link -> link)
+      .map:
+        case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(url -> _)
+        case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(url -> _)
+        case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(url -> _)
+        case link                        => fuccess(link -> link)
       .parallel
       .map:
-        _.collect { case (url, Some(pgn)) => url -> pgn }.toMap.pipe: pgns =>
-          (url, _) =>
-            pgns
-              .get(url)
-              .map: pgn =>
-                div(
-                  cls              := "lpv--autostart is2d",
-                  attr("data-pgn") := pgn.value,
-                  plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
-                  (url contains "/black").option(attr("data-orientation") := "black")
-                )
+        _.collect { case (url, Some(pgn)) => url -> pgn }.toMap
+      .map: pgns =>
+        (url, _) =>
+          pgns
+            .get(url)
+            .map: pgn =>
+              div(
+                cls              := "lpv--autostart is2d",
+                attr("data-pgn") := pgn.value,
+                plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
+                (url contains "/black").option(attr("data-orientation") := "black")
+              )
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
@@ -55,12 +54,11 @@ final class TextLpvExpand(
     regex.blogPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
-      .map: link =>
-        link match
-          case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(pgn => id -> pgn)
-          case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(pgn => id -> pgn)
-          case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(pgn => id -> pgn)
-          case _                           => fuccess(link -> link)
+      .map:
+        case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(id -> _)
+        case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(id -> _)
+        case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(id -> _)
+        case link                        => fuccess(link -> link)
       .parallel
       .map:
         _.collect:
