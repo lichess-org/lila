@@ -151,7 +151,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   private val botsCache = env.memo.cacheApi.unit[List[lila.user.User.WithPerfs]]:
     _.expireAfterWrite(10 seconds).buildAsyncFuture: _ =>
-      env.user.api.botsByIds(env.bot.onlineApiUsers.get)
+      env.user.api.visibleBotsByIds(env.bot.onlineApiUsers.get)
 
   def botOnline = Open:
     for
