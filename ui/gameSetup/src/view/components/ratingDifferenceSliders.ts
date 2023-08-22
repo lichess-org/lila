@@ -4,7 +4,6 @@ import { SetupCtrl } from '../../ctrl';
 export const ratingDifferenceSliders = (ctrl: SetupCtrl) => {
   if (!ctrl.root.user || lichess.blindMode || !ctrl.root.ratingMap) return null;
 
-  const trans = ctrl.root.trans;
   const selectedPerf = ctrl.selectedPerf();
   const isProvisional = !!ctrl.root.ratingMap[selectedPerf].prov;
   const disabled = isProvisional ? '.disabled' : '';
@@ -23,7 +22,7 @@ export const ratingDifferenceSliders = (ctrl: SetupCtrl) => {
         : undefined,
     },
     [
-      trans('ratingRange'),
+      ctrl.root.trans('ratingRange'),
       h('div.rating-range', [
         h('input.range.rating-range__min', {
           attrs: {

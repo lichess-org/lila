@@ -10,9 +10,8 @@ import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 
 export default function friendContent(ctrl: SetupCtrl): MaybeVNodes {
-  const trans = ctrl.root.trans;
   return [
-    h('h2', trans('playWithAFriend')),
+    h('h2', ctrl.root.trans('playWithAFriend')),
     h('div.setup-content', [
       ctrl.friendUser ? userLink(ctrl.friendUser) : null,
       variantPicker(ctrl),

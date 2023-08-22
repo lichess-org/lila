@@ -9,9 +9,8 @@ import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 
 export default function aiContent(ctrl: SetupCtrl): MaybeVNodes {
-  const trans = ctrl.root.trans;
   return [
-    h('h2', trans('playWithTheMachine')),
+    h('h2', ctrl.root.trans('playWithTheMachine')),
     h('div.setup-content', [
       variantPicker(ctrl),
       fenInput(ctrl),

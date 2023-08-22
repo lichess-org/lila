@@ -10,9 +10,8 @@ import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 
 export default function hookContent(ctrl: SetupCtrl): MaybeVNodes {
-  const trans = ctrl.root.trans;
   return [
-    h('h2', trans('createAGame')),
+    h('h2', ctrl.root.trans('createAGame')),
     h('div.setup-content', [
       variantPicker(ctrl),
       timePickerAndSliders(ctrl),

@@ -53,7 +53,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
             'click',
             () => {
               ctrl.leavePool();
-              ctrl.setupCtrl.openModal('hook', { variant: 'standard', timeMode: 'correspondence' });
+              ctrl.showSetupModal('hook', { variant: 'standard', timeMode: 'correspondence' });
             },
             ctrl.redraw,
           ),

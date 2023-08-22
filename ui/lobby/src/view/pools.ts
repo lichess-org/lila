@@ -12,7 +12,7 @@ export function hooks(ctrl: LobbyController): Hooks {
         ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
       if (id === 'custom') {
         ctrl.leavePool();
-        ctrl.setupCtrl.openModal('hook');
+        ctrl.showSetupModal('hook');
       } else if (id) ctrl.clickPool(id);
     },
     ctrl.redraw,

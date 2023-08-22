@@ -30,11 +30,7 @@ export default function table(ctrl: LobbyController) {
               attrs: { type: 'button' },
               hook: disabled
                 ? {}
-                : bind(lichess.blindMode ? 'click' : 'mousedown', async () => {
-                    await ctrl.loadSetupCtrl();
-                    ctrl.leavePool();
-                    ctrl.setupCtrl.openModal(gameType);
-                  }),
+                : bind(lichess.blindMode ? 'click' : 'mousedown', () => ctrl.showSetupModal(gameType)),
             },
             trans(transKey),
           ),

@@ -190,16 +190,13 @@ export class SetupCtrl {
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
-    window.alert('wtf');
     this.gameType = gameType;
     this.loading = false;
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
     this.loadPropsFromStore(forceOptions);
-    console.log('heyo');
     this.root.redraw();
-    console.log('hey now');
   };
 
   renderModal = () => renderSetup(this);
@@ -299,7 +296,7 @@ export class SetupCtrl {
     this.root.redraw();
 
     let urlPath = `/setup/${this.gameType}`;
-    if (this.gameType === 'hook') urlPath += `/${lichess.sri}`;
+    if (this.gameType === 'hook') urlPath += '/' + lichess.sri;
     const urlParams = { user: this.friendUser || undefined };
     let response;
     try {

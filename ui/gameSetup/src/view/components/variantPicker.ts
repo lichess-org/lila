@@ -5,10 +5,9 @@ import { variantsBlindMode, variants, variantsForGameType } from '../../options'
 import { option } from './option';
 
 export const variantPicker = (ctrl: SetupCtrl) => {
-  const trans = ctrl.root.trans;
   const baseVariants = lichess.blindMode ? variantsBlindMode : variants;
   return h('div.variant.label-select', [
-    h('label', { attrs: { for: 'sf_variant' } }, trans('variant')),
+    h('label', { attrs: { for: 'sf_variant' } }, ctrl.root.trans('variant')),
     h(
       'select#sf_variant',
       {

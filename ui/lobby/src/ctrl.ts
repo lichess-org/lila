@@ -268,15 +268,15 @@ export default class LobbyController implements ParentCtrl {
 
   hasPool = (id: string) => this.pools.some(p => p.id === id);
 
-  loadSetupCtrl = async () => {
-    return (this.setupCtrl = await lichess.loadEsm<SetupCtrl>('gameSetup', { init: this }));
+  showSetupModal = async (gameType: GameType, opts?: ForceSetupOptions, friendUser?: string) => {
+    if (!this.setupCtrl) this.setupCtrl = await lichess.loadEsm<SetupCtrl>('gameSetup', { init: this });
+    this.leavePool();
+    this.setupCtrl.openModal(gameType, opts, friendUser);
   };
 
-  private locationHashSetupModal = async () => {
+  private locationHashSetupModal = () => {
     const locationHash = location.hash.replace('#', '');
     if (!['ai', 'friend', 'hook', 'local'].includes(locationHash)) return;
-
-    await this.loadSetupCtrl();
 
     let friendUser;
     const forceOptions: ForceSetupOptions = {};
@@ -295,8 +295,7 @@ export default class LobbyController implements ParentCtrl {
     } else {
       friendUser = urlParams.get('user')!;
     }
-    this.leavePool();
-    this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+    this.showSetupModal(locationHash as GameType, forceOptions, friendUser);
     history.replaceState(null, '', '/');
   };
 
