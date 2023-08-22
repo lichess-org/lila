@@ -44,7 +44,11 @@ object theme:
           val url =
             if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
             else routes.Puzzle.show(pt.theme.key.value)
-          a(cls := "puzzle-themes__link", href := (pt.count > 0).option(langHref(url))):
+          a(
+            cls  := "puzzle-themes__link",
+            href := (pt.count > 0).option(langHref(url))
+          )(
+            img(src := assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")),
             span(
               h3(
                 pt.theme.name(),
@@ -52,6 +56,7 @@ object theme:
               ),
               span(pt.theme.description())
             )
+          )
         ,
         cat.value == "puzzle:origin" option
           a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer()):
@@ -61,3 +66,8 @@ object theme:
             )
       )
     )
+
+  private def iconFile(theme: PuzzleTheme.Key): String =
+    import PuzzleTheme.*
+    if theme.value.startsWith("mateIn") then "mate"
+    else theme.value
