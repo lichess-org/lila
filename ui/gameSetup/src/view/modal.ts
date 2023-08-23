@@ -4,12 +4,13 @@ import { SetupCtrl } from '../ctrl';
 import hookContent from './hookContent';
 import friendContent from './friendContent';
 import aiContent from './aiContent';
+import localContent from './localContent';
 
 const gameTypeToRenderer = {
   hook: hookContent,
   friend: friendContent,
   ai: aiContent,
-  local: aiContent,
+  local: localContent,
 };
 
 export default function setupModal(ctrl: SetupCtrl): MaybeVNode {

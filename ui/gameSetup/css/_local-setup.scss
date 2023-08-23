@@ -3,17 +3,13 @@
 .local-setup#modal-wrap {
   @extend %setup;
 
-  #bot-view {
+  #bot-select {
     display: flex;
     flex-flow: column nowrap;
-
-    #bot-content {
-      flex: 1 1 auto;
-      overflow: hidden;
-    }
+    overflow-y: auto;
   }
 
-  .fancy-bot {
+  .libot {
     display: flex;
     align-items: center;
 

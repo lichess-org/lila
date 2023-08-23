@@ -8,6 +8,7 @@
   "types": "./dist/types.d.ts",
   "dependencies": {
     "common": "workspace:*",
+    "libot": "workspace:*",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

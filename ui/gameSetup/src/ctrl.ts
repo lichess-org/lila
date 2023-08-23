@@ -2,8 +2,9 @@ import { Prop, propWithEffect } from 'common';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
+
 import {
-  ForceSetupOptions,
+  SetupConstraints,
   GameMode,
   GameType,
   InputValue,
@@ -98,12 +99,12 @@ export class SetupCtrl {
       aiLevel: 1,
     }));
 
-  private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
+  private init = (opts?: SetupConstraints) => {
     const storeProps = this.store[this.gameType!]();
-    // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onVariantChange);
-    this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
-    this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
+    // Load props from the store, but override any store values with values found in opts
+    this.variant = propWithEffect(opts?.variant || storeProps.variant, this.onVariantChange);
+    this.fen = this.propWithApply(opts?.fen || storeProps.fen);
+    this.timeMode = this.propWithApply(opts?.timeMode || storeProps.timeMode);
     this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
     this.incrementV = this.propWithApply(sliderInitVal(storeProps.increment, incrementVToIncrement, 100)!);
     this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
@@ -189,13 +190,13 @@ export class SetupCtrl {
 
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
-  openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
+  openModal = (gameType: GameType, opts?: SetupConstraints, friendUser?: string) => {
     this.gameType = gameType;
     this.loading = false;
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
-    this.loadPropsFromStore(forceOptions);
+    this.init(opts);
     this.root.redraw();
   };
 

@@ -1,20 +1,25 @@
 {
-  "name": "local-play",
+  "name": "libot",
   "private": true,
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
+  "types": "dist/main.d.ts",
+  "typings": "main",
+  "exports": {
+    ".": "./dist/main.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "dependencies": {
-    "@types/cash": "workspace:*",
-    "@types/lichess": "workspace:*",
     "chess": "workspace:*",
     "chessops": "^0.12.7",
     "common": "workspace:*",
-    "game": "workspace:*",
-    "libot": "workspace:*",
-    "nvui": "workspace:*",
-    "puz": "workspace:*",
-    "round": "workspace:*",
-    "snabbdom": "^3.5.1",
     "tree": "workspace:*",
     "zerofish": "^0.0.11"
   },
@@ -24,10 +29,9 @@
     "prod": "tsc"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "localPlay"
-      }
+    "copy": {
+      "src": "node_modules/zerofish/dist/zerofishEngine.*",
+      "dest": "../../public/compiled"
     }
   }
 }

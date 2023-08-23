@@ -11,6 +11,7 @@
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
+    { "path": "../libot/tsconfig.json" },
     { "path": "../puz/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
     { "path": "../round/tsconfig.json" },

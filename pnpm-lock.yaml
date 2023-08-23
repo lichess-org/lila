@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -283,6 +283,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      libot:
+        specifier: workspace:*
+        version: link:../libot
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -335,6 +338,24 @@ importers:
         specifier: github:ornicar/mithril.js#lila-1
         version: github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb
 
+  ui/libot:
+    dependencies:
+      chess:
+        specifier: workspace:*
+        version: link:../chess
+      chessops:
+        specifier: ^0.12.7
+        version: 0.12.7
+      common:
+        specifier: workspace:*
+        version: link:../common
+      tree:
+        specifier: workspace:*
+        version: link:../tree
+      zerofish:
+        specifier: ^0.0.11
+        version: 0.0.11
+
   ui/lobby:
     dependencies:
       '@types/debounce-promise':
@@ -376,6 +397,9 @@ importers:
       game:
         specifier: workspace:*
         version: link:../game
+      libot:
+        specifier: workspace:*
+        version: link:../libot
       nvui:
         specifier: workspace:*
         version: link:../nvui

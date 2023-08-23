@@ -1,3 +1,5 @@
+import { type Libot } from 'libot';
+
 export type GameType = 'hook' | 'friend' | 'ai' | 'local';
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
@@ -25,10 +27,11 @@ export interface SetupStore {
   days: number;
 }
 
-export interface ForceSetupOptions {
+export interface SetupConstraints {
   variant?: VariantKey;
   fen?: string;
   timeMode?: TimeMode;
+  bots?: Libot[];
 }
 
 export interface RatingWithProvisional {
@@ -49,6 +52,8 @@ export interface GameSetup {
 export interface ParentCtrl {
   readonly user?: string;
   readonly ratingMap?: Record<Perf, RatingWithProvisional>;
+  readonly localBots?: Libot[];
+
   redraw: () => void;
   acquire?: (candidate: GameSetup) => boolean;
   trans: Trans;

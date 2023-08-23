@@ -8,5 +8,5 @@
     "isolatedModules": true,
     "composite": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }]
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../libot/tsconfig.json" }]
 }

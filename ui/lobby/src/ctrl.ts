@@ -6,7 +6,7 @@ import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
 import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember, LobbyMe } from './interfaces';
-import { ParentCtrl, ForceSetupOptions, GameType, GameSetup, SetupCtrl } from 'gameSetup';
+import { ParentCtrl, SetupConstraints, GameType, GameSetup, SetupCtrl } from 'gameSetup';
 import LobbySocket from './socket';
 import Filter from './filter';
 
@@ -268,7 +268,7 @@ export default class LobbyController implements ParentCtrl {
 
   hasPool = (id: string) => this.pools.some(p => p.id === id);
 
-  showSetupModal = async (gameType: GameType, opts?: ForceSetupOptions, friendUser?: string) => {
+  showSetupModal = async (gameType: GameType, opts?: SetupConstraints, friendUser?: string) => {
     if (!this.setupCtrl) this.setupCtrl = await lichess.loadEsm<SetupCtrl>('gameSetup', { init: this });
     this.leavePool();
     this.setupCtrl.openModal(gameType, opts, friendUser);
@@ -279,7 +279,7 @@ export default class LobbyController implements ParentCtrl {
     if (!['ai', 'friend', 'hook', 'local'].includes(locationHash)) return;
 
     let friendUser;
-    const forceOptions: ForceSetupOptions = {};
+    const forceOptions: SetupConstraints = {};
     const urlParams = new URLSearchParams(location.search);
     if (locationHash === 'hook') {
       if (urlParams.get('time') === 'realTime') {

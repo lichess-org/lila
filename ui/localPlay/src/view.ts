@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
-import { bots } from './bot';
+import { localBots } from 'libot';
 import { Ctrl } from './ctrl';
 
 export default function (ctrl: Ctrl): VNode {
@@ -11,8 +11,8 @@ export default function (ctrl: Ctrl): VNode {
       'div#bot-content',
       h(
         'div#bot-list',
-        bots.map(bot => botView(ctrl, bot))
-      )
+        Object.values(localBots).map(bot => botView(ctrl, bot)),
+      ),
     ),
   ]);
 }

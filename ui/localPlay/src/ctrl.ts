@@ -1,6 +1,6 @@
 import { LocalPlayOpts } from './interfaces';
-import { Bot } from './bot';
-import { CoralBot } from './bots/coral';
+import { Coral } from 'libot/bots/coral';
+import { type Libot } from 'libot';
 import { makeRounds } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
@@ -8,13 +8,16 @@ import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
 export class Ctrl {
-  bot?: Bot = new CoralBot();
+  bot?: Libot = new Coral();
   chess = Chess.default();
   tellRound: SocketSend;
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
 
-  constructor(readonly opts: LocalPlayOpts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: LocalPlayOpts,
+    readonly redraw: () => void,
+  ) {
     makeRounds(this).then(sender => (this.tellRound = sender));
   }
 

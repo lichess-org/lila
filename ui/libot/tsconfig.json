@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowUnreachableCode": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true,
+    "isolatedModules": true
+  },
+  "references": [
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../tree/tsconfig.json" }
+  ]
+}
