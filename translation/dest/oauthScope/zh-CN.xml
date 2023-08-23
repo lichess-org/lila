@@ -30,5 +30,5 @@
   <string name="engineRead">查看和使用你的外部引擎</string>
   <string name="engineWrite">创建和更新外部引擎</string>
   <string name="webLogin">创建认证的网站会话 (授予完全访问权限!)</string>
-  <string name="webMod">使用版主工具 (在您的权限范围内)</string>
+  <string name="webMod">使用版主工具 (在你的权限范围内)</string>
 </resources>
