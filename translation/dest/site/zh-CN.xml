@@ -305,7 +305,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">添加对方%s秒</item>
   </plurals>
-  <string name="thisAccountViolatedTos">该账户违反了Lichess服务条款</string>
+  <string name="thisAccountViolatedTos">该账户违反了 Lichess 服务条款</string>
   <string name="openingExplorerAndTablebase">开局浏览器 &amp; 终局数据库</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">请求悔棋</string>
@@ -401,7 +401,7 @@
   <string name="followsYou">关注了你</string>
   <string name="xStartedFollowingY">%1$s开始关注%2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="other">有%s个关注者</item>
+    <item quantity="other">%s 关注者</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">关注%s人</item>
@@ -480,7 +480,7 @@
   <string name="savingMovesHelp">我们总是在您的浏览器缓存中存储您的变着。</string>
   <string name="makeAStudy">这便于保管和分享，以及考虑创建一项研讨。</string>
   <string name="clearSavedMoves">清除着法储存</string>
-  <string name="previouslyOnLichessTV">过去的 Lichess 直播</string>
+  <string name="previouslyOnLichessTV">过去的 Lichess TV</string>
   <string name="onlinePlayers">在线棋手</string>
   <string name="activePlayers">活跃棋手</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意，此对局是排位赛，但是不计时！</string>
@@ -605,7 +605,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">观看对局</string>
-  <string name="tpTimeSpentOnTV">在 Lichess 直播的时间：%s</string>
+  <string name="tpTimeSpentOnTV">在 Lichess TV 出现的时长：%s</string>
   <string name="watch">观看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">主播</string>
@@ -619,7 +619,7 @@
   <string name="termsOfService">服务条款</string>
   <string name="sourceCode">源代码</string>
   <string name="simultaneousExhibitions">车轮战</string>
-  <string name="host">主持</string>
+  <string name="host">主持者</string>
   <string name="hostColorX">主持颜色：%s</string>
   <string name="createdSimuls">最近创建的车轮战</string>
   <string name="hostANewSimul">主持新车轮战</string>
@@ -696,7 +696,7 @@
   <string name="withEverybody">和每个人分享</string>
   <string name="kidMode">儿童模式</string>
   <string name="kidModeExplanation">安全第一。在儿童模式下，站内信无法使用。为了保护你的孩子和学生免受其他用户伤害，请启用儿童模式。</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，Lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，Lichess 标志前会有 %s 图标。出现该图标你就知道你的孩子是安全的。</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">您的账号处于托管中，可以请您的老师解除少儿模式。</string>
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
@@ -866,7 +866,7 @@
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
   <string name="welcome">欢迎！</string>
-  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
+  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="coachManager">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
