@@ -2,16 +2,15 @@ import { Prop, propWithEffect } from 'common';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
-import LobbyController from './ctrl';
 import {
   ForceSetupOptions,
   GameMode,
   GameType,
   InputValue,
-  PoolMember,
   RealValue,
   SetupStore,
   TimeMode,
+  ParentCtrl,
 } from './interfaces';
 import {
   daysVToDays,
@@ -22,6 +21,7 @@ import {
   timeVToTime,
   variants,
 } from './options';
+import renderSetup from './view/modal';
 
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
   if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
@@ -39,8 +39,8 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
     : 'classical';
 };
 
-export default class SetupController {
-  root: LobbyController;
+export class SetupCtrl {
+  root: ParentCtrl;
   store: Record<GameType, StoredJsonProp<SetupStore>>;
   gameType: GameType | null = null;
   lastValidFen = '';
@@ -69,7 +69,7 @@ export default class SetupController {
   increment: () => RealValue = () => incrementVToIncrement(this.incrementV());
   days: () => RealValue = () => daysVToDays(this.daysV());
 
-  constructor(ctrl: LobbyController) {
+  constructor(ctrl: ParentCtrl) {
     this.root = ctrl;
     this.blindModeColor = propWithEffect('random', this.onPropChange);
     // Initialize stores with default props as necessary
@@ -77,11 +77,12 @@ export default class SetupController {
       hook: this.makeSetupStore('hook'),
       friend: this.makeSetupStore('friend'),
       ai: this.makeSetupStore('ai'),
+      local: this.makeSetupStore('local'),
     };
   }
 
   // Namespace the store by username for user specific modal settings
-  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
+  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.user || 'anon'}.${gameType}`;
 
   makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
@@ -91,7 +92,7 @@ export default class SetupController {
       time: 5,
       increment: 3,
       days: 2,
-      gameMode: gameType === 'ai' || !this.root.me ? 'casual' : 'rated',
+      gameMode: gameType === 'ai' || !this.root.user ? 'casual' : 'rated',
       ratingMin: -500,
       ratingMax: 500,
       aiLevel: 1,
@@ -159,7 +160,7 @@ export default class SetupController {
     });
 
   private isProvisional = () => {
-    const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
+    const rating = this.root.ratingMap && this.root.ratingMap[this.selectedPerf()];
     return rating ? !!rating.prov : true;
   };
 
@@ -189,14 +190,16 @@ export default class SetupController {
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
-    this.root.leavePool();
     this.gameType = gameType;
     this.loading = false;
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
     this.loadPropsFromStore(forceOptions);
+    this.root.redraw();
   };
+
+  renderModal = () => renderSetup(this);
 
   closeModal = () => {
     this.gameType = null;
@@ -228,7 +231,7 @@ export default class SetupController {
 
   ratedModeDisabled = (): boolean =>
     // anonymous games cannot be rated
-    !this.root.me ||
+    !this.root.user ||
     // unlimited games cannot be rated
     (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
     // variants with very low time cannot be rated
@@ -240,25 +243,9 @@ export default class SetupController {
   selectedPerf = (): Perf => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
 
   ratingRange = (): string => {
-    if (!this.root.data.ratingMap) return '';
-    const rating = this.root.data.ratingMap[this.selectedPerf()].rating;
+    if (!this.root.ratingMap) return '';
+    const rating = this.root.ratingMap[this.selectedPerf()].rating;
     return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
-  };
-
-  hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
-    const valid =
-      color == 'random' &&
-      this.gameType === 'hook' &&
-      this.variant() == 'standard' &&
-      this.gameMode() == 'rated' &&
-      this.timeMode() == 'realTime';
-    const id = `${this.time()}+${this.increment()}`;
-    return valid && this.root.pools.find(p => p.id === id)
-      ? {
-          id,
-          range: this.ratingRange(),
-        }
-      : null;
   };
 
   propsToFormData = (color: Color | 'random'): FormData =>
@@ -290,19 +277,26 @@ export default class SetupController {
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
 
   submit = async (color: Color | 'random') => {
-    const poolMember = this.hookToPoolMember(color);
-    if (poolMember) {
-      this.root.enterPool(poolMember);
+    if (
+      this.root.acquire?.({
+        id: `${this.time()}+${this.increment()}`,
+        gameType: this.gameType,
+        color,
+        variant: this.variant(),
+        gameMode: this.gameMode(),
+        timeMode: this.timeMode(),
+        range: this.ratingRange(),
+      })
+    ) {
       this.closeModal();
       return;
     }
 
-    if (this.gameType === 'hook') this.root.setTab(this.timeMode() === 'realTime' ? 'real_time' : 'seeks');
     this.loading = true;
     this.root.redraw();
 
     let urlPath = `/setup/${this.gameType}`;
-    if (this.gameType === 'hook') urlPath += `/${lichess.sri}`;
+    if (this.gameType === 'hook') urlPath += '/' + lichess.sri;
     const urlParams = { user: this.friendUser || undefined };
     let response;
     try {

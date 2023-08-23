@@ -1,22 +1,22 @@
 import { h } from 'snabbdom';
 import { MaybeVNodes } from 'common/snabbdom';
-import LobbyController from '../../ctrl';
+import { SetupCtrl } from '../ctrl';
+
 import { variantPicker } from './components/variantPicker';
-import { fenInput } from './components/fenInput';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
-import { levelButtons } from './components/levelButtons';
+import { gameModeButtons } from './components/gameModeButtons';
+import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 
-export default function aiContent(ctrl: LobbyController): MaybeVNodes {
-  const { trans } = ctrl;
+export default function hookContent(ctrl: SetupCtrl): MaybeVNodes {
   return [
-    h('h2', trans('playWithTheMachine')),
+    h('h2', ctrl.root.trans('createAGame')),
     h('div.setup-content', [
       variantPicker(ctrl),
-      fenInput(ctrl),
-      timePickerAndSliders(ctrl, true),
-      ...levelButtons(ctrl),
+      timePickerAndSliders(ctrl),
+      gameModeButtons(ctrl),
+      ratingDifferenceSliders(ctrl),
       colorButtons(ctrl),
     ]),
     ratingView(ctrl),

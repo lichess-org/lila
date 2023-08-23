@@ -1,0 +1,54 @@
+@import 'setup';
+
+.local-setup#modal-wrap {
+  @extend %setup;
+
+  #bot-view {
+    display: flex;
+    flex-flow: column nowrap;
+
+    #bot-content {
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+  }
+
+  .fancy-bot {
+    display: flex;
+    align-items: center;
+
+    &:nth-child(even) {
+      background: $c-bg-zebra;
+      justify-content: space-between;
+      img.picture {
+        order: 3;
+      }
+    }
+
+    &:hover {
+      background: mix($c-link, $c-bg-box, 15%);
+    }
+
+    img.picture {
+      flex: 0 0 128px;
+
+      display: block;
+    }
+    span {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      * {
+        margin-right: 6px;
+      }
+    }
+    .overview {
+      margin: 20px 10px 10px 2.5vw;
+      display: flex;
+      flex: auto;
+      flex-flow: column;
+      justify-content: space-between;
+      padding-bottom: 15px;
+    }
+  }
+}

@@ -278,6 +278,15 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1
 
+  ui/gameSetup:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+
   ui/insight:
     dependencies:
       '@types/highcharts':
@@ -340,6 +349,9 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
+      gameSetup:
+        specifier: workspace:*
+        version: link:../gameSetup
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1

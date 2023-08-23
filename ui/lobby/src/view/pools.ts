@@ -10,8 +10,10 @@ export function hooks(ctrl: LobbyController): Hooks {
       const id =
         (e.target as HTMLElement).getAttribute('data-id') ||
         ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
-      if (id === 'custom') ctrl.setupCtrl.openModal('hook');
-      else if (id) ctrl.clickPool(id);
+      if (id === 'custom') {
+        ctrl.leavePool();
+        ctrl.showSetupModal('hook');
+      } else if (id) ctrl.clickPool(id);
     },
     ctrl.redraw,
   );
