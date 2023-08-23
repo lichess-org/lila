@@ -42,7 +42,7 @@
 或者可以 %s。</string>
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他捐赠方法？</string>
-  <string name="lichessIsRegisteredWith">Lichess注册于 %s。</string>
+  <string name="lichessIsRegisteredWith">Lichess 注册于 %s。</string>
   <string name="bankTransfers">我们还接受银行转帐</string>
   <string name="onlyDonationFromAbove">请注意，只有上面的捐赠表将授予赞助者状态。</string>
   <string name="patronFeatures">赞助者会有特殊功能吗？</string>
@@ -67,7 +67,7 @@
   <string name="stopPayments">撤销你的信用卡并停止支付：</string>
   <string name="stopPaymentsPayPal">取消PayPal订阅并停止付款：</string>
   <string name="noLongerSupport">不再赞助 Lichess</string>
-  <string name="viewOthers">查看其他Lichess赞助者</string>
+  <string name="viewOthers">查看其他 Lichess 赞助者</string>
   <string name="date">日期</string>
   <string name="amount">数量</string>
   <string name="transactionCompleted">你的交易已完成，捐款收据已通过电子邮件发送给你。</string>
