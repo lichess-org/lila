@@ -44,7 +44,7 @@
   <string name="tellUsAboutTheStream">用一句话中描述你的直播</string>
   <string name="longDescription">详细描述</string>
   <string name="xStreamerPicture">%s 主播图片</string>
-  <string name="changePicture">更改/删除您的图片</string>
+  <string name="changePicture">更改/删除你的图片</string>
   <string name="uploadPicture">上传图片</string>
   <string name="maxSize">大小上限：%s</string>
 </resources>
