@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">课程</string>
-  <string name="teachClassesOfChessStudents">使用Lichess班级工具包教象棋学生班。</string>
+  <string name="teachClassesOfChessStudents">使用 Lichess 班级工具教学生班。</string>
   <string name="features">特性</string>
   <string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
   <string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
   <string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
   <string name="freeForAllForever">对所有人100%免费，永远没有广告或跟踪者</string>
-  <string name="applyToBeLichessTeacher">申请成为Lichess教师</string>
+  <string name="applyToBeLichessTeacher">申请成为 Lichess 教师</string>
   <string name="noClassesYet">尚无班级。</string>
   <string name="teachersX">教师： %s</string>
   <string name="newClass">创建班级</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">班级描述</string>
   <string name="visibleByBothStudentsAndTeachers">仅本班教师和学生可见</string>
   <string name="teachersOfTheClass">班级的教师</string>
-  <string name="addLichessUsernames">添加Lichess用户名邀请他们成为教师。每行一个。</string>
+  <string name="addLichessUsernames">添加 Lichess 用户名邀请他们成为教师。每行一个。</string>
   <string name="resetPassword">重置密码</string>
   <string name="makeSureToCopy">请确保你已牢记密码。密码不会再显示！</string>
   <string name="passwordX">密码： %s</string>
@@ -47,7 +47,7 @@
   <string name="createDesc3">重要：学生不得拥有多个帐户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
   <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
-  <string name="lichessUsername">Lichess用户名</string>
+  <string name="lichessUsername">Lichess 用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
 这里是访问班级的链接。</string>
@@ -102,7 +102,7 @@
   <string name="youDeclinedThisInvitation">你拒绝了此邀请</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">或</string>
   <string name="createMultipleAccounts">一次创建多个 Lichess 账户</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">你也可以%s通过学生名称列表创建多个 Lichess 账户</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">你也可以%s通过学生名称列表创建多个 Lichess 账户。</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">使用此表单</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">请注意，一个班级最多可以有 %1$s 名学生。如需管理更多学生，%2$s。</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">创建更多班级</string>
