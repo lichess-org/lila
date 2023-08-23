@@ -6,7 +6,7 @@
     <item quantity="other">Tìm kiếm trong %s ván cờ</item>
   </plurals>
   <plurals name="xGamesFound">
-    <item quantity="other">%s ván đã thấy</item>
+    <item quantity="other">Đã tìm thấy %s ván cờ</item>
   </plurals>
   <string name="opponentName">Tên đối thủ</string>
   <string name="loser">Người thua cuộc</string>
