@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess主播</string>
-  <string name="lichessStreamer">Lichess主播</string>
+  <string name="lichessStreamers">Lichess 主播</string>
+  <string name="lichessStreamer">Lichess 主播</string>
   <string name="live">在线</string>
   <string name="offline">离线</string>
   <string name="currentlyStreaming">正在直播：%s</string>
   <string name="lastStream">上次直播：%s</string>
-  <string name="becomeStreamer">成为Lichess主播</string>
+  <string name="becomeStreamer">成为 Lichess 主播</string>
   <string name="doYouHaveStream">你有 Twitch 或 YouTube 频道吗？</string>
   <string name="hereWeGo">我们开始吧！</string>
   <string name="allStreamers">所有主播</string>
