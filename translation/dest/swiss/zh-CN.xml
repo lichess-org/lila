@@ -105,5 +105,5 @@
   <string name="unlimitedAndFree">无限制并免费</string>
   <string name="predefinedUsers">仅允许预定义的用户加入</string>
   <string name="forbiddedUsers">如果这个列表是非空的，则此列表中缺少的用户将被禁止加入。每行一个用户名。</string>
-  <string name="playYourGames">开始您的棋局</string>
+  <string name="playYourGames">开始你的对局</string>
 </resources>
