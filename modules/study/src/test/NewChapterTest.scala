@@ -10,9 +10,8 @@ class NewChapterTest extends munit.FunSuite:
   test("yo"):
     assertEquals(1, 1)
 
-
 object NewChapterTest:
-  extension(chapter: Chapter)
+  extension (chapter: Chapter)
     def toNewChapter: NewChapter =
       NewChapter(
         _id = chapter._id,
@@ -29,5 +28,5 @@ object NewChapterTest:
         description = chapter.description,
         relay = chapter.relay,
         serverEval = chapter.serverEval,
-        createdAt = chapter.createdAt,
+        createdAt = chapter.createdAt
       )

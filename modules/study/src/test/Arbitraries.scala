@@ -60,7 +60,7 @@ object StudyArbitraries:
       comments <- genComments(5)
       glyphs   <- Arbitrary.arbitrary[Glyphs]
       clock    <- Arbitrary.arbitrary[Option[Centis]]
-      shapes <- Arbitrary.arbitrary[Shapes]
+      shapes   <- Arbitrary.arbitrary[Shapes]
     yield Metas(
       ply.next,
       Fen.write(ChessGame(situation, ply = ply.next)),
@@ -85,12 +85,9 @@ object StudyArbitraries:
       comments = texts.map(Comment(Comment.Id.make, _, Comment.Author.Lichess))
     yield Comments(comments)
 
-  given Arbitrary[Shape] = Arbitrary(Gen.oneOf(genCircle, genArrow))
+  given Arbitrary[Shape]  = Arbitrary(Gen.oneOf(genCircle, genArrow))
   given Arbitrary[Shapes] = Arbitrary(Gen.listOf[Shape](Arbitrary.arbitrary[Shape]).map(Shapes(_)))
   given Arbitrary[Centis] = Arbitrary(Gen.posNum[Int].map(Centis(_)))
-  given Arbitrary[Glyph]   = Arbitrary(Gen.oneOf(Glyphs.all))
-  given Arbitrary[Glyphs] = Arbitrary:
-    Gen.listOf(Arbitrary.arbitrary[Glyph]).map(Glyphs.fromList)
 
   def genCircle: Gen[Shape.Circle] =
     for

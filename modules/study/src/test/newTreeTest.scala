@@ -10,6 +10,7 @@ import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import cats.syntax.all.*
 import StudyArbitraries.{ *, given }
+import chess.CoreArbitraries.given
 import org.scalacheck.Prop.forAll
 import scala.language.implicitConversions
 
@@ -50,23 +51,38 @@ class NewTreeTest extends munit.ScalaCheckSuite:
   test("path exists"):
     forAll: (rp: RootWithPath) =>
       val (root, path) = rp
-      val oldRoot = root.toRoot
+      val oldRoot      = root.toRoot
       oldRoot.pathExists(path) == root.pathExists(path)
 
   test("setShapesAt"):
     forAll: (rp: RootWithPath, shapes: Shapes) =>
       val (root, path) = rp
-      val oldRoot = root.toRoot
+      val oldRoot      = root.toRoot
       oldRoot.setShapesAt(shapes, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(shapes = shapes))
 
   test("toggleGlyphAt"):
     forAll: (rp: RootWithPath, glyph: Glyph) =>
       val (root, path) = rp
-      val oldRoot = root.toRoot
+      val oldRoot      = root.toRoot
       oldRoot.toggleGlyphAt(glyph, path).map(_.toNewRoot) == root.modifyAt(path, _.toggleGlyph(glyph))
 
   test("setClockAt"):
     forAll: (rp: RootWithPath, clock: Option[Centis]) =>
       val (root, path) = rp
-      val oldRoot = root.toRoot
+      val oldRoot      = root.toRoot
       oldRoot.setClockAt(clock, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(clock = clock))
+
+  test("updateMainlineLast"):
+    forAll: (root: NewRoot, c: Option[Centis]) =>
+      val oldRoot = root.toRoot
+      oldRoot.updateMainlineLast(_.copy(clock = c)).toNewRoot == root.updateMainlineLast(_.copy(clock = c))
+
+  test("clearVariations"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      oldRoot.clearVariations.toNewRoot == root.clearVariations
+
+  test("mainline"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      oldRoot.mainline.map(NewTree.fromBranch(_)) == root.mainlineValues
