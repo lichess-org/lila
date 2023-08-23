@@ -62,8 +62,8 @@
   <string name="notifyChallenge">挑战</string>
   <string name="notifyTournamentSoon">比赛即将开始</string>
   <string name="notifyTimeAlarm">通讯棋局时间快要耗尽</string>
-  <string name="notifyBell">Lichess内的铃声通知</string>
-  <string name="notifyPush">当你不在 Lichess 时的设备通知</string>
+  <string name="notifyBell">Lichess 内的铃声通知</string>
+  <string name="notifyPush">Lichess 外的设备通知</string>
   <string name="notifyWeb">浏览器通知</string>
   <string name="notifyDevice">设备通知</string>
   <string name="bellNotificationSound">通知声音</string>
