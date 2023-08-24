@@ -504,6 +504,7 @@
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bayrak</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
@@ -705,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s kategorisindeki oyuncuların %1$s kadarından daha iyisiniz.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyuncularının %2$s kadarından daha iyi.</string>
+  <string name="betterThanPercentPlayers">%2$s oyuncularının %1$s kadarından daha iyi</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="yourRating">Sizin puanınız</string>
   <string name="cumulative">Kümülatif</string>
