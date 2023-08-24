@@ -53,4 +53,8 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
   <string name="onlyVisibleToTeachers">Nëmme siichtbar fir d\'Enseignantë vum Cours</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwalt</string>
+  <string name="thisStudentAccountIsManaged">Dëse Schülerkont gëtt verwalt</string>
+  <string name="upgradeFromManaged">Vu verwalt op selbststänneg upgraden</string>
+  <string name="release">Fräiginn</string>
+  <string name="releaseTheAccount">Gëff de Kont fräi, fir datt de Schüler e selbstänneg verwalte kann.</string>
 </resources>
