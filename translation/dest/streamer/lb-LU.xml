@@ -32,7 +32,13 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">fro eng Iwwerpréifung vun den Moderatoren un</string>
   <string name="twitchUsername">Twitch Benotzernumm oder URL</string>
   <string name="youTubeChannelId">Deng YouTube-Kanal-ID</string>
+  <string name="streamerName">Däi Streamernumm op Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Faass dech kuerz: maximal %s Zeechen</item>
+    <item quantity="other">Faass dech kuerz: maximal %s Zeechen</item>
+  </plurals>
   <string name="headline">Iwwerschrëft</string>
+  <string name="tellUsAboutTheStream">Erziel eis an engem Saz eppes iwwer däi Stream</string>
   <string name="longDescription">Laang Beschreiwung</string>
   <string name="xStreamerPicture">%s Streamer Bild</string>
   <string name="changePicture">Däin Bild änneren/läschen</string>
