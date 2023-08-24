@@ -4,7 +4,7 @@
   <string name="lichessStreamer">Những streamer của Lichess</string>
   <string name="live">TRỰC TIẾP!</string>
   <string name="offline">NGOẠI TUYẾN</string>
-  <string name="currentlyStreaming">Đang livestream: %s</string>
+  <string name="currentlyStreaming">Đang phát trực tiếp: %s</string>
   <string name="lastStream">Lần stream cuối %s</string>
   <string name="becomeStreamer">Trở thành một Streamer của Lichess</string>
   <string name="doYouHaveStream">Bạn có kênh YouTube hoặc Twitch không?</string>
