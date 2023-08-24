@@ -58,7 +58,7 @@
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用服务器分析</string>
   <string name="loadingEngine">引擎载入中...</string>
-  <string name="calculatingMoves">电脑正在思考……</string>
+  <string name="calculatingMoves">计算着法中...</string>
   <string name="engineFailed">加载引擎时出错</string>
   <string name="cloudAnalysis">云分析</string>
   <string name="goDeeper">深入分析</string>
@@ -91,7 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">经过四舍五入的DTZ50\'\'，是基于到下次吃子或兵动的半步数目。</string>
   <string name="noGameFound">没找到符合要求的棋局</string>
-  <string name="maxDepthReached">已达成满级！</string>
+  <string name="maxDepthReached">已达最大深度！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openings">开局</string>
   <string name="openingExplorer">开局浏览器</string>
@@ -119,10 +119,10 @@
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，会使电脑发热</string>
-  <string name="engineManager">开炮</string>
-  <string name="blunder">失策</string>
+  <string name="engineManager">引擎管理</string>
+  <string name="blunder">漏着</string>
   <string name="mistake">失误</string>
-  <string name="inaccuracy">失准</string>
+  <string name="inaccuracy">疑着</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 次漏着</item>
   </plurals>
@@ -130,7 +130,7 @@
     <item quantity="other">%s 次失误</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="other">%s 次不精确</item>
+    <item quantity="other">%s 次疑着</item>
   </plurals>
   <string name="moveTimes">走棋时间</string>
   <string name="flipBoard">翻转棋盘</string>
@@ -142,7 +142,7 @@
     <item quantity="other">%s 位在线棋手</item>
   </plurals>
   <string name="drawByMutualAgreement">双方同意和棋</string>
-  <string name="fiftyMovesWithoutProgress">无实质进展的 50 步</string>
+  <string name="fiftyMovesWithoutProgress">无实质进展的50步</string>
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
@@ -156,7 +156,7 @@
   <string name="viewInFullSize">放大观看</string>
   <string name="logOut">登出</string>
   <string name="signIn">登录</string>
-  <string name="rememberMe">记住登录状态</string>
+  <string name="rememberMe">保持登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
   <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对局。下棋时，请不要从国际象棋引擎、数据库或其他棋手得到帮助。另外，强烈建议你不要创建备用账户。过度使用多余的账户会导致账号被封禁。</string>
@@ -213,7 +213,7 @@
   <string name="emailConfirmHelp">协助邮件确认</string>
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
   <string name="whatSignupUsername">你用了什么用户名注册？</string>
-  <string name="usernameNotFound">我们找不到用户名为 %s 的用户</string>
+  <string name="usernameNotFound">找不到用户 %s</string>
   <string name="usernameCanBeUsedForNewAccount">你可以使用这个用户名来创建账户</string>
   <string name="emailSent">我们已经向 %s 发送了一封电子邮件。</string>
   <string name="emailCanTakeSomeTime">可能需要一些时间才能收到。</string>
@@ -226,7 +226,7 @@
   <string name="accountCanLogin">你可以使用 %s 登录了。</string>
   <string name="accountConfirmationEmailNotNeeded">你不需要确认电子邮件。</string>
   <string name="accountClosed">账户 %s 已被关闭。</string>
-  <string name="accountRegisteredWithoutEmail">账户 %s 未使用电子邮件注册。</string>
+  <string name="accountRegisteredWithoutEmail">账户 %s 未使用电子邮箱注册。</string>
   <string name="rank">排名</string>
   <string name="rankX">排名：%s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -365,7 +365,7 @@
   <string name="save">保存</string>
   <string name="leaderboard">排行榜</string>
   <string name="screenshotCurrentPosition">保存当前棋盘为图片</string>
-  <string name="gameAsGIF">保存棋局为GIF</string>
+  <string name="gameAsGIF">保存棋局为 GIF</string>
   <string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
   <string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>
   <string name="orUploadPgnFile">或者上传一个PGN文件</string>
@@ -477,7 +477,7 @@
   <string name="oneUrlPerLine">每行一个URL。</string>
   <string name="inlineNotation">紧凑显示棋谱</string>
   <string name="savingMoves">临时着法储存</string>
-  <string name="savingMovesHelp">我们总是在您的浏览器缓存中存储您的变着。</string>
+  <string name="savingMovesHelp">我们总是在你的浏览器缓存中存储变着。</string>
   <string name="makeAStudy">这便于保管和分享，以及考虑创建一项研讨。</string>
   <string name="clearSavedMoves">清除着法储存</string>
   <string name="previouslyOnLichessTV">过去的 Lichess TV</string>
@@ -649,11 +649,11 @@
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入／退出变着</string>
-  <string name="keyRequestComputerAnalysis">请求计算机分析，并从您的失误中吸取教训</string>
-  <string name="keyNextLearnFromYourMistakes">下一个 ( 从您的失误中吸取教训)</string>
+  <string name="keyRequestComputerAnalysis">请求引擎分析，并从你的失误中学习</string>
+  <string name="keyNextLearnFromYourMistakes">下一个 (从你的失误中学习)</string>
   <string name="keyNextBlunder">下一个漏着</string>
   <string name="keyNextMistake">下一个错着</string>
-  <string name="keyNextInaccuracy">下一个不精确的着法</string>
+  <string name="keyNextInaccuracy">下一个疑着</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与 Lichess 官方的锦标赛，或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给你带来无尽的国际象棋乐趣。</string>
@@ -697,7 +697,7 @@
   <string name="kidMode">儿童模式</string>
   <string name="kidModeExplanation">安全第一。在儿童模式下，站内信无法使用。为了保护你的孩子和学生免受其他用户伤害，请启用儿童模式。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，Lichess 标志前会有 %s 图标。出现该图标你就知道你的孩子是安全的。</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">您的账号处于托管中，可以请您的老师解除少儿模式。</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">你的账户处于托管中，可以让你的老师解除儿童模式。</string>
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
   <string name="security">安全</string>
@@ -757,12 +757,12 @@
   </plurals>
   <string name="practiceWithComputer">与电脑练习</string>
   <string name="anotherWasX">%s也不错</string>
-  <string name="bestWasX">最佳着是%s</string>
+  <string name="bestWasX">最佳着是 %s</string>
   <string name="youBrowsedAway">你浏览到别处了</string>
   <string name="resumePractice">继续练习</string>
-  <string name="drawByFiftyMoves">五十步内未进兵或吃子，对局判和。</string>
+  <string name="drawByFiftyMoves">对局因50步规则判和。</string>
   <string name="theGameIsADraw">本局和棋。</string>
-  <string name="computerThinking">电脑正在思考中。。。</string>
+  <string name="computerThinking">电脑正在思考...</string>
   <string name="seeBestMove">查看最佳着</string>
   <string name="hideBestMove">隐藏最佳着</string>
   <string name="getAHint">提示</string>
@@ -770,7 +770,7 @@
   <string name="whiteWinsGame">白方胜</string>
   <string name="blackWinsGame">黑方胜</string>
   <string name="learnFromYourMistakes">从你的失误中学习</string>
-  <string name="learnFromThisMistake">从这个失误中吸取教训</string>
+  <string name="learnFromThisMistake">从这个失误中学习</string>
   <string name="skipThisMove">跳过此步</string>
   <string name="next">继续</string>
   <string name="xWasPlayed">走了%s</string>
