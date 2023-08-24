@@ -134,23 +134,24 @@
 你要先移开其他棋子</string>
   <string name="castleQueenSideMovePiecesFirst">进行长易位！
 你要先移开其他棋子</string>
-  <string name="youCannotCastleIfMoved">如果王或车在此之前已经移动过则不得进行王车易位。</string>
-  <string name="youCannotCastleIfAttacked">如果王在易位途中被将军则不得进行王车易位。请先阻挡将军然后进行易位。</string>
-  <string name="findAWayToCastleKingSide">请设法进行短易位。</string>
-  <string name="findAWayToCastleQueenSide">请设法进行长易位。</string>
+  <string name="youCannotCastleIfMoved">如果王或车已经移动过则不得进行王车易位</string>
+  <string name="youCannotCastleIfAttacked">如果王在易位途中被将军则不得进行王车易位。请先阻挡将军然后进行易位！</string>
+  <string name="findAWayToCastleKingSide">请设法进行短易位！</string>
+  <string name="findAWayToCastleQueenSide">请设法进行长易位！</string>
   <string name="castlingComplete">恭喜！下棋时一般都要进行王车易位</string>
   <string name="enPassant">吃过路兵</string>
   <string name="theSpecialPawnMove">兵的特殊走法</string>
   <string name="enPassantIntro">当对方的兵刚移动两格，你可以吃掉它，就像它只移动了一格一样</string>
-  <string name="blackJustMovedThePawnByTwoSquares">黑方刚将兵移动两格。请吃过路兵。</string>
-  <string name="enPassantOnlyWorksImmediately">只有对方刚移动兵时可以吃过路兵。</string>
-  <string name="enPassantOnlyWorksOnFifthRank">你的兵只有在第五行上才能吃过路兵。</string>
+  <string name="blackJustMovedThePawnByTwoSquares">黑方刚将兵移动两格！
+请吃过路兵</string>
+  <string name="enPassantOnlyWorksImmediately">只有对方刚移动兵时才可以吃过路兵</string>
+  <string name="enPassantOnlyWorksOnFifthRank">你的兵只有在第五行上才能吃过路兵</string>
   <string name="takeAllThePawnsEnPassant">通过吃过路兵吃掉所有敌兵！</string>
-  <string name="enPassantComplete">恭喜！你已经学会吃过路兵。</string>
+  <string name="enPassantComplete">恭喜！你已经学会吃过路兵</string>
   <string name="stalemate">逼和</string>
   <string name="theGameIsADraw">本局和棋</string>
-  <string name="stalemateIntro">当一位棋手并没有被将军但无法着棋时逼和发生了：没有人赢棋，也没有人输棋。</string>
-  <string name="stalemateGoal">为了逼和黑棋，黑棋必须无法移动任何棋子，同时没有被将军。</string>
+  <string name="stalemateIntro">当一位棋手并没有被将军但无法走棋时逼和发生了：没有人赢棋，也没有人输棋</string>
+  <string name="stalemateGoal">为了逼和黑棋，黑棋必须无法移动任何棋子，同时没有被将军</string>
   <string name="stalemateComplete">恭喜！逼和起码比被将死好！</string>
   <string name="advanced">高级</string>
   <string name="pieceValue">子力价值</string>
@@ -163,14 +164,12 @@
 兵=1
 王是无价的，如果你的王被将死你就输了这盘棋！</string>
   <string name="queenOverBishop">请吃掉价值大的棋子！
-后&gt;象</string>
+后 &gt; 象</string>
   <string name="pieceValueExchange">吃最高价值的棋子！
-不要把价值较高的棋子
-和价值较低的棋子兑掉。</string>
-  <string name="pieceValueLegal">吃最高价值
-的棋子！
+不要用价值高的棋子换价值低的棋子</string>
+  <string name="pieceValueLegal">吃最高价值的棋子！
 确保你走的棋是合法的！</string>
-  <string name="takeThePieceWithTheHighestValue">请吃掉价值大的棋子！</string>
+  <string name="takeThePieceWithTheHighestValue">请吃掉价值高的棋子！</string>
   <string name="pieceValueComplete">恭喜！你已经懂得子力价值！
 后=9
 车=5
@@ -179,39 +178,39 @@
 兵=1</string>
   <string name="checkInTwo">二步将</string>
   <string name="twoMovesToGiveCheck">走两步棋并将军对方</string>
-  <string name="checkInTwoIntro">请找到正确的两步棋对敌王将军。</string>
-  <string name="checkInTwoGoal">二步将</string>
+  <string name="checkInTwoIntro">请找到正确的两步棋以将军对手！</string>
+  <string name="checkInTwoGoal">二步将军对方的王！</string>
   <string name="checkInTwoComplete">恭喜！你成功将对手将军，迫使对方保护王！</string>
-  <string name="whatNext">下一步</string>
+  <string name="whatNext">接下来呢？</string>
   <string name="youKnowHowToPlayChess">恭喜，你已经学会怎么下国际象棋了！你想要成为一位更出色的棋手吗？</string>
   <string name="register">注册</string>
-  <string name="getAFreeLichessAccount">获得一个免费的Lichess帐户</string>
+  <string name="getAFreeLichessAccount">获得一个免费的 Lichess 账户</string>
   <string name="practice">练习</string>
   <string name="learnCommonChessPositions">学习常见的国际象棋局面</string>
-  <string name="puzzles">训练题</string>
-  <string name="exerciseYourTacticalSkills">练习你的国际象棋战术</string>
-  <string name="videos">观看视频</string>
+  <string name="puzzles">谜题</string>
+  <string name="exerciseYourTacticalSkills">练习战术</string>
+  <string name="videos">视频</string>
   <string name="watchInstructiveChessVideos">观看国际象棋教学视频</string>
-  <string name="playPeople">和人类下棋</string>
-  <string name="opponentsFromAroundTheWorld">世界各地的对手</string>
-  <string name="playMachine">跟电脑玩</string>
-  <string name="testYourSkillsWithTheComputer">看你多强</string>
+  <string name="playPeople">和别人下棋</string>
+  <string name="opponentsFromAroundTheWorld">来自世界各地的对手</string>
+  <string name="playMachine">和电脑下棋</string>
+  <string name="testYourSkillsWithTheComputer">和不同等级的电脑对战</string>
   <string name="letsGo">开始！</string>
-  <string name="stageX">阶段%s</string>
-  <string name="awesome">极好的！</string>
-  <string name="excellent">非常好！</string>
+  <string name="stageX">阶段 %s</string>
+  <string name="awesome">很好！</string>
+  <string name="excellent">妙着！</string>
   <string name="greatJob">干的好！</string>
-  <string name="perfect">完美</string>
+  <string name="perfect">完美！</string>
   <string name="outstanding">优秀！</string>
   <string name="wayToGo">太棒了！</string>
   <string name="yesYesYes">对！</string>
-  <string name="youreGoodAtThis">您擅长下棋！</string>
+  <string name="youreGoodAtThis">你很有潜力！</string>
   <string name="nailedIt">正确！</string>
   <string name="rightOn">好极了！</string>
-  <string name="stageXComplete">阶段%s完成</string>
+  <string name="stageXComplete">阶段 %s 完成</string>
   <string name="next">下一个</string>
-  <string name="nextX">下一步： %s</string>
+  <string name="nextX">下一步：%s</string>
   <string name="backToMenu">返回菜单</string>
-  <string name="puzzleFailed">解题失败!</string>
+  <string name="puzzleFailed">解题失败！</string>
   <string name="retry">重试</string>
 </resources>
