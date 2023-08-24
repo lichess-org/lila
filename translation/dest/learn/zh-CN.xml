@@ -40,48 +40,50 @@
   <string name="itMovesInAnLShape">它以L字形方式移动</string>
   <string name="knightIntro">给你一个挑战。马是个……棘手的棋子</string>
   <string name="knightsHaveAFancyWay">马以华丽的方式四处跳动！</string>
-  <string name="knightsCanJumpOverObstacles">马能跳过障碍！逃脱并征服星星们！</string>
+  <string name="knightsCanJumpOverObstacles">马能跳过障碍！
+逃脱并征服星星们！</string>
   <string name="knightComplete">恭喜！你已掌握了马</string>
   <string name="thePawn">兵</string>
   <string name="itMovesForwardOnly">它只向前移动</string>
-  <string name="pawnIntro">兵是弱小的，但它们内含很多潜力。</string>
-  <string name="pawnsMoveOneSquareOnly">兵只移动一格。但是它们到达棋盘的另一侧时变成更强大的棋子！</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">多数时候，升变为王后是最好的选择。
-但有时候，升变为马也能派上用场。</string>
+  <string name="pawnIntro">兵是弱小的，但它们内含很多潜力</string>
+  <string name="pawnsMoveOneSquareOnly">兵只移动一格，
+但是它们到达棋盘的另一侧时变成更强大的棋子！</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">多数时候，升变为王后是最好的选择
+但有时候，升变为马也能派上用场！</string>
   <string name="pawnsMoveForward">兵向前直行，
-但斜着吃子。</string>
+但斜着吃子！</string>
   <string name="captureThenPromote">吃子，然后升变！</string>
   <string name="useAllThePawns">使用所有的兵！
-不需要升变。</string>
+不需要升变</string>
   <string name="aPawnOnTheSecondRank">第二行上的兵可以一步进两格！</string>
-  <string name="grabAllTheStarsNoNeedToPromote">拿到所有的星星!
-不需要升变。</string>
-  <string name="pawnComplete">恭喜！兵已向你倾吐一切秘密。</string>
+  <string name="grabAllTheStarsNoNeedToPromote">拿到所有的星星！
+不需要升变</string>
+  <string name="pawnComplete">恭喜！兵已向你倾吐一切秘密</string>
   <string name="pawnPromotion">兵的升变</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">你您的兵已经走到棋盘另一头！</string>
-  <string name="itNowPromotesToAStrongerPiece">它将升级为更强大的棋子。</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">你的兵已经走到棋盘另一头！</string>
+  <string name="itNowPromotesToAStrongerPiece">它将升级为更强大的棋子</string>
   <string name="selectThePieceYouWant">请选择你要升变为的棋子。</string>
   <string name="fundamentals">基础</string>
   <string name="capture">吃子</string>
   <string name="takeTheEnemyPieces">吃掉对方的棋子</string>
-  <string name="captureIntro">寻找对方没有保护的棋子并吃掉它们。</string>
+  <string name="captureIntro">寻找对方没有保护的棋子并吃掉它们！</string>
   <string name="takeTheBlackPieces">吃掉黑棋！</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">吃掉黑棋，
 保住白棋！</string>
   <string name="captureComplete">恭喜！你已经懂得如何吃子！</string>
   <string name="protection">保护</string>
   <string name="keepYourPiecesSafe">确保你的棋子安全</string>
-  <string name="protectionIntro">请找到被对手威胁的棋子并保护它们。</string>
+  <string name="protectionIntro">请找到被对手威胁的棋子并保护它们！</string>
   <string name="protectionComplete">恭喜！没被吃掉棋子相当于赚了一个棋子！</string>
   <string name="escape">你被攻击了！
 避开威胁！</string>
   <string name="noEscape">你的棋子无法逃脱，
 但是可以被保护！</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">请不要让敌方吃掉
-任何不受保护的棋子。</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">不要让敌方吃掉
+任何不受保护的棋子！</string>
   <string name="combat">攻防</string>
   <string name="captureAndDefendPieces">吃子与保护</string>
-  <string name="combatIntro">一个优秀的战士同时懂得进攻和防御。</string>
+  <string name="combatIntro">一个优秀的战士同时懂得进攻和防御！</string>
   <string name="combatComplete">恭喜！你已经懂得如何用棋子战斗！</string>
   <string name="checkInOne">一步将</string>
   <string name="attackTheOpponentsKing">攻击对手的王</string>
