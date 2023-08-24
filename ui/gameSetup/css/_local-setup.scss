@@ -1,5 +1,3 @@
-@import 'setup';
-
 .local-setup#modal-wrap {
   @extend %setup;
 
@@ -7,44 +5,34 @@
     display: flex;
     flex-flow: column nowrap;
     overflow-y: auto;
-  }
 
-  .libot {
-    display: flex;
-    align-items: center;
+    .libot {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
 
-    &:nth-child(even) {
-      background: $c-bg-zebra;
-      justify-content: space-between;
-      img.picture {
-        order: 3;
+      &:nth-child(even) {
+        background: $c-bg-zebra;
+        justify-content: space-between;
+      }
+
+      &:hover {
+        background: mix($c-link, $c-bg-box, 15%);
+      }
+
+      img {
+        flex: 0 0 32px;
+        display: block;
       }
     }
 
-    &:hover {
-      background: mix($c-link, $c-bg-box, 15%);
-    }
-
-    img.picture {
-      flex: 0 0 128px;
-
-      display: block;
-    }
-    span {
+    /*span {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
       * {
         margin-right: 6px;
       }
-    }
-    .overview {
-      margin: 20px 10px 10px 2.5vw;
-      display: flex;
-      flex: auto;
-      flex-flow: column;
-      justify-content: space-between;
-      padding-bottom: 15px;
-    }
+    }*/
   }
 }

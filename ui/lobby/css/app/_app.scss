@@ -1,5 +1,6 @@
 @import 'pool';
 @import 'hook-chart';
+@import 'hook-filters';
 @import 'hook-list';
 
 .lobby__app {
@@ -87,7 +88,7 @@
   }
 }
 
-.hook__filters {
-  // will be overridden by _hook-filter.scss once it's loaded
-  display: none;
-}
+//.hook__filters { WTF?
+// will be overridden by _hook-filter.scss once it's loaded
+//display: none;
+//}

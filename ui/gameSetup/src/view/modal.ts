@@ -17,8 +17,8 @@ export default function setupModal(ctrl: SetupCtrl): MaybeVNode {
   if (!ctrl.gameType) return null;
   const renderContent = gameTypeToRenderer[ctrl.gameType];
   return snabModal({
-    class: 'game-setup',
-    onInsert: () => lichess.loadCssPath('lobby.setup'),
+    class: ctrl.gameType === 'local' ? 'local-setup' : 'game-setup',
+    onInsert: () => lichess.loadCssPath('game-setup'),
     onClose: ctrl.closeModal,
     content: renderContent(ctrl),
   });
