@@ -22,6 +22,8 @@ trait DateHelper:
   private val englishDateFormatter =
     DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
+  private val rtlLanguages = Set("ar", "fa", "he", "ps", "ur")
+
   private def dateTimeFormatter(using lang: Lang): DateTimeFormatter =
     dateTimeFormatters.computeIfAbsent(
       lang.code,
@@ -34,6 +36,8 @@ trait DateHelper:
       lang.code,
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
+
+  def isRightToLeft(lang: Lang): Boolean = rtlLanguages.contains(lang.language)
 
   def showInstantUTC(instant: Instant)(using Lang): String =
     dateTimeFormatter print instant
@@ -49,12 +53,21 @@ trait DateHelper:
   def showEnglishDate(instant: Instant): String    = englishDateFormatter print instant
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
 
-  def semanticDate(instant: Instant)(using Lang): Tag =
-    timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
+  def semanticDate(instant: Instant)(using lang: Lang): Tag =
+    timeTag(
+      datetimeAttr := isoDateTime(instant),
+      if isRightToLeft(lang)
+      then dir := "rtl"
+      else ()
+    )(showDate(instant))
 
-  def semanticDate(date: LocalDate)(using Lang): Tag =
-    timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
-
+  def semanticDate(date: LocalDate)(using lang: Lang): Tag =
+    timeTag(
+      datetimeAttr := isoDateTime(date.atStartOfDay.instant),
+      if isRightToLeft(lang)
+      then dir := "rtl"
+      else ()
+    )(showDate(date))
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
 
