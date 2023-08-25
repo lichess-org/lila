@@ -163,8 +163,6 @@ export default class RoundController {
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
-
-    lichess.sound.move();
   }
 
   private showExpiration = () => {
