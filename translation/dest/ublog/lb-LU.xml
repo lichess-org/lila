@@ -34,5 +34,6 @@
   <string name="uploadAnImageForYourPost">E Bild fir däin Bäitrag eroplueden</string>
   <string name="imageAlt">Alternativen Bildtext</string>
   <string name="imageCredit">Bildquell</string>
+  <string name="deleteBlog">Dëse Blog-Bäitrag endgülteg läschen</string>
   <string name="deleteImage">D\'Bild läschen</string>
 </resources>

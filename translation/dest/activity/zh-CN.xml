@@ -51,7 +51,7 @@
     <item quantity="other">参加了 %s 场 swiss 锦标赛</item>
   </plurals>
   <string name="rankedInSwissTournament">在 %2$s 中获得第 #%1$s 名</string>
-  <string name="signedUp">注册 lichess 帐户</string>
+  <string name="signedUp">注册 lichess.org 账户</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">加入了 %s 个团队</item>
   </plurals>

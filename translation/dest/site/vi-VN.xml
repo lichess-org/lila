@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
   <string name="strength">Độ mạnh</string>
-  <string name="toggleTheChat">Bật/tắt chat</string>
+  <string name="toggleTheChat">Bật/Tắt trò chuyện</string>
   <string name="chat">Trò chuyện</string>
   <string name="resign">Bỏ cuộc</string>
   <string name="checkmate">Chiếu hết</string>
@@ -267,7 +267,7 @@
   <string name="ratedTournament">Tính Elo</string>
   <string name="thisGameIsRated">Ván đấu này có tính Elo</string>
   <string name="rematch">Đấu lại</string>
-  <string name="rematchOfferSent">Yêu cầu đấu lại đã được gửi</string>
+  <string name="rematchOfferSent">Yêu cầu tái đấu đã được gửi</string>
   <string name="rematchOfferAccepted">Yêu cầu đấu lại được chấp nhận</string>
   <string name="rematchOfferCanceled">Yêu cầu đấu lại đã bị hủy</string>
   <string name="rematchOfferDeclined">Không chấp nhận đấu lại</string>
@@ -622,7 +622,7 @@
   <string name="host">Người chủ trì</string>
   <string name="hostColorX">Màu quân của người chủ trì: %s</string>
   <string name="createdSimuls">Sự kiện cờ đồng loạt mới tạo</string>
-  <string name="hostANewSimul">Chủ trì một ván cờ đồng loạt mới</string>
+  <string name="hostANewSimul">Chủ trì một sự kiện cờ đồng loạt mới</string>
   <string name="noSimulFound">Không tìm thấy sự kiện cờ đồng loạt nào</string>
   <string name="noSimulExplanation">Sự kiện cờ đồng loạt này không tồn tại.</string>
   <string name="returnToSimulHomepage">Trở về trang chủ cờ đồng loạt</string>

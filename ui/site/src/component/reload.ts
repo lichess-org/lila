@@ -5,9 +5,9 @@ interface Opts {
   cookie: Cookie;
 }
 
-export const redirect = async (opts: string | Opts, notify?: 'countdown' | 'beep') => {
+export const redirect = async (opts: string | Opts, beep?: boolean) => {
   try {
-    if (notify === 'beep') await lichess.sound.play('genericNotify');
+    if (beep) await lichess.sound.play('genericNotify');
   } catch (e) {
     console.warn(e);
   }

@@ -58,6 +58,8 @@
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
   <string name="loadingEngine">正在載入引擎 ...</string>
+  <string name="calculatingMoves">計算著法中。。。</string>
+  <string name="engineFailed">加載引擎出錯</string>
   <string name="cloudAnalysis">雲端分析</string>
   <string name="goDeeper">深入分析</string>
   <string name="showThreat">顯示敵方威脅</string>
@@ -89,7 +91,9 @@
   </plurals>
   <string name="dtzWithRounding">經過四捨五入的DTZ50\'\'，是基於到下次吃子或兵動的半步數目。</string>
   <string name="noGameFound">未找到遊戲</string>
+  <string name="maxDepthReached">已達到最大深度！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從偏好設置中加入更多棋局</string>
+  <string name="openings">開局</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="openingEndgameExplorer">開局與終局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
@@ -114,6 +118,7 @@
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的電腦發熱。</string>
+  <string name="engineManager">引擎管理</string>
   <string name="blunder">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
   <string name="inaccuracy">輕微失誤</string>
@@ -147,6 +152,7 @@
   <string name="viewInFullSize">在整個網頁裡觀看棋局</string>
   <string name="logOut">登出</string>
   <string name="signIn">登入</string>
+  <string name="rememberMe">保持登入狀態</string>
   <string name="youNeedAnAccountToDoThat">請註冊以完成該操作</string>
   <string name="signUp">註冊</string>
   <string name="computersAreNotAllowedToPlay">電腦與電腦輔助棋手不允許參加對弈。對弈時，請勿從國際象棋引擎、資料庫以及其他棋手那裡獲取幫助。另外，強烈建議不要創建多個帳號；過分地使用多個帳號將導致封號。</string>
@@ -190,6 +196,21 @@
   <string name="email">電郵地址</string>
   <string name="passwordReset">重置密碼</string>
   <string name="forgotPassword">忘記密碼？</string>
+  <string name="error.weakPassword">此密碼太常見，且很容易被猜到。</string>
+  <string name="error.namePassword">請不要把密碼設為用戶名。</string>
+  <string name="youAreLeavingLichess">你正在離開 Lichess</string>
+  <string name="neverTypeYourPassword">不要在其他網站輸入你的 Lichess 密碼！</string>
+  <string name="proceedToX">前往 %s</string>
+  <string name="whatSignupUsername">你用了什麼用戶名註冊？</string>
+  <string name="usernameNotFound">找不到用戶 %s。</string>
+  <string name="usernameCanBeUsedForNewAccount">你可以使用這個用戶名創建帳戶</string>
+  <string name="emailSent">我們向 %s 發送了電子郵件。</string>
+  <string name="emailCanTakeSomeTime">可能需要一些時間才能收到。</string>
+  <string name="refreshInboxAfterFiveMinutes">等待5分鐘並刷新你的收件箱。</string>
+  <string name="accountCanLogin">你可以做為 %s 登入了。</string>
+  <string name="accountConfirmationEmailNotNeeded">你不需要確認電子郵件。</string>
+  <string name="accountClosed">帳戶 %s 被關閉。</string>
+  <string name="accountRegisteredWithoutEmail">帳戶 %s 未使用電子郵箱註冊。</string>
   <string name="rank">排名</string>
   <string name="rankX">排名：%s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -322,6 +343,7 @@
   <string name="apply">套用</string>
   <string name="save">儲存</string>
   <string name="leaderboard">排行榜</string>
+  <string name="gameAsGIF">保存棋局為 GIF</string>
   <string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
   <string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
   <string name="orUploadPgnFile">或者上傳一個PGN文件</string>
@@ -395,6 +417,8 @@
   <string name="tournamentIsStarting">錦標賽即將開始</string>
   <string name="tournamentPairingsAreNowClosed">此錦標賽的對手配對已結束。</string>
   <string name="standByX">%s準備好，你馬上要開始對棋了！</string>
+  <string name="pause">暫停</string>
+  <string name="resume">繼續</string>
   <string name="youArePlaying">等待對手中</string>
   <string name="winRate">勝率</string>
   <string name="berserkRate">快棋率</string>
@@ -424,10 +448,13 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">個人簡介</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">旗幟</string>
   <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="oneUrlPerLine">每行一個網址</string>
   <string name="inlineNotation">棋譜集中顯示</string>
+  <string name="savingMoves">暫時著法儲存</string>
+  <string name="clearSavedMoves">清空著法儲存</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
   <string name="activePlayers">活躍棋手</string>
@@ -474,6 +501,7 @@
   <string name="blog">博客</string>
   <string name="notes">笔记</string>
   <string name="typePrivateNotesHere">在此輸入私人筆記</string>
+  <string name="noNoteYet">尚無筆記</string>
   <string name="invalidUsernameOrPassword">用户名或密碼錯誤</string>
   <string name="incorrectPassword">舊密碼錯誤</string>
   <string name="invalidAuthenticationCode">驗證碼無效</string>
@@ -528,6 +556,7 @@
   <string name="community">社區</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
+  <string name="error.unknown">無效值</string>
   <string name="error.required">本项必填</string>
   <string name="error.email">這個電子郵件地址無效</string>
   <string name="error.email_acceptable">該電子郵件地址是不可用。請重新檢查後重試。</string>
@@ -586,11 +615,17 @@
   <string name="tournamentFAQ">比赛常见问题</string>
   <string name="timeBeforeTournamentStarts">比赛准备时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
+  <string name="accuracy">精準度</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入/退出变体</string>
+  <string name="keyRequestComputerAnalysis">請求引擎分析，從你的失誤中學習</string>
+  <string name="keyNextLearnFromYourMistakes">下一個 (從你的失誤中學習)</string>
+  <string name="keyNextBlunder">下一個漏著</string>
+  <string name="keyNextMistake">下一個錯著</string>
+  <string name="keyNextInaccuracy">下一個疑著</string>
   <string name="newTournament">新比赛</string>
   <string name="tournamentHomeTitle">国际象棋赛事均设有不同的时间控制和变体</string>
   <string name="tournamentHomeDescription">加入快節奏的國際象棋比賽！加入定時賽事，或創建自己的。子彈，閃電，經典，菲舍爾任意制，王到中心，三次將軍，並提供更多的選擇為無盡的國際象棋樂趣。</string>
@@ -633,6 +668,7 @@
   <string name="kidMode">兒童模式</string>
   <string name="kidModeExplanation">考量安全，在兒童模式中，網站上全部的文字交流將會被關閉。開啟此模式來保護你的孩子及學生不被網路上的人傷害。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，Lichess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">你的帳戶被管理，詢問你的老師解除兒童模式。</string>
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
@@ -666,6 +702,7 @@
   <string name="light">亮</string>
   <string name="dark">暗</string>
   <string name="transparent">透明度</string>
+  <string name="deviceTheme">設備主題</string>
   <string name="backgroundImageUrl">背景圖片網址:</string>
   <string name="boardGeometry">棋盤幾何性質</string>
   <string name="boardTheme">棋盤主題</string>
@@ -684,6 +721,7 @@
   <string name="invalidFen">無效的FEN</string>
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
+  <string name="notificationsX">通知: %1$s</string>
   <string name="perfRatingX">評分:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
@@ -693,6 +731,7 @@
   <string name="bestWasX">最好的一步是%s</string>
   <string name="youBrowsedAway">您暫停了剛剛的進度</string>
   <string name="resumePractice">繼續練習</string>
+  <string name="drawByFiftyMoves">對局因 50 步規則判和。</string>
   <string name="theGameIsADraw">這是一場平局</string>
   <string name="computerThinking">電腦運算中...</string>
   <string name="seeBestMove">觀看最佳移動</string>
@@ -774,6 +813,7 @@
   <string name="useTheReportForm">請造訪回報頁面</string>
   <string name="toRequestSupport">需要請求協助，%1$s</string>
   <string name="tryTheContactPage">請到協助頁面</string>
+  <string name="makeSureToRead">確保你已閱讀 %1$s</string>
   <string name="thisTopicIsArchived">該討論已封存，不能再留言</string>
   <string name="joinTheTeamXToPost">請先加入%1$s團隊，才能在這則討論裡發表留言</string>
   <string name="teamNamedX">%1$s團隊</string>

@@ -4,7 +4,7 @@
   <string name="byPlaying">bằng cách chơi!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Tiến trình %s</string>
-  <string name="resetMyProgress">Đặt lại quá trình của tôi</string>
+  <string name="resetMyProgress">Đặt lại tiến trình của tôi</string>
   <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các thành tích của bạn!</string>
   <string name="play">chơi!</string>
   <string name="chessPieces">Các quân cờ</string>
@@ -66,16 +66,16 @@ Nhưng không cần phải phong cấp đâu.</string>
   <string name="selectThePieceYouWant">Chọn quân mà bạn muốn!</string>
   <string name="fundamentals">Nguyên tắc cơ bản</string>
   <string name="capture">Ăn quân</string>
-  <string name="takeTheEnemyPieces">Loại quân của đối thủ</string>
+  <string name="takeTheEnemyPieces">Ăn quân của đối thủ</string>
   <string name="captureIntro">Xác định các quân không được phòng thủ của đối phương, và bắt lấy chúng!</string>
   <string name="takeTheBlackPieces">Hãy bắt lấy quân đen!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Bắt lấy quân đen!
+  <string name="takeTheBlackPiecesAndDontLoseYours">Ăn lấy quân đen!
 Nhưng đừng để mất quân của bạn.</string>
   <string name="captureComplete">Xin chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
   <string name="protection">Phòng thủ</string>
-  <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
-  <string name="protectionIntro">Xác định các quân đang bị đối thủ tấn công và phòng thủ bọn chúng!</string>
-  <string name="protectionComplete">Xin chúc mừng! Một quân cờ không bị mất là một quân cờ giành chiến thắng!</string>
+  <string name="keepYourPiecesSafe">Giữ an toàn cho quân của bạn</string>
+  <string name="protectionIntro">Xác định các quân đang bị đối thủ tấn công và phòng thủ cho chúng!</string>
+  <string name="protectionComplete">Xin chúc mừng! Quân cờ không bị mất là quân cờ giành chiến thắng!</string>
   <string name="escape">Bạn đang bị tấn công! 
 Hãy thoát khỏi mối đe dọa đó!</string>
   <string name="noEscape">Không có nước để chạy thoát, 
@@ -131,7 +131,7 @@ Bên phải cạnh quân Hậu.</string>
 Hãy đi nước bất kỳ để tiếp tục.</string>
   <string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
   <string name="castling">Nhập thành</string>
-  <string name="theSpecialKingMove">Nước đi đặc biệt của Vua</string>
+  <string name="theSpecialKingMove">Nước đi đặc biệt của quân Vua</string>
   <string name="castlingIntro">Chuyển quân Vua đến vị trí an toàn, và triển khai quân Xe để tấn công!</string>
   <string name="castleKingSide">Di chuyển quân Vua 2 ô để nhập thành gần!</string>
   <string name="castleQueenSide">Di chuyển quân Vua 2 ô

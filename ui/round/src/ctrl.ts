@@ -168,8 +168,6 @@ export default class RoundController {
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
 
-    lichess.sound.move();
-
     makeZerofish({ pbUrl: '/assets/lifat/bots/weights/maia-1900.pb' }).then(zf => (this.zerofish = zf));
   }
 

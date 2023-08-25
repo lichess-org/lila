@@ -10,7 +10,7 @@
     <item quantity="other">%1$s là Lichess Patron trong %2$s tháng</item>
   </plurals>
   <string name="newPatrons">Những người ủng hộ mới</string>
-  <string name="freeChess">Cờ vua miễn phí cho tất cả mọi người, mãi mãi!</string>
+  <string name="freeChess">Cờ vua miễn phí cho mọi người, mãi mãi!</string>
   <string name="noAdsNoSubs">Không quảng cáo, không đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
   <string name="thankYou">Cảm ơn sự đóng góp của bạn!</string>
   <string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
@@ -22,7 +22,7 @@
   <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lichess Patron vĩnh viễn!</string>
   <string name="lifetimePatron">Lichess Patron trọn đời</string>
   <string name="monthly">Hàng tháng</string>
-  <string name="recurringBilling">Trả tiền định kỳ, làm mới đôi cánh Patron của bạn mỗi tháng.</string>
+  <string name="recurringBilling">Trả tiền định kỳ, gia hạn đôi cánh Patron của bạn mỗi tháng.</string>
   <string name="onetime">Một lần</string>
   <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Patron trong vòng một tháng.</string>
   <string name="otherAmount">Khác</string>
@@ -35,7 +35,7 @@
   <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
 Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
   <string name="costBreakdown">Xem phân tích chi phí chi tiết</string>
-  <string name="officialNonProfit">Lichess có phải là một tổ chức phi lợi nhuận chính thống?</string>
+  <string name="officialNonProfit">Lichess có phải là một tổ chức phi lợi nhuận chính thức?</string>
   <string name="actOfCreation">Đúng, và đây là tuyên bố thành lập (bằng tiếng Pháp)</string>
   <string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
   <string name="changeOrContact">Có, bất cứ lúc nào, ở trang này.
@@ -55,7 +55,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
   <string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
   <string name="currentStatus">Trạng thái hiện tại</string>
-  <string name="nextPayment">Thanh toán tiếp theo</string>
+  <string name="nextPayment">Lần thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Quyên góp thêm ngay bây giờ</string>
   <string name="giftPatronWings">Tặng đôi cánh Patron cho kỳ thủ</string>
