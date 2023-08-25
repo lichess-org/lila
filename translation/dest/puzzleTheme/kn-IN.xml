@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">ಮುಂದುವರಿದ ದಳ</string>
+  <string name="advancedPawnDescription">ನಿಮ್ಮ ಪ್ಯಾದೆಗಳಲ್ಲಿ ಒಬ್ಬರು ಎದುರಾಳಿಯ ಸ್ಥಾನಕ್ಕೆ ಆಳವಾಗಿದೆ, ಬಹುಶಃ ಪ್ರಚಾರ ಮಾಡಲು ಬೆದರಿಕೆ ಹಾಕಬಹುದು.</string>
   <string name="advantage">ಮೇಲುಗೈ</string>
 </resources>
