@@ -3,4 +3,30 @@
   <string name="learnChess">ಚೆಸ್ ಕಲಿಯಿರಿ</string>
   <string name="byPlaying">ಆಡುವ ಮೂಲಕ!</string>
   <string name="menu">ಮೆನು</string>
+  <string name="progressX">ಪ್ರಗತಿ: %s</string>
+  <string name="resetMyProgress">ನನ್ನ ಪ್ರಗತಿಯನ್ನು ಮರುಹೊಂದಿಸಿ</string>
+  <string name="youWillLoseAllYourProgress">ನಿಮ್ಮ ಎಲ್ಲಾ ಪ್ರಗತಿಯನ್ನು ನೀವು ಕಳೆದುಕೊಳ್ಳುತ್ತೀರಿ!</string>
+  <string name="play">ಆಟವಾಡಿ!</string>
+  <string name="chessPieces">ಚೆಸ್ ತುಣುಕುಗಳು</string>
+  <string name="theRook">ರೂಕ್</string>
+  <string name="itMovesInStraightLines">ಇದು ನೇರ ರೇಖೆಗಳಲ್ಲಿ ಚಲಿಸುತ್ತದೆ</string>
+  <string name="rookIntro">ರೂಕ್ ಒಂದು ಶಕ್ತಿಯುತ ತುಣುಕು. ನೀವು ಅದನ್ನು ಆದೇಶಿಸಲು ಸಿದ್ಧರಿದ್ದೀರಾ?</string>
+  <string name="rookGoal">ರೂಕ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ
+ಅದನ್ನು ನಕ್ಷತ್ರಕ್ಕೆ ತರಲು!</string>
+  <string name="grabAllTheStars">ಎಲ್ಲಾ ನಕ್ಷತ್ರಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಿ!</string>
+  <string name="theFewerMoves">ನೀವು ಮಾಡುವ ಕಡಿಮೆ ಚಲನೆಗಳು,
+ನೀವು ಹೆಚ್ಚು ಅಂಕಗಳನ್ನು ಗೆಲ್ಲುತ್ತೀರಿ!</string>
+  <string name="useTwoRooks">ಎರಡು ರೂಕ್ಸ್ ಬಳಸಿ
+ವಿಷಯಗಳನ್ನು ವೇಗಗೊಳಿಸಲು!</string>
+  <string name="rookComplete">ಅಭಿನಂದನೆಗಳು! ನೀವು ರೂಕ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಕರಗತ ಮಾಡಿಕೊಂಡಿದ್ದೀರಿ.</string>
+  <string name="theBishop">ಬಿಷಪ್</string>
+  <string name="itMovesDiagonally">ಇದು ಕರ್ಣೀಯವಾಗಿ ಚಲಿಸುತ್ತದೆ</string>
+  <string name="bishopIntro">ಮುಂದೆ ನಾವು ಬಿಷಪ್ ಅನ್ನು ಹೇಗೆ ನಿರ್ವಹಿಸಬೇಕೆಂದು ಕಲಿಯುತ್ತೇವೆ!</string>
+  <string name="youNeedBothBishops">ಒಂದು ಬೆಳಕಿನ ಚೌಕದ ಬಿಷಪ್,
+ಒಬ್ಬ ಕಪ್ಪು ಚೌಕದ ಬಿಷಪ್.
+ನಿಮಗೆ ಎರಡೂ ಬೇಕು!</string>
+  <string name="bishopComplete">ಅಭಿನಂದನೆಗಳು! ನೀವು ಬಿಷಪ್ಗೆ ಆದೇಶ ನೀಡಬಹುದು.</string>
+  <string name="theQueen">ರಾಣಿ</string>
+  <string name="queenCombinesRookAndBishop">ರಾಣಿ = ರೂಕ್ + ಬಿಷಪ್</string>
+  <string name="queenIntro">ಅತ್ಯಂತ ಶಕ್ತಿಶಾಲಿ ಚೆಸ್ ತುಂಡು ಪ್ರವೇಶಿಸುತ್ತದೆ. ಮಹಾರಾಣಿ!</string>
 </resources>
