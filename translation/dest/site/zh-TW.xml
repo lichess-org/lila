@@ -335,6 +335,7 @@
   <string name="siteDescription">界面清新的免費線上國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s隊</string>
   <string name="xCreatedTeamY">%1$s組建%2$s隊</string>
+  <string name="startedStreaming">開始直播</string>
   <string name="xStartedStreaming">%s開始直播</string>
   <string name="averageElo">平均級別</string>
   <string name="location">所在地</string>
