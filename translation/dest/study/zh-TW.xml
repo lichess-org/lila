@@ -59,6 +59,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下載所有棋局</string>
   <string name="chapterPgn">章節PGN</string>
+  <string name="copyChapterPgn">複製PGN</string>
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>
   <string name="currentChapterUrl">目前章節連結</string>
@@ -73,6 +74,7 @@
   <string name="studyNotFound">找無此研究</string>
   <string name="editChapter">編輯章節</string>
   <string name="newChapter">建立新章節</string>
+  <string name="importFromChapterX">從 %s 導入</string>
   <string name="orientation">視角</string>
   <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置頂留言</string>
@@ -131,6 +133,7 @@
   <string name="blunder">嚴重失誤</string>
   <string name="interestingMove">有趣的一着</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">值得商榷的一着</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一著法</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">等著</string>
   <string name="equalPosition">勢均力敵</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
