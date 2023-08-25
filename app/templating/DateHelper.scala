@@ -68,6 +68,7 @@ trait DateHelper:
       then dir := "rtl"
       else ()
     )(showDate(date))
+
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
 
