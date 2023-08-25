@@ -9,7 +9,7 @@
   <string name="yourTurn">Te következel</string>
   <string name="aiNameLevelAiLevel">%1$s szint: %2$s</string>
   <string name="level">Szint</string>
-  <string name="strength">Erősség</string>
+  <string name="strength">Nehézség</string>
   <string name="toggleTheChat">Csevegő ki-be</string>
   <string name="chat">Csevegés</string>
   <string name="resign">Feladás</string>
@@ -155,8 +155,8 @@
     <item quantity="other">%s játszma</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">%1$s pontszám %2$s játszma alatt</item>
-    <item quantity="other">%1$s pontszám %2$s játszma alatt</item>
+    <item quantity="one">%1$s pontszám %2$s játszma alapján</item>
+    <item quantity="other">%1$s pontszám %2$s játszma alapján</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s kedvenc</item>

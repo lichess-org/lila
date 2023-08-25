@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Hoạt động</string>
-  <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
+  <string name="hostedALiveStream">Đã chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
@@ -9,7 +9,7 @@
     <item quantity="other">Đã luyện tập %1$s thế cờ ở %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Đã giải %s thế cờ</item>
+    <item quantity="other">Đã giải %s câu đố</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
@@ -33,10 +33,10 @@
     <item quantity="other">Có %s người theo dõi mới</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">Làm chủ %s ván cờ đồng loạt</item>
+    <item quantity="other">Làm chủ %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">Tham gia %s ván cờ đồng loạt</item>
+    <item quantity="other">Tham gia %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="other">Đã tạo %s nghiên cứu mới</item>

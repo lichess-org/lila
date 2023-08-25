@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess主播</string>
-  <string name="lichessStreamer">Lichess主播</string>
+  <string name="lichessStreamers">Lichess 主播</string>
+  <string name="lichessStreamer">Lichess 主播</string>
   <string name="live">在线</string>
   <string name="offline">离线</string>
   <string name="currentlyStreaming">正在直播：%s</string>
   <string name="lastStream">上次直播：%s</string>
-  <string name="becomeStreamer">成为Lichess主播</string>
-  <string name="doYouHaveStream">您有Twitch或YouTube频道吗？</string>
+  <string name="becomeStreamer">成为 Lichess 主播</string>
+  <string name="doYouHaveStream">你有 Twitch 或 YouTube 频道吗？</string>
   <string name="hereWeGo">我们开始吧！</string>
   <string name="allStreamers">所有主播</string>
   <string name="editPage">编辑主播页面</string>
-  <string name="yourPage">您的主播页面</string>
+  <string name="yourPage">你的主播页面</string>
   <string name="downloadKit">下载主播工具</string>
   <string name="xIsStreaming">%s 正在直播</string>
   <string name="rules">直播规则</string>
-  <string name="rule1">当您在Lichess上直播时，请在您的直播标题中包含关键词\"lichess.org\"。</string>
-  <string name="rule2">当您直播与Lichess不相关的东西时，移除关键词。</string>
-  <string name="rule3">Lichess 将自动检测您的直播并启用以下津贴：</string>
-  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">阅读我们的 %s 以确保每个人公平地在您的直播游戏。</string>
+  <string name="rule1">当你在 Lichess 直播时，请在你的直播标题中包含关键词 \"lichess.org\"。</string>
+  <string name="rule2">当你直播与 Lichess 不相关的内容时，请移除关键词。</string>
+  <string name="rule3">Lichess 将自动检测你的直播并启用以下津贴：</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">阅读我们的 %s 以确保你在直播中公平地进行游戏。</string>
   <string name="streamingFairplayFAQ">直播公平游戏常见问题</string>
   <string name="perks">使用关键词直播的好处</string>
-  <string name="perk1">在您的 Lichess 个人资料上获得一个燃烧的主播图标。</string>
+  <string name="perk1">在你的 Lichess 个人资料上获得一个主播图标。</string>
   <string name="perk2">快速到达主播列表顶部。</string>
-  <string name="perk3">通知您的Lichess粉丝。</string>
-  <string name="perk4">在您的游戏，比赛与研究中引入直播。</string>
-  <string name="approved">您的直播已被批准。</string>
-  <string name="pendingReview">您的直播正在由版主审核。</string>
-  <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>
+  <string name="perk3">通知你的 Lichess 粉丝。</string>
+  <string name="perk4">在你的对局、比赛与研究中显示你的直播。</string>
+  <string name="approved">你的直播已被批准。</string>
+  <string name="pendingReview">你的直播正在审核。</string>
+  <string name="pleaseFillIn">请填写你的主播信息并上传一张图片。</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">当你准备好成为 Lichess 主播时，%s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">请求版主复审</string>
-  <string name="streamerLanguageSettings">Lichess流页面以您的流媒体平台提供的语言为您的观众对象。 在应用程序中设置您的国际象棋流的正确默认语言或您用于广播的服务。</string>
-  <string name="twitchUsername">您的 Twitch 用户名或 URL</string>
+  <string name="streamerLanguageSettings">Lichess 主播页面以你的直播平台使用的语言推送给观众。请在你直播的平台设置正确的默认语言。</string>
+  <string name="twitchUsername">你的 Twitch 用户名或 URL</string>
   <string name="optionalOrEmpty">可选。如果没有则留空</string>
-  <string name="youTubeChannelId">您的 YouTube 频道 ID</string>
-  <string name="streamerName">Lichess上您的主播名字</string>
+  <string name="youTubeChannelId">你的 YouTube 频道 ID</string>
+  <string name="streamerName">你在 Lichess 的主播名字</string>
   <plurals name="keepItShort">
     <item quantity="other">不超过 %s 个字符</item>
   </plurals>
@@ -44,7 +44,7 @@
   <string name="tellUsAboutTheStream">用一句话中描述你的直播</string>
   <string name="longDescription">详细描述</string>
   <string name="xStreamerPicture">%s 主播图片</string>
-  <string name="changePicture">更改/删除您的图片</string>
+  <string name="changePicture">更改/删除你的图片</string>
   <string name="uploadPicture">上传图片</string>
   <string name="maxSize">大小上限：%s</string>
 </resources>

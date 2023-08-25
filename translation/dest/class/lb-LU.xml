@@ -1,2 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Coursen</string>
+  <string name="noClassesYet">Nach keng Coursen.</string>
+  <string name="teachersX">Enseignanten: %s</string>
+  <string name="newClass">Neie Cours</string>
+  <string name="closeClass">Cours zoumaachen</string>
+  <string name="removedByX">Entfernt vum %s</string>
+  <string name="reopen">Nei opmaachen</string>
+  <string name="removeStudent">Schüler entfernen</string>
+  <string name="removedStudents">Entfernt</string>
+  <string name="inviteTheStudentBack">De Schüler zeréck invitéieren</string>
+  <string name="sendAMessage">E Message un all Schüler schécken.</string>
+  <string name="aLinkToTheClassWillBeAdded">Et gëtt automatesch ee Link op de Cours un de Schluss vum Message gesat, du muss en also net selwer derbäisetzen.</string>
+  <string name="className">Numm vum Cours</string>
+  <string name="classDescription">Beschreiwung vum Cours</string>
+  <string name="visibleByBothStudentsAndTeachers">Siichtbar fir d\'Enseignanten an d\'Schüler vum Cours</string>
+  <string name="teachersOfTheClass">Enseignantë vum Cours</string>
+  <string name="addLichessUsernames">Setzt Lichers-Benotzernimm derbäi fir se als Enseignant ze invitéieren. Ee pro Zeil.</string>
+  <string name="resetPassword">Passwuert zerécksetzen</string>
+  <string name="makeSureToCopy">Pass op, dass du d\'Passwuert elo kopéiers oder iergendwou notéiers. Du wäers et duerno net méi nokucke kënnen!</string>
+  <string name="passwordX">Passwuert: %s</string>
+  <string name="generateANewPassword">Een neit Passwuert fir de Schüler generéieren</string>
+  <string name="invitedToXByY">Vum %2$s invitéiert fir %1$s</string>
+  <string name="realName">Richtegen Numm</string>
+  <string name="privateWillNeverBeShown">Privat. Gëtt ausserhalb vum Cours ni ugewisen. Hëlleft dir, dech ze erënneren, wien dee Schüler ass.</string>
+  <string name="addStudent">Schüler derbäisetzen</string>
+  <string name="lichessProfileXCreatedForY">Lichess-Profil %1$s erstallt fir: %2$s.</string>
+  <string name="studentCredentials">Schüler: %1$s
+Benotzernumm: %2$s
+Passwuert: %3$s</string>
+  <string name="inviteALichessAccount">Ee Lichess-Kont invitéieren</string>
+  <string name="inviteDesc1">Wann de Schüler schonn ee Lichess-Kont huet, kanns du en an de Cours invitéieren.</string>
+  <string name="inviteDesc2">E wäert ee Message kréie mat engem Link fir dem Cours bäizetrieden.</string>
+  <string name="inviteDesc3">Wichteg: Invitéier nëmme Schüler, déi s du kenns an déi aktiv dem Cours bäitriede wëllen.</string>
+  <string name="inviteDesc4">Schéck keng onopgefuerdert Invitatiounen u willkürlech Spiller.</string>
+  <string name="createANewLichessAccount">En neie Lichess-Kont opmaachen</string>
+  <string name="createDesc1">Wann de Schüler nach kee Lichess-Kont huet, kanns du hei ee fir en opmaachen.</string>
+  <string name="createDesc2">Et ass keng E-Mail-Adress néideg. Et wäert ee Passwuert generéiert ginn, dat s du dann un de Schüler weidergi muss, fir datt e sech alogge kann.</string>
+  <string name="createDesc3">Wichteg: De Schüler däerf net méi ewéi ee Kont hunn.</string>
+  <string name="createDesc4">Wa se schonn een hunn, benotz den Invitatiounsformulaire.</string>
+  <string name="createStudentWarning">Maach just Konten op fir Schüler, déi tatsächlech existéieren. Benotz dës Funktioun net fir méi wéi ee Kont fir dech selwer opzemaachen. Soss gëss du gespaart.</string>
+  <string name="lichessUsername">Lichess-Benotzernumm</string>
+  <string name="generateANewUsername">Een neie Benotzernumm generéieren</string>
+  <string name="welcomeToClass">Wëllkomm an dengem Cours: %s.
+Hei ass de Link fir op de Cours zouzegräifen.</string>
+  <string name="invitationToClass">Du goufs invitéiert fir dem Cours \"%s\" als Schüler bäizetrieden.</string>
+  <string name="clickToViewInvitation">Klick op de Link fir d\'Invitatioun ze gesinn:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Eng oppen Invitatioun</item>
+    <item quantity="other">%s oppen Invitatiounen</item>
+  </plurals>
+  <string name="onlyVisibleToTeachers">Nëmme siichtbar fir d\'Enseignantë vum Cours</string>
+  <string name="lastActiveDate">Aktiv</string>
+  <string name="managed">Verwalt</string>
+  <string name="thisStudentAccountIsManaged">Dëse Schülerkont gëtt verwalt</string>
+  <string name="upgradeFromManaged">Vu verwalt op selbststänneg upgraden</string>
+  <string name="release">Fräiginn</string>
+  <string name="releaseTheAccount">Gëff de Kont fräi, fir datt de Schüler e selbstänneg verwalte kann.</string>
+</resources>
