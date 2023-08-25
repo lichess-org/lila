@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS, isIOSChrome } from 'common/mobile';
+import { isIOS } from 'common/mobile';
 import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
@@ -21,7 +21,7 @@ export default new (class implements SoundI {
   soundMove?: SoundMove;
 
   constructor() {
-    $('body').on('click touchstart', this.primer);
+    $('body').on('mouseup touchend keydown', this.primer);
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
@@ -223,11 +223,10 @@ export default new (class implements SoundI {
   }
 
   primer = () => {
-    if (isIOS({ below: 13 }) || isIOSChrome()) {
-      this.ctx = makeAudioContext()!;
-      for (const s of this.sounds.values()) s.rewire(this.ctx);
-    } else if (this.ctx?.state === 'suspended') this.ctx.resume();
-    $('body').off('click touchstart keydown', this.primer);
+    // some browsers fail audioContext.resume() on contexts created prior to user interaction
+    this.ctx = makeAudioContext()!;
+    for (const s of this.sounds.values()) s.rewire(this.ctx);
+    $('body').off('mouseup touchend keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };
 })();
