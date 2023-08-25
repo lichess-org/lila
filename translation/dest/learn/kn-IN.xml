@@ -29,4 +29,110 @@
   <string name="theQueen">ರಾಣಿ</string>
   <string name="queenCombinesRookAndBishop">ರಾಣಿ = ರೂಕ್ + ಬಿಷಪ್</string>
   <string name="queenIntro">ಅತ್ಯಂತ ಶಕ್ತಿಶಾಲಿ ಚೆಸ್ ತುಂಡು ಪ್ರವೇಶಿಸುತ್ತದೆ. ಮಹಾರಾಣಿ!</string>
+  <string name="queenComplete">ಅಭಿನಂದನೆಗಳು! ರಾಣಿ ನಿಮಗಾಗಿ ಯಾವುದೇ ರಹಸ್ಯಗಳನ್ನು ಹೊಂದಿಲ್ಲ.</string>
+  <string name="theKing">ರಾಜ</string>
+  <string name="theMostImportantPiece">ಅತ್ಯಂತ ಮುಖ್ಯವಾದ ತುಣುಕು</string>
+  <string name="kingIntro">ನೀವು ರಾಜ. ನೀವು ಯುದ್ಧದಲ್ಲಿ ಬಿದ್ದರೆ, ಆಟವು ಕಳೆದುಹೋಗುತ್ತದೆ.</string>
+  <string name="theKingIsSlow">ರಾಜ ನಿಧಾನ.</string>
+  <string name="lastOne">ಕೊನೆಯದು!</string>
+  <string name="kingComplete">ನೀವು ಈಗ ಕಮಾಂಡರ್ಗೆ ಆದೇಶ ನೀಡಬಹುದು!</string>
+  <string name="theKnight">ನೈಟ್</string>
+  <string name="itMovesInAnLShape">ಇದು L ಆಕಾರದಲ್ಲಿ ಚಲಿಸುತ್ತದೆ</string>
+  <string name="knightIntro">ನಿಮಗಾಗಿ ಒಂದು ಸವಾಲು ಇಲ್ಲಿದೆ. ನೈಟ್ ಒಂದು... ಟ್ರಿಕಿ ತುಣುಕು.</string>
+  <string name="knightsHaveAFancyWay">ನೈಟ್ಸ್ ಒಂದು ಅಲಂಕಾರಿಕ ಮಾರ್ಗವನ್ನು ಹೊಂದಿದೆ
+ಸುತ್ತಲೂ ಹಾರಿ!</string>
+  <string name="knightsCanJumpOverObstacles">ನೈಟ್ಸ್ ಅಡೆತಡೆಗಳನ್ನು ದಾಟಬಹುದು!
+ನಕ್ಷತ್ರಗಳನ್ನು ತಪ್ಪಿಸಿ ಮತ್ತು ಸೋಲಿಸಿ!</string>
+  <string name="knightComplete">ಅಭಿನಂದನೆಗಳು! ನೀವು ನೈಟ್ ಅನ್ನು ಕರಗತ ಮಾಡಿಕೊಂಡಿದ್ದೀರಿ.</string>
+  <string name="thePawn">ಪ್ಯಾದೆ</string>
+  <string name="itMovesForwardOnly">ಅದು ಮುಂದೆ ಮಾತ್ರ ಚಲಿಸುತ್ತದೆ</string>
+  <string name="pawnIntro">ಪ್ಯಾದೆಗಳು ದುರ್ಬಲವಾಗಿವೆ, ಆದರೆ ಅವುಗಳು ಬಹಳಷ್ಟು ಸಾಮರ್ಥ್ಯವನ್ನು ಪ್ಯಾಕ್ ಮಾಡುತ್ತವೆ.</string>
+  <string name="pawnsMoveOneSquareOnly">ಪ್ಯಾದೆಗಳು ಒಂದು ಚೌಕವನ್ನು ಮಾತ್ರ ಚಲಿಸುತ್ತವೆ.
+ಆದರೆ ಅವರು ಬೋರ್ಡ್‌ನ ಇನ್ನೊಂದು ಬದಿಯನ್ನು ತಲುಪಿದಾಗ, ಅವು ಬಲವಾದ ತುಂಡಾಗುತ್ತವೆ!</string>
+  <string name="howTheGameStarts">ಆಟ ಹೇಗೆ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ</string>
+  <string name="boardSetupIntro">ಎರಡು ಸೈನ್ಯಗಳು ಪರಸ್ಪರ ಮುಖಾಮುಖಿಯಾಗಿ, ಯುದ್ಧಕ್ಕೆ ಸಿದ್ಧವಾಗಿವೆ.</string>
+  <string name="thisIsTheInitialPosition">ಇದು ಆರಂಭಿಕ ಸ್ಥಾನವಾಗಿದೆ
+ಪ್ರತಿ ಚದುರಂಗದ ಆಟ!
+ಮುಂದುವರೆಯಲು ಯಾವುದೇ ನಡೆಯನ್ನು ಮಾಡಿ.</string>
+  <string name="firstPlaceTheRooks">ಮೊದಲ ಸ್ಥಾನ ರೂಕ್ಸ್!
+ಅವರು ಮೂಲೆಗಳಲ್ಲಿ ಹೋಗುತ್ತಾರೆ.</string>
+  <string name="thenPlaceTheKnights">ನಂತರ ನೈಟ್ಸ್ ಇರಿಸಿ!
+ಅವರು ರೂಕ್ಸ್ ಗಳ ಪಕ್ಕದಲ್ಲಿ ಹೋಗುತ್ತಾರೆ.</string>
+  <string name="placeTheBishops">ಬಿಷಪ್ಗಳನ್ನು ಇರಿಸಿ!
+ಅವರು ನೈಟ್ಸ್ ಪಕ್ಕದಲ್ಲಿ ಹೋಗುತ್ತಾರೆ.</string>
+  <string name="placeTheQueen">ರಾಣಿಯನ್ನು ಇರಿಸಿ!
+ಅವಳು ತನ್ನದೇ ಆದ ಬಣ್ಣದಲ್ಲಿ ಹೋಗುತ್ತಾಳೆ.</string>
+  <string name="placeTheKing">ರಾಜನನ್ನು ಇರಿಸಿ!
+ಅವನ ರಾಣಿಯ ಪಕ್ಕದಲ್ಲಿಯೇ.</string>
+  <string name="pawnsFormTheFrontLine">ಪ್ಯಾದೆಗಳು ಮುಂದಿನ ಸಾಲನ್ನು ರೂಪಿಸುತ್ತವೆ.
+ಮುಂದುವರೆಯಲು ಯಾವುದೇ ನಡೆಯನ್ನು ಮಾಡಿ.</string>
+  <string name="boardSetupComplete">ಅಭಿನಂದನೆಗಳು! ಚೆಸ್ ಬೋರ್ಡ್ ಅನ್ನು ಹೇಗೆ ಹೊಂದಿಸುವುದು ಎಂದು ನಿಮಗೆ ತಿಳಿದಿದೆ.</string>
+  <string name="castling">ಕ್ಯಾಸ್ಲಿಂಗ್</string>
+  <string name="theSpecialKingMove">ವಿಶೇಷ ರಾಜನ ನಡೆ</string>
+  <string name="castlingIntro">ನಿಮ್ಮ ರಾಜನನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ತನ್ನಿ, ಮತ್ತು ದಾಳಿಗೆ ನಿಮ್ಮ ರೂಕ್ ಅನ್ನು ನಿಯೋಜಿಸಿ!</string>
+  <string name="castleKingSide">ನಿಮ್ಮ ರಾಜನನ್ನು ಎರಡು ಚೌಕಗಳನ್ನು ಸರಿಸಿ
+ಕೋಟೆಯು ರಾಜನ ಬದಿಗೆ!</string>
+  <string name="castleQueenSide">ನಿಮ್ಮ ರಾಜನನ್ನು ಎರಡು ಚೌಕಗಳನ್ನು ಸರಿಸಿ
+ಕೋಟೆಯು ರಾಣಿಯಾ ಬದಿಗೆ!</string>
+  <string name="theKnightIsInTheWay">ನೈಟ್ ದಾರಿಯಲ್ಲಿದ್ದಾನೆ!
+ಅದನ್ನು ಸರಿಸಿ, ನಂತರ ಕೋಟೆಯ ರಾಜ ಬದಿಯಲ್ಲಿ.</string>
+  <string name="castleKingSideMovePiecesFirst">ಕೋಟೆಯ ರಾಜನ ಕಡೆ!
+ನೀವು ಮೊದಲು ತುಣುಕುಗಳನ್ನು ಹೊರತೆಗೆಯಬೇಕು.</string>
+  <string name="castleQueenSideMovePiecesFirst">ಕೋಟೆಯ ರಾಣಿಯ ಕಡೆ!
+ನೀವು ಮೊದಲು ತುಣುಕುಗಳನ್ನು ಹೊರತೆಗೆಯಬೇಕು.</string>
+  <string name="youCannotCastleIfMoved">ಒಂದು ವೇಳೆ ನೀವು ಕೋಟೆಗೆ ಹೋಗಲು ಸಾಧ್ಯವಿಲ್ಲ
+ರಾಜನು ಈಗಾಗಲೇ ಸ್ಥಳಾಂತರಗೊಂಡಿದ್ದಾನೆ
+ಅಥವಾ ರೋಕ್ ಈಗಾಗಲೇ ಚಲಿಸಿದೆ.</string>
+  <string name="youCannotCastleIfAttacked">ಒಂದು ವೇಳೆ ನೀವು ಕೋಟೆಗೆ ಹೋಗಲು ಸಾಧ್ಯವಿಲ್ಲ
+ರಾಜ ದಾರಿಯಲ್ಲಿ ಆಕ್ರಮಣಕ್ಕೆ ಒಳಗಾಗುತ್ತಾನೆ.
+ಚೆಕ್ ನಂತರ ಕೋಟೆಯನ್ನು ನಿರ್ಬಂಧಿಸಿ!</string>
+  <string name="findAWayToCastleKingSide">ಒಂದು ಮಾರ್ಗವನ್ನು ಕಂಡುಕೊಳ್ಳಿ
+ಕೋಟೆಯು ರಾಜನ ಕಡೆ!</string>
+  <string name="findAWayToCastleQueenSide">ಒಂದು ಮಾರ್ಗವನ್ನು ಕಂಡುಕೊಳ್ಳಿ
+ಕೋಟೆಯು ರಾಣಿಯ ಬದಿ!</string>
+  <string name="castlingComplete">ಅಭಿನಂದನೆಗಳು! ನೀವು ಯಾವಾಗಲೂ ಆಟದಲ್ಲಿ ಕೋಟೆಯಾಗಿರಬೇಕು.</string>
+  <string name="enPassant">ಎನ್ ಪಾಸಂಟ್</string>
+  <string name="theSpecialPawnMove">ವಿಶೇಷ ಪ್ಯಾದೆಯ ಚಲನೆ</string>
+  <string name="enPassantIntro">ಎದುರಾಳಿಯ ಪ್ಯಾದೆಯು ಎರಡು ಚೌಕಗಳಿಂದ ಚಲಿಸಿದಾಗ, ಅದು ಒಂದು ಚೌಕದಿಂದ ಚಲಿಸಿದರೆ ನೀವು ಅದನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">ಕಪ್ಪು ಕೇವಲ ಎರಡು ಚೌಕಗಳಿಂದ ಪ್ಯಾದೆಯನ್ನು ಸರಿಸಲಾಗಿದೆ! ಎನ್ ಪಾಸ್ಟ್ ತೆಗೆದುಕೊಳ್ಳಿ.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">ನಿಮ್ಮ ಪ್ಯಾದೆಯು 5 ನೇ ಶ್ರೇಣಿಯಲ್ಲಿದ್ದರೆ ಮಾತ್ರ ಎನ್ ಪಾಸಂಟ್ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.</string>
+  <string name="takeAllThePawnsEnPassant">ಎಲ್ಲಾ ಪ್ಯಾದೆಗಳನ್ನು ಎನ್ ಪಾಸ್ಟ್ ತೆಗೆದುಕೊಳ್ಳಿ!</string>
+  <string name="enPassantComplete">ಅಭಿನಂದನೆಗಳು! ನೀವು ಈಗ en passant ತೆಗೆದುಕೊಳ್ಳಬಹುದು.</string>
+  <string name="stalemate">ನಿಶ್ಚಲತೆ</string>
+  <string name="theGameIsADraw">ಆಟ ಡ್ರಾ ಆಗಿದೆ</string>
+  <string name="stalemateIntro">ಆಟಗಾರನು ತಪಾಸಣೆಯಲ್ಲಿ ಇಲ್ಲದಿದ್ದಾಗ ಮತ್ತು ಕಾನೂನು ಕ್ರಮವನ್ನು ಹೊಂದಿಲ್ಲದಿದ್ದರೆ, ಅದು ಸ್ಥಗಿತವಾಗಿರುತ್ತದೆ. ಆಟವನ್ನು ಡ್ರಾ ಮಾಡಲಾಗಿದೆ: ಯಾರೂ ಗೆಲ್ಲುವುದಿಲ್ಲ, ಯಾರೂ ಕಳೆದುಕೊಳ್ಳುವುದಿಲ್ಲ.</string>
+  <string name="stalemateGoal">ಕಪ್ಪು ಬಣ್ಣವನ್ನು ನಿಶ್ಚಲಗೊಳಿಸಲು:
+- ಕಪ್ಪು ಎಲ್ಲಿಯೂ ಚಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+- ಯಾವುದೇ ಚೆಕ್ ಇಲ್ಲ.</string>
+  <string name="stalemateComplete">ಅಭಿನಂದನೆಗಳು! ಚೆಕ್‌ಮೇಟ್ ಮಾಡುವುದಕ್ಕಿಂತ ಸ್ಥಬ್ದವಾಗಿರುವುದು ಉತ್ತಮ!</string>
+  <string name="advanced">ಸುಧಾರಿತ</string>
+  <string name="pieceValue">ಪೀಸ್ ಮೌಲ್ಯ</string>
+  <string name="evaluatePieceStrength">ತುಂಡು ಬಲವನ್ನು ಮೌಲ್ಯಮಾಪನ ಮಾಡಿ</string>
+  <string name="pieceValueIntro">ಹೆಚ್ಚಿನ ಚಲನಶೀಲತೆ ಹೊಂದಿರುವ ತುಣುಕುಗಳು ಹೆಚ್ಚಿನ ಮೌಲ್ಯವನ್ನು ಹೊಂದಿವೆ!
+ರಾಣಿ = 9
+ರೂಕ್ = 5
+ಬಿಷಪ್ = 3
+ನೈಟ್ = 3
+ಪ್ಯಾದೆ = 1
+ರಾಜನು ಬೆಲೆಯಿಲ್ಲದವನು! ಅದನ್ನು ಕಳೆದುಕೊಳ್ಳುವುದು ಎಂದರೆ ಆಟವನ್ನು ಕಳೆದುಕೊಳ್ಳುವುದು.</string>
+  <string name="queenOverBishop">ಅತ್ಯಧಿಕ ಮೌಲ್ಯದೊಂದಿಗೆ ತುಣುಕನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ! ರಾಣಿ &gt; ಬಿಷಪ್</string>
+  <string name="pieceValueExchange">ಅತ್ಯಧಿಕ ಮೌಲ್ಯದೊಂದಿಗೆ ತುಣುಕನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ!
+ ವಿನಿಮಯ ಮಾಡಬೇಡಿ
+ ಕಡಿಮೆ ಬೆಲೆಬಾಳುವ ವಸ್ತುವಿಗೆ ಹೆಚ್ಚಿನ ಮೌಲ್ಯದ ತುಣುಕು.</string>
+  <string name="pieceValueLegal">ತುಂಡು ತೆಗೆದುಕೊಳ್ಳಿ
+ಅತ್ಯಧಿಕ ಮೌಲ್ಯದೊಂದಿಗೆ!
+ನಿಮ್ಮ ನಡೆ ಕಾನೂನುಬದ್ಧವಾಗಿದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ!</string>
+  <string name="takeThePieceWithTheHighestValue">ಅತ್ಯಧಿಕ ಮೌಲ್ಯದೊಂದಿಗೆ ತುಣುಕನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ!</string>
+  <string name="pieceValueComplete">ಅಭಿನಂದನೆಗಳು! ವಸ್ತುವಿನ ಮೌಲ್ಯ ನಿಮಗೆ ತಿಳಿದಿದೆ!
+ರಾಣಿ = 9
+ರೂಕ್ = 5
+ಬಿಷಪ್ = 3
+ನೈಟ್ = 3
+ಪ್ಯಾದೆ = 1</string>
+  <string name="checkInTwo">ಎರಡರಲ್ಲಿ ಪರಿಶೀಲಿಸಿ</string>
+  <string name="twoMovesToGiveCheck">ಚೆಕ್ ನೀಡಲು ಎರಡು ಚಲನೆಗಳು</string>
+  <string name="checkInTwoIntro">ಎದುರಾಳಿಯ ರಾಜನನ್ನು ಪರೀಕ್ಷಿಸುವ ಎರಡು ಚಲನೆಗಳ ಸರಿಯಾದ ಸಂಯೋಜನೆಯನ್ನು ಹುಡುಕಿ!</string>
+  <string name="checkInTwoGoal">ಎದುರಾಳಿಯ ರಾಜನಿಗೆ ಬೆದರಿಕೆ ಹಾಕಿ
+ಎರಡು ಚಲನೆಗಳಲ್ಲಿ!</string>
+  <string name="checkInTwoComplete">ಅಭಿನಂದನೆಗಳು! ನಿಮ್ಮ ಎದುರಾಳಿಯನ್ನು ನೀವು ಪರಿಶೀಲಿಸಿದ್ದೀರಿ, ಅವರ ರಾಜನನ್ನು ರಕ್ಷಿಸಲು ಅವರನ್ನು ಒತ್ತಾಯಿಸಿದ್ದೀರಿ!</string>
 </resources>
