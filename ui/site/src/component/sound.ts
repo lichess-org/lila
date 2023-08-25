@@ -18,7 +18,7 @@ export default new (class implements SoundI {
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
-  soundMove?: SoundMove;
+  music?: SoundMove;
 
   constructor() {
     $('body').on('mouseup touchend keydown', this.primer);
@@ -56,22 +56,15 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    return new Promise(resolve => {
-      if (!this.enabled()) return resolve();
-      this.load(name)
-        .then(async sound => {
-          if (!sound) return resolve();
-          if (await this.resumeContext()) sound.play(this.getVolume() * volume, resolve);
-          else resolve();
-        })
-        .catch(resolve);
-    });
+    if (!this.enabled()) return;
+    const sound = await this.load(name);
+    if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
   }
 
   move: SoundMove = throttle(100, async node => {
     if (this.theme === 'music') {
-      this.soundMove ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.soundMove(node);
+      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
+      this.music(node);
       return;
     }
     if (node?.san?.includes('x')) this.play('capture');
@@ -242,18 +235,19 @@ class Sound {
     this.rewire(ctx);
   }
 
-  play(volume = 1, onend?: () => void) {
+  play(volume = 1): Promise<void> {
     this.node.gain.setValueAtTime(volume, this.ctx!.currentTime);
     const source = this.ctx!.createBufferSource();
     source.buffer = this.buffer;
     source.connect(this.node);
-    source.onended = () => {
-      source.disconnect();
-      onend?.();
-    };
-    source.start(0);
+    return new Promise<void>(resolve => {
+      source.onended = () => {
+        source.disconnect();
+        resolve();
+      };
+      source.start(0);
+    });
   }
-
   rewire(ctx: AudioContext) {
     this.node?.disconnect();
     this.ctx = ctx;
