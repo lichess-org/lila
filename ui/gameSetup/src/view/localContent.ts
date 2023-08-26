@@ -13,7 +13,7 @@ export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
     h('h2', 'Local Play'),
     h(
       'div.setup-content',
-      {
+      /*{
         hook: onInsert(() => {
           document.addEventListener('keydown', (e: KeyboardEvent) => {
             console.log(e.key);
@@ -23,18 +23,18 @@ export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
             e.preventDefault();
           });
         }),
-      },
-      [botPicker(ctrl), fenInput(ctrl), timePickerAndSliders(ctrl, true), colorButtons(ctrl)],
+      },*/
+      [botSelector(ctrl), fenInput(ctrl), timePickerAndSliders(ctrl, true), colorButtons(ctrl)],
     ),
     ratingView(ctrl),
   ];
 }
 
-function botPicker(ctrl: SetupCtrl) {
+function botSelector(ctrl: SetupCtrl) {
   if (lichess.blindMode) return null;
   return h('div#bot-select', [
     h(
-      'div#bot-list',
+      'div#bot-carousel',
       botInfos.map(bot => botItem(ctrl, bot)),
     ),
     h('div#bot-info', botInfo(ctrl, botInfos[0])),

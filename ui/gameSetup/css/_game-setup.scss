@@ -1,12 +1,10 @@
+@import 'bot-stuff';
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
 #modal-wrap {
   &.game-setup {
     width: 30em;
-  }
-  &.local-setup {
-    width: 60vw;
   }
   text-align: center;
   display: block;
@@ -193,60 +191,5 @@ $c-slider: $c-setup;
     strong {
       margin-#{$end-direction}: 0.25em;
     }
-  }
-
-  #bot-select {
-    display: grid;
-    grid-template-areas: 'list' 'info';
-    @include breakpoint($mq-xx-small) {
-      grid-template-columns: min-content 1fr;
-      grid-template-areas: 'list info';
-    }
-  }
-
-  #bot-list {
-    border: 1px solid $c-border;
-    grid-area: list;
-    display: grid;
-    width: 492px;
-    grid-template-columns: repeat(auto-fill, 160px);
-    grid-template-rows: repeat(auto-fill, 96px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 30vh;
-  }
-  div.libot {
-    width: 160px;
-    position: relative;
-    &:hover {
-      background: mix($c-link, $c-bg-box, 15%);
-    }
-    .selected {
-      background: mix($c-link, $c-bg-box, 30%);
-    }
-    img {
-      width: 96px;
-    }
-    div.label {
-      position: absolute;
-      white-space: nowrap;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      font-size: 1.2em;
-      font-weight: bold;
-      text-align: center;
-      color: $c-font;
-      text-shadow: -2px 2px 2px black;
-      //background: transparent;
-      user-select: none;
-    }
-  }
-
-  #bot-info {
-    grid-area: info;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
   }
 }
