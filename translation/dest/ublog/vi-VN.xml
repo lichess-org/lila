@@ -3,13 +3,13 @@
   <string name="xBlog">Bài viết của %s</string>
   <string name="newPost">Bài đăng mới</string>
   <string name="editYourBlogPost">Chỉnh sửa bài đăng của bạn</string>
-  <string name="saveDraft">Lưu nháp</string>
+  <string name="saveDraft">Lưu bản nháp</string>
   <string name="postTitle">Tiêu đề bài viết</string>
   <string name="postIntro">Giới thiệu bài viết</string>
   <string name="postBody">Nội dung bài viết</string>
-  <string name="drafts">Nháp</string>
+  <string name="drafts">Bản nháp</string>
   <string name="published">Đã đăng</string>
-  <string name="createBlogDiscussion">Bật bình luận</string>
+  <string name="createBlogDiscussion">Cho phép bình luận</string>
   <string name="createBlogDiscussionHelp">Một chủ đề diễn đàn sẽ được tạo để mọi người bình luận vào bài đăng của bạn</string>
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư, trong các bài đăng nháp của bạn</string>

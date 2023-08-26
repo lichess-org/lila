@@ -2,8 +2,7 @@
 <resources>
   <string name="swissTournaments">Các giải đấu hệ Thụy Sĩ</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="other">Xem vòng đấu
-Xem tất cả %s vòng đấu</item>
+    <item quantity="other">Xem tất cả %s vòng đấu</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s vòng đấu</item>
@@ -12,8 +11,7 @@ Xem tất cả %s vòng đấu</item>
     <item quantity="other">%s vòng Thụy Sĩ</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="other">Một vòng đấu hàng ngày
-Một vòng đấu cho %s ngày</item>
+    <item quantity="other">Một vòng đấu cho %s ngày</item>
   </plurals>
   <string name="roundsAreStartedManually">Các vòng đấu tự động bắt đầu</string>
   <plurals name="xSecondsBetweenRounds">
@@ -22,25 +20,25 @@ Một vòng đấu cho %s ngày</item>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">%s phút giữa các vòng đấu</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Sắp bắt đầu trong</string>
+  <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
   <string name="nextRound">Vòng đấu tiếp theo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">Ván cờ hiện đang chơi</item>
   </plurals>
-  <string name="tournStartDate">Ngày bắt đầu giải đấu</string>
+  <string name="tournStartDate">Thời gian bắt đầu giải đấu</string>
   <string name="numberOfRounds">Số vòng đấu</string>
-  <string name="numberOfRoundsHelp">Một số lượng lẻ vòng đấu cho phép cân bằng trắng-đen tốt nhất.</string>
+  <string name="numberOfRoundsHelp">Số vòng đấu lẻ cho phép cân bằng màu quân trắng-đen tốt nhất.</string>
   <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
-  <string name="forbiddenPairings">Ghép nối bị cấm</string>
+  <string name="forbiddenPairings">Ghép cặp bị cấm</string>
   <string name="forbiddenPairingsHelp">Tên người dùng của những người chơi không được chơi cùng nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
-  <string name="newSwiss">Giải Swiss mới</string>
-  <string name="swissVsArenaQ">Khi nào nên chơi giải Swiss mà không phải giải Arena?</string>
-  <string name="swissVsArenaA">Trong một giải đấu Thụy Sĩ, tất cả người chơi chơi cùng số lượng ván đấu, và chỉ chơi mỗi người một lần.
+  <string name="newSwiss">Giải đấu hệ Thụy Sĩ mới</string>
+  <string name="swissVsArenaQ">Khi nào nên chơi giải hệ Thụy Sĩ mà không phải giải Đấu trường?</string>
+  <string name="swissVsArenaA">Trong một giải đấu hệ Thụy Sĩ, tất cả người chơi chơi cùng số lượng ván đấu, và chỉ chơi mỗi người một lần.
 Đây là một lựa chọn tốt cho các câu lạc bộ và các giải đấu chính thức.</string>
-  <string name="pointsCalculationQ">Những điểm số được tính toán như thế nào?</string>
+  <string name="pointsCalculationQ">Điểm được tính thế nào?</string>
   <string name="pointsCalculationA">Một trận thắng là một điểm, trận hòa là nửa điểm và một trận thua không tính điểm.
-Khi có người không được ghép đôi trong một vòng đấu, họ nhận một lượt đặc cách 1 điểm.</string>
-  <string name="tiebreaksCalculationQ">Tie breaks được tính toán như thế nào?</string>
+Khi có người không được ghép đôi trong một vòng đấu, họ nhận được 1 điểm miễn phí.</string>
+  <string name="tiebreaksCalculationQ">Tie break được tính như thế nào?</string>
   <string name="sonnebornBergerScore">Điểm số Sonneborn-Berger</string>
   <string name="tiebreaksCalculationA">Với %s.
 Cộng điểm số của tất cả người chơi mà người này thắng và nửa số điểm của mỗi người chơi mà người này hòa.</string>
@@ -56,7 +54,7 @@ Chúng tôi nghĩ những điều kiện trên sẽ dễ được đáp ứng tr
   <string name="numberOfByesQ">Người chơi sẽ được miễn đấu bao nhiêu lần?</string>
   <string name="numberOfByesA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
 Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
-  <string name="earlyDrawsQ">Điều gì xảy ra với hòa sớm?</string>
+  <string name="earlyDrawsQ">Điều gì xảy ra nếu hòa sớm?</string>
   <string name="earlyDrawsA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
 Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
   <string name="whatIfOneDoesntPlayQ">Chuyện gì sẽ xảy ra nếu một người chơi không chơi ván đấu của họ?</string>
@@ -73,7 +71,7 @@ Người vào muộn sẽ chỉ được cộng 1 điểm \"bye\", kể cả n�
   <string name="willSwissReplaceArenasQ">Liệu các giải đấu hệ Thụy Sĩ có thay thế các giải đấu đấu trường không?</string>
   <string name="willSwissReplaceArenasA">Không. Chúng là tính năng phụ.</string>
   <string name="roundRobinQ">Vậy còn các giải đấu vòng tròn?</string>
-  <string name="roundRobinA">Chúng tôi cũng rất muốn thêm chúng, nhưng đáng tiếc là giải đấu vòng tròn không thể thực hiện được khi chơi online.
+  <string name="roundRobinA">Chúng tôi cũng rất muốn thêm chúng, nhưng đáng tiếc là giải đấu vòng tròn không thể thực hiện được khi chơi trực tuyến.
 Lý do là chúng không có một cách công bằng nào có thể giải quyết trường hợp có người chơi rời khỏi giải trước khi giải đấu kết thúc. Không thể mong đợi tất cả mọi người đều có thể chơi hết các ván đấu của họ trong một giải đấu online. Điều đó không thể xảy ra, và vì thế, hầu hết các giải đấu vòng tròn sẽ không hoạt động một cách công bằng, điều đó mâu thuẫn với lý do nó tồn tại ngay từ đầu.
 Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là một giải đấu hệ Thụy Sĩ có số ván đấu rất cao. Như vậy, tất cả các cặp đấu có thể xảy ra sẽ được chơi trước khi giải đấu kết thúc.</string>
   <string name="otherSystemsQ">Vậy còn những hệ thống giải đấu khác?</string>

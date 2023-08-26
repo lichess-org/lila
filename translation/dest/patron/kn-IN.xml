@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">ದಾನ ಮಾಡಿ</string>
+  <string name="donateAsX">%s ನಂತೆ ದೇಣಿಗೆ ನೀಡಿ</string>
+  <string name="lichessPatron">ಲಿಚೆಸ್ ಪೋಷಕ</string>
+  <string name="freeAccount">ಉಚಿತ ಖಾತೆ</string>
+  <string name="becomePatron">ಲಿಚೆಸ್ ಪೋಷಕರಾಗಿ</string>
+  <string name="xBecamePatron">%s ಅವರು ಲಿಚೆಸ್ ಪೋಷಕರಾದರು</string>
+  <string name="newPatrons">ಹೊಸ ಪೋಷಕರು</string>
+  <string name="freeChess">ಎಲ್ಲರಿಗೂ ಉಚಿತ ಚೆಸ್, ಶಾಶ್ವತವಾಗಿ!</string>
+  <string name="noAdsNoSubs">ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಚಂದಾದಾರಿಕೆಗಳಿಲ್ಲ; ಆದರೆ ಮುಕ್ತ ಮೂಲ ಮತ್ತು ಉತ್ಸಾಹ.</string>
+  <string name="thankYou">ನಿಮ್ಮ ಕೊಡುಗೆಗಾಗಿ ಧನ್ಯವಾದಗಳು!</string>
+  <string name="youHaveLifetime">ನೀವು ಜೀವಮಾನದ ಪೋಷಕ ಖಾತೆಯನ್ನು ಹೊಂದಿರುವಿರಿ. ಅದು ಬಹಳ ಅದ್ಭುತವಾಗಿದೆ!</string>
+</resources>

@@ -23,7 +23,7 @@
   <string name="combo">连击</string>
   <string name="time">时间</string>
   <string name="timePerMove">平均着法时间</string>
-  <string name="highestSolved">最难解决的谜题</string>
+  <string name="highestSolved">解决的最难谜题</string>
   <string name="puzzlesPlayed">玩过的谜题</string>
   <string name="newRun">开始新的一组(快捷键：空格)</string>
   <string name="endRun">结束本组(快捷键：回车)</string>
