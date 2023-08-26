@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">andra sätt att hjälpa till</string>
   <string name="areThereWebsitesBasedOnLichess">Finns det webbplatser baserade på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har minsann inspirerat andra öppen källkod webbplatser som använder vår %1$s, %2$s, eller %3$s.</string>
+  <string name="keyboardShortcuts">Vilka kortkommandon finns det?</string>
+  <string name="keyboardShortcutsExplanation">Vissa Lichess-sidor har kortkommandon du kan använda. Prova att trycka på \'?\'-tangenten i en studie, en analys, ett pussel eller en spelsida för att få en lista över tillgängliga kortkommandon.</string>
   <string name="fairPlay">Rent spel</string>
   <string name="whenAmIEligibleRatinRefund">När är jag berättigad till automatisk ratingåterbetalning från fuskare?</string>
   <string name="ratingRefundExplanation">En minut efter att en spelare markeras, så plockas deras 40 senaste rankade vinster under de senaste 3 dagarna fram. Om du är deras motståndare i något av dessa partier och din rating inte var provisorisk, så får du en rating-återbetalning. Återbetalningen är maximerad baserat på din topp-rating och dina framgångar efter partiet.
