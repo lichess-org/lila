@@ -88,6 +88,7 @@
   <string name="pin">ಪಿನ್</string>
   <string name="pinDescription">ಪಿನ್‌ಗಳನ್ನು ಒಳಗೊಂಡಿರುವ ಒಂದು ತಂತ್ರ, ಅಲ್ಲಿ ಹೆಚ್ಚಿನ ಮೌಲ್ಯದ ತುಣುಕಿನ ಮೇಲೆ ದಾಳಿಯನ್ನು ಬಹಿರಂಗಪಡಿಸದೆ ತುಂಡು ಚಲಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
   <string name="promotion">ಪ್ರಚಾರ</string>
+  <string name="promotionDescription">ನಿಮ್ಮ ಪ್ಯಾದೆಗಳಲ್ಲಿ ಒಂದನ್ನು ರಾಣಿ ಅಥವಾ ಇತರೆ ಚಿಕ್ಕ ತುಂಡುಗೆ ಬಡ್ತಿ ನೀಡಿ.</string>
   <string name="queenEndgame">ಕ್ವೀನ್ ಎಂಡ್ ಗೇಮ್</string>
   <string name="queenEndgameDescription">ಕೇವಲ ರಾಣಿಯರು ಮತ್ತು ಪ್ಯಾದೆಗಳೊಂದಿಗೆ ಅಂತಿಮ ಆಟ.</string>
   <string name="queenRookEndgame">ರಾಣಿ ಮತ್ತು ರೂಕ್</string>
