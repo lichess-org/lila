@@ -347,6 +347,10 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanparti</item>
+    <item quantity="other">%s simultanpartier</item>
+  </plurals>
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
   <string name="noDrawBeforeSwissLimit">Ni kan inte ta remi innan drag 30 i en schweizer-turnering.</string>
