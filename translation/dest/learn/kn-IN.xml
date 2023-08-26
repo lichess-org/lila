@@ -211,6 +211,7 @@
   <string name="watchInstructiveChessVideos">ಬೋಧಪ್ರದ ಚೆಸ್ ವೀಡಿಯೊಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
   <string name="playPeople">ಜನರನ್ನು ಆಟವಾಡಿ</string>
   <string name="opponentsFromAroundTheWorld">ಪ್ರಪಂಚದಾದ್ಯಂತದ ವಿರೋಧಿಗಳು</string>
+  <string name="playMachine">ಯಂತ್ರದ ವಿರುದ್ಧ ಆಟವಾಡಿ</string>
   <string name="testYourSkillsWithTheComputer">ಕಂಪ್ಯೂಟರ್ನೊಂದಿಗೆ ನಿಮ್ಮ ಕೌಶಲ್ಯಗಳನ್ನು ಪರೀಕ್ಷಿಸಿ</string>
   <string name="letsGo">ಹೋಗೋಣ!</string>
   <string name="stageX">ಹಂತ %s</string>
@@ -223,6 +224,7 @@
   <string name="yesYesYes">ಹೌದು ಹೌದು ಹೌದು!</string>
   <string name="youreGoodAtThis">ನೀವು ಇದರಲ್ಲಿ ಚೆನ್ನಗಿಧೀರ!</string>
   <string name="nailedIt">ನೀವು ಇದರಲ್ಲಿ ಚೆನ್ನಗಿಧೀರ.</string>
+  <string name="rightOn">ಪರಿಪೂರ್ಣ ಚಲನೆ!</string>
   <string name="stageXComplete">ಹಂತ %s ಪೂರ್ಣಗೊಂಡಿದೆ</string>
   <string name="next">ಮುಂದೆ</string>
   <string name="nextX">ಮುಂದಿನ: %s</string>
