@@ -225,4 +225,8 @@
   <string name="nailedIt">ನೀವು ಇದರಲ್ಲಿ ಚೆನ್ನಗಿಧೀರ.</string>
   <string name="stageXComplete">ಹಂತ %s ಪೂರ್ಣಗೊಂಡಿದೆ</string>
   <string name="next">ಮುಂದೆ</string>
+  <string name="nextX">ಮುಂದಿನ: %s</string>
+  <string name="backToMenu">ಮೆನುಗೆ ಹಿಂತಿರುಗಿ</string>
+  <string name="puzzleFailed">ಒಗಟು ವಿಫಲವಾಗಿದೆ!</string>
+  <string name="retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
 </resources>
