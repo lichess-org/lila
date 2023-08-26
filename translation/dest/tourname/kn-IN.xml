@@ -25,4 +25,23 @@
   <string name="monthlyRapidArena">ಮಾಸಿಕ ರಾಪಿಡ್ ಅರೆನಾ</string>
   <string name="monthlyRapid">ಮಾಸಿಕ ರಾಪಿಡ್</string>
   <string name="monthlyClassicalArena">ಮಾಸಿಕ ಶಾಸ್ತ್ರೀಯ ಅರೆನಾ</string>
+  <string name="monthlyClassical">ಮಾಸಿಕ ಶಾಸ್ತ್ರೀಯ</string>
+  <string name="monthlyXArena">ಮಾಸಿಕ %s ಅರೆನಾ</string>
+  <string name="monthlyX">ಮಾಸಿಕ %s</string>
+  <string name="yearlyRapidArena">ವಾರ್ಷಿಕ ರಾಪಿಡ್ ಅರೆನಾ</string>
+  <string name="yearlyRapid">ವಾರ್ಷಿಕ ರಾಪಿಡ್</string>
+  <string name="yearlyClassicalArena">ವಾರ್ಷಿಕ ಶಾಸ್ತ್ರೀಯ ಅರೆನಾ</string>
+  <string name="yearlyClassical">ವಾರ್ಷಿಕ ಅರೆನಾ</string>
+  <string name="yearlyXArena">ವಾರ್ಷಿಕ %s ಅರೆನಾ</string>
+  <string name="yearlyX">ವಾರ್ಷಿಕ %s</string>
+  <string name="rapidShieldArena">ರಾಪಿಡ್ ಶೀಲ್ಡ್ ಅರೆನಾ</string>
+  <string name="rapidShield">ರಾಪಿಡ್ ಶೀಲ್ಡ್</string>
+  <string name="classicalShieldArena">ಶಾಸ್ತ್ರೀಯ ಶೀಲ್ಡ್ ಅರೆನಾ</string>
+  <string name="classicalShield">ಶಾಸ್ತ್ರೀಯ ಶೀಲ್ಡ್</string>
+  <string name="xShieldArena">%s ಶೀಲ್ಡ್ ಅರೆನಾ</string>
+  <string name="xShield">%s ಶೀಲ್ಡ್</string>
+  <string name="xTeamBattle">%s ತಂಡದ ಯುದ್ಧ</string>
+  <string name="eliteXArena">ಎಲೈಟ್ %s ಅರೆನಾ</string>
+  <string name="eliteX">ಎಲೈಟ್ %s</string>
+  <string name="xArena">%s ಅರೆನಾ</string>
 </resources>
