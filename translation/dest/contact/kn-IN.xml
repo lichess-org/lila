@@ -69,4 +69,11 @@
   <string name="collaboration">ಸಹಯೋಗ, ಕಾನೂನು, ವಾಣಿಜ್ಯ</string>
   <string name="monetizing">ಮಾನಿಟೈಸಿಂಗ್ ಲಿಚೆಸ್</string>
   <string name="buyingLichess">ಲಿಚೆಸ್ ಅನ್ನು ಖರೀದಿಸಿ</string>
+  <string name="authorizationToUse">Lichess ಅನ್ನು ಬಳಸಲು ಅಧಿಕಾರ</string>
+  <string name="welcomeToUse">ನಿಮ್ಮ ಚಟುವಟಿಕೆಗಾಗಿ, ವಾಣಿಜ್ಯಿಕವಾಗಿಯೂ Lichess ಅನ್ನು ಬಳಸಲು ನಿಮಗೆ ಸ್ವಾಗತ.</string>
+  <string name="videosAndBooks">ನೀವು ಅದನ್ನು ನಿಮ್ಮ ವೀಡಿಯೊಗಳಲ್ಲಿ ತೋರಿಸಬಹುದು ಮತ್ತು ನಿಮ್ಮ ಪುಸ್ತಕಗಳಲ್ಲಿ ಲಿಚೆಸ್‌ನ ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗಳನ್ನು ನೀವು ಮುದ್ರಿಸಬಹುದು.</string>
+  <string name="creditAppreciated">ಕ್ರೆಡಿಟ್ ಅನ್ನು ಪ್ರಶಂಸಿಸಲಾಗುತ್ತದೆ ಆದರೆ ಅಗತ್ಯವಿಲ್ಲ.</string>
+  <string name="noneOfTheAbove">ಮೇಲಿನ ಯಾವುದೂ ಅಲ್ಲ</string>
+  <string name="sendEmailAt">%s ನಲ್ಲಿ ನಮಗೆ ಇಮೇಲ್ ಕಳುಹಿಸಿ.</string>
+  <string name="explainYourRequest">ದಯವಿಟ್ಟು ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ಮತ್ತು ಸಂಪೂರ್ಣವಾಗಿ ವಿವರಿಸಿ. ನಿಮ್ಮ Lichess ಬಳಕೆದಾರಹೆಸರು ಮತ್ತು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಮಗೆ ಸಹಾಯ ಮಾಡುವ ಯಾವುದೇ ಮಾಹಿತಿಯನ್ನು ತಿಳಿಸಿ.</string>
 </resources>
