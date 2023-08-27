@@ -33,4 +33,11 @@
   <string name="inputMovesWithVoice">用語音輸入著法</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">輸棋或和棋後自動發送 \"Good game, well played\"。</string>
   <string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
+  <string name="notifyChallenge">挑戰</string>
+  <string name="notifyTournamentSoon">比賽即將開始</string>
+  <string name="notifyBell">Lichess 內的鈴聲通知</string>
+  <string name="notifyPush">Lichess 外的設備通知</string>
+  <string name="notifyWeb">瀏覽器通知</string>
+  <string name="notifyDevice">設備通知</string>
+  <string name="bellNotificationSound">通知鈴聲</string>
 </resources>
