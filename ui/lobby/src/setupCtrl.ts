@@ -230,7 +230,7 @@ export default class SetupController {
     // anonymous games cannot be rated
     !this.root.me ||
     // unlimited games cannot be rated
-    (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
+    this.timeMode() === 'unlimited' ||
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
       (this.timeMode() !== 'realTime' ||
