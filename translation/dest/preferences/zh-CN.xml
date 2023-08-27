@@ -66,5 +66,5 @@
   <string name="notifyPush">Lichess 外的设备通知</string>
   <string name="notifyWeb">浏览器通知</string>
   <string name="notifyDevice">设备通知</string>
-  <string name="bellNotificationSound">通知声音</string>
+  <string name="bellNotificationSound">通知铃声</string>
 </resources>
