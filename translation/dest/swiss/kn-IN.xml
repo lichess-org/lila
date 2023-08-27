@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swissTournaments">ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿಗಳು</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">ಸುತ್ತನ್ನು ವೀಕ್ಷಿಸಿ</item>
+    <item quantity="other">ಎಲ್ಲಾ %s ಸುತ್ತುಗಳನ್ನು ವೀಕ್ಷಿಸಿ</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s ಸುತ್ತು</item>
+    <item quantity="other">%s ಸುತ್ತುಗಳು</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s ಸುತ್ತಿನಲ್ಲಿ ಸ್ವಿಸ್</item>
+    <item quantity="other">%s ಸುತ್ತುಗಳು ಸ್ವಿಸ್</item>
+  </plurals>
+</resources>
