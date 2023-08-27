@@ -96,7 +96,7 @@
   <string name="openings">开局</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="openingEndgameExplorer">开局/残局浏览器</string>
-  <string name="xOpeningExplorer">%s开局浏览器</string>
+  <string name="xOpeningExplorer">%s 开局浏览器</string>
   <string name="playFirstOpeningEndgameExplorerMove">播放首次打开/端Game-浏览器移动</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
@@ -298,7 +298,7 @@
     <item quantity="other">%s和</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">%s进行中</item>
+    <item quantity="other">%s 正在进行</item>
   </plurals>
   <string name="exportGames">导出棋局</string>
   <string name="ratingRange">对方等级分范围</string>
@@ -451,7 +451,7 @@
   <string name="whiteWins">白方胜</string>
   <string name="blackWins">黑方胜</string>
   <string name="draws">和棋</string>
-  <string name="nextXTournament">下一个%s锦标赛</string>
+  <string name="nextXTournament">下一个 %s 锦标赛：</string>
   <string name="averageOpponent">对手平均积分</string>
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
