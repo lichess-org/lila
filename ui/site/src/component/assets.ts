@@ -15,6 +15,7 @@ export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> =>
     el.rel = 'stylesheet';
     el.href = assetUrl(url);
     if (media) el.media = `(prefers-color-scheme: ${media})`;
+    if ((window as any).__dev__) url += '?_=' + Date.now();
     loadedCss.set(
       url,
       new Promise<void>(resolve => {
@@ -35,8 +36,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
     );
   if (theme === 'system') {
     if (supportsSystemTheme()) {
-      await load('dark', 'dark');
-      await load('light', 'light');
+      await Promise.all([load('dark', 'dark'), load('light', 'light')]);
     } else {
       await load('dark');
     }
