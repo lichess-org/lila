@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import java.time.format.{ FormatStyle, DateTimeFormatter }
 import java.time.{ Duration, LocalDate }
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{*, given}
 import lila.i18n.PeriodLocales
 
 trait DateHelper:
@@ -22,8 +22,6 @@ trait DateHelper:
   private val englishDateFormatter =
     DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
-  private val rtlLanguages = Set("ar", "fa", "he", "ps", "ur")
-
   private def dateTimeFormatter(using lang: Lang): DateTimeFormatter =
     dateTimeFormatters.computeIfAbsent(
       lang.code,
@@ -36,8 +34,6 @@ trait DateHelper:
       lang.code,
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
-
-  def isRightToLeft(lang: Lang): Boolean = rtlLanguages.contains(lang.language)
 
   def showInstantUTC(instant: Instant)(using Lang): String =
     dateTimeFormatter print instant
@@ -56,17 +52,13 @@ trait DateHelper:
   def semanticDate(instant: Instant)(using lang: Lang): Tag =
     timeTag(
       datetimeAttr := isoDateTime(instant),
-      if isRightToLeft(lang)
-      then dir := "rtl"
-      else ()
+      dir := isRTL.option("rtl")
     )(showDate(instant))
 
   def semanticDate(date: LocalDate)(using lang: Lang): Tag =
     timeTag(
       datetimeAttr := isoDateTime(date.atStartOfDay.instant),
-      if isRightToLeft(lang)
-      then dir := "rtl"
-      else ()
+      dir := isRTL.option("rtl")
     )(showDate(date))
 
   def showMinutes(minutes: Int)(using Lang): String =
