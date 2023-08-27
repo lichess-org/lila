@@ -146,6 +146,9 @@
   <plurals name="nbGames">
     <item quantity="other">查看所有%s盤棋</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%2$s 場對局後的 %1$s 等級分</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個收藏</item>
   </plurals>
@@ -190,6 +193,8 @@
   <string name="changeUsername">更改用戶名</string>
   <string name="changeUsernameNotSame">只能更改字母大小字。例如，將「johndoe」變成「JohnDoe」。</string>
   <string name="changeUsernameDescription">更改用戶名。您最多可以更改一次字母大小寫。</string>
+  <string name="signupUsernameHint">請選擇一個和諧的用戶名，用戶名無法再次更改，並且不合規的用戶名會導致帳戶被封禁！</string>
+  <string name="signupEmailHint">僅用於密碼重置</string>
   <string name="password">密碼</string>
   <string name="changePassword">更改密碼</string>
   <string name="changeEmail">更改電郵地址</string>
@@ -198,9 +203,14 @@
   <string name="forgotPassword">忘記密碼？</string>
   <string name="error.weakPassword">此密碼太常見，且很容易被猜到。</string>
   <string name="error.namePassword">請不要把密碼設為用戶名。</string>
+  <string name="blankedPassword">你在其他站點使用過相同的密碼，並且這些站點已經失效。為確保你的 Lichess 帳戶安全，你需要設置新密碼。感謝你的理解。</string>
   <string name="youAreLeavingLichess">你正在離開 Lichess</string>
   <string name="neverTypeYourPassword">不要在其他網站輸入你的 Lichess 密碼！</string>
   <string name="proceedToX">前往 %s</string>
+  <string name="passwordSuggestion">不要使用他人建議的密碼，他們會用此密碼盜取你的帳戶。</string>
+  <string name="emailSuggestion">不要使用他人提供的郵箱地址，他們會用它盜取你的帳戶。</string>
+  <string name="emailConfirmHelp">協助郵件確認</string>
+  <string name="emailConfirmNotReceived">註冊後沒有收到確認郵件？</string>
   <string name="whatSignupUsername">你用了什麼用戶名註冊？</string>
   <string name="usernameNotFound">找不到用戶 %s。</string>
   <string name="usernameCanBeUsedForNewAccount">你可以使用這個用戶名創建帳戶</string>
