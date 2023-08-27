@@ -151,7 +151,7 @@
     <item quantity="other">%2$s 场对局后的 %1$s 等级分</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">书签里有%s盘棋</item>
+    <item quantity="other">%s收藏</item>
   </plurals>
   <string name="viewInFullSize">放大观看</string>
   <string name="logOut">登出</string>
@@ -322,7 +322,7 @@
     <item quantity="other">%s锦标赛积分</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="other">%s 研讨</item>
+    <item quantity="other">%s研讨</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="other">%s 个进行的车轮战棋局</item>
@@ -389,7 +389,7 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">在线好友：%s</item>
   </plurals>
-  <string name="favoriteOpponents">收藏的对手</string>
+  <string name="favoriteOpponents">对战最多的对手</string>
   <string name="follow">关注</string>
   <string name="following">已关注</string>
   <string name="unfollow">取消关注</string>
