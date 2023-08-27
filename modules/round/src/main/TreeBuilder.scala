@@ -113,11 +113,13 @@ object TreeBuilder:
         games.reverse match
           case Nil => root
           case (g, m) :: rest =>
-            root addChild rest
-              .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
-                makeBranch(g, m) addChild node
-              }
-              .setComp
+            root.addChild(
+              rest
+                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                  makeBranch(g, m) addChild node
+                }
+                .setComp
+            )
 
   private val logChessError = (id: GameId) =>
     (err: chess.ErrorStr) =>

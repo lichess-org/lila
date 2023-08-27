@@ -11,7 +11,7 @@ import lila.tree.Node.{ Comment, Comments, Shapes }
 import cats.syntax.all.*
 import StudyArbitraries.{ *, given }
 import chess.CoreArbitraries.given
-import org.scalacheck.Prop.forAll
+import org.scalacheck.Prop.{ forAll, propBoolean }
 import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
@@ -86,3 +86,12 @@ class NewTreeTest extends munit.ScalaCheckSuite:
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
       oldRoot.mainline.map(NewTree.fromBranch(_)) == root.mainlineValues
+
+  override def scalaCheckInitialSeed = "CgQHx_FFpjlSeG9q8tbxLV7PE1y0JGJf9AOdzECxTCF="
+  test("addChild".only):
+    forAll: (root: NewRoot, oTree: Option[NewTree]) =>
+      oTree.isDefined ==> {
+        val tree    = oTree.get.take(1).clearVariations.pp
+        val oldRoot = root.toRoot.addChild(tree.toBranch)
+        assertEquals(oldRoot.toNewRoot.pp, root.addChild(tree).pp)
+      }

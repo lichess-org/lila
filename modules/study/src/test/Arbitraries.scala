@@ -8,7 +8,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.format.pgn.{ Pgn, Move as PgnMove, Tags, InitialComments, Glyph, Glyphs }
 import org.scalacheck.{ Arbitrary, Gen }
 import chess.bitboard.Bitboard
-import lila.tree.{ NewRoot, NewBranch, Metas }
+import lila.tree.{ NewTree, NewRoot, NewBranch, Metas }
 import lila.tree.Node.{ Comments, Comment, Shapes, Shape }
 
 object StudyArbitraries:
@@ -16,14 +16,14 @@ object StudyArbitraries:
   given Arbitrary[NewRoot] = Arbitrary(genRoot(Situation(chess.variant.Standard)))
   type RootWithPath = (NewRoot, UciPath)
   given Arbitrary[RootWithPath] = Arbitrary(genRootWithPath(Situation(chess.variant.Standard)))
+  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Situation(chess.variant.Standard)))
 
   def genRoot(seed: Situation): Gen[NewRoot] =
     val ply = Ply.initial
     for
-      tree <- genNode(seed)
-      pgnTree = tree.map(_.map(_.data))
+      tree <- genTree(seed)
       metas <- genMetas(seed, ply)
-      pgn = NewRoot(metas, pgnTree)
+      pgn = NewRoot(metas, tree)
     yield pgn
 
   def genRootWithPath(seed: Situation): Gen[(NewRoot, UciPath)] =
@@ -35,6 +35,10 @@ object StudyArbitraries:
       pgn  = NewRoot(metas, pgnTree)
       path = tree._2.map(_.id)
     yield (pgn, UciPath.fromIds(path))
+
+  def genTree(seed: Situation): Gen[Option[NewTree]] =
+    val ply = Ply.initial
+    genNode(seed).map(_.map(_.map(_.data)))
 
   given FromMove[NewBranch] with
     override def ply(a: NewBranch): Ply = a.ply
@@ -87,7 +91,6 @@ object StudyArbitraries:
 
   given Arbitrary[Shape]  = Arbitrary(Gen.oneOf(genCircle, genArrow))
   given Arbitrary[Shapes] = Arbitrary(Gen.listOf[Shape](Arbitrary.arbitrary[Shape]).map(Shapes(_)))
-  given Arbitrary[Centis] = Arbitrary(Gen.posNum[Int].map(Centis(_)))
 
   def genCircle: Gen[Shape.Circle] =
     for
