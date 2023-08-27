@@ -33,7 +33,7 @@
     <item quantity="other">Có %s người theo dõi mới</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">Làm chủ %s sự kiện cờ đồng loạt</item>
+    <item quantity="other">Chủ trì %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="other">Tham gia %s sự kiện cờ đồng loạt</item>
