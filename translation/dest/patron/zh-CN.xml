@@ -13,7 +13,7 @@
   <string name="freeChess">永远让每个人免费下棋！</string>
   <string name="noAdsNoSubs">没有广告，无需订阅；保持开源和热情。</string>
   <string name="thankYou">感谢你的捐赠！</string>
-  <string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
+  <string name="youHaveLifetime">你有了一个终身赞助者账户，太棒了！</string>
   <string name="patronUntil">你的赞助账户持续到 %s。</string>
   <string name="ifNotRenewedThenAccountWillRevert">如果未续订，你的账户会变回普通账户。</string>
   <string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的象棋平台。</string>
@@ -43,7 +43,7 @@
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他捐赠方法？</string>
   <string name="lichessIsRegisteredWith">Lichess 注册于 %s。</string>
-  <string name="bankTransfers">我们还接受银行转帐</string>
+  <string name="bankTransfers">我们还接受银行转账</string>
   <string name="onlyDonationFromAbove">请注意，只有上面的捐赠表将授予赞助者状态。</string>
   <string name="patronFeatures">赞助者会有特殊功能吗？</string>
   <string name="noPatronFeatures">没有，Lichess 是完全免费的。这是我们的承诺。
