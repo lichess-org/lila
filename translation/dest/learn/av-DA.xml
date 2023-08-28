@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">Шахматал лъазаризе</string>
+  <string name="byPlaying">хӀалаго!</string>
+  <string name="menu">Мену</string>
+  <string name="progressX">Лъазабуна: %s</string>
+  <string name="resetMyProgress">ЦӀидасан байбихьизе</string>
+  <string name="youWillLoseAllYourProgress">Дур киналго хӀасилал тӀагӀуна!</string>
+  <string name="play">хӀазе!</string>
+  <string name="chessPieces">Шахматазул кескал</string>
+  <string name="theRook">Хъала</string>
+  <string name="itMovesInStraightLines">РитӀарал хӀуччазда хъурщула</string>
+  <string name="rookIntro">Хъала кутакаб кесек буго. Гьелъие нухмалъизе хӀадур вугищ?</string>
+  <string name="grabAllTheStars">Киналго цӀваби росе!</string>
+  <string name="theBishop">Пил</string>
+  <string name="itMovesDiagonally">Диагоналазда хъурщула</string>
+  <string name="theQueen">Къиралай</string>
+  <string name="queenCombinesRookAndBishop">Къиралай = хъала + пил</string>
+  <string name="theKing">Къирал</string>
+  <string name="theMostImportantPiece">Бищун кӀвар бугеб кесек</string>
+  <string name="lastOne">Ахирисеб!</string>
+  <string name="theKnight">Чу</string>
+  <string name="thePawn">Пешка</string>
+</resources>
