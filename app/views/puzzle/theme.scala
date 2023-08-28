@@ -50,7 +50,7 @@ object theme:
           )(
             img(src := assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")),
             span(
-              h3(cls := "puzzle-themes__name")(
+              h3(
                 pt.theme.name(),
                 em(cls := "puzzle-themes__count")(pt.count.localize)
               ),

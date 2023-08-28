@@ -95,12 +95,8 @@
     }
   }
 
-  &__name {
-    unicode-bidi: isolate-override;
-  }
-
   &__count {
-    unicode-bidi: embed;
+    unicode-bidi: plaintext;
   }
 
   &__db {
