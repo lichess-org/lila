@@ -8,6 +8,7 @@
   <string name="anastasiaMateDescription">Ratsun sekä tornin tai daamin yhteistyöllä vastustajan kuningas jää kiinni laudan reunan ja oman nappulan välissä.</string>
   <string name="arabianMate">Arabialainen matti</string>
   <string name="arabianMateDescription">Ratsun ja tornin yhteistyöllä vastustajan kuningas jää kiinni laudan nurkassa.</string>
+  <string name="attackingF2F7">Hyökkäys f2:een tai f7:ään</string>
   <string name="attackingF2F7Description">F2- tai f7-sotilaaseen kohdistuva hyökkäys, kuten esimerkiksi Preussilaisen pelin Fried Liver eli Fegatello-muunnelma.</string>
   <string name="attraction">Houkutus</string>
   <string name="attractionDescription">Vaihto tai uhraus, joka houkuttelee tai pakottaa vastustajan nappulan tiettyyn ruutuun ja mahdollistaa siten taktisen jatkon.</string>
