@@ -60,4 +60,5 @@
   <string name="noArenaStreaks">لا يوجد تسلسل بالفوز</string>
   <string name="averagePerformance">متوسط الأداء</string>
   <string name="averageScore">معدل النقاط</string>
+  <string name="myTournaments">بطولاتي</string>
 </resources>
