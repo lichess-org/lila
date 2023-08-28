@@ -5,6 +5,8 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "emitDeclarationOnly": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "isolatedModules": true,
     "composite": true
   },

@@ -15,8 +15,8 @@ export async function esbuild(): Promise<void> {
       commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
       message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
     }),
+    __debug__: String(env.debug),
   };
-  if (env.dev) define.__dev__ = '{}';
 
   for (const mod of buildModules) {
     preModule(mod);

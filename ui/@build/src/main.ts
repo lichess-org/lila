@@ -28,16 +28,14 @@ export function main() {
   env.watch = ps.argv.includes('--watch') || oneDashArgs.includes('w');
   env.prod = ps.argv.includes('--prod') || oneDashArgs.includes('p');
   env.split = ps.argv.includes('--split') || oneDashArgs.includes('s');
-  env.dev = ps.argv.includes('--dev') || oneDashArgs.includes('d');
+  env.debug = ps.argv.includes('--debug') || oneDashArgs.includes('d');
 
   build(ps.argv.slice(2).filter(x => !x.startsWith('-')));
 }
 
 export interface BuildOpts {
-  dev?: boolean; // dev bundle (super cache busting), default = false
   sass?: boolean; // compile scss, default = true
   esbuild?: boolean; // bundle with esbuild, default = true
-  splitting?: boolean; // enable code splitting for esm modules, default = false
   tsc?: boolean; // use tsc for type checking, default = true
   time?: boolean; // show time in log statements, default = true
   ctx?: boolean; // show context (tsc, rollup, etc), default = true
@@ -113,7 +111,7 @@ class Env {
   watch = false;
   prod = false;
   split = false;
-  dev = false;
+  debug = false;
   exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
   startTime: number | undefined = Date.now();
 

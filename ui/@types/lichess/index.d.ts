@@ -4,6 +4,7 @@
 interface Lichess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
+  debug: boolean;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
