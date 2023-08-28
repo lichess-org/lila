@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import java.time.format.{ FormatStyle, DateTimeFormatter }
 import java.time.{ Duration, LocalDate }
 
-import lila.app.ui.ScalatagsTemplate.{*, given}
+import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales
 
 trait DateHelper:
@@ -50,16 +50,12 @@ trait DateHelper:
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
 
   def semanticDate(instant: Instant)(using lang: Lang): Tag =
-    timeTag(
-      datetimeAttr := isoDateTime(instant),
-      dir := isRTL.option("rtl")
-    )(showDate(instant))
+    timeTag(datetimeAttr := isoDateTime(instant), style := "unicode-bidi:plaintext")(showDate(instant))
 
   def semanticDate(date: LocalDate)(using lang: Lang): Tag =
-    timeTag(
-      datetimeAttr := isoDateTime(date.atStartOfDay.instant),
-      dir := isRTL.option("rtl")
-    )(showDate(date))
+    timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant), style := "unicode-bidi:plaintext")(
+      showDate(date)
+    )
 
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
