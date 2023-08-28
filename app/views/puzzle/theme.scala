@@ -53,7 +53,7 @@ object theme:
             else routes.Puzzle.show(pt.theme.key.value)
           a(cls := "puzzle-themes__link", href := (pt.count > 0).option(langHref(url)))(
             span(
-              h3(cls := "puzzle-themes__name")(
+              h3(
                 pt.theme.name(),
                 em(cls := "puzzle-themes__count")(pt.count.localize)
               ),
