@@ -50,12 +50,10 @@ trait DateHelper:
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
 
   def semanticDate(instant: Instant)(using lang: Lang): Tag =
-    timeTag(datetimeAttr := isoDateTime(instant), style := "unicode-bidi:plaintext")(showDate(instant))
+    timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
 
   def semanticDate(date: LocalDate)(using lang: Lang): Tag =
-    timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant), style := "unicode-bidi:plaintext")(
-      showDate(date)
-    )
+    timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
