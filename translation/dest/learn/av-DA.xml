@@ -11,9 +11,15 @@
   <string name="theRook">Хъала</string>
   <string name="itMovesInStraightLines">РитӀарал хӀуччазда хъурщула</string>
   <string name="rookIntro">Хъала кутакаб кесек буго. Гьелъие нухмалъизе хӀадур вугищ?</string>
+  <string name="rookGoal">Хъала цӀваялде щвезабизе, гьелда тӀадецуй!</string>
   <string name="grabAllTheStars">Киналго цӀваби росе!</string>
+  <string name="theFewerMoves">Дагьаб хъурщун цӀикӀкӀун балал щола!</string>
+  <string name="useTwoRooks">Хехлъизе,
+кӀиго хъала хӀалтӀизабе!</string>
+  <string name="rookComplete">Баркула! Дуца бергьенлъиялда хъалаялъул гъваридго лъазабуна.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Диагоналазда хъурщула</string>
+  <string name="bishopIntro">Хадуса нилъеца пил кин хъурщулебали лъазабила!</string>
   <string name="theQueen">Къиралай</string>
   <string name="queenCombinesRookAndBishop">Къиралай = хъала + пил</string>
   <string name="theKing">Къирал</string>
@@ -37,6 +43,7 @@
   <string name="takeTheBlackPieces">ЧӀегӀеразул кескал нахъе росе!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">ЧӀегӀеразул кескал нахъе росе!
 Дурал тӀагӀине риччаге.</string>
+  <string name="captureComplete">Баркула! Дуда лъала кин шахматазул кесказ къеркьезе!</string>
   <string name="protection">ЦӀуни</string>
   <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
   <string name="combat">Къеркьей</string>
