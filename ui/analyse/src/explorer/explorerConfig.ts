@@ -104,6 +104,12 @@ export class ExplorerConfigCtrl {
     this.data.playerName.open(false);
   };
 
+  removePlayer = (name?: string) => {
+    if (!name) return;
+    const previous = this.data.playerName.previous().filter(n => n !== name);
+    this.data.playerName.previous(previous);
+  };
+
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
     (value: T) => {
@@ -314,9 +320,11 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   const onSelect = (name: string | undefined) => {
+    console.log('onSelect: ' + name);
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
+
   const nameToOptionalColor = (name: string | undefined) => {
     if (!name) {
       return;
@@ -327,6 +335,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
+
+  const onRemove = (name: string | undefined) => {
+    console.log('onRemove: ' + name);
+    ctrl.removePlayer(name);
+    ctrl.root.redraw();
+  };
+
   return snabModal({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -360,14 +375,27 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             ...ctrl.participants,
             ...ctrl.data.playerName.previous(),
           ]),
-        ].map(name =>
-          h(
-            `button.button${nameToOptionalColor(name)}`,
-            {
-              hook: bind('click', () => onSelect(name)),
-            },
-            name,
-          ),
+        ].map(
+          name =>
+            h('div', [
+              h(
+                `button.button${nameToOptionalColor(name)}`,
+                {
+                  hook: bind('click', () => onSelect(name)),
+                  key: name,
+                },
+                name,
+              ),
+              name !== undefined && ctrl.data.playerName.previous().includes(name)
+                ? h('button.remove', {
+                    attrs: {
+                      ...dataIcon(licon.X),
+                    },
+                    hook: bind('click', () => onRemove(name)),
+                    key: name,
+                  })
+                : null,
+            ]),
         ),
       ),
     ],

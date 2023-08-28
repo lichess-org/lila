@@ -117,9 +117,25 @@
     }
     .previous {
       @extend %flex-wrap;
+      grid-template-columns: auto auto;
+      column-gap: 0.5em;
       .button {
         margin: 0.3em 0.2em;
         text-transform: none;
+      }
+      .remove {
+        margin-#{$start-direction}: -1.75em;
+        width: 1.75em;
+        height: 1.75em;
+        top: -1.5em;
+        #{$end-direction}: -0.65em;
+        background-color: $c-bg-popup;
+        position: relative;
+        border-radius: 50%;
+        border: none;
+        &:hover {
+          background-color: $c-error;
+        }
       }
     }
   }
