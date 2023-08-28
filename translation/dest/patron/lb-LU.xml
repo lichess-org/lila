@@ -60,6 +60,7 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="nextPayment">Nächst Zuelung</string>
   <string name="youWillBeChargedXOnY">Dir ginn %1$s um %2$s berechent.</string>
   <string name="makeAdditionalDonation">Eng zousätzlech Spend maachen</string>
+  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Ënnerstëtzer-Flilleke schenken</string>
   <string name="giftPatronWings">Engem Spiller Ënnerstëtzer-Flilleken schenken</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Méintlechen Montant änneren (%s)</string>
