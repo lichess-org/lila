@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Tämän avulla voit piilottaa sivustolta kaikki vahvuusluvut, jotta voit keskittyä paremmin shakinpeluuseen. Pelit kyllä pisteytetään normaalisti, tällä asetuksella on vaikutus vain sinun näkymääsi.</string>
   <string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
   <string name="onlyOnInitialPosition">Vain alkuasemassa</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Vain pelin aikana</string>
   <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
@@ -39,6 +40,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
   <string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapelitarjoukset</string>
