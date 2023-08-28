@@ -674,7 +674,7 @@
   <string name="cumulative">累计</string>
   <string name="glicko2Rating">Glicko-2 等级分</string>
   <string name="checkYourEmail">请查看你的电子邮件</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到你的邮箱。请点击邮件中的链接以激活你的账户。</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发送到你的邮箱。请点击邮件中的链接以激活你的账户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果你没有收到我们的邮件，请检查其他收件箱，例如垃圾箱，广告箱等。</string>
   <string name="weHaveSentYouAnEmailTo">我们给你的邮箱 %s 发了重置密码的链接。请点击链接来重置你的密码。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表你同意我们的 %s 。</string>
@@ -911,7 +911,7 @@
   <string name="closedAccountChangedMind">如果你关闭了账户，但此后又改变了主意，你可以获得一次恢复账户的机会。</string>
   <string name="onlyWorksOnce">账户关闭后只能恢复一次</string>
   <string name="cantDoThisTwice">如果你第二次关闭账户，将无法恢复。</string>
-  <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
+  <string name="emailAssociatedToaccount">与账户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向你发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
   <string name="hangOn">等等！</string>
