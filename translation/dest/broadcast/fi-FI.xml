@@ -27,6 +27,7 @@
   <string name="deleteRound">Poista tämä kierros</string>
   <string name="definitivelyDeleteRound">Poista kierros ja sen pelit lopullisesti.</string>
   <string name="deleteAllGamesOfThisRound">Poista kaikki tämän kierroksen pelit. Lähteen on oltava aktiivinen, jotta pelit voidaan luoda uudelleen.</string>
+  <string name="editRoundStudy">Kierrostutkielman muokkaus</string>
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
 </resources>
