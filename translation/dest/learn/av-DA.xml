@@ -20,6 +20,10 @@
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Диагоналазда хъурщула</string>
   <string name="bishopIntro">Хадуса нилъеца пил кин хъурщулебали лъазабила!</string>
+  <string name="youNeedBothBishops">Цояб хъахӀаб майданалъул пил,
+Цояб чӀегӀераб майданалъул пил.
+Дуе кӀиябго къваригӀуна!</string>
+  <string name="bishopComplete">Баркула! Дуда пилалъе нухмалъизе кӀола.</string>
   <string name="theQueen">Къиралай</string>
   <string name="queenCombinesRookAndBishop">Къиралай = хъала + пил</string>
   <string name="theKing">Къирал</string>
@@ -47,6 +51,18 @@
   <string name="protection">ЦӀуни</string>
   <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
   <string name="combat">Къеркьей</string>
+  <string name="firstPlaceTheRooks">Цин хъулби лъе!
+Гьел бокӀназда рукӀуна.</string>
+  <string name="thenPlaceTheKnights">Цинги чуял лъе!
+Гьел хъулбузда аскӀор рукӀуна.</string>
+  <string name="placeTheBishops">Пилал лъе!
+Гьел чуязда аскӀор рукӀуна.</string>
+  <string name="placeTheQueen">Къиралай лъе!
+Гьей жиндирго кьералъул бакӀалда йикӀуна.</string>
+  <string name="placeTheKing">Къирал лъе!
+Къиралалда аскӀов.</string>
+  <string name="castling">Рокировка</string>
+  <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
   <string name="enPassant">Нахъаса чӀвай</string>
   <string name="theSpecialPawnMove">Пешкаялъул батӀияб хъурщи</string>
   <string name="stalemate">Пат</string>
