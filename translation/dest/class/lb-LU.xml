@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Coursen</string>
+  <string name="freeForAllForever">100 % gratis fir jiddereen, fir ëmmer, ouni Reklammen oder Trackeren</string>
+  <string name="applyToBeLichessTeacher">Bewerb dech als Lichess-Enseignant</string>
   <string name="noClassesYet">Nach keng Coursen.</string>
   <string name="teachersX">Enseignanten: %s</string>
   <string name="newClass">Neie Cours</string>
