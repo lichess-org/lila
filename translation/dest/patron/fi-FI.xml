@@ -53,7 +53,7 @@ Tai voit %s.</string>
     <item quantity="one">Lichessin tukijana yhden kuukauden ajan</item>
     <item quantity="other">Lichessin Patron %s kuukauden ajan</item>
   </plurals>
-  <string name="youSupportWith">Tuet lichess.orgia %s:lla joka kuukausi.</string>
+  <string name="youSupportWith">Tuet lichess.orgia summalla %s joka kuukausi.</string>
   <string name="tyvm">Kiitos paljon avustasi. Olet huippu!</string>
   <string name="currentStatus">Nykyinen tila</string>
   <string name="nextPayment">Seuraava maksu</string>
