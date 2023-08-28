@@ -26,14 +26,24 @@
   <string name="bishopComplete">Баркула! Дуда пилалъе нухмалъизе кӀола.</string>
   <string name="theQueen">Къиралай</string>
   <string name="queenCombinesRookAndBishop">Къиралай = хъала + пил</string>
+  <string name="queenIntro">Бищун кутакаб шахматазул кесек. БетӀерчӀахъаяй къиралай!</string>
+  <string name="queenComplete">Баркула! Дуда къиралалъул кинабго лъала.</string>
   <string name="theKing">Къирал</string>
   <string name="theMostImportantPiece">Бищун кӀвар бугеб кесек</string>
+  <string name="kingIntro">Мун къирал вуго. Мун рагъда хвани, мун къола.</string>
   <string name="theKingIsSlow">Къирал гӀодове виччарав вуго.</string>
   <string name="lastOne">Ахирисеб!</string>
+  <string name="kingComplete">Дуда гьанже бетӀерасе бетӀерлъи гьабизе кӀола!</string>
   <string name="theKnight">Чу</string>
   <string name="itMovesInAnLShape">Г хӀарпалъул куцалда хъурщула</string>
+  <string name="knightIntro">Гьале дуе масъала. Чу буго... захӀматаб кесек.</string>
+  <string name="knightsHaveAFancyWay">Чуял гӀажаибаб куцалъ кӀанцӀола!</string>
+  <string name="knightsCanJumpOverObstacles">Чуязда цогидал кесказда тӀасан кӀанцӀизе кӀола!
+ТӀасан кӀанцӀун цӀваби росе!</string>
+  <string name="knightComplete">Баркула! Дуца чол гъваридго лъазабуна.</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">ГӀицӀго цебехун хъурщула</string>
+  <string name="pawnIntro">Пешкаби загӀипал руго, амма гьезул цо кӀудияб рес буго.</string>
   <string name="captureThenPromote">ЧӀвай, хадуб цебехун хъурще!</string>
   <string name="useAllThePawns">Киналго пешкаби хӀалтӀизаре!
 Церехун хъурщизе къваригӀунаро.</string>
@@ -51,6 +61,8 @@
   <string name="protection">ЦӀуни</string>
   <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
   <string name="combat">Къеркьей</string>
+  <string name="checkInOne">Цо хъурщиялъ шах</string>
+  <string name="defendYourKing">Дур къирал цӀуне</string>
   <string name="firstPlaceTheRooks">Цин хъулби лъе!
 Гьел бокӀназда рукӀуна.</string>
   <string name="thenPlaceTheKnights">Цинги чуял лъе!
