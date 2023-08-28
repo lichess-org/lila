@@ -99,6 +99,14 @@
     }
   }
 
+  &__name {
+    unicode-bidi: isolate-override;
+  }
+
+  &__count {
+    unicode-bidi: embed;
+  }
+
   &__db {
     @extend %box-padding;
 
