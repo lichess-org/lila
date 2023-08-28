@@ -18,7 +18,41 @@
   <string name="queenCombinesRookAndBishop">Къиралай = хъала + пил</string>
   <string name="theKing">Къирал</string>
   <string name="theMostImportantPiece">Бищун кӀвар бугеб кесек</string>
+  <string name="theKingIsSlow">Къирал гӀодове виччарав вуго.</string>
   <string name="lastOne">Ахирисеб!</string>
   <string name="theKnight">Чу</string>
+  <string name="itMovesInAnLShape">Г хӀарпалъул куцалда хъурщула</string>
   <string name="thePawn">Пешка</string>
+  <string name="itMovesForwardOnly">ГӀицӀго цебехун хъурщула</string>
+  <string name="captureThenPromote">ЧӀвай, хадуб цебехун хъурще!</string>
+  <string name="useAllThePawns">Киналго пешкаби хӀалтӀизаре!
+Церехун хъурщизе къваригӀунаро.</string>
+  <string name="pawnPromotion">Пешка цебехун хъурщи</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Дур пешка хъорщол рагӀалде щвана!</string>
+  <string name="itNowPromotesToAStrongerPiece">Гьанже гьеб кутакаб кесекалде сверула.</string>
+  <string name="selectThePieceYouWant">Дуе рокьарал кескал рище!</string>
+  <string name="fundamentals">КьучӀал</string>
+  <string name="capture">ЧӀвай</string>
+  <string name="takeTheEnemyPieces">Тушманасул кескал нахъе росе</string>
+  <string name="takeTheBlackPieces">ЧӀегӀеразул кескал нахъе росе!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">ЧӀегӀеразул кескал нахъе росе!
+Дурал тӀагӀине риччаге.</string>
+  <string name="protection">ЦӀуни</string>
+  <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
+  <string name="combat">Къеркьей</string>
+  <string name="enPassant">Нахъаса чӀвай</string>
+  <string name="theSpecialPawnMove">Пешкаялъул батӀияб хъурщи</string>
+  <string name="stalemate">Пат</string>
+  <string name="stalemateComplete">Баркула! Маталдаса пат щвезе лъикӀ!</string>
+  <string name="advanced">ЦӀебетӀураб</string>
+  <string name="pieceValue">Кескил багьа</string>
+  <string name="puzzles">Масъалаби</string>
+  <string name="videos">Видеаби</string>
+  <string name="playPeople">ЧагӀигун хӀазе</string>
+  <string name="yesYesYes">У, у, у!</string>
+  <string name="next">Хадусеб</string>
+  <string name="nextX">Хадусеб: %s</string>
+  <string name="backToMenu">Менуялде тӀадвуссине</string>
+  <string name="puzzleFailed">Масъала гьабизе кӀвечӀо!</string>
+  <string name="retry">Цоги нухалъ</string>
 </resources>
