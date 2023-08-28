@@ -22,7 +22,7 @@
   <string name="payLifetimeOnce">支付 %s 一次。永远成为 Lichess 赞助者！</string>
   <string name="lifetimePatron">永久 Lichess 赞助者</string>
   <string name="monthly">按月</string>
-  <string name="recurringBilling">定期账单，每月续订你的捐助者之翼。</string>
+  <string name="recurringBilling">定期账单，每月续订你的赞助者之翼。</string>
   <string name="onetime">单次</string>
   <string name="singleDonation">单次捐赠会赠予你一个月的赞助者之翼。</string>
   <string name="otherAmount">其他</string>
@@ -58,7 +58,8 @@
   <string name="nextPayment">下次付款</string>
   <string name="youWillBeChargedXOnY">你将于 %2$s 充值 %1$s。</string>
   <string name="makeAdditionalDonation">立即捐款</string>
-  <string name="giftPatronWings">将赞助勋章赠送给其它玩家</string>
+  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">赠送赞助者之翼</string>
+  <string name="giftPatronWings">赠送赞助者之翼给其它玩家</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">更改每月数量 (%s)</string>
   <string name="cancelSupport">取消你的赞助</string>
