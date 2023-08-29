@@ -19,7 +19,7 @@ let selectedCard: HTMLDivElement | null = null;
 
 export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
   return [
-    h('h2', 'Arcade Mode'),
+    h('h2', 'Select Opponent'),
     h('div#bot-view', [
       h('div#bot-selector', {
         key: 'bot-selector',
@@ -44,6 +44,9 @@ function createCard(bot: BotInfo) {
   card.classList.add('card');
   const img = document.createElement('img');
   img.src = bot.image;
+  const label = document.createElement('label');
+  label.innerText = bot.name;
+  card.appendChild(label);
   card.appendChild(img);
   card.addEventListener('pointerdown', startDrag);
   card.addEventListener('pointermove', duringDrag);
