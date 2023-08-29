@@ -118,6 +118,17 @@
   <string name="boardSetupComplete">Баркула! Дуда хъорщода кескал лъолеб куц лъала.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
+  <string name="youCannotCastleIfMoved">Дуда рокировка гьабизе кӀоларо
+къирал яги хъала цебе 
+хъурщун букӀун батани.</string>
+  <string name="youCannotCastleIfAttacked">Дуда рокировка гьабизе кӀоларо
+къираласда тӀадекӀанцӀулел ратани.
+Шах нахъчӀвай цинги рокировка гьабе!</string>
+  <string name="findAWayToCastleKingSide">Къираласул рахъалде
+рокировка гьабизе рес балагье!</string>
+  <string name="findAWayToCastleQueenSide">Къиралалъул рахъалде
+рокировка гьабизе рес балагье!</string>
+  <string name="castlingComplete">Баркула! Дуца хӀаялда гӀемерисеб мехалъ рокировка гьабизе ккола.</string>
   <string name="enPassant">Нахъаса чӀвай</string>
   <string name="theSpecialPawnMove">Пешкаялъул батӀияб хъурщи</string>
   <string name="takeAllThePawnsEnPassant">Киналго пешкаби нахъаса чӀвай!</string>
@@ -167,6 +178,7 @@
   <string name="stageX">%s дарс</string>
   <string name="awesome">ХӀикматго!</string>
   <string name="excellent">ЦӀакъ лъикӀ!</string>
+  <string name="outstanding">Гьайбатго!</string>
   <string name="yesYesYes">У, у, у!</string>
   <string name="nailedIt">Бажарана.</string>
   <string name="rightOn">Гьеле гьедин!</string>
