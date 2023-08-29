@@ -809,7 +809,7 @@
   <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
   <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
-  <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
+  <string name="tournamentFAQ">مسابقة الساحة (الأسئلة الشائعة)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
   <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
   <string name="accuracy">الدقة</string>
