@@ -44,6 +44,8 @@
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">ГӀицӀго цебехун хъурщула</string>
   <string name="pawnIntro">Пешкаби загӀипал руго, амма гьезул цо кӀудияб рес буго.</string>
+  <string name="pawnsMoveOneSquareOnly">Пешкаби цохӀо майданалдасан хъурщула.
+Амма гьел батӀияб рахъалде щваралъур кутакаб кесекалде сверула!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">ГӀемерисеб мехалъ пешка къиралалде сверизе лъикӀ.
 Амма цо-цо мехалъ чу хӀажалъизе бегьула!</string>
   <string name="pawnsMoveForward">Пешка цебехун хъурщула,
@@ -62,6 +64,7 @@
   <string name="fundamentals">КьучӀал</string>
   <string name="capture">ЧӀвай</string>
   <string name="takeTheEnemyPieces">Тушманасул кескал нахъе росе</string>
+  <string name="captureIntro">Дандиясул цӀунчӀел кескал ралагье, гьел чӀвазеги чӀвай!</string>
   <string name="takeTheBlackPieces">ЧӀегӀеразул кескал нахъе росе!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">ЧӀегӀеразул кескал нахъе росе!
 Дурал тӀагӀине риччаге.</string>
@@ -131,8 +134,11 @@
   <string name="videos">Видеаби</string>
   <string name="watchInstructiveChessVideos">Ругьунлъизарулел шахматазул видеабазухъ валагье</string>
   <string name="playPeople">ЧагӀигун хӀазе</string>
+  <string name="opponentsFromAroundTheWorld">ТӀолго дуниялалдаса дандиял</string>
   <string name="playMachine">Компутергун хӀай</string>
   <string name="stageX">%s дарс</string>
+  <string name="awesome">ХӀикматго!</string>
+  <string name="excellent">ЦӀакъ лъикӀ!</string>
   <string name="yesYesYes">У, у, у!</string>
   <string name="nailedIt">Бажарана.</string>
   <string name="rightOn">Гьеле гьедин!</string>
