@@ -85,6 +85,9 @@
   <string name="mateInOne">Цо хъурщиялъ мат</string>
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
+  <string name="boardSetup">Кескал кколе-кколелъур лъей</string>
+  <string name="howTheGameStarts">ХӀай байбихьулеб куц</string>
+  <string name="boardSetupIntro">КӀиго аскар дандчӀвала, рагъде хӀадурлъун.</string>
   <string name="firstPlaceTheRooks">Цин хъулби лъе!
 Гьел бокӀназда рукӀуна.</string>
   <string name="thenPlaceTheKnights">Цинги чуял лъе!
@@ -95,6 +98,7 @@
 Гьей жиндирго кьералъул бакӀалда йикӀуна.</string>
   <string name="placeTheKing">Къирал лъе!
 Къиралалда аскӀов.</string>
+  <string name="boardSetupComplete">Баркула! Дуда хъорщода кескал лъолеб куц лъала.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
   <string name="enPassant">Нахъаса чӀвай</string>
@@ -110,7 +114,14 @@
   <string name="queenOverBishop">Бищун кӀудаб 
 багьа бугеб кесек чӀвай!
 Къиралай &gt; Пил</string>
+  <string name="pieceValueComplete">Баркула! Дуда кесказул багьаби лъала!
+Къиралай = 9
+Хъала = 5
+Пил = 3
+Чу = 3
+Пешка = 1</string>
   <string name="checkInTwo">КӀиго хъурщиялъ шах</string>
+  <string name="twoMovesToGiveCheck">Шах лъазабизе кӀиго хъурщи</string>
   <string name="register">ХӀисабалде воси</string>
   <string name="getAFreeLichessAccount">ЧӀобого Lichess хъвай-хъвагӀай гьабе</string>
   <string name="practice">Ругьунлъизави</string>
@@ -123,6 +134,8 @@
   <string name="playMachine">Компутергун хӀай</string>
   <string name="stageX">%s дарс</string>
   <string name="yesYesYes">У, у, у!</string>
+  <string name="nailedIt">Бажарана.</string>
+  <string name="rightOn">Гьеле гьедин!</string>
   <string name="stageXComplete">%s дарс тӀубазабуна</string>
   <string name="next">Хадусеб</string>
   <string name="nextX">Хадусеб: %s</string>
