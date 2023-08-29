@@ -154,6 +154,10 @@
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-Wäertung aus %2$s Partie</item>
+    <item quantity="other">%1$s-Wäertung aus %2$s Partien</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Lieszeeche</item>
     <item quantity="other">%s Lieszeeche</item>
@@ -287,7 +291,7 @@
   <string name="confirmMove">Zuch confirméieren</string>
   <string name="play">Spillen</string>
   <string name="inbox">Posteingang</string>
-  <string name="chatRoom">Chat Raum</string>
+  <string name="chatRoom">Chatraum</string>
   <string name="loginToChat">An Chat aloggen</string>
   <string name="youHaveBeenTimedOut">Du krus eng Auszeit.</string>
   <string name="spectatorRoom">Spectateur Raum</string>
@@ -342,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s Etüd</item>
     <item quantity="other">%s Etüden</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s Simultanveranstaltung</item>
+    <item quantity="other">%s Simultanveranstaltungen</item>
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei den Turnéier</string>
@@ -698,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Deng %1$s Wäertung ass %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bass besser wéi %1$s vun allen %2$s-Spiller.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ass besser wéi %2$s vun allen %3$s-Spiller.</string>
+  <string name="betterThanPercentPlayers">Besser wéi %1$s vun de(n) %2$s-Spiller</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hues keng feststehend %s Wäertung.</string>
   <string name="yourRating">Deng Wäertung</string>
   <string name="cumulative">Kumulativ</string>
