@@ -90,6 +90,7 @@ export default class RoundController {
   preDrop?: cg.Role;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
+  zenable = false;
 
   constructor(
     readonly opts: RoundOpts,
@@ -142,6 +143,8 @@ export default class RoundController {
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
+    this.zenable = !d.player.spectator || !!d.tv;
+
     setTimeout(this.delayedInit, 200);
 
     setTimeout(this.showExpiration, 350);
@@ -155,10 +158,12 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      const zen = $('body').toggleClass('zen').hasClass('zen');
-      window.dispatchEvent(new Event('resize'));
-      if (!$('body').hasClass('zen-auto')) {
-        xhr.setZen(zen);
+      if (this.zenable) {
+        const zen = $('body').toggleClass('zen').hasClass('zen');
+        window.dispatchEvent(new Event('resize'));
+        if (!$('body').hasClass('zen-auto')) {
+          xhr.setZen(zen);
+        }
       }
     });
 

@@ -25,21 +25,17 @@
     display: flex;
     padding: 1.5em 1em 1.5em 0;
 
-    &::before {
-      @extend %data-icon;
-
-      content: '';
-      color: $c-font-dimmer;
-      flex: 0 0 1.6em;
-      text-align: center;
-      font-size: 4.5em;
+    img {
+      flex: 0 0 8em;
+      height: 4.5em;
+      opacity: 0.8;
     }
 
     &:hover {
       background: mix($c-bg-box, $c-link, 90%);
 
-      &::before {
-        color: $c-primary;
+      img {
+        opacity: 1;
       }
     }
 
@@ -97,6 +93,10 @@
         margin: 2em var(--box-padding) 2em 0;
       }
     }
+  }
+
+  &__count {
+    unicode-bidi: plaintext;
   }
 
   &__db {

@@ -43,7 +43,7 @@ object atom:
           "<br>",
           Html
             .from(doc.getHtml("blog.body", prismic.linkResolver))
-            .map(lila.blog.Youtube.fixStartTimes)
+            .map(lila.blog.Youtube.augmentEmbeds)
             .map(lila.blog.BlogTransform.addProtocol)
         ),
         tag("tag")("media:thumbnail")(attr("url") := doc.getImage(s"blog.image", "main").map(_.url)),

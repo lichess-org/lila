@@ -21,7 +21,11 @@ object variant:
     )(
       boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
       h2(cls := "headline")(variant.title),
-      div(cls := "body")(raw(~doc.getHtml("variant.content", resolver)))
+      div(cls := "body"):
+        Html
+          .from(doc.getHtml("variant.content", resolver))
+          .map(lila.blog.Youtube.augmentEmbeds)
+          .map(rawHtml)
     )
 
   def home(

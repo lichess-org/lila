@@ -35,7 +35,7 @@ object show:
           div(cls := "body expand-text")(
             Html
               .from(post.getHtml("blog.body", prismic.linkResolver))
-              .map(lila.blog.Youtube.fixStartTimes)
+              .map(lila.blog.Youtube.augmentEmbeds)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
               .map(env.blog.api.expand)
