@@ -16,7 +16,7 @@
   <string name="theFewerMoves">Дагьаб хъурщун цӀикӀкӀун балал щола!</string>
   <string name="useTwoRooks">Хехлъизе,
 кӀиго хъала хӀалтӀизабе!</string>
-  <string name="rookComplete">Баркула! Дуца бергьенлъиялда хъалаялъул гъваридго лъазабуна.</string>
+  <string name="rookComplete">Баркула! Дуца бергьенлъиялда хъаладул гъваридго лъазабуна.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Диагоналазда хъурщула</string>
   <string name="bishopIntro">Хадуса нилъеца пил кин хъурщулебали лъазабила!</string>
@@ -60,6 +60,7 @@
   <string name="captureComplete">Баркула! Дуда лъала кин шахматазул кесказ къеркьезе!</string>
   <string name="protection">ЦӀуни</string>
   <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Цониги цӀунчӀеб кесек чӀвазе биччаге!</string>
   <string name="combat">Къеркьей</string>
   <string name="checkInOne">Цо хъурщиялъ шах</string>
   <string name="defendYourKing">Дур къирал цӀуне</string>
@@ -77,14 +78,31 @@
   <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
   <string name="enPassant">Нахъаса чӀвай</string>
   <string name="theSpecialPawnMove">Пешкаялъул батӀияб хъурщи</string>
+  <string name="takeAllThePawnsEnPassant">Киналго пешкаби нахъаса чӀвай!</string>
+  <string name="enPassantComplete">Баркула! Дуда гьанже нахъаса чӀвазе кӀола.</string>
   <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Ращад ккана</string>
   <string name="stalemateComplete">Баркула! Маталдаса пат щвезе лъикӀ!</string>
   <string name="advanced">ЦӀебетӀураб</string>
   <string name="pieceValue">Кескил багьа</string>
+  <string name="evaluatePieceStrength">Кескил къуваталъе къимат кье</string>
+  <string name="queenOverBishop">Бищун кӀудаб 
+багьа бугеб кесек чӀвай!
+Къиралай &gt; Пил</string>
+  <string name="checkInTwo">КӀиго хъурщиялъ шах</string>
+  <string name="register">ХӀисабалде воси</string>
+  <string name="getAFreeLichessAccount">ЧӀобого Lichess хъвай-хъвагӀай гьабе</string>
+  <string name="practice">Ругьунлъизави</string>
+  <string name="learnCommonChessPositions">Аслиял шахматазул позицияби лъазаре</string>
   <string name="puzzles">Масъалаби</string>
+  <string name="exerciseYourTacticalSkills">Дур тактикиял ругьунлъаби церетӀе</string>
   <string name="videos">Видеаби</string>
+  <string name="watchInstructiveChessVideos">Ругьунлъизарулел шахматазул видеабазухъ валагье</string>
   <string name="playPeople">ЧагӀигун хӀазе</string>
+  <string name="playMachine">Компутергун хӀай</string>
+  <string name="stageX">%s дарс</string>
   <string name="yesYesYes">У, у, у!</string>
+  <string name="stageXComplete">%s дарс тӀубазабуна</string>
   <string name="next">Хадусеб</string>
   <string name="nextX">Хадусеб: %s</string>
   <string name="backToMenu">Менуялде тӀадвуссине</string>
