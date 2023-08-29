@@ -6,4 +6,14 @@
   <string name="tokenDescription">टोकन विवरण</string>
   <string name="rememberTokenUse">तो आपको याद है कि यह टोकन किस लिए है</string>
   <string name="whatTheTokenCanDo">टोकन आपकी ओर से क्या कर सकता है:</string>
+  <string name="doNotShareIt">टोकन आपके खाते तक पहुंच प्रदान करेगा। इसे किसी के साथ साझा न करें!</string>
+  <string name="copyTokenNow">अपने नए व्यक्तिगत एक्सेस टोकन को अभी कॉपी करना सुनिश्चित करें। आप इसे दोबारा नहीं देख पाएंगे!</string>
+  <string name="preferenceRead">प्राथमिकताएँ पढ़ें</string>
+  <string name="preferenceWrite">प्राथमिकता लिखें</string>
+  <string name="emailRead">ईमेल पता पढ़ें</string>
+  <string name="challengeRead">आने वाली चुनौतियाँ पढ़ें</string>
+  <string name="challengeWrite">चुनौतियाँ भेजें, स्वीकार करें और अस्वीकार करें</string>
+  <string name="challengeBulk">अन्य खिलाड़ियों के लिए एक साथ कई गेम बनाएं</string>
+  <string name="studyRead">निजी अध्ययन और प्रसारण पढ़ें</string>
+  <string name="studyWrite">अध्ययन और प्रसारण बनाएं, अपडेट करें, हटाएं</string>
 </resources>
