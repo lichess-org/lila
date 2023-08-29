@@ -73,7 +73,12 @@
   <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Цониги цӀунчӀеб кесек чӀвазе биччаге!</string>
   <string name="combat">Къеркьей</string>
+  <string name="captureAndDefendPieces">Кескал чӀвай ва цӀуне</string>
+  <string name="combatIntro">ЛъикӀав рагъухъанасда кӀиябго лъала, тӀадекӀанцӀизеги цӀунизеги!</string>
+  <string name="combatComplete">Баркула! Дуда кесказ тӀадекӀанцӀизе кколеб куц лъала!</string>
   <string name="checkInOne">Цо хъурщиялъ шах</string>
+  <string name="attackTheOpponentsKing">Дандиясул къираласда тӀадекӀанцӀе</string>
+  <string name="checkInOneIntro">Дур дандиясда шах лъазабизе, къираласда тӀадекӀанцӀе. Гьес гьев цӀунизе ккола!</string>
   <string name="outOfCheck">Шахалдаса борчӀи</string>
   <string name="defendYourKing">Дур къирал цӀуне</string>
   <string name="escapeWithTheKing">Къирал лъутун ворчӀи!</string>
@@ -88,9 +93,16 @@
   <string name="mateInOne">Цо хъурщиялъ мат</string>
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
+  <string name="attackYourOpponentsKing">Дур дандиясул къираласда тӀадекӀанцӀе
+гьев цӀунизе кӀоларев куцалъ!</string>
+  <string name="mateInOneComplete">Баркула! Гьеле гьедин бергьуна шахматазда!</string>
+  <string name="intermediate">Гьоркьохъеб</string>
   <string name="boardSetup">Кескал кколе-кколелъур лъей</string>
   <string name="howTheGameStarts">ХӀай байбихьулеб куц</string>
   <string name="boardSetupIntro">КӀиго аскар дандчӀвала, рагъде хӀадурлъун.</string>
+  <string name="thisIsTheInitialPosition">Гьаб буго щибаб шахматазул 
+хӀаялъул байбихьулеб бакӀ!
+Цебе бачине бокьохъе хъурще.</string>
   <string name="firstPlaceTheRooks">Цин хъулби лъе!
 Гьел бокӀназда рукӀуна.</string>
   <string name="thenPlaceTheKnights">Цинги чуял лъе!
@@ -101,6 +113,8 @@
 Гьей жиндирго кьералъул бакӀалда йикӀуна.</string>
   <string name="placeTheKing">Къирал лъе!
 Къиралалда аскӀов.</string>
+  <string name="pawnsFormTheFrontLine">Пешкабаз цебесеб мухъ лъугьинабула.
+Цебе бачине бокьохъе хъурще.</string>
   <string name="boardSetupComplete">Баркула! Дуда хъорщода кескал лъолеб куц лъала.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
@@ -110,6 +124,10 @@
   <string name="enPassantComplete">Баркула! Дуда гьанже нахъаса чӀвазе кӀола.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Ращад ккана</string>
+  <string name="stalemateIntro">ХӀалесда шахги гьечӀони гьесе хъурщизе бакӀги гьечӀони, гьеб пат ккола. ХӀаялда ращад ккана: щивго бергьинчӀо, щивго къечӀо.</string>
+  <string name="stalemateGoal">ЧӀегӀеразда пат лъазабизе:
+- ЧӀегӀеразда кирениги хъурщизе кӀоларо
+- Шах гьечӀо.</string>
   <string name="stalemateComplete">Баркула! Маталдаса пат щвезе лъикӀ!</string>
   <string name="advanced">ЦӀебетӀураб</string>
   <string name="pieceValue">Кескил багьа</string>
@@ -117,6 +135,11 @@
   <string name="queenOverBishop">Бищун кӀудаб 
 багьа бугеб кесек чӀвай!
 Къиралай &gt; Пил</string>
+  <string name="pieceValueExchange">Бищун хирияб багьа бугеб кесек чӀвай!
+ Хириябги чӀвазе кьун
+ учузаб чӀван хисуге.</string>
+  <string name="takeThePieceWithTheHighestValue">Бищун хирияб багьа 
+бугеб кесек чӀвай!</string>
   <string name="pieceValueComplete">Баркула! Дуда кесказул багьаби лъала!
 Къиралай = 9
 Хъала = 5
@@ -125,6 +148,11 @@
 Пешка = 1</string>
   <string name="checkInTwo">КӀиго хъурщиялъ шах</string>
   <string name="twoMovesToGiveCheck">Шах лъазабизе кӀиго хъурщи</string>
+  <string name="checkInTwoIntro">Дандиясул къираласда шах лъазабулеб кӀиго хъурщиялъул комбинация балагье!</string>
+  <string name="checkInTwoGoal">Дандиясул къираласе хӀинкъи кье
+кӀиго хъурщиялъ!</string>
+  <string name="whatNext">Щиб хадуб?</string>
+  <string name="youKnowHowToPlayChess">Дуда шахматал хӀалеб куц лъала, баркула! Дуе жеги кутакав хӀалев чилъун ккезе бокьун бугищ?</string>
   <string name="register">ХӀисабалде воси</string>
   <string name="getAFreeLichessAccount">ЧӀобого Lichess хъвай-хъвагӀай гьабе</string>
   <string name="practice">Ругьунлъизави</string>
