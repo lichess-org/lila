@@ -19,8 +19,8 @@ let selectedCard: HTMLDivElement | null = null;
 
 export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
   return [
-    h('h2', 'Local Play'),
-    h('div.setup-content', [
+    h('h2', 'Arcade Mode'),
+    h('div#bot-view', [
       h('div#bot-selector', {
         key: 'bot-selector',
         hook: onInsert(el => {
@@ -36,7 +36,6 @@ export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
       timePickerAndSliders(ctrl, true),
       colorButtons(ctrl),
     ]),
-    ratingView(ctrl),
   ];
 }
 
@@ -111,7 +110,7 @@ function mouseLeave(e: MouseEvent) {
 function startDrag(e: PointerEvent): void {
   e.preventDefault();
 
-  startAngle = getAngle([e.clientX, e.clientY]);
+  startAngle = getAngle([e.clientX, e.clientY]) - handRotation;
   startMag = getMag([e.clientX, e.clientY]);
 
   selectedCard = e.currentTarget as HTMLDivElement;

@@ -1,10 +1,19 @@
 #modal-wrap.local-setup {
+  display: flex;
   width: 96vw;
+  height: min(96vh, 640px);
+  > div {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: column nowrap;
+  }
   @include breakpoint($mq-x-small) {
     width: 80vw;
+    height: min(88vh, 640px);
   }
   @include breakpoint($mq-large) {
     width: 60vw;
+    height: min(80vh, 640px);
   }
   #bot-select {
     display: grid;
@@ -64,17 +73,29 @@
     justify-content: space-between;
   }
 
+  h2 {
+    flex: initial;
+  }
+  #bot-view {
+    @extend %flex-column;
+    min-height: 320px;
+    flex-grow: 1;
+    > div {
+      flex-shrink: 0;
+    }
+  }
+
   #bot-selector {
     position: relative;
     width: 100%;
-    height: 200px;
+    flex-grow: 1;
     overflow: hidden;
   }
 
   .card {
     position: absolute;
     width: 128px;
-    height: 128px;
+    height: 192px;
     border-radius: 6px;
     background-color: white;
     border: 1px solid black;
