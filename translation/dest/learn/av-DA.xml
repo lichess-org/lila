@@ -92,13 +92,13 @@
   <string name="outOfCheckIntro">Дуда шах лъазабуна! Мун нахъе ине ккола яги тӀадекӀанцӀи нахъчӀвазе ккола.</string>
   <string name="escapeWithTheKing">Къирал лъутун ворчӀи!</string>
   <string name="theKingCannotEscapeButBlock">Къираласда лъутизе кӀоларо,
-амма дуда тӀадекӀанцӀи чӀезабизе кӀола!</string>
+амма дуда тӀадекӀанцӀи нахъчӀвазе кӀола!</string>
   <string name="youCanGetOutOfCheckByTaking">Дуда шахалдаса ворчӀизе кӀола
 тӀадекӀанцӀулеб кесек чӀван.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Чоца шах лъазабула
 цӀунулел кесказдасан!</string>
   <string name="escapeOrBlock">Къирал борчӀизабе
-яги тӀадекӀанцӀи чӀезабе!</string>
+яги тӀадекӀанцӀи нахъчӀвай!</string>
   <string name="mateInOne">Цо хъурщиялъ мат</string>
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
@@ -129,9 +129,9 @@
   <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
   <string name="castlingIntro">Дур къирал хӀинкъи гьечӀеб бакӀалдеги лъе, хъала тӀадекӀанцӀизеги хӀадуре!</string>
   <string name="castleKingSide">Къокъаб рокировка гьабизе
-дур къирал кӀиго майдан бахъизаве!</string>
+дур къирал кӀиго майдан бахинаве!</string>
   <string name="castleQueenSide">Халатаб рокировка гьабизе
-дур къирал кӀиго майдан бахъизаве!</string>
+дур къирал кӀиго майдан бахинаве!</string>
   <string name="theKnightIsInTheWay">Чу бачӀунеб буго!
 Хъурще гьеб, цинги къокъаб рокировка гьабе.</string>
   <string name="castleKingSideMovePiecesFirst">Къокъаб рокировка гьабе!
@@ -151,6 +151,14 @@
   <string name="castlingComplete">Баркула! Дуца хӀаялда гӀемерисеб мехалъ рокировка гьабизе ккола.</string>
   <string name="enPassant">Нахъаса чӀвай</string>
   <string name="theSpecialPawnMove">Пешкаялъул батӀияб хъурщи</string>
+  <string name="enPassantIntro">Дандияс пешка кӀиго майдан бахинабураб мехалъ, дуда гьеб чӀвазе кӀола гьелъ цо майдан бахун бугеб гӀадин.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">ЧӀегӀераз гьале гьабсагӀат
+пешка кӀиго майдан бахинабуна!
+Гьеб нахъаса чӀвай.</string>
+  <string name="enPassantOnlyWorksImmediately">Нахъаса чӀвазе бегьула
+дандияс пешка хъущарабго.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Нахъаса чӀвазе бегьула 
+дур пешка 5-б мухъалда бугони.</string>
   <string name="takeAllThePawnsEnPassant">Киналго пешкаби нахъаса чӀвай!</string>
   <string name="enPassantComplete">Баркула! Дуда гьанже нахъаса чӀвазе кӀола.</string>
   <string name="stalemate">Пат</string>
