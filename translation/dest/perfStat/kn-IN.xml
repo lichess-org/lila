@@ -22,7 +22,6 @@
   <string name="fromXToY">%1$s ರಿಂದ %2$s ವರೆಗೆ</string>
   <string name="winningStreak">ಗೆಲುವಿನ ಸರಮಾಲೆ</string>
   <string name="losingStreak">ಸೋತ ಸರಣಿ</string>
-  <string name="longestStreak">ಸೋತ ಸರಣಿ</string>
   <string name="currentStreak">ಪ್ರಸ್ತುತ ಸರಣಿ: %s</string>
   <string name="bestRated">ಅತ್ಯುತ್ತಮ ರೇಟ್ ಮಾಡಿದ ವಿಜಯಗಳು</string>
   <string name="worstRated">ಕೆಟ್ಟ ರೇಟಿಂಗ್ ಸೋಲುಗಳು</string>
