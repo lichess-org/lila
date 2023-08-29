@@ -33,7 +33,6 @@
   <string name="privateWillNeverBeShown">ಖಾಸಗಿ. ತರಗತಿಯ ಹೊರಗೆ ಎಂದಿಗೂ ತೋರಿಸಲಾಗುವುದಿಲ್ಲ. ವಿದ್ಯಾರ್ಥಿ ಯಾರೆಂದು ನೆನಪಿಟ್ಟುಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.</string>
   <string name="addStudent">ವಿದ್ಯಾರ್ಥಿಯನ್ನು ಸೇರಿಸಿ</string>
   <string name="lichessProfileXCreatedForY">ಲಿಚೆಸ್ ಪ್ರೊಫೈಲ್ %1$s ಅನ್ನು %2$s ಗೆ ರಚಿಸಲಾಗಿದೆ.</string>
-  <string name="studentCredentials">ಲಿಚೆಸ್ ಪ್ರೊಫೈಲ್ %1$s ಅನ್ನು %2$s ಗೆ ರಚಿಸಲಾಗಿದೆ</string>
   <string name="inviteALichessAccount">Lichess ಖಾತೆಯನ್ನು ಆಹ್ವಾನಿಸಿ</string>
   <string name="inviteDesc1">ವಿದ್ಯಾರ್ಥಿಯು ಈಗಾಗಲೇ ಲಿಚೆಸ್ ಖಾತೆಯನ್ನು ಹೊಂದಿದ್ದರೆ, ನೀವು ಅವರನ್ನು ತರಗತಿಗೆ ಆಹ್ವಾನಿಸಬಹುದು.</string>
   <string name="inviteDesc2">ಅವರು ತರಗತಿಗೆ ಸೇರಲು ಲಿಂಕ್‌ನೊಂದಿಗೆ ಲಿಚೆಸ್‌ನಲ್ಲಿ ಸಂದೇಶವನ್ನು ಸ್ವೀಕರಿಸುತ್ತಾರೆ.</string>
