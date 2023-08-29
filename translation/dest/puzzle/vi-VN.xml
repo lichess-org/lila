@@ -77,7 +77,7 @@
 
 Hãy chơi thêm nhiều ván cờ nhanh và cờ tiêu chuẩn để có cơ hội có một thế cờ từ ván đấu của riêng bạn!</string>
   <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>
-  <string name="puzzleDashboardDescription">Rèn luyện, phân tích, tiến bộ</string>
+  <string name="puzzleDashboardDescription">Rèn luyện, phân tích, cải thiện</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s đã giải</item>
   </plurals>
@@ -85,7 +85,7 @@ Hãy chơi thêm nhiều ván cờ nhanh và cờ tiêu chuẩn để có cơ h�
     <item quantity="other">%s cần giải lại</item>
   </plurals>
   <string name="percentSolved">%s giải đúng</string>
-  <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài thế cờ trước đã!</string>
+  <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài câu đố trước đã!</string>
   <string name="improvementAreasDescription">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
-  <string name="strengthDescription">Bạn thể hiện tốt nhất ở những chiến thuật này</string>
+  <string name="strengthDescription">Bạn thể hiện tốt nhất vào những lĩnh vực này</string>
 </resources>
