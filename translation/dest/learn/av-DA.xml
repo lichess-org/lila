@@ -44,10 +44,18 @@
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">ГӀицӀго цебехун хъурщула</string>
   <string name="pawnIntro">Пешкаби загӀипал руго, амма гьезул цо кӀудияб рес буго.</string>
-  <string name="captureThenPromote">ЧӀвай, хадуб цебехун хъурще!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ГӀемерисеб мехалъ пешка къиралалде сверизе лъикӀ.
+Амма цо-цо мехалъ чу хӀажалъизе бегьула!</string>
+  <string name="pawnsMoveForward">Пешка цебехун хъурщула,
+амма диагоналалда чӀвала!</string>
+  <string name="captureThenPromote">ЧӀвай, хадуб сверизабе!</string>
   <string name="useAllThePawns">Киналго пешкаби хӀалтӀизаре!
-Церехун хъурщизе къваригӀунаро.</string>
-  <string name="pawnPromotion">Пешка цебехун хъурщи</string>
+Сверизабизе хӀажалъи гьечӀо.</string>
+  <string name="aPawnOnTheSecondRank">2-б мухъалда бугеб пешка цого мехалъ 2 майданалдасан хъурщизе кӀола!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Киналго цӀваби росе!
+Сверизабизе хӀажалъи гьечӀо.</string>
+  <string name="pawnComplete">Баркула! Дуда пешкаялъул кинабго лъала.</string>
+  <string name="pawnPromotion">Пешка сверизаби</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Дур пешка хъорщол рагӀалде щвана!</string>
   <string name="itNowPromotesToAStrongerPiece">Гьанже гьеб кутакаб кесекалде сверула.</string>
   <string name="selectThePieceYouWant">Дуе рокьарал кескал рище!</string>
@@ -63,7 +71,20 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Цониги цӀунчӀеб кесек чӀвазе биччаге!</string>
   <string name="combat">Къеркьей</string>
   <string name="checkInOne">Цо хъурщиялъ шах</string>
+  <string name="outOfCheck">Шахалдаса борчӀи</string>
   <string name="defendYourKing">Дур къирал цӀуне</string>
+  <string name="escapeWithTheKing">Къирал лъутун ворчӀи!</string>
+  <string name="theKingCannotEscapeButBlock">Къираласда лъутизе кӀоларо,
+амма дуда тӀадекӀанцӀи чӀезабизе кӀола!</string>
+  <string name="youCanGetOutOfCheckByTaking">Дуда шахалдаса ворчӀизе кӀола
+тӀадекӀанцӀулеб кесек чӀван.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Чоца шах лъазабула
+цӀунулел кесказдасан!</string>
+  <string name="escapeOrBlock">Къирал борчӀизабе
+яги тӀадекӀанцӀи чӀезабе!</string>
+  <string name="mateInOne">Цо хъурщиялъ мат</string>
+  <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
+  <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
   <string name="firstPlaceTheRooks">Цин хъулби лъе!
 Гьел бокӀназда рукӀуна.</string>
   <string name="thenPlaceTheKnights">Цинги чуял лъе!
