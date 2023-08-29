@@ -1,19 +1,11 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
-import { isTouchDevice } from 'common/mobile';
 import AnalyseCtrl from './ctrl';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
-  document.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift') return;
-    if ((e.location === 1 && ctrl.fork.prev()) || (e.location === 2 && ctrl.fork.next())) {
-      ctrl.setAutoShapes();
-      ctrl.redraw();
-    }
-  });
   const kbd = window.lichess.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
@@ -30,11 +22,13 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], () => {
-      control.first(ctrl);
+      if (ctrl.fork.prev()) ctrl.setAutoShapes();
+      else control.first(ctrl);
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], () => {
-      control.last(ctrl);
+      if (ctrl.fork.next()) ctrl.setAutoShapes();
+      else control.last(ctrl);
       ctrl.redraw();
     })
     .bind('shift+c', () => {
@@ -138,17 +132,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
   });
 }
 
-export function maybeShowShiftKeyHelp() {
-  // we can probably delete this after a month or so
-  if (isTouchDevice() || !lichess.once('help.analyse.shift-key')) return;
-  Promise.all([lichess.loadCssPath('analyse.keyboard'), xhr.text('/help/analyse/shift-key')]).then(
-    ([, html]) => {
-      $('.cg-wrap').append($(html).attr('id', 'analyse-shift-key-tooltip'));
+export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
+  if (!ctrl.showVariationArrows() || !lichess.once('help.analyse.variation-arrows-rtfm')) return;
+  Promise.all([xhr.text('/help/analyse/variation-arrow'), lichess.loadCssPath('analyse.keyboard')]).then(
+    ([html]) => {
+      $('.cg-wrap').append($(html).attr('id', 'analyse-variation-arrows-help'));
       const cb = () => {
-        $(document).off('mousedown keydown wheel', cb);
-        $('#analyse-shift-key-tooltip').remove();
+        $(document).off('mousedown', cb);
+        $('#analyse-variation-arrows-help').remove();
       };
-      $(document).on('mousedown keydown wheel', cb);
+      $(document).on('mousedown', cb);
     },
   );
 }

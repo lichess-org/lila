@@ -130,6 +130,7 @@ object userAnalysisI18n:
     trans.computerAnalysis,
     trans.enable,
     trans.bestMoveArrow,
+    trans.showVariationArrows,
     trans.evaluationGauge,
     trans.infiniteAnalysis,
     trans.removesTheDepthLimit,
