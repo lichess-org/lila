@@ -71,6 +71,12 @@
   <string name="captureComplete">Баркула! Дуда лъала кин шахматазул кесказ къеркьезе!</string>
   <string name="protection">ЦӀуни</string>
   <string name="keepYourPiecesSafe">Дур кескал цӀуне</string>
+  <string name="protectionIntro">Дур дандияв киназда тӀадекӀанцӀулев ралагье, цинги гьел цӀуне!</string>
+  <string name="protectionComplete">Баркула! Дуца къезе биччачӀеб кесек ккола дуе бергьун щвараб кесек!</string>
+  <string name="escape">Дуда тӀадекӀанцӀана!
+ХӀинкъиялдаса ворчӀа!</string>
+  <string name="noEscape">ВорчӀизе рес гьечӀо,
+амма дуда цӀунизе кӀола!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Цониги цӀунчӀеб кесек чӀвазе биччаге!</string>
   <string name="combat">Къеркьей</string>
   <string name="captureAndDefendPieces">Кескал чӀвай ва цӀуне</string>
@@ -79,8 +85,11 @@
   <string name="checkInOne">Цо хъурщиялъ шах</string>
   <string name="attackTheOpponentsKing">Дандиясул къираласда тӀадекӀанцӀе</string>
   <string name="checkInOneIntro">Дур дандиясда шах лъазабизе, къираласда тӀадекӀанцӀе. Гьес гьев цӀунизе ккола!</string>
+  <string name="checkInOneGoal">Кираласде ишан босе
+цо хъурщиялъ!</string>
   <string name="outOfCheck">Шахалдаса борчӀи</string>
   <string name="defendYourKing">Дур къирал цӀуне</string>
+  <string name="outOfCheckIntro">Дуда шах лъазабуна! Мун нахъе ине ккола яги тӀадекӀанцӀи нахъчӀвазе ккола.</string>
   <string name="escapeWithTheKing">Къирал лъутун ворчӀи!</string>
   <string name="theKingCannotEscapeButBlock">Къираласда лъутизе кӀоларо,
 амма дуда тӀадекӀанцӀи чӀезабизе кӀола!</string>
@@ -118,6 +127,7 @@
   <string name="boardSetupComplete">Баркула! Дуда хъорщода кескал лъолеб куц лъала.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Къираласул батӀияб хъурщи</string>
+  <string name="castlingIntro">Дур къирал хӀинкъи гьечӀеб бакӀалдеги лъе, хъала тӀадекӀанцӀизеги хӀадуре!</string>
   <string name="youCannotCastleIfMoved">Дуда рокировка гьабизе кӀоларо
 къирал яги хъала цебе 
 хъурщун букӀун батани.</string>
