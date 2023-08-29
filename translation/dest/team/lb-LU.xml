@@ -22,5 +22,7 @@
   </plurals>
   <string name="teamBattle">Ekippenkampf</string>
   <string name="teamTournament">Ekippenturnéier</string>
+  <string name="closeTeam">Ekipp opléisen</string>
+  <string name="closeTeamDescription">Léist d\'Ekipp fir ëmmer op.</string>
   <string name="teamPage">Ekippensäit</string>
 </resources>
