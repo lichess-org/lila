@@ -9,7 +9,7 @@ object help:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
-  private val or                          = tag("or")
+  private val or                          = tag("or")("/")
   private val kbd                         = tag("kbd")
   private def voice(text: String)         = strong(cls := "val-to-word", text)
   private def phonetic(text: String)      = strong(cls := "val-to-word phonetic", text)
@@ -66,8 +66,8 @@ object help:
       table(
         tbody(
           navigateMoves,
-          row(kbd("shift"), "Cycle selected move arrow"),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("J")), "Rewind to mainline"),
+          row(frag(kbd("↑"), or, kbd("↓")), "Cycle selected variation"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Rewind to mainline"),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
@@ -106,20 +106,19 @@ object help:
       )
     )
 
-  def analyseShiftKey(using Lang) =
-    frag(
-      div(cls := "help-ephemeral")(
-        ul(
-          li("Purple arrow is mainline move"),
-          li("Pink arrows are variations"),
-          li("Blue arrow is eval best move")
-        ),
-        table(
-          tbody(
-            row(kbd("shift"), "cycle selected move arrow"),
-            row(kbd("→"), "play selected move"),
-            row(span(kbd("shift"), or, kbd("←")), "return to previous mainline move")
-          )
+  def analyseVariationArrow(using Lang) =
+    div(
+      p("Variation arrows allow navigation without using the move list."),
+      p(
+        "The '",
+        strong("Show variation arrows"),
+        "' toggle in the hamburger menu turns them off."
+      ),
+      table(
+        tbody(
+          row(frag(kbd("↑"), or, kbd("↓")), "Cycle selected variation"),
+          row(kbd("→"), "play selected move"),
+          row(span(kbd("shift"), kbd("←")), "return to previous mainline move")
         )
       )
     )

@@ -23,6 +23,7 @@ export default function (
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
+    root.variationArrowsProp = readOnlyProp(false);
     root.showGauge = readOnlyProp(true);
     root.showComputer = readOnlyProp(true);
     goal(root.data.practiceGoal!);

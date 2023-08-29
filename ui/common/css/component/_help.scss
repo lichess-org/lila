@@ -1,4 +1,4 @@
-%help {
+%help-modal {
   @extend %flex-column;
 
   th p {
@@ -43,10 +43,6 @@
     border-radius: 3px;
     box-shadow: inset 0 -1px 0 #bbb;
   }
-}
-
-%help-modal {
-  @extend %help;
 
   table {
     width: 100%;
@@ -66,41 +62,31 @@
   }
 }
 
-.help-ephemeral {
-  @extend %help, %box-radius, %popup-shadow;
-  position: absolute;
-  z-index: 100;
+%help-dialog {
+  @extend %help-modal, %box-radius, %popup-shadow;
+  @include modal-close-x;
+
+  position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  align-items: center;
+  overflow: visible;
   background: $c-bg-popup;
-  padding: 1em 2em;
-  white-space: nowrap;
-  pointer-events: none;
+  padding: 2em 2em 1em;
+  border: none;
+
+  .close {
+    outline: none;
+    border: none;
+  }
 
   kbd {
     font-family: roboto, sans-serif;
   }
 
   table {
+    margin: 1em 0;
     display: inline-block;
     width: auto;
-  }
-
-  ul {
-    margin-bottom: 1em;
-    display: inline-block;
-    width: auto;
-    font-size: larger;
-    li {
-      padding-left: 0.5em;
-      list-style: disc;
-    }
-  }
-
-  &.fade-out {
-    transition: opacity 0.5s linear;
-    opacity: 0;
   }
 }
