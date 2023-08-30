@@ -7,18 +7,24 @@ object Title:
 
   // important: names are as stated on FIDE profile pages
   val all = Seq[(UserTitle, String)](
-    UserTitle("GM")  -> "Grandmaster",
-    UserTitle("WGM") -> "Woman Grandmaster",
-    UserTitle("IM")  -> "International Master",
-    UserTitle("WIM") -> "Woman Intl. Master",
-    UserTitle("FM")  -> "FIDE Master",
-    UserTitle("WFM") -> "Woman FIDE Master",
-    UserTitle("NM")  -> "National Master",
-    UserTitle("CM")  -> "Candidate Master",
-    UserTitle("WCM") -> "Woman Candidate Master",
-    UserTitle("WNM") -> "Woman National Master",
-    LM               -> "Lichess Master",
-    BOT              -> "Chess Robot"
+    UserTitle("GM")    -> "Grandmaster",
+    UserTitle("WGM")   -> "Woman Grandmaster",
+    UserTitle("IM")    -> "International Master",
+    UserTitle("WIM")   -> "Woman Intl. Master",
+    UserTitle("FM")    -> "FIDE Master",
+    UserTitle("WFM")   -> "Woman FIDE Master",
+    UserTitle("NM")    -> "National Master",
+    UserTitle("CM")    -> "Candidate Master",
+    UserTitle("WCM")   -> "Woman Candidate Master",
+    UserTitle("WNM")   -> "Woman National Master",
+    LM                 -> "Lichess Master",
+    BOT                -> "Lichess Bot",
+    UserTitle("AGM")   -> "Antichess Grandmaster",
+    UserTitle("AIM")   -> "Antichess International Master",
+    UserTitle("ACM")   -> "Antichess Candidate Master",
+    UserTitle("ANM")   -> "Antichess National Master",
+    UserTitle("ASGM")  -> "Antichess Super Grandmaster",
+    UserTitle("AM")    -> "Antichess Master"
   )
 
   val names          = all.toMap
