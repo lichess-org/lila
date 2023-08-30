@@ -192,8 +192,8 @@ export default class RoundController {
       if (this.data.game.variant.key === 'atomic') {
         lichess.sound.play('explosion');
         atomic.capture(this, dest);
-      }
-    }
+      } else lichess.sound.move({ san: 'x' });
+    } else lichess.sound.move();
   };
 
   private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
