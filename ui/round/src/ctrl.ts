@@ -192,8 +192,8 @@ export default class RoundController {
       if (this.data.game.variant.key === 'atomic') {
         lichess.sound.play('explosion');
         atomic.capture(this, dest);
-      }
-    }
+      } else lichess.sound.move({ san: 'x' });
+    } else lichess.sound.move();
   };
 
   private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -499,7 +499,6 @@ export default class RoundController {
     this.onChange();
     this.keyboardMove?.update(step, playedColor != d.player.color);
     this.voiceMove?.update(step.fen, playedColor != d.player.color);
-    lichess.sound.move(o);
     lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };

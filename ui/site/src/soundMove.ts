@@ -53,7 +53,7 @@ export async function initModule(): Promise<SoundMove> {
   await Promise.all(promises);
 
   return node => {
-    if (node?.san) {
+    if (node?.san && node.uci) {
       const pitch = keyToPitch(node.uci!.slice(2));
       const instrument = isPawn(node.san) || isKing(node.san) ? 'clav' : 'celesta';
       play(instrument, pitch);
