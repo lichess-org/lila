@@ -8,6 +8,7 @@
   <string name="anastasiaMateDescription">მხედარი და ეტლი/დედოფალი ერთად ცდილობენ დაამწყვდიონ მოწინააღმდეგე მეფე დაფის კიდესა და მეგობრულ ფიგურას შორის.</string>
   <string name="arabianMate">არაბული მატი</string>
   <string name="attackingF2F7">შეტევა f2 და f7 უჯრებზე</string>
+  <string name="attackingF2F7Description">შეტევა მიზანმიმართულია f2 და f7 პაიკისკენ .როგორვ მწვავე დასაწყისებში ,დებიუტებში</string>
   <string name="castling">როქი</string>
   <string name="doubleBishopMate">შამათი ორი კუთი</string>
   <string name="kingsideAttack">შეტევა მეფის ფრთაზე</string>
