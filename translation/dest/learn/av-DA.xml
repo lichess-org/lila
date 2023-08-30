@@ -87,6 +87,7 @@
   <string name="checkInOneIntro">Дур дандиясда шах лъазабизе, къираласда тӀадекӀанцӀе. Гьес гьев цӀунизе ккола!</string>
   <string name="checkInOneGoal">Кираласде ишан босе
 цо хъурщиялъ!</string>
+  <string name="checkInOneComplete">Баркула! Дуца дандиясда шах лъазабун, гьев жиндир къирал цӀунизавуна!</string>
   <string name="outOfCheck">Шахалдаса борчӀи</string>
   <string name="defendYourKing">Дур къирал цӀуне</string>
   <string name="outOfCheckIntro">Дуда шах лъазабуна! Мун нахъе ине ккола яги тӀадекӀанцӀи нахъчӀвазе ккола.</string>
@@ -99,6 +100,7 @@
 цӀунулел кесказдасан!</string>
   <string name="escapeOrBlock">Къирал борчӀизабе
 яги тӀадекӀанцӀи нахъчӀвай!</string>
+  <string name="outOfCheckComplete">Баркула! Дур къирал чӀвазе рес гьечӀо, шахалдаса цӀунулеб куц кӀочон тоге!</string>
   <string name="mateInOne">Цо хъурщиялъ мат</string>
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
@@ -200,6 +202,7 @@
   <string name="checkInTwoIntro">Дандиясул къираласда шах лъазабулеб кӀиго хъурщиялъул комбинация балагье!</string>
   <string name="checkInTwoGoal">Дандиясул къираласе хӀинкъи кье
 кӀиго хъурщиялъ!</string>
+  <string name="checkInTwoComplete">Баркула! Дуца дандиясда шах лъазабун, гьев жиндир къирал цӀунизавуна!</string>
   <string name="whatNext">Щиб хадуб?</string>
   <string name="youKnowHowToPlayChess">Дуда шахматал хӀалеб куц лъала, баркула! Дуе жеги кутакав хӀалев чилъун ккезе бокьун бугищ?</string>
   <string name="register">ХӀисабалде воси</string>
@@ -214,11 +217,16 @@
   <string name="opponentsFromAroundTheWorld">ТӀолго дуниялалдаса дандиял</string>
   <string name="playMachine">Компутергун хӀай</string>
   <string name="testYourSkillsWithTheComputer">Дур ругьунлъабазул даражаялъухъ компутералъ хал гьабе</string>
+  <string name="letsGo">Байбихьизе!</string>
   <string name="stageX">%s дарс</string>
   <string name="awesome">ХӀикматго!</string>
   <string name="excellent">ЦӀакъ лъикӀ!</string>
+  <string name="greatJob">ЦӀакъаб хӀалтӀи!</string>
+  <string name="perfect">Камилго!</string>
   <string name="outstanding">Гьайбатго!</string>
+  <string name="wayToGo">Гьедин чӀа!</string>
   <string name="yesYesYes">У, у, у!</string>
+  <string name="youreGoodAtThis">Дур махщел буго!</string>
   <string name="nailedIt">Бажарана.</string>
   <string name="rightOn">Гьеле гьедин!</string>
   <string name="stageXComplete">%s дарс тӀубазабуна</string>
