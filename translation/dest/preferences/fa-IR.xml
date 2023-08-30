@@ -22,7 +22,7 @@
   <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
-  <string name="inGameOnly">تنها در بازی</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">تنها در بازی</string>
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
@@ -44,6 +44,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
+  <string name="explainCanThenBeTemporarilyDisabled">می‌توانید در طول بازی منوی تخته را غیرفعال کنید</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>
