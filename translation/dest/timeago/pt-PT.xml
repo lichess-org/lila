@@ -18,15 +18,15 @@
     <item quantity="other">em %s dias</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">há %s semana</item>
+    <item quantity="one">em %s semana</item>
     <item quantity="other">em %s semanas</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">há %s mês</item>
+    <item quantity="one">em %s mês</item>
     <item quantity="other">em %s meses</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">há %s ano</item>
+    <item quantity="one">em %s ano</item>
     <item quantity="other">em %s anos</item>
   </plurals>
   <string name="rightNow">agora mesmo</string>
