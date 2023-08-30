@@ -20,7 +20,7 @@ object StatusText:
         win match
           case Some(value) => s"${value} wins on time."
           case None        => "Draw by time and insufficient material."
-      case NoStart => s"${loser(win)} wins by forfeit."
+      case NoStart => s"${winner(win)} wins by forfeit."
       case Cheat   => "Cheat detected."
       case VariantEnd =>
         variant match
