@@ -499,7 +499,6 @@ export default class RoundController {
     this.onChange();
     this.keyboardMove?.update(step, playedColor != d.player.color);
     this.voiceMove?.update(step.fen, playedColor != d.player.color);
-    lichess.sound.move(o);
     lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
