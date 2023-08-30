@@ -26,7 +26,7 @@
   <string name="broadcastUrl">Transmitir o link</string>
   <string name="currentRoundUrl">Link da ronda atual</string>
   <string name="currentGameUrl">Link da partida atual</string>
-  <string name="downloadAllRounds">Descarregar todas as rodadas</string>
+  <string name="downloadAllRounds">Descarregar todas as rondas</string>
   <string name="resetRound">Reiniciar esta ronda</string>
   <string name="deleteRound">Apagar esta ronda</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e os seus jogos.</string>
