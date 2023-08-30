@@ -24,7 +24,7 @@ object StatusText:
       case Cheat   => "Cheat detected."
       case VariantEnd =>
         variant match
-          case chess.variant.KingOfTheHill => s"${winner(win)} brings the king in the center."
+          case chess.variant.KingOfTheHill => s"${winner(win)} brings the king to the center."
           case chess.variant.ThreeCheck    => s"${winner(win)} gives the third check."
           case chess.variant.RacingKings   => s"${winner(win)} wins the race."
           case _                           => "Game ends by variant rule."
