@@ -207,7 +207,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
 
   def addChild(child: NewTree): NewRoot =
     if tree.isEmpty then copy(tree = child.some)
-    else copy(tree = tree.map(_.addChild(child)))
+    else copy(tree = tree.map(_.mergeOrAddAsVariation(child)))
 
   def addBranchAt(path: UciPath, branch: NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(tree = ChessNode(branch).some).some

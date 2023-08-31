@@ -93,5 +93,8 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       oTree.isDefined ==> {
         val tree    = oTree.get.take(1).clearVariations.pp
         val oldRoot = root.toRoot.addChild(tree.toBranch)
-        assertEquals(oldRoot.toNewRoot.pp, root.addChild(tree).pp)
+        root.size.pp
+        oldRoot.toNewRoot.size.pp
+        root.addChild(tree).size.pp
+        assertEquals(oldRoot.toNewRoot, root.addChild(tree))
       }
