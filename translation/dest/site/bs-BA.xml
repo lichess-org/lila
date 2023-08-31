@@ -370,6 +370,11 @@
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="few">%s simula</item>
+    <item quantity="other">%s simula</item>
+  </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="noDrawBeforeSwissLimit">Ne možete ponuditi remi u turniru po švicarskom sistemu prije nego što bude odigrano 30 poteza.</string>
