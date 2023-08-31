@@ -76,16 +76,16 @@
   h2 {
     flex: initial;
   }
-  #bot-view {
+  /*#bot-view {
     @extend %flex-column;
     min-height: 320px;
     flex-grow: 1;
     > div {
       flex-shrink: 0;
     }
-  }
+  }*/
 
-  #bot-selector {
+  #bot-view {
     position: relative;
     width: 100%;
     flex-grow: 1;
