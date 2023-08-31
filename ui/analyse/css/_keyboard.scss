@@ -6,3 +6,13 @@
     margin-#{$start-direction}: 1em;
   }
 }
+
+.variation-arrow-help {
+  @extend %help-dialog;
+  > div {
+    min-height: 1px; // safari
+    align-items: center;
+    text-align: center;
+    overflow-y: auto;
+  }
+}

@@ -110,6 +110,7 @@ object I18nKeys:
   val `openStudy` = I18nKey("openStudy")
   val `enable` = I18nKey("enable")
   val `bestMoveArrow` = I18nKey("bestMoveArrow")
+  val `showVariationArrows` = I18nKey("showVariationArrows")
   val `evaluationGauge` = I18nKey("evaluationGauge")
   val `multipleLines` = I18nKey("multipleLines")
   val `cpus` = I18nKey("cpus")
