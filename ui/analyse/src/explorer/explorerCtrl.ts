@@ -197,7 +197,6 @@ export default class ExplorerCtrl {
     }
   };
   setHovering = (fen: Fen, uci: Uci | null) => {
-    this.root.fork.hover(uci);
     this.hovering(uci ? { fen, uci } : null);
     this.root.setAutoShapes();
   };
