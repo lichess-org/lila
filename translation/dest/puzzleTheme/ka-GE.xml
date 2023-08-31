@@ -13,6 +13,10 @@
   <string name="attraction">შეტყუება </string>
   <string name="attractionDescription">გაცვლა ან შეწირვა, რომელიც აიძულებს მოწინაარმდეგის ფიგურას, დაიკავოს ისეთი უჯრა, რომლის შემდეგ განხორციელდება ესა თუ ის ტაქტიკური დარტყმა.</string>
   <string name="backRankMate">შამათი ბოლო ხაზზე, ჰორიზონტალზე</string>
+  <string name="backRankMateDescription">მეფის დაშამათება ბოლო ჰორიზონტალზე, როცა მას საკუთარი ფიგურები უშლიან ხელს.</string>
+  <string name="bishopEndgame">კუთა დაბოლოება</string>
+  <string name="bishopEndgameDescription">დაბოლოება მხოლოდ კუთი და პაიკებით.</string>
+  <string name="bodenMate">ბოდენის შამათი</string>
   <string name="castling">როქი</string>
   <string name="doubleBishopMate">შამათი ორი კუთი</string>
   <string name="kingsideAttack">შეტევა მეფის ფრთაზე</string>
