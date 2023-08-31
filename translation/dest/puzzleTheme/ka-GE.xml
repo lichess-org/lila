@@ -20,4 +20,5 @@
   <string name="castling">როქი</string>
   <string name="doubleBishopMate">შამათი ორი კუთი</string>
   <string name="kingsideAttack">შეტევა მეფის ფრთაზე</string>
+  <string name="mate">შამათი</string>
 </resources>
