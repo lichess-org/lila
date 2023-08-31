@@ -186,20 +186,23 @@ final class Swiss(
         .edit(me, swiss)
         .bindFromRequest()
         .fold(
-          err =>
-            negotiate(
-              BadRequest.page(html.swiss.form.edit(swiss, err)),
-              jsonFormError(err)
-            ),
-          data =>
-            env.swiss.api.update(swiss.id, data) >> negotiate(
-              Redirect(routes.Swiss.show(id)),
-              FoundOk(env.swiss.api.update(swiss.id, data))(env.swiss.json.api)
-            )
+          err => BadRequest.page(html.swiss.form.edit(swiss, err)),
+          data => env.swiss.api.update(swiss.id, data) >> Redirect(routes.Swiss.show(id))
         )
   }
 
-  def apiUpdate = update
+  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me ?=>
+    WithEditableSwiss(id): swiss =>
+      env.swiss.forms
+        .edit(me, swiss)
+        .bindFromRequest()
+        .fold(
+          err => jsonFormError(err),
+          data =>
+            env.swiss.api.update(swiss.id, data) >>
+              FoundOk(env.swiss.api.update(swiss.id, data))(env.swiss.json.api)
+        )
+  }
 
   def scheduleNextRound(id: SwissId) =
     AuthOrScopedBody(_.Tournament.Write) { ctx ?=> me ?=>

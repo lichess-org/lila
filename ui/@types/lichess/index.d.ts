@@ -119,13 +119,15 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
+type SoundMove = (node?: { san?: string; uci?: string }, music?: boolean) => void;
+
 interface SoundI {
   ctx?: AudioContext;
   load(name: string, path?: string): void;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
-  move(node?: { san?: string; uci?: Uci }): void;
-  countdown(count: number, intervalMs?: number): Promise<void>; // default interval 1000ms
+  move: SoundMove;
+  countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
   setVolume(v: number): void;
   speech(v?: boolean): boolean;

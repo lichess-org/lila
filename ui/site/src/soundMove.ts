@@ -1,5 +1,3 @@
-import { type SoundMove } from './component/sound';
-
 export async function initModule(): Promise<SoundMove> {
   let currentNotes = 0;
 
@@ -52,8 +50,9 @@ export async function initModule(): Promise<SoundMove> {
 
   await Promise.all(promises);
 
-  return node => {
-    if (node?.san) {
+  return (node, music?: boolean) => {
+    if (music === false) return;
+    if (node?.san && node.uci) {
       const pitch = keyToPitch(node.uci!.slice(2));
       const instrument = isPawn(node.san) || isKing(node.san) ? 'clav' : 'celesta';
       play(instrument, pitch);

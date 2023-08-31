@@ -1,7 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
-import throttle from 'common/throttle';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
@@ -35,10 +34,9 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 
-const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
+const selectSound = () => lichess.sound.play('select');
+const borderSound = () => lichess.sound.play('outOfBound');
+const errorSound = () => lichess.sound.play('error');
 
 // esbuild
 export function initModule(): NvuiPlugin {

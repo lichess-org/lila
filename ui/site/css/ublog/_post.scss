@@ -29,6 +29,9 @@
       margin-#{$start-direction}: -0.5rem;
       vertical-align: top;
     }
+    &__date {
+      unicode-bidi: embed;
+    }
   }
   &__topics {
     @extend %flex-wrap;

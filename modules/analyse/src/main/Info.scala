@@ -78,7 +78,8 @@ object Info:
     str
       .split(listSeparator)
       .toList
-      .traverseWithIndexM((infoStr, index) => decode(fromPly + index + 1, infoStr))
+      .zipWithIndex
+      .traverse((infoStr, index) => decode(fromPly + index + 1, infoStr))
 
   def encodeList(infos: List[Info]): String = infos.map(_.encode) mkString listSeparator
 

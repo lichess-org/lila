@@ -140,7 +140,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         !game.isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
-        lichess.sound.move();
+        lichess.sound.play('move');
         location.href = '/' + gameId;
       }
     },

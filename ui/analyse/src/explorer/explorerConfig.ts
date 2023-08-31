@@ -317,6 +317,16 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
+  const nameToOptionalColor = (name: string | undefined) => {
+    if (!name) {
+      return;
+    } else if (name === ctrl.myName) {
+      return '.button-green';
+    } else if (ctrl.data.playerName.previous().includes(name)) {
+      return '';
+    }
+    return '.button-metal';
+  };
   return snabModal({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -344,15 +354,20 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(
-          name =>
-            h(
-              `button.button${name == ctrl.myName ? '.button-green' : ''}`,
-              {
-                hook: bind('click', () => onSelect(name)),
-              },
-              name,
-            ),
+        [
+          ...new Set([
+            ...(ctrl.myName ? [ctrl.myName] : []),
+            ...ctrl.participants,
+            ...ctrl.data.playerName.previous(),
+          ]),
+        ].map(name =>
+          h(
+            `button.button${nameToOptionalColor(name)}`,
+            {
+              hook: bind('click', () => onSelect(name)),
+            },
+            name,
+          ),
         ),
       ),
     ],
