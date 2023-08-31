@@ -161,6 +161,11 @@
     <item quantity="few">%s partija</item>
     <item quantity="other">%s partija</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rejting na osnovu %2$s partije</item>
+    <item quantity="few">%1$s rejting na osnovu %2$s partija</item>
+    <item quantity="other">%1$s rejting na osnovu %2$s partija</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s zabilježena partija</item>
     <item quantity="few">%s zabilježenih partija</item>
@@ -912,7 +917,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="puzzleDesc">Vježbanje šahovske taktike</string>
   <string name="important">Važno</string>
   <string name="yourQuestionMayHaveBeenAnswered">Na Vaše pitanje možda već postoji odgovor %1$s</string>
-  <string name="inTheFAQ">u sekciji F.A.Q.</string>
+  <string name="inTheFAQ">u FAQ-u</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
   <string name="toRequestSupport">Da zatražite podršku, %1$s</string>
@@ -926,9 +931,9 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
   <string name="mentionedYouInX">spomenuo Vas je u \"%1$s\".</string>
-  <string name="xMentionedYouInY">%1$s Vas je spomenuo u \"%2$s\".</string>
-  <string name="invitedYouToX">Vas je pozvao u \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s Vas je pozvao u \"%2$s\".</string>
+  <string name="xMentionedYouInY">%1$s vas je spomenuo u \"%2$s\".</string>
+  <string name="invitedYouToX">vas je pozvao u \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>
