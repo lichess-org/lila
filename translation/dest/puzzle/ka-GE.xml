@@ -8,5 +8,25 @@
   <string name="motifs">მოტივები</string>
   <string name="advanced">მოწინავე, გაძლიერებული</string>
   <string name="lengths">სიგრძე</string>
+  <string name="mates">შამათები</string>
+  <string name="goals">მიზნები</string>
+  <string name="origin">წარმოშობა</string>
+  <string name="specialMoves">განსაკუთრებული სვლა</string>
   <string name="didYouLikeThisPuzzle">მოგეწონა ეს ამოცანა?</string>
+  <string name="voteToLoadNextOne">აირჩიე და ჩატვირთე შემდეგი!</string>
+  <string name="upVote">აირჩიე სავარჯიშო</string>
+  <string name="downVote">არ აირჩიო ამოცანა</string>
+  <string name="yourPuzzleRatingWillNotChange">თქვენი ამოცანების რეიტინგი არ შეიცვალა.. ამოცანების ამოხსნა არ გახლავთ შეჯიბრი. თქვენი რეიტინგი გვეხმარება თქვენი ამჟამინდელი დონისთვის შეგირჩიოთ საუკეთესო სავარჯიშო.</string>
+  <string name="findTheBestMoveForWhite">იპოვნე თეთრების საუკეთესო სვლა.</string>
+  <string name="findTheBestMoveForBlack">იპოვნე შავების საუკეთესო სვლა.</string>
+  <string name="toGetPersonalizedPuzzles">მიიღე ინდივიდუალური თავსატეხები:</string>
+  <string name="puzzleId">Ამოცანა, სავარჯიშო</string>
+  <string name="puzzleOfTheDay">ყოველდიური სავარჯიშოები</string>
+  <string name="dailyPuzzle">დღიური სავარჯიშო</string>
+  <string name="clickToSolve">დააჭირე ამოხსნისთვის</string>
+  <string name="goodMove">კარგი სვლა</string>
+  <string name="bestMove">საუკეთესო სვლა!</string>
+  <string name="keepGoing">ასე გაგრძელე…</string>
+  <string name="puzzleSuccess">წარმატება!</string>
+  <string name="puzzleComplete">ამოცანა ამოხსნილია!</string>
 </resources>
