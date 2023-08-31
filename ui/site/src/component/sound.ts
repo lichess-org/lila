@@ -59,17 +59,20 @@ export default new (class implements SoundI {
     if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
   }
 
-  move = throttle(100, async (node?: { uci?: Uci; san?: string }, music?: boolean) => {
-    if (this.theme === 'music') {
-      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.music(node, music);
-      return;
-    }
-    if (music === true) return;
+  throttled = throttle(100, (node?: { uci?: Uci; san?: string }) => {
     if (node?.san?.includes('x')) this.play('capture');
     else this.play('move');
     if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
   });
+
+  async move(node?: { uci?: Uci; san?: string }, music?: boolean) {
+    if (music !== false && this.theme === 'music') {
+      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
+      this.music(node, music);
+      return;
+    }
+    if (music !== true) this.throttled(node);
+  }
 
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
