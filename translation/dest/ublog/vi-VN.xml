@@ -19,7 +19,7 @@
   <plurals name="nbViews">
     <item quantity="other">%s lượt xem</item>
   </plurals>
-  <string name="xPublishedY">%1$s đã đăng %2$s bài</string>
+  <string name="xPublishedY">%1$s đã đăng bài %2$s</string>
   <string name="thisPostIsPublished">Bài viết này đã được xuất bản</string>
   <string name="thisIsADraft">Nó là một bản nháp</string>
   <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
