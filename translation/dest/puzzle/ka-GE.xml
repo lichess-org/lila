@@ -38,6 +38,10 @@
   <string name="trySomethingElse">სცადე რაიმე სხვა.</string>
   <string name="ratingX">Რეიტინგი: %s</string>
   <string name="hidden">დამალული</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">ნათამაშები %s დრო</item>
+    <item quantity="other">ნატამაშები N ჯერ</item>
+  </plurals>
   <string name="fromGameLink">პარტიიდან</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
   <string name="difficultyLevel">სიძნელის დონე</string>
@@ -63,6 +67,15 @@
   <string name="continueTheStreak">გააგრძელე ჯაჭვი</string>
   <string name="newStreak">ახალი ჯაჭვი</string>
   <string name="fromMyGames">ჩემი პარტიებიდან</string>
+  <string name="lookupOfPlayer">დაათვალიერე ამოცანები მოთამაშეთა პარტიებიდან</string>
+  <string name="fromXGames">ამოცანები პარტიებიდან</string>
+  <string name="searchPuzzles">მოძებნე ამოცანები</string>
+  <string name="fromMyGamesNone">თქვენ არ გაქვთ ამოცანები თქვენს ბაზაში , მაგრამ ლიჩეესს ჯერ კიდევ ძალიან უყვარხარ.
+ითამაშე სწრაფი და კლასიკური პარტიები და გაზარდე შანსი გქონდეს საკუთრივ დამატებული ამოცანები.</string>
+  <string name="fromXGamesFound">% ამოცანები იპოვნა % პარტიებში</string>
   <string name="puzzleDashboardDescription">ვარჯიში, ანალიზი, გაუმჯობესება</string>
   <string name="percentSolved">ამოხსნილია</string>
+  <string name="noPuzzlesToShow">არაფერი საჩვენებელი , პირველად  ამოხსენი რამოდენიმე ამოცანა</string>
+  <string name="improvementAreasDescription">ივარჯიშე რომ გააუმჯობესო შენი წინსვლა!</string>
+  <string name="strengthDescription">თქვენ საუკეთესოდ შეასრულეთ ეს თემები</string>
 </resources>
