@@ -29,14 +29,18 @@
   <string name="fork">ჩანგალი</string>
   <string name="forkDescription">სვლა რომელიც ერთდროულად ორ მოწინააღმდეგის ფიგურას ემუქრება.</string>
   <string name="hangingPiece">დაუცველი ფიგურა</string>
+  <string name="hangingPieceDescription">ტაკტიკა შეიცავს მოწინაარმდეგის ფიგურის დაუცველობას ან სუსტ დაცვას როცა შესაძლებელია მისი აყვანა.</string>
   <string name="hookMate">შამათი ეტლით, მხედრით და პაიკით, როდესაც მოწინაამდეგის მეფეს მეფეს გაქევის საშუალებას არ აძლევს საკუთარი პაიკი</string>
   <string name="hookMateDescription">შამათი ეტლით, მხედრით და პაიკით, როდესაც მოწინაამდეგის მეფეს მეფეს გაქევის საშუალებას არ აძლევს საკუთარი პაიკი.</string>
   <string name="interference">გადაკეტვა</string>
+  <string name="interferenceDescription">ფიგურის გადაადგილება როცა ის მოწინაარმდეგის ორ ფიგურას შორის დგება და ორივე ფიგურა დაუცველი ხდება, ისე როგორც მხედარი დგება დაცულ უჯრაზე ორ ეტლს შუა.</string>
+  <string name="intermezzo">შუალედური სვლა</string>
   <string name="mate">შამათი</string>
   <string name="mateIn1">შამათი 1 სვლაში</string>
   <string name="mateIn1Description">ჩასვით შამათი 1 სვლაში.</string>
   <string name="mateIn2">შამათი 2 სვლაში</string>
   <string name="mateIn2Description">ჩასვით შამათი 2 სვლაში.</string>
+  <string name="mateIn3">შამათი 3 სვლაში</string>
   <string name="mateIn3Description">ჩასვით შამთი 3 სვლაში.</string>
   <string name="mateIn4">შამათი 4 სვლაში</string>
   <string name="mateIn4Description">ჩასვით შამათი 4 სვლაში.</string>
@@ -49,6 +53,7 @@
   <string name="opening">დებიუტი ანუ დასაწყისი</string>
   <string name="openingDescription">ტაქტიკა პარტიის პირველ ფაზაში ანუ დასაწყისში.</string>
   <string name="pawnEndgame">პაიკთა ენდშპილი ანუ დაბოლება</string>
+  <string name="pawnEndgameDescription">მხოლოდ პაიკების დაბოლოება.</string>
   <string name="pin">დაბმა</string>
   <string name="promotion">გაცოცხლება, ანუ გარდაქმნა</string>
   <string name="promotionDescription">გააცოცხლეთ თქვენი პაიკი ლაზიერად , ეტლად ან მსუბუქ ფიგურად.</string>
@@ -73,8 +78,11 @@
   <string name="superGMDescription">ამოცანები მსოფლიოს წამყვანი მოთამასეების პარტიებიდან.</string>
   <string name="trappedPiece">გამოჭერა, ხაფანგში გაბმული ფიგურა,</string>
   <string name="trappedPieceDescription">ფიგურას არ შეუძლია გაქცევა რადგან სვლები აღარ აქვს.</string>
+  <string name="veryLong">ძალიან გრძელი ამოცანა</string>
+  <string name="veryLongDescription">მოიგე ოთხ ან მეტ სვლაში.</string>
   <string name="xRayAttack">გამჭოლი დარტყმა, რენტგენი</string>
   <string name="xRayAttackDescription">ფიგურა უტევს ან იცავს უჯრას მოწინაარმდეგის ფიგურის გავლით.</string>
   <string name="zugzwang">ცუგცვანგი</string>
   <string name="zugzwangDescription">მოწინაარმდეგეს შეზღუდული აქვს სვლების რაოდენობა, როცა მისი ყველა სვლა გააუარესებს მდგომარეობას. მას არ სურს სვლის გაკეთება მაგრამ იძულებულია, ვალდებულია. სვლის გადაცემა.</string>
+  <string name="healthyMix">ჯანმრთელი  ვარჯიშების ნარევი</string>
 </resources>
