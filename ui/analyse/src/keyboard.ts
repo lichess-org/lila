@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
-import { showDialog } from 'common/dialog';
+import { domDialog } from 'common/dialog';
 import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
@@ -143,9 +143,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
 export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
   if (ctrl.showVariationArrows() && lichess.once('help.analyse.variation-arrows-rtfm'))
-    showDialog({
-      cls: 'variation-arrow-help',
-      htmlUrl: '/help/analyse/variation-arrow',
+    domDialog({
+      class: 'dialog.variation-arrow-help',
+      inner: { url: '/help/analyse/variation-arrow' },
       cssPath: 'analyse.keyboard',
-    });
+    }).then(d => d.showModal());
 }

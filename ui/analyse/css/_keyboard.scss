@@ -1,5 +1,5 @@
 .keyboard-help {
-  @extend %help-modal;
+  @extend %help;
 
   td.mouse li {
     list-style: disc inside;
@@ -8,7 +8,7 @@
 }
 
 .variation-arrow-help {
-  @extend %help-dialog;
+  @extend %help;
   > div {
     min-height: 1px; // safari
     align-items: center;

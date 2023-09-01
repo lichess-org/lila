@@ -198,6 +198,7 @@ export class SetupCtrl {
     this.friendUser = friendUser || '';
     this.init(opts);
     this.root.redraw();
+    //setTimeout(() => $as<HTMLDialogElement>($('dialog.dialog')).showModal(), 5000);
   };
 
   renderModal = () => renderSetup(this);

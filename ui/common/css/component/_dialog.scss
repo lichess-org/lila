@@ -1,0 +1,54 @@
+.dialog {
+  @extend %box-radius, %popup-shadow;
+
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  background: $c-bg-popup;
+  padding: 2em;
+  border: none;
+
+  .close-button-anchor {
+    position: relative;
+    width: 100%;
+    height: 0;
+  }
+
+  .scrollable {
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .close {
+    @extend %flex-around;
+
+    top: 0;
+    #{$end-direction}: 0;
+    position: absolute;
+    outline: none;
+    border: none;
+    background: none;
+
+    color: $c-font;
+    font-size: 16px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+
+    &:hover {
+      @extend %box-shadow;
+      background: $c-bad;
+      color: #fff;
+    }
+
+    @include breakpoint($mq-small) {
+      top: -12px;
+      #{$end-direction}: -12px;
+      background: $c-bg-popup;
+      border-radius: 50%;
+    }
+  }
+}

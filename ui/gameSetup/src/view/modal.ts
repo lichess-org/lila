@@ -1,5 +1,5 @@
 import { MaybeVNode } from 'common/snabbdom';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { SetupCtrl } from '../ctrl';
 import hookContent from './hookContent';
 import friendContent from './friendContent';
@@ -16,10 +16,10 @@ const gameTypeToRenderer = {
 export default function setupModal(ctrl: SetupCtrl): MaybeVNode {
   if (!ctrl.gameType) return null;
   const renderContent = gameTypeToRenderer[ctrl.gameType];
-  return snabModal({
-    class: ctrl.gameType === 'local' ? 'local-setup' : 'game-setup',
-    onInsert: () => lichess.loadCssPath('game-setup'),
+  return snabDialog({
+    class: ctrl.gameType === 'local' ? 'dialog.local-setup' : 'dialog.game-setup',
+    cssPath: 'game-setup',
     onClose: ctrl.closeModal,
-    content: renderContent(ctrl),
+    inner: renderContent(ctrl),
   });
 }

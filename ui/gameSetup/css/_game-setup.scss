@@ -1,12 +1,12 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
-#modal-wrap {
-  &.game-setup {
-    width: 30em;
-  }
+.game-setup {
+  width: 30em;
+}
+.game-setup,
+.local-setup {
   text-align: center;
-  display: block;
 
   > div {
     padding: 0;
@@ -90,6 +90,7 @@ $c-slider: $c-setup;
 
   .color-submits {
     display: flex;
+    flex-flow: row nowrap;
     align-items: flex-end;
     justify-content: center;
     margin: 1em auto;
