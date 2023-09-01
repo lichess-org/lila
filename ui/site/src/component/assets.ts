@@ -15,7 +15,6 @@ export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> =>
     el.rel = 'stylesheet';
     el.href = assetUrl(lichess.debug ? `${url}?_=${Date.now()}` : url);
     if (media) el.media = `(prefers-color-scheme: ${media})`;
-    console.log(url);
     loadedCss.set(
       url,
       new Promise<void>(resolve => {

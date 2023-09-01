@@ -581,4 +581,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const $as: <T>(cash: Cash) => T;
+declare const $as: <T>(cashOrHtml: Cash | string) => T;

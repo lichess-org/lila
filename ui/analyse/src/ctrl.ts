@@ -611,10 +611,10 @@ export default class AnalyseCtrl {
     return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
   }
 
-  setAutoShapes() {
+  setAutoShapes = (): void => {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
     keyboard.maybeShowVariationArrowHelp(this);
-  }
+  };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {

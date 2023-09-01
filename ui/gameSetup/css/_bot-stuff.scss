@@ -1,15 +1,15 @@
 .local-setup {
-  display: flex;
-  //width: 96vw;
+  @extend %flex-column;
+  width: 96vw;
   //height: min(96vh, 640px);
 
   @include breakpoint($mq-x-small) {
     width: 80vw;
-    height: min(88vh, 640px);
+    //height: min(88vh, 640px);
   }
   @include breakpoint($mq-large) {
     width: 60vw;
-    height: min(80vh, 640px);
+    //height: min(80vh, 640px);
   }
 
   h2 {

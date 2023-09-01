@@ -17,9 +17,12 @@ export default function setupModal(ctrl: SetupCtrl): MaybeVNode {
   if (!ctrl.gameType) return null;
   const renderContent = gameTypeToRenderer[ctrl.gameType];
   return snabDialog({
-    class: ctrl.gameType === 'local' ? 'dialog.local-setup' : 'dialog.game-setup',
+    class: ctrl.gameType === 'local' ? 'game-setup.local-setup' : 'game-setup',
     cssPath: 'game-setup',
     onClose: ctrl.closeModal,
+    clickAway: true,
+    closeButton: true,
+    modal: true,
     inner: renderContent(ctrl),
   });
 }

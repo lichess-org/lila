@@ -1,28 +1,33 @@
-.dialog {
+dialog.base-dialog {
   @extend %box-radius, %popup-shadow;
 
-  display: block;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: z('fullscreen-mask');
+  padding: 0;
+  border: none;
   overflow: visible;
   background: $c-bg-popup;
-  padding: 2em;
-  border: none;
 
-  .close-button-anchor {
-    position: relative;
-    width: 100%;
-    height: 0;
+  &::backdrop {
+    background: $c-page-mask;
   }
 
-  .scrollable {
+  div.base-view {
+    @extend %flex-column;
+    padding: 2em;
     overflow: hidden;
     overflow-y: auto;
   }
 
-  .close {
+  div.close-button-anchor {
+    position: relative;
+    width: 100%;
+  }
+
+  button.close-button {
     @extend %flex-around;
 
     top: 0;

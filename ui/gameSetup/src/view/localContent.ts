@@ -70,20 +70,21 @@ class BotDeck {
     const visibleCards = this.cards.length;
     const hovered = $as<HTMLElement>($('.card.pull'));
     const hoveredIndex = this.cards.findIndex(x => x == hovered);
-    /*this.cards.forEach((card, cardIndex) => {
+    this.cards.forEach((card, cardIndex) => {
       const angleNudge =
         !hovered || cardIndex == hoveredIndex
           ? 0
           : cardIndex < hoveredIndex
           ? 0 //(-Math.PI * 0.25) / visibleCards
           : (Math.PI * 0.5) / visibleCards;
-      let angle = beginAngle + angleNudge + this.handRotation + ((Math.PI / 4) * (cardIndex + 0.5)) / visibleCards;
+      let angle =
+        beginAngle + angleNudge + this.handRotation + ((Math.PI / 4) * (cardIndex + 0.5)) / visibleCards;
       const mag = 15 + radius + ($(card).hasClass('pull') ? 40 : 0);
       const x = this.userMidX + mag * Math.sin(angle) - 64;
       const y = this.userMidY - mag * Math.cos(angle);
       if (cardIndex === hoveredIndex) angle -= Math.PI / 8;
       card.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
-    });*/
+    });
   }
 
   clientToOrigin(client: [number, number]): [number, number] {

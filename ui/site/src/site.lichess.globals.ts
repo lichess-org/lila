@@ -33,7 +33,6 @@ import { Chessground } from 'chessground';
 declare const __debug__: boolean;
 
 export default () => {
-  window.$as = <T>(cash: Cash) => cash[0] as T;
   const l = window.lichess;
   l.debug = __debug__;
   l.StrongSocket = StrongSocket;

@@ -21,6 +21,8 @@ import { siteTrans } from './component/trans';
 import { trapFocus } from 'common/modal';
 import { isIOS } from 'common/mobile';
 
+window.$as = <T>(cashOrHtml: Cash | string) =>
+  (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 exportLichessGlobals();
 lichess.info = info;
 
