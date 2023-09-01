@@ -1,5 +1,6 @@
 import { VNode, h } from 'snabbdom';
 import { onInsert, MaybeVNodes } from './snabbdom';
+import { spinnerVdom } from './spinner';
 import * as xhr from './xhr';
 import * as licon from './licon';
 
@@ -13,8 +14,10 @@ interface DialogOpts {
 }
 
 export interface SnabDialogOpts extends DialogOpts {
-  inner: MaybeVNodes;
+  htmlUrl?: string;
+  content?: MaybeVNodes;
   modal?: boolean; // default = false
+  onInsert?: ($wrap: Cash) => void;
   onShow?: () => void;
 }
 
@@ -27,7 +30,10 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   let dialog: HTMLDialogElement;
   //const close = () => dialog.close();
 
-  const css = o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve();
+  const all = Promise.all([
+    o.htmlUrl ? xhr.text(o.htmlUrl) : Promise.resolve(undefined),
+    o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve(),
+  ]);
 
   return h(
     'dialog.base-dialog',
@@ -40,28 +46,37 @@ export function snabDialog(o: SnabDialogOpts): VNode {
             dialog.close();
           });
         if (o.onClose) dialog.addEventListener('close', o.onClose);
-        setTimeout(() =>
-          css.then(() => {
+        await all;
+        setTimeout(() => {
+          if (o.modal) dialog.showModal();
+          else dialog.show();
+          o.onShow?.();
+        });
+      }),
+    },
+    [
+      !o.closeButton
+        ? null
+        : h('button.close-button', {
+            attrs: { 'data-icon': licon.X, 'aria-label': 'Close' },
+            hook: onInsert(el => el.addEventListener('click', () => dialog.close())),
+          }),
+      h(
+        `div.${o.class ?? 'base-view'}`,
+        {
+          hook: onInsert(async el => {
+            el.addEventListener('click', e => e.stopPropagation());
+            o.onInsert?.($(el));
+            const [html] = await all;
+            if (html) el.innerHTML = html;
             if (o.modal) dialog.showModal();
             else dialog.show();
             o.onShow?.();
           }),
-        );
-      }),
-    },
-    h(
-      `div.${o.class ?? 'base-view'}`,
-      { hook: onInsert(el => el.addEventListener('click', e => e.stopPropagation())) },
-      [
-        !o.closeButton
-          ? null
-          : h('button.close-button', {
-              attrs: { 'data-icon': licon.X, 'aria-label': 'Close' },
-              hook: onInsert(el => el.addEventListener('click', () => dialog.close())),
-            }),
-        ...o.inner,
-      ],
-    ),
+        },
+        o.content ?? [spinnerVdom()],
+      ),
+    ],
   );
 }
 

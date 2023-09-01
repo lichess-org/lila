@@ -23,6 +23,6 @@ export default function setupModal(ctrl: SetupCtrl): MaybeVNode {
     clickAway: true,
     closeButton: true,
     modal: true,
-    inner: renderContent(ctrl),
+    content: renderContent(ctrl),
   });
 }
