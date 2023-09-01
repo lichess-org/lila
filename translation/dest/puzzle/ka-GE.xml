@@ -38,4 +38,27 @@
   <string name="trySomethingElse">სცადე რაიმე სხვა.</string>
   <string name="ratingX">Რეიტინგი: %s</string>
   <string name="hidden">დამალული</string>
+  <string name="fromGameLink">პარტიიდან</string>
+  <string name="continueTraining">გააგრძელე ვარჯიში</string>
+  <string name="difficultyLevel">სიძნელის დონე</string>
+  <string name="normal">ნორმალური, ჩვეულებრივი</string>
+  <string name="easier">უფრო იოლი</string>
+  <string name="easiest">უიოლესი, უმარტივესი </string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">ერთი ქულით ქვევით  თქვენი ამოცანების რეიტინგთან</item>
+    <item quantity="other">ქულით ნაკლები თქვენს ამოცანების რეიტინგთან</item>
+  </plurals>
+  <string name="harder">უფრო ძნელი</string>
+  <string name="hardest">უძნელესი</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">თქვენი ამოცანების რეიტინზე ერთით უფრო ზევით</item>
+    <item quantity="other">თქვენი ამოვანების რეიტინგზე % ქულით მეტი</item>
+  </plurals>
+  <string name="example">მაგალითი</string>
+  <string name="addAnotherTheme">დაამატე კიდევ მაგალითი</string>
+  <string name="failed">არასწორია</string>
+  <string name="yourStreakX">თქვენი ჯაჭვი %</string>
+  <string name="continueTheStreak">გააგრძელე ჯაჭვი</string>
+  <string name="puzzleDashboardDescription">ვარჯიში, ანალიზი, გაუმჯობესება</string>
+  <string name="percentSolved">ამოხსნილია</string>
 </resources>
