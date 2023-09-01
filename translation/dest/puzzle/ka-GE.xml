@@ -57,8 +57,12 @@
   <string name="example">მაგალითი</string>
   <string name="addAnotherTheme">დაამატე კიდევ მაგალითი</string>
   <string name="failed">არასწორია</string>
+  <string name="streakDescription">ამოხსენი თანდათანობით უფრო და უფრო ძნელი ამოცანები და შექმენი შენი მომგებიანი ჯაჭვი. საათი არ გაქვს ჩართული, ასე რომ გამოიყენე შენი დრო. ერთი შეცდომა და პარტიაც დამთავრებულია! მაგრამ შეგიძლია გამოტოვო მხოლოდ ერთი სვლა ერთი ცდის განმავლობაში.</string>
   <string name="yourStreakX">თქვენი ჯაჭვი %</string>
+  <string name="streakSkipExplanation">გამოტოვე ეს სვლა და შეინარჩუნე შენი ჯაჭვი! მუშაობს მხოლოდ ერთხელ მიმდინარე ვარჯიშისას.</string>
   <string name="continueTheStreak">გააგრძელე ჯაჭვი</string>
+  <string name="newStreak">ახალი ჯაჭვი</string>
+  <string name="fromMyGames">ჩემი პარტიებიდან</string>
   <string name="puzzleDashboardDescription">ვარჯიში, ანალიზი, გაუმჯობესება</string>
   <string name="percentSolved">ამოხსნილია</string>
 </resources>
