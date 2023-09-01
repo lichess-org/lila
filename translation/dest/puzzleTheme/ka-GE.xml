@@ -5,7 +5,7 @@
   <string name="advantage">უპირატესობა</string>
   <string name="advantageDescription">გამოიყენე შანსი სერიოზულად დაწინაურდე. (200ცპ ≤ გამოთვლა ≤ 600ცპ)</string>
   <string name="anastasiaMate">ანასტასიას შამათი</string>
-  <string name="anastasiaMateDescription">მხედარი და ეტლი/ლაზიერი ერთად ცდილობენ დაამწყვდიონ მოწინააღმდეგე მეფე დაფის კიდესა და მეგობრულ ფიგურას შორის.</string>
+  <string name="anastasiaMateDescription">მხედარი და ეტლი (ან ლაზიერი) ურთიერთშეთანხმებულად ცდილობენ გამოიჭირონ მოწინააღმდეგე მეფე დაფის კიდესა და მისივე სხვა ფიგურას შორის.</string>
   <string name="arabianMate">არაბული შამათი</string>
   <string name="arabianMateDescription">ეტლი და მხედარი ურთიერთშეთანხმებულად ცდილობენ მოწინაარმდეგის მეფის დაფის კუთხეში მიმწყვდევას</string>
   <string name="attackingF2F7">შეტევა f2 და f7 უჯრებზე</string>
@@ -78,6 +78,7 @@
   <string name="superGMDescription">ამოცანები მსოფლიოს წამყვანი მოთამასეების პარტიებიდან.</string>
   <string name="trappedPiece">გამოჭერა, ხაფანგში გაბმული ფიგურა,</string>
   <string name="trappedPieceDescription">ფიგურას არ შეუძლია გაქცევა რადგან სვლები აღარ აქვს.</string>
+  <string name="underPromotionDescription">გაცოცხლება ეტლი, კუ, მხედარი.</string>
   <string name="veryLong">ძალიან გრძელი ამოცანა</string>
   <string name="veryLongDescription">მოიგე ოთხ ან მეტ სვლაში.</string>
   <string name="xRayAttack">გამჭოლი დარტყმა, რენტგენი</string>
