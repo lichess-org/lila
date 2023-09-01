@@ -20,7 +20,7 @@
   <string name="findTheBestMoveForWhite">იპოვნე თეთრების საუკეთესო სვლა.</string>
   <string name="findTheBestMoveForBlack">იპოვნე შავების საუკეთესო სვლა.</string>
   <string name="toGetPersonalizedPuzzles">მიიღე ინდივიდუალური თავსატეხები:</string>
-  <string name="puzzleId">Ამოცანა, სავარჯიშო</string>
+  <string name="puzzleId">Თავსატეხი %s</string>
   <string name="puzzleOfTheDay">ყოველდიური სავარჯიშოები</string>
   <string name="dailyPuzzle">დღიური სავარჯიშო</string>
   <string name="clickToSolve">დააჭირე ამოხსნისთვის</string>
@@ -36,6 +36,6 @@
   <string name="useCtrlF">გამოიყენეთ Ctrl+f რომ იპოვოთ თქვენი საყვარელი დებიუტი!</string>
   <string name="notTheMove">ეს არ არის სვლა!</string>
   <string name="trySomethingElse">სცადე რაიმე სხვა.</string>
-  <string name="ratingX">რეიტინგები</string>
+  <string name="ratingX">Რეიტინგი: %s</string>
   <string name="hidden">დამალული</string>
 </resources>
