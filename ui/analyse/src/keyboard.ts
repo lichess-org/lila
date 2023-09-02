@@ -1,10 +1,9 @@
 import * as control from './control';
-import * as xhr from 'common/xhr';
+//import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
-import { domDialog } from 'common/dialog';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { VNode } from 'snabbdom';
+import { domDialog, snabDialog } from 'common/dialog';
+//import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.lichess.mousetrap;
@@ -124,28 +123,22 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabModal({
+  return snabDialog({
     class: 'keyboard-help',
-    onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([
-        lichess.loadCssPath('analyse.keyboard'),
-        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
-      ]);
-      $wrap.find('.scrollable').html(html);
-    },
+    htmlUrl: '/analysis/help',
+    cssPath: 'analyse.keyboard',
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [h('div.scrollable', spinner())],
   });
 }
 
 export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
   if (ctrl.showVariationArrows() && lichess.once('help.analyse.variation-arrows-rtfm'))
     domDialog({
-      class: 'dialog.variation-arrow-help',
-      inner: { url: '/help/analyse/variation-arrow' },
+      class: 'variation-help',
+      htmlUrl: '/help/analyse/variation-arrow',
       cssPath: 'analyse.keyboard',
     }).then(d => d.showModal());
 }

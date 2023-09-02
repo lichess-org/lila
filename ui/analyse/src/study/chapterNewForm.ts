@@ -1,7 +1,7 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 import * as licon from 'common/licon';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { StoredProp, storedStringProp } from 'common/storage';
 import * as xhr from 'common/xhr';
@@ -147,14 +147,14 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return snabModal({
+  return snabDialog({
     class: 'chapter-new',
     onClose() {
       ctrl.close();
       ctrl.redraw();
     },
     noClickAway: true,
-    content: [
+    vnodes: [
       activeTab === 'edit'
         ? null
         : h('h2', [
