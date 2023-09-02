@@ -42,14 +42,14 @@
     <item quantity="one">ნათამაშები %s დრო</item>
     <item quantity="other">ნატამაშები N ჯერ</item>
   </plurals>
-  <string name="fromGameLink">პარტიიდან</string>
+  <string name="fromGameLink">Თამაშიდან %s</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
   <string name="difficultyLevel">სიძნელის დონე</string>
   <string name="normal">ნორმალური, ჩვეულებრივი</string>
   <string name="easier">უფრო იოლი</string>
   <string name="easiest">უიოლესი, უმარტივესი </string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">ერთი ქულით ქვევით  თქვენი ამოცანების რეიტინგთან</item>
+    <item quantity="one">%s ქულა ქვემოთ თქვენი თავსატეხის რეიტინგში</item>
     <item quantity="other">ქულით ნაკლები თქვენს ამოცანების რეიტინგთან</item>
   </plurals>
   <string name="harder">უფრო ძნელი</string>
