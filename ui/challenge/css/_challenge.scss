@@ -38,6 +38,12 @@
       @extend %flex-between-nowrap;
     }
 
+    @media (hover: none) {
+      .buttons {
+        @extend %flex-between-nowrap;
+      }
+    }
+
     .buttons > * {
       width: 33%;
     }
@@ -136,6 +142,12 @@
     &:hover .position,
     .blind-mode & .position {
       @extend %flex-between-nowrap;
+    }
+
+    @media (hover: none) {
+      .position {
+        @extend %flex-between-nowrap;
+      }
     }
   }
 }
