@@ -123,9 +123,10 @@
         text-transform: none;
       }
       .remove {
-        margin-#{$start-direction}: -1.75em;
-        width: 1.75em;
-        height: 1.75em;
+        $remove-button-diameter: 1.75em;
+        margin-#{$start-direction}: -$remove-button-diameter;
+        width: $remove-button-diameter;
+        height: $remove-button-diameter;
         top: -1.5em;
         #{$end-direction}: -0.65em;
         background-color: $c-bg-popup;
