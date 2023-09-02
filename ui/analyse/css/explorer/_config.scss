@@ -117,8 +117,7 @@
     }
     .previous {
       @extend %flex-wrap;
-      grid-template-columns: auto auto;
-      column-gap: 0.5em;
+      gap: 0.4em;
       .button {
         margin: 0.3em 0.2em;
         text-transform: none;
