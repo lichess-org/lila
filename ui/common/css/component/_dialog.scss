@@ -1,11 +1,11 @@
-dialog.base-dialog {
+dialog {
   @extend %box-radius, %popup-shadow;
 
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: z('fullscreen-mask');
+  z-index: z('modal');
   padding: 0;
   border: none;
   overflow: visible;
@@ -15,7 +15,8 @@ dialog.base-dialog {
     background: $c-page-mask;
   }
 
-  div.base-view {
+  > :last-child,
+  .scrollable {
     @extend %flex-column;
     padding: 2em;
     overflow: hidden;

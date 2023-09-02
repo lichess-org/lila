@@ -1,5 +1,7 @@
 %help {
   @extend %flex-column;
+  align-items: center;
+  text-align: center;
 
   > div {
     padding: 0 !important;
