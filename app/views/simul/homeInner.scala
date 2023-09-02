@@ -19,7 +19,7 @@ object homeInner:
         pendings.nonEmpty option frag(
           thead(
             tr(
-              th("Your pending simuls"),
+              th(yourPendingSimuls()),
               th(cls := "host")(trans.host()),
               th(cls := "players")(trans.players())
             )

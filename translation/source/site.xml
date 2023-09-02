@@ -659,6 +659,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host colour: %s</string>
+  <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
   <string name="noSimulFound">Simul not found</string>

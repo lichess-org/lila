@@ -211,6 +211,7 @@ object I18nKeys:
   val `accept` = I18nKey("accept")
   val `decline` = I18nKey("decline")
   val `playingRightNow` = I18nKey("playingRightNow")
+  val `yourPendingSimuls` = I18nKey("yourPendingSimuls")
   val `eventInProgress` = I18nKey("eventInProgress")
   val `finished` = I18nKey("finished")
   val `finishesX` = I18nKey("finishesX")
