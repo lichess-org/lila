@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Ĉi tiu permesas kaŝi ĉiujn rangojn el la retejo, por helpi koncentriĝas pri la ŝako. Ludoj povas daŭre esti range, ĉi tiu temas nur pri tio, kion vi vidas.</string>
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Nur en ludo</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
   <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
