@@ -5,7 +5,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
-import lila.common.{ config, IpAddress }
+import lila.common.{ config, IpAddress, HTTPRequest }
 import lila.relay.{ RelayTour as TourModel }
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
@@ -92,6 +92,14 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                 jsonOkResult
               )
         )
+  }
+
+  def admin(id: TourModel.Id) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
+    env.relay.api
+      .roundIdsById(id)
+      .flatMap(_.map(env.study.api.adminInvite).parallel)
+      .inject:
+        if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }
 
   def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>

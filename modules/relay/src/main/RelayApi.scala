@@ -58,6 +58,9 @@ final class RelayApi(
   def byTourOrdered(tour: RelayTour): Fu[List[RelayRound.WithTour]] =
     roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))
 
+  def roundIdsById(tourId: RelayTour.Id): Fu[List[StudyId]] =
+    roundRepo.idsByTourId(tourId)
+
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTour.Id): Funit =

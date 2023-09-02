@@ -309,7 +309,10 @@ export function view(ctrl: StudyCtrl): VNode {
             {
               key: ':admin',
               hook: bindNonPassive('submit', () => {
-                xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+                const adminUrl = ctrl.relay
+                  ? `/broadcast/${ctrl.relay.data.tour.id}/admin`
+                  : `/study/${ctrl.data.id}/admin`;
+                xhrTextRaw(adminUrl, { method: 'post' }).then(() => location.reload());
                 return false;
               }),
             },

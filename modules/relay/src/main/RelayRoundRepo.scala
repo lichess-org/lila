@@ -24,6 +24,13 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .list(RelayTour.maxRelays)
       .map(_.flatMap(_.getAsOpt[RelayRoundId]("_id")))
 
+  def idsByTourId(tourId: RelayTour.Id): Fu[List[StudyId]] =
+    coll
+      .find(selectors.tour(tourId))
+      .cursor[Bdoc]()
+      .list(RelayTour.maxRelays)
+      .map(_.flatMap(_.getAsOpt[StudyId]("_id")))
+
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
       .find(selectors tour tour.id)
