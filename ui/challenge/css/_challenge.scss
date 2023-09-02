@@ -30,16 +30,15 @@
     }
 
     .buttons {
-      display: none;
-    }
-
-    &:hover .buttons,
-    .blind-mode & .buttons {
       @extend %flex-between-nowrap;
     }
 
-    @media (hover: none) {
-      .buttons {
+    @media (hover: hover) {
+      &:not(:hover) .buttons {
+        display: none;
+      }
+
+      .blind-mode & .buttons {
         @extend %flex-between-nowrap;
       }
     }
@@ -136,16 +135,15 @@
     }
 
     .position {
-      display: none;
-    }
-
-    &:hover .position,
-    .blind-mode & .position {
       @extend %flex-between-nowrap;
     }
 
-    @media (hover: none) {
-      .position {
+    @media (hover: hover) {
+      &:not(:hover) .position {
+        display: none;
+      }
+
+      .blind-mode & .position {
         @extend %flex-between-nowrap;
       }
     }
