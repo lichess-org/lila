@@ -17,5 +17,6 @@ object embed:
         views.html.game.mini.noCtx(pov, tv = true)(targetBlank)
       ),
       cashTag,
+      chessgroundTag,
       jsModule("tvEmbed")
     )
