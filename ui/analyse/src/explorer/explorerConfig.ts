@@ -320,7 +320,6 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   const onSelect = (name: string | undefined) => {
-    console.log('onSelect: ' + name);
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
@@ -337,7 +336,6 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
   };
 
   const onRemove = (name: string | undefined) => {
-    console.log('onRemove: ' + name);
     ctrl.removePlayer(name);
     ctrl.root.redraw();
   };
@@ -375,27 +373,26 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             ...ctrl.participants,
             ...ctrl.data.playerName.previous(),
           ]),
-        ].map(
-          name =>
-            h('div', [
-              h(
-                `button.button${nameToOptionalColor(name)}`,
-                {
-                  hook: bind('click', () => onSelect(name)),
+        ].map(name =>
+          h('div', [
+            h(
+              `button.button${nameToOptionalColor(name)}`,
+              {
+                hook: bind('click', () => onSelect(name)),
+                key: name,
+              },
+              name,
+            ),
+            name !== undefined && ctrl.data.playerName.previous().includes(name)
+              ? h('button.remove', {
+                  attrs: {
+                    ...dataIcon(licon.X),
+                  },
+                  hook: bind('click', () => onRemove(name)),
                   key: name,
-                },
-                name,
-              ),
-              name !== undefined && ctrl.data.playerName.previous().includes(name)
-                ? h('button.remove', {
-                    attrs: {
-                      ...dataIcon(licon.X),
-                    },
-                    hook: bind('click', () => onRemove(name)),
-                    key: name,
-                  })
-                : null,
-            ]),
+                })
+              : null,
+          ]),
         ),
       ),
     ],
