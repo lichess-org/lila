@@ -39,8 +39,8 @@
     "typescript": "^5.1.6"
   },
   "scripts": {
-    "format": "prettier --write .",
-    "check-format": "prettier --check .",
+    "format": "prettier --write --log-level warn .",
+    "check-format": "prettier --check --log-level warn .",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint . --ext .ts",
