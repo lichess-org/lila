@@ -25,13 +25,13 @@ object index:
         bits.menu(none, "lichess".some),
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
-            h1(lichessOfficialBlog()),
+            h1(trans.lichessOfficialBlog()),
             a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
           ),
           primaryPost map { post =>
             frag(
               latestPost(post),
-              h2(previousBlogPosts())
+              h2(trans.previousBlogPosts())
             )
           },
           div(cls := "blog-cards box__pad list infinite-scroll")(
