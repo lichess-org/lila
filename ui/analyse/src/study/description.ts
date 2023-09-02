@@ -86,10 +86,10 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
   h('div.study-desc-form', [
     h('div.title', [
       descTitle(chapter),
-      h('button.button.button-empty.button-red', {
+      h('button.button.button-empty.button-green', {
         attrs: {
-          'data-icon': licon.X,
-          title: 'Close',
+          'data-icon': licon.Checkmark,
+          title: 'Save and close',
         },
         hook: bind(
           'click',
