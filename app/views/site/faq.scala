@@ -359,11 +359,11 @@ object faq:
           "make-a-bot",
           makeABot.txt(),
           p(
-            "toLearnHowToCreateABot(
+            toLearnHowToCreateABot(
             a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess Bot"),
             a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(thisBlogPost())
             )
-            )
+          )
         ),
         question(
           "autoplay",
