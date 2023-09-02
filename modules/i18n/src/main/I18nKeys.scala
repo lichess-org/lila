@@ -513,6 +513,7 @@ object I18nKeys:
   val `simultaneousExhibitions` = I18nKey("simultaneousExhibitions")
   val `host` = I18nKey("host")
   val `hostColorX` = I18nKey("hostColorX")
+  val `yourPendingSimuls` = I18nKey("yourPendingSimuls")
   val `createdSimuls` = I18nKey("createdSimuls")
   val `hostANewSimul` = I18nKey("hostANewSimul")
   val `noSimulFound` = I18nKey("noSimulFound")
