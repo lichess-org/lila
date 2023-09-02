@@ -357,63 +357,54 @@ object faq:
         ),
         question(
           "make-a-bot",
-          "Make a Lichess bot?",
+          makeABot.txt(),
           p(
-            "To learn how to create a ",
-            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
-            ", please read ",
-            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
-              "this blog post"
-            ),
-            "."
-          )
+            "toLearnHowToCreateABot(
+            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess Bot"),
+            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(thisBlogPost())
+            )
+            )
         ),
         question(
           "autoplay",
-          "Enable autoplay for sounds?",
-          p("""
-            Most browsers can prevent sound from playing on a freshly loaded page to protect users. 
-            Imagine if every website could immediately bombard you with audio ads.
-          """),
-          p("""
-            The red mute icon appears when your browser prevents lichess.org from playing a sound.
-            Usually this restriction is lifted once you click something, but a new game is a fresh page
-            which resets that temporary permission. And your browser does not know or care that
-            you were waiting to be paired in an unwatched tab.
-          """),
-          p("""
-            We show the red icon to alert you when this happens. Often you can explicitly allow
-            lichess.org to play sounds. Here are instructions for doing so on recent versions of
-            some popular browsers.
-          """),
-          h3("Mozilla Firefox (desktop):"),
-          ul(
-            li("Go to lichess.org"),
-            li("Press ctrl-i on linux/windows or cmd-i on macos"),
-            li("Click the Permissions tab"),
-            li("Allow Audio and Video on lichess.org")
+          enableAutoplayForSounds.txt(),
+          p(
+            enableAutoplayForSounds1()
           ),
-          h3("Google Chrome (desktop):"),
-          ul(
-            li("Go to lichess.org"),
-            li("Click the lock icon in the address bar"),
-            li("Click Site Settings"),
-            li("Allow Sound")
+          p(
+            enableAutoplayForSounds2()
           ),
-          h3("Safari (desktop):"),
-          ul(
-            li("Go to lichess.org"),
-            li("Click Safari in the menu bar"),
-            li("Click Settings for This Website"),
-            li("Allow Auto-Play")
+          p(
+            enableAutoplayForSounds3()
           ),
-          h3("Microsoft Edge (desktop):"),
+          h3(browsersMozillaFirefox()),
           ul(
-            li("Click the three dots in the top right corner"),
-            li("Click Settings"),
-            li("Click Cookies and Site Permissions"),
-            li("Scroll down and click Media autoplay"),
-            li("Add lichess.org to Allow")
+            li(goToLichess()),
+            li(browsersMozillaFirefox1()),
+            li(browsersMozillaFirefox2()),
+            li(browsersMozillaFirefox3())
+          ),
+          h3(browsersGoogleChrome()),
+          ul(
+            li(goToLichess()),
+            li(browsersGoogleChrome1()),
+            li(browsersGoogleChrome2()),
+            li(browsersGoogleChrome3())
+          ),
+          h3(browsersSafari()),
+          ul(
+            li(goToLichess()),
+            li(browsersSafari1()),
+            li(browsersSafari2()),
+            li(browsersSafari3())
+          ),
+          h3(browsersMicrosoftEdge()),
+          ul(
+            li(browsersMicrosoftEdge1)),
+            li(browsersMicrosoftEdge2()),
+            li(browsersMicrosoftEdge3()),
+            li(browsersMicrosoftEdge4()),
+            li(browsersMicrosoftEdge5())
           )
         )
       )
