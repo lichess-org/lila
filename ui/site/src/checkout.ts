@@ -90,7 +90,6 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
     $checkout.find('.service .paypal:not(.paypal--disabled)').toggleClass('none', !enabled);
   };
 
-  toggleCheckout();
   $userInput.on('change', toggleCheckout).on('input', toggleCheckout);
 
   const getAmountToCharge = () => {
@@ -123,6 +122,8 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
     if (queryParams.has(name))
       $(`input[name=${name}]`).val(queryParams.get(name)!.replace(/[^a-z0-9_-]/gi, ''));
   }
+
+  toggleCheckout();
 
   payPalOrderStart($checkout, pricing, getAmountToCharge);
   payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
