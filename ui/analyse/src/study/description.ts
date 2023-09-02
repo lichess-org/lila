@@ -26,7 +26,7 @@ export class DescriptionCtrl {
   }
 }
 
-export const descTitle = (chapter: boolean) => `${chapter ? 'Chapter' : 'Study'} pinned comment`;
+export const descTitle = (chapter: boolean) => `Pinned ${chapter ? 'chapter' : 'study'} comment`;
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = chapter ? study.chapterDesc : study.studyDesc,

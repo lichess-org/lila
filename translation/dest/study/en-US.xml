@@ -124,7 +124,7 @@
   <string name="enableSync">Enable sync</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Yes: keep everyone on the same position</string>
   <string name="noLetPeopleBrowseFreely">No: let people browse freely</string>
-  <string name="pinnedStudyComment">Study pinned comment</string>
+  <string name="pinnedStudyComment">Pinned study comment</string>
   <string name="start">Start</string>
   <string name="save">Save</string>
   <string name="clearChat">Clear chat</string>
