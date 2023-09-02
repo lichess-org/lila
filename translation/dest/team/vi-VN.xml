@@ -6,7 +6,7 @@
     <item quantity="other">%s thành viên</item>
   </plurals>
   <string name="allTeams">Tất cả đội</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Trưởng nhóm</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Trưởng đội</string>
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
   <string name="noTeamFound">không tìm thấy đội</string>
