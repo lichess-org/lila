@@ -8,8 +8,6 @@ import { charRole } from 'chess';
 type Name = string;
 type Path = string;
 
-export type SoundMove = (node?: { san?: string; uci?: string }) => void;
-
 export default new (class implements SoundI {
   ctx = makeAudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
@@ -61,16 +59,20 @@ export default new (class implements SoundI {
     if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
   }
 
-  move: SoundMove = throttle(100, async node => {
-    if (this.theme === 'music') {
-      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.music(node);
-      return;
-    }
+  throttled = throttle(100, (node?: { uci?: Uci; san?: string }) => {
     if (node?.san?.includes('x')) this.play('capture');
     else this.play('move');
     if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
   });
+
+  async move(node?: { uci?: Uci; san?: string }, music?: boolean) {
+    if (music !== false && this.theme === 'music') {
+      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
+      this.music(node, music);
+      return;
+    }
+    if (music !== true) this.throttled(node);
+  }
 
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
@@ -217,8 +219,10 @@ export default new (class implements SoundI {
 
   primer = () => {
     // some browsers fail audioContext.resume() on contexts created prior to user interaction
-    this.ctx = makeAudioContext()!;
-    for (const s of this.sounds.values()) s.rewire(this.ctx);
+    const ctx = makeAudioContext()!;
+    for (const s of this.sounds.values()) s.rewire(ctx);
+    this.ctx?.close();
+    this.ctx = ctx;
     $('body').off('mouseup touchend keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };
