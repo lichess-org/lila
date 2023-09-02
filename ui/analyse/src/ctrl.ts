@@ -474,7 +474,6 @@ export default class AnalyseCtrl {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
-      lichess.sound.move();
       const drop = {
         role: piece.role,
         pos,
