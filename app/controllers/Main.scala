@@ -114,9 +114,6 @@ final class Main(
     pageHit
     NotImplemented.page(html.site.message.temporarilyDisabled)
 
-  def analyseShiftKeyHelp = Open:
-    Ok.page(html.site.help.analyseShiftKey)
-
   def keyboardMoveHelp = Open:
     Ok.page(html.site.help.keyboardMove)
 

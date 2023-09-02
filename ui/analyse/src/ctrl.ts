@@ -610,7 +610,6 @@ export default class AnalyseCtrl {
 
   setAutoShapes = (): void => {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
-    if (this.node.children.length > 1) keyboard.maybeShowShiftKeyHelp();
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
