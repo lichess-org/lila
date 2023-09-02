@@ -23,16 +23,16 @@ object bots:
           case (featured, all) =>
             div(cls := "bots page-menu__content")(
               div(cls := "box bots__featured")(
-                h1(cls := "box__top")("Featured bots"),
+                h1(cls := "box__top")(trans.featuredBot()),
                 botTable(featured)
               ),
               div(cls := "box")(
                 boxTop(
-                  h1("Community bots"),
+                  h1(trans.communityBot()),
                   a(
                     cls  := "bots__about",
                     href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
-                  )("About Lichess Bots")
+                  )(trans.boutLichessBot())
                 ),
                 botTable(all)
               )
