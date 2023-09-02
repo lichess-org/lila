@@ -70,3 +70,7 @@ export const hopscotch = () => {
     noVersion: true,
   });
 };
+
+export const embedChessground = () => {
+  return import(assetUrl('javascripts/chessground.min.js', { noVersion: true }));
+};
