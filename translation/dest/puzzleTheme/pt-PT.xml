@@ -31,7 +31,7 @@
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Recupera de uma posição perdedora e garante um empate ou uma posição de equilíbrio. (avaliação ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque no lado do rei</string>
-  <string name="kingsideAttackDescription">Um ataque ao rei do adversário, depois de este ter feito roque menor (para o lado do rei).</string>
+  <string name="kingsideAttackDescription">Um ataque ao rei do adversário, após este ter feito roque menor (para o lado do rei).</string>
   <string name="clearance">Limpeza</string>
   <string name="clearanceDescription">Uma jogada, com tempo, que limpa uma casa, fila, coluna ou diagonal para uma ideia tática subsequente.</string>
   <string name="defensiveMove">Movimento defensivo</string>
