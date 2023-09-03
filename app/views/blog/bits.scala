@@ -14,7 +14,7 @@ object bits:
       ctx.noKid option a(
         cls  := active.has("community").option("active"),
         href := langHref(routes.Ublog.communityAll())
-      )(trans.ublog.communityBlog),
+      )(trans.ublog.communityBlog()),
       ctx.noKid option a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)(
         trans.ublog.blogTopic()
       ),
