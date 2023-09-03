@@ -712,14 +712,14 @@
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
   <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
-  <string name="onlineAndOfflinePlay">Chơi online và offline</string>
+  <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem lời giải</string>
   <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
-  <string name="gameAnalysis">Phân tích ván đấu</string>
-  <string name="xHostsY">%1$s tạo %2$s</string>
+  <string name="gameAnalysis">Phân tích ván cờ</string>
+  <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
   <string name="xLikesY">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
@@ -734,14 +734,14 @@
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="boardGeometry">Hình dạng của bàn cờ</string>
-  <string name="boardTheme">Màu bàn cờ</string>
+  <string name="boardTheme">Chủ đề bàn cờ</string>
   <string name="boardSize">Kích cỡ bàn cờ</string>
   <string name="pieceSet">Bộ cờ</string>
   <string name="embedInYourWebsite">Nhúng vào website của bạn</string>
   <string name="usernameAlreadyUsed">Tên người dùng này đã được sử dụng, hãy chọn tên khác.</string>
   <string name="usernamePrefixInvalid">Tên người dùng phải bắt đầu với một chữ cái.</string>
   <string name="usernameSuffixInvalid">Tên người dùng phải kết thúc với một chữ cái hoặc một số.</string>
-  <string name="usernameCharsInvalid">Tên người dùng chỉ được chứa chữ cái, số, dấu gạch dưới và dấu gạch nối. Dấu gạch dưới và dấu gạch nối không được liên tiếp nhau.</string>
+  <string name="usernameCharsInvalid">Tên người dùng chỉ được chứa chữ cái, số, dấu gạch nối và dấu gạch dưới. Dấu gạch dưới và dấu gạch nối không được liên tiếp nhau.</string>
   <string name="usernameUnacceptable">Tên người dùng này không được chấp nhận.</string>
   <string name="playChessInStyle">Chơi cờ phong cách</string>
   <string name="chessBasics">Cờ cơ bản</string>
@@ -750,12 +750,12 @@
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
-  <string name="notificationsX">Thông báo (%1$s)</string>
-  <string name="perfRatingX">Xếp hạng: %s</string>
+  <string name="notificationsX">Thông báo: %1$s</string>
+  <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
   </plurals>
-  <string name="practiceWithComputer">Luyện với máy tính</string>
+  <string name="practiceWithComputer">Luyện tập với máy tính</string>
   <string name="anotherWasX">Nước đi khác là %s</string>
   <string name="bestWasX">Nước đi tốt nhất là %s</string>
   <string name="youBrowsedAway">Bạn thử biến quá khác</string>
