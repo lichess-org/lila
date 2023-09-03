@@ -113,11 +113,17 @@ final private class StudySocket(
         case "kick" =>
           o.get[UserStr]("d")
             .foreach: username =>
-              applyWho(api.kick(studyId, username.id))
+              applyWho: w =>
+                api.kick(studyId, username.id, w.u)
+
+        case "kickBroadcast" =>
+          applyWho: w =>
+            reading[KickBroadcastData](o): data =>
+              Bus.publish(actorApi.KickBroadcast(data.userId, data.tourId, w.u), "kickBroadcast")
 
         case "leave" =>
           who.foreach: w =>
-            api.kick(studyId, w.u)(w)
+            api.kick(studyId, w.u, w.u)
 
         case "shapes" =>
           reading[AtPosition](o): position =>
@@ -237,9 +243,8 @@ final private class StudySocket(
             )
 
         case "relaySync" =>
-          who.foreach(w =>
+          applyWho: w =>
             Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
-          )
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 
@@ -453,6 +458,8 @@ object StudySocket:
       given Reads[AtPosition] =
         ((__ \ "path").read[UciPath] and (__ \ "ch").read[StudyChapterId])(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
+      case class KickBroadcastData(userId: UserId, tourId: String)
+      given Reads[KickBroadcastData]        = Json.reads
       given Reads[SetRole]                  = Json.reads
       given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)
       given Reads[ChapterMaker.Orientation] = stringRead(ChapterMaker.Orientation.apply)

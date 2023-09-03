@@ -24,6 +24,7 @@ export interface StudyMemberCtrl {
   max: number;
   setRole(id: string, role: string): void;
   kick(id: string): void;
+  kickBroadcast(id: string, tourId: string): void;
   leave(): void;
   ordered(): StudyMember[];
   size(): number;
@@ -145,6 +146,10 @@ export function ctrl(opts: Opts): StudyMemberCtrl {
       opts.send('kick', id);
       confing(null);
     },
+    kickBroadcast(id: string, tourId: string) {
+      opts.send('kickBroadcast', { userId: id, tourId: tourId });
+      confing(null);
+    },
     leave() {
       opts.send('leave');
     },
@@ -255,7 +260,14 @@ export function view(ctrl: StudyCtrl): VNode {
             'a.button.button-red.button-empty.text',
             {
               attrs: dataIcon(licon.X),
-              hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw),
+              hook: bind(
+                'click',
+                _ =>
+                  ctrl.relay
+                    ? members.kickBroadcast(member.user.id, ctrl.relay.data.tour.id)
+                    : members.kick(member.user.id),
+                ctrl.redraw,
+              ),
             },
             ctrl.trans.noarg('kick'),
           ),

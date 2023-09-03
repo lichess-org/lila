@@ -61,6 +61,9 @@ final class RelayApi(
   def roundIdsById(tourId: RelayTour.Id): Fu[List[StudyId]] =
     roundRepo.idsByTourId(tourId)
 
+  def kickBroadcast(userId: UserId, tourId: RelayTour.Id, who: UserId): Unit =
+    roundIdsById(tourId).foreach(_.foreach(studyId => studyApi.kick(studyId, userId, who)))
+
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTour.Id): Funit =

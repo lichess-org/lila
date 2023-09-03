@@ -362,13 +362,13 @@ final class StudyApi(
         )
         .void
 
-  def kick(studyId: StudyId, userId: UserId)(who: Who) =
+  def kick(studyId: StudyId, userId: UserId, who: UserId) =
     sequenceStudy(studyId): study =>
       studyRepo
-        .isAdminMember(study, who.u)
+        .isAdminMember(study, who)
         .flatMap: isAdmin =>
           val allowed = study.isMember(userId) && {
-            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who == userId))
           }
           allowed.so:
             studyRepo.removeMember(study, userId) andDo

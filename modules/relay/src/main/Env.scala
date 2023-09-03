@@ -75,6 +75,9 @@ final class Env(
         _ so api.requestPlay(id into RelayRoundId, v)
       }
     },
+    "kickBroadcast" -> { case lila.study.actorApi.KickBroadcast(userId, tourId, who) =>
+      api.kickBroadcast(userId, RelayTour.Id(tourId), who)
+    },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
       promise completeWith api.isOfficial(studyId)
     }
