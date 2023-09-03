@@ -25,7 +25,7 @@ object index:
         bits.menu(none, "lichess".some),
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
-            h1(trans.ubog.lichessOfficialBlog()),
+            h1(trans.ublog.lichessOfficialBlog()),
             a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
           ),
           primaryPost map { post =>
