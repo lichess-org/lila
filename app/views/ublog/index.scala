@@ -75,7 +75,7 @@ object index:
       title = trans.ublog.communityBlog.txt(),
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-        st.title := trans.ublog.ommunityBlog()
+        st.title := trans.ublog.communityBlog()
       ).some,
       withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
