@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+ <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
@@ -141,4 +141,30 @@ It's best to think of ratings as "relative" figures (as opposed to "absolute" fi
 Click the lock icon next to the lichess.org address in the URL bar of your browser.
 
 Then select whether to allow or block notifications from Lichess.</string>
+  <string name="makeABot">Make a Lichess bot?</string>
+  <string name="toLearnHowToCreateABot">To learn how to create a %1$s, please read %2$s.</string>
+  <string name="thisBlogPost">this blog post</string>
+  <string name="enableAutoplayForSounds">Enable autoplay for sounds?</string>
+  <string name="enableAutoplayForSounds1">Most browsers can prevent sound from playing on a freshly loaded page to protect users. Imagine if every website could immediately bombard you with audio ads.</string>
+  <string name="enableAutoplayForSounds2">The red mute icon appears when your browser prevents lichess.org from playing a sound. Usually this restriction is lifted once you click something, but a new game is a fresh page which resets that temporary permission. And your browser does not know or care that you were waiting to be paired in an unwatched tab.</string>
+  <string name="enableAutoplayForSounds3">We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
+  <string name="goToLichess">Go to lichess.org</string>
+  <string name="browsersMozillaFirefox">Mozilla Firefox (desktop):</string>
+  <string name="browsersMozillaFirefox1">Press Ctrl-i on linux/windows or cmd-i on macos</string>
+  <string name="browsersMozillaFirefox2">Click the Permissions tab</string>
+  <string name="browsersMozillaFirefox3">Allow Audio and Video on lichess.org</string>
+  <string name="browsersGoogleChrome">Google Chrome (desktop):</string>
+  <string name="browsersGoogleChrome1">Click the lock icon in the address bar</string>
+  <string name="browsersGoogleChrome2">Click Site Settings</string>
+  <string name="browsersGoogleChrome3">Allow Sound</string>
+  <string name="browsersSafari">Safari (desktop):</string>
+  <string name="browsersSafari1">Click Safari in the menu bar</string>
+  <string name="browsersSafari2">Click Settings for This Website</string>
+  <string name="browsersSafari3">Allow Auto-Play</string>
+  <string name="browsersMicrosoftEdge">Microsoft Edge (desktop):</string>
+  <string name="browsersMicrosoftEdge1">Click the three dots in the top right corner</string>
+  <string name="browsersMicrosoftEdge2">Click Settings</string>
+  <string name="browsersMicrosoftEdge3">Click Cookies and Site Permissions</string>
+  <string name="browsersMicrosoftEdge4">Scroll down and click Media autoplay</string>
+  <string name="browsersMicrosoftEdge5">Add lichess.org to Allow</string>
 </resources>
