@@ -45,7 +45,7 @@ object index:
     }
 
   def friends(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = trans.uBlog.friendBlog.txt(),
+    title = trans.ublog.friendBlog.txt(),
     posts = posts,
     menuItem = "friends",
     route = routes.Ublog.friends,
@@ -53,7 +53,7 @@ object index:
   )
 
   def liked(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = trans.uBlog.likedBlog.txt(),
+    title = trans.ublog.likedBlog.txt(),
     posts = posts,
     menuItem = "liked",
     route = routes.Ublog.liked,
@@ -88,7 +88,7 @@ object index:
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
-            h1(trans.uBlog.CommunityBlog),
+            h1(trans.ublog.communityBlog),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "ublog-lang",
