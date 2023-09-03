@@ -72,10 +72,10 @@ object index:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
-      title = trans.uBlog.CommunityBlog.txt(),
+      title = trans.ublog.communityBlog.txt(),
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-        st.title := trans.uBlog.lichessCommunityBlog()
+        st.title := trans.ublog.lichessCommunityBlog()
       ).some,
       withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
@@ -131,12 +131,12 @@ object index:
   def topics(tops: List[UblogTopic.WithPosts])(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      title = trans.uBlog.allBlogTopic.txt()
+      title = trans.ublog.allBlogTopic.txt()
     ) {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
         div(cls := "page-menu__content box")(
-          boxTop(h1(trans.uBlog.allBlogTopic())),
+          boxTop(h1(trans.ublog.allBlogTopic())),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
