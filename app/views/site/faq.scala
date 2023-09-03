@@ -400,7 +400,7 @@ object faq:
           ),
           h3(browsersMicrosoftEdge()),
           ul(
-            li(browsersMicrosoftEdge1)),
+            li(browsersMicrosoftEdge1()),
             li(browsersMicrosoftEdge2()),
             li(browsersMicrosoftEdge3()),
             li(browsersMicrosoftEdge4()),
