@@ -16,7 +16,7 @@ object bits:
         href := langHref(routes.Ublog.communityAll())
       )(trans.ublog.communityBlog),
       ctx.noKid option a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)(
-        trans.blogTopic()
+        trans.ublog.blogTopic()
       ),
       (ctx.isAuth && ctx.noKid) option a(
         cls  := active.has("friends").option("active"),
