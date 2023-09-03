@@ -5,9 +5,9 @@
   <string name="advantage">Vantagem</string>
   <string name="advantageDescription">Aproveita a oportunidade de obter uma vantagem decisiva. (200cp ≤ aval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate Anastasia</string>
-  <string name="anastasiaMateDescription">Um cavalo e uma torre ou dama cooperam de forma a prender o rei inimigo entre um lado do tabuleiro e outra peça inimiga.</string>
+  <string name="anastasiaMateDescription">Um cavalo e uma torre ou dama cooperam para prender o rei inimigo entre um lado do tabuleiro e outra peça inimiga.</string>
   <string name="arabianMate">Mate Árabe</string>
-  <string name="arabianMateDescription">Um cavalo e uma torre cooperam de forma a prenderem o rei inimigo no canto do tabuleiro.</string>
+  <string name="arabianMateDescription">Um cavalo e uma torre cooperam para prenderem o rei inimigo no canto do tabuleiro.</string>
   <string name="attackingF2F7">Atacar f2 ou f7</string>
   <string name="attackingF2F7Description">Um ataque ao peão de f2 ou f7, como a abertura \"Fried Liver\".</string>
   <string name="attraction">Atração</string>
