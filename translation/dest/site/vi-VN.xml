@@ -95,18 +95,18 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openings">Các khai cuộc</string>
   <string name="openingExplorer">Sách khai cuộc</string>
-  <string name="openingEndgameExplorer">Sách khai cuộc/cờ tàn</string>
+  <string name="openingEndgameExplorer">Sách khai cuộc/tàn cuộc</string>
   <string name="xOpeningExplorer">Khám phá khai cuộc %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">Chơi nước đầu tiên của người khám phá khai cuộc/tàn cuộc</string>
-  <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
+  <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn cản bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
   <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
   <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước</string>
-  <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng cơ sở bảng được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong bảng cơ sở Syzygy.</string>
+  <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng bàn cờ cơ sở được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong bàn cờ cơ sở Syzygy.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
-  <string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã được nhập?</string>
+  <string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã nhập?</string>
   <string name="replayMode">Chế độ xem lại</string>
   <string name="realtimeReplay">Thời gian thực</string>
   <string name="byCPL">Theo CPL</string>
@@ -118,10 +118,10 @@
   <string name="cpus">CPU</string>
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
-  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và làm máy tính của bạn ấm hơn</string>
-  <string name="engineManager">Quản lý máy</string>
+  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và làm máy tính của bạn mượt hơn</string>
+  <string name="engineManager">Quản lý động cơ</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
-  <string name="mistake">Lỗi</string>
+  <string name="mistake">Sai lầm</string>
   <string name="inaccuracy">Không chính xác</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s sai lầm nghiêm trọng</item>
@@ -132,18 +132,18 @@
   <plurals name="nbInaccuracies">
     <item quantity="other">%s nước đi không chính xác</item>
   </plurals>
-  <string name="moveTimes">Thời gian đi</string>
+  <string name="moveTimes">Thời gian nghĩ nước đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
-  <string name="threefoldRepetition">Lặp cờ</string>
-  <string name="claimADraw">Buộc hòa</string>
-  <string name="offerDraw">Xin hoà</string>
+  <string name="threefoldRepetition">Lặp cờ 3 lần</string>
+  <string name="claimADraw">Nhận hòa</string>
+  <string name="offerDraw">Đề nghị hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">
     <item quantity="other">%s người chơi</item>
   </plurals>
   <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
-  <string name="currentGames">Những trận đang chơi</string>
+  <string name="currentGames">Những ván cờ đang chơi</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -151,16 +151,16 @@
     <item quantity="other">Hệ số %1$s sau %2$s ván</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">%s Đánh dấu</item>
+    <item quantity="other">%s đánh dấu</item>
   </plurals>
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
   <string name="rememberMe">Duy trì trạng thái đăng nhập</string>
-  <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều này</string>
+  <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều đó</string>
   <string name="signUp">Đăng kí</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
-  <string name="games">Các ván đấu</string>
+  <string name="games">Các ván cờ</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s có viết trong diễn đàn %2$s</string>
   <string name="latestForumPosts">Bài đăng mới nhất</string>
@@ -169,12 +169,12 @@
   <string name="discussions">Trò chuyện</string>
   <string name="today">Hôm nay</string>
   <string name="yesterday">Hôm qua</string>
-  <string name="minutesPerSide">Thời gian cho mỗi bên</string>
+  <string name="minutesPerSide">Số phút cho mỗi bên</string>
   <string name="variant">Biến thể</string>
-  <string name="variants">Kiểu chơi</string>
-  <string name="timeControl">Bảng điều khiển thời gian</string>
+  <string name="variants">Biến chơi</string>
+  <string name="timeControl">Kiểu thời gian</string>
   <string name="realTime">Thời gian thực</string>
-  <string name="correspondence">Đánh cờ qua thư</string>
+  <string name="correspondence">Cờ hàng ngày</string>
   <string name="daysPerTurn">Ngày đến lượt đi</string>
   <string name="oneDay">Một ngày</string>
   <plurals name="nbDays">
@@ -187,9 +187,9 @@
     <item quantity="other">%s phút</item>
   </plurals>
   <string name="time">Thời gian</string>
-  <string name="rating">Xếp hạng</string>
+  <string name="rating">Hệ số</string>
   <string name="ratingStats">Thống kê Elo</string>
-  <string name="username">Tên truy cập</string>
+  <string name="username">Tên đăng nhập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="changeUsername">Thay đổi tên đăng nhập</string>
   <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/viết thường của tên. Ví dụ \"johndoe\" thành \"JohnDoe\".</string>
