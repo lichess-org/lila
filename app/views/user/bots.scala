@@ -32,7 +32,7 @@ object bots:
                   a(
                     cls  := "bots__about",
                     href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
-                  )(trans.boutLichessBot())
+                  )(trans.aboutLichessBot())
                 ),
                 botTable(all)
               )
