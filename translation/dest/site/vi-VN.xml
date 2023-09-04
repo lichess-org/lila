@@ -480,7 +480,7 @@
   <string name="savingMovesHelp">Chúng tôi luôn lưu trữ các biến thể của bạn trong bộ nhớ đệm của trình duyệt.</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
   <string name="clearSavedMoves">Xóa nước cờ</string>
-  <string name="previouslyOnLichessTV">Ván trước</string>
+  <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
   <string name="onlinePlayers">Các kỳ thủ đang trực tuyến</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ tính Elo nhưng không tính thời gian!</string>
@@ -869,7 +869,7 @@
   <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
 Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
-  <string name="streamerManager">Người quản lý Streamer</string>
+  <string name="streamerManager">Quản lý trang Streamer của bạn</string>
   <string name="cancelTournament">Hủy giải đấu</string>
   <string name="tournDescription">Mô tả giải đấu</string>
   <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [name](https://url)</string>
