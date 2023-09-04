@@ -61,8 +61,16 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   def findCreated(id: SimulId): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
-  def findPending(hostId: UserId): Fu[List[Simul]] =
-    coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
+  def findPending(userId: UserId): Fu[List[Simul]] =
+    coll.list[Simul](
+      createdSelect ++
+        $or(
+          $doc("hostId" -> userId),
+          $doc(
+            "applicants" -> $doc("$elemMatch" -> $doc("player.user" -> userId))
+          )
+        )
+    )
 
   def byTeamLeaders(teamId: TeamId, hostIds: Seq[UserId]): Fu[List[Simul]] =
     coll
