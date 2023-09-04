@@ -1,7 +1,7 @@
 dialog {
   @extend %box-radius, %popup-shadow;
-
   position: fixed;
+  max-height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -15,9 +15,9 @@ dialog {
     background: $c-page-mask;
   }
 
-  > :last-child,
-  .scrollable {
+  > :last-child {
     @extend %flex-column;
+    max-height: 96vh;
     padding: 2em;
     overflow: hidden;
     overflow-y: auto;
@@ -26,22 +26,23 @@ dialog {
   div.close-button-anchor {
     position: relative;
     width: 100%;
+    height: 0;
   }
 
   button.close-button {
     @extend %flex-around;
 
-    top: 0;
-    #{$end-direction}: 0;
     position: absolute;
-    outline: none;
-    border: none;
-    background: none;
-
-    color: $c-font;
-    font-size: 16px;
+    top: 2px;
+    #{$end-direction}: 2px;
     width: 32px;
     height: 32px;
+    z-index: z('modal') + 1;
+    background: $c-bg-popup;
+    border: none;
+    color: $c-font;
+    font-size: 16px;
+
     cursor: pointer;
 
     &:hover {
@@ -49,12 +50,19 @@ dialog {
       background: $c-bad;
       color: #fff;
     }
-
-    @include breakpoint($mq-small) {
-      top: -12px;
-      #{$end-direction}: -12px;
-      background: $c-bg-popup;
-      border-radius: 50%;
+    &:not(:focus) {
+      outline: none;
     }
+  }
+}
+
+@media (min-width: 720px) and (min-height: 720px) {
+  dialog {
+    margin-top: 12px;
+  }
+  dialog button.close-button {
+    top: -12px;
+    #{$end-direction}: -12px;
+    border-radius: 50%;
   }
 }

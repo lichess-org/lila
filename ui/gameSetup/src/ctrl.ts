@@ -198,13 +198,11 @@ export class SetupCtrl {
     this.friendUser = friendUser || '';
     this.init(opts);
     this.root.redraw();
-    //setTimeout(() => $as<HTMLDialogElement>($('dialog.dialog')).showModal(), 5000);
   };
 
   renderModal = () => renderSetup(this);
 
   closeModal = () => {
-    //if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     this.gameType = null;
     this.root.redraw();
   };

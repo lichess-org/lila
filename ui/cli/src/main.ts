@@ -1,4 +1,4 @@
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import { load as loadDasher } from 'dasher';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
@@ -54,10 +54,12 @@ function commandHelp(aliases: string, args: string, desc: string) {
 }
 
 function help() {
-  lichess.loadCssPath('clinput.help');
-  modal({
-    content: $(
-      '<div><h3>Commands</h3>' +
+  domDialog({
+    cssPath: 'clinput.help',
+    class: 'clinput-help',
+    html: {
+      text:
+        '<div><h3>Commands</h3>' +
         commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
         commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
         commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
@@ -68,7 +70,6 @@ function help() {
         commandHelp('c', '', 'Focus the chat input') +
         commandHelp('esc', '', 'Close modals like this one') +
         '</div>',
-    ),
-    class: 'clinput-help',
+    },
   });
 }

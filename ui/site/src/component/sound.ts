@@ -54,6 +54,7 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
+    //console.trace('play', name);
     if (!this.enabled()) return;
     const sound = await this.load(name);
     if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
@@ -66,6 +67,7 @@ export default new (class implements SoundI {
   });
 
   async move(node?: { uci?: Uci; san?: string }, music?: boolean) {
+    console.trace('move', node?.san, node?.uci);
     if (music !== false && this.theme === 'music') {
       this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
       this.music(node, music);
@@ -144,7 +146,7 @@ export default new (class implements SoundI {
     if (isIOS()) this.ctx?.resume();
     this.theme = s;
     this.publish();
-    this.move();
+    //this.move();
   };
 
   set = () => this.theme;

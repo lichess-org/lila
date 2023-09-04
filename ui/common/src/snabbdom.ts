@@ -1,4 +1,4 @@
-import { h, VNode, Hooks, Attrs } from 'snabbdom';
+import { h as snabH, VNode, VNodeData, VNodeChildElement, Hooks, Attrs } from 'snabbdom';
 
 export type Redraw = () => void;
 export type MaybeVNode = VNode | string | null | undefined;
@@ -37,3 +37,31 @@ export const dataIcon = (icon: string): Attrs => ({
 });
 
 export const iconTag = (icon: string) => h('i', { attrs: dataIcon(icon) });
+
+type LooseVNode = VNodeChildElement | boolean;
+type VNodeKids = LooseVNode | LooseVNode[];
+
+function filterKids(children: VNodeKids): VNodeChildElement[] {
+  return (
+    typeof children === 'boolean'
+      ? []
+      : Array.isArray(children)
+      ? children.filter(x => typeof x !== 'boolean')
+      : [children]
+  ) as VNodeChildElement[];
+}
+
+/* obviate need for many ternary expressions in renders (blown up by prettier).  Allows
+     h('div', [ kids && h('div', 'kid') ])
+     h('div', [ noKids || h('div', 'kid') ])
+   instead of
+     h('div', [ isKid ? h('div', 'kid') : null ])
+   import this h rather than that h
+*/
+export function h(sel: string, dataOrKids?: VNodeData | null | VNodeKids, kids?: VNodeKids): VNode {
+  if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
+  if (!dataOrKids) return snabH(sel);
+  if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids))
+    return snabH(sel, filterKids(dataOrKids as VNodeKids));
+  else return snabH(sel, dataOrKids as VNodeData);
+}

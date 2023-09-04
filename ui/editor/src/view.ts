@@ -5,7 +5,7 @@ import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { Selected, CastlingToggle, EditorState } from './interfaces';
@@ -275,9 +275,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 on: {
                   click: () => {
                     if (state.playable)
-                      modal({
-                        content: $('.continue-with'),
-                      });
+                      domDialog({
+                        cash: $('.continue-with'),
+                      }).then(d => d.showModal());
                   },
                 },
               },

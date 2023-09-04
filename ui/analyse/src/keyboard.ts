@@ -124,9 +124,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
 
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
-    class: 'keyboard-help',
-    htmlUrl: '/analysis/help',
-    cssPath: 'analyse.keyboard',
+    class: 'help.keyboard-help',
+    html: { url: '/analysis/help' },
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
@@ -137,8 +136,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
 export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
   if (ctrl.showVariationArrows() && lichess.once('help.analyse.variation-arrows-rtfm'))
     domDialog({
-      class: 'variation-help',
-      htmlUrl: '/help/analyse/variation-arrow',
-      cssPath: 'analyse.keyboard',
+      class: 'help.variation-help',
+      html: { url: '/help/analyse/variation-arrow' },
     }).then(d => d.showModal());
 }

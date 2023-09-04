@@ -1,12 +1,10 @@
-div.keyboard-help {
-  @extend %help;
-  padding: 0;
-
+dialog > .keyboard-help {
   td.mouse li {
-    list-style: disc inside;
     margin-#{$start-direction}: 1em;
+    list-style: disc inside;
   }
 }
-div.variation-help {
-  @extend %help;
+
+dialog > div.variation-help {
+  padding: 2em;
 }
