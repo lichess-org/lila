@@ -24,9 +24,17 @@
   <string name="crushing">განადგურება</string>
   <string name="crushingDescription">გამოიყენე მოწინააღმდეგის უხეში შეცდომა და მიირე გამანადგურებელი უპირატესონა</string>
   <string name="doubleBishopMate">შამათი ორი კუთი</string>
+  <string name="doubleBishopMateDescription">შამათი დიაგონალებზე ორი შემტევი კუთი, როდესაც მოწინააღმდეგის მეფეს ხელს უშლიან საკუთარი ფიგურები.</string>
   <string name="dovetailMate">შამათი,, მერცხლის კუდი\"\'</string>
   <string name="dovetailMateDescription">შამათს აცხადებს ლაზიერი რომელიც გვერდიდან უცხადებს მეფეს ქიშს რომლის ორივე წასასვლელ უჯრაზე მისივე ფიგურები დგანან.</string>
+  <string name="equality">გათანაბრება</string>
+  <string name="equalityDescription">უარესი მდგომარეობიდან გამოძრომა და გაყაიმება ან პოზიციის გათანაბრება</string>
   <string name="kingsideAttack">შეტევა მეფის ფრთაზე</string>
+  <string name="kingsideAttackDescription">მეფეზე შეტევა მოკლე როქის დროს.</string>
+  <string name="clearance">უჯრის, ხაზის ან დიაგონალის განთავისუფლება</string>
+  <string name="clearanceDescription">სვლა,ხშირად ტემპით ( ანუ მუქარით),რომელიც ანთავისუფლებს უჯრას, ხაზს ან დიაგონალს რომელიმე ტაქტიკური იდეისთვის.</string>
+  <string name="defensiveMove">დამცველი სვლა</string>
+  <string name="defensiveMoveDescription">ზუსტი სვლა ან სვლების თანმიმდევრობა რომელიც აგვაცილებს მატერიალურ  ან რაიმე სხვა დანაკარგს.</string>
   <string name="doubleCheck">ორმაგი ქიში</string>
   <string name="endgame">ენდშპილი, დაბოლოება</string>
   <string name="endgameDescription">ტაქტიკა პარტიის ბოლო ფაზაში .</string>
