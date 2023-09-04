@@ -60,8 +60,6 @@ Batu jokalariak garaitu dituen jokalarien puntuak, eta berdindu duen jokalarien 
   <string name="numberOfByesA">Jokalari batek bye edo atseden bat parekatze sistemak aurkari bat aurkitzen ez dion bakoitzean izango du.
 Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara berandu sartzen bada.</string>
   <string name="earlyDrawsQ">Zer gertatzen da berdinketa azkarrekin?</string>
-  <string name="earlyDrawsA">Jokalariak puntu bateko byea lortuko du parekatze-sistemak berarentzat aurkari bat aurkitu ezin duenean.
-Gainera, jokalari bat txapelketara berandu sartzen bada, puntu erdiko bye bakarra emango zaio.</string>
   <string name="whatIfOneDoesntPlayQ">Zer gertatzen da jokalari batek ez badu partida bat jokatzen?</string>
   <string name="whatIfOneDoesntPlayA">Bere erlojua martxan hasiko da eta denbora agortzean partida galduko du.
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
