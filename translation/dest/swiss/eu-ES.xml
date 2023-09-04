@@ -60,6 +60,7 @@ Batu jokalariak garaitu dituen jokalarien puntuak, eta berdindu duen jokalarien 
   <string name="numberOfByesA">Jokalari batek bye edo atseden bat parekatze sistemak aurkari bat aurkitzen ez dion bakoitzean izango du.
 Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara berandu sartzen bada.</string>
   <string name="earlyDrawsQ">Zer gertatzen da berdinketa azkarrekin?</string>
+  <string name="earlyDrawsAnswer">Txapelketa suitzarreko partidetan, jokalariek ezin dute 30 jokaldi aurretik berdinketarik egin. Neurri honek aurrez adostutako berdinketak ekiditen ez dituen arren, berdinketa horiek egitea zailtzen du.</string>
   <string name="whatIfOneDoesntPlayQ">Zer gertatzen da jokalari batek ez badu partida bat jokatzen?</string>
   <string name="whatIfOneDoesntPlayA">Bere erlojua martxan hasiko da eta denbora agortzean partida galduko du.
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
