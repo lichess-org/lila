@@ -61,8 +61,6 @@ Wij denken dat deze voorwaarden binnen een team waarschijnlijk eerder zullen wor
   <string name="numberOfByesA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
 Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat deelnemen als het toernooi al begonnen is.</string>
   <string name="earlyDrawsQ">Wat gebeurt er bij vroegtijdige remises?</string>
-  <string name="earlyDrawsA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
-Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat deelnemen als het toernooi al begonnen is.</string>
   <string name="whatIfOneDoesntPlayQ">Wat gebeurt er als een speler geen partij speelt?</string>
   <string name="whatIfOneDoesntPlayA">Hun klok loopt, ze gaan door de vlag en verliezen de partij.
 Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partijen verliest.
