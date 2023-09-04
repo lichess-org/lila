@@ -387,6 +387,12 @@
     <item quantity="many">%s studií</item>
     <item quantity="other">%s studií</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultánka</item>
+    <item quantity="few">%s simultánky</item>
+    <item quantity="many">%s simultánek</item>
+    <item quantity="other">%s simultánek</item>
+  </plurals>
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
   <string name="noDrawBeforeSwissLimit">Nemůžete remízovat dříve, než se odehraje 30 tahů švýcarského turnaje.</string>
