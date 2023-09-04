@@ -144,7 +144,6 @@ export default new (class implements SoundI {
     if (isIOS()) this.ctx?.resume();
     this.theme = s;
     this.publish();
-    this.move();
   };
 
   set = () => this.theme;
@@ -219,10 +218,12 @@ export default new (class implements SoundI {
 
   primer = () => {
     // some browsers fail audioContext.resume() on contexts created prior to user interaction
-    const ctx = makeAudioContext()!;
-    for (const s of this.sounds.values()) s.rewire(ctx);
-    this.ctx?.close();
-    this.ctx = ctx;
+    if (this.ctx?.state !== 'running') {
+      const ctx = makeAudioContext()!;
+      for (const s of this.sounds.values()) s.rewire(ctx);
+      this.ctx?.close();
+      this.ctx = ctx;
+    }
     $('body').off('mouseup touchend keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };

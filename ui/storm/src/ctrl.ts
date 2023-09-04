@@ -144,7 +144,7 @@ export default class StormCtrl implements PuzCtrl {
         if (this.run.clock.flag()) this.end();
         else if (!this.incPuzzle()) this.end();
       }
-      lichess.sound.move({ san: makeSan(pos, move), uci });
+      lichess.sound.move({ san: captureSound ? 'x' : makeSan(pos, move), uci }, true);
       this.redraw();
       this.redrawQuick();
       this.redrawSlow();
