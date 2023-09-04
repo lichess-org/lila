@@ -55,8 +55,6 @@ Chúng tôi nghĩ những điều kiện trên sẽ dễ được đáp ứng tr
   <string name="numberOfByesA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
 Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
   <string name="earlyDrawsQ">Điều gì xảy ra nếu hòa sớm?</string>
-  <string name="earlyDrawsA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
-Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
   <string name="whatIfOneDoesntPlayQ">Chuyện gì sẽ xảy ra nếu một người chơi không chơi ván đấu của họ?</string>
   <string name="whatIfOneDoesntPlayA">Đồng hồ của họ vẫn sẽ đếm ngược, họ sẽ bị xử thua theo thời gian.
 Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
