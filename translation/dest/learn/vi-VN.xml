@@ -56,7 +56,7 @@ nhưng ăn quân theo hướng chéo!</string>
   <string name="captureThenPromote">Ăn quân, sau đó phong cấp!</string>
   <string name="useAllThePawns">Hãy sử dụng hết quân Tốt!
 Không cần phong cấp đâu.</string>
-  <string name="aPawnOnTheSecondRank">Một quân Tốt mà nằm ở hàng thứ hai có thể đi 2 ô trong một nước đi đấy!</string>
+  <string name="aPawnOnTheSecondRank">Một quân tốt trắng mà nằm ở hàng thứ 2 hoặc quân tốt đen ở hàng 7 có thể đi 2 ô trong một nước đi đấy!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Hãy lấy tất cả các ngôi sao!
 Nhưng không cần phải phong cấp đâu.</string>
   <string name="pawnComplete">Xin chúc mừng! Bạn đã nắm mọi bí mật của quân Tốt.</string>
