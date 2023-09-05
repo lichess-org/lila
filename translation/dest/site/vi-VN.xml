@@ -869,7 +869,7 @@
   <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
 Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
-  <string name="streamerManager">Quản lý trang Streamer của bạn</string>
+  <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
   <string name="tournDescription">Mô tả giải đấu</string>
   <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [name](https://url)</string>
