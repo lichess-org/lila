@@ -18,5 +18,5 @@
   <string name="bothTheLetterOAndTheDigitZero">Bạn có thể sử dụng \"o\", \"O\" hoặc chữ số \"0\" khi nhập thành</string>
   <string name="ifItIsLegalToCastleBothWays">Khi được chọn phía nhập thành, nhấn Enter để nhập thành cánh vua</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Chỉ cần cân nhắc in hoa trong trường hợp của tượng và tốt cột b</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">Bạn chỉ cần nhập nước khi chưa đến lượt mình để đi trước</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Để chơi nước đi dự đoán, bạn chỉ cần nhập nước đi khi đang đến lượt đối thủ để đi trước</string>
 </resources>
