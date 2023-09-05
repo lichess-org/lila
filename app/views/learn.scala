@@ -83,7 +83,7 @@ object index:
     pawnsMoveForward,
     captureThenPromote,
     useAllThePawns,
-    aPawnOnTheSecondRank,
+    aPawnOnTheSecondAndSevenRank,
     grabAllTheStarsNoNeedToPromote,
     pawnComplete,
     pawnPromotion,
