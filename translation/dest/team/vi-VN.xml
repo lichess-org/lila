@@ -9,7 +9,7 @@
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Trưởng đội</string>
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
-  <string name="noTeamFound">không tìm thấy đội</string>
+  <string name="noTeamFound">Không tìm thấy đội</string>
   <string name="joinTeam">Tham gia đội</string>
   <string name="onlyLeaderLeavesTeam">Vui lòng thêm một đội trưởng mới trước khi rời đi, hoặc giải tán đội.</string>
   <string name="quitTeam">Rời đội</string>
