@@ -56,7 +56,8 @@ but capture diagonally!</string>
   <string name="captureThenPromote">Capture, then promote!</string>
   <string name="useAllThePawns">Use all the pawns!
 No need to promote.</string>
-  <string name="aPawnOnTheSecondRank">A pawn on the second rank can move 2 squares at once!</string>
+  <string name="aPawnOnTheSecondAndSevenRank">A white pawn on the second rank and 
+black pawn on the seven rank can move 2 squares at once!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Grab all the stars!
 No need to promote.</string>
   <string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
