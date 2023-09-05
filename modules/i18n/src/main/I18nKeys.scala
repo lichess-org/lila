@@ -946,7 +946,7 @@ object I18nKeys:
     val `pawnsMoveForward` = I18nKey("learn:pawnsMoveForward")
     val `captureThenPromote` = I18nKey("learn:captureThenPromote")
     val `useAllThePawns` = I18nKey("learn:useAllThePawns")
-    val `aPawnOnTheSecondRank` = I18nKey("learn:aPawnOnTheSecondRank")
+    val `aPawnOnTheSecondAndSevenRank` = I18nKey("learn:aPawnOnTheSecondAndSevenRank")
     val `grabAllTheStarsNoNeedToPromote` = I18nKey("learn:grabAllTheStarsNoNeedToPromote")
     val `pawnComplete` = I18nKey("learn:pawnComplete")
     val `pawnPromotion` = I18nKey("learn:pawnPromotion")
