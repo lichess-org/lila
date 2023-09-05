@@ -63,6 +63,10 @@
   <string name="nextPuzzle">შემდეგი ამოცანა</string>
   <string name="jumpToNextPuzzleImmediately">შემდეგ ამოცანაზე დაუყონებრივ გადასვლა</string>
   <string name="puzzleDashboard">ამოცანების საინფორმაციო დაფა</string>
+  <string name="improvementAreas">წვრთნისა და გაუმჯობესების ადგილი</string>
+  <string name="strengths">გაძლიერება</string>
+  <string name="history">ამოცანების ისტორია</string>
+  <string name="solved">ამოხსნილია</string>
   <string name="failed">არასწორია</string>
   <string name="streakDescription">ამოხსენი თანდათანობით უფრო და უფრო ძნელი ამოცანები და შექმენი შენი მომგებიანი ჯაჭვი. საათი არ გაქვს ჩართული, ასე რომ გამოიყენე შენი დრო. ერთი შეცდომა და პარტიაც დამთავრებულია! მაგრამ შეგიძლია გამოტოვო მხოლოდ ერთი სვლა ერთი ცდის განმავლობაში.</string>
   <string name="yourStreakX">თქვენი ჯაჭვი %</string>
