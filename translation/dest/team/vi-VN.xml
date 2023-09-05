@@ -33,7 +33,7 @@
   <string name="teamTournament">Giải đấu trong đội</string>
   <string name="teamTournamentOverview">Một giải đấu Đấu trường mà chỉ thành viên của đội bạn có thể tham gia</string>
   <string name="swissTournamentOverview">Một giải đấu hệ Thụy Sĩ mà chỉ thành viên của đội bạn có thể tham gia</string>
-  <string name="messageAllMembers">Nhắn tin tất cả thành viên</string>
+  <string name="messageAllMembers">Nhắn tin tới tất cả thành viên</string>
   <string name="messageAllMembersOverview">Gửi một tin nhắn riêng cho mỗi thành viên của đội</string>
   <string name="messageAllMembersLongDescription">Gửi tin nhắn riêng tới TẤT CẢ các thành viên của đội.
 Bạn có thể dùng chức năng này để gọi các người chơi đến tham gia một giải đấu hoặc thi đấu theo đội.
@@ -45,7 +45,7 @@ Những người chơi không muốn nhận tin nhắn của bạn có thể s�
   <string name="closeTeam">Giải tán đội</string>
   <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
   <string name="entryCode">Mã vào đội</string>
-  <string name="entryCodeDescriptionForLeader">(Tuỳ chọn) Mật khẩu mà các thành viên mới phải nhớ để tham gia đội.</string>
+  <string name="entryCodeDescriptionForLeader">(Tuỳ chọn) Mật khẩu mà các thành viên mới phải biết để tham gia đội.</string>
   <string name="incorrectEntryCode">Mã không chính xác.</string>
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
   <string name="upcomingTourns">Các giải đấu sắp tới</string>
