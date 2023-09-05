@@ -25,8 +25,8 @@
   <string name="followRead">Đọc người chơi đã theo dõi</string>
   <string name="followWrite">Theo dõi và bỏ theo dõi những người chới khác</string>
   <string name="msgWrite">Gửi tin nhắn riêng đến những người chơi khác</string>
-  <string name="boardPlay">Chơi với bàn api</string>
-  <string name="botPlay">Chơi với bot api</string>
+  <string name="boardPlay">Chơi với bàn API</string>
+  <string name="botPlay">Chơi với bot API</string>
   <string name="engineRead">Xem và sử dụng động cơ máy tính bên ngoài</string>
   <string name="engineWrite">Tạo và cập nhật các động cơ máy tính</string>
   <string name="webLogin">Tạo các phiên trang web đã được xác thực (cấp toàn quyền truy cập!)</string>
