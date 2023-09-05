@@ -25,7 +25,7 @@
   <string name="followRead">Lees gevolgde spelers</string>
   <string name="followWrite">Volg en ontvolg ander spelers</string>
   <string name="msgWrite">Stuur privaat boodskappe aan ander spelers</string>
-  <string name="boardPlay">Speel speletjies met bord api</string>
+  <string name="boardPlay">Speel speletjies met bord API</string>
   <string name="botPlay">Speel spelle met die robot api</string>
   <string name="engineRead">Wys en gebruik you eksterne enjins</string>
   <string name="engineWrite">Skep en opdateer eksterne enjins</string>
