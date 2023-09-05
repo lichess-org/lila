@@ -70,8 +70,8 @@
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="move">Các nước đi</string>
-  <string name="variantLoss">Nước đi sai lầm dẫn đến chiếu hết</string>
-  <string name="variantWin">Nước đi chiếu hết</string>
+  <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
+  <string name="variantWin">Nước chiếu hết theo luật</string>
   <string name="insufficientMaterial">Thiếu quân để chiếu hết</string>
   <string name="pawnMove">Tiến tốt</string>
   <string name="capture">Ăn</string>
