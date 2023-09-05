@@ -1,15 +1,12 @@
 import { VNode, Attrs } from 'snabbdom';
 import { onInsert, h, MaybeVNodes } from './snabbdom';
 import { spinnerVdom } from './spinner';
-import { isTouchDevice } from './mobile';
 import * as xhr from './xhr';
 import * as licon from './licon';
 
 export interface Dialog {
   readonly open: boolean;
-  readonly returnValue: string | undefined;
   readonly view: HTMLElement;
-
   showModal(): void;
   show(): void;
   close(): void;
@@ -27,12 +24,13 @@ interface DialogOpts {
 }
 
 export interface SnabDialogOpts extends DialogOpts {
-  content?: MaybeVNodes;
+  vnodes?: MaybeVNodes;
   onInsert?: (dialog: Dialog) => void; // prevents showModal, caller must do so manually
 }
 
 export interface DomDialogOpts extends DialogOpts {
   parent?: HTMLElement | Cash; // TODO - for positioning, need to fix css to be useful
+  show?: 'modal' | boolean; // auto-show and remove from dom when closed, no reshow
 }
 
 export function snabDialog(o: SnabDialogOpts): VNode {
@@ -56,20 +54,23 @@ export function snabDialog(o: SnabDialogOpts): VNode {
           }),
         ),
       h(
-        'div.modal-wrap' + (o.class ? `.${o.class}` : ''),
-        {
-          attrs: o.attrs?.view,
-          hook: onInsert(async view => {
-            const [html] = await ass;
-            if (html) view.innerHTML = html;
+        'div.scrollable',
+        h(
+          'div.dialog-content' + (o.class ? `.${o.class}` : ''),
+          {
+            attrs: o.attrs?.view,
+            hook: onInsert(async view => {
+              const [html] = await ass;
+              if (html && !o.vnodes) view.innerHTML = html;
 
-            const dlg = makeDialog(dialog, view, o);
+              const wrapper = new DialogWrapper(dialog, view, o);
 
-            if (o.onInsert) o.onInsert(dlg);
-            else dlg.showModal();
-          }),
-        },
-        o.content ?? spinnerVdom(),
+              if (o.onInsert) o.onInsert(wrapper);
+              else wrapper.showModal();
+            }),
+          },
+          o.vnodes ?? spinnerVdom(),
+        ),
       ),
     ],
   );
@@ -81,71 +82,76 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
 
-  const view = document.createElement('div');
-  view.classList.add('modal-wrap', ...(o.class ?? '').split('.'));
+  const scrollable = $as<Element>('<div class="scrollable"/>');
+  const view = $as<HTMLElement>('<div class="dialog-content"/>');
+  view.classList.add(...(o.class ?? '').split('.'));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
-
   if (html) view.innerHTML = html;
+  scrollable.appendChild(view);
 
   if (!o.noCloseButton) {
-    const anchor = $as<Element>('<div class="close-button-anchor">');
-    const btn = anchor.appendChild(
-      $as<Node>(`<button class="close-button" type="cancel" aria-label="Close" data-icon="${licon.X}"/>`),
+    const anchor = $as<Element>(
+      `<div class="close-button-anchor">` +
+        `<button class="close-button" type="cancel" aria-label="Close" data-icon="${licon.X}"/></div>`,
     );
-    console.log(anchor);
+    anchor.querySelector('button')?.addEventListener('click', () => dialog.close());
     dialog.appendChild(anchor);
-    btn.addEventListener('click', () => dialog.close());
+  }
+  dialog.appendChild(scrollable);
+  if (!o.parent) document.body.appendChild(dialog);
+  else {
+    $(o.parent).append(dialog);
+    dialog.style.position = 'absolute';
   }
 
-  dialog.appendChild(view);
-  if (o.parent) $(o.parent).append(dialog);
-  else document.body.appendChild(dialog);
+  const wrapper = new DialogWrapper(dialog, view, o);
+  if (o.show && o.show === 'modal') wrapper.showModal();
+  else if (o.show) wrapper.show();
 
-  return makeDialog(dialog, view, o);
+  return wrapper;
 }
 
-function makeDialog(dialog: HTMLDialogElement, view: HTMLElement, o: DialogOpts): Dialog {
-  let modalListeners: { [event: string]: (e: Event) => void } = {
-    keydown: onModalKeydown,
-    touchmove: (e: TouchEvent) => isTouchDevice() && e.preventDefault(),
-  };
-
-  function show(modal: boolean) {
-    const focii = Array.from($(focusQuery, view)) as HTMLElement[];
-    if (focii.length) (focii.length > 1 ? focii[1] : focii[0]).focus();
-    if (modal) {
-      Object.entries(modalListeners).forEach(([e, l]) => dialog.addEventListener(e, l));
-      modalListeners = {}; // only add them once, dialog may be reshown
-    }
-    dialog.returnValue = '';
-    view.scrollTop = 0;
-
-    if (modal) dialog.showModal();
-    else dialog.show();
+class DialogWrapper implements Dialog {
+  constructor(
+    readonly dialog: HTMLDialogElement,
+    readonly view: HTMLElement,
+    readonly o: DialogOpts,
+  ) {
+    dialog.addEventListener('close', () => this.onClose());
+    if ('show' in o && o.show) dialog.addEventListener('close', dialog.remove);
+    if (!o.noClickAway) dialog.addEventListener('click', () => dialog.close());
+    view.addEventListener('click', e => e.stopPropagation());
+    this.onResize(); // safari vh
+  }
+  get open() {
+    return this.dialog.open;
   }
 
-  return new (class implements Dialog {
-    constructor(readonly view: HTMLElement) {
-      dialog.addEventListener('close', () => o.onClose?.(this));
-      if (!o.noClickAway) dialog.addEventListener('click', () => dialog.close());
-      view.addEventListener('click', e => e.stopPropagation());
-    }
-    show = () => show(false);
-    showModal = () => show(true);
-    close = () => dialog.close();
-    get open() {
-      return dialog.open;
-    }
-    get returnValue() {
-      return dialog.returnValue;
-    }
-    get html() {
-      return view.innerHTML;
-    }
-    set html(html: string) {
-      view.innerHTML = html;
-    }
-  })(view);
+  show = () => this.dialog.show();
+  close = () => this.dialog.close();
+
+  onResize = () => this.view.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+  onClose = () => {
+    window.removeEventListener('resize', this.onResize);
+    this.o.onClose?.(this);
+  };
+
+  showModal = () => {
+    const focii = Array.from($(focusQuery, this.view)) as HTMLElement[];
+    if (focii.length > 1) focii[1].focus(); // skip close button
+    else if (focii.length) focii[0].focus();
+    window.addEventListener('resize', this.onResize);
+
+    this.addModalListeners?.();
+    this.view.scrollTop = 0;
+    this.dialog.showModal();
+  };
+
+  addModalListeners? = () => {
+    this.dialog.addEventListener('keydown', onModalKeydown);
+    this.dialog.addEventListener('touchmove', (e: TouchEvent) => e.stopPropagation());
+    this.addModalListeners = undefined; // only do this once
+  };
 }
 
 function assets(o: DialogOpts) {

@@ -53,9 +53,10 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                             xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else
                             domDialog({
+                              show: 'modal',
                               cash: $('.simul .continue-with'),
                               onClose: dlg => xhr.join(ctrl.data.id, $(dlg.view).data('variant')),
-                            }).then(d => d.showModal());
+                            });
                         })
                       : {},
                   },

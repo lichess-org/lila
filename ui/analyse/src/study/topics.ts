@@ -49,7 +49,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       ctrl.open(false);
       ctrl.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', ctrl.trans.noarg('topics')),
       h(
         'form',

@@ -65,7 +65,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
       ctrl.open(false);
       ctrl.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', ctrl.trans.noarg('inviteToTheStudy')),
       h(
         'p.info',

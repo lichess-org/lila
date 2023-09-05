@@ -1,4 +1,4 @@
-dialog > div.modal-wrap {
+dialog div.dialog-content {
   min-width: 80vw;
 
   @include breakpoint($mq-x-small) {

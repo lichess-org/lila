@@ -168,24 +168,21 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     dlg.view.innerHTML = html;
     if (!dlg.open) dlg.showModal();
   };
+  isIOS;
   return snabDialog({
     class: 'help.voice-move-help',
     html: { url: `/help/voice/${ctrl.moduleId}` },
     cssPath: 'voiceMove.help',
-    attrs: {
-      view: {
-        style: isIOS() ? `padding-bottom: ${window.screen.availHeight - window.innerHeight}px` : '',
-      },
-    },
     onClose: () => ctrl.showHelp(false),
     onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {
         showMoveList(dlg);
         return;
       }
-      const grammar = await (ctrl.moduleId !== 'coords'
-        ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`))
-        : Promise.resolve({ entries: [] }));
+      const grammar =
+        ctrl.moduleId === 'coords'
+          ? []
+          : await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
       // TODO - fix using lexicon instead of crowdin translations for moves/commands
       const valToWord = (val: string, phonetic: boolean) =>

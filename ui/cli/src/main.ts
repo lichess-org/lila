@@ -57,6 +57,7 @@ function help() {
   domDialog({
     cssPath: 'clinput.help',
     class: 'clinput-help',
+    show: 'modal',
     html: {
       text:
         '<div><h3>Commands</h3>' +

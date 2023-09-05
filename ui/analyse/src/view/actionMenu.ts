@@ -163,7 +163,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             'a.button.button-empty',
             {
               hook: bind('click', () =>
-                domDialog({ cash: $('.continue-with.g_' + d.game.id) }).then(d => d.showModal()),
+                domDialog({ show: 'modal', cash: $('.continue-with.g_' + d.game.id) }),
               ),
               attrs: dataIcon(licon.Swords),
             },

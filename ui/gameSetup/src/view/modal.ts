@@ -20,6 +20,6 @@ export default function setupModal(ctrl: SetupCtrl): MaybeVNode {
     class: ctrl.gameType === 'local' ? 'game-setup.local-setup' : 'game-setup',
     cssPath: 'game-setup',
     onClose: ctrl.closeModal,
-    content: renderContent(ctrl),
+    vnodes: renderContent(ctrl),
   });
 }

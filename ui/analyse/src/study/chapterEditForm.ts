@@ -94,7 +94,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
           ctrl.current(null);
           ctrl.redraw();
         },
-        content: [
+        vnodes: [
           h('h2', noarg('editChapter')),
           h(
             'form.form3',

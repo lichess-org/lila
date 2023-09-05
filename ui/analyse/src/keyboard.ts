@@ -138,5 +138,6 @@ export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
     domDialog({
       class: 'help.variation-help',
       html: { url: '/help/analyse/variation-arrow' },
-    }).then(d => d.showModal());
+      show: 'modal',
+    });
 }

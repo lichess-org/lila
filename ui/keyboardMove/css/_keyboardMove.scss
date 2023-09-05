@@ -22,7 +22,7 @@
   }
 }
 
-dialog > .keyboard-move-help {
+dialog .keyboard-move-help {
   td.tips li {
     list-style: disc;
     margin-#{$start-direction}: 2em;

@@ -8,18 +8,15 @@ dialog {
   z-index: z('modal');
   padding: 0;
   border: none;
-  overflow: visible;
-  background: $c-bg-popup;
+  background: $c-bg-high;
 
   &::backdrop {
     background: $c-page-mask;
   }
 
-  > :last-child {
-    @extend %flex-column;
-    max-height: 96vh;
-    padding: 2em;
-    overflow: hidden;
+  > .scrollable {
+    max-height: calc(var(--vh, 1vh) * 100); // ios safari vh fix
+    overflow-x: clip;
     overflow-y: auto;
   }
 
@@ -33,22 +30,20 @@ dialog {
     @extend %flex-around;
 
     position: absolute;
-    top: 2px;
-    #{$end-direction}: 2px;
+    top: 4px;
+    #{$end-direction}: 4px;
     width: 32px;
     height: 32px;
-    z-index: z('modal') + 1;
-    background: $c-bg-popup;
+    background: transparent;
     border: none;
     color: $c-font;
     font-size: 16px;
 
     cursor: pointer;
 
-    &:hover {
-      @extend %box-shadow;
-      background: $c-bad;
-      color: #fff;
+    focus {
+      z-index: z('modal') + 1;
+      background: $c-bg-high;
     }
     &:not(:focus) {
       outline: none;
@@ -56,13 +51,29 @@ dialog {
   }
 }
 
-@media (min-width: 720px) and (min-height: 720px) {
+.dialog-content {
+  text-align: center;
+  padding: 2em;
+}
+
+@media (hover: hover) {
+  dialog .close-button:hover {
+    box-shadow: $box-shadow;
+    background: $c-bad;
+    color: #fff;
+  }
+}
+
+@media (min-height: 640px) {
   dialog {
     margin-top: 12px;
+    overflow: visible;
   }
   dialog button.close-button {
     top: -12px;
     #{$end-direction}: -12px;
+    z-index: z('modal') + 1;
     border-radius: 50%;
+    background: $c-bg-high;
   }
 }

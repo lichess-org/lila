@@ -146,10 +146,11 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulEnd(simul: game.Simul) {
       domDialog({
+        show: 'modal',
         html: {
           text: `<div><p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
         },
-      }).then(d => d.showModal());
+      });
     },
   };
 

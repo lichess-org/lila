@@ -122,7 +122,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       ctrl.open(false);
       ctrl.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', ctrl.trans.noarg(ctrl.relay ? 'editRoundStudy' : isNew ? 'createStudy' : 'editStudy')),
       h(
         'form.form3',

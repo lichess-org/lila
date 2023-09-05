@@ -21,7 +21,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
       dlg.showModal();
     },
     onClose,
-    content: [
+    vnodes: [
       h('div.team-picker', [
         h('h2', 'Pick your team'),
         h('br'),

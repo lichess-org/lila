@@ -54,7 +54,7 @@ export function view(ctrl: SearchCtrl) {
     onClose() {
       ctrl.open(false);
     },
-    content: [
+    vnodes: [
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
         hook: onInsert((el: HTMLInputElement) => {

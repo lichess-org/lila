@@ -154,7 +154,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       ctrl.redraw();
     },
     noClickAway: true,
-    content: [
+    vnodes: [
       activeTab === 'edit'
         ? null
         : h('h2', [

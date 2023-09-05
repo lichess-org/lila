@@ -274,10 +274,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
                 on: {
                   click: () => {
-                    if (state.playable)
-                      domDialog({
-                        cash: $('.continue-with'),
-                      }).then(d => d.showModal());
+                    if (state.playable) domDialog({ cash: $('.continue-with'), show: 'modal' });
                   },
                 },
               },

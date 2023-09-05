@@ -41,7 +41,6 @@ lichess.load.then(() => {
     $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
       const $l = $(this);
       domDialog({ cash: $('.timeout-modal') }).then(dlg => {
-        const $wrap = $(dlg.view);
         $('.username', dlg.view).text($l.find('.user-link').text());
         $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
         $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {
@@ -52,9 +51,9 @@ lichess.load.then(() => {
             body: form({
               roomId,
               chan,
-              userId: $wrap.find('.username').text().toLowerCase(),
+              userId: $('.username', dlg.view).text().toLowerCase(),
               reason: this.value,
-              text: $wrap.find('.text').text(),
+              text: $('.text', dlg.view).text(),
             }),
           }).then(_ => setTimeout(reloadNow, 1000));
           dlg.close();

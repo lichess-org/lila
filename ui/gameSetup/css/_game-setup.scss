@@ -1,15 +1,11 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
-.game-setup {
+dialog div.game-setup {
   width: 30em;
+  padding: 0;
 
   text-align: center;
-
-  > div {
-    padding: 0;
-    max-height: 96vh;
-  }
 
   h2 {
     margin: 1.5rem 0;
@@ -140,11 +136,6 @@ $c-slider: $c-setup;
       height: 85px;
       margin: 10px auto 20px auto;
     }
-  }
-
-  > div {
-    padding: 0;
-    max-height: 96vh;
   }
 
   .label-select {
