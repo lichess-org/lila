@@ -39,8 +39,11 @@
   <string name="discoveredAttack">გახსნილი დარტყმა</string>
   <string name="discoveredAttackDescription">გახსნილი დარტყმა შეიძლება გააკეთოს ლაზიერის გარდა ნებისემიერმა ფიგურამ, რომლის მოძრაობის დროს იხსნება მის უკან მდგომი შორსმსროლელი ფიიგურის დარტყმა მოწინაარმდეგის ფიგურაზე.</string>
   <string name="doubleCheck">ორმაგი ქიში</string>
+  <string name="doubleCheckDescription">ერთდროული დარტყმა მეფეზე ორი ფიგურით , ერთი მოძრაობს და აცხადებს პირდაპირ ქიშს , ამავდროულად იხსნება უკან მდგომი შორსმსროლელი ფიგურაც.</string>
   <string name="endgame">ენდშპილი, დაბოლოება</string>
   <string name="endgameDescription">ტაქტიკა პარტიის ბოლო ფაზაში .</string>
+  <string name="enPassantDescription">გავლაზე აყვანა , როდესაც პაიკს შეუძლია აიყვანოს პაიკი რომელმაც საწყის პოზიციიდან ორ უჯრით გადაინაცვლა და გაიარა ის უჯრა რომელსაც მოწინაარმდეგის პაიკი აკონტროლებდა.</string>
+  <string name="exposedKing">გახსნილი მეფე</string>
   <string name="fork">ჩანგალი</string>
   <string name="forkDescription">სვლა რომელიც ერთდროულად ორ მოწინააღმდეგის ფიგურას ემუქრება.</string>
   <string name="hangingPiece">დაუცველი ფიგურა</string>
