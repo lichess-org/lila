@@ -12,7 +12,7 @@
   <string name="newPatrons">Những người ủng hộ mới</string>
   <string name="freeChess">Cờ vua miễn phí cho mọi người, mãi mãi!</string>
   <string name="noAdsNoSubs">Không quảng cáo, không đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
-  <string name="thankYou">Cảm ơn sự đóng góp của bạn!</string>
+  <string name="thankYou">Cảm ơn sự ủng hộ của bạn!</string>
   <string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
   <string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Nếu không gia hạn, tài khoản của bạn sẽ trở về tài khoản bình thường.</string>
@@ -59,7 +59,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Quyên góp thêm ngay bây giờ</string>
   <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Tặng đôi cánh Patron</string>
-  <string name="giftPatronWings">Tặng đôi cánh Patron cho kỳ thủ</string>
+  <string name="giftPatronWings">Tặng cánh Patron cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
   <string name="cancelSupport">hủy sự giúp đỡ của bạn</string>
