@@ -43,7 +43,8 @@
   <string name="endgame">ენდშპილი, დაბოლოება</string>
   <string name="endgameDescription">ტაქტიკა პარტიის ბოლო ფაზაში .</string>
   <string name="enPassantDescription">გავლაზე აყვანა , როდესაც პაიკს შეუძლია აიყვანოს პაიკი რომელმაც საწყის პოზიციიდან ორ უჯრით გადაინაცვლა და გაიარა ის უჯრა რომელსაც მოწინაარმდეგის პაიკი აკონტროლებდა.</string>
-  <string name="exposedKing">გახსნილი მეფე</string>
+  <string name="exposedKing">გაშიშვლებული მეფე</string>
+  <string name="exposedKingDescription">დაუცველ ან არასაკმარისად დაცულ მეფეზე ხშირია შაშამათო შეტევა.</string>
   <string name="fork">ჩანგალი</string>
   <string name="forkDescription">სვლა რომელიც ერთდროულად ორ მოწინააღმდეგის ფიგურას ემუქრება.</string>
   <string name="hangingPiece">დაუცველი ფიგურა</string>
@@ -53,7 +54,16 @@
   <string name="interference">გადაკეტვა</string>
   <string name="interferenceDescription">ფიგურის გადაადგილება როცა ის მოწინაარმდეგის ორ ფიგურას შორის დგება და ორივე ფიგურა დაუცველი ხდება, ისე როგორც მხედარი დგება დაცულ უჯრაზე ორ ეტლს შუა.</string>
   <string name="intermezzo">შუალედური სვლა</string>
+  <string name="knightEndgame">მხედრების დაბოლოება</string>
+  <string name="knightEndgameDescription">დაბოლება მხოლდ მხედრებითა და პაიკებით.</string>
+  <string name="long">მრავალსვლიანი ამოცანა</string>
+  <string name="longDescription">მოგება 3 სვლაში.</string>
+  <string name="master">ოსტატთა პარტიები</string>
+  <string name="masterDescription">ტიტულოვან მოჭადრაკეთა პარტიებიდან ამორებული ამოცანები.</string>
+  <string name="masterVsMaster">პარტიები ოსტატების მატჩებიდან</string>
+  <string name="masterVsMasterDescription">ტიტულოვან მოჭადრაკეთა პარტიებიდან ამოღებული ამოცანები.</string>
   <string name="mate">შამათი</string>
+  <string name="mateDescription">მოიგე პარტია ეშხიანი სტილით.</string>
   <string name="mateIn1">შამათი 1 სვლაში</string>
   <string name="mateIn1Description">ჩასვით შამათი 1 სვლაში.</string>
   <string name="mateIn2">შამათი 2 სვლაში</string>
@@ -96,6 +106,7 @@
   <string name="superGMDescription">ამოცანები მსოფლიოს წამყვანი მოთამასეების პარტიებიდან.</string>
   <string name="trappedPiece">გამოჭერა, ხაფანგში გაბმული ფიგურა,</string>
   <string name="trappedPieceDescription">ფიგურას არ შეუძლია გაქცევა რადგან სვლები აღარ აქვს.</string>
+  <string name="underPromotion">პაიკის გაცოცხლება მსუბუქი ფიგურებით</string>
   <string name="underPromotionDescription">გაცოცხლება ეტლი, კუ, მხედარი.</string>
   <string name="veryLong">ძალიან გრძელი ამოცანა</string>
   <string name="veryLongDescription">მოიგე ოთხ ან მეტ სვლაში.</string>
