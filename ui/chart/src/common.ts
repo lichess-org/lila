@@ -20,7 +20,7 @@ export function selectPly(this: PlyChart, ply: number, onMainline: boolean) {
 export async function loadHighcharts(tpe: string) {
   if (highchartsPromise) return highchartsPromise;
   const file = tpe === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  highchartsPromise = lichess.loadIife('vendor/highcharts-4.2.5/' + file, {
+  highchartsPromise = lichess.loadIife('npm/highcharts-4.2.5/' + file, {
     noVersion: true,
   });
   await highchartsPromise;

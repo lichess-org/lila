@@ -65,12 +65,12 @@ export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete
 };
 
 export const hopscotch = () => {
-  loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
-  return loadIife('vendor/hopscotch/dist/js/hopscotch.min.js', {
+  loadCss('npm/hopscotch/dist/css/hopscotch.min.css');
+  return loadIife('npm/hopscotch/dist/js/hopscotch.min.js', {
     noVersion: true,
   });
 };
 
 export const embedChessground = () => {
-  return import(assetUrl('javascripts/chessground.min.js', { noVersion: true }));
+  return import(assetUrl('npm/chessground.min.js', { noVersion: true }));
 };

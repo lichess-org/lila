@@ -8,6 +8,7 @@ export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector =
 export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
   if (isPassList(url)) return true;
+
   domDialog({
     cssPath: 'linkPopup',
     html: {
@@ -28,6 +29,7 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
     },
   }).then(dlg => {
     $('.cancel', dlg.view).on('click', dlg.close);
+    $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
     dlg.showModal();
   });
   return false;

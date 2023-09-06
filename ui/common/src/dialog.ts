@@ -1,8 +1,18 @@
 import { VNode, Attrs } from 'snabbdom';
 import { onInsert, h, MaybeVNodes } from './snabbdom';
 import { spinnerVdom } from './spinner';
+import { isTouchDevice, isIOS } from './mobile';
 import * as xhr from './xhr';
 import * as licon from './licon';
+
+let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
+
+lichess.load.then(() => {
+  window.addEventListener('resize', onResize);
+  if (isIOS({ below: 15.4 })) {
+    import(lichess.assetUrl('npm/dialog-polyfill.esm.js')).then(m => (dialogPolyfill = m.default));
+  }
+});
 
 export interface Dialog {
   readonly open: boolean;
@@ -23,22 +33,54 @@ interface DialogOpts {
   noClickAway?: boolean;
 }
 
+export interface DomDialogOpts extends DialogOpts {
+  parent?: Element;
+  show?: 'modal' | boolean; // if not falsy, auto-show & remove from dom when closed
+}
+
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: MaybeVNodes;
   onInsert?: (dialog: Dialog) => void; // prevents showModal, caller must do so manually
 }
 
-export interface DomDialogOpts extends DialogOpts {
-  parent?: HTMLElement | Cash; // TODO - for positioning, need to fix css to be useful
-  show?: 'modal' | boolean; // auto-show and remove from dom when closed, no reshow
+export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
+  const [html] = await assets(o.html, o.cssPath, o.cash);
+
+  const dialog = document.createElement('dialog');
+  if (isTouchDevice()) dialog.classList.add('touch-scroll');
+  if (o.parent) dialog.style.position = 'absolute';
+  for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
+
+  if (!o.noCloseButton) {
+    const anchor = $as<Element>('<div class="close-button-anchor">');
+    anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
+    dialog.appendChild(anchor);
+  }
+
+  const view = $as<HTMLElement>('<div class="dialog-content">');
+  if (o.class) view.classList.add(...o.class.split('.'));
+  for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
+  if (html) view.innerHTML = html;
+
+  const scrollable = $as<Element>('<div class="scrollable">');
+  scrollable.appendChild(view);
+  dialog.appendChild(scrollable);
+
+  (o.parent ?? document.body).appendChild(dialog);
+
+  const wrapper = new DialogWrapper(dialog, view, o);
+  if (o.show && o.show === 'modal') wrapper.showModal();
+  else if (o.show) wrapper.show();
+
+  return wrapper;
 }
 
 export function snabDialog(o: SnabDialogOpts): VNode {
-  const ass = assets(o);
+  const ass = assets(o.html, o.cssPath, o.cash);
   let dialog: HTMLDialogElement;
 
   return h(
-    'dialog',
+    `dialog${isTouchDevice() ? '.touch-scroll' : ''}`,
     {
       key: o.class ?? 'dialog',
       attrs: o.attrs?.dialog,
@@ -48,10 +90,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       o.noCloseButton ||
         h(
           'div.close-button-anchor',
-          h('button.close-button', {
-            attrs: { 'data-icon': licon.X, 'aria-label': 'Close', type: 'cancel' },
-            hook: onInsert(el => el.addEventListener('click', () => dialog.close())),
-          }),
+          h('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': 'Close' } }),
         ),
       h(
         'div.scrollable',
@@ -76,53 +115,24 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   );
 }
 
-export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
-  const [html] = await assets(o);
-
-  const dialog = document.createElement('dialog');
-  for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-
-  const scrollable = $as<Element>('<div class="scrollable"/>');
-  const view = $as<HTMLElement>('<div class="dialog-content"/>');
-  view.classList.add(...(o.class ?? '').split('.'));
-  for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
-  if (html) view.innerHTML = html;
-  scrollable.appendChild(view);
-
-  if (!o.noCloseButton) {
-    const anchor = $as<Element>(
-      `<div class="close-button-anchor">` +
-        `<button class="close-button" type="cancel" aria-label="Close" data-icon="${licon.X}"/></div>`,
-    );
-    anchor.querySelector('button')?.addEventListener('click', () => dialog.close());
-    dialog.appendChild(anchor);
-  }
-  dialog.appendChild(scrollable);
-  if (!o.parent) document.body.appendChild(dialog);
-  else {
-    $(o.parent).append(dialog);
-    dialog.style.position = 'absolute';
-  }
-
-  const wrapper = new DialogWrapper(dialog, view, o);
-  if (o.show && o.show === 'modal') wrapper.showModal();
-  else if (o.show) wrapper.show();
-
-  return wrapper;
-}
-
 class DialogWrapper implements Dialog {
+  restoreFocus?: HTMLElement;
+
   constructor(
     readonly dialog: HTMLDialogElement,
     readonly view: HTMLElement,
     readonly o: DialogOpts,
   ) {
-    dialog.addEventListener('close', () => this.onClose());
-    if ('show' in o && o.show) dialog.addEventListener('close', dialog.remove);
-    if (!o.noClickAway) dialog.addEventListener('click', () => dialog.close());
+    if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
+
+    view.parentElement?.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); // ios safari
     view.addEventListener('click', e => e.stopPropagation());
-    this.onResize(); // safari vh
+
+    dialog.addEventListener('close', this.onClose);
+
+    if (!o.noClickAway) setTimeout(() => document.addEventListener('click', this.close), 0);
   }
+
   get open() {
     return this.dialog.open;
   }
@@ -130,34 +140,36 @@ class DialogWrapper implements Dialog {
   show = () => this.dialog.show();
   close = () => this.dialog.close();
 
-  onResize = () => this.view.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
   onClose = () => {
-    window.removeEventListener('resize', this.onResize);
     this.o.onClose?.(this);
+    if ('show' in this.o && this.o.show === 'modal') this.dialog.remove();
+    this.restoreFocus?.focus();
+    this.restoreFocus = undefined;
   };
 
   showModal = () => {
-    const focii = Array.from($(focusQuery, this.view)) as HTMLElement[];
-    if (focii.length > 1) focii[1].focus(); // skip close button
-    else if (focii.length) focii[0].focus();
-    window.addEventListener('resize', this.onResize);
+    this.restoreFocus = document.activeElement as HTMLElement;
+    $(focusQuery, this.view)[1]?.focus();
 
     this.addModalListeners?.();
     this.view.scrollTop = 0;
+
     this.dialog.showModal();
   };
 
   addModalListeners? = () => {
     this.dialog.addEventListener('keydown', onModalKeydown);
-    this.dialog.addEventListener('touchmove', (e: TouchEvent) => e.stopPropagation());
-    this.addModalListeners = undefined; // only do this once
+    if (isTouchDevice()) this.dialog.addEventListener('touchmove', (e: TouchEvent) => e.stopPropagation());
+    this.addModalListeners = undefined; // only do this once per HTMLDialogElement
   };
 }
 
-function assets(o: DialogOpts) {
+function assets(html?: { url?: string; text?: string }, cssPath?: string, cash?: Cash) {
   return Promise.all([
-    o.html?.url ? xhr.text(o.html.url) : Promise.resolve(o.cash?.html() ?? o.html?.text),
-    o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve(),
+    html?.url
+      ? xhr.text(html.url)
+      : Promise.resolve(cash ? $as<HTMLElement>($(cash).clone().removeClass('none')).outerHTML : html?.text),
+    cssPath ? lichess.loadCssPath(cssPath) : Promise.resolve(),
   ]);
 }
 
@@ -173,6 +185,11 @@ function onModalKeydown(e: KeyboardEvent) {
     e.preventDefault();
   }
   e.stopPropagation();
+}
+
+function onResize() {
+  const vh = window.innerHeight * 0.01;
+  $('dialog > div.scrollable').css('--vh', `${vh}px`);
 }
 
 const focusQuery = ['button', 'input', 'select', 'textarea']

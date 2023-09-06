@@ -3,7 +3,6 @@ import * as licon from 'common/licon';
 import { onInsert, bind } from 'common/snabbdom';
 import { snabDialog, type Dialog } from 'common/dialog';
 import * as xhr from 'common/xhr';
-import { isIOS } from 'common/mobile';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
 import { supportedLangs } from './main';
@@ -168,7 +167,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     dlg.view.innerHTML = html;
     if (!dlg.open) dlg.showModal();
   };
-  isIOS;
+
   return snabDialog({
     class: 'help.voice-move-help',
     html: { url: `/help/voice/${ctrl.moduleId}` },
