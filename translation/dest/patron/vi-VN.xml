@@ -30,7 +30,7 @@
   <string name="withCreditCard">Thẻ tín dụng</string>
   <string name="logInToDonate">Đăng nhập để ủng hộ</string>
   <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
-  <string name="celebratedPatrons">Những Patron nổi tiếng khiến cho Lichess thành hiện thực</string>
+  <string name="celebratedPatrons">Những Patron nổi tiếng biến Lichess thành hiện thực</string>
   <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
   <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
 Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
@@ -57,12 +57,12 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="currentStatus">Trạng thái hiện tại</string>
   <string name="nextPayment">Lần thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
-  <string name="makeAdditionalDonation">Quyên góp thêm ngay bây giờ</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Tặng đôi cánh Patron</string>
+  <string name="makeAdditionalDonation">Ủng hộ thêm ngay bây giờ</string>
+  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Tặng cánh Patron</string>
   <string name="giftPatronWings">Tặng cánh Patron cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
-  <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
-  <string name="cancelSupport">hủy sự giúp đỡ của bạn</string>
+  <string name="changeMonthlyAmount">Đổi số tiền hàng tháng (%s)</string>
+  <string name="cancelSupport">Hủy sự ủng hộ của bạn</string>
   <string name="xOrY">%1$s hoặc %2$s</string>
   <string name="decideHowMuch">Quyết định Lichess đáng giá như nào với bạn:</string>
   <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
