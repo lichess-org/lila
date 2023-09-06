@@ -36,7 +36,7 @@
   <string name="inCasualGamesOnly">Só en partidas amigables</string>
   <string name="promoteToQueenAutomatically">Coroar Dama automaticamente</string>
   <string name="explainPromoteToQueenAutomatically">Mantén pulsada a tecla &lt;ctrl&gt; ao coroar para desactivar temporalmente a promoción automática</string>
-  <string name="whenPremoving">Con xogadas anticipadas</string>
+  <string name="whenPremoving">Con premovemento</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
