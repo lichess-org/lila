@@ -98,7 +98,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="identicalForbidden">Bị cấm</string>
   <string name="lateJoin">Tham gia muộn</string>
   <string name="lateJoinUntil">Cho phép nếu chưa vượt quá một nửa số vòng đấu</string>
-  <string name="pause">Tạm dừng</string>
+  <string name="pause">Tạm rút</string>
   <string name="pauseSwiss">Cho phép nhưng phải giảm số vòng đấu</string>
   <string name="streaksAndBerserk">Streaks và Berserk</string>
   <string name="similarToOTB">Tương tự các giải đấu OTB</string>
