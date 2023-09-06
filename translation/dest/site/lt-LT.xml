@@ -571,6 +571,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="firstName">Vardas</string>
   <string name="lastName">Pavardė</string>
   <string name="biography">Aprašymas</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vėliava</string>
   <string name="thankYou">Ačiū!</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
@@ -782,6 +783,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="yourPerfTypeRatingIsRating">Jūsų „%1$s“ reitingas yra %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jūs esate geresni už %1$s iš %2$s žaidėjų.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s yra geresnis už %2$s iš %3$s žaidėjų.</string>
+  <string name="betterThanPercentPlayers">Geriau nei %1$s %2$s žaidėjų</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jūs neturite nusistovėjusio „%s“ reitingo.</string>
   <string name="yourRating">Jūsų reitingas</string>
   <string name="cumulative">Iš viso</string>
