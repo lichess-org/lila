@@ -64,6 +64,11 @@ object Query:
     "p1.ai" $exists false
   )
 
+  val vsAi: Bdoc = $or(
+    "p0.ai" $exists true,
+    "p1.ai" $exists true
+  )
+
   def nowPlaying[U: UserIdOf](u: U) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: UserId) =
@@ -84,9 +89,12 @@ object Query:
   def loss(u: UserId) =
     user(u) ++ $doc(
       F.status $in Status.finishedWithWinner.map(_.id),
-      F.winnerId -> $doc(
-        "$exists" -> true,
-        "$ne"     -> u
+      $or(
+        $doc(
+          F.winnerId $exists true,
+          F.winnerId $ne u
+        ),
+        vsAi
       )
     )
 
