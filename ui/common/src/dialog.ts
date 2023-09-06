@@ -1,6 +1,5 @@
 import { VNode, Attrs } from 'snabbdom';
 import { onInsert, h, MaybeVNodes } from './snabbdom';
-import { spinnerVdom } from './spinner';
 import { isTouchDevice, isIOS } from './mobile';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -35,12 +34,12 @@ interface DialogOpts {
 
 export interface DomDialogOpts extends DialogOpts {
   parent?: Element;
-  show?: 'modal' | boolean; // if not falsy, auto-show & remove from dom when closed
+  show?: 'modal' | boolean;
 }
 
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: MaybeVNodes;
-  onInsert?: (dialog: Dialog) => void; // prevents showModal, caller must do so manually
+  onInsert?: (dialog: Dialog) => void;
 }
 
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
@@ -108,7 +107,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               else wrapper.showModal();
             }),
           },
-          o.vnodes ?? spinnerVdom(),
+          o.vnodes,
         ),
       ),
     ],
@@ -116,21 +115,22 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  restoreFocus?: HTMLElement;
-
   constructor(
     readonly dialog: HTMLDialogElement,
     readonly view: HTMLElement,
     readonly o: DialogOpts,
   ) {
-    if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
-
+    if (dialogPolyfill) {
+      console.log('registered one');
+      dialogPolyfill.registerDialog(dialog); // ios < 15.4
+    }
     view.parentElement?.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); // ios safari
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('close', this.onClose);
+    dialog.querySelector('button.close-button')?.addEventListener('click', this.close);
 
-    if (!o.noClickAway) setTimeout(() => document.addEventListener('click', this.close), 0);
+    if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', this.close), 0);
   }
 
   get open() {
@@ -138,14 +138,8 @@ class DialogWrapper implements Dialog {
   }
 
   show = () => this.dialog.show();
-  close = () => this.dialog.close();
 
-  onClose = () => {
-    this.o.onClose?.(this);
-    if ('show' in this.o && this.o.show === 'modal') this.dialog.remove();
-    this.restoreFocus?.focus();
-    this.restoreFocus = undefined;
-  };
+  restoreFocus?: HTMLElement;
 
   showModal = () => {
     this.restoreFocus = document.activeElement as HTMLElement;
@@ -157,10 +151,19 @@ class DialogWrapper implements Dialog {
     this.dialog.showModal();
   };
 
+  close = () => this.dialog.close();
+
+  onClose = () => {
+    this.o.onClose?.(this);
+    if ('show' in this.o && this.o.show === 'modal') this.dialog.remove();
+    this.restoreFocus?.focus();
+    this.restoreFocus = undefined;
+  };
+
   addModalListeners? = () => {
     this.dialog.addEventListener('keydown', onModalKeydown);
-    if (isTouchDevice()) this.dialog.addEventListener('touchmove', (e: TouchEvent) => e.stopPropagation());
-    this.addModalListeners = undefined; // only do this once per HTMLDialogElement
+    //if (isTouchDevice()) this.dialog.addEventListener('touchmove', (e: TouchEvent) => e.stopPropagation());
+    this.addModalListeners = undefined; // only once per HTMLDialogElement
   };
 }
 
@@ -188,7 +191,7 @@ function onModalKeydown(e: KeyboardEvent) {
 }
 
 function onResize() {
-  const vh = window.innerHeight * 0.01;
+  const vh = window.innerHeight * 0.01; // ios safari
   $('dialog > div.scrollable').css('--vh', `${vh}px`);
 }
 

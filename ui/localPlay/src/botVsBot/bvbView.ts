@@ -36,10 +36,10 @@ function controls(ctrl: BvbCtrl) {
       'button#go.button.disabled',
       {
         hook: onInsert(el =>
-          el.addEventListener('click', () => ctrl.go(parseInt($('#num-games').val() as string) || 1))
+          el.addEventListener('click', () => ctrl.go(parseInt($('#num-games').val() as string) || 1)),
         ),
       },
-      'GO'
+      'GO',
     ),
     h('input#num-games', {
       attrs: { type: 'number', min: '1', max: '1000', value: '1' },
