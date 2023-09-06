@@ -36,6 +36,8 @@
   <string name="clearanceDescription">სვლა,ხშირად ტემპით ( ანუ მუქარით),რომელიც ანთავისუფლებს უჯრას, ხაზს ან დიაგონალს რომელიმე ტაქტიკური იდეისთვის.</string>
   <string name="defensiveMove">დამცველი სვლა</string>
   <string name="defensiveMoveDescription">ზუსტი სვლა ან სვლების თანმიმდევრობა რომელიც აგვაცილებს მატერიალურ  ან რაიმე სხვა დანაკარგს.</string>
+  <string name="discoveredAttack">გახსნილი დარტყმა</string>
+  <string name="discoveredAttackDescription">გახსნილი დარტყმა შეიძლება გააკეთოს ლაზიერის გარდა ნებისემიერმა ფიგურამ, რომლის მოძრაობის დროს იხსნება მის უკან მდგომი შორსმსროლელი ფიიგურის დარტყმა მოწინაარმდეგის ფიგურაზე.</string>
   <string name="doubleCheck">ორმაგი ქიში</string>
   <string name="endgame">ენდშპილი, დაბოლოება</string>
   <string name="endgameDescription">ტაქტიკა პარტიის ბოლო ფაზაში .</string>
