@@ -54,6 +54,7 @@
   <string name="interference">გადაკეტვა</string>
   <string name="interferenceDescription">ფიგურის გადაადგილება როცა ის მოწინაარმდეგის ორ ფიგურას შორის დგება და ორივე ფიგურა დაუცველი ხდება, ისე როგორც მხედარი დგება დაცულ უჯრაზე ორ ეტლს შუა.</string>
   <string name="intermezzo">შუალედური სვლა</string>
+  <string name="intermezzoDescription">ნაცვლად მოსალოდნელი სვლისა, ჯერ კეთდება შუალედური სვლა პირდაპირი მუქარით, რომელიც აიძულებს მოწინაარმდეგეს გააკეთოს საპასუხო სვლა, ანუ მას უწოდებენ,, შუალედური სვლა \"\".</string>
   <string name="knightEndgame">მხედრების დაბოლოება</string>
   <string name="knightEndgameDescription">დაბოლება მხოლდ მხედრებითა და პაიკებით.</string>
   <string name="long">მრავალსვლიანი ამოცანა</string>
