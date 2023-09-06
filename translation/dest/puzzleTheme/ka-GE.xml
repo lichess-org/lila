@@ -83,6 +83,7 @@
   <string name="pawnEndgame">პაიკთა ენდშპილი ანუ დაბოლება</string>
   <string name="pawnEndgameDescription">მხოლოდ პაიკების დაბოლოება.</string>
   <string name="pin">დაბმა</string>
+  <string name="pinDescription">ტაცტიკური დარტყმა იყენებს დაბმას, როდესაც ფიგურას არ ხელეწიფება გადაადგილება, რადგან მის უკან დგას უფრო მძიმე ფიგურა.</string>
   <string name="promotion">გაცოცხლება, ანუ გარდაქმნა</string>
   <string name="promotionDescription">გააცოცხლეთ თქვენი პაიკი ლაზიერად , ეტლად ან მსუბუქ ფიგურად.</string>
   <string name="queenEndgame">ლაზიერების დაბოლოება</string>
