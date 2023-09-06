@@ -21,6 +21,7 @@
   <string name="castling">როქი</string>
   <string name="castlingDescription">დაიცავი მეფე და გამოიყვანე ეტლი, გააქტიურე.</string>
   <string name="capturingDefender">აყვანა და დაცვა</string>
+  <string name="capturingDefenderDescription">დამცველი ფიგურის მოშორება,დაუცველი ფიგურის ასაყვანად.</string>
   <string name="crushing">განადგურება</string>
   <string name="crushingDescription">გამოიყენე მოწინააღმდეგის უხეში შეცდომა და მიირე გამანადგურებელი უპირატესონა</string>
   <string name="doubleBishopMate">შამათი ორი კუთი</string>
