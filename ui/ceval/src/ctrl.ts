@@ -177,7 +177,7 @@ export default class CevalCtrl {
       else if (this.technology == 'nnue')
         this.worker = new ThreadedWasmWorker(
           {
-            baseUrl: 'vendor/stockfish-nnue.wasm/',
+            baseUrl: 'npm/stockfish-nnue.wasm/',
             module: 'Stockfish',
             downloadProgress: throttle(200, mb => {
               this.downloadProgress(mb);
@@ -192,7 +192,7 @@ export default class CevalCtrl {
       else if (this.technology == 'hce')
         this.worker = new ThreadedWasmWorker(
           {
-            baseUrl: this.officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
+            baseUrl: this.officialStockfish ? 'npm/stockfish.wasm/' : 'npm/stockfish-mv.wasm/',
             module: this.officialStockfish ? 'Stockfish' : 'StockfishMv',
             version: 'a022fa',
             wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
@@ -204,8 +204,8 @@ export default class CevalCtrl {
           {
             url:
               this.technology == 'wasm'
-                ? 'vendor/stockfish.js/stockfish.wasm.js'
-                : 'vendor/stockfish.js/stockfish.js',
+                ? 'npm/stockfish.js/stockfish.wasm.js'
+                : 'npm/stockfish.js/stockfish.js',
           },
           this.opts.redraw,
         );

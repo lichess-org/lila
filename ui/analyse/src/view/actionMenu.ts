@@ -1,6 +1,6 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
@@ -161,11 +161,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ =>
-                modal({
-                  content: $('.continue-with.g_' + d.game.id),
-                }),
-              ),
+              hook: bind('click', () => domDialog({ cash: $('.continue-with.g_' + d.game.id) })),
               attrs: dataIcon(licon.Swords),
             },
             noarg('continueFromHere'),
