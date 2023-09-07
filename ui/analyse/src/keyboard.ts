@@ -21,22 +21,14 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.next(ctrl);
       ctrl.redraw();
     })
-    .bind('up', () => {
+    .bind(['up', '0', 'home'], () => {
       if (ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
-    .bind('down', () => {
+    .bind(['down', '$', 'end'], () => {
       if (ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['0', 'home'], () => {
-      control.first(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['$', 'end'], () => {
-      control.last(ctrl);
       ctrl.redraw();
     })
     .bind('shift+c', () => {

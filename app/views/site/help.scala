@@ -107,7 +107,7 @@ object help:
     )
 
   def analyseVariationArrow(using Lang) =
-    div(
+    div(cls := "help-ephemeral")(
       p("Variation arrows allow navigation without using the move list."),
       p(
         "The '",

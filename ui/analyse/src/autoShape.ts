@@ -1,9 +1,10 @@
-import { parseUci, makeSquare, squareRank } from 'chessops/util';
+import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
 import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
+import { annotationShapes } from './glyphs';
 import AnalyseCtrl from './ctrl';
 
 const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
@@ -135,37 +136,6 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           modifiers: { hilite: i === ctrl.fork.selected() },
         });
       }
-    });
-  }
-  return shapes;
-}
-
-const glyphColors: { [k: string]: string } = {
-  '??': '#df5353',
-  '?': '#e69f00',
-  '?!': '#56b4e9',
-  '!': '#22ac38',
-  '!!': '#168226',
-  '!?': '#ea45d8',
-};
-
-function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
-  const shapes: DrawShape[] = [];
-  const { uci, glyphs, san } = ctrl.node;
-  if (ctrl.showMoveAnnotation() && uci && san && glyphs && glyphs.length > 0) {
-    const move = parseUci(uci)!;
-    const destSquare = san.startsWith('O-O') // castle, short or long
-      ? squareRank(move.to) === 0 // white castle
-        ? san.startsWith('O-O-O')
-          ? 'c1'
-          : 'g1'
-        : san.startsWith('O-O-O')
-        ? 'c8'
-        : 'g8'
-      : makeSquare(move.to);
-    shapes.push({
-      orig: destSquare,
-      label: { text: glyphs[0].symbol, fill: glyphColors[glyphs[0].symbol] },
     });
   }
   return shapes;
