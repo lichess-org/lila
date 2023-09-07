@@ -11,8 +11,7 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
 
   domDialog({
     cssPath: 'linkPopup',
-    html: {
-      text: `<div class="link-popup">
+    htmlText: `<div class="link-popup">
       <div class="link-popup__content">
         <div class="link-popup__content__title">
           <h2>${trans('youAreLeavingLichess')}</h2>
@@ -26,7 +25,6 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
         </a>
       </div>
     </div>`,
-    },
   }).then(dlg => {
     $('.cancel', dlg.view).on('click', dlg.close);
     $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));

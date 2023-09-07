@@ -130,8 +130,18 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       'span.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { role: 'tab', title },
-        hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
+        attrs: { role: 'tab', title, tabindex: '0' },
+        hook: onInsert(el => {
+          const select = (e: Event) => {
+            ctrl.vm.tab(key);
+            ctrl.root.redraw();
+            e.preventDefault();
+          };
+          el.addEventListener('click', select);
+          el.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') select(e);
+          });
+        }),
       },
       name,
     );

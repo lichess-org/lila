@@ -170,7 +170,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
 
   return snabDialog({
     class: 'help.voice-move-help',
-    html: { url: `/help/voice/${ctrl.moduleId}` },
+    htmlUrl: `/help/voice/${ctrl.moduleId}`,
     cssPath: 'voiceMove.help',
     onClose: () => ctrl.showHelp(false),
     onInsert: async dlg => {
@@ -183,7 +183,6 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           ? []
           : await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
-      // TODO - fix using lexicon instead of crowdin translations for moves/commands
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),

@@ -145,18 +145,16 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
     domDialog({
       show: 'modal',
-      html: {
-        text:
-          '<div><strong style="font-size:1.5em">' +
-          $(this).html() +
-          '</strong><br /><br />' +
-          '<pre>' +
-          lichess.escapeHtml(iframe) +
-          '</pre><br />' +
-          iframe +
-          '<br /><br />' +
-          `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
-      },
+      htmlText:
+        '<div><strong style="font-size:1.5em">' +
+        $(this).html() +
+        '</strong><br /><br />' +
+        '<pre>' +
+        lichess.escapeHtml(iframe) +
+        '</pre><br />' +
+        iframe +
+        '<br /><br />' +
+        `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
     });
   });
 }

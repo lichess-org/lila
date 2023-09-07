@@ -36,6 +36,6 @@ export default (ctrl: KeyboardController) =>
 export const view = (ctrl: Controller) =>
   snabDialog({
     class: 'help',
-    html: { url: '/training/help' },
+    htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),
   });

@@ -22,12 +22,13 @@
   }
 }
 
-dialog .keyboard-move-help {
+.keyboard-move-help {
   td.tips li {
     list-style: disc;
     margin-#{$start-direction}: 2em;
     margin-#{$end-direction}: 1em;
   }
+
   a {
     margin-#{$start-direction}: 0.25em;
   }

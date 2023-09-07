@@ -58,19 +58,17 @@ function help() {
     cssPath: 'clinput.help',
     class: 'clinput-help',
     show: 'modal',
-    html: {
-      text:
-        '<div><h3>Commands</h3>' +
-        commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
-        commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
-        commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
-        commandHelp('/stream', '<user>', 'Watch someone stream') +
-        '<h3>Global hotkeys</h3>' +
-        commandHelp('s', '', 'Search for a user') +
-        commandHelp('/', '', 'Type a command') +
-        commandHelp('c', '', 'Focus the chat input') +
-        commandHelp('esc', '', 'Close modals like this one') +
-        '</div>',
-    },
+    htmlText:
+      '<div><h3>Commands</h3>' +
+      commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
+      commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
+      commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
+      commandHelp('/stream', '<user>', 'Watch someone stream') +
+      '<h3>Global hotkeys</h3>' +
+      commandHelp('s', '', 'Search for a user') +
+      commandHelp('/', '', 'Type a command') +
+      commandHelp('c', '', 'Focus the chat input') +
+      commandHelp('esc', '', 'Close modals like this one') +
+      '</div>',
   });
 }

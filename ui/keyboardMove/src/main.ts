@@ -164,7 +164,7 @@ export function render(ctrl: KeyboardMove) {
     ctrl.helpModalOpen()
       ? snabDialog({
           class: 'help.keyboard-move-help',
-          html: { url: '/help/keyboard-move' },
+          htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),
         })
       : null,

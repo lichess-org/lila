@@ -36,7 +36,7 @@ export const dataIcon = (icon: string): Attrs => ({
   'data-icon': icon,
 });
 
-export const iconTag = (icon: string) => h('i', { attrs: dataIcon(icon) });
+export const iconTag = (icon: string) => snabH('i', { attrs: dataIcon(icon) });
 
 type LooseVNode = VNodeChildElement | boolean;
 type VNodeKids = LooseVNode | LooseVNode[];
@@ -51,14 +51,14 @@ function filterKids(children: VNodeKids): VNodeChildElement[] {
   ) as VNodeChildElement[];
 }
 
-/* obviate need for many ternary expressions in renders (blown up by prettier).  Allows
-     h('div', [ kids && h('div', 'kid') ])
-     h('div', [ noKids || h('div', 'kid') ])
+/* obviate need for some ternary expressions in renders.  Allows
+     lh('div', [ kids && h('div', 'kid') ])
+     lh('div', [ noKids || h('div', 'kid') ])
    instead of
      h('div', [ isKid ? h('div', 'kid') : null ])
-   import this h rather than that h
+   'true' values are filtered out of children array same as 'false' (for || case)
 */
-export function h(sel: string, dataOrKids?: VNodeData | null | VNodeKids, kids?: VNodeKids): VNode {
+export function lh(sel: string, dataOrKids?: VNodeData | null | VNodeKids, kids?: VNodeKids): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
   if (!dataOrKids) return snabH(sel);
   if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids))

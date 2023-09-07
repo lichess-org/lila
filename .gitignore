@@ -39,6 +39,7 @@ hs_*.log
 dependency-graph.png
 
 RUNNING_PID
+.DS_Store
 
 # Eclipse auto-generated files
 /modules/*/.classpath

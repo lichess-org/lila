@@ -34,7 +34,7 @@ export const init = (ctrl: RoundController) =>
 export const view = (ctrl: RoundController): VNode =>
   snabDialog({
     class: 'help',
-    html: { url: '/round/help' },
+    htmlUrl: '/round/help',
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();

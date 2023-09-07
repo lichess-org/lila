@@ -1,9 +1,7 @@
 import * as control from './control';
-//import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
 import { VNode } from 'snabbdom';
-import { domDialog, snabDialog } from 'common/dialog';
-//import { spinnerVdom as spinner } from 'common/spinner';
+import { snabDialog, domDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.lichess.mousetrap;
@@ -117,7 +115,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
-    html: { url: '/analysis/help' },
+    htmlUrl: '/analysis/help',
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
@@ -129,7 +127,7 @@ export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
   if (ctrl.showVariationArrows() && lichess.once('help.analyse.variation-arrows-rtfm'))
     domDialog({
       class: 'help.variation-help',
-      html: { url: '/help/analyse/variation-arrow' },
+      htmlUrl: '/help/analyse/variation-arrow',
       show: 'modal',
     });
 }

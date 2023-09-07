@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -500,8 +500,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: npm:schlawg-pgn-viewer@2.0.0
-        version: /schlawg-pgn-viewer@2.0.0
+        specifier: ^2.0.0
+        version: 2.0.0
 
   ui/palantir:
     dependencies:
@@ -683,8 +683,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: npm:schlawg-pgn-viewer@2.0.0
-        version: /schlawg-pgn-viewer@2.0.0
+        specifier: ^2.0.0
+        version: 2.0.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -800,8 +800,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: npm:schlawg-pgn-viewer@2.0.0
-        version: /schlawg-pgn-viewer@2.0.0
+        specifier: ^2.0.0
+        version: 2.0.0
 
   ui/voice:
     dependencies:
@@ -5016,19 +5016,6 @@ packages:
     engines: {node: '>=v12.22.7'}
     dependencies:
       xmlchars: 2.2.0
-    dev: false
-
-  /schlawg-pgn-viewer@2.0.0:
-    resolution: {integrity: sha512-SjuwlF+xB3xSn5fnOzowT2+22SShjdNEU/AbCc9oN9zZhn0qjrP5hfrZA0F0KGsJaHgRQe/T34HoH0boUYstnw==}
-    dependencies:
-      '@types/node': 20.5.0
-      chessground: /schlawground@9.0.1
-      chessops: 0.12.7
-      snabbdom: 3.5.1
-    dev: false
-
-  /schlawground@9.0.1:
-    resolution: {integrity: sha512-nIlOhNk4InEN1aNXDazF2fqia3b9jBmYT+YphoTMYS2f43P6MaFPze7dz1NDCr9oTDNUupdDnwGu6h6TtpAAYQ==}
     dev: false
 
   /semver@6.3.1:
