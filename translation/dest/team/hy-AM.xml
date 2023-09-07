@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Թիմ</string>
-  <string name="teams">Թիմեր</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Թիմեր</string>
   <plurals name="nbMembers">
     <item quantity="one">%s անդամ</item>
     <item quantity="other">%s անդամներ</item>
@@ -20,7 +20,7 @@
     <item quantity="one">Թիմի ղեկավար</item>
     <item quantity="other">Թիմի ղեկավարներ</item>
   </plurals>
-  <string name="teamRecentMembers">Թիմի անդամները</string>
+  <string name="teamRecentMembers">Թիմի նոր անդամները</string>
   <string name="kickSomeone">Ինչ-որ մեկին հեռացնել թիմից</string>
   <string name="whoToKick">Ո՞ւմ եք ցանկանում հեռացնել թիմից։</string>
   <plurals name="xJoinRequests">
