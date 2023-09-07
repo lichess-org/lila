@@ -24,11 +24,14 @@ export class BvbCtrl {
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
 
-  constructor(readonly opts: BvbOpts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: BvbOpts,
+    readonly redraw: () => void,
+  ) {
     this.promotion = new PromotionCtrl(
       f => f(this.cg),
       () => this.cg.set(this.cgOpts()),
-      this.redraw
+      this.redraw,
     );
     Promise.all([makeZerofish(), makeZerofish()]).then(([wz, bz]) => {
       this.zf ??= { white: wz, black: bz };
