@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Skipailh</string>
-  <string name="teams">Skipailhoù</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Skipailhoù</string>
   <plurals name="nbMembers">
     <item quantity="one">%s ezel</item>
     <item quantity="two">%s ezel</item>
@@ -9,12 +9,12 @@
     <item quantity="many">%s ezel</item>
     <item quantity="other">%s ezel</item>
   </plurals>
-  <string name="allTeams">Tout ar skipailhoù</string>
+  <string name="allTeams">An holl skipailhoù</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Ho skipailhoù</string>
   <string name="newTeam">Skipailh nevez</string>
   <string name="myTeams">Ma skipailhoù</string>
-  <string name="noTeamFound">Skipailh ebet</string>
-  <string name="joinTeam">Kejañ ouzh ar skipailh</string>
+  <string name="noTeamFound">Skipailh ebet kavet</string>
+  <string name="joinTeam">Bezañ ezel eus ur skipailh</string>
   <string name="onlyLeaderLeavesTeam">Ouzhpennit unan bennak e penn ar skipailh a-raok e guitaat pe divodit anezhañ.</string>
   <string name="quitTeam">Kuitaat ar skipailh</string>
   <string name="manuallyReviewAdmissionRequests">Studiañ ar goulennoù emezelañ</string>
