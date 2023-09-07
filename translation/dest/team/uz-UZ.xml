@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Jamoa</string>
-  <string name="teams">Jamoalar</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Jamoalar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s a\'zo</item>
     <item quantity="other">%s a\'zolar</item>
