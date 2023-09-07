@@ -119,7 +119,12 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
-type SoundMove = (node?: { san?: string; uci?: string }, music?: boolean) => void;
+type SoundMove = (opts?: {
+  name?: string; // either provide this or valid san/uci
+  san?: string;
+  uci?: string;
+  filter?: 'music' | 'game'; // undefined allows either
+}) => void;
 
 interface SoundI {
   ctx?: AudioContext;

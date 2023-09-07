@@ -60,20 +60,20 @@ export default new (class implements SoundI {
     if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
   }
 
-  throttled = throttle(100, (node?: { uci?: Uci; san?: string }) => {
-    if (node?.san?.includes('x')) this.play('capture');
-    else this.play('move');
-    if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
-  });
+  throttled = throttle(100, (name: Name) => this.play(name));
 
-  async move(node?: { uci?: Uci; san?: string }, music?: boolean) {
-    console.trace('move', node?.san, node?.uci);
-    if (music !== false && this.theme === 'music') {
-      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.music(node, music);
-      return;
+  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+    if (o?.filter !== 'music' && this.theme !== 'music') {
+      if (o?.name) this.throttled(o.name);
+      else {
+        if (o?.san?.includes('x')) this.throttled('capture');
+        else this.throttled('move');
+        if (o?.san?.endsWith('#') || o?.san?.endsWith('+')) this.throttled('check');
+      }
     }
-    if (music !== true) this.throttled(node);
+    if (o?.filter === 'game' || this.theme !== 'music') return;
+    this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
+    this.music(o);
   }
 
   async countdown(count: number, interval = 500): Promise<void> {
