@@ -2035,7 +2035,7 @@ object I18nKeys:
     val `numberOfByesQ` = I18nKey("swiss:numberOfByesQ")
     val `numberOfByesA` = I18nKey("swiss:numberOfByesA")
     val `earlyDrawsQ` = I18nKey("swiss:earlyDrawsQ")
-    val `earlyDrawsA` = I18nKey("swiss:earlyDrawsA")
+    val `earlyDrawsAnswer` = I18nKey("swiss:earlyDrawsAnswer")
     val `whatIfOneDoesntPlayQ` = I18nKey("swiss:whatIfOneDoesntPlayQ")
     val `whatIfOneDoesntPlayA` = I18nKey("swiss:whatIfOneDoesntPlayA")
     val `protectionAgainstNoShowQ` = I18nKey("swiss:protectionAgainstNoShowQ")
