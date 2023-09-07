@@ -119,7 +119,7 @@
     &::before {
       @extend %data-icon;
 
-      content: '';
+      content: $licon-ThumbsUp;
       font-size: 5em;
     }
 
