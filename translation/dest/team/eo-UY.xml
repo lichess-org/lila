@@ -3,7 +3,7 @@
   <string name="team">Teamo</string>
   <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Teamoj</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s teamanoj</item>
+    <item quantity="one">%s teamano</item>
     <item quantity="other">%s teamanoj</item>
   </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
