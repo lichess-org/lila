@@ -6,7 +6,7 @@
   <string name="notifications">सूचनाएं</string>
   <string name="pieceAnimation">मोहरों का एनीमेशन</string>
   <string name="materialDifference">सामग्री का अंतर</string>
-  <string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और सह)</string>
+  <string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और शह)</string>
   <string name="pieceDestinations">मोहरों का गंतव्य (मान्य चालें और पहले से चुनी आई चालें)</string>
   <string name="boardCoordinates">बोर्ड का निर्देशांक (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
