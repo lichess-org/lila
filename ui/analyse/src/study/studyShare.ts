@@ -22,6 +22,7 @@ export interface StudyShareCtrl {
   shareable(): boolean;
   redraw: () => void;
   trans: Trans;
+  gamebook: boolean;
 }
 
 function fromPly(ctrl: StudyShareCtrl): VNode {
@@ -75,6 +76,7 @@ export function ctrl(
     shareable: () => data.features.shareable,
     redraw,
     trans,
+    gamebook: data.chapter.gamebook,
   };
 }
 
@@ -257,7 +259,9 @@ export function view(ctrl: StudyShareCtrl): VNode {
                     readonly: true,
                     disabled: isPrivate,
                     value: !isPrivate
-                      ? `<iframe width=600 height=371 src="${baseUrl()}${addPly(
+                      ? `<iframe ${
+                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                        } src="${baseUrl()}${addPly(
                           `/study/embed/${studyId}/${chapter.id}`,
                         )}" frameborder=0></iframe>`
                       : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
