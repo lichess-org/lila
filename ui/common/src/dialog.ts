@@ -119,6 +119,8 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
+  restoreFocus?: HTMLElement;
+
   constructor(
     readonly dialog: HTMLDialogElement,
     readonly view: HTMLElement,
@@ -177,15 +179,6 @@ class DialogWrapper implements Dialog {
     this.addModalListeners?.();
     this.returnValue = '';
     this.dialog.showModal();
-  };
-
-  close = () => this.dialog.close();
-
-  onClose = () => {
-    this.o.onClose?.(this);
-    if ('show' in this.o && this.o.show === 'modal') this.dialog.remove();
-    this.restoreFocus?.focus();
-    this.restoreFocus = undefined;
   };
 
   addModalListeners? = () => {
