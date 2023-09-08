@@ -8,7 +8,7 @@
   <string name="newWeeklyHighscore">ყოველკვირეული ახალი უმაღლესი ქულა</string>
   <string name="newMonthlyHighscore">თვის ახალი საუკეთესო ქულა!</string>
   <string name="newAllTimeHighscore">ახალი საუკეთესო შედეგი</string>
-  <string name="previousHighscoreWasX">ბოლო საუკეთესო შედეგი იყო %</string>
+  <string name="previousHighscoreWasX">ბოლო საუკეთესო შედეგი იყო %s</string>
   <string name="playAgain">კიდევ  ითამაშე</string>
   <string name="highscoreX">უმაღლესი ქულა</string>
   <string name="score">ქულა</string>
