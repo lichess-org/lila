@@ -46,7 +46,7 @@ object Quote:
     ),
     Quote("Even the laziest king flees wildly in the face of a double check!", "Aron Nimzowitsch"),
     Quote(
-      "Combinations have always been the most intriguing aspect of chess.  The masters look for them, the public applauds them, the critics praise them. It is because combinations are possible that chess is more than a lifeless mathematical exercise. They are the poetry of the game; they are to chess what melody is to music. They represent the triumph of mind over matter.",
+      "Combinations have always been the most intriguing aspect of chess. The masters look for them, the public applauds them, the critics praise them. It is because combinations are possible that chess is more than a lifeless mathematical exercise. They are the poetry of the game; they are to chess what melody is to music. They represent the triumph of mind over matter.",
       "Reuben Fine"
     ),
     Quote("Chess is a fairy tale of 1001 blunders.", "Savielly Tartakower"),
@@ -68,7 +68,7 @@ object Quote:
       "William Ewart Napier"
     ),
     Quote(
-      "I have added these principles to the law: get the Knights into action before both Bishops are developed.",
+      "I have added these principles to the law: get the knights into action before both bishops are developed.",
       "Emanuel Lasker"
     ),
     Quote("Life is like a game of chess, changing with each move.", "Chinese proverb"),
@@ -79,12 +79,12 @@ object Quote:
     ),
     Quote(
       "It is the aim of the modern school, not to treat every position according to one general law, but according to the principle inherent in the position.",
-      "Richard Reti"
+      "Richard Réti"
     ),
     Quote("The pawns are the soul of the game.", "François-André Danican Philidor"),
     Quote(
       "In order to improve your game, you must study the endgame before everything else, for whereas the endings can be studied and mastered by themselves, the middlegame and the opening must be studied in relation to the endgame.",
-      "Jose Raul Capablanca"
+      "José Raúl Capablanca"
     ),
     Quote("Without error there can be no brilliancy.", "Emanuel Lasker"),
     Quote("Chess is like war on a board.", "Bobby Fischer"),
@@ -126,13 +126,13 @@ object Quote:
     Quote("Chess is the art of analysis.", "Mikhail Botvinnik"),
     Quote("The mistakes are there, waiting to be made.", "Savielly Tartakower"),
     Quote(
-      "After black's reply to 1.e4 with 1..e5, leaves him always trying to get into the game.",
+      "After Black's reply to 1.e4 with 1...e5, leaves him always trying to get into the game.",
       "Howard Staunton"
     ),
     Quote("A player surprised is half beaten.", "Proverb"),
     Quote(
       "A passed pawn increases in strength as the number of pieces on the board diminishes.",
-      "Capablanca"
+      "José Raúl Capablanca"
     ),
     Quote("The essence of chess is thinking about what chess is.", "David Bronstein"),
     Quote("I am the best player in the world and I am here to prove it.", "Bobby Fischer"),
@@ -146,12 +146,12 @@ object Quote:
     ),
     Quote("Good positions don't win games, good moves do.", "Gerald Abrahams"),
     Quote(
-      "If I win a tournament, I win it by myself.  I do the playing. Nobody helps me.",
+      "If I win a tournament, I win it by myself. I do the playing. Nobody helps me.",
       "Bobby Fischer"
     ),
     Quote("What would chess be without silly mistakes?", "Kurt Richter"),
     Quote("Before the endgame, the Gods have placed the middle game.", "Siegbert Tarrasch"),
-    Quote("Chess was Capablanca's mother tongue.", "Reti"),
+    Quote("Chess was Capablanca's mother tongue.", "Richard Réti"),
     Quote(
       "Alekhine is a poet who creates a work of art out of something that would hardly inspire another man to send home a picture post card.",
       "Max Euwe"
@@ -206,7 +206,7 @@ object Quote:
     Quote("A bad plan is better than none at all.", "Frank Marshall"),
     Quote(
       "Chess books should be used as we use glasses: to assist the sight, although some players make use of them as if they thought they conferred sight.",
-      "Jose Raul Capablanca"
+      "José Raúl Capablanca"
     ),
     Quote("There are two types of sacrifices: correct ones and mine.", "Mikhail Tal"),
     Quote("Morphy was probably the greatest genius of them all.", "Bobby Fischer"),
@@ -231,12 +231,12 @@ object Quote:
     Quote("Chess is imagination.", "David Bronstein"),
     Quote(
       "Chess is thirty to forty percent psychology. You don't have this when you play a computer. I can’t confuse it.",
-      "Judith Polgar"
+      "Judit Polgar"
     ),
     Quote("On the chessboard, lies and hypocrisy do not survive long.", "Emanuel Lasker"),
     Quote("Chess is war over the board. The object is to crush the opponents mind.", "Bobby Fischer"),
     Quote(
-      "The passed pawn is a criminal, who should be kept under lock and key.  Mild measures, such as police surveillance, are not sufficient.",
+      "The passed pawn is a criminal, who should be kept under lock and key. Mild measures, such as police surveillance, are not sufficient.",
       "Aron Nimzowitsch"
     ),
     Quote(
@@ -254,7 +254,7 @@ object Quote:
     ),
     Quote("It is no time to be playing chess when the house is on fire.", "Italian proverb"),
     Quote(
-      "You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it.  But what chess teaches you is that you must sit there calmly and think about whether it's really a good idea and whether there are other better ideas.",
+      "You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it. But what chess teaches you is that you must sit there calmly and think about whether it's really a good idea and whether there are other better ideas.",
       "Stanley Kubrick"
     ),
     Quote(
@@ -285,7 +285,7 @@ object Quote:
       "The boy (then a 12 year old boy named Anatoly Karpov) doesn't have a clue about chess, and there’s no future at all for him in this profession.",
       "Mikhail Botvinnik"
     ),
-    Quote("As one by one I mowed them down, my superiority soon became apparent.", "Jose Capablanca"),
+    Quote("As one by one I mowed them down, my superiority soon became apparent.", "José Raúl Capablanca"),
     Quote(
       "Though most people love to look at the games of the great attacking masters, some of the most successful players in history have been the quiet positional players. They slowly grind you down by taking away your space, tying up your pieces, and leaving you with virtually nothing to do!",
       "Yasser Seirawan"
@@ -324,7 +324,7 @@ object Quote:
       "Bruce Pandolfini"
     ),
     Quote(
-      "The battle for the ultimate truth will never be won.  And that's why chess is so fascinating.",
+      "The battle for the ultimate truth will never be won. And that's why chess is so fascinating.",
       "Hans Kmoch"
     ),
     Quote(
@@ -391,7 +391,7 @@ object Quote:
       "Soren Kierkegaard"
     ),
     Quote(
-      "When your house is on fire, you can't be bothered with the neighbors.  Or, as we say in chess, if your king is under attack you don't worry about losing a pawn on the queen’s side.",
+      "When your house is on fire, you can't be bothered with the neighbors. Or, as we say in chess, if your king is under attack you don't worry about losing a pawn on the queen’s side.",
       "Garry Kasparov"
     ),
     Quote(
@@ -404,7 +404,7 @@ object Quote:
     ),
     Quote("Mistrust is the most necessary characteristic of the chess player.", "Siegbert Tarrasch"),
     Quote(
-      "What is the object of playing a gambit opening?... To acquire a reputation of being a dashing player at the cost of losing a game.",
+      "What is the object of playing a gambit opening...? To acquire a reputation of being a dashing player at the cost of losing a game.",
       "Siegbert Tarrasch"
     ),
     Quote(
@@ -429,10 +429,10 @@ object Quote:
       "The tactician knows what to do when there is something to do; whereas the strategian knows what to do when there is nothing to do.",
       "Gerald Abrahams"
     ),
-    Quote("In chess, just as in life, today's bliss may be tomorrow’s poison.", "Assaic"),
+    Quote("In chess, just as in life, today's bliss may be tomorrow’s poison.", "Assiac"),
     Quote(
       "You may learn much more from a game you lose than from a game you win. You will have to lose hundreds of games before becoming a good player.",
-      "Jose Raul Capablanca"
+      "José Raúl Capablanca"
     ),
     Quote("The way he plays chess demonstrates a man's whole nature.", "Stanley Ellin"),
     Quote("You can only get good at chess if you love the game.", "Bobby Fischer"),
@@ -441,14 +441,14 @@ object Quote:
       "Whoever sees no other aim in the game than that of giving checkmate to one's opponent will never become a good chess player.",
       "Euwe"
     ),
-    Quote("In blitz, the Knight is stronger than the Bishop.", "Vlastimil Hort"),
-    Quote("Chess is a fighting game which is purely intellectual and includes chance.", "Richard Reti"),
+    Quote("In blitz, the knight is stronger than the bishop.", "Vlastimil Hort"),
+    Quote("Chess is a fighting game which is purely intellectual and includes chance.", "Richard Réti"),
     Quote("Chess is a sea in which a gnat may drink and an elephant may bathe.", "Hindu proverb"),
     Quote("Pawn endings are to chess what putting is to golf.", "Cecil Purdy"),
     Quote("Chess opens and enriches your mind.", "Saudin Robovic"),
     Quote("The isolated pawn casts gloom over the entire chessboard.", "Aron Nimzowitsch"),
     Quote(
-      "For me, chess is life and every game is like a  life. Every chess player gets to live many lives in one lifetime.",
+      "For me, chess is life and every game is like a life. Every chess player gets to live many lives in one lifetime.",
       "Eduard Gufeld"
     ),
     Quote("Chess is a terrific way for kids to build self image and self esteem.", "Saudin Robovic"),
@@ -462,7 +462,7 @@ object Quote:
       "Chess is so inspiring that I do not believe a good player is capable of having an evil thought during the game.",
       "Wilhelm Steinitz"
     ),
-    Quote("You are for me the queen on d8 and I am the pawn on d7!! ", "GM Eduard Gufeld"),
+    Quote("You are for me the queen on d8 and I am the pawn on d7!!", "GM Eduard Gufeld"),
     Quote(
       "By playing at chess then, we may learn: First: Foresight. Second: Circumspection. Third: Caution. And lastly, we learn by chess the habit of not being discouraged by present bad appearances in the state of our affairs, the habit of hoping for a favorable chance, and that of persevering in the secrets of resources.",
       "Benjamin Franklin"
@@ -470,10 +470,10 @@ object Quote:
     Quote("I prefer to lose a really good game than to win a bad one.", "David Levy"),
     Quote(
       "Capture of the adverse king is the ultimate but not the first object of the game.",
-      "William Steinitz"
+      "Wilhelm Steinitz"
     ),
     Quote(
-      "When I have white, I win because I am white; When I have black, I win because I am Bogolyubov.",
+      "When I have white, I win because I am White; When I have black, I win because I am Bogolyubov.",
       "Bogolyubov"
     ),
     Quote("Every pawn is a potential queen.", "James Mason"),
@@ -483,7 +483,7 @@ object Quote:
     ),
     Quote("No price is too great for the scalp of the enemy king.", "Koblentz"),
     Quote(
-      "In life, as in chess, ones own pawns block ones way.  A mans very wealth, ease, leisure, children, books, which should help him to win, more often checkmate him.",
+      "In life, as in chess, ones own pawns block ones way. A mans very wealth, ease, leisure, children, books, which should help him to win, more often checkmate him.",
       "Charles Buxton"
     ),
     Quote(
@@ -563,7 +563,7 @@ object Quote:
     Quote("It is always better to sacrifice your opponent's men.", "Savielly Tartakower"),
     Quote("In chess, as it is played by masters, chance is practically eliminated.", "Emanuel Lasker"),
     Quote(
-      "You know you're going to lose. Even when I was ahead I k I was going to lose  --on playing against Fischer.",
+      "You know you're going to lose. Even when I was ahead I knew I was going to lose --on playing against Fischer.",
       "Andrew Soltis"
     ),
     Quote(
@@ -575,11 +575,11 @@ object Quote:
       "Che Guevara"
     ),
     Quote(
-      "It began to feel as though you were playing against chess itself --on playing against Robert Fischer.",
+      "It began to feel as though you were playing against chess itself --on playing against Bobby Fischer.",
       "Walter Shipman"
     ),
     Quote(
-      "When you play Bobby, it is not a question if you win or lose.  It is a question if you survive.",
+      "When you play Bobby, it is not a question if you win or lose. It is a question if you survive.",
       "Boris Spassky"
     ),
     Quote("When you absolutely don't know what to do anymore, it is time to panic.", "John van der Wiel"),
@@ -591,7 +591,7 @@ object Quote:
       "Efim Geller"
     ),
     Quote(
-      "I love all positions. Give me a difficult positional game, I will play it.  But totally won positions, I cannot stand them.",
+      "I love all positions. Give me a difficult positional game, I will play it. But totally won positions, I cannot stand them.",
       "Hein Donner"
     ),
     Quote(
@@ -627,7 +627,7 @@ object Quote:
       "Burt Hochberg"
     ),
     Quote(
-      "Fischer is completely natural. He plays no roles.  He's like a child. Very, very simple.",
+      "Fischer is completely natural. He plays no roles. He's like a child. Very, very simple.",
       "Zita Rajcsanyi"
     ),
     Quote("Spassky will not be psyched out by Fischer.", "Mike Goodall"),
@@ -703,7 +703,7 @@ object Quote:
     Quote("There is only one thing Fischer does in chess without pleasure: to lose!", "Boris Spassky"),
     Quote("Bobby Fischer is the greatest chess player who has ever lived.", "Ken Smith"),
     Quote(
-      "Up to this point white has been following well-known analysis. But now he makes a fatal error: he begins to use his own head.",
+      "Up to this point White has been following well-known analysis. But now he makes a fatal error: he begins to use his own head.",
       "Siegbert Tarrasch"
     ),
     Quote(
@@ -739,14 +739,14 @@ object Quote:
       "There's never before been a chess player with such a thorough knowledge of the intricacies of the game and such an absolutely indomitable will to win. I think Bobby is the greatest player that ever lived.",
       "Lisa Lane"
     ),
-    Quote("He who takes the queen's Knight’s pawn will sleep in the streets.", "Anonymous"),
+    Quote("He who takes the queen's knight’s pawn will sleep in the streets.", "Anonymous"),
     Quote(
       "I had a toothache during the first game. In the second game I had a headache. In the third game it was an attack of rheumatism. In the fourth game, I wasn't feeling well. And in the fifth game? Well, must one have to win every game?",
       "Siegbert Tarrasch"
     ),
     Quote("The stomach is an essential part of the chess master.", "Bent Larsen"),
     Quote(
-      "I'm not a materialistic person, in that, I don’t suffer the lack or loss of money.  The absence of worldly goods I don’t look back on. For chess is a way I can be as materialistic as I want without having to sell my soul ",
+      "I'm not a materialistic person, in that, I don’t suffer the lack or loss of money. The absence of worldly goods I don’t look back on. For chess is a way I can be as materialistic as I want without having to sell my soul",
       "Jamie Walter Adams"
     ),
     Quote(
@@ -766,7 +766,7 @@ object Quote:
     ),
     Quote("On the bright side, I no longer have any more pieces to lose.", "John ~ZugAddict~ Chernoff"),
     Quote(
-      "Tactics... Tactics are your friends. But they are weird friends who do strange things.",
+      "Tactics... tactics are your friends. But they are weird friends who do strange things.",
       "John ~ZugAddict~ Chernoff"
     ),
     Quote(
@@ -834,7 +834,7 @@ object Quote:
     ),
     Quote(
       "The scheme of a game is played on positional lines; the decision of it, as a rule, is effected by combinations.",
-      "Richard Reti"
+      "Richard Réti"
     ),
     Quote("On the chessboard lies and hypocrisy do not last long.", "Emanuel Lasker"),
     Quote(
@@ -851,7 +851,7 @@ object Quote:
     ),
     Quote("Win with grace, lose with dignity.", "Susan Polgar"),
     Quote(
-      "Pawns are such fascinating pieces, too...So small, almost insignificant, and yet--they can depose kings.",
+      "Pawns are such fascinating pieces, too... so small, almost insignificant, and yet--they can depose kings.",
       "Lavie Tidhar"
     ),
     Quote("The move is there, but you must see it.", "Savielly Tartakower"),
@@ -875,11 +875,11 @@ object Quote:
       "Hikaru Nakamura"
     ),
     Quote(
-      "A Chess game is divided into three stages: the first, when you hope you have the advantage, the second when you believe that you have an advantage, and the third ... when you know you're going to lose !",
+      "A Chess game is divided into three stages: the first, when you hope you have the advantage, the second when you believe that you have an advantage, and the third... when you know you're going to lose!",
       "Savielly Tartakower"
     ),
     Quote(
-      "A Queen's sacrifice, even when fairly obvious, always rejoices the heart of the chess-lover.",
+      "A queen's sacrifice, even when fairly obvious, always rejoices the heart of the chess-lover.",
       "Savielly Tartakower"
     ),
     Quote(
@@ -913,11 +913,11 @@ object Quote:
     ),
     Quote(
       "A pawn, when separated from his fellows, will seldom or never make a fortune.",
-      "Francois-Andre Danican Philidor"
+      "François-André Danican Philidor"
     ),
     Quote("A plan is made for a few moves only, not for the whole game.", "Rueben Fine"),
     Quote(
-      "A player can sometimes afford the luxury of an inaccurate move, or even a definite error, in the opening or middlegame without necessarily obtaining a lost position. In the endgame ... an error can be decisive, and we are rarely presented with a second chance.",
+      "A player can sometimes afford the luxury of an inaccurate move, or even a definite error, in the opening or middlegame without necessarily obtaining a lost position. In the endgame... an error can be decisive, and we are rarely presented with a second chance.",
       "Paul Keres"
     ),
     Quote(
@@ -979,8 +979,8 @@ object Quote:
       "Mikhail Botvinnik"
     ),
     Quote(
-      "Although the Knight is generally considered to be on a par with the Bishop in strength, the latter piece is somewhat stronger in the majority of cases in which they are opposed to each other.",
-      "Jose Capablanca"
+      "Although the knight is generally considered to be on a par with the bishop in strength, the latter piece is somewhat stronger in the majority of cases in which they are opposed to each other.",
+      "José Raúl Capablanca"
     ),
     Quote("Amberley excelled at chess - a mark, Watson, of a scheming mind.", "Sir Arthur Conan Doyle"),
     Quote(
@@ -1042,7 +1042,7 @@ object Quote:
     ),
     Quote(
       "As often as not, his strategy consists of stifling Black's activity and then winning in an endgame thanks to his superior pawn structure.",
-      "Neil McDonald (1998)"
+      "Neil McDonald"
     ),
     Quote("Attack! Always Attack!", "Adolf Anderssen"),
     Quote(
@@ -1054,7 +1054,7 @@ object Quote:
       "Eugene Znosko-Borovsky"
     ),
     Quote(
-      "Barcza is the most versatile player in the opening. He sometimes plays P-KKt3 on the first, sometimes on the second, sometimes on the third, and sometimes only on the fourth move.",
+      "Barcza is the most versatile player in the opening. He sometimes plays g2-g3 on the first, sometimes on the second, sometimes on the third, and sometimes only on the fourth move.",
       "reputedly stated by Harry Golombek"
     ),
     Quote("Before Geller we did not understand the King's Indian Defence.", "Mikhail Botvinnik"),
@@ -1062,7 +1062,7 @@ object Quote:
       "Begone! Ignorant and impudent knight, not even in chess can a King be taken.",
       "King Louis VI (reputedly stated to one of his knights in 1110 after he was nearly captured by enemy forces)"
     ),
-    Quote("Black's d5-square is too weak.", "Ulf Andersson  (on the Dragon variation)"),
+    Quote("Black's d5-square is too weak.", "Ulf Andersson (on the Dragon variation)"),
     Quote("Blitz chess kills your ideas.", "Bobby Fischer"),
     Quote(
       "Bobby Fischer started off each game with a great advantage: after the opening he had used less time than his opponent and thus had more time available later on. The major reason why he never had serious time pressure was that his rapid opening play simply left sufficient time for the middlegame.",
@@ -1073,7 +1073,7 @@ object Quote:
       "Harry Golombek"
     ),
     Quote(
-      "Boris Vasilievich was the only top-class player of his generation who played gambits regularly and without fear ... Over a period of 30 years he did not lose a single game with the King's Gambit, and among those defeated were numerous strong players of all generations, from Averbakh, Bronstein and Fischer, to Seirawan.",
+      "Boris Vasilievich was the only top-class player of his generation who played gambits regularly and without fear... over a period of 30 years he did not lose a single game with the King's Gambit, and among those defeated were numerous strong players of all generations, from Averbakh, Bronstein and Fischer, to Seirawan.",
       "Garry Kasparov"
     ),
     Quote(
@@ -1101,7 +1101,7 @@ object Quote:
       "Anatoly Karpov"
     ),
     Quote(
-      "By positional play a master tries to prove and exploit true values, whereas by combinations he seeks to refute false values ... A combination produces an unexpected re-assessment of values.",
+      "By positional play a master tries to prove and exploit true values, whereas by combinations he seeks to refute false values... a combination produces an unexpected re-assessment of values.",
       "Emanuel Lasker"
     ),
     Quote(
@@ -1117,11 +1117,11 @@ object Quote:
       "Igor Aleksander"
     ),
     Quote(
-      "By the time a player becomes a Grandmaster, almost all of his training time is dedicated to work on this first phase. The opening is the only phase that holds out the potential for true creativity and doing something entirely .",
+      "By the time a player becomes a Grandmaster, almost all of his training time is dedicated to work on this first phase. The opening is the only phase that holds out the potential for true creativity and doing something entirely.",
       "Garry Kasparov"
     ),
     Quote(
-      "By what right does White, in an absolutely even position, such as after move one, when both sides have advanced 1. e4, sacrifice a pawn, whose recapture is quite uncertain, and open up his kingside to attack? And then follow up this policy by leaving the check of the black queen open? None whatever !",
+      "By what right does White, in an absolutely even position, such as after move one, when both sides have advanced 1. e4, sacrifice a pawn, whose recapture is quite uncertain, and open up his kingside to attack? And then follow up this policy by leaving the check of the black queen open? None whatever!",
       "Emanuel Lasker"
     ),
     Quote(
@@ -1141,8 +1141,8 @@ object Quote:
       "Jennifer Shahade"
     ),
     Quote(
-      "Chess can never reach its height by following in the path of science ... Let us, therefore, make a  effort and with the help of our imagination turn the struggle of technique into a battle of ideas.",
-      "Jose Capablanca"
+      "Chess can never reach its height by following in the path of science... let us, therefore, make a effort and with the help of our imagination turn the struggle of technique into a battle of ideas.",
+      "José Raúl Capablanca"
     ),
     Quote(
       "Chess continues to advance over time, so the players of the future will inevitably surpass me in the quality of their play, assuming the rules and regulations allow them to play serious chess. But it will likely be a long time before anyone spends 20 consecutive years as number one, as I did.",
@@ -1216,12 +1216,12 @@ object Quote:
       "Wilhelm Steinitz"
     ),
     Quote("Chess is not for the timid.", "Irving Chernev"),
-    Quote("Chess is not relaxing ; it's stressful even if you win.", "Jennifer Shahade"),
+    Quote("Chess is not relaxing; it's stressful even if you win.", "Jennifer Shahade"),
     Quote("Chess is one long regret.", "Stephen Leacock"),
     Quote("Chess is only a recreation and not an occupation.", "Vladimir Lenin"),
     Quote(
       "Chess is something more than a game. It is an intellectual diversion which has certain artistic qualities and many scientific elements.",
-      "Jose Capablanca"
+      "José Raúl Capablanca"
     ),
     Quote("Chess is the touchstone of intellect.", "Johann Wolfgang von Goethe"),
     Quote(
@@ -1230,7 +1230,7 @@ object Quote:
     ),
     Quote(
       "Chess is thriving. There are ever less round robin tournaments and ever more World Champions.",
-      "Robert Hübner (1990, Schach)"
+      "Robert Hübner"
     ),
     Quote("Chess is, above all, a fight.", "Emanuel Lasker"),
     Quote(
@@ -1247,7 +1247,7 @@ object Quote:
     ),
     Quote(
       "Chess strategy as such today is still in its diapers, despite Tarrasch's statement 'We live today in a beautiful time of progress in all fields'. Not even the slightest attempt has been made to explore and formulate the laws of chess strategy.",
-      "Aron Nimzowitsch (1925)"
+      "Aron Nimzowitsch"
     ),
     Quote(
       "Chess strength in general and chess strength in a specific match are by no means one and the same thing.",
@@ -1263,7 +1263,7 @@ object Quote:
       "Robt. Burton (1621) (clergyman and Librarian at Oxford University)"
     ),
     Quote(
-      "Combinations with a queen sacrifice are among the most striking and memorable ...",
+      "Combinations with a queen sacrifice are among the most striking and memorable...",
       "Anatoly Karpov"
     ),
     Quote(
@@ -1291,7 +1291,7 @@ object Quote:
       "Vasily Smyslov"
     ),
     Quote(
-      "Do not bring your Queen out too early.",
+      "Do not bring your queen out too early.",
       "from Francisco Bernardina Calogno's poem 'On the Game of Chess' circa 1500"
     ),
     Quote(
@@ -1332,7 +1332,7 @@ object Quote:
     ),
     Quote(
       "Endings of one rook and pawns are about the most common sort of endings arising on the chess board. Yet though they do occur so often, few have mastered them thoroughly. They are often of a very difficult nature, and sometimes while apparently very simple they are in reality extremely intricate.",
-      "Jose Capablanca"
+      "José Raúl Capablanca"
     ),
     Quote(
       "Enormous self-belief, intuition, the ability to take a risk at a critical moment and go in for a very dangerous play with counter-chances for the opponent - it is precisely these qualities that distinguish great players.",
@@ -1343,8 +1343,8 @@ object Quote:
       "Pal Benko"
     ),
     Quote(
-      "Even in the King's Gambit ... White is no longer trying to attack at all costs. He has had to adapt his approach and look for moves with a solid positional foundation",
-      "Neil McDonald  (1998) "
+      "Even in the King's Gambit... White is no longer trying to attack at all costs. He has had to adapt his approach and look for moves with a solid positional foundation",
+      "Neil McDonald"
     ),
     Quote(
       "Even in the heat of a middlegame battle the master still has to bear in mind the outlines of a possible future ending.",
@@ -1368,13 +1368,13 @@ object Quote:
       "Mikhail Botvinnik"
     ),
     Quote(
-      "Every month I look through some ten thousand games, so not as to miss any  ideas and trends.",
+      "Every month I look through some ten thousand games, so not as to miss any ideas and trends.",
       "Vladimir Kramnik"
     ),
     Quote("Every move creates a weakness.", "Siegbert Tarrasch"),
     Quote(
-      "Excellent ! I will still be in time for the ballet !",
-      "Jose Capablanca (upon defeating Ossip Bernstein in the famous 29 move exhibition game played in Moscow in 1914, before setting off to the Bolshoi Theatre in horse-drawn carriage)"
+      "Excellent! I will still be in time for the ballet!",
+      "José Raúl Capablanca (upon defeating Ossip Bernstein in the famous 29 move exhibition game played in Moscow in 1914, before setting off to the Bolshoi Theatre in horse-drawn carriage)"
     ),
     Quote(
       "Excelling at chess has long been considered a symbol of more general intelligence. That is an incorrect assumption in my view, as pleasant as it might be.",
@@ -1402,7 +1402,7 @@ object Quote:
     Quote("Fischer is Fischer, but a knight is a knight!", "Mikhail Tal"),
     Quote(
       "For a game it is too serious, for seriousness too much of a game.",
-      "Moses Mendelssohn 1729-86"
+      "Moses Mendelssohn"
     ),
     Quote("For every door the computers have closed they have opened a new one.", "Viswanathan Anand"),
     Quote(
@@ -1491,7 +1491,7 @@ object Quote:
       "Paul Keres"
     ),
     Quote(
-      "I ... have two vocations: chess and engineering. If I played chess only, I believe that my success would not have been significantly greater. I can play chess well only when I have fully convalesced from chess and when the 'hunger for chess' once more awakens within me.",
+      "I... have two vocations: chess and engineering. If I played chess only, I believe that my success would not have been significantly greater. I can play chess well only when I have fully convalesced from chess and when the 'hunger for chess' once more awakens within me.",
       "Mikhail Botvinnik"
     ),
     Quote("I always urge players to study composed problems and endgames.", "Pal Benko"),
@@ -1512,7 +1512,7 @@ object Quote:
       "Magnus Carlsen"
     ),
     Quote(
-      "I believe in magic ... There is magic in the creative faculty such as great poets and philosophers conspicuously possess, and equally in the creative chessmaster.",
+      "I believe in magic... there is magic in the creative faculty such as great poets and philosophers conspicuously possess, and equally in the creative chessmaster.",
       "Emanuel Lasker"
     ),
     Quote(
@@ -1520,7 +1520,7 @@ object Quote:
       "Mikhail Tal"
     ),
     Quote(
-      "I believe that the best style is a universal one, tactical and positional at the same time ...",
+      "I believe that the best style is a universal one, tactical and positional at the same time...",
       "Susan Polgar"
     ),
     Quote(
@@ -1553,12 +1553,12 @@ object Quote:
     Quote("Be well enough prepared that preparation won't play a role.", "Magnus Carlsen"),
     Quote("I don't study; I create.", "Viktor Korchnoi"),
     Quote(
-      "During the analysis, I discovered something very remarkable: the board is simply too small for two Queens of the same color. They only get in each other's way. I realize that this might sound stupid, but I fully mean it. The advantage is much less than one would expect by counting material.",
+      "During the analysis, I discovered something very remarkable: the board is simply too small for two queens of the same color. They only get in each other's way. I realize that this might sound stupid, but I fully mean it. The advantage is much less than one would expect by counting material.",
       "Viktor Korchnoi"
     ),
     Quote("You'll be amazed at the people I've lost to while playing online.", "Magnus Carlsen"),
     Quote(
-      "[...], even extremely intoxicated my chess strength and knowledge is still in my bones.",
+      "...even extremely intoxicated my chess strength and knowledge is still in my bones.",
       "Magnus Carlsen"
     ),
     Quote(
