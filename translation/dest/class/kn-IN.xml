@@ -33,6 +33,9 @@
   <string name="privateWillNeverBeShown">ಖಾಸಗಿ. ತರಗತಿಯ ಹೊರಗೆ ಎಂದಿಗೂ ತೋರಿಸಲಾಗುವುದಿಲ್ಲ. ವಿದ್ಯಾರ್ಥಿ ಯಾರೆಂದು ನೆನಪಿಟ್ಟುಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.</string>
   <string name="addStudent">ವಿದ್ಯಾರ್ಥಿಯನ್ನು ಸೇರಿಸಿ</string>
   <string name="lichessProfileXCreatedForY">ಲಿಚೆಸ್ ಪ್ರೊಫೈಲ್ %1$s ಅನ್ನು %2$s ಗೆ ರಚಿಸಲಾಗಿದೆ.</string>
+  <string name="studentCredentials">ವಿದ್ಯಾರ್ಥಿ: %1$s
+ಬಳಕೆದಾರ ಹೆಸರು: %2$s
+ಪಾಸ್‌ವರ್ಡ್: %3$s</string>
   <string name="inviteALichessAccount">Lichess ಖಾತೆಯನ್ನು ಆಹ್ವಾನಿಸಿ</string>
   <string name="inviteDesc1">ವಿದ್ಯಾರ್ಥಿಯು ಈಗಾಗಲೇ ಲಿಚೆಸ್ ಖಾತೆಯನ್ನು ಹೊಂದಿದ್ದರೆ, ನೀವು ಅವರನ್ನು ತರಗತಿಗೆ ಆಹ್ವಾನಿಸಬಹುದು.</string>
   <string name="inviteDesc2">ಅವರು ತರಗತಿಗೆ ಸೇರಲು ಲಿಂಕ್‌ನೊಂದಿಗೆ ಲಿಚೆಸ್‌ನಲ್ಲಿ ಸಂದೇಶವನ್ನು ಸ್ವೀಕರಿಸುತ್ತಾರೆ.</string>
@@ -97,7 +100,7 @@
   <string name="newsEdit3">ಇದರೊಂದಿಗೆ ಪ್ರತ್ಯೇಕ ಸುದ್ದಿ ---
 ಇದು ಸಮತಲ ರೇಖೆಯನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ.</string>
   <string name="invite">ಆಹ್ವಾನಿಸಿ</string>
-  <string name="youHaveBeenInvitedByX">ನಿಮ್ಮನ್ನು %s ಅವರು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">ನಿಮ್ಮನ್ನು %s ಅವರು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="youAcceptedThisInvitation">ನೀವು ಈ ಆಹ್ವಾನವನ್ನು ಒಪ್ಪಿಕೊಂಡಿದ್ದೀರಿ.</string>
   <string name="youDeclinedThisInvitation">ನೀವು ಆಹ್ವಾನವನ್ನು ನಿರಾಕರಿಸಿದ್ದೀರಿ.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ಅಥವಾ</string>
