@@ -28,7 +28,6 @@ export interface RelayTour {
   description: string;
   official: boolean;
   markup?: string;
-  credit?: string;
 }
 
 export interface RelaySync {
