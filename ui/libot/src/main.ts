@@ -1,5 +1,7 @@
 export * from './interfaces';
 
+export * from './ctrl';
+
 export interface BotInfo {
   readonly name: string;
   readonly description: string;
@@ -17,7 +19,7 @@ export const localBots: { [key: string]: BotInfo } = {
     description: 'Baby Howard is a bot that plays random moves.',
     image: botImageUrl('baby-howard.webp'),
   },
-  babyBot: {
+  elsieZero: {
     name: 'Elsie Zero',
     description: 'Elsie Zero is a bot that plays random moves.',
     image: botImageUrl('baby-robot.webp'),
@@ -139,8 +141,8 @@ export const localBots: { [key: string]: BotInfo } = {
   },
 };
 
-export function botNetUrl(weights: string) {
-  return lichess.assetUrl(`lifat/bots/weights/${weights}`, { noVersion: true });
+export function botNetUrl(net: string) {
+  return lichess.assetUrl(`lifat/bots/weights/${net}.pb`, { noVersion: true });
 }
 
 export function botImageUrl(image: string) {

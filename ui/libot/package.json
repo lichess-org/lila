@@ -21,7 +21,7 @@
     "chessops": "^0.12.7",
     "common": "workspace:*",
     "tree": "workspace:*",
-    "zerofish": "^0.0.11"
+    "zerofish": "^0.0.13"
   },
   "scripts": {
     "compile": "tsc",

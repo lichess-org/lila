@@ -207,7 +207,7 @@ export class BvbCtrl {
       const reader = new FileReader();
       const weights = e.dataTransfer.files.item(0) as File;
       reader.onload = e => {
-        this.zf[color]!.setZeroWeights(new Uint8Array(e.target!.result as ArrayBuffer));
+        this.zf[color]!.setNet(weights.name, new Uint8Array(e.target!.result as ArrayBuffer));
         $(`#${color} p`).first().text(weights.name);
         this.players[color] = 'zero';
         if (this.players[Chops.opposite(color)] !== 'human') $('#go').removeClass('disabled');

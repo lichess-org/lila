@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -356,8 +356,8 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: ^0.0.11
-        version: 0.0.11
+        specifier: ^0.0.13
+        version: 0.0.13
 
   ui/lobby:
     dependencies:
@@ -419,8 +419,8 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: ^0.0.11
-        version: 0.0.11
+        specifier: ^0.0.13
+        version: 0.0.13
 
   ui/mod:
     dependencies:
@@ -4781,6 +4781,12 @@ packages:
     hasBin: true
     dev: false
 
+  /prettier@3.0.1:
+    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: false
+
   /prettier@3.0.2:
     resolution: {integrity: sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==}
     engines: {node: '>=14'}
@@ -5591,6 +5597,16 @@ packages:
       '@types/web': 0.0.84
       esbuild: 0.18.20
       prettier: 2.8.1
+      typescript: 5.1.6
+    dev: false
+
+  /zerofish@0.0.13:
+    resolution: {integrity: sha512-+13F0FJB1+YS+pkhH+hKV2lP1GKjuQrEo1teljf8WMJi2V4GD3Stfmj3GlVWzQYX5lGRG0F5m9g59nttPLOaEQ==}
+    dependencies:
+      '@types/emscripten': 1.39.7
+      '@types/node': 20.5.0
+      '@types/web': 0.0.113
+      prettier: 3.0.1
       typescript: 5.1.6
     dev: false
 

@@ -16,7 +16,7 @@
     "round": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*",
-    "zerofish": "^0.0.11"
+    "zerofish": "^0.0.13"
   },
   "scripts": {
     "compile": "tsc",

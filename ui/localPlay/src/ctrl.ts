@@ -1,6 +1,6 @@
 import { LocalPlayOpts } from './interfaces';
 import { Coral } from 'libot/bots/coral';
-import { type Libot } from 'libot';
+import { Ctrl as LibotCtrl } from 'libot';
 import { makeRounds } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
@@ -8,7 +8,7 @@ import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
 export class Ctrl {
-  bot?: Libot = new Coral();
+  //bot?: Libot = new Coral();
   chess = Chess.default();
   tellRound: SocketSend;
   fiftyMovePly = 0;
@@ -71,7 +71,7 @@ export class Ctrl {
   }
 
   async botMove() {
-    this.move(await this.bot!.move(this.fen));
+    //this.move(await this.bot!.move(this.fen));
   }
 
   fifty(move?: Chops.Move) {
