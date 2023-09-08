@@ -40,7 +40,7 @@
   <string name="hidden">დამალული</string>
   <plurals name="playedXTimes">
     <item quantity="one">ნათამაშები %s დრო</item>
-    <item quantity="other">ნატამაშები N ჯერ</item>
+    <item quantity="other">ნატამაშები %s ჯერ</item>
   </plurals>
   <string name="fromGameLink">Თამაშიდან %s</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
