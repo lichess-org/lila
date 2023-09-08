@@ -2,11 +2,11 @@
 <resources>
   <string name="learnChess">Học cờ vua</string>
   <string name="byPlaying">bằng cách chơi!</string>
-  <string name="menu">Menu</string>
+  <string name="menu">Mục lục</string>
   <string name="progressX">Tiến trình: %s</string>
   <string name="resetMyProgress">Đặt lại tiến trình của tôi</string>
   <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các thành tích và tiến trình của bạn!</string>
-  <string name="play">chơi!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">chơi!</string>
   <string name="chessPieces">Các quân cờ</string>
   <string name="theRook">Quân xe</string>
   <string name="itMovesInStraightLines">Nó đi theo các đường thẳng</string>
@@ -235,7 +235,7 @@ trong 2 nước!</string>
   <string name="stageXComplete">Chặng %s hoàn thành</string>
   <string name="next">Tiếp</string>
   <string name="nextX">Tiếp theo: %s</string>
-  <string name="backToMenu">Quay trở lại menu</string>
+  <string name="backToMenu">Quay trở lại mục lục</string>
   <string name="puzzleFailed">Giải đố thất bại!</string>
   <string name="retry">Thử lại</string>
 </resources>
