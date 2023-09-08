@@ -10,7 +10,6 @@
   <string name="newAllTimeHighscore">ახალი საუკეთესო შედეგი</string>
   <string name="previousHighscoreWasX">ბოლო საუკეთესო შედეგი იყო %s</string>
   <string name="playAgain">კიდევ  ითამაშე</string>
-  <string name="highscoreX">უმაღლესი ქულა</string>
   <string name="score">ქულა</string>
   <string name="moves">სვლები</string>
   <string name="accuracy">ზუსტად.აკურატულად</string>
@@ -30,7 +29,7 @@
   <string name="raceComplete">რბოლა დამთავრებულია!</string>
   <string name="joinTheRace">რბოლაში ჩართვა!</string>
   <string name="startTheRace">რბოლის დაწყება</string>
-  <string name="yourRankX">შენი რანგი:%</string>
+  <string name="yourRankX">შენი რანგი: %s</string>
   <string name="waitForRematch">დაელოდე თავიდან დაწყებას</string>
   <string name="nextRace">შემდეგი რეისი</string>
   <string name="joinRematch">შეურთდი განმეორებით რეისს</string>
