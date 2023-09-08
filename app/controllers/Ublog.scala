@@ -48,13 +48,16 @@ final class Ublog(env: Env) extends LilaController(env):
                 if slug != post.slug then Redirect(urlOfPost(post))
                 else
                   for
-                    others   <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
-                    liked    <- ctx.user.so(env.ublog.rank.liked(post))
-                    followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-                    markup   <- env.ublog.markup(post)
+                    others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
+                    liked          <- ctx.user.so(env.ublog.rank.liked(post))
+                    followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+                    prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+                    blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+                    followable = prefFollowable && !blocked
+                    markup <- env.ublog.markup(post)
                     viewedPost = env.ublog.viewCounter(post, ctx.ip)
                     page <- renderPage:
-                      html.ublog.post(user, blog, viewedPost, markup, others, liked, followed)
+                      html.ublog.post(user, blog, viewedPost, markup, others, liked, followable, followed)
                   yield Ok(page)
             }
 
