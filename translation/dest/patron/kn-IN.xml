@@ -21,6 +21,7 @@
   <string name="weRelyOnSupport">ಅದನ್ನು ಸಾಧ್ಯವಾಗಿಸಲು ನಾವು ನಿಮ್ಮಂತಹ ಜನರ ಬೆಂಬಲವನ್ನು ಅವಲಂಬಿಸಿದ್ದೇವೆ. ನೀವು Lichess ಅನ್ನು ಬಳಸುವುದನ್ನು ಆನಂದಿಸುತ್ತಿದ್ದರೆ, ದಯವಿಟ್ಟು ದೇಣಿಗೆ ನೀಡುವ ಮೂಲಕ ಮತ್ತು ಪೋಷಕರಾಗುವ ಮೂಲಕ ನಮ್ಮನ್ನು ಬೆಂಬಲಿಸುವುದನ್ನು ಪರಿಗಣಿಸಿ!</string>
   <string name="lifetime">ಜೀವಮಾನ</string>
   <string name="payLifetimeOnce">ಒಮ್ಮೆ %s ಪಾವತಿಸಿ. ಶಾಶ್ವತವಾಗಿ ಲಿಚೆಸ್ ಪೋಷಕರಾಗಿರಿ!</string>
+  <string name="lifetimePatron">ಜೀವಮಾನದ ಲಿಚೆಸ್ ಪೋಷಕ</string>
   <string name="monthly">ಮಾಸಿಕ</string>
   <string name="recurringBilling">ಮರುಕಳಿಸುವ ಬಿಲ್ಲಿಂಗ್, ಪ್ರತಿ ತಿಂಗಳು ನಿಮ್ಮ ಪೋಷಕ ರೆಕ್ಕೆಗಳನ್ನು ನವೀಕರಿಸುವುದು.</string>
   <string name="onetime">ಒಂದು ಬಾರಿ</string>
@@ -59,6 +60,7 @@
   <string name="nextPayment">ಮುಂದಿನ ಪಾವತಿ</string>
   <string name="youWillBeChargedXOnY">%2$s ನಲ್ಲಿ ನಿಮಗೆ %1$s ಶುಲ್ಕ ವಿಧಿಸಲಾಗುತ್ತದೆ.</string>
   <string name="makeAdditionalDonation">ಹೆಚ್ಚುವರಿ ದೇಣಿಗೆ ನೀಡಿ</string>
+  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">ಯಾರಿಗಾದರೂ ಪೋಷಕ ರೆಕ್ಕೆಗಳನ್ನು ಉಡುಗೊರೆಯಾಗಿ ನೀಡಿ</string>
   <string name="giftPatronWings">ಆಟಗಾರನಿಗೆ ಪೋಷಕ ರೆಕ್ಕೆಗಳನ್ನು ಉಡುಗೊರೆಯಾಗಿ ನೀಡಿ</string>
   <string name="update">ನವೀಕರಿಸಿ</string>
   <string name="changeMonthlyAmount">ಮಾಸಿಕ ಮೊತ್ತವನ್ನು ಬದಲಾಯಿಸಿ (%s)</string>
