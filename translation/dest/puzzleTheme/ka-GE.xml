@@ -120,6 +120,5 @@
   <string name="healthyMixDescription">ცოტ ცოტა ყველაფერი. არ იცით რა გელოდებათ, ზუსტად ისე როგორც ნამდვილ პარტიაში.</string>
   <string name="playerGames">მოთამაშის პარტია</string>
   <string name="playerGamesDescription">ნახე შენი ან სხვისი ნათამაშები პარტიებიდან შექმნილი ამოცანები, ა.</string>
-  <string name="puzzleDownloadInformation">ამოცანები ფართო საზოგადოებისთვისაა და შეიძლება მისი ჩამოტვირთვა 
- https://database. lichess. org/.</string>
+  <string name="puzzleDownloadInformation">ამოცანები ფართო საზოგადოებისთვისაა და შეიძლება მისი ჩამოტვირთვა %s.</string>
 </resources>
