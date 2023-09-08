@@ -26,12 +26,12 @@
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi thời gian sắp hết</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Thao tác trò chơi</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Thao tác chơi</string>
   <string name="howDoYouMovePieces">Bạn di chuyển quân như thế nào?</string>
   <string name="clickTwoSquares">Nhấn hai ô</string>
   <string name="dragPiece">Thả quân cờ</string>
   <string name="bothClicksAndDrag">Cả hai</string>
-  <string name="premovesPlayingDuringOpponentTurn">Nước đi trước (được thực hiện khi đang đến lượt đi của đối phương)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Nước cờ dự đoán (được thực hiện khi đang đến lượt đi của đối phương)</string>
   <string name="takebacksWithOpponentApproval">Đi lại (với sự chấp thuận của đối thủ)</string>
   <string name="inCasualGamesOnly">Chỉ trong các ván đấu không tính hệ số</string>
   <string name="promoteToQueenAutomatically">Phong Hậu một cách tự động</string>
