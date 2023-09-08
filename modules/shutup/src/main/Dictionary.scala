@@ -83,6 +83,7 @@ lamer?
 lesbo
 lo++ser
 masturbat(ed?|ion|ing)
+mf\b
 milf
 molest(er|ed|)
 mong
