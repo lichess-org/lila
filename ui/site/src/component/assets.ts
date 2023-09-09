@@ -72,5 +72,5 @@ export const hopscotch = () => {
 };
 
 export const embedChessground = () => {
-  return import(assetUrl('javascripts/chessground.min.js', { noVersion: true }));
+  return import(assetUrl('npm/chessground.min.js', { noVersion: true }));
 };
