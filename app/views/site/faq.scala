@@ -10,7 +10,7 @@ object faq:
 
   import trans.faq.*
 
-  val fideHandbookUrl = "https://handbook.fide.com/chapter/E012018"
+  val fideHandbookUrl = "https://handbook.fide.com/chapter/E012023"
 
   private def question(id: String, title: String, answer: Frag*) =
     div(
