@@ -162,12 +162,12 @@ class DialogWrapper implements Dialog {
   };
 
   onClose = () => {
+    if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.o.onClose?.(this);
     if ('show' in this.o && this.o.show === 'modal') {
       this.dialog.remove();
       this.restoreFocus?.focus();
     }
-    if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.restoreFocus = undefined;
   };
 
