@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spill géint e Kolleg</string>
+  <string name="playWithAFriend">Spill géint e Kolleeg</string>
   <string name="playWithTheMachine">Spill géint de Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
-  <string name="waitingForOpponent">Waarden op de Géigner</string>
+  <string name="waitingForOpponent">Op de Géigner waarden</string>
   <string name="waiting">Waarden</string>
   <string name="yourTurn">Du bass drun</string>
   <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
   <string name="level">Level</string>
-  <string name="strength">Stäerkt</string>
+  <string name="strength">Spillstäerkt</string>
   <string name="toggleTheChat">Chat uweisen/ausblenden</string>
   <string name="chat">So eppes</string>
   <string name="resign">Opginn</string>
@@ -17,9 +17,9 @@
   <string name="stalemate">Patt</string>
   <string name="white">Wäiss</string>
   <string name="black">Schwaarz</string>
-  <string name="asWhite">als wäiss</string>
-  <string name="asBlack">als schwaarz</string>
-  <string name="randomColor">Zoufälleg Säit</string>
+  <string name="asWhite">mat Wäiss</string>
+  <string name="asBlack">mat Schwaarz</string>
+  <string name="randomColor">Zoufälleg Faarf</string>
   <string name="createAGame">Erstell eng Partie</string>
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
   <string name="blackIsVictorious">Schwaarz gewënnt</string>
@@ -52,7 +52,7 @@
   <string name="whiteDidntMove">Wäiss huet net gezunn</string>
   <string name="blackDidntMove">Schwaarz huet net gezunn</string>
   <string name="requestAComputerAnalysis">Eng Computer Analyse ufroen</string>
-  <string name="computerAnalysis">Computer Analyse</string>
+  <string name="computerAnalysis">Computeranalys</string>
   <string name="computerAnalysisAvailable">Computer Analyse disponibel</string>
   <string name="computerAnalysisDisabled">Computer Analyse desaktivéiert</string>
   <string name="analysis">Analysebriet</string>
@@ -95,10 +95,11 @@
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maxDepthReached">Maximal Déift erreecht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
-  <string name="openings">Eröffnungen</string>
-  <string name="openingExplorer">Eröffnungsdatenbank</string>
-  <string name="openingEndgameExplorer">Eröffnungs-/Endspilldatenbank</string>
-  <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
+  <string name="openings">Erëffnungen</string>
+  <string name="openingExplorer">Erëffnungsdatebank</string>
+  <string name="openingEndgameExplorer">Erëffnungs-/Endspilldatebank</string>
+  <string name="xOpeningExplorer">%s -Erëffnungsdatebank</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spill den éischten Zuch vun der Erëffnungs-/Endspill-Datebank</string>
   <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
   <string name="winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
@@ -152,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-Wäertung aus %2$s Partie</item>
+    <item quantity="other">%1$s-Wäertung aus %2$s Partien</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Lieszeeche</item>
@@ -286,7 +291,7 @@
   <string name="confirmMove">Zuch confirméieren</string>
   <string name="play">Spillen</string>
   <string name="inbox">Posteingang</string>
-  <string name="chatRoom">Chat Raum</string>
+  <string name="chatRoom">Chatraum</string>
   <string name="loginToChat">An Chat aloggen</string>
   <string name="youHaveBeenTimedOut">Du krus eng Auszeit.</string>
   <string name="spectatorRoom">Spectateur Raum</string>
@@ -341,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s Etüd</item>
     <item quantity="other">%s Etüden</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s Simultanveranstaltung</item>
+    <item quantity="other">%s Simultanveranstaltungen</item>
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei den Turnéier</string>
@@ -697,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Deng %1$s Wäertung ass %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bass besser wéi %1$s vun allen %2$s-Spiller.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ass besser wéi %2$s vun allen %3$s-Spiller.</string>
+  <string name="betterThanPercentPlayers">Besser wéi %1$s vun de(n) %2$s-Spiller</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hues keng feststehend %s Wäertung.</string>
   <string name="yourRating">Deng Wäertung</string>
   <string name="cumulative">Kumulativ</string>

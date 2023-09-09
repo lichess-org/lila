@@ -49,6 +49,8 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="arenaStreaks">Arenavinster i rad</string>
   <string name="arenaStreaksHelp">Efter 2 vinster, ger efterföljande vinster 4 poäng i stället för 2.</string>
   <string name="noBerserkAllowed">Bärsärk tillåts ej</string>
+  <string name="noArenaStreaks">Inga arena streaks</string>
+  <string name="averagePerformance">Genomsnittlig prestanda</string>
   <string name="averageScore">Medelpoäng</string>
   <string name="myTournaments">Mina turneringar</string>
 </resources>

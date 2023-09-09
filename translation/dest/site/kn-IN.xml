@@ -154,6 +154,10 @@
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s ಆಟಗಳಿಗಿಂತ %1$s ರೇಟಿಂಗ್</item>
+    <item quantity="other">%1$s ರೇಟಿಂಗ್ ಮೇಲ್ಮೆ %2$s ಆಟಗಳು</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ಗುರುತುಸಂಗ್ರಹ</item>
     <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
@@ -342,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s ಅಧ್ಯಯನ</item>
     <item quantity="other">%s ಅಧ್ಯಯನಗಳು</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s ಸಿಮ್ಯುಲ್</item>
+    <item quantity="other">%s ಸಿಮ್ಯುಲ್‌ಗಳು</item>
   </plurals>
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>

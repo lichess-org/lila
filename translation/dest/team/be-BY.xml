@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Каманда</string>
-  <string name="teams">Каманды</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Каманды</string>
   <plurals name="nbMembers">
     <item quantity="one">%s чальцоў</item>
     <item quantity="few">%s удзельнікаў</item>
@@ -15,7 +15,7 @@
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="onlyLeaderLeavesTeam">Калі ласка, абярыце новага лідара каманды перад сыходам, або зачыніце каманду.</string>
-  <string name="quitTeam">Выйсці з каманды</string>
+  <string name="quitTeam">Пакінуць каманду</string>
   <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Калі абрана, гульцы будуць павінны напісаць запыт, каб далучыцца да каманды, яго можна будзе адхіліць або пацвердзіць.</string>
   <plurals name="teamLeaders">

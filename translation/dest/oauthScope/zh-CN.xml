@@ -25,8 +25,8 @@
   <string name="followRead">阅读关注的棋手</string>
   <string name="followWrite">关注并取消关注其他棋手</string>
   <string name="msgWrite">向其他棋手发送私信</string>
-  <string name="boardPlay">用棋盘api下棋</string>
-  <string name="botPlay">用机器人api下棋</string>
+  <string name="boardPlay">用棋盘API下棋</string>
+  <string name="botPlay">用机器人API下棋</string>
   <string name="engineRead">查看和使用你的外部引擎</string>
   <string name="engineWrite">创建和更新外部引擎</string>
   <string name="webLogin">创建认证的网站会话 (授予完全访问权限!)</string>
