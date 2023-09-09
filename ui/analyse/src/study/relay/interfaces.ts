@@ -26,7 +26,7 @@ export interface RelayTour {
   name: string;
   slug: string;
   description: string;
-  official: boolean;
+  official?: boolean;
   markup?: string;
 }
 
