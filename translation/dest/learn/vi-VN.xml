@@ -29,12 +29,12 @@ Bạn cần cả hai!</string>
   <string name="theQueen">Quân hậu</string>
   <string name="queenCombinesRookAndBishop">Hậu = xe + tượng</string>
   <string name="queenIntro">Quân cờ mạnh nhất là đây. Hoàng hậu vĩ đại!</string>
-  <string name="queenComplete">Chúc mừng! Bạn đã nắm mọi bí mật của quân hậu.</string>
+  <string name="queenComplete">Chúc mừng! Bạn đã nắm mọi bí mật của quân Hậu.</string>
   <string name="theKing">Quân vua</string>
   <string name="theMostImportantPiece">Quân cờ quan trọng nhất</string>
   <string name="kingIntro">Bạn là quân vua. Nếu bạn bị ăn thì sẽ thua ván cờ.</string>
-  <string name="theKingIsSlow">Quân vua đi chậm.</string>
-  <string name="lastOne">Bài cuối!</string>
+  <string name="theKingIsSlow">Quân vua thì đi chậm.</string>
+  <string name="lastOne">Cuối cùng!</string>
   <string name="kingComplete">Bây giờ bạn có thể chỉ huy người chỉ huy!</string>
   <string name="theKnight">Quân mã</string>
   <string name="itMovesInAnLShape">Nó đi theo hình chữ L</string>
@@ -214,13 +214,13 @@ trong 2 nước!</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
   <string name="videos">Video</string>
-  <string name="watchInstructiveChessVideos">Xem những video hướng dẫn</string>
+  <string name="watchInstructiveChessVideos">Xem những video hướng dẫn chơi cờ</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>
   <string name="testYourSkillsWithTheComputer">Kiểm tra các kĩ năng của bạn với máy</string>
   <string name="letsGo">Bắt đầu nào!</string>
-  <string name="stageX">Mức độ %s</string>
+  <string name="stageX">Chặng %s</string>
   <string name="awesome">Tuyệt vời!</string>
   <string name="excellent">Xuất sắc!</string>
   <string name="greatJob">Làm tốt lắm!</string>
@@ -231,10 +231,10 @@ trong 2 nước!</string>
   <string name="youreGoodAtThis">Bạn giỏi quá!</string>
   <string name="nailedIt">Luyện tập tốt.</string>
   <string name="rightOn">Chính xác, tuyệt vời!</string>
-  <string name="stageXComplete">Chặng %s hoàn thành</string>
+  <string name="stageXComplete">Hoàn thành chặng %s</string>
   <string name="next">Tiếp</string>
   <string name="nextX">Tiếp theo: %s</string>
-  <string name="backToMenu">Quay trở lại mục lục</string>
-  <string name="puzzleFailed">Giải đố thất bại!</string>
+  <string name="backToMenu">Quay lại mục lục</string>
+  <string name="puzzleFailed">Giải sai!</string>
   <string name="retry">Thử lại</string>
 </resources>
