@@ -162,7 +162,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', () => domDialog({ cash: $('.continue-with.g_' + d.game.id) })),
+              hook: bind('click', () =>
+                domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
+              ),
               attrs: dataIcon(licon.Swords),
             },
             noarg('continueFromHere'),
