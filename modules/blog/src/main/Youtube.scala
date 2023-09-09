@@ -5,9 +5,9 @@ object Youtube:
   def augmentEmbeds(html: Html): Html =
     addCredentialless(fixStartTimes(html))
 
-  private val IframeRegex = """allowfullscreen></iframe>""".r
+  private val IframeRegex = """(<iframe[^>]*)>""".r
   private def addCredentialless(html: Html) = Html:
-    IframeRegex.replaceAllIn(html.value, """credentialless="credentialless" allowfullscreen></iframe>""")
+    IframeRegex.replaceAllIn(html.value, """$1 credentialless>""")
 
   private val TimeMarkerRegex = """youtube\.com/watch\?v=[\w-]++\#t=([^"]++)[^?]++\?feature=oembed""".r
   private val HourMinSecRegex = """(\d++)h(\d++)m(\d++)s""".r
