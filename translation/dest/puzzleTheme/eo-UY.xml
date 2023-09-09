@@ -81,6 +81,8 @@
   <string name="veryLongDescription">Kvar aŭ pliaj movoj por venki.</string>
   <string name="xRayAttack">X-radia atako</string>
   <string name="zugzwang">Movdevigo</string>
+  <string name="healthyMix">Sana miksaĵo</string>
+  <string name="playerGames">Ludantaj ludoj</string>
   <string name="playerGamesDescription">Serĉu enigmojn generitajn de viaj ludoj, aŭ de la ludoj de alia ludanto.</string>
   <string name="puzzleDownloadInformation">Ĉi tiuj enigmoj estas en la publika domeno, kaj povas esti elŝutitaj de %s.</string>
 </resources>

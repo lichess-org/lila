@@ -86,6 +86,8 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def fingerprintTag                            = iifeModule("javascripts/fipr.js")
   def highchartsLatestTag                       = iifeModule("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag                         = iifeModule("vendor/highcharts-4.2.5/highcharts-more.js")
+  def chessgroundTag =
+    script(tpe := "module", src := assetUrl(s"javascripts/chessground.${minifiedAssets so ".min"}.js"))
 
   def prismicJs(using PageContext): Frag =
     raw:

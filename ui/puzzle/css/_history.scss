@@ -59,7 +59,7 @@
     background: $c-good;
 
     &::before {
-      content: '';
+      content: $licon-Checkmark;
     }
   }
 
@@ -67,7 +67,7 @@
     background: $c-bad;
 
     &::before {
-      content: '';
+      content: $licon-X;
     }
   }
 }

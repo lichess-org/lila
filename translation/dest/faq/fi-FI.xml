@@ -15,7 +15,7 @@
   <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
   <string name="otherWaysToHelp">muitakin tapoja auttaa</string>
   <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$s:amme, tai %3$samme.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$samme, tai %3$samme.</string>
   <string name="keyboardShortcuts">Mitä pikanäppäimiä voi käyttää?</string>
   <string name="keyboardShortcutsExplanation">Joillakin Lichess-sivuilla voit käyttää pikanäppäimiä. Painamalla \"?\"-näppäintä tutkielma-, analyysi-, tehtävä- tai pelisivulla saat näkyviin käytettävissä olevien pikanäppäinten listan.</string>
   <string name="fairPlay">Reilu peli</string>
@@ -99,7 +99,6 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="usernamesCannotBeChanged">Et voi. Teknisistä ja käytännön syistä käyttäjänimiä ei voi muuttaa. Käyttäjänimet ovat liian monessa paikassa: tietokannoissa, vienti- ja lokitiedostoissa sekä ihmisten mielissä. Isojen ja pienten kirjainten käyttöä käyttäjänimessäsi voit muuttaa kerran.</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
   <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
-  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
   <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
   <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
   <string name="lichessRatings">Lichess-vahvuusluvut</string>

@@ -42,4 +42,7 @@
   <string name="goDeeper">Gudaha usii gal</string>
   <string name="showThreat">Itus khatarta</string>
   <string name="move">Dhaqaaq</string>
+  <string name="winning">Guuleysta</string>
+  <string name="losing">Lumin</string>
+  <string name="drawn">Barbardhac</string>
 </resources>

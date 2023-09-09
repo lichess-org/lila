@@ -2,16 +2,16 @@
 <resources>
   <string name="learnChess">Học cờ vua</string>
   <string name="byPlaying">bằng cách chơi!</string>
-  <string name="menu">Menu</string>
-  <string name="progressX">Tiến trình %s</string>
+  <string name="menu">Mục lục</string>
+  <string name="progressX">Tiến trình: %s</string>
   <string name="resetMyProgress">Đặt lại tiến trình của tôi</string>
-  <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các thành tích của bạn!</string>
-  <string name="play">chơi!</string>
+  <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các thành tích và tiến trình của bạn!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">chơi!</string>
   <string name="chessPieces">Các quân cờ</string>
   <string name="theRook">Quân xe</string>
   <string name="itMovesInStraightLines">Nó đi theo các đường thẳng</string>
   <string name="rookIntro">Quân xe là một quân cờ mạnh. Bạn đã sẵn sàng điều khiển nó chưa?</string>
-  <string name="rookGoal">Bấm vào quân xe 
+  <string name="rookGoal">Nhấn vào quân xe 
 để đưa nó đến ngôi sao!</string>
   <string name="grabAllTheStars">Lấy tất cả các ngôi sao!</string>
   <string name="theFewerMoves">Bạn đi càng ít nước, 
@@ -38,11 +38,11 @@ Bạn cần cả hai!</string>
   <string name="kingComplete">Bây giờ bạn có thể chỉ huy người chỉ huy!</string>
   <string name="theKnight">Quân mã</string>
   <string name="itMovesInAnLShape">Nó đi theo hình chữ L</string>
-  <string name="knightIntro">Đây là một thử thách cho bạn. Mã là... một quân mưu mẹo.</string>
+  <string name="knightIntro">Đây là một thử thách cho bạn. Quân mã là... một quân mưu mẹo.</string>
   <string name="knightsHaveAFancyWay">Quân mã nhảy vòng quanh 
 một cách sành điệu!</string>
   <string name="knightsCanJumpOverObstacles">Quân mã có thể nhảy qua các chướng ngại vật!
-Trốn thoát và chiếm những ngôi sao!</string>
+Trốn thoát và lấy những ngôi sao!</string>
   <string name="knightComplete">Chúc mừng! Bạn đã làm chủ được quân mã.</string>
   <string name="thePawn">Quân tốt</string>
   <string name="itMovesForwardOnly">Nó chỉ đi về phía trước</string>
@@ -56,7 +56,7 @@ nhưng ăn quân theo hướng chéo!</string>
   <string name="captureThenPromote">Ăn quân, sau đó phong cấp!</string>
   <string name="useAllThePawns">Hãy sử dụng hết quân Tốt!
 Không cần phong cấp đâu.</string>
-  <string name="aPawnOnTheSecondRank">Một con Tốt mà nằm ở hàng thứ hai có thể đi 2 ô trong một nước đi đấy!</string>
+  <string name="aPawnOnTheSecondRank">Một quân tốt trắng mà nằm ở hàng thứ 2 hoặc quân tốt đen ở hàng 7 có thể đi 2 ô trong một nước đi đấy!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Hãy lấy tất cả các ngôi sao!
 Nhưng không cần phải phong cấp đâu.</string>
   <string name="pawnComplete">Xin chúc mừng! Bạn đã nắm mọi bí mật của quân Tốt.</string>
@@ -68,7 +68,7 @@ Nhưng không cần phải phong cấp đâu.</string>
   <string name="capture">Ăn quân</string>
   <string name="takeTheEnemyPieces">Ăn quân của đối thủ</string>
   <string name="captureIntro">Xác định các quân không được phòng thủ của đối phương, và bắt lấy chúng!</string>
-  <string name="takeTheBlackPieces">Hãy bắt lấy quân đen!</string>
+  <string name="takeTheBlackPieces">Hãy ăn lấy quân đen!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Ăn lấy quân đen!
 Nhưng đừng để mất quân của bạn.</string>
   <string name="captureComplete">Xin chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
@@ -83,7 +83,7 @@ nhưng bạn có thể phòng thủ!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Đừng để chúng bắt 
 bất kỳ quân không được bảo vệ nào!</string>
   <string name="combat">Giao chiến</string>
-  <string name="captureAndDefendPieces">Bắt và bảo vệ quân</string>
+  <string name="captureAndDefendPieces">Ăn và bảo vệ quân</string>
   <string name="combatIntro">Một chiến binh giỏi phải biết cả tấn công lẫn phòng thủ!</string>
   <string name="combatComplete">Chúc mừng! Bạn đã biết làm sao để chiến đấu với các quân cờ!</string>
   <string name="checkInOne">Chiếu trong 1 nước</string>
@@ -235,7 +235,7 @@ trong 2 nước!</string>
   <string name="stageXComplete">Chặng %s hoàn thành</string>
   <string name="next">Tiếp</string>
   <string name="nextX">Tiếp theo: %s</string>
-  <string name="backToMenu">Quay trở lại menu</string>
+  <string name="backToMenu">Quay trở lại mục lục</string>
   <string name="puzzleFailed">Giải đố thất bại!</string>
   <string name="retry">Thử lại</string>
 </resources>

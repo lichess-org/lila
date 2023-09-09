@@ -65,10 +65,10 @@
     cursor: pointer;
     &::before {
       margin-#{$end-direction}: 0.4em;
-      content: '';
+      content: $licon-HeartOutline;
     }
     &.ublog-post__like--liked::before {
-      content: '';
+      content: $licon-Heart;
     }
     &--mini {
       margin-#{$start-direction}: 1rem;

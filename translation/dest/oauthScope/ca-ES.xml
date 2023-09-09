@@ -25,7 +25,7 @@
   <string name="followRead">Llegir els jugadors seguits</string>
   <string name="followWrite">Segueix i deixa de seguir altres jugadors</string>
   <string name="msgWrite">Envia missatges privats a altres usuaris</string>
-  <string name="boardPlay">Juga partides amb l\'api del tauler</string>
+  <string name="boardPlay">Juga partides amb l\'API del tauler</string>
   <string name="botPlay">Juga partides amb l\'api de bots</string>
   <string name="engineRead">Visualitza i empra el teu motor d\'anàlisi extern</string>
   <string name="engineWrite">Crear i actualitzar el motor d\'anàlisis extern</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Ekipa</string>
-  <string name="teams">Ekipe</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Ekipe</string>
   <plurals name="nbMembers">
     <item quantity="one">%s član</item>
-    <item quantity="two">%s članov</item>
-    <item quantity="few">%s članov</item>
+    <item quantity="two">%s člana</item>
+    <item quantity="few">%s člani</item>
     <item quantity="other">%s članov</item>
   </plurals>
   <string name="allTeams">Vse ekipe</string>

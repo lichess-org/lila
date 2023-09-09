@@ -4,7 +4,7 @@
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">单击下列链接以激活您的 Lichess 帐户：</string>
   <string name="emailConfirm_ignore">如果您没有在 Lichess 上注册账号请忽略本邮件。</string>
   <string name="passwordReset_subject">%s，请重置你的 lichess.org 密码。</string>
-  <string name="passwordReset_intro">我们收到了重置你账户密码的请求。</string>
+  <string name="passwordReset_intro">我们收到了重置账户密码的请求。</string>
   <string name="passwordReset_clickOrIgnore">如果是你发出了这个请求，请点击下方的链接，否则请忽略本邮件。</string>
   <string name="emailChange_subject">%s，请确认你的新邮箱地址。</string>
   <string name="emailChange_intro">你已请求更改邮箱地址。</string>

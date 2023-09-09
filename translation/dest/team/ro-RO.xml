@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Echipă</string>
-  <string name="teams">Echipe</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Echipe</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membru</item>
     <item quantity="few">%s membri</item>
