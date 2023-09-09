@@ -1,5 +1,6 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
+import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
 import { snabDialog } from 'common/dialog';
 
@@ -116,7 +117,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
-    htmlUrl: '/analysis/help',
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();

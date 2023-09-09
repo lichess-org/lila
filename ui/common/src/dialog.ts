@@ -137,7 +137,7 @@ class DialogWrapper implements Dialog {
       .querySelector('.close-button-anchor > .close-button')
       ?.addEventListener('click', () => this.close('cancel'));
 
-    if (!o.noClickAway) setTimeout(() => document.addEventListener('click', () => this.close('cancel')), 0);
+    if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', () => this.close('cancel')), 0);
   }
 
   get open() {
