@@ -174,7 +174,7 @@
   <string name="variants">Biến chơi</string>
   <string name="timeControl">Kiểu thời gian</string>
   <string name="realTime">Thời gian thực</string>
-  <string name="correspondence">Cờ hàng ngày</string>
+  <string name="correspondence">Cờ qua thư</string>
   <string name="daysPerTurn">Ngày đến lượt đi</string>
   <string name="oneDay">Một ngày</string>
   <plurals name="nbDays">
