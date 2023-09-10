@@ -446,8 +446,8 @@
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s минуттан аз</item>
-    <item quantity="other">%s минуттан аз</item>
+    <item quantity="one">%s минутқа дейін</item>
+    <item quantity="other">%s минутқа дейін</item>
   </plurals>
   <string name="required">Талап қойылады.</string>
   <string name="openTournaments">Ашық жарыстар</string>
@@ -763,7 +763,7 @@
   <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
   <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
   <string name="quickPairing">Қалыптар</string>
-  <string name="lobby">Алаң</string>
+  <string name="lobby">Шақырулар</string>
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
