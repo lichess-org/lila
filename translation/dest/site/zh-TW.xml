@@ -637,6 +637,7 @@
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
   <string name="simulAddExtraTimePerPlayer">每有一個玩家加入車輪戰，您棋鐘的初始時間都將增加。</string>
+  <string name="simulHostExtraTimePerPlayer">每個玩家加入后棋鐘增加的額外時間</string>
   <string name="lichessTournaments">Lichess比赛</string>
   <string name="tournamentFAQ">比赛常见问题</string>
   <string name="timeBeforeTournamentStarts">比赛准备时间</string>
@@ -666,6 +667,7 @@
   <string name="yourPerfTypeRatingIsRating">您的%1$s分数是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您比%1$s的%2$s棋手更强。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%3$s之中的%2$s棋手強。</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">您比%1$s的%2$s棋手更強。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有准确的%s评级。</string>
   <string name="yourRating">您的評分</string>
   <string name="cumulative">平均累積</string>
@@ -840,6 +842,7 @@
   <string name="toRequestSupport">需要請求協助，%1$s</string>
   <string name="tryTheContactPage">請到協助頁面</string>
   <string name="makeSureToRead">確保你已閱讀 %1$s</string>
+  <string name="theForumEtiquette">論壇禮儀</string>
   <string name="thisTopicIsArchived">該討論已封存，不能再留言</string>
   <string name="joinTheTeamXToPost">請先加入%1$s團隊，才能在這則討論裡發表留言</string>
   <string name="teamNamedX">%1$s團隊</string>
@@ -921,4 +924,5 @@
   <string name="lichessDbExplanation">來自 Lichess 用戶的所有評分遊戲</string>
   <string name="switchSides">更換所持顏色</string>
   <string name="closingAccountWithdrawAppeal">關閉帳戶將會收回你的上訴</string>
+  <string name="ourEventTips">舉辦賽事的小建議</string>
 </resources>
