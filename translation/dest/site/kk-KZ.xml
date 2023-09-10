@@ -183,7 +183,7 @@
   <string name="variants">Түрі</string>
   <string name="timeControl">Уақыт қалпы</string>
   <string name="realTime">Шын уақытта</string>
-  <string name="correspondence">Хат-хабарлы ойын</string>
+  <string name="correspondence">Хат-хабарлы</string>
   <string name="daysPerTurn">Күн бір жүріске</string>
   <string name="oneDay">Бір күн</string>
   <plurals name="nbDays">
