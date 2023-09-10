@@ -284,7 +284,7 @@
   <string name="subject">Chủ đề</string>
   <string name="send">Gửi</string>
   <string name="incrementInSeconds">Tăng theo giây</string>
-  <string name="freeOnlineChess">Chơi Cờ Trực Tuyến Miễn Phí</string>
+  <string name="freeOnlineChess">Chơi Cờ Vua Trực Tuyến Miễn Phí</string>
   <plurals name="nbRated">
     <item quantity="other">%s tính elo</item>
   </plurals>
@@ -745,7 +745,7 @@ Sự Kiện Đồng Loạt</item>
   <string name="usernameSuffixInvalid">Tên người dùng phải kết thúc với một chữ cái hoặc một số.</string>
   <string name="usernameCharsInvalid">Tên người dùng chỉ được chứa chữ cái, số, dấu gạch nối và dấu gạch dưới. Dấu gạch dưới và dấu gạch nối không được liên tiếp nhau.</string>
   <string name="usernameUnacceptable">Tên người dùng này không được chấp nhận.</string>
-  <string name="playChessInStyle">Chơi cờ phong cách</string>
+  <string name="playChessInStyle">Chơi cờ vua phong cách</string>
   <string name="chessBasics">Cờ cơ bản</string>
   <string name="coaches">Huấn luyện viên</string>
   <string name="invalidPgn">PGN không hợp lệ</string>
