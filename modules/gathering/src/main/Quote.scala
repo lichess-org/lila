@@ -1577,6 +1577,13 @@ object Quote:
     ),
     Quote("Chess as a game is too serious; as a serious pursuit too frivolous.", "Moses Mendelssohn"),
     Quote("Chess makes me a better person", "Albert Badosa"),
+    Quote("Success in chess requires many factors such as environment, hard practice, coach, talent... When we are children, we should not set the goal of becoming a super grandmaster. Do not play chess because of pressure, let chess become your joy and success will come naturally.",
+      "Lê Quang Liêm"
+    ),
+    Quote("In chess, there is only one mistake: over-estimation of your opponent. All else is either bad luck or weakness.", "Savielly Tartakower"),
+    Quote("I do not set limits for myself. I will continue to play chess as long as I enjoy the fun of competing and learning new things.", "Lê Quang Liêm"),
+    Quote("In chess, as in life, a man is his own most dangerous opponent.", "Vasíliy Smyslóv"),
+    Quote("You can become a big master in chess only if you see your mistakes and shortcomings. Exactly the same as in life itself.", "Alexander Alekhine"),
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),
     Quote("We will never display ads.", "lichess.org"),
