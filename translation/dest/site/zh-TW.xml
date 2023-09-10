@@ -217,8 +217,10 @@
   <string name="emailSent">我們向 %s 發送了電子郵件。</string>
   <string name="emailCanTakeSomeTime">可能需要一些時間才能收到。</string>
   <string name="refreshInboxAfterFiveMinutes">等待5分鐘並刷新你的收件箱。</string>
+  <string name="checkSpamFolder">嘗試檢查你的垃圾郵件收件匣，它可能在那裡。 如果在，請將其標記為非垃圾郵件。</string>
   <string name="emailForSignupHelp">如果其他所有的方法都失敗了，給我們發這條短信：</string>
   <string name="copyTextToEmail">複製並粘貼上面的文本然後把它發給%s</string>
+  <string name="waitForSignupHelp">我們很快就會給你回復，説明你完成註冊。</string>
   <string name="accountConfirmed">這個使用者 %s 成功地確認了</string>
   <string name="accountCanLogin">你可以做為 %s 登入了。</string>
   <string name="accountConfirmationEmailNotNeeded">你不需要確認電子郵件。</string>
@@ -320,6 +322,9 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="other">%s個研究</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 個進行的車輪戰棋局</item>
   </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
@@ -631,6 +636,7 @@
   <string name="simulClockHint">菲舍爾時鐘設定。棋手越多，您需要的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
+  <string name="simulAddExtraTimePerPlayer">每有一個玩家加入車輪戰，您棋鐘的初始時間都將增加。</string>
   <string name="lichessTournaments">Lichess比赛</string>
   <string name="tournamentFAQ">比赛常见问题</string>
   <string name="timeBeforeTournamentStarts">比赛准备时间</string>
