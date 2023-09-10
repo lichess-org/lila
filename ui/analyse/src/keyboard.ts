@@ -6,6 +6,17 @@ import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
+  let shiftAlone = 0;
+  document.addEventListener('keydown', e => e.key === 'Shift' && (shiftAlone = e.location));
+  document.addEventListener('keyup', e => {
+    if (e.key === 'Shift' && e.location === shiftAlone) {
+      if (shiftAlone === 1 && ctrl.fork.prev()) ctrl.setAutoShapes();
+      else if (shiftAlone === 2 && ctrl.fork.next()) ctrl.setAutoShapes();
+      else if (shiftAlone === 0) return;
+      ctrl.redraw();
+    }
+    shiftAlone = 0;
+  });
   const kbd = window.lichess.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
@@ -13,21 +24,24 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['shift+left', 'shift+k'], () => {
-      control.exitVariation(ctrl);
+      control.previousBranch(ctrl);
       ctrl.redraw();
     })
-    .bind(['shift+right', 'shift+j'], () => {})
+    .bind(['shift+right', 'shift+j'], () => {
+      control.nextBranch(ctrl);
+      ctrl.redraw();
+    })
     .bind(['right', 'j'], () => {
       control.next(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0', 'home'], () => {
-      if (ctrl.fork.prev()) ctrl.setAutoShapes();
+    .bind(['up', '0', 'home'], e => {
+      if (e.key === 'Up' && ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$', 'end'], () => {
-      if (ctrl.fork.next()) ctrl.setAutoShapes();
+    .bind(['down', '$', 'end'], e => {
+      if (e.key === 'Down' && ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
       ctrl.redraw();
     })

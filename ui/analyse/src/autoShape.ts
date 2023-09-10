@@ -132,7 +132,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         shapes.push({
           orig: node.uci!.slice(0, 2) as Key,
           dest: node.uci?.slice(2, 4) as Key,
-          brush: 'yellow',
+          brush: 'white',
           modifiers: { hilite: i === ctrl.fork.selected() },
         });
       }
