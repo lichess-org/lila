@@ -275,6 +275,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setTroll     = setMark(UserMark.Troll)
   def setReportban = setMark(UserMark.Reportban)
   def setRankban   = setMark(UserMark.Rankban)
+  def setArenaBan  = setMark(UserMark.ArenaBan)
   def setPrizeban  = setMark(UserMark.PrizeBan)
   def setAlt       = setMark(UserMark.Alt)
 
