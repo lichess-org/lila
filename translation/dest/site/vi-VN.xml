@@ -452,7 +452,7 @@ Sự Kiện Đồng Loạt</item>
   <string name="movesPlayed">Số nước đi</string>
   <string name="whiteWins">Tỉ lệ trắng thắng</string>
   <string name="blackWins">Tỉ lệ đen thắng</string>
-  <string name="draws">Tỉ lệ hoà</string>
+  <string name="draws">Hoà</string>
   <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
   <string name="averageOpponent">Xếp hạng trung bình của đối thủ</string>
   <string name="boardEditor">Chỉnh sửa bàn cờ</string>
