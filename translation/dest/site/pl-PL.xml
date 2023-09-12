@@ -824,7 +824,7 @@
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
-  <string name="bulletBlitzClassical">Błyskawiczne, szybkie, klasyczne</string>
+  <string name="bulletBlitzClassical">Superbłyskawiczne, błyskawiczne, klasyczne</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
@@ -904,11 +904,11 @@
   <string name="waitingForAnalysis">Oczekiwanie na wynik analizy</string>
   <string name="noMistakesFoundForWhite">Nie znaleziono błędów białych</string>
   <string name="noMistakesFoundForBlack">Nie znaleziono błędów czarnych</string>
-  <string name="doneReviewingWhiteMistakes">Przejrzano błędy białych</string>
-  <string name="doneReviewingBlackMistakes">Przejrzano błędy czarnych</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Przejrzano błędy białych</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Przejrzano błędy czarnych</string>
   <string name="doItAgain">Zrób to jeszcze raz</string>
-  <string name="reviewWhiteMistakes">Przejrzyj błędy białych</string>
-  <string name="reviewBlackMistakes">Przejrzyj błędy czarnych</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Przejrzyj błędy białych</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Przejrzyj błędy czarnych</string>
   <string name="advantage">Przewaga</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
@@ -957,7 +957,7 @@
   <string name="ultraBulletDesc">Partie szalenie szybkie: mniej niż 30 sekund</string>
   <string name="bulletDesc">Partie bardzo szybkie: mniej niż 3 minuty</string>
   <string name="blitzDesc">Partie szybkie: 3 do 8 minut</string>
-  <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
+  <string name="rapidDesc">Partie szybkie: 8 do 25 minut</string>
   <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
   <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>
   <string name="puzzleDesc">Trener taktyk szachowych</string>
