@@ -104,6 +104,18 @@ export class ExplorerConfigCtrl {
     this.data.playerName.open(false);
   };
 
+  removePlayer = (name?: string) => {
+    name = name == 'me' ? this.myName : name;
+    if (!name) return false;
+    if (name != this.myName) {
+      const previous = this.data.playerName.previous();
+      previous.splice(previous.indexOf(name), 1);
+      this.data.playerName.previous(previous);
+    }
+    if (event) event.stopPropagation();
+    return false;
+  };
+
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
     (value: T) => {
@@ -327,6 +339,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
+  const onRemovePlayer = (name: string | undefined) => {
+    ctrl.removePlayer(name);
+    ctrl.root.redraw();
+  };
   return snabModal({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -366,7 +382,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             {
               hook: bind('click', () => onSelect(name)),
             },
-            name,
+            [
+              name,
+              h('span.remove', {
+                attrs: dataIcon(licon.X),
+                hook: bind('click', _ => onRemovePlayer(name)),
+              }),
+            ],
           ),
         ),
       ),

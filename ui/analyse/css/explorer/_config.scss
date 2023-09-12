@@ -120,6 +120,10 @@
       .button {
         margin: 0.3em 0.2em;
         text-transform: none;
+        .remove {
+          cursor: crosshair;
+          margin-left: 0.2em;
+        }
       }
     }
   }
