@@ -9,7 +9,7 @@
   <string name="whatAreStudies">لێکۆڵینەوەکان چین؟</string>
   <string name="allStudies">هەموو لێکۆڵینەوەکان</string>
   <string name="studiesCreatedByX">ئەو توێژینەوەیانەی کە لەلایەن %s دروستکراون</string>
-  <string name="noneYet">ھیچ  بەردەس نیە.</string>
+  <string name="noneYet">ھیچ بەردەستنیە.</string>
   <string name="hot">گەرمە ھەواڵ</string>
   <string name="dateAddedNewest">(نوێترین) داتای زیادکراو</string>
   <string name="dateAddedOldest">(کۆنترین) داتای زیادکراو</string>
@@ -17,7 +17,19 @@
   <string name="mostPopular">دیارترین</string>
   <string name="alphabetical">ڕیزکردن بەپێی ئەلفوبێ</string>
   <string name="addNewChapter">بەشێکی نوێ زیاد بکە</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s بەشەکان</item>
+    <item quantity="other">%s بەشەکان</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s یاریەکان</item>
+    <item quantity="other">%s یاریەکان</item>
+  </plurals>
   <string name="addMembers">ئەندامەکان زیاد بکە</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s ئەندامەکان</item>
+    <item quantity="other">%s ئەندامەکان</item>
+  </plurals>
   <string name="inviteToTheStudy">بانگێشتکردن بۆ لێکۆڵینەوەکه</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">تکایە تەنھا ئەو کەسانە بانگێشت بکە کە دەیانناسیت و دەیانەوێت بە شێوەیەکی چالاکانە بێنە پاڵ ئەو لێکۆڵینەوەیه.</string>
   <string name="searchByUsername">لە ڕێگەی ناوی بەکارھێنەرەوە بگەڕێ</string>
@@ -90,6 +102,10 @@
   <string name="loadAPositionFromFen">لە FEN ەوە پۆستێک بار بکە</string>
   <string name="loadAGameFromPgn">یارییەکان لە PGN ەوە بار بکە</string>
   <string name="automatic">خوودکاری</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
+    <item quantity="other">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
+  </plurals>
   <string name="urlOfTheGame">URL ی یارییەکان، بۆ هەر دێڕێک یەک دانە</string>
   <string name="loadAGameFromXOrY">یارییەکان لە %1$s یان %2$s بار بکە</string>
   <string name="createChapter">دروستکردنی بەش</string>
@@ -115,7 +131,7 @@
   <string name="deleteTheStudyChatHistory">سڕینەوەی مێژووی گفتوگۆی خوێندن؟ پاشگەزبوونەوەی نییە!</string>
   <string name="deleteStudy">سڕینەوەی خوێندن</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">سڕینەوەی تەواوی خوێندن؟ پاشگەزبوونەوەی نییە! ناوی ئەو دەرسە بنوسە بۆ دڵنیاکردنەوە: %s</string>
-  <string name="whereDoYouWantToStudyThat">لە کوێ دەتەوێت ئەوە بخوێنی ?</string>
+  <string name="whereDoYouWantToStudyThat">لە کوێ دەتەوێت ئەوە بخوێنی؟</string>
   <string name="goodMove">جوڵەیەکی باش</string>
   <string name="mistake">ھەڵەی بچوک</string>
   <string name="brilliantMove">جوڵەیەکی زۆر جوان</string>
