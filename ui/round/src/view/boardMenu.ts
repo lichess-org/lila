@@ -17,7 +17,7 @@ export default function (ctrl: RoundController) {
         }),
       ]),
       h('section', [
-        menu.zenMode(ctrl.zenable),
+        menu.zenMode(true),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
         !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
