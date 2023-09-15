@@ -17,6 +17,7 @@ object tree:
 
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
   val engineMarked             = "Your account is marked for external assistance in games.";
+  val arenaBanned              = "Your account is banned from playing in arenas."
   val boosterMarked            = "Your account is marked for rating manipulation.";
   val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
@@ -214,6 +215,30 @@ object tree:
       ).some
     )
 
+  private def arenaBanMenu(using PageContext): Branch =
+    Branch(
+      "root",
+      arenaBanned,
+      List(
+        Leaf(
+          "arena-ban-no-play",
+          "I have joined many arenas without playing in them",
+          frag(
+            sendUsAnAppeal,
+            newAppeal()
+          )
+        ),
+        Leaf(
+          "arena-ban-not-starting",
+          "I did not not move in many arenas games",
+          frag(
+            sendUsAnAppeal,
+            newAppeal()
+          )
+        )
+      )
+    )
+
   private def playbanMenu: Branch =
     Branch(
       "root",
@@ -291,6 +316,7 @@ object tree:
                 else if me.marks.troll || query.contains("shadowban") then muteMenu
                 else if playban || query.contains("playban") then playbanMenu
                 else if me.marks.rankban || query.contains("rankban") then rankBanMenu
+                else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
                 else cleanMenu
               },
               none,
