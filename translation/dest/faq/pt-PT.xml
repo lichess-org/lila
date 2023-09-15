@@ -67,7 +67,7 @@ Vê o %3$s deste lance para o praticares.</string>
   <string name="lichessTraining">treino do Lichess</string>
   <string name="watchIMRosenCheckmate">Assista ao xeque-mate do Mestre Internacional Eric Rosen %s.</string>
   <string name="threefoldRepetition">Repetição tripla</string>
-  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>
   <string name="notRepeatedMoves">Nós não repetimos lances. Por que é que o jogo foi empatado por repetição?</string>
   <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
