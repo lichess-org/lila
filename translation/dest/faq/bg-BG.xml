@@ -65,7 +65,7 @@
   <string name="lichessTraining">Обучение по шах от Lichess</string>
   <string name="watchIMRosenCheckmate">Вижте как Международният Майстор Ерик Росен матира %s.</string>
   <string name="threefoldRepetition">Трикратно повторение</string>
-  <string name="threefoldRepetitionExplanation">Ако дадена позиция се появи три пъти, играчите могат да поискат равенство с %1$s. Lichess прилага официалните правила на FIDE, както е описано в член 9.2 (d) от %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Ако дадена позиция се появи три пъти, играчите могат да поискат равенство с %1$s. Lichess прилага официалните правила на FIDE, както е описано в член 9.2 от %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трикратно повторение</string>
   <string name="notRepeatedMoves">Не повтаряхме ходове. Защо играта все още беше наравна чрез повторение?</string>
   <string name="repeatedPositionsThatMatters">Трикратното повторение е за повтарящи се %1$s, а не за движения. Повторението не трябва да се извършва последователно.</string>
