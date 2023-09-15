@@ -19,10 +19,10 @@
   <string name="yourPuzzleRatingWillNotChange">თქვენი ამოცანების რეიტინგი არ შეიცვალა.. ამოცანების ამოხსნა არ გახლავთ შეჯიბრი. თქვენი რეიტინგი გვეხმარება თქვენი ამჟამინდელი დონისთვის შეგირჩიოთ საუკეთესო სავარჯიშო.</string>
   <string name="findTheBestMoveForWhite">იპოვნე თეთრების საუკეთესო სვლა.</string>
   <string name="findTheBestMoveForBlack">იპოვნე შავების საუკეთესო სვლა.</string>
-  <string name="toGetPersonalizedPuzzles">მიიღე ინდივიდუალური თავსატეხები:</string>
-  <string name="puzzleId">Თავსატეხი %s</string>
+  <string name="toGetPersonalizedPuzzles">მიიღე ინდივიდუალური ამოცანები:</string>
+  <string name="puzzleId">ამოცანა %s</string>
   <string name="puzzleOfTheDay">ყოველდიური სავარჯიშოები</string>
-  <string name="dailyPuzzle">დღიური სავარჯიშო</string>
+  <string name="dailyPuzzle">ყოველდღიური ამოცანა</string>
   <string name="clickToSolve">დააჭირე ამოხსნისთვის</string>
   <string name="goodMove">კარგი სვლა</string>
   <string name="bestMove">საუკეთესო სვლა!</string>
