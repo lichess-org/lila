@@ -42,9 +42,9 @@
     <item quantity="one">ნათამაშები %s დრო</item>
     <item quantity="other">ნატამაშები %s ჯერ</item>
   </plurals>
-  <string name="fromGameLink">Თამაშიდან %s</string>
+  <string name="fromGameLink">პარტიიდან %s</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
-  <string name="difficultyLevel">სიძნელის დონე</string>
+  <string name="difficultyLevel">სირთელის დონე</string>
   <string name="normal">ნორმალური, ჩვეულებრივი</string>
   <string name="easier">უფრო იოლი</string>
   <string name="easiest">უიოლესი, უმარტივესი </string>
@@ -67,11 +67,13 @@
   <string name="newStreak">ახალი ჯაჭვი</string>
   <string name="fromMyGames">ჩემი პარტიებიდან</string>
   <string name="lookupOfPlayer">დაათვალიერე ამოცანები მოთამაშეთა პარტიებიდან</string>
+  <string name="fromXGames">ამოცანები %s პარტიებიდან</string>
   <string name="searchPuzzles">მოძებნე ამოცანები</string>
   <string name="fromMyGamesNone">თქვენ არ გაქვთ ამოცანები თქვენს ბაზაში , მაგრამ ლიჩეესს ჯერ კიდევ ძალიან უყვარხარ.
 ითამაშე სწრაფი და კლასიკური პარტიები და გაზარდე შანსი გქონდეს საკუთრივ დამატებული ამოცანები.</string>
   <string name="fromXGamesFound">%1$s ამოცანები იპოვნა %2$s პარტიებში</string>
   <string name="puzzleDashboardDescription">ვარჯიში, ანალიზი, გაუმჯობესება</string>
+  <string name="percentSolved">%s ამოხსნილია</string>
   <string name="noPuzzlesToShow">არაფერი საჩვენებელი , პირველად  ამოხსენი რამოდენიმე ამოცანა</string>
   <string name="improvementAreasDescription">ივარჯიშე რომ გააუმჯობესო შენი წინსვლა!</string>
   <string name="strengthDescription">თქვენ საუკეთესოდ შეასრულეთ ეს თემები</string>
