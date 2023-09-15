@@ -67,7 +67,7 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="lichessTraining">Lichess træning</string>
   <string name="watchIMRosenCheckmate">Se International Mester Eric Rosen sætte %s skakmat.</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
-  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
   <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
   <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>
