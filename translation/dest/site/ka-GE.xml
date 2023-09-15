@@ -72,7 +72,7 @@
   <string name="forceVariation">ვარიაციის დაძალება</string>
   <string name="move">სვლა</string>
   <string name="variantLoss">წამგებიანი ვარიანტი</string>
-  <string name="variantWin">მომგებიანი ვარიანტი</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">მომგებიანი ვარიანტი</string>
   <string name="insufficientMaterial">არასაკმარისი ფიგურები</string>
   <string name="pawnMove">პაიკის სვლა</string>
   <string name="capture">აყვანა</string>
@@ -121,6 +121,8 @@
     <item quantity="one">%s მოთამაშე</item>
     <item quantity="other">%s მოთამაშე</item>
   </plurals>
+  <string name="drawByMutualAgreement">ყაიმი ურთიერთშეთანხმებით</string>
+  <string name="fiftyMovesWithoutProgress">ორმოცდაათი სვლა პროგრესის გარეშე</string>
   <string name="currentGames">მიმდინარე თამაშები</string>
   <plurals name="nbGames">
     <item quantity="one">%s თამაში</item>
@@ -133,6 +135,7 @@
   <string name="viewInFullSize">სრული ზომით ნახვა</string>
   <string name="logOut">გამოსვლა</string>
   <string name="signIn">შესვლა</string>
+  <string name="rememberMe">დამტოვე შესული</string>
   <string name="youNeedAnAccountToDoThat">აღნიშნული ქმედებისთვის საჭიროა რეგისტრაცია</string>
   <string name="signUp">რეგისტრაცია</string>
   <string name="computersAreNotAllowedToPlay">თამაში ეკრძალებათ კომპიუტერებსა და მოთამაშეებს კომპიუტერის დახმარებით. გთხოვთ, თამაშისას თავი შეიკავოთ ჭადრაკის პროგრამების და მონაცემტა ბაზების გამოყენებისგან, ასევე, სხვა მოთამაშეთაგან დახმარების მიღებისგან. გთხოვთ, გაითვალისწინოთ, რომ რამდენიმე ანგარიშის დარეგისტრირება მიზანშეწონილი არ არის, ხოლო გადამეტებული რაოდენობის ანგარიშთა გამოყენებას მოჰყვება ვებ გვერდზე წვდომის შეზღუდვა.</string>
@@ -141,6 +144,7 @@
   <string name="xPostedInForumY">%1$s გამოეხმაურა %2$s-ს</string>
   <string name="latestForumPosts">უახლესი გამოხმაურებანი</string>
   <string name="players">მოთამაშეები</string>
+  <string name="friends">მეგობრები</string>
   <string name="today">დღეს</string>
   <string name="yesterday">გუშინ</string>
   <string name="minutesPerSide">წუთი თითოეული მხარისთვის</string>
