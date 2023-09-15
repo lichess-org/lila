@@ -67,7 +67,7 @@ Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="lichessTraining">Allenamento Lichess</string>
   <string name="watchIMRosenCheckmate">Guarda il Maestro Internazionale Eric Rosen mentre fa scacco matto \"%s\".</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
-  <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>
   <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché la partita è stata comunque dichiarata patta per ripetizione?</string>
   <string name="repeatedPositionsThatMatters">La triplice ripetizione riguarda la %1$s, non le mosse. La ripetizione non deve necessariamente avvenire consecutivamente.</string>
