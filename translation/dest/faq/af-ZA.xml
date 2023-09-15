@@ -67,7 +67,7 @@ Kyk na die %3$s vir hierdie oefening vir oefening.</string>
   <string name="lichessTraining">Lichess-opleiding</string>
   <string name="watchIMRosenCheckmate">Sien hoe Internasionale Meester Eric Rosen vir %s in skaakmat plaas.</string>
   <string name="threefoldRepetition">Driedubbele herhaling</string>
-  <string name="threefoldRepetitionExplanation">As \'n posisie drie keer voorkom, kan spelers \'n loting met %1$s eis. Lichess implementeer die amptelike FIDE-reëls, soos beskryf in artikel 9.2 (d) van die %2$s.</string>
+  <string name="threefoldRepetitionExplanation">As \'n posisie drie keer voorkom, kan spelers \'n loting met %1$s eis. Lichess implementeer die amptelike FIDE-reëls, soos beskryf in artikel 9.2 van die %2$s.</string>
   <string name="threefoldRepetitionLowerCase">drieledige herhaling</string>
   <string name="notRepeatedMoves">Ons het nie bewegings herhaal nie. Waarom is die spel steeds deur herhaling getrek?</string>
   <string name="repeatedPositionsThatMatters">Driedubbele herhaling gaan oor herhaalde %1$s, nie beweeg nie. Herhaling hoef nie agtereenvolgens plaas te vind nie.</string>
