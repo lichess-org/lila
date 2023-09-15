@@ -67,6 +67,8 @@
   <string name="willSwissReplaceArenasQ">क्या स्विस एरेना प्रतियोगिता की जगह लेगा?</string>
   <string name="willSwissReplaceArenasA">नहीं, वे अतिरिक्त विशेषताएं हैं।</string>
   <string name="roundRobinQ">राउंड रॉबिन के बारे में क्या?</string>
+  <string name="otherSystemsQ">अन्य टूर्नामेंट प्रणालियों के बारे में क्या?</string>
+  <string name="otherSystemsA">फिलहाल हम लिचेस में और अधिक टूर्नामेंट सिस्टम जोड़ने की योजना नहीं बना रहे हैं।</string>
   <string name="pairingWaitTime">पेयरिंग प्रतीक्षा समय</string>
   <string name="identicalForbidden">निषिद्ध</string>
   <string name="pause">रुकिये</string>

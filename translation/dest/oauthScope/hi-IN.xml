@@ -26,4 +26,9 @@
   <string name="followWrite">अन्य खिलाड़ियों को फ़ॉलो करें और अनफ़ॉलो करें</string>
   <string name="msgWrite">अन्य खिलाड़ियों को निजी संदेश भेजें</string>
   <string name="boardPlay">बोर्ड एपीआई के साथ गेम खेलें</string>
+  <string name="botPlay">बॉट एपीआई के साथ गेम खेलें</string>
+  <string name="engineRead">अपने बाहरी इंजन देखें और उपयोग करें</string>
+  <string name="engineWrite">बाहरी इंजन बनाएं और अपडेट करें</string>
+  <string name="webLogin">प्रमाणित वेबसाइट सत्र बनाएँ (पूर्ण पहुँच प्रदान करता है!)</string>
+  <string name="webMod">मॉडरेटर टूल का उपयोग करें (आपकी अनुमति की सीमा के भीतर)</string>
 </resources>
