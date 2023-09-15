@@ -28,6 +28,7 @@
   <string name="getReady">მოემზადე!</string>
   <string name="waitingForMorePlayers">დაელოდე მეტ მონაწილეებს რომ შეუერთდე...</string>
   <string name="raceComplete">რბოლა დამთავრებულია!</string>
+  <string name="spectating">ყურება, დაკვირვება</string>
   <string name="joinTheRace">რბოლაში ჩართვა!</string>
   <string name="startTheRace">რბოლის დაწყება</string>
   <string name="yourRankX">შენი რანგი: %s</string>
@@ -40,6 +41,7 @@
   <string name="raceYourFriends">მეგობრებთან რბოლა</string>
   <string name="skip">გამოტოვე</string>
   <string name="skipHelp">შეგიძლია გამოტოვი სვლა მხოლოდ ერთხელ რეისის განმავლობაში:</string>
+  <string name="skipExplanation">გამოტოვე ეს სვლა და შეინარჩუნე შენი ჯაჭვი! მუშაობს მხოლოდ ერთხელ მიმდინარე ვარჯიშისას.</string>
   <string name="failedPuzzles">ამოცანა მცდარია</string>
   <string name="slowPuzzles">მიჩვენე ამოცანები</string>
   <string name="skippedPuzzle">გამოტოვებული ამოცანები</string>
@@ -47,4 +49,6 @@
   <string name="thisMonth">ეს თვე</string>
   <string name="allTime">ყოველთვის</string>
   <string name="clickToReload">დააჭირე გადასატვირთად</string>
+  <string name="thisRunHasExpired">ამ ვარჯიშის დრო გავიდა!</string>
+  <string name="thisRunWasOpenedInAnotherTab">ეს გაშვება გაიხსნა სხვა ჩანართში!</string>
 </resources>
