@@ -15,7 +15,7 @@
   <string name="grabAllTheStars">აიყვანე ყველა ვარსკვლავი!</string>
   <string name="theFewerMoves">რაც ნაკლებ სვლას გააკეთებ, მეტ ქულას აიღებ!</string>
   <string name="useTwoRooks">გამოიყენე ორი ეტლი რათა მალე მოიგო!</string>
-  <string name="rookComplete">გილოცავ! შენ წარმატებით დაეუფლე ეტლს.</string>
+  <string name="rookComplete">გილოცავ! შენ წარმატებით დაეუფლე ეტლის სვლებს.</string>
   <string name="theBishop">კუ</string>
   <string name="itMovesDiagonally">მოძრაობს დიაგონალურად</string>
   <string name="bishopIntro">ახლა ვისწავლით კუს მანევრირებას!</string>
@@ -23,10 +23,10 @@
 ერთი მუქი-უჯრის კუ.
 ორივე გჭირდება!</string>
   <string name="bishopComplete">გილოცავ! შენ იცი კუთი თამაში.</string>
-  <string name="theQueen">დედოფალი</string>
-  <string name="queenCombinesRookAndBishop">დედოფალი = ეტლს + კუ</string>
-  <string name="queenIntro">ყველაზე ძლიერი ფიგურის ჯერია, მისი აღმატებულება დედოფალი!</string>
-  <string name="queenComplete">გილოცავ! ყველაფერი იცი დედოფალზე.</string>
+  <string name="theQueen">ლაზიერი</string>
+  <string name="queenCombinesRookAndBishop">ლაზიერი = ეტლს + კუ</string>
+  <string name="queenIntro">ყველაზე ძლიერი ფიგურის ჯერია, მისი აღმატებულება ლაზიერი!</string>
+  <string name="queenComplete">გილოცავ! ყველაფერი იცი ლაზიერის შესახებ.</string>
   <string name="theKing">მეფე</string>
   <string name="theMostImportantPiece">ყველაზე მნიშვნელოვანი ფიგურა</string>
   <string name="kingIntro">შენ მეფე ხარ. თუ დამარცხდები, თამაშს წააგებ.</string>
@@ -34,19 +34,19 @@
   <string name="lastOne">საბოლოო!</string>
   <string name="kingComplete">შენ იცი მეფით თამაში!</string>
   <string name="theKnight">მხედარი</string>
-  <string name="itMovesInAnLShape">გადაადგილდება L ფორმით</string>
-  <string name="knightIntro">პატარა გამოცდა. მხედარი... ეშმაკი ფიგურაა.</string>
+  <string name="itMovesInAnLShape">გადაადგილდება ლათინური ასო L - ს ფორმით</string>
+  <string name="knightIntro">ახლა კი პატარა გამოწვევა შენთვის. მხედარი... კვიმატი ფიგურაა.</string>
   <string name="knightsHaveAFancyWay">მხედარი მაგრად დახტის აქეთ-იქით!</string>
   <string name="knightsCanJumpOverObstacles">მხედარს შეუძლია ფიგურებს გადაახტეს!
 აიღე ყველა ვარსკვლავი!</string>
   <string name="knightComplete">გილოცავ! შენ მხედარსაც დაეუფლე.</string>
   <string name="thePawn">პაიკი</string>
   <string name="itMovesForwardOnly">მხოლოდ წინ მიდის</string>
-  <string name="pawnIntro">პაიკი სუსტია მაგრამ დიდი პოტენციალით.</string>
+  <string name="pawnIntro">პაიკი სუსტია მაგრამ დიდი შესაძლებლობები აქვს.</string>
   <string name="pawnsMoveOneSquareOnly">პაიკი გადადის ერთ უჯრით.
 მაგრამ როცა დაფის ბოლოში გადის, ძლიერი ფიგურა ხდება!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">ხშირ შემთხვევებში ლაზიერის გაცოცხლება საუკეთესოა.
-თუმცა ხან მხედარად გადაქცევა სჯობ!</string>
+თუმცა ხან მხედარად გადაქცევა სჯობს!</string>
   <string name="pawnsMoveForward">პაიკები წინ გადაადგილდებიან,
 მაგრამ იყვანენ დიაგონალურად!</string>
   <string name="captureThenPromote">აიყვანე, შემდეგ გააცოცხლე!</string>
