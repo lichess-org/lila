@@ -18,6 +18,7 @@ object tree:
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
   val engineMarked             = "Your account is marked for external assistance in games.";
   val arenaBanned              = "Your account is banned from playing in arenas."
+  val prizeBanned              = "Your account is banned from tournaments with real prizes."
   val boosterMarked            = "Your account is marked for rating manipulation.";
   val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
@@ -239,6 +240,32 @@ object tree:
       )
     )
 
+  private def prizebanMenu(using PageContext): Branch =
+    val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
+    val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
+    Branch(
+      "root",
+      prizeBanned,
+      List(
+        Leaf(
+          "prizeban-expired",
+          prizebanExpired,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(prizebanExpired)
+          )
+        ),
+        Leaf(
+          "prizeban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(deny)
+          )
+        )
+      )
+    )
+
   private def playbanMenu: Branch =
     Branch(
       "root",
@@ -317,6 +344,7 @@ object tree:
                 else if playban || query.contains("playban") then playbanMenu
                 else if me.marks.rankban || query.contains("rankban") then rankBanMenu
                 else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
+                else if me.marks.prizeban || query.contains("prizeban") then prizebanMenu
                 else cleanMenu
               },
               none,
