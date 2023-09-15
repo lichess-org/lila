@@ -10,6 +10,7 @@
   <string name="newAllTimeHighscore">ახალი საუკეთესო შედეგი</string>
   <string name="previousHighscoreWasX">ბოლო საუკეთესო შედეგი იყო %s</string>
   <string name="playAgain">კიდევ  ითამაშე</string>
+  <string name="highscoreX">უმაღლესი ქულა</string>
   <string name="score">ქულა</string>
   <string name="moves">სვლები</string>
   <string name="accuracy">ზუსტად.აკურატულად</string>
@@ -45,4 +46,5 @@
   <string name="thisWeek">ეს კვირა</string>
   <string name="thisMonth">ეს თვე</string>
   <string name="allTime">ყოველთვის</string>
+  <string name="clickToReload">დააჭირე გადასატვირთად</string>
 </resources>
