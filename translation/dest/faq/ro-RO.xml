@@ -66,7 +66,7 @@ Vezi %3$s pe această mutare pentru a te putea antrena cu ea.</string>
   <string name="lichessTraining">antrenamentul Lichess</string>
   <string name="watchIMRosenCheckmate">Urmărește-l pe Maestrul Internațional Eric Rosen dând șah-mat %s.</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
-  <string name="threefoldRepetitionExplanation">Dacă o poziție apare de trei ori, jucătorii pot cere o remiză pentru %1$s. Lichess implementează regulile oficiale FIDE, cum este descris in Articolul 9.2 (d) a %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Dacă o poziție apare de trei ori, jucătorii pot cere o remiză pentru %1$s. Lichess implementează regulile oficiale FIDE, cum este descris in Articolul 9.2 a %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetare de trei ori</string>
   <string name="notRepeatedMoves">Nu am repetat mișcări. De ce partida a fost declarată ca remiză?</string>
   <string name="repeatedPositionsThatMatters">Repetarea de trei ori este despre repetarea %1$s, nu a mișcărilor. Repetiția nu trebuie să se execute consecutiv.</string>
