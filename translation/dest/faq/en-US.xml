@@ -67,7 +67,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="lichessTraining">Lichess training</string>
   <string name="watchIMRosenCheckmate">Watch International Master Eric Rosen checkmate %s.</string>
   <string name="threefoldRepetition">Threefold repetition</string>
-  <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
+  <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">threefold repetition</string>
   <string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
