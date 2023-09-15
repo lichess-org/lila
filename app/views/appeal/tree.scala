@@ -217,24 +217,35 @@ object tree:
     )
 
   private def arenaBanMenu(using PageContext): Branch =
+    val noPlay  = "I have joined many arenas without playing in them"
+    val noStart = "I did not move in many arenas games"
+    val deny    = "I have followed fair-play and arenas rules"
     Branch(
       "root",
       arenaBanned,
       List(
         Leaf(
           "arena-ban-no-play",
-          "I have joined many arenas without playing in them",
+          noPlay,
           frag(
             sendUsAnAppeal,
-            newAppeal()
+            newAppeal(noPlay)
           )
         ),
         Leaf(
           "arena-ban-not-starting",
-          "I did not not move in many arenas games",
+          noStart,
           frag(
             sendUsAnAppeal,
-            newAppeal()
+            newAppeal(noStart)
+          )
+        ),
+        Leaf(
+          "arena-ban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(deny)
           )
         )
       )
