@@ -58,7 +58,7 @@ Ten en conta que é posible dar mate cun só caballo ou alfil, sempre que o opo�
   <string name="discoveringEnPassant">Por que un peón pode capturar outro peón cando xa está pasado? (captura ao paso)</string>
   <string name="explainingEnPassant">Este movemento é legal e chámase \"captura ao paso\". O artigo da Wikipedia dá unha %1$s ao mesmo.
 
-Descrébese na sección 3.7 (d) do %2$s:
+Descrébese nas seccións 3.7.3.1 e 3.7.3.2 das %2$s:
 
 \"Un peón que ocupa unha casa na mesma fila e nunha columna adxacente ao peón dun opoñente que acaba de avanzar dúas casas dunha soa vez a partires da súa casa orixinal, pode capturar o peón deste opoñente como se este só tivese movido unha casa. Esta captura só é legal no movemento inmediatamente posterior a este avance e denomínase captura “ao paso”.
 
