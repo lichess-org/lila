@@ -63,7 +63,7 @@
   <string name="goodIntroduction">καλή εισαγωγή</string>
   <string name="lichessTraining">εκπαίδευση του Lichess</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
-  <string name="threefoldRepetitionExplanation">Αν μια θέση επαναληφθεί τρεις φορές, οι παίκτες μπορούν να ισχυριστούν ισοπαλία από τον κανόνα της %1$s. Το Lichess εφαρμόζει τους επίσημους κανόνες FIDE, όπως περιγράφονται στο άρθρο 9.2 (d) του %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Αν μια θέση επαναληφθεί τρεις φορές, οι παίκτες μπορούν να ισχυριστούν ισοπαλία από τον κανόνα της %1$s. Το Lichess εφαρμόζει τους επίσημους κανόνες FIDE, όπως περιγράφονται στο άρθρο 9.2 του %2$s.</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
   <string name="repeatedPositionsThatMatters">Η τριπλή επανάληψη αφορά %1$s, όχι κινήσεις. Οι επαναλήψεις δε χρειάζεται να είναι διαδοχικές.</string>
