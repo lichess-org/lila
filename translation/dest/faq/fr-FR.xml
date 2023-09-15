@@ -67,7 +67,7 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="lichessTraining">Entraînement Lichess</string>
   <string name="watchIMRosenCheckmate">Regardez le maître international Eric Rosen mater %s.</string>
   <string name="threefoldRepetition">Triple répétition</string>
-  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
   <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s et non les coups. La répétition ne doit donc pas nécessairement se faire de manière consécutive.</string>
