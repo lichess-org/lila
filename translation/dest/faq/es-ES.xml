@@ -67,7 +67,7 @@ Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
   <string name="lichessTraining">Entrenamiento en Lichess</string>
   <string name="watchIMRosenCheckmate">Ver al Maestro Internacional Eric Rosen dar mate a %s.</string>
   <string name="threefoldRepetition">Triple repetición</string>
-  <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 (d) del %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
   <string name="notRepeatedMoves">No hemos repetido movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
   <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene porqué ocurrir consecutivamente.</string>
