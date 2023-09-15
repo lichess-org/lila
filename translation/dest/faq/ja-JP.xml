@@ -59,7 +59,7 @@
   <string name="lichessTraining">Lichess のトレーニング機能</string>
   <string name="watchIMRosenCheckmate">IM Eric Rosen が %s をメイトするところをご覧ください。</string>
   <string name="threefoldRepetition">同形三復について</string>
-  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
+  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 項を実装しています。</string>
   <string name="threefoldRepetitionLowerCase">同形三復</string>
   <string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）でドローなのですか？</string>
   <string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>
