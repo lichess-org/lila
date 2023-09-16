@@ -51,7 +51,7 @@ Cando un xogador non pode ser emparellado durante unha rolda, recibe un \"bye\" 
 É a suma dos puntos dos rivais derrotados máis a metade dos puntos dos rivais cos que se fai táboas.</string>
   <string name="pairingsQ">Como se deciden os emparellamentos?</string>
   <string name="dutchSystem">sistema holandés</string>
-  <string name="FIDEHandbook">manual da FIDE</string>
+  <string name="FIDEHandbook">Manual da FIDE</string>
   <string name="pairingsA">Co %1$s, posto en práctica por %2$s, de acordo co %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis roldas ca xogadores?</string>
   <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador.</string>
