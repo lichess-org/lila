@@ -54,6 +54,7 @@ Računarska analiza na Lichessu potpomognuta je Stockfishem.</string>
 U rijetkim slučajevima to može biti teško odlučiti automatski (forsirane varijante, tvrđave). Prema zadanome, uvijek se priklanjamo igraču kome vrijeme nije isteklo.
 
 Primijetite da je moguće matirati samim skakačem ili lovcem ako protivnik ima figuru koja mu može blokirati kralja.</string>
+  <string name="fideHandbook">FIDE-in priručnik</string>
   <string name="fideHandbookX">Pravilnik FIDE %s</string>
   <string name="discoveringEnPassant">Zašto pješak može uzeti pješaka kad je već prošao pokraj njega? (\"en passant\")</string>
   <string name="explainingEnPassant">Ovo je legalan potez poznat kao \"en passant\". Članak na Wikipediji na engleskom jeziku daje %1$s.
