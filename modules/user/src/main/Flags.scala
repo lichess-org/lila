@@ -125,7 +125,7 @@ object Flags:
     C("HR", "Croatia"),
     C("HT", "Haiti"),
     C("HU", "Hungary"),
-    C("IC", "Canary Islands")
+    C("IC", "Canary Islands"),
     C("ID", "Indonesia"),
     C("IE", "Ireland"),
     C("IL", "Israel"),
