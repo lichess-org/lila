@@ -45,6 +45,6 @@ $recon-height: 2.5rem;
   }
 
   .online &::before {
-    content: '';
+    content: $licon-DiscBig;
   }
 }

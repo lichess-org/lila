@@ -14,4 +14,9 @@
   <string name="otherCommands">अन्य आदेश</string>
   <string name="tips">सलाह</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">यदि उपरोक्त चाल संकेतन अपरिचित है, तो यहाँ और जानें:</string>
+  <string name="includingAXToIndicateACapture">कैप्चर को इंगित करने के लिए \"x\" शामिल करना वैकल्पिक है</string>
+  <string name="bothTheLetterOAndTheDigitZero">कास्टिंग करते समय अक्षर \"ओ\" और अंक शून्य \"0\" दोनों का उपयोग किया जा सकता है</string>
+  <string name="ifItIsLegalToCastleBothWays">यदि दोनों तरफ महल बनाना कानूनी है, तो किंगसाइड महल में प्रवेश का उपयोग करें</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">पूंजीकरण केवल बिशप और बी-प्यादा से जुड़ी अस्पष्ट स्थितियों में मायने रखता है</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">प्रीमूव करने के लिए, अपनी बारी आने से पहले बस वांछित प्रीमूव टाइप करें</string>
 </resources>

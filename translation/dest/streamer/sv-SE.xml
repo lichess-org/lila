@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Lichess-streamersidan är inriktad mot målgruppen med det språket som din streaming-plattform visar. Välj korrekt standardspråk för dina schackstreams i den appen eller tjänsten du använder för dina sändningar.</string>
   <string name="twitchUsername">Ditt användarnamn eller din URL på Twitch</string>
   <string name="optionalOrEmpty">Valfritt. Lämna tomt om ingen</string>
+  <string name="youTubeChannelId">Ditt YouTube-kanal-ID</string>
   <string name="streamerName">Ditt sändningsnamn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Behåll kort: max %s tecken</item>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Equip</string>
-  <string name="teams">Equips</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Equips</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membre</item>
     <item quantity="other">%s membres</item>
@@ -20,7 +20,7 @@
     <item quantity="one">Líder de l\'equip</item>
     <item quantity="other">Líders de l\'equip</item>
   </plurals>
-  <string name="teamRecentMembers">Membres recents de l\'equip</string>
+  <string name="teamRecentMembers">Nous membres de l\'equip</string>
   <string name="kickSomeone">Expulsar algú de l\'equip</string>
   <string name="whoToKick">Qui voleu expulsar de l\'equip?</string>
   <plurals name="xJoinRequests">

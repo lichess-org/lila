@@ -61,6 +61,7 @@ time {
   opacity: 0.9;
 
   /* don't use c-color-dim, it overrides too hard */
+  unicode-bidi: plaintext;
 }
 
 hr {

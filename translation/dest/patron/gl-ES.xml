@@ -60,6 +60,7 @@ Porén, os Patróns poden gabarse da súa nova icona de perfil.</string>
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Cobrarémosche %1$s o %2$s.</string>
   <string name="makeAdditionalDonation">Fai agora unha doazón adicional</string>
+  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Agasalla unhas ás de Patrón</string>
   <string name="giftPatronWings">Agasalla ás de Patrón a un xogador</string>
   <string name="update">Actualiza</string>
   <string name="changeMonthlyAmount">Cambia o importe mensual (%s)</string>

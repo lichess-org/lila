@@ -18,6 +18,7 @@ object post:
       markup: Frag,
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
+      followable: Boolean,
       followed: Boolean
   )(using ctx: PageContext) =
     views.html.base.layout(
@@ -119,7 +120,7 @@ object post:
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
-                followButton(user, followed)
+                followable option followButton(user, followed)
               ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })

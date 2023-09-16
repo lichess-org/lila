@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Legio</string>
-  <string name="teams">Legiones</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Legiones</string>
   <plurals name="nbMembers">
     <item quantity="one">%s sodales</item>
     <item quantity="other">%s sodales</item>

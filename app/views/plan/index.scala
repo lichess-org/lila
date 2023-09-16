@@ -134,6 +134,7 @@ object index:
                       cls          := "user-autocomplete",
                       placeholder  := trans.clas.lichessUsername.txt(),
                       autocomplete := "off",
+                      spellcheck   := false,
                       dataTag      := "span",
                       autofocus
                     )

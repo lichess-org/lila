@@ -474,7 +474,6 @@ export default class AnalyseCtrl {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
-      lichess.sound.move();
       const drop = {
         role: piece.role,
         pos,
@@ -611,7 +610,6 @@ export default class AnalyseCtrl {
 
   setAutoShapes = (): void => {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
-    if (this.node.children.length > 1) keyboard.maybeShowShiftKeyHelp();
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {

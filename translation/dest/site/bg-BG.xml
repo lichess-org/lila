@@ -352,7 +352,7 @@
   </plurals>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
-  <string name="noDrawBeforeSwissLimit">Не можете да предложите реми при по-малко от 30 хода в швейцарски турнир.</string>
+  <string name="noDrawBeforeSwissLimit">В турнир по швейцарската система не можете да предложите реми при по-малко от 30 хода.</string>
   <string name="thematic">Тематичен</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s оценена игра</item>

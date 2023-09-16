@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Equipo</string>
-  <string name="teams">Equipos</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Equipos</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membro</item>
     <item quantity="other">%s membros</item>
@@ -11,9 +11,9 @@
   <string name="newTeam">Novo equipo</string>
   <string name="myTeams">Os meus equipos</string>
   <string name="noTeamFound">Ningún equipo atopado</string>
-  <string name="joinTeam">Únirse ó equipo</string>
+  <string name="joinTeam">Unirse ó equipo</string>
   <string name="onlyLeaderLeavesTeam">Por favor, engade un novo líder de equipo antes de saíres ou pecha o equipo.</string>
-  <string name="quitTeam">Sair do equipo</string>
+  <string name="quitTeam">Saír do equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores terán que escribir unha solicitude para unirse ao equipo, que ti poderás rexeitar ou aceptar.</string>
   <plurals name="teamLeaders">

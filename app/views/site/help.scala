@@ -66,8 +66,8 @@ object help:
       table(
         tbody(
           navigateMoves,
-          row(kbd("shift"), "Cycle selected move arrow"),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("J")), "Rewind to mainline"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("→")), trans.keyEnterOrExitVariation()),
+          row(frag(kbd("shift"), kbd("J"), or, kbd("shift"), kbd("K")), trans.keyEnterOrExitVariation()),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
@@ -101,24 +101,6 @@ object help:
                 li(trans.analysisShapesHowTo())
               )
             )
-          )
-        )
-      )
-    )
-
-  def analyseShiftKey(using Lang) =
-    frag(
-      div(cls := "help-ephemeral")(
-        ul(
-          li("Purple arrow is mainline move"),
-          li("Pink arrows are variations"),
-          li("Blue arrow is eval best move")
-        ),
-        table(
-          tbody(
-            row(kbd("shift"), "cycle selected move arrow"),
-            row(kbd("→"), "play selected move"),
-            row(span(kbd("shift"), or, kbd("←")), "return to previous mainline move")
           )
         )
       )

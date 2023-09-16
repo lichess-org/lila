@@ -90,6 +90,7 @@ export default class RoundController {
   preDrop?: cg.Role;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
+  zenable = false;
 
   constructor(
     readonly opts: RoundOpts,
@@ -142,6 +143,8 @@ export default class RoundController {
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
+    this.zenable = !d.player.spectator || !!d.tv;
+
     setTimeout(this.delayedInit, 200);
 
     setTimeout(this.showExpiration, 350);
@@ -155,10 +158,12 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      const zen = $('body').toggleClass('zen').hasClass('zen');
-      window.dispatchEvent(new Event('resize'));
-      if (!$('body').hasClass('zen-auto')) {
-        xhr.setZen(zen);
+      if (this.zenable) {
+        const zen = $('body').toggleClass('zen').hasClass('zen');
+        window.dispatchEvent(new Event('resize'));
+        if (!$('body').hasClass('zen-auto')) {
+          xhr.setZen(zen);
+        }
       }
     });
 
@@ -187,8 +192,8 @@ export default class RoundController {
       if (this.data.game.variant.key === 'atomic') {
         lichess.sound.play('explosion');
         atomic.capture(this, dest);
-      }
-    }
+      } else lichess.sound.move({ san: 'x' }, false);
+    } else lichess.sound.move(undefined, false);
   };
 
   private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -272,7 +277,7 @@ export default class RoundController {
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
     this.chessground.set(config);
-    if (isForwardStep) lichess.sound.move(s);
+    if (s.san && isForwardStep) lichess.sound.move(s);
     this.autoScroll();
     const canMove = ply === this.lastPly() && this.data.player.color === config.turnColor;
     this.voiceMove?.update(s.fen, canMove);
@@ -443,6 +448,7 @@ export default class RoundController {
         },
         check: !!o.check,
       });
+      if (o.check) lichess.sound.play('check');
       blur.onMove();
       lichess.pubsub.emit('ply', this.ply);
     }
@@ -494,7 +500,7 @@ export default class RoundController {
     this.onChange();
     this.keyboardMove?.update(step, playedColor != d.player.color);
     this.voiceMove?.update(step.fen, playedColor != d.player.color);
-    lichess.sound.move(o);
+    lichess.sound.move(o, true);
     lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
