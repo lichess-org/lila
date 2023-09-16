@@ -10,7 +10,7 @@
   <string name="newAllTimeHighscore">ახალი საუკეთესო შედეგი</string>
   <string name="previousHighscoreWasX">ბოლო საუკეთესო შედეგი იყო %s</string>
   <string name="playAgain">კიდევ  ითამაშე</string>
-  <string name="highscoreX">უმაღლესი ქულა</string>
+  <string name="highscoreX">Უმაღლესი ქულა: %s</string>
   <string name="score">ქულა</string>
   <string name="moves">სვლები</string>
   <string name="accuracy">ზუსტად.აკურატულად</string>
@@ -21,7 +21,7 @@
   <string name="puzzlesPlayed">ამოხსნილი ამოცანები</string>
   <string name="newRun">ახალი ცდა ( ცხელი კლავიში: სპეისი)</string>
   <string name="endRun">ცდის დამთავრება (კლავიში ენტერი)</string>
-  <string name="highscores">უმაღლესი ქულა</string>
+  <string name="highscores">Უმაღლესი ქულა</string>
   <string name="viewBestRuns">მიჩვენე საუკეთესო ცდა</string>
   <string name="bestRunOfDay">დღის საუკეთესო ცდა</string>
   <string name="runs">ცდები</string>
