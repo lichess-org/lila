@@ -54,6 +54,7 @@ Počítačovú analýzu na serveri Lichess poskytuje server Stockfish.</string>
 V zriedkavých prípadoch môže byť ťažké automaticky rozhodnúť (vynútené čiary, pevnosti). Štandardne vždy stojíme na strane hráča, ktorému nevypršal čas.
 
 Upozorňujeme, že je možné matovať s jedným jazdcom alebo strelcom, ak má protivník figúrku, ktorá by mohla kráľa zablokovať.</string>
+  <string name="fideHandbook">Príručka FIDE</string>
   <string name="fideHandbookX">Príručka FIDE %s</string>
   <string name="discoveringEnPassant">Prečo môže pešiak vziať iného pešiaka, keď sa pohol? (en passant)</string>
   <string name="explainingEnPassant">Toto je legálny ťah známy ako „en passant“. Článok na Wikipédii poskytuje %1$s
