@@ -161,7 +161,7 @@ object faq:
           p(
             explainingEnPassant(
               a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
-              a(href := fideHandbookUrl)(fideHandbookX("§3.7")),
+              a(href := fideHandbookUrl)(fideHandbook()),
               a(href := s"${routes.Learn.index}#/15")(lichessTraining())
             )
           ),
@@ -179,7 +179,7 @@ object faq:
           p(
             threefoldRepetitionExplanation(
               a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
-              a(href := fideHandbookUrl)(fideHandbookX("§9.2"))
+              a(href := fideHandbookUrl)(fideHandbook())
             )
           ),
           h4(notRepeatedMoves()),

@@ -1926,6 +1926,7 @@ object I18nKeys:
     val `acplExplanation` = I18nKey("faq:acplExplanation")
     val `insufficientMaterial` = I18nKey("faq:insufficientMaterial")
     val `lichessFollowFIDErules` = I18nKey("faq:lichessFollowFIDErules")
+    val `fideHandbook` = I18nKey("faq:fideHandbook")
     val `fideHandbookX` = I18nKey("faq:fideHandbookX")
     val `discoveringEnPassant` = I18nKey("faq:discoveringEnPassant")
     val `explainingEnPassant` = I18nKey("faq:explainingEnPassant")
