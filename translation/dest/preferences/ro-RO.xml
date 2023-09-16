@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
+  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Doar în joc</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
@@ -39,6 +40,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Poate fi dezactivat în timpul unui joc cu meniul de tablă</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
   <string name="confirmResignationAndDrawOffers">Confirmă abandonarea și oferirea remizei</string>
