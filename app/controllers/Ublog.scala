@@ -103,21 +103,23 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def create = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      env.ublog.form.create
-        .bindFromRequest()
-        .fold(
-          err =>
-            BadRequest.pageAsync:
-              env.ublog.form.anyCaptcha.map:
-                html.ublog.form.create(me, err, _)
-          ,
-          data =>
-            CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
-              env.ublog.api.create(data) map { post =>
-                lila.mon.ublog.create(me.userId.value).increment()
-                Redirect(editUrlOfPost(post)).flashSuccess
-              }
-        )
+      env.ublog.api.canBlog(me) so {
+        env.ublog.form.create
+          .bindFromRequest()
+          .fold(
+            err =>
+              BadRequest.pageAsync:
+                env.ublog.form.anyCaptcha.map:
+                  html.ublog.form.create(me, err, _)
+            ,
+            data =>
+              CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
+                env.ublog.api.create(data) map { post =>
+                  lila.mon.ublog.create(me.userId.value).increment()
+                  Redirect(editUrlOfPost(post)).flashSuccess
+                }
+          )
+      }
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
