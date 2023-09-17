@@ -61,7 +61,6 @@ export type StudySocketSendParams =
   | [t: 'anaDests', d: AnaDestsReq]
   | [t: 'like', d: { liked: boolean }]
   | [t: 'kick', username: string]
-  | [t: 'kickBroadcast', d: { userId: string; tourId: string }]
   | [t: 'editStudy', d: StudyFormData]
   | [t: 'setTopics', topics: string[]]
   | [t: 'requestAnalysis', chapterId: string]
