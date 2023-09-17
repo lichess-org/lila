@@ -183,25 +183,16 @@ final private class RelayFetch(
         }
     } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
 
-  private def httpGet(url: URL): Fu[String] =
-    ws.url(url.toString)
-      .withRequestTimeout(4.seconds)
-      .get()
-      .flatMap: res =>
-        if res.status == 200 then fuccess(res.body)
-        else fufail(s"[${res.status}] $url")
+  private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from formatApi.httpGet(url)
 
-  private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from httpGet(url)
-
-  private def httpGetJson[A: Reads](url: URL): Fu[A] =
-    for
-      str  <- httpGet(url)
-      json <- Future(Json parse str) // Json.parse throws exceptions (!)
-      data <-
-        summon[Reads[A]]
-          .reads(json)
-          .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
-    yield data
+  private def httpGetJson[A: Reads](url: URL): Fu[A] = for
+    str  <- formatApi.httpGet(url)
+    json <- Future(Json parse str) // Json.parse throws exceptions (!)
+    data <-
+      summon[Reads[A]]
+        .reads(json)
+        .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
+  yield data
 
 private[relay] object RelayFetch:
 
@@ -220,16 +211,14 @@ private[relay] object RelayFetch:
       }.filter(_.nonEmpty)
     case class RoundJsonPairing(white: PairingPlayer, black: PairingPlayer, result: String):
       import chess.format.pgn.*
-      def tags =
-        Tags(
-          List(
-            white.fullName map { Tag(_.White, _) },
-            white.title map { Tag(_.WhiteTitle, _) },
-            black.fullName map { Tag(_.Black, _) },
-            black.title map { Tag(_.BlackTitle, _) },
-            Tag(_.Result, result).some
-          ).flatten
-        )
+      def tags = Tags:
+        List(
+          white.fullName map { Tag(_.White, _) },
+          white.title map { Tag(_.WhiteTitle, _) },
+          black.fullName map { Tag(_.Black, _) },
+          black.title map { Tag(_.BlackTitle, _) },
+          Tag(_.Result, result).some
+        ).flatten
     case class RoundJson(pairings: List[RoundJsonPairing])
     given Reads[PairingPlayer]    = Json.reads
     given Reads[RoundJsonPairing] = Json.reads
