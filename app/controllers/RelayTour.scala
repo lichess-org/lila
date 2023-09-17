@@ -97,7 +97,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def admin(id: TourModel.Id) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
     env.relay.api
       .roundIdsById(id)
-      .flatMap(_.map(env.study.api.adminInvite).parallel)
+      .flatMap(_.map(studyId => env.study.api.adminInvite(studyId, me.userId)).parallel)
       .inject:
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }

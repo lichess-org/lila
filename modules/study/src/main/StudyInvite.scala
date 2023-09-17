@@ -74,12 +74,12 @@ final private class StudyInvite(
         .void
   yield invited
 
-  def admin(study: Study)(using me: Me): Funit =
+  def admin(by: UserId)(study: Study): Funit =
     studyRepo.coll:
       _.update
         .one(
           $id(study.id),
-          $set(s"members.${me.userId}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids" -> me.userId)
+          $set(s"members.${by}" -> $doc("role" -> "w", "admin" -> true)) ++
+            $addToSet("uids" -> by)
         )
         .void

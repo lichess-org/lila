@@ -81,6 +81,14 @@ final class Env(
         .foreach(_.foreach: tourId =>
           api.kickBroadcast(userId, tourId, who))
     },
+    "adminStudy" -> { case lila.study.actorApi.AdminStudy(studyId, by) =>
+      roundRepo
+        .tourIdByStudyId(studyId)
+        .foreach(_.foreach: tourId =>
+          api
+            .roundIdsById(tourId)
+            .foreach(_.foreach(studyId => studyApi.adminInvite(studyId, by))))
+    },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
       promise completeWith api.isOfficial(studyId)
     }

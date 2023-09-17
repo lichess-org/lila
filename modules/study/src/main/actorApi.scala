@@ -14,4 +14,5 @@ case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, inser
 case class Who(u: UserId, sri: lila.socket.Socket.Sri)
 case class RelayToggle(studyId: StudyId, v: Boolean, who: Who)
 case class Kick(studyId: StudyId, userId: UserId, who: UserId)
+case class AdminStudy(studyId: StudyId, by: UserId)
 case class IsOfficialRelay(studyId: StudyId, promise: Promise[Boolean])
