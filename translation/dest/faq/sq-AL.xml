@@ -54,6 +54,7 @@ Analiza kompjuterike në Lichess bazohet në Stockfish.</string>
 Në rastet e rralla kjo mund të jetë e vështirë të vendoset automatikisht (forced lines, fortresses). Si parazgjedhje, ne mbajmë anën e lojtarit të cilit nuk i mbaroi koha.
 
 Kini parasysh se është e mundur të jepet mat me një kalë ose oficer të vetëm, nëse kundërshtari ka një gur që mund të bllokonte mbretin.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Doracaku FIDE</string>
   <string name="fideHandbookX">Doracaku FIDE %s</string>
   <string name="discoveringEnPassant">Pse mundet një ushtar të hajë një ushtar tjetër, kur është bërë tashmë prerja? (me prerje)</string>
   <string name="explainingEnPassant">Kjo është një lëvizje e ligjshme, e njohur si “me prerje”. Artikulli i Wikipedia-s jep një %1$s.
