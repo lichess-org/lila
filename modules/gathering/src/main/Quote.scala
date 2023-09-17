@@ -1578,6 +1578,46 @@ object Quote:
     Quote("Chess as a game is too serious; as a serious pursuit too frivolous.", "Moses Mendelssohn"),
     Quote("Chess makes me a better person", "Albert Badosa"),
     Quote(
+      "Formerly I played to amuse myself, then to study, but now I play to create.",
+      "Vera Menchik"
+    ),
+    Quote(
+      "Losing is no catastrophe, it's a challenge to improve.",
+      "Mariya Muzychuk"
+    ),
+    Quote(
+      "The main thing is to set yourself a goal and to do everything in your power to achieve it. Remember that every moment has value, every minute is important. No one knows what life will bring; but the main thing is that, in the end, you will know that you tried, and that you made the effort to become better every day.",
+      "Alexandra Kosteniuk"
+    ),
+    Quote(
+      "Of course, it would be absurd to say that I have no talent and did little work on chess, however, the most important thing is that I love chess so much.",
+      "Xie Jun"
+    ),
+    Quote(
+      "Perhaps this is the side-effect of progress made: The more you know, the more you realize how weak you are.",
+      "Xie Jun"
+    ),
+    Quote(
+      "To be honest, when I am reflective and consider myself, I think that indeed Nona Gaprindashvili understands only chess, and I cannot imagine my life without chess.",
+      "Nona Gaprindashvili"
+    ),
+    Quote(
+      "...it is due to chess that I was able to undergo my own self-realization and become truly content.",
+      "Nona Gaprindashvili"
+    ),
+    Quote(
+      "Every chess player likes attacking play.",
+      "Zhu Chen"
+    ),
+    Quote(
+      "I don't think so much in general terms like best achievement, best game ever or best tournament. I try to play chess, enjoy it and of course if I win, I enjoy it more.",
+      "Antoaneta Stefanova"
+    ),
+    Quote(
+      "...if you lose it's not the end of the world.",
+      "Hou Yifan"
+    ),
+    Quote(
       "Success in chess requires many factors such as environment, hard practice, coach, talent... When we are children, we should not set the goal of becoming a super grandmaster. Do not play chess because of pressure, let chess become your joy and success will come naturally.",
       "Lê Quang Liêm"
     ),
