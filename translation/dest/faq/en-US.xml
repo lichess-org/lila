@@ -54,6 +54,7 @@ The computer analysis on Lichess is powered by Stockfish.</string>
 In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
 
 Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE handbook</string>
   <string name="fideHandbookX">FIDE handbook %s</string>
   <string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
   <string name="explainingEnPassant">This is a legal move known as \"en passant\". The Wikipedia article gives a %1$s.
