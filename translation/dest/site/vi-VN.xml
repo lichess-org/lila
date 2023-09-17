@@ -325,9 +325,8 @@
     <item quantity="other">%s nghiên cứu</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">Chủ Trì
-%s
-Sự Kiện Đồng Loạt</item>
+    <item quantity="other">Chủ Trì %s
+Sự Kiện Cờ Đồng Loạt</item>
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
