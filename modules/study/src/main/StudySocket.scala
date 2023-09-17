@@ -115,11 +115,7 @@ final private class StudySocket(
             .foreach: username =>
               applyWho: w =>
                 api.kick(studyId, username.id, w.u)
-
-        case "kickBroadcast" =>
-          applyWho: w =>
-            reading[KickBroadcastData](o): data =>
-              Bus.publish(actorApi.KickBroadcast(data.userId, data.tourId, w.u), "kickBroadcast")
+                Bus.publish(actorApi.Kick(studyId, username.id, w.u), "kickStudy")
 
         case "leave" =>
           who.foreach: w =>
