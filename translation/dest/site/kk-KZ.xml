@@ -72,7 +72,7 @@
   <string name="forceVariation">Тармақты дамыту</string>
   <string name="move">Жүріс</string>
   <string name="variantLoss">Ұтылу жолы</string>
-  <string name="variantWin">Жеңу жолы</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Жеңу жолы</string>
   <string name="insufficientMaterial">Матқа тас мөлшері жеткіліксіз</string>
   <string name="pawnMove">Сарбаз жүрісі</string>
   <string name="capture">Басып алу</string>
@@ -183,7 +183,7 @@
   <string name="variants">Түрі</string>
   <string name="timeControl">Уақыт қалпы</string>
   <string name="realTime">Шын уақытта</string>
-  <string name="correspondence">Хат-хабарлы ойын</string>
+  <string name="correspondence">Хат-хабарлы</string>
   <string name="daysPerTurn">Күн бір жүріске</string>
   <string name="oneDay">Бір күн</string>
   <plurals name="nbDays">
@@ -415,7 +415,7 @@
   <string name="whiteCheckmatesInOneMove">Ақ бір жүріспен мат қояды</string>
   <string name="blackCheckmatesInOneMove">Қара бір жүріспен мат қояды</string>
   <string name="retry">Қайталау</string>
-  <string name="reconnecting">Қайта байланысу</string>
+  <string name="reconnecting">Байланыс қайта орнауда</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s дос желіде</item>
     <item quantity="other">%s дос желіде</item>
@@ -446,8 +446,8 @@
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s минуттан аз</item>
-    <item quantity="other">%s минуттан аз</item>
+    <item quantity="one">%s минутқа дейін</item>
+    <item quantity="other">%s минутқа дейін</item>
   </plurals>
   <string name="required">Талап қойылады.</string>
   <string name="openTournaments">Ашық жарыстар</string>
@@ -505,6 +505,7 @@
   <string name="firstName">Атыңыз</string>
   <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрақ</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
@@ -560,8 +561,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Жазбалар</string>
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
-  <string name="writeAPrivateNoteAboutThisUser">Бұл ойыншы туралы жеке жазба жазу</string>
-  <string name="noNoteYet">Жазба жоқ</string>
+  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Бұл ойыншы туралы жеке жазба жазу</string>
+  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Жазба жоқ</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
   <string name="invalidAuthenticationCode">Сәйкестік-растау құлыпсөзі қате</string>
@@ -706,7 +707,7 @@
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Сіз %2$s ойышыларының %1$s-ынан күштірексіз.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышыларының %2$s-ынан күштірек.</string>
-  <string name="betterThanPercentPlayers">%1$s %2$s ойыншылардан озық</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">%1$s %2$s ойыншылардан озық</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
   <string name="yourRating">Рейтингіңіз</string>
   <string name="cumulative">Жинақылық</string>
@@ -762,7 +763,7 @@
   <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
   <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
   <string name="quickPairing">Қалыптар</string>
-  <string name="lobby">Алаң</string>
+  <string name="lobby">Шақырулар</string>
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
@@ -824,11 +825,11 @@
   <string name="waitingForAnalysis">Талдауды күту</string>
   <string name="noMistakesFoundForWhite">Ақтар жағының қатесі табылмады</string>
   <string name="noMistakesFoundForBlack">Қаралар жағының қатесі табылмады</string>
-  <string name="doneReviewingWhiteMistakes">Ақтардың қателері қаралды</string>
-  <string name="doneReviewingBlackMistakes">Қаралардың қателері қаралды</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Ақтардың қателері қаралды</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Қаралардың қателері қаралды</string>
   <string name="doItAgain">Қайта жасау</string>
-  <string name="reviewWhiteMistakes">Ақтардың қателерін қарау</string>
-  <string name="reviewBlackMistakes">Қаралардың қателерін қарау</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Ақтардың қателерін қарау</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Қаралардың қателерін қарау</string>
   <string name="advantage">Басымдылық</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунд</item>
