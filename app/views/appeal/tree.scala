@@ -17,7 +17,7 @@ object tree:
 
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
   val engineMarked             = "Your account is marked for external assistance in games.";
-  val arenaBanned              = "Your account is banned from playing in arenas."
+  val arenaBanned              = "Your account is banned from joining arenas."
   val prizeBanned              = "Your account is banned from tournaments with real prizes."
   val boosterMarked            = "Your account is marked for rating manipulation.";
   val accountMuted             = "Your account is muted.";
