@@ -12,7 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
-import lila.user.{ User, Me }
+import lila.user.{ User, Me, MyId }
 import lila.relay.RelayTour.ActiveWithSomeRounds
 
 final class RelayApi(
@@ -61,7 +61,7 @@ final class RelayApi(
   def roundIdsById(tourId: RelayTour.Id): Fu[List[StudyId]] =
     roundRepo.idsByTourId(tourId)
 
-  def kickBroadcast(userId: UserId, tourId: RelayTour.Id, who: UserId): Unit =
+  def kickBroadcast(userId: UserId, tourId: RelayTour.Id, who: MyId): Unit =
     roundIdsById(tourId).foreach(_.foreach(studyId => studyApi.kick(studyId, userId, who)))
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)

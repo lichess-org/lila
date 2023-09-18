@@ -13,7 +13,7 @@ import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.tree.{ Branch, Branches }
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, MyId }
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -362,13 +362,13 @@ final class StudyApi(
         )
         .void
 
-  def kick(studyId: StudyId, userId: UserId, who: UserId) =
+  def kick(studyId: StudyId, userId: UserId, who: MyId) =
     sequenceStudy(studyId): study =>
       studyRepo
         .isAdminMember(study, who)
         .flatMap: isAdmin =>
           val allowed = study.isMember(userId) && {
-            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who == userId))
+            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who is userId))
           }
           allowed.so:
             studyRepo.removeMember(study, userId) andDo
