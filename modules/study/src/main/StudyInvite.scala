@@ -74,7 +74,7 @@ final private class StudyInvite(
         .void
   yield invited
 
-  def admin(by: UserId)(study: Study): Funit =
+  def admin(by: Me)(study: Study): Funit =
     studyRepo.coll:
       _.update
         .one(

@@ -314,9 +314,9 @@ final class Study(
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
-    Bus.publish(AdminStudy(id, me.userId), "adminStudy")
+    Bus.publish(AdminStudy(id, me), "adminStudy")
     env.study.api
-      .adminInvite(id, me.userId)
+      .adminInvite(id, me)
       .inject:
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }

@@ -5,7 +5,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
-import lila.common.{ config, IpAddress, HTTPRequest }
+import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
