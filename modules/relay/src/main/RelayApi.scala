@@ -379,6 +379,13 @@ final class RelayApi(
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void
 
+  private[relay] def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
+    roundRepo
+      .tourIdByStudyId(studyId)
+      .flatMapz: tourId =>
+        roundIdsById(tourId).flatMap:
+          _.map(studyApi.becomeAdmin(_, me)).sequence.void
+
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi members id.into(StudyId) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
