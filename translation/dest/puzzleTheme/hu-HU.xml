@@ -3,7 +3,7 @@
   <string name="advancedPawn">Előretört gyalog</string>
   <string name="advancedPawnDescription">Egy gyalogod előretört az ellenfél térfelére és át is változhat.</string>
   <string name="advantage">Előny</string>
-  <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anasztázia mattja</string>
   <string name="anastasiaMateDescription">Egy huszár és egy bástya vagy a vezér közösen csapdába ejtik az ellenfél királyát a tábla széle és egy figurája között.</string>
   <string name="arabianMate">Arab matt</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">A védő leütése</string>
   <string name="capturingDefenderDescription">Egy másik védelméhez elengedhetetlen figura leütése, így a védtelen figura a következő lépésben szabadon levehető.</string>
   <string name="crushing">Megsemmisítés</string>
-  <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
   <string name="doubleBishopMate">Futópár matt</string>
   <string name="doubleBishopMateDescription">A két futó szomszédos átlókon ad mattot a saját figurája által akadályozott királynak.</string>
   <string name="dovetailMate">Fecskefark matt</string>
   <string name="dovetailMateDescription">A vezér mattot ad a szomszédos mezőn álló királynak, aminek mindkét menekülési útját saját figurái foglalják el.</string>
   <string name="equality">Egyenlőség</string>
-  <string name="equalityDescription">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
   <string name="kingsideAttack">Királyszárnytámadás</string>
   <string name="kingsideAttackDescription">Királyszárnyra sáncolt király ellen indított támadás.</string>
   <string name="clearance">Felszabadítás</string>
