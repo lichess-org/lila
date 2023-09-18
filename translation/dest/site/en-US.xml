@@ -72,7 +72,7 @@
   <string name="forceVariation">Force variation</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Variant win</string>
+  <string name="variantWin">Variant win</string>
   <string name="insufficientMaterial">Insufficient material</string>
   <string name="pawnMove">Pawn move</string>
   <string name="capture">Capture</string>
@@ -561,8 +561,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Type private notes here</string>
-  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Write a private note about this user</string>
-  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">No note yet</string>
+  <string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+  <string name="noNoteYet">No note yet</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
   <string name="invalidAuthenticationCode">Invalid authentication code</string>
@@ -707,7 +707,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1$s of %2$s players.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s is better than %2$s of %3$s players.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Better than %1$s of %2$s players</string>
+  <string name="betterThanPercentPlayers">Better than %1$s of %2$s players</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">You do not have an established %s rating.</string>
   <string name="yourRating">Your rating</string>
   <string name="cumulative">Cumulative</string>
@@ -825,11 +825,11 @@ computer analysis, game chat and shareable URL.</string>
   <string name="waitingForAnalysis">Waiting for analysis</string>
   <string name="noMistakesFoundForWhite">No significant mistakes found for White</string>
   <string name="noMistakesFoundForBlack">No significant mistakes found for Black</string>
-  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Done reviewing White mistakes</string>
-  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Done reviewing Black mistakes</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing White mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing Black mistakes</string>
   <string name="doItAgain">Do it again</string>
-  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Review White mistakes</string>
-  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Review Black mistakes</string>
+  <string name="reviewWhiteMistakes">Review White mistakes</string>
+  <string name="reviewBlackMistakes">Review Black mistakes</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>
