@@ -561,7 +561,7 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
-  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada sobre este usuario</string>
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
