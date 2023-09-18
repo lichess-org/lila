@@ -15,7 +15,7 @@
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ tập trung</string>
   <string name="showPlayerRatings">Hiển thị hệ số của người chơi</string>
-  <string name="explainShowPlayerRatings">Cài đặt này cho phép ẩn toàn bộ xếp hạng từ trang web, giúp tập trung vào ván cờ. Ván đấu vẫn có thể tính xếp hạng, điều này chỉ là về những thứ bạn muốn nhìn thấy.</string>
+  <string name="explainShowPlayerRatings">Điều này cho phép ẩn toàn bộ hệ số Elo từ trang web, giúp tập trung vào ván cờ. Ván đấu vẫn có thể tính Elo, điều này chỉ là về những thứ bạn muốn nhìn thấy.</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Chỉ trong ván cờ</string>
