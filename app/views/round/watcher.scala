@@ -46,7 +46,8 @@ object watcher:
           )
         )
       ),
-      openGraph = povOpenGraph(pov).some
+      openGraph = povOpenGraph(pov).some,
+      zenable = true
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
