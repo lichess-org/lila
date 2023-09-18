@@ -25,7 +25,7 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .map(_.flatMap(_.getAsOpt[RelayRoundId]("_id")))
 
   def tourIdByStudyId(studyId: StudyId): Fu[Option[RelayTour.Id]] =
-    coll.byId[Bdoc](studyId).map(_.flatMap(_.getAsOpt[RelayTour.Id]("tourId")))
+    coll.primitiveOne[RelayTour.Id]($id(studyId), "tourId")
 
   def idsByTourId(tourId: RelayTour.Id): Fu[List[StudyId]] =
     coll
