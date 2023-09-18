@@ -611,7 +611,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các Streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
-  <string name="webmasters">Các quản trị viên</string>
+  <string name="webmasters">Các quản trị web</string>
   <string name="about">Giới thiệu</string>
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không quảng cáo, mã nguồn mở.</string>
