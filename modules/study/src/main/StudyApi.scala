@@ -777,7 +777,7 @@ final class StudyApi(
       Contribute(by.id, study):
         chapterRepo deleteByStudy study
 
-  def becomeAdmin(studyId: StudyId, me: Me): Funit =
+  def becomeAdmin(studyId: StudyId, me: MyId): Funit =
     sequenceStudy(studyId)(inviter.becomeAdmin(me))
 
   private def indexStudy(study: Study) =

@@ -5,7 +5,7 @@ import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, MyId }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -74,7 +74,7 @@ final private class StudyInvite(
         .void
   yield invited
 
-  def becomeAdmin(me: Me)(study: Study): Funit =
+  def becomeAdmin(me: MyId)(study: Study): Funit =
     studyRepo.coll:
       _.update
         .one(
