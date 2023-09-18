@@ -115,6 +115,7 @@
   <string name="openStudy">Studie öffnen</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
+  <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
   <string name="evaluationGauge">Bewertungsanzeige</string>
   <string name="multipleLines">Mehrere Varianten</string>
   <string name="cpus">CPUs</string>
