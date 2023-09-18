@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pažengęs pėstininkas</string>
   <string name="advancedPawnDescription">Pėstininkas, kuris keičiamas kita figūra, ar tuoj tai darys, čia yra esminė taktika.</string>
   <string name="advantage">Pranašumas</string>
-  <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasijos matas</string>
   <string name="anastasiaMateDescription">Žirgas ir valdovė arba bokštas bendromis jėgomis įkalina priešininko karalių tarp lentos krašto ir kitos figūros.</string>
   <string name="arabianMate">Arabiškasis matas</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>
   <string name="crushing">Suspaudimas</string>
-  <string name="crushingDescription">Pastebėkite priešininko klaidą ir įgaukite ryškią persvarą. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Pastebėkite priešininko klaidą ir įgaukite ryškią persvarą. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Dvigubų rikių matas</string>
   <string name="doubleBishopMateDescription">Du gretimose įstrižainėse puolantys rikiai atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="dovetailMate">Kozio matas</string>
   <string name="dovetailMateDescription">Valdovė atlieka matą greta esančiam priešininko karaliui, kurio vieninteliai pabėgimo langeliai užimti draugiškų figūrų.</string>
   <string name="equality">Lygybė</string>
-  <string name="equalityDescription">Grįžkite iš pralaiminčios pozicijos ir užsitikrinkite lygiąsias arba balansuotą poziciją. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Grįžkite iš pralaiminčios pozicijos ir užsitikrinkite lygiąsias arba balansuotą poziciją. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Karaliaus pusės ataka</string>
   <string name="kingsideAttackDescription">Ataka į priešininko karalių po to, kai jis rokiravosi karaliaus pusėje.</string>
   <string name="clearance">Išvalymas</string>
