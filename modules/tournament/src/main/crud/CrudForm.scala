@@ -8,9 +8,10 @@ import chess.variant.Variant
 import chess.format.Fen
 import chess.Clock.IncrementSeconds
 import lila.common.Form.{ given, * }
+import lila.user.Me
 import lila.gathering.GatheringClock
 
-final class CrudForm(repo: TournamentRepo):
+final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 
   import CrudForm.*
   import TournamentForm.*
@@ -60,6 +61,16 @@ final class CrudForm(repo: TournamentRepo):
     hasChat = true
   )
 
+  def newForm(tour: Option[Tournament])(using me: Me) = Form(
+    mapping(
+      "id"            -> id[TourId](8, tour.map(_.id))(repo.exists),
+      "homepageHours" -> number(min = 0, max = maxHomepageHours),
+      "image"         -> stringIn(imageChoices),
+      "headline"      -> text(minLength = 5, maxLength = 30),
+      "tour"          -> forms.create(Nil).mapping
+    )(NewData.apply)(unapply)
+  )
+
 object CrudForm:
 
   val maxHomepageHours = 24
@@ -100,3 +111,11 @@ object CrudForm:
     "offerspill.logo.png" -> "Offerspill"
   )
   val imageDefault = ""
+
+  case class NewData(
+      id: TourId,
+      homepageHours: Int,
+      image: String,
+      headline: String,
+      tour: TournamentSetup
+  )
