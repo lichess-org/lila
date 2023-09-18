@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
+  <string name="showVariationArrows">Mostrar flechas de variantes</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
   <string name="multipleLines">Múltiples líneas</string>
   <string name="cpus">Procesadores</string>
@@ -504,7 +505,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Marca</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandera</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
