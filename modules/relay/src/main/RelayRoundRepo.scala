@@ -17,12 +17,12 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .list(RelayTour.maxRelays)
 
   def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
-    coll
-      .find(selectors.tour(tour.id), $id(true).some)
-      .sort(sort.chrono)
-      .cursor[Bdoc]()
-      .list(RelayTour.maxRelays)
-      .map(_.flatMap(_.getAsOpt[RelayRoundId]("_id")))
+    coll.primitive[RelayRoundId](
+      selector = selectors.tour(tour.id),
+      sort = sort.chrono,
+      nb = RelayTour.maxRelays,
+      field = "_id"
+    )
 
   def tourIdByStudyId(studyId: StudyId): Fu[Option[RelayTour.Id]] =
     coll.primitiveOne[RelayTour.Id]($id(studyId), "tourId")
