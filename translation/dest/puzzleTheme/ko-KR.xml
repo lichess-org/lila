@@ -3,7 +3,7 @@
   <string name="advancedPawn">전진한 폰</string>
   <string name="advancedPawnDescription">상대방 진영에 깊숙히 전진한 폰이 승급을 노립니다.</string>
   <string name="advantage">이점</string>
-  <string name="advantageDescription">결정적인 이점을 쟁취하세요. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">결정적인 이점을 쟁취하세요. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">아나스타시아 메이트</string>
   <string name="anastasiaMateDescription">나이트와 룩 또는 퀸이 힘을 합쳐 상대 킹을 보드 가장자리와 자신의 기물 사이의 함정에 빠트립니다.</string>
   <string name="arabianMate">아라비안 메이트</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">보호하는 기물을 제거하세요.</string>
   <string name="capturingDefenderDescription">다른 기물을 방어중인 기물을 잡아서 다음 수에 더 이상 방어되지 않는 기물을 잡을 수 있게 됩니다.</string>
   <string name="crushing">박살내기</string>
-  <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">2비숍 메이트</string>
   <string name="doubleBishopMateDescription">자신의 기물에 막힌 킹에게 두 비숍이 인접한 대각선을 막아 메이트를 합니다.</string>
   <string name="dovetailMate">도브테일 메이트</string>
   <string name="dovetailMateDescription">퀸이 킹 바로 옆에서 메이트를 합니다. 유일하게 빠져나갈 수 있는 두 칸은 자신의 기물에게 막혀 있습니다.</string>
   <string name="equality">동등함</string>
-  <string name="equalityDescription">불리한 상황에서 벗어나 무승부 또는 균형잡힌 포지션으로 만드세요. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">불리한 상황에서 벗어나 무승부 또는 균형잡힌 포지션으로 만드세요. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">킹사이드 공격</string>
   <string name="kingsideAttackDescription">상대 킹이 킹사이드 캐슬링을 한 뒤의 공격.</string>
   <string name="clearance">정리</string>
