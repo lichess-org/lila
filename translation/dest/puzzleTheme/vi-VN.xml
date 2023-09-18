@@ -3,7 +3,7 @@
   <string name="advancedPawn">Tốt thông xa</string>
   <string name="advancedPawnDescription">Một quân tốt của bạn đang nằm sâu bên trong thế cờ của đối thủ, có thể đe dọa phong cấp.</string>
   <string name="advantage">Lợi thế</string>
-  <string name="advantageDescription">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
   <string name="anastasiaMate">Chiếu hết kiểu Anastasia</string>
   <string name="anastasiaMateDescription">Một quân mã phối hợp cùng quân xe hoặc quân hậu để bẫy quân vua đối phương vào thế kẹp giữa cạnh bàn cờ và một quân khác.</string>
   <string name="arabianMate">Chiếu hết kiểu Ả Rập</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ bây giờ không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
   <string name="crushing">Áp đảo</string>
-  <string name="crushingDescription">Chớp lấy cơ hội ngàn vàng từ sai lầm của đối thủ. (đánh giá ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Chớp lấy cơ hội ngàn vàng từ sai lầm của đối thủ. (đánh giá ≥ 600cp)</string>
   <string name="doubleBishopMate">Chiếu hết bằng đôi Tượng</string>
   <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một vị vua bị cản trở bởi quân cờ.</string>
   <string name="dovetailMate">Chiếu hết kiểu Đuôi én</string>
   <string name="dovetailMateDescription">Một Hậu chiếu hết vua ở ô liền kề, hai ô duy nhất quân vua có thể chạy được lúc này đều chặn.</string>
   <string name="equality">Cân bằng</string>
-  <string name="equalityDescription">Đảo ngược một thế cờ thua, và đảm bảo một thế trận hòa hoặc cân bằng. (đánh giá ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Đảo ngược một thế cờ thua, và đảm bảo một thế trận hòa hoặc cân bằng. (đánh giá ≤ 200cp)</string>
   <string name="kingsideAttack">Tấn công cánh vua</string>
   <string name="kingsideAttackDescription">Tấn công vua đối phương sau khi họ nhập thành cánh vua.</string>
   <string name="clearance">Dọn đường</string>

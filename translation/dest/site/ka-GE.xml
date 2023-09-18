@@ -72,7 +72,7 @@
   <string name="forceVariation">ვარიაციის დაძალება</string>
   <string name="move">სვლა</string>
   <string name="variantLoss">წამგებიანი ვარიანტი</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">მომგებიანი ვარიანტი</string>
+  <string name="variantWin">მომგებიანი ვარიანტი</string>
   <string name="insufficientMaterial">არასაკმარისი ფიგურები</string>
   <string name="pawnMove">პაიკის სვლა</string>
   <string name="capture">აყვანა</string>

@@ -115,6 +115,7 @@
   <string name="openStudy">Ikerketa ireki</string>
   <string name="enable">Aktibatu</string>
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
+  <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
   <string name="evaluationGauge">Ebaluazio langa</string>
   <string name="multipleLines">Linea anitz</string>
   <string name="cpus">CPU</string>

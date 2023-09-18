@@ -71,7 +71,7 @@
   <string name="forceVariation">Đổi biến</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Nước chiếu hết theo luật</string>
+  <string name="variantWin">Nước chiếu hết theo luật</string>
   <string name="insufficientMaterial">Thiếu quân để chiếu hết</string>
   <string name="pawnMove">Tiến tốt</string>
   <string name="capture">Ăn</string>
@@ -113,6 +113,7 @@
   <string name="openStudy">Mở nghiên cứu</string>
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
+  <string name="showVariationArrows">Hiển thị mũi tên biến</string>
   <string name="evaluationGauge">Thang đo lợi thế</string>
   <string name="multipleLines">Phân tích nhiều hàng</string>
   <string name="cpus">CPU</string>
@@ -519,7 +520,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="troll">Chọc tức, chơi khăm</string>
   <string name="ratingManipulation">Thao túng xếp hạng</string>
   <string name="other">Khác</string>
-  <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
+  <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\" mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
   <string name="importedByX">Được nhập bởi %s</string>
@@ -527,8 +528,8 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="blog">Blog</string>
   <string name="notes">Ghi chú</string>
   <string name="typePrivateNotesHere">Nhập ghi chú cá nhân ở đây</string>
-  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Tạo một ghi chú riêng dành cho người dùng này</string>
-  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Chưa có ghi chú</string>
+  <string name="writeAPrivateNoteAboutThisUser">Tạo một ghi chú riêng dành cho người dùng này</string>
+  <string name="noNoteYet">Chưa có ghi chú</string>
   <string name="invalidUsernameOrPassword">Tên tài khoản hoặc mật khẩu đăng nhập không đúng</string>
   <string name="incorrectPassword">Mật khẩu sai</string>
   <string name="invalidAuthenticationCode">Mã xác thực sai</string>
@@ -669,7 +670,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="yourPerfTypeRatingIsRating">Hệ số Elo %1$s của bạn là %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Bạn giỏi hơn %1$s người chơi %2$s</string>
+  <string name="betterThanPercentPlayers">Bạn giỏi hơn %1$s người chơi %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
   <string name="yourRating">Xếp hạng của bạn</string>
   <string name="cumulative">Tích luỹ</string>
@@ -785,11 +786,11 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="waitingForAnalysis">Đang chờ phân tích</string>
   <string name="noMistakesFoundForWhite">Bên trắng không mắc sai lầm nào</string>
   <string name="noMistakesFoundForBlack">Bên đen không mắc sai lầm nào</string>
-  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Đã hoàn tất phân tích sai lầm của bên trắng</string>
-  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Đã hoàn tất phân tích sai lầm của bên đen</string>
+  <string name="doneReviewingWhiteMistakes">Đã hoàn tất phân tích sai lầm của bên trắng</string>
+  <string name="doneReviewingBlackMistakes">Đã hoàn tất phân tích sai lầm của bên đen</string>
   <string name="doItAgain">Thử lại một lần nữa</string>
-  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Đánh giá lỗi bên trắng</string>
-  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Đánh giá lỗi bên đen</string>
+  <string name="reviewWhiteMistakes">Đánh giá lỗi bên trắng</string>
+  <string name="reviewBlackMistakes">Đánh giá lỗi bên đen</string>
   <string name="advantage">Lợi thế</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s giây</item>

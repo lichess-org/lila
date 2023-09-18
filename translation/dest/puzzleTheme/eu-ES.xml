@@ -3,7 +3,7 @@
   <string name="advancedPawn">Peoi aurreratua</string>
   <string name="advancedPawnDescription">Sustatuko den edo sustatze-bidean dagoen peoia da ariketa honen muina.</string>
   <string name="advantage">Abantaila</string>
-  <string name="advantageDescription">Abantaila osoa lortzen saiatu (200cp ≤ ebaluazioa ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Abantaila osoa lortzen saiatu (200cp ≤ ebaluazioa ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasiaren matea</string>
   <string name="anastasiaMateDescription">Zaldun bat eta gaztelua eta damak aurkariaren erregea taularen bazter baten eta bere pieza baten artean harrapatzen dute.</string>
   <string name="arabianMate">Mate arabiarra</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Defendatzailea harrapatu</string>
   <string name="capturingDefenderDescription">Beste pieza bat defendatzeko funtsezkoa den pieza kentzea, hurrengo jokaldietan lehenengo pieza hori harrapatzeko.</string>
   <string name="crushing">Zapalketa</string>
-  <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
   <string name="doubleBishopMate">Bi alfilen matea</string>
   <string name="doubleBishopMateDescription">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
   <string name="dovetailMate">Mirubuztanaren matea</string>
   <string name="dovetailMateDescription">Damak ematen duen matea erregearen ihes-laukiak bere piezekin trabatuta daudenean.</string>
   <string name="equality">Berdintasuna</string>
-  <string name="equalityDescription">Partida galduta izatetik, berdinketa edo posizio berdintsua lortzera itzuli. (ebaluazioa ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Partida galduta izatetik, berdinketa edo posizio berdintsua lortzera itzuli. (ebaluazioa ≤ 200cp)</string>
   <string name="kingsideAttack">Erregearen aldeko erasoa</string>
   <string name="kingsideAttackDescription">Aurkariaren erregearen aurkako erasoa, hau motzean endrokatu ostean.</string>
   <string name="clearance">Garbiketa</string>

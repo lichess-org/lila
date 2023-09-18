@@ -3,7 +3,7 @@
   <string name="advancedPawn">高兵</string>
   <string name="advancedPawnDescription">你的兵已经深入对手的领地，可能威胁升变。</string>
   <string name="advantage">优势</string>
-  <string name="advantageDescription">抓住能让你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)。</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">抓住能让你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)。</string>
   <string name="anastasiaMate">阿纳斯塔西亚杀法</string>
   <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被同一方棋子卡住的边角。</string>
   <string name="arabianMate">阿拉伯杀法</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，以在后续着法中吃掉已消除保护的棋子。</string>
   <string name="crushing">压倒性优势</string>
-  <string name="crushingDescription">抓住对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">抓住对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">双象在相邻的斜线上将杀被同一方棋子阻挡的王。</string>
   <string name="dovetailMate">燕尾杀法</string>
   <string name="dovetailMateDescription">后贴面杀，王唯一能逃跑的两个格子被同一方的棋子阻挡。</string>
   <string name="equality">均势</string>
-  <string name="equalityDescription">从大劣的局面回到和棋或者均势 (评估 ≤ 200厘兵)。</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">从大劣的局面回到和棋或者均势 (评估 ≤ 200厘兵)。</string>
   <string name="kingsideAttack">王翼进攻</string>
   <string name="kingsideAttackDescription">在对方短易位后进攻对方的王。</string>
   <string name="clearance">腾挪</string>
