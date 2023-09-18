@@ -72,7 +72,7 @@
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Varyant zaferi</string>
+  <string name="variantWin">Varyant zaferi</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
@@ -560,8 +560,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notlar</string>
   <string name="typePrivateNotesHere">Özel notlarınızı buraya yazın</string>
-  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Bu kullanıcı hakkında özel bir not oluştur</string>
-  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Henüz bir not yok</string>
+  <string name="writeAPrivateNoteAboutThisUser">Bu kullanıcı hakkında özel bir not oluştur</string>
+  <string name="noNoteYet">Henüz bir not yok</string>
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
   <string name="incorrectPassword">Şifre yanlış</string>
   <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s kategorisindeki oyuncuların %1$s kadarından daha iyisiniz.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyuncularının %2$s kadarından daha iyi.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">%2$s oyuncularının %1$s kadarından daha iyi</string>
+  <string name="betterThanPercentPlayers">%2$s oyuncularının %1$s kadarından daha iyi</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="yourRating">Sizin puanınız</string>
   <string name="cumulative">Kümülatif</string>
