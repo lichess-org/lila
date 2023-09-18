@@ -2,20 +2,20 @@
 <resources>
 	<string name="lishogiCoaches">Huấn luyện viên Lishogi</string>
 	<string name="lishogiCoach">Huấn luyện viên Lishogi</string>
-	<string name="areYouCoach">Bạn có phải là một huấn luyện viên Shogi tốt vời %s ?</string>
+	<string name="areYouCoach">Bạn có phải là một huấn luyện viên Shogi tốt với %s ?</string>
 	<string name="becomeACoach">Bạn có phải là một huấn luyện viên Shogi tốt với kinh nghiệm, và bạn có muốn được vinh danh tại Lishogi?</string>
 	<string name="nmOrFideTitle">tiêu đề</string>
-	<string name="confirmTitle">Xác nhận danh hiệu của bạn ở đây và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
+	<string name="confirmTitle">Xác nhận danh hiệu của bạn ở đây và chúng tôi sẽ xem xét đơn của bạn.</string>
 	<string name="sendApplication">Gửi email cho chúng tôi tại %s và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
 	<string name="location">Địa điểm</string>
 	<string name="languages">Ngôn ngữ</string>
 	<string name="rating">Hệ số</string>
-	<string name="hourlyRate">Xếp hạng theo giờ</string>
+	<string name="hourlyRate">Mức giá theo giờ</string>
 	<string name="availability">Có tính khả dụng</string>
 	<string name="accepting">Đang nhận học viên</string>
 	<string name="notAccepting">Hiện tại không nhận học viên</string>
 	<string name="xCoachesStudents">%s huấn luyện học viên Shogi</string>
-	<string name="viewXProfile">Xem hồ sơ của %s</string>
+	<string name="viewXProfile">Xem hồ sơ Lishogi của %s</string>
 	<string name="sendPM">Gửi tin nhắn riêng</string>
 	<string name="aboutMe">Thông tin về tôi</string>
 	<string name="playingExperience">Kinh nghiệm chơi cờ</string>
@@ -26,9 +26,7 @@
 	<string name="publicStudies">Nghiên cứu công khai</string>
 	<string name="youtubeVideos">Các video trên YouTube</string>
 	<plurals name="studentReviews">
-		<item quantity="other">Một học viên đánh giá
-
-%s học viên đánh giá</item>
+		<item quantity="other">%s học viên đánh giá</item>
 	</plurals>
 	<string name="thankYouForReview">Cảm ơn đánh giá của bạn!</string>
 	<string name="xWillApproveIt">%s sẽ được công nhận sớm, hoặc một quản trị viên sẽ kiểm tra nó.</string>

@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Мы не можем изменить ничего более, чем регистр букв. Это невозможно по техническим причинам.</string>
   <string name="orCloseAccount">Однако, вы можете закрыть свою учетную запись и создать новую.</string>
   <string name="wantClearHistory">Я хочу очистить свою историю или рейтинг</string>
-  <string name="cantClearHistory">Невозможно очистить историю игр, историю шахматных задач или рейтинг.</string>
+  <string name="cantClearHistory">Невозможно очистить историю игр, историю задач или рейтинг.</string>
   <string name="wantReport">Я хочу пожаловаться на игрока</string>
   <string name="cheating">читерство</string>
   <string name="sandbagging">манипуляции с рейтингом</string>

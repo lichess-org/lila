@@ -6,7 +6,7 @@
   <string name="scanTheCode">Escanea el código QR con la aplicación.</string>
   <string name="enterPassword">Introduce tu contraseña y el código de autenticación generado por la aplicación para completar la configuración. Necesitarás un código de autenticación cada vez que inicies sesión.</string>
   <string name="authenticationCode">Código de autenticación</string>
-  <string name="ifYouLoseAccess">Nota: si pierdes el acceso a tus códigos de autenticación doble, puedes restablecer tu contraseña por correo electrónico.</string>
+  <string name="ifYouLoseAccess">Nota: si pierdes el acceso a tus códigos de autenticación en dos pasos, puedes restablecer tu contraseña por correo electrónico.</string>
   <string name="enableTwoFactor">Habilitar la autenticación en dos pasos</string>
   <string name="disableTwoFactor">Desactivar la autenticación en dos pasos</string>
   <string name="twoFactorEnabled">Autenticación en dos pasos habilitada</string>

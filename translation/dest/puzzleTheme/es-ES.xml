@@ -18,7 +18,7 @@
   <string name="doubleCheckDescription">Jaque con dos piezas a la vez, como resultado de un ataque descubierto donde tanto la pieza en movimiento como la desvelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una táctica durante la última fase de la partida.</string>
-  <string name="fork">Tenedor</string>
+  <string name="fork">Pinza</string>
   <string name="forkDescription">Movimiento donde la pieza movida ataca a la vez a dos piezas del oponente.</string>
   <string name="hangingPiece">Pieza colgante</string>
   <string name="hangingPieceDescription">Una táctica que implica que una pieza del adversario no esté defendida o insuficientemente defendida y quede libre para ser capturada.</string>
@@ -40,7 +40,7 @@
   <string name="mateIn7Description">Dar jaque mate en siete movimientos.</string>
   <string name="mateIn9">Mate en 9 o más</string>
   <string name="mateIn9Description">Descubre una secuencia de mate larga.</string>
-  <string name="middlegame">Mediojuego</string>
+  <string name="middlegame">Medio juego</string>
   <string name="middlegameDescription">Una táctica durante la segunda fase de la partida.</string>
   <string name="oneMove">Ejercicio de un movimiento</string>
   <string name="oneMoveDescription">Un ejercicio de un solo movimiento.</string>
@@ -65,13 +65,13 @@
   <string name="joiningPawn">Peón juntado</string>
   <string name="joiningPawnDescription">Una táctica en la que un peón es sacrificado al colocarlo en frente de la pieza del oponente.</string>
   <string name="dancingPawns">Peones danzantes</string>
-  <string name="dancingPawnsDescription">Una táctica para capturar el oro del oponente mediante el sacrificio de un peón.</string>
+  <string name="dancingPawnsDescription">Una táctica (ダンスの歩 dansu no fu) en la que se reintroduce y sacrifica un peón delante de un oro del rival, aprovechando la limitada movilidad de esta pieza.</string>
   <string name="edgeAttack">Ataque por el borde</string>
   <string name="edgeAttackDescription">Una táctica que implica atacar por la primera o novena fila del oponente.</string>
   <string name="veryLong">Ejercicio muy largo</string>
   <string name="veryLongDescription">Siete movimientos o más para ganar.</string>
   <string name="lishogiGames">De partidas de lishogi</string>
-  <string name="lishogiGamesDescription">Ejercicios generados a partir de partidas jugadas en lishogi.</string>
+  <string name="lishogiGamesDescription">Ejercicios generados a partir de partidas jugadas en Lishogi.</string>
   <string name="otherSources">De otras fuentes</string>
   <string name="otherSourcesDescription">¡Muchas gracias a todos los que han enviado o permitido a lishogi usar estos ejercicios!</string>
 </resources>

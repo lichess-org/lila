@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Que signifie Lishogi ?</string>
 	<string name="forkedFromLichess">Lishogi est un projet open source forké de lichess, mais comme on joue à shogi ici, il s\'appelle lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Parce qu\'il dérive du lichess. Et lichess s\'appelle lichess parce qu\'il s\'agit d\'une combinaison de \"live/light/libre\" et \"chess\". Lishogi se prononce %1$s.</string>
-	<string name="leeshogi">lee-shogi</string>
+	<string name="leeshogi">li-shogi</string>
 	<string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lishogi est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
 	<string name="whyIsLilaCalledLila">De même, le code source de Lishogi, %1$s, signifie li[chess in sca]la, étant donné que la majeure partie de Lishogi est écrite en %2$s, un langage de programmation intuitif.</string>
 	<string name="howCanIContributeToLishogi">Comment puis-je contribuer à Lishogi ?</string>
@@ -94,7 +94,7 @@ Il faut également noter que l\'intervalle de confiance augmente avec le temps. 
 	<string name="ratingLeaderboards">classement des leaders</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué à au moins 30 parties classées dans un jeu donné,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir à un jeu classé au cours de la dernière semaine pour cette classification</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">avoir un écart de classement inférieur à %1$s, en shogi standard, et inférieur à %2$s dans les variantes,</string>
 	<string name="beInTopTen">être dans le top 10 de ce classement.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La deuxième exigence est pour que les joueurs qui n\'utilisent plus leur compte cessent de remplir les classements.</string>
 	<string name="whyAreRatingHigher">Pourquoi les notes sont-elles plus élevées que celles d\'autres sites et organisations tels que la FIDE, l\'USCF et la CPI ?</string>

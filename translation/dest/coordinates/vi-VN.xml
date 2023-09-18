@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="coordinates">Tọa độ</string>
-	<string name="coordinateTraining">Luyện tập tọa độ</string>
+	<string name="coordinates">Tầm nhìn</string>
+	<string name="coordinateTraining">Luyện tập tầm nhìn</string>
 	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Điểm trung bình quân %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">Biết tọa độ của bàn cờ Shogi là một kỹ năng quan trọng:</string>
 	<string name="mostShogiCourses">Tất cả các bài học hay bài tập về Shogi đều sử dụng kí hiệu. Bạn có thể lựa chọn kí hiệu của Nhật Bản hoặc của phương Tây.</string>
-	<string name="talkToYourShogiFriends">Nó giúp cho bạn dễ nói chuyện với bạn cờ hơn, do cả hai đã hiểu ngôn ngữ của Shogi.</string>
+	<string name="talkToYourShogiFriends">Nó giúp cho bạn dễ nói chuyện với bạn cờ hơn do cả hai đã hiểu \"ngôn ngữ của cờ Shogi\".</string>
 	<string name="youCanAnalyseAGameMoreEffectively">Bạn sẽ phân tích ván cờ hiệu quả hơn nếu bạn có thể tìm ra ngay ô của quân cờ từ tọa độ.</string>
 	<string name="aSquareNameAppears">Từng tọa độ sẽ xuất hiện trên bàn cờ và bạn phải chọn đúng ô cờ. Bạn có 30 giây để xác định nhiều ô cờ nhất có thể!</string>
 	<string name="startTraining">Bắt đầu luyện tập</string>

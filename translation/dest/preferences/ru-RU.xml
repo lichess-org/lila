@@ -2,9 +2,9 @@
 <resources>
 	<string name="preferences">Настройки</string>
 	<string name="gameDisplay">Внешний вид</string>
-	<string name="boardLayout">Board layout</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
-	<string name="handsBackground">Show background behind pieces in hand</string>
+	<string name="boardLayout">Позиция доски и рук сброса</string>
+	<string name="clearHands">Скрыть призраков фигур вне доски</string>
+	<string name="handsBackground">Фон рук сброса (компактная позиция)</string>
 	<string name="pieceAnimation">Анимация фигур</string>
 	<string name="materialDifference">Показывать разницу в материале</string>
 	<string name="boardHighlightsLastDests">Доска подсвечивает - последний ход/сброс</string>
@@ -13,7 +13,7 @@
 	<string name="dropDestinations">Место назначение сбросов (действительные сбросы и пре-сбросы)</string>
 	<string name="boardCoordinates">Координаты доски (A–H, 1–8)</string>
 	<string name="moveListWhilePlaying">Показывать список ходов</string>
-	<string name="colorName">Name used for individual players</string>
+	<string name="colorName">Названия для отдельных игроков</string>
 	<string name="displayTouchSquareOverlay">Наложение квадратной подсветки на сенсорные устройства</string>
 	<string name="zenMode">Режим Дзен</string>
 	<string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
@@ -44,6 +44,6 @@
 	<string name="westernNotation">Западная нотация</string>
 	<string name="japaneseNotation">Японская нотация</string>
 	<string name="kitaoKawasakiNotation">Китайская</string>
-	<string name="kifNotation">Kif notation</string>
+	<string name="kifNotation">Нотация кифу</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
 </resources>

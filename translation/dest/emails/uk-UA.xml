@@ -15,7 +15,7 @@
 Ось посилання на Ваш профіль: %1$s. Ви можете налаштувати його тут %2$s.
 
 Отримуйте задоволення, і хай Ваші фігури знайдуть шлях до короля суперника!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="logInToLishogi">Увійдіть до lishogi.org, %s</string>
   <string name="common_orPaste">(Клік по посиланню не працює? Спробуйте вставити його в адресний рядок!)</string>
   <string name="common_note">Це сервісний лист, пов\'язаний із використанням %s.</string>
   <string name="common_contact">Щоб зв\'язатися з нами, будь ласка, використовуйте %s.</string>

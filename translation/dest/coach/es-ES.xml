@@ -24,7 +24,7 @@
 	<string name="bestSkills">Mejores habilidades</string>
 	<string name="teachingMethod">Metodología de enseñanza</string>
 	<string name="publicStudies">Estudios públicos</string>
-	<string name="youtubeVideos">Vídeos de Youtube</string>
+	<string name="youtubeVideos">Vídeos de YouTube</string>
 	<plurals name="studentReviews">
 		<item quantity="one">%s reseña de estudiante</item>
 		<item quantity="other">%s reseñas de estudiantes</item>

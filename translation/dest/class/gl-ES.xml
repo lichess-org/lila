@@ -74,7 +74,7 @@ Aquí está a ligazón para acceder.</string>
 		<item quantity="other">%s profesores</item>
 	</plurals>
 	<plurals name="nbStudents">
-		<item quantity="one">Student</item>
+		<item quantity="one">Estudante</item>
 		<item quantity="other">%s estudantes</item>
 	</plurals>
 	<string name="students">Estudantes</string>

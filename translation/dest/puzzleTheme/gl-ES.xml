@@ -64,7 +64,7 @@
   <string name="strikingPawnDescription">Unha táctica que implica guindar un peón en fronte dunha peza rival pra atacala.</string>
   <string name="joiningPawn">Axuntamento de peón</string>
   <string name="joiningPawnDescription">Unha táctica (joining pawn ou 継ぎ歩 tsugifu) na que un peón se guinda e sacrifica diante dun peón do rival para forzar o avance deste peón.</string>
-  <string name="dancingPawns">Peón bailadeiro</string>
+  <string name="dancingPawns">Peóns bailadeiros</string>
   <string name="dancingPawnsDescription">Unha táctica (ダンスの歩 dansu no fu) na que se guinda e sacrifica un peón diante dun ouro do rival, aproveitando a limitada mobilidade desta peza.</string>
   <string name="edgeAttack">Ataque no bordo</string>
   <string name="edgeAttackDescription">Unha táctica na que se ataca na primeira ou na última columna do rival.</string>

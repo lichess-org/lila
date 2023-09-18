@@ -68,7 +68,7 @@ Mật khẩu: %3$s</string>
 	<string name="releaseTheAccount">Giải phóng tài khoản để học viên có thể quản lý nó một cách thoải mái.</string>
 	<string name="releaseDesc1">Một tài khoản đã được giải phóng không thể được quản lý lại. Học viên sẽ có thể chuyển đổi về chế độ trẻ em và tự đặt lại mật khẩu.</string>
 	<string name="releaseDesc2">Học viên sẽ vẫn ở trong lớp sau khi tài khoản của họ được giải phóng.</string>
-	<string name="realUniqueEmail">Địa chỉ email thực, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận tới đó, kèm theo liên kết để giải phóng tài khoản.</string>
+	<string name="realUniqueEmail">Địa chỉ email thực, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận tới đó, kèm theo liên kết để kích hoạt tài khoản.</string>
 	<string name="teachers">Giáo viên</string>
 	<plurals name="nbTeachers">
 		<item quantity="other">%s giáo viên</item>
@@ -92,5 +92,5 @@ Mật khẩu: %3$s</string>
 	<string name="newsEdit1">Tất cả các tin tức lớp học trong một lĩnh vực đơn lẻ.</string>
 	<string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Không xóa tin tức trước đó.</string>
 	<string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
-	<string name="markdownAvailable">%s sẵn sàng cho cấu trúc nâng cao hơn.</string>
+	<string name="markdownAvailable">%s có sẵn cho cấu trúc nâng cao hơn.</string>
 </resources>

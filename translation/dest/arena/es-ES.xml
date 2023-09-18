@@ -18,7 +18,7 @@ Dos victorias, una derrota y unas tablas valen 5 puntos: 2 + 2 + 0 + 1</string>
   <string name="berserk">Modo berserk</string>
   <string name="berserkAnswer">Cuando un jugador pulsa el botón de berserk al principio de una partida, pierde la mitad de su tiempo, pero la victoria vale un punto adicional.
 
-En controles de tiempo que tienen incremento, la opción berserk también cancela el incremento (1+2 es una excepción, ya que sólo se cancela el incremento, pero no se parte el tiempo a la mitad, resultando en 1+0).
+En controles de tiempo que tienen incremento y byoyomi, la opción berserk también cancela el incremento y el byoyomi (1+2 es una excepción, ya que sólo se cancela el incremento, pero no se parte el tiempo a la mitad, resultando en 1+0).
 
 El modo berserk no está disponible en controles de tiempo con tiempo inicial cero como 0+1 o 0+2.
 
@@ -26,14 +26,14 @@ El modo berserk sólo proporciona un punto adicional por cada victoria si juegas
   <string name="howIsTheWinnerDecided">¿Cómo se decide el ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ganará el jugador (o jugadores) que tenga más puntos al término del torneo.</string>
   <string name="howDoesPairingWork">¿Cómo se realizan los emparejamientos?</string>
-  <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores se emparejan en base a su puntuación. En cuanto terminas una partida, vuelves al recibidor del torneo, y se te emparejará con un jugador con una puntuación similar a la tuya. Esto minimiza el tiempo de espera, si bien es posible que no juegues contra todos los demás jugadores del torneo.
+  <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores se emparejan en base a su puntuación. En cuanto terminas una partida, vuelves al recibidor del torneo, y se te emparejará con un jugador con un marcador similar al tuyo. Esto minimiza el tiempo de espera, si bien es posible que no juegues contra todos los demás jugadores del torneo.
 Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos.</string>
   <string name="howDoesItEnd">¿Cuándo termina?</string>
   <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo y se proclama el ganador. Las partidas que estén en juego deben terminarse, aunque no cuentan para el resultado del torneo.</string>
   <string name="otherRules">Otras reglas importantes</string>
   <string name="thereIsACountdown">Hay una cuenta regresiva para el primer movimiento. Si no haces el primer movimiento dentro del tiempo, pierdes la partida.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Si la partida acaba en tablas durante los primeros %s movimientos, no se concederán puntos a ninguno de los jugadores.</item>
+    <item quantity="one">Si la partida acaba en tablas durante el primer %s movimiento, no se concederán puntos a ninguno de los jugadores.</item>
     <item quantity="other">Si la partida acaba en tablas durante los primeros %s movimientos, no se concederán puntos a ninguno de los jugadores.</item>
   </plurals>
   <string name="thisIsPrivate">Este es un torneo privado</string>

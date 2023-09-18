@@ -3,13 +3,13 @@
   <string name="activity">Hoạt động</string>
   <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
-    <item quantity="other">Đã hỗ trợ lishogi.org %1$s tháng với tư cách một %2$s</item>
+    <item quantity="other">Đã hỗ trợ lishogi.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">Đã luyện tập %1$s thế cờ ở %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Đã giải %s bài tập chiến thuật</item>
+    <item quantity="other">Đã giải %s câu đố chiến thuật</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
@@ -21,10 +21,10 @@
     <item quantity="other">Đã đi %1$s nước</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">trong %1$s ván qua thư tín</item>
+    <item quantity="other">trong %1$s ván cờ qua thư</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">Hoàn tất %s ván qua thư tín</item>
+    <item quantity="other">Hoàn tất %s ván cờ qua thư</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">Đã theo dõi %s người chơi</item>
@@ -33,21 +33,21 @@
     <item quantity="other">Có %s người theo dõi mới</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">Chủ trì %s ván cờ đồng loạt</item>
+    <item quantity="other">Chủ trì %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">Tham gia %s ván cờ đồng loạt</item>
+    <item quantity="other">Tham gia %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">Đã tạo %s bài học mới</item>
+    <item quantity="other">Đã tạo %s nghiên cứu mới</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="other">Hoàn thành %s giải đấu</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="other">Hạng #%1$s (tốp %2$s%%) với %3$s ván ở %4$s</item>
+    <item quantity="other">Hạng #%1$s (top %2$s%%) với %3$s ván ở %4$s</item>
   </plurals>
-  <string name="signedUp">Đã đăng kí ở lishogi.org</string>
+  <string name="signedUp">Đã ghi danh ở lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Đã gia nhập %s đội</item>
   </plurals>

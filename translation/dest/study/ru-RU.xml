@@ -9,7 +9,7 @@
   <string name="whatAreStudies">Что такое «студии»?</string>
   <string name="allStudies">Все студии</string>
   <string name="studiesCreatedByX">Студии, созданные %s</string>
-  <string name="studyByX" comment="By username">A shogi study by %s</string>
+  <string name="studyByX" comment="By username">Студия сёги от %s</string>
   <string name="noneYet">Пока ничего.</string>
   <string name="hot">Самые активные</string>
   <string name="dateAddedNewest">Недавно добавленные</string>
@@ -106,7 +106,7 @@
   <string name="loadAPositionFromSfen">Загрузить позицию из SFEN</string>
   <string name="automatic">Автоматически</string>
   <string name="urlOfTheGame">URL игры</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">Загрузить игры из %1$s</string>
   <string name="createChapter">Создать главу</string>
   <string name="configureLiveBroadcast">Настроить живую трансляцию</string>
   <string name="createStudy">Создать студию</string>
@@ -132,40 +132,40 @@
   <string name="deleteStudy">Удалить студию</string>
   <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
-  <string name="studyTopics">Study topics</string>
-  <string name="topicsDescription">Topics to organize your studies with</string>
-  <string name="myTopics">My topics</string>
-  <string name="popularTopics">Popular topics</string>
-  <string name="manageTopics">Manage topics</string>
-  <string name="startTag" comment="Tags for kif and csa">Start</string>
-  <string name="endTag" comment="Tags for kif and csa">End</string>
-  <string name="siteTag" comment="Tags for kif and csa">Site</string>
-  <string name="eventTag" comment="Tags for kif and csa">Event</string>
-  <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
-  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
-  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s title</string>
-  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s team</string>
-  <string name="openingTag" comment="Tags for kif and csa">Opening</string>
-  <string name="resultTag" comment="Tags for kif and csa">Result</string>
-  <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
-  <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
-  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Date of publication</string>
-  <string name="composerTag" comment="Tags for kif and csa">Composer</string>
-  <string name="publicationTag" comment="Tags for kif and csa">Publication</string>
-  <string name="collectionTag" comment="Tags for kif and csa">Collection</string>
-  <string name="lengthTag" comment="Tags for kif and csa">Length</string>
-  <string name="prizeTag" comment="Tags for kif and csa">Prize</string>
-  <string name="initHelp" comment="Interactive study lesson">Help the player find the initial move, with a comment.</string>
-  <string name="introGamebook" comment="Interactive study lesson">Introduce the gamebook with a comment</string>
-  <string name="putFirstMove" comment="Interactive study lesson">Put the opponent\'s first move on the board.</string>
-  <string name="explainMove" comment="Interactive study lesson">Explain the opponent move, and help the player find the next move, with a comment.</string>
-  <string name="reflectOnMove" comment="Interactive study lesson">You may reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.</string>
-  <string name="variationMoves" comment="Interactive study lesson">Add variation moves to explain why specific other moves are wrong.</string>
-  <string name="explainWrongMove" comment="Interactive study lesson">Explain why this move is wrong in a comment</string>
-  <string name="orPromote" comment="Interactive study lesson">Or promote it as the mainline if it is the right move.</string>
-  <string name="otherMove" comment="Interactive study lesson">When any other wrong move is played:</string>
-  <string name="explainAllWrong" comment="Interactive study lesson">Explain why all other moves are wrong</string>
-  <string name="hintOnDemand" comment="Interactive study lesson">Optional, on-demand hint for the player:</string>
-  <string name="playerTip" comment="Interactive study lesson">Give the player a tip so they can find the right move</string>
-  <string name="playQuestion" comment="Interactive study lesson">What would you play in this position?</string>
+  <string name="studyTopics">Темы студий</string>
+  <string name="topicsDescription">Темы для организации ваших студий</string>
+  <string name="myTopics">Мои темы</string>
+  <string name="popularTopics">Популярные темы</string>
+  <string name="manageTopics">Управлять темами</string>
+  <string name="startTag" comment="Tags for kif and csa">Начало</string>
+  <string name="endTag" comment="Tags for kif and csa">Конец</string>
+  <string name="siteTag" comment="Tags for kif and csa">Ресурс</string>
+  <string name="eventTag" comment="Tags for kif and csa">Событие</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">Контроль времени</string>
+  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">Рейтинг %s</string>
+  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">Титул %s</string>
+  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">Клуб %s</string>
+  <string name="openingTag" comment="Tags for kif and csa">Дебют</string>
+  <string name="resultTag" comment="Tags for kif and csa">Итог</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">Имя задачи</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">Id задачи</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Дата публикации</string>
+  <string name="composerTag" comment="Tags for kif and csa">Автор</string>
+  <string name="publicationTag" comment="Tags for kif and csa">Публикация</string>
+  <string name="collectionTag" comment="Tags for kif and csa">Коллекция</string>
+  <string name="lengthTag" comment="Tags for kif and csa">Длина</string>
+  <string name="prizeTag" comment="Tags for kif and csa">Приз</string>
+  <string name="initHelp" comment="Interactive study lesson">Помогите игроку найти начальный ход комментарием.</string>
+  <string name="introGamebook" comment="Interactive study lesson">Представьте игровую книгу комментарием</string>
+  <string name="putFirstMove" comment="Interactive study lesson">Сделайте первый ход противника на доске.</string>
+  <string name="explainMove" comment="Interactive study lesson">Объясните ход оппонента, и помогите игроку найти следующий ход комментарием.</string>
+  <string name="reflectOnMove" comment="Interactive study lesson">Вы можете обсудить правильный ход игрока в комментарии; или оставить пустым, чтобы сразу же перейти к следующему ходу.</string>
+  <string name="variationMoves" comment="Interactive study lesson">Добавьте вариант ходов, чтобы объяснить, почему некоторые ходы неверны.</string>
+  <string name="explainWrongMove" comment="Interactive study lesson">Объясните, почему этот ход неверен, в комментарии</string>
+  <string name="orPromote" comment="Interactive study lesson">Или продвиньте его в качестве основной линии, если это правильный ход.</string>
+  <string name="otherMove" comment="Interactive study lesson">Когда любой другой неверный ход сыгран:</string>
+  <string name="explainAllWrong" comment="Interactive study lesson">Объясните, почему все остальные ходы неверны</string>
+  <string name="hintOnDemand" comment="Interactive study lesson">Необязательно, подсказка для игрока по просьбе:</string>
+  <string name="playerTip" comment="Interactive study lesson">Подскажите игроку, так он легче найдёт верный ход</string>
+  <string name="playQuestion" comment="Interactive study lesson">Как вы сыграете в этой позиции?</string>
 </resources>

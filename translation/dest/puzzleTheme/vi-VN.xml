@@ -3,7 +3,7 @@
   <string name="advantage">Lợi thế</string>
   <string name="advantageDescription">Tận dụng cơ hội của bạn để chiếm lấy lợi thế.</string>
   <string name="castling">Nhập thành</string>
-  <string name="castlingDescription">Đưa Vương tới vị trí an toàn</string>
+  <string name="castlingDescription">Đưa Vua tới vị trí an toàn</string>
   <string name="crushing">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm của đối phương để chiếm lợi thế.</string>
   <string name="equality">Cân bằng</string>
@@ -13,8 +13,8 @@
   <string name="deflection">Đánh lạc hướng</string>
   <string name="deflectionDescription">Một nước đi đánh lạc hướng một quân đối phương khỏi một nhiệm vụ nó đang làm, chẳng hạn như bảo vệ một ô trọng điểm. Còn được gọi là \"quá tải\".</string>
   <string name="discoveredAttack">Tấn công mở</string>
-  <string name="discoveredAttackDescription">Di chuyển một quân (ví dụ như quân Quế Mã), vốn đang chặn một đòn tấn công từ xa (như quân Phi Xa), ra khỏi vị trí ban đầu.</string>
-  <string name="doubleCheck">Lưỡng chiếu</string>
+  <string name="discoveredAttackDescription">Di chuyển một quân (ví dụ như quân Quế Mã) vốn đang chặn một đòn tấn công từ xa (như quân Xe) ra khỏi vị trí ban đầu.</string>
+  <string name="doubleCheck">Chiếu đôi</string>
   <string name="doubleCheckDescription">Chiếu tướng bằng hai quân một lúc, như là một kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
@@ -27,13 +27,13 @@
   <string name="mate">Chiếu hết</string>
   <string name="mateDescription">Chiến thắng ván cờ với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
-  <string name="mateIn1Description">Dọa chiếu hết trong một nước.</string>
+  <string name="mateIn1Description">Dọa chiếu hết trong 1 nước.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
-  <string name="mateIn2Description">Chiếu hết trong hai nước cờ.</string>
+  <string name="mateIn2Description">Chiếu hết trong 2 nước cờ.</string>
   <string name="mateIn3">Chiếu hết trong 3 nước</string>
   <string name="mateIn3Description">Dọa chiếu hết trong 3 nước.</string>
   <string name="mateIn4">Chiếu hết trong 4 nước</string>
-  <string name="mateIn4Description">Chiếu hết trong bốn nước cờ.</string>
+  <string name="mateIn4Description">Chiếu hết trong 4 nước cờ.</string>
   <string name="mateIn5">Chiếu hết trong 5 nước</string>
   <string name="mateIn5Description">Dọa chiếu hết trong 5 nước</string>
   <string name="mateIn7">Chiếu hết trong 7 nước</string>
@@ -55,16 +55,16 @@
   <string name="sacrifice">Thí quân</string>
   <string name="sacrificeDescription">Một chiến thuật sử dụng việc thí quân, để giành lại lợi thế sau một chuỗi di chuyển bắt buộc.</string>
   <string name="short">Câu đố ngắn</string>
-  <string name="shortDescription">Thắng trong ba nước cờ.</string>
+  <string name="shortDescription">Thắng trong 3 nước cờ.</string>
   <string name="healthyMix">Một sự kết hợp nhẹ nhàng</string>
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết phải chờ đợi gì cả, vậy nên bạn sẽ sẵn sàng cho mọi thứ! Như một ván cờ thật vậy.</string>
   <string name="tsume">Cờ thế chiếu hết</string>
-  <string name="tsumeDescription">Mục tiêu là chiếu hết quân Vương của đối phương, mọi nước đi đều phải chiếu.</string>
-  <string name="strikingPawn">Striking Pawn</string>
+  <string name="tsumeDescription">Mục tiêu là chiếu hết quân Vua của đối phương, mọi nước đi đều phải chiếu.</string>
+  <string name="strikingPawn">Tốt tấn công</string>
   <string name="strikingPawnDescription">Một kĩ thuật sử dụng việc thả tốt ngay trên đầu quân đối phương và tấn công nó.</string>
   <string name="joiningPawn">Joining Pawn</string>
   <string name="joiningPawnDescription">Một kĩ thuật sử dụng việc thí quân bằng cách thả ngay trên đầu quân đối phương.</string>
-  <string name="dancingPawns">Dancing Pawns</string>
+  <string name="dancingPawns">Tốt nhảy múa</string>
   <string name="dancingPawnsDescription">Một chiến thuật dùng để ăn quân đối phương bằng việc thí tốt.</string>
   <string name="edgeAttack">Tấn công biên</string>
   <string name="edgeAttackDescription">Một chiến thuật phát triển việc tấn công cột 1 hoặc 9 của đối thủ.</string>
@@ -73,5 +73,5 @@
   <string name="lishogiGames">Từ những ván cờ của Lishogi</string>
   <string name="lishogiGamesDescription">Câu đố được tạo ra dựa trên những ván đấu trên Lishogi.</string>
   <string name="otherSources">Từ những nguồn khác</string>
-  <string name="otherSourcesDescription">Cảm ơn sâu sắc đến những người đã cho phép lishogi sử dụng câu đố của họ!</string>
+  <string name="otherSourcesDescription">Cảm ơn sâu sắc đến những người đã cho phép Lishogi sử dụng câu đố của họ!</string>
 </resources>

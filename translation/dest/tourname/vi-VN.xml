@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Đấu trường cờ nhanh hàng giờ</string>
-  <string name="hourlyRapid">Cờ nhanh hàng giờ</string>
-  <string name="hourlyXArena">Đấu trường %s hàng giờ</string>
-  <string name="hourlyX" comment="adjective">%s hàng giờ</string>
-  <string name="dailyRapidArena">Đấu trường cờ nhanh hàng ngày</string>
-  <string name="dailyRapid">Cờ nhanh hàng ngày</string>
-  <string name="dailyClassicalArena">Đấu trường cờ tiêu chuẩn hàng ngày</string>
-  <string name="dailyClassical">Cờ tiêu chuẩn hàng ngày</string>
-  <string name="dailyXArena">Đấu trường %s hàng ngày</string>
-  <string name="dailyX" comment="adjective">%s hàng ngày</string>
-  <string name="easternRapidArena">Đấu trường cờ nhanh phía Đông</string>
-  <string name="easternRapid">Cờ nhanh phía Đông</string>
-  <string name="easternClassicalArena">Đấu trường cờ tiêu chuẩn phía Đông</string>
-  <string name="easternClassical">Cờ tiêu chuẩn phía Đông</string>
-  <string name="easternXArena">Đấu trường %s phía Đông</string>
-  <string name="easternX">%s phía Đông</string>
-  <string name="weeklyRapidArena">Đấu trường cờ nhanh hàng tuần</string>
-  <string name="weeklyRapid">Cờ nhanh hàng tuần</string>
-  <string name="weeklyClassicalArena">Đấu trường cờ tiêu chuẩn hàng tuần</string>
-  <string name="weeklyClassical">Cờ tiêu chuẩn hàng tuần</string>
-  <string name="weeklyXArena">Đấu trường %s hàng tuần</string>
-  <string name="weeklyX" comment="adjective">%s hàng tuần</string>
-  <string name="monthlyRapidArena">Đấu trường cờ nhanh hàng tháng</string>
-  <string name="monthlyRapid">Cờ nhanh hàng tháng</string>
-  <string name="monthlyClassicalArena">Đấu trường cờ tiêu chuẩn hàng tháng</string>
-  <string name="monthlyClassical">Cờ tiêu chuẩn hàng tháng</string>
-  <string name="monthlyXArena">Đấu trường %s hàng tháng</string>
+  <string name="hourlyRapidArena">Đấu trường Cờ nhanh Hàng giờ</string>
+  <string name="hourlyRapid">Cờ nhanh Hàng giờ</string>
+  <string name="hourlyXArena">Đấu trường %s Hàng giờ</string>
+  <string name="hourlyX" comment="adjective">%s Hàng giờ</string>
+  <string name="dailyRapidArena">Đấu trường Cờ nhanh Hàng ngày</string>
+  <string name="dailyRapid">Cờ nhanh Hàng ngày</string>
+  <string name="dailyClassicalArena">Đấu trường Cờ chậm Hàng ngày</string>
+  <string name="dailyClassical">Cờ chậm Hàng ngày</string>
+  <string name="dailyXArena">Đấu trường %s Hàng ngày</string>
+  <string name="dailyX" comment="adjective">%s Hàng ngày</string>
+  <string name="easternRapidArena">Đấu trường Cờ nhanh phương Đông</string>
+  <string name="easternRapid">Cờ nhanh phương Đông</string>
+  <string name="easternClassicalArena">Đấu trường Cờ chậm phương Đông</string>
+  <string name="easternClassical">Cờ chậm phương Đông</string>
+  <string name="easternXArena">Đấu trường %s phương Đông</string>
+  <string name="easternX">%s phương Đông</string>
+  <string name="weeklyRapidArena">Đấu trường Cờ nhanh Hàng tuần</string>
+  <string name="weeklyRapid">Cờ nhanh Hàng tuần</string>
+  <string name="weeklyClassicalArena">Đấu trường Cờ chậm Hàng tuần</string>
+  <string name="weeklyClassical">Cờ chậm Hàng tuần</string>
+  <string name="weeklyXArena">Đấu trường %s Hàng tuần</string>
+  <string name="weeklyX" comment="adjective">%s Hàng tuần</string>
+  <string name="monthlyRapidArena">Đấu trường Cờ nhanh Hàng tháng</string>
+  <string name="monthlyRapid">Cờ nhanh Hàng tháng</string>
+  <string name="monthlyClassicalArena">Đấu trường Cờ chậm Hàng tháng</string>
+  <string name="monthlyClassical">Cờ chậm Hàng tháng</string>
+  <string name="monthlyXArena">Đấu trường %s Hàng tháng</string>
   <string name="monthlyX" comment="adjective">%s Hàng tháng</string>
-  <string name="yearlyRapidArena">Đấu trường cờ nhanh hàng năm</string>
-  <string name="yearlyRapid">Cờ nhanh hàng năm</string>
-  <string name="yearlyClassicalArena">Đấu trường cờ tiêu chuẩn hàng năm</string>
-  <string name="yearlyClassical">Cờ tiêu chuẩn hàng năm</string>
-  <string name="yearlyXArena">Đấu trường %s hàng năm</string>
-  <string name="yearlyX" comment="adjective">%s hàng năm</string>
-  <string name="rapidShieldArena">Đấu trường Khiên Cờ nhanh</string>
-  <string name="rapidShield">Cờ nhanh Khiên</string>
-  <string name="classicalShieldArena">Đấu trường cờ tiêu chuẩn Khiên</string>
-  <string name="classicalShield">Cờ tiêu chuẩn Khiên</string>
-  <string name="xShieldArena">%s đấu trường Khiên</string>
-  <string name="xShield">%s khiên</string>
-  <string name="openingRapidArena">%s đấu trường cờ nhanh</string>
-  <string name="openingRapid">%s cờ nhanh</string>
-  <string name="xTeamBattle">%s ván đấu theo đội</string>
-  <string name="eliteXArena">Giải đấu %s chuyên nghiệp</string>
-  <string name="eliteX">%s chuyên nghiệp</string>
-  <string name="xArena">%s đấu trường</string>
+  <string name="yearlyRapidArena">Đấu trường Cờ nhanh Hàng năm</string>
+  <string name="yearlyRapid">Cờ nhanh Hàng năm</string>
+  <string name="yearlyClassicalArena">Đấu trường Cờ chậm Hàng năm</string>
+  <string name="yearlyClassical">Cờ chậm Hàng năm</string>
+  <string name="yearlyXArena">Đấu trường %s Hàng năm</string>
+  <string name="yearlyX" comment="adjective">%s Hàng năm</string>
+  <string name="rapidShieldArena">Giải đấu Khiên Cờ nhanh</string>
+  <string name="rapidShield">Khiên Cờ nhanh</string>
+  <string name="classicalShieldArena">Đấu trường Khiên Cờ chậm</string>
+  <string name="classicalShield">Khiên Cờ chậm</string>
+  <string name="xShieldArena">%s Giải đấu Khiên</string>
+  <string name="xShield">%s Khiên</string>
+  <string name="openingRapidArena">%s đấu trường Cờ nhanh</string>
+  <string name="openingRapid">%s Cờ nhanh</string>
+  <string name="xTeamBattle">%s Giải đấu đội</string>
+  <string name="eliteXArena">Giải đấu %s Chuyên nghiệp</string>
+  <string name="eliteX">%s Chuyên nghiệp</string>
+  <string name="xArena">Đấu trường %s</string>
 </resources>

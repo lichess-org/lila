@@ -9,7 +9,7 @@
   <string name="whatAreStudies">什么是研究？</string>
   <string name="allStudies">所有研究</string>
   <string name="studiesCreatedByX">由 %s 创建的研究</string>
-  <string name="studyByX" comment="By username">A shogi study by %s</string>
+  <string name="studyByX" comment="By username">来自%s的将棋研讨</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
   <string name="dateAddedNewest">添加时间 (最新)</string>
@@ -94,10 +94,10 @@
   <string name="editor">编辑器</string>
   <string name="startFromCustomPosition">从自定义局面开始</string>
   <string name="loadAGameByUrl">通过 URL 加载游戏</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
+  <string name="loadAPositionFromSfen">从 SFEN 加载对局</string>
   <string name="automatic">自动</string>
   <string name="urlOfTheGame">游戏的 URL</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">从%1$s加载对局</string>
   <string name="createChapter">创建章节</string>
   <string name="configureLiveBroadcast">设置直播配置</string>
   <string name="createStudy">创建课程</string>
@@ -123,40 +123,40 @@
   <string name="deleteStudy">删除课程</string>
   <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
   <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
-  <string name="studyTopics">Study topics</string>
-  <string name="topicsDescription">Topics to organize your studies with</string>
-  <string name="myTopics">My topics</string>
-  <string name="popularTopics">Popular topics</string>
-  <string name="manageTopics">Manage topics</string>
-  <string name="startTag" comment="Tags for kif and csa">Start</string>
-  <string name="endTag" comment="Tags for kif and csa">End</string>
-  <string name="siteTag" comment="Tags for kif and csa">Site</string>
-  <string name="eventTag" comment="Tags for kif and csa">Event</string>
-  <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
+  <string name="studyTopics">研讨主题</string>
+  <string name="topicsDescription">安排研讨的主题和依据</string>
+  <string name="myTopics">我的主题</string>
+  <string name="popularTopics">热门主题</string>
+  <string name="manageTopics">管理主题</string>
+  <string name="startTag" comment="Tags for kif and csa">开始</string>
+  <string name="endTag" comment="Tags for kif and csa">结束</string>
+  <string name="siteTag" comment="Tags for kif and csa">网站</string>
+  <string name="eventTag" comment="Tags for kif and csa">事件</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">时间管理</string>
   <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
-  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s title</string>
-  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s team</string>
-  <string name="openingTag" comment="Tags for kif and csa">Opening</string>
-  <string name="resultTag" comment="Tags for kif and csa">Result</string>
-  <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
-  <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
-  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Date of publication</string>
-  <string name="composerTag" comment="Tags for kif and csa">Composer</string>
-  <string name="publicationTag" comment="Tags for kif and csa">Publication</string>
-  <string name="collectionTag" comment="Tags for kif and csa">Collection</string>
-  <string name="lengthTag" comment="Tags for kif and csa">Length</string>
-  <string name="prizeTag" comment="Tags for kif and csa">Prize</string>
-  <string name="initHelp" comment="Interactive study lesson">Help the player find the initial move, with a comment.</string>
-  <string name="introGamebook" comment="Interactive study lesson">Introduce the gamebook with a comment</string>
-  <string name="putFirstMove" comment="Interactive study lesson">Put the opponent\'s first move on the board.</string>
-  <string name="explainMove" comment="Interactive study lesson">Explain the opponent move, and help the player find the next move, with a comment.</string>
-  <string name="reflectOnMove" comment="Interactive study lesson">You may reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.</string>
-  <string name="variationMoves" comment="Interactive study lesson">Add variation moves to explain why specific other moves are wrong.</string>
-  <string name="explainWrongMove" comment="Interactive study lesson">Explain why this move is wrong in a comment</string>
-  <string name="orPromote" comment="Interactive study lesson">Or promote it as the mainline if it is the right move.</string>
-  <string name="otherMove" comment="Interactive study lesson">When any other wrong move is played:</string>
-  <string name="explainAllWrong" comment="Interactive study lesson">Explain why all other moves are wrong</string>
-  <string name="hintOnDemand" comment="Interactive study lesson">Optional, on-demand hint for the player:</string>
-  <string name="playerTip" comment="Interactive study lesson">Give the player a tip so they can find the right move</string>
-  <string name="playQuestion" comment="Interactive study lesson">What would you play in this position?</string>
+  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s Title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s队</string>
+  <string name="openingTag" comment="Tags for kif and csa">开局</string>
+  <string name="resultTag" comment="Tags for kif and csa">结果</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">题目名称</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">问题 ID</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">发布日期</string>
+  <string name="composerTag" comment="Tags for kif and csa">排局家</string>
+  <string name="publicationTag" comment="Tags for kif and csa">发行者</string>
+  <string name="collectionTag" comment="Tags for kif and csa">收藏</string>
+  <string name="lengthTag" comment="Tags for kif and csa">长度</string>
+  <string name="prizeTag" comment="Tags for kif and csa">奖项</string>
+  <string name="initHelp" comment="Interactive study lesson">用评论帮助玩家找到初手。</string>
+  <string name="introGamebook" comment="Interactive study lesson">隆重介绍：带评论的互动式游戏书</string>
+  <string name="putFirstMove" comment="Interactive study lesson">将对手的初手放到棋盘上。</string>
+  <string name="explainMove" comment="Interactive study lesson">利用评论，解释对手的走法，并帮助棋手找到下一着的走法。</string>
+  <string name="reflectOnMove" comment="Interactive study lesson">利用评论来阐述你从正确走法中吸取的经验；或者留空以直接进到下一步。</string>
+  <string name="variationMoves" comment="Interactive study lesson">添加其他走法，来阐述其他走法不可行的原因。</string>
+  <string name="explainWrongMove" comment="Interactive study lesson">在评论中指出为什么这一步不可行。</string>
+  <string name="orPromote" comment="Interactive study lesson">而如果这一步正确，那就以它为基础继续。</string>
+  <string name="otherMove" comment="Interactive study lesson">如果下了其他坏着：</string>
+  <string name="explainAllWrong" comment="Interactive study lesson">阐述为什么其他走法都不可行</string>
+  <string name="hintOnDemand" comment="Interactive study lesson">（可选）供棋手按需使用的提示：</string>
+  <string name="playerTip" comment="Interactive study lesson">给予提示，让棋手能够找到正确走法</string>
+  <string name="playQuestion" comment="Interactive study lesson">你在这里会怎么走？</string>
 </resources>

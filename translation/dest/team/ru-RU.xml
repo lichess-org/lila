@@ -48,7 +48,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
   <string name="usersWhoCanManageThisTeam">Пользователи, которые могут управлять этим клубом</string>
   <string name="leadersChat">Чат руководителей</string>
-  <string name="upcomingTourns">Upcoming tournaments</string>
-  <string name="completedTourns">Completed tournaments</string>
-  <string name="teamPage">Team page</string>
+  <string name="upcomingTourns">Предстоящие турниры</string>
+  <string name="completedTourns">Завершённые турниры</string>
+  <string name="teamPage">Страница клуба</string>
 </resources>

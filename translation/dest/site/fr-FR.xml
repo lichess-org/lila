@@ -923,19 +923,19 @@
 	<string name="hereAreSuggestions">Here are a few suggestions:</string>
 	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
 	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
-	<string name="or" comment="links alternatives: Do X or do Y">or</string>
-	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
-	<string name="challengeDeclined">Challenge declined</string>
-	<string name="challengeAccepted">Challenge accepted</string>
-	<string name="challengeCanceled">Challenge canceled</string>
-	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="or" comment="links alternatives: Do X or do Y">ou</string>
+	<string name="gameInProgressDescription">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
+	<string name="challengeDeclined">Défi décliné</string>
+	<string name="challengeAccepted">Défi accepté</string>
+	<string name="challengeCanceled">Défi annulé</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Défi ouvert</string>
 	<string name="challengeDescription">Accepter le défi ou regarder la partie</string>
 	<string name="challengeFromX" comment="From username">Défi de %s</string>
 	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s défis %2$s</string>
 	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
-	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
-	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Appuyez sur %s pour envoyer.</string>
+	<string name="clickGame">Cliquez pour rejouer, analyser et discuter de la partie !</string>
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
-	<string name="back" comment="As in: go back">Back</string>
-	<string name="preview">Preview</string>
+	<string name="back" comment="As in: go back">Retour</string>
+	<string name="preview">Aperçu</string>
 </resources>

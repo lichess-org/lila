@@ -34,14 +34,14 @@
   <string name="thisIsPrivate">Это закрытый турнир</string>
   <string name="shareUrl">Поделитесь этой ссылкой, чтоб пригласить игроков: %s</string>
   <string name="drawStreak">Серия ничьих: Если игрок имеет несколько последовательных ничьих на Арене, то очко зачтётся только за первую ничью, или ничью, которая продлится больше, чем %s ходов. Серию ничьих можно прервать только победой, но не проигрышем или ещё одной ничьей.</string>
-  <string name="noBerserkAllowed">No Berserk allowed</string>
-  <string name="noArenaStreaks">No Arena streaks</string>
-  <string name="averagePerformance">Average performance</string>
-  <string name="averageScore">Average score</string>
+  <string name="noBerserkAllowed">Берсерк не допускается</string>
+  <string name="noArenaStreaks">Серии не допускаются</string>
+  <string name="averagePerformance">Средняя результативность</string>
+  <string name="averageScore">Средний счет</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">View the team</item>
-    <item quantity="few">View all %s teams</item>
-    <item quantity="many">View all %s teams</item>
-    <item quantity="other">View all %s teams</item>
+    <item quantity="one">Посмотреть клуб</item>
+    <item quantity="few">Посмотреть все %s клуба</item>
+    <item quantity="many">Посмотреть все %s клубов</item>
+    <item quantity="other">Посмотреть все %s клубов</item>
   </plurals>
 </resources>

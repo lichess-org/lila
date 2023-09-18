@@ -4,23 +4,23 @@
 	<string name="playWithAFriend">Chơi với bạn bè</string>
 	<string name="playWithTheMachine">Chơi với máy tính</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
-	<string name="gameOver">Kết thúc</string>
+	<string name="gameOver">Ván cờ kết thúc</string>
 	<string name="waitingForOpponent">Đang chờ đối thủ</string>
 	<string name="waiting">Đang chờ</string>
-	<string name="yourTurn">Lượt của bạn</string>
-	<string name="aiNameLevelAiLevel">%1$s cấp độ  %2$s</string>
+	<string name="yourTurn">Đến lượt bạn</string>
+	<string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
 	<string name="level">Cấp độ</string>
 	<string name="strength">Độ mạnh</string>
-	<string name="toggleTheChat">Bật/tắt chat</string>
+	<string name="toggleTheChat">Bật/Tắt trò chuyện</string>
 	<string name="toggleSound">Bật/Tắt âm thanh</string>
-	<string name="chat">Tán gẫu</string>
+	<string name="chat">Trò chuyện</string>
 	<string name="page" comment="Used for numbering; Example: Page 10">Trang</string>
-	<string name="resign">Bỏ cuộc</string>
+	<string name="resign">Chịu thua</string>
 	<string name="checkmate">Chiếu hết</string>
 	<string name="stalemate">Hòa pat</string>
-	<string name="impasse">Impasse</string>
-	<string name="repetition" comment="Status of a game ending due to repeated positions">Lặp lại</string>
-	<string name="perpetualCheck">Chiếu vĩnh viễn</string>
+	<string name="impasse">Bế tắc</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Lặp cờ</string>
+	<string name="perpetualCheck">Chiếu liên tục</string>
 	<string name="royalsLost" comment="Used in chushogi">Mất tất cả các quân hoàng gia</string>
 	<string name="bareKing" comment="Used in chushogi">Vua đơn</string>
 	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s đã chơi với %2$s</string>
@@ -38,9 +38,9 @@
 	<string name="randomColor" comment="Side - sente/gote">Chọn màu quân ngẫu nhiên</string>
 	<string name="createAGame">Khởi tạo ván cờ</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s thắng cuộc</string>
-	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Bạn là %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Bạn chơi quân %s</string>
 	<string name="itsYourTurn">Đến lượt bạn!</string>
-	<string name="cheatDetected">Phát hiện gian lận</string>
+	<string name="cheatDetected">Phát hiện Gian lận</string>
 	<string name="variantEnding">Hết cờ theo luật</string>
 	<string name="newOpponent">Đối thủ mới</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Đối thủ muốn chơi một ván cờ mới với bạn</string>
@@ -49,30 +49,30 @@
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">Đối thủ bỏ cuộc. Bạn có thể tuyên bố thắng cuộc trong %s giây.</item>
 	</plurals>
-	<string name="opponentLeftChoices">Đối thủ đã rời khỏi ván cờ. Bạn có thể buộc đối phương chịu thua, hỏi hòa hoặc đợi</string>
+	<string name="opponentLeftChoices">Đối thủ đã rời khỏi ván cờ. Bạn có thể buộc đối phương chịu thua, chọn hòa hoặc đợi.</string>
 	<string name="makeYourOpponentResign">Buộc đối thủ chịu thua</string>
 	<string name="forceResignation">Giành chiến thắng</string>
 	<string name="forceDraw">Bắt buộc hòa</string>
-	<string name="talkInChat">Thảo luận trong chat</string>
+	<string name="talkInChat">Hãy cư xử thân thiện trong cuộc trò chuyện!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng url này sẽ bắt đầu chơi với bạn</string>
-	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s đầu hàng</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s chịu thua</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s rời ván đấu</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s không đi quân</string>
-	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Chia sẻ url này để mời khán giả đến xem ván cờ</string>
-	<string name="theComputerAnalysisHasFailed">Máy tính không thể phân tích</string>
-	<string name="viewTheComputerAnalysis">Xem phân tích</string>
+	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Chia sẻ URL này để mời khán giả đến xem ván cờ</string>
+	<string name="theComputerAnalysisHasFailed">Máy tính phân tích đã thất bại</string>
+	<string name="viewTheComputerAnalysis">Xem máy tính phân tích</string>
 	<string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
 	<string name="computerAnalysis">Máy tính phân tích</string>
 	<string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
 	<string name="analysis">Phân tích</string>
-	<string name="analysisDescription">Phân tích các thế cờ shogi và các biến thể trên bảng shogi tương tác</string>
-	<string name="depthX">Năng lực %s</string>
+	<string name="analysisDescription">Phân tích các thế cờ Shogi và các biến thể trên bàn cờ Shogi tương tác</string>
+	<string name="depthX">Độ sâu %s</string>
 	<string name="usingServerAnalysis">Bạn đang sử dụng máy chủ để phân tích</string>
 	<string name="loadingEngine">Đang tải động cơ máy tính ...</string>
 	<string name="cloudAnalysis">Phân tích đám mây</string>
 	<string name="localAnalysis">Phân tích địa phương</string>
 	<string name="goDeeper" comment="Engine depth">Máy tính phân tích sâu hơn</string>
-	<string name="showThreat">Hiện những bước đi sai lầm</string>
+	<string name="showThreat">Hiện những mối đe dọa</string>
 	<string name="inLocalBrowser">ở trình duyệt địa phương</string>
 	<string name="toggleLocalEvaluation">Kích hoạt đánh giá địa phương</string>
 	<string name="promoteVariation">Thay đổi biến</string>
@@ -84,7 +84,7 @@
 		<item quantity="other">%s nước</item>
 	</plurals>
 	<string name="variantLoss">Bước đi sai lầm dẫn đến chiếu hết</string>
-	<string name="variantWin">Bước đi chiếu hết</string>
+	<string name="variantWin">Nước đi chiếu hết</string>
 	<string name="insufficientMaterial">Thiếu quân để chiếu hết</string>
 	<string name="pawnMove">Tiến tốt</string>
 	<string name="capture">Ăn</string>
@@ -94,15 +94,15 @@
 	<string name="drawn">Hòa cờ</string>
 	<string name="unknown">Không chắc</string>
 	<string name="database">Cơ sở dữ liệu</string>
-	<string name="averageRatingX">Xếp loại bình quân: %s</string>
+	<string name="averageRatingX">Điểm Trung Bình: %s</string>
 	<string name="recentGames">Ván gần đây</string>
 	<string name="topGames">Các ván đấu hàng đầu</string>
-	<string name="noGameFound">Đã hết nước đi gợi ý</string>
+	<string name="noGameFound">Không tìm thấy trò chơi</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
 	<string name="openingExplorer">Sách khai cuộc</string>
 	<string name="xOpeningExplorer">Sách khai cuộc %s</string>
 	<string name="allSet">Đã xong!</string>
-	<string name="importKif">Import KIF</string>
+	<string name="importKif">Nhập KIF</string>
 	<string name="importCsa">Nhập CSA</string>
 	<string name="delete">Xóa</string>
 	<string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã được nhập?</string>
@@ -117,16 +117,16 @@
 	<string name="cpus">CPU</string>
 	<string name="memory">Bộ nhớ</string>
 	<string name="infiniteAnalysis">Phân tích vô hạn</string>
-	<string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
-	<string name="blunder">Sai lầm</string>
+	<string name="removesTheDepthLimit">Bỏ giới hạn độ sâu và giữ máy tính của bạn mượt hơn</string>
+	<string name="blunder">Sai lầm nghiêm trọng</string>
 	<string name="blunders">Nước đi ngớ ngẩn</string>
-	<string name="mistake">Mắc lỗi</string>
-	<string name="mistakes">Nước đi sai</string>
-	<string name="inaccuracy">Thiếu chính xác</string>
+	<string name="mistake">Sai lầm</string>
+	<string name="mistakes">Nước đi sai lầm</string>
+	<string name="inaccuracy">Không chính xác</string>
 	<string name="inaccuracies">Nước đi không chính xác</string>
 	<string name="moveTimes">Thời gian đi</string>
 	<string name="flipBoard">Quay bàn cờ</string>
-	<string name="claimADraw">Buộc hòa do lặp cờ</string>
+	<string name="claimADraw">Buộc hòa</string>
 	<string name="offerDraw">Xin hoà</string>
 	<string name="draw">Hoà</string>
 	<plurals name="nbPlayers">
@@ -148,19 +148,19 @@
 	<string name="games">Các ván đấu</string>
 	<string name="forum">Diễn đàn</string>
 	<string name="forumDescription">Các cuộc thảo luận và phản hồi về Shogi về sự phát triển của Lishogi</string>
-	<string name="xPostedInForumY">%1$s được đăng trong diễn đàn %2$s</string>
+	<string name="xPostedInForumY">%1$s có viết trong diễn đàn %2$s</string>
 	<string name="latestForumPosts">Bài đăng mới nhất</string>
 	<string name="players">Kỳ thủ</string>
 	<string name="friends">Bạn bè</string>
 	<string name="discussions">Trò chuyện</string>
 	<string name="today">Hôm nay</string>
 	<string name="yesterday">Hôm qua</string>
-	<string name="minutesPerSide">Thời gian cho mỗi bên</string>
-	<string name="variant">Khác biệt</string>
-	<string name="variants">Kiểu chơi</string>
+	<string name="minutesPerSide">Số phút cho mỗi bên</string>
+	<string name="variant">Biến thể</string>
+	<string name="variants">Biến thể</string>
 	<string name="timeControl">Bảng điều khiển thời gian</string>
 	<string name="realTime">Thời gian thực</string>
-	<string name="correspondence">Đánh cờ qua thư</string>
+	<string name="correspondence">Cờ qua thư</string>
 	<string name="daysPerTurn">Ngày đến lượt đi</string>
 	<string name="oneDay">Một ngày</string>
 	<plurals name="nbDays">
@@ -184,17 +184,17 @@
 	<string name="passwordReset">Thiết lập lại mật khẩu đăng nhập</string>
 	<string name="loginByEmail">Đăng nhập bằng Email</string>
 	<string name="forgotPassword">Quên mật khẩu?</string>
-	<string name="rank">Xếp hạng</string>
+	<string name="rank">Hạng</string>
 	<string name="rankX">Hạng: %s</string>
 	<plurals name="rankIsUpdatedEveryNbMinutes">
-		<item quantity="other">Thứ hạng được cập nhật trong %s phút</item>
+		<item quantity="other">Thứ hạng được cập nhật mỗi %s phút</item>
 	</plurals>
 	<plurals name="nbPuzzles">
-		<item quantity="other">%s thế cờ</item>
+		<item quantity="other">%s cấu đố</item>
 	</plurals>
 	<string name="gamesPlayed">Ván đã chơi</string>
 	<plurals name="nbGamesWithYou">
-		<item quantity="other">%s những ván cờ với bạn</item>
+		<item quantity="other">%s ván cờ với bạn</item>
 	</plurals>
 	<string name="cancel">Hủy bỏ</string>
 	<string name="timeOut">Hết giờ</string>
@@ -213,37 +213,37 @@
 	<string name="finishesX">kết thúc %s</string>
 	<string name="abortGame">Hủy ván cờ</string>
 	<string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
-	<string name="standard" comment="Variant - meaning standard shogi">Bình thường</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Tiêu chuẩn</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Annan shogi</string>
 	<string name="kyotoshogi">Kyoto shogi</string>
-	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Quy tắc tiêu chuẩn của shogi</string>
-	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Các quy tắc tương tự như shogi tiêu chuẩn, nhưng được chơi trên bàn cờ nhỏ hơn kích thước 5x5 </string>
-	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể shogi cổ đại nổi tiếng nhất trên bàn cờ 12x12</string>
-	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể shogi hiện đại với các nước phong cấp đặc biệt xen kẽ trên bàn cờ 5x5</string>
-	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể tương tự shogi tiêu chuẩn, các quân đi như quân cùng bên đứng sau nó</string>
+	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Quy tắc tiêu chuẩn của cờ Shogi</string>
+	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Các quy tắc tương tự như cờ Shogi tiêu chuẩn, nhưng được chơi trên bàn cờ nhỏ hơn kích thước 5x5</string>
+	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể Shogi cổ đại nổi tiếng nhất trên bàn cờ 12x12</string>
+	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể Shogi hiện đại với các nước phong cấp đặc biệt xen kẽ trên bàn cờ 5x5</string>
+	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể tương tự cờ Shogi tiêu chuẩn, các quân đi như quân cùng bên đứng sau nó</string>
 	<string name="unlimited">Không giới hạn</string>
 	<string name="mode">Chế độ</string>
-	<string name="casual">Không tính elo</string>
-	<string name="rated">Tính elo</string>
-	<string name="casualTournament">Giao hữu</string>
-	<string name="ratedTournament">Có tính rate</string>
+	<string name="casual">Không tính Elo</string>
+	<string name="rated">Tính Elo</string>
+	<string name="casualTournament">Không tính Elo</string>
+	<string name="ratedTournament">Có tính Elo</string>
 	<string name="thisGameIsRated">Ván cờ đã được đánh giá</string>
 	<string name="rematch">Đấu lại</string>
 	<string name="rematchOfferSent">Yêu cầu đấu lại đã được gửi</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s đề nghị tái đấu</string>
 	<string name="rematchOfferAccepted">Yêu cầu đấu lại được chấp nhận</string>
-	<string name="rematchOfferCanceled">Hủy chơi lại</string>
-	<string name="rematchOfferDeclined">Không chấp nhận chơi lại</string>
-	<string name="cancelRematchOffer">Hủy đề nghị chơi lại</string>
-	<string name="viewRematch">Xem chơi lại</string>
+	<string name="rematchOfferCanceled">Hủy tái đấu</string>
+	<string name="rematchOfferDeclined">Không chấp nhận đấu lại</string>
+	<string name="cancelRematchOffer">Hủy đề nghị tái đấu</string>
+	<string name="viewRematch">Xem đấu lại</string>
 	<string name="confirmMove">Xác nhận nước đi</string>
 	<string name="play">Chơi</string>
 	<string name="inbox">Hộp thư</string>
-	<string name="streamerManager">Người quản lý streamer</string>
+	<string name="streamerManager">Quản lý trang Streamer</string>
 	<string name="coachManager">Quản lý huấn luyện viên</string>
-	<string name="chatRoom">Phòng chat</string>
+	<string name="chatRoom">Phòng trò chuyện</string>
 	<string name="loginToChat">Đăng nhập để trò chuyện</string>
 	<string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
 	<string name="spectatorRoom">Phòng theo dõi</string>
@@ -252,10 +252,10 @@
 	<string name="subject">Chủ đề</string>
 	<string name="recipient">Người nhận</string>
 	<string name="send">Gửi</string>
-	<string name="incrementInSeconds">Thêm giây</string>
+	<string name="incrementInSeconds">Gia tăng theo giây</string>
 	<string name="byoyomiInSeconds">Byoyomi theo giây</string>
 	<string name="numberOfPeriods">Số các chu kì</string>
-	<string name="freeOnlineShogi">Shogi online và miễn phí</string>
+	<string name="freeOnlineShogi">Chơi Cờ Shogi Trực Tuyến Miễn Phí</string>
 	<string name="spectators">Khán giả:</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s tính elo</item>
@@ -274,12 +274,12 @@
 	</plurals>
 	<string name="exportGames">Xuất biên bản</string>
 	<string name="export">Xuất ra</string>
-	<string name="ratingRange">Phạm vi Glicko</string>
+	<string name="ratingRange">Phạm vi Elo</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">Cho thêm %s giây</item>
 	</plurals>
-	<string name="thisAccountViolatedTos">Tài khoản này đã vi phạm điều khoản dịch vụ của Lishogi</string>
-	<string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
+	<string name="thisAccountViolatedTos">Tài khoản này đã vi phạm Điều khoản Dịch vụ của Lishogi</string>
+	<string name="openingExplorerAndTablebase">Sách khai cuộc &amp; tàn cuộc</string>
 	<string name="takeback">Đi lại</string>
 	<string name="proposeATakeback">Đề nghị lùi một nước</string>
 	<string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>
@@ -290,65 +290,64 @@
 	<string name="bookmarkThisGame">Đánh dấu ván này</string>
 	<string name="tournament">Giải đấu</string>
 	<string name="tournamentLeaderboard">Bảng xếp hạng giải đấu</string>
-	<string name="tournaments">Giải đấu</string>
+	<string name="tournaments">Các giải đấu</string>
 	<string name="tournamentPoints">Điểm giải đấu</string>
 	<plurals name="nbTournamentPoints">
 		<item quantity="other">%s điểm giải đấu</item>
 	</plurals>
 	<plurals name="nbStudies">
-		<item quantity="other">%s học</item>
+		<item quantity="other">%s nghiên cứu</item>
 	</plurals>
 	<string name="viewTournament">Xem giải đấu</string>
 	<string name="backToTournament">Quay lại giải</string>
 	<string name="thematic">Theo chủ đề</string>
 	<plurals name="moreThanNbRatedGames">
-		<item quantity="other">≥ %s ván có rate</item>
+		<item quantity="other">≥ %s ván có tính Elo</item>
 	</plurals>
 	<plurals name="moreThanNbPerfRatedGames">
-		<item quantity="other">≥ %1$s %2$s ván rated</item>
+		<item quantity="other">≥ %1$s ván %2$s tính Elo</item>
 	</plurals>
 	<plurals name="needNbMorePerfGames">
-		<item quantity="other">Bạn cần chơi %1$s %2$s ván rated</item>
+		<item quantity="other">Bạn cần chơi %1$s ván %2$s tính Elo</item>
 	</plurals>
 	<plurals name="needNbMoreGames">
-		<item quantity="other">Bạn cần chơi %s ván nữa</item>
+		<item quantity="other">Bạn cần chơi %s ván xếp hạng nữa</item>
 	</plurals>
-	<string name="yourPerfRatingIsProvisional">Rate của bạn %s là tạm thời</string>
-	<string name="yourPerfRatingIsTooHigh">Rate của bạn %1$s (%2$s) quá cao</string>
-	<string name="yourTopWeeklyPerfRatingIsTooHigh">Rate theo tuần %1$s (%2$s) của bạn quá cao</string>
-	<string name="yourPerfRatingIsTooLow">Rate của bạn %1$s (%2$s) quá thấp</string>
-	<string name="ratedMoreThanInPerf">Rate ≥ %1$s trong %2$s</string>
-	<string name="ratedLessThanInPerf">Rate ≤ %1$s trong %2$s</string>
+	<string name="yourPerfRatingIsProvisional">Elo của bạn %s là tạm thời</string>
+	<string name="yourPerfRatingIsTooHigh">Elo của bạn %1$s (%2$s) quá cao</string>
+	<string name="yourTopWeeklyPerfRatingIsTooHigh">Elo theo tuần %1$s (%2$s) của bạn quá cao</string>
+	<string name="yourPerfRatingIsTooLow">Elocủa bạn %1$s (%2$s) quá thấp</string>
+	<string name="ratedMoreThanInPerf">Elo ≥ %1$s trong %2$s</string>
+	<string name="ratedLessThanInPerf">Elo ≤ %1$s trong %2$s</string>
 	<string name="mustBeInTeam">Phải ở trong đội %s</string>
 	<string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
 	<string name="backToGame">Quay lại ván đấu</string>
-	<string name="siteDescription">Chơi Shogi online miễn phí. Chơi Shogi với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Shogi với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
+	<string name="siteDescription">Chơi cờ Shogi trực tuyến miễn phí. Chơi cờ Shogi với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi cờ Shogi với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
 	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, còn được gọi là \"将棋\" trong tiếng Nhật, là một loại cờ chiến thuật hai người chơi đã được chơi ở Nhật Bản hàng thế kỷ. Nó thường được gọi là \"cờ vua Nhật Bản\" vì những điểm giống với cờ vua, nhưng nó có những đặc điểm riêng biến nó trở thành một trò chơi riêng biệt.</string>
-	<string name="learnShogiHereX">Nếu bạn không biết luật chơi shogi, hãy xem qua %s.</string>
+	<string name="learnShogiHereX">Nếu bạn không biết luật chơi cờ Shogi, hãy xem qua %s.</string>
 	<string name="xJoinedTeamY">%1$s tham gia đội %2$s</string>
 	<string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
 	<string name="xStartedStreaming">%s bắt đầu phát trực tuyến</string>
 	<string name="averageElo">Hệ số Elo bình quân</string>
 	<string name="location">Vị trí</string>
-	<string name="filterGames">Lọc game</string>
+	<string name="filterGames">Lọc ván cờ</string>
 	<string name="reset">Khôi phục gốc</string>
 	<string name="apply">Áp dụng</string>
 	<string name="save">Lưu</string>
 	<string name="leaderboard">Bảng dẫn đầu</string>
 	<string name="leaderboards">Bảng xếp hạng</string>
 	<string name="bestPlayersInVariousCategories">Người chơi tốt nhất trong các hạng mục khác nhau</string>
-	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Người chơi giỏi nhất của %1$s trong %2$s, được sắp xếp theo xếp hạng</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Người chơi giỏi nhất của %1$s trong %2$s, được sắp xếp theo Elo</string>
 	<string name="selectHandicap">Lựa chọn chấp quân</string>
 	<string name="pasteTheSfenStringHere">Dán chuỗi SFEN ở đây</string>
 	<string name="pasteTheKifCsaStringHere">Dán văn bản KIF hoặc CSA vào đây</string>
 	<string name="fromPosition">Từ thế trận</string>
-	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Mặc định</string>
 	<string name="continueFromHere">Tiếp tục từ đây</string>
-	<string name="toStudy">Học chơi</string>
+	<string name="toStudy">Nghiên cứu</string>
 	<string name="importGame">Nhập ván cờ</string>
 	<string name="importedGame">Ván cờ đã được nhập</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">Dán ván cờ KIF hoặc CSA để phát lại có thể duyệt được, phân tích máy tính, trò chuyện trò chơi và URL có thể chia sẻ.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s các ván cờ đã nhập</item>
 	</plurals>
@@ -360,9 +359,9 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="retry">Thử lại</string>
 	<string name="reconnecting">Kết nối lại</string>
 	<plurals name="nbFriendsOnline">
-		<item quantity="other">%s bạn online</item>
+		<item quantity="other">%s bạn trực tuyến</item>
 	</plurals>
-	<string name="noFriendsOnline">Không có bạn bè đang online</string>
+	<string name="noFriendsOnline">Không có bạn bè trực tuyến</string>
 	<string name="findFriends">Tìm bạn</string>
 	<string name="favoriteOpponents">Đối thủ yêu thích</string>
 	<string name="follow">Theo dõi</string>
@@ -397,71 +396,71 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="createANewTournament">Tạo giải đấu mới</string>
 	<string name="tournamentCalendar">Lịch giải đấu</string>
 	<string name="conditionOfEntry">Điều kiện tham gia:</string>
-	<string name="advancedSettings">Thiết lập cao cấp</string>
-	<string name="safeTournamentName">Hãy chọn tên cho giải đấu.</string>
+	<string name="advancedSettings">Thiết lập nâng cao</string>
+	<string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
 	<string name="inappropriateNameWarning">Chỉ một hành động dù không thích hợp, tài khoản của bạn có thể bị khoá.</string>
 	<string name="emptyTournamentName">Hãy để trống tên giải đấu để lấy tên theo một kì thủ shogi nào đó.</string>
 	<string name="recommendNotTouching">Chúng tôi khuyến nghị không nên thay đổi.</string>
-	<string name="fewerPlayers">Nếu bạn thiết lập điều kiện gia nhập, giải của bạn sẽ có ít người tham gia.</string>
-	<string name="showAdvancedSettings">Hiện thiết lập cao cấp</string>
+	<string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
+	<string name="showAdvancedSettings">Hiện thiết lập nâng cao</string>
 	<string name="makePrivateTournament">Đặt giải đấu riêng tư và giới hạn truy cập bởi mật khẩu</string>
 	<string name="join">Tham gia</string>
-	<string name="pause">Tạm dừng</string>
+	<string name="pause">Tạm rút</string>
 	<string name="withdraw">Xin rút</string>
 	<string name="points">Điểm</string>
 	<string name="wins">Thắng</string>
 	<string name="losses">Thua</string>
-	<string name="winStreak">Thắng chớp nhoáng</string>
-	<string name="createdBy">Được tạo bởi</string>
+	<string name="winStreak">Chuỗi thắng</string>
+	<string name="createdBy">Tạo bởi</string>
 	<string name="tournamentIsStarting">Giải đấu đang diễn ra</string>
-	<string name="tournamentPairingsAreNowClosed">Đã đóng việc sắp xếp đấu cặp.</string>
-	<string name="standByX">Đợi %s người. Chuẩn bị nhé!</string>
+	<string name="tournamentPairingsAreNowClosed">Đã đóng việc sắp xếp cặp đấu.</string>
+	<string name="standByX">%s hãy đợi, đang xếp cặp người chơi, chuẩn bị nhé!</string>
 	<string name="youArePlaying">Đã vào ván!</string>
 	<string name="winRate">Tỉ lệ thắng</string>
-	<string name="berserkRate">Tỉ lệ berserk</string>
+	<string name="berserkRate">Tỉ lệ Berserk</string>
 	<string name="performance">Hiệu suất</string>
 	<string name="tournamentComplete">Kết thúc giải đấu</string>
 	<string name="movesPlayed">Số nước đi</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s thắng</string>
 	<string name="draws">Hoà</string>
 	<string name="nextXTournament">Giải đấu tiếp theo %s:</string>
-	<string name="averageOpponent">Rate đối thủ (trung bình)</string>
-	<string name="membersOnly">Chỉ có thành viên</string>
+	<string name="averageOpponent">Elo đối thủ trung bình</string>
+	<string name="membersOnly">Chỉ thành viên</string>
 	<string name="boardEditor">Chỉnh sửa bàn cờ</string>
-	<string name="editorDescription">Tải các thế cờ shogi hoặc tạo thế cờ shogi của riêng bạn trên trình chỉnh sửa bàn cờ shogi</string>
-	<string name="setTheBoard">Thiết lập bàn</string>
+	<string name="editorDescription">Tải các thế cờ Shogi hoặc tạo thế cờ Shogi của riêng bạn trên trình chỉnh sửa bàn cờ Shogi</string>
+	<string name="setTheBoard">Thiết lập bàn cờ</string>
 	<string name="popularOpenings">Khai cuộc phổ biến</string>
 	<string name="handicaps">Chấp quân</string>
 	<string name="handicap">Chấp quân</string>
 	<string name="startPosition">Thế trận ban đầu</string>
 	<string name="clearBoard">Xóa bàn cờ</string>
 	<string name="fillXHand">Lấp đầy tay %s</string>
-	<string name="savePosition">Lưu lại thế trận</string>
+	<string name="savePosition">Lưu thế trận</string>
 	<string name="loadPosition">Tải thế trận</string>
 	<string name="isPrivate">Riêng tư</string>
 	<string name="reportXToModerators">Báo cáo %s tới quản trị viên</string>
-	<string name="profileCompletion">Hoàn thành profile: %s</string>
+	<string name="profileCompletion">Hoàn thành hồ sơ: %s</string>
 	<string name="thisIsProfilePage">Đây là trang hồ sơ của bạn.</string>
-	<string name="xRating">Rate %s</string>
+	<string name="xRating">Xếp hạng %s</string>
 	<string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
-	<string name="gameCompletionRate">Tỉ lệ hoàn thành game: %s</string>
+	<string name="gameCompletionRate">Tỉ lệ hoàn thành ván cờ: %s</string>
 	<string name="profile">Hồ sơ</string>
-	<string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
+	<string name="editProfile">Chỉnh sửa hồ sơ</string>
 	<string name="firstName">Tên</string>
 	<string name="lastName">Họ</string>
-	<string name="biography">Lý lịch</string>
+	<string name="biography">Tiểu sử</string>
 	<string name="country">Quốc gia</string>
-	<string name="socialMediaLinks">Kênh mạng xã hội</string>
+	<string name="socialMediaLinks">Liên kết mạng xã hội</string>
 	<string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
 	<string name="watchLishogiTV">Xem Lishogi TV</string>
 	<string name="watchLishogiTVDescription">Ngồi thư giãn và xem những người chơi Lishogi giỏi nhất thi đấu trên Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Trước đó tại Lishogi TV</string>
+	<string name="previouslyOnLishogiTV">Ván trước được lên Lishogi TV</string>
 	<string name="onlinePlayers">Các kỳ thủ có mặt</string>
 	<string name="onlineBots">Các Bot đang trực tuyến</string>
 	<string name="activeToday">Hoạt động trong ngày</string>
 	<string name="activePlayers">Các kỳ thủ tích cực</string>
-	<string name="bewareTheGameIsRatedButHasNoClock">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
-	<string name="toTrackYourProgress">Theo dõi sự tiến bộ của bạn</string>
+	<string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ tính Elo nhưng không tính thời gian!</string>
+	<string name="toTrackYourProgress">Theo dõi tiến trình của bạn:</string>
 	<string name="goodMove">Nước tốt</string>
 	<string name="bestMove">Nước tối ưu</string>
 	<string name="success">Thành công</string>
@@ -478,34 +477,34 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
 	<string name="autoSwitch">Tự động chuyển</string>
 	<string name="puzzles">Câu đố</string>
-	<string name="latestUpdates">cập nhật mới nhất</string>
-	<string name="tournamentWinners">Vô địch giải</string>
+	<string name="latestUpdates">Cập nhật mới nhất</string>
+	<string name="tournamentWinners">Các nhà vô địch giải đấu</string>
 	<string name="name">Tên</string>
 	<string name="description">Mô tả</string>
-	<string name="no">Không chọn</string>
-	<string name="yes">Chọn</string>
-	<string name="help">Hổ trợ</string>
+	<string name="no">Không</string>
+	<string name="yes">Có</string>
+	<string name="help">Hỗ trợ:</string>
 	<string name="createANewTopic">Tạo một chủ đề mới</string>
-	<string name="yourTeamBoards" comment="In forum, listing team discussions">Bảng nhóm của bạn</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Bảng đội của bạn</string>
 	<string name="topics">Các chủ đề</string>
-	<string name="posts">Gửi bài</string>
-	<string name="lastPost">Bài gửi gần đây nhất</string>
-	<string name="views">Khán giả</string>
+	<string name="posts">Bài đăng</string>
+	<string name="lastPost">Bài đăng gần đây nhất</string>
+	<string name="views">Lượt xem</string>
 	<string name="replies">Các câu trả lời</string>
 	<string name="replyToThisTopic">Trả lời chủ đề này</string>
 	<string name="reply">Trả lời</string>
 	<string name="message">Tin nhắn</string>
-	<string name="createTheTopic">Tạo một chủ đề</string>
+	<string name="createTheTopic">Tạo chủ đề</string>
 	<string name="reportAUser">Báo cáo một kỳ thủ</string>
 	<string name="user">Kỳ thủ</string>
 	<string name="reason">Lý do</string>
-	<string name="whatIsIheMatter">Cái quái gì thế?</string>
+	<string name="whatIsIheMatter">Xảy ra vấn đề gì thế?</string>
 	<string name="cheat">Gian lận</string>
 	<string name="insult">Xúc phạm</string>
-	<string name="troll">Hát</string>
+	<string name="troll">Chọc tức, chơi khăm</string>
 	<string name="other">Khác</string>
-	<string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích sự sai lầm trong cách ứng phó của kỳ thủ này</string>
-	<string name="error.provideOneCheatedGameLink">Xin vui lòng cung cấp ít nhất một đường dẫn đến ván cờ lừa đảo.</string>
+	<string name="reportDescriptionHelp">Dán liên kết tới (các) ván cờ và giải thích điều gì sai về hành vi của người dùng này. Đừng chỉ nói \"họ gian lận\" mà hãy cho chúng tôi biết bạn đi đến kết luận này như thế nào. Báo cáo của bạn sẽ được xử lý nhanh hơn nếu được viết bằng tiếng Anh.</string>
+	<string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
 	<string name="by">bởi %s</string>
 	<string name="thisTopicIsNowClosed">Chủ đề này bây giờ đã đóng</string>
 	<string name="theming">Chủ đề</string>
@@ -515,15 +514,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="typePrivateNotesHere">Nhập ghi chú cá nhân ở đây</string>
 	<string name="writeAPrivateNoteAboutThisUser">Tạo một chú thích riêng dành cho người dùng này</string>
 	<string name="noNoteYet">Chưa có ghi chú nào</string>
-	<string name="invalidUsernameOrPassword">Tên tài khoản và mật mã đăng nhập không đúng</string>
+	<string name="invalidUsernameOrPassword">Tên tài khoản hoặc mật khẩu đăng nhập không đúng</string>
 	<string name="incorrectPassword">Sai mật khẩu</string>
 	<string name="invalidAuthenticationCode">Mã xác thực sai</string>
-	<string name="emailMeALink">Gửi thư điện tử cho tôi một liên kết</string>
-	<string name="currentPassword">Nhập mật mã hiện tại</string>
-	<string name="newPassword">Nhập mật mã mới</string>
-	<string name="newPasswordAgain">Nhập lại mật mã mới</string>
-	<string name="clockInitialTime">Thời gian đồng hồ ban đầu</string>
-	<string name="clockIncrement">Thời gian được thêm vào</string>
+	<string name="emailMeALink">Gửi cho tôi một liên kết trong Email</string>
+	<string name="currentPassword">Nhập mật khẩu hiện tại</string>
+	<string name="newPassword">Mật khẩu mới</string>
+	<string name="newPasswordAgain">Nhập lại mật khẩu mới</string>
+	<string name="clockInitialTime">Thời gian ban đầu</string>
+	<string name="clockIncrement">Thời gian gia tăng</string>
 	<string name="clockByoyomi">Đồng hồ Byoyomi</string>
 	<string name="privacy">Riêng tư</string>
 	<string name="letOtherPlayersFollowYou">Cho phép người khác theo dõi bạn</string>
@@ -537,8 +536,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="compact">Thu gọn</string>
 	<string name="insideTheBoard">Bên trong bàn cờ</string>
 	<string name="outsideTheBoard">Bên ngoài bàn cờ</string>
-	<string name="edgeOfTheBoard">Edge of the board</string>
-	<string name="onSlowGames">Trên cờ chậm</string>
+	<string name="edgeOfTheBoard">Cạnh của bàn cờ</string>
+	<string name="onSlowGames">Chỉ khi chơi cờ chậm</string>
 	<string name="always">Luôn luôn</string>
 	<string name="never">Không bao giờ</string>
 	<string name="difficultyEasy">Dễ</string>
@@ -550,36 +549,36 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="xCommentedY">%1$s đã bình luận %2$s</string>
 	<string name="victory">Chiến thắng</string>
 	<string name="defeat">Thua</string>
-	<string name="victoryVsYInZ">%1$s với %2$s trong %3$s</string>
-	<string name="defeatVsYInZ">%1$s với %2$s trong %3$s</string>
-	<string name="drawVsYInZ">%1$s với %2$s trong %3$s</string>
+	<string name="victoryVsYInZ">%1$s %2$s trong %3$s</string>
+	<string name="defeatVsYInZ">%1$s %2$s trong %3$s</string>
+	<string name="drawVsYInZ">%1$s %2$s trong %3$s</string>
 	<string name="timeline">Dòng thời gian</string>
 	<string name="starting">Bắt dầu đấu:</string>
 	<string name="allInformationIsPublicAndOptional">Tất cả thông tin thì công khai và không bắt buộc.</string>
 	<string name="yourCityRegionOrDepartment">Thành phố, tôn giáo hoặc nơi cư trú của bạn.</string>
-	<string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, shogi, khai cuộc hoặc kì thủ yêu thích v.v...</string>
+	<string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, bạn thích gì ở cờ Shogi, ván cờ yêu thích, thần tượng, ...</string>
 	<plurals name="maximumNbCharacters">
-		<item quantity="other">Tối đa: %s chữ.</item>
+		<item quantity="other">Tối đa: %s ký tự.</item>
 	</plurals>
 	<plurals name="blocks">
-		<item quantity="other">%s chặn cản</item>
+		<item quantity="other">%s chặn</item>
 	</plurals>
-	<string name="listBlockedPlayers">Danh sách các kỳ thủ mà bạn đã chặn cản</string>
+	<string name="listBlockedPlayers">Danh sách các kỳ thủ mà bạn đã chặn</string>
 	<string name="human">Con người</string>
 	<string name="bots">Các Bot</string>
 	<string name="computer">Máy tính</string>
 	<string name="side">Bên</string>
 	<string name="clock">Đồng hồ</string>
-	<string name="unauthorizedError">Không được quyền truy cập</string>
-	<string name="noInternetConnection">Không có nối mạng. Bạn vẫn có thể chơi ngoại tuyến từ bảng chọn.</string>
+	<string name="unauthorizedError">Không có quyền truy cập.</string>
+	<string name="noInternetConnection">Không có nối mạng. Bạn vẫn có thể chơi ngoại tuyến từ mục lục.</string>
 	<string name="connectedToLishogi">Bây giờ bạn đã kết nối với lishogi.org</string>
-	<string name="signedOut">Bạn đã đăng xuất.</string>
-	<string name="loginSuccessful">Bây gió bạn đã đăng nhập thành công</string>
+	<string name="signedOut">Bạn đã đăng xuất</string>
+	<string name="loginSuccessful">Bây giờ bạn đã đăng nhập thành công</string>
 	<string name="playOnTheBoardOffline">Chơi ngoại tuyến, trên bàn cờ.</string>
-	<string name="playOfflineComputer">Chơi ngoiaj tuyến với máy tính</string>
+	<string name="playOfflineComputer">Chơi ngoại tuyến với máy tính</string>
 	<string name="opponent">Đối thủ</string>
 	<string name="learnMenu">Học</string>
-	<string name="studyMenu">Học chơi</string>
+	<string name="studyMenu">Nghiên cứu</string>
 	<string name="practice">Luyện tập</string>
 	<string name="community">Cộng đồng</string>
 	<string name="tools">Công cụ</string>
@@ -588,87 +587,87 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="periods">Chu kỳ</string>
 	<string name="playOnline">Chơi trực tuyến</string>
 	<string name="playOffline">Chơi ngoại tuyến</string>
-	<string name="allowAnalytics">Cho phép thống kê nặc danh</string>
-	<string name="shareGameURL">Chia sẻ liên kết game</string>
+	<string name="allowAnalytics">Cho phép thống kê ăn danh</string>
+	<string name="shareGameURL">Chia sẻ liên kết ván cờ</string>
 	<string name="error.required">Mục bắt buộc</string>
 	<string name="error.email">Địa chỉ email này không hợp lệ</string>
 	<string name="error.email_acceptable">Địa chỉ email này không được chấp nhận</string>
 	<string name="error.email_unique">Địa chỉ email này đã được sử dụng</string>
 	<string name="error.email_different">Đây đã là địa chỉ email hiện tại của bạn</string>
-	<string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
+	<string name="ifRatingIsPlusMinusX">Nếu điểm hệ số trong phạm vi ± %s</string>
 	<string name="onlyFriends">Chỉ bạn bè</string>
-	<string name="menu">Trình đơn</string>
+	<string name="menu">Mục lục</string>
 	<string name="castling">Nhập thành</string>
 	<plurals name="nbForumPosts">
 		<item quantity="other">%s Bài Viết Diễn Đàn</item>
 	</plurals>
 	<string name="tpTimeSpentPlaying">Thời gian đã chơi: %s</string>
 	<string name="watchGames">Xem các ván đấu</string>
-	<string name="tpTimeSpentOnTV">Thời gian xem Lishogi TV: %s</string>
+	<string name="tpTimeSpentOnTV">Thời gian được lên Lishogi TV: %s</string>
 	<string name="watch">Xem</string>
 	<string name="videoLibrary">Thư viện video</string>
-	<string name="streamersMenu">Các streamer</string>
+	<string name="streamersMenu">Các Streamer</string>
 	<string name="mobileApp">Ứng dụng Điện thoại</string>
-	<string name="webmasters">Các quản trị</string>
+	<string name="webmasters">Các nhà phát triển web</string>
 	<string name="about">Giới thiệu</string>
-	<string name="aboutX">Về %s</string>
+	<string name="aboutX">Giới thiệu về %s</string>
 	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s là một máy chủ cờ shogi mã nguồn mở (%2$s), miễn phí, không có quảng cáo.</string>
 	<string name="really">thật sự</string>
 	<string name="contribute">Đóng góp</string>
-	<string name="termsOfService">Điều khoản dịch vụ</string>
+	<string name="termsOfService">Điều khoản Dịch vụ</string>
 	<string name="sourceCode">Mã Nguồn</string>
 	<string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
 	<string name="host">Người chủ trì</string>
-	<string name="hostColorX">Màu chủ nhà: %s</string>
-	<string name="createdSimuls">Cờ đồng loạt mới tạo</string>
-	<string name="hostANewSimul">Chủ trì một ván cờ đồng loạt mới</string>
+	<string name="hostColorX">Màu quân của người chủ trì: %s</string>
+	<string name="createdSimuls">Sự kiện cờ đồng loạt mới tạo</string>
+	<string name="hostANewSimul">Chủ trì một sự kiện cờ đồng loạt mới</string>
 	<string name="noSimulFound">Không tìm thấy ván cờ đồng loạt</string>
-	<string name="noSimulExplanation">Ván cờ đồng loạt này không tồn tại.</string>
-	<string name="returnToSimulHomepage">Trở về trang chủ cờ đồng loạt</string>
+	<string name="noSimulExplanation">Sự kiện cờ đồng loạt này không tồn tại.</string>
+	<string name="returnToSimulHomepage">Trở lại trang chủ sự kiện cờ đồng loạt</string>
 	<string name="aboutSimul">Cờ đồng loạt gồm một người chơi duy nhất chơi cùng lúc với nhiều người khác.</string>
 	<string name="aboutSimulImage">Trong số 50 đối thủ, Fischer thắng 47 ván, hoà 2 và thua 1.</string>
 	<string name="aboutSimulRealLife">Ý tưởng lấy từ các sự kiện có thực. Trong đời thực, thể loại này gồm một người chủ trì cờ đồng loạt di chuyển từ bàn này qua bàn khác để đánh một nước.</string>
 	<string name="aboutSimulRules">Khi cờ đồng loạt bắt đầu, mỗi người chơi bắt đầu một ván cờ với người chủ trì, người sẽ chơi quân trắng. Cờ đồng loạt kết thúc khi tất cả các ván cờ hoàn tất.</string>
-	<string name="aboutSimulSettings">Cờ đồng loạt luôn là đánh chơi và không tính điểm xếp hạng. Các lựa chọn đấu lại, đi lại và thêm thời gian sẽ bị vô hiệu hoá.</string>
+	<string name="aboutSimulSettings">Cờ đồng loạt luôn không tính Elo. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
 	<string name="create">Tạo</string>
-	<string name="whenCreateSimul">Khi bạn tạo một trận cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
-	<string name="simulVariantsHint">Nếu bạn chọn nhiều thể loại, mỗi người chơi khác sẽ được lựa chọn chơi thể loại nào.</string>
+	<string name="whenCreateSimul">Khi bạn tạo một sự kiện đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
+	<string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi khác sẽ được lựa chọn chơi biến thể nào.</string>
 	<string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
 	<string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
 	<string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
 	<string name="numberOfByoyomiPeriods">Số chu kỳ Byoyomi</string>
-	<string name="hostColorForEachGame">Làm chủ thứ tự chơi ở mỗi game</string>
+	<string name="hostColorForEachGame">Làm chủ thứ tự chơi ở mỗi ván</string>
 	<string name="onlyMembersOfTeam">Chỉ dành cho thành viên trong đội</string>
 	<string name="noRestriction">Không giới hạn</string>
-	<string name="estimatedStart">Thời gian bắt đầu ước tính</string>
-	<string name="simulDescription">Mô tả chi tiết</string>
+	<string name="estimatedStart">Thời gian bắt đầu dự kiến</string>
+	<string name="simulDescription">Mô tả sự kiện cờ đồng loạt</string>
 	<string name="anythingTellParticipants">Bạn có muốn nói gì với những người tham gia không?</string>
 	<string name="lishogiTournaments">Giải đấu của Lishogi</string>
 	<string name="tournamentShields">Giải đấu Khiên</string>
-	<string name="tournamentFAQ">Các câu hỏi thường gặp về đấu trường giải đấu</string>
+	<string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường</string>
 	<string name="tournamentOfficial">Chính thức</string>
 	<string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
 	<string name="averageCentipawnLoss">Phần trăm chốt mất trung bình mỗi nước (ACPL)</string>
 	<string name="keyboardShortcuts">Phím tắt bàn phím</string>
-	<string name="keyMoveBackwardOrForward">tua lại/đi tới</string>
-	<string name="keyGoToStartOrEnd">chuyển đến đầu/cuối</string>
+	<string name="keyMoveBackwardOrForward">tiến tiếp/lùi lại</string>
+	<string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
 	<string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
-	<string name="keyEnterOrExitVariation">vào/thoát biến thể cờ</string>
+	<string name="keyEnterOrExitVariation">vào/thoát biến cờ</string>
 	<string name="newTournament">Giải đấu mới</string>
-	<string name="tournamentHomeTitle">Giải đấu Shogi với nhiều thiết lập thời gian và thể loại phong phú</string>
-	<string name="tournamentHomeDescription">Chơi các giải đấu shogi tốc độ! Tham gia một giải đấu chính thức, hoặc tự tạo giải đấu của bạn. Cờ Chớp, cờ Nhanh, cờ Cổ Điển, và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
-	<string name="tournamentNotFound">Giải đấu không tìm thấy</string>
+	<string name="tournamentHomeTitle">Giải đấu Shogi với nhiều thiết lập thời gian và biến thể phong phú</string>
+	<string name="tournamentHomeDescription">Chơi các giải đấu shogi tốc độ! Tham gia một giải đấu chính thức, hoặc tự tạo giải đấu của bạn. Cờ Chớp, cờ Nhanh, cờ Chậm, và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
+	<string name="tournamentNotFound">Không tìm thấy giải đấu</string>
 	<string name="tournamentDoesNotExist">Giải đấu này không tồn tại.</string>
 	<string name="tournamentMayHaveBeenCanceled">Nó có thể đã bị huỷ, nếu tất cả người chơi rời giải trước khi giải đấu bắt đầu.</string>
 	<string name="returnToTournamentsHomepage">Trở về trang chủ các giải đấu</string>
-	<string name="weeklyPerfTypeRatingDistribution">Phân bố điểm hệ số thứ hạng tháng %s</string>
+	<string name="weeklyPerfTypeRatingDistribution">Phân bố xếp hạng %s theo tuần</string>
 	<plurals name="nbPerfTypePlayersThisWeek">
-		<item quantity="other">%1$s %2$s người chơi tuần này.</item>
+		<item quantity="other">%1$s người chơi %2$s tuần này.</item>
 	</plurals>
 	<string name="yourPerfTypeRatingIsRating">Điểm hệ số thứ hạng %1$s của bạn là %2$s.</string>
-	<string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s trong số %2$s người chơi.</string>
-	<string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s tốt hơn %2$s người chơi %3$s.</string>
-	<string name="youDoNotHaveAnEstablishedPerfTypeRating">Điểm hệ số thứ hạng %s của bạn chưa xác lập.</string>
+	<string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
+	<string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
+	<string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
 	<string name="yourRating">Chỉ số của bạn</string>
 	<string name="cumulative">Tích luỹ</string>
 	<string name="glicko2Rating">Chỉ số Glicko-2</string>
@@ -676,8 +675,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn</string>
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác</string>
 	<string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
-	<string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý bị ràng buộc bởi chúng tôi %s.</string>
-	<string name="networkLagBetweenYouAndLishogi">Hệ số lag giữa bạn và Lishogi</string>
+	<string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý tuân thủ %s của chúng tôi.</string>
+	<string name="networkLagBetweenYouAndLishogi">Độ trễ mạng giữa bạn và Lishogi</string>
 	<string name="timeToProcessAMoveOnLishogiServer">Thời gian để tiến hành một nước đi trên máy chủ Lishogi</string>
 	<string name="downloadAnnotated">Tải kèm chú thích</string>
 	<string name="downloadRaw">Tải bản thô</string>
@@ -686,9 +685,9 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="crosstable">Bảng tổng điểm</string>
 	<string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
 	<string name="analysisShapesHowTo">Nhấn shift + click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
-	<string name="letOtherPlayersMessageYou">Để nhửng người chơi khác gửi tin nhắn cho bạn</string>
+	<string name="letOtherPlayersMessageYou">Để những người chơi khác gửi tin nhắn cho bạn</string>
 	<string name="shareYourInsightsData">Chia sẻ dữ liệu chi tiết về Shogi của bạn</string>
-	<string name="withNobody">Không chia sẻ</string>
+	<string name="withNobody">Không ai cả</string>
 	<string name="withFriends">Với bạn bè</string>
 	<string name="withEverybody">Với mọi người</string>
 	<string name="youHaveAlreadyRegisteredTheEmail">Bạn đã đăng ký với email: %s</string>
@@ -702,7 +701,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="alternativelyYouCanX">Ngoài ra, bạn có thể %s.</string>
 	<string name="sessions">Phiên</string>
 	<string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
-	<string name="playShogiEverywhere">Chơi cờ ở bất cứ đâu</string>
+	<string name="playShogiEverywhere">Chơi cờ Shogi ở bất cứ đâu</string>
 	<string name="features">Tính năng</string>
 	<string name="asFreeAsLishogi">Miễn phí như Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Xây dựng trên nền tảng tình yêu dành cho shogi, không phải vì tiền bạc</string>
@@ -712,17 +711,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
 	<string name="bulletBlitzClassical">Cờ siêu chớp. cờ chớp, cờ chậm</string>
 	<string name="correspondenceShogi">Cờ qua thư</string>
-	<string name="onlineAndOfflinePlay">Chơi online và ofline</string>
+	<string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
 	<string name="viewTheSolution">Xem lời giải</string>
 	<string name="followAndChallengeFriends">Theo dõi và thách thức bạn bè</string>
 	<plurals name="availableInNbLanguages">
 		<item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
 	</plurals>
 	<string name="gameAnalysis">Phân tích trận đấu</string>
-	<string name="xHostsY">%1$s tạo %2$s</string>
+	<string name="xHostsY">%1$s đã chủ trì %2$s</string>
 	<string name="xJoinsY">%1$s gia nhập %2$s</string>
 	<string name="xLikesY">%1$s thích %2$s</string>
-	<string name="xCreatesStudyY">%1$s tạo bài học %2$s</string>
+	<string name="xCreatesStudyY">%1$s tạo nghiên cứu %2$s</string>
 	<string name="quickPairing">Xếp cặp nhanh</string>
 	<string name="lobby">Phòng chờ</string>
 	<string name="anonymous">Ẩn danh</string>
@@ -743,17 +742,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="gridThick">Đồ dày</string>
 	<string name="gridVeryThick">Rất dày</string>
 	<string name="hands" comment="Title in custom board theme editor">Ván bài</string>
-	<string name="boardTheme">Theme bàn cờ</string>
-	<string name="boardSize">Cỡ bàn cờ</string>
+	<string name="boardTheme">Chủ đề bàn cờ</string>
+	<string name="boardSize">Kích cỡ bàn cờ</string>
 	<string name="pieceSet">Bộ cờ</string>
-	<string name="embedInYourWebsite">Nhúng vào website của bạn</string>
-	<string name="usernameAlreadyUsed">Username này đã được dùng, hãy chọn tên khác.</string>
-	<string name="usernamePrefixInvalid">Username phải bắt đầu bằng một chữ.</string>
-	<string name="usernameSuffixInvalid">Username phải kết thúc bằng một chữ hay số.</string>
-	<string name="usernameCharsInvalid">Username chỉ được chứa ký tự, số, dấu gạch chân và dấu gạch dưới.</string>
+	<string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
+	<string name="usernameAlreadyUsed">Tên người dùng này đã được sử dụng, hãy chọn tên khác.</string>
+	<string name="usernamePrefixInvalid">Tên người dùng phải bắt đầu với một chữ cái.</string>
+	<string name="usernameSuffixInvalid">Tên người dùng phải kết thúc với một chữ cái hoặc một số.</string>
+	<string name="usernameCharsInvalid">Tên người dùng chỉ được chứa chữ cái, số, dấu gạch dưới và dấu gạch nối. Dấu gạch dưới và dấu gạch nối không được liên tiếp nhau.</string>
 	<string name="usernameUnacceptable">Username này không được chấp nhận.</string>
 	<string name="directlySupportLishogi">Ủng hộ trực tiếp Lishogi</string>
-	<string name="playShogiInStyle">Chơi cờ phong cách</string>
+	<string name="playShogiInStyle">Chơi cờ Shogi phong cách</string>
 	<string name="shogiBasics">Shogi cơ bản</string>
 	<string name="shogiResources">Tài nguyên về Shogi</string>
 	<string name="coaches">Huấn luyện viên</string>
@@ -764,7 +763,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="error.min">Phải lớn hơn hoặc bằng %s</string>
 	<string name="error.max">Phải nhỏ hơn hoặc bằng %s</string>
 	<string name="error.unknown">Lỗi</string>
-	<string name="custom">Tuỳ biến</string>
+	<string name="custom">Tùy chọn</string>
 	<string name="notifications">Thông báo</string>
 	<string name="challenges">Thách đấu</string>
 	<string name="perfRatingX">Hệ số: %s</string>
@@ -783,21 +782,21 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="getAHint">Xem gợi ý</string>
 	<string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s thắng</string>
-	<string name="learnFromYourMistakes">Học từ lỗi của mình</string>
+	<string name="learnFromYourMistakes">Học từ sai lầm của mình</string>
 	<string name="learnFromThisMistake">Học từ sai lầm này</string>
 	<string name="skipThisMove">Bỏ qua nước này</string>
 	<string name="next">Tiếp</string>
 	<string name="xWasPlayed">Đã chơi %s</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Tìm nước đi tốt hơn cho %s</string>
 	<string name="resumeLearning">Tiếp tục học</string>
-	<string name="youCanDoBetter">Bạn có thể đi tốt hơn</string>
+	<string name="youCanDoBetter">Tôi tin là bạn có thể làm tốt hơn</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Tìm nước đi khác cho %s</string>
 	<string name="solution">Lời giải</string>
-	<string name="waitingForAnalysis">Chờ phân tích</string>
-	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">Không có lỗi nào từ %s</string>
+	<string name="waitingForAnalysis">Đang chờ phân tích</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">Bên %s không mắc sai lầm nào</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Đã hoàn thành kiểm tra lỗi của %s</string>
 	<string name="doItAgain">Làm lại</string>
-	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Xem lại lỗi của %s</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Xem lại sai lầm của %s</string>
 	<string name="advantage">Lợi thế</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s giây</item>
@@ -812,8 +811,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
 	<string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
 	<string name="conditionalPremoves">Nước đi trước có điều kiện</string>
-	<string name="addCurrentVariation">Thêm biến thể hiện tại</string>
-	<string name="playVariationToCreateConditionalPremoves">Chơi một biến thể để tạo ra nước đi trước có điều kiện</string>
+	<string name="addCurrentVariation">Thêm biến hiện tại</string>
+	<string name="playVariationToCreateConditionalPremoves">Chơi một biến để tạo ra nước đi trước có điều kiện</string>
 	<string name="noConditionalPremoves">Không có nước đi trước có điều kiện nào</string>
 	<string name="playX">Chơi %s</string>
 	<plurals name="andSaveNbPremoveLines">
@@ -821,15 +820,15 @@ computer analysis, game chat and shareable URL.</string>
 	</plurals>
 	<string name="sorry">Rất tiếc :(</string>
 	<string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
-	<string name="timeoutExpires">Hiệu lực đến %s.</string>
+	<string name="timeoutExpires">Hết hiệu lực trong %s.</string>
 	<string name="why">Vì sao?</string>
-	<string name="pleasantShogiExperience">Mục tiêu của chúng tôi là cung cấp trải nghiệm chơi cờ vui vẻ cho mọi người.</string>
+	<string name="pleasantShogiExperience">Mục tiêu của chúng tôi là cung cấp trải nghiệm chơi cờ Shogi vui vẻ cho mọi người.</string>
 	<string name="goodPractice">Để đạt được mục đích, chúng tôi phải chắc chắn rằng mọi người phải tuân thủ tốt.</string>
 	<string name="potentialProblem">Khi có vấn đề tiềm ẩn, chúng tôi sẽ cho hiển thị lỗi này.</string>
 	<string name="howToAvoidThis">Làm thế nào để tránh điều này?</string>
 	<string name="playEveryGame">Chơi tất cả các ván mà bạn bắt đầu.</string>
 	<string name="tryToWin">Cố gắng thắng (hoặc ít nhất hòa) mỗi ván bạn chơi.</string>
-	<string name="resignLostGames">Đầu hàng những thế trận thua cuộc (đừng để đồng hồ chạy).</string>
+	<string name="resignLostGames">Chịu thua những ván chắc chắn thua (đừng để đồng hồ chạy đến khi hết giờ).</string>
 	<string name="temporaryInconvenience">Chúng tôi xin lỗi vì tạm thời gây ra những bất tiện,</string>
 	<string name="wishYouGreatGames">và mong bạn có những trận chiến đỉnh cao trên lishogi.org.</string>
 	<string name="thankYouForReading">Cảm ơn bạn vì đã đọc!</string>
@@ -839,67 +838,67 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
 	<string name="agreementAccount">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản.</string>
 	<string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lishogi.</string>
-	<string name="agreeWithX">Tôi đồng ý với %s.</string>
+	<string name="agreeWithX">Tôi đồng ý với: %s.</string>
 	<string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
 	<string name="edit">Chỉnh sửa</string>
 	<string name="rapid">Cờ nhanh</string>
-	<string name="classical">Cờ tiêu chuẩn</string>
+	<string name="classical">Cờ chậm</string>
 	<string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
 	<string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
 	<string name="blitzDesc">Những ván cờ nhanh: 3 đến 8 phút</string>
 	<string name="rapidDesc">Cờ nhanh: 10 đến 25 phút</string>
-	<string name="classicalDesc">Cờ tiêu chuẩn: từ 25 phút trở lên</string>
-	<string name="correspondenceDesc">Đánh cờ qua thư: Một hoặc vài ngày cho mỗi nước</string>
+	<string name="classicalDesc">Cờ chậm: từ 25 phút trở lên</string>
+	<string name="correspondenceDesc">Cờ qua thư: Một hoặc vài ngày cho mỗi nước đi</string>
 	<string name="puzzleDesc">Huấn luyện viên kĩ thuật Shogi</string>
 	<string name="important">Chú ý</string>
 	<string name="yourQuestionMayHaveBeenAnswered">Vấn đề của bạn có thể được giải đáp %1$s</string>
-	<string name="inTheFAQ">tại F.A.Q.</string>
+	<string name="inTheFAQ">tại các câu hỏi thường gặp.</string>
 	<string name="toReportSomeoneForCheatingOrBadBehavior">Để báo cáo một người dùng vì gian lận hoặc hành vi xấu, %1$s</string>
-	<string name="useTheReportForm">dùng bảng tố cáo</string>
+	<string name="useTheReportForm">dùng biểu mẫu báo cáo</string>
 	<string name="toRequestSupport">Để yêu cầu trợ giúp, %1$s</string>
 	<string name="tryTheContactPage">hãy thử trang trợ giúp</string>
 	<string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
 	<string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
 	<string name="teamNamedX">Đội %1$s</string>
-	<string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
+	<string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàn được. Hãy chơi vài ván đã!</string>
 	<string name="subscribe">Đăng kí</string>
 	<string name="unsubscribe">Hủy đăng ký</string>
 	<string name="notationSystem">Kí hiệu</string>
-	<string name="officialBlog">Blog chính thức của Lishogi</string>
+	<string name="officialBlog">Blog Chính thức của Lishogi</string>
 	<string name="blogPostsFromYear">Bài blog từ %1$s</string>
 	<string name="previousBlogPosts">Bài blog trước</string>
 	<string name="continueReadingThis"> Tiếp tục đọc bài này</string>
-	<string name="discussBlogForum">Bàn luận về bài blog trong forum</string>
+	<string name="discussBlogForum">Bàn luận về bài blog trong diễn đàn</string>
 	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
 	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
 	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Tổng giá trị</string>
 	<string name="postGameStudy">Nghiên cứu sau trận đấu</string>
 	<string name="postGameStudies">Phân tích sau ván cờ</string>
-	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
-	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
-	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyOfPlayers">Study of players</string>
-	<string name="studyWith">Study with:</string>
-	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
-	<string name="standardStudy">Standard study</string>
-	<string name="welcomeToX">Welcome to %s!</string>
-	<string name="whatNow">What now?</string>
-	<string name="hereAreSuggestions">Here are a few suggestions:</string>
-	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
-	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="postGameStudyExplanation">Các nghiên cứu sau trận đấu được liệt kê trong danh mục riêng của chúng và cho phép đưa ra các trận tái đấu trực tiếp hoặc tìm kiếm một trận đấu mới.</string>
+	<string name="postGameStudiesOfGame">Các nghiên cứu sau trận đấu được liệt kê trong danh mục riêng của chúng và cho phép đưa ra các trận tái đấu trực tiếp hoặc tìm kiếm một trận đấu mới.</string>
+	<string name="studyWithOpponent">Nghiên cứu cùng đối thủ</string>
+	<string name="studyOfPlayers">Nghiên cứu của người chơi</string>
+	<string name="studyWith">Nghiên cứu với:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Tuỳ chọn</string>
+	<string name="standardStudy">Học chuẩn</string>
+	<string name="welcomeToX">Chào mừng đến với %s</string>
+	<string name="whatNow">Bước tiếp theo?</string>
+	<string name="hereAreSuggestions">Dưới đây là một vài gợi ý:</string>
+	<string name="hangOn" comment="Meaning: wait!">Từ đã!</string>
+	<string name="gameInProgressWithX">Bạn đang có ván đấu với %s.</string>
 	<string name="or" comment="links alternatives: Do X or do Y">hoặc</string>
 	<string name="gameInProgressDescription">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
 	<string name="challengeDeclined">Lời thách đấu bị từ chối</string>
 	<string name="challengeAccepted">Lời thách đấu được chấp nhận</string>
-	<string name="challengeCanceled">Lời mời đã được hủy bỏ</string>
-	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeCanceled">Lời thách đấu đã bị hủy bỏ.</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Thách đấu mở</string>
 	<string name="challengeDescription">Tiếp nhận lời thách đấu hoặc xem ván</string>
 	<string name="challengeFromX" comment="From username">Lời thách đấu từ %s</string>
 	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s thách đấu %2$s</string>
-	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
-	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
-	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
-	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
-	<string name="back" comment="As in: go back">Back</string>
-	<string name="preview">Preview</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Nhấn %s để tập trung</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Nhấn %s để gửi</string>
+	<string name="clickGame">Nhấp để xem lại, phân tích và thảo luận về ván đấu!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Phân tích</string>
+	<string name="back" comment="As in: go back">Quay Lại</string>
+	<string name="preview">Xem chi tiết</string>
 </resources>

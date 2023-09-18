@@ -29,11 +29,11 @@
 	<string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
 	<string name="basedOnGameDuration">Lishogi时限基于预计的游戏持续时间 = %1$s
 。 例如，5+3|4 的估计持续时间是 60 × 5 + 60 × 3 + 25 x 4 = 580 秒。</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 x (时钟初始时间) + 60 × (每步加时) + 25 x (读秒秒数) x (时段)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s 秒 = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s 秒 = %2$s</string>
 	<string name="whatVariantsCanIplay">我可以在 Lishogi上玩哪些变体？</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi 支持标准将棋和 %1$s。</string>
 	<string name="whatIsACPL">平均兵厘损失 (ACPL) 是什么？</string>
 	<string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。1兵厘等于兵价值的1/100。也就是说，100兵厘=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
@@ -91,7 +91,7 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="ratingLeaderboards">排行榜：</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">在给定的评级中进行过至少30场排位赛，</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此评级中进行过至少一场排位赛，</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">标准将棋对局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
 	<string name="beInTopTen">在此排名中获得前十。</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
 	<string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要不同，比如81道场和将棋俱乐部24？</string>

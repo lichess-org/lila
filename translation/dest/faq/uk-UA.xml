@@ -2,16 +2,16 @@
 <resources>
 	<string name="faqAbbreviation">ЧаПи</string>
 	<string name="frequentlyAskedQuestions">Часті запитання</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from Lichess, but since it\'s for playing shogi, it\'s called Lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Lichess. And Lichess is called Lichess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leeshogi">lee-shogi</string>
+	<string name="whyIsLishogiCalledLishogi">Чому Lishogi так називається?</string>
+	<string name="forkedFromLichess">Lishogi - це проєкт з відкритим кодом, створений на основі Lichess для гри у shogi - шьоґі, японські шахи, тому й називається Lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Тому що він походить від Lichess. А Lichess називається Lichess, тому що це поєднання live/light/libre і chess (шахів). Lishogi вимовляється як %1$s.</string>
+	<string name="leeshogi">лі-шьоґі</string>
 	<string name="whyLiveLightLibre">Живі, тому що ігри грають і спостерігають в режимі реального часу 24/7; легкі і вільні через той факт, що Lishogi має відкритий вихідний код і не нагромаджений мотлохом, який пропагує інші веб-сайти.</string>
-	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
-	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
-	<string name="beingAPatron">Become a Patron.</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="whyIsLilaCalledLila">Аналогічно, вихідний код Lishogi, %1$s, означає li[shogi in sca]la, тому що основа Lishogi написана на %2$s, інтуїтивно зрозумілій мові програмування.</string>
+	<string name="howCanIContributeToLishogi">Як я можу зробити внесок у Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi існує завдяки внескам покровителів та зусиллям команди волонтерів.</string>
+	<string name="beingAPatron">Підтримати проєкт.</string>
+	<string name="otherWaysToContribute">Ось багато інших способів, які Ви можете зробити свій внесок у Lishogi.</string>
 	<string name="breakdownOfOurCosts">звіт про витрати</string>
 	<string name="otherWaysToHelp">інші способи допомогти</string>
 	<string name="fairPlay">Чесна гра</string>
@@ -24,17 +24,17 @@
 	<string name="leavingGameWithoutResigningExplanation">Якщо ваш суперник часто відхиляє/залишає гру, вони отримають \"блокування ігор\", що означає, що їм заборонено брати участь в іграх. Про це не зазначено публічно у обліковому записі. Якщо така поведінка продовжиться, тривалість заборони збільшиться, а тривала поведінка такого роду може призвести до закриття облікового запису.</string>
 	<string name="howCanIBecomeModerator">Як я можу стати модератором?</string>
 	<string name="youCannotApply">Ми не приймаємо прохання стати модератором. Якщо ми бачимо того, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ними безпосередньо.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
-	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="isCorrespondenceDifferent">Заочні шьоґі відрізняються від звичайних?</string>
+	<string name="youCanUseOpeningBookNoEngine">На Lishogi головна відмінність правил для заочних шьоґі полягає в тому, що дозволена книга дебютів. Використання комп\'ютерних движків заборонено і призведе до негайного покарання за користування ними. Хоча ICCF дозволяє використовувати движки у заочних іграх, на Lishogi цього робити не можна.</string>
 	<string name="gameplay">Ігровий процес</string>
 	<string name="howBulletBlitzEtcDecided">Як визначається контроль часу Куля, Бліц та інший?</string>
 	<string name="basedOnGameDuration">Параметр часу Lishogi базується на розрахунковій тривалості гри = %1$s
 Наприклад, приблизна тривалість гри 5+3 становить 5 × 60 + 40 × 3 = 420 секунд.</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 × (основний час у хв) + 60 × (приріст годиннику) + 25 × (бьойомі - час на хід) × (періоди)</string>
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
 	<string name="whatVariantsCanIplay">В які варіанти я можу грати на Lishogi?</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi підтримує класичну версію шьоґі та %1$s.</string>
 	<string name="whatIsACPL">Чому дорівнює середній збиток сантипішаків(ACPL)?</string>
 	<string name="acplExplanation">Сантипішак - це одиниця міри, яка використовується в шахах як представлення переваги. Сантипішак дорівнює 1/100-му від пішака. В цьому випадку, 100 сантипішаків = 1 пішак. Ці значення не відіграють формальної ролі в грі, але корисні для гравців і необхідні для оцінювання позицій комп\'ютером.
 
@@ -46,15 +46,15 @@
 	<string name="insufficientMaterial">Програш по часу, нічия та недостатнього матеріалу</string>
 	<string name="goodIntroduction">хороше введення</string>
 	<string name="officialRulesPDF">офіційні правила (PDF)</string>
-	<string name="lishogiTraining">Lishogi training</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="lishogiTraining">Lishogi тренування</string>
+	<string name="fourfoldRepetition">Чотирикратний повтор</string>
 	<string name="handBookPDF">довідник (PDF)</string>
 	<string name="notRepeatedMoves">Ми не повторювали рухів. Чому гра все одно закінчилась повторенням?</string>
 	<string name="repeatedPositionsThatMatters">Потрійне повторення стосується повторення %1$s, а не кроків. Повторення не обов\'язково має відбуватися послідовно.</string>
 	<string name="positions">позиції</string>
 	<string name="configure">налаштування</string>
 	<string name="accounts">Облікові записи</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="titlesAvailableOnLishogi">Які титули використовуються на Lishogi?</string>
 	<string name="showYourTitle">Якщо у вас є титул OTB, ви можете подати заявку на відображення у вашому обліковому запису заповнивши %1$s, включаючи чітке зображення документа/картки та селфі з вашим документом/карткою, що ідентифікує його.
 
 Визнання Вас як титульного гравця на Lishogi дає доступ до гри в подіях Титульованої Арени.
@@ -74,15 +74,15 @@
 	<string name="uniqueTrophies">Унікальні нагороди</string>
 	<string name="ownerUniqueTrophies">Ці трофеї унікальні за всю історію Lishogi, ніхто крім %1$s ними не зможе заволодіти.</string>
 	<string name="aHourlyBulletTournament">щогодинний турнір з кулі</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+	<string name="lishogiRatings">Рейтинг Lishogi</string>
+	<string name="whichRatingSystemUsedByLishogi">Яку рейтингову систему використовує Lishogi?</string>
+	<string name="ratingSystemUsedByLishogi">Рейтинг розраховується з використанням методу Glicko-2, розробленого Марком Глікманом. Це дуже популярний метод рейтингу і використовується значною кількістю шахових організацій (FIDE є відомим виключенням, оскільки вони досі користуються рейтинговою системою Elo).
 
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+Фундаментально, рейтинги Glicko використовують \"інтервали довіри\" при розрахунку та відображенні рейтингу. Коли Ви вперше розпочинаєте користуватися сайтом, Ваш рейтинг починається з 1500 ± 700. 1500 позначає ваш рейтинг, а 700 означає інтервал довіри.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+В основному, система на 90% впевнена, що ваш рейтинг коливається в межах від 800 до 2200. Це дуже невизначено. Через це, коли гравець тільки починає, його рейтинг стрімко змінюється, потенційно на кілька сотень очків за раз. Але після певної кількості ігор проти встановлених гравців, інтервал довіри буде звужуватись, а кількість отриманих/втрачених очків після кожної гри -зменшуватись.
 
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+Слід відмітити, що з плином часу інтервал довіри зростає. Це дозволяє набрати/втратити бали швидше, щоб співпадати з будь-якими змінами Вашого рівня навички протягом цього часу.</string>
 	<string name="whatIsProvisionalRating">Чому поруч із рейтингом є знак питання?</string>
 	<string name="provisionalRatingExplanation">Знак питання означає, що рейтинг є умовним. Причини:</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">Гравець ще не закінчив достатньо рейтингових ігор проти %1$s в категорії рейтингу.</string>
@@ -94,7 +94,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">таблиця рейтингу лідерів</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">зіграти не менше 30 рейтингових ігор в певний варіант,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">зіграти рейтингову гру за останній тиждень в цей варіант,</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">мати відхилення рейтингу нижче, ніж %1$s у стандартних шьоґі та нижче, ніж %2$s у варіантах,</string>
 	<string name="beInTopTen">бути в топ-10 у даному списку.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другою вимогою є те, щоб гравці, які більше не користувалися своїми обліковими записами, припинили населяти таблицю лідерів.</string>
 	<string name="whyAreRatingHigher">Чому рейтинги вищі порівняно з іншими сайтами та організаціями, такими як FIDE, USCF та ICC?</string>
@@ -109,9 +109,9 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="howToThreeDots">Дізнайтесь як...</string>
 	<string name="enableDisableNotificationPopUps">Увімкнути або вимкнути спливаючі сповіщення?</string>
 	<string name="viewSiteInformationPopUp">Перегляд спливаючого вікна інформації про сайт</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi може за бажанням показувати спливаючі сповіщення, наприклад, коли прийшла черга зробити хід або ви отримали приватне повідомлення.
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+Натисніть на значок блокування поруч з адресою lishogi.org в адресному рядку вашого браузера.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+Потім виберіть, чи слід дозволяти сповіщення з Lishogi.</string>
 </resources>

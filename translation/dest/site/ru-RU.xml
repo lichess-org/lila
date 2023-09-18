@@ -14,21 +14,21 @@
 	<string name="toggleTheChat">Показывать окно чата</string>
 	<string name="toggleSound">Вкл/выкл звук</string>
 	<string name="chat">Отправить сообщение</string>
-	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Страница</string>
 	<string name="resign">Сдаться</string>
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
 	<string name="impasse">Тупик</string>
-	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">4-й повтор позиции</string>
 	<string name="perpetualCheck">Вечный шах</string>
 	<string name="royalsLost" comment="Used in chushogi">Главные фигуры утеряны</string>
 	<string name="bareKing" comment="Used in chushogi">Голый король</string>
-	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
-	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
-	<string name="xWon" comment="Example: Player won!">%s won!</string>
-	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
-	<string name="gameWasDraw">Game was a draw!</string>
-	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s сыграл %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s играет %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s выиграл!</string>
+	<string name="xLost" comment="Example: Player lost!">%s проиграл!</string>
+	<string name="gameWasDraw">Это была ничья!</string>
+	<string name="winnerIsNotYetDecided">Вопрос, кто победит, открыт.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Готэ</string>
 	<string name="white" comment="Alternative to gote">Белые</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Сэнтэ</string>
@@ -37,8 +37,8 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Уватэ</string>
 	<string name="randomColor" comment="Side - sente/gote">Случайный цвет</string>
 	<string name="createAGame">Создать игру</string>
-	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
-	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">Победа %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Вы играете как %s</string>
 	<string name="itsYourTurn">Ваш ход!</string>
 	<string name="cheatDetected">Обнаружено жульничество</string>
 	<string name="variantEnding">Партия окончена</string>
@@ -58,9 +58,9 @@
 	<string name="forceDraw">Объявить ничью</string>
 	<string name="talkInChat">Будьте вежливы в чате!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
-	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
-	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s сдались</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s вышли из игры</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s не сделали ход</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Пригласите зрителей с помощью этой ссылки</string>
 	<string name="theComputerAnalysisHasFailed">Произошёл сбой</string>
 	<string name="viewTheComputerAnalysis">Просмотреть компьютерный анализ</string>
@@ -68,12 +68,12 @@
 	<string name="computerAnalysis">Компьютерный анализ</string>
 	<string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
 	<string name="analysis">Анализировать партию</string>
-	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
+	<string name="analysisDescription">Изучение позиций и вариантов сёги на интерактивной доске</string>
 	<string name="depthX">Глубина %s</string>
 	<string name="usingServerAnalysis">Используется серверный анализ</string>
 	<string name="loadingEngine">Загрузка движка...</string>
 	<string name="cloudAnalysis">Облачный анализ</string>
-	<string name="localAnalysis">Local analysis</string>
+	<string name="localAnalysis">Локальный анализ</string>
 	<string name="goDeeper" comment="Engine depth">Анализировать глубже</string>
 	<string name="showThreat">Показать ответную угрозу</string>
 	<string name="inLocalBrowser">в браузере</string>
@@ -84,10 +84,10 @@
 	<string name="forceVariation">Сделать вариант главным</string>
 	<string name="move">Ход</string>
 	<plurals name="nbMoves">
-		<item quantity="one">%s move</item>
-		<item quantity="few">%s moves</item>
-		<item quantity="many">%s Ходов</item>
-		<item quantity="other">%s moves</item>
+		<item quantity="one">%s ход</item>
+		<item quantity="few">%s хода</item>
+		<item quantity="many">%s ходов</item>
+		<item quantity="other">%s ходов</item>
 	</plurals>
 	<string name="variantLoss">Проигрышный ход</string>
 	<string name="variantWin">Победный ход</string>
@@ -162,7 +162,7 @@
 	<string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>
 	<string name="games">Игры</string>
 	<string name="forum">Форум</string>
-	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
+	<string name="forumDescription">Обсуждения сёги и обратная связь о разработке Lishogi</string>
 	<string name="xPostedInForumY">%1$s написал сообщение в теме %2$s</string>
 	<string name="latestForumPosts">Последние сообщения на форуме</string>
 	<string name="players">Игроки</string>
@@ -203,7 +203,7 @@
 	<string name="changeEmail">Сменить адрес электронной почты</string>
 	<string name="email">Электронная почта</string>
 	<string name="passwordReset">Сброс пароля</string>
-	<string name="loginByEmail">Log in by email</string>
+	<string name="loginByEmail">Войти по эл. почте</string>
 	<string name="forgotPassword">Забыли пароль?</string>
 	<string name="rank">Ранг</string>
 	<string name="rankX">Место: %s</string>
@@ -246,13 +246,13 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Классические сёги</string>
 	<string name="minishogi">Минисёги</string>
 	<string name="chushogi">Чу Сёги</string>
-	<string name="annanshogi">Annan shogi</string>
-	<string name="kyotoshogi">Kyoto shogi</string>
-	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standard rules of shogi</string>
-	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Same rules as standard shogi, but played on a smaller 5x5 board</string>
-	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">The most popular historical variant of shogi played on a 12x12 board</string>
-	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Modern variant of shogi with alternating unique promotions on a 5x5 board</string>
-	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variant similar to standard shogi, where pieces move like friendly pieces behind them</string>
+	<string name="annanshogi">Аннан Сёги</string>
+	<string name="kyotoshogi">Киото Сёги</string>
+	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Стандартные правила сёги</string>
+	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Правила, как в обычных сёги, но в миниатюре, на доске 5x5</string>
+	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Наиболее известный исторический вариант сёги на доске 12x12</string>
+	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Современный вариант сёги на доске 5х5; сделав ход, фигура мутирует</string>
+	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Близкий к обычным сёги вариант, где фигуры ходят, как свои сзади их</string>
 	<string name="unlimited">Отсутствует</string>
 	<string name="mode">Режим</string>
 	<string name="casual">Товарищеская</string>
@@ -272,7 +272,7 @@
 	<string name="play">Игра</string>
 	<string name="inbox">Входящие</string>
 	<string name="streamerManager">Менеджер стримеров</string>
-	<string name="coachManager">Coach manager</string>
+	<string name="coachManager">Для тренеров</string>
 	<string name="chatRoom">Чат</string>
 	<string name="loginToChat">Войдите, чтобы общаться в чате</string>
 	<string name="youHaveBeenTimedOut">Чат временно недоступен для вас.</string>
@@ -337,7 +337,7 @@
 	<string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
 	<string name="bookmarkThisGame">Отметить эту игру</string>
 	<string name="tournament">Турнир</string>
-	<string name="tournamentLeaderboard">Tournament leaderboard</string>
+	<string name="tournamentLeaderboard">Турнирная таблица</string>
 	<string name="tournaments">Турниры</string>
 	<string name="tournamentPoints">Турнирные очки</string>
 	<plurals name="nbTournamentPoints">
@@ -401,9 +401,9 @@
 	<string name="apply">Сохранить</string>
 	<string name="save">Сохранить</string>
 	<string name="leaderboard">Лучшие игроки</string>
-	<string name="leaderboards">Leaderboards</string>
-	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
-	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
+	<string name="leaderboards">Таблицы лидеров</string>
+	<string name="bestPlayersInVariousCategories">Лучшие игроки в разных категориях</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Топ %1$s лучших игроков в %2$s, распределённых по рейтингу</string>
 	<string name="selectHandicap">Выберите фору</string>
 	<string name="pasteTheSfenStringHere">Вставьте текст SFEN сюда</string>
 	<string name="pasteTheKifCsaStringHere">Вставьте текст KIF или CSA здесь</string>
@@ -412,7 +412,7 @@
 	<string name="continueFromHere">Продолжить с этой позиции</string>
 	<string name="toStudy">Студия</string>
 	<string name="importGame">Импортировать игру</string>
-	<string name="importedGame">Game was imported.</string>
+	<string name="importedGame">Игра импортирована.</string>
 	<string name="importGameKifCsaExplanation">Вставьте KIF или CSA игры, что бы получить просматриваемый повтор, анализ компьютера, игровой чат и рабочий URL адрес.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s импортированная</item>
@@ -424,7 +424,7 @@
 	<string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек, а не компьютер. (Всем известно, что компьютеры не умеют играть в сёги!).</string>
 	<string name="captcha.fail">Пожалуйста, решите капчу.</string>
 	<string name="notACheckmate">Это не мат</string>
-	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s ставят мат в один ход</string>
 	<string name="retry">Повторить</string>
 	<string name="reconnecting">Переподключение</string>
 	<plurals name="nbFriendsOnline">
@@ -486,7 +486,7 @@
 	<string name="showAdvancedSettings">Показать дополнительные настройки</string>
 	<string name="makePrivateTournament">Сделать турнир закрытым и ограничить доступ паролем</string>
 	<string name="join">Участвовать</string>
-	<string name="pause">Pause</string>
+	<string name="pause">Пауза</string>
 	<string name="withdraw">Покинуть</string>
 	<string name="points">Очки</string>
 	<string name="wins">Победы</string>
@@ -502,26 +502,26 @@
 	<string name="performance">Перфоманс</string>
 	<string name="tournamentComplete">Турнир завершён</string>
 	<string name="movesPlayed">Сделано ходов</string>
-	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">Побед за %s</string>
 	<string name="draws">Ничьих</string>
 	<string name="nextXTournament">Следующий турнир по %s:</string>
 	<string name="averageOpponent">Средний рейтинг соперников</string>
 	<string name="membersOnly">Только для зарегистрированных</string>
 	<string name="boardEditor">Редактор доски</string>
-	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
+	<string name="editorDescription">Загрузите позицию в сёги или создайте свою в редакторе доски</string>
 	<string name="setTheBoard">Установить позицию</string>
 	<string name="popularOpenings">Популярные дебюты</string>
 	<string name="handicaps">Фора</string>
 	<string name="handicap">Фора</string>
 	<string name="startPosition">Начальная позиция</string>
 	<string name="clearBoard">Очистить доску</string>
-	<string name="fillXHand">Fill hand of %s</string>
+	<string name="fillXHand">Заполнить руку %s</string>
 	<string name="savePosition">Сохранить позицию</string>
 	<string name="loadPosition">Загрузить позицию</string>
 	<string name="isPrivate">Закрытый</string>
 	<string name="reportXToModerators">Сообщить о %s модераторам</string>
 	<string name="profileCompletion">Профиль заполнен на %s</string>
-	<string name="thisIsProfilePage">This is your profile page.</string>
+	<string name="thisIsProfilePage">Это ваша страница профиля.</string>
 	<string name="xRating">Рейтинг %s</string>
 	<string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
 	<string name="gameCompletionRate">Завершённых игр: %s</string>
@@ -534,10 +534,10 @@
 	<string name="socialMediaLinks">Ссылки на соцсети</string>
 	<string name="inlineNotation">Строчная нотация</string>
 	<string name="watchLishogiTV">Смотреть Lishogi TV</string>
-	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Сядьте, расслабьтесь и любуйтесь партиями топов Lishogi на Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Ранее на Lishogi TV</string>
 	<string name="onlinePlayers">Игроки в сети</string>
-	<string name="onlineBots">Online bots</string>
+	<string name="onlineBots">Боты в сети</string>
 	<string name="activeToday">Активные сегодня</string>
 	<string name="activePlayers">Активные игроки</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Внимание, это рейтинговая игра, хотя и без ограничения по времени!</string>
@@ -572,7 +572,7 @@
 	<string name="yes">Да</string>
 	<string name="help">Помощь:</string>
 	<string name="createANewTopic">Создать новую тему</string>
-	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Темы ваших клубов</string>
 	<string name="topics">Темы</string>
 	<string name="posts">Сообщения</string>
 	<string name="lastPost">Последнее сообщение</string>
@@ -599,8 +599,8 @@
 	<string name="questionsAndAnswers">Вопросы и ответы</string>
 	<string name="notes">Заметки</string>
 	<string name="typePrivateNotesHere">Здесь вы можете оставить личные заметки об игре</string>
-	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
-	<string name="noNoteYet">No note yet</string>
+	<string name="writeAPrivateNoteAboutThisUser">Оставьте личную заметку об этом игроке</string>
+	<string name="noNoteYet">Заметок нет</string>
 	<string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
 	<string name="incorrectPassword">Неверный пароль</string>
 	<string name="invalidAuthenticationCode">Неверный код аутентификации</string>
@@ -620,7 +620,7 @@
 	<string name="fast">Быстро</string>
 	<string name="normal">Нормальная</string>
 	<string name="slow">Медленно</string>
-	<string name="compact">Compact</string>
+	<string name="compact">Компактная</string>
 	<string name="insideTheBoard">Внутри доски</string>
 	<string name="outsideTheBoard">Вне доски</string>
 	<string name="edgeOfTheBoard">Край доски</string>
@@ -658,7 +658,7 @@
 	</plurals>
 	<string name="listBlockedPlayers">Список игроков, которых вы заблокировали</string>
 	<string name="human">Человек</string>
-	<string name="bots">Bots</string>
+	<string name="bots">Боты</string>
 	<string name="computer">Компьютер</string>
 	<string name="side">Сторона</string>
 	<string name="clock">Часы</string>
@@ -734,12 +734,12 @@
 	<string name="numberOfByoyomiPeriods">Количество периодов бёёми</string>
 	<string name="hostColorForEachGame">Цвет в каждой игре</string>
 	<string name="onlyMembersOfTeam">Только для участников</string>
-	<string name="noRestriction">No Restriction</string>
-	<string name="estimatedStart">Estimated start time</string>
+	<string name="noRestriction">Без ограничений</string>
+	<string name="estimatedStart">Предполагаемое время начала</string>
 	<string name="simulDescription">Описание сеанса</string>
 	<string name="anythingTellParticipants">Хотите что-нибудь сказать участникам?</string>
 	<string name="lishogiTournaments">Турниры Lishogi</string>
-	<string name="tournamentShields">Tournament shields</string>
+	<string name="tournamentShields">Щиты турниров</string>
 	<string name="tournamentFAQ">Вопросы и ответы про Арену</string>
 	<string name="tournamentOfficial">Официальный</string>
 	<string name="timeBeforeTournamentStarts">Время до начала турнира</string>
@@ -798,10 +798,10 @@
 	<string name="security">Безопасность</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
 	<string name="alternativelyYouCanX">Также вы можете %s.</string>
-	<string name="sessions">Sessions</string>
+	<string name="sessions">Сессии</string>
 	<string name="revokeAllSessions">закрыть все сессии</string>
 	<string name="playShogiEverywhere">Играйте в сёги везде</string>
-	<string name="features">Features</string>
+	<string name="features">Возможности</string>
 	<string name="asFreeAsLishogi">Бесплатен, как Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">С любовью к сёги, а не деньгам</string>
 	<string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
@@ -809,7 +809,7 @@
 	<string name="fullFeatured">Максимальная функциональность</string>
 	<string name="phoneAndTablet">На телефоне и планшете</string>
 	<string name="bulletBlitzClassical">Блиц, Рапид, Классика</string>
-	<string name="correspondenceShogi">Correspondence shogi</string>
+	<string name="correspondenceShogi">Сёги по переписке</string>
 	<string name="onlineAndOfflinePlay">Игра онлайн и офлайн</string>
 	<string name="viewTheSolution">Посмотреть решение</string>
 	<string name="followAndChallengeFriends">Подписки и игра с друзьями</string>
@@ -854,7 +854,7 @@
 	<string name="usernameCharsInvalid">Имя пользователя должно состоять только из букв, цифр, подчёркиваний и дефисов.</string>
 	<string name="usernameUnacceptable">Это имя пользователя уже занято или недопустимо.</string>
 	<string name="directlySupportLishogi">Поддержать Lishogi</string>
-	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="playShogiInStyle">В стиле сёги</string>
 	<string name="shogiBasics">Основы сёги</string>
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
@@ -886,7 +886,7 @@
 	<string name="hideBestMove">Скрыть лучший ход</string>
 	<string name="getAHint">Взять подсказку</string>
 	<string name="evaluatingYourMove">Оценка вашего хода...</string>
-	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s выиграли</string>
 	<string name="learnFromYourMistakes">Разобрать свои ошибки</string>
 	<string name="learnFromThisMistake">Разобрать эту ошибку</string>
 	<string name="skipThisMove">Пропустить этот ход</string>
@@ -895,13 +895,13 @@
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Найдите лучший ход за %s</string>
 	<string name="resumeLearning">Вернуться к обучению</string>
 	<string name="youCanDoBetter">Есть более сильный ход</string>
-	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Попробуйте другой ход за %s</string>
 	<string name="solution">Ответ</string>
 	<string name="waitingForAnalysis">Ожидание получения анализа</string>
-	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">Ошибок %s не найдено</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Ошибки %s разобраны</string>
 	<string name="doItAgain">Выполнить ещё раз</string>
-	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Разобрать ошибки %s</string>
 	<string name="advantage">Преимущество</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s секунда</item>
@@ -949,7 +949,7 @@
 	<string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
 	<string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
 	<string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lishogi.</string>
-	<string name="agreeWithX">I agree with: %s</string>
+	<string name="agreeWithX">Я соглашусь с: %s</string>
 	<string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
 	<string name="edit">Изменить</string>
 	<string name="rapid">Рапид</string>
@@ -992,24 +992,24 @@
 	<string name="studyWith">Изучать с:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Необязательно</string>
 	<string name="standardStudy">Стандартная студия</string>
-	<string name="welcomeToX">Welcome to %s!</string>
-	<string name="whatNow">What now?</string>
-	<string name="hereAreSuggestions">Here are a few suggestions:</string>
-	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
-	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
-	<string name="or" comment="links alternatives: Do X or do Y">or</string>
-	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
-	<string name="challengeDeclined">Challenge declined</string>
-	<string name="challengeAccepted">Challenge accepted</string>
-	<string name="challengeCanceled">Challenge canceled</string>
-	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
-	<string name="challengeDescription">Join the challenge or watch the game</string>
-	<string name="challengeFromX" comment="From username">Challenge from %s</string>
-	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
-	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
-	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
-	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
-	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
-	<string name="back" comment="As in: go back">Back</string>
-	<string name="preview">Preview</string>
+	<string name="welcomeToX">Добро пожаловать в %s!</string>
+	<string name="whatNow">Что теперь?</string>
+	<string name="hereAreSuggestions">Вот несколько предложений:</string>
+	<string name="hangOn" comment="Meaning: wait!">Подождите!</string>
+	<string name="gameInProgressWithX">У вас идёт игра с %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">или</string>
+	<string name="gameInProgressDescription">Вы не можете начать новую игру, пока не завершена текущая.</string>
+	<string name="challengeDeclined">Вызов отклонён</string>
+	<string name="challengeAccepted">Вызов принят!</string>
+	<string name="challengeCanceled">Вызов отменён</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Открытый вызов</string>
+	<string name="challengeDescription">Примите вызов или наблюдайте игру</string>
+	<string name="challengeFromX" comment="From username">Вызов от %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s бросает вызов %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Нажмите %s для печати</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Нажмите %s для подтверждения</string>
+	<string name="clickGame">Нажмите для воспроизведения, анализа и обсуждения игры!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Изучить</string>
+	<string name="back" comment="As in: go back">Назад</string>
+	<string name="preview">Предпросмотр</string>
 </resources>

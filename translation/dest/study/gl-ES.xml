@@ -1,165 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Private</string>
-  <string name="myStudies">My studies</string>
-  <string name="studiesIContributeTo">Studies I contribute to</string>
-  <string name="myPublicStudies">My public studies</string>
-  <string name="myPrivateStudies">My private studies</string>
-  <string name="myFavoriteStudies">My favourite studies</string>
-  <string name="whatAreStudies">What are studies?</string>
-  <string name="allStudies">All studies</string>
-  <string name="studiesCreatedByX">Studies created by %s</string>
-  <string name="studyByX" comment="By username">A shogi study by %s</string>
-  <string name="noneYet">None yet.</string>
-  <string name="hot">Hot</string>
-  <string name="dateAddedNewest">Date added (newest)</string>
-  <string name="dateAddedOldest">Date added (oldest)</string>
-  <string name="recentlyUpdated">Recently updated</string>
-  <string name="mostPopular">Most popular</string>
-  <string name="addNewChapter">Add a new chapter</string>
+  <string name="private">Privado</string>
+  <string name="myStudies">Os meus estudos</string>
+  <string name="studiesIContributeTo">Estudos nos que contribúo</string>
+  <string name="myPublicStudies">Os meus estudos públicos</string>
+  <string name="myPrivateStudies">Os meus estudos privados</string>
+  <string name="myFavoriteStudies">Os meus estudos favoritos</string>
+  <string name="whatAreStudies">Que son os estudos?</string>
+  <string name="allStudies">Todos os estudos</string>
+  <string name="studiesCreatedByX">Estudos creados por %s</string>
+  <string name="studyByX" comment="By username">Un estudo de shogi de %s</string>
+  <string name="noneYet">Aínda non hai.</string>
+  <string name="hot">Candentes</string>
+  <string name="dateAddedNewest">Data engadida (máis novos)</string>
+  <string name="dateAddedOldest">Data engadida (máis antigos)</string>
+  <string name="recentlyUpdated">Actualizados recentemente</string>
+  <string name="mostPopular">Máis populares</string>
+  <string name="addNewChapter">Engadir un novo capítulo</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s Chapter</item>
-    <item quantity="other">%s Chapters</item>
+    <item quantity="one">%s Capítulo</item>
+    <item quantity="other">%s Capítulos</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Game</item>
-    <item quantity="other">%s Games</item>
+    <item quantity="one">%s Partida</item>
+    <item quantity="other">%s Partidas</item>
   </plurals>
-  <string name="addMembers">Add members</string>
+  <string name="addMembers">Engadir membros</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Member</item>
-    <item quantity="other">%s Members</item>
+    <item quantity="one">%s Membro</item>
+    <item quantity="other">%s Membros</item>
   </plurals>
-  <string name="inviteToTheStudy">Invite to the study</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Please only invite people you know, and who actively want to join this study.</string>
-  <string name="searchByUsername">Search by username</string>
-  <string name="spectator">Spectator</string>
-  <string name="contributor">Contributor</string>
-  <string name="kick">Kick</string>
-  <string name="leaveTheStudy">Leave the study</string>
-  <string name="youAreNowAContributor">You are now a contributor</string>
-  <string name="youAreNowASpectator">You are now a spectator</string>
-  <string name="tags">Tags</string>
-  <string name="like">Like</string>
-  <string name="newTag">New tag</string>
-  <string name="commentThisPosition">Comment on this position</string>
-  <string name="commentThisMove">Comment on this move</string>
-  <string name="annotateWithGlyphs">Annotate with glyphs</string>
-  <string name="theChapterIsTooShortToBeAnalysed">The chapter is too short to be analysed.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
-  <string name="getAFullComputerAnalysis">Get a full server-side computer analysis of the mainline.</string>
-  <string name="makeSureTheChapterIsComplete">Make sure the chapter is complete. You can only request analysis once.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC members remain on the same position</string>
-  <string name="shareChanges">Share changes with spectators and save them on the server</string>
-  <string name="playing">Playing</string>
-  <string name="first">First</string>
-  <string name="previous">Previous</string>
-  <string name="next">Next</string>
-  <string name="last">Last</string>
-  <string name="shareAndExport">Share &amp; export</string>
-  <string name="cloneStudy">Clone</string>
-  <string name="downloadAllGames">Download all games</string>
-  <string name="downloadGame">Download game</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
-  <string name="studyUrl">Study URL</string>
-  <string name="broadcastUrl">Broadcast URL</string>
-  <string name="currentChapterUrl">Current chapter URL</string>
-  <string name="currentGameUrl">Current game URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
-  <string name="startAtInitialPosition">Start at initial position</string>
-  <string name="startAtX">Start at %s</string>
-  <string name="embedInYourWebsite">Embed in your website or blog</string>
-  <string name="readMoreAboutEmbedding">Read more about embedding</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
-  <string name="open">Open</string>
-  <string name="xBroughtToYouByY">%1$s, brought to you by %2$s</string>
-  <string name="studyNotFound">Study not found</string>
-  <string name="editChapter">Edit chapter</string>
-  <string name="newChapter">New chapter</string>
-  <string name="orientation">Orientation</string>
-  <string name="analysisMode">Analysis mode</string>
-  <string name="pinnedChapterComment">Pinned chapter comment</string>
-  <string name="saveChapter">Save chapter</string>
-  <string name="clearAnnotations">Clear annotations</string>
-  <string name="deleteChapter">Delete chapter</string>
-  <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
-  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>
-  <string name="rightUnderTheBoard">Right under the board</string>
-  <string name="noPinnedComment">None</string>
-  <string name="normalAnalysis">Normal analysis</string>
-  <string name="hideNextMoves">Hide next moves</string>
-  <string name="interactiveLesson">Interactive lesson</string>
-  <string name="chapterX">Chapter %s</string>
-  <string name="empty">Empty</string>
-  <string name="startFromInitialPosition">Start from initial position</string>
+  <string name="inviteToTheStudy">Invitar ao estudo</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convida só a persoas que coñezas e que desexen activamente unirse a este estudo.</string>
+  <string name="searchByUsername">Buscar por nome de usuario</string>
+  <string name="spectator">Espectador</string>
+  <string name="contributor">Colaborador</string>
+  <string name="kick">Expulsar</string>
+  <string name="leaveTheStudy">Deixar o estudo</string>
+  <string name="youAreNowAContributor">Agora es un colaborador</string>
+  <string name="youAreNowASpectator">Agora es un espectador</string>
+  <string name="tags">Etiquetas</string>
+  <string name="like">Gústame</string>
+  <string name="newTag">Nova etiqueta</string>
+  <string name="commentThisPosition">Comentar nesta posición</string>
+  <string name="commentThisMove">Comentar este movemento</string>
+  <string name="annotateWithGlyphs">Anotar con símbolos</string>
+  <string name="theChapterIsTooShortToBeAnalysed">O capítulo é demasiado curto para analizalo.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Só os colaboradores do estudo poden solicitar unha análise por ordenador.</string>
+  <string name="getAFullComputerAnalysis">Obtén unha análise completa da liña principal dende o servidor.</string>
+  <string name="makeSureTheChapterIsComplete">Asegúrate de que o capítulo está completo. Só podes solicitar a análise unha vez.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros sincronizados permanecen na mesma posición</string>
+  <string name="shareChanges">Comparte os cambios cos espectadores e gárdaos no servidor</string>
+  <string name="playing">En xogo</string>
+  <string name="first">Primeiro</string>
+  <string name="previous">Anterior</string>
+  <string name="next">Seguinte</string>
+  <string name="last">Último</string>
+  <string name="shareAndExport">Compartir e exportar</string>
+  <string name="cloneStudy">Clonar</string>
+  <string name="downloadAllGames">Descargar todas as partidas</string>
+  <string name="downloadGame">Descargar a partida</string>
+  <string name="studyKif">KIF do estudo</string>
+  <string name="chapterKif">KIF do capítulo</string>
+  <string name="chapterCsa">CSA do capítulo</string>
+  <string name="studyUrl">URL do estudo</string>
+  <string name="broadcastUrl">Ligazón da transmisión</string>
+  <string name="currentChapterUrl">Ligazón do capítulo actual</string>
+  <string name="currentGameUrl">Ligazón da partida actual</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar isto no foro incrustalo</string>
+  <string name="startAtInitialPosition">Comezar desde a posición inicial do estudo</string>
+  <string name="startAtX">Comezar en %s</string>
+  <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
+  <string name="readMoreAboutEmbedding">Ler máis sobre como inserir contido</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Só se poden inserir estudos públicos!</string>
+  <string name="open">Abrir</string>
+  <string name="xBroughtToYouByY">%1$s traído para ti por %2$s</string>
+  <string name="studyNotFound">Estudo non atopado</string>
+  <string name="editChapter">Editar o capítulo</string>
+  <string name="newChapter">Novo capítulo</string>
+  <string name="orientation">Orientación</string>
+  <string name="analysisMode">Modo de análise</string>
+  <string name="pinnedChapterComment">Comentario fixado do capítulo</string>
+  <string name="saveChapter">Gardar o capítulo</string>
+  <string name="clearAnnotations">Borrar as anotacións</string>
+  <string name="deleteChapter">Borrar o capítulo</string>
+  <string name="deleteThisChapter">Borrar o capítulo? Isto non se pode desfacer!</string>
+  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo</string>
+  <string name="rightUnderTheBoard">Xusto debaixo do taboleiro</string>
+  <string name="noPinnedComment">Ningún</string>
+  <string name="normalAnalysis">Análise normal</string>
+  <string name="hideNextMoves">Ocultar os seguintes movementos</string>
+  <string name="interactiveLesson">Lección interactiva</string>
+  <string name="chapterX">Capítulo %s</string>
+  <string name="empty">Baleiro</string>
+  <string name="startFromInitialPosition">Comezar desde a posición inicial</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Start from custom position</string>
-  <string name="loadAGameByUrl">Load games by URLs</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
-  <string name="automatic">Automatic</string>
-  <string name="urlOfTheGame">URL of the games, one per line</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
-  <string name="createChapter">Create chapter</string>
-  <string name="configureLiveBroadcast">Configure live broadcast</string>
-  <string name="createStudy">Create study</string>
-  <string name="editStudy">Edit study</string>
-  <string name="visibility">Visibility</string>
-  <string name="public">Public</string>
-  <string name="unlisted">Unlisted</string>
-  <string name="inviteOnly">Invite only</string>
-  <string name="allowCloning">Allow cloning</string>
-  <string name="nobody">Nobody</string>
-  <string name="onlyMe">Only me</string>
-  <string name="contributors">Contributors</string>
-  <string name="members">Members</string>
-  <string name="everyone">Everyone</string>
-  <string name="enableSync">Enable sync</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Yes: keep everyone on the same position</string>
-  <string name="noLetPeopleBrowseFreely">No: let people browse freely</string>
-  <string name="pinnedStudyComment">Pinned study comment</string>
-  <string name="start">Start</string>
-  <string name="save">Save</string>
-  <string name="clearChat">Clear chat</string>
-  <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
-  <string name="deleteStudy">Delete study</string>
-  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
-  <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
-  <string name="studyTopics">Study topics</string>
-  <string name="topicsDescription">Topics to organize your studies with</string>
-  <string name="myTopics">My topics</string>
-  <string name="popularTopics">Popular topics</string>
-  <string name="manageTopics">Manage topics</string>
-  <string name="startTag" comment="Tags for kif and csa">Start</string>
-  <string name="endTag" comment="Tags for kif and csa">End</string>
-  <string name="siteTag" comment="Tags for kif and csa">Site</string>
-  <string name="eventTag" comment="Tags for kif and csa">Event</string>
-  <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
-  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
-  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s title</string>
-  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s team</string>
-  <string name="openingTag" comment="Tags for kif and csa">Opening</string>
-  <string name="resultTag" comment="Tags for kif and csa">Result</string>
-  <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
-  <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
-  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Date of publication</string>
-  <string name="composerTag" comment="Tags for kif and csa">Composer</string>
-  <string name="publicationTag" comment="Tags for kif and csa">Publication</string>
-  <string name="collectionTag" comment="Tags for kif and csa">Collection</string>
-  <string name="lengthTag" comment="Tags for kif and csa">Length</string>
-  <string name="prizeTag" comment="Tags for kif and csa">Prize</string>
-  <string name="initHelp" comment="Interactive study lesson">Help the player find the initial move, with a comment.</string>
-  <string name="introGamebook" comment="Interactive study lesson">Introduce the gamebook with a comment</string>
-  <string name="putFirstMove" comment="Interactive study lesson">Put the opponent\'s first move on the board.</string>
-  <string name="explainMove" comment="Interactive study lesson">Explain the opponent move, and help the player find the next move, with a comment.</string>
-  <string name="reflectOnMove" comment="Interactive study lesson">You may reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.</string>
-  <string name="variationMoves" comment="Interactive study lesson">Add variation moves to explain why specific other moves are wrong.</string>
-  <string name="explainWrongMove" comment="Interactive study lesson">Explain why this move is wrong in a comment</string>
-  <string name="orPromote" comment="Interactive study lesson">Or promote it as the mainline if it is the right move.</string>
-  <string name="otherMove" comment="Interactive study lesson">When any other wrong move is played:</string>
-  <string name="explainAllWrong" comment="Interactive study lesson">Explain why all other moves are wrong</string>
-  <string name="hintOnDemand" comment="Interactive study lesson">Optional, on-demand hint for the player:</string>
-  <string name="playerTip" comment="Interactive study lesson">Give the player a tip so they can find the right move</string>
-  <string name="playQuestion" comment="Interactive study lesson">What would you play in this position?</string>
+  <string name="startFromCustomPosition">Comezar dende unha posición personalizada</string>
+  <string name="loadAGameByUrl">Cargar as partidas dende unha URL</string>
+  <string name="loadAPositionFromSfen">Cargar unha posición dende o SFEN</string>
+  <string name="automatic">Automática</string>
+  <string name="urlOfTheGame">Ligazóns das partidas, unha por liña</string>
+  <string name="loadAGameFromX">Cargar partidas dende %1$s</string>
+  <string name="createChapter">Crear capítulo</string>
+  <string name="configureLiveBroadcast">Configurar a emisión en directo</string>
+  <string name="createStudy">Crear estudo</string>
+  <string name="editStudy">Editar estudo</string>
+  <string name="visibility">Visibilidade</string>
+  <string name="public">Público</string>
+  <string name="unlisted">Sen listar</string>
+  <string name="inviteOnly">Acceso só mediante invitación</string>
+  <string name="allowCloning">Permitir clonado</string>
+  <string name="nobody">Ninguén</string>
+  <string name="onlyMe">Só eu</string>
+  <string name="contributors">Colaboradores</string>
+  <string name="members">Membros</string>
+  <string name="everyone">Todo o mundo</string>
+  <string name="enableSync">Activar a sincronización</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Si: todos permanecen na mesma posición</string>
+  <string name="noLetPeopleBrowseFreely">Non: permitir que a xente navegue libremente</string>
+  <string name="pinnedStudyComment">Comentario fixado do estudo</string>
+  <string name="start">Comezar</string>
+  <string name="save">Gardar</string>
+  <string name="clearChat">Borrar a sala de conversa</string>
+  <string name="deleteTheStudyChatHistory">Borrar o historial da sala de conversa? Esta acción non se pode desfacer!</string>
+  <string name="deleteStudy">Borrar estudo</string>
+  <string name="deleteTheEntireStudy">Borrar todo o estudo? Non se poderá recuperar!</string>
+  <string name="whereDoYouWantToStudyThat">Onde queres estudar isto?</string>
+  <string name="studyTopics">Temas de estudo</string>
+  <string name="topicsDescription">Temas para organizar os teus estudos</string>
+  <string name="myTopics">Os meus temas</string>
+  <string name="popularTopics">Temas populares</string>
+  <string name="manageTopics">Administrar temas</string>
+  <string name="startTag" comment="Tags for kif and csa">Comezo</string>
+  <string name="endTag" comment="Tags for kif and csa">Fin</string>
+  <string name="siteTag" comment="Tags for kif and csa">Lugar</string>
+  <string name="eventTag" comment="Tags for kif and csa">Evento</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">Control de tempo</string>
+  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">Elo de %s</string>
+  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">Título de %s</string>
+  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">Equipo de %s</string>
+  <string name="openingTag" comment="Tags for kif and csa">Apertura</string>
+  <string name="resultTag" comment="Tags for kif and csa">Resultado</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">Nome do problema</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">Id do problema</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Data de publicación</string>
+  <string name="composerTag" comment="Tags for kif and csa">Compositor</string>
+  <string name="publicationTag" comment="Tags for kif and csa">Publicación</string>
+  <string name="collectionTag" comment="Tags for kif and csa">Colección</string>
+  <string name="lengthTag" comment="Tags for kif and csa">Lonxitude</string>
+  <string name="prizeTag" comment="Tags for kif and csa">Premio</string>
+  <string name="initHelp" comment="Interactive study lesson">Axuda ó xogador a atopar a xogada inicial cun comentario.</string>
+  <string name="introGamebook" comment="Interactive study lesson">Presenta a lección interactiva cun comentario</string>
+  <string name="putFirstMove" comment="Interactive study lesson">Pon o primeiro movemento do opoñente no taboleiro.</string>
+  <string name="explainMove" comment="Interactive study lesson">Explica o movemento do opoñente e axuda ó xogador a atopar a seguinte xogada cun comentario.</string>
+  <string name="reflectOnMove" comment="Interactive study lesson">Se o xogador fixo a xogada correcta, podes engadir un comentario ou deixar en branco e saltar inmediatamente á seguinte xogada.</string>
+  <string name="variationMoves" comment="Interactive study lesson">Engade variantes para explicar por que algunhas xogadas en concreto son malas.</string>
+  <string name="explainWrongMove" comment="Interactive study lesson">Explica cun comentario por que esta xogada é mala</string>
+  <string name="orPromote" comment="Interactive study lesson">Ou convértea na liña principal se é a xogada correcta.</string>
+  <string name="otherMove" comment="Interactive study lesson">Cando se xoga calquera outro movemento incorrecto:</string>
+  <string name="explainAllWrong" comment="Interactive study lesson">Explica por que o resto de xogadas son malas</string>
+  <string name="hintOnDemand" comment="Interactive study lesson">Opcional, pista a petición do xogador:</string>
+  <string name="playerTip" comment="Interactive study lesson">Dálle unha pista ó xogador para que poida atopar a xogada correcta</string>
+  <string name="playQuestion" comment="Interactive study lesson">Que xogarías nesta posición?</string>
 </resources>

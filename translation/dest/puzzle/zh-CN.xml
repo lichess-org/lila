@@ -10,13 +10,13 @@
   <string name="mates">杀王</string>
   <string name="goals">目标</string>
   <string name="origin">来源</string>
-  <string name="specialMoves">特殊战术</string>
-  <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
-  <string name="voteToLoadNextOne">投票以加载下一题</string>
-  <string name="yourPuzzleRatingX">你的解题积分：%s</string>
+  <string name="specialMoves">特殊着法</string>
+  <string name="didYouLikeThisPuzzle">你喜欢这个训练题吗？</string>
+  <string name="voteToLoadNextOne">投票以加载下一题！</string>
+  <string name="yourPuzzleRatingX">本次解题的评分：%s</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">找出%s的最佳着</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
-  <string name="puzzleId">训练题编号%s</string>
+  <string name="puzzleId">%s号训练题目</string>
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
@@ -47,17 +47,17 @@
   <string name="addAnotherTheme">添加新的主题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
   <string name="puzzleDashboard">训练题仪表板</string>
-  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
+  <string name="puzzleDashboardSubtitle">训练，分析，提高</string>
   <string name="improvementAreas">进步范围</string>
-  <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
+  <string name="improvementAreasSubtitle">训练这些主题来提升你的表现！</string>
   <string name="strengths">长处</string>
-  <string name="strengthsSubtitle">You perform the best in these themes</string>
+  <string name="strengthsSubtitle">你最擅长这些主题</string>
   <string name="history">解题历史</string>
   <string name="solved">成功</string>
   <string name="failed">失败</string>
-  <string name="fromMyGames">From my games</string>
-  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
-  <string name="fromXGames">Puzzles from %s\' games</string>
-  <string name="searchPuzzles">Search puzzles</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <string name="fromMyGames">来自于我的对局</string>
+  <string name="lookupOfPlayer">从其他玩家的对局中发掘题目</string>
+  <string name="fromXGames">来自 %s 对局的题目</string>
+  <string name="searchPuzzles">搜索题目</string>
+  <string name="fromXGamesFound">从 %2$s 找到了 %1$s 个题目</string>
 </resources>

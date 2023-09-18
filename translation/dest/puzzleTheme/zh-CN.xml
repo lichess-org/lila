@@ -60,11 +60,11 @@
   <string name="healthyMixDescription">每个主题中选取一些。您不知道会出现什么，因此得时刻打起精神！ 就像在真实游戏中一样。</string>
   <string name="tsume">诘将棋</string>
   <string name="tsumeDescription">将死对手。每步棋必须打将（王手）。</string>
-  <string name="strikingPawn">Striking pawn</string>
+  <string name="strikingPawn">叩步（叩きの歩）</string>
   <string name="strikingPawnDescription">把步兵打入在敌子的正前方以威胁它。</string>
-  <string name="joiningPawn">Joining pawn</string>
+  <string name="joiningPawn">继步（継ぎ歩）</string>
   <string name="joiningPawnDescription">在敌子的正前方弃兵的一种战术。</string>
-  <string name="dancingPawns">Dancing pawns</string>
+  <string name="dancingPawns">舞步（ダンスの歩）</string>
   <string name="dancingPawnsDescription">弃兵捉死金将的一种战术。</string>
   <string name="edgeAttack">端攻</string>
   <string name="edgeAttackDescription">涉及攻击对方一路或九路的战术。</string>

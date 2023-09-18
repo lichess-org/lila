@@ -53,17 +53,17 @@
   <string name="addAnotherTheme">Добавить другую тему</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
   <string name="puzzleDashboard">Панель головоломок</string>
-  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
+  <string name="puzzleDashboardSubtitle">Тренируйтесь, изучайте, улучшайте</string>
   <string name="improvementAreas">Направления улучшения</string>
-  <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
+  <string name="improvementAreasSubtitle">Отточите эти темы, чтобы улучшить свой прогресс!</string>
   <string name="strengths">Сильные стороны</string>
-  <string name="strengthsSubtitle">You perform the best in these themes</string>
+  <string name="strengthsSubtitle">Вы показываете лучшие результаты в этих темах</string>
   <string name="history">История задач</string>
   <string name="solved">решено</string>
   <string name="failed">провалено</string>
-  <string name="fromMyGames">From my games</string>
-  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
-  <string name="fromXGames">Puzzles from %s\' games</string>
-  <string name="searchPuzzles">Search puzzles</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <string name="fromMyGames">Из моих партий</string>
+  <string name="lookupOfPlayer">Искать задачи из партий игрока</string>
+  <string name="fromXGames">Задачи из партий %s</string>
+  <string name="searchPuzzles">Искать задачи</string>
+  <string name="fromXGamesFound">%1$s задач найдено в %2$s партиях</string>
 </resources>
