@@ -2,6 +2,7 @@ package lila.study
 package actorApi
 
 import chess.format.UciPath
+import lila.user.{ Me, MyId }
 
 case class StartStudy(studyId: StudyId)
 case class SaveStudy(study: Study)
@@ -11,6 +12,9 @@ case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, inser
   def chapterId = ch
   val position  = Position.Ref(chapterId, path)
 
-case class Who(u: UserId, sri: lila.socket.Socket.Sri)
+case class Who(u: UserId, sri: lila.socket.Socket.Sri):
+  def myId = u into MyId
 case class RelayToggle(studyId: StudyId, v: Boolean, who: Who)
+case class Kick(studyId: StudyId, userId: UserId, who: MyId)
+case class BecomeStudyAdmin(studyId: StudyId, me: Me)
 case class IsOfficialRelay(studyId: StudyId, promise: Promise[Boolean])

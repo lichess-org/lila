@@ -5,7 +5,7 @@ import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, MyId }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -74,12 +74,12 @@ final private class StudyInvite(
         .void
   yield invited
 
-  def admin(study: Study)(using me: Me): Funit =
+  def becomeAdmin(me: MyId)(study: Study): Funit =
     studyRepo.coll:
       _.update
         .one(
           $id(study.id),
-          $set(s"members.${me.userId}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids" -> me.userId)
+          $set(s"members.${me}" -> $doc("role" -> "w", "admin" -> true)) ++
+            $addToSet("uids" -> me)
         )
         .void
