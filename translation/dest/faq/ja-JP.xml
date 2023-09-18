@@ -49,6 +49,7 @@
   <string name="lichessFollowFIDErules">一方のプレイヤーが時間切れになると、通常は負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順でも相手のキングをメイトできない場合はドローになります（%1$s）。
  まれな場合には自動での判定が難しいことがあります（強制手順、フォートレスの存在など）。Lichess では常に時間を残した方に有利に判定しています。
  一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE ハンドブック</string>
   <string name="fideHandbookX">FIDE ハンドブック %s</string>
   <string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
   <string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
@@ -59,7 +60,7 @@
   <string name="lichessTraining">Lichess のトレーニング機能</string>
   <string name="watchIMRosenCheckmate">IM Eric Rosen が %s をメイトするところをご覧ください。</string>
   <string name="threefoldRepetition">同形三復について</string>
-  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
+  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 項を実装しています。</string>
   <string name="threefoldRepetitionLowerCase">同形三復</string>
   <string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）でドローなのですか？</string>
   <string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="allStudies">ყველა ეტიუდი</string>
+  <string name="spectator">მაყურებელი</string>
+  <string name="kick">განდევნა</string>
+</resources>

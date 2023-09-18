@@ -47,11 +47,10 @@ final class Env(
         api
           .latestPosts(lookInto)
           .map:
-            _.mapWithIndex: (post, i) =>
-              (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
-            .sortBy(_._2)
-              .take(keep)
-              .map(_._1)
+            _.groupBy(_.blog)
+              .flatMap(_._2.headOption)
+          .map(ThreadLocalRandom.shuffle)
+          .map(_.take(keep).toList)
 
   lila.common.Bus.subscribeFun("shadowban"):
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>

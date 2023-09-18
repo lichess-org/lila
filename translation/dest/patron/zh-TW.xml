@@ -6,10 +6,15 @@
   <string name="freeAccount">免費帳戶</string>
   <string name="becomePatron">成為 Lichess 贊助者</string>
   <string name="xBecamePatron">%s 成為了 Lichess 贊助者</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="other">%1$s 已成為 Lichess 贊助者 %2$s 個月</item>
+  </plurals>
   <string name="newPatrons">新贊助者</string>
   <string name="freeChess">給每個人免費的象棋遊玩，永遠！</string>
   <string name="noAdsNoSubs">無廣告、無訂閱；只有開源和熱情。</string>
   <string name="thankYou">感謝您的捐款!</string>
+  <string name="youHaveLifetime">你有了一個終身贊助者帳戶，太棒了！</string>
+  <string name="patronUntil">你的贊助帳戶持續到 %s。</string>
   <string name="lifetime">終身</string>
   <string name="lifetimePatron">終生 Lichess 贊助者</string>
   <string name="monthly">每個月</string>

@@ -94,7 +94,7 @@
   <string name="maxDepthReached">Đã đạt độ sâu tối đa!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openings">Các khai cuộc</string>
-  <string name="openingExplorer">Sách khai cuộc</string>
+  <string name="openingExplorer">Khám phá khai cuộc</string>
   <string name="openingEndgameExplorer">Sách khai cuộc/tàn cuộc</string>
   <string name="xOpeningExplorer">Khám phá khai cuộc %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">Chơi nước đầu tiên của người khám phá khai cuộc/tàn cuộc</string>
@@ -325,9 +325,8 @@
     <item quantity="other">%s nghiên cứu</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">Chủ Trì
-%s
-Sự Kiện Đồng Loạt</item>
+    <item quantity="other">Chủ Trì %s
+Sự Kiện Cờ Đồng Loạt</item>
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
@@ -612,7 +611,7 @@ Sự Kiện Đồng Loạt</item>
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các Streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
-  <string name="webmasters">Các quản trị viên</string>
+  <string name="webmasters">Các nhà phát triển web</string>
   <string name="about">Giới thiệu</string>
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không quảng cáo, mã nguồn mở.</string>
@@ -739,7 +738,7 @@ Sự Kiện Đồng Loạt</item>
   <string name="boardTheme">Chủ đề bàn cờ</string>
   <string name="boardSize">Kích cỡ bàn cờ</string>
   <string name="pieceSet">Bộ cờ</string>
-  <string name="embedInYourWebsite">Nhúng vào website của bạn</string>
+  <string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
   <string name="usernameAlreadyUsed">Tên người dùng này đã được sử dụng, hãy chọn tên khác.</string>
   <string name="usernamePrefixInvalid">Tên người dùng phải bắt đầu với một chữ cái.</string>
   <string name="usernameSuffixInvalid">Tên người dùng phải kết thúc với một chữ cái hoặc một số.</string>
