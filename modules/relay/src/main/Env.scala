@@ -76,10 +76,7 @@ final class Env(
       }
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
-      roundRepo
-        .tourIdByStudyId(studyId)
-        .foreach(_.foreach: tourId =>
-          api.kickBroadcast(userId, tourId, who))
+      roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
     },
     "adminStudy" -> { case lila.study.actorApi.BecomeStudyAdmin(studyId, me) =>
       api.becomeStudyAdmin(studyId, me)
