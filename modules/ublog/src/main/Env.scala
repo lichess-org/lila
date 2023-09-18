@@ -46,12 +46,11 @@ final class Env(
         val keep     = 2
         api
           .latestPosts(lookInto)
-          .map(ThreadLocalRandom.shuffle)
           .map:
             _.groupBy(_.blog)
-              .map(_._2.head)
-              .toList
-              .take(keep)
+              .flatMap(_._2.headOption)
+          .map(ThreadLocalRandom.shuffle)
+          .map(_.take(keep).toList)
 
   lila.common.Bus.subscribeFun("shadowban"):
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>
