@@ -114,6 +114,9 @@ final class Main(
     pageHit
     NotImplemented.page(html.site.message.temporarilyDisabled)
 
+  def analyseVariationArrowHelp = Open:
+    Ok.page(html.site.help.analyseVariationArrow)
+
   def keyboardMoveHelp = Open:
     Ok.page(html.site.help.keyboardMove)
 
