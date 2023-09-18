@@ -1,6 +1,5 @@
 package lila.ublog
 
-import util.chaining.scalaUtilChainingOps
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 
@@ -47,9 +46,9 @@ final class Env(
         val keep     = 2
         api
           .latestPosts(lookInto)
+          .map(ThreadLocalRandom.shuffle)
           .map:
-            _.pipe(ThreadLocalRandom.shuffle)
-              .groupBy(_.blog)
+            _.groupBy(_.blog)
               .map(_._2.head)
               .toList
               .take(keep)
