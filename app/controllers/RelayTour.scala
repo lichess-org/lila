@@ -62,10 +62,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               env.relay.api.tourCreate(setup) flatMap { tour =>
                 negotiate(
                   Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                  JsonOk:
-                    env.relay.api.tourCreate(setup) map { tour =>
-                      env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
-                    }
+                  JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
                 )
               }
         )
@@ -91,7 +88,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           setup =>
             env.relay.api.tourUpdate(tour, setup) >>
               negotiate(
-                Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value)),
+                Redirect(routes.RelayTour.show(tour.slug, tour.id)),
                 jsonOkResult
               )
         )
@@ -102,11 +99,24 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
-  def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
+  def show(slug: String, id: TourModel.Id) = Open:
     Found(env.relay.api tourById id): tour =>
       negotiate(
-        redirectToTour(tour),
-        env.relay.api.withRounds(tour) map { trs =>
+        html = env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
+          case None =>
+            ctx.me
+              .soUse { env.relay.api.canUpdate(tour) }
+              .flatMap:
+                if _ then Redirect(routes.RelayRound.form(tour.id))
+                else
+                  for
+                    owner <- env.user.lightUser(tour.ownerId)
+                    markup = tour.markup.map(env.relay.markup(tour))
+                    page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
+                  yield page
+          case Some(round) => Redirect(round.withTour(tour).path)
+        },
+        json = env.relay.api.withRounds(tour) map { trs =>
           Ok(env.relay.jsonView(trs, withUrls = true))
         }
       )
@@ -125,16 +135,6 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       env.relay.api
         .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
         .map(env.relay.jsonView.apply(_, withUrls = true))
-
-  private def redirectToTour(tour: TourModel)(using ctx: Context): Fu[Result] =
-    env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
-      case None =>
-        ctx.me
-          .soUse { env.relay.api.canUpdate(tour) }
-          .elseNotFound:
-            Redirect(routes.RelayRound.form(tour.id.value))
-      case Some(round) => Redirect(round.withTour(tour).path)
-    }
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api tourById id)(f)

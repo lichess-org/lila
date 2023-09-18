@@ -16,7 +16,7 @@ interface Candidate {
 
 function toYouTubeEmbedUrl(url: string) {
   const m = url?.match(
-    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i,
   );
   if (!m) return;
   let start = 0;
@@ -77,8 +77,8 @@ lichess.load.then(() => {
       $(
         `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${
           a.src
-        }">${a.src}</a></blockquote>`
-      )
+        }">${a.src}</a></blockquote>`,
+      ),
     );
     if (!twitterLoaded) {
       twitterLoaded = true;

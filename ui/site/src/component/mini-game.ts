@@ -1,37 +1,41 @@
 import { uciToMove } from 'chessground/util';
-import { fenColor } from 'common/mini-game';
+import { fenColor } from 'common/mini-board';
+import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
 
-export const init = (node: HTMLElement) => {
-  if (!window.Chessground) setTimeout(() => init(node), 200);
-  else {
-    const [fen, orientation, lm] = node.getAttribute('data-state')!.split(','),
-      config = {
-        coordinates: false,
-        viewOnly: true,
-        fen,
-        orientation,
-        lastMove: uciToMove(lm),
-        drawable: {
-          enabled: false,
-          visible: false,
-        },
+export const init = (node: Element, withCg?: typeof Chessground) => {
+  const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
+    config = {
+      coordinates: false,
+      viewOnly: true,
+      fen,
+      orientation: color as Color,
+      lastMove: uciToMove(lm),
+      drawable: {
+        enabled: false,
+        visible: false,
       },
-      $el = $(node).removeClass('mini-game--init'),
-      $cg = $el.find('.cg-wrap'),
-      turnColor = fenColor(fen);
-    domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
-    ['white', 'black'].forEach((color: Color) =>
-      $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
-        clockWidget(this, {
-          time: parseInt(this.getAttribute('data-time')!),
-          pause: color != turnColor || !clockIsRunning(fen, color),
-        });
-      })
-    );
-  }
+    },
+    $el = $(node).removeClass('mini-game--init'),
+    $cg = $el.find('.cg-wrap'),
+    turnColor = fenColor(fen);
+
+  domData.set(
+    $cg[0] as Element,
+    'chessground',
+    (withCg ?? lichess.makeChessground)($cg[0] as HTMLElement, config),
+  );
+
+  ['white', 'black'].forEach((color: Color) =>
+    $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
+      clockWidget(this, {
+        time: parseInt(this.getAttribute('data-time')!),
+        pause: color != turnColor || !clockIsRunning(fen, color),
+      });
+    }),
+  );
   return node.getAttribute('data-live');
 };
 
@@ -40,7 +44,7 @@ const clockIsRunning = (fen: string, color: Color) =>
 
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
-    ids = nodes.map(init).filter(id => id);
+    ids = nodes.map(x => init(x)).filter(id => id);
   if (ids.length) StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
 };
 

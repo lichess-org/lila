@@ -32,6 +32,7 @@
   <string name="thereIsACountdown">Беренче хәрәкәтегез өчен санау бар. Бу вакыт эчендә хәрәкәт итмәү уенны көндәшеңә калдырачак.</string>
   <string name="thisIsPrivate">Бу шәхси бәйге</string>
   <string name="shareUrl">Уртаклаш бу URL кешеләрнең керүенә: %s</string>
+  <string name="variant">Вариант</string>
   <string name="history">Мәйдан тарихы</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Карарга барлык %s төркемләрне</item>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">设置</string>
-  <string name="closeAccount">关闭账号</string>
+  <string name="closeAccount">关闭账户</string>
   <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">你的账号已被管理，无法被关闭。</string>
-  <string name="closingIsDefinitive">关闭账号是不可回退的决定。您真的确定吗？</string>
+  <string name="closingIsDefinitive">关闭账户是不可回退的决定。你真的确定吗？</string>
   <string name="cantOpenSimilarAccount">新账号名称不能和旧账号相同，只有大小写差别也不被允许。</string>
   <string name="changedMindDoNotCloseAccount">我改主意了，不要关闭帐号</string>
-  <string name="closeAccountExplanation">您确定要关闭您的账号？关闭账号是一个不可回退的决定。 您将再不能再使用此账号登录。</string>
-  <string name="thisAccountIsClosed">此账号已被关闭。</string>
+  <string name="closeAccountExplanation">你确定要关闭你的账户？关闭账户是不可回退的决定。 你将再不能再使用此账户登录。</string>
+  <string name="thisAccountIsClosed">此帐户已被关闭。</string>
 </resources>

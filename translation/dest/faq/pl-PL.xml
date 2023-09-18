@@ -57,6 +57,7 @@ Analiza komputerowa dostępna na Lichess jest zasilana przez Stockfish.</string>
 W rzadkich sytuacjach może to być trudne do automatycznego określenia (ruchy wymuszone, twierdze). Domyślnie zawsze stajemy po stronie gracza, któremu nie skończył się czas.
 
 Zauważ, że możliwe jest zamatowanie pojedynczym skoczkiem lub gońcem, jeżeli przeciwnik posiada bierkę, która może zablokować króla.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">przepisów FIDE</string>
   <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
@@ -72,7 +73,7 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="lichessTraining">Podstawy gry</string>
   <string name="watchIMRosenCheckmate">Obejrzyj mata w wykonaniu IM Erica Rosena %s.</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
-  <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
   <string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>

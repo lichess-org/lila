@@ -43,6 +43,6 @@ export function header(name: string, close: Close) {
       attrs: { 'data-icon': licon.LessThan, type: 'button' },
       hook: bind('click', close),
     },
-    name
+    name,
   );
 }

@@ -45,8 +45,8 @@
   <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
   <string name="talkInChat">تکایە بەرێزەوە گفتوگۆ بکە!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">یەکەم کەس ئەم لینکە بەکاربهێنێت یاریت لەگەڵ دەکات.</string>
-  <string name="whiteResigned">سپی خۆی بەدەستەوەدا</string>
-  <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
+  <string name="whiteResigned">سپی کشایەوە</string>
+  <string name="blackResigned">رەش کشایەوە</string>
   <string name="whiteLeftTheGame">سپی یاری بەجێهێشت</string>
   <string name="blackLeftTheGame">ڕەش یاری بەجێهێشت</string>
   <string name="whiteDidntMove">سپی جووڵەی نەکرد</string>
@@ -72,7 +72,7 @@
   <string name="forceVariation">هێزی جۆراوجۆر</string>
   <string name="move">جوڵە</string>
   <string name="variantLoss">دۆران بەشێوەیەکی تایبەت</string>
-  <string name="variantWin">براوەی هەمەجۆر</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">براوەی هەمەجۆر</string>
   <string name="insufficientMaterial">نەمانی داشی پێویست</string>
   <string name="pawnMove">جوڵەی سەرباز</string>
   <string name="capture">گرتن</string>
@@ -504,7 +504,7 @@
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
   <string name="biography">ژیاننامە</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">وڵات یان ئاڵا</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ئاڵا</string>
   <string name="thankYou">سوپاس!</string>
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
@@ -560,8 +560,8 @@
   <string name="blog">بڵاگ</string>
   <string name="notes">تێبینییەکان</string>
   <string name="typePrivateNotesHere">لێرە تێبینییە تایبەتیەکان بنووسە</string>
-  <string name="writeAPrivateNoteAboutThisUser">تێبینییەکی تایبەت بەم بەکارهێنەرە بنووسە</string>
-  <string name="noNoteYet">تا ئێستا هیچ تێبینییەک نییە</string>
+  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">تێبینییەکی تایبەت بەم بەکارهێنەرە بنووسە</string>
+  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">تا ئێستا هیچ تێبینییەک نییە</string>
   <string name="invalidUsernameOrPassword">ناوی بەکارهێنەر یان وشەینهێنیت هەڵەیە</string>
   <string name="incorrectPassword">وشە نهێنیەکە هەڵەیە</string>
   <string name="invalidAuthenticationCode">کۆدی ڕێگەپێدانەکەت هەڵەیە</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">هەڵسەنگاندنی تۆ لە %1$s بریتییە لە %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">تۆ باشتریت لە %1$s تا %2$s یاریزان.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s باشترە لە %2$s تا %3$s یاریزان.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">تۆ باشتریت لە %1$s لە %2$s یاریزانەکان</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">تۆ باشتریت لە %1$s لە %2$s یاریزانەکان</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">تۆ هەڵسەنگاندنێکی جێگیرت نییە لە %s.</string>
   <string name="yourRating">هەڵسەنگاندنی تۆ</string>
   <string name="cumulative">کۆکراوە</string>
@@ -824,11 +824,11 @@
   <string name="waitingForAnalysis">چاوەڕێی شیکاریکردنەکە بە</string>
   <string name="noMistakesFoundForWhite">هیچ هەڵەیەکی سپی نەدۆزرایەوە</string>
   <string name="noMistakesFoundForBlack">هیچ هەڵەیەکی ڕەش نەدۆزرایەوە</string>
-  <string name="doneReviewingWhiteMistakes">پێداچوونەوە بە هەڵەکانی سپی تەواو بووە</string>
-  <string name="doneReviewingBlackMistakes">پێداچوونەوە بە هەڵەکانی ڕەش تەواو بووە</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">پێداچوونەوە بە هەڵەکانی سپی تەواو بووە</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">پێداچوونەوە بە هەڵەکانی ڕەش تەواو بووە</string>
   <string name="doItAgain">جارێکی دیکە هەوڵبدەوە</string>
-  <string name="reviewWhiteMistakes">پێداچوونەوە بە هەڵەکانی سپی</string>
-  <string name="reviewBlackMistakes">پێداچوونەوە بە هەڵەکانی ڕەش</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">پێداچوونەوە بە هەڵەکانی سپی</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">پێداچوونەوە بە هەڵەکانی ڕەش</string>
   <string name="advantage">سوود</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s چرکە</item>

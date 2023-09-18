@@ -24,7 +24,7 @@ export const timeout = (
     userId: string;
     reason: string;
     text: string;
-  }
+  },
 ) => {
   const [chan, roomId] = resourceId.split('/');
   return text(`/mod/public-chat/timeout`, {

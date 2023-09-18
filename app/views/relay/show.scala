@@ -50,7 +50,6 @@ object show:
           ) ++ views.html.board.bits.explorerAndCevalConfig
         )
       ),
-      chessground = false,
       zoomable = true,
       csp = analysisCsp.withWikiBooks.some,
       openGraph = lila.app.ui

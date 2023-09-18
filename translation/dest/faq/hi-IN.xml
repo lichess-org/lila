@@ -16,6 +16,7 @@
   <string name="otherWaysToHelp">मदद करने के अन्य तरीके</string>
   <string name="areThereWebsitesBasedOnLichess">क्या लाइकस पर आधारित वेबसाइटें हैं?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">हाँ। Lichess ने वास्तव में अन्य ओपन-सोर्स साइटों को प्रेरित किया है जो हमारे%1$s,%2$s, या%3$s का उपयोग करते हैं।</string>
+  <string name="keyboardShortcuts">वहां कौन से कीबोर्ड शॉर्टकट हैं?</string>
   <string name="fairPlay">फेयर प्ले</string>
   <string name="whenAmIEligibleRatinRefund">जब मैं थिएटर से स्वचालित रेटिंग वापसी के लिए योग्य हूं?</string>
   <string name="ratingRefundExplanation">एक खिलाड़ी के चिह्नित होने के एक मिनट बाद, पिछले 3 दिनों में उनके 40 नवीनतम रेटेड गेम लिए जाते हैं। यदि आप उन खेलों में उनके प्रतिद्वंद्वी हैं, तो आपने रेटिंग खो दी (नुकसान या ड्रा के कारण), और आपकी रेटिंग अनंतिम नहीं थी, आपको रेटिंग रिफंड मिलता है। रिफंड आपके पीक रेटिंग और गेम के बाद आपकी रेटिंग की प्रगति के आधार पर कैप किया गया है।
@@ -62,7 +63,7 @@
   <string name="goodIntroduction">अच्छा परिचय</string>
   <string name="lichessTraining">लिच्छवि प्रशिक्षण</string>
   <string name="threefoldRepetition">तिगुना दोहराव</string>
-  <string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी%1$s द्वारा ड्रा का दावा कर सकते हैं। Lichess आधिकारिक FIDE नियमों को लागू करता है, जैसा कि%2$s के अनुच्छेद 9.2 (d) में वर्णित है।</string>
+  <string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी%1$s द्वारा ड्रा का दावा कर सकते हैं। Lichess आधिकारिक FIDE नियमों को लागू करता है, जैसा कि%2$s के अनुच्छेद 9.2 में वर्णित है।</string>
   <string name="threefoldRepetitionLowerCase">तीन गुना दोहराव</string>
   <string name="notRepeatedMoves">हमने चालें नहीं दोहराईं। क्यों खेल अभी भी पुनरावृत्ति द्वारा तैयार किया गया था?</string>
   <string name="repeatedPositionsThatMatters">तीन गुना दोहराव लगभग%1$s है, चाल नहीं। पुनरावृत्ति लगातार नहीं होती है।</string>

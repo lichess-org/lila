@@ -3,7 +3,6 @@ import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
@@ -34,11 +33,10 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { throttled } from '../sound';
 
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
+const selectSound = () => lichess.sound.play('select');
+const borderSound = () => lichess.sound.play('outOfBound');
+const errorSound = () => lichess.sound.play('error');
 
 // esbuild
 export function initModule(): NvuiPlugin {
@@ -73,12 +71,12 @@ export function initModule(): NvuiPlugin {
           'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
-          Chessground(document.createElement('div'), {
+          lichess.makeChessground(document.createElement('div'), {
             ...makeCgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },
             coordinates: false,
-          })
+          }),
         );
         if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
       }
@@ -91,7 +89,7 @@ export function initModule(): NvuiPlugin {
           h('h1', gameText(ctrl)),
           h('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
-            h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))])
+            h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))]),
           ),
           h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
@@ -104,7 +102,7 @@ export function initModule(): NvuiPlugin {
                 'aria-live': 'off',
               },
             },
-            renderMoves(d.steps.slice(1), style)
+            renderMoves(d.steps.slice(1), style),
           ),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
@@ -118,7 +116,7 @@ export function initModule(): NvuiPlugin {
                 'aria-atomic': 'true',
               },
             },
-            [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]
+            [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)],
           ),
           h('h2', 'Last move'),
           h(
@@ -130,7 +128,7 @@ export function initModule(): NvuiPlugin {
               },
             },
             // make sure consecutive moves are different so that they get re-read
-            renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' ')
+            renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
           ),
           ...(ctrl.isPlaying()
             ? [
@@ -160,7 +158,7 @@ export function initModule(): NvuiPlugin {
                         },
                       }),
                     ]),
-                  ]
+                  ],
                 ),
               ]
             : []),
@@ -186,7 +184,7 @@ export function initModule(): NvuiPlugin {
                 const $buttons = $board.find('button');
                 $buttons.on(
                   'click',
-                  selectionHandler(() => ctrl.data.opponent.color, selectSound)
+                  selectionHandler(() => ctrl.data.opponent.color, selectSound),
                 );
                 $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                 $buttons.on('keypress', boardCommandsHandler());
@@ -195,8 +193,8 @@ export function initModule(): NvuiPlugin {
                   lastCapturedCommandHandler(
                     () => ctrl.data.steps.map(step => step.fen),
                     pieceStyle.get(),
-                    prefixStyle.get()
-                  )
+                    prefixStyle.get(),
+                  ),
                 );
                 $buttons.on(
                   'keypress',
@@ -207,8 +205,8 @@ export function initModule(): NvuiPlugin {
                     () => ctrl.chessground.state.pieces,
                     ctrl.data.game.variant.key,
                     () => ctrl.chessground.state.movable.dests,
-                    () => ctrl.data.steps
-                  )
+                    () => ctrl.data.steps,
+                  ),
                 );
                 $buttons.on('keypress', positionJumpHandler());
                 $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
@@ -220,8 +218,8 @@ export function initModule(): NvuiPlugin {
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
-              boardStyle.get()
-            )
+              boardStyle.get(),
+            ),
           ),
           h(
             'div.boardstatus',
@@ -231,7 +229,7 @@ export function initModule(): NvuiPlugin {
                 'aria-atomic': 'true',
               },
             },
-            ''
+            '',
           ),
           // h('p', takes(ctrl.data.steps.map(data => data.fen))),
           h('h2', 'Settings'),
@@ -295,7 +293,7 @@ export function initModule(): NvuiPlugin {
             h('br'),
             'Omission results in promotion to queen',
           ]),
-        ]
+        ],
       );
     },
   };
@@ -305,7 +303,7 @@ function createSubmitHandler(
   ctrl: RoundController,
   notify: (txt: string) => void,
   style: () => Style,
-  $input: Cash
+  $input: Cash,
 ) {
   return (submitStoredPremove = false) => {
     const nvui = ctrl.nvui!;
@@ -375,7 +373,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
     notify(
       commands.piece.apply(c, pieces, style) ||
         commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`
+        `Invalid command: ${c}`,
     );
   }
 }
@@ -422,7 +420,7 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
           {
             attrs: { href: '/@/' + user.username },
           },
-          user.title ? `${user.title} ${user.username}` : user.username
+          user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,

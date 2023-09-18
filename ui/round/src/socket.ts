@@ -2,7 +2,6 @@ import * as game from 'game';
 import throttle from 'common/throttle';
 import modal from 'common/modal';
 import * as xhr from './xhr';
-import * as sound from './sound';
 import RoundController from './ctrl';
 import { defined } from 'common';
 
@@ -141,7 +140,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         !game.isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
-        sound.move();
+        lichess.sound.play('move');
         location.href = '/' + gameId;
       }
     },
@@ -149,7 +148,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       lichess.loadCssPath('modal');
       modal({
         content: $(
-          `<div><p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`
+          `<div><p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
         ),
       });
     },

@@ -36,6 +36,10 @@
   </plurals>
   <string name="thisIsPrivate">這是一個非公開的錦標賽</string>
   <string name="shareUrl">分享這個網址讓其他人加入這場錦標賽:%s</string>
+  <string name="drawStreakStandard">連和場數：當棋手在競技場中連續和棋時，只有第一次和棋或者超過 %s 步的和局才會計分。 連和場數只能被勝利打破，不會被輸棋或和棋打破。</string>
+  <string name="drawStreakVariants">計分的和局的最小步數由不同的變體而變化。 下面的表格列出了每個變體的閥值。</string>
+  <string name="variant">變體</string>
+  <string name="minimumGameLength">最少對局步數</string>
   <string name="history">先前的重要錦標賽</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">查看所有 %s 團隊</item>
@@ -48,4 +52,9 @@
   <string name="allowChatHelp">讓玩家在聊天室討論</string>
   <string name="arenaStreaks">競技場連勝</string>
   <string name="arenaStreaksHelp">2次勝利後，連勝將會取得4分，而不是2分。</string>
+  <string name="noBerserkAllowed">禁止「神速」模式</string>
+  <string name="noArenaStreaks">無競技場連勝</string>
+  <string name="averagePerformance">平均表現</string>
+  <string name="averageScore">平均分數</string>
+  <string name="myTournaments">我的錦標賽</string>
 </resources>

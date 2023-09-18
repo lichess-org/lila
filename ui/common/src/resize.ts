@@ -11,7 +11,7 @@ export default function resizeHandle(
   els: cg.Elements,
   pref: Prefs.ShowResizeHandle,
   ply: number,
-  visible?: Visible
+  visible?: Visible,
 ) {
   if (pref === Prefs.ShowResizeHandle.Never) return;
 
@@ -51,7 +51,7 @@ export default function resizeHandle(
         document.removeEventListener(mousemoveEvent, resize);
         document.body.classList.remove('resizing');
       },
-      { once: true }
+      { once: true },
     );
   };
 

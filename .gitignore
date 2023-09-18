@@ -14,6 +14,7 @@ project/metals.sbt
 project/project
 project/target
 public/compiled
+public/javascripts/chessground.min.js
 public/vendor/highcharts-4.2.5
 public/vendor/hopscotch
 public/vendor/tagify

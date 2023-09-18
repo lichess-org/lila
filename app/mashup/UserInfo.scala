@@ -12,11 +12,11 @@ import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Me, User }
 
 case class UserInfo(
+    nbs: UserInfo.NbGames,
     user: User.WithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[String],
-    nbs: UserInfo.NbGames,
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
@@ -50,20 +50,13 @@ object UserInfo:
       prefApi: lila.pref.PrefApi
   ):
     def apply(u: User)(using ctx: Context): Fu[Social] =
-      ctx.userId.so {
-        relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
-      } zip
-        ctx.me.soUse { _ ?=>
-          fetchNotes(u).mon(_.user segment "notes")
-        } zip
-        ctx.isAuth.so {
-          prefApi.followable(u.id).mon(_.user segment "followable")
-        } zip
-        ctx.userId.so { myId =>
-          relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks")
-        } dmap { case (((relation, notes), followable), blocked) =>
-          Social(relation, notes, followable, blocked)
-        }
+      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+      (
+        ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")),
+        ctx.me.soUse(_ ?=> fetchNotes(u).mon(_.user segment "notes")),
+        ctx.isAuth.so(prefApi.followable(u.id).mon(_.user segment "followable")),
+        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks"))
+      ).mapN(Social.apply)
 
     def fetchNotes(u: User)(using Me) =
       noteApi.get(u, Granter(_.ModNote)) dmap {
@@ -85,20 +78,15 @@ object UserInfo:
       crosstableApi: lila.game.CrosstableApi
   ):
     def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
-      (withCrosstable so me
-        .filter(u.isnt(_))
-        .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user segment "crosstable"))) zip
-        gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
-        gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
-        bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
-          case (((crosstable, playing), imported), bookmark) =>
-            NbGames(
-              crosstable,
-              playing = playing,
-              imported = imported,
-              bookmark = bookmark
-            )
-        }
+      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+      (
+        withCrosstable so me
+          .filter(u.isnt(_))
+          .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user segment "crosstable")),
+        gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying"),
+        gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported"),
+        bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks")
+      ).mapN(NbGames.apply)
 
   final class UserInfoApi(
       relationApi: RelationApi,
@@ -118,40 +106,22 @@ object UserInfo:
       insightShare: lila.insight.Share
   )(using Executor):
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
-      ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
-        perfsRepo.withPerfs(user) zip
+      (
+        perfsRepo.withPerfs(user),
+        userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies"),
+        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")),
+        ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart"),
         (!user.is(User.lichessId) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
-        } zip
-        (withUblog so ublogApi.userBlogPreviewFor(user, 3)) zip
-        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
-        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls") zip
-        relayApi.countOwnedByUser.get(user.id).mon(_.user segment "nbBroadcasts") zip
-        userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
-        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user segment "teamIds") zip
-        coachApi.isListedCoach(user).mon(_.user segment "coach") zip
-        streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
-        (user.count.rated >= 10).so(insightShare.grant(user)) zip
-        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
-          // format: off
-          case ((((((((((((ratingChart, user), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
-          // format: on
-            UserInfo(
-              user = user,
-              nbs = nbs,
-              hasSimul = hasSimul,
-              ratingChart = ratingChart,
-              nbForumPosts = nbForumPosts,
-              ublog = ublog,
-              nbStudies = nbStudies,
-              nbSimuls = nbSimuls,
-              nbRelays = nbRelays,
-              trophies = trophiesAndAwards,
-              teamIds = teamIds,
-              isStreamer = isStreamer,
-              isCoach = isCoach,
-              insightVisible = insightVisible
-            )
-        }
+        },
+        withUblog so ublogApi.userBlogPreviewFor(user, 3),
+        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies"),
+        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls"),
+        relayApi.countOwnedByUser.get(user.id).mon(_.user segment "nbBroadcasts"),
+        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user segment "teamIds"),
+        streamerApi.isActualStreamer(user).mon(_.user segment "streamer"),
+        coachApi.isListedCoach(user).mon(_.user segment "coach"),
+        (user.count.rated >= 10).so(insightShare.grant(user))
+      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.nameCache.preloadMany(info.teamIds)

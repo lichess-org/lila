@@ -246,7 +246,9 @@
         max-width: $tag-max-width;
         min-width: var(--tag--min-width, $tag-min-width);
         max-width: var(--tag--max-width, $tag-max-width);
-        transition: 0.8s ease, 0.1s color;
+        transition:
+          0.8s ease,
+          0.1s color;
         unicode-bidi: plaintext;
 
         &[contenteditable] {

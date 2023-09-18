@@ -29,7 +29,7 @@ function renderInStage(ctrl: SideCtrl) {
             src: util.assetUrl + 'images/learn/brutal-helm.svg',
           }),
           ctrl.trans.noarg('menu'),
-        ]
+        ],
       ),
       ...stages.categs.map(function (categ, categId) {
         return m(
@@ -45,7 +45,7 @@ function renderInStage(ctrl: SideCtrl) {
                   ctrl.categId(categId);
                 },
               },
-              ctrl.trans.noarg(categ.name)
+              ctrl.trans.noarg(categ.name),
             ),
             m(
               'div.categ_stages',
@@ -64,11 +64,11 @@ function renderInStage(ctrl: SideCtrl) {
                       src: s.image,
                     }),
                     m('span', ctrl.trans.noarg(s.title)),
-                  ]
+                  ],
                 );
-              })
+              }),
             ),
-          ]
+          ],
         );
       }),
     ]),
@@ -98,7 +98,7 @@ function renderHome(ctrl: SideCtrl) {
                 if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
               },
             },
-            ctrl.trans.noarg('resetMyProgress')
+            ctrl.trans.noarg('resetMyProgress'),
           )
         : null,
     ]),

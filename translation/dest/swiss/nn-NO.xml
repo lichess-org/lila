@@ -61,7 +61,7 @@ Desse eigenskapane finn ein truleg heller innan lag enn i opne, globale turnerin
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få om motspelaren ikkje møter opp i rett tid?</string>
   <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelarar som kjem for seint til turneringsstart eit einsleg halvpoeng.</string>
   <string name="earlyDrawsQ">Kva hender ved tidlege remisar?</string>
-  <string name="earlyDrawsA">Ein spelar får eitt poeng, ein såkalla \"bye\", kvar runde systemet ikkje finn motspelar til deltakaren. I tillegg får som kjem seint til turneringa ein \"bye\" på eit halvt poeng.</string>
+  <string name="earlyDrawsAnswer">I sveitsar-parti kan ikkje spelarane avtale remis før etter 30 trekk. Sjølv om regelen ikkje beint fram hindrar spelarane å avtale remis, vert det i det minste vanskelegare å få til.</string>
   <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
   <string name="protectionAgainstNoShowQ">Kva hender med spelarar som ikkje stiller opp (\"DNS\")?</string>

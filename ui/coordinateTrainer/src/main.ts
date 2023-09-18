@@ -7,8 +7,6 @@ import {
   styleModule,
 } from 'snabbdom';
 import menuHover from 'common/menuHover';
-import { Chessground } from 'chessground';
-
 import view from './view';
 import { CoordinateTrainerConfig } from './interfaces';
 import CoordinateTrainerCtrl from './ctrl';
@@ -29,7 +27,3 @@ export function initModule(config: CoordinateTrainerConfig) {
 
   menuHover();
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

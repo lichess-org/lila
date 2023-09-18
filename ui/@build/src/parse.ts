@@ -47,7 +47,7 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
       if (moduleType !== 'esm' && moduleType !== 'iife') {
         env.log(
           c.warn('WARNING') +
-            ` - Unsupported module type '${c.cyan(moduleType)}' in '${c.cyan(mod.name + '/package.json')}'`
+            ` - Unsupported module type '${c.cyan(moduleType)}' in '${c.cyan(mod.name + '/package.json')}'`,
         );
         continue;
       }

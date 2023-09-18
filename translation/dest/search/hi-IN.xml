@@ -35,4 +35,5 @@
     <item quantity="one">%s खेल मिले</item>
     <item quantity="other">%s खेल मिले</item>
   </plurals>
+  <string name="ratingExplanation">दोनों खिलाड़ियों की औसत रेटिंग</string>
 </resources>

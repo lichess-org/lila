@@ -2,7 +2,6 @@ import config from '../config';
 import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
-import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
 import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
@@ -20,7 +19,7 @@ export default function (ctrl: StormCtrl): VNode {
       {
         class: playModifiers(ctrl.run),
       },
-      renderPlay(ctrl)
+      renderPlay(ctrl),
     );
   return h('main.storm.storm--end', renderEnd(ctrl));
 }
@@ -30,10 +29,10 @@ const chessground = (ctrl: StormCtrl): VNode =>
     hook: {
       insert: vnode =>
         ctrl.ground(
-          Chessground(
+          lichess.makeChessground(
             vnode.elm as HTMLElement,
-            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove)
-          )
+            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
+          ),
         ),
     },
   });
@@ -106,6 +105,6 @@ const renderReload = (ctrl: StormCtrl, msgKey: string) =>
       {
         attrs: { href: '/storm' },
       },
-      ctrl.trans.noarg('clickToReload')
+      ctrl.trans.noarg('clickToReload'),
     ),
   ]);

@@ -123,7 +123,7 @@ export function symbolToFile(char: string) {
 
 export function supportedVariant(key: string) {
   return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(
-    key
+    key,
   );
 }
 
@@ -214,7 +214,7 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
 export function lastCaptured(
   movesGenerator: () => string[],
   pieceStyle: PieceStyle,
-  prefixStyle: PrefixStyle
+  prefixStyle: PrefixStyle,
 ): string {
   const moves = movesGenerator();
   const oldFen = moves[moves.length - 2];
@@ -284,11 +284,11 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
               `${l[0]}: ${l
                 .slice(1)
                 .map((k: string) => renderKey(k, style))
-                .join(', ')}`
+                .join(', ')}`,
           )
           .join(', '),
       ]);
-    })
+    }),
   );
 }
 
@@ -318,7 +318,7 @@ export function renderBoard(
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
   positionStyle: PositionStyle,
-  boardStyle: BoardStyle
+  boardStyle: BoardStyle,
 ): VNode {
   const doRankHeader = (rank: Rank): VNode => {
     return h('th', { attrs: { scope: 'row' } }, rank);
@@ -343,14 +343,14 @@ export function renderBoard(
     file: File,
     letter: string,
     color: Color | 'none',
-    text: string
+    text: string,
   ): VNode => {
     return h(
       'button',
       {
-        attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color },
+        attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color, 'trap-bypass': true },
       },
-      text
+      text,
     );
   };
   const doPiece = (rank: Rank, file: File): VNode => {
@@ -422,7 +422,7 @@ export function positionJumpHandler() {
       return true;
     }
     const newBtn = document.querySelector(
-      '.board-wrapper button[rank="' + $newRank + '"][file="' + $newFile + '"]'
+      '.board-wrapper button[rank="' + $newRank + '"][file="' + $newFile + '"]',
     ) as HTMLElement;
     if (newBtn) {
       newBtn.focus();
@@ -496,7 +496,7 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
       return true;
     }
     const $newSq = document.querySelector(
-      '.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]'
+      '.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]',
     ) as HTMLElement;
     if ($newSq) {
       $newSq.focus();
@@ -580,7 +580,7 @@ export function boardCommandsHandler() {
 export function lastCapturedCommandHandler(
   steps: () => string[],
   pieceStyle: PieceStyle,
-  prefixStyle: PrefixStyle
+  prefixStyle: PrefixStyle,
 ) {
   return (ev: KeyboardEvent) => {
     const $boardLive = $('.boardstatus');
@@ -600,7 +600,7 @@ export function possibleMovesHandler(
   piecesFunc: () => Pieces,
   variant: string,
   moveable: () => Map<string, Array<string>> | undefined,
-  steps: () => RoundStep[]
+  steps: () => RoundStep[],
 ) {
   return (ev: KeyboardEvent) => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
@@ -717,8 +717,8 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
           attrs: { p: path },
           class: { active: path === currentPath },
         },
-        content
-      )
+        content,
+      ),
     );
     res.push(renderComments(node, style));
     res.push(', ');
@@ -738,7 +738,7 @@ function renderComment(comment: Tree.Comment, style: Style): string {
   return comment.by === 'lichess'
     ? comment.text.replace(
         /Best move was (.+)\./,
-        (_, san) => 'Best move was ' + renderSan(san, undefined, style)
+        (_, san) => 'Best move was ' + renderSan(san, undefined, style),
       )
     : comment.text;
 }

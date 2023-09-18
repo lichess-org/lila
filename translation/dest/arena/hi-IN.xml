@@ -38,6 +38,8 @@
   <string name="thisIsPrivate">यह एक निजी टूर्नामेंट है</string>
   <string name="shareUrl">लोगों को शामिल होने के लिए इस URL को साझा करें: %s</string>
   <string name="drawStreakStandard">ड्रा श्रृंखलाएँ: जब किसी खिलाड़ी के अरीना अखाड़े में लगातार ड्रॉ होता है, तो केवल पहले ड्रॉ के परिणामस्वरूप एक अंक होगा, या %s चाल से अधिक तक चलने वाले ड्रॉ के कारण अंक मिलेंगे। ड्रा श्रृंखला को केवल जीत से तोड़ा जा सकता है, न कि हार या ड्रॉ से।</string>
+  <string name="drawStreakVariants">ड्रा किए गए खेलों के लिए अंक प्रदान करने के लिए न्यूनतम खेल अवधि भिन्न-भिन्न होती है। नीचे दी गई तालिका प्रत्येक प्रकार के लिए सीमा सूचीबद्ध करती है</string>
+  <string name="variant">प्रकार</string>
   <string name="minimumGameLength">खेल की न्यूनतम लम्बाई</string>
   <string name="history">अखाड़ा इतिहास</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
@@ -56,4 +58,5 @@
   <string name="noArenaStreaks">अरीना श्रंखलाएं नहीं हैं</string>
   <string name="averagePerformance">औसत प्रदर्शन</string>
   <string name="averageScore">औसत स्कोर</string>
+  <string name="myTournaments">मेरे टूर्नामेंट</string>
 </resources>

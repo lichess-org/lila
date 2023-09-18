@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Lag</string>
-  <string name="teams">Lag</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
     <item quantity="other">%s medlemmer</item>

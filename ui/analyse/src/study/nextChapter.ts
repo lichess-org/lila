@@ -18,6 +18,6 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
             highlighted: !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline),
           },
         },
-        ctrl.trans.noarg('nextChapter')
+        ctrl.trans.noarg('nextChapter'),
       )
     : null;

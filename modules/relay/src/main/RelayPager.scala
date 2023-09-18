@@ -11,10 +11,10 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
 
   private val maxPerPage = MaxPerPage(20)
 
-  def byOwner(owner: UserId, page: Int): Fu[Paginator[WithLastRound]] = Paginator(
+  def byOwner(owner: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
       def nbResults: Fu[Int] = tourRepo.countByOwner(owner)
-      def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
+      def slice(offset: Int, length: Int): Fu[List[RelayTour | WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
@@ -24,7 +24,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
                 Limit(length)
               )
             }
-          .map(readToursWithRounds)
+          .map(readTours)
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -39,12 +39,12 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(tourRepo.selectors.officialInactive) -> {
-                List(Sort(Descending("syncedAt"))) ::: aggregateRound(framework) ::: List(
+                List(Sort(Descending("syncedAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
                   Skip(offset),
                   Limit(length)
                 )
               }
-            .map(readToursWithRounds)
+            .map(readToursWithRound)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
@@ -61,14 +61,17 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
               import framework.*
               Match(selector) -> {
                 List(Sort(Descending("tier"), Descending("syncedAt"), Descending("createdAt"))) :::
-                  aggregateRound(framework) :::
+                  aggregateRoundAndUnwind(framework) :::
                   List(Skip(offset), Limit(length))
               }
-            .map(readToursWithRounds)
+            .map(readToursWithRound)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
+
+  private def aggregateRoundAndUnwind(framework: tourRepo.coll.AggregationFramework.type) =
+    aggregateRound(framework) ::: List(framework.UnwindField("round"))
 
   private def aggregateRound(framework: tourRepo.coll.AggregationFramework.type) = List(
     framework.PipelineOperator(
@@ -83,12 +86,18 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
           $doc("$addFields" -> $doc("sync.log" -> $arr()))
         )
       )
-    ),
-    framework.UnwindField("round")
+    )
   )
 
-  private def readToursWithRounds(docs: List[Bdoc]): List[WithLastRound] = for
+  private def readToursWithRound(docs: List[Bdoc]): List[WithLastRound] = for
     doc   <- docs
     tour  <- doc.asOpt[RelayTour]
     round <- doc.getAsOpt[RelayRound]("round")
   yield WithLastRound(tour, round)
+
+  private def readTours(docs: List[Bdoc]): List[RelayTour | WithLastRound] = for
+    doc    <- docs
+    tour   <- doc.asOpt[RelayTour]
+    rounds <- doc.getAsOpt[List[RelayRound]]("round")
+    round = rounds.headOption
+  yield round.fold(tour)(WithLastRound(tour, _))

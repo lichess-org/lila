@@ -51,7 +51,7 @@ function controls(ctrl: Controller): VNode {
             else if (action === 'next') control.next(ctrl);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-          }, ctrl.redraw)
+          }, ctrl.redraw),
         ),
       },
       [
@@ -60,7 +60,7 @@ function controls(ctrl: Controller): VNode {
         jumpButton(licon.JumpNext, 'next', !nextNode),
         jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
         boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
-      ]
+      ],
     ),
     boardMenu(ctrl),
   ]);
@@ -120,10 +120,10 @@ export default function (ctrl: Controller): VNode {
                     if (e.deltaY > 0 && scroll) control.next(ctrl);
                     else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                     ctrl.redraw();
-                  })
+                  }),
                 ),
         },
-        [chessground(ctrl), ctrl.promotion.view()]
+        [chessground(ctrl), ctrl.promotion.view()],
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
@@ -135,7 +135,7 @@ export default function (ctrl: Controller): VNode {
           {
             class: { none: !showCeval },
           },
-          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : []
+          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
@@ -144,7 +144,7 @@ export default function (ctrl: Controller): VNode {
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
       ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
-    ]
+    ],
   );
 }
 
@@ -171,7 +171,7 @@ function session(ctrl: Controller) {
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
           },
         },
-        rd
+        rd,
       );
     }),
     rounds.find(r => r.id == current)
@@ -193,7 +193,7 @@ function session(ctrl: Controller) {
                   href: `/training/${ctrl.session.theme}/${current}`,
                 },
           },
-          ctrl.streak?.data.index
+          ctrl.streak?.data.index,
         ),
   ]);
 }

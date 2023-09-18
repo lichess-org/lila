@@ -79,7 +79,7 @@
   <string name="variantWin">فوز بطريقة خاصة</string>
   <string name="insufficientMaterial">قطع غير كافية لإنهاء المباراة</string>
   <string name="pawnMove">نقلة بيدق</string>
-  <string name="capture">التقاط</string>
+  <string name="capture">أسر</string>
   <string name="close">إغلاق</string>
   <string name="winning">فائزة</string>
   <string name="losing">خاسرة</string>
@@ -129,6 +129,7 @@
   <string name="memory">الذاكرة</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
+  <string name="engineManager">مدير المحركات</string>
   <string name="blunder">خطأ فادح</string>
   <string name="mistake">خطأ</string>
   <string name="inaccuracy">غير دقيق</string>
@@ -200,7 +201,7 @@
   <string name="forum">منتدى</string>
   <string name="xPostedInForumY">%1$s منشور في الموضوع %2$s</string>
   <string name="latestForumPosts">آخر منشورات المنتدى</string>
-  <string name="players">لاعبين</string>
+  <string name="players">اللاعبون</string>
   <string name="friends">الأصدقاء</string>
   <string name="discussions">المحادثات</string>
   <string name="today">اليوم</string>
@@ -486,7 +487,7 @@
   <string name="reset">إعادة للإفتراضي</string>
   <string name="apply">قبول</string>
   <string name="save">حفظ</string>
-  <string name="leaderboard">أفضل اللاعبين</string>
+  <string name="leaderboard">قائمة الصدارة</string>
   <string name="screenshotCurrentPosition">لقطة شاشة</string>
   <string name="gameAsGIF">حفظ بصيغة GIF</string>
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
@@ -576,7 +577,7 @@
   <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
   <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
   <string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
-  <string name="fewerPlayers">إذا قمت بتعيين شروط دخول للبطولة فقد يكون لديك عدد لاعبين أقل.</string>
+  <string name="fewerPlayers">إذا حددت شروطَ دخولٍ للبطولة فقد يكون لديك لاعبون أقل.</string>
   <string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
   <string name="makePrivateTournament">جعل البطولة خاصة، وتقييد الوصول بكلمة مرور</string>
   <string name="join">إشترك</string>
@@ -587,7 +588,7 @@
   <string name="createdBy">أنشأها</string>
   <string name="tournamentIsStarting">بدأت المسابقة</string>
   <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
-  <string name="standByX">إستعد، يتم إزواج اللاعبين، تأهب يا %s!</string>
+  <string name="standByX">تأهب يا %s، جارٍ مزاوجة اللاعبين، استعد!</string>
   <string name="pause">الإيقاف المؤقت</string>
   <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
@@ -619,27 +620,18 @@
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
   <string name="biography">نبذة عنك</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">العلم</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
-  <string name="savingMoves">حفظ النقلات
-
-جزء من رسالة تحذيرية في حال لعبك لنقلات عند تحليل مباراة مكتملة.
-تقول:
-\'ذاكرة نقلات مؤقتة
-نحن دائماً نخزن تفريعاتك في cache المتصفح
-للتخزين الآمن و المشاركة، يمكنك إنشاء دراسة\'
-
-في السياق، دراسات ليتشيس هي ميزة تسمح للاعبين بتخزين و مراجعة المباريات بسهولة: 
-https://lichess. org/study</string>
+  <string name="savingMoves">تخزين مؤقت للنقلات</string>
   <string name="savingMovesHelp">نحن دائماً نخزن تفريعاتك في ذاكرة التخزين المؤقت للمتصفح.</string>
   <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
   <string name="clearSavedMoves">مسح النقلات</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
-  <string name="onlinePlayers">لاعبين متصلين</string>
-  <string name="activePlayers">لاعبين نشطين</string>
+  <string name="onlinePlayers">لاعبون متصلون</string>
+  <string name="activePlayers">لاعبون نشطون</string>
   <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
   <string name="success">تم بنجاح</string>
   <plurals name="nbGamesInPlay">
@@ -705,7 +697,7 @@ https://lichess. org/study</string>
   <string name="privacyPolicy">سياسة الخصوصية</string>
   <string name="letOtherPlayersFollowYou">اسمح للاعبين الآخرين بمتابعتك</string>
   <string name="letOtherPlayersChallengeYou">اسمح للاعبين الآخرين بتحديك</string>
-  <string name="letOtherPlayersInviteYouToStudy">السماح للاعبين الآخرين بدعوتك لدراسة</string>
+  <string name="letOtherPlayersInviteYouToStudy">اسمح للاعبين الآخرين بدعوتك لدراسة</string>
   <string name="sound">الصوت</string>
   <string name="none">بدون</string>
   <string name="fast">سريع</string>
@@ -725,7 +717,7 @@ https://lichess. org/study</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
-  <string name="biographyDescription">عبر عن نفسك. ماذا تحب في الشطرنج، إفتتاحياتك المفضلة، المباريات، اللاعبين…</string>
+  <string name="biographyDescription">تحدّث عن نفسك، عن اهتماماتك ما تحب في الشطرنج، افتتاحياتك المفضلة، المباريات، اللاعبون...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="zero">الحد الأقصى: %s حرف.</item>
     <item quantity="one">الحد الأقصى: %s حرف.</item>
@@ -742,7 +734,7 @@ https://lichess. org/study</string>
     <item quantity="many">%s حظر</item>
     <item quantity="other">%s حظر</item>
   </plurals>
-  <string name="listBlockedPlayers">اعرض من حظرت من اللاعبين</string>
+  <string name="listBlockedPlayers">اسرد اللاعبين الذين حظرتهم</string>
   <string name="human">إنسان</string>
   <string name="computer">حاسب</string>
   <string name="side">الجهة</string>
@@ -785,7 +777,7 @@ https://lichess. org/study</string>
   <string name="tpTimeSpentOnTV">الوقت في المشاهدة:  %s</string>
   <string name="watch">شاهد</string>
   <string name="videoLibrary">مكتبة الفيديو</string>
-  <string name="streamersMenu">بثوث اللاعبين</string>
+  <string name="streamersMenu">ﻻعبو البث المباشر</string>
   <string name="mobileApp">تطبيق الجوال</string>
   <string name="webmasters">مدراء المواقع</string>
   <string name="about">عن</string>
@@ -809,7 +801,7 @@ https://lichess. org/study</string>
   <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
   <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
-  <string name="whenCreateSimul">عندما تنشيء تزامنية، يمكنك اللعب مع عدة لاعبين في وقت واحد.</string>
+  <string name="whenCreateSimul">عندما تنشئ تزامنية، يمكنك اللعب مع عدة لاعبين في الوقت ذاته.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
@@ -817,7 +809,7 @@ https://lichess. org/study</string>
   <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
   <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
-  <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
+  <string name="tournamentFAQ">مسابقة الساحة (الأسئلة الشائعة)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
   <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
   <string name="accuracy">الدقة</string>
@@ -826,6 +818,11 @@ https://lichess. org/study</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
+  <string name="keyRequestComputerAnalysis">اطلب تحليل الحاسوب وتعلم من أخطائك</string>
+  <string name="keyNextLearnFromYourMistakes">التالي (تعلم من أخطائك)</string>
+  <string name="keyNextBlunder">الخطأ الفادح التالي</string>
+  <string name="keyNextMistake">الخطأ التالي</string>
+  <string name="keyNextInaccuracy">النقلة غير الدقيقة التالية</string>
   <string name="newTournament">مسابقة جديدة</string>
   <string name="tournamentHomeTitle">مسابقات بانواع شطرنج مختلفة وساعات مختلفة</string>
   <string name="tournamentHomeDescription">العب مسابقات شطرنج بكل السرعات. انضم للمسابقات الرسمية المجدولة، أو ابدأ مسابقاتك الخاصة.</string>
@@ -845,6 +842,7 @@ https://lichess. org/study</string>
   <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s أنت أفضل من %2$s من %3$s اللاعبين.</string>
+  <string name="betterThanPercentPlayers">أفضل من %1$s بالمائة من لاعبي الشطرنج %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
   <string name="yourRating">تقييمك</string>
   <string name="cumulative">جمعا</string>
@@ -903,8 +901,8 @@ https://lichess. org/study</string>
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
-  <string name="quickPairing">تزويج سريع</string>
-  <string name="lobby">لوبي</string>
+  <string name="quickPairing">مزاوجة سريعة</string>
+  <string name="lobby">الصالة</string>
   <string name="anonymous">مجهول</string>
   <string name="yourScore">نقاطك: %s</string>
   <string name="language">اللغة</string>
@@ -931,6 +929,7 @@ https://lichess. org/study</string>
   <string name="invalidFen">FEN غير صالح</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
+  <string name="notificationsX">الإشعارات %1$s</string>
   <string name="perfRatingX">التقييم: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
@@ -1004,7 +1003,7 @@ https://lichess. org/study</string>
   <string name="timeoutExpires">ينتهي الحظر خلال %s.</string>
   <string name="why">لماذا ؟</string>
   <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
-  <string name="goodPractice">لهذا الغرض، يجب علينا التأكد ان جميع اللاعبين يتبعون سلوك جيد.</string>
+  <string name="goodPractice">لهذا الغرض، علينا التأكد أن جميع اللاعبين يسلكون سلوكاً حسناً.</string>
   <string name="potentialProblem">عند اكتشاف مشكلة محتملة، نعرض هذه الرسالة.</string>
   <string name="howToAvoidThis">كيفية تجنب حدوث هذا ؟</string>
   <string name="playEveryGame">العب كل دور تبدأه.</string>
@@ -1016,7 +1015,7 @@ https://lichess. org/study</string>
   <string name="lifetimeScore">النتيجة النهائية</string>
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
   <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
-  <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
+  <string name="agreementNice">أؤكد أنني سأعامل اللاعبين الآخرين بكل احترام.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">أوافق على أني لن أدخل بحسابات متعددة (إلا للأسباب المذكورة في %s).</string>
   <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
@@ -1037,6 +1036,8 @@ https://lichess. org/study</string>
   <string name="useTheReportForm">إستخدم نموذج التبليغ</string>
   <string name="toRequestSupport">لطلب الدعم، %1$s</string>
   <string name="tryTheContactPage">جرب صفحة الإتصال</string>
+  <string name="makeSureToRead">تحقق من قراءة %1$s</string>
+  <string name="theForumEtiquette">آداب المنتدى</string>
   <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
   <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
   <string name="teamNamedX">فريق %1$s</string>
@@ -1066,7 +1067,8 @@ https://lichess. org/study</string>
   <string name="cancelTournament">الغاء البطولة</string>
   <string name="tournDescription">وصف البطولة</string>
   <string name="tournDescriptionHelp">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
-  <string name="ratedFormHelp">المباراة مصنفة و ستأثر على تقييم اللاعبين</string>
+  <string name="ratedFormHelp">المباريات مصنفة
+وتأثر على تقييم اللاعبين</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
   <string name="noRestriction">لا قيود</string>
   <string name="minimumRatedGames">الحد الأدنى للالعاب المصنفة</string>

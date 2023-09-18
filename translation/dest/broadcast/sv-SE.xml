@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Sändningar</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s sändning</item>
+    <item quantity="other">%s sändningar</item>
+  </plurals>
   <string name="liveBroadcasts">Direktsända turneringar</string>
   <string name="newBroadcast">Ny direktsändning</string>
   <string name="addRound">Lägg till en omgång</string>

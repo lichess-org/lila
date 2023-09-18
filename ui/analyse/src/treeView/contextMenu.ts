@@ -62,7 +62,7 @@ function action(icon: string, text: string, handler: () => void): VNode {
       attrs: { 'data-icon': icon },
       hook: bind('click', handler),
     },
-    text
+    text,
   );
 }
 
@@ -95,7 +95,7 @@ function view(opts: Opts, coords: Coords): VNode {
         onMainline
           ? action(licon.InternalArrow, trans('forceVariation'), () => ctrl.forceVariation(opts.path, true))
           : null,
-      ])
+      ]),
   );
 }
 

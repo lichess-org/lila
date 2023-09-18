@@ -13,6 +13,18 @@
   <string name="createBlogDiscussionHelp">Bude vytvořeno téma fóra, aby lidé mohli komentovat váš příspěvek</string>
   <string name="publishOnYourBlog">Publikovat na vašem blogu</string>
   <string name="publishHelp">Je-li zaškrtnuto, příspěvek bude zobrazen na vašem blogu. Pokud ne, bude soukromý, ve vašich konceptech</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Příspěvek byl publikován</item>
+    <item quantity="few">Byly publikovány %s příspěvky</item>
+    <item quantity="many">Bylo publikováno %s příspěvků</item>
+    <item quantity="other">Bylo publikováno %s příspěvků</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Jedno zobrazení</item>
+    <item quantity="few">%s zobrazení</item>
+    <item quantity="many">%s zobrazení</item>
+    <item quantity="other">%s zobrazení</item>
+  </plurals>
   <string name="xPublishedY">%1$s publikoval %2$s</string>
   <string name="thisPostIsPublished">Tento příspěvek je publikován</string>
   <string name="thisIsADraft">Toto je koncept</string>

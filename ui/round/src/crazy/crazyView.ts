@@ -27,8 +27,8 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
         eventNames.forEach(name =>
           el.addEventListener(name, (e: cg.MouchEvent) => {
             if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length == 0) drag(ctrl, e);
-          })
-        )
+          }),
+        ),
       ),
     },
     pieceRoles.map(role => {
@@ -48,9 +48,9 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
               'data-color': color,
               'data-nb': nb,
             },
-          })
-        )
+          }),
+        ),
       );
-    })
+    }),
   );
 }

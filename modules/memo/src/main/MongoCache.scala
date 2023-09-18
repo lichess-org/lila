@@ -67,10 +67,8 @@ object MongoCache:
         name: String,
         dbTtl: FiniteDuration,
         keyToString: K => String
-    )(
-        build: LoaderWrapper[K, V] => Builder => AsyncLoadingCache[K, V]
-    ): MongoCache[K, V] =
-      val cache = new MongoCache(
+    )(build: LoaderWrapper[K, V] => Builder => AsyncLoadingCache[K, V]): MongoCache[K, V] =
+      val cache = MongoCache(
         name,
         dbTtl,
         keyToString,
@@ -89,19 +87,15 @@ object MongoCache:
         dbTtl: FiniteDuration,
         keyToString: K => String
     )(f: K => Fu[V]): MongoCache[K, V] =
-      apply[K, V](8, name, dbTtl, keyToString) { loader =>
-        _.expireAfterWrite(1 second)
-          .buildAsyncFuture(loader(f))
-      }
+      apply[K, V](8, name, dbTtl, keyToString): loader =>
+        _.expireAfterWrite(1 second).buildAsyncFuture(loader(f))
 
     // AsyncLoadingCache for single entry with DB persistence
     def unit[V: BSONHandler](
         name: String,
         dbTtl: FiniteDuration
-    )(
-        build: LoaderWrapper[Unit, V] => Builder => AsyncLoadingCache[Unit, V]
-    ): MongoCache[Unit, V] =
-      new MongoCache(
+    )(build: LoaderWrapper[Unit, V] => Builder => AsyncLoadingCache[Unit, V]): MongoCache[Unit, V] =
+      MongoCache(
         name,
         dbTtl,
         _ => "",
@@ -114,7 +108,5 @@ object MongoCache:
         name: String,
         dbTtl: FiniteDuration
     )(f: Unit => Fu[V]): MongoCache[Unit, V] =
-      unit[V](name, dbTtl) { loader =>
-        _.expireAfterWrite(1 second)
-          .buildAsyncFuture(loader(f))
-      }
+      unit[V](name, dbTtl): loader =>
+        _.expireAfterWrite(1 second).buildAsyncFuture(loader(f))

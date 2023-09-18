@@ -56,15 +56,15 @@ export default function status(ctrl: Ctrl): string {
           return noarg('whiteLeftTheGame') + winnerSuffix;
         default:
           return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')} • ${noarg(
-            'draw'
+            'draw',
           )}`;
       }
     case 'draw': {
-      if (insufficientMaterial(d.game.variant.key, d.game.fen))
-        return `${noarg('insufficientMaterial')} • ${noarg('draw')}`;
       if (d.game.fen.split(' ')[4] === '100')
         return `${noarg('fiftyMovesWithoutProgress')} • ${noarg('draw')}`;
       if (d.game.threefold) return `${noarg('threefoldRepetition')} • ${noarg('draw')}`;
+      if (insufficientMaterial(d.game.variant.key, d.game.fen))
+        return `${noarg('insufficientMaterial')} • ${noarg('draw')}`;
       if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return noarg('drawByMutualAgreement');
       return noarg('draw');
     }

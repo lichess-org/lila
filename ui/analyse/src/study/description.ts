@@ -9,7 +9,11 @@ export type Save = (t: string) => void;
 export class DescriptionCtrl {
   edit = false;
 
-  constructor(public text: string | undefined, readonly doSave: Save, readonly redraw: () => void) {}
+  constructor(
+    public text: string | undefined,
+    readonly doSave: Save,
+    readonly redraw: () => void,
+  ) {}
 
   save(t: string) {
     this.text = t;
@@ -22,7 +26,7 @@ export class DescriptionCtrl {
   }
 }
 
-export const descTitle = (chapter: boolean) => `${chapter ? 'Chapter' : 'Study'} pinned comment`;
+export const descTitle = (chapter: boolean) => `Pinned ${chapter ? 'chapter' : 'study'} comment`;
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = chapter ? study.chapterDesc : study.studyDesc,
@@ -46,7 +50,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
                   _ => {
                     desc.edit = true;
                   },
-                  desc.redraw
+                  desc.redraw,
                 ),
               }),
           h('a', {
@@ -69,10 +73,10 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               _ => {
                 desc.edit = true;
               },
-              desc.redraw
+              desc.redraw,
             ),
           },
-          descTitle(chapter)
+          descTitle(chapter),
         )
       : h('div.text', { hook: richHTML(desc.text) }),
   ]);
@@ -82,17 +86,17 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
   h('div.study-desc-form', [
     h('div.title', [
       descTitle(chapter),
-      h('button.button.button-empty.button-red', {
+      h('button.button.button-empty.button-green', {
         attrs: {
-          'data-icon': licon.X,
-          title: 'Close',
+          'data-icon': licon.Checkmark,
+          title: 'Save and close',
         },
         hook: bind(
           'click',
           () => {
             ctrl.edit = false;
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       }),
     ]),

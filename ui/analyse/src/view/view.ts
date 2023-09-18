@@ -148,7 +148,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
                   if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
                 }),
               },
-              ctrl.trans.noarg('importPgn')
+              ctrl.trans.noarg('importPgn'),
             ),
       ]),
     ]),
@@ -178,7 +178,7 @@ function controls(ctrl: AnalyseCtrl) {
             ctrl.persistence?.autoOpen(false);
             ctrl.togglePersistence();
           }
-        }, ctrl.redraw)
+        }, ctrl.redraw),
       ),
     },
     [
@@ -232,7 +232,7 @@ function controls(ctrl: AnalyseCtrl) {
                     },
                   })
                 : null,
-            ]
+            ],
       ),
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
@@ -250,7 +250,7 @@ function controls(ctrl: AnalyseCtrl) {
               'data-icon': licon.Hamburger,
             },
           }),
-    ]
+    ],
   );
 }
 
@@ -277,7 +277,7 @@ const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
             hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
             attrs: { type: 'button' },
           },
-          ctrl.trans.noarg('enable')
+          ctrl.trans.noarg('enable'),
         ),
       ])
     : undefined;
@@ -292,7 +292,7 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
     ctrl.node.fen,
     !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
     ctrl.nodeList,
-    ctrl.node.ply
+    ctrl.node.ply,
   );
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
@@ -423,7 +423,7 @@ export default function (deps?: typeof studyDeps) {
                         if (e.deltaY > 0 && scroll) control.next(ctrl);
                         else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                         ctrl.redraw();
-                      })
+                      }),
                     ),
             },
             [
@@ -432,7 +432,7 @@ export default function (deps?: typeof studyDeps) {
               chessground.render(ctrl),
               playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
               ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
-            ]
+            ],
           ),
         gaugeOn && !tour ? cevalView.renderGauge(ctrl) : null,
         menuIsOpen || tour ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
@@ -462,7 +462,7 @@ export default function (deps?: typeof studyDeps) {
                     ? undefined
                     : onInsert(elm => serverSideUnderboard(elm, ctrl)),
               },
-              study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)]
+              study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)],
             ),
         tour ? null : trainingView(ctrl),
         ctrl.studyPractice
@@ -492,17 +492,17 @@ export default function (deps?: typeof studyDeps) {
                                 'data-icon': licon.Back,
                               },
                             },
-                            ctrl.trans.noarg('backToGame')
-                          )
+                            ctrl.trans.noarg('backToGame'),
+                          ),
                         )
                       : null,
-                  ]
+                  ],
             ),
         study && study.relay && deps?.relayManager(study.relay),
         h('div.chat__members.none', {
           hook: onInsert(lichess.watchers),
         }),
-      ]
+      ],
     );
   };
 }
@@ -529,7 +529,7 @@ function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
           },
           hook: bind('click', ctrl.persistence.clear),
         },
-        noarg('clearSavedMoves')
+        noarg('clearSavedMoves'),
       ),
     ]),
   ]);

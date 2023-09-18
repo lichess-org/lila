@@ -18,7 +18,7 @@ export default class RelayCtrl {
     readonly send: AnalyseSocketSend,
     readonly redraw: () => void,
     readonly members: StudyMemberCtrl,
-    chapter: StudyChapter
+    chapter: StudyChapter,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = {
@@ -86,7 +86,7 @@ export default class RelayCtrl {
       }, 4500);
       this.redraw();
       if (event.error) {
-        lichess.sound.play('wrapAround');
+        lichess.sound.play('error');
         console.warn(`relay synchronisation error: ${event.error}`);
       }
     },

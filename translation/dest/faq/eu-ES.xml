@@ -67,7 +67,7 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="lichessTraining">Lichesseko ariketak</string>
   <string name="watchIMRosenCheckmate">Ikusi Eric Rosen Nazioarteko Maisuaren matea %s.</string>
   <string name="threefoldRepetition">Posizioa hiru aldiz errepikatzea</string>
-  <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. Lichessek FIDEren arauak erabiltzen ditu, %2$s 9.2 (d) artikuluan azaldu bezala.</string>
+  <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. Lichessek FIDE ren arauak erabiltzen ditu, %2$s 9.2 artikuluan azaldu bezala.</string>
   <string name="threefoldRepetitionLowerCase">hiru errepikapenengatik</string>
   <string name="notRepeatedMoves">Ez ditugu jokaldiak errepikatu. Zergatik amaitu da partida berdinketarekin?</string>
   <string name="repeatedPositionsThatMatters">Posizioa hiru aldiz errepikatzeak, errepikatu dena %1$s dela esan nahi du, ez jokaldiak. Errepikapenak, gainera, ez dute zertan jarraian gertatu behar.</string>

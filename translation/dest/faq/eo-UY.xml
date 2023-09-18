@@ -52,7 +52,7 @@ La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="lichessTraining">trejniĝo en Lichess</string>
   <string name="watchIMRosenCheckmate">Spektu International Master Eric Rosen ŝakmati %s.</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
-  <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 (d) de la %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 de la %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
   <string name="notRepeatedMoves">Ni ne ripetis movojn. Kial tamen la ludo estis egalvenko pro ripetado?</string>
   <string name="repeatedPositionsThatMatters">Trifoja ripetado estas pro ripetado de %1$s, ne movoj. Ripetado ne devas okazi sekve.</string>
@@ -80,11 +80,15 @@ Ne petu por la LM titolo.</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
+  <string name="ownerUniqueTrophies">Tiu trofeo estas unika en la historio de Lichess, neniu krom %1$s iam havos ĝin.</string>
+  <string name="wayOfBerserkExplanation">Por akiri ĝin, hiimgosu defiis sin berserki kaj venki ciujn ludojn de %s.</string>
   <string name="aHourlyBulletTournament">hore kugla turniro</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">La ludanto ne finiĝis sufiĉe da rangaj ludoj kontraŭ %1$s en la rangkategorio.</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
+  <string name="notPlayedRecently">La ludanto ne ludis sufiĉe da lastatempaj ludoj. Depende de la nombro da ludoj, kiujn vi ludis, eble daŭros ĉirkaŭ unu jaro da senaktiveco, por ke via rango reprovizoriĝas.</string>
   <string name="howDoLeaderoardsWork">Kiel rangoj kaj rangtabuloj funkcias?</string>
   <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
   <string name="ratingLeaderboards">ĉefo tabulo de rango</string>

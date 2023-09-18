@@ -16,7 +16,7 @@ db.user4
         $unset: {
           createdAt: true,
         },
-      }
+      },
     );
 
     db.user4.update(
@@ -27,7 +27,7 @@ db.user4
         $set: {
           createdAt: u.createdAt,
         },
-      }
+      },
     );
 
     ++it;

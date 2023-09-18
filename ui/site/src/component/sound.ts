@@ -2,12 +2,11 @@ import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
 import { isIOS } from 'common/mobile';
+import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
 type Name = string;
 type Path = string;
-
-export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
 export default new (class implements SoundI {
   ctx = makeAudioContext();
@@ -17,10 +16,10 @@ export default new (class implements SoundI {
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
-  soundMove?: SoundMove;
+  music?: SoundMove;
 
   constructor() {
-    $('body').on('click touchstart', this.primer);
+    $('body').on('mouseup touchend keydown', this.primer);
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
@@ -49,29 +48,31 @@ export default new (class implements SoundI {
     let dir = this.theme;
     if (this.theme === 'music' || this.speech()) {
       if (['move', 'capture', 'check'].includes(name)) return;
-      if (name === 'genericNotify' || this.speech()) dir = 'standard';
-      else dir = 'instrument';
+      dir = 'standard';
     }
     return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    return new Promise(resolve => {
-      if (!this.enabled()) return resolve();
-      this.load(name)
-        .then(async sound => {
-          if (!sound) return resolve();
-          if (await this.resumeContext()) sound.play(this.getVolume() * volume, resolve);
-          else resolve();
-        })
-        .catch(resolve);
-    });
+    if (!this.enabled()) return;
+    const sound = await this.load(name);
+    if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
   }
 
-  async move(node?: { san?: string; uci?: string }) {
-    if (this.theme !== 'music') return;
-    this.soundMove ??= await lichess.loadEsm<SoundMove>('soundMove');
-    this.soundMove(node);
+  throttled = throttle(100, (name: Name) => this.play(name));
+
+  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+    if (o?.filter !== 'music' && this.theme !== 'music') {
+      if (o?.name) this.throttled(o.name);
+      else {
+        if (o?.san?.includes('x')) this.throttled('capture');
+        else this.throttled('move');
+        if (o?.san?.endsWith('#') || o?.san?.endsWith('+')) this.throttled('check');
+      }
+    }
+    if (o?.filter === 'game' || this.theme !== 'music') return;
+    this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
+    this.music(o);
   }
 
   async countdown(count: number, interval = 500): Promise<void> {
@@ -144,7 +145,6 @@ export default new (class implements SoundI {
     if (isIOS()) this.ctx?.resume();
     this.theme = s;
     this.publish();
-    this.move();
   };
 
   set = () => this.theme;
@@ -218,11 +218,14 @@ export default new (class implements SoundI {
   }
 
   primer = () => {
-    if (isIOS({ below: 13 })) {
-      this.ctx = makeAudioContext()!;
-      for (const s of this.sounds.values()) s.rewire(this.ctx);
-    } else if (this.ctx?.state === 'suspended') this.ctx.resume();
-    $('body').off('click touchstart', this.primer);
+    // some browsers fail audioContext.resume() on contexts created prior to user interaction
+    if (this.ctx?.state !== 'running') {
+      const ctx = makeAudioContext()!;
+      for (const s of this.sounds.values()) s.rewire(ctx);
+      this.ctx?.close();
+      this.ctx = ctx;
+    }
+    $('body').off('mouseup touchend keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };
 })();
@@ -231,22 +234,26 @@ class Sound {
   node: GainNode;
   ctx: AudioContext;
 
-  constructor(ctx: AudioContext, readonly buffer: AudioBuffer) {
+  constructor(
+    ctx: AudioContext,
+    readonly buffer: AudioBuffer,
+  ) {
     this.rewire(ctx);
   }
 
-  play(volume = 1, onend?: () => void) {
+  play(volume = 1): Promise<void> {
     this.node.gain.setValueAtTime(volume, this.ctx!.currentTime);
     const source = this.ctx!.createBufferSource();
     source.buffer = this.buffer;
     source.connect(this.node);
-    source.onended = () => {
-      source.disconnect();
-      onend?.();
-    };
-    source.start(0);
+    return new Promise<void>(resolve => {
+      source.onended = () => {
+        source.disconnect();
+        resolve();
+      };
+      source.start(0);
+    });
   }
-
   rewire(ctx: AudioContext) {
     this.node?.disconnect();
     this.ctx = ctx;

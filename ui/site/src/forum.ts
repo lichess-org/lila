@@ -137,7 +137,7 @@ lichess.load.then(() => {
           {
             placement: 'top',
             appendTo: '#lichess_forum',
-          }
+          },
         );
       });
   });
@@ -155,7 +155,7 @@ lichess.load.then(() => {
         },
         _ => {
           lichess.announce({ msg: 'Failed to send forum post reaction' });
-        }
+        },
       );
     }
   });

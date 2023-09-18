@@ -53,7 +53,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
                 title: ctrl.trans.noarg('pause'),
               },
             })
-          : player.rank
+          : player.rank,
       ),
       h('td.player', [
         renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
@@ -65,7 +65,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
           ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, player.score)
           : h('strong', player.score),
       ]),
-    ]
+    ],
   );
 }
 
@@ -75,7 +75,7 @@ function podiumUsername(p: PodiumPlayer) {
     {
       attrs: { href: '/@/' + p.name },
     },
-    playerName(p)
+    playerName(p),
   );
 }
 
@@ -102,7 +102,7 @@ function podiumPosition(
   p: PodiumPlayer,
   pos: string,
   berserkable: boolean,
-  ctrl: TournamentController
+  ctrl: TournamentController,
 ): VNode | undefined {
   if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, berserkable, ctrl)]);
   return undefined;
@@ -147,8 +147,8 @@ export function standing(ctrl: TournamentController, pag: Pagination, klass?: st
             },
           },
         },
-        tableBody
+        tableBody,
       ),
-    ]
+    ],
   );
 }

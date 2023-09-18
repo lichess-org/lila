@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Xogar cun amigo</string>
-  <string name="playWithTheMachine">Xogar contra a máquina</string>
+  <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
@@ -72,7 +72,7 @@
   <string name="forceVariation">Forzar variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
-  <string name="variantWin">Variante gañadora</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Variante gañadora</string>
   <string name="insufficientMaterial">Material insuficiente</string>
   <string name="pawnMove">Movemento de peón</string>
   <string name="capture">Captura</string>
@@ -504,7 +504,7 @@
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
   <string name="biography">Biografía</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandeira</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Ligazóns ás redes sociais</string>
   <string name="oneUrlPerLine">Unha URL por liña.</string>
@@ -560,8 +560,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
-  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
-  <string name="noNoteYet">Aínda non hai notas</string>
+  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">A túa puntuación en %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Es mellor có %1$s dos xogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é mellor có %2$s dos xogadores de %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Mellor có %1$s dos xogadores de %2$s</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Mellor có %1$s dos xogadores de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non tes unha puntuación establecida en %s.</string>
   <string name="yourRating">A túa puntuación</string>
   <string name="cumulative">Acumulado</string>
@@ -824,11 +824,11 @@
   <string name="waitingForAnalysis">Agardando análise</string>
   <string name="noMistakesFoundForWhite">Non hai erros das brancas</string>
   <string name="noMistakesFoundForBlack">Non hai erros das negras</string>
-  <string name="doneReviewingWhiteMistakes">Terminada a revisión de erros das brancas</string>
-  <string name="doneReviewingBlackMistakes">Terminada a revisión de erros das negras</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Terminada a revisión de erros das brancas</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Terminada a revisión de erros das negras</string>
   <string name="doItAgain">Faino de novo</string>
-  <string name="reviewWhiteMistakes">Revisar os erros das brancas</string>
-  <string name="reviewBlackMistakes">Revisar os erros das negras</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Revisar os erros das brancas</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Revisar os erros das negras</string>
   <string name="advantage">Vantaxe</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s segundo</item>
@@ -837,14 +837,14 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio xogo</string>
   <string name="endgame">Final</string>
-  <string name="conditionalPremoves">Movementos anticipados condicionais</string>
+  <string name="conditionalPremoves">Premovementos condicionais</string>
   <string name="addCurrentVariation">Engadir a variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear movementos anticipados condicionais</string>
-  <string name="noConditionalPremoves">Sen movementos anticipados condicionais</string>
+  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>
+  <string name="noConditionalPremoves">Sen premovementos condicionais</string>
   <string name="playX">Xogar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">e garda %s variante de movementos anticipados</item>
-    <item quantity="other">e garda %s variantes de movementos anticipados</item>
+    <item quantity="one">e garda %s variante de premovementos</item>
+    <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>

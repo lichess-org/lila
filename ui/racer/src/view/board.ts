@@ -1,4 +1,3 @@
-import { Chessground } from 'chessground';
 import RacerCtrl from '../ctrl';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
@@ -19,7 +18,7 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
     hook: {
       insert: vnode =>
         ctrl.ground(
-          Chessground(
+          lichess.makeChessground(
             vnode.elm as HTMLElement,
             makeCgConfig(
               ctrl.isRacing() && ctrl.isPlayer()
@@ -30,9 +29,9 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
                     movable: { color: ctrl.run.pov },
                   },
               ctrl.pref,
-              ctrl.userMove
-            )
-          )
+              ctrl.userMove,
+            ),
+          ),
         ),
     },
   });

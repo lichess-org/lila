@@ -29,6 +29,6 @@ db.user2.find().forEach(function (user) {
           winH: user.nbWinsH || 0,
         },
       },
-    }
+    },
   );
 });

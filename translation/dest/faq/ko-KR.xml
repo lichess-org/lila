@@ -67,7 +67,7 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
   <string name="lichessTraining">Lichess 연습</string>
   <string name="watchIMRosenCheckmate">인터네셔널 마스터 Eric Rosen이 %s으로 체크메이트 하는 것을 보세요.</string>
   <string name="threefoldRepetition">3회 반복</string>
-  <string name="threefoldRepetitionExplanation">같은 포지션이 3번 반복될 경우 플레이어들은 %1$s으로 무승부를 요청할 수 있습니다. Lichess는 FIDE 공식 규칙(%2$s의 9.2 (d))을 구현했습니다.</string>
+  <string name="threefoldRepetitionExplanation">같은 포지션이 3번 반복될 경우 플레이어들은 %1$s으로 무승부를 요청할 수 있습니다. Lichess는 FIDE 공식 규칙(%2$s의 9.2)을 구현했습니다.</string>
   <string name="threefoldRepetitionLowerCase">3회 동형반복</string>
   <string name="notRepeatedMoves">같은 수를 반복하지 않았는데 반복이라면서 끝났는데요?</string>
   <string name="repeatedPositionsThatMatters">3회 반복은 %1$s에 관한 것이지, 수에 관한 것이 아닙니다. 반복은 연속적으로 이루어져야만 하는 것이 아닙니다.</string>

@@ -75,8 +75,7 @@ Myslíme si, že tieto podmienky je pravdepodobnejšie splniť v rámci tímu ak
   <string name="numberOfByesQ">Koľko \"priepustiek\" môže hráč získať?</string>
   <string name="numberOfByesA">Hráč dostane \"priepustku\" - jeden bod vždy keď mu nemôže byť pridelený súper. Okrem toho \"priepustka\" - s hodnotou pol bodu je pridelená keď sa hráč pripojí k turnaju neskoro.</string>
   <string name="earlyDrawsQ">Čo sa deje v prípade skorých remíz?</string>
-  <string name="earlyDrawsA">Hráč dostane jeden bod zakaždým, keď mu systém párovania nenájde vhodnú dvojicu.
-Okrem toho sa hráčovi jednorázovo pridelí pol bodu, keď sa do turnaja zapojí až po jeho začatí.</string>
+  <string name="earlyDrawsAnswer">V turnajoch hraných švajčiarskym systémom nemôžu hráči remizovať skôr, ako odohrajú 30 ťahov. Toto opatrenie síce nemôže zabrániť vopred dohodnutým remízam, ale aspoň sťažuje možnosť dohodnúť sa na remíze za pochodu.</string>
   <string name="whatIfOneDoesntPlayQ">Čo sa stane v prípade, ak hráč nezahrá v hre?</string>
   <string name="whatIfOneDoesntPlayA">Jeho hodiny budú odpočítavať pokiaľ sa mu neminie a neprehrá hru. 
 Potom systém stiahne hráča z turnaja, aby neprehral žiadne ďalšie hry.

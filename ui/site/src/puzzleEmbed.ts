@@ -1,12 +1,12 @@
-import { Chessground } from 'chessground';
 import { uciToMove } from 'chessground/util';
+import { embedChessground } from './component/assets';
 
-window.onload = () => {
+window.onload = async () => {
   const el = document.querySelector('#daily-puzzle') as HTMLElement,
     board = el.querySelector('.mini-board') as HTMLAnchorElement,
     [fen, orientation, lm] = board.getAttribute('data-state')!.split(',');
 
-  Chessground(board.firstChild as HTMLElement, {
+  (await embedChessground()).Chessground(board.firstChild as HTMLElement, {
     coordinates: false,
     drawable: { enabled: false, visible: false },
     viewOnly: true,

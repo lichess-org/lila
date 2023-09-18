@@ -17,7 +17,11 @@ export default class PuzzleSession {
   maxSize = 100;
   maxAge = 1000 * 3600;
 
-  constructor(readonly theme: ThemeKey, readonly userId: string | undefined, readonly streak: boolean) {}
+  constructor(
+    readonly theme: ThemeKey,
+    readonly userId: string | undefined,
+    readonly streak: boolean,
+  ) {}
 
   default = () => ({
     theme: this.theme,

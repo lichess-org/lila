@@ -6,5 +6,5 @@ db.user2.update(
       'settings.sound': 1,
     },
   },
-  { multi: 1 }
+  { multi: 1 },
 );

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Барајте</string>
+  <string name="search">Пребарај</string>
   <string name="advancedSearch">Напредно пребарување</string>
   <plurals name="searchInXGames">
     <item quantity="one">Пребарување во %s партија</item>

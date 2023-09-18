@@ -38,9 +38,9 @@ export default function (ctrl: Ctrl) {
                   }, 300);
               },
             },
-            '0'
-          )
-        )
+            '0',
+          ),
+        ),
       ),
       m('p', util.withLinebreaks(ctrl.trans.noarg(stage.complete))),
       m('div.buttons', [
@@ -51,7 +51,7 @@ export default function (ctrl: Ctrl) {
                 href: '/' + next.id,
                 config: m.route,
               },
-              [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', m('i[data-icon=]')]
+              [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', m('i[data-icon=]')],
             )
           : null,
         m(
@@ -60,9 +60,9 @@ export default function (ctrl: Ctrl) {
             href: '/',
             config: m.route,
           },
-          ctrl.trans.noarg('backToMenu')
+          ctrl.trans.noarg('backToMenu'),
         ),
       ]),
-    ])
+    ]),
   );
 }

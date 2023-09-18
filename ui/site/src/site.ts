@@ -165,10 +165,12 @@ lichess.load.then(() => {
       lichess.redirect(d);
     });
     pubsub.on('socket.in.fen', e =>
-      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
+      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e)),
     );
     pubsub.on('socket.in.finish', e =>
-      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.finish(el, e.win))
+      document
+        .querySelectorAll('.mini-game-' + e.id)
+        .forEach((el: HTMLElement) => miniGame.finish(el, e.win)),
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
@@ -187,14 +189,14 @@ lichess.load.then(() => {
                     xhr.text(this.href, { method: 'post' });
                     $('#announce').remove();
                     return false;
-                  })
+                  }),
               )
               .append(
                 $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
                   .attr('href', url)
-                  .text(siteTrans('resume'))
-              )
-          )
+                  .text(siteTrans('resume')),
+              ),
+          ),
       );
     });
   }, 800);

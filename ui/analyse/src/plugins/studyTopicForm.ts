@@ -10,7 +10,7 @@ lichess.load.then(() => {
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) => xhr.json(xhr.url('/study/topic/autocomplete', { term })),
-    300
+    300,
   );
   let clickDebounce: Timeout | undefined; // https://yaireo.github.io/tagify/#section-advance-options
   tagify

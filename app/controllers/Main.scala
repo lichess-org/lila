@@ -115,12 +115,12 @@ final class Main(
     NotImplemented.page(html.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok.page(html.site.helpModal.keyboardMove)
+    Ok.page(html.site.help.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move"   => Ok.page(html.site.helpModal.voiceMove)
-      case "coords" => Ok.page(html.site.helpModal.voiceCoords)
+      case "move"   => Ok.page(html.site.help.voiceMove)
+      case "coords" => Ok.page(html.site.help.voiceCoords)
       case _        => NotFound(s"Unknown voice help module: $module")
 
   def movedPermanently(to: String) = Anon:

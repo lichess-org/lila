@@ -8,7 +8,7 @@ ranking
     {},
     {
       user: 1,
-    }
+    },
   )
   .forEach(function (r) {
     if (

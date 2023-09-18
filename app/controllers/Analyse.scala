@@ -43,53 +43,54 @@ final class Analyse(
         users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfType)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
-          (env.analyse.analyser get pov.game) zip
-            (!pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId)) zip
-            (pov.game.simulId so env.simul.repo.find) zip
-            roundC.getWatcherChat(pov.game) zip
-            (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
-            env.bookmark.api.exists(pov.game, ctx.me) zip
+          (
+            env.analyse.analyser.get(pov.game),
+            !pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId),
+            pov.game.simulId so env.simul.repo.find,
+            roundC.getWatcherChat(pov.game),
+            ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game),
+            env.bookmark.api.exists(pov.game, ctx.me),
             env.api.pgnDump(
               pov.game,
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
-            ) flatMap {
-              case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
-                env.api.roundApi.review(
-                  pov,
-                  users,
-                  tv = userTv.map: u =>
-                    lila.round.OnTv.User(u.id),
-                  analysis,
-                  initialFen = initialFen,
-                  withFlags = WithFlags(
-                    movetimes = true,
-                    clocks = true,
-                    division = true,
-                    opening = true,
-                    rating = ctx.pref.showRatings,
-                    lichobileCompat = HTTPRequest.isLichobile(ctx.req),
-                    puzzles = true
+            )
+          ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
+            env.api.roundApi
+              .review(
+                pov,
+                users,
+                tv = userTv.map: u =>
+                  lila.round.OnTv.User(u.id),
+                analysis,
+                initialFen = initialFen,
+                withFlags = WithFlags(
+                  movetimes = true,
+                  clocks = true,
+                  division = true,
+                  opening = true,
+                  rating = ctx.pref.showRatings,
+                  lichobileCompat = HTTPRequest.isLichobile(ctx.req),
+                  puzzles = true
+                )
+              )
+              .flatMap: data =>
+                Ok.page(
+                  html.analyse.replay(
+                    pov,
+                    data,
+                    initialFen,
+                    env.analyse.annotator(pgn, pov.game, analysis).render,
+                    analysis,
+                    analysisInProgress,
+                    simul,
+                    crosstable,
+                    userTv,
+                    chat,
+                    bookmarked = bookmarked
                   )
-                ) flatMap { data =>
-                  Ok.page(
-                    html.analyse.replay(
-                      pov,
-                      data,
-                      initialFen,
-                      env.analyse.annotator(pgn, pov.game, analysis).toString,
-                      analysis,
-                      analysisInProgress,
-                      simul,
-                      crosstable,
-                      userTv,
-                      chat,
-                      bookmarked = bookmarked
-                    )
-                  ).map(_.enableSharedArrayBuffer)
-                }
-            }
+                ).map(_.enableSharedArrayBuffer)
       yield res
 
   def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)

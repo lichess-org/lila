@@ -3,23 +3,13 @@ import * as xhr from 'common/xhr';
 import * as prop from 'common/storage';
 import * as licon from 'common/licon';
 import * as cs from 'chess';
-import { src as src, dest as dest } from 'chess';
+import { from as src, to as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import { RootCtrl, VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import {
-  type SparseMap,
-  type Transform,
-  spread,
-  spreadMap,
-  getSpread,
-  remove,
-  pushMap,
-  movesTo,
-  as,
-  findTransforms,
-} from '../util';
+import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap, as } from 'common';
+import { type Transform, movesTo, findTransforms } from '../util';
 
 // shimmed to prevent pop-in while not overly complicating root controller's view construction
 export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {
@@ -129,7 +119,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   function initTimerRec() {
     if (timer() === 0) return;
     const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w =>
-      valWord(w)
+      valWord(w),
     );
     lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
@@ -180,7 +170,6 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     const confirm = request ?? command;
     if (!confirm || !answer) return false;
     if (['yes', 'no', confirm.key].includes(answer)) {
-      console.log(confirm.key, answer);
       confirm.action(answer !== 'no');
       request = command = undefined;
       return true;
@@ -198,7 +187,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
 
     const chosen = matchOne(
       heard,
-      [...choices].map(([w, uci]) => [wordVal(w), [uci]])
+      [...choices].map(([w, uci]) => [wordVal(w), [uci]]),
     );
     if (!chosen) {
       clearMoveProgress();
@@ -250,7 +239,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   function matchOneTags(heard: string, tags: string[], vals: string[] = []): string | false {
     return matchOne(heard, [...vals.map(v => [v, [v]]), ...byTags(tags).map(e => [e.val!, [e.val!]])] as [
       string,
-      string[]
+      string[],
     ][]);
   }
 
@@ -276,32 +265,18 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     return sub?.cost ?? Infinity;
   }
 
-  function chooseMoves(m: [string, Match][]) {
-    if (m.length === 0) return false;
-    if (m.length === 1 && m[0][0].length === 2) {
-      console.info('chooseMoves', `select '${m[0][0]}'`);
-      submit(m[0][0]);
-      return true;
-    }
-    if (timer()) return ambiguate(m);
-    if (
-      (m.length === 1 && m[0][1].cost < 0.4) ||
-      (m.length > 1 && m[1][1].cost - m[0][1].cost > [0.7, 0.5, 0.3][clarityPref()])
-    ) {
-      console.info('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1].cost}`);
-      submit(m[0][0]);
-      return true;
-    }
-    return ambiguate(m);
-  }
-
-  function ambiguate(options: [string, Match][]) {
+  function chooseMoves(options: [string, Match][]) {
     if (options.length === 0) return false;
+    if (options.length === 1 && options[0][0].length === 2) {
+      console.info('chooseMoves', `select '${options[0][0]}'`);
+      submit(options[0][0]);
+      return true;
+    }
     // dedup by uci squares & keep first to preserve cost order
     options = options
       .filter(
         ([uci, _], keepIfFirst) =>
-          options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
+          options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst,
       )
       .slice(0, maxArrows());
 
@@ -314,12 +289,21 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
       [options[0], options[sanIndex]] = [options[sanIndex], options[0]];
       options[0][1].cost -= 0.01;
     }
-    if (timer()) {
-      const clarityThreshold = [1.0, 0.5, 0.001][clarityPref()];
-      const lowestCost = options[0][1].cost;
-      // trim choices to clarity window
-      options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
+    const clarityThreshold = [1.0, 0.5, 0.001][clarityPref()];
+    const lowestCost = options[0][1].cost;
+    // trim choices to clarity window
+    options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
+
+    if (options.length === 1 && options[0][1].cost < 0.3) {
+      console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
+      submit(options[0][0]);
+      return true;
     }
+    return ambiguate(options);
+  }
+
+  function ambiguate(options: [string, Match][]) {
+    if (options.length === 0) return false;
 
     choices = new Map<string, Uci>();
     const preferred = options.length === 1 || options[0][1].cost < options[1][1].cost;
@@ -332,11 +316,14 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     console.info('ambiguate', choices);
     choiceTimeout = 0;
     if (preferred && timer()) {
-      choiceTimeout = setTimeout(() => {
-        submit(options[0][0]);
-        choiceTimeout = undefined;
-        lichess.mic.setRecognizer('default');
-      }, timer() * 1000 + 100);
+      choiceTimeout = setTimeout(
+        () => {
+          submit(options[0][0]);
+          choiceTimeout = undefined;
+          lichess.mic.setRecognizer('default');
+        },
+        timer() * 1000 + 100,
+      );
       lichess.mic.setRecognizer('timer');
     }
     makeArrows();
@@ -352,14 +339,19 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     if (!choices) return;
     const arrowTime = choiceTimeout ? timer() : undefined;
     cg.setShapes(
-      colorsPref()
-        ? coloredArrows([...choices], arrowTime)
-        : numberedArrows([...choices], arrowTime, cg.state.orientation === 'white')
+      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
     );
   }
 
   function confirmCommand(key: string, action: (v: boolean) => void) {
-    command = { key, action };
+    command = {
+      key,
+      action: v => {
+        action(v);
+        command = undefined;
+        root.redraw();
+      },
+    };
     root.redraw();
   }
 
@@ -385,7 +377,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   function submit(uci: Uci) {
     clearMoveProgress();
     if (uci.length < 3) {
-      const dests = ucis.filter(x => x.startsWith(uci));
+      const dests = [...new Set(ucis.filter(x => x.length === 4 && x.startsWith(uci)))];
 
       if (dests.length <= maxArrows()) return ambiguate(dests.map(uci => [uci, { cost: 0 }]));
       if (uci !== selection()) selection(src(uci));
@@ -409,7 +401,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
               if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
               else if (val === 'no') ctrl.cancel();
             },
-            { listenerId: 'promotion' }
+            { listenerId: 'promotion' },
           )
         : lichess.mic.removeListener('promotion');
   }

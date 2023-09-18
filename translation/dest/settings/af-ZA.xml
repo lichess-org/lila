@@ -5,7 +5,7 @@
   <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Jou rekening word bestuur en kan nie gesluit word nie.</string>
   <string name="closingIsDefinitive">Sluiting is finaal. Daar is geen omdraaikans nie. Is jy seker?</string>
   <string name="cantOpenSimilarAccount">Jy sal nie toegelaat word om \'n nuwe rekening met dieselfde naam te open nie, selfs al is die hoof- en kleinletters verskillend.</string>
-  <string name="changedMindDoNotCloseAccount">Ek het van gedagte verander, moenie my rekening sluit nie</string>
+  <string name="changedMindDoNotCloseAccount">Ek het van plan verander, moenie my rekening sluit nie</string>
   <string name="closeAccountExplanation">Is jy seker jy wil die rekening toemaak? Om die rekening toe te maak is \'n permanente besluit. Jy sal NOOIT WEER kan aanmeld nie.</string>
   <string name="thisAccountIsClosed">Hierdie rekening is gesluit.</string>
 </resources>

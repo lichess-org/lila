@@ -99,4 +99,7 @@
   <string name="youDeclinedThisInvitation">Դուք մերժեցիք այս հրավերը։</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">կամ</string>
   <string name="createMultipleAccounts">Միաժամանակ ստեղծել Lichess-ի մի քանի հաշիվ</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">օգտագործեք այս ձևը</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">ստեղծեք ավելի շատ դասարաններ</string>
+  <string name="studentsRealNamesOnePerLine">Աշակերտների իրական անունները․ մեկական յուրաքանչյուր տողում</string>
 </resources>

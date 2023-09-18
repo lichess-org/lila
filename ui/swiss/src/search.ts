@@ -45,6 +45,6 @@ export function input(ctrl: TournamentController): VNode {
           }
         });
       }),
-    })
+    }),
   );
 }

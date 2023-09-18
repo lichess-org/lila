@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">vừa xong</string>
+  <string name="justNow">vừa mới đây</string>
   <plurals name="inNbSeconds">
     <item quantity="other">trong %s giây</item>
   </plurals>

@@ -96,9 +96,6 @@ final class UserRepo(val coll: Coll)(using Executor):
   def disabledById(id: UserId): Fu[Option[User]] =
     User.noGhost(id) so coll.one[User](disabledSelect ++ $id(id))
 
-  def botsByIds(ids: Iterable[UserId]): Fu[List[User]] =
-    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPref.priTemp).listAll()
-
   def enabledTitledCursor(proj: Option[Bdoc]) =
     coll
       .find(
@@ -278,6 +275,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setTroll     = setMark(UserMark.Troll)
   def setReportban = setMark(UserMark.Reportban)
   def setRankban   = setMark(UserMark.Rankban)
+  def setArenaBan  = setMark(UserMark.ArenaBan)
   def setPrizeban  = setMark(UserMark.PrizeBan)
   def setAlt       = setMark(UserMark.Alt)
 
@@ -420,6 +418,8 @@ final class UserRepo(val coll: Coll)(using Executor):
   def botSelect(v: Boolean) =
     if v then $doc(F.title -> Title.BOT)
     else $doc(F.title      -> $ne(Title.BOT))
+
+  def botWithBioSelect = botSelect(true) ++ $doc(s"${F.profile}.bio" -> $exists(true))
 
   private[user] def botIds =
     coll.distinctEasy[UserId, Set]("_id", botSelect(true) ++ enabledSelect, _.sec)

@@ -30,7 +30,7 @@
   <string name="goodIntroduction">pana pona pi sona lili</string>
   <string name="lichessTraining">kama sona pi ilo Lichess</string>
   <string name="threefoldRepetition">sama supa pi tenpo tu wan</string>
-  <string name="threefoldRepetitionExplanation">supa li sama lon tenpo tu wan la jan li ken kama jo e pini sama tan %1$s. ilo Lichess li kepeken nasin lon pi kulupu FIDE. nasin ni li lon lipu Article 9.2 (d) lon %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Supa li sama lon tenpo tu wan la jan li ken kama jo e pini sama tan %1$s. ilo Lichess li kepeken nasin lon pi kulupu FIDE. nasin ni li lon lipu Article 9.2 lon %2$s.</string>
   <string name="threefoldRepetitionLowerCase">sama supa pi tenpo tu wan</string>
   <string name="positions">lon</string>
   <string name="configure">ante</string>

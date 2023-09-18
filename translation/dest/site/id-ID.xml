@@ -459,7 +459,7 @@
   <string name="firstName">Nama depan</string>
   <string name="lastName">Nama Belakang</string>
   <string name="biography">Biografi</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bendera</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>

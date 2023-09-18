@@ -204,7 +204,6 @@
   <string name="editProfile">ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା</string>
   <string name="firstName">ପ୍ରଦତ୍ତ ନାମ</string>
   <string name="biography">ଜୀବନୀ</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ଦେଶ କିମ୍ୱା ପତାକା</string>
   <string name="thankYou">ଧନ୍ୟବାଦ!</string>
   <string name="oneUrlPerLine">ପ୍ରତି ଧାଡ଼ିରେ ଗୋଟିଏ URL।</string>
   <string name="success">ସଫଳତା</string>
@@ -260,7 +259,7 @@
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="accuracy">ସଠିକତା</string>
   <string name="newTournament">ନୂଆ ଟୁର୍ନାମେଣ୍ଟ</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">%2$s ଜଣ ଖେଳାଳିଙ୍କ ମଧ୍ୟରୁ %1$s ଜଣଙ୍କ ଠାରୁ ଭଲ</string>
+  <string name="betterThanPercentPlayers">%2$s ଜଣ ଖେଳାଳିଙ୍କ ମଧ୍ୟରୁ %1$s ଜଣଙ୍କ ଠାରୁ ଭଲ</string>
   <string name="weHaveSentYouAnEmailTo">ଆମେ %sକୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍‌ୱର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କ୍‌କୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>

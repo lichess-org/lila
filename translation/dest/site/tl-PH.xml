@@ -447,7 +447,6 @@
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa O watawat</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="oneUrlPerLine">Isang URL kada linya.</string>

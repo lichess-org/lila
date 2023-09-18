@@ -33,12 +33,11 @@ final class SecurityApi(
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
-  lazy val loginForm = Form {
+  lazy val loginForm = Form:
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
     )
-  }
   def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
 
   lazy val rememberForm = Form(single("remember" -> boolean))
@@ -68,11 +67,14 @@ final class SecurityApi(
       })
     )
 
-  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] = {
-    EmailAddress.from(str.value) match
-      case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-      case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
-  } map loadedLoginForm
+  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] =
+    EmailAddress
+      .from(str.value)
+      .match
+        case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
+        case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
+      .map(_.filter(_.user isnt User.lichessId))
+      .map(loadedLoginForm)
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       login: UserStrOrEmail,
@@ -134,9 +136,10 @@ final class SecurityApi(
 
   private object upsertOauth:
     private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
-    def apply(access: OAuthScope.Access, req: RequestHeader): Unit = if sometimes(access.tokenId) then
-      val mobile = Mobile.LichessMobileUa.parse(req)
-      store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
+      if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
+        val mobile = Mobile.LichessMobileUa.parse(req)
+        store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 

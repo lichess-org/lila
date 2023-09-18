@@ -17,7 +17,7 @@ export default function (ctrl: RoundController) {
         }),
       ]),
       h('section', [
-        menu.zenMode(!spectator),
+        menu.zenMode(ctrl.zenable),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
         !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
@@ -26,12 +26,12 @@ export default function (ctrl: RoundController) {
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/display' } },
-          'Game display preferences'
+          'Game display preferences',
         ),
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },
-          'Game behavior preferences'
+          'Game behavior preferences',
         ),
       ]),
     ];

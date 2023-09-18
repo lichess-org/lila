@@ -277,16 +277,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using Context) =
-    negotiate(
-      html = Ok.pageAsync:
-        env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
-      ,
-      json = JsonOk:
-        env.puzzle.api.angles.map(lila.puzzle.JsonView.angles)
-    )
+    env.puzzle.api.angles.flatMap: angles =>
+      negotiate(
+        html = Ok.page(views.html.puzzle.theme.list(angles)),
+        json = Ok(lila.puzzle.JsonView.angles(angles))
+      )
 
   def openings(order: String) = Open:
-    env.puzzle.opening.collection flatMap { collection =>
+    env.puzzle.opening.collection.flatMap: collection =>
       ctx.me
         .so: me =>
           env.insight.api.insightUser(me) map {
@@ -295,8 +293,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             }
           }
         .flatMap: mine =>
-          Ok.page(views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order)))
-    }
+          negotiate(
+            html = Ok.page:
+              views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
+            ,
+            json = Ok(lila.puzzle.JsonView.openings(collection, mine))
+          )
 
   def show(angleOrId: String) = Open(serveShow(angleOrId))
   def showLang(lang: String, angleOrId: String) =
@@ -410,20 +412,21 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         err => BadRequest(err.toString),
         data =>
           val angle = PuzzleAngle findOrMix angleStr
-          WithPuzzlePerf:
-            for
-              rounds <- ctx.me match
-                case Some(me) =>
-                  given Me = me
+          for
+            rounds <- ctx.me match
+              case Some(me) =>
+                given Me = me
+                WithPuzzlePerf:
                   env.puzzle.finisher.batch(angle, data.solutions).map {
                     _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
                   }
-                case None =>
-                  data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
-              given Option[Me] <- ctx.me.so(env.user.repo.me)
-              nextPuzzles      <- batchSelect(angle, reqDifficulty, ~getInt("nb"))
-              result = nextPuzzles ++ Json.obj("rounds" -> rounds)
-            yield Ok(result)
+              case None =>
+                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+            given Option[Me] <- ctx.me.so(env.user.repo.me)
+            nextPuzzles <- WithPuzzlePerf:
+              batchSelect(angle, reqDifficulty, ~getInt("nb"))
+            result = nextPuzzles ++ Json.obj("rounds" -> rounds)
+          yield Ok(result)
       )
 
   def mobileBcLoad(nid: Long) = Open:
@@ -497,7 +500,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.page(html.site.helpModal.puzzle)
+    Ok.page(html.site.help.puzzle)
 
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>

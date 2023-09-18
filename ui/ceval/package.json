@@ -15,8 +15,6 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
-    "@types/lichess": "workspace:*",
     "@badrap/result": "^0.2.13",
     "chessops": "^0.12.7",
     "idb-keyval": "^6.2.0",

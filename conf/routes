@@ -107,7 +107,6 @@ GET   /dasher                          controllers.Dasher.get
 
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1)
-GET   /blog/all                        controllers.Blog.all
 GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id)
 GET   /blog/topic                      controllers.Ublog.topics
@@ -242,7 +241,7 @@ POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
-GET   /broadcast/:rs/$anyId<\w{8}>            controllers.RelayTour.redirectOrApiTour(rs, anyId)
+GET   /broadcast/:ts/$anyId<\w{8}>            controllers.RelayTour.show(ts, anyId)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
@@ -547,6 +546,7 @@ POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(userna
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
+POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)

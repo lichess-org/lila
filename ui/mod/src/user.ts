@@ -103,7 +103,7 @@ lichess.load.then(() => {
     makeReady('form.gdpr-erasure', confirmButton);
 
     makeReady('form.fide-title select', el =>
-      $(el).on('change', () => ($(el).parent('form')[0] as HTMLFormElement).submit())
+      $(el).on('change', () => ($(el).parent('form')[0] as HTMLFormElement).submit()),
     );
 
     makeReady('form.pm-preset select', (el: HTMLSelectElement) =>
@@ -111,7 +111,7 @@ lichess.load.then(() => {
         const form = $(el).parent('form')[0] as HTMLFormElement;
         xhr.text(form.getAttribute('action') + encodeURIComponent(el.value), { method: 'post' });
         $(form).html('Sent!');
-      })
+      }),
     );
 
     makeReady('.mz-section--others', el => {
@@ -125,13 +125,13 @@ lichess.load.then(() => {
         if (select)
           selector(
             table,
-            select as HTMLSelectElement
+            select as HTMLSelectElement,
           )(async action => {
             if (action == 'alt') {
               const usernames = Array.from(
                 $(table)
                   .find('td:last-child input:checked')
-                  .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort'))
+                  .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort')),
               );
               if (usernames.length > 0 && confirm(`Close ${usernames.length} alt accounts?`)) {
                 await xhr.text('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
@@ -176,7 +176,7 @@ lichess.load.then(() => {
       el => {
         tablesort(el, { descending: true });
       },
-      'ready-sort'
+      'ready-sort',
     );
     makeReady('.mz-section--others .more-others', el => {
       $(el)

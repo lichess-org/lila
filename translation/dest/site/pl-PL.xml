@@ -37,10 +37,10 @@
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
-    <item quantity="few">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundy.</item>
-    <item quantity="many">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
-    <item quantity="other">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="one">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekundę.</item>
+    <item quantity="few">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekundy.</item>
+    <item quantity="many">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="other">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
   <string name="forceResignation">Ogłoś wygraną</string>
@@ -74,7 +74,7 @@
   <string name="forceVariation">Przedstaw jako wariant</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
-  <string name="variantWin">Wariant wygrywający</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Wariant wygrywający</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
   <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
@@ -570,7 +570,7 @@
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
   <string name="biography">O mnie</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub flaga</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flaga</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
@@ -628,8 +628,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Pisz tutaj notatki prywatne</string>
-  <string name="writeAPrivateNoteAboutThisUser">Napisz prywatną notatkę o tym użytkowniku</string>
-  <string name="noNoteYet">Brak notatek</string>
+  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Napisz prywatną notatkę o tym użytkowniku</string>
+  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Brak notatek</string>
   <string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
   <string name="incorrectPassword">Nieprawidłowe hasło</string>
   <string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
@@ -782,7 +782,7 @@
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Grasz lepiej niż %1$s graczy (%2$s).</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s gra lepiej niż %2$s graczy %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Jesteś lepszy niż %1$s z %2$s graczy</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Jesteś lepszy niż %1$s z %2$s graczy</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
   <string name="yourRating">Twój ranking</string>
   <string name="cumulative">Łącznie</string>
@@ -824,7 +824,7 @@
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
-  <string name="bulletBlitzClassical">Błyskawiczne, szybkie, klasyczne</string>
+  <string name="bulletBlitzClassical">Superbłyskawiczne, błyskawiczne, klasyczne</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
@@ -904,11 +904,11 @@
   <string name="waitingForAnalysis">Oczekiwanie na wynik analizy</string>
   <string name="noMistakesFoundForWhite">Nie znaleziono błędów białych</string>
   <string name="noMistakesFoundForBlack">Nie znaleziono błędów czarnych</string>
-  <string name="doneReviewingWhiteMistakes">Przejrzano błędy białych</string>
-  <string name="doneReviewingBlackMistakes">Przejrzano błędy czarnych</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Przejrzano błędy białych</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Przejrzano błędy czarnych</string>
   <string name="doItAgain">Zrób to jeszcze raz</string>
-  <string name="reviewWhiteMistakes">Przejrzyj błędy białych</string>
-  <string name="reviewBlackMistakes">Przejrzyj błędy czarnych</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Przejrzyj błędy białych</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Przejrzyj błędy czarnych</string>
   <string name="advantage">Przewaga</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
@@ -957,7 +957,7 @@
   <string name="ultraBulletDesc">Partie szalenie szybkie: mniej niż 30 sekund</string>
   <string name="bulletDesc">Partie bardzo szybkie: mniej niż 3 minuty</string>
   <string name="blitzDesc">Partie szybkie: 3 do 8 minut</string>
-  <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
+  <string name="rapidDesc">Partie szybkie: 8 do 25 minut</string>
   <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
   <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>
   <string name="puzzleDesc">Trener taktyk szachowych</string>

@@ -26,7 +26,7 @@ final class BlogApi(
       page: Int,
       maxPerPage: MaxPerPage,
       ref: Option[String]
-  ): Fu[Option[Paginator[Document]]] = Try {
+  ): Fu[Option[Paginator[BlogPost]]] = Try {
     api
       .forms(collection)
       .ref(ref | api.master.ref)
@@ -35,27 +35,28 @@ final class BlogApi(
       .page(page)
       .submit()
       .fold(_ => none, some)
-      .dmap2 { PrismicPaginator(_, page, maxPerPage) }
-  } recover { case _: NoSuchElementException =>
+      .map2 { PrismicPaginator(_, page, maxPerPage) }
+      .map2 { _.mapResults(BlogPost(_)) }
+  }.recover { case _: NoSuchElementException =>
     fuccess(none)
-  } get
+  }.get
 
   def recent(
       prismic: BlogApi.Context,
       page: Int,
       maxPerPage: MaxPerPage
-  ): Fu[Option[Paginator[Document]]] =
+  ): Fu[Option[Paginator[BlogPost]]] =
     recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
-  def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
+  def one(api: Api, ref: Option[String], id: String): Fu[Option[BlogPost]] =
     looksLikePrismicId(id) so api
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
       .submit()
-      .map(_.results.headOption)
+      .map(_.results.headOption.map(BlogPost(_)))
 
-  def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] =
+  def one(prismic: BlogApi.Context, id: String): Fu[Option[BlogPost]] =
     one(prismic.api, prismic.ref.some, id).flatMapz { doc =>
       doc.getHtml("blog.body", prismic.linkResolver) match
         case Some(html) =>
@@ -73,7 +74,7 @@ final class BlogApi(
       .orderings(s"[my.$collection.date desc]")
       .pageSize(100) // prismic max
       .submit()
-      .fold(_ => Nil, _.results flatMap MiniPost.fromDocument(collection, "wide"))
+      .fold(_ => Nil, _.results.map(BlogPost(_)).flatMap(MiniPost.apply))
 
   def context(
       req: RequestHeader
@@ -94,10 +95,10 @@ final class BlogApi(
     prismicApi.map: api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))
 
-  def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[Document]] =
+  def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[BlogPost]] =
     recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
       val docs = res.so(_.currentPageResults).toList
-      (docs.nonEmpty so all(page + 1)) map (docs ::: _)
+      (docs.nonEmpty so all(page + 1)).map(docs ::: _)
     }
 
   def expand(html: Html) = html.map(expandGames).map(expandChapters)

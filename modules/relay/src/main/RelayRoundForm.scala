@@ -27,6 +27,7 @@ final class RelayRoundForm:
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
+      "finished"     -> optional(boolean),
       "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
       "delay" -> optional(
         number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]
@@ -99,6 +100,7 @@ object RelayRoundForm:
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[Instant] = None,
+      finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None
   ):
@@ -116,7 +118,7 @@ object RelayRoundForm:
         sync = makeSync(me).pipe: sync =>
           if relay.sync.playing then sync.play else sync,
         startsAt = startsAt,
-        finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
+        finished = ~finished
       )
 
     private def makeSync(user: User) =
@@ -141,7 +143,7 @@ object RelayRoundForm:
         caption = caption,
         sync = makeSync(user),
         createdAt = nowInstant,
-        finished = false,
+        finished = ~finished,
         startsAt = startsAt,
         startedAt = none
       )
@@ -158,6 +160,7 @@ object RelayRoundForm:
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
+        finished = relay.finished option true,
         period = relay.sync.period,
         delay = relay.sync.delay
       )

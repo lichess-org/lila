@@ -16,7 +16,7 @@ export const renderGlyph = (glyph: Tree.Glyph): VNode =>
     {
       attrs: { title: glyph.name },
     },
-    glyph.symbol
+    glyph.symbol,
   );
 
 const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));

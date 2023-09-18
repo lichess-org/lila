@@ -38,7 +38,7 @@ const setupImage = (form: HTMLFormElement) => {
         replace(html);
         showText();
       },
-      err => replace(wrap(`<bad>${err}</bad>`))
+      err => replace(wrap(`<bad>${err}</bad>`)),
     );
     replace(wrap(lichess.spinnerHtml));
     return false;

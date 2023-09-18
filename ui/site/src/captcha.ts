@@ -47,7 +47,7 @@ function init() {
                       promoted: true,
                     },
                   ],
-                ])
+                ]),
               );
             }
             $captcha.removeClass('success failure');
@@ -70,7 +70,7 @@ function init() {
                 turnColor: cg.state.orientation,
                 movable: { dests },
               }),
-            300
+            300,
           );
       });
     };

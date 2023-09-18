@@ -29,10 +29,10 @@ export function initModule(opts: Opts): void {
             tour: opts.tour,
             swiss: opts.swiss,
             object: 1,
-          })
+          }),
         )
         .then((r: Result) => ({ term, ...r })),
-    150
+    150,
   );
 
   complete<LightUserOnline>({

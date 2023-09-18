@@ -1,7 +1,6 @@
 import EditorCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
-import { Chessground } from 'chessground';
 import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
@@ -28,7 +27,3 @@ export function initModule(config: Editor.Config): LichessEditor {
     setOrientation: ctrl.setOrientation.bind(ctrl),
   };
 }
-
-// that's for the rest of lichess to access chessground
-// without having to include it a second time
-window.Chessground = Chessground;

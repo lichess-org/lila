@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object helpModal:
+object help:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
