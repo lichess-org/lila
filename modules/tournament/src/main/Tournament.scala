@@ -136,7 +136,9 @@ case class Tournament(
 
   def startingPosition = position flatMap Thematic.byFen
 
-  lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
+  lazy val prizeInDescription =
+    lila.gathering.looksLikePrize(s"$name ${~spotlight.map(_.description)} $description")
+  lazy val looksLikePrize = !isScheduled && prizeInDescription
 
   def estimateNumberOfGamesOneCanPlay: Double =
     // There are 2 players, and they don't always use all their time (0.8)
@@ -227,5 +229,6 @@ object Tournament:
     case Paused         extends JoinResult("Your pause is not over yet".some)
     case Verdicts       extends JoinResult("Tournament restrictions".some)
     case MissingTeam    extends JoinResult("Missing team".some)
+    case ArenaBanned    extends JoinResult("You are not allowed to join arenas".some)
     case PrizeBanned    extends JoinResult("You are not allowed to play in prized tournaments".some)
     case Nope           extends JoinResult("Couldn't join for some reason?".some)

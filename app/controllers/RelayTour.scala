@@ -62,10 +62,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               env.relay.api.tourCreate(setup) flatMap { tour =>
                 negotiate(
                   Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                  JsonOk:
-                    env.relay.api.tourCreate(setup) map { tour =>
-                      env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
-                    }
+                  JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
                 )
               }
         )

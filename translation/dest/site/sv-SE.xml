@@ -154,6 +154,10 @@
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$sranking över %2$s parti</item>
+    <item quantity="other">%1$sranking över %2$s partier</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bokmärke</item>
     <item quantity="other">%s bokmärken</item>
@@ -343,8 +347,13 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanparti</item>
+    <item quantity="other">%s simultanpartier</item>
+  </plurals>
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
+  <string name="noDrawBeforeSwissLimit">Ni kan inte ta remi innan drag 30 i en schweizer-turnering.</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rankat parti</item>
@@ -393,6 +402,7 @@
   <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
+  <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
@@ -494,6 +504,7 @@
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
   <string name="biography">Biografi</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flagga</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="oneUrlPerLine">En URL per rad.</string>
@@ -667,6 +678,8 @@ https://lichess. org/study</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>
   <string name="simulHostExtraTime">Värdens extratid</string>
+  <string name="simulAddExtraTimePerPlayer">Lägg till en starttid på klockan för varje spelare som går med i simultanmatchen.</string>
+  <string name="simulHostExtraTimePerPlayer">Extratid för värden för varje spelare som deltar</string>
   <string name="lichessTournaments">Lichess-turneringar</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
@@ -677,6 +690,11 @@ https://lichess. org/study</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
+  <string name="keyRequestComputerAnalysis">Begär datoranalys, lär av dina misstag</string>
+  <string name="keyNextLearnFromYourMistakes">Nästa (Lär av dina misstag)</string>
+  <string name="keyNextBlunder">Nästa blunder</string>
+  <string name="keyNextMistake">Nästa misstag</string>
+  <string name="keyNextInaccuracy">Nästa felaktighet</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
   <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
@@ -692,6 +710,7 @@ https://lichess. org/study</string>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av alla som spelar %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s är bättre än %2$s av alla %3$sspelare.</string>
+  <string name="betterThanPercentPlayers">Bättre än %1$s av %2$sspelare</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Kumulativ</string>
@@ -774,6 +793,7 @@ https://lichess. org/study</string>
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="custom">Anpassad</string>
   <string name="notifications">Aviseringar</string>
+  <string name="notificationsX">Notiser: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund kvar för att spela första draget</item>
@@ -868,6 +888,8 @@ https://lichess. org/study</string>
   <string name="useTheReportForm">använd rapportformuläret</string>
   <string name="toRequestSupport">För att begära support, %1$s</string>
   <string name="tryTheContactPage">prova kontaktsidan</string>
+  <string name="makeSureToRead">Se till att läsa %1$s</string>
+  <string name="theForumEtiquette">forumets etikett</string>
   <string name="thisTopicIsArchived">Detta ämne har arkiverats och kan inte längre besvaras.</string>
   <string name="joinTheTeamXToPost">Gå med i %1$s, för att posta i detta forum</string>
   <string name="teamNamedX">%1$s-teamet</string>

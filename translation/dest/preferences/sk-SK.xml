@@ -7,7 +7,7 @@
   <string name="pieceAnimation">Animácia figúrok</string>
   <string name="materialDifference">Materiálny rozdiel</string>
   <string name="boardHighlights">Zvýraznenie šachovnice (posledný ťah a šach)</string>
-  <string name="pieceDestinations">Zobrazovať dostupné polia  (možné ťahy a predťahy)</string>
+  <string name="pieceDestinations">Zobrazovať dostupné polia (možné ťahy a predťahy)</string>
   <string name="boardCoordinates">Šachovnicové súradnice (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zobraziť šachovú notáciu počas partie</string>
   <string name="pgnPieceNotation">Označenie figúr v notácii</string>
@@ -38,17 +38,17 @@
   <string name="explainPromoteToQueenAutomatically">Pre dočasné vypnutie automatickej premeny podržte klávesu &lt;ctrl&gt; počas ťahu premeny</string>
   <string name="whenPremoving">Pri predťahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd a menej</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
   <string name="explainCanThenBeTemporarilyDisabled">Dá sa zrušiť počas partie cez \"hamburgerové menu\" pri šachovnici</string>
   <string name="inCorrespondenceGames">Korešpondenčné partie</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
-  <string name="confirmResignationAndDrawOffers">Potvrdzovať vzdanie partie a ponuku remízy</string>
+  <string name="confirmResignationAndDrawOffers">Potvrdiť vzdanie partie a ponuku remízy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Spôsob vykonania rošády</string>
   <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
-  <string name="castleByMovingOntoTheRook">Presunúť kráľa na vežu</string>
+  <string name="castleByMovingOntoTheRook">Presunúť kráľa na pole s vežou</string>
   <string name="inputMovesWithTheKeyboard">Zadávanie ťahov pomocou klávesnice</string>
-  <string name="inputMovesWithVoice">Zadávanie ťahov pomocou hlasu</string>
+  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Zadávanie ťahov pomocou hlasu</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Zobraziť šípky pri možných ťahoch</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Napíš \"Good game, well played\" (v preklade: Dobrá partia, pekne zahrané) po prehre alebo remíze</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>

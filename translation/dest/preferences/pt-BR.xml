@@ -36,7 +36,7 @@
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
-  <string name="whenPremoving">Quando mover previamente</string>
+  <string name="whenPremoving">Quando pré-mover</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
@@ -45,10 +45,10 @@
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono e oferta de empate</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
-  <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
-  <string name="castleByMovingOntoTheRook">Mova o Rei em direção a torre</string>
-  <string name="inputMovesWithTheKeyboard">Inclua os lances com o teclado</string>
-  <string name="inputMovesWithVoice">Mova as peças com sua voz</string>
+  <string name="castleByMovingTwoSquares">Mover o rei duas casas</string>
+  <string name="castleByMovingOntoTheRook">Mover o rei em direção à torre</string>
+  <string name="inputMovesWithTheKeyboard">Fazer lances com escrita do teclado</string>
+  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Mova as peças com sua voz</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Insira setas para movimentos válidos</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Diga \"Bom jogo, bem jogado\" após a derrota ou empate</string>
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>

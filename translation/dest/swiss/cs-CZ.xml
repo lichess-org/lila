@@ -73,7 +73,7 @@ Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v r�
   <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>
   <string name="numberOfByesA">Hráč dostane bod zdarma pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
   <string name="earlyDrawsQ">Co se stane s brzkými remízami?</string>
-  <string name="earlyDrawsA">Hráč dostane bod zdarma pokaždé, když pro něj systém nenajde soupeře. Navíc, půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="earlyDrawsAnswer">V turnajích hraných švýcarským systémem nemohou hráči remizovat dříve než odehrají 30 tahů. Toto opatření sice nemůže zabránit předem dohodnutým remízám, ale alespoň ztěžuje dohodu o remíze za běhu.</string>
   <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
   <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
 Takového hráče systém diskvalifikuje, aby neprohrál více partií.

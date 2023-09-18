@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Những Streamer của Lichess</string>
-  <string name="lichessStreamer">Những streamer của Lichess</string>
+  <string name="lichessStreamer">Streamer của Lichess</string>
   <string name="live">TRỰC TIẾP!</string>
   <string name="offline">NGOẠI TUYẾN</string>
   <string name="currentlyStreaming">Đang phát trực tiếp: %s</string>
@@ -9,7 +9,7 @@
   <string name="becomeStreamer">Trở thành một Streamer của Lichess</string>
   <string name="doYouHaveStream">Bạn có kênh YouTube hoặc Twitch không?</string>
   <string name="hereWeGo">Bắt đầu nào!</string>
-  <string name="allStreamers">Tất cả các streamer</string>
+  <string name="allStreamers">Tất cả các Streamer</string>
   <string name="editPage">Sửa trang streamer</string>
   <string name="yourPage">Trang Streamer của bạn</string>
   <string name="downloadKit">Tải bộ công cụ cho Streamer</string>
@@ -22,19 +22,19 @@
   <string name="streamingFairplayFAQ">câu hỏi thường gặp về phát trực tiếp công bằng</string>
   <string name="perks">Những quyền lợi khi Stream với từ khóa</string>
   <string name="perk1">Nhận được biểu tượng streamer bốc lửa trong trang cá nhân Lichess của bạn.</string>
-  <string name="perk2">Được đẩy lên đầu tiên trong danh sách các Streamer.</string>
+  <string name="perk2">Được đẩy lên đầu trong danh sách các Streamer.</string>
   <string name="perk3">Thông báo cho những người theo dõi Lichess của bạn.</string>
   <string name="perk4">Hiển thị luồng trực tiếp trong các ván đấu, giải đấu và nghiên cứu của bạn.</string>
-  <string name="approved">Stream của bạn đã được phê duyệt.</string>
-  <string name="pendingReview">Stream của bạn đang được quản trị viên đánh giá.</string>
+  <string name="approved">Luồng của bạn đã được phê duyệt.</string>
+  <string name="pendingReview">Luồng của bạn đang được quản trị viên đánh giá.</string>
   <string name="pleaseFillIn">Hãy điền thông tin về luồng của bạn và tải lên một hình ảnh.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành Streamer của Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu đánh giá của quản trị viên</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu các quản trị viên đánh giá</string>
   <string name="streamerLanguageSettings">Trang streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng stream cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
   <string name="twitchUsername">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
   <string name="youTubeChannelId">ID kênh YouTube của bạn</string>
-  <string name="streamerName">Tên streamer của bạn trên Lichess</string>
+  <string name="streamerName">Tên luồng của bạn trên Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>

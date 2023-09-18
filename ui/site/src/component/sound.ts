@@ -59,19 +59,20 @@ export default new (class implements SoundI {
     if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
   }
 
-  throttled = throttle(100, (node?: { uci?: Uci; san?: string }) => {
-    if (node?.san?.includes('x')) this.play('capture');
-    else this.play('move');
-    if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
-  });
+  throttled = throttle(100, (name: Name) => this.play(name));
 
-  async move(node?: { uci?: Uci; san?: string }, music?: boolean) {
-    if (music !== false && this.theme === 'music') {
-      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.music(node, music);
-      return;
+  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+    if (o?.filter !== 'music' && this.theme !== 'music') {
+      if (o?.name) this.throttled(o.name);
+      else {
+        if (o?.san?.includes('x')) this.throttled('capture');
+        else this.throttled('move');
+        if (o?.san?.endsWith('#') || o?.san?.endsWith('+')) this.throttled('check');
+      }
     }
-    if (music !== true) this.throttled(node);
+    if (o?.filter === 'game' || this.theme !== 'music') return;
+    this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
+    this.music(o);
   }
 
   async countdown(count: number, interval = 500): Promise<void> {
@@ -144,7 +145,6 @@ export default new (class implements SoundI {
     if (isIOS()) this.ctx?.resume();
     this.theme = s;
     this.publish();
-    this.move();
   };
 
   set = () => this.theme;
@@ -219,10 +219,12 @@ export default new (class implements SoundI {
 
   primer = () => {
     // some browsers fail audioContext.resume() on contexts created prior to user interaction
-    const ctx = makeAudioContext()!;
-    for (const s of this.sounds.values()) s.rewire(ctx);
-    this.ctx?.close();
-    this.ctx = ctx;
+    if (this.ctx?.state !== 'running') {
+      const ctx = makeAudioContext()!;
+      for (const s of this.sounds.values()) s.rewire(ctx);
+      this.ctx?.close();
+      this.ctx = ctx;
+    }
     $('body').off('mouseup touchend keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };

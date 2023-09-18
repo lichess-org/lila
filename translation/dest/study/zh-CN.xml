@@ -32,7 +32,7 @@
   <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
-  <string name="kick">踢除</string>
+  <string name="kick">踢出</string>
   <string name="leaveTheStudy">离开研讨</string>
   <string name="youAreNowAContributor">你现在是一位贡献者</string>
   <string name="youAreNowASpectator">你现在是一位旁观者</string>
@@ -134,7 +134,7 @@
   <string name="blunder">极坏</string>
   <string name="interestingMove">略好</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">略坏</string>
-  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">别无他法</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一着法</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">均势</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局势不明</string>

@@ -66,7 +66,7 @@ Peržiūrėkite %3$s apie šį ėjimą norėdami jį pasipraktikuoti.</string>
   <string name="lichessTraining">Lichess treniruotes</string>
   <string name="watchIMRosenCheckmate">Stebėkite IM Eric Rosen atliekantį šachą ir matą %s.</string>
   <string name="threefoldRepetition">Trigubas pasikartojimas</string>
-  <string name="threefoldRepetitionExplanation">Jei ta pati pozicija įvyksta tris kartus žaidėjai gali skelbti lygiąsias %1$s. Lichess įgyvendina oficialias FIDE taisykles, kokios jos apibrėžtos %2$s straipsnyje 9.2 (d).</string>
+  <string name="threefoldRepetitionExplanation">Jei ta pati pozicija įvyksta tris kartus žaidėjai gali skelbti lygiąsias %1$s. Lichess įgyvendina oficialias FIDE taisykles, kokios jos apibrėžtos %2$s straipsnyje 9.2.</string>
   <string name="threefoldRepetitionLowerCase">trigubu pasikartojimu</string>
   <string name="notRepeatedMoves">Mes nekartojome ėjimų. Kodėl žaidimas vis tiek buvo paskelbtas lygiosiomis pasikartojimu?</string>
   <string name="repeatedPositionsThatMatters">Trigubas pasikartojimas kalba apie pasikartojančias %1$s, ne ėjimus. Pasikartojimi neturi įvykti iš karto vienas po kito.</string>

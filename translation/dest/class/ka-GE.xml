@@ -51,4 +51,12 @@
 აქაა ლინკი შენი კლასისთვის დასაკავშირებლად.</string>
   <string name="invitationToClass">მოწვეული ხარ კლასში \"%s\" როგორც მოსწავლე.</string>
   <string name="clickToViewInvitation">დააჭირე ლინკს რათა ნახო მოწვევა:</string>
+  <string name="teachers">მასწავლებლები</string>
+  <string name="students">მოსწავლეები</string>
+  <string name="progress">წინსვლა</string>
+  <string name="noStudents">მოსწავლეები ჯერ არ არიან კლასში.</string>
+  <string name="noRemovedStudents">უარყოფილი მოსწავლეები არ არის.</string>
+  <string name="timePlaying">ნათამაშები დრო</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">შექმენი ახალი კლასები</string>
+  <string name="studentsRealNamesOnePerLine">მოსწავლის ნამდვილი სახელი, თითო თითო ხაზზე</string>
 </resources>

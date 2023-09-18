@@ -54,6 +54,7 @@ Computeranalysen på Lichess leveres ved hjælp af Stockfish.</string>
 I sjældne tilfælde kan dette være vanskeligt at afgøre automatisk (fremtvungne linjer, fæstninger). Som udgangspunkt holder vi altid med den spiller, som ikke løb tør for tid.
 
 Bemærk at det kan være muligt at sætte mat med en enkelt springer eller løber, hvis modstanderen har en brik, som kan blokere kongen.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE håndbog</string>
   <string name="fideHandbookX">FIDE håndbog %s</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde tage en anden bonde, når den allerede er passeret? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovligt træk kendt som \"en passant\". Wikipedia-artiklen giver en %1$s.
@@ -67,7 +68,7 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="lichessTraining">Lichess træning</string>
   <string name="watchIMRosenCheckmate">Se International Mester Eric Rosen sætte %s skakmat.</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
-  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
   <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
   <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>

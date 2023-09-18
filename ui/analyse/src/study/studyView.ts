@@ -6,7 +6,6 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { richHTML } from 'common/richText';
 import { rounds as relayTourRounds } from './relay/relayTourView';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
@@ -139,14 +138,10 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay?.data.tour.credit,
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', { attrs: { title } }, [
-        title,
-        credit ? h('span.credit', { hook: richHTML(credit, false) }) : undefined,
-      ]),
+      h('span.name', { attrs: { title } }, title),
       h(
         'span.liking.text',
         {

@@ -8,6 +8,12 @@
   <string name="mostChessCourses">大多數的國際象棋課程都很頻繁的使用代數記譜法。</string>
   <string name="talkToYourChessFriends">這讓你跟和棋友更容易聊天，因為你們都知道\"國際象棋的語言\"。</string>
   <string name="youCanAnalyseAGameMoreEffectively">如果能夠快速地辨認座標，可以更有效率的分析一場棋局。</string>
+  <string name="aCoordinateAppears">座標將在棋盤上出現，您必須點擊對應的棋格。</string>
+  <string name="aSquareIsHighlightedExplanation">棋格將在棋盤上高亮顯示，您必須輸入它的座標（例如“e4”）。</string>
+  <string name="youHaveThirtySeconds">您有30秒時間正確配對盡可能多的棋格。</string>
+  <string name="goAsLongAsYouWant">沒有時間限制，盡情練習吧！</string>
+  <string name="showCoordinates">顯示座標</string>
+  <string name="showPieces">顯示棋子</string>
   <string name="startTraining">開始訓練</string>
   <string name="findSquare">尋找方格</string>
   <string name="nameSquare">說出方格的名字</string>

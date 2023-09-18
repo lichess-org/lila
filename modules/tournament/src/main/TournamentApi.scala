@@ -277,7 +277,8 @@ final class TournamentApi(
       playerRepo.find(tour.id, me) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if me.marks.prizeban && tour.looksLikePrize then fuccess(JoinResult.PrizeBanned)
+          if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
+          else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
           else if prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||

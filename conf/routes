@@ -546,6 +546,7 @@ POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(userna
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
+POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)

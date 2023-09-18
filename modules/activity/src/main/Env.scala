@@ -69,7 +69,7 @@ final class Env(
     case lila.ublog.UblogPost.Create(post)                => write.ublogPost(post)
     case prog: lila.practice.PracticeProgress.OnComplete  => write.practice(prog)
     case lila.simul.Simul.OnStart(simul)                  => write.simul(simul)
-    case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
+    case CorresMoveEvent(move, Some(userId), _, _, _)     => write.corresMove(move.gameId, userId)
     case lila.hub.actorApi.plan.MonthInc(userId, months)  => write.plan(userId, months)
     case lila.hub.actorApi.relation.Follow(from, to)      => write.follow(from, to)
     case lila.study.actorApi.StartStudy(id)               =>

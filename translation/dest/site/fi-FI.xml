@@ -72,7 +72,7 @@
   <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
-  <string name="variantWin">Variantin voitto</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Variantin voitto</string>
   <string name="insufficientMaterial">Riittämätön materiaali</string>
   <string name="pawnMove">Sotilaan siirto</string>
   <string name="capture">Lyönti</string>
@@ -153,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-vahvuusluku %2$s pelistä</item>
+    <item quantity="other">%1$s arvosana %2$s peliä</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s oma kirjanmerkki</item>
@@ -556,8 +560,8 @@
   <string name="blog">Blogi</string>
   <string name="notes">Muistiinpanot</string>
   <string name="typePrivateNotesHere">Kirjoita yksityisiä muistiinpanoja tähän</string>
-  <string name="writeAPrivateNoteAboutThisUser">Kirjoita tätä käyttäjää koskeva yksityinen muistiinpano</string>
-  <string name="noNoteYet">Ei vielä muistiinpanoja</string>
+  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Kirjoita tätä käyttäjää koskeva yksityinen muistiinpano</string>
+  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Ei vielä muistiinpanoja</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
   <string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
@@ -702,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Sinun %1$s-vahvuuslukusi on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Olet parempi kuin %1$s %2$s-pelaajista.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parempi kuin %2$s %3$s-pelaajista.</string>
-  <string name="betterThanPercentPlayers">Parempi kuin %1$s %2$s -pelaajista</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Parempi kuin %1$s %2$s -pelaajista</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sinulla ei ole luotettavaa %s-vahvuuslukua.</string>
   <string name="yourRating">Vahvuuslukusi</string>
   <string name="cumulative">Kumulatiivinen</string>
@@ -820,11 +824,11 @@
   <string name="waitingForAnalysis">Analyysi käynnissä</string>
   <string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
   <string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
-  <string name="doneReviewingWhiteMistakes">Olet käynyt läpi valkean virheet</string>
-  <string name="doneReviewingBlackMistakes">Olet käynyt läpi mustan virheet</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Olet käynyt läpi valkean virheet</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Olet käynyt läpi mustan virheet</string>
   <string name="doItAgain">Sama uudelleen</string>
-  <string name="reviewWhiteMistakes">Tarkastele valkean virheitä</string>
-  <string name="reviewBlackMistakes">Tarkastele mustan virheitä</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Tarkastele valkean virheitä</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Tarkastele mustan virheitä</string>
   <string name="advantage">Etu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunti</item>
