@@ -7,7 +7,7 @@
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s %2$s aylığına Lichess\'i destekledi</item>
+    <item quantity="one">%1$s %2$s aydır Lichess\'i destekliyor</item>
     <item quantity="other">%1$s %2$s aylığına Lichess\'i destekledi</item>
   </plurals>
   <string name="newPatrons">Yeni Destekçiler</string>

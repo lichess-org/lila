@@ -67,7 +67,7 @@ Se %3$s för detta drag för lite övning med det.</string>
   <string name="lichessTraining">Lichess träning</string>
   <string name="watchIMRosenCheckmate">Se International Master Eric Rosen göra schackmatt %s.</string>
   <string name="threefoldRepetition">Dragupprepning</string>
-  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>
   <string name="notRepeatedMoves">Vi upprepade inte drag. Varför blev partiet ändå remi för dragupprepning?</string>
   <string name="repeatedPositionsThatMatters">Dragupprepning handlar om upprepade %1$s, inte drag. Upprepning behöver inte ske i följd.</string>

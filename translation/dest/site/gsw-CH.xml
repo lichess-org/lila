@@ -911,11 +911,11 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
   <string name="resVsX">%1$s gäge %2$s</string>
-  <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
+  <string name="lostAgainstTOSViolator">Du häsch Wertigspünkt verlore, gäge öpper, wo d\'Lichess-Regle verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe azeige]</string>
-  <string name="download">Abälade</string>
+  <string name="download">Abelade</string>
   <string name="welcome">Willkomme!</string>
   <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
