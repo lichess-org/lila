@@ -115,6 +115,7 @@
   <string name="openStudy">Schtudie eröffne</string>
   <string name="enable">Ischalte</string>
   <string name="bestMoveArrow">Pfil für de bescht Zug</string>
+  <string name="showVariationArrows">Pfil für Variante azeige</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
   <string name="multipleLines">Mehreri Variantä</string>
   <string name="cpus">Prozässore</string>
@@ -141,7 +142,7 @@
   <string name="flipBoard">Brätt umcheere</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
-  <string name="offerDraw">Remis aabüte</string>
+  <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s Schpiller</item>
@@ -332,7 +333,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
-  <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
+  <string name="takebackPropositionDeclined">Zugsrücknahm abglehnt</string>
   <string name="takebackPropositionAccepted">Zugsrücknahm akzeptiert</string>
   <string name="takebackPropositionCanceled">Zugsrücknahm zruggzoge</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
@@ -354,7 +355,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="viewTournament">Turnier zueluege</string>
   <string name="backToTournament">Zrugg zum Turnier</string>
-  <string name="noDrawBeforeSwissLimit">Ime Turnier, nach Schwizer Syschtem, chann me erscht nach 30 Züg es Remis mache.</string>
+  <string name="noDrawBeforeSwissLimit">Ime Turnier, nach \"Schweizer System\", chann me erscht nach 30 Züg Remis mache.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gwertets Schpiel</item>
