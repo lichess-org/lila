@@ -14,7 +14,7 @@
   <string name="otherCommands">Andere Befehle</string>
   <string name="tips">Tipps</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Wenn dir die oben gezeigte Notation nicht vertraut ist, kannst du hier mehr darüber erfahren:</string>
-  <string name="includingAXToIndicateACapture">Ein zusätzliches \"x\", um einen Schlagzug anzuzeigen ist optional</string>
+  <string name="includingAXToIndicateACapture">Ein zusätzliches \"x\", um einen Schlagzug anzugeben, ist optional</string>
   <string name="bothTheLetterOAndTheDigitZero">Sowohl der Buchstabe \"o\" als auch die Zahl \"0\" können bei der Rochade benutzt werden</string>
   <string name="ifItIsLegalToCastleBothWays">Falls beide Rochaden erlaubt sind, benutze die Eingabetaste, um auf der Königsseite zu rochieren</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Groß-/Kleinschreibung ist nur in nicht eindeutigen Situationen ausschlaggebend, wenn Läufer (\"B\") und b-Bauer zu unterscheiden sind</string>
