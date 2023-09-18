@@ -777,8 +777,8 @@ final class StudyApi(
       Contribute(by.id, study):
         chapterRepo deleteByStudy study
 
-  def adminInvite(studyId: StudyId, by: Me): Funit =
-    sequenceStudy(studyId)(inviter.admin(by))
+  def becomeAdmin(studyId: StudyId, me: Me): Funit =
+    sequenceStudy(studyId)(inviter.becomeAdmin(me))
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")

@@ -7,7 +7,7 @@ import scala.util.chaining.*
 import lila.app.{ given, * }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress }
-import lila.study.actorApi.{ AdminStudy, Who }
+import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.{ Order, StudyForm, Study as StudyModel }
@@ -314,9 +314,9 @@ final class Study(
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
-    Bus.publish(AdminStudy(id, me), "adminStudy")
+    Bus.publish(BecomeStudyAdmin(id, me), "adminStudy")
     env.study.api
-      .adminInvite(id, me)
+      .becomeAdmin(id, me)
       .inject:
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }
