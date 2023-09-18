@@ -22,6 +22,7 @@ export interface StudyShareCtrl {
   shareable(): boolean;
   redraw: () => void;
   trans: Trans;
+  gamebook: boolean;
 }
 
 function fromPly(ctrl: StudyShareCtrl): VNode {
@@ -30,7 +31,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
       withDots: true,
       showEval: false,
     },
-    ctrl.currentNode()
+    ctrl.currentNode(),
   );
   return h(
     'div.ply-wrap',
@@ -44,7 +45,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
             ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
             : [ctrl.trans.noarg('startAtInitialPosition')]),
         ])
-      : null
+      : null,
   );
 }
 
@@ -56,7 +57,7 @@ export function ctrl(
   bottomColor: () => Color,
   relay: RelayCtrl | undefined,
   redraw: () => void,
-  trans: Trans
+  trans: Trans,
 ): StudyShareCtrl {
   const withPly = prop(false);
   return {
@@ -75,6 +76,7 @@ export function ctrl(
     shareable: () => data.features.shareable,
     redraw,
     trans,
+    gamebook: data.chapter.gamebook,
   };
 }
 
@@ -101,7 +103,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
     h(
       'p.form-help.text',
       { attrs: { 'data-icon': licon.InfoCircle } },
-      ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed')
+      ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'),
     );
   return h(
     'div.study__share',
@@ -117,7 +119,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                       href: `/study/${studyId}/clone`,
                     },
                   },
-                  ctrl.trans.noarg('cloneStudy')
+                  ctrl.trans.noarg('cloneStudy'),
                 )
               : null,
             ctrl.relay &&
@@ -130,7 +132,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                     download: true,
                   },
                 },
-                ctrl.trans.noarg('downloadAllRounds')
+                ctrl.trans.noarg('downloadAllRounds'),
               ),
             h(
               'a.button.text',
@@ -141,7 +143,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   download: true,
                 },
               },
-              ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')
+              ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn'),
             ),
             h(
               'a.button.text',
@@ -152,7 +154,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   download: true,
                 },
               },
-              ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
+              ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn'),
             ),
             h(
               'a.button.text',
@@ -166,11 +168,11 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   const iconFeedback = (success: boolean) => {
                     (event.target as HTMLElement).setAttribute(
                       'data-icon',
-                      success ? licon.Checkmark : licon.X
+                      success ? licon.Checkmark : licon.X,
                     );
                     setTimeout(
                       () => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard),
-                      1000
+                      1000,
                     );
                   };
                   writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
@@ -178,11 +180,11 @@ export function view(ctrl: StudyShareCtrl): VNode {
                     err => {
                       console.log(err);
                       iconFeedback(false);
-                    }
+                    },
                   );
                 }),
               },
-              ctrl.trans.noarg('copyChapterPgn')
+              ctrl.trans.noarg('copyChapterPgn'),
             ),
             h(
               'a.button.text',
@@ -200,7 +202,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   download: true,
                 },
               },
-              'Board'
+              'Board',
             ),
             h(
               'a.button.text',
@@ -214,7 +216,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   download: true,
                 },
               },
-              'GIF'
+              'GIF',
             ),
           ]),
           h('form.form3', [
@@ -246,7 +248,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   }),
                 ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
-              ])
+              ]),
             ),
             h(
               'div.form-group',
@@ -257,8 +259,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
                     readonly: true,
                     disabled: isPrivate,
                     value: !isPrivate
-                      ? `<iframe width=600 height=371 src="${baseUrl()}${addPly(
-                          `/study/embed/${studyId}/${chapter.id}`
+                      ? `<iframe ${
+                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                        } src="${baseUrl()}${addPly(
+                          `/study/embed/${studyId}/${chapter.id}`,
                         )}" frameborder=0></iframe>`
                       : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
                   },
@@ -277,11 +281,11 @@ export function view(ctrl: StudyShareCtrl): VNode {
                             'data-icon': licon.InfoCircle,
                           },
                         },
-                        ctrl.trans.noarg('readMoreAboutEmbedding')
+                        ctrl.trans.noarg('readMoreAboutEmbedding'),
                       ),
                     ]
-                  : []
-              )
+                  : [],
+              ),
             ),
             h('div.form-group', [
               h('label.form-label', 'FEN'),
@@ -294,6 +298,6 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ]),
           ]),
         ]
-      : h('div', 'Sharing and exporting were disabled by the study owner.')
+      : h('div', 'Sharing and exporting were disabled by the study owner.'),
   );
 }

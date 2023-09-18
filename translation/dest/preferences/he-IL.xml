@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">אם תבחר/י להסתיר את הדירוג, הדירוג של השחקן היריב לא יופיע כדי לאפשר לך להתרכז בשח, אך המשחק יהיה מדורג.</string>
   <string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
   <string name="onlyOnInitialPosition">רק בעמדה ההתחלתית</string>
+  <string name="inGameOnly">רק במהלך המשחק</string>
   <string name="blindfoldChess">שחמט עיוור (כלים בלתי נראים)</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">הצג עשיריות שניה</string>

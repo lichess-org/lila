@@ -56,17 +56,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
 
-  const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
-  const loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(() => lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
+  const loadSound = (file: string, volume?: number) => {
+    lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`);
     return () => lichess.sound.play(file, volume);
   };
   const sound = {
-    move: throttleSound('move'),
-    capture: throttleSound('capture'),
-    check: throttleSound('check'),
-    good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
-    end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
+    good: loadSound('lisp/PuzzleStormGood', 0.7),
+    end: loadSound('lisp/PuzzleStormEnd', 1),
   };
 
   let flipped = false;
@@ -133,7 +129,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         jump(initialPath);
         redraw();
       },
-      opts.pref.animation.duration > 0 ? 500 : 0
+      opts.pref.animation.duration > 0 ? 500 : 0,
     );
 
     // just to delay button display
@@ -151,7 +147,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     instanciateCeval();
-    lichess.sound.move();
   }
 
   function position(): Chess {
@@ -251,7 +246,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         check: defined(check) ? makeSquare(check) : undefined,
         children: [],
       },
-      path
+      path,
     );
   }
 
@@ -261,11 +256,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.playPremove());
 
     const progress = moveTest(vm, data.puzzle);
+    if (progress === 'fail') lichess.sound.say('incorrect');
     if (progress) applyProgress(progress);
     reorderChildren(path);
     redraw();
-    lichess.sound.saySan(node.san, false);
-    lichess.sound.move(node);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
@@ -280,8 +274,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function instantRevertUserMove(): void {
-    withGround(g => g.cancelPremove());
-    userJump(treePath.init(vm.path));
+    withGround(g => {
+      g.cancelPremove();
+      g.selectSquare(null);
+    });
+    jump(treePath.init(vm.path));
     redraw();
   }
 
@@ -315,10 +312,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
-      setTimeout(() => {
-        const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
-        sendMoveAt(progress.path, pos, progress.move);
-      }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
+      setTimeout(
+        () => {
+          const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
+          sendMoveAt(progress.path, pos, progress.move);
+        },
+        opts.pref.animation.duration * (autoNext() ? 1 : 1.5),
+      );
     }
   }
 
@@ -340,7 +340,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       rated,
       data.replay,
       streak,
-      opts.settings.color
+      opts.settings.color,
     );
     const next = res.next;
     if (next?.user && data.user) {
@@ -406,7 +406,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
             const threat = ev as Tree.LocalEval;
             if (!node.threat || node.threat.depth <= threat.depth || node.threat.maxDepth < threat.maxDepth)
               node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth) node.ceval = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth)
+            node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -426,7 +427,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           ground: g,
           threatMode: threatMode(),
           nextNodeBest: nextNodeBest(),
-        })
+        }),
       );
     });
   }
@@ -477,13 +478,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(showGround);
     if (pathChanged) {
       if (isForwardStep) {
-        if (!vm.node.uci) sound.move();
-        // initial position
-        else if (!vm.justPlayed || vm.node.uci.includes(vm.justPlayed)) {
-          if (vm.node.san!.includes('x')) sound.capture();
-          else sound.move();
-        }
-        if (/\+|#/.test(vm.node.san!)) sound.check();
+        lichess.sound.saySan(vm.node.san);
+        lichess.sound.move(vm.node);
       }
       threatMode(false);
       ceval.stop();
@@ -501,12 +497,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     withGround(g => g.selectSquare(null));
     jump(path);
-    lichess.sound.move(vm.node);
-    if (vm.mode !== 'view') lichess.sound.say('Is not the move, try something else!');
-    else {
-      lichess.sound.saySan(vm.node.san, true);
-      lichess.sound.say('Is the correct move!');
-    }
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {

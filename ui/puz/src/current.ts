@@ -9,7 +9,10 @@ export default class CurrentPuzzle {
   moveIndex = -1;
   pov: Color;
 
-  constructor(readonly index: number, readonly puzzle: Puzzle) {
+  constructor(
+    readonly index: number,
+    readonly puzzle: Puzzle,
+  ) {
     this.line = puzzle.line.split(' ');
     this.pov = opposite(parseFen(puzzle.fen).unwrap().turn);
     this.startAt = getNow();

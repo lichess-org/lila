@@ -12,7 +12,7 @@ export const complete = (
   rated: StoredProp<boolean>,
   replay?: PuzzleReplay,
   streak?: PuzzleStreak,
-  color?: Color
+  color?: Color,
 ): Promise<PuzzleResult> =>
   xhr.json(`/training/complete/${theme}/${puzzleId}`, {
     method: 'POST',
@@ -43,5 +43,5 @@ export const setZen = throttlePromiseDelay(
     xhr.text('/pref/zen', {
       method: 'post',
       body: xhr.form({ zen: zen ? 1 : 0 }),
-    })
+    }),
 );

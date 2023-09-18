@@ -6,6 +6,13 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+export function as<T>(v: T, f: () => void): () => T {
+  return () => {
+    f();
+    return v;
+  };
+}
+
 export interface Prop<T> {
   (): T;
   (v: T): T;
@@ -72,6 +79,46 @@ export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
 };
 
 export const onClickAway = (f: () => void) => (el: HTMLElement) => {
-  const listen: () => void = () => $(document).one('click', e => (el.contains(e.target) ? listen() : f()));
+  const listen: () => void = () =>
+    $(document).one('click', e => {
+      if (!document.contains(el)) {
+        return;
+      }
+      if (el.contains(e.target)) {
+        listen();
+      } else {
+        f();
+      }
+    });
   setTimeout(listen, 300);
 };
+
+export type SparseSet<T> = Set<T> | T;
+export type SparseMap<V> = Map<string, SparseSet<V>>;
+
+export function spread<T>(v: undefined | SparseSet<T>): T[] {
+  return v === undefined ? [] : v instanceof Set ? [...v] : [v];
+}
+
+export function spreadMap<T>(m: SparseMap<T>): [string, T[]][] {
+  return [...m].map(([k, v]) => [k, spread(v)]);
+}
+
+export function getSpread<T>(m: SparseMap<T>, key: string): T[] {
+  return spread(m.get(key));
+}
+
+export function remove<T>(m: SparseMap<T>, key: string, val: T) {
+  const v = m.get(key);
+  if (v === val) m.delete(key);
+  else if (v instanceof Set) v.delete(val);
+}
+
+export function pushMap<T>(m: SparseMap<T>, key: string, val: T) {
+  const v = m.get(key);
+  if (!v) m.set(key, val);
+  else {
+    if (v instanceof Set) v.add(val);
+    else if (v !== val) m.set(key, new Set([v as T, val]));
+  }
+}

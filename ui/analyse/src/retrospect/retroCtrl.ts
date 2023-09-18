@@ -63,7 +63,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     const colorModulo = color == 'white' ? 1 : 0;
     candidateNodes = evalSwings(
       root.mainline,
-      n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply)
+      n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply),
     );
     return candidateNodes.find(n => !isPlySolved(n.ply));
   }

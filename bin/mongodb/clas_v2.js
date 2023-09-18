@@ -4,7 +4,7 @@ db.clas_clas.find({ createdAt: { $exists: 1 } }).forEach(clas => {
     {
       $unset: { updatedAt: 1, createdAt: 1 },
       $set: { created: { by: clas.teachers[0], at: clas.createdAt } },
-    }
+    },
   );
 });
 db.clas_student.find({ createdAt: { $exists: 1 } }).forEach(stu => {
@@ -14,7 +14,7 @@ db.clas_student.find({ createdAt: { $exists: 1 } }).forEach(stu => {
     {
       $unset: { updatedAt: 1, createdAt: 1 },
       $set: { created: { by: teacher, at: stu.createdAt } },
-    }
+    },
   );
 });
 db.clas_student.find({ realName: { $exists: 0 } }).forEach(stu => {
@@ -22,6 +22,6 @@ db.clas_student.find({ realName: { $exists: 0 } }).forEach(stu => {
     { _id: stu._id },
     {
       $set: { realName: stu.userId, notes: '' },
-    }
+    },
   );
 });

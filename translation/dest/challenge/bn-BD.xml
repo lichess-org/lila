@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">প্রতিদ্বন্দ্বীরা:%1$s</string>
   <string name="challengeToPlay">খেলার জন্য চ্যালেঞ্জ করুন</string>
   <string name="challengeDeclined">চ্যালেঞ্জ প্রত্যাখ্যান করা হয়েছে</string>
   <string name="challengeAccepted">চ্যালেঞ্জ গৃহীত হয়েছে!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">ভেরিয়েন্ট গেম খেলতে ইচ্ছে করছে না এখন.</string>
   <string name="declineNoBot">আমি এখন বোট থেকে চ্যালেঞ্জ গ্রহন থেকে বিরত রয়েছি.</string>
   <string name="declineOnlyBot">আমি বর্তমানে শুধু বোট থেকে চ্যালেঞ্জ গ্রহন করছি.</string>
+  <string name="inviteLichessUser">অথবা একজন লিচেস ব্যবহারকারীকে আমন্ত্রণ জানান |:</string>
 </resources>

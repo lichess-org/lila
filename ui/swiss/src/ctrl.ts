@@ -19,7 +19,10 @@ export default class SwissCtrl {
 
   private lastStorage = lichess.storage.make('last-redirect');
 
-  constructor(readonly opts: SwissOpts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: SwissOpts,
+    readonly redraw: () => void,
+  ) {
     this.data = this.readData(opts.data);
     this.trans = lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
@@ -64,7 +67,7 @@ export default class SwissCtrl {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        lichess.redirect('/' + gameId, 'beep');
+        lichess.redirect('/' + gameId, true);
       }
     }, delay);
   };
@@ -145,7 +148,7 @@ export default class SwissCtrl {
     if (!this.reloadSoonThrottle)
       this.reloadSoonThrottle = throttlePromiseDelay(
         () => Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
-        () => xhr.reloadNow(this)
+        () => xhr.reloadNow(this),
       );
     this.reloadSoonThrottle();
   };
@@ -154,7 +157,7 @@ export default class SwissCtrl {
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(
-      this.trans.plural('nbRounds', this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`)
+      this.trans.plural('nbRounds', this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`),
     );
 
   private readData = (data: SwissData) => ({

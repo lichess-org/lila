@@ -10,5 +10,5 @@ db.tournament2.update(
       startsAt: ISODate('2022-01-11T19:00:00.000Z'),
     },
     $unset: { winner: 1 },
-  }
+  },
 );

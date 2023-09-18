@@ -17,7 +17,7 @@
 
     &.result-empty::before {
       @extend %data-icon;
-      content: '';
+      content: $licon-Checkmark;
       font-size: 0.9em;
     }
 
@@ -29,7 +29,7 @@
       background: $c-bad;
 
       &.result-empty::before {
-        content: '';
+        content: $licon-X;
       }
     }
 

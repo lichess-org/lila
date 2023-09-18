@@ -28,7 +28,7 @@ final class RelayRound(
       WithTourAndRoundsCanUpdate(tourId): trs =>
         val tour = trs.tour
         def whenRateLimited = negotiate(
-          Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value)),
+          Redirect(routes.RelayTour.show(tour.slug, tour.id.value)),
           rateLimited
         )
         env.relay.roundForm

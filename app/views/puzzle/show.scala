@@ -42,7 +42,6 @@ object show:
         )
       ),
       csp = analysisCsp.some,
-      chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(

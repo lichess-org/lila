@@ -188,7 +188,7 @@ object home:
     ),
     faqEntry(
       trans.swiss.earlyDrawsQ(),
-      trans.swiss.earlyDrawsA()
+      trans.swiss.earlyDrawsAnswer()
     ),
     faqEntry(
       trans.swiss.whatIfOneDoesntPlayQ(),

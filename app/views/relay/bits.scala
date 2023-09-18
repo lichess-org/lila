@@ -8,6 +8,8 @@ import lila.relay.RelayTour
 
 object bits:
 
+  def broadcastH1 = h1(dataIcon := licon.RadioTower, cls := "text")
+
   def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using PageContext) =
     a(
       href := tr.path,

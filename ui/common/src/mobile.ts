@@ -31,7 +31,7 @@ export const bindMobileMousedown =
           e.preventDefault();
           if (redraw) redraw();
         },
-        { passive: false }
+        { passive: false },
       );
     }
   };
@@ -51,6 +51,8 @@ export const isIOS = (constraint?: { below?: number; atLeast?: number }) => {
   if (answer && constraint?.atLeast) answer = version >= constraint.atLeast;
   return answer;
 };
+
+export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
 export const isTouchDevice = () => !hasMouse();
 

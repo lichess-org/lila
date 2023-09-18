@@ -20,7 +20,7 @@ function authorDom(author: Author): string | VNode {
     {
       attrs: { 'data-href': '/@/' + author.id },
     },
-    author.name
+    author.name,
   );
 }
 
@@ -55,7 +55,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
                   if (confirm('Delete ' + authorText(by) + "'s comment?"))
                     study.commentForm.delete(chapter.id, ctrl.path, comment.id);
                 },
-                ctrl.redraw
+                ctrl.redraw,
               ),
             })
           : null,
@@ -64,6 +64,6 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
         ': ',
         h('div.text', { hook: richHTML(comment.text) }),
       ]);
-    })
+    }),
   );
 }

@@ -10,6 +10,7 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
+import { makeSan } from 'chessops/san';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { defined, prop, Prop } from 'common';
@@ -46,7 +47,10 @@ export default class RacerCtrl implements PuzCtrl {
   flipped = false;
   redrawInterval: Timeout;
 
-  constructor(opts: RacerOpts, readonly redraw: () => void) {
+  constructor(
+    opts: RacerOpts,
+    readonly redraw: () => void,
+  ) {
     this.data = opts.data;
     this.race = this.data.race;
     this.pref = opts.pref;
@@ -74,7 +78,7 @@ export default class RacerCtrl implements PuzCtrl {
         this.run.current.moveIndex = 0;
         this.setGround();
       },
-      () => setTimeout(this.redraw)
+      () => setTimeout(this.redraw),
     );
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
@@ -180,7 +184,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.promotion.cancel();
       const pos = puzzle.position();
       const move = parseUci(uci)!;
-      let captureSound = pos.board.occupied.has(move.to);
+      const san = makeSan(pos, move);
       pos.play(move);
       if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
         puzzle.moveIndex++;
@@ -197,9 +201,8 @@ export default class RacerCtrl implements PuzCtrl {
           if (!this.incPuzzle(true)) this.end();
         } else {
           puzzle.moveIndex++;
-          captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
         }
-        sound.move(captureSound);
+        lichess.sound.move({ san, uci });
       } else {
         sound.wrong();
         this.run.errors++;
@@ -267,7 +270,7 @@ export default class RacerCtrl implements PuzCtrl {
       xhr.text('/pref/zen', {
         method: 'post',
         body: xhr.form({ zen: zen ? 1 : 0 }),
-      })
+      }),
   );
 
   private toggleZen = () => lichess.pubsub.emit('zen');

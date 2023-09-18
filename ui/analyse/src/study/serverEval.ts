@@ -9,7 +9,10 @@ export default class ServerEval {
   requested = false;
   chart?: AcplChart;
 
-  constructor(readonly root: AnalyseCtrl, readonly chapterId: () => string) {}
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly chapterId: () => string,
+  ) {}
 
   reset = () => {
     this.requested = false;
@@ -38,12 +41,12 @@ export function view(ctrl: ServerEval): VNode {
             el,
             ctrl.root.data,
             ctrl.root.mainline,
-            ctrl.root.trans
+            ctrl.root.trans,
           );
         }, 800);
       }),
     },
-    [h('div.study__message', spinnerVdom())]
+    [h('div.study__message', spinnerVdom())],
   );
 }
 
@@ -71,8 +74,8 @@ function requestButton(ctrl: ServerEval) {
               },
               hook: bind('click', ctrl.request, root.redraw),
             },
-            noarg('requestAComputerAnalysis')
+            noarg('requestAComputerAnalysis'),
           ),
-        ]
+        ],
   );
 }

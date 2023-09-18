@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Klask</string>
-  <string name="advancedSearch">Enklask araokaet</string>
+  <string name="advancedSearch">Enklask resis</string>
   <plurals name="searchInXGames">
     <item quantity="one">Klask en %s c\'hrogad echedoù</item>
     <item quantity="two">Klask e %s grogad echedoù</item>

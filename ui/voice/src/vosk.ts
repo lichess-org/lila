@@ -53,7 +53,7 @@ export function initModule(): VoskModule {
         `Created ${opts.audioCtx.sampleRate.toFixed()}Hz recognizer '${
           opts.recId
         }' with buffer size ${bufSize}`,
-        opts.words
+        opts.words,
       );
 
     recs.set(opts.recId, new KaldiRec(kaldi, node, opts.partial));

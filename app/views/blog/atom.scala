@@ -5,24 +5,25 @@ import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import lila.blog.{ BlogPost, MiniPost }
 import java.time.LocalDate
 
 object atom:
 
   import views.html.base.atom.{ atomDate, category }
 
-  def apply(pager: Paginator[io.prismic.Document])(using prismic: lila.blog.BlogApi.Context) =
+  def apply(pager: Paginator[BlogPost])(using prismic: lila.blog.BlogApi.Context) =
     views.html.base.atom(
       elems = pager.currentPageResults,
       htmlCall = routes.Blog.index(),
       atomCall = routes.Blog.atom,
       title = "lichess.org blog",
-      updated = pager.currentPageResults.headOption.flatMap(docDate).map(_.atStartOfDay.instant)
-    ) { doc =>
+      updated = pager.currentPageResults.headOption.flatMap(_.date).map(_.atStartOfDay.instant)
+    ): doc =>
       frag(
         tag("id")(s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug)}"),
-        tag("published")(docDate(doc) map atomDate),
-        tag("updated")(docDate(doc) map atomDate),
+        tag("published")(doc.date map atomDate),
+        tag("updated")(doc.date map atomDate),
         link(
           rel  := "alternate",
           tpe  := "text/html",
@@ -42,13 +43,9 @@ object atom:
           "<br>",
           Html
             .from(doc.getHtml("blog.body", prismic.linkResolver))
-            .map(lila.blog.Youtube.fixStartTimes)
+            .map(lila.blog.Youtube.augmentEmbeds)
             .map(lila.blog.BlogTransform.addProtocol)
         ),
         tag("tag")("media:thumbnail")(attr("url") := doc.getImage(s"blog.image", "main").map(_.url)),
         tag("author")(tag("name")(doc.getText("blog.author")))
       )
-    }
-
-  def docDate(doc: io.prismic.Document): Option[LocalDate] =
-    doc getDate "blog.date" map (_.value)

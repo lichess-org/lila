@@ -32,6 +32,6 @@ export class Notify {
           'aria-atomic': 'true',
         },
       },
-      this.currentText()
+      this.currentText(),
     );
 }

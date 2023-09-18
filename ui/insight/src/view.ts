@@ -124,7 +124,7 @@ function portraitView(ctrl: Ctrl) {
             info(ctrl),
             ctrl.vm.view === 'filters' ? clearBtn(ctrl) : null,
             ctrl.vm.view === 'presets' ? presets(ctrl) : filters(ctrl),
-          ])
+          ]),
     ),
   ]);
 }
@@ -137,7 +137,7 @@ function clearBtn(ctrl: Ctrl) {
         attrs: { title: 'Clear all filters', 'data-icon': licon.X },
         hook: bind('click', ctrl.clearFilters.bind(ctrl)),
       },
-      isLandscapeLayout() ? 'CLEAR' : 'CLEAR FILTERS'
+      isLandscapeLayout() ? 'CLEAR' : 'CLEAR FILTERS',
     );
   return isLandscapeLayout() ? btn() : h('div.center-clear', btn());
 }

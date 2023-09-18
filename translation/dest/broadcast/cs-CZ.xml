@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Přenosy</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s vysílání</item>
+    <item quantity="few">%s vysílání</item>
+    <item quantity="many">%s vysílání</item>
+    <item quantity="other">%s vysílání</item>
+  </plurals>
   <string name="liveBroadcasts">Živé přenosy turnajů</string>
   <string name="newBroadcast">Nový živý přenos</string>
   <string name="addRound">Přidat kolo</string>
@@ -27,4 +33,7 @@
   <string name="deleteRound">Smazat toto kolo</string>
   <string name="definitivelyDeleteRound">Definitivně smazat kolo a jeho hry.</string>
   <string name="deleteAllGamesOfThisRound">Smazat všechny hry v tomto kole. Zdroj musí být aktivní aby bylo možno je znovu vytvořit.</string>
+  <string name="editRoundStudy">Upravit studie kola</string>
+  <string name="deleteTournament">Smazat tento turnaj</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Opravdu smazat celý turnaj, všechna kola a hry.</string>
 </resources>

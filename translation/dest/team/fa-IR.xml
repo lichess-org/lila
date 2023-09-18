@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">تیم</string>
-  <string name="teams">تیم‌ ها</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">تیم‌ها</string>
   <plurals name="nbMembers">
     <item quantity="one">%s عضو</item>
     <item quantity="other">%s عضو</item>
   </plurals>
   <string name="allTeams">همه تیم‌ ها</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">تیم‌های رهبر</string>
-  <string name="newTeam">ایجاد تیم جدید</string>
-  <string name="myTeams">تیم‌ های من</string>
+  <string name="newTeam">تیم جدید</string>
+  <string name="myTeams">تیم‌های من</string>
   <string name="noTeamFound">تیمی پیدا نشد</string>
   <string name="joinTeam">پیوستن به تیم</string>
   <string name="onlyLeaderLeavesTeam">لطفا قبل از ترک تیم یک رهبر جدید اضافه کنید، یا تیم را ببندید.</string>

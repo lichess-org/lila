@@ -467,6 +467,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         if s.student.managed then
           env.clas.api.student.closeAccount(s) >>
             env.api.accountClosure.close(s.user) inject redirectTo(clas).flashSuccess
+        else if s.student.isArchived then
+          env.clas.api.student.closeAccount(s) >>
+            redirectTo(clas).flashSuccess
         else redirectTo(clas)
   }
 
@@ -529,7 +532,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       Found(env.clas.api.student.get(clas, user))(f)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
-    if ctx.me.exists(!_.lameOrTroll) then f
+    if ctx.me.exists(!_.lameOrTroll) && !ctx.isBot then f
     else Redirect(routes.Clas.index)
 
   private def redirectTo(c: lila.clas.Clas): Result = redirectTo(c.id)

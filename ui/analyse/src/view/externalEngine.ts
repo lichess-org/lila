@@ -23,10 +23,10 @@ export function config(ctrl: AnalyseCtrl) {
                 selected: ctrl.getCeval().externalEngine?.id == engine.id,
               },
             },
-            engine.name
-          )
+            engine.name,
+          ),
         ),
-      ]
+      ],
     ),
   ];
 }

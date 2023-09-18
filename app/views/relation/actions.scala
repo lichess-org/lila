@@ -32,6 +32,12 @@ object actions:
               cls      := "btn-rack__btn",
               dataIcon := licon.BubbleSpeech
             ),
+            (!blocked && !user.isPatron) option a(
+              titleOrText(trans.patron.giftPatronWingsShort.txt()),
+              href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
+              cls      := "btn-rack__btn",
+              dataIcon := licon.Wings
+            ),
             relation match
               case None =>
                 frag(

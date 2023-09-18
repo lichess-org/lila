@@ -2,39 +2,41 @@ package views.html.blog
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.blog.BlogPost
 
 import controllers.routes
 
 object show:
 
-  def apply(doc: io.prismic.Document)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
+  def apply(post: BlogPost)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
+    val postTitle = ~post.title
     views.html.base.layout(
-      title = s"${~doc.getText("blog.title")} | Blog",
+      title = s"$postTitle | Blog",
       moreJs = jsModule("expandText"),
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
-          image = doc.getImage("blog.image", "main").map(_.url),
-          title = ~doc.getText("blog.title"),
-          url = s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug).url}",
-          description = ~doc.getText("blog.shortlede")
+          image = post.getImage("blog.image", "main").map(_.url),
+          title = postTitle,
+          url = s"$netBaseUrl${routes.Blog.show(post.id, post.slug).url}",
+          description = post.shortlede
         )
         .some,
       moreCss = cssTag("blog"),
       csp = bits.csp.map(_.withInlineIconFont)
-    )(
+    ):
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
-        div(cls := s"blog page-menu__content box post force-ltr ${~doc.getText("blog.cssClasses")}")(
-          h1(cls := "box__top")(doc.getText("blog.title")),
-          bits.metas(doc),
-          doc.getImage("blog.image", "main").map { img =>
+        div(cls := s"blog page-menu__content box post force-ltr ${~post.getText("blog.cssClasses")}")(
+          h1(cls := "box__top")(postTitle),
+          bits.metas(post),
+          post.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))
           },
           div(cls := "body expand-text")(
             Html
-              .from(doc.getHtml("blog.body", prismic.linkResolver))
-              .map(lila.blog.Youtube.fixStartTimes)
+              .from(post.getHtml("blog.body", prismic.linkResolver))
+              .map(lila.blog.Youtube.augmentEmbeds)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
               .map(env.blog.api.expand)
@@ -43,13 +45,12 @@ object show:
           ctx.noKid option
             div(cls := "footer")(
               if prismic.maybeRef.isEmpty then
-                doc
-                  .getDate("blog.date")
+                post.date
                   .exists:
-                    _.value.atStartOfDay.instant isAfter nowInstant.minusWeeks(2)
+                    _.atStartOfDay.instant isAfter nowInstant.minusWeeks(2)
                   .option:
                     a(
-                      href     := routes.Blog.discuss(doc.id),
+                      href     := routes.Blog.discuss(post.id),
                       cls      := "button text discuss",
                       dataIcon := licon.BubbleConvo
                     ):
@@ -60,4 +61,3 @@ object show:
             )
         )
       )
-    )

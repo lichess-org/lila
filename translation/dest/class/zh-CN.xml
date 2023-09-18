@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">课程</string>
-  <string name="teachClassesOfChessStudents">使用Lichess班级工具包教象棋学生班。</string>
+  <string name="teachClassesOfChessStudents">使用 Lichess 班级工具教学生班。</string>
   <string name="features">特性</string>
   <string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
   <string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
   <string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
   <string name="freeForAllForever">对所有人100%免费，永远没有广告或跟踪者</string>
-  <string name="applyToBeLichessTeacher">申请成为Lichess教师</string>
+  <string name="applyToBeLichessTeacher">申请成为 Lichess 教师</string>
   <string name="noClassesYet">尚无班级。</string>
   <string name="teachersX">教师： %s</string>
   <string name="newClass">创建班级</string>
@@ -18,14 +18,14 @@
   <string name="removedStudents">已移除</string>
   <string name="inviteTheStudentBack">邀请学生返回</string>
   <string name="sendAMessage">给所有学生发消息</string>
-  <string name="aLinkToTheClassWillBeAdded">班级的超链接将会自动添加到消息尾部，所以您不需要自己添加它。</string>
+  <string name="aLinkToTheClassWillBeAdded">班级的链接将会自动添加到消息末尾，所以你不需要自己添加。</string>
   <string name="className">班级名称</string>
   <string name="classDescription">班级描述</string>
   <string name="visibleByBothStudentsAndTeachers">仅本班教师和学生可见</string>
   <string name="teachersOfTheClass">班级的教师</string>
-  <string name="addLichessUsernames">添加Lichess用户名邀请他们成为教师。每行一个。</string>
+  <string name="addLichessUsernames">添加 Lichess 用户名邀请他们成为教师。每行一个。</string>
   <string name="resetPassword">重置密码</string>
-  <string name="makeSureToCopy">请确保您已牢记密码。密码不会再显示！</string>
+  <string name="makeSureToCopy">请确保你已牢记密码。密码不会再显示！</string>
   <string name="passwordX">密码： %s</string>
   <string name="generateANewPassword">为学生生成一个新密码</string>
   <string name="invitedToXByY">%1$s 被 %2$s 邀请</string>
@@ -37,21 +37,21 @@
 用户名：%2$s
 密码：%3$s</string>
   <string name="inviteALichessAccount">邀请 Lichess 账户</string>
-  <string name="inviteDesc1">如果学生已有 Lichess 帐户，您可以邀请他们到本课堂。</string>
+  <string name="inviteDesc1">如果学生已有 Lichess 账户，你可以邀请他们到本课堂。</string>
   <string name="inviteDesc2">他们将在 Lichess 上收到一条带有加入课堂链接的消息。</string>
   <string name="inviteDesc3">请仅邀请你认识的或者积极地想要加入课堂的学生。</string>
   <string name="inviteDesc4">从不向任意玩家发送未经请求的邀请。</string>
   <string name="createANewLichessAccount">创建一个新的 Lichess 账户</string>
-  <string name="createDesc1">如果学生还没有 Lichess 帐户，您可以在此为他们创建一个。</string>
-  <string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
-  <string name="createDesc3">重要：学生不得拥有多个帐户。</string>
+  <string name="createDesc1">如果学生还没有 Lichess 账户，你可以在此为他们创建一个。</string>
+  <string name="createDesc2">无需邮箱地址。密码将自动生成，将其发给学生以让他们登录。</string>
+  <string name="createDesc3">重要：学生不得拥有多个账户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
   <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
-  <string name="lichessUsername">Lichess用户名</string>
+  <string name="lichessUsername">Lichess 用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
 这里是访问班级的链接。</string>
-  <string name="invitationToClass">您被邀请以学生身份加入班级“%s”。</string>
+  <string name="invitationToClass">你被邀请以学生身份加入班级 “%s”。</string>
   <string name="clickToViewInvitation">点击链接查看邀请：</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s 个待处理的邀请</item>
@@ -59,17 +59,17 @@
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
   <string name="managed">管理</string>
-  <string name="thisStudentAccountIsManaged">这个学生帐户被处理</string>
+  <string name="thisStudentAccountIsManaged">此学生账户被管理</string>
   <string name="upgradeFromManaged">从处理的升级为自主的</string>
   <string name="release">释放</string>
-  <string name="releaseTheAccount">释放帐户，以便学生能够自主管理。</string>
+  <string name="releaseTheAccount">释放账户，以便学生能够自主管理。</string>
   <string name="releaseDesc1">已释放的账户不能再次被管理。学生将能切换幼儿模式开关和重置密码。</string>
   <string name="releaseDesc2">该学生在账户激活后将留在课堂。</string>
   <string name="realUniqueEmail">真实且唯一的学生邮箱。我们将向该邮箱发送一个带有激活账号链接的确认邮件。</string>
   <string name="closeStudent">关闭账户</string>
-  <string name="closeTheAccount">永久关闭学生帐户。</string>
-  <string name="closeDesc1">学生将永远无法再次使用此帐户，关闭是永久性的。请确保学生理解并同意。</string>
-  <string name="closeDesc2">你可能想让学生操控该帐户，以便他们能够继续使用。</string>
+  <string name="closeTheAccount">永久关闭学生账户。</string>
+  <string name="closeDesc1">学生将无法再次使用此账户，关闭是永久性的。请确保学生理解并同意。</string>
+  <string name="closeDesc2">你可能会想让学生操控该账户，以便他们能够继续使用。</string>
   <string name="teachers">教师</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 位教师</item>
@@ -97,12 +97,12 @@
   <string name="newsEdit3">用----分离新闻
 它将显示一条横线。</string>
   <string name="invite">邀请</string>
-  <string name="youHaveBeenInvitedByX">%s 邀请您加入</string>
-  <string name="youAcceptedThisInvitation">您接受了此邀请</string>
-  <string name="youDeclinedThisInvitation">您拒绝了此邀请</string>
+  <string name="youHaveBeenInvitedByX">%s 邀请你加入</string>
+  <string name="youAcceptedThisInvitation">你接受了此邀请</string>
+  <string name="youDeclinedThisInvitation">你拒绝了此邀请</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">或</string>
   <string name="createMultipleAccounts">一次创建多个 Lichess 账户</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">您也可以%s通过学生名称列表创建多个 Lichess 账户</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">你也可以%s通过学生名称列表创建多个 Lichess 账户。</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">使用此表单</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">请注意，一个班级最多可以有 %1$s 名学生。如需管理更多学生，%2$s。</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">创建更多班级</string>
@@ -110,5 +110,5 @@
   <string name="xisNowAStudentOfTheClass">%s 现在是班级的学生</string>
   <string name="anInvitationHasBeenSentToX">邀请已发送到 %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s 已经有待处理的邀请</string>
-  <string name="xIsAKidAccountWarning">%1$s 是未成年账户，无法接收您的消息。您必须手动给他发送邀请链接： %2$s</string>
+  <string name="xIsAKidAccountWarning">%1$s 是儿童账户，无法接收你的消息。你必须手动给他发送邀请链接： %2$s</string>
 </resources>

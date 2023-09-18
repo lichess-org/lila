@@ -31,7 +31,7 @@
   <string name="byOpenings">Por aperturas</string>
   <string name="puzzlesByOpenings">Exercicios por aperturas</string>
   <string name="openingsYouPlayedTheMost">As aperturas que máis xogaches en partidas puntuadas</string>
-  <string name="useFindInPage">Usa \"Encontrar na páxina\" no menú do navegador para atopar a túa apertura favorita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Usa \"Encontrar na páxina\" no menú do navegador para atopar a túa apertura favorita!</string>
   <string name="useCtrlF">Usa Ctrl+f para atopar a túa apertura favorita!</string>
   <string name="notTheMove">Esa non é a xogada!</string>
   <string name="trySomethingElse">Proba outra cosa.</string>

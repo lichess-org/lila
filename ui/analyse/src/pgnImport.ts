@@ -12,7 +12,7 @@ const readNode = (
   node: ChildNode<PgnNodeData>,
   pos: Position,
   ply: number,
-  withChildren = true
+  withChildren = true,
 ): Tree.Node => {
   const move = parseSan(pos, node.data.san);
   if (!move) throw `Can't replay move ${node.data.san} at ply ${ply}`;

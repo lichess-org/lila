@@ -17,7 +17,7 @@ function makeAutoShapesFromUci(
   color: Color,
   uci: Uci,
   brush: string,
-  modifiers?: DrawModifiers
+  modifiers?: DrawModifiers,
 ): DrawShape[] {
   const move = parseUci(uci)! as NormalMove; // no crazyhouse
   const to = makeSquare(move.to);
@@ -56,7 +56,7 @@ export default function (opts: Opts): DrawShape[] {
           shapes = shapes.concat(
             makeAutoShapesFromUci(color, pv.moves[0], 'paleGrey', {
               lineWidth: Math.round(12 - shift * 50), // 12 to 2
-            })
+            }),
           );
         });
       }
@@ -71,7 +71,7 @@ export default function (opts: Opts): DrawShape[] {
         shapes = shapes.concat(
           makeAutoShapesFromUci(opposite(color), pv.moves[0], 'paleRed', {
             lineWidth: Math.round(11 - shift * 45), // 11 to 2
-          })
+          }),
         );
       });
     } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));

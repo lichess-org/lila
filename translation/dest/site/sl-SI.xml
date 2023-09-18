@@ -570,7 +570,6 @@
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
   <string name="biography">Biografija</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="oneUrlPerLine">En URL na vrstico.</string>
@@ -782,7 +781,7 @@
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Boljši si od %1$s %2$s igralcev.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je boljši od %2$s igralcev %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Bolje kot %1$s od %2$s igralcev</string>
+  <string name="betterThanPercentPlayers">Bolje kot %1$s od %2$s igralcev</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tvoj %s rating še ni uveljavljen.</string>
   <string name="yourRating">Vaš rating</string>
   <string name="cumulative">Skupno</string>

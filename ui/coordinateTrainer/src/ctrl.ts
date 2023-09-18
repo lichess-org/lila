@@ -76,14 +76,17 @@ export default class CoordinateTrainerCtrl {
   wrongTimeout: number;
   zen: boolean;
 
-  constructor(readonly config: CoordinateTrainerConfig, readonly redraw: Redraw) {
+  constructor(
+    readonly config: CoordinateTrainerConfig,
+    readonly redraw: Redraw,
+  ) {
     const setZen = throttlePromiseDelay(
       () => 1000,
       zen =>
         xhr.text('/pref/zen', {
           method: 'post',
           body: xhr.form({ zen: zen ? 1 : 0 }),
-        })
+        }),
     );
 
     lichess.pubsub.on('zen', () => {
@@ -111,9 +114,9 @@ export default class CoordinateTrainerCtrl {
       'coordinateTrainer.colorChoice',
       'random',
       str => str as ColorChoice,
-      v => v
+      v => v,
     ),
-    () => this.setOrientationFromColorChoice()
+    () => this.setOrientationFromColorChoice(),
   );
 
   orientation = orientationFromColorChoice(this.colorChoice());
@@ -129,9 +132,9 @@ export default class CoordinateTrainerCtrl {
       'coordinateTrainer.mode',
       window.location.hash === '#name' ? 'nameSquare' : 'findSquare',
       str => str as Mode,
-      v => v
+      v => v,
     ),
-    () => this.onModeChange()
+    () => this.onModeChange(),
   );
 
   onModeChange = () => {
@@ -142,7 +145,7 @@ export default class CoordinateTrainerCtrl {
 
   selectionEnabled = withEffect<boolean>(
     storedBooleanProp('coordinateTrainer.selectionEnabled', false),
-    this.redraw
+    this.redraw,
   );
 
   selectedFiles = new Set<Files>();
@@ -163,16 +166,16 @@ export default class CoordinateTrainerCtrl {
       'coordinateTrainer.timeControl',
       document.body.classList.contains('kid') ? 'untimed' : 'thirtySeconds',
       str => str as TimeControl,
-      v => v
+      v => v,
     ),
-    this.redraw
+    this.redraw,
   );
 
   timeDisabled = () => this.timeControl() === 'untimed';
 
   showCoordinates = withEffect<boolean>(
     storedBooleanProp('coordinateTrainer.showCoordinates', document.body.classList.contains('kid')),
-    (show: boolean) => this.onShowCoordinatesChange(show)
+    (show: boolean) => this.onShowCoordinatesChange(show),
   );
 
   onShowCoordinatesChange = (show: boolean) => {
@@ -181,7 +184,7 @@ export default class CoordinateTrainerCtrl {
   };
 
   showPieces = withEffect<boolean>(storedBooleanProp('coordinateTrainer.showPieces', true), () =>
-    this.onShowPiecesChange()
+    this.onShowPiecesChange(),
   );
 
   onShowPiecesChange = () => {
@@ -196,9 +199,9 @@ export default class CoordinateTrainerCtrl {
       'coordinateTrainer.coordinateInputMethod',
       window.innerWidth >= 980 ? 'text' : 'buttons',
       str => str as InputMethod,
-      v => v
+      v => v,
     ),
-    this.redraw
+    this.redraw,
   );
 
   toggleInputMethod = () =>
@@ -249,8 +252,8 @@ export default class CoordinateTrainerCtrl {
 
     if (this.mode() === 'nameSquare')
       this.chessground?.setShapes([
-        { orig: this.currentKey as Key, customSvg: targetSvg('current'), brush: '' },
-        { orig: this.nextKey as Key, customSvg: targetSvg('next'), brush: '' },
+        { orig: this.currentKey as Key, customSvg: { html: targetSvg('current') } },
+        { orig: this.nextKey as Key, customSvg: { html: targetSvg('next') } },
       ]);
 
     this.redraw();

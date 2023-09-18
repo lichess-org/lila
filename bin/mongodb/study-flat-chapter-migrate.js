@@ -87,8 +87,8 @@ db.study_chapter_backup
         `${i} ${percent.toFixed(2)}% ${perSecond}/s ETA ${minutesLeft} minutes | size:${(
           sumSizeFrom / batchSize
         ).toFixed(0)}->${(sumSizeTo / batchSize).toFixed(0)} moves:${(sumMoves / batchSize).toFixed(
-          0
-        )} big:${tooBigNb} deep:${tooDeepNb}`
+          0,
+        )} big:${tooBigNb} deep:${tooDeepNb}`,
       );
       lastAt = at;
       sumSizeFrom = 0;

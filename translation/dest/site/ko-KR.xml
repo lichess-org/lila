@@ -71,7 +71,7 @@
   <string name="forceVariation">변화 강제하기</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
-  <string name="variantWin">변형 체스에서 승리</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">변형 체스에서 승리</string>
   <string name="insufficientMaterial">기물 부족으로 무승부입니다.</string>
   <string name="pawnMove">폰 이동</string>
   <string name="capture">Capture</string>
@@ -467,7 +467,7 @@
   <string name="firstName">이름</string>
   <string name="lastName">성</string>
   <string name="biography">소개</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가 또는 국기</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">깃발</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
@@ -522,8 +522,8 @@
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
-  <string name="writeAPrivateNoteAboutThisUser">이 사용자에 대한 비공개 메모를 작성하세요</string>
-  <string name="noNoteYet">아직 메모가 없습니다.</string>
+  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">이 사용자에 대한 비공개 메모를 작성하세요</string>
+  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">아직 메모가 없습니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">무효한 인증코드</string>
@@ -664,6 +664,7 @@
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s는 %2$s의 %3$s 플레이어보다 더 뛰어납니다.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">%1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="yourRating">당신의 레이팅</string>
   <string name="cumulative">누적 유저 비율</string>
@@ -779,11 +780,11 @@
   <string name="waitingForAnalysis">분석을 기다리는 중</string>
   <string name="noMistakesFoundForWhite">백에게 악수는 없었습니다</string>
   <string name="noMistakesFoundForBlack">흑에게 악수는 없었습니다</string>
-  <string name="doneReviewingWhiteMistakes">백의 악수 체크가 종료됨</string>
-  <string name="doneReviewingBlackMistakes">흑의 악수 체크가 종료됨</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">백의 악수 체크가 종료됨</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">흑의 악수 체크가 종료됨</string>
   <string name="doItAgain">다시 하시길 바랍니다</string>
-  <string name="reviewWhiteMistakes">백의 악수를 체크</string>
-  <string name="reviewBlackMistakes">흑의 말의 실수 탐색하기</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">백의 악수를 체크</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">흑의 말의 실수 탐색하기</string>
   <string name="advantage">이득</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s초</item>

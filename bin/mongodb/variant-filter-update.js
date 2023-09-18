@@ -3,6 +3,6 @@ var variantId = 10;
   coll.update(
     { 'filter.v.1': { $exists: true } },
     { $push: { 'filter.v': NumberInt(variantId) } },
-    { multi: true }
+    { multi: true },
   );
 });

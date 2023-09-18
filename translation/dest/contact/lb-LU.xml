@@ -23,8 +23,10 @@
   <string name="wantClearHistory">Ech wëll mäin Verlaf oder meng Wäertung läschen</string>
   <string name="wantReport">Ech wëll een Spiller mellen</string>
   <string name="wantReportBug">Ech wëll een Bug mellen</string>
+  <string name="reportBugInDiscord">Am Lichess-Discordserver</string>
   <string name="illegalPawnCapture">Illegalen Bauerenschlagzuch</string>
   <string name="illegalCastling">Illegal oder onméiglech Rochade</string>
+  <string name="castlingRules">Vergewësser dech, dass du d\'Rochadereegele verstees</string>
   <string name="insufficientMaterial">Ongenügend Mattmaterial</string>
   <string name="noRatingPoints">Keng Wäertungspunkten goufen verdeelt</string>
   <string name="errorPage">Feelersäit</string>

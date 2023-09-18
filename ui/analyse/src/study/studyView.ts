@@ -6,7 +6,6 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { richHTML } from 'common/richText';
 import { rounds as relayTourRounds } from './relay/relayTourView';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
@@ -45,10 +44,10 @@ function toolButton(opts: ToolButtonOpts): VNode {
           if (opts.onClick) opts.onClick();
           opts.ctrl.vm.toolTab(opts.tab);
         },
-        opts.ctrl.redraw
+        opts.ctrl.redraw,
       ),
     },
-    [opts.count ? h('count.data-count', { attrs: { 'data-count': opts.count } }) : null, opts.icon]
+    [opts.count ? h('count.data-count', { attrs: { 'data-count': opts.count } }) : null, opts.icon],
   );
 }
 
@@ -68,7 +67,7 @@ function buttons(root: AnalyseCtrl): VNode {
               class: { on: ctrl.vm.mode.sticky },
               hook: bind('click', ctrl.toggleSticky),
             },
-            [ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'), 'SYNC']
+            [ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'), 'SYNC'],
           )
         : null,
       ctrl.members.canContribute()
@@ -79,7 +78,7 @@ function buttons(root: AnalyseCtrl): VNode {
               class: { on: ctrl.vm.mode.write },
               hook: bind('click', ctrl.toggleWrite),
             },
-            [h('i.is'), 'REC']
+            [h('i.is'), 'REC'],
           )
         : null,
       toolButton({
@@ -139,14 +138,10 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay?.data.tour.credit,
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', { attrs: { title } }, [
-        title,
-        credit ? h('span.credit', { hook: richHTML(credit, false) }) : undefined,
-      ]),
+      h('span.name', { attrs: { title } }, title),
       h(
         'span.liking.text',
         {
@@ -157,7 +152,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        '' + d.likes
+        '' + d.likes,
       ),
     ]),
     topicsView(ctrl),
@@ -177,7 +172,7 @@ export function side(ctrl: StudyCtrl): VNode {
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => ctrl.setTab(key)),
       },
-      name
+      name,
     );
 
   const tourTab =
@@ -191,14 +186,14 @@ export function side(ctrl: StudyCtrl): VNode {
           () => {
             tourShow.active = true;
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
         attrs: {
           'data-icon': licon.RadioTower,
           role: 'tab',
         },
       },
-      'Broadcast'
+      'Broadcast',
     );
 
   const chaptersTab =
@@ -206,7 +201,7 @@ export function side(ctrl: StudyCtrl): VNode {
       ? null
       : makeTab(
           'chapters',
-          ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length)
+          ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),
         );
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
@@ -249,7 +244,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
               ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
             }),
           },
-          ctrl.trans.noarg('commentThisMove')
+          ctrl.trans.noarg('commentThisMove'),
         ),
         h(
           'a.glyph-icon',
@@ -259,7 +254,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
               ctrl.userJump(path);
             }),
           },
-          ctrl.trans.noarg('annotateWithGlyphs')
+          ctrl.trans.noarg('annotateWithGlyphs'),
         ),
       ]
     : [];
@@ -298,7 +293,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
             ctrl,
             study.members.canContribute()
               ? 'Press REC to comment moves'
-              : 'Only the study members can comment on moves'
+              : 'Only the study members can comment on moves',
           );
       break;
     case 'glyphs':

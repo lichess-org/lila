@@ -504,7 +504,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flag</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="oneUrlPerLine">En URL pr. linje.</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre end %1$s af %2$s spillere</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er bedre end %2$s af %3$s spillere.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Bedre end %1$s af %2$s spillere</string>
+  <string name="betterThanPercentPlayers">Bedre end %1$s af %2$s spillere</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke en fastsat %s rating</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Akkumuleret</string>

@@ -72,7 +72,7 @@
   <string name="forceVariation">बल भिन्नता</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार में हानि</string>
-  <string name="variantWin">जीत का प्रकार</string>
+  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">जीत का प्रकार</string>
   <string name="insufficientMaterial">मात के लिए  मोहरे  की अपर्याप्तता</string>
   <string name="pawnMove">प्यादा  की चाल</string>
   <string name="capture">कब्जा</string>
@@ -484,7 +484,6 @@
   <string name="firstName">प्रथम नाम</string>
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश या झंडा</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>
@@ -797,15 +796,15 @@
   <string name="waitingForAnalysis">विश्लेषण के लिए प्रतीक्षा</string>
   <string name="noMistakesFoundForWhite">श्वेता के लिए नहीं मिली कोई ग़लतियाँ</string>
   <string name="noMistakesFoundForBlack">सफ़ेद पहलू ने ग़लती नहीं किया</string>
-  <string name="doneReviewingWhiteMistakes">सफ़ेद पहलू की ग़लती को पूरी तरह समज लिया</string>
-  <string name="doneReviewingBlackMistakes">काला पहलू की ग़लती को पूरी तरह समज लिया</string>
+  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">सफ़ेद पहलू की ग़लती को पूरी तरह समज लिया</string>
+  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">काला पहलू की ग़लती को पूरी तरह समज लिया</string>
   <string name="doItAgain">इसे फिर से करो</string>
-  <string name="reviewWhiteMistakes">सफ़ेद पहलू के ग़लती को देखें</string>
-  <string name="reviewBlackMistakes">काला पहलू के ग़लती को देखें</string>
+  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">सफ़ेद पहलू के ग़लती को देखें</string>
+  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">काला पहलू के ग़लती को देखें</string>
   <string name="advantage">लाभ</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंड</item>
-    <item quantity="other">%s सेकंड समय बचे है ।</item>
+    <item quantity="other">%s सेकंड</item>
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>

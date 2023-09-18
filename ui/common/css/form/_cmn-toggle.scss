@@ -77,7 +77,9 @@
     @include transition(background);
 
     &::before {
-      transition: margin $transition-duration, color $transition-duration;
+      transition:
+        margin $transition-duration,
+        color $transition-duration;
     }
 
     &::after {
@@ -93,7 +95,7 @@
 
 .cmn-toggle:not(:checked) + label {
   &::before {
-    content: '';
+    content: $licon-X;
     color: $c-bad;
   }
 }
@@ -111,7 +113,7 @@
   }
 
   &::before {
-    content: '';
+    content: $licon-Checkmark;
     color: $c-good;
   }
 }

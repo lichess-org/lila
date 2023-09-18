@@ -140,7 +140,7 @@ describe('keyboardMove', () => {
       input,
       ctrl: {
         ...defaultCtrl,
-        clock: () => ({ millisOf: mockMillisOf } as any),
+        clock: () => ({ millisOf: mockMillisOf }) as any,
       },
     }) as any;
 

@@ -1,7 +1,7 @@
 export default function debounce<T extends (...args: any) => void>(
   f: T,
   wait: number,
-  immediate = false
+  immediate = false,
 ): (...args: Parameters<T>) => void {
   let timeout: Timeout | undefined;
   let lastBounce = 0;

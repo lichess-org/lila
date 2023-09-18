@@ -13,9 +13,7 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
     "@types/chess.js": "=0.10.1",
-    "@types/lichess": "workspace:*",
     "chess.js": "github:ornicar/chess.js#learn",
     "chessground": "=4.4.2",
     "common": "workspace:*",

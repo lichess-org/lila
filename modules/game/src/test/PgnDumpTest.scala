@@ -11,7 +11,7 @@ class PgnDumpTest extends munit.FunSuite:
     val builder = new StringBuilder
     PgnDump.makeTree(sanStrs, Ply.initial, Vector.empty, Color.White).foreach(_.render(builder))
     val output = builder.toString
-    val clean   = output.split(' ').grouped(3).map(_.tail).flatten.mkString(" ") // remove ply number
+    val clean  = output.split(' ').grouped(3).map(_.tail).flatten.mkString(" ") // remove ply number
     assertEquals(clean, pgn)
 
   def assertPgnDumpWithMoveNumbers(pgn: String) =

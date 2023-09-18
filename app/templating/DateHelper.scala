@@ -49,10 +49,10 @@ trait DateHelper:
   def showEnglishDate(instant: Instant): String    = englishDateFormatter print instant
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
 
-  def semanticDate(instant: Instant)(using Lang): Tag =
+  def semanticDate(instant: Instant)(using lang: Lang): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
 
-  def semanticDate(date: LocalDate)(using Lang): Tag =
+  def semanticDate(date: LocalDate)(using lang: Lang): Tag =
     timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
   def showMinutes(minutes: Int)(using Lang): String =

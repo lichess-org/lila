@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Aktivitás</string>
-  <string name="hostedALiveStream">Élő közvetítést adott</string>
+  <string name="hostedALiveStream">Élőben közvetített</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">A lichess.org támogatója %1$s hónapja %2$s-ként</item>
     <item quantity="other">A lichess.org támogatója %1$s hónapja %2$s-ként</item>
@@ -11,7 +11,7 @@
     <item quantity="other">%1$s %2$s állást gyakorolt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Befejezett %s taktikai feladványt</item>
+    <item quantity="one">Megoldott %s taktikai feladványt</item>
     <item quantity="other">Befejezett %s taktikai feladványt</item>
   </plurals>
   <plurals name="playedNbGames">

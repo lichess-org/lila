@@ -72,7 +72,7 @@ export default class CevalCtrl {
     this.externalEngine = this.opts.externalEngines?.find(
       e =>
         e.id == this.selectedEngine() &&
-        (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
+        (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules)),
     );
     this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
     this.technology = this.platform.technology;
@@ -88,7 +88,7 @@ export default class CevalCtrl {
     const stored = lichess.storage.get(this.storageKey('ceval.threads'));
     return Math.min(
       this.platform.maxThreads,
-      stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4)
+      stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4),
     );
   };
 
@@ -187,7 +187,7 @@ export default class CevalCtrl {
             wasmMemory: sharedWasmMemory(2048, this.platform.maxWasmPages(2048)),
             cache: window.indexedDB && new Cache('ceval-wasm-cache'),
           },
-          this.opts.redraw
+          this.opts.redraw,
         );
       else if (this.technology == 'hce')
         this.worker = new ThreadedWasmWorker(
@@ -197,7 +197,7 @@ export default class CevalCtrl {
             version: 'a022fa',
             wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
           },
-          this.opts.redraw
+          this.opts.redraw,
         );
       else
         this.worker = new WebWorker(
@@ -207,7 +207,7 @@ export default class CevalCtrl {
                 ? 'vendor/stockfish.js/stockfish.wasm.js'
                 : 'vendor/stockfish.js/stockfish.js',
           },
-          this.opts.redraw
+          this.opts.redraw,
         );
     }
 

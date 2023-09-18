@@ -37,19 +37,21 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
               lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             if (hasMod)
-              $el.on('click', '.mod', (e: Event) =>
-                ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement)
+              $el.on(
+                'click',
+                '.mod',
+                (e: Event) => ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else
               $el.on('click', '.flag', (e: Event) =>
-                report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
+                report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement),
               );
             scrollCb(vnode);
           },
           postpatch: (_, vnode) => scrollCb(vnode),
         },
       },
-      selectLines(ctrl).map(line => renderLine(ctrl, line))
+      selectLines(ctrl).map(line => renderLine(ctrl, line)),
     ),
     renderInput(ctrl),
   ];
@@ -130,7 +132,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
       el.removeAttribute('placeholder');
       if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
       storage.set(txt);
-    })
+    }),
   );
 
   lichess.mousetrap.bind('c', () => chatEl.focus());
@@ -149,7 +151,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
 
   chatEl.onfocus = () =>
     mouchEvents.forEach(event =>
-      document.body.addEventListener(event, mouchListener, { passive: true, capture: true })
+      document.body.addEventListener(event, mouchListener, { passive: true, capture: true }),
     );
 
   chatEl.onblur = () =>
@@ -179,7 +181,7 @@ function updateText(parseMoves: boolean) {
     if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
       (vnode.elm as HTMLElement).innerHTML = enhance.enhance(
         (vnode.data as VNodeData).lichessChat,
-        parseMoves
+        parseMoves,
       );
     }
   };
@@ -239,6 +241,6 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
           userNode,
           ' ',
           textNode,
-        ]
+        ],
   );
 }

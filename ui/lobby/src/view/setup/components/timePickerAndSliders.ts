@@ -27,8 +27,8 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
               },
             },
             sliderTimes.map((sliderTime, timeV) =>
-              option({ key: timeV.toString(), name: showTime(sliderTime) }, setupCtrl.timeV().toString())
-            )
+              option({ key: timeV.toString(), name: showTime(sliderTime) }, setupCtrl.timeV().toString()),
+            ),
           ),
         ])
       : null,
@@ -46,9 +46,9 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
             Array.from(Array(31).keys()).map(incrementV =>
               option(
                 { key: incrementV.toString(), name: incrementVToIncrement(incrementV).toString() },
-                setupCtrl.incrementV().toString()
-              )
-            )
+                setupCtrl.incrementV().toString(),
+              ),
+            ),
           ),
         ])
       : null,
@@ -66,9 +66,9 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
             Array.from(Array(7).keys()).map(daysV =>
               option(
                 { key: (daysV + 1).toString(), name: daysVToDays(daysV + 1).toString() },
-                setupCtrl.daysV().toString()
-              )
-            )
+                setupCtrl.daysV().toString(),
+              ),
+            ),
           ),
         ])
       : null,
@@ -87,7 +87,7 @@ const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => 
               change: (e: Event) => setupCtrl.timeMode((e.target as HTMLSelectElement).value as TimeMode),
             },
           },
-          timeModes(trans).map(timeMode => option(timeMode, setupCtrl.timeMode()))
+          timeModes(trans).map(timeMode => option(timeMode, setupCtrl.timeMode())),
         ),
       ])
     : null;
@@ -132,9 +132,9 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                   `${trans('daysPerTurn')}: `,
                   h('span', setupCtrl.days()),
                   inputRange(1, 7, setupCtrl.daysV),
-                ])
+                ]),
               )
             : null,
-        ]
+        ],
   );
 };

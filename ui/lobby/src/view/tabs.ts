@@ -14,7 +14,7 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
       },
       hook: bind('mousedown', _ => ctrl.setTab(key), ctrl.redraw),
     },
-    content
+    content,
   );
 }
 
@@ -32,7 +32,7 @@ export default function (ctrl: LobbyController) {
           ...ctrl.trans.vdomPlural(
             'nbGamesInPlay',
             nbPlaying,
-            nbPlaying >= 100 ? '100+' : nbPlaying.toString()
+            nbPlaying >= 100 ? '100+' : nbPlaying.toString(),
           ),
           myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,
         ])

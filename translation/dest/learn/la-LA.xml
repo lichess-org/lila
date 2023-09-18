@@ -14,6 +14,8 @@
   <string name="rookGoal">Turrim ēlige ut eam
 ad stēllam afferās!</string>
   <string name="grabAllTheStars">Omnēs stēllās corripe!</string>
+  <string name="theFewerMoves">Quo minus motus facias,
+eo plura puncta vincis!</string>
   <string name="useTwoRooks">Duābus turribus ūtere
 ut rēs accelerēs!</string>
   <string name="rookComplete">Tibi grātulor! Turrim prosperē comprehendistī.</string>
@@ -25,6 +27,7 @@ alter epīscopus fuscī quadrī.
 Ambōbus tibi opus est!</string>
   <string name="bishopComplete">Tibi grātulor! Epīscopō imperāre potes.</string>
   <string name="theQueen">Regina</string>
+  <string name="queenIntro">Fortissimus scacchorum ludis intrat. Sua maiestas regina!</string>
   <string name="theKing">Rex</string>
   <string name="theKingIsSlow">Rex lentum est.</string>
   <string name="theKnight">Eques</string>

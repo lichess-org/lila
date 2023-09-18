@@ -123,6 +123,7 @@
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računar može analizirati, i održava toplinu računara</string>
+  <string name="engineManager">Upravitelj šahovskog programa</string>
   <string name="blunder">Grubi previd</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
@@ -159,6 +160,11 @@
     <item quantity="one">%s partija</item>
     <item quantity="few">%s partija</item>
     <item quantity="other">%s partija</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rejting na osnovu %2$s partije</item>
+    <item quantity="few">%1$s rejting na osnovu %2$s partija</item>
+    <item quantity="other">%1$s rejting na osnovu %2$s partija</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s zabilježena partija</item>
@@ -364,6 +370,11 @@
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="few">%s simula</item>
+    <item quantity="other">%s simula</item>
+  </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="noDrawBeforeSwissLimit">Ne možete ponuditi remi u turniru po švicarskom sistemu prije nego što bude odigrano 30 poteza.</string>
@@ -527,7 +538,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Biografija</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili zastava</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="oneUrlPerLine">Jedan link po redu.</string>
@@ -734,6 +745,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je bolji od %2$s %3$s igrača.</string>
+  <string name="betterThanPercentPlayers">Bolje od %1$s igrača %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate utvrđen %s rejting.</string>
   <string name="yourRating">Vaš rejting</string>
   <string name="cumulative">Kumulativno</string>
@@ -910,7 +922,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="puzzleDesc">Vježbanje šahovske taktike</string>
   <string name="important">Važno</string>
   <string name="yourQuestionMayHaveBeenAnswered">Na Vaše pitanje možda već postoji odgovor %1$s</string>
-  <string name="inTheFAQ">u sekciji F.A.Q.</string>
+  <string name="inTheFAQ">u FAQ-u</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
   <string name="toRequestSupport">Da zatražite podršku, %1$s</string>
@@ -924,9 +936,9 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
   <string name="mentionedYouInX">spomenuo Vas je u \"%1$s\".</string>
-  <string name="xMentionedYouInY">%1$s Vas je spomenuo u \"%2$s\".</string>
-  <string name="invitedYouToX">Vas je pozvao u \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s Vas je pozvao u \"%2$s\".</string>
+  <string name="xMentionedYouInY">%1$s vas je spomenuo u \"%2$s\".</string>
+  <string name="invitedYouToX">vas je pozvao u \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>

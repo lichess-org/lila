@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Reiniciar o meu progresso</string>
   <string name="youWillLoseAllYourProgress">Vais perder todo o teu progresso!</string>
-  <string name="play">joga!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joga!</string>
   <string name="chessPieces">Peças de xadrez</string>
   <string name="theRook">A torre</string>
   <string name="itMovesInStraightLines">Move-se em linhas retas</string>
@@ -26,10 +26,10 @@ para acelerar o processo!</string>
 um bispo de casas negras.
 Tu precisas de ambos!</string>
   <string name="bishopComplete">Parabéns! Já sabes comandar o bispo.</string>
-  <string name="theQueen">A rainha</string>
-  <string name="queenCombinesRookAndBishop">Rainha = torre + bispo</string>
-  <string name="queenIntro">Entra a peça mais poderosa do xadrez. Sua majestade, a rainha!</string>
-  <string name="queenComplete">Parabéns! As rainhas não têm segredos para ti.</string>
+  <string name="theQueen">A dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
+  <string name="queenIntro">Entra a peça mais poderosa do xadrez. Sua majestade, a dama!</string>
+  <string name="queenComplete">Parabéns! As damas não têm segredos para ti.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
   <string name="kingIntro">Tu és o rei. Se cais em batalha, o jogo está perdido.</string>
@@ -49,7 +49,7 @@ Escapa e vence as estrelas!</string>
   <string name="pawnIntro">Os peões são fracos, mas têm muito potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Os peões andam só uma casa de cada vez.
 Mas quando chegam ao final do tabuleiro, transformam-se numa peça mais forte!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes promover a rainha é o melhor.
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes promover a dama é o melhor.
 Mas às vezes um cavalo é mais útil!</string>
   <string name="pawnsMoveForward">Os peões mexem-se para a frente,
 mas comem na diagonal!</string>
@@ -124,10 +124,10 @@ Elas ficam nos cantos.</string>
 Eles ficam ao lado das torres.</string>
   <string name="placeTheBishops">Coloca os bispos!
 Eles ficam ao lado dos cavalos.</string>
-  <string name="placeTheQueen">Coloca a rainha!
+  <string name="placeTheQueen">Coloca a dama!
 Ela fica na casa da sua cor.</string>
   <string name="placeTheKing">Coloca o rei!
-Ao lado da rainha.</string>
+Ao lado da dama.</string>
   <string name="pawnsFormTheFrontLine">Os peões formam a linha da frente.
 Faz qualquer movimentos para continuar.</string>
   <string name="boardSetupComplete">Parabéns! Agora sabes como organizar o tabuleiro de xadrez.</string>
@@ -137,12 +137,12 @@ Faz qualquer movimentos para continuar.</string>
   <string name="castleKingSide">Move o teu rei duas casas
 para rocares para o lado do rei!</string>
   <string name="castleQueenSide">Move o teu rei duas casas
-para rocares no lado da rainha!</string>
+para rocares no lado da dama!</string>
   <string name="theKnightIsInTheWay">O cavalo está no caminho!
 Move-o, depois roca para o lado do rei.</string>
   <string name="castleKingSideMovePiecesFirst">Roca para o lado do rei!
 Precisas de afastar as tuas peças primeiro.</string>
-  <string name="castleQueenSideMovePiecesFirst">Roca para o lado da rainha!
+  <string name="castleQueenSideMovePiecesFirst">Roca para o lado da dama!
 Precisas de afastar as tuas peças primeiro.</string>
   <string name="youCannotCastleIfMoved">Não podes fazer o roque se
 o teu rei ou a torre correspondente
@@ -153,7 +153,7 @@ Bloqueia o xeque e depois roca!</string>
   <string name="findAWayToCastleKingSide">Encontra uma maneira de
 fazer o roque do lado do rei!</string>
   <string name="findAWayToCastleQueenSide">Encontra a maneira de
-fazer o roque do lado da rainha!</string>
+fazer o roque grande!</string>
   <string name="castlingComplete">Parabéns! Deves fazer o roque durante um jogo, quase sempre.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
@@ -179,7 +179,7 @@ se o teu peão estiver na quinta linha.</string>
   <string name="pieceValue">Valor das peças</string>
   <string name="evaluatePieceStrength">Avalia a força das peças</string>
   <string name="pieceValueIntro">Peças com alta mobilidade têm maior valor!
-Rainha = 9
+Dama = 9
 Torre = 5
 Bispo = 3
 Cavalo = 3
@@ -187,7 +187,7 @@ Peão = 1
 O rei não tem preço! Perdê-lo significa perder o jogo.</string>
   <string name="queenOverBishop">Captura a peça
 de maior valor!
-Rainha &gt; bispo</string>
+Dama &gt; bispo</string>
   <string name="pieceValueExchange">Tome a peça de maior valor! Não troque uma peça de valor mais alto por uma de menor valor.</string>
   <string name="pieceValueLegal">Captura a peça
 Com o valor mais alto!
@@ -195,7 +195,7 @@ Confirma que a tua jogada é legal!</string>
   <string name="takeThePieceWithTheHighestValue">Captura a peça
 de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Sabes o valor do material!
-Rainha = 9
+Dama = 9
 Torre = 5
 Bispo = 3
 Cavalo = 3

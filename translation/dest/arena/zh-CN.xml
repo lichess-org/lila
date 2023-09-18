@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">竞技场</string>
-  <string name="isItRated">锦标赛有积分吗？</string>
-  <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋是无碍的。</string>
-  <string name="isRated">本锦标赛计分并会影响您的排名。</string>
-  <string name="isNotRated">本锦标赛*不*计分，所以它*不*会影响您的排名。</string>
-  <string name="someRated">有些锦标赛是计分的并会影响您的排名。</string>
+  <string name="isItRated">会影响等级分吗？</string>
+  <string name="willBeNotified">当锦标赛开始时，你将收到通知，所以在其他标签页中下棋是无碍的。</string>
+  <string name="isRated">本锦标赛为排位赛，会影响你的等级分。</string>
+  <string name="isNotRated">本锦标赛为休闲赛，不会影响你的等级分。</string>
+  <string name="someRated">部分锦标赛是排位赛，会影响你的等级分。</string>
   <string name="howAreScoresCalculated">分数是如何计算的？</string>
-  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你输为止。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
+  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2分，平局1分，输局不得分。如果你连胜两局将开始双倍积分，以火焰图标表示。接下来的对局将继续获得双倍积分，直到你输棋为止。也就是说，在双倍积分的情况下赢局值4分，平局2分。输局仍然不得分。 
 
-例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。</string>
+例如两场胜利紧接着一场平局得6分： 2 + 2 + (2 x 1)。</string>
   <string name="berserk">神速锦标赛</string>
-  <string name="berserkAnswer">如果棋手在棋局开始时点击“神速”按钮，他／她将损失一半的时间，但战胜该局将多得1分。
+  <string name="berserkAnswer">如果棋手在棋局开始时点击“神速”按钮，将会损失一半的时间，但战胜该局将多得1分。
 
-如果时限设置包括加秒，那么启动神速会导致神速方加秒被取消。(唯一的例外是1+2, 在这个情况下启动神速会把神速方的时限变为1+0)。
+如果棋局时限有加秒，那么启动神速会导致神速方加秒被取消。(唯一的例外是1+2, 在这个情况下启动神速会把神速方的时限变为1+0)。
 
-在零局时的棋局， (如0+1、0+2等) 神速功能被禁用。
+在无基础局时的棋局 (如0+1、0+2等) ，神速功能被禁用。
 
-只有在棋局中起码走过7步棋的情况下启动神速才有加分。</string>
+只有走过7步棋以上的棋局会有神速加分。</string>
   <string name="howIsTheWinnerDecided">赢家是如何决定的？</string>
   <string name="howIsTheWinnerDecidedAnswer">在锦标赛设定时间限制结束时积分最多的玩家将被宣布为获胜者。
 
 当两个或两个以上的玩家拥有相同分数时，锦标赛的表现是決勝。</string>
   <string name="howDoesPairingWork">棋手是怎么配对的？</string>
-  <string name="howDoesPairingWorkAnswer">在锦标赛开始时系统会根据棋手积分进行配对。当一局结束时请回到锦标赛主页。您会被与您锦标赛名次接近的棋手配对。这尽可降低棋手在主页的等待时间。然而您不一定会和锦标赛所有其他棋手下棋。
+  <string name="howDoesPairingWorkAnswer">在锦标赛开始时，系统会根据棋手的等级分进行配对。一局结束后，回到锦标赛主页等待。此后你会和与你锦标赛名次接近的棋手配对，这尽可能降低了等待时间。然而，你不一定会和锦标赛所有其他棋手下棋。
 
-为了下更多的棋局以得到更多的锦标赛积分请尽量快地下完每一盘棋并回到主页。</string>
+为了下更多的棋局以得到更多的锦标赛积分，尽量快地下完每一盘棋并回到主页。</string>
   <string name="howDoesItEnd">锦标赛如何结束？</string>
   <string name="howDoesItEndAnswer">锦标赛有倒计时。当它到零的时候锦标赛名次不再变动，赢家就确定了。此时未下完的棋局必须下完但这些棋局不计入锦标赛分数。</string>
   <string name="otherRules">其他重要规则</string>
@@ -45,7 +45,7 @@
   </plurals>
   <string name="newTeamBattle">新团队战</string>
   <string name="customStartDate">自定义开始日期</string>
-  <string name="customStartDateHelp">在您的当地时区，这将覆盖 \"距比赛开始时间\" 选项</string>
+  <string name="customStartDateHelp">在你的本地时区，这将覆盖 \"距比赛开始时间\" 选项</string>
   <string name="allowBerserk">允许神速模式</string>
   <string name="allowBerserkHelp">允许玩家将自己的时间减半以获得额外得分</string>
   <string name="allowChatHelp">允许玩家在聊天室中讨论</string>

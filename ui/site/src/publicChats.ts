@@ -20,7 +20,7 @@ lichess.load.then(() => {
       $('<a class="auto-refresh button">Auto refresh</a>').on('click', () => {
         autoRefreshEnabled = !autoRefreshEnabled;
         renderButton();
-      })
+      }),
     );
     renderButton();
 

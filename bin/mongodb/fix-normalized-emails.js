@@ -20,6 +20,6 @@ db.user4
           email: normalized,
           verbatimEmail: verbatim,
         },
-      }
+      },
     );
   });

@@ -7,7 +7,6 @@ import { env, colors as c, errorMark, lines } from './main';
 export async function tsc(): Promise<void> {
   return new Promise(resolve => {
     if (!env.tsc) return resolve();
-
     const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
     const cfg: any = { files: [] };
     cfg.references = buildModules
@@ -17,7 +16,7 @@ export async function tsc(): Promise<void> {
 
     const tsc = cps.spawn(
       'tsc',
-      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force'])
+      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']),
     );
 
     env.log(`Checking typescript`, { ctx: 'tsc' });
@@ -47,9 +46,13 @@ export async function tsc(): Promise<void> {
 function tscLog(text: string): void {
   if (text.includes('File change detected') || text.includes('Starting compilation')) return; // redundant
   text = text.replace(/\d?\d:\d\d:\d\d (PM|AM) - /, '');
-  if (text.match(/: error TS\d\d\d\d/)) {
-    // strip the ../../../../.. junk, highlight error
-    text = `${errorMark} - ${text.replace(/^[./]*/, '')}`;
-  }
+  if (text.match(/: error TS\d\d\d\d/)) text = fixTscError(text);
   env.log(text.replace('. Watching for file changes.', ` - ${c.grey('Watching')}...`), { ctx: 'tsc' });
 }
+
+const fixTscError = (text: string) =>
+  text
+    .replace(/^[./]*/, `${errorMark} - '\x1b[36m`)
+    .replace(/\.ts\((\d+),(\d+)\):/, ".ts:$1:$2\x1b[0m' -")
+    .replace(/error (TS\d{4})/, '$1');
+// format location for vscode embedded terminal ctrl click

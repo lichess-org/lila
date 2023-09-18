@@ -41,7 +41,7 @@ function renderPgnTags(
   submit: ((type: string) => (tag: string) => void) | false,
   types: string[],
   trans: Trans,
-  hideRatings?: boolean
+  hideRatings?: boolean,
 ): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
@@ -49,9 +49,9 @@ function renderPgnTags(
     chapter.tags
       .filter(
         tag =>
-          !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags)
+          !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags),
       )
-      .map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])])
+      .map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]),
   );
   if (submit) {
     const existingTypes = chapter.tags.map(t => t[0]);
@@ -84,7 +84,7 @@ function renderPgnTags(
             if (!existingTypes.includes(t)) return option(t, '', t);
             return undefined;
           }),
-        ]
+        ],
       ),
       editable('', (value, el) => {
         if (selectedType) {
@@ -105,10 +105,10 @@ function renderPgnTags(
           {
             key: '' + r[0],
           },
-          [h('th', [r[0]]), h('td', [r[1]])]
+          [h('th', [r[0]]), h('td', [r[1]])],
         );
-      })
-    )
+      }),
+    ),
   );
 }
 
@@ -137,8 +137,8 @@ function doRender(root: StudyCtrl): VNode {
       root.vm.mode.write && root.tags.submit,
       root.tags.types,
       root.trans,
-      root.data.hideRatings
-    )
+      root.data.hideRatings,
+    ),
   );
 }
 

@@ -32,7 +32,7 @@ lichess.load.then(() => {
                 .slice(0, -1);
               callback(res.filter(t => !current.includes(t.id)));
             },
-            _ => callback([])
+            _ => callback([]),
           );
         },
         template: (team: Team) => team.name + ', by ' + team.owner + ', with ' + team.members + ' members',

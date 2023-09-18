@@ -14,12 +14,12 @@
   <string name="declineGeneric">Hiện tại tôi đang không chấp nhận thách đấu.</string>
   <string name="declineLater">Tôi chưa sẵn sàng, hãy hỏi lại sau.</string>
   <string name="declineTooFast">Tùy chọn thời gian quá nhanh đối với tôi, hãy thách đấu lại với một tùy chọn chậm hơn.</string>
-  <string name="declineTooSlow">Tùy chọn thời gian quá chậm cho tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
+  <string name="declineTooSlow">Tùy chọn thời gian quá chậm đối với tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
   <string name="declineTimeControl">Tôi không chấp nhận thách đấu với tùy chọn thời gian này.</string>
   <string name="declineRated">Hãy gửi yêu cầu thách đấu có tính elo cho tôi.</string>
   <string name="declineCasual">Hãy gửi tôi yêu cầu thách đấu không tính elo.</string>
   <string name="declineStandard">Tôi không muốn chơi biến thể bây giờ.</string>
-  <string name="declineVariant">Tôi sẽ không chơi biến thể này bây giờ.</string>
+  <string name="declineVariant">Tôi chưa sẵn sàng chơi biến thể này bây giờ.</string>
   <string name="declineNoBot">Tôi không chấp nhận thách đấu từ bot.</string>
   <string name="declineOnlyBot">Tôi chỉ chấp nhận thách đấu từ bot.</string>
   <string name="inviteLichessUser">Hoặc mời một Người dùng Lichess:</string>

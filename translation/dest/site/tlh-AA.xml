@@ -76,6 +76,8 @@
   <string name="averageRatingX">patlh ghIl: %s</string>
   <string name="recentGames">Qujmey ret</string>
   <string name="noGameFound">Quj tu\'lu\'be\'</string>
+  <string name="openings">bI\'reSmey</string>
+  <string name="openingExplorer">bI\'reS tlharghwI\'</string>
   <string name="allSet">\'eH!</string>
   <string name="delete">Qaw\'</string>
   <string name="enable">chu\'</string>
@@ -105,6 +107,7 @@
   <string name="location">Daq</string>
   <string name="blackWins">\'arlogh Qap QujwI\' qIj</string>
   <string name="boardEditor">\'echlet choHwI\'</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">joqwI\'</string>
   <string name="no">ghobe\'</string>
   <string name="yes">HIja\'</string>
   <string name="help">boQ:</string>

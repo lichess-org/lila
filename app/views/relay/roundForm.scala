@@ -95,6 +95,16 @@ object roundForm:
           help = startDateHelp().some,
           half = true
         )(form3.flatpickr(_, minDate = None)),
+        form3.checkbox(
+          form("finished"),
+          raw("Completed"),
+          help = raw(
+            "Lichess detects round completion based on the source games. Use this toggle if there is no source."
+          ).some,
+          half = true
+        )
+      ),
+      form3.split(
         form3.group(
           form("delay"),
           raw("Delay in seconds"),
@@ -116,7 +126,7 @@ object roundForm:
           )(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(trans.cancel()),
+        a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

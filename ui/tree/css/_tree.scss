@@ -194,7 +194,7 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
     color: $c-good;
     &::before {
       @extend %data-icon;
-      content: '';
+      content: $licon-DiscBigOutline;
     }
   }
 

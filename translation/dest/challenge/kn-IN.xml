@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">ಸವಾಲುಗಳು: %1$s</string>
   <string name="challengeToPlay">ಆಡಲು ಸವಾಲು ಮಾಡಿ</string>
   <string name="challengeDeclined">ಸವಾಲನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
   <string name="challengeAccepted">ಸವಾಲನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">ಸಧ್ಯಕ್ಕೆ ಈ ವಿಧಾನದ ಆಟ ಆಡಲು ನನಗೆ ಇಷ್ಟ ಇಲ್ಲ.</string>
   <string name="declineNoBot">ನಾನು ರೋಬೋಟ್ (BOT) ಗಳಿಂದ ಯಾವುದೇ ಸವಾಲುಗಳನ್ನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
   <string name="declineOnlyBot">ನಾನು ಕೇವಲ ರೋಬೋಟ್ (BOT) ಗಳಿಂದ ಮಾತ್ರ ಸವಾಲುಗಳನ್ನು ಸ್ವೀಕರಿಸುತ್ತೇನೆ.</string>
+  <string name="inviteLichessUser">ಅಥವಾ Lichess ಬಳಕೆದಾರರನ್ನು ಆಹ್ವಾನಿಸಿ:</string>
 </resources>

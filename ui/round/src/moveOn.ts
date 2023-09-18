@@ -5,7 +5,10 @@ import RoundController from './ctrl';
 export default class MoveOn {
   private storage = lichess.storage.boolean(this.key);
 
-  constructor(private ctrl: RoundController, private key: string) {}
+  constructor(
+    private ctrl: RoundController,
+    private key: string,
+  ) {}
 
   toggle = () => {
     this.storage.toggle();

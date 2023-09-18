@@ -211,7 +211,7 @@ export default class SetupController {
         xhr.url('/setup/validate-fen', {
           fen,
           strict: this.gameType === 'ai' ? 1 : undefined,
-        })
+        }),
       )
       .then(
         () => {
@@ -222,7 +222,7 @@ export default class SetupController {
         () => {
           this.fenError = true;
           this.root.redraw();
-        }
+        },
       );
   }, 300);
 
@@ -230,7 +230,7 @@ export default class SetupController {
     // anonymous games cannot be rated
     !this.root.me ||
     // unlimited games cannot be rated
-    (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
+    this.timeMode() === 'unlimited' ||
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
       (this.timeMode() !== 'realTime' ||
@@ -326,7 +326,7 @@ export default class SetupController {
           ? Object.keys(errs)
               .map(k => `${k}: ${errs[k]}`)
               .join('\n')
-          : 'Invalid setup'
+          : 'Invalid setup',
       );
       if (response.status == 403) {
         // 403 FORBIDDEN closes this modal because challenges to the recipient
