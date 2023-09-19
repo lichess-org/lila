@@ -160,8 +160,10 @@ final class Report(
         data =>
           if me.is(data.user.id) then BadRequest("You cannot report yourself")
           else
-            api.create(data, Reporter(me)) inject
-              Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+            for
+              _ <- api.create(data, Reporter(me))
+              _ <- api.isAutoBlock(data) so env.relation.api.block(me, data.user.id)
+            yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
       )
   }
 
