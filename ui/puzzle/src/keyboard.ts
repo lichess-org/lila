@@ -1,9 +1,6 @@
 import * as control from './control';
-import * as xhr from 'common/xhr';
 import { Controller, KeyboardController } from './interfaces';
-import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { snabDialog } from 'common/dialog';
 
 export default (ctrl: KeyboardController) =>
   lichess.mousetrap
@@ -36,16 +33,9 @@ export default (ctrl: KeyboardController) =>
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle);
 
-export const view = (ctrl: Controller): VNode =>
-  snabModal({
-    class: 'keyboard-help',
-    onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([
-        lichess.loadCssPath('puzzle.keyboard'),
-        xhr.text(xhr.url('/training/help', {})),
-      ]);
-      $wrap.find('.scrollable').html(html);
-    },
+export const view = (ctrl: Controller) =>
+  snabDialog({
+    class: 'help',
+    htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),
-    content: [h('div.scrollable', spinner())],
   });

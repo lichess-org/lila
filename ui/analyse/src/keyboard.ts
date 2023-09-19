@@ -1,9 +1,8 @@
 import * as control from './control';
-import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import * as xhr from 'common/xhr';
+import { VNode } from 'snabbdom';
+import { snabDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -129,20 +128,13 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabModal({
-    class: 'keyboard-help',
-    onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([
-        lichess.loadCssPath('analyse.keyboard'),
-        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
-      ]);
-      $wrap.find('.scrollable').html(html);
-    },
+  return snabDialog({
+    class: 'help.keyboard-help',
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [h('div.scrollable', spinner())],
   });
 }
 

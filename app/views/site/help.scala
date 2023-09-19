@@ -260,7 +260,7 @@ object help:
             row(voice("help"), trans.showHelpDialog()),
             tr(
               td,
-              td(button(cls := "button", id := "all-phrases-button")("Show me everything"))
+              td(button(cls := "button", cls := "all-phrases-button")("Show me everything"))
             )
           )
         )

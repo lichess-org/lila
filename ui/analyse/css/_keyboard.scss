@@ -1,6 +1,4 @@
 .keyboard-help {
-  @extend %help-modal;
-
   td.mouse li {
     list-style: disc inside;
     margin-#{$start-direction}: 1em;
