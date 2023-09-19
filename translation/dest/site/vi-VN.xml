@@ -354,7 +354,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
-  <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
+  <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không có quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s đã tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
   <string name="startedStreaming">đã bắt đầu phát trực tuyến</string>
@@ -615,7 +615,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="webmasters">Các nhà phát triển web</string>
   <string name="about">Giới thiệu</string>
   <string name="aboutX">Giới thiệu về %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không quảng cáo, mã nguồn mở.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không có quảng cáo, mã nguồn mở.</string>
   <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
@@ -709,7 +709,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="asFreeAsLichess">Miễn phí như Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Được xây dựng trên nền tảng tình yêu dành cho cờ vua, không phải vì tiền bạc</string>
   <string name="everybodyGetsAllFeaturesForFree">Mọi người đều được sử dụng tất cả các tính năng hoàn toàn miễn phí</string>
-  <string name="zeroAdvertisement">Không có dù chỉ một quảng cáo</string>
+  <string name="zeroAdvertisement">Không có quảng cáo</string>
   <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
   <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ chậm</string>
