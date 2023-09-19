@@ -3,7 +3,7 @@
   <string name="advancedPawn">Rivojlangan piyoda</string>
   <string name="advancedPawnDescription">Sizning piyodalaringizdan biri raqib pozitsiyasiga chuqur kirib borib, ehtimol yuksalish bilan tahdid qilmoqda.</string>
   <string name="advantage">Afzallik</string>
-  <string name="advantageDescription">Yecha olish imkoningizni oshirish uchun imkoniyatlaringizdan foydalaning. (200 dan 600 gacha santipiyoda)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Yecha olish imkoningizni oshirish uchun imkoniyatlaringizdan foydalaning. (200 dan 600 gacha santipiyoda)</string>
   <string name="anastasiaMate">Anastasiya moti</string>
   <string name="anastasiaMateDescription">Ot va ruh yoki qirolicha bir jamoa bo\'lib raqibning qirolini doskaning o\'rtasida va o\'zining piyodalari orasida tuzoqqa tushirishi.</string>
   <string name="arabianMate">Arabcha mot</string>

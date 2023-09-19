@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pion avansat</string>
   <string name="advancedPawnDescription">Unul dintre pionii care este avansat in teritoriul inamic, poate amenință să promoveze.</string>
   <string name="advantage">Avantaj</string>
-  <string name="advantageDescription">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat-ul Anastasiei</string>
   <string name="anastasiaMateDescription">Un cal şi o tură sau o regină fac echipă pentru a prinde regele opus între marginea tablei şi o piesă aliată.</string>
   <string name="arabianMate">Mat-ul arab</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
   <string name="crushing">Zdrobitor</string>
-  <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat-ul cu doi nebuni</string>
   <string name="doubleBishopMateDescription">Doi nebuni care atacă pe diagonale adiacente livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="dovetailMate">Mat-ul dovertail</string>
   <string name="dovetailMateDescription">O regină livrează mat-ul unui rege adiacent, care are doar două patrate de scapare dar sunt blocate de piese aliate.</string>
   <string name="equality">Egalitate</string>
-  <string name="equalityDescription">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pe partea regelui</string>
   <string name="kingsideAttackDescription">Un atac al regelui adversarului, după ce a făcut rocada pe partea regelui.</string>
   <string name="clearance">Îndepărtare</string>

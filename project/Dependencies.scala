@@ -29,7 +29,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.6.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.97.Final" classifier s"$os-$arch"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M8" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -67,7 +67,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.13"
-    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC9"
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.1"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -76,7 +76,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.0-M4"
+    val version = "2.2.2"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

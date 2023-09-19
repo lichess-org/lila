@@ -11,7 +11,7 @@
   <string name="previousHighscoreWasX">Điểm cao trước đây là %s</string>
   <string name="playAgain">Chơi lại</string>
   <plurals name="xRuns">
-    <item quantity="other">%s lần chơi</item>
+    <item quantity="other">%s lần chạy</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="other">Đã chơi %1$s lượt %2$s</item>
@@ -23,8 +23,8 @@
   <string name="combo">Chuỗi</string>
   <string name="time">Thời gian</string>
   <string name="timePerMove">Thời gian trên mỗi nước đi</string>
-  <string name="highestSolved">Giải được cao nhất</string>
-  <string name="puzzlesPlayed">Câu đố đã chơi</string>
+  <string name="highestSolved">Câu giải được khó nhất</string>
+  <string name="puzzlesPlayed">Các thế cờ đã chơi</string>
   <string name="newRun">Chạy mới (phím nhanh: Dấu cách)</string>
   <string name="endRun">Kết thúc (phím nhanh: Enter)</string>
   <string name="highscores">Điểm cao</string>
@@ -40,14 +40,14 @@
   <string name="yourRankX">Thứ hạng của bạn: %s</string>
   <string name="waitForRematch">Đang đợi đấu lại</string>
   <string name="nextRace">Cuộc đua kế tiếp</string>
-  <string name="joinRematch">Tham gia vòng đấu lại</string>
+  <string name="joinRematch">Tham gia đấu lại</string>
   <string name="waitingToStart">Đang đợi bắt đầu</string>
   <string name="createNewGame">Tạo ván đấu mới</string>
   <string name="joinPublicRace">Tham gia một cuộc đua công khai</string>
   <string name="raceYourFriends">Đua với bạn bè của bạn</string>
   <string name="skip">bỏ qua</string>
   <string name="skipHelp">Bạn có thể bỏ qua một nước đi mỗi ván chơi:</string>
-  <string name="skipExplanation">Bỏ qua nước đi này để bảo toàn chuỗi của bạn! Chỉ dùng được một lần mỗi cuộc đua.</string>
+  <string name="skipExplanation">Bỏ qua nước đi này để giữ chuỗi của bạn! Chỉ dùng được một lần mỗi cuộc đua.</string>
   <string name="failedPuzzles">Các thế cờ đã giải sai</string>
   <string name="slowPuzzles">Các thế cờ làm chậm</string>
   <string name="skippedPuzzle">Đã bỏ qua câu đố</string>

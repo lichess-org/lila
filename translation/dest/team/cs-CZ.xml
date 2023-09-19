@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Tým</string>
-  <string name="teams">Týmy</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Týmy</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
-    <item quantity="few">%s členů</item>
+    <item quantity="few">%s členi</item>
     <item quantity="many">%s členů</item>
     <item quantity="other">%s členů</item>
   </plurals>
   <string name="allTeams">Všechny týmy</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vedení týmů</string>
   <string name="newTeam">Nový tým</string>
-  <string name="myTeams">Můj tým</string>
+  <string name="myTeams">Moje týmy</string>
   <string name="noTeamFound">Nenalezen žádný tým</string>
   <string name="joinTeam">Připojte se k týmu</string>
   <string name="onlyLeaderLeavesTeam">Prosím přidejte jiného vedoucího týmu před opuštěním, nebo tým smažte.</string>

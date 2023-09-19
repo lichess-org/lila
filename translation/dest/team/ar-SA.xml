@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">فريق</string>
-  <string name="teams">الفِرق</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">الفِرق</string>
   <plurals name="nbMembers">
     <item quantity="zero">%s عضو</item>
     <item quantity="one">%s عضو</item>
@@ -32,7 +32,7 @@
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
   <string name="whoToKick">من تريد طرده من الفريق؟</string>
   <plurals name="xJoinRequests">
-    <item quantity="zero">طلب انضمام٪ s</item>
+    <item quantity="zero">%s طلب انضمام</item>
     <item quantity="one">%s طلب انضمام</item>
     <item quantity="two">%s طلب انضمام</item>
     <item quantity="few">%s طلب انضمام</item>

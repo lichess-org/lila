@@ -115,6 +115,7 @@
   <string name="openStudy">Studim i hapur</string>
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
+  <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
   <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>

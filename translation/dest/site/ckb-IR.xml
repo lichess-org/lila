@@ -45,8 +45,8 @@
   <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
   <string name="talkInChat">تکایە بەرێزەوە گفتوگۆ بکە!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">یەکەم کەس ئەم لینکە بەکاربهێنێت یاریت لەگەڵ دەکات.</string>
-  <string name="whiteResigned">سپی خۆی بەدەستەوەدا</string>
-  <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
+  <string name="whiteResigned">سپی کشایەوە</string>
+  <string name="blackResigned">رەش کشایەوە</string>
   <string name="whiteLeftTheGame">سپی یاری بەجێهێشت</string>
   <string name="blackLeftTheGame">ڕەش یاری بەجێهێشت</string>
   <string name="whiteDidntMove">سپی جووڵەی نەکرد</string>
@@ -504,6 +504,7 @@
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
   <string name="biography">ژیاننامە</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ئاڵا</string>
   <string name="thankYou">سوپاس!</string>
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>

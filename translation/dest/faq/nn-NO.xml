@@ -67,7 +67,7 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
   <string name="lichessTraining">Lichess-øving</string>
   <string name="watchIMRosenCheckmate">Sjå internasjonal meister (IM) Eric Rosen setta sjakk matt i %s.</string>
   <string name="threefoldRepetition">Trekkgjentaking (tre tilfelle av identisk stilling)</string>
-  <string name="threefoldRepetitionExplanation">Dersom same stilling førekjem tre gonger kan spelarane krevje remis av %1$s. Lichess implementerar dei offisielle FIDE-reglane, som omtala i artikkel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Dersom same stilling førekjem tre gonger kan spelarane krevje remis av %1$s. Lichess implementerar dei offisielle FIDE-reglane, som omtala i artikkel 9.2 i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trekkgjentaking (tre tilfelle av identisk stilling)</string>
   <string name="notRepeatedMoves">Vi gjentok ingen trekk. Kvifor vart spelet remis pga. trekkgjentaking?</string>
   <string name="repeatedPositionsThatMatters">Trekkgjentaking dreier seg om gjentekne %1$s, ikkje trekk. Gjentakingane treng ikkje bli gjort etter kvarandre.</string>

@@ -1,6 +1,7 @@
 import { uciToMove } from 'chessground/util';
 import { embedChessground } from './component/assets';
 
+// https://lichess.org/training/frame
 window.onload = async () => {
   const el = document.querySelector('#daily-puzzle') as HTMLElement,
     board = el.querySelector('.mini-board') as HTMLAnchorElement,

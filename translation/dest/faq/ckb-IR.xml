@@ -64,7 +64,7 @@
   <string name="lichessTraining">ڕاھێنان لە لیچێس</string>
   <string name="watchIMRosenCheckmate">بینەری کشماتەکانی%s ماستەری نێودەوڵەتی \'ئیرک رۆسن\' بە.</string>
   <string name="threefoldRepetition">سێ جار دووبارە بونەوە</string>
-  <string name="threefoldRepetitionExplanation">ئەگەر پۆزشنێک سێجار دووبارە بوویەوە، یاریزانەکان دەتوانن بانگەشەی یەکسانبوون بکەن لە%1$s. لیچێس یاساکانی فیدەی جێبەجێ دەکات. کە لە بەشی 9.2 (d) دا ئاماژەی پێدراوە لە %2$s.</string>
+  <string name="threefoldRepetitionExplanation">ئەگەر پۆزشنێک سێجار دووبارە بوویەوە، یاریزانەکان دەتوانن بانگەشەی یەکسانبوون بکەن لە%1$s. لیچێس یاساکانی فیدەی جێبەجێ دەکات. کە لە بەشی 9.2 دا ئاماژەی پێدراوە لە %2$s.</string>
   <string name="threefoldRepetitionLowerCase">سێ جار دووبارە بونەوە</string>
   <string name="notRepeatedMoves">بۆ چی یاریەکە بە یەکسان بون کۆتایی ھات لە کاتێکدا ئێمە جوڵەکانمان سێ جار دووبارە نەبونەوە؟ </string>
   <string name="repeatedPositionsThatMatters">سێبارەکردنەوەی پۆزشنێک خەریکە روودەدات%1$s، جوڵەکان نابێت بەدوای یەکدا دووبارە بکرێنەوە.</string>

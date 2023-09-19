@@ -37,10 +37,10 @@
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
-    <item quantity="few">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundy.</item>
-    <item quantity="many">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
-    <item quantity="other">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="one">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekundę.</item>
+    <item quantity="few">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekundy.</item>
+    <item quantity="many">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="other">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
   <string name="forceResignation">Ogłoś wygraną</string>
@@ -119,6 +119,7 @@
   <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
+  <string name="showVariationArrows">Pokaż strzałki wariantów</string>
   <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
@@ -824,7 +825,7 @@
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
-  <string name="bulletBlitzClassical">Błyskawiczne, szybkie, klasyczne</string>
+  <string name="bulletBlitzClassical">Superbłyskawiczne, błyskawiczne, klasyczne</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
@@ -957,7 +958,7 @@
   <string name="ultraBulletDesc">Partie szalenie szybkie: mniej niż 30 sekund</string>
   <string name="bulletDesc">Partie bardzo szybkie: mniej niż 3 minuty</string>
   <string name="blitzDesc">Partie szybkie: 3 do 8 minut</string>
-  <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
+  <string name="rapidDesc">Partie szybkie: 8 do 25 minut</string>
   <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
   <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>
   <string name="puzzleDesc">Trener taktyk szachowych</string>

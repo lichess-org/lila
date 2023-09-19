@@ -71,8 +71,8 @@
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Kayıp devam yolu</string>
-  <string name="variantWin">Kazanç devam yolu</string>
+  <string name="variantLoss">Varyant yenilgisi</string>
+  <string name="variantWin">Varyant zaferi</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>

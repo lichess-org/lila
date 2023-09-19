@@ -119,6 +119,7 @@
   <string name="openStudy">Открыть в студии</string>
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
+  <string name="showVariationArrows">Показать стрелки вариантов</string>
   <string name="evaluationGauge">Шкала оценки</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>

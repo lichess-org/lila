@@ -13,7 +13,7 @@ import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.tree.{ Branch, Branches }
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, MyId }
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -362,13 +362,13 @@ final class StudyApi(
         )
         .void
 
-  def kick(studyId: StudyId, userId: UserId)(who: Who) =
+  def kick(studyId: StudyId, userId: UserId, who: MyId) =
     sequenceStudy(studyId): study =>
       studyRepo
-        .isAdminMember(study, who.u)
+        .isAdminMember(study, who)
         .flatMap: isAdmin =>
           val allowed = study.isMember(userId) && {
-            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who is userId))
           }
           allowed.so:
             studyRepo.removeMember(study, userId) andDo
@@ -732,8 +732,10 @@ final class StudyApi(
 
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
-      studyRepo.delete(study) >>
-        chapterRepo.deleteByStudy(study)
+      for
+        _ <- studyRepo.delete(study)
+        _ <- chapterRepo.deleteByStudy(study)
+      yield Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id), "study")
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_ so delete)
@@ -775,8 +777,8 @@ final class StudyApi(
       Contribute(by.id, study):
         chapterRepo deleteByStudy study
 
-  def adminInvite(studyId: StudyId)(using Me): Funit =
-    sequenceStudy(studyId)(inviter.admin)
+  def becomeAdmin(studyId: StudyId, me: MyId): Funit =
+    sequenceStudy(studyId)(inviter.becomeAdmin(me))
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")

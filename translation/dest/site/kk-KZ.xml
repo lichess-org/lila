@@ -183,7 +183,7 @@
   <string name="variants">Түрі</string>
   <string name="timeControl">Уақыт қалпы</string>
   <string name="realTime">Шын уақытта</string>
-  <string name="correspondence">Хат-хабарлы ойын</string>
+  <string name="correspondence">Хат-хабарлы</string>
   <string name="daysPerTurn">Күн бір жүріске</string>
   <string name="oneDay">Бір күн</string>
   <plurals name="nbDays">
@@ -415,7 +415,7 @@
   <string name="whiteCheckmatesInOneMove">Ақ бір жүріспен мат қояды</string>
   <string name="blackCheckmatesInOneMove">Қара бір жүріспен мат қояды</string>
   <string name="retry">Қайталау</string>
-  <string name="reconnecting">Қайта байланысу</string>
+  <string name="reconnecting">Байланыс қайта орнауда</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s дос желіде</item>
     <item quantity="other">%s дос желіде</item>
@@ -446,8 +446,8 @@
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s минуттан аз</item>
-    <item quantity="other">%s минуттан аз</item>
+    <item quantity="one">%s минутқа дейін</item>
+    <item quantity="other">%s минутқа дейін</item>
   </plurals>
   <string name="required">Талап қойылады.</string>
   <string name="openTournaments">Ашық жарыстар</string>
@@ -505,6 +505,7 @@
   <string name="firstName">Атыңыз</string>
   <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрақ</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
@@ -762,7 +763,7 @@
   <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
   <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
   <string name="quickPairing">Қалыптар</string>
-  <string name="lobby">Алаң</string>
+  <string name="lobby">Шақырулар</string>
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Xogar cun amigo</string>
-  <string name="playWithTheMachine">Xogar contra a máquina</string>
+  <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
+  <string name="showVariationArrows">Amosar as frechas das variantes</string>
   <string name="evaluationGauge">Indicador de avaliación</string>
   <string name="multipleLines">Liñas múltiples</string>
   <string name="cpus">Procesadores</string>
@@ -560,7 +561,7 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
-  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada sobre este usuario</string>
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
@@ -837,14 +838,14 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio xogo</string>
   <string name="endgame">Final</string>
-  <string name="conditionalPremoves">Movementos anticipados condicionais</string>
+  <string name="conditionalPremoves">Premovementos condicionais</string>
   <string name="addCurrentVariation">Engadir a variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear movementos anticipados condicionais</string>
-  <string name="noConditionalPremoves">Sen movementos anticipados condicionais</string>
+  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>
+  <string name="noConditionalPremoves">Sen premovementos condicionais</string>
   <string name="playX">Xogar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">e garda %s variante de movementos anticipados</item>
-    <item quantity="other">e garda %s variantes de movementos anticipados</item>
+    <item quantity="one">e garda %s variante de premovementos</item>
+    <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>

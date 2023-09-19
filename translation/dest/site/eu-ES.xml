@@ -115,6 +115,7 @@
   <string name="openStudy">Ikerketa ireki</string>
   <string name="enable">Aktibatu</string>
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
+  <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
   <string name="evaluationGauge">Ebaluazio langa</string>
   <string name="multipleLines">Linea anitz</string>
   <string name="cpus">CPU</string>
@@ -504,6 +505,7 @@
   <string name="firstName">Izena</string>
   <string name="lastName">Abizena</string>
   <string name="biography">Biografia</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ikurrina</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>

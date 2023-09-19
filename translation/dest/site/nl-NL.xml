@@ -99,6 +99,7 @@
   <string name="openingExplorer">Openingverkenner</string>
   <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Speel de eerste zet/eindverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
   <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
   <string name="winOr50MovesByPriorMistake">Winst of 50 zetten door een voorafgaande fout</string>
@@ -114,6 +115,7 @@
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="showVariationArrows">Toon variantpijlen</string>
   <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>

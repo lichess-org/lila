@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Csapat</string>
-  <string name="teams">Csapatok</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Csapatok</string>
   <plurals name="nbMembers">
     <item quantity="one">%s tag</item>
     <item quantity="other">%s tagok</item>

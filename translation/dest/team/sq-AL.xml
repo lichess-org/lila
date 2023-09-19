@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Ekip</string>
-  <string name="teams">Ekipet</string>
+  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Ekipet</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s anëtarë</item>
+    <item quantity="one">%s anëtar</item>
     <item quantity="other">%s anëtarë</item>
   </plurals>
-  <string name="allTeams">Të gjithë ekipet</string>
+  <string name="allTeams">Krejt ekipet</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Ekipet udhëheqëse</string>
   <string name="newTeam">Ekip i ri</string>
   <string name="myTeams">Ekipet e mia</string>
-  <string name="noTeamFound">Nuk u gjet ekip</string>
-  <string name="joinTeam">Hyr në ekip</string>
+  <string name="noTeamFound">S’u gjet ekip</string>
+  <string name="joinTeam">Bëhuni pjesë e ekipit</string>
   <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
-  <string name="quitTeam">Largohu nga ekipi</string>
+  <string name="quitTeam">Braktiseni ekipin</string>
   <string name="manuallyReviewAdmissionRequests">Shqyrtojini dorazi kërkesat për pranim</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Në iu vëntë shenjë, lojtarëve do t’ju duhet të shkruajnë një kërkesë për pjesëmarrje te ekipi, të cilën mund ta hidhni poshtë ose ta pranoni.</string>
   <plurals name="teamLeaders">

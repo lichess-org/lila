@@ -3,7 +3,7 @@
   <string name="advancedPawn">Առաջ գնացած զինվոր</string>
   <string name="advancedPawnDescription">Զինվորը վերածվելու կամ զինվորը վերածվելու սպառնալիքի հետ կապված մարտավարություն։</string>
   <string name="advantage">Առավելություն</string>
-  <string name="advantageDescription">Օգտագործեք որոշիչ առավելություն ստանալու Ձեր հնարավորությունը (200-ից 600 սանտիզինվոր)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Օգտագործեք որոշիչ առավելություն ստանալու Ձեր հնարավորությունը (200-ից 600 սանտիզինվոր)</string>
   <string name="anastasiaMate">Անաստասիայի մատ</string>
   <string name="anastasiaMateDescription">Ձին և նավակը (կամ թագուհին) մրցակցի արքային մատ են անում խաղատախտակի եզրի և մրցակցի այլ խաղաքարի միջև։</string>
   <string name="arabianMate">Արաբական մատ</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Պաշտպանի վերացում</string>
   <string name="capturingDefenderDescription">Այլ խաղաքարը պաշտպանող խաղաքարի շահում կամ փոխանակում՝ հետագայում անպաշտպան մնացած խաղաքարի շահումով։</string>
   <string name="crushing">Ջախջախում</string>
-  <string name="crushingDescription">Օգտագործեք մրցակցի վրիպումը՝ ջախջախիչ առավելություն (600 և ավելի սանտիզինվոր) ստանալու համար</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Օգտագործեք մրցակցի վրիպումը՝ ջախջախիչ առավելություն (600 և ավելի սանտիզինվոր) ստանալու համար</string>
   <string name="doubleBishopMate">Մատ երկու փղով</string>
   <string name="doubleBishopMateDescription">Հարակից անկյունագծերում գտնվող երկու փղերը մատ են հայտարարում մրցակցի արքային, որը շրջափակված է սեփական խաղաքարերով։</string>
   <string name="dovetailMate">«Ծիծեռնակի պոչ» մատ</string>
   <string name="dovetailMateDescription">Մատ թագուհով կողքին կանգնած արքային, որի նահանջի միակ երկու դաշտերը զբաղեցնում են սեփական խաղաքարերը։</string>
   <string name="equality">Հավասարեցում</string>
-  <string name="equalityDescription">Պարտված դիրքից հավասարեցրեք խաղը. պարտիան ավարտեք ոչ-ոքի կամ ստացեք նյութական հավասարություն (200 սանտիզինվորից պակաս)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Պարտված դիրքից հավասարեցրեք խաղը. պարտիան ավարտեք ոչ-ոքի կամ ստացեք նյութական հավասարություն (200 սանտիզինվորից պակաս)</string>
   <string name="kingsideAttack">Գրոհ արքայական թևում</string>
   <string name="kingsideAttackDescription">Գրոհ մրցակցի՝ կարճ կողմում փոխատեղում կատարած արքայի վրա։</string>
   <string name="clearance">Գծի կամ դաշտի ազատում</string>
