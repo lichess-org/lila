@@ -60,7 +60,7 @@
   <string name="nextPayment">Следващо плащане</string>
   <string name="youWillBeChargedXOnY">Ще платите %1$s на %2$s.</string>
   <string name="makeAdditionalDonation">Направете допълнително дарение сега</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Подари крила на Дарител</string>
+  <string name="giftPatronWingsShort">Подари крила на Дарител</string>
   <string name="giftPatronWings">Подари \"крила\" на Дарител на друг играч</string>
   <string name="update">Актуализиране</string>
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
