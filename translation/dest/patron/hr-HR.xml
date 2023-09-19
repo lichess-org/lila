@@ -62,7 +62,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nextPayment">Naredna uplata</string>
   <string name="youWillBeChargedXOnY">Biti će Vam naplaćeno %1$s na %2$s.</string>
   <string name="makeAdditionalDonation">Dajte sada dodatnu donaciju</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Daruj krila pokrovitelja</string>
+  <string name="giftPatronWingsShort">Daruj krila pokrovitelja</string>
   <string name="giftPatronWings">Doniraj krila drugom igraču</string>
   <string name="update">Ažuriranje</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>
