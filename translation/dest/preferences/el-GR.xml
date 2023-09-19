@@ -59,7 +59,7 @@
   <string name="notifyForumMention">Το σχόλιο του φόρουμ σας αναφέρει</string>
   <string name="notifyInvitedStudy">Πρόσκληση μελέτης</string>
   <string name="notifyChallenge">Προκλήσεις</string>
-  <string name="notifyTournamentSoon">Το τουρνουά ξεκινά σύντομα</string>
+  <string name="notifyTournamentSoon">Το πρωτάθλημα ξεκινά σύντομα</string>
   <string name="notifyBell">Ειδοποίηση με καμπανάκι εντός του Lichess</string>
   <string name="notifyPush">Ειδοποίηση συσκευής όταν δεν είστε στο Lichess</string>
   <string name="notifyWeb">Browser</string>
