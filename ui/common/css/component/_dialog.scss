@@ -15,7 +15,7 @@ dialog {
   }
 
   > div.scrollable {
-    max-height: calc(100 * var(--vh) - 16px);
+    max-height: calc(var(--vh) - 16px);
     overflow-x: clip;
     overflow-y: auto;
   }

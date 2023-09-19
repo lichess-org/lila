@@ -128,7 +128,7 @@ class DialogWrapper implements Dialog {
   ) {
     if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
 
-    view.parentElement?.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); // sigh
+    view.parentElement?.style.setProperty('--vh', `${window.innerHeight}px`); // sigh
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
@@ -213,8 +213,8 @@ function onModalKeydown(e: KeyboardEvent) {
 }
 
 function onResize() {
-  const vh = window.innerHeight * 0.01; // ios safari vh behavior not helpful to us
-  $('dialog > div.scrollable').css('--vh', `${vh}px`);
+  // ios safari vh behavior not helpful to us
+  $('dialog > div.scrollable').css('--vh', `${window.innerHeight}px`);
 }
 
 const focusQuery = ['button', 'input', 'select', 'textarea']
