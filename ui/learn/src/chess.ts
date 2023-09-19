@@ -154,6 +154,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
           };
         });
       setColor(color);
+      if (checks.length === 0) return null;
       return checks;
     },
     playRandomMove: function () {

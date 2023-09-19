@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">اپنے lichess.org اکاؤنٹ کی تصدیق کریں، %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">اپنا Lichess اکاؤنٹ فعال کرنے کیلئے ربط پر کلک کریں:</string>
-  <string name="emailConfirm_ignore">اگر آپ نے Lichess کے ساتھ رجسٹر نہیں کیا تو آپ اس پیغام کو سے نظر انداز کر سکتے ہیں۔</string>
+  <string name="emailConfirm_ignore">اگر آپ نے Lichess کے ساتھ رجسٹر نہیں کیا تو آپ اس پیغام کو نظر انداز کر سکتے ہیں۔</string>
   <string name="passwordReset_subject">اپنا شناختی لفظ بحال کریں، %s</string>
   <string name="passwordReset_intro">ہمیں آپ کے اکاؤنٹ کا شناختی لفظ بحال کرنے کی درخواست موصول ہوئی ہے۔</string>
   <string name="passwordReset_clickOrIgnore">اگر آپ نے یہ درخواست کی ہے تو نیچے دیے گئے ربط پر کلک کریں۔ اگر نہیں، تو آپ اس ای میل کو نظر انداز کر سکتے ہیں۔</string>

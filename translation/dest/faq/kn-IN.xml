@@ -66,7 +66,7 @@
   <string name="lichessTraining">ಲಿಚೆಸ್ ತರಬೇತಿ</string>
   <string name="watchIMRosenCheckmate">ಇಂಟರ್ನ್ಯಾಷನಲ್ ಮಾಸ್ಟರ್ ಎರಿಕ್ ರೋಸೆನ್ ಚೆಕ್ಮೇಟ್ %s ಅನ್ನು ವೀಕ್ಷಿಸಿ.</string>
   <string name="threefoldRepetition">ಮೂರು ಪಟ್ಟು ಪುನರಾವರ್ತನೆ</string>
-  <string name="threefoldRepetitionExplanation">ಸ್ಥಾನವು ಮೂರು ಬಾರಿ ಸಂಭವಿಸಿದರೆ, ಆಟಗಾರರು %1$s ರಷ್ಟು ಡ್ರಾವನ್ನು ಪಡೆಯಬಹುದು. %2$s ನ ಆರ್ಟಿಕಲ್ 9.2 (d) ನಲ್ಲಿ ವಿವರಿಸಿದಂತೆ ಲಿಚೆಸ್ ಅಧಿಕೃತ FIDE ನಿಯಮಗಳನ್ನು ಅಳವಡಿಸುತ್ತದೆ.</string>
+  <string name="threefoldRepetitionExplanation">ಸ್ಥಾನವು ಮೂರು ಬಾರಿ ಸಂಭವಿಸಿದರೆ, ಆಟಗಾರರು %1$s ರಷ್ಟು ಡ್ರಾವನ್ನು ಪಡೆಯಬಹುದು. %2$s ನ ಆರ್ಟಿಕಲ್ 9.2 ನಲ್ಲಿ ವಿವರಿಸಿದಂತೆ Lichess ಅಧಿಕೃತ FIDE ನಿಯಮಗಳನ್ನು ಅಳವಡಿಸುತ್ತದೆ.</string>
   <string name="threefoldRepetitionLowerCase">ಮೂರು ಪಟ್ಟು ಪುನರಾವರ್ತನೆ</string>
   <string name="notRepeatedMoves">ನಾವು ಚಲನೆಯನ್ನು ಪುನರಾವರ್ತಿಸಲಿಲ್ಲ. ಆಟವನ್ನು ಇನ್ನೂ ಪುನರಾವರ್ತನೆಯಿಂದ ಏಕೆ ಸೆಳೆಯಲಾಯಿತು?</string>
   <string name="repeatedPositionsThatMatters">ಮೂರು ಪಟ್ಟು ಪುನರಾವರ್ತನೆಯು ಪುನರಾವರ್ತಿತ %1$s ಆಗಿದೆ, ಚಲನೆಗಳಲ್ಲ. ಪುನರಾವರ್ತನೆಯು ಸತತವಾಗಿ ಸಂಭವಿಸಬೇಕಾಗಿಲ್ಲ.</string>

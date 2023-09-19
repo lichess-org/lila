@@ -9,7 +9,7 @@ object help:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
-  private val or                          = tag("or")
+  private val or                          = tag("or")("/")
   private val kbd                         = tag("kbd")
   private def voice(text: String)         = strong(cls := "val-to-word", text)
   private def phonetic(text: String)      = strong(cls := "val-to-word phonetic", text)
@@ -65,9 +65,14 @@ object help:
       h2(trans.keyboardShortcuts()),
       table(
         tbody(
-          navigateMoves,
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("→")), trans.keyEnterOrExitVariation()),
-          row(frag(kbd("shift"), kbd("J"), or, kbd("shift"), kbd("K")), trans.keyEnterOrExitVariation()),
+          row(frag(kbd("←"), or, kbd("k")), "Move backward"),
+          row(frag(kbd("→"), or, kbd("j")), "Move forward"),
+          row(kbd("shift"), "Cycle selected variation"),
+          row(frag(kbd("↑"), or, kbd("↓")), "Cycle previous/next variation"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch"),
+          row(frag(kbd("home"), or, kbd("↑"), or, kbd("0")), "Go to start"),
+          row(frag(kbd("end"), or, kbd("↓"), or, kbd("$")), "Go to end"),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
@@ -102,6 +107,24 @@ object help:
               )
             )
           )
+        )
+      )
+    )
+
+  def analyseVariationArrow(using Lang) =
+    div(cls := "help-ephemeral")(
+      p("Variation arrows allow navigation without using the move list."),
+      p(
+        "The '",
+        strong("Show variation arrows"),
+        "' toggle in the hamburger menu turns them off."
+      ),
+      table(
+        tbody(
+          row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), "Cycle selected variation"),
+          row(kbd("→"), "play selected move"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch")
         )
       )
     )

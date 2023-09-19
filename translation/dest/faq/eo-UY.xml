@@ -46,13 +46,14 @@ Tiu valoro povas esti uzata kiel indikilo de la kvalito de ludo. Ju malpli cento
 
 La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="insufficientMaterial">Perdi pro tempo, egaleco kaj nesufiĉa materialo</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE manlibro</string>
   <string name="fideHandbookX">FIDE-a manlibro %s</string>
   <string name="discoveringEnPassant">Kial povas peonon kaptiĝi alian peonon kiam ĝi estas pasita? (pasante)</string>
   <string name="goodIntroduction">bona enkonduko</string>
   <string name="lichessTraining">trejniĝo en Lichess</string>
   <string name="watchIMRosenCheckmate">Spektu International Master Eric Rosen ŝakmati %s.</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
-  <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 (d) de la %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 de la %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
   <string name="notRepeatedMoves">Ni ne ripetis movojn. Kial tamen la ludo estis egalvenko pro ripetado?</string>
   <string name="repeatedPositionsThatMatters">Trifoja ripetado estas pro ripetado de %1$s, ne movoj. Ripetado ne devas okazi sekve.</string>

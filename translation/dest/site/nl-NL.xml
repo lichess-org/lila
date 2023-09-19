@@ -72,7 +72,7 @@
   <string name="forceVariation">Forceer variatie</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Variantoverwinning</string>
+  <string name="variantWin">Variantoverwinning</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pionzet</string>
   <string name="capture">Slagzet</string>
@@ -99,6 +99,7 @@
   <string name="openingExplorer">Openingverkenner</string>
   <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Speel de eerste zet/eindverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
   <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
   <string name="winOr50MovesByPriorMistake">Winst of 50 zetten door een voorafgaande fout</string>
@@ -114,6 +115,7 @@
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="showVariationArrows">Toon variantpijlen</string>
   <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>
@@ -559,8 +561,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notities</string>
   <string name="typePrivateNotesHere">Type privénotities hier</string>
-  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Maak een privé-notitie over deze gebruiker</string>
-  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">Nog geen notities</string>
+  <string name="writeAPrivateNoteAboutThisUser">Maak een privé-notitie over deze gebruiker</string>
+  <string name="noNoteYet">Nog geen notities</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
@@ -705,7 +707,7 @@
   <string name="yourPerfTypeRatingIsRating">Je %1$srating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Je bent beter dan %1$s van de %2$s spelers.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s is beter dan %2$s van alle %3$s spelers.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Beter dan %1$s van de %2$sspelers</string>
+  <string name="betterThanPercentPlayers">Beter dan %1$s van de %2$sspelers</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Je hebt geen vastgestelde %srating.</string>
   <string name="yourRating">Jouw rating</string>
   <string name="cumulative">Cumulatief</string>
@@ -823,11 +825,11 @@
   <string name="waitingForAnalysis">Wachten op analyse</string>
   <string name="noMistakesFoundForWhite">Geen fouten gevonden voor wit</string>
   <string name="noMistakesFoundForBlack">Geen fouten gevonden voor zwart</string>
-  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Klaar met analyseren van fouten van wit</string>
-  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Klaar met analyseren van fouten van zwart</string>
+  <string name="doneReviewingWhiteMistakes">Klaar met analyseren van fouten van wit</string>
+  <string name="doneReviewingBlackMistakes">Klaar met analyseren van fouten van zwart</string>
   <string name="doItAgain">Probeer het opnieuw</string>
-  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Bekijk fouten van wit</string>
-  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Bekijk fouten van zwart</string>
+  <string name="reviewWhiteMistakes">Bekijk fouten van wit</string>
+  <string name="reviewBlackMistakes">Bekijk fouten van zwart</string>
   <string name="advantage">Voordeel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s seconde</item>

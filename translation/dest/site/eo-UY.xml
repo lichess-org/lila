@@ -115,6 +115,7 @@
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="showVariationArrows">Montri variaĵojn sagojn</string>
   <string name="evaluationGauge">Gaŭĝo de rangado</string>
   <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
@@ -346,6 +347,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s studo</item>
     <item quantity="other">%s studoj</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s samtempludo</item>
+    <item quantity="other">%s samtempludoj</item>
   </plurals>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>

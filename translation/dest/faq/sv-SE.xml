@@ -54,6 +54,7 @@
   I sällsynta fall kan detta vara svårt att avgöra automatiskt (påtvingade linjer, fästningar). Som standard tar vi alltid sida med spelaren som inte fick slut på tid.
 
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE-handbok</string>
   <string name="fideHandbookX">FIDE-handbok %s</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
   <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
@@ -67,7 +68,7 @@ Se %3$s för detta drag för lite övning med det.</string>
   <string name="lichessTraining">Lichess träning</string>
   <string name="watchIMRosenCheckmate">Se International Master Eric Rosen göra schackmatt %s.</string>
   <string name="threefoldRepetition">Dragupprepning</string>
-  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>
   <string name="notRepeatedMoves">Vi upprepade inte drag. Varför blev partiet ändå remi för dragupprepning?</string>
   <string name="repeatedPositionsThatMatters">Dragupprepning handlar om upprepade %1$s, inte drag. Upprepning behöver inte ske i följd.</string>

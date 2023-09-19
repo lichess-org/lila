@@ -84,6 +84,10 @@ export function noCheckIn(nbMoves: number) {
   };
 }
 
+export function kingCaptured(level: AssertData) {
+  return level.chess.instance.in_checkmate();
+}
+
 type Assert = (level: AssertData) => boolean;
 
 export function not(assert: Assert) {

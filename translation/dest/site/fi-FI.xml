@@ -154,6 +154,10 @@
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-vahvuusluku %2$s pelistä</item>
+    <item quantity="other">%1$s arvosana %2$s peliä</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s oma kirjanmerkki</item>
     <item quantity="other">%s omaa kirjanmerkkiä</item>

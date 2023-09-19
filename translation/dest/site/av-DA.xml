@@ -486,7 +486,7 @@
   <string name="draws">Ращад ккей</string>
   <string name="nextXTournament">Хадусеб %s турнир:</string>
   <string name="averageOpponent">Гьоркьохъев дандияв</string>
-  <string name="boardEditor">Хъарщил редактор</string>
+  <string name="boardEditor">Хъорщол редактор</string>
   <string name="setTheBoard">Хъарщи чӀезабизе</string>
   <string name="popularOpenings">ТӀиритӀарал байбихьиял</string>
   <string name="endgamePositions">Ахиралъул позицияби</string>
@@ -732,7 +732,7 @@
   <string name="security">ХӀинкъи гьечӀолъи</string>
   <string name="sessions">Сессияби</string>
   <string name="revokeAllSessions">киналго сессияби къазе</string>
-  <string name="playChessEverywhere">Шахматаби кибго хӀай</string>
+  <string name="playChessEverywhere">Шахматал кибго хӀай</string>
   <string name="asFreeAsLichess">Lichess гӀадин мугь босулареб буго</string>
   <string name="builtForTheLoveOfChessNotMoney">Шахматазде рокьиялъ гьабуна, гӀарцуде гуро</string>
   <string name="everybodyGetsAllFeaturesForFree">Киназего киналго алатал чӀобого щола</string>
@@ -755,7 +755,7 @@
   <string name="quickPairing">Хехаб байбихьи</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Аноним</string>
-  <string name="yourScore">Нужер рикӀкӀин: %s</string>
+  <string name="yourScore">Дур рикӀкӀин: %s</string>
   <string name="language">МацӀ</string>
   <string name="background">НахъабакӀ</string>
   <string name="light">КанчӀаб</string>
