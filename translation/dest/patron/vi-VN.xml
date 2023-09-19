@@ -58,7 +58,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="nextPayment">Lần thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Ủng hộ thêm ngay bây giờ</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">Tặng cánh Patron</string>
+  <string name="giftPatronWingsShort">Tặng cánh Patron</string>
   <string name="giftPatronWings">Tặng cánh Patron cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi số tiền hàng tháng (%s)</string>
