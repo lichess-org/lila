@@ -56,7 +56,7 @@
   <string name="grabAllTheStarsNoNeedToPromote">აიღე ყველა ვარსკლავი!
 გაყვანა საჭირო არაა.</string>
   <string name="pawnComplete">გილოცავ! პაიკებზე ყველაფერი იცი.</string>
-  <string name="pawnPromotion">პაიკის გაცოცხლება, გარდასახვა</string>
+  <string name="pawnPromotion">პაიკის გაცოცხლება,, გაყვანა, გარდასახვა</string>
   <string name="yourPawnReachedTheEndOfTheBoard">შენი პაიკი დაფის ბოლოში გავიდა!</string>
   <string name="itNowPromotesToAStrongerPiece">ახლა უფრო ძლიერ ფიგურად გადაიქცევა.</string>
   <string name="selectThePieceYouWant">აირჩიე სასურველი ფიგურა!</string>
