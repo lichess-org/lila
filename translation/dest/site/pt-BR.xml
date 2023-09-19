@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="showVariationArrows">Mostrar setas das variantes</string>
   <string name="evaluationGauge">Escala de avaliação</string>
   <string name="multipleLines">Linhas de análise</string>
   <string name="cpus">CPUs</string>
