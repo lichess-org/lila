@@ -64,7 +64,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[User.WithPerf]] =
     withPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+  def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.priTemp): Fu[List[User.WithPerfs]] =
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
