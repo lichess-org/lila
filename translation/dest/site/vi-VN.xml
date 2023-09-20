@@ -227,7 +227,7 @@
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
   <string name="accountClosed">Tài khoản %s đã đóng.</string>
-  <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần email.</string>
+  <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần có email.</string>
   <string name="rank">Hạng</string>
   <string name="rankX">Hạng: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -354,7 +354,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
-  <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
+  <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không có quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s đã tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
   <string name="startedStreaming">đã bắt đầu phát trực tuyến</string>
@@ -615,7 +615,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="webmasters">Các nhà phát triển web</string>
   <string name="about">Giới thiệu</string>
   <string name="aboutX">Giới thiệu về %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không quảng cáo, mã nguồn mở.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không có quảng cáo, mã nguồn mở.</string>
   <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
@@ -709,7 +709,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="asFreeAsLichess">Miễn phí như Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Được xây dựng trên nền tảng tình yêu dành cho cờ vua, không phải vì tiền bạc</string>
   <string name="everybodyGetsAllFeaturesForFree">Mọi người đều được sử dụng tất cả các tính năng hoàn toàn miễn phí</string>
-  <string name="zeroAdvertisement">Không có dù chỉ một quảng cáo</string>
+  <string name="zeroAdvertisement">Không có quảng cáo</string>
   <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
   <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ chậm</string>
@@ -771,7 +771,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
   <string name="whiteWinsGame">Trắng thắng</string>
   <string name="blackWinsGame">Đen thắng</string>
-  <string name="learnFromYourMistakes">Học từ sai lầm của mình</string>
+  <string name="learnFromYourMistakes">Học từ sai lầm của bạn</string>
   <string name="learnFromThisMistake">Học từ sai lầm này</string>
   <string name="skipThisMove">Bỏ qua nước này</string>
   <string name="next">Tiếp</string>

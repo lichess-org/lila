@@ -32,7 +32,7 @@
   <string name="raceFinished">Перегони завершено</string>
   <string name="variantEnding">Гру завершено</string>
   <string name="newOpponent">Новий суперник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник знову хоче з вами зіграти</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник хоче зіграти знову</string>
   <string name="joinTheGame">Приєднатися до гри</string>
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
@@ -119,6 +119,7 @@
   <string name="openStudy">Почати дослідження</string>
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
+  <string name="showVariationArrows">Показати стрілки для варіантів</string>
   <string name="evaluationGauge">Шкала оцінки</string>
   <string name="multipleLines">Кількість стрілок</string>
   <string name="cpus">Потоки</string>

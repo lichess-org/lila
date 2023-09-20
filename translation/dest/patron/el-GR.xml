@@ -43,6 +43,7 @@
 Ή μπορείτε %s.</string>
   <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
+  <string name="lichessIsRegisteredWith">Το Lichess έχει καταχωρηθεί με %s.</string>
   <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικές μεταφορές</string>
   <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Υποστηρικτές;</string>
   <string name="noPatronFeatures">Όχι, επειδή το Lichess είναι δωρεάν για πάντα και για όλους. Αυτό είναι μία υπόσχεση.

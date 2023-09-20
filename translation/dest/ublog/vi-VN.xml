@@ -14,7 +14,7 @@
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư, trong các bài đăng nháp của bạn</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="other">Đã đăng %s bài</item>
+    <item quantity="other">Đã đăng %s bài Blog</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="other">%s lượt xem</item>

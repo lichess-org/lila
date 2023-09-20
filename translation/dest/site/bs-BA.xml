@@ -117,6 +117,7 @@
   <string name="openStudy">Otvori studiju</string>
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="showVariationArrows">Prikaži strelice za varijante</string>
   <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Više varijacija</string>
   <string name="cpus">Procesora</string>

@@ -115,6 +115,7 @@
   <string name="openStudy">Ouvrir l\'analyse</string>
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
+  <string name="showVariationArrows">Afficher les flèches de variantes</string>
   <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="multipleLines">Lignes d\'analyse</string>
   <string name="cpus">Processeurs</string>

@@ -114,6 +114,7 @@
   <string name="openStudy">Άνοιγμα μελέτης</string>
   <string name="enable">Ενεργοποίηση</string>
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
+  <string name="showVariationArrows">Εμφάνισε βελάκια παραλλαγών</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
@@ -504,6 +505,7 @@
   <string name="firstName">Όνομα</string>
   <string name="lastName">Επώνυμο</string>
   <string name="biography">Βιογραφικό</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Επισημάνσεις</string>
   <string name="thankYou">Ευχαριστούμε!</string>
   <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
@@ -705,6 +707,7 @@
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Ο/Η %1$s είναι καλύτερος/η από το %2$s των %3$s παικτών.</string>
+  <string name="betterThanPercentPlayers">Είστε καλύτεροι από %1$s των παικτών %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη βαθμολογία %s.</string>
   <string name="yourRating">Η βαθμολογία σας</string>
   <string name="cumulative">Αθροιστικά</string>
