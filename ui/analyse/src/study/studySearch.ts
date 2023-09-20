@@ -1,6 +1,6 @@
 import { Prop, propWithEffect } from 'common';
 import * as licon from 'common/licon';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
@@ -49,12 +49,12 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return snabModal({
+  return snabDialog({
     class: 'study-search',
     onClose() {
       ctrl.open(false);
     },
-    content: [
+    vnodes: [
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
         hook: onInsert((el: HTMLInputElement) => {

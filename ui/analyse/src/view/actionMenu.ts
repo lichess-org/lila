@@ -1,6 +1,6 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import { isTouchDevice } from 'common/mobile';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
@@ -162,10 +162,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ =>
-                modal({
-                  content: $('.continue-with.g_' + d.game.id),
-                }),
+              hook: bind('click', () =>
+                domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
               ),
               attrs: dataIcon(licon.Swords),
             },
@@ -206,7 +204,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   },
                   ctrl,
                 ),
-
                 ctrlToggle(
                   {
                     name: 'evaluationGauge',
