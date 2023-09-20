@@ -771,7 +771,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
   <string name="whiteWinsGame">Trắng thắng</string>
   <string name="blackWinsGame">Đen thắng</string>
-  <string name="learnFromYourMistakes">Học từ sai lầm của mình</string>
+  <string name="learnFromYourMistakes">Học từ sai lầm của bạn</string>
   <string name="learnFromThisMistake">Học từ sai lầm này</string>
   <string name="skipThisMove">Bỏ qua nước này</string>
   <string name="next">Tiếp</string>
