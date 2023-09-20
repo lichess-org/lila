@@ -534,17 +534,17 @@ final class StudyApi(
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): Funit =
+  ): Fu[List[Chapter]] =
     data.manyGames match
       case Some(datas) =>
-        datas.traverse_(addChapter(studyId, _, sticky, withRatings)(who))
+        datas.traverse(addChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
       case _ =>
         sequenceStudy(studyId): study =>
           Contribute(who.u, study):
             chapterRepo
               .countByStudyId(study.id)
               .flatMap: count =>
-                if count >= Study.maxChapters then funit
+                if count >= Study.maxChapters then fuccess(Nil)
                 else
                   for
                     _ <- data.initial.so:
@@ -554,10 +554,11 @@ final class StudyApi(
                     order   <- chapterRepo.nextOrderByStudy(study.id)
                     chapter <- chapterMaker(study, data, order, who.u, withRatings)
                     _       <- doAddChapter(study, chapter, sticky, who)
-                  yield ()
+                  yield List(chapter)
               .recover:
                 case ChapterMaker.ValidationException(error) =>
                   sendTo(study.id)(_.validationError(error, who.sri))
+                  Nil
               .addFailureEffect:
                 case u => logger.error(s"StudyApi.addChapter to $studyId", u)
 
@@ -568,7 +569,10 @@ final class StudyApi(
 
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ) = datas.traverse_(addChapter(studyId, _, sticky, withRatings)(who))
+  ): Future[List[Chapter]] = datas
+    .traverse:
+      addChapter(studyId, _, sticky, withRatings)(who)
+    .map(_.flatten)
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit =
     chapterRepo.insert(chapter) >> {

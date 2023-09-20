@@ -129,6 +129,9 @@ object Form:
 
   def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
 
+  def defaulting[A](m: Mapping[A], default: A) =
+    optional(m).transform(_ | default, some)
+
   object color:
     val mapping: Mapping[Color] = trim(text)
       .verifying(Color.all.map(_.name).contains)
@@ -225,10 +228,9 @@ object Form:
   extension [A](f: PlayForm[A]) def fillOption(o: Option[A]) = o.fold(f)(f.fill)
 
   object strings:
-    def separator(sep: String) = of[List[String]](
+    def separator(sep: String) = of[List[String]]:
       formatter
         .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
-    )
 
   def inTheFuture(m: Mapping[Instant]) =
     m.verifying("The date must be set in the future", _.isAfterNow)

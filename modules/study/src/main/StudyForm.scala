@@ -6,7 +6,7 @@ import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, formatter, into, given }
+import lila.common.Form.{ cleanNonEmptyText, formatter, into, defaulting, given }
 import play.api.data.format.Formatter
 
 object StudyForm:
@@ -66,7 +66,7 @@ object StudyForm:
         "name"          -> cleanNonEmptyText,
         "orientation"   -> optional(of[ChapterMaker.Orientation]),
         "variant"       -> optional(of[Variant]),
-        "mode"          -> of[ChapterMaker.Mode],
+        "mode"          -> defaulting(of[ChapterMaker.Mode], ChapterMaker.Mode.Normal),
         "initial"       -> boolean,
         "sticky"        -> boolean,
         "pgn"           -> nonEmptyText.into[PgnStr],
@@ -85,7 +85,7 @@ object StudyForm:
         isDefaultName: Boolean
     ):
 
-      def toChapterDatas =
+      def toChapterDatas: List[ChapterMaker.Data] =
         val pgns = MultiPgn.split(pgn, max = 32).value
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(

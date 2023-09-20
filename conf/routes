@@ -233,6 +233,7 @@ GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
+POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
