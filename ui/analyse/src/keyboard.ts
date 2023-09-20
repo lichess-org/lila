@@ -35,12 +35,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
-      if (e.key === 'Up' && ctrl.fork.prev()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowUp' && ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
-      if (e.key === 'Down' && ctrl.fork.next()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowDown' && ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
       ctrl.redraw();
     })
