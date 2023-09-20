@@ -227,7 +227,7 @@
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
   <string name="accountClosed">Tài khoản %s đã đóng.</string>
-  <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần email.</string>
+  <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần có email.</string>
   <string name="rank">Hạng</string>
   <string name="rankX">Hạng: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
