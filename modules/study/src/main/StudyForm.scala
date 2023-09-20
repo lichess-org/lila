@@ -63,7 +63,7 @@ object StudyForm:
 
     lazy val form = Form(
       mapping(
-        "name"          -> cleanNonEmptyText,
+        "name"          -> cleanNonEmptyText(minLength = 1, maxLength = 100),
         "orientation"   -> optional(of[ChapterMaker.Orientation]),
         "variant"       -> optional(of[Variant]),
         "mode"          -> defaulting(of[ChapterMaker.Mode], ChapterMaker.Mode.Normal),
