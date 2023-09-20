@@ -82,6 +82,9 @@ object queue:
       filterMark(filter, _.troll, Filter.Troll, licon.BubbleSpeech),
       filterMark(filter, _.boost, Filter.Boost, licon.LineGraph),
       filterMark(filter, _.engine, Filter.Engine, licon.Cogs),
-      filterLink(filter.flatMap(_.toggle(Filter.Alt)), i(cls := List("enabled" -> ~filter.map(_.alt)))("A")),
+      filterLink(
+        filter.flatMap(_.toggle(Filter.Alt)),
+        i(cls := List("appeal-filters--enabled" -> ~filter.map(_.alt)))("A")
+      ),
       filterMark(filter, _.clean, Filter.Clean, licon.User)
     )
