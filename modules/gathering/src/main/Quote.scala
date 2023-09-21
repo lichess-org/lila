@@ -1634,6 +1634,46 @@ object Quote:
       "You can become a big master in chess only if you see your mistakes and shortcomings. Exactly the same as in life itself.",
       "Alexander Alekhine"
     ),
+    Quote(
+      "The beauty of chess is how it absorbs your mind, demands all your attention... because every move is a problem to be solved.",
+      "Irina Krush"
+    ),
+    Quote(
+      "Life has its ups and downs and how we react and cope with them makes the difference. That is one lesson chess has taught me.",
+      "Humpy Koneru"
+    ),
+    Quote(
+      "When you finish a game, you are very happy and you feel like a king, but afterwards you see so many mistakes.",
+      "Pia Cramling"
+    ),
+    Quote(
+      "When I started chess, it was like reading a book, a new world opens up for you, and I quickly realized that I loved this world. I loved to compete, to play, to win.",
+      "Pia Cramling"
+    ),
+    Quote(
+      "I think it's very important to be inclusive, especially because that's part of the beauty of our game. It allows so many different people of different ages and from all over the world to come together, and we should leverage that strength.",
+      "Jennifer Shahade"
+    ),
+    Quote(
+      "...fall in love with the process, not the results.",
+      "Jennifer Shahade"
+    ),
+    Quote(
+      "Chess is not just a game but a culture and a way to connect with people, past and present, who may seem so different from us on the surface.",
+      "Jennifer Shahade"
+    ),
+    Quote(
+      "Especially in my youngest years, the beauty of chess had priority for me over winning a game. But I had to learn that in this sport, achievement is much more important than the beauty of chess.",
+      "Judit Polgar"
+    ),
+    Quote(
+      "When I became the World Champion I got 900 roubles and it's just ridiculous. I have 5 golden medals from World Championships, 11 Olympic medals; I won many tournaments and didn't earn anything.",
+      "Nona Gaprindashvili"
+    ),
+    Quote(
+      "The good thing about chess is that everyone can learn how to play at any age.",
+      "Mariya Muzychuk"
+    ),
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),
     Quote("We will never display ads.", "lichess.org"),
