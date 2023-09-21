@@ -1,23 +1,20 @@
 import * as xhr from 'common/xhr';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 
 lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      modal({
-        content: $('.forum-delete-modal'),
-        onInsert($wrap) {
-          $wrap
-            .find('form')
-            .attr('action', link.href)
-            .on('submit', function (this: HTMLFormElement, e: Event) {
-              e.preventDefault();
-              xhr.formToXhr(this);
-              modal.close();
-              $(link).closest('.forum-post').hide();
-            });
-        },
+      domDialog({
+        cash: $('.forum-delete-modal'),
+        attrs: { view: { action: link.href } },
+      }).then(dlg => {
+        $('form', dlg.view).on('submit', () => {
+          //e.preventDefault();
+          xhr.text(link.href, { method: 'post' });
+          $(link).closest('.forum-post').hide();
+        });
+        dlg.showModal();
       });
       return false;
     })

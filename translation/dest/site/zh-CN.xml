@@ -113,6 +113,7 @@
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
+  <string name="showVariationArrows">显示变化箭头</string>
   <string name="evaluationGauge">显示局面评分</string>
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>

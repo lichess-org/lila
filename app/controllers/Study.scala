@@ -14,6 +14,8 @@ import lila.study.{ Order, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 import lila.analyse.Analysis
+import lila.socket.Socket
+import lila.study.Chapter
 
 final class Study(
     env: Env,
@@ -297,20 +299,47 @@ final class Study(
     } inject Redirect(routes.Study.show(id))
   }
 
+  private val ImportPgnLimitPerUser = lila.memo.RateLimit[UserId](
+    credits = 1000,
+    duration = 24.hour,
+    key = "study.import-pgn.user"
+  )
+
+  private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Socket.Sri)(
+      f: List[Chapter] => Result
+  )(using
+      ctx: Context,
+      me: Me
+  ): Future[Result] =
+    val chapterDatas = data.toChapterDatas
+    ImportPgnLimitPerUser(me, rateLimited, cost = chapterDatas.size):
+      env.study.api.importPgns(
+        id,
+        chapterDatas,
+        sticky = data.sticky,
+        ctx.pref.showRatings
+      )(Who(me, sri)) map f
+
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
     get("sri").so: sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
           doubleJsonFormError,
-          data =>
-            env.study.api.importPgns(
-              id,
-              data.toChapterDatas,
-              sticky = data.sticky,
-              ctx.pref.showRatings
-            )(Who(me, lila.socket.Socket.Sri(sri))) inject NoContent
+          data => doImportPgn(id, data, Socket.Sri(sri))(_ => NoContent)
         )
+  }
+
+  def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    StudyForm.importPgn.form
+      .bindFromRequest()
+      .fold(
+        jsonFormError,
+        data =>
+          doImportPgn(id, data, Socket.Sri("api")): chapters =>
+            import lila.study.JsonView.given
+            JsonOk(Json.obj("chapters" -> chapters.map(_.metadata)))
+      )
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>

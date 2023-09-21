@@ -31,8 +31,10 @@ trait dsl:
     // #TODO FIXME
     // should be sec
     // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    val priTemp: ReadPreference                = ReadPreference.primary
-    given Conversion[ReadPref, ReadPreference] = _(ReadPref)
+    val priTemp: ReadPreference                    = ReadPreference.primary
+    def autoTemp(nb: Int): ReadPreference          = if nb > 100 then priTemp else sec
+    def autoTemp(ids: Iterable[?]): ReadPreference = if ids.sizeIs > 100 then priTemp else sec
+    given Conversion[ReadPref, ReadPreference]     = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument

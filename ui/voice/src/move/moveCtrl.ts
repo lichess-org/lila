@@ -294,7 +294,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     // trim choices to clarity window
     options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
 
-    if (options.length === 1 && options[0][1].cost < 0.3) {
+    if (!timer() && options.length === 1 && options[0][1].cost < 0.3) {
       console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
       submit(options[0][0]);
       return true;

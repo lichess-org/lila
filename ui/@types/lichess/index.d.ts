@@ -4,6 +4,7 @@
 interface Lichess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
+  debug: boolean;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
@@ -585,4 +586,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const $as: <T>(cash: Cash) => T;
+declare const $as: <T>(cashOrHtml: Cash | string) => T;

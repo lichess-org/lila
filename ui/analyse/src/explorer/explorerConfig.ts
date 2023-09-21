@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { ucfirst } from './explorerUtil';
@@ -327,13 +327,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
-  return snabModal({
+  return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {

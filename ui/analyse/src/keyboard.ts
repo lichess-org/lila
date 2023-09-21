@@ -1,9 +1,8 @@
 import * as control from './control';
-import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import * as xhr from 'common/xhr';
+import { VNode } from 'snabbdom';
+import { snabDialog, domDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -36,12 +35,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
-      if (e.key === 'Up' && ctrl.fork.prev()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowUp' && ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
-      if (e.key === 'Down' && ctrl.fork.next()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowDown' && ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
       ctrl.redraw();
     })
@@ -129,33 +128,21 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabModal({
-    class: 'keyboard-help',
-    onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([
-        lichess.loadCssPath('analyse.keyboard'),
-        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
-      ]);
-      $wrap.find('.scrollable').html(html);
-    },
+  return snabDialog({
+    class: 'help.keyboard-help',
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [h('div.scrollable', spinner())],
   });
 }
 
 export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
-  if (!ctrl.showVariationArrows() || !lichess.once('help.analyse.variation-arrows-rtfm')) return;
-  Promise.all([xhr.text('/help/analyse/variation-arrow'), lichess.loadCssPath('analyse.keyboard')]).then(
-    ([html]) => {
-      $('.cg-wrap').append($(html).attr('id', 'analyse-variation-arrows-help'));
-      const cb = () => {
-        $(document).off('mousedown', cb);
-        $('#analyse-variation-arrows-help').remove();
-      };
-      $(document).on('mousedown', cb);
-    },
-  );
+  if (ctrl.showVariationArrows() && lichess.once('help.analyse.variation-arrows-rtfm'))
+    domDialog({
+      class: 'help.variation-help',
+      htmlUrl: '/help/analyse/variation-arrow',
+      show: 'modal',
+    });
 }

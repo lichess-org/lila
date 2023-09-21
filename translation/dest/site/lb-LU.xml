@@ -115,6 +115,7 @@
   <string name="openStudy">Studie opmaachen</string>
   <string name="enable">Aktivéieren</string>
   <string name="bestMoveArrow">Beschten Zuch Feil</string>
+  <string name="showVariationArrows">Variantefeiler weisen</string>
   <string name="evaluationGauge">Evaluatioun weisen</string>
   <string name="multipleLines">Puer Linnen</string>
   <string name="cpus">CPUs</string>

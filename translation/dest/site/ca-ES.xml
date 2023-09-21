@@ -115,6 +115,7 @@
   <string name="openStudy">Obrir estudi</string>
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
+  <string name="showVariationArrows">Mostra fletxes de variacions</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="multipleLines">Múltiples línies</string>
   <string name="cpus">CPUs</string>
