@@ -721,9 +721,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="readAboutOur">Lê sobre a nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede entre ti e o Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
-  <string name="downloadAnnotated">Descarregar a anotação</string>
-  <string name="downloadRaw">Descarregar o texto</string>
-  <string name="downloadImported">Descarregar a partida importada</string>
+  <string name="downloadAnnotated">Transferir anotação</string>
+  <string name="downloadRaw">Transferir texto</string>
+  <string name="downloadImported">Transferir a partida importada</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
@@ -913,7 +913,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="coachManager">Gestor de treinadores</string>
-  <string name="streamerManager">Gestor de streamers</string>
+  <string name="streamerManager">Gestor do streamer</string>
   <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
   <string name="tournDescriptionHelp">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [name](https://url)</string>

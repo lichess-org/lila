@@ -17,8 +17,8 @@
   <string name="stalemate">Hòa pat</string>
   <string name="white">Trắng</string>
   <string name="black">Đen</string>
-  <string name="asWhite">khi chơi trắng</string>
-  <string name="asBlack">khi chơi đen</string>
+  <string name="asWhite">khi chơi quân trắng</string>
+  <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo ván cờ mới</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
@@ -634,7 +634,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="aboutSimulRules">Khi cờ đồng loạt bắt đầu, mỗi người chơi sẽ bắt đầu ván cờ với người chủ trì. Cờ đồng loạt kết thúc khi tất cả các ván cờ hoàn tất.</string>
   <string name="aboutSimulSettings">Cờ đồng loạt luôn không tính Elo. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
   <string name="create">Tạo</string>
-  <string name="whenCreateSimul">Khi bạn tạo một trận cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
+  <string name="whenCreateSimul">Khi bạn tạo một sự kiện cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
   <string name="simulVariantsHint">Nếu bạn chọn nhiều thể loại, mỗi người tham gia sẽ được lựa chọn chơi thể loại nào.</string>
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
