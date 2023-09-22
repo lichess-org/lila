@@ -1,5 +1,4 @@
 import { TablebaseMoveStats } from './interfaces';
-import { opposite } from 'chessops/util';
 import { fenColor } from 'common/mini-board';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -7,7 +6,7 @@ import AnalyseCtrl from '../ctrl';
 export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined {
   const stm = fenColor(fen);
   if (move.checkmate || move.variant_loss || (move.dtz && move.dtz < 0)) return stm;
-  if (move.variant_win || (move.dtz && move.dtz > 0)) return opposite(stm);
+  if (move.variant_win || (move.dtz && move.dtz > 0)) return co.opposite(stm);
   return undefined;
 }
 

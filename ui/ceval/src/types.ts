@@ -1,4 +1,3 @@
-import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import CevalCtrl from './ctrl';
 import { ExternalEngine } from './worker';
@@ -66,7 +65,7 @@ export interface ParentCtrl {
   disableThreatMode?: Prop<boolean>;
   toggleThreatMode(): void;
   toggleCeval(): void;
-  outcome(): Outcome | undefined;
+  outcome(): co.Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;

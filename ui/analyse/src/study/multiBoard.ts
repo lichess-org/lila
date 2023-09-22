@@ -5,8 +5,6 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { opposite as CgOpposite } from 'chessground/util';
-import { opposite as oppositeColor } from 'chessops/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 
 export class MultiBoardCtrl {
@@ -26,7 +24,7 @@ export class MultiBoardCtrl {
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
-      const playerWhoMoved = cp.players && cp.players[oppositeColor(fenColor(cp.fen))];
+      const playerWhoMoved = cp.players && cp.players[co.opposite(fenColor(cp.fen))];
       playerWhoMoved && (playerWhoMoved.clock = node.clock);
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
@@ -204,7 +202,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
       },
     },
     [
-      boardPlayer(preview, CgOpposite(preview.orientation)),
+      boardPlayer(preview, cg.opposite(preview.orientation)),
       h('span.cg-wrap'),
       boardPlayer(preview, preview.orientation),
     ],

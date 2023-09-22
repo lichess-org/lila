@@ -27,19 +27,13 @@ import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
-import { lichessRules } from 'chessops/compat';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { make as makeFork, ForkCtrl } from './fork';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, Socket } from './socket';
 import { nextGlyphSymbol } from './nodeFinder';
-import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { Outcome, isNormal } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
-import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
-import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
@@ -273,12 +267,12 @@ export default class AnalyseCtrl {
   };
 
   topColor(): Color {
-    return opposite(this.bottomColor());
+    return co.opposite(this.bottomColor());
   }
 
   bottomColor(): Color {
     if (this.data.game.variant.key === 'racingKings') return this.flipped ? 'black' : 'white';
-    return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
+    return this.flipped ? co.opposite(this.data.orientation) : this.data.orientation;
   }
 
   bottomIsWhite = () => this.bottomColor() === 'white';
@@ -346,7 +340,7 @@ export default class AnalyseCtrl {
     if (!dests && !node.check) {
       // premove while dests are loading from server
       // can't use when in check because it highlights the wrong king
-      config.turnColor = opposite(color);
+      config.turnColor = co.opposite(color);
       config.movable!.color = color;
     }
     config.premovable = {
@@ -473,7 +467,7 @@ export default class AnalyseCtrl {
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
-      this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
+      this.justPlayed = co.roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
       lichess.sound.move();
@@ -522,7 +516,7 @@ export default class AnalyseCtrl {
     this.chessground.set({
       turnColor: this.chessground.state.movable.color as cg.Color,
       movable: {
-        color: opposite(this.chessground.state.movable.color as cg.Color),
+        color: co.opposite(this.chessground.state.movable.color as cg.Color),
       },
       premovable: {
         enabled: true,
@@ -670,16 +664,16 @@ export default class AnalyseCtrl {
 
   getCeval = () => this.ceval;
 
-  outcome(node?: Tree.Node): Outcome | undefined {
+  outcome(node?: Tree.Node): co.Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
       _ => undefined,
     );
   }
 
-  position(node: Tree.Node): Result<Position, PositionError> {
-    const setup = parseFen(node.fen).unwrap();
-    return setupPosition(lichessRules(this.data.game.variant.key), setup);
+  position(node: Tree.Node): Result<co.Position, co.PositionError> {
+    const setup = co.fen.parseFen(node.fen).unwrap();
+    return co.variant.setupPosition(co.compat.lichessRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {
@@ -846,13 +840,13 @@ export default class AnalyseCtrl {
 
   playUci(uci: Uci, uciQueue?: Uci[]) {
     this.pvUciQueue = uciQueue ?? [];
-    const move = parseUci(uci)!;
-    const to = makeSquare(move.to);
-    if (isNormal(move)) {
-      const piece = this.chessground.state.pieces.get(makeSquare(move.from));
+    const move = co.parseUci(uci)!;
+    const to = co.makeSquare(move.to);
+    if (co.isNormal(move)) {
+      const piece = this.chessground.state.pieces.get(co.makeSquare(move.from));
       const capture = this.chessground.state.pieces.get(to);
       this.sendMove(
-        makeSquare(move.from),
+        co.makeSquare(move.from),
         to,
         capture && piece && capture.color !== piece.color ? capture : undefined,
         move.promotion,

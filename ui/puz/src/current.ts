@@ -1,5 +1,3 @@
-import { Chess, opposite, parseUci } from 'chessops';
-import { parseFen } from 'chessops/fen';
 import { Puzzle } from './interfaces';
 import { getNow } from './util';
 
@@ -14,13 +12,14 @@ export default class CurrentPuzzle {
     readonly puzzle: Puzzle,
   ) {
     this.line = puzzle.line.split(' ');
-    this.pov = opposite(parseFen(puzzle.fen).unwrap().turn);
+    this.pov = co.opposite(co.fen.parseFen(puzzle.fen).unwrap().turn);
     this.startAt = getNow();
   }
 
-  position = (): Chess => {
-    const pos = Chess.fromSetup(parseFen(this.puzzle.fen).unwrap()).unwrap();
-    if (this.moveIndex >= 0) this.line.slice(0, this.moveIndex + 1).forEach(uci => pos.play(parseUci(uci)!));
+  position = () => {
+    const pos = co.Chess.fromSetup(co.fen.parseFen(this.puzzle.fen).unwrap()).unwrap();
+    if (this.moveIndex >= 0)
+      this.line.slice(0, this.moveIndex + 1).forEach(uci => pos.play(co.parseUci(uci)!));
     return pos;
   };
 

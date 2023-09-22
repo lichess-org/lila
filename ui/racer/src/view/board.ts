@@ -2,7 +2,6 @@ import RacerCtrl from '../ctrl';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { h, VNode } from 'snabbdom';
-import { INITIAL_BOARD_FEN } from 'chessops/fen';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
   const secs = ctrl.countdownSeconds();
@@ -24,7 +23,7 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
               ctrl.isRacing() && ctrl.isPlayer()
                 ? makeCgOpts(ctrl.run, true, ctrl.flipped)
                 : {
-                    fen: INITIAL_BOARD_FEN,
+                    fen: co.fen.INITIAL_BOARD_FEN,
                     orientation: ctrl.run.pov,
                     movable: { color: ctrl.run.pov },
                   },

@@ -2,8 +2,6 @@ import { prop, notEmpty, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import { ForecastData, ForecastList, ForecastStep } from './interfaces';
 import { AnalyseData } from '../interfaces';
-import { scalachessCharPair } from 'chessops/compat';
-import { parseUci } from 'chessops';
 import { TreeWrapper } from 'tree';
 
 export default class ForecastCtrl {
@@ -118,7 +116,7 @@ export default class ForecastCtrl {
 
   showForecast = (path: string, tree: TreeWrapper, nodes: ForecastStep[]) => {
     nodes.forEach(node => {
-      const moveId = scalachessCharPair(parseUci(node.uci)!);
+      const moveId = co.compat.scalachessCharPair(co.parseUci(node.uci)!);
 
       // this handles the case where the move isn't in the tree yet
       // if it is, it just returns

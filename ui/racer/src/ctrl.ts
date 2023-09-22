@@ -9,8 +9,6 @@ import { Combo } from 'puz/combo';
 import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
-import { parseUci } from 'chessops/util';
-import { makeSan } from 'chessops/san';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { defined, prop, Prop } from 'common';
@@ -183,8 +181,8 @@ export default class RacerCtrl implements PuzCtrl {
       this.run.moves++;
       this.promotion.cancel();
       const pos = puzzle.position();
-      const move = parseUci(uci)!;
-      const san = makeSan(pos, move);
+      const move = co.parseUci(uci)!;
+      const san = co.san.makeSan(pos, move);
       pos.play(move);
       if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
         puzzle.moveIndex++;

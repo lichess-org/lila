@@ -1,5 +1,3 @@
-import { parseUci, makeSquare } from 'chessops/util';
-import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
 import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
@@ -24,11 +22,11 @@ export function makeShapesFromUci(
   modifiers?: DrawModifiers,
 ): DrawShape[] {
   if (uci === 'Current Position') return [];
-  const move = parseUci(uci)!;
-  const to = makeSquare(move.to);
-  if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
+  const move = co.parseUci(uci)!;
+  const to = co.makeSquare(move.to);
+  if (co.isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
 
-  const shapes: DrawShape[] = [{ orig: makeSquare(move.from), dest: to, brush, modifiers }];
+  const shapes: DrawShape[] = [{ orig: co.makeSquare(move.from), dest: to, brush, modifiers }];
   if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
   return shapes;
 }

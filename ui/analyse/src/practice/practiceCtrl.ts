@@ -6,8 +6,6 @@ import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { defined, prop, Prop } from 'common';
 import { altCastles } from 'chess';
-import { parseUci } from 'chessops/util';
-import { makeSan } from 'chessops/san';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -123,7 +121,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
         ? {
             uci: best,
             san: root.position(prev).unwrap(
-              pos => makeSan(pos, parseUci(best!)!),
+              pos => co.san.makeSan(pos, co.parseUci(best!)!),
               _ => '--',
             ),
           }

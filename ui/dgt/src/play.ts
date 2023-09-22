@@ -1,10 +1,3 @@
-import { Chess, normalizeMove, castlingSide } from 'chessops/chess';
-import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
-import { makeSan, parseSan } from 'chessops/san';
-import { NormalMove } from 'chessops/types';
-import { board } from 'chessops/debug';
-import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
-
 export default function (token: string) {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
   const consoleOutput = document.getElementById('dgt-play-zone-log') as HTMLPreElement;
@@ -63,7 +56,7 @@ export default function (token: string) {
   const gameInfoMap = new Map(); //A collection of key values to store game immutable information of all open games
   const gameStateMap = new Map(); //A collection of key values to store the changing state of all open games
   const gameConnectionMap = new Map<string, { connected: boolean; lastEvent: number }>(); //A collection of key values to store the network status of a game
-  const gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boards representing the current board of the games
+  const gameChessBoardMap = new Map<string, co.Chess>(); //A collection of chessops Boards representing the current board of the games
   let eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
   const keywordsBase = [
     'white',
@@ -90,7 +83,7 @@ export default function (token: string) {
   /**
    * Global Variables for DGT Board Connection (JACM)
    */
-  let localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half-move behind Lichess or half-move in advance
+  let localBoard: co.Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half-move behind Lichess or half-move in advance
   let DGTgameId = ''; //Used to track if DGT board was setup already with the lichess currentGameId
   let boards = Array<{ serialnr: string; state: string }>(); //An array to store all the board recognized by DGT LiveChess
   let liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
@@ -488,7 +481,7 @@ export default function (token: string) {
       let index = -1;
       for (let i = 0; i < playableGames.length; i++) {
         //makeBoardFen return only the board, ideal for comparison
-        const tmpFEN = fen.makeBoardFen(gameChessBoardMap.get(playableGames[i].gameId)!.board);
+        const tmpFEN = co.fen.makeBoardFen(gameChessBoardMap.get(playableGames[i].gameId)!.board);
         if (verbose) console.log(`GameId: ${playableGames[i].gameId} FEN: ${tmpFEN}`);
         if (tmpFEN == lastLiveChessBoard) {
           index = i;
@@ -545,23 +538,23 @@ export default function (token: string) {
    */
   function initializeChessBoard(gameId: string, data: { initialFen: string; state: { moves: string } }) {
     try {
-      let initialFen: string = INITIAL_FEN;
+      let initialFen: string = co.fen.INITIAL_FEN;
       if (data.initialFen != 'startpos') initialFen = data.initialFen;
-      const setup = parseFen(initialFen).unwrap();
-      const chess: Chess = Chess.fromSetup(setup).unwrap();
+      const setup = co.fen.parseFen(initialFen).unwrap();
+      const chess: co.Chess = co.Chess.fromSetup(setup).unwrap();
       const moves = data.state.moves.split(' ');
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] != '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          const uciMove = <NormalMove>parseUci(moves[i]);
-          const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
+          const uciMove = <co.NormalMove>co.parseUci(moves[i]);
+          const normalizedMove = co.variant.normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
       }
       //Store the ChessBoard on the ChessBoardMap
       gameChessBoardMap.set(gameId, chess);
       if (verbose) console.log(`initializeChessBoard - New Board for gameId: ${gameId}`);
-      if (verbose) console.log(board(chess.board));
+      if (verbose) console.log(co.debug.board(chess.board));
       if (verbose) console.log(chess.turn + "'s turn");
     } catch (error) {
       console.error(`initializeChessBoard - Error: ${error}`);
@@ -591,20 +584,20 @@ export default function (token: string) {
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] != '') {
             //Make the new move
-            const uciMove = <NormalMove>parseUci(moves[i]);
-            const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
+            const uciMove = <co.NormalMove>co.parseUci(moves[i]);
+            const normalizedMove = co.variant.normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
               if (chess.turn == 'black')
                 lastSanMove = {
                   player: 'black',
-                  move: makeSan(chess, normalizedMove),
+                  move: co.san.makeSan(chess, normalizedMove),
                   by: gameInfoMap.get(currentGameId).black.id,
                 };
               else
                 lastSanMove = {
                   player: 'white',
-                  move: makeSan(chess, normalizedMove),
+                  move: co.san.makeSan(chess, normalizedMove),
                   by: gameInfoMap.get(currentGameId).white.id,
                 };
               chess.play(normalizedMove);
@@ -613,7 +606,7 @@ export default function (token: string) {
         }
         //Store the ChessBoard on the ChessBoardMap
         if (verbose) console.log(`updateChessBoard - Updated Board for gameId: ${gameId}`);
-        if (verbose) console.log(board(chess.board));
+        if (verbose) console.log(co.debug.board(chess.board));
         if (verbose) console.log(chess.turn + "'s turn");
       }
     } catch (error) {
@@ -963,7 +956,7 @@ export default function (token: string) {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
             if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-            const moveObject = <NormalMove | undefined>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            const moveObject = <co.NormalMove | undefined>co.san.parseSan(localBoard, SANMove); //get move from DGT LiveChess
             //if valid move on local chessops
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');
@@ -990,7 +983,7 @@ export default function (token: string) {
                   console.error('onmessage - Played move has not been received by Lichess.');
                 } else {
                   console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
-                  console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);
+                  console.error('onmessage - Detected:' + co.makeUci(moveObject) + ' by ' + localBoard.turn);
                 }
                 announceInvalidMove();
                 await sleep(1000);
@@ -1016,7 +1009,7 @@ export default function (token: string) {
                       SANMove,
                   );
                 announceInvalidMove();
-                console.info(board(localBoard.board));
+                console.info(co.debug.board(localBoard.board));
               }
             }
           } //end for
@@ -1062,8 +1055,8 @@ export default function (token: string) {
    * If the position does not match, no moves will be received from LiveChess
    * @param chess - The chessops Chess object with the position on Lichess
    */
-  async function sendBoardToLiveChess(chess: Chess) {
-    const fen = makeFen(chess.toSetup());
+  async function sendBoardToLiveChess(chess: co.Chess) {
+    const fen = co.fen.makeFen(chess.toSetup());
     const setupMessage = {
       id: 3,
       call: 'call',
@@ -1100,7 +1093,7 @@ export default function (token: string) {
    *
    * @param {Object} boardMove - The move in chessops format or string if in lichess format
    */
-  async function validateAndSendBoardMove(boardMove: NormalMove) {
+  async function validateAndSendBoardMove(boardMove: co.NormalMove) {
     //While there is not an active game, keep trying to find one so the move is not lost
     while (
       !(
@@ -1118,7 +1111,7 @@ export default function (token: string) {
       await chooseCurrentGame();
     }
     //Now send the move
-    const command = makeUci(boardMove);
+    const command = co.makeUci(boardMove);
     sendMove(currentGameId, command);
   }
 
@@ -1220,8 +1213,8 @@ export default function (token: string) {
     speechSynthesis.speak(utterThis);
   }
 
-  function startingPosition(): Chess {
-    return Chess.fromSetup(defaultSetup()).unwrap();
+  function startingPosition(): co.Chess {
+    return co.Chess.fromSetup(co.defaultSetup()).unwrap();
   }
 
   /**
@@ -1231,16 +1224,16 @@ export default function (token: string) {
    * @param moveObject - the move in chessops format after applying the SAN to localBoard
    * @returns {Boolean} - True if the moves are the same
    */
-  function compareMoves(lastMove: string, moveObject: NormalMove): boolean {
+  function compareMoves(lastMove: string, moveObject: co.NormalMove): boolean {
     try {
-      const uciMove = makeUci(moveObject);
+      const uciMove = co.makeUci(moveObject);
       if (verbose) console.log(`Comparing ${lastMove} with ${uciMove}`);
       if (lastMove == uciMove) {
         //it's the same move
         return true;
       }
       if (verbose) console.log('Moves look different. Check if this is a castling mismatch.');
-      if (lastMove.length > 2 && castlingSide(localBoard, moveObject)) {
+      if (lastMove.length > 2 && co.variant.castlingSide(localBoard, moveObject)) {
         //It was a castling so it still may be the same move
         if (lastMove.startsWith(uciMove.substring(0, 2))) {
           //it was the same starting position for the king

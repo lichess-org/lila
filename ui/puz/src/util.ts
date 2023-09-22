@@ -1,10 +1,8 @@
 import { Puzzle } from './interfaces';
-import { opposite } from 'chessops';
-import { parseFen } from 'chessops/fen';
 
 export const getNow = (): number => Math.round(performance.now());
 
-export const puzzlePov = (puzzle: Puzzle) => opposite(parseFen(puzzle.fen).unwrap().turn);
+export const puzzlePov = (puzzle: Puzzle) => co.opposite(co.fen.parseFen(puzzle.fen).unwrap().turn);
 
 const loadSound = (file: string, volume?: number, delay?: number) => {
   setTimeout(() => lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);

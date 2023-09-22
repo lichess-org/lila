@@ -2,8 +2,6 @@ import { winningChances, CevalCtrl } from 'ceval';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
 import { Vm } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
-import { opposite, parseUci, makeSquare } from 'chessops/util';
-import { NormalMove } from 'chessops/types';
 
 interface Opts {
   vm: Vm;
@@ -19,10 +17,10 @@ function makeAutoShapesFromUci(
   brush: string,
   modifiers?: DrawModifiers,
 ): DrawShape[] {
-  const move = parseUci(uci)! as NormalMove; // no crazyhouse
-  const to = makeSquare(move.to);
+  const move = co.parseUci(uci)! as co.NormalMove; // no crazyhouse
+  const to = co.makeSquare(move.to);
   return [
-    { orig: makeSquare(move.from), dest: to, brush, modifiers },
+    { orig: co.makeSquare(move.from), dest: to, brush, modifiers },
     ...(move.promotion
       ? [{ orig: to, piece: { color, role: move.promotion, scale: 0.8 }, brush: 'green' }]
       : []),
@@ -64,17 +62,17 @@ export default function (opts: Opts): DrawShape[] {
   }
   if (opts.ceval.enabled() && opts.threatMode && n.threat) {
     if (n.threat.pvs[1]) {
-      shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'paleRed'));
+      shapes = shapes.concat(makeAutoShapesFromUci(co.opposite(color), n.threat.pvs[0].moves[0], 'paleRed'));
       n.threat.pvs.slice(1).forEach(function (pv) {
-        const shift = winningChances.povDiff(opposite(color), pv, n.threat!.pvs[0]);
+        const shift = winningChances.povDiff(co.opposite(color), pv, n.threat!.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
         shapes = shapes.concat(
-          makeAutoShapesFromUci(opposite(color), pv.moves[0], 'paleRed', {
+          makeAutoShapesFromUci(co.opposite(color), pv.moves[0], 'paleRed', {
             lineWidth: Math.round(11 - shift * 45), // 11 to 2
           }),
         );
       });
-    } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));
+    } else shapes = shapes.concat(makeAutoShapesFromUci(co.opposite(color), n.threat.pvs[0].moves[0], 'red'));
   }
   return shapes;
 }

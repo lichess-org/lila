@@ -43,7 +43,6 @@ import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
 import { storedMap, storedBooleanProp } from 'common/storage';
-import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
 
@@ -337,7 +336,7 @@ export default function (
   const currentNode = () => ctrl.node;
   const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
   const bottomColor = () =>
-    ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation;
+    ctrl.flipped ? co.opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation;
 
   const share = shareCtrl(
     data,

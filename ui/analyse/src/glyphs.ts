@@ -1,4 +1,3 @@
-import { parseUci, makeSquare, squareRank } from 'chessops/util';
 import AnalyseCtrl from './ctrl';
 import { DrawShape } from 'chessground/draw';
 
@@ -6,16 +5,16 @@ export function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
   const shapes: DrawShape[] = [];
   const { uci, glyphs, san } = ctrl.node;
   if (ctrl.showMoveAnnotation() && uci && san && glyphs && glyphs.length > 0) {
-    const move = parseUci(uci)!;
+    const move = co.parseUci(uci)!;
     const destSquare = san.startsWith('O-O') // castle, short or long
-      ? squareRank(move.to) === 0 // white castle
+      ? co.squareRank(move.to) === 0 // white castle
         ? san.startsWith('O-O-O')
           ? 'c1'
           : 'g1'
         : san.startsWith('O-O-O')
         ? 'c8'
         : 'g8'
-      : makeSquare(move.to);
+      : co.makeSquare(move.to);
     const prerendered = glyphToSvg[glyphs[0].symbol];
     shapes.push({
       orig: destSquare,

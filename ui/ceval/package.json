@@ -16,7 +16,6 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@badrap/result": "^0.2.13",
-    "chessops": "^0.12.7",
     "idb-keyval": "^6.2.0",
     "snabbdom": "^3.5.1",
     "common": "workspace:*"

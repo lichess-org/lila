@@ -29,8 +29,14 @@ import * as miniGame from './component/mini-game';
 import { format as timeago, formatter as dateFormat } from './component/timeago';
 import watchers from './component/watchers';
 import { Chessground } from 'chessground';
+import * as cgutil from 'chessground/util';
+
+import * as chessops from 'chessops';
+window.co = chessops as unknown as typeof co;
 
 declare const __debug__: boolean;
+
+export const cg = cgutil;
 
 export default () => {
   const l = window.lichess;

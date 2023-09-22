@@ -24,7 +24,6 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.12.7",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

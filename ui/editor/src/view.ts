@@ -3,8 +3,6 @@ import * as licon from 'common/licon';
 import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
-import { Rules } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
 import { domDialog } from 'common/dialog';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
@@ -66,7 +64,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   );
 }
 
-function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
+function variant2option(key: co.Rules, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
     {
@@ -79,7 +77,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   );
 }
 
-const allVariants: Array<[Rules, string]> = [
+const allVariants: Array<[co.Rules, string]> = [
   ['chess', 'Standard'],
   ['antichess', 'Antichess'],
   ['atomic', 'Atomic'],
@@ -222,7 +220,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { id: 'variants' },
                 on: {
                   change(e) {
-                    ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+                    ctrl.setRules((e.target as HTMLSelectElement).value as co.Rules);
                   },
                 },
               },
@@ -335,7 +333,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           },
           input(e) {
             const el = e.target as HTMLInputElement;
-            const valid = parseFen(el.value.trim()).isOk;
+            const valid = co.fen.parseFen(el.value.trim()).isOk;
             el.setCustomValidity(valid ? '' : 'Invalid FEN');
           },
           blur(e) {

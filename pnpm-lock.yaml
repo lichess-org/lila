@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -30,8 +30,11 @@ importers:
         specifier: github:lichess-org/ab-stub
         version: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
-        specifier: ^9.0.3
+        specifier: 9.0.3
         version: 9.0.3
+      chessops:
+        specifier: 0.12.7
+        version: 0.12.7
       eslint:
         specifier: ^8.47.0
         version: 8.47.0
@@ -112,9 +115,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -151,9 +151,6 @@ importers:
       '@badrap/result':
         specifier: ^0.2.13
         version: 0.2.13
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -254,17 +251,10 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1
 
-  ui/dgt:
-    dependencies:
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
+  ui/dgt: {}
 
   ui/editor:
     dependencies:
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -397,9 +387,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -442,9 +429,6 @@ importers:
 
   ui/puz:
     dependencies:
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -466,9 +450,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -493,9 +474,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -637,9 +615,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.12.7
-        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -2480,10 +2455,6 @@ packages:
       mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
     dev: false
 
-  /chessground@9.0.2:
-    resolution: {integrity: sha512-3YRrA052eN+LRqxsjZ6Jesk12PWnONll0Hkfqf68abwbi9JN168D2PXOWeEygy4mPEWcDfSajAmn5r/vYSE8pQ==}
-    dev: false
-
   /chessground@9.0.3:
     resolution: {integrity: sha512-L77yM40ZTm9uf1+yPjWfUV7wYQRID6NkC3u8xyVZ7+J6KWltSCnV2BgT6frLbK3sCJb4asVBvAbS5f1X7V3UpQ==}
     dev: false
@@ -4085,7 +4056,7 @@ packages:
     resolution: {integrity: sha512-vh50un9jHKwiwMs9EUKgGDJCwUYvjR2Td74eQm2kv7dRpX7Y1QJH32vtC25S1fMPPC1KIU65miKX0nwEa63fYA==}
     dependencies:
       '@types/node': 20.5.0
-      chessground: 9.0.2
+      chessground: 9.0.3
       chessops: 0.12.7
       snabbdom: 3.5.1
     dev: false

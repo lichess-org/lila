@@ -1,5 +1,4 @@
 import { altCastles } from 'chess';
-import { parseUci } from 'chessops/util';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 
@@ -39,7 +38,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   vm.node.puzzle = 'good';
 
   return {
-    move: parseUci(nextUci)!,
+    move: co.parseUci(nextUci)!,
     fen: vm.node.fen,
     path: vm.path,
   };

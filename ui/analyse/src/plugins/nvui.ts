@@ -37,11 +37,6 @@ import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
 import { view as cevalView, renderEval, Eval } from 'ceval';
 import * as control from '../control';
-import { lichessRules } from 'chessops/compat';
-import { makeSan } from 'chessops/san';
-import { opposite, parseUci } from 'chessops/util';
-import { parseFen } from 'chessops/fen';
-import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from '../util';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
@@ -333,19 +328,19 @@ function renderBestMove(ctrl: AnalyseController, style: Style): string {
   if (!instance.possible) return NOT_POSSIBLE;
   if (!instance.enabled()) return NOT_ENABLED;
   const node = ctrl.node,
-    setup = parseFen(node.fen).unwrap();
+    setup = co.fen.parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[] = [];
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
-    setup.turn = opposite(setup.turn);
+    setup.turn = co.opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;
   } else if (node.ceval) {
     pvs = node.ceval.pvs;
   }
-  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
+  const pos = co.variant.setupPosition(co.compat.lichessRules(instance.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
-    const san = makeSan(pos.unwrap(), parseUci(uci)!);
+    const san = co.san.makeSan(pos.unwrap(), co.parseUci(uci)!);
     return renderSan(san, uci, style);
   } else {
     return '';

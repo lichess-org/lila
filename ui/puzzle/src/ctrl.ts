@@ -9,20 +9,14 @@ import throttle from 'common/throttle';
 import { Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
-import { Chess, normalizeMove } from 'chessops/chess';
-import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
 import { makeVoiceMove, VoiceMove, RootCtrl as VoiceRoot } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, RootController as KeyboardRoot } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect, toggle } from 'common';
-import { makeSanAndPlay } from 'chessops/san';
-import { parseFen, makeFen } from 'chessops/fen';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
-import { Role, Move, Outcome } from 'chessops/types';
 import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
@@ -149,15 +143,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     instanciateCeval();
   }
 
-  function position(): Chess {
-    const setup = parseFen(vm.node.fen).unwrap();
-    return Chess.fromSetup(setup).unwrap();
+  function position(): co.Chess {
+    const setup = co.fen.parseFen(vm.node.fen).unwrap();
+    return co.Chess.fromSetup(setup).unwrap();
   }
 
   function makeCgOpts(): CgConfig {
     const node = vm.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
-    const dests = chessgroundDests(position());
+    const dests = co.compat.chessgroundDests(position());
     const nextNode = vm.node.children[0];
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
@@ -171,7 +165,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         };
     const config = {
       fen: node.fen,
-      orientation: flipped ? opposite(vm.pov) : vm.pov,
+      orientation: flipped ? co.opposite(vm.pov) : vm.pov,
       turnColor: color,
       movable: movable,
       premovable: {
@@ -194,13 +188,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     g.set(makeCgOpts());
   }
 
-  function auxMove(orig: Key, dest: Key, role?: Role) {
+  function auxMove(orig: Key, dest: Key, role?: co.Role) {
     if (role) playUserMove(orig, dest, role);
     else
       withGround(g => {
         g.move(orig, dest);
         g.state.movable.dests = undefined;
-        g.state.turnColor = opposite(g.state.turnColor);
+        g.state.turnColor = co.opposite(g.state.turnColor);
       });
   }
 
@@ -213,37 +207,37 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function playUci(uci: Uci): void {
-    sendMove(parseUci(uci)!);
+    sendMove(co.parseUci(uci)!);
   }
 
   function playUciList(uciList: Uci[]): void {
     uciList.forEach(playUci);
   }
 
-  function playUserMove(orig: Key, dest: Key, promotion?: Role): void {
+  function playUserMove(orig: Key, dest: Key, promotion?: co.Role): void {
     sendMove({
-      from: parseSquare(orig)!,
-      to: parseSquare(dest)!,
+      from: co.parseSquare(orig)!,
+      to: co.parseSquare(dest)!,
       promotion,
     });
   }
 
-  function sendMove(move: Move): void {
+  function sendMove(move: co.Move): void {
     sendMoveAt(vm.path, position(), move);
   }
 
-  function sendMoveAt(path: Tree.Path, pos: Chess, move: Move): void {
-    move = normalizeMove(pos, move);
-    const san = makeSanAndPlay(pos, move);
+  function sendMoveAt(path: Tree.Path, pos: co.Chess, move: co.Move): void {
+    move = co.variant.normalizeMove(pos, move);
+    const san = co.san.makeSanAndPlay(pos, move);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode(
       {
         ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
-        fen: makeFen(pos.toSetup()),
-        id: scalachessCharPair(move),
-        uci: makeUci(move),
+        fen: co.fen.makeFen(pos.toSetup()),
+        id: co.compat.scalachessCharPair(move),
+        uci: co.makeUci(move),
         san,
-        check: defined(check) ? makeSquare(check) : undefined,
+        check: defined(check) ? co.makeSquare(check) : undefined,
         children: [],
       },
       path,
@@ -314,7 +308,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vm.lastFeedback = 'good';
       setTimeout(
         () => {
-          const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
+          const pos = co.Chess.fromSetup(co.fen.parseFen(progress.fen).unwrap()).unwrap();
           sendMoveAt(progress.path, pos, progress.move);
         },
         opts.pref.animation.duration * (autoNext() ? 1 : 1.5),
@@ -467,7 +461,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     redraw();
   }
 
-  function outcome(): Outcome | undefined {
+  function outcome(): co.Outcome | undefined {
     return position().outcome();
   }
 

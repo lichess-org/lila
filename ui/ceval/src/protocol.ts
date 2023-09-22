@@ -1,5 +1,4 @@
 import { defined } from 'common';
-import { lichessRules } from 'chessops/compat';
 import { Work } from './types';
 
 const minDepth = 6;
@@ -182,7 +181,7 @@ export class Protocol {
         'UCI_Variant',
         this.work.variant === 'antichess'
           ? 'giveaway' // for old asmjs fallback
-          : lichessRules(this.work.variant),
+          : co.compat.lichessRules(this.work.variant),
       );
       this.setOption('Threads', this.work.threads);
       this.setOption('Hash', this.work.hashSize || 16);

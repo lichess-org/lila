@@ -1,4 +1,3 @@
-import { Outcome } from 'chessops/types';
 import { h, VNode } from 'snabbdom';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { PracticeCtrl, Comment } from './practiceCtrl';
@@ -40,7 +39,7 @@ function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   ]);
 }
 
-function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
+function renderEnd(root: AnalyseCtrl, end: co.Outcome): VNode {
   const color = end.winner || root.turnColor();
   const isFiftyMoves = root.practice?.currentNode().fen.split(' ')[4] === '100';
   return h('div.player', [

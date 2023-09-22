@@ -1,37 +1,30 @@
 import { AnalyseData, Game } from './interfaces';
-import { makeFen } from 'chessops/fen';
-import { makeSanAndPlay, parseSan } from 'chessops/san';
-import { makeUci, Rules } from 'chessops';
-import { makeVariant, parsePgn, parseVariant, startingPosition, ChildNode, PgnNodeData } from 'chessops/pgn';
-import { Position } from 'chessops/chess';
 import { Player } from 'game';
-import { scalachessCharPair } from 'chessops/compat';
-import { makeSquare } from 'chessops/util';
 
 const readNode = (
-  node: ChildNode<PgnNodeData>,
-  pos: Position,
+  node: co.ChildNode<co.PgnNodeData>,
+  pos: co.Position,
   ply: number,
   withChildren = true,
 ): Tree.Node => {
-  const move = parseSan(pos, node.data.san);
+  const move = co.san.parseSan(pos, node.data.san);
   if (!move) throw `Can't replay move ${node.data.san} at ply ${ply}`;
   return {
-    id: scalachessCharPair(move),
+    id: co.compat.scalachessCharPair(move),
     ply,
-    san: makeSanAndPlay(pos, move),
-    fen: makeFen(pos.toSetup()),
-    uci: makeUci(move),
+    san: co.san.makeSanAndPlay(pos, move),
+    fen: co.fen.makeFen(pos.toSetup()),
+    uci: co.makeUci(move),
     children: withChildren ? node.children.map(child => readNode(child, pos.clone(), ply + 1)) : [],
-    check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
+    check: pos.isCheck() ? co.makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
   };
 };
 
 export default function (pgn: string): Partial<AnalyseData> {
-  const game = parsePgn(pgn)[0];
+  const game = co.pgn.parsePgn(pgn)[0];
   const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
-  const start = startingPosition(game.headers).unwrap();
-  const fen = makeFen(start.toSetup());
+  const start = co.pgn.startingPosition(game.headers).unwrap();
+  const fen = co.fen.makeFen(start.toSetup());
   const initialPly = (start.toSetup().fullmoves - 1) * 2 + (start.turn === 'white' ? 0 : 1);
   const treeParts: Tree.Node[] = [
     {
@@ -53,9 +46,9 @@ export default function (pgn: string): Partial<AnalyseData> {
     tree = mainline;
     index += 1;
   }
-  const rules: Rules = parseVariant(headers.get('variant')) || 'chess';
+  const rules: co.Rules = co.pgn.parseVariant(headers.get('variant')) || 'chess';
   const variantKey: VariantKey = rulesToVariantKey[rules] || rules;
-  const variantName = makeVariant(rules) || variantKey;
+  const variantName = co.pgn.makeVariant(rules) || variantKey;
   // TODO Improve types so that analysis data != game data
   return {
     game: {

@@ -1,5 +1,4 @@
 import { view as cevalView } from 'ceval';
-import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
 import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon, iconTag } from 'common/snabbdom';
@@ -97,7 +96,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             });
             el.addEventListener('input', _ => {
               ctrl.fenInput = el.value;
-              el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
+              el.setCustomValidity(co.fen.parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
             });
           },
           postpatch: (_, vnode) => {

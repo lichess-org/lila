@@ -3,11 +3,6 @@ import { Dests, Pieces, Rank, File, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Api } from 'chessground/api';
 import { Setting, makeSetting } from './setting';
-import { parseFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
-import { SquareName, RULES, Rules } from 'chessops/types';
-import { setupPosition } from 'chessops/variant';
-import { parseUci } from 'chessops/util';
 import { SanToUci, sanWriter } from 'chess';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -608,7 +603,7 @@ export function possibleMovesHandler(
     const pieces: Pieces = piecesFunc();
 
     const $btn = $(ev.target as HTMLElement);
-    const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
+    const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as co.SquareName;
     const ruleTranslation: { [vari: string]: number } = {
       standard: 0,
       antichess: 1,
@@ -619,7 +614,7 @@ export function possibleMovesHandler(
       racingKings: 6,
       crazyhouse: 7,
     };
-    const rules: Rules = RULES[ruleTranslation[variant]];
+    const rules: co.Rules = co.RULES[ruleTranslation[variant]];
 
     let rawMoves;
 
@@ -628,16 +623,16 @@ export function possibleMovesHandler(
     if (turnColor() === yourColor) {
       rawMoves = moveable();
     } else {
-      const fromSetup = setupPosition(rules, parseFen(startingFen()).unwrap()).unwrap();
+      const fromSetup = co.variant.setupPosition(rules, co.fen.parseFen(startingFen()).unwrap()).unwrap();
       steps().forEach(s => {
         if (s.uci) {
-          const move = parseUci(s.uci);
+          const move = co.parseUci(s.uci);
           if (move) fromSetup.play(move);
         }
       });
       // important to override whose turn it is so only the users' own turns will show up
       fromSetup.turn = yourColor;
-      rawMoves = chessgroundDests(fromSetup);
+      rawMoves = co.compat.chessgroundDests(fromSetup);
     }
 
     const possibleMoves = rawMoves

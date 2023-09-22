@@ -10,15 +10,10 @@ import {
 import { Cache } from './cache';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
 import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
-import { defaultPosition, setupPosition } from 'chessops/variant';
-import { parseFen } from 'chessops/fen';
-import { isStandardMaterial } from 'chessops/chess';
-import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
 import { prop, Toggle, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
-import { Rules } from 'chessops';
 import { CevalPlatform, CevalTechnology, detectPlatform } from './platform';
 
 const cevalDisabledSentinel = '1';
@@ -30,7 +25,7 @@ function enabledAfterDisable() {
 }
 
 export default class CevalCtrl {
-  rules: Rules;
+  rules: co.Rules;
   analysable: boolean;
   possible: boolean;
   cachable: boolean;
@@ -61,18 +56,18 @@ export default class CevalCtrl {
     this.possible = this.opts.possible;
 
     // check root position
-    this.rules = lichessRules(this.opts.variant.key);
+    this.rules = co.compat.lichessRules(this.opts.variant.key);
     const pos = this.opts.initialFen
-      ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
-      : Result.ok(defaultPosition(this.rules));
+      ? co.fen.parseFen(this.opts.initialFen).chain(setup => co.variant.setupPosition(this.rules, setup))
+      : Result.ok(co.variant.defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.officialStockfish = this.rules == 'chess' && (pos.isErr || isStandardMaterial(pos.value));
+    this.officialStockfish = this.rules == 'chess' && (pos.isErr || co.variant.isStandardMaterial(pos.value));
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
 
     this.externalEngine = this.opts.externalEngines?.find(
       e =>
         e.id == this.selectedEngine() &&
-        (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules)),
+        (this.officialStockfish || e.variants.map(co.compat.lichessRules).includes(this.rules)),
     );
     this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
     this.technology = this.platform.technology;

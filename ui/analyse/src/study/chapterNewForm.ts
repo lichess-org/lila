@@ -1,4 +1,3 @@
-import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
@@ -294,7 +293,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   hook: onInsert((el: HTMLInputElement) => {
                     el.addEventListener('change', () => el.reportValidity());
                     el.addEventListener('input', _ =>
-                      el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN'),
+                      el.setCustomValidity(co.fen.parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN'),
                     );
                   }),
                 }),

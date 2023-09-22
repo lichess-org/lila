@@ -3,7 +3,6 @@ import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
-import { Outcome, Move } from 'chessops/types';
 import { Prop, Toggle } from 'common';
 import { StoredProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
@@ -41,7 +40,7 @@ export interface AllThemes {
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
-  outcome(): Outcome | undefined;
+  outcome(): co.Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;
@@ -227,7 +226,7 @@ export interface PuzzleRound {
 }
 
 export interface MoveTest {
-  move: Move;
+  move: co.Move;
   fen: Fen;
   path: Tree.Path;
 }

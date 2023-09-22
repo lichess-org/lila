@@ -5,13 +5,7 @@ import { bind } from 'common/snabbdom';
 import { defined, notNull } from 'common';
 import { Eval, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
-import { Position } from 'chessops/chess';
-import { lichessRules } from 'chessops/compat';
-import { makeSanAndPlay } from 'chessops/san';
-import { opposite, parseUci } from 'chessops/util';
-import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
-import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
 import { CevalState } from './worker';
 import CevalCtrl from './ctrl';
@@ -314,7 +308,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = instance.multiPv(),
     node = ctrl.getNode(),
-    setup = parseFen(node.fen).unwrap();
+    setup = co.fen.parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
     threat = false,
     pvMoves: (string | null)[],
@@ -325,10 +319,10 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
   if (threat) {
-    setup.turn = opposite(setup.turn);
+    setup.turn = co.opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
+  const pos = co.variant.setupPosition(co.compat.lichessRules(instance.opts.variant.key), setup);
 
   return h(
     'div.pv_box',
@@ -393,7 +387,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
 
 const MAX_NUM_MOVES = 16;
 
-function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Position): VNode {
+function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: co.Position): VNode {
   const data: any = {};
   const children: VNode[] = [renderPvWrapToggle()];
   if (pv) {
@@ -427,9 +421,9 @@ function renderPvWrapToggle(): VNode {
   });
 }
 
-function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
+function renderPvMoves(pos: co.Position, pv: Uci[]): VNode[] {
   const vnodes: VNode[] = [];
-  let key = makeBoardFen(pos.board);
+  let key = co.fen.makeBoardFen(pos.board);
   for (let i = 0; i < pv.length; i++) {
     let text;
     if (pos.turn === 'white') {
@@ -441,8 +435,8 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
       vnodes.push(h('span', { key: text }, text));
     }
     const uci = pv[i];
-    const san = makeSanAndPlay(pos, parseUci(uci)!);
-    const fen = makeBoardFen(pos.board); // Chessground uses only board fen
+    const san = co.san.makeSanAndPlay(pos, co.parseUci(uci)!);
+    const fen = co.fen.makeBoardFen(pos.board); // Chessground uses only board fen
     if (san === '--') {
       break;
     }
