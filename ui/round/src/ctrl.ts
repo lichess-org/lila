@@ -652,23 +652,18 @@ export default class RoundController {
         prompt: this.noarg('takebackPropositionSent'),
         no: { action: this.cancelTakebackPreventDraws, key: 'cancel' },
       };
-    } else if (this.data.player.offeringDraw) {
-      this.voiceMove?.listenForResponse('cancelDraw', v => !v && this.socket.sendLoading('draw-no'));
-      return {
-        prompt: this.noarg('drawOfferSent'),
-        no: { action: () => this.socket.sendLoading('draw-no'), key: 'cancel' },
-      };
-    } else if (this.data.opponent.proposingTakeback)
-      return {
-        prompt: this.noarg('yourOpponentProposesATakeback'),
-        yes: { action: this.takebackYes, icon: licon.Back },
-        no: { action: () => this.socket.send('takeback-no') },
-      };
+    } else if (this.data.player.offeringDraw) return { prompt: this.noarg('drawOfferSent') };
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: this.noarg('yourOpponentOffersADraw'),
         yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
         no: { action: () => this.socket.send('draw-no') },
+      };
+    else if (this.data.opponent.proposingTakeback)
+      return {
+        prompt: this.noarg('yourOpponentProposesATakeback'),
+        yes: { action: this.takebackYes, icon: licon.Back },
+        no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
     else return false;
