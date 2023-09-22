@@ -33,7 +33,17 @@ object PrefSingleChange:
     changing(_.keyboardMove): v =>
       _.copy(keyboardMove = v | Pref.KeyboardMove.NO),
     changing(_.autoQueen): v =>
-      _.copy(autoQueen = v)
+      _.copy(autoQueen = v),
+    changing(_.premove): v =>
+      _.copy(premove = v == 1),
+    changing(_.takeback): v =>
+      _.copy(takeback = v),
+    changing(_.autoThreefold): v =>
+      _.copy(autoThreefold = v),
+    changing(_.submitMove): v =>
+      _.copy(submitMove = v),
+    changing(_.confirmResign): v =>
+      _.copy(confirmResign = v)
   ).map: change =>
     change.field -> change
   .toMap

@@ -27,7 +27,6 @@ object PrefForm:
     number.verifying(Pref.BooleanPref.verify)
 
   object fields:
-    val autoQueen  = "autoQueen"  -> checkedNumber(Pref.AutoQueen.choices)
     val theme      = "theme"      -> text.verifying(Theme contains _)
     val theme3d    = "theme3d"    -> text.verifying(Theme3d contains _)
     val pieceSet   = "pieceSet"   -> text.verifying(PieceSet contains _)
@@ -37,10 +36,16 @@ object PrefForm:
     val bgImg = "bgImg" -> text(maxLength = 400).verifying { url =>
       url.isBlank || url.startsWith("https://") || url.startsWith("//")
     }
-    val is3d         = "is3d"         -> tolerantBoolean
-    val zen          = "zen"          -> checkedNumber(Pref.Zen.choices)
-    val voice        = "voice"        -> booleanNumber
-    val keyboardMove = "keyboardMove" -> booleanNumber
+    val is3d          = "is3d"          -> tolerantBoolean
+    val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
+    val voice         = "voice"         -> booleanNumber
+    val keyboardMove  = "keyboardMove"  -> booleanNumber
+    val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
+    val premove       = "premove"       -> booleanNumber
+    val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
+    val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
+    val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
+    val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -58,17 +63,16 @@ object PrefForm:
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
         "moveEvent" -> optional(numberIn(Set(0, 1, 2))),
-        "premove"   -> booleanNumber,
-        "takeback"  -> checkedNumber(Pref.Takeback.choices),
+        fields.premove,
+        fields.takeback,
         fields.autoQueen,
-        "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
-        "submitMove" -> optional:
+        fields.autoThreefold,
+        fields.submitMove.map2: mapping =>
           if lichobile then
             import Pref.SubmitMove.{ lichobile as compat }
-            numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp)
-          else bitCheckedNumber(Pref.SubmitMove.choices)
-        ,
-        "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+            optional(numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp))
+          else optional(mapping),
+        fields.confirmResign,
         fields.keyboardMove.map2(optional),
         fields.voice.map2(optional),
         "rookCastle" -> optional(booleanNumber)
