@@ -115,6 +115,7 @@
   <string name="openStudy">Åpne studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
+  <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Evalueringsmåler</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">Prosessorer</string>
