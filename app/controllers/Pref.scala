@@ -78,42 +78,29 @@ final class Pref(env: Env) extends LilaController(env):
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
       }
     else
-      setters
+      lila.pref.PrefSingleChange.changes
         .get(name)
-        .so: form =>
-          form
+        .so: change =>
+          change.form
             .bindFromRequest()
             .fold(
               form => fuccess(BadRequest(form.errors mkString "\n")),
               v =>
                 ctx.me
-                  .so(api.setPrefString(_, name, v))
-                  .inject(env.lilaCookie.session(name, v)(using ctx.req))
+                  .so(api.setPref(_, change.update(v)))
+                  .inject(env.lilaCookie.session(name, v.toString)(using ctx.req))
                   .map: cookie =>
                     Ok(()).withCookies(cookie)
             )
 
   def apiSet(name: String) = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
-    setters
+    lila.pref.PrefSingleChange.changes
       .get(name)
-      .so:
-        _.bindFromRequest()
+      .so: change =>
+        change.form
+          .bindFromRequest()
           .fold(
             jsonFormError,
-            v => api.setPrefString(me, name, v) inject NoContent
+            v => api.setPref(me, change.update(v)) inject NoContent
           )
   }
-
-  private lazy val setters: Map[String, Form[String]] = Map(
-    "theme"        -> forms.theme,
-    "pieceSet"     -> forms.pieceSet,
-    "theme3d"      -> forms.theme3d,
-    "pieceSet3d"   -> forms.pieceSet3d,
-    "soundSet"     -> forms.soundSet,
-    "bg"           -> forms.bg,
-    "bgImg"        -> forms.bgImg,
-    "is3d"         -> forms.is3d,
-    "zen"          -> forms.zen,
-    "voice"        -> forms.voice,
-    "keyboardMove" -> forms.keyboardMove
-  )
