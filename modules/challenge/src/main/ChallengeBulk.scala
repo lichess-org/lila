@@ -65,10 +65,11 @@ final class ChallengeBulkApi(
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
-    coll.one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false)) flatMapz { bulk =>
-      workQueue(bulk.by):
-        makePairings(bulk).void
-    }
+    coll
+      .one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false))
+      .flatMapz: bulk =>
+        workQueue(bulk.by):
+          makePairings(bulk).void
 
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz { bulk =>
@@ -112,9 +113,9 @@ final class ChallengeBulkApi(
         msgApi.onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .addEffect { nb =>
+      .addEffect: nb =>
         lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb)
-      } >> {
+      .logFailure(logger) >> {
       if bulk.startClocksAt.isDefined
       then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))
