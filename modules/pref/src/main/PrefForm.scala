@@ -4,6 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ numberIn, stringIn }
+import lila.common.Form.tolerantBoolean
 
 object PrefForm:
 
@@ -25,6 +26,27 @@ object PrefForm:
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
 
+  object fields:
+    val theme      = "theme"      -> text.verifying(Theme contains _)
+    val theme3d    = "theme3d"    -> text.verifying(Theme3d contains _)
+    val pieceSet   = "pieceSet"   -> text.verifying(PieceSet contains _)
+    val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d contains _)
+    val soundSet   = "soundSet"   -> text.verifying(SoundSet contains _)
+    val bg         = "bg"         -> stringIn(Pref.Bg.fromString.keySet)
+    val bgImg = "bgImg" -> text(maxLength = 400).verifying { url =>
+      url.isBlank || url.startsWith("https://") || url.startsWith("//")
+    }
+    val is3d          = "is3d"          -> tolerantBoolean
+    val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
+    val voice         = "voice"         -> booleanNumber
+    val keyboardMove  = "keyboardMove"  -> booleanNumber
+    val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
+    val premove       = "premove"       -> booleanNumber
+    val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
+    val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
+    val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
+    val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
+
   def pref(lichobile: Boolean) = Form(
     mapping(
       "display" -> mapping(
@@ -35,26 +57,25 @@ object PrefForm:
         "coords"        -> checkedNumber(Pref.Coords.choices),
         "replay"        -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
-        "zen"           -> optional(checkedNumber(Pref.Zen.choices)),
-        "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
+        fields.zen.map2(optional),
+        "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+        "blindfold"    -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
-        "moveEvent"     -> optional(numberIn(Set(0, 1, 2))),
-        "premove"       -> booleanNumber,
-        "takeback"      -> checkedNumber(Pref.Takeback.choices),
-        "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
-        "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
-        "submitMove" -> optional:
+        "moveEvent" -> optional(numberIn(Set(0, 1, 2))),
+        fields.premove,
+        fields.takeback,
+        fields.autoQueen,
+        fields.autoThreefold,
+        fields.submitMove.map2: mapping =>
           if lichobile then
             import Pref.SubmitMove.{ lichobile as compat }
-            numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp)
-          else bitCheckedNumber(Pref.SubmitMove.choices)
-        ,
-        "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
-        "keyboardMove"  -> optional(booleanNumber),
-        "voice"         -> optional(booleanNumber),
-        "rookCastle"    -> optional(booleanNumber)
+            optional(numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp))
+          else optional(mapping),
+        fields.confirmResign,
+        fields.keyboardMove.map2(optional),
+        fields.voice.map2(optional),
+        "rookCastle" -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
         "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
@@ -192,71 +213,3 @@ object PrefForm:
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
-
-  val theme = Form(
-    single(
-      "theme" -> text.verifying(Theme contains _)
-    )
-  )
-
-  val pieceSet = Form(
-    single(
-      "set" -> text.verifying(PieceSet contains _)
-    )
-  )
-
-  val theme3d = Form(
-    single(
-      "theme" -> text.verifying(Theme3d contains _)
-    )
-  )
-
-  val pieceSet3d = Form(
-    single(
-      "set" -> text.verifying(PieceSet3d contains _)
-    )
-  )
-
-  val soundSet = Form(
-    single(
-      "set" -> text.verifying(SoundSet contains _)
-    )
-  )
-
-  val bg = Form(
-    single(
-      "bg" -> stringIn(Pref.Bg.fromString.keySet)
-    )
-  )
-
-  // Allow blank image URL
-  val bgImg = Form(
-    single(
-      "bgImg" -> text(maxLength = 400)
-        .verifying { url => url.isBlank || url.startsWith("https://") || url.startsWith("//") }
-    )
-  )
-
-  val is3d = Form(
-    single(
-      "is3d" -> text.verifying(List("true", "false") contains _)
-    )
-  )
-
-  val zen = Form(
-    single(
-      "zen" -> text.verifying(Set("0", "1", "2") contains _)
-    )
-  )
-
-  val voice = Form(
-    single(
-      "voice" -> text.verifying(Set("0", "1") contains _)
-    )
-  )
-
-  val keyboardMove = Form(
-    single(
-      "keyboardMove" -> text.verifying(Set("0", "1") contains _)
-    )
-  )

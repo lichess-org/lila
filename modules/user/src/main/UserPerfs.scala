@@ -241,7 +241,8 @@ object UserPerfs:
       blitz = bot,
       rapid = bot,
       classical = bot,
-      correspondence = bot
+      correspondence = bot,
+      chess960 = bot
     )
 
   def variantLens(variant: chess.variant.Variant): Option[UserPerfs => Perf] =
