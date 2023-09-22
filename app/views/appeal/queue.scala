@@ -64,27 +64,20 @@ object queue:
       )
     )
 
-  private def filterMark(
-      filter: Option[Filter],
-      enabled: Filter => Boolean,
-      newFilter: Filter,
-      icon: licon.Icon
-  ) =
-    val goTo = filter.fold(newFilter.some)(_.toggle(newFilter))
-
-    filterLink(goTo, i(cls := List("appeal-filters--enabled" -> ~filter.map(enabled)), dataIcon := icon))
-
-  private def filterLink(goTo: Option[Filter], frag: Frag) =
-    a(href := appealRoutes.queue(goTo.map(_.key)))(frag)
-
-  private def filterMarks(filter: Option[Filter]) =
+  private def filterMarks(current: Option[Filter]) =
+    def filterLink(goTo: Option[Filter]) =
+      a(href := appealRoutes.queue(goTo.map(_.key)))
+    def filterMark(enabled: Filter => Boolean, newFilter: Filter, icon: licon.Icon) =
+      filterLink(current.fold(newFilter.some)(_.toggle(newFilter)))(
+        i(cls := List("appeal-filters--enabled" -> ~current.map(enabled)), dataIcon := icon)
+      )
     span(cls := "appeal-filters")(
-      filterMark(filter, _.troll, Filter.Troll, licon.BubbleSpeech),
-      filterMark(filter, _.boost, Filter.Boost, licon.LineGraph),
-      filterMark(filter, _.engine, Filter.Engine, licon.Cogs),
+      filterMark(_.troll, Filter.Troll, licon.BubbleSpeech),
+      filterMark(_.boost, Filter.Boost, licon.LineGraph),
+      filterMark(_.engine, Filter.Engine, licon.Cogs),
       filterLink(
-        filter.flatMap(_.toggle(Filter.Alt)),
+        current.flatMap(_.toggle(Filter.Alt)),
         i(cls := List("appeal-filters--enabled" -> ~filter.map(_.alt)))("A")
       ),
-      filterMark(filter, _.clean, Filter.Clean, licon.User)
+      filterMark(_.clean, Filter.Clean, licon.User)
     )

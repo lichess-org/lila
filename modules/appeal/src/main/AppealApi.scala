@@ -108,9 +108,9 @@ final class AppealApi(
 
   def filterSelector(filter: Appeal.Filter) =
     import User.BSONFields as F
-    filter match
-      case Appeal.Filter.Mark(mark) => $doc(F.marks $in List(mark.key))
-      case Appeal.Filter.Clean      => $doc(F.marks $nin UserMark.bannable)
+    filter.value match
+      case Some(mark) => $doc(F.marks $in List(mark.key))
+      case None       => $doc(F.marks $nin UserMark.bannable)
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void

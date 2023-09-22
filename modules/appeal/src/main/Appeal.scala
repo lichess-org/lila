@@ -88,38 +88,26 @@ object Appeal:
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Appeal.Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
-  enum Filter:
-    case Mark(mark: UserMark)
-    case Clean
+  opaque type Filter = Option[UserMark]
+  object Filter extends TotalWrapper[Filter, Option[UserMark]]:
+    extension (filter: Filter)
+      def toggle(to: Filter) = to != filter option to
+      def is(mark: UserMark) = filter.value.contains(mark)
+      def key                = filter.fold("clean")(_.key)
 
-  extension (filter: Filter)
-    def toggle(newFilter: Filter) =
-      newFilter != filter option newFilter
+      // def boost  = filter.has(UserMark.Boost)
+      // def engine = filter.has(UserMark.Engine)
+      // def troll  = filter.has(UserMark.Troll)
+      // def alt    = filter.has(UserMark.Alt)
+      // def clean  = filter.isEmpty
 
-    def is(mark: UserMark) = filter match
-      case Filter.Mark(m) => m == mark
-      case _              => false
+    // val Boost  = Filter.Mark(UserMark.Boost)
+    // val Engine = Filter.Mark(UserMark.Engine)
+    // val Troll  = Filter.Mark(UserMark.Troll)
+    // val Alt    = Filter.Mark(UserMark.Alt)
 
-    def key = filter match
-      case Filter.Mark(m) => m.key
-      case Filter.Clean   => filter.toString.toLowerCase
-
-    def boost  = filter.is(UserMark.Boost)
-    def engine = filter.is(UserMark.Engine)
-    def troll  = filter.is(UserMark.Troll)
-    def alt    = filter.is(UserMark.Alt)
-    def clean  = filter == Filter.Clean
-
-  object Filter:
-    val Boost  = Filter.Mark(UserMark.Boost)
-    val Engine = Filter.Mark(UserMark.Engine)
-    val Troll  = Filter.Mark(UserMark.Troll)
-    val Alt    = Filter.Mark(UserMark.Alt)
-
-    def apply(name: String): Option[Filter] =
-      if name.toLowerCase() == "clean"
-      then Filter.Clean.some
-      else UserMark.indexed.get(name).map(Filter.Mark.apply)
+    def byName(name: String): Filter =
+      Filter(UserMark.indexed.get(name.toLowerCase))
 
 case class AppealMsg(
     by: UserId,
