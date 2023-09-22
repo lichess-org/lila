@@ -193,70 +193,48 @@ object PrefForm:
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
 
-  val theme = Form(
-    single(
+  val theme = Form:
+    single:
       "theme" -> text.verifying(Theme contains _)
-    )
-  )
 
-  val pieceSet = Form(
-    single(
+  val pieceSet = Form:
+    single:
       "set" -> text.verifying(PieceSet contains _)
-    )
-  )
 
-  val theme3d = Form(
-    single(
+  val theme3d = Form:
+    single:
       "theme" -> text.verifying(Theme3d contains _)
-    )
-  )
 
-  val pieceSet3d = Form(
-    single(
+  val pieceSet3d = Form:
+    single:
       "set" -> text.verifying(PieceSet3d contains _)
-    )
-  )
 
-  val soundSet = Form(
-    single(
+  val soundSet = Form:
+    single:
       "set" -> text.verifying(SoundSet contains _)
-    )
-  )
 
-  val bg = Form(
-    single(
+  val bg = Form:
+    single:
       "bg" -> stringIn(Pref.Bg.fromString.keySet)
-    )
-  )
 
   // Allow blank image URL
-  val bgImg = Form(
-    single(
+  val bgImg = Form:
+    single:
       "bgImg" -> text(maxLength = 400)
         .verifying { url => url.isBlank || url.startsWith("https://") || url.startsWith("//") }
-    )
-  )
 
-  val is3d = Form(
-    single(
+  val is3d = Form:
+    single:
       "is3d" -> text.verifying(List("true", "false") contains _)
-    )
-  )
 
-  val zen = Form(
-    single(
+  val zen = Form:
+    single:
       "zen" -> text.verifying(Set("0", "1", "2") contains _)
-    )
-  )
 
-  val voice = Form(
-    single(
+  val voice = Form:
+    single:
       "voice" -> text.verifying(Set("0", "1") contains _)
-    )
-  )
 
-  val keyboardMove = Form(
-    single(
+  val keyboardMove = Form:
+    single:
       "keyboardMove" -> text.verifying(Set("0", "1") contains _)
-    )
-  )
