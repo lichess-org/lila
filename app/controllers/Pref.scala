@@ -6,6 +6,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.notify.NotificationPref
+import play.api.data.Form
 
 final class Pref(env: Env) extends LilaController(env):
 
@@ -79,31 +80,40 @@ final class Pref(env: Env) extends LilaController(env):
     else
       setters
         .get(name)
-        .so: (form, fn) =>
+        .so: form =>
           form
             .bindFromRequest()
             .fold(
               form => fuccess(BadRequest(form.errors mkString "\n")),
               v =>
-                fn(v, ctx).map: cookie =>
-                  Ok(()).withCookies(cookie)
+                ctx.me
+                  .so(api.setPrefString(_, name, v))
+                  .inject(env.lilaCookie.session(name, v)(using ctx.req))
+                  .map: cookie =>
+                    Ok(()).withCookies(cookie)
             )
 
-  private lazy val setters = Map(
-    "theme"        -> (forms.theme        -> save("theme")),
-    "pieceSet"     -> (forms.pieceSet     -> save("pieceSet")),
-    "theme3d"      -> (forms.theme3d      -> save("theme3d")),
-    "pieceSet3d"   -> (forms.pieceSet3d   -> save("pieceSet3d")),
-    "soundSet"     -> (forms.soundSet     -> save("soundSet")),
-    "bg"           -> (forms.bg           -> save("bg")),
-    "bgImg"        -> (forms.bgImg        -> save("bgImg")),
-    "is3d"         -> (forms.is3d         -> save("is3d")),
-    "zen"          -> (forms.zen          -> save("zen")),
-    "voice"        -> (forms.voice        -> save("voice")),
-    "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
-  )
+  def apiSet(name: String) = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
+    setters
+      .get(name)
+      .so:
+        _.bindFromRequest()
+          .fold(
+            jsonFormError,
+            v => api.setPrefString(me, name, v) inject NoContent
+          )
+  }
 
-  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
-    ctx.me so {
-      api.setPrefString(_, name, value)
-    } inject env.lilaCookie.session(name, value)(using ctx.req)
+  private lazy val setters: Map[String, Form[String]] = Map(
+    "theme"        -> forms.theme,
+    "pieceSet"     -> forms.pieceSet,
+    "theme3d"      -> forms.theme3d,
+    "pieceSet3d"   -> forms.pieceSet3d,
+    "soundSet"     -> forms.soundSet,
+    "bg"           -> forms.bg,
+    "bgImg"        -> forms.bgImg,
+    "is3d"         -> forms.is3d,
+    "zen"          -> forms.zen,
+    "voice"        -> forms.voice,
+    "keyboardMove" -> forms.keyboardMove
+  )
