@@ -284,7 +284,7 @@
   <string name="composeMessage">Soạn tin nhắn</string>
   <string name="subject">Chủ đề</string>
   <string name="send">Gửi</string>
-  <string name="incrementInSeconds">Tăng theo giây</string>
+  <string name="incrementInSeconds">Gia tăng theo giây</string>
   <string name="freeOnlineChess">Chơi Cờ Vua Trực Tuyến Miễn Phí</string>
   <plurals name="nbRated">
     <item quantity="other">%s tính elo</item>
