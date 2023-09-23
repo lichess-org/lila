@@ -796,8 +796,8 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   };
 
-  toggleVariationArrows = (v: boolean): void => {
-    this.variationArrowsProp(v);
+  toggleVariationArrows = (v?: boolean): void => {
+    this.variationArrowsProp(v ?? !this.variationArrowsProp());
     this.resetAutoShapes();
   };
 

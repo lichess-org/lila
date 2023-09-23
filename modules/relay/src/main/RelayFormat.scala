@@ -15,11 +15,8 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
   import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl
 
-  private val cache = cacheApi[UpstreamUrl.WithRound, RelayFormat](8, "relay.format") {
-    _.refreshAfterWrite(10 minutes)
-      .expireAfterAccess(20 minutes)
-      .buildAsyncFuture(guessFormat)
-  }
+  private val cache = cacheApi[UpstreamUrl.WithRound, RelayFormat](8, "relay.format"):
+    _.refreshAfterWrite(10 minutes).expireAfterAccess(20 minutes).buildAsyncFuture(guessFormat)
 
   def get(upstream: UpstreamUrl.WithRound): Fu[RelayFormat] = cache get upstream
 
@@ -69,6 +66,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
   private[relay] def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
+      .withFollowRedirects(false)
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res.body)

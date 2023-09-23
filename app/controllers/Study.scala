@@ -406,21 +406,19 @@ final class Study(
   )
 
   def pgn(id: StudyId) = Open:
-    PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
-      Found(env.study.api byId id): study =>
-        CanView(study) {
-          doPgn(study)
-        }(privateUnauthorizedFu(study), privateForbiddenFu(study))
+    Found(env.study.api byId id): study =>
+      if req.method == "HEAD" then NoContent.withDateHeaders(studyLastModified(study))
+      else
+        PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
+          CanView(study)(doPgn(study))(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
-        if ctx.req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
+        if req.method == "HEAD" then NoContent.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
-            CanView(study) {
-              doPgn(study)
-            }(privateUnauthorizedText, privateForbiddenText)
+            CanView(study)(doPgn(study))(privateUnauthorizedText, privateForbiddenText)
     }
 
   private def doPgn(study: StudyModel)(using RequestHeader) =

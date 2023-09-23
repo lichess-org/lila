@@ -3,6 +3,7 @@ $c-slider: $c-setup;
 
 .game-setup {
   width: 30em;
+  max-width: 96vw;
   padding: 0;
 
   text-align: center;
@@ -53,7 +54,7 @@ $c-slider: $c-setup;
 
     label {
       flex: 0 0 33%;
-      text-align: right;
+      text-align: $end-direction;
     }
 
     select {

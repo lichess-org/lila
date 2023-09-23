@@ -33,6 +33,8 @@ export const menu = (
     : undefined;
 
 export class BoardMenu {
+  anonymous = document.querySelector('body[data-user]') === null;
+
   constructor(
     readonly trans: Trans,
     readonly redraw: Redraw,
@@ -67,7 +69,8 @@ export class BoardMenu {
       id: 'voice',
       checked: toggle(),
       change: toggle,
-      disabled: !enabled,
+      title: this.anonymous ? 'Must be logged in' : '',
+      disabled: this.anonymous || !enabled,
     });
 
   keyboardInput = (toggle: Toggle, enabled = true) =>
@@ -76,7 +79,8 @@ export class BoardMenu {
       id: 'keyboard',
       checked: toggle(),
       change: toggle,
-      disabled: !enabled,
+      title: this.anonymous ? 'Must be logged in' : '',
+      disabled: this.anonymous || !enabled,
     });
 
   confirmMove = (toggle: Toggle, enabled = true) =>

@@ -32,11 +32,11 @@
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
     "ab": "github:lichess-org/ab-stub",
-    "chessground": "^9.0.3",
+    "chessground": "^9.0.4",
     "eslint": "^8.47.0",
     "lint-staged": "^14.0.0",
     "prettier": "^3.0.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2"
   },
   "scripts": {
     "format": "prettier --write --log-level warn .",
