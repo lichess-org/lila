@@ -214,7 +214,9 @@ export default new (class implements SoundI {
           })
           .catch(resolve);
       });
-    return this.ctx?.state === 'running';
+    if (this.ctx?.state !== 'running') return false;
+    $('#warn-no-autoplay').removeClass('shown');
+    return true;
   }
 
   primer = () => {
