@@ -113,9 +113,8 @@ final class ChallengeBulkApi(
         msgApi.onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .addEffect: nb =>
-        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb)
-      .logFailure(logger) >> {
+      .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(_))
+      .logFailure(logger, e => s"Bulk.makePairings ${bulk._id} ${e.getMessage}") >> {
       if bulk.startClocksAt.isDefined
       then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))
