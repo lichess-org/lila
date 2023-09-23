@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import Appeal.Filter
 import lila.report.Report.Inquiry
+import lila.user.UserMark
 
 object queue:
 
@@ -65,19 +66,8 @@ object queue:
     )
 
   private def filterMarks(current: Option[Filter]) =
-    def filterLink(goTo: Option[Filter]) =
-      a(href := appealRoutes.queue(goTo.map(_.key)))
-    def filterMark(enabled: Filter => Boolean, newFilter: Filter, icon: licon.Icon) =
-      filterLink(current.fold(newFilter.some)(_.toggle(newFilter)))(
-        i(cls := List("appeal-filters--enabled" -> ~current.map(enabled)), dataIcon := icon)
-      )
-    span(cls := "appeal-filters")(
-      filterMark(_.troll, Filter.Troll, licon.BubbleSpeech),
-      filterMark(_.boost, Filter.Boost, licon.LineGraph),
-      filterMark(_.engine, Filter.Engine, licon.Cogs),
-      filterLink(
-        current.flatMap(_.toggle(Filter.Alt)),
-        i(cls := List("appeal-filters--enabled" -> ~filter.map(_.alt)))("A")
-      ),
-      filterMark(_.clean, Filter.Clean, licon.User)
-    )
+    span(cls := "appeal-filters"):
+      Filter.allWithIcon.map: (filter, icon) =>
+        a(href := appealRoutes.queue(current.fold(filter.some)(_.toggle(filter)).map(_.key))):
+          i(cls := List("appeal-filters--enabled" -> current.has(filter)), dataIcon := icon.left.toOption):
+            icon.toOption

@@ -3,6 +3,7 @@ package lila.appeal
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.{ User, UserMark }
+import lila.common.licon
 
 case class Appeal(
     @Key("_id") id: Appeal.Id,
@@ -90,24 +91,20 @@ object Appeal:
 
   opaque type Filter = Option[UserMark]
   object Filter extends TotalWrapper[Filter, Option[UserMark]]:
+    given Eq[Filter] = Eq.fromUniversalEquals
     extension (filter: Filter)
       def toggle(to: Filter) = to != filter option to
       def is(mark: UserMark) = filter.value.contains(mark)
       def key                = filter.fold("clean")(_.key)
 
-      // def boost  = filter.has(UserMark.Boost)
-      // def engine = filter.has(UserMark.Engine)
-      // def troll  = filter.has(UserMark.Troll)
-      // def alt    = filter.has(UserMark.Alt)
-      // def clean  = filter.isEmpty
-
-    // val Boost  = Filter.Mark(UserMark.Boost)
-    // val Engine = Filter.Mark(UserMark.Engine)
-    // val Troll  = Filter.Mark(UserMark.Troll)
-    // val Alt    = Filter.Mark(UserMark.Alt)
-
-    def byName(name: String): Filter =
-      Filter(UserMark.indexed.get(name.toLowerCase))
+    val allWithIcon = List[(Filter, Either[licon.Icon, String])](
+      UserMark.Troll.some  -> Left(licon.BubbleSpeech),
+      UserMark.Boost.some  -> Left(licon.LineGraph),
+      UserMark.Engine.some -> Left(licon.Cogs),
+      UserMark.Alt.some    -> Right("A"),
+      none                 -> Left(licon.User)
+    )
+    def byName(name: String): Filter = Filter(UserMark.indexed.get(name.toLowerCase))
 
 case class AppealMsg(
     by: UserId,
