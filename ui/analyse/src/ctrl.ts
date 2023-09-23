@@ -784,7 +784,7 @@ export default class AnalyseCtrl {
     return (
       !isTouchDevice() &&
       !chap?.practice &&
-      !chap?.conceal &&
+      chap?.conceal === undefined &&
       !chap?.gamebook &&
       this.variationArrowsProp() &&
       this.node.children.length > 1
