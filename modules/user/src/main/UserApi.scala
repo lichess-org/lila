@@ -28,8 +28,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def noCache(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       fetch(userIds.toPair, perfType)
 
-    def loggedIn(ids: ByColor[UserId], perfType: PerfType): Fu[Option[ByColor[User.WithPerf]]] =
-      apply(ids.map(some), perfType).map:
+    def loggedIn(
+        ids: ByColor[UserId],
+        perfType: PerfType,
+        useCache: Boolean = true
+    ): Fu[Option[ByColor[User.WithPerf]]] =
+      val users =
+        if useCache then apply(ids.map(some), perfType)
+        else fetch(ids.map(some).toPair, perfType)
+      users.map:
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
 
