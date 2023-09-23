@@ -87,16 +87,17 @@ final class AppealApi(
         import framework.*
         Match(selector) -> List(
           Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
-          Limit(nb),
+          Limit(nb * 20),
           PipelineOperator(
             $lookup.pipeline(
               from = userRepo.coll,
               as = "user",
               local = "_id",
               foreign = "_id",
-              pipe = filter.fold(Nil)(f => List($doc("$match" -> filterSelector(f))))
+              pipe = filter.so(f => List($doc("$match" -> filterSelector(f))))
             )
           ),
+          Limit(nb),
           UnwindField("user")
         )
       .map: docs =>
