@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Coursen</string>
+  <string name="features">Funktiounen</string>
   <string name="freeForAllForever">100 % gratis fir jiddereen, fir ëmmer, ouni Reklammen oder Trackeren</string>
   <string name="applyToBeLichessTeacher">Bewerb dech als Lichess-Enseignant</string>
   <string name="noClassesYet">Nach keng Coursen.</string>
@@ -96,7 +97,10 @@ Doduerch gëtt eng hotizontal Linn ugewisen.</string>
   <string name="youDeclinedThisInvitation">Du hues dës Invitatioun ofgeleent.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>
   <string name="createMultipleAccounts">E puer Liches-Konten op eng Kéier uleeën</string>
-  <string name="createMoreClasses" comment="Link text in maxStudentsNote">weider Coursen uleeën</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kanns och %s, fir eng ganz Rei vu Lichess-Konte aus enger Lëscht vu Schülernimm ze erstellen.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dëse Formulaire benotzen</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">E Cours ka just bis zu %1$s Schüler hunn. Fir méi Schüler ze verwalten, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">lee weider Coursen un</string>
   <string name="studentsRealNamesOnePerLine">Richtegen Numm vun de Schüler, ee pro Zeil</string>
   <string name="xisNowAStudentOfTheClass">De Benotzer %s ass lo ee Schüler vum Cours</string>
   <string name="anInvitationHasBeenSentToX">Et gouf eng Invitatioun geschéckt un de Benotzer %s</string>

@@ -79,6 +79,7 @@ object help:
           localAnalysis,
           row(kbd("z"), trans.toggleAllAnalysis()),
           row(kbd("a"), trans.bestMoveArrow()),
+          row(kbd("v"), "Toggle variation arrows"),
           row(kbd("e"), trans.openingEndgameExplorer()),
           row(frag(kbd("shift"), kbd("space")), trans.playFirstOpeningEndgameExplorerMove()),
           row(kbd("r"), trans.keyRequestComputerAnalysis()),
@@ -113,14 +114,10 @@ object help:
 
   def analyseVariationArrow(using Lang) =
     div(cls := "help-ephemeral")(
-      p("Variation arrows allow navigation without using the move list."),
-      p(
-        "The '",
-        strong("Show variation arrows"),
-        "' toggle in the hamburger menu turns them off."
-      ),
+      p("Variation arrows let you navigate without using the move list."),
       table(
         tbody(
+          row(kbd("v"), "Toggle variation arrows"),
           row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), "Cycle selected variation"),
           row(kbd("→"), "play selected move"),
           row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),

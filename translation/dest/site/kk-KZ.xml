@@ -115,6 +115,7 @@
   <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қосулы</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
+  <string name="showVariationArrows">Тармақта нұсқағышты көрсету</string>
   <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
@@ -387,8 +388,8 @@
   <string name="xStartedStreaming">%s стрим бастады</string>
   <string name="averageElo">Орташа рейтинг</string>
   <string name="location">Аймақ</string>
-  <string name="filterGames">Ойындарды іріктеу</string>
-  <string name="reset">Қалпына келтіру</string>
+  <string name="filterGames">Ойын сүзгі</string>
+  <string name="reset">Қайтару</string>
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
