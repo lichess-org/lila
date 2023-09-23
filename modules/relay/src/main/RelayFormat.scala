@@ -66,6 +66,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
   private[relay] def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
+      .withFollowRedirects(false)
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res.body)
