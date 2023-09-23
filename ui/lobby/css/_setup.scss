@@ -54,7 +54,7 @@ $c-slider: $c-setup;
 
     label {
       flex: 0 0 33%;
-      text-align: right;
+      text-align: $end-direction;
     }
 
     select {

@@ -3,8 +3,8 @@ dialog {
   position: fixed;
   max-height: 100%;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  #{$start-direction}: 50%;
+  transform: translate($transform-direction * -50%, -50%);
   z-index: z('modal');
   padding: 0;
   border: none;
