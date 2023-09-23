@@ -3,6 +3,7 @@ import AnalyseCtrl from './ctrl';
 import { path as treePath } from 'tree';
 
 export function next(ctrl: AnalyseCtrl): void {
+  if (ctrl.retro?.preventGoingToNextMove()) return;
   if (ctrl.fork.proceed()) return;
   const child = ctrl.node.children[0];
   if (child) ctrl.userJumpIfCan(ctrl.path + child.id);
