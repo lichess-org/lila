@@ -19,7 +19,7 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([, uci], i) => {
-    shapes.push({
+    shapes.unshift({
       orig: from(uci),
       dest: to(uci),
       brush: `v-grey`,
@@ -27,12 +27,11 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
       label: choices.length > 1 ? { text: `${i + 1}` } : undefined,
     });
   });
-  if (timer) {
-    shapes[0].customSvg = {
+  if (timer)
+    shapes[shapes.length - 1].customSvg = {
       center: choices.length > 1 ? 'label' : 'orig',
       html: timerShape(timer, choices.length > 1 ? 'grey' : 'white', 0.6),
     };
-  }
   return shapes;
 }
 
@@ -41,16 +40,18 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([c, uci]) => {
-    shapes.push({
+    shapes.unshift({
       orig: from(uci),
       dest: to(uci),
       brush: `v-${c}`,
       modifiers: { hilite: uci === preferred },
     });
   });
-  if (timer) {
-    shapes[0].customSvg = { center: 'orig', html: timerShape(timer, brushes.values().next().value.color) };
-  }
+  if (timer)
+    shapes[shapes.length - 1].customSvg = {
+      center: 'orig',
+      html: timerShape(timer, brushes.values().next().value.color),
+    };
   return shapes;
 }
 
