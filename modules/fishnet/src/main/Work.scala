@@ -24,7 +24,7 @@ sealed trait Work:
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
   def isAcquired                   = acquired.isDefined
   def nonAcquired                  = !isAcquired
-  def canAcquire(client: Client)   = lastTryByKey.fold(true)(client.key !=)
+  def canAcquire(client: Client)   = lastTryByKey.forall(client.key !=)
 
   def acquiredBefore(date: Instant) = acquiredAt.so(_ isBefore date)
 

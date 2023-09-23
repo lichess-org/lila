@@ -25,7 +25,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
         .one[Bdoc]
         .map:
           _.flatMap: doc =>
-            if doc.getAsOpt[Instant]("date").fold(true)(_ isBefore nowInstant.minusHours(12)) then
+            if doc.getAsOpt[Instant]("date").forall(_ isBefore nowInstant.minusHours(12)) then
               coll.updateFieldUnchecked($id(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
 

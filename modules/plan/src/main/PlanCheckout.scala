@@ -39,10 +39,10 @@ final class PlanCheckoutForm(lightUserApi: lila.user.LightUserApi):
       "amount" -> PlanCheckout.amountField(pricing),
       "freq"   -> nonEmptyText,
       "gift" -> optional(lila.user.UserForm.historicalUsernameField)
-        .verifying("Unknown receiver", n => n.fold(true) { blockingFetchUser(_).isDefined })
+        .verifying("Unknown receiver", n => n.forall { blockingFetchUser(_).isDefined })
         .verifying(
           "Receiver is already a Patron",
-          n => n.fold(true) { blockingFetchUser(_).fold(true)(!_.isPatron) }
+          n => n.forall { blockingFetchUser(_).fold(true)(!_.isPatron) }
         )
     )(make(pricing.currency))(_ => none)
   )

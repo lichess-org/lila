@@ -26,7 +26,7 @@ final case class ApiConfig(
   def validFen = ApiConfig.validFen(variant, position)
 
   def validSpeed(isBot: Boolean) =
-    !isBot || clock.fold(true): c =>
+    !isBot || clock.forall: c =>
       Speed(c) >= Speed.Bullet
 
   def validRated = mode.casual || clock.isDefined || variant.standard

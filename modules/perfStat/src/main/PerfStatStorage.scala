@@ -88,14 +88,13 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
     (getter(a) != getter(b)) so streakHandler.writeOpt(getter(b))
 
   private def ratingAtDiff(a: PerfStat, b: PerfStat)(getter: PerfStat => Option[RatingAt]): Option[Bdoc] =
-    getter(b) so { r =>
-      getter(a).fold(true)(_ != r) so ratingAtHandler.writeOpt(r)
-    }
+    getter(b).so: r =>
+      getter(a).forall(_ != r) so ratingAtHandler.writeOpt(r)
 
   private def docDiff[T: BSONDocumentWriter](a: T, b: T): Map[String, BSONValue] =
     val (am, bm) = (docMap(a), docMap(b))
     bm collect {
-      case (field, v) if am.get(field).fold(true)(_ != v) => field -> v
+      case (field, v) if am.get(field).forall(_ != v) => field -> v
     }
 
   private def docMap[T](a: T)(using writer: BSONDocumentWriter[T]) =

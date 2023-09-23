@@ -246,8 +246,8 @@ final class Study(
         Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
-    ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
-    ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
+    ctx.noKid && ctx.noBot &&                // no public chats for kids and bots
+    ctx.me.forall(env.chat.panic.allowed(_)) // anon can see public chats
   } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
     .mon(_.chat.fetch("study"))

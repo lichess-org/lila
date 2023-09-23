@@ -29,7 +29,7 @@ final class Report(
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
-    if Room(room).fold(true)(Room.isGranted)
+    if Room(room).forall(Room.isGranted)
     then renderList(room)
     else notFound
   }
