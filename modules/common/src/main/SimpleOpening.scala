@@ -42,7 +42,7 @@ object SimpleOpening:
       LilaOpeningFamily(ref.family.key into LilaOpeningFamily.Key).fold(acc): fam =>
         val op   = SimpleOpening(ref, nameOf(ref), fam)
         val prev = acc get op.key
-        if prev.fold(true)(_.nbMoves > op.nbMoves) then acc.updated(op.key, op)
+        if prev.forall(_.nbMoves > op.nbMoves) then acc.updated(op.key, op)
         else acc
 
   lazy val openingList = openings.values.toList.sortBy(_.name.value)

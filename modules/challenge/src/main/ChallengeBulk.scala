@@ -65,10 +65,11 @@ final class ChallengeBulkApi(
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
-    coll.one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false)) flatMapz { bulk =>
-      workQueue(bulk.by):
-        makePairings(bulk).void
-    }
+    coll
+      .one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false))
+      .flatMapz: bulk =>
+        workQueue(bulk.by):
+          makePairings(bulk).void
 
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz { bulk =>
@@ -87,7 +88,7 @@ final class ChallengeBulkApi(
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType) map2 { users =>
+        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType, useCache = false) map2 { users =>
           (game.id, users)
         }
       .mapConcat(_.toList)
@@ -107,14 +108,19 @@ final class ChallengeBulkApi(
           .start
         (game, users)
       .mapAsyncUnordered(8): (game, users) =>
-        gameRepo.insertDenormalized(game) andDo onStart(game.id) inject (game, users)
+        gameRepo
+          .insertDenormalized(game)
+          .recover(e => logger.error(s"Bulk.insertGame ${game.id} ${e.getMessage}"))
+          .andDo(onStart(game.id))
+          .inject(game -> users)
       .mapAsyncUnordered(8): (game, users) =>
-        msgApi.onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
+        msgApi
+          .onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
+          .recover(e => logger.error(s"Bulk.sendMsg ${game.id} ${e.getMessage}"))
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .addEffect { nb =>
-        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb)
-      } >> {
+      .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(_))
+      .logFailure(logger, e => s"Bulk.makePairings ${bulk._id} ${e.getMessage}") >> {
       if bulk.startClocksAt.isDefined
       then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))

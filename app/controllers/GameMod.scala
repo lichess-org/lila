@@ -38,7 +38,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .recentGamesFromSecondaryCursor(select)
       .documentSource(10_000)
       .filter: game =>
-        filter.perf.fold(true)(game.perfKey ==)
+        filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
       .mapConcat { lila.game.Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)

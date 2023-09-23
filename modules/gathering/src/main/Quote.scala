@@ -1578,6 +1578,46 @@ object Quote:
     Quote("Chess as a game is too serious; as a serious pursuit too frivolous.", "Moses Mendelssohn"),
     Quote("Chess makes me a better person", "Albert Badosa"),
     Quote(
+      "Formerly I played to amuse myself, then to study, but now I play to create.",
+      "Vera Menchik"
+    ),
+    Quote(
+      "Losing is no catastrophe, it's a challenge to improve.",
+      "Mariya Muzychuk"
+    ),
+    Quote(
+      "The main thing is to set yourself a goal and to do everything in your power to achieve it. Remember that every moment has value, every minute is important. No one knows what life will bring; but the main thing is that, in the end, you will know that you tried, and that you made the effort to become better every day.",
+      "Alexandra Kosteniuk"
+    ),
+    Quote(
+      "Of course, it would be absurd to say that I have no talent and did little work on chess, however, the most important thing is that I love chess so much.",
+      "Xie Jun"
+    ),
+    Quote(
+      "Perhaps this is the side-effect of progress made: The more you know, the more you realize how weak you are.",
+      "Xie Jun"
+    ),
+    Quote(
+      "To be honest, when I am reflective and consider myself, I think that indeed Nona Gaprindashvili understands only chess, and I cannot imagine my life without chess.",
+      "Nona Gaprindashvili"
+    ),
+    Quote(
+      "...it is due to chess that I was able to undergo my own self-realization and become truly content.",
+      "Nona Gaprindashvili"
+    ),
+    Quote(
+      "Every chess player likes attacking play.",
+      "Zhu Chen"
+    ),
+    Quote(
+      "I don't think so much in general terms like best achievement, best game ever or best tournament. I try to play chess, enjoy it and of course if I win, I enjoy it more.",
+      "Antoaneta Stefanova"
+    ),
+    Quote(
+      "...if you lose it's not the end of the world.",
+      "Hou Yifan"
+    ),
+    Quote(
       "Success in chess requires many factors such as environment, hard practice, coach, talent... When we are children, we should not set the goal of becoming a super grandmaster. Do not play chess because of pressure, let chess become your joy and success will come naturally.",
       "Lê Quang Liêm"
     ),
@@ -1593,6 +1633,46 @@ object Quote:
     Quote(
       "You can become a big master in chess only if you see your mistakes and shortcomings. Exactly the same as in life itself.",
       "Alexander Alekhine"
+    ),
+    Quote(
+      "The beauty of chess is how it absorbs your mind, demands all your attention... because every move is a problem to be solved.",
+      "Irina Krush"
+    ),
+    Quote(
+      "Life has its ups and downs and how we react and cope with them makes the difference. That is one lesson chess has taught me.",
+      "Humpy Koneru"
+    ),
+    Quote(
+      "When you finish a game, you are very happy and you feel like a king, but afterwards you see so many mistakes.",
+      "Pia Cramling"
+    ),
+    Quote(
+      "When I started chess, it was like reading a book, a new world opens up for you, and I quickly realized that I loved this world. I loved to compete, to play, to win.",
+      "Pia Cramling"
+    ),
+    Quote(
+      "I think it's very important to be inclusive, especially because that's part of the beauty of our game. It allows so many different people of different ages and from all over the world to come together, and we should leverage that strength.",
+      "Jennifer Shahade"
+    ),
+    Quote(
+      "...fall in love with the process, not the results.",
+      "Jennifer Shahade"
+    ),
+    Quote(
+      "Chess is not just a game but a culture and a way to connect with people, past and present, who may seem so different from us on the surface.",
+      "Jennifer Shahade"
+    ),
+    Quote(
+      "Especially in my youngest years, the beauty of chess had priority for me over winning a game. But I had to learn that in this sport, achievement is much more important than the beauty of chess.",
+      "Judit Polgar"
+    ),
+    Quote(
+      "When I became the World Champion I got 900 roubles and it's just ridiculous. I have 5 golden medals from World Championships, 11 Olympic medals; I won many tournaments and didn't earn anything.",
+      "Nona Gaprindashvili"
+    ),
+    Quote(
+      "The good thing about chess is that everyone can learn how to play at any age.",
+      "Mariya Muzychuk"
     ),
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),

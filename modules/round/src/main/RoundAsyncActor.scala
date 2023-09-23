@@ -483,7 +483,7 @@ object RoundAsyncActor:
 
     def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
 
-    def offerable = lastDeclined.fold(true) { _ isBefore nowInstant.minusSeconds(delaySeconds) }
+    def offerable = lastDeclined.forall { _ isBefore nowInstant.minusSeconds(delaySeconds) }
 
     def reset = takebackSituationZero.zero
 

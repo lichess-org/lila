@@ -1,15 +1,12 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
-.game-setup#modal-wrap {
-  display: block;
+.game-setup {
   width: 30em;
-  text-align: center;
+  max-width: 96vw;
+  padding: 0;
 
-  > div {
-    padding: 0;
-    max-height: 96vh;
-  }
+  text-align: center;
 
   h2 {
     margin: 1.5rem 0;
@@ -55,14 +52,9 @@ $c-slider: $c-setup;
   .label-select {
     @extend %flex-center;
 
-    &.variant {
-      margin-bottom: 1em;
-      padding-bottom: 0;
-    }
-
     label {
       flex: 0 0 33%;
-      text-align: right;
+      text-align: $end-direction;
     }
 
     select {
@@ -91,45 +83,9 @@ $c-slider: $c-setup;
     border-radius: 0.5em;
   }
 
-  .range {
-    padding-top: 1em;
-
-    span {
-      font-weight: bold;
-    }
-
-    input {
-      font-size: 1.5em;
-      margin-top: 0.5em;
-      padding: 0;
-      width: 90%;
-    }
-  }
-
-  .rating-range {
-    @extend %flex-center-nowrap;
-    justify-content: center;
-    .rating-min,
-    .rating-max {
-      flex: 0 0 7ch;
-    }
-    input {
-      width: 30%;
-      padding: 0.6em 0;
-    }
-  }
-
-  .ratings {
-    padding: 1em;
-    width: 100%;
-    text-align: center;
-    strong {
-      margin-#{$end-direction}: 0.25em;
-    }
-  }
-
   .color-submits {
     display: flex;
+    flex-flow: row nowrap;
     align-items: flex-end;
     justify-content: center;
     margin: 1em auto;
@@ -180,6 +136,50 @@ $c-slider: $c-setup;
       width: 85px;
       height: 85px;
       margin: 10px auto 20px auto;
+    }
+  }
+
+  .label-select {
+    &.variant {
+      margin-bottom: 1em;
+      padding-bottom: 0;
+    }
+  }
+
+  .range {
+    padding-top: 1em;
+
+    span {
+      font-weight: bold;
+    }
+
+    input {
+      font-size: 1.5em;
+      margin-top: 0.5em;
+      padding: 0;
+      width: 90%;
+    }
+  }
+
+  .rating-range {
+    @extend %flex-center-nowrap;
+    justify-content: center;
+    .rating-min,
+    .rating-max {
+      flex: 0 0 7ch;
+    }
+    input {
+      width: 30%;
+      padding: 0.6em 0;
+    }
+  }
+
+  .ratings {
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+    strong {
+      margin-#{$end-direction}: 0.25em;
     }
   }
 }

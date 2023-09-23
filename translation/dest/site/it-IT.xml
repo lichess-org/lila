@@ -115,6 +115,7 @@
   <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
+  <string name="showVariationArrows">Mostra le frecce delle varianti</string>
   <string name="evaluationGauge">Indicatore di valutazione del vantaggio</string>
   <string name="multipleLines">Varianti multiple</string>
   <string name="cpus">Processori</string>

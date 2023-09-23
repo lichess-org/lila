@@ -283,7 +283,7 @@ lazy val opening = module("opening",
 
 lazy val gathering = module("gathering",
   Seq(history),
-  Seq.empty
+  tests.bundle
 )
 
 lazy val tournament = module("tournament",

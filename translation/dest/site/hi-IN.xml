@@ -804,7 +804,7 @@
   <string name="advantage">लाभ</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंड</item>
-    <item quantity="other">%s सेकंड समय बचे है ।</item>
+    <item quantity="other">%s सेकंड</item>
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>

@@ -119,6 +119,7 @@
   <string name="openStudy">Otevřít studii</string>
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
+  <string name="showVariationArrows">Zobrazit šipky variant</string>
   <string name="evaluationGauge">Měřítko hodnocení</string>
   <string name="multipleLines">Počet variant</string>
   <string name="cpus">Procesor(y)</string>

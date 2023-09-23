@@ -14,7 +14,7 @@
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư, trong các bài đăng nháp của bạn</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="other">Đã đăng %s bài</item>
+    <item quantity="other">Đã đăng %s bài Blog</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="other">%s lượt xem</item>
@@ -24,7 +24,7 @@
   <string name="thisIsADraft">Nó là một bản nháp</string>
   <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
   <string name="noPostsInThisBlogYet">Chưa có bài viết nào trong blog này.</string>
-  <string name="noDrafts">Không có bản nháp nào để hiển thị</string>
+  <string name="noDrafts">Không có bài nháp nào để hiển thị.</string>
   <string name="latestBlogPosts">Các bài blog mới nhất</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">Xem tất cả %s bài đăng</item>

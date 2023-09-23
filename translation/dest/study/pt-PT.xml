@@ -60,11 +60,11 @@
   <string name="shareAndExport">Partilhar &amp; exportar</string>
   <string name="cloneStudy">Clonar</string>
   <string name="studyPgn">PGN do estudo</string>
-  <string name="downloadAllGames">Descarregar todas as partidas</string>
+  <string name="downloadAllGames">Transferir todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="copyChapterPgn">Copiar PGN</string>
   <string name="copyChapterPgnDescription">Copiar capítulo PGN para área de transferência.</string>
-  <string name="downloadGame">Descarregar partida</string>
+  <string name="downloadGame">Transferir partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
   <string name="youCanPasteThisInTheForumToEmbed">Podes colocar isto no fórum para o incorporares</string>

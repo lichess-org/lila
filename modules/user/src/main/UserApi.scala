@@ -28,8 +28,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def noCache(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       fetch(userIds.toPair, perfType)
 
-    def loggedIn(ids: ByColor[UserId], perfType: PerfType): Fu[Option[ByColor[User.WithPerf]]] =
-      apply(ids.map(some), perfType).map:
+    def loggedIn(
+        ids: ByColor[UserId],
+        perfType: PerfType,
+        useCache: Boolean = true
+    ): Fu[Option[ByColor[User.WithPerf]]] =
+      val users =
+        if useCache then apply(ids.map(some), perfType)
+        else fetch(ids.map(some).toPair, perfType)
+      users.map:
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
 
@@ -64,11 +71,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[User.WithPerf]] =
     withPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+  def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[User.WithPerfs]] =
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
-        .aggregateList(Int.MaxValue, readPref): framework =>
+        .aggregateList(Int.MaxValue, _.autoTemp(ids)): framework =>
           import framework.*
           Match($inIds(ids)) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
@@ -154,7 +161,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .aggregateList(max, _.priTemp): framework =>
         import framework.*
         Match($inIds(ids) ++ userRepo.botWithBioSelect) -> List(
-          Sort(Descending(User.BSONFields.roles), Descending(User.BSONFields.seenAt)),
+          Sort(Descending(User.BSONFields.roles), Descending(User.BSONFields.playTimeTotal)),
           Limit(max),
           PipelineOperator(perfsRepo.aggregate.lookup)
         )

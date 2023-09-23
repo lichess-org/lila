@@ -65,6 +65,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
     "max" $gte f"${angle.key}${sep}${tier}${sep}${rating.min}%04d"
   )
 
-  def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
-    _.fold(true)(_ < nowInstant.minusDays(1).toMillis)
-  }
+  def isStale = colls
+    .path(_.primitiveOne[Long]($empty, "gen"))
+    .map:
+      _.forall(_ < nowInstant.minusDays(1).toMillis)

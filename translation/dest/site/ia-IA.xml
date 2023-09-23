@@ -64,7 +64,7 @@
   <string name="forceVariation">Fortiar variantes</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Victoria per variante</string>
+  <string name="variantWin">Victoria per variante</string>
   <string name="insufficientMaterial">Material insufficiente</string>
   <string name="pawnMove">Movimento de pedon</string>
   <string name="capture">Captura</string>
@@ -706,11 +706,11 @@
   <string name="waitingForAnalysis">Attendente le analyse</string>
   <string name="noMistakesFoundForWhite">Nulle errores trovate pro le blanco</string>
   <string name="noMistakesFoundForBlack">Nulle errores trovate pro le nigro</string>
-  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Le revision del errores del blanco ha concludite</string>
-  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Le revision del errores del nigro ha concludite</string>
+  <string name="doneReviewingWhiteMistakes">Le revision del errores del blanco ha concludite</string>
+  <string name="doneReviewingBlackMistakes">Le revision del errores del nigro ha concludite</string>
   <string name="doItAgain">Facer de novo</string>
-  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Revider le errores del blanco</string>
-  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Revider le errores del nigro</string>
+  <string name="reviewWhiteMistakes">Revider le errores del blanco</string>
+  <string name="reviewBlackMistakes">Revider le errores del nigro</string>
   <string name="advantage">Avantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>

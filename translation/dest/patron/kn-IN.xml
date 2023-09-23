@@ -60,7 +60,7 @@
   <string name="nextPayment">ಮುಂದಿನ ಪಾವತಿ</string>
   <string name="youWillBeChargedXOnY">%2$s ನಲ್ಲಿ ನಿಮಗೆ %1$s ಶುಲ್ಕ ವಿಧಿಸಲಾಗುತ್ತದೆ.</string>
   <string name="makeAdditionalDonation">ಹೆಚ್ಚುವರಿ ದೇಣಿಗೆ ನೀಡಿ</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;Gift here is used as a verb. Allows players to donate in another player's name, and have that player receive patron wings.">ಯಾರಿಗಾದರೂ ಪೋಷಕ ರೆಕ್ಕೆಗಳನ್ನು ಉಡುಗೊರೆಯಾಗಿ ನೀಡಿ</string>
+  <string name="giftPatronWingsShort">ಯಾರಿಗಾದರೂ ಪೋಷಕ ರೆಕ್ಕೆಗಳನ್ನು ಉಡುಗೊರೆಯಾಗಿ ನೀಡಿ</string>
   <string name="giftPatronWings">ಆಟಗಾರನಿಗೆ ಪೋಷಕ ರೆಕ್ಕೆಗಳನ್ನು ಉಡುಗೊರೆಯಾಗಿ ನೀಡಿ</string>
   <string name="update">ನವೀಕರಿಸಿ</string>
   <string name="changeMonthlyAmount">ಮಾಸಿಕ ಮೊತ್ತವನ್ನು ಬದಲಾಯಿಸಿ (%s)</string>

@@ -53,6 +53,7 @@
 Көп жағдайда бұны автоматты түрде шешу қиын. Әдетте біз уақытты кетірмеген ойыншыны қолдаймыз.
 
 Бір атпен не пілмен мат қою мүмкін екенін ескертеміз. Ол үшін қарсыластың өз патшасына бөгет болып тұратын тасы болуы шарт.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE нұсқаулығы</string>
   <string name="fideHandbookX">FIDE анықтамалығының %s</string>
   <string name="discoveringEnPassant">Бір сарбаз, қасынан басқа сарбаз өтіп болғанда, оны неге басып алуға қабілетті (жолай басу)?</string>
   <string name="explainingEnPassant">Бұл ережеге сай \"жолай басу\" жүрісі. Википедия мақаласында %1$s беріп тұр.
@@ -66,7 +67,7 @@
   <string name="lichessTraining">Личес жаттығулары</string>
   <string name="watchIMRosenCheckmate">Халықаралық Шебер Эрик Розын матын қарау %s.</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
-  <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 (d) бабында жазылғандай, FIDE ережесін ұстанады.</string>
+  <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 бабында жазылғандай, FIDE ережесін ұстанады.</string>
   <string name="threefoldRepetitionLowerCase">үш реттік қайталану</string>
   <string name="notRepeatedMoves">Біз жүрістерді қайталамадық. Ойын неге қайталанудан тепе-теңдік болып аяқталды?</string>
   <string name="repeatedPositionsThatMatters">Үш реттік қайталану деп %1$sн меңзейді, жүрістерді емес. Қайталану бірінен соң бірі болу міндетті емес.</string>

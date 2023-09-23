@@ -54,6 +54,7 @@ Računarska analiza na Lichessu potpomognuta je Stockfishem.</string>
 U rijetkim slučajevima to može biti teško odlučiti automatski (forsirane varijante, tvrđave). Prema zadanome, uvijek se priklanjamo igraču kome vrijeme nije isteklo.
 
 Primijetite da je moguće matirati samim skakačem ili lovcem ako protivnik ima figuru koja mu može blokirati kralja.</string>
+  <string name="fideHandbook">FIDE-in priručnik</string>
   <string name="fideHandbookX">Pravilnik FIDE %s</string>
   <string name="discoveringEnPassant">Zašto pješak može uzeti pješaka kad je već prošao pokraj njega? (\"en passant\")</string>
   <string name="explainingEnPassant">Ovo je legalan potez poznat kao \"en passant\". Članak na Wikipediji na engleskom jeziku daje %1$s.
@@ -67,7 +68,7 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="lichessTraining">Lichessov trening</string>
   <string name="watchIMRosenCheckmate">Pogledajte kako IM Eric Rosen matira %s.</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
-  <string name="threefoldRepetitionExplanation">Ako se neka pozicija ponovi tri puta, igrači mogu proglasiti remi zbog %1$s. Lichess primjenjuje službena pravila FIDE, kao što je opisano u članu 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Ako se neka pozicija ponovi tri puta, igrači mogu proglasiti remi zbog %1$s. Lichess primjenjuje službena pravila FIDE, kao što je opisano u članu 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trostruko ponavljanje pozicije</string>
   <string name="notRepeatedMoves">Nismo ponavljali poteze. Zašto je partija i dalje neriješena zbog ponavljanja?</string>
   <string name="repeatedPositionsThatMatters">Trostruko ponavljanje odnosi se na ponavljanje %1$s, ne poteza. Ponavljanje pozicije ne mora se dogoditi u uzastopnim potezima.</string>

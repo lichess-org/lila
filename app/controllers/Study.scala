@@ -6,14 +6,16 @@ import scala.util.chaining.*
 
 import lila.app.{ given, * }
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.study.actorApi.Who
+import lila.common.{ Bus, HTTPRequest, IpAddress }
+import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.{ Order, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 import lila.analyse.Analysis
+import lila.socket.Socket
+import lila.study.Chapter
 
 final class Study(
     env: Env,
@@ -244,8 +246,8 @@ final class Study(
         Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
-    ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
-    ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
+    ctx.noKid && ctx.noBot &&                // no public chats for kids and bots
+    ctx.me.forall(env.chat.panic.allowed(_)) // anon can see public chats
   } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
     .mon(_.chat.fetch("study"))
@@ -297,25 +299,53 @@ final class Study(
     } inject Redirect(routes.Study.show(id))
   }
 
+  private val ImportPgnLimitPerUser = lila.memo.RateLimit[UserId](
+    credits = 1000,
+    duration = 24.hour,
+    key = "study.import-pgn.user"
+  )
+
+  private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Socket.Sri)(
+      f: List[Chapter] => Result
+  )(using
+      ctx: Context,
+      me: Me
+  ): Future[Result] =
+    val chapterDatas = data.toChapterDatas
+    ImportPgnLimitPerUser(me, rateLimited, cost = chapterDatas.size):
+      env.study.api.importPgns(
+        id,
+        chapterDatas,
+        sticky = data.sticky,
+        ctx.pref.showRatings
+      )(Who(me, sri)) map f
+
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
     get("sri").so: sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
           doubleJsonFormError,
-          data =>
-            env.study.api.importPgns(
-              id,
-              data.toChapterDatas,
-              sticky = data.sticky,
-              ctx.pref.showRatings
-            )(Who(me, lila.socket.Socket.Sri(sri))) inject NoContent
+          data => doImportPgn(id, data, Socket.Sri(sri))(_ => NoContent)
         )
   }
 
+  def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    StudyForm.importPgn.form
+      .bindFromRequest()
+      .fold(
+        jsonFormError,
+        data =>
+          doImportPgn(id, data, Socket.Sri("api")): chapters =>
+            import lila.study.JsonView.given
+            JsonOk(Json.obj("chapters" -> chapters.map(_.metadata)))
+      )
+  }
+
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
+    Bus.publish(BecomeStudyAdmin(id, me), "adminStudy")
     env.study.api
-      .adminInvite(id)
+      .becomeAdmin(id, me)
       .inject:
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }
@@ -376,21 +406,19 @@ final class Study(
   )
 
   def pgn(id: StudyId) = Open:
-    PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
-      Found(env.study.api byId id): study =>
-        CanView(study) {
-          doPgn(study)
-        }(privateUnauthorizedFu(study), privateForbiddenFu(study))
+    Found(env.study.api byId id): study =>
+      if req.method == "HEAD" then NoContent.withDateHeaders(studyLastModified(study))
+      else
+        PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
+          CanView(study)(doPgn(study))(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
-        if ctx.req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
+        if req.method == "HEAD" then NoContent.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
-            CanView(study) {
-              doPgn(study)
-            }(privateUnauthorizedText, privateForbiddenText)
+            CanView(study)(doPgn(study))(privateUnauthorizedText, privateForbiddenText)
     }
 
   private def doPgn(study: StudyModel)(using RequestHeader) =

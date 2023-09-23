@@ -3,7 +3,7 @@
   <string name="advancedPawn">Пешак пред промоцијом</string>
   <string name="advancedPawnDescription">Један од Ваших пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
   <string name="advantage">Предност</string>
-  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
   <string name="anastasiaMate">Анастазијин мат</string>
   <string name="anastasiaMateDescription">Скакач и топ или краљица се удружују како би заробили противничког краља између ивице табле и пријатељске фигуре.</string>
   <string name="arabianMate">Арапски мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Однесите браниоца</string>
   <string name="capturingDefenderDescription">Уклањање фигуре која је критична за одбрану друге фигуре, што омогућава да сада небрањена фигура буде однета на следећем потезу.</string>
   <string name="crushing">Уништавање</string>
-  <string name="crushingDescription">Уочите противничку грубу грешку како бисте стекли огромну предност. (евалуација ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Уочите противничку грубу грешку како бисте стекли огромну предност. (евалуација ≥ 600cp)</string>
   <string name="doubleBishopMate">Мат ловачким паром</string>
   <string name="doubleBishopMateDescription">Два нападајућа ловца на суседним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
   <string name="dovetailMate">Коциов мат</string>
   <string name="dovetailMateDescription">Дама матира суседног краља, чија су једина два излазна поља препречена његовим фигурама.</string>
   <string name="equality">Изједначење</string>
-  <string name="equalityDescription">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
   <string name="kingsideAttack">Напад на краљевој страни</string>
   <string name="kingsideAttackDescription">Напад на противничког краља, након што су се рокадирали на краљевој страни.</string>
   <string name="clearance">Рашчишћавање</string>

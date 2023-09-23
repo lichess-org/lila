@@ -1,7 +1,7 @@
 package lila.appeal
 
 import lila.db.dsl.{ given, * }
-import lila.user.{ Me, NoteApi, User, UserRepo }
+import lila.user.{ Me, NoteApi, User, UserRepo, UserMark }
 import lila.user.Me
 
 final class AppealApi(
@@ -53,38 +53,51 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def myQueue(using me: Me) = bothQueues(snoozer snoozedKeysOf me.userId map (_.appealId.userId))
+  def myQueue(filter: Option[Appeal.Filter])(using me: Me) =
+    bothQueues(filter, snoozer snoozedKeysOf me.userId map (_.appealId.userId))
 
-  private def bothQueues(exceptIds: Iterable[UserId]): Fu[List[Appeal.WithUser]] =
+  private def bothQueues(
+      filter: Option[Appeal.Filter],
+      exceptIds: Iterable[UserId]
+  ): Fu[List[Appeal.WithUser]] =
     fetchQueue(
       selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
         exceptIds.nonEmpty so $doc("_id" $nin exceptIds)
       },
+      filter = filter,
       ascending = true,
       nb = 50
     ) flatMap { unreads =>
       fetchQueue(
         selector = $doc("status" $ne Appeal.Status.Unread.key),
+        filter = filter,
         ascending = false,
         nb = 60 - unreads.size
       ) map { unreads ::: _ }
     }
 
-  private def fetchQueue(selector: Bdoc, ascending: Boolean, nb: Int): Fu[List[Appeal.WithUser]] =
+  private def fetchQueue(
+      selector: Bdoc,
+      filter: Option[Appeal.Filter],
+      ascending: Boolean,
+      nb: Int
+  ): Fu[List[Appeal.WithUser]] =
     coll
       .aggregateList(maxDocs = nb, _.sec): framework =>
         import framework.*
         Match(selector) -> List(
           Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
-          Limit(nb),
+          Limit(nb * 20),
           PipelineOperator(
-            $lookup.simple(
+            $lookup.pipeline(
               from = userRepo.coll,
               as = "user",
               local = "_id",
-              foreign = "_id"
+              foreign = "_id",
+              pipe = filter.so(f => List($doc("$match" -> filterSelector(f))))
             )
           ),
+          Limit(nb),
           UnwindField("user")
         )
       .map: docs =>
@@ -93,6 +106,12 @@ final class AppealApi(
           appeal <- doc.asOpt[Appeal]
           user   <- doc.getAsOpt[User]("user")
         yield Appeal.WithUser(appeal, user)
+
+  def filterSelector(filter: Appeal.Filter) =
+    import User.BSONFields as F
+    filter.value match
+      case Some(mark) => $doc(F.marks $in List(mark.key))
+      case None       => $doc(F.marks $nin UserMark.bannable)
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void

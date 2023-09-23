@@ -1,6 +1,7 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
+import { isTouchDevice } from 'common/mobile';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
@@ -161,10 +162,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ =>
-                modal({
-                  content: $('.continue-with.g_' + d.game.id),
-                }),
+              hook: bind('click', () =>
+                domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
               ),
               attrs: dataIcon(licon.Swords),
             },
@@ -313,16 +312,30 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
-    ctrlToggle(
-      {
-        name: 'Annotations on board',
-        title: 'Display analysis symbols on the board',
-        id: 'move-annotation',
-        checked: ctrl.showMoveAnnotation(),
-        change: ctrl.toggleMoveAnnotation,
-      },
-      ctrl,
-    ),
+    isTouchDevice()
+      ? null
+      : ctrlToggle(
+          {
+            name: 'showVariationArrows',
+            title: 'Variation navigation arrows',
+            id: 'variationArrows',
+            checked: ctrl.variationArrowsProp(),
+            change: ctrl.toggleVariationArrows,
+          },
+          ctrl,
+        ),
+    ctrl.ongoing
+      ? null
+      : ctrlToggle(
+          {
+            name: 'Annotations on board',
+            title: 'Display analysis symbols on the board',
+            id: 'move-annotation',
+            checked: ctrl.showMoveAnnotation(),
+            change: ctrl.toggleMoveAnnotation,
+          },
+          ctrl,
+        ),
   ];
 
   return h('div.action-menu', [

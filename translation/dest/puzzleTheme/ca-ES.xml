@@ -3,7 +3,7 @@
   <string name="advancedPawn">Peó avançat</string>
   <string name="advancedPawnDescription">Un peó a punt de coronar o amenaçant la coronació és la tàctica clau.</string>
   <string name="advantage">Avantatge</string>
-  <string name="advantageDescription">Aprofita l\'oportunitat per agafar avantatge definitiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Aprofita l\'oportunitat per agafar avantatge definitiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat d\'Anastasia</string>
   <string name="anastasiaMateDescription">Un cavall i una torre o una dama es coordinen per atrapar el rei de l\'oponent entre una cantonada del tauler i una peça aliada.</string>
   <string name="arabianMate">Mat àrab</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Captura el defensor</string>
   <string name="capturingDefenderDescription">Menjar una peça que és vital per defensar una altra, fent que es pugui menjar la peça que ara ja no està defensada.</string>
   <string name="crushing">Fort avantatge</string>
-  <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat dels dos alfils</string>
   <string name="doubleBishopMateDescription">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
   <string name="dovetailMate">Mat de la coça</string>
   <string name="dovetailMateDescription">Una dama fa mat a un rei adjacent que té les dues caselles adjacents ocupades per peces amigues.</string>
   <string name="equality">Igualtat</string>
-  <string name="equalityDescription">Remunta des d\'una posició perduda i assegura unes taules o una posició balancejada. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Remunta des d\'una posició perduda i assegura unes taules o una posició balancejada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pel flanc de rei</string>
   <string name="kingsideAttackDescription">Un atac al rei de l\'oponent, després de que hagi enrocat en curt.</string>
   <string name="clearance">Alliberament</string>

@@ -1,0 +1,77 @@
+dialog {
+  @extend %box-radius, %popup-shadow;
+  position: fixed;
+  max-height: 100%;
+  top: 50%;
+  #{$start-direction}: 50%;
+  transform: translate($transform-direction * -50%, -50%);
+  z-index: z('modal');
+  padding: 0;
+  border: none;
+  background: $c-bg-high;
+
+  &::backdrop {
+    background: $c-page-mask;
+  }
+
+  > div.scrollable {
+    max-height: calc(var(--vh) - 16px);
+    overflow-x: clip;
+    overflow-y: auto;
+  }
+
+  div.close-button-anchor {
+    position: relative;
+    width: 100%;
+    height: 0;
+  }
+
+  button.close-button {
+    @extend %flex-around;
+
+    position: absolute;
+    top: 4px;
+    #{$end-direction}: 4px;
+    width: 40px; // bigger for phones
+    height: 40px;
+    z-index: z('modal') + 1;
+    background: $c-bg-high;
+    color: $c-font;
+    border-radius: 6px;
+    border: 1px solid $c-border;
+    font-size: 20px;
+    text-align: center;
+
+    cursor: pointer;
+
+    &:not(:focus) {
+      outline: none;
+    }
+  }
+
+  &:not(.touch-scroll) {
+    margin-top: 16px;
+    overflow: visible;
+
+    button.close-button {
+      transform: translate($transform-direction * 18px, -18px);
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      border-radius: 50%;
+      border: none;
+      &:hover {
+        box-shadow: $box-shadow;
+        background: $c-bad;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// top level to reduce specificity, allow easy overrides
+.dialog-content {
+  text-align: center;
+  padding: 2em;
+  color: $c-font;
+}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advantage">Предност</string>
-  <string name="advantageDescription">Искористете ја шансата да добиете одлучувачка предност. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Искористете ја шансата да добиете одлучувачка предност. (200cp ≤ eval ≤ 600cp)</string>
 </resources>

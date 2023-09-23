@@ -55,4 +55,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="allowChatHelp">Να επιτρέπεται στους παίκτες να συζητούν σε δωμάτιο συνομιλίας</string>
   <string name="arenaStreaks">Arena streaks</string>
   <string name="arenaStreaksHelp">Μετά από 2 νίκες, επιπλέον διαδοχικές νίκες σας 4 πόντους αντί για 2.</string>
+  <string name="averagePerformance">Μέση επίδοση</string>
+  <string name="averageScore">Μέση βαθμολογία</string>
+  <string name="myTournaments">Τα πρωταθλήματά μου</string>
 </resources>

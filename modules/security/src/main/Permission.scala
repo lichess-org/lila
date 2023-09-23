@@ -59,6 +59,7 @@ object Permission:
   case object ModNote          extends Permission("MOD_NOTE", "Mod notes")
   case object RemoveRanking    extends Permission("REMOVE_RANKING", "Remove from ranking")
   case object ReportBan        extends Permission("REPORT_BAN", "Report ban")
+  case object ArenaBan         extends Permission("ARENA_BAN", "Ban from arenas")
   case object PrizeBan         extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case object ModMessage       extends Permission("MOD_MESSAGE", "Send mod messages")
   case object Impersonate      extends Permission("IMPERSONATE", "Impersonate")
@@ -101,6 +102,7 @@ object Permission:
         List(
           LichessTeam,
           MarkBooster,
+          ArenaBan,
           UserModView,
           GamesModView,
           GamifyView,

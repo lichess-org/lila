@@ -141,7 +141,7 @@ final class RelationApi(
 
   private def limitBlock(u: UserId) =
     countBlocking(u).flatMap: nb =>
-      (nb > config.maxBlock.value) so repo.drop(u, false, nb - config.maxBlock.value)
+      (config.maxBlock < nb) so repo.drop(u, false, nb - config.maxBlock.value)
 
   def block(u1: UserId, u2: UserId): Funit =
     (u1 != u2 && u2 != User.lichessId) so fetchBlocks(u1, u2).flatMap {

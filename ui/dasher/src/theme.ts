@@ -42,9 +42,10 @@ export function ctrl(
       const d = dimensionData();
       d.current = t;
       applyTheme(t, d.list, dimension() === 'd3');
+      const field = `theme${dimension() === 'd3' ? '3d' : ''}`;
       xhr
-        .text('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
-          body: xhr.form({ theme: t }),
+        .text(`/pref/${field}`, {
+          body: xhr.form({ [field]: t }),
           method: 'post',
         })
         .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));

@@ -9,7 +9,7 @@ object help:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
-  private val or                          = tag("or")
+  private val or                          = tag("or")("/")
   private val kbd                         = tag("kbd")
   private def voice(text: String)         = strong(cls := "val-to-word", text)
   private def phonetic(text: String)      = strong(cls := "val-to-word phonetic", text)
@@ -65,15 +65,21 @@ object help:
       h2(trans.keyboardShortcuts()),
       table(
         tbody(
-          navigateMoves,
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("→")), trans.keyEnterOrExitVariation()),
-          row(frag(kbd("shift"), kbd("J"), or, kbd("shift"), kbd("K")), trans.keyEnterOrExitVariation()),
+          row(frag(kbd("←"), or, kbd("k")), "Move backward"),
+          row(frag(kbd("→"), or, kbd("j")), "Move forward"),
+          row(kbd("shift"), "Cycle selected variation"),
+          row(frag(kbd("↑"), or, kbd("↓")), "Cycle previous/next variation"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch"),
+          row(frag(kbd("home"), or, kbd("↑"), or, kbd("0")), "Go to start"),
+          row(frag(kbd("end"), or, kbd("↓"), or, kbd("$")), "Go to end"),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
           localAnalysis,
           row(kbd("z"), trans.toggleAllAnalysis()),
           row(kbd("a"), trans.bestMoveArrow()),
+          row(kbd("v"), "Toggle variation arrows"),
           row(kbd("e"), trans.openingEndgameExplorer()),
           row(frag(kbd("shift"), kbd("space")), trans.playFirstOpeningEndgameExplorerMove()),
           row(kbd("r"), trans.keyRequestComputerAnalysis()),
@@ -102,6 +108,20 @@ object help:
               )
             )
           )
+        )
+      )
+    )
+
+  def analyseVariationArrow(using Lang) =
+    div(cls := "help-ephemeral")(
+      p("Variation arrows let you navigate without using the move list."),
+      table(
+        tbody(
+          row(kbd("v"), "Toggle variation arrows"),
+          row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), "Cycle selected variation"),
+          row(kbd("→"), "play selected move"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch")
         )
       )
     )
@@ -237,7 +257,7 @@ object help:
             row(voice("help"), trans.showHelpDialog()),
             tr(
               td,
-              td(button(cls := "button", id := "all-phrases-button")("Show me everything"))
+              td(button(cls := "button", cls := "all-phrases-button")("Show me everything"))
             )
           )
         )

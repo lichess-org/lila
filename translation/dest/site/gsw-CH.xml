@@ -72,7 +72,7 @@
   <string name="forceVariation">Variante erzwinge</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variante verlore</string>
-  <string name="variantWin" comment="Used to describe special winning moves in the tablebase, such as exploding your opponent's king in antichess. Needs to be very short to fit in the table. Similar to 'Variant win'.">Variante gwunne</string>
+  <string name="variantWin">Variante gwunne</string>
   <string name="insufficientMaterial">Nöd gnueg Material</string>
   <string name="pawnMove">Pure-Zug</string>
   <string name="capture">Schlag-Zug</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">Schtudie eröffne</string>
   <string name="enable">Ischalte</string>
   <string name="bestMoveArrow">Pfil für de bescht Zug</string>
+  <string name="showVariationArrows">Pfil für Variante azeige</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
   <string name="multipleLines">Mehreri Variantä</string>
   <string name="cpus">Prozässore</string>
@@ -141,7 +142,7 @@
   <string name="flipBoard">Brätt umcheere</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
-  <string name="offerDraw">Remis aabüte</string>
+  <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s Schpiller</item>
@@ -332,7 +333,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
-  <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
+  <string name="takebackPropositionDeclined">Zugsrücknahm abglehnt</string>
   <string name="takebackPropositionAccepted">Zugsrücknahm akzeptiert</string>
   <string name="takebackPropositionCanceled">Zugsrücknahm zruggzoge</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
@@ -354,7 +355,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="viewTournament">Turnier zueluege</string>
   <string name="backToTournament">Zrugg zum Turnier</string>
-  <string name="noDrawBeforeSwissLimit">Ime Turnier, nach Schwizer Syschtem, chann me erscht nach 30 Züg es Remis mache.</string>
+  <string name="noDrawBeforeSwissLimit">Ime Turnier, nach \"Schweizer System\", chann me erscht nach 30 Züg Remis mache.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gwertets Schpiel</item>
@@ -562,8 +563,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notize</string>
   <string name="typePrivateNotesHere">Gib privati Notize da i</string>
-  <string name="writeAPrivateNoteAboutThisUser" comment="writeAPrivateNoteAboutThisUser&#10;&#10;This is the hint (grey text) inside the text box where you can write notes. Appears when you select 'Notes' on a player's profile, to write a private note about that player.">Schrib e privati Notiz über de Benutzer</string>
-  <string name="noNoteYet" comment="noNoteYet&#10;&#10;Appears after selecting 'Notes' on a player's profile. This string is to inform that you have not written any private notes regarding this player.">No kei Notiz vorhande</string>
+  <string name="writeAPrivateNoteAboutThisUser">Schrib e privati Notiz über de Benutzer</string>
+  <string name="noNoteYet">No kei Notiz vorhande</string>
   <string name="invalidUsernameOrPassword">Ungültige Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falschs Passwort</string>
   <string name="invalidAuthenticationCode">Ungültige Authentifizierigscode</string>
@@ -715,7 +716,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="yourPerfTypeRatingIsRating">Dini %1$s-Wertig isch %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vu allne %2$s-Schpiller.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo allne %3$s-Schpiller.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. 'Blitz' or 'Antichess'&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of 'The player's highest rating of 2500 makes/made them better than 75% of Blitz players'">Besser als %1$s vu %2$s Schpiller</string>
+  <string name="betterThanPercentPlayers">Besser als %1$s vu %2$s Schpiller</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du häsch kei fixi %s-Wertig.</string>
   <string name="yourRating">Dini Wertig</string>
   <string name="cumulative">Summiert</string>
@@ -833,11 +834,11 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="waitingForAnalysis">Warte uf d\'Analyse</string>
   <string name="noMistakesFoundForWhite">Kei Fähler vu Wiss gfunde</string>
   <string name="noMistakesFoundForBlack">Kei Fähler vu Schwarz gfunde</string>
-  <string name="doneReviewingWhiteMistakes" comment="doneReviewingWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.">Fähler vu Wiss prüeft</string>
-  <string name="doneReviewingBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;See &quot;Done reviewing white mistakes&quot; for full context.">Fähler vu Schwarz prüeft</string>
+  <string name="doneReviewingWhiteMistakes">Fähler vu Wiss prüeft</string>
+  <string name="doneReviewingBlackMistakes">Fähler vu Schwarz prüeft</string>
   <string name="doItAgain">Machs nomal</string>
-  <string name="reviewWhiteMistakes" comment="reviewWhiteMistakes&#10;&#10;Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Fähler vu Wiss werded prüeft</string>
-  <string name="reviewBlackMistakes" comment="Appears when using the 'learn from your mistakes' feature in a computer-analysed, finished game.&#10;&#10;'Review' is used as a verb here.">Fähler vu Schwarz werded prüeft</string>
+  <string name="reviewWhiteMistakes">Fähler vu Wiss werded prüeft</string>
+  <string name="reviewBlackMistakes">Fähler vu Schwarz werded prüeft</string>
   <string name="advantage">Vorteil</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s Sekunde</item>
@@ -911,11 +912,11 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
   <string name="resVsX">%1$s gäge %2$s</string>
-  <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
+  <string name="lostAgainstTOSViolator">Du häsch Wertigspünkt verlore, gäge öpper, wo d\'Lichess-Regle verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe azeige]</string>
-  <string name="download">Abälade</string>
+  <string name="download">Abelade</string>
   <string name="welcome">Willkomme!</string>
   <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>

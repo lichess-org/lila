@@ -647,7 +647,7 @@ object Game:
   def abandonedDate = nowInstant minusDays abandonedDays.value
 
   def isBoardCompatible(game: Game): Boolean =
-    game.clock.fold(true): c =>
+    game.clock.forall: c =>
       isBoardCompatible(c.config) || {
         (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
       }

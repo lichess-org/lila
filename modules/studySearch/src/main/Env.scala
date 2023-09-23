@@ -42,4 +42,4 @@ final class Env(
 
   Bus.subscribeFun("study"):
     case lila.study.actorApi.SaveStudy(study) => api.store(study)
-    case RemoveStudy(id, _)                   => client.deleteById(id into Id)
+    case RemoveStudy(id)                      => client.deleteById(id into Id)

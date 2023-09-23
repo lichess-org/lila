@@ -36,7 +36,10 @@
   <string name="lichessIsRegisteredWith">Lichess-ը գրանցված է %s-ում։</string>
   <string name="currentStatus">Ընթացիկ կարգավիճակ</string>
   <string name="nextPayment">Հաջորդ վճարում</string>
+  <string name="giftPatronWingsShort">Նվիրել Հովանավորի թևեր</string>
+  <string name="giftPatronWings">Նվիրել Հովանավորի թևեր այլ խաղացողի</string>
   <string name="update">Թարմացնել</string>
   <string name="date">Ամսաթիվ</string>
   <string name="amount">Գումար</string>
+  <string name="changeCurrency">Փոխել արժույթը</string>
 </resources>

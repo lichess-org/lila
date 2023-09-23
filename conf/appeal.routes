@@ -1,7 +1,7 @@
 GET   /appeal                          controllers.appeal.Appeal.home
 POST  /appeal                          controllers.appeal.Appeal.post
 GET   /appeal/landing                  controllers.appeal.Appeal.landing
-GET   /appeal/queue                    controllers.appeal.Appeal.queue
+GET   /appeal/queue                    controllers.appeal.Appeal.queue(filter: Option[String] ?= None)
 GET   /appeal/:username                controllers.appeal.Appeal.show(username: String)
 POST  /appeal/:username                controllers.appeal.Appeal.reply(username: String)
 POST  /appeal/:username/mute           controllers.appeal.Appeal.mute(username: String)

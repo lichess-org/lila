@@ -41,9 +41,8 @@ private[setup] trait Config:
   def validClock = !hasClock || clockHasTime
 
   def validSpeed(isBot: Boolean) =
-    !isBot || makeClock.fold(true) { c =>
+    !isBot || makeClock.forall: c =>
       Speed(c) >= Speed.Bullet
-    }
 
   def clockHasTime = time + increment.value > 0
 

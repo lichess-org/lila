@@ -13,7 +13,7 @@ export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> =>
   if (!loadedCss.has(url)) {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
-    el.href = assetUrl(url);
+    el.href = assetUrl(lichess.debug ? `${url}?_=${Date.now()}` : url);
     if (media) el.media = `(prefers-color-scheme: ${media})`;
     loadedCss.set(
       url,
@@ -35,8 +35,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
     );
   if (theme === 'system') {
     if (supportsSystemTheme()) {
-      await load('dark', 'dark');
-      await load('light', 'light');
+      await Promise.all([load('dark', 'dark'), load('light', 'light')]);
     } else {
       await load('dark');
     }
@@ -66,12 +65,10 @@ export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete
 };
 
 export const hopscotch = () => {
-  loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
-  return loadIife('vendor/hopscotch/dist/js/hopscotch.min.js', {
+  loadCss('npm/hopscotch/dist/css/hopscotch.min.css');
+  return loadIife('npm/hopscotch/dist/js/hopscotch.min.js', {
     noVersion: true,
   });
 };
 
-export const embedChessground = () => {
-  return import(assetUrl('javascripts/chessground.min.js', { noVersion: true }));
-};
+export const embedChessground = () => import(assetUrl('npm/chessground.min.js'));
