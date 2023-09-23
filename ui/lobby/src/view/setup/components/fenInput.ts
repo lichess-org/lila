@@ -30,7 +30,7 @@ export const fenInput = (ctrl: LobbyController) => {
     h(
       'a.fen__board',
       { attrs: { href: '/editor' } },
-      setupCtrl.fenError || !setupCtrl.lastValidFen
+      !setupCtrl.lastValidFen || !setupCtrl.validFen()
         ? null
         : h(
             'span.preview',
