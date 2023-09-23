@@ -149,20 +149,6 @@ $c-report-high-over: white;
     background: mix($c-warn, $c-bg-box, 60%);
   }
 
-  .appeal-filters i {
-    font-size: 1.2em;
-    padding: 0.1em 0.4em 0.3em 0.4em;
-    justify-content: center;
-    border-radius: 0.3em;
-    color: $c-font;
-    border: $border;
-    margin: 0 0.2em;
-  }
-  .appeal-filters--enabled {
-    background: mix($c-good, $c-bg-box, 80%);
-    text-shadow: none;
-  }
-
   .appeal-queue {
     td p {
       margin: 0.5em 0 0 0;
