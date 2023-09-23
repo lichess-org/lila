@@ -19,7 +19,7 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([, uci], i) => {
-    shapes.unshift({
+    shapes.push({
       orig: from(uci),
       dest: to(uci),
       brush: `v-grey`,
@@ -28,11 +28,11 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
     });
   });
   if (timer)
-    shapes[shapes.length - 1].customSvg = {
+    shapes[0].customSvg = {
       center: choices.length > 1 ? 'label' : 'orig',
       html: timerShape(timer, choices.length > 1 ? 'grey' : 'white', 0.6),
     };
-  return shapes;
+  return shapes.reverse();
 }
 
 export function coloredArrows(choices: [string, Uci][], timer: number | undefined): DrawShape[] {
@@ -40,7 +40,7 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([c, uci]) => {
-    shapes.unshift({
+    shapes.push({
       orig: from(uci),
       dest: to(uci),
       brush: `v-${c}`,
@@ -48,11 +48,11 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
     });
   });
   if (timer)
-    shapes[shapes.length - 1].customSvg = {
+    shapes[0].customSvg = {
       center: 'orig',
       html: timerShape(timer, brushes.values().next().value.color),
     };
-  return shapes;
+  return shapes.reverse();
 }
 
 function timerShape(duration: number, color: string, alpha = 0.4) {
