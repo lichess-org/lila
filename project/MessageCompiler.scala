@@ -61,6 +61,8 @@ object MessageCompiler {
                   .toMap
                 val otherValue = allItems.get("Other")
                 val default    = allItems.head
+                // The following optimisation aims to drop duplicated translations
+                // to reduce the size of the generated Java code.
                 val items = allItems.filter {
                   case pair if pair == default          => true
                   case ("Other", v)                     => v != default._2
