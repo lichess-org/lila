@@ -9,6 +9,7 @@
   <string name="yourTurn">Do meist</string>
   <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <string name="level">Nivo</string>
+  <string name="strength">Spielkrêft</string>
   <string name="toggleTheChat">Petear skeakelje</string>
   <string name="chat">Petear</string>
   <string name="resign">Opjaan</string>
@@ -16,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Wyt</string>
   <string name="black">Swart</string>
+  <string name="asWhite">as wyt</string>
+  <string name="asBlack">as swart</string>
   <string name="randomColor">Kleur makket neat út</string>
   <string name="createAGame">In spul opsette</string>
   <string name="whiteIsVictorious">Wyt wint</string>
