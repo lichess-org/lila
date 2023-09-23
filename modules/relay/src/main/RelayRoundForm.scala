@@ -76,7 +76,7 @@ object RelayRoundForm:
 
   private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(source: String): Boolean =
-    Try(URL.parse(source)).toOption.exists: url =>
+    Try(URL.parse(source)).toOption.forall: url =>
       validPorts(url.port)
 
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
