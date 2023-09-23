@@ -8,6 +8,7 @@
   <string name="motifs">Motifs</string>
   <string name="advanced">Advanced</string>
   <string name="lengths">Lengths</string>
+  <string name="puzzleInfo">Puzzle info</string>
   <string name="mates">Mates</string>
   <string name="goals">Goals</string>
   <string name="origin">Origin</string>
@@ -27,6 +28,16 @@
   <string name="goodMove">Good move</string>
   <string name="bestMove">Best move!</string>
   <string name="keepGoing">Keep going…</string>
+  <string name="pieces">Pieces</string>
+  <string name="lastMove">Last move</string>
+  <string name="moveForm">Move form</string>
+  <string name="actions">Actions</string>
+  <string name="board">Board</string>
+  <string name="boardSettings">Board settings</string>
+  <string name="puzzleSettings">Puzzle settings</string>
+  <string name="commands">Commands</string>
+  <string name="boardModeCommands">Board mode commands</string>
+  <string name="promotion">Promotion</string>
   <string name="puzzleSuccess">Success!</string>
   <string name="puzzleComplete">Puzzle complete!</string>
   <string name="byOpenings">By openings</string>
@@ -70,6 +81,7 @@
   <string name="failed">incorrect</string>
   <string name="streakDescription">Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it's game over! But you can skip one move per session.</string>
   <string name="yourStreakX">Your streak: %s</string>
+  <string name="puzzleStatus">Puzzle status</string>
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
   <string name="continueTheStreak">Continue the streak</string>
   <string name="newStreak">New streak</string>

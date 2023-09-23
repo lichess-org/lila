@@ -2,6 +2,8 @@ import { h, VNode } from 'snabbdom';
 import { Controller } from '../interfaces';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
+
+
 import {
   arrowKeyHandler,
   boardCommandsHandler,
@@ -63,11 +65,11 @@ export function initModule() {
         }`,
         h('div.nvui', [
           h('h1', `Puzzle: ${ctrl.vm.pov} to play.`),
-          h('h2', 'Puzzle info'),
+          h('h2', ctrl.trans.noarg('puzzleInfo')),
           puzzleBox(ctrl),
           theme(ctrl),
           !ctrl.streak ? userBox(ctrl) : null,
-          h('h2', 'Moves'),
+          h('h2', ctrl.trans.noarg('moves')),
           h(
             'p.moves',
             {
@@ -78,9 +80,9 @@ export function initModule() {
             },
             renderMainline(ctrl.vm.mainline, ctrl.vm.path, moveStyle.get()),
           ),
-          h('h2', 'Pieces'),
+          h('h2', ctrl.trans.noarg('pieces')),
           h('div.pieces', renderPieces(ground.state.pieces, moveStyle.get())),
-          h('h2', 'Puzzle status'),
+          h('h2', ctrl.trans.noarg('puzzleStatus')),
           h(
             'div.status',
             {
@@ -94,7 +96,7 @@ export function initModule() {
           ),
           h('div.replay', renderReplay(ctrl)),
           ...(ctrl.streak ? renderStreak(ctrl) : []),
-          h('h2', 'Last move'),
+          h('h2', ctrl.trans.noarg('lastMove')),
           h(
             'p.lastMove',
             {
@@ -105,7 +107,7 @@ export function initModule() {
             },
             lastMove(ctrl, moveStyle.get()),
           ),
-          h('h2', 'Move form'),
+          h('h2', ctrl.trans.noarg('moveForm')),
           h(
             'form',
             {
@@ -131,9 +133,9 @@ export function initModule() {
             ],
           ),
           notify.render(),
-          h('h2', 'Actions'),
+          h('h2', ctrl.trans.noarg('actions')),
           ctrl.vm.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
-          h('h2', 'Board'),
+          h('h2', ctrl.trans.noarg('board')),
           h(
             'div.board',
             {
@@ -189,23 +191,23 @@ export function initModule() {
             },
             '',
           ),
-          h('h2', 'Settings'),
+          h('h2', ctrl.trans.noarg('settings')),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board settings'),
+          h('h3', ctrl.trans.noarg('boardSettings')),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           ...(!ctrl.getData().replay && !ctrl.streak
-            ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
+            ? [h('h3', ctrl.trans.noarg('puzzleSettings')), renderDifficultyForm(ctrl)]
             : []),
-          h('h2', 'Keyboard shortcuts'),
+          h('h2', ctrl.trans.noarg('keyboardShortcuts')),
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
             h('br'),
             'Up and down arrow keys, or 0 and $, or home and end: Jump to the first or last move.',
           ]),
-          h('h2', 'Commands'),
+          h('h2', ctrl.trans.noarg('commands')),
           h('p', [
             'Type these commands in the move input.',
             h('br'),
@@ -218,7 +220,7 @@ export function initModule() {
             commands.scan.help,
             h('br'),
           ]),
-          h('h2', 'Board mode commands'),
+          h('h2', ctrl.trans.noarg('boardModeCommands')),
           h('p', [
             'Use these commands when focused on the board itself.',
             h('br'),
@@ -243,7 +245,7 @@ export function initModule() {
             'Shift+1-8: move to file a-h.',
             h('br'),
           ]),
-          h('h2', 'Promotion'),
+          h('h2', ctrl.trans.noarg('promotion')),
           h('p', [
             'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
             h('br'),
