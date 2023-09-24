@@ -482,7 +482,7 @@
   <string name="performance">Rendemento</string>
   <string name="tournamentComplete">Torneo rematado</string>
   <string name="movesPlayed">Movementos xogados</string>
-  <string name="whiteWins">Brancas gañan</string>
+  <string name="whiteWins">Vitorias das brancas</string>
   <string name="blackWins">Vitorias das negras</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
