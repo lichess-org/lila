@@ -143,7 +143,7 @@
   <string name="claimADraw">Durrang talab qilmoq</string>
   <string name="offerDraw">Durrang taklif qilish</string>
   <string name="draw">Durrang</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s o\'yinchi</item>
     <item quantity="other">%s o\'yinchilar</item>
   </plurals>
@@ -948,8 +948,8 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="toggleAllAnalysis">Kompyuter barcha tahlillarini ulang</string>
   <string name="playComputerMove">Eng yaxshi kompyuter yurishini o‘ynang</string>
   <string name="analysisOptions">Tahlil ko‘rsatkichlari</string>
-  <string name="focusChat">Fokusli suhbat</string>
-  <string name="showHelpDialog">Ushbu yordamchi dialogni namoyish etish</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokusli suhbat</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Ushbu yordamchi dialogni namoyish etish</string>
   <string name="reopenYourAccount">Sizning akkountingizni qayta ochish</string>
   <string name="closedAccountChangedMind">Agar siz akkountingizni yopgan bo‘lsangiz va fikringizdan qaytgan bo‘lsangiz u holda sizda akkountingizni qayta tiklash uchun bitta imkoniyat bor.</string>
   <string name="onlyWorksOnce">Bu faqat bir marta ishlaydi.</string>
