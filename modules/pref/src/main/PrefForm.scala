@@ -33,9 +33,8 @@ object PrefForm:
     val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d contains _)
     val soundSet   = "soundSet"   -> text.verifying(SoundSet contains _)
     val bg         = "bg"         -> stringIn(Pref.Bg.fromString.keySet)
-    val bgImg = "bgImg" -> text(maxLength = 400).verifying { url =>
+    val bgImg = "bgImg" -> text(maxLength = 400).verifying: url =>
       url.isBlank || url.startsWith("https://") || url.startsWith("//")
-    }
     val is3d          = "is3d"          -> tolerantBoolean
     val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
     val voice         = "voice"         -> booleanNumber
