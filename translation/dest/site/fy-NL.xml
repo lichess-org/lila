@@ -9,6 +9,7 @@
   <string name="yourTurn">Do meist</string>
   <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <string name="level">Nivo</string>
+  <string name="strength">Spielkrêft</string>
   <string name="toggleTheChat">Petear skeakelje</string>
   <string name="chat">Petear</string>
   <string name="resign">Opjaan</string>
@@ -16,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Wyt</string>
   <string name="black">Swart</string>
+  <string name="asWhite">as wyt</string>
+  <string name="asBlack">as swart</string>
   <string name="randomColor">Kleur makket neat út</string>
   <string name="createAGame">In spul opsette</string>
   <string name="whiteIsVictorious">Wyt wint</string>
@@ -23,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Do spilest mei wyt</string>
   <string name="youPlayTheBlackPieces">Do spilest mei swart</string>
   <string name="itsYourTurn">Do bist oan \'e beurt!</string>
+  <string name="cheatDetected">Bedrage Sjoen</string>
   <string name="kingInTheCenter">Kening yn it sintrum</string>
   <string name="threeChecks">Trije kear skaak</string>
   <string name="raceFinished">Race is foarby</string>
@@ -45,9 +49,12 @@
   <string name="blackResigned">Swart hat opjûn</string>
   <string name="whiteLeftTheGame">Wyt hat it spul ferlitten</string>
   <string name="blackLeftTheGame">Swart hat it spul ferlitten</string>
+  <string name="whiteDidntMove">Wyt beweegde net</string>
+  <string name="blackDidntMove">Swart beweegde net</string>
   <string name="requestAComputerAnalysis">Fersykje kompjûteranalyze</string>
   <string name="computerAnalysis">Kompjûter analyze</string>
   <string name="computerAnalysisAvailable">Kompjûteranalyze beskikber</string>
+  <string name="computerAnalysisDisabled">Kompjûteranalyse útset</string>
   <string name="analysis">Analyzeboerd</string>
   <string name="depthX">Djipte %s</string>
   <string name="usingServerAnalysis">Serveranalyze yn gebrûk</string>

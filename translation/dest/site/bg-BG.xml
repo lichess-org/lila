@@ -122,6 +122,7 @@
   <string name="memory">Памет</string>
   <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="removesTheDepthLimit">Анализът ще е безкраен, а компютърът ви - топъл</string>
+  <string name="engineManager">Мениджър на двигателя</string>
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Неточност</string>
@@ -736,6 +737,7 @@
   <string name="kidMode">Детски режим</string>
   <string name="kidModeExplanation">В името на безопасността. В детския режим цялата комуникация в сайта е изключена. Включете детския режим, за да защитите вашите деца и ученици от другите потребители.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детския режим логото на Lichess става %s, за да сте сигурни в безопасността на своите деца.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Вашата сметка се управлява. Попитайте учителя си по шахмат за вдигане на детския режим.</string>
   <string name="enableKidMode">Включване на детски режим</string>
   <string name="disableKidMode">Изключване на детски режим</string>
   <string name="security">Сигурност</string>

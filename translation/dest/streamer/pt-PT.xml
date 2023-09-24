@@ -13,7 +13,7 @@
   <string name="editPage">Editar a página do streamer</string>
   <string name="yourPage">A tua página de streamer</string>
   <string name="downloadKit">Descarrega o kit de streamer</string>
-  <string name="xIsStreaming">%s está a transmitir em direto</string>
+  <string name="xIsStreaming">%s está a transmitir</string>
   <string name="rules">Regras de streaming</string>
   <string name="rule1">Incluir a palavra-chave \"lichess.org\" no título da stream quando transmitir no Lichess.</string>
   <string name="rule2">Remover a palavra-chave quando transmitir algo não relacionado com o Lichess.</string>

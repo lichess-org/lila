@@ -47,6 +47,7 @@
   <string name="castlingRules">Уверете се, че разбирате правилата за рокада</string>
   <string name="tryCastling">Опитайте тази малка интерактивна игра, за да упражните рокадата</string>
   <string name="castlingImported">Ако сте импортирали играта или сте я започнали от позиция, уверете се, че сте определили правилно правата на рокада.</string>
+  <string name="insufficientMaterial">Недостатъчен материал</string>
   <string name="fideMate">Според правилата на ФИДЕ за шахмат §6. 9, ако матът е възможен с всяка легална последователност от ходове, то партията не е реми</string>
   <string name="knightMate">Възможно е да дадете мат само с кон или офицер, ако противникът има и други фигури освен един цар на дъската.</string>
   <string name="noRatingPoints">Не бяха присъдени рейтинг точки</string>
@@ -60,6 +61,7 @@
   <string name="banAppeal">Жалба за бан или IP ограничение</string>
   <string name="engineAppeal">Програма или измама</string>
   <string name="sendAppealTo">Можете да изпратите жалба до %s.</string>
+  <string name="falsePositives">Понякога се случват фалшиви положителни резултати и ние съжаляваме за това.</string>
   <string name="ifLegit">Ако жалбата ви е основателна, ще отменим забраната възможно най-скоро.</string>
   <string name="accountLost">Ако обаче наистина сте използвали помощ от двигател, дори само веднъж, тогава вашият акаунт е за съжаление загубен.</string>
   <string name="doNotDeny">Не отричайте, че сте лъгали. Ако искате да ви бъде позволено да създадете нов акаунт, просто признайте какво сте направили и покажете, че сте разбрали, че е било грешка.</string>
@@ -70,6 +72,7 @@
   <string name="authorizationToUse">Разрешение за използване на Lichess</string>
   <string name="welcomeToUse">Можете да използвате Lichess за Вашата дейност, дори ако е търговска.</string>
   <string name="videosAndBooks">Можете да го покажете във видеоклиповете си и можете да отпечатате екранни снимки на Lichess в книгите си.</string>
+  <string name="creditAppreciated">Кредитът е препоръчителен, но не е задължителен.</string>
   <string name="noneOfTheAbove">Никое от горните</string>
   <string name="sendEmailAt">Изпратете ни имейл на %s.</string>
   <string name="explainYourRequest">Моля, обяснете заявката си ясно и подробно. Посочете вашето потребителско име в Lichess и всяка информация, която може да ни помогне да ви помогнем.</string>
