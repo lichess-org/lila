@@ -43,7 +43,7 @@
   <string name="analysis">تحلیل بورډ</string>
   <string name="offerDraw">انډولست</string>
   <string name="draw">انډول</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">پر لیکه لوبغاړي%s</item>
     <item quantity="other">پر لیکه لوبغاړي%s</item>
   </plurals>
