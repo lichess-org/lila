@@ -137,7 +137,7 @@
   <string name="claimADraw">무승부 처리</string>
   <string name="offerDraw">무승부 요청</string>
   <string name="draw">무승부</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="other">%s명의 플레이어</item>
   </plurals>
   <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
@@ -902,8 +902,8 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
   <string name="playComputerMove">최선의 컴퓨터 수 두기</string>
   <string name="analysisOptions">분석 옵션</string>
-  <string name="focusChat">채팅에 포커스 주기</string>
-  <string name="showHelpDialog">이 도움말 보기</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">채팅에 포커스 주기</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">이 도움말 보기</string>
   <string name="reopenYourAccount">계정 다시 활성화</string>
   <string name="closedAccountChangedMind">계정을 폐쇄한 후 마음이 바뀌었다면, 계정을 다시 활성화할 수 있는 기회가 한 번 있습니다.</string>
   <string name="onlyWorksOnce">단 한번만 가능합니다.</string>
