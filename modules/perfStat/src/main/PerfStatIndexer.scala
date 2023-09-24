@@ -25,7 +25,7 @@ final class PerfStatIndexer(
             Query.turnsGt(2) ++
             Query.variant(PerfType variantOf perfType),
           Query.sortChronological,
-          readPref = _.sec
+          readPref = _.priTemp
         )
         .fold(PerfStat.init(user.id, perfType)):
           case (perfStat, game) if game.perfType == perfType =>
