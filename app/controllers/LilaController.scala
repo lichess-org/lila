@@ -296,7 +296,7 @@ abstract private[controllers] class LilaController(val env: Env)
       .bindFromRequest()
       .fold(
         form => err(form) dmap { BadRequest(_) },
-        data => op(data)
+        op
       )
 
   def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
