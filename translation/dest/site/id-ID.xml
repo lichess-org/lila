@@ -109,6 +109,7 @@
   <string name="openStudy">Buka studi</string>
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
+  <string name="showVariationArrows">Tampilkan variasi panah</string>
   <string name="evaluationGauge">Mengukur evaluasi</string>
   <string name="multipleLines">Beberapa variasi</string>
   <string name="cpus">CPU</string>
@@ -634,6 +635,8 @@
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>
   <string name="keyShowOrHideComments">Tampilkan/sembunyikan komentar</string>
   <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
+  <string name="keyRequestComputerAnalysis">Minta analisis komputer, belajar dari kesalahan anda</string>
+  <string name="keyNextLearnFromYourMistakes">Berikutnya (Belajar dari kesalahan anda)</string>
   <string name="keyNextMistake">Kesalahan berikutnya</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
@@ -677,6 +680,7 @@
   <string name="kidMode">Mode anak</string>
   <string name="kidModeExplanation">Ini adalah tentang keselamatan. Dalam modus anak, semua situs komunikasi dinonaktifkan. Mengaktifkan ini untuk anak-anak Anda dan sekolah siswa, untuk melindungi mereka dari pengguna internet yang lain.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dalam modus anak, lichess logo mendapat ikon %s, sehingga Anda tahu anak-anak Anda aman.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Akun anda dimanjemen. Tanya pelatih catur anda untuk menghapus mode anak-anak.</string>
   <string name="enableKidMode">Mengaktifkan mode anak</string>
   <string name="disableKidMode">Menonaktifkan modus anak</string>
   <string name="security">Keamanan</string>
