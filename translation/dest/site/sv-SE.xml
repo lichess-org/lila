@@ -143,7 +143,7 @@
   <string name="claimADraw">Begär remi</string>
   <string name="offerDraw">Föreslå remi</string>
   <string name="draw">Remi</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s spelare</item>
     <item quantity="other">%s spelare</item>
   </plurals>
@@ -952,8 +952,8 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="toggleAllAnalysis">Växla all datoranalys</string>
   <string name="playComputerMove">Spela bästa datordraget</string>
   <string name="analysisOptions">Analysalternativ</string>
-  <string name="focusChat">Fokusera chatten</string>
-  <string name="showHelpDialog">Visa denna hjälpdialog</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokusera chatten</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Visa denna hjälpdialog</string>
   <string name="reopenYourAccount">Öppna ditt konto igen</string>
   <string name="closedAccountChangedMind">Om du stängt ditt konto, men sedan dess har ändrat dig, får du en chans att få tillbaka ditt konto.</string>
   <string name="onlyWorksOnce">Detta fungerar bara en gång.</string>
