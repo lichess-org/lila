@@ -491,6 +491,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="firstName">Eesnimi</string>
   <string name="lastName">Perekonnanimi</string>
   <string name="biography">Kirjeldus</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lipp</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
@@ -670,6 +671,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
+  <string name="keyNextMistake">Järgmine viga</string>
+  <string name="keyNextInaccuracy">Järgmine ebatäpsus</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
@@ -767,6 +770,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="custom">Kohandatud</string>
   <string name="notifications">Teavitused</string>
+  <string name="notificationsX">Märguanded: %1$s</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
