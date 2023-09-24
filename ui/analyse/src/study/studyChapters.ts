@@ -149,7 +149,7 @@ export function view(ctrl: StudyCtrl): VNode {
               ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
               : null,
             !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
-            canContribute ? h('i.act', { attrs: dataIcon(licon.Gear) }) : null,
+            canContribute ? h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }) : null,
           ],
         );
       })
