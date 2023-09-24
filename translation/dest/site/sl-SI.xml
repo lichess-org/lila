@@ -153,7 +153,7 @@
   <string name="claimADraw">Zahtevaj remi</string>
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s igralec</item>
     <item quantity="two">%s igralca</item>
     <item quantity="few">%s igralci</item>
@@ -1031,8 +1031,8 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="toggleAllAnalysis">Preklopi vso računalniško analizo</string>
   <string name="playComputerMove">Igraj najboljšo računalniško potezo</string>
   <string name="analysisOptions">Možnosti analize</string>
-  <string name="focusChat">Fokus klepet</string>
-  <string name="showHelpDialog">Show this help dialog</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokus klepet</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Show this help dialog</string>
   <string name="reopenYourAccount">Znova odprite svoj račun</string>
   <string name="closedAccountChangedMind">Če ste si premislili po zaprtju računa, imate eno možnost, da svoj račun pridobite nazaj.</string>
   <string name="onlyWorksOnce">To bo delovalo samo enkrat.</string>
