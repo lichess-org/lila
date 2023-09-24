@@ -142,7 +142,7 @@
   <string name="claimADraw">ادعای تساوی</string>
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s نفر بازیکن آنلاین</item>
     <item quantity="other">%s نفر بازیکن آنلاین</item>
   </plurals>
@@ -938,8 +938,8 @@
   <string name="toggleAllAnalysis">از سخت‌افزارِ رایانه خود و از سرورهای سایت برای بررسی استفاده نمایید</string>
   <string name="playComputerMove">بهترین حرکت پیشنهادی توسط رایانه را انتخاب و بازی کنید</string>
   <string name="analysisOptions">امکاناتِ تجزیه و تحلیل</string>
-  <string name="focusChat">تمرکز بر روی امکان چت و نوشتن در آن</string>
-  <string name="showHelpDialog">نمایش این پنجره راهنما</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">تمرکز بر روی امکان چت و نوشتن در آن</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
   <string name="closedAccountChangedMind">اگر حساب کاربری خود را مسدود کردید، اما بعد از آن نظرتان عوض شد، شما یک فرصت برای بازگرداندنِ حساب کاربری خود خواهید داشت.</string>
   <string name="onlyWorksOnce">پس از مسدودسازی حساب کاربری فقط یک بار امکان بازیابی آن خواهد بود.</string>
