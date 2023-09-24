@@ -144,7 +144,7 @@
   <string name="claimADraw">Remis beanspruchen</string>
   <string name="offerDraw">Remis anbieten</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s Spieler</item>
     <item quantity="other">%s Spieler</item>
   </plurals>
@@ -949,8 +949,8 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="toggleAllAnalysis">Alle Computeranalysen aktivieren/deaktivieren</string>
   <string name="playComputerMove">Spiele den besten Computerzug</string>
   <string name="analysisOptions">Analyseoptionen</string>
-  <string name="focusChat">Chat-Eingabefeld fokussieren</string>
-  <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Chat-Eingabefeld fokussieren</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Diesen Hilfedialog anzeigen</string>
   <string name="reopenYourAccount">Wiedereröffnung deines Kontos</string>
   <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>
   <string name="onlyWorksOnce">Das funktioniert nur einmal.</string>
