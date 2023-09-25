@@ -8,6 +8,7 @@
   flex-flow: column;
   overflow: auto;
   padding: $block-gap;
+  container-type: inline-size;
 
   h2 {
     font-size: 1em;
@@ -38,30 +39,47 @@
   }
 
   &__tools {
-    flex: 0 0 auto;
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    gap: 0 6px;
+    grid-auto-rows: 1fr;
+    grid-template-columns: auto auto;
 
-    > * {
-      @extend %flex-column;
-
-      flex: 0 0 50%;
-      text-align: center;
-      padding: 0;
-      height: 75px;
-      justify-content: center;
+    @container (max-width: 280px) {
+      grid-template-columns: auto;
     }
 
-    .button {
+    form {
+      display: flex;
+    }
+
+    button,
+    > a {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
       color: $c-font;
+      line-height: 1.2em;
       text-transform: none;
       white-space: normal;
+      overflow: hidden;
+      min-height: 48px;
 
       &::before {
-        display: block;
-        font-size: 2em;
-        line-height: 1em;
-        margin-bottom: 5px;
+        padding-#{$end-direction}: 6px;
+        font-size: 28px;
+      }
+
+      @container (max-width: 280px) {
+        min-height: 32px;
+
+        &::before {
+          font-size: 20px;
+        }
+      }
+
+      &:hover {
+        color: $c-primary;
       }
     }
   }

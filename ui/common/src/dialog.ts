@@ -1,6 +1,6 @@
 import { VNode, Attrs } from 'snabbdom';
 import { onInsert, lh as h, MaybeVNodes } from './snabbdom';
-import { isTouchDevice, isIOS } from './mobile';
+import { isTouchDevice } from './mobile';
 import * as xhr from './xhr';
 import * as licon from './licon';
 
@@ -8,17 +8,17 @@ let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
-  if (isIOS({ below: 15.4 }))
+  if (!window.HTMLDialogElement)
     dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js'))).default;
 });
 
 export interface Dialog {
-  readonly open: boolean; // is this dialog visible?
+  readonly open: boolean; // is visible?
   readonly view: HTMLElement; // your content div
-  readonly returnValue?: 'ok' | 'cancel' | string; // how did it close?
+  readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
-  showModal(): void;
-  show(): void;
+  showModal(): Promise<Dialog>; // resolves on close
+  show(): Promise<Dialog>; // resolves on close
   close(): void;
 }
 
@@ -29,6 +29,7 @@ interface DialogOpts {
   htmlUrl?: string; // content, url will be xhr'd
   htmlText?: string; // content, text will be used as-is
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
+  action?: Action | Action[]; // if present, add handlers to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corener close button
   noClickAway?: boolean; // if true, no click-away-to-close
@@ -42,6 +43,15 @@ export interface DomDialogOpts extends DialogOpts {
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: MaybeVNodes; // snabDialog auto-shows by default, but you must still call redraw
   onInsert?: (dialog: Dialog) => void; // prevents showModal, caller must do so manually
+}
+
+// Action can be any "clickable" client button, usually to dismiss the dialog
+interface Action {
+  selector: string; // selector, click handler will be installed
+  action?: string | ((dialog: Dialog, action: Action) => void);
+  // if action not provided, just close
+  // if string, given value will set dialog.returnValue and dialog is closed on click
+  // if function, it will be called on click and YOU must close the dialog
 }
 
 // if no 'show' in opts, you must call show or showModal on the resolved promise
@@ -71,8 +81,8 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   (o.parent ?? document.body).appendChild(dialog);
 
   const wrapper = new DialogWrapper(dialog, view, o);
-  if (o.show && o.show === 'modal') wrapper.showModal();
-  else if (o.show) wrapper.show();
+  if (o.show && o.show === 'modal') return wrapper.showModal();
+  else if (o.show) return wrapper.show();
 
   return wrapper;
 }
@@ -120,6 +130,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 
 class DialogWrapper implements Dialog {
   restoreFocus?: HTMLElement;
+  resolve?: (dialog: Dialog) => void;
 
   constructor(
     readonly dialog: HTMLDialogElement,
@@ -138,6 +149,14 @@ class DialogWrapper implements Dialog {
       ?.addEventListener('click', () => this.close('cancel'));
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', () => this.close('cancel')), 0);
+
+    if (o.action)
+      for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
+        view.querySelector(a.selector)?.addEventListener('click', () => {
+          if (!a.action || typeof a.action === 'string') this.close(a.action);
+          else a.action(this, a);
+        });
+      }
   }
 
   get open() {
@@ -152,9 +171,23 @@ class DialogWrapper implements Dialog {
     this.dialog.returnValue = v;
   }
 
-  show = () => {
+  show = (): Promise<Dialog> => {
     this.returnValue = '';
     this.dialog.show();
+    return new Promise(resolve => (this.resolve = resolve));
+  };
+
+  showModal = (): Promise<Dialog> => {
+    this.restoreFocus = document.activeElement as HTMLElement;
+    $(focusQuery, this.view)[1]?.focus();
+    this.view.scrollTop = 0;
+
+    this.addModalListeners?.();
+    this.returnValue = '';
+    this.dialog.showModal();
+    return new Promise(resolve => {
+      this.resolve = resolve;
+    });
   };
 
   close = (v?: string) => {
@@ -163,22 +196,13 @@ class DialogWrapper implements Dialog {
 
   onClose = () => {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    this.o.onClose?.(this);
     if ('show' in this.o && this.o.show === 'modal') {
       this.dialog.remove();
       this.restoreFocus?.focus();
     }
     this.restoreFocus = undefined;
-  };
-
-  showModal = () => {
-    this.restoreFocus = document.activeElement as HTMLElement;
-    $(focusQuery, this.view)[1]?.focus();
-    this.view.scrollTop = 0;
-
-    this.addModalListeners?.();
-    this.returnValue = '';
-    this.dialog.showModal();
+    this.resolve?.(this);
+    this.o.onClose?.(this);
   };
 
   addModalListeners? = () => {

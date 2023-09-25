@@ -920,7 +920,6 @@ export default class AnalyseCtrl {
     if (this.retro) this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
-    this.persistence?.toggleOpen(false);
     this.actionMenu(false);
   };
 
@@ -952,12 +951,6 @@ export default class AnalyseCtrl {
       });
       this.setAutoShapes();
     }
-  };
-
-  togglePersistence = () => {
-    const isOpen = this.persistence?.open();
-    this.closeTools();
-    this.persistence?.toggleOpen(!isOpen);
   };
 
   restartPractice() {
