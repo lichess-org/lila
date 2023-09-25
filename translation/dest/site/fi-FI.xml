@@ -143,7 +143,7 @@
   <string name="claimADraw">Vaadi tasapeli</string>
   <string name="offerDraw">Ehdota tasapeliä</string>
   <string name="draw">Tasapeli</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s pelaaja</item>
     <item quantity="other">%s pelaajaa</item>
   </plurals>
@@ -948,8 +948,8 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="toggleAllAnalysis">Kaikki tietokoneanalyysi päälle/pois</string>
   <string name="playComputerMove">Pelaa tietokoneen paras siirto</string>
   <string name="analysisOptions">Analyysiasetukset</string>
-  <string name="focusChat">Kohdista keskusteluun</string>
-  <string name="showHelpDialog">Näytä tämä ohjevalintaikkuna</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Kohdista keskusteluun</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Näytä tämä ohjevalintaikkuna</string>
   <string name="reopenYourAccount">Avaa käyttäjätunnuksesi uudelleen</string>
   <string name="closedAccountChangedMind">Jos olet sulkenut käyttäjätunnuksesi mutta sen jälkeen muuttanut mieltäsi, saat yhden mahdollisuuden palauttaa tunnuksesi.</string>
   <string name="onlyWorksOnce">Tämä toimii vain kerran.</string>

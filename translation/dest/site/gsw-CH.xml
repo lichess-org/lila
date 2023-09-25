@@ -144,7 +144,7 @@
   <string name="claimADraw">Es Remis beaschpruche</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s Schpiller</item>
     <item quantity="other">%s Schpiller</item>
   </plurals>
@@ -959,8 +959,8 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="toggleAllAnalysis">Alli Computer-Analyse a-/abschalte</string>
   <string name="playComputerMove">Spill de bescht Computerzug</string>
   <string name="analysisOptions">Analyse Möglichkeite</string>
-  <string name="focusChat">Chat fokussiere</string>
-  <string name="showHelpDialog">Zeig de Hilfsdialog</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Chat fokussiere</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
   <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance dis Konto wider zrugg z\'hole.</string>
   <string name="onlyWorksOnce">Das funktioniert aber nur eimal.</string>

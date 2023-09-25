@@ -144,7 +144,7 @@
   <string name="claimADraw">Reclama taules</string>
   <string name="offerDraw">Ofereix taules</string>
   <string name="draw">Taules</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadors</item>
   </plurals>
@@ -949,8 +949,8 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="toggleAllAnalysis">Activa/desactiva tot l\'anàlisi d\'ordinador</string>
   <string name="playComputerMove">Juga el millor moviment suggerit per l\'ordinador</string>
   <string name="analysisOptions">Opcions d\'anàlisi</string>
-  <string name="focusChat">Enfocar el xat</string>
-  <string name="showHelpDialog">Ensenya aquest missatge d\'ajuda</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Enfocar el xat</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Ensenya aquest missatge d\'ajuda</string>
   <string name="reopenYourAccount">Torna a obrir el teu compte</string>
   <string name="closedAccountChangedMind">Si has tancat el teu compte, però des de llavors has cambiat d\'opinió, tens una oportunitat per recuperar el teu compte.</string>
   <string name="onlyWorksOnce">Això només funcionarà un cop.</string>

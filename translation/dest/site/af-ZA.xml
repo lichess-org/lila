@@ -114,6 +114,7 @@
   <string name="openStudy">Open studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
+  <string name="showVariationArrows">Wys variasiepyle</string>
   <string name="evaluationGauge">Evaluering meter</string>
   <string name="multipleLines">Aantal lyne</string>
   <string name="cpus">CPU</string>
@@ -142,7 +143,7 @@
   <string name="claimADraw">Eis gelykop</string>
   <string name="offerDraw">Bied gelykop aan</string>
   <string name="draw">Gelykop</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
@@ -936,8 +937,8 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="toggleAllAnalysis">Wissel alle rekenaar analise</string>
   <string name="playComputerMove">Speel die beste rekenaarskuif</string>
   <string name="analysisOptions">Analise opsies</string>
-  <string name="focusChat">Lê fokus klets</string>
-  <string name="showHelpDialog">Wys hierdie hulp dialoog</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Lê fokus klets</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Wys hierdie hulp dialoog</string>
   <string name="reopenYourAccount">Herstel jou rekening</string>
   <string name="closedAccountChangedMind">As jou rekening gesluit het, maar het intussen van plan verander, kry jy sleg een kans om jou rekening terug te kry.</string>
   <string name="onlyWorksOnce">Dié sal slegs een keer werk.</string>

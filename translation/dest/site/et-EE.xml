@@ -140,7 +140,7 @@
   <string name="claimADraw">Võta viik</string>
   <string name="offerDraw">Paku viiki</string>
   <string name="draw">Viik</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s mängija</item>
     <item quantity="other">%s mängijat</item>
   </plurals>
@@ -491,6 +491,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="firstName">Eesnimi</string>
   <string name="lastName">Perekonnanimi</string>
   <string name="biography">Kirjeldus</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lipp</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
@@ -670,6 +671,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
+  <string name="keyNextMistake">Järgmine viga</string>
+  <string name="keyNextInaccuracy">Järgmine ebatäpsus</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
@@ -767,6 +770,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="custom">Kohandatud</string>
   <string name="notifications">Teavitused</string>
+  <string name="notificationsX">Märguanded: %1$s</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
@@ -925,8 +929,8 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
   <string name="playComputerMove">Tee parim arvutikäik</string>
   <string name="analysisOptions">Analüüsi seaded</string>
-  <string name="focusChat">Fokuseeri vestlus</string>
-  <string name="showHelpDialog">Näita seda abiakent</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokuseeri vestlus</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Näita seda abiakent</string>
   <string name="reopenYourAccount">Ava oma konto uuesti</string>
   <string name="closedAccountChangedMind">Kui sulgesid oma konto, kuid oled vahepeal ümber mõelnud, on sul üks võimalus oma konto tagasi saada.</string>
   <string name="onlyWorksOnce">See töötab ainult ühe korra.</string>

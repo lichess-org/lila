@@ -156,7 +156,7 @@
   <string name="claimADraw">Maígh comhscór</string>
   <string name="offerDraw">Tairg comhscór</string>
   <string name="draw">Comhscór</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s imreoir</item>
     <item quantity="two">%s imreoir</item>
     <item quantity="few">%s imreoir</item>
@@ -1051,8 +1051,8 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="toggleAllAnalysis">Scoránú gach anailís ríomhaire</string>
   <string name="playComputerMove">Déan an beart ríomhaire is fearr</string>
   <string name="analysisOptions">Roghanna anailíse</string>
-  <string name="focusChat">Comhrá spriocghrúpa</string>
-  <string name="showHelpDialog">Taispeáin an dialóg cabhrach seo</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Comhrá spriocghrúpa</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Taispeáin an dialóg cabhrach seo</string>
   <string name="reopenYourAccount">Athoscailt do chuntas</string>
   <string name="closedAccountChangedMind">Má dhún tú do chuntas, ach d’athraigh tú d’intinn, gheobhaidh tú seans amháin do chuntas a fháil ar ais.</string>
   <string name="onlyWorksOnce">Ní oibreoidh sé seo ach uair amháin.</string>

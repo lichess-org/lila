@@ -135,7 +135,7 @@
   <string name="claimADraw">Klaim remis</string>
   <string name="offerDraw">Tawarkan remis</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="other">%s pemain tersambung</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis atas keputusan bersama</string>
@@ -887,8 +887,8 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="toggleAllAnalysis">Nyala / mati semua analisa komputer</string>
   <string name="playComputerMove">Langkahkan gerakan terbaik komputer</string>
   <string name="analysisOptions">Setelan analisa</string>
-  <string name="focusChat">Fokus pada kotak obroloan</string>
-  <string name="showHelpDialog">Tampilkan halaman bantuan ini</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokus pada kotak obroloan</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Tampilkan halaman bantuan ini</string>
   <string name="reopenYourAccount">Buka kembali akun Anda</string>
   <string name="closedAccountChangedMind">Jika Anda telah menutup akun, Anda dapat satu kesempatan untuk mengembalikan akun anda.</string>
   <string name="onlyWorksOnce">Ini hanya dapat dilakukan sekali.</string>
