@@ -8,7 +8,7 @@ let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
-  if (isIOS({ below: 15.4 }))
+  if (!window.HTMLDialogElement)
     dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js'))).default;
 });
 
