@@ -154,7 +154,7 @@
   <string name="claimADraw">דרוש תיקו</string>
   <string name="offerDraw">הצע תיקו</string>
   <string name="draw">תיקו</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s שחקנים</item>
     <item quantity="two">%s שחקנים</item>
     <item quantity="many">%s שחקנים</item>
@@ -1034,8 +1034,8 @@
   <string name="toggleAllAnalysis">הפעילו/כבו כל ניתוח מחשב</string>
   <string name="playComputerMove">שחק את מהלך המחשב הטוב ביותר</string>
   <string name="analysisOptions">אפשרויות ניתוח</string>
-  <string name="focusChat">הגדלת הצ\'אט</string>
-  <string name="showHelpDialog">הצגת מסך עזרה זה</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">הגדלת הצ\'אט</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">הצגת מסך עזרה זה</string>
   <string name="reopenYourAccount">פתח/י את חשבונך מחדש</string>
   <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתוח אותו.</string>
   <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>

@@ -144,9 +144,9 @@
   <string name="claimADraw">Declarar empate</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
-  <plurals name="nbPlayers">
-    <item quantity="one">%s jogador conectado</item>
-    <item quantity="other">%s jogadores conectados</item>
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+    <item quantity="one">%s jogador</item>
+    <item quantity="other">%s jogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
@@ -483,7 +483,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
-  <string name="whiteWins">Vitórias com brancas</string>
+  <string name="whiteWins">Vitórias com as brancas</string>
   <string name="blackWins">Vitórias com as pretas</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio de %s:</string>
@@ -602,7 +602,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="biographyDescription">Fala de ti, do que gostas no xadrez, das tuas aberturas favoritas, jogos, jogadores...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s carácter.</item>
-    <item quantity="other">Máximo: %s carácteres.</item>
+    <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s bloqueado</item>
@@ -950,8 +950,8 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="toggleAllAnalysis">Alternar todas as análises no computador</string>
   <string name="playComputerMove">Jogar o melhor lance do computador</string>
   <string name="analysisOptions">Opções de análise</string>
-  <string name="focusChat">Focar no bate-papo</string>
-  <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Focar no bate-papo</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabrir a sua conta</string>
   <string name="closedAccountChangedMind">Se fechou a sua conta mas desde então mudou de ideias, terá uma oportunidade de recuperar a sua conta.</string>
   <string name="onlyWorksOnce">Isto só vai funcionar uma única vez.</string>

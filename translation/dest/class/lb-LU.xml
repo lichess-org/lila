@@ -104,4 +104,5 @@ Doduerch gëtt eng hotizontal Linn ugewisen.</string>
   <string name="studentsRealNamesOnePerLine">Richtegen Numm vun de Schüler, ee pro Zeil</string>
   <string name="xisNowAStudentOfTheClass">De Benotzer %s ass lo ee Schüler vum Cours</string>
   <string name="anInvitationHasBeenSentToX">Et gouf eng Invitatioun geschéckt un de Benotzer %s</string>
+  <string name="xIsAKidAccountWarning">%1$s ass ee Kannerkont a kann däi Message net empfänken. Du muss him d\'Invitatiouns-URL manuell ginn: %2$s</string>
 </resources>

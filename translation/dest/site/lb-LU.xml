@@ -81,7 +81,7 @@
   <string name="losing">Verléiert</string>
   <string name="drawn">Remis</string>
   <string name="unknown">Onbekannt</string>
-  <string name="database">Datenbank</string>
+  <string name="database">Datebank</string>
   <string name="whiteDrawBlack">Wäiss / Remis / Schwaarz</string>
   <string name="averageRatingX">Duerchschnëttlech Wäertung: %s</string>
   <string name="recentGames">Rezent Partien</string>
@@ -142,9 +142,9 @@
   <string name="flipBoard">Briet dréinen</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
-  <string name="offerDraw">Remis ubidden</string>
+  <string name="offerDraw">Remis bidden</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s Spiller</item>
     <item quantity="other">%s Spiller</item>
   </plurals>
@@ -175,7 +175,7 @@
   <string name="xPostedInForumY">%1$s huet zum Thema %2$s geschriwwen</string>
   <string name="latestForumPosts">Neisten Forumbäiträg</string>
   <string name="players">Spiller</string>
-  <string name="friends">Frënn</string>
+  <string name="friends">Kolleegen</string>
   <string name="discussions">Konversatiounen</string>
   <string name="today">Haut</string>
   <string name="yesterday">Gëschter</string>
@@ -258,14 +258,14 @@
   <string name="cancel">Annuléieren</string>
   <string name="whiteTimeOut">Zäitiwwerschreidung vu Wäiss</string>
   <string name="blackTimeOut">Zäitiwwerschreidung vu Schwaarz</string>
-  <string name="drawOfferSent">Remis Offer geschéckt</string>
-  <string name="drawOfferAccepted">Remis Offer ugeholl</string>
-  <string name="drawOfferCanceled">Remis Offer annuléiert</string>
-  <string name="whiteOffersDraw">Wäiss bitt Remis un</string>
-  <string name="blackOffersDraw">Schwaarz bitt Remis un</string>
+  <string name="drawOfferSent">Remis-Offer geschéckt</string>
+  <string name="drawOfferAccepted">Remis-Offer ugeholl</string>
+  <string name="drawOfferCanceled">Remis-Offer annuléiert</string>
+  <string name="whiteOffersDraw">Wäiss bitt Remis</string>
+  <string name="blackOffersDraw">Schwaarz bitt Remis</string>
   <string name="whiteDeclinesDraw">Wäiss leent Remis of</string>
   <string name="blackDeclinesDraw">Schwaarz leent Remis of</string>
-  <string name="yourOpponentOffersADraw">Däin Géigner bitt Remis un</string>
+  <string name="yourOpponentOffersADraw">Däi Géigner bitt Remis</string>
   <string name="accept">Acceptéieren</string>
   <string name="decline">Ofleenen</string>
   <string name="playingRightNow">Partie leeft</string>
@@ -283,11 +283,11 @@
   <string name="ratedTournament">Gewäert</string>
   <string name="thisGameIsRated">Dës Partie ass gewäert</string>
   <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Revanche Offer geschéckt</string>
-  <string name="rematchOfferAccepted">Revanche Offer ugeholl</string>
-  <string name="rematchOfferCanceled">Revanche Offer annuléiert</string>
-  <string name="rematchOfferDeclined">Revanche Offer ofgeleent</string>
-  <string name="cancelRematchOffer">Revanche Offer annuléieren</string>
+  <string name="rematchOfferSent">Revanche-Offer geschéckt</string>
+  <string name="rematchOfferAccepted">Revanche-Offer ugeholl</string>
+  <string name="rematchOfferCanceled">Revanche-Offer annuléiert</string>
+  <string name="rematchOfferDeclined">Revanche-Offer ofgeleent</string>
+  <string name="cancelRematchOffer">Revanche-Offer annuléieren</string>
   <string name="viewRematch">Revanche ukucken</string>
   <string name="confirmMove">Zuch confirméieren</string>
   <string name="play">Spillen</string>
@@ -417,8 +417,8 @@
   <string name="retry">Nei probéieren</string>
   <string name="reconnecting">Remverbannen</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s Frënd online</item>
-    <item quantity="other">%s Frënn online</item>
+    <item quantity="one">%s Kolleeg online</item>
+    <item quantity="other">%s Kolleegen online</item>
   </plurals>
   <string name="favoriteOpponents">Lieblingsgéigner</string>
   <string name="follow">Followen</string>
@@ -632,7 +632,7 @@
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
   <string name="ifRegistered">Wann registréiert</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
-  <string name="onlyFriends">Just Frënn</string>
+  <string name="onlyFriends">Just Kolleegen</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
   <string name="whiteCastlingKingside">Wäiss O-O</string>
@@ -731,7 +731,7 @@
   <string name="receiveForumNotifications">Notificatioun kréien wann du am Forum erwähnt gëss</string>
   <string name="shareYourInsightsData">Deng perséinlech Schachstatistiken deelen</string>
   <string name="withNobody">Mat kengem</string>
-  <string name="withFriends">Mat Frënn</string>
+  <string name="withFriends">Mat Kolleegen</string>
   <string name="withEverybody">Mat jidderengem</string>
   <string name="kidMode">Kannermodus</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
@@ -753,7 +753,7 @@
   <string name="correspondenceChess">Korrespondenz Schach</string>
   <string name="onlineAndOfflinePlay">Online an Offline spillen</string>
   <string name="viewTheSolution">Léisung ukucken</string>
-  <string name="followAndChallengeFriends">Frënn followen an erausfuerderen</string>
+  <string name="followAndChallengeFriends">Kolleege followen an erausfuerderen</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibel an %s Sprooch!</item>
     <item quantity="other">Disponibel an %s Sproochen!</item>
@@ -949,8 +949,8 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="toggleAllAnalysis">All Computer Analyse aktivéieren/desaktivéieren</string>
   <string name="playComputerMove">Beschten Computer Zuch spillen</string>
   <string name="analysisOptions">Analyse Optiounen</string>
-  <string name="focusChat">Chat fokusséieren</string>
-  <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Chat fokusséieren</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Dësen Hëllefdialog weisen</string>
   <string name="reopenYourAccount">Konto nei opmaachen</string>
   <string name="closedAccountChangedMind">Wanns du dein Konto zougemaach has, mee säit deem deng Meenung geännert hues, kriss du eng Chance däin Konto zeréckzekréien.</string>
   <string name="onlyWorksOnce">Dat hei klappt just eemol.</string>

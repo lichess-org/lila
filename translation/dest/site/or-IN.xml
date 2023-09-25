@@ -101,7 +101,7 @@
   <string name="claimADraw">ଡ୍ର ଦାବି କରନ୍ତୁ</string>
   <string name="offerDraw">ଡ୍ର ଅଫର୍ କରନ୍ତୁ</string>
   <string name="draw">ଡ୍ର</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s ଖେଳାଳି</item>
     <item quantity="other">%s ଖେଳାଳି ମାନେ</item>
   </plurals>
@@ -302,7 +302,7 @@
   <string name="xMentionedYouInY">%1$s ଆପଣଙ୍କୁ \"%2$s\"ରେ ଉଲ୍ଲେଖ କରିଛନ୍ତି।</string>
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
-  <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
   <string name="youCantStartNewGame">ଏହି ଖେଳ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଆପଣ ଏକ ନୂଆ ଖେଳ ଆରମ୍ଭ କରିପାରିବେ ନାହିଁ।</string>
   <string name="switchSides">ପାର୍ଶ୍ୱ ଅଦଳବଦଳ</string>
   <string name="closingAccountWithdrawAppeal">ଆପଣଙ୍କ ଆକାଉଣ୍ଟ୍ ବନ୍ଦ କରିବା ଆପଣଙ୍କ ଆବେଦନ ପ୍ରତ୍ୟାହାର କରାଇଦେବ</string>

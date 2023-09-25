@@ -26,6 +26,7 @@
   <string name="fairPlayPage">Fair-Play-Säit</string>
   <string name="gameplay">Spillerliefnis</string>
   <string name="howBulletBlitzEtcDecided">Wat decidéiert op eng Zäitkontroll Bullet, Blitz oder eng aner ass?</string>
+  <string name="durationFormula">(Ufankszäit a Sekonnen) + 40 × (Inkrement pro Zuch)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Wéieng Varianten kann ech op Lichess spillen?</string>
@@ -45,6 +46,7 @@
   <string name="configure">konfiguréieren</string>
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Wéieng Titel ginn et op Lichess?</string>
+  <string name="asWellAsManyNMtitles">vill national Meeschtertitelen</string>
   <string name="verificationForm">Verifikatiounsformulaire</string>
   <string name="canIbecomeLM">Kann ech den Lichess Meeschter (LM) Titel kréien?</string>
   <string name="noUpperCaseDot">Nee.</string>

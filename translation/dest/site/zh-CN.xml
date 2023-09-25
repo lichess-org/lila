@@ -139,7 +139,7 @@
   <string name="claimADraw">宣布和棋</string>
   <string name="offerDraw">提出和棋</string>
   <string name="draw">平局</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="other">%s 位在线棋手</item>
   </plurals>
   <string name="drawByMutualAgreement">双方同意和棋</string>
@@ -906,8 +906,8 @@
   <string name="toggleAllAnalysis">切换所有（本地+服务器）计算机分析</string>
   <string name="playComputerMove">走电脑推荐的最佳招</string>
   <string name="analysisOptions">分析选项</string>
-  <string name="focusChat">聚焦聊天</string>
-  <string name="showHelpDialog">显示此帮助对话框</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">聚焦聊天</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">显示此帮助对话框</string>
   <string name="reopenYourAccount">恢复你的账户</string>
   <string name="closedAccountChangedMind">如果你关闭了账户，但此后又改变了主意，你可以获得一次恢复账户的机会。</string>
   <string name="onlyWorksOnce">账户关闭后只能恢复一次</string>

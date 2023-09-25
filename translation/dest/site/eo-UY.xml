@@ -144,7 +144,7 @@
   <string name="claimADraw">Postuli egalvenkon</string>
   <string name="offerDraw">Proponi egalvenkon</string>
   <string name="draw">Egalvenko</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s konektita ludanto</item>
     <item quantity="other">%s konektitaj ludantoj</item>
   </plurals>
@@ -949,8 +949,8 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
   <string name="playComputerMove">Ludi la plej bonan komputilan movon</string>
   <string name="analysisOptions">Analizaj agordoj</string>
-  <string name="focusChat">Babilejo de fokuso</string>
-  <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Babilejo de fokuso</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Montri ĉi tiun help-dialogujon</string>
   <string name="reopenYourAccount">Remalfermi vian konton</string>
   <string name="closedAccountChangedMind">Se vi fermis vian konton, sed decidis alie poste, vi povas unufoje rehavigi vian konton.</string>
   <string name="onlyWorksOnce">Ĉi tiu funkcios nur unufoje.</string>

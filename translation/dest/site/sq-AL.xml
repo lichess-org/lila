@@ -143,7 +143,7 @@
   <string name="claimADraw">Kërko barazim</string>
   <string name="offerDraw">Ofro barazim</string>
   <string name="draw">Barazim</string>
-  <plurals name="nbPlayers">
+  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
     <item quantity="one">%s lojtar</item>
     <item quantity="other">%s lojtarë</item>
   </plurals>
@@ -506,6 +506,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="firstName">Emër</string>
   <string name="lastName">Mbiemër</string>
   <string name="biography">Jetëshkrim</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flamuri</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="socialMediaLinks">Lidhje mediash shoqërore</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
@@ -949,8 +950,8 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="toggleAllAnalysis">Aktivizo/Çaktivizo krejt analizat kompjuterike</string>
   <string name="playComputerMove">Bëj lëvizjen më të mirë të kompjuterit</string>
   <string name="analysisOptions">Mundësi analize</string>
-  <string name="focusChat">Vëmendjen te fjalosja</string>
-  <string name="showHelpDialog">Shfaq këtë dialog ndihme</string>
+  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Vëmendjen te fjalosja</string>
+  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Shfaq këtë dialog ndihme</string>
   <string name="reopenYourAccount">Rihapni llogarinë tuaj</string>
   <string name="closedAccountChangedMind">Nëse e mbyllët llogarinë tuaj, por prej atëherë keni ndërruar mendje, mund t’ju jepet një shans për të rimarrë llogarinë tuaj.</string>
   <string name="onlyWorksOnce">Kjo do të funksionojë vetëm një herë.</string>
