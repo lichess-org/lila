@@ -9,11 +9,16 @@ lichess.load.then(() => {
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
       }).then(dlg => {
-        $('form', dlg.view).on('submit', () => {
-          //e.preventDefault();
-          xhr.text(link.href, { method: 'post' });
-          $(link).closest('.forum-post').hide();
-        });
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
         dlg.showModal();
       });
       return false;
