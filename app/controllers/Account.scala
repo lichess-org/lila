@@ -90,7 +90,8 @@ final class Account(
           me.value,
           withFollows = apiC.userWithFollows,
           withTrophies = false,
-          withEmail = getBool("email") && ctx.scopes.has(_.Email.Read)
+          withEmail = getBool("email") && ctx.scopes.has(_.Email.Read),
+          withPermissions = getBool("permissions") && ctx.scopes.has(_.Web.Mod)
         ) dmap { JsonOk(_) }
     }
 

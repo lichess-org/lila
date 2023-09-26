@@ -46,7 +46,8 @@ final class UserApi(
       u: User | User.WithPerfs,
       withFollows: Boolean,
       withTrophies: Boolean,
-      withEmail: Boolean = false
+      withEmail: Boolean = false,
+      withPermissions: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User           => userApi.withPerfs(u)
@@ -105,6 +106,10 @@ final class UserApi(
                     )
                   )
                   .add("email", email)
+                  .add(
+                    "permissions",
+                    withPermissions.option(lila.security.Permission(u.user.roles).map(_.name))
+                  )
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
