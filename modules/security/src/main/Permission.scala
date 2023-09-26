@@ -179,6 +179,7 @@ object Permission:
       extends Permission(
         "ADMIN",
         List(
+          LichessTeam,
           PrizeBan,
           RemoveRanking,
           BoostHunter,
