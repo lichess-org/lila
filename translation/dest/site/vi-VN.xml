@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã nhập?</string>
   <string name="replayMode">Chế độ xem lại</string>
   <string name="realtimeReplay">Thời gian thực</string>
-  <string name="byCPL">Theo CPL</string>
+  <string name="byCPL">Theo thất thế</string>
   <string name="openStudy">Mở nghiên cứu</string>
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
@@ -644,7 +644,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
-  <string name="averageCentipawnLoss">Trung bình phần trăm tốt bị mất mỗi nước (ACPL)</string>
+  <string name="averageCentipawnLoss">Thất thế trung bình mỗi nước (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
   <string name="keyboardShortcuts">Các phím tắt</string>
   <string name="keyMoveBackwardOrForward">tua lại/đi tới</string>
