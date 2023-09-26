@@ -66,7 +66,7 @@ object Permission:
   case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case object PayPal                extends Permission("PAYPAL", "PayPal")
   case object Relay                 extends Permission("RELAY", "Manage broadcasts")
-  case object Cli                   extends Permission("ClI", "Command line")
+  case object Cli                   extends Permission("CLI", "Command line")
   case object Settings              extends Permission("SETTINGS", "Lila settings")
   case object Streamers             extends Permission("STREAMERS", "Manage streamers")
   case object Verified              extends Permission("VERIFIED", "Verified badge")
