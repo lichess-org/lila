@@ -327,6 +327,12 @@ object Permission:
 
   def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
 
+  def expanded(dbKeys: Seq[String]): Set[Permission] =
+    val level0 = apply(dbKeys)
+    val level1 = level0.flatMap(_.children)
+    val level2 = level1.flatMap(_.children)
+    level0 ++ level1 ++ level2
+
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
     !perms(perm) so perms.find(_ is perm)
 

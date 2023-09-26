@@ -108,7 +108,7 @@ final class UserApi(
                   .add("email", email)
                   .add(
                     "permissions",
-                    withPermissions.option(lila.security.Permission(u.user.roles).map(_.name))
+                    withPermissions.option(lila.security.Permission.expanded(u.user.roles).map(_.name))
                   )
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
