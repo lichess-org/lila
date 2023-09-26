@@ -16,6 +16,7 @@ final class UserApi(
     crosstableApi: lila.game.CrosstableApi,
     gameCache: lila.game.Cached,
     userApi: lila.user.UserApi,
+    userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
     prefApi: lila.pref.PrefApi,
     streamerApi: lila.streamer.StreamerApi,
@@ -44,7 +45,8 @@ final class UserApi(
   def extended(
       u: User | User.WithPerfs,
       withFollows: Boolean,
-      withTrophies: Boolean
+      withTrophies: Boolean,
+      withEmail: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User           => userApi.withPerfs(u)
@@ -64,7 +66,8 @@ final class UserApi(
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
             (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
-            streamerApi.listed(u.user)
+            streamerApi.listed(u.user),
+            withEmail.soFu(userRepo.email(u.id))
           ).mapN:
             (
                 gameOption,
@@ -77,7 +80,8 @@ final class UserApi(
                 nbPlaying,
                 nbImported,
                 trophiesAndAwards,
-                streamer
+                streamer,
+                email
             ) =>
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
                 Json
@@ -100,6 +104,7 @@ final class UserApi(
                       "me"       -> nbGamesWithMe
                     )
                   )
+                  .add("email", email)
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))

@@ -89,7 +89,8 @@ final class Account(
         env.api.userApi.extended(
           me.value,
           withFollows = apiC.userWithFollows,
-          withTrophies = false
+          withTrophies = false,
+          withEmail = getBool("email") && ctx.scopes.has(_.Email.Read)
         ) dmap { JsonOk(_) }
     }
 
