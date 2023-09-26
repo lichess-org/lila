@@ -638,8 +638,8 @@
   <string name="whiteCastlingKingside">Brancas O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s mensaxe no foro</item>
-    <item quantity="other">%s mensaxes no foro</item>
+    <item quantity="one">%s Mensaxe no Foro</item>
+    <item quantity="other">%s Mensaxes no Foro</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
