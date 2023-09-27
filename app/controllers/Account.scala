@@ -85,13 +85,14 @@ final class Account(
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+      val isWiki = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
       rateLimit(me, limited):
         env.api.userApi.extended(
           me.value,
           withFollows = apiC.userWithFollows,
           withTrophies = false,
-          withEmail = getBool("email") && ctx.scopes.has(_.Email.Read),
-          withPermissions = getBool("permissions") && ctx.scopes.has(_.Web.Mod)
+          withEmail = isWiki,
+          withPermissions = isWiki
         ) dmap { JsonOk(_) }
     }
 
