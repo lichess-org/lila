@@ -144,7 +144,7 @@
   <string name="claimADraw">Krev remis</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
@@ -511,8 +511,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="oneUrlPerLine">Ein URL per line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
-  <string name="savingMoves">Mellombels lagring av trekk</string>
-  <string name="savingMovesHelp">Vi lagrar variantane dine i mellomlageret til nettlesaren.</string>
   <string name="makeAStudy">Om du vil ta vare på trekka til seinare er det betre å laga ein studie.</string>
   <string name="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
@@ -950,8 +948,8 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="toggleAllAnalysis">Aktiver/deaktiver all maskinanalyse</string>
   <string name="playComputerMove">Spel det beste maskintrekket</string>
   <string name="analysisOptions">Analyseval</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokusér prateromet</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Vis denne hjelpedialogen</string>
+  <string name="focusChat">Fokusér prateromet</string>
+  <string name="showHelpDialog">Vis denne hjelpedialogen</string>
   <string name="reopenYourAccount">Opne kontoen din på ny</string>
   <string name="closedAccountChangedMind">Om du har stengd kontoen din, men ynskjer å ta den attende, får du eitt høve til å opna den på ny.</string>
   <string name="onlyWorksOnce">Dette kan du berre gjera ein einaste gong.</string>
