@@ -21,7 +21,7 @@ final class ForumDelete(
       then
         modLog.deletePost(
           view.post.userId,
-          text = "%s / %s / %s".format(view.categ.name, view.topic.name, view.post.text)
+          text = view.logFormatted
         )
       else
         fuccess:

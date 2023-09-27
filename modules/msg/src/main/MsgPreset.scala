@@ -54,5 +54,8 @@ Thank you for your understanding."""
 
     def byBlogAuthor(authorId: String) = compose(by = s"The community blog author $authorId")
 
-    private def compose(by: String)(reason: String) =
-      s"""$by deleted one of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
+    private def compose(by: String)(reason: String, forumPost: String) =
+      s"""$by deleted the following of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette
+----
+$forumPost
+    """

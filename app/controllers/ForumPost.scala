@@ -102,7 +102,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   else if topic.exists(_ isUblogAuthor me) then
                     MsgPreset.forumDeletion.byBlogAuthor(me.username)
                   else MsgPreset.forumDeletion.byTeamLeader(post.categId)
-              do env.msg.api.systemPost(userId, preset(reason))
+              do env.msg.api.systemPost(userId, preset(reason, view.logFormatted))
               NoContent
   }
 
