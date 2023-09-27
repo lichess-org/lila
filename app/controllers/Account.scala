@@ -93,8 +93,7 @@ final class Account(
             me.value,
             withFollows = apiC.userWithFollows,
             withTrophies = false,
-            withEmail = wikiGranted,
-            withPermissions = wikiGranted
+            forWiki = wikiGranted
           ) dmap { JsonOk(_) }
     }
 

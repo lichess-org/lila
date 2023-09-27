@@ -46,8 +46,7 @@ final class UserApi(
       u: User | User.WithPerfs,
       withFollows: Boolean,
       withTrophies: Boolean,
-      withEmail: Boolean = false,
-      withPermissions: Boolean = false
+      forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User           => userApi.withPerfs(u)
@@ -68,7 +67,7 @@ final class UserApi(
             gameCache.nbImportedBy(u.id),
             (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
             streamerApi.listed(u.user),
-            withEmail.soFu(userRepo.email(u.id))
+            forWiki.soFu(userRepo.email(u.id))
           ).mapN:
             (
                 gameOption,
@@ -106,10 +105,7 @@ final class UserApi(
                     )
                   )
                   .add("email", email)
-                  .add(
-                    "permissions",
-                    withPermissions.option(lila.security.Permission.expanded(u.user.roles).map(_.name))
-                  )
+                  .add("groups", forWiki.option(wikiGroups(u.user)))
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
@@ -181,6 +177,11 @@ final class UserApi(
     js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
+
+  private def wikiGroups(u: User): List[String] =
+    val perms          = lila.security.Permission.expanded(u.roles).map(_.name).toList
+    val wikiAdminGroup = "Administrators"
+    if perms.contains("Admin") then wikiAdminGroup :: perms else perms
 
 object UserApi:
   case class TrophiesAndAwards(
