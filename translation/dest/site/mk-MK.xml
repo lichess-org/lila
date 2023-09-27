@@ -143,7 +143,7 @@
   <string name="claimADraw">Избери реми</string>
   <string name="offerDraw">Понуди реми</string>
   <string name="draw">Реми</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s приклучени играчи</item>
     <item quantity="other">%s приклучени играчи</item>
   </plurals>
@@ -505,8 +505,6 @@
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
   <string name="oneUrlPerLine">Еден УРЛ по линија.</string>
   <string name="inlineNotation">Подредена нотација</string>
-  <string name="savingMoves">Привремено зачувани потези</string>
-  <string name="savingMovesHelp">Секогаш ги чуваме Вашите варијации во кеш меморијата на пребарувачот.</string>
   <string name="makeAStudy">Заради сигурност и споделување, креирајте студија.</string>
   <string name="clearSavedMoves">Исчисти потези</string>
   <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
@@ -943,8 +941,8 @@
   <string name="toggleAllAnalysis">Вклучи/исклучи ги сите компјутерски анализи</string>
   <string name="playComputerMove">Играј го најдобриот компјутерски потег</string>
   <string name="analysisOptions">Опции за анализа</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Фокусирај разговор</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Покажи прозорец за помош</string>
+  <string name="focusChat">Фокусирај разговор</string>
+  <string name="showHelpDialog">Покажи прозорец за помош</string>
   <string name="reopenYourAccount">Повторно отвори ја твојата сметка</string>
   <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
   <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
