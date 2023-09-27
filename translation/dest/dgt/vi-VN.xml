@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dgtBoard">Bàn cờ công nghệ trò chơi kĩ thuật số (DGT)</string>
+  <string name="lichessAndDgt">Lichess &amp; Công Nghệ Bàn Cờ Kỹ Thuật Số (DGT)</string>
+  <string name="dgtBoardRequirements">Những yêu cầu về bàn cờ DGT</string>
+  <string name="dgtBoardLimitations">Những hạn chế của bàn cờ DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Trang này cho phép bạn kết nối bàn cờ DGT của mình với Lichess và sử dụng nó để chơi cờ.</string>
+  <string name="toConnectTheDgtBoard">Để kết nối với Bảng điện tử bàn cờ DGT, bạn sẽ cần cài đặt %s.</string>
+  <string name="downloadHere">Bạn có thể tải phần mềm tại đây: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Nếu %1$s đang chạy trên máy tính này, bạn có thể kiểm tra kết nối của mình với nó trước %2$s.</string>
+  <string name="openingThisLink">mở liên kết này</string>
+  <string name="ifLiveChessRunningElsewhere">Nếu %1$s đang chạy trên một máy khác hoặc cổng khác, bạn sẽ cần đặt địa chỉ IP và cổng tại đây trong %2$s.</string>
+  <string name="configurationSection">Phần cấu hình</string>
+  <string name="dgtConfigure">Bàn cờ công nghệ kỹ thuật số (DGT) - Cấu hình</string>
+  <string name="lichessConnectivity">Kết nối Lichess</string>
+  <string name="keywords">Các từ khóa</string>
+  <string name="debug">Gỡ lỗi</string>
+  <string name="verboseLogging">Ghi nhật ký chi tiết</string>
+  <string name="playWithDgtBoard">Chơi với bàn cờ công nghệ kỹ thuật số</string>
+  <string name="configure">Cấu hình</string>
+</resources>
