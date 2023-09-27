@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="dgtBoard">DGT-Brett</string>
+  <string name="dgtBoard">DGT-Schachbrett</string>
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="dgtBoardRequirements">DGT-Brett-Anforderungen</string>
   <string name="dgtBoardLimitations">DGT-Brett-Beschränkungen</string>
@@ -8,18 +8,18 @@
   <string name="toConnectTheDgtBoard">Um das elektronische DGT-Brett zu verbinden, musst du %s installieren.</string>
   <string name="downloadHere">Du kannst die Software hier herunterladen: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Falls %1$s auf diesem Computer läuft, kannst du die Verbindung mittels %2$s überprüfen.</string>
-  <string name="openingThisLink">Öffnen dieses Links</string>
+  <string name="openingThisLink">Öffne diesen Link</string>
   <string name="ifLiveChessRunningElsewhere">Falls %1$s auf einem anderen System oder Port läuft, musst du die IP-Adresse und Port hier in %2$s eingeben.</string>
   <string name="configurationSection">Konfigurations-Abschnitt</string>
   <string name="keepPlayPageOpen">Die Partieseite muss in deinem Browser geöffnet bleiben. Sie muss nicht sichtbar sein, du kannst sie minimieren oder neben die Lichess Partieseite ziehen, jedoch nicht schließen, da ansonsten das Brett nicht mehr funktionieren wird.</string>
   <string name="boardWillAutoConnect">Das Brett wird sich automatisch zu der Partie verbinden, die gerade im Gange ist, oder zu einer neuen Partie, sobald diese gestartet wurde. Die Möglichkeit auszuwählen, welcher Partie beigetreten werden soll, folgt in Kürze.</string>
-  <string name="timeControlsForCasualGames">Die möglichen Zeitkontrollen für ungewertete Partien sind: Klassisch, Korrespondenz und Schnellschach.</string>
-  <string name="timeControlsForRatedGames">Die Zeitkontrollen für gewertete Partien sind: Klassisch, Korrespondenz und einige Schnellschachformate wie 15+10 und 20+0</string>
+  <string name="timeControlsForCasualGames">Die möglichen Zeitkontrollen für ungewertete Partien sind: Klassisch, Fernschach und Schnellschach.</string>
+  <string name="timeControlsForRatedGames">Die Zeitkontrollen für gewertete Partien sind: Klassisch, Fernschach und einige Schnellschachformate wie 15+10 und 20+0</string>
   <string name="whenReadySetupBoard">Wenn du bereit bist, stelle dein Brett auf und klicke auf %s.</string>
   <string name="ifMoveNotDetected">Fallls ein Zug nicht erkannt wurde</string>
   <string name="checkYouHaveMadeOpponentsMove">Überprüfe, ob du den Zug deines Gegners auf dem DGT-Brett bereits ausgeführt hast. Nimm deinen Zug zurück. Ziehe erneut.</string>
   <string name="asALastResort">Als letztes Hilfsmittel, stelle dein Brett identisch zu dem von Lichess auf, dann %s</string>
-  <string name="reloadThisPage">Erneuere die Seitenansicht</string>
+  <string name="reloadThisPage">Seitenansicht neu laden</string>
   <string name="dgtConfigure">DGT - Konfigurieren</string>
   <string name="lichessConnectivity">Lichess Konnektivität</string>
   <string name="validDgtOauthToken">Du hast einen OAuth Schlüssel, der für DGT-Partien geeignet ist.</string>
