@@ -85,15 +85,17 @@ final class Account(
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
-      val isWiki = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
-      rateLimit(me, limited):
-        env.api.userApi.extended(
-          me.value,
-          withFollows = apiC.userWithFollows,
-          withTrophies = false,
-          withEmail = isWiki,
-          withPermissions = isWiki
-        ) dmap { JsonOk(_) }
+      val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
+      if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
+      else
+        rateLimit(me, limited):
+          env.api.userApi.extended(
+            me.value,
+            withFollows = apiC.userWithFollows,
+            withTrophies = false,
+            withEmail = wikiGranted,
+            withPermissions = wikiGranted
+          ) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying = Scoped()(doNowPlaying)
