@@ -8,7 +8,6 @@
   flex-flow: column;
   overflow: auto;
   padding: $block-gap;
-  container-type: inline-size;
 
   h2 {
     font-size: 1em;
@@ -40,38 +39,20 @@
 
   &__tools {
     display: grid;
-    gap: 0 6px;
-    grid-auto-rows: 1fr;
-    grid-template-columns: auto auto;
-
-    @container (max-width: 280px) {
-      grid-template-columns: auto;
-    }
+    gap: 0 1em;
+    grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
 
     button,
     > a {
+      @extend %button-none;
       display: flex;
       align-items: center;
-      background: none;
-      border: none;
-      color: $c-font;
       line-height: 1.2em;
-      text-transform: none;
-      white-space: normal;
-      overflow: hidden;
-      min-height: 48px;
+      min-height: 3em;
 
       &::before {
-        padding-#{$end-direction}: 6px;
-        font-size: 28px;
-      }
-
-      @container (max-width: 280px) {
-        min-height: 32px;
-
-        &::before {
-          font-size: 20px;
-        }
+        padding-#{$end-direction}: 8px;
+        font-size: 1.7em;
       }
 
       &:hover {
