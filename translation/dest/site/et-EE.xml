@@ -140,7 +140,7 @@
   <string name="claimADraw">Võta viik</string>
   <string name="offerDraw">Paku viiki</string>
   <string name="draw">Viik</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s mängija</item>
     <item quantity="other">%s mängijat</item>
   </plurals>
@@ -496,8 +496,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
-  <string name="savingMoves">Ajutine käikude säilitamine</string>
-  <string name="savingMovesHelp">Me salvestame variatsioonid alati brauseri vahemällu.</string>
   <string name="makeAStudy">Hoiustamiseks ja jagamiseks kaalutle uuringu koostamist.</string>
   <string name="clearSavedMoves">Tühista käigud</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
@@ -929,8 +927,8 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
   <string name="playComputerMove">Tee parim arvutikäik</string>
   <string name="analysisOptions">Analüüsi seaded</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokuseeri vestlus</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Näita seda abiakent</string>
+  <string name="focusChat">Fokuseeri vestlus</string>
+  <string name="showHelpDialog">Näita seda abiakent</string>
   <string name="reopenYourAccount">Ava oma konto uuesti</string>
   <string name="closedAccountChangedMind">Kui sulgesid oma konto, kuid oled vahepeal ümber mõelnud, on sul üks võimalus oma konto tagasi saada.</string>
   <string name="onlyWorksOnce">See töötab ainult ühe korra.</string>
