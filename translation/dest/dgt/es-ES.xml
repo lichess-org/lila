@@ -7,7 +7,7 @@
   <string name="thisPageAllowsConnectingDgtBoard">Esta página te permite conectar tu tablero DGT a Lichess y usarlo para tus partidas.</string>
   <string name="toConnectTheDgtBoard">Para conectar el tablero electrónico DGT necesitas instalar %s.</string>
   <string name="downloadHere">Puedes descargar el programa aquí: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Si %1$s se está ejecutando en tu ordenador, puedes comprobar tu conexión por %2$s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Si %1$s se está ejecutando en tu ordenador, puedes comprobar tu conexión %2$s.</string>
   <string name="openingThisLink">abriendo este enlace</string>
   <string name="ifLiveChessRunningElsewhere">Si %1$s se ejecuta en un ordenador o puerto diferente, necesitarás establecer la dirección IP y el puerto aquí en la %2$s.</string>
   <string name="configurationSection">Sección de configuración</string>
