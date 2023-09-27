@@ -8,4 +8,8 @@
   <string name="toConnectTheDgtBoard">Para conectar ao Tabuleiro Eletrónico DGT, precisas instalar o %s.</string>
   <string name="downloadHere">Podes transferir o programa por aqui: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Se executas a %1$s neste computador, podes verificar a tua conexão com ela %2$s.</string>
+  <string name="openingThisLink">acessando este link</string>
+  <string name="ifLiveChessRunningElsewhere">Se executas a %1$s numa máquina diferente ou numa porta diferente, precisarás de definir o endereço de IP e a porta na %2$s.</string>
+  <string name="configurationSection">Secção de Configuração</string>
+  <string name="keepPlayPageOpen">A página \"Play\" precisa continuar aberta no teu navegador. Ele não precisa estar visível, podes minimizá-la ou colocá-la lado a lado com a página da partida do Lichess, mas não a feche ou o tabuleiro vai parar de funcionar.</string>
 </resources>
