@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dgtBoard">Tavola DGT</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Requisiti tavola DGT</string>
+  <string name="dgtBoardLimitations">Limitazioni tavola DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Questa pagina ti permette di connettere la tua tavola DGT a Lichess e di utilizzarla per giocare.</string>
+  <string name="downloadHere">Puoi scaricare il software qui: %s.</string>
+  <string name="ifMoveNotDetected">Se non viene rilevata una mossa</string>
+  <string name="reloadThisPage">Ricarica questa pagina</string>
+  <string name="lichessConnectivity">Connettività Lichess</string>
+  <string name="debug">Debug</string>
+  <string name="verboseLogging">Log dettagliato</string>
+  <string name="configure">Configura</string>
+</resources>
