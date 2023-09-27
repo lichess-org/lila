@@ -151,7 +151,7 @@
   <string name="claimADraw">Запатрабаваць нічыю</string>
   <string name="offerDraw">Прапанаваць нічыю</string>
   <string name="draw">Нічыя</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s гулец</item>
     <item quantity="few">%s гульцы</item>
     <item quantity="many">%s гульцоў</item>
@@ -561,8 +561,6 @@
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="oneUrlPerLine">Адзін URL на радок.</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
-  <string name="savingMoves">Часовае сховішча хадоў</string>
-  <string name="savingMovesHelp">Мы заўсёды захоўваем вашы варыянты ў кэшы вашага браўзера.</string>
   <string name="makeAStudy">Для захавання і сумеснага выкарыстання стварыце студыю.</string>
   <string name="clearSavedMoves">Ачысціць хады</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
@@ -1014,8 +1012,8 @@
   <string name="toggleAllAnalysis">Укл./адкл. усе камп\'ютарныя аналізы</string>
   <string name="playComputerMove">Згуляць лепшы ход на думку камп\'ютару</string>
   <string name="analysisOptions">Параметры аналізу</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Сфакусавацца на чаце</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Паказаць чат дапамогі</string>
+  <string name="focusChat">Сфакусавацца на чаце</string>
+  <string name="showHelpDialog">Паказаць чат дапамогі</string>
   <string name="reopenYourAccount">Пераадкрыць уліковы запіс</string>
   <string name="closedAccountChangedMind">Калі пасля закрыцця ўліковага запісу, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
   <string name="onlyWorksOnce">Гэта спрацуе толькі адзін раз.</string>
