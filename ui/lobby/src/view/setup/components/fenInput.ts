@@ -29,7 +29,7 @@ export const fenInput = (ctrl: LobbyController) => {
     ]),
     h(
       'a.fen__board',
-      { attrs: { href: '/editor' } },
+      { attrs: { href: `/editor/${setupCtrl.lastValidFen.replace(' ', '_')}` } },
       !setupCtrl.lastValidFen || !setupCtrl.validFen()
         ? null
         : h(
