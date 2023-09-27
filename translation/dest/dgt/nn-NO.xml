@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dgtBoard">DGT-brett</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Krav til DGT-brett</string>
+  <string name="dgtBoardLimitations">Avgrensingar for DGT-brett</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Denne sida lar deg kople til og spele med DGT-brett på Lichess.</string>
+  <string name="toConnectTheDgtBoard">For å kople til eit DGT elektronisk brett må du installere %s.</string>
+  <string name="downloadHere">Du kan laste ned naudsynt programvare her: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Dersom %1$s køyrer på denne maskina kan du sjekke di tilkopling til %2$s.</string>
+  <string name="openingThisLink">opne denne lenka</string>
+  <string name="ifLiveChessRunningElsewhere">Dersom %1$s køyrer på ei anna maskin eller ein annan port du må gje opp IP-adresse og port her i %2$s.</string>
+  <string name="configurationSection">Seksjon for konfigurering</string>
+  <string name="keepPlayPageOpen">Avspelingssida må heile tida vera open i nettlesaren. Den treng ikkje å vera synleg, det vil seie at du kan minimera den eller setje den ved sida av Lichess-spelsida. Men ikkje steng den, for då sluttar brettet å fungera.</string>
+  <string name="boardWillAutoConnect">Brettet vil automatisk verte kopla til eit spel som er i gang eller som vert starta. Om ei tid vert det mogleg å velje spel.</string>
+  <string name="timeControlsForCasualGames">Tidskontrollar for uformelle parti: klassisk sjakk, korrespondansesjakk og nokre snøggsjakkformat som 15+10 og 20+0.</string>
+  <string name="timeControlsForRatedGames">Tidskontrollar for rata parti: klassisk sjakk, korrespondansesjakk og nokre snøggsjakkformat som 15+10 og 20+0</string>
+  <string name="whenReadySetupBoard">Sett opp brettet og klikk %s når du er klar.</string>
+  <string name="ifMoveNotDetected">Om eit trekk ikkje blir oppdaga</string>
+</resources>
