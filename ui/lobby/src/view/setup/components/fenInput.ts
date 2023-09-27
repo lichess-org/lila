@@ -12,7 +12,7 @@ export const fenInput = (ctrl: LobbyController) => {
         attrs: { placeholder: trans('pasteTheFenStringHere'), value: fen },
         on: {
           input: (e: InputEvent) => {
-            setupCtrl.fen((e.target as HTMLInputElement).value);
+            setupCtrl.fen((e.target as HTMLInputElement).value.trim());
             setupCtrl.validateFen();
           },
         },
