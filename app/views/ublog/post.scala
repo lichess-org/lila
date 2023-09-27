@@ -177,19 +177,28 @@ object post:
       }
     )
 
+  enum ShowAt:
+    case Top, Bottom, None
+
   def card(
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
-      showAuthor: Boolean = false,
+      showAuthor: ShowAt = ShowAt.None,
       showIntro: Boolean = true
   )(using Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
-      thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
+      div(style := "position: relative")(
+        thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
+        post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        showAuthor match
+          case ShowAt.Top => userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image")
+          case ShowAt.Bottom =>
+            userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image below")
+          case ShowAt.None => None
+      ),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
-        showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)),
-        post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
-        showAuthor option userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image")
+        showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100))
       )
     )
 
