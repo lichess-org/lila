@@ -139,7 +139,7 @@
   <string name="claimADraw">引き分けを申し立てる</string>
   <string name="offerDraw">引き分けを提案する</string>
   <string name="draw">引き分け</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="other">%s 人</item>
   </plurals>
   <string name="drawByMutualAgreement">合意によるドロー</string>
@@ -478,8 +478,6 @@
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="savingMoves">手の一時保存</string>
-  <string name="savingMovesHelp">あなたの指した手順は常にブラウザのキャッシュに保存されます。</string>
   <string name="makeAStudy">永久保存や共有には「研究」機能をお使いください。</string>
   <string name="clearSavedMoves">手をクリアする</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
@@ -908,8 +906,8 @@
   <string name="toggleAllAnalysis">全コンピュータ解析の切り替え</string>
   <string name="playComputerMove">コンピュータの最善手をプレイ</string>
   <string name="analysisOptions">解析のオプション</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">チャットにフォーカス</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">このヘルプダイアログを表示</string>
+  <string name="focusChat">チャットにフォーカス</string>
+  <string name="showHelpDialog">このヘルプダイアログを表示</string>
   <string name="reopenYourAccount">アカウントを再開する</string>
   <string name="closedAccountChangedMind">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
   <string name="onlyWorksOnce">再開は一回限りです。</string>
