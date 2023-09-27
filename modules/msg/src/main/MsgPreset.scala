@@ -45,7 +45,8 @@ Thank you for your understanding."""
       "public shaming",
       "disrespecting other players",
       "spamming",
-      "inappropriate behavior"
+      "inappropriate behavior",
+      "incorrect subforum"
     )
 
     def byModerator = compose("A moderator")
