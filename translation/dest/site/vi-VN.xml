@@ -139,7 +139,7 @@
   <string name="claimADraw">Nhận hòa</string>
   <string name="offerDraw">Đề nghị hoà</string>
   <string name="draw">Hoà</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="other">%s người chơi</item>
   </plurals>
   <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
@@ -478,8 +478,6 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một đường dẫn (URL/Link) mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
-  <string name="savingMoves">Lưu trữ nước đi tạm thời</string>
-  <string name="savingMovesHelp">Chúng tôi luôn lưu trữ các biến thể của bạn trong bộ nhớ đệm của trình duyệt.</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
   <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
@@ -907,8 +905,8 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="toggleAllAnalysis">Bật/Tắt toàn bộ máy tính phân tích</string>
   <string name="playComputerMove">Chơi nước máy tính tốt nhất</string>
   <string name="analysisOptions">Tùy chọn phân tích</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Tiêu điểm trò chuyện</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Hiển thị thông điệp trợ giúp này</string>
+  <string name="focusChat">Tiêu điểm trò chuyện</string>
+  <string name="showHelpDialog">Hiển thị thông điệp trợ giúp này</string>
   <string name="reopenYourAccount">Mở lại tài khoản</string>
   <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
   <string name="onlyWorksOnce">Chỉ làm được một lần.</string>
