@@ -140,7 +140,7 @@
   <string name="claimADraw">Dumandà a partita patta</string>
   <string name="offerDraw">Prupone a partita patta</string>
   <string name="draw">Partita patta</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s ghjucadore</item>
     <item quantity="other">%s ghjucadori</item>
   </plurals>
@@ -469,8 +469,6 @@
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
-  <string name="savingMoves">Salvà i movi di modu tempurariu</string>
-  <string name="savingMovesHelp">Salvemu sempre a variante in u vostru browser cache.</string>
   <string name="makeAStudy">Pè guardà lu à longu andà è sparte lu, create piuttostu un studiu.</string>
   <string name="clearSavedMoves">Sfassà i movi</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
@@ -891,8 +889,8 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="toggleAllAnalysis">Aduprà l\' analisi di tutti l\' urdinatori</string>
   <string name="playComputerMove">Ghjucà u colpu di l\' urdinatore u più forte</string>
   <string name="analysisOptions">Uzzione d\' analisa</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Palisa a chjachjera</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Mustrà a scatula d\' aiutu</string>
+  <string name="focusChat">Palisa a chjachjera</string>
+  <string name="showHelpDialog">Mustrà a scatula d\' aiutu</string>
   <string name="reopenYourAccount">Apre da torna u vostru contu</string>
   <string name="closedAccountChangedMind">S\'è vo avete chjosu u vostru contu, ma ch\' avete cambiatu d\' idea, vi ferma una opportunità di recuperà lu.</string>
   <string name="onlyWorksOnce">Ùn puderete reapre lu ch\' una volta.</string>
