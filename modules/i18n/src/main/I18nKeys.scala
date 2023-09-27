@@ -381,8 +381,6 @@ object I18nKeys:
   val `socialMediaLinks` = I18nKey("socialMediaLinks")
   val `oneUrlPerLine` = I18nKey("oneUrlPerLine")
   val `inlineNotation` = I18nKey("inlineNotation")
-  val `savingMoves` = I18nKey("savingMoves")
-  val `savingMovesHelp` = I18nKey("savingMovesHelp")
   val `makeAStudy` = I18nKey("makeAStudy")
   val `clearSavedMoves` = I18nKey("clearSavedMoves")
   val `previouslyOnLichessTV` = I18nKey("previouslyOnLichessTV")
