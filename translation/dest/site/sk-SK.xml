@@ -154,7 +154,7 @@
   <string name="claimADraw">Požadovať remízu</string>
   <string name="offerDraw">Ponúknuť remízu</string>
   <string name="draw">Remíza</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s pripojený hráč</item>
     <item quantity="few">%s pripojení hráči</item>
     <item quantity="many">%s pripojených hráčov</item>
@@ -576,8 +576,6 @@
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="oneUrlPerLine">Jedna URL na riadok.</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
-  <string name="savingMoves">Úložisko dočasných ťahov</string>
-  <string name="savingMovesHelp">Vaše varianty vždy ukladáme do cash pamäti Vášho prehliadača.</string>
   <string name="makeAStudy">Pre bezpečné uchovanie a zdieľanie pouvažujte nad vytvorením štúdie.</string>
   <string name="clearSavedMoves">Zrušiť dočasné ťahy</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
@@ -1032,8 +1030,8 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="toggleAllAnalysis">Prepnúť všetky počítačové analýzy</string>
   <string name="playComputerMove">Hrať najlepší ťah podľa počítača</string>
   <string name="analysisOptions">Možnosti analýzy</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Zamerať sa na daný rozhovor</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Zobrazenie tohto dialógového okna s nápovedou</string>
+  <string name="focusChat">Zamerať sa na daný rozhovor</string>
+  <string name="showHelpDialog">Zobrazenie tohto dialógového okna s nápovedou</string>
   <string name="reopenYourAccount">Opätovné otvorenie účtu</string>
   <string name="closedAccountChangedMind">Ak ste váš účet zatvorili, ale potom ste si to nakoniec rozmysleli, dostali ste poslednú šancu vrátiť sa späť k vášmu účtu.</string>
   <string name="onlyWorksOnce">Toto bude fungovať iba raz.</string>
