@@ -144,7 +144,7 @@
   <string name="claimADraw">Kræv remis</string>
   <string name="offerDraw">Tilbyd remis</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="oneUrlPerLine">En URL pr. linje.</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
-  <string name="savingMoves">Midlertidig træk-lagerplads</string>
-  <string name="savingMovesHelp">Vi gemmer altid dine variationer i din browser-cache.</string>
   <string name="makeAStudy">Overvej at lave et studie for sikker opbevaring og deling.</string>
   <string name="clearSavedMoves">Ryd træk</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
@@ -949,8 +947,8 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
   <string name="playComputerMove">Spil det bedste computertræk</string>
   <string name="analysisOptions">Analysemuligheder</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokusér chat</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Vis denne hjælpedialog</string>
+  <string name="focusChat">Fokusér chat</string>
+  <string name="showHelpDialog">Vis denne hjælpedialog</string>
   <string name="reopenYourAccount">Genåbn din konto</string>
   <string name="closedAccountChangedMind">Hvis du har lukket din konto, men siden ombestemt dig, har du én chance for at få din konto tilbage.</string>
   <string name="onlyWorksOnce">Det vil kun fungere én gang.</string>
