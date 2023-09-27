@@ -106,7 +106,7 @@ object bits:
           )
       ,
       ctx.noKid option uposts.map:
-        views.html.ublog.post.card(_, showAuthor = false, showIntro = false)
+        views.html.ublog.post.card(_, showAuthor = true, showIntro = false)
     )
 
   def showUnreadLichessMessage =
