@@ -115,6 +115,7 @@
   <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
+  <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
