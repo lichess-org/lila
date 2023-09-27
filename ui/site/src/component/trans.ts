@@ -28,7 +28,7 @@ export const trans = (i18n: I18nDict) => {
 
   // see optimisations in project/MessageCompiler.scala
   const resolvePlural = (key: I18nKey, count: number) =>
-    i18n[`${key}:${lichess.quantity(count)}`] || i18n[`${key}:other`] || i18n[`${key}:one`] || i18n[key];
+    i18n[`${key}:${lichess.quantity(count)}`] || i18n[`${key}:other`] || i18n[key] || i18n[`${key}:one`];
 
   trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
     trans.plural(key, count, count, ...args);
