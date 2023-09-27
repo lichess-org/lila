@@ -70,7 +70,7 @@
   <string name="claimADraw">Парма-паршӑн пӗлтер</string>
   <string name="offerDraw">Парма-пар сӗн</string>
   <string name="draw">Парма-пар</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="other">%s вӑйӑҫӑ</item>
   </plurals>
   <string name="currentGames">Халь пыракан вӑйӑсем</string>
