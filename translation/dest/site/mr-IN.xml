@@ -140,7 +140,7 @@
   <string name="claimADraw">बरोबरीत सोडवण्याचा दावा करा</string>
   <string name="offerDraw">बरोबरीत सोडवण्याचा प्रस्ताव पाठवा</string>
   <string name="draw">बरोबरीत सुटला</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s खेळाडू</item>
     <item quantity="other">%s खेळाडू</item>
   </plurals>
@@ -904,8 +904,8 @@
   <string name="toggleAllAnalysis">संगणकाचे सर्व विश्लेषण बदला</string>
   <string name="playComputerMove">संगणकाची सर्वोत्तम चाल खेळा</string>
   <string name="analysisOptions">विश्लेषण पर्याय</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">chat वर लक्ष्य केंद्रित करा</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">येथील मदत पर्याय दाखवा</string>
+  <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
+  <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
   <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
   <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले, पण त्यानंतर आपले मन बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
   <string name="onlyWorksOnce">ही प्रक्रिया एकदा कामी येईल.</string>
