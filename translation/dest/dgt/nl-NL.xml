@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="openingThisLink">deze link openen</string>
+  <string name="reloadThisPage">Herlaad deze pagina</string>
+  <string name="textToSpeech">Tekst naar spraak</string>
+  <string name="enableSpeechSynthesis">Spraaksynthese inschakelen</string>
+  <string name="speechSynthesisVoice">Spraaksynthese stem</string>
+  <string name="announceAllMoves">Kondig alle zetten aan</string>
+  <string name="keywords">Trefwoorden</string>
+  <string name="configure">Configureren</string>
+</resources>
