@@ -137,7 +137,7 @@
   <string name="claimADraw">要求和棋</string>
   <string name="offerDraw">提出和棋</string>
   <string name="draw">和棋</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="other">%s位棋手目前在線</item>
   </plurals>
   <string name="drawByMutualAgreement">雙方同意和局</string>
@@ -475,8 +475,6 @@
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="oneUrlPerLine">每行一個網址</string>
   <string name="inlineNotation">棋譜集中顯示</string>
-  <string name="savingMoves">暫時著法儲存</string>
-  <string name="savingMovesHelp">我們始終將您的變體存儲在瀏覽器緩存中.</string>
   <string name="makeAStudy">為了安全保管和分享，考慮創建一項研討.</string>
   <string name="clearSavedMoves">清空著法儲存</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
@@ -905,8 +903,8 @@
   <string name="toggleAllAnalysis">切換所有(本地+服務器) 的電腦分析</string>
   <string name="playComputerMove">走電腦推薦的最佳著法</string>
   <string name="analysisOptions">分析局面</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">聚焦聊天</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">顯示此說明欄</string>
+  <string name="focusChat">聚焦聊天</string>
+  <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
   <string name="closedAccountChangedMind">如果你停用了自己的帳號，但是改變了心意，你有一次的機會可以拿回帳號。</string>
   <string name="onlyWorksOnce">這只能復原一次</string>
