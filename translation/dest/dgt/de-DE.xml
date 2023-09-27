@@ -25,10 +25,10 @@
   <string name="validDgtOauthToken">Du hast einen OAuth Schlüssel, der für DGT-Partien geeignet ist.</string>
   <string name="dgtPlayMenuEntryAdded">Ein %s Eintrag wurde deinem \"Spielen\"-Menü oben hinzugefügt.</string>
   <string name="noSuitableOauthToken">Es wurde kein passender OAuth Schlüssel erstellt.</string>
-  <string name="dgtBoardConnectivity">DGT-Brett-Konnektivität</string>
+  <string name="dgtBoardConnectivity">DGT-Brett-Verbindung</string>
   <string name="clickToGenerateOne">Klicke, um einen zu generieren</string>
-  <string name="webSocketUrl">%s Websocket-URL</string>
-  <string name="useWebSocketUrl">Benutze \"%1$s\" wenn %2$s nicht auf einem anderen Rechner oder einem anderen Port läuft.</string>
+  <string name="webSocketUrl">%s WebSocket-URL</string>
+  <string name="useWebSocketUrl">Benutze \"%1$s\" wenn %2$s nicht auf einem anderen Rechner oder einem anderen Gerät läuft.</string>
   <string name="textToSpeech">Text-zu-Sprache</string>
   <string name="configureVoiceNarration">Konfiguriere die Sprachausgabe des gespieten Zugs, damit du deine Augen auf dem Brett behalten kannst.</string>
   <string name="enableSpeechSynthesis">Sprachsynthese aktivieren</string>
