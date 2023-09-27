@@ -150,7 +150,7 @@
   <string name="claimADraw">Goulenn bezañ rampo</string>
   <string name="offerDraw">Kinnig bezañ rampo</string>
   <string name="draw">Rampo</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s c\'hoarier</item>
     <item quantity="two">%s c\'hoarier</item>
     <item quantity="few">%s c\'hoarier</item>
@@ -1000,7 +1000,7 @@
   <string name="onlyTeamMembers">Izili ar skipailh hepken</string>
   <string name="mouseTricks">Gant al logodenn</string>
   <string name="analysisOptions">Optionoù dielfennañ</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Ar flap da gentañ</string>
+  <string name="focusChat">Ar flap da gentañ</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
   <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
   <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>
