@@ -144,7 +144,7 @@
   <string name="claimADraw">Krev remis</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Lenker til sosiale medier</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
-  <string name="savingMoves">Midlertidig lagring av trekk</string>
-  <string name="savingMovesHelp">Vi lagrer variantene dine i nettleserens mellomlager.</string>
   <string name="makeAStudy">Du kan lage en studie for å bevare og dele trekkene.</string>
   <string name="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
@@ -949,8 +947,8 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="toggleAllAnalysis">Skru av eller på all maskinanalyse</string>
   <string name="playComputerMove">Spill det beste maskintrekket</string>
   <string name="analysisOptions">Analysevalg</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fokus på samtale</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Vis denne hjelpedialogen</string>
+  <string name="focusChat">Fokus på samtale</string>
+  <string name="showHelpDialog">Vis denne hjelpedialogen</string>
   <string name="reopenYourAccount">Gjenopprett kontoen din</string>
   <string name="closedAccountChangedMind">Hvis du har avsluttet kontoen din og så ombestemt deg, får du én sjanse til å gjenopprette kontoen din.</string>
   <string name="onlyWorksOnce">Dette fungerer bare én gang.</string>
