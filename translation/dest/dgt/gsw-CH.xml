@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dgtBoard">DGT Schachbrätt</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">DGT Schachbrätt Aforderige</string>
+  <string name="dgtBoardLimitations">DGT Schachbrätt Beschränkige</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Die Site erlaubt dir, dis DGT Schachbrätt z\'verbinde und demit Partie z\'spille.</string>
+  <string name="toConnectTheDgtBoard">Zums elektronische DGT Schachbrätt verbinde, muesch du %s inschtalliere.</string>
+  <string name="downloadHere">Du chasch die Software under %s abelade.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Falls %1$s uf dem Computer lauft, chasch du d\'Verbindig mit %2$s überprüefe.</string>
+  <string name="openingThisLink">mach de Link uf</string>
+  <string name="ifLiveChessRunningElsewhere">Falls %1$s uf eme andere System oder Port lauft, muesch du die IP-Adrässe und d\'Portnummere da in %2$s igeh.</string>
+  <string name="configurationSection">Konfigurations-Abschnitt</string>
+  <string name="keepPlayPageOpen">Die Site mit em Spiel muess im Browser offe blibe. Sie muess nöd sichtbar si, du chasch sie minimiere oder näbe d\'Lichess Partiesite ziehe. Aber nöd schlüsse, will suscht das Brätt nümme funktioniert!</string>
+  <string name="boardWillAutoConnect">Das Brätt verbindt sich automatisch zu jedere Partie, wo grad lauft oder zu jedere Neue, sobald sie agfange wird. D\'Möglichkeit uszwähle, welere Partie me wott biträtte, folgt bald...</string>
+  <string name="timeControlsForCasualGames">Möglichi Zitkontrolle für ungwerteti Partie sind nur: Klassisch, Korrespondänz und Schnällschach.</string>
+  <string name="timeControlsForRatedGames">D\'Zitkontrolle für gwerteti Partie sind: Klassisch, Korrespondänz und es paar Schnällschach-Variante wie 15+10 und 20+0</string>
+  <string name="whenReadySetupBoard">Wänn du bereit bisch, schtellsch dis Brätt uf und klicksch uf %s.</string>
+</resources>
