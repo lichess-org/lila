@@ -29,8 +29,9 @@ object bits:
     )
 
   def howToUse =
+    import trans.broadcast.*
     a(dataIcon := licon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
-      "How to use Lichess Broadcasts"
+      howToUseLichessBroadcasts()
     )
 
   def jsI18n(using PageContext) =

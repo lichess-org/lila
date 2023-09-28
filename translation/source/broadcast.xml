@@ -17,6 +17,10 @@
   <string name="tournamentDescription">Short tournament description</string>
   <string name="fullDescription">Full tournament description</string>
   <string name="fullDescriptionHelp">Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="howToUseLichessBroadcasts">How to use Lichess Broadcasts</string>
+  <string name="automaticLeaderboard">Automatic leaderboard</string>
+  <string name="automaticLeaderboardNote">Compute and display a simple leaderboard based on game results</string>
+  <string name="optional">Optional: replace player names, ratings and titles</string>
   <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="gameIdsHelp">Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.</string>
