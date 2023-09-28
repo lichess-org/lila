@@ -54,7 +54,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 在极少数情况下，这可能很难自动决定（强制线路、堡垒）。 默认情况下，我们总是与没有耗时的玩家站在一起。
 
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">国际象棋联合会手册</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">国际棋联手册</string>
   <string name="fideHandbookX">国际棋联手册 %s</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？(吃过路兵)</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
@@ -134,7 +134,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
   <string name="displayPreferences">显示偏好</string>
   <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的等级分吗？</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的等级分，不管是你的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且你因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了对局的等级分，不管是你的问题还是我们的。尽管后者非常少见。也请注意，当 Lichess 正在重启，且你因此超时输掉了对局，我们会终止游戏以避免不公平的判决。</string>
   <string name="howToThreeDots">说明</string>
   <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
   <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
