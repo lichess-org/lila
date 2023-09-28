@@ -8,13 +8,13 @@
   <string name="toConnectTheDgtBoard">Para conectar ao Tabuleiro Eletrónico DGT, precisas instalar o %s.</string>
   <string name="downloadHere">Podes transferir o programa por aqui: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Se executas a %1$s neste computador, podes verificar a tua conexão com ela %2$s.</string>
-  <string name="openingThisLink">acessando este link</string>
+  <string name="openingThisLink">acedendo este link</string>
   <string name="ifLiveChessRunningElsewhere">Se executas a %1$s numa máquina diferente ou numa porta diferente, precisarás de definir o endereço de IP e a porta na %2$s.</string>
   <string name="configurationSection">Secção de Configuração</string>
   <string name="keepPlayPageOpen">A página \"Jogar\" precisa continuar aberta no teu navegador. Ele não precisa estar visível, podes minimizá-la ou colocá-la lado a lado com a página da partida do Lichess, mas não a feche ou o tabuleiro vai parar de funcionar.</string>
   <string name="boardWillAutoConnect">O tabuleiro irá se conectar automaticamente a qualquer jogo que já esteja em curso ou a qualquer novo jogo que seja iniciado. A capacidade de escolher qual o jogo jogar será adicionado em breve.</string>
-  <string name="timeControlsForCasualGames">Os controlos de tempo para jogos amigáveis: Clássicas, Correspondência e Semi-Rápiadas só.</string>
-  <string name="timeControlsForRatedGames">Os controlos de tempo para jogos a valer pontos: Clássicas, Correspondência e algumas Semi-Rápiadas, incluído 15+10 e 20+0</string>
+  <string name="timeControlsForCasualGames">Os controlos de tempo para jogos amigáveis: Clássicas, Correspondência e Semi-Rápidas só.</string>
+  <string name="timeControlsForRatedGames">Os controlos de tempo para jogos a valer pontos: Clássicas, Correspondência e algumas Semi-Rápidas, incluído 15+10 e 20+0</string>
   <string name="whenReadySetupBoard">Quando estiveres pronto, configura o teu tabuleiro e clique em %s.</string>
   <string name="ifMoveNotDetected">Se um movimento não for detetado</string>
   <string name="checkYouHaveMadeOpponentsMove">Verifique se fizestes primeiro o movimento do teu oponente no tabuleiro DGT. Reverte o teu movimento. Joga novamente.</string>
