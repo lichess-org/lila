@@ -11,7 +11,7 @@
   <string name="openingThisLink">abrindo esta ligazón</string>
   <string name="ifLiveChessRunningElsewhere">Se %1$s se está a executar nunha máquina ou porto diferente, precisarás establecer o enderezo IP e o porto aquí, na %2$s.</string>
   <string name="configurationSection">Sección da configuración</string>
-  <string name="keepPlayPageOpen">A páxina de xogo ten que permanecer aberta no teu navegador. Non ten que ser visible, podes minimizala ou poñela a carón da páxina da partida en Lichess. Non a peches ou o taboleiro deixará de funcionar.</string>
+  <string name="keepPlayPageOpen">A páxina de configuración ten que ficar aberta no teu navegador. Non ten que ser visible, podes minimizala ou poñela a carón da páxina da partida de Lichess. Non a peches ou o taboleiro deixará de funcionar.</string>
   <string name="boardWillAutoConnect">O taboleiro vaise conectar automaticamente a calquera partida en curso ou a calquera partida que comece. Pronto estará dispoñible a posibilidade de seleccionar que partida xogar.</string>
   <string name="timeControlsForCasualGames">Controis de tempo para partidas amigables: só Clásica, Postal e Rápida.</string>
   <string name="timeControlsForRatedGames">Controis de tempo para partidas puntuadas: Clásica, Postal e algunhas Rápidas, incluíndo 15+10 e 20+0</string>
