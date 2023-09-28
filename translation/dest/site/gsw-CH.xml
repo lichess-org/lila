@@ -37,10 +37,10 @@
   <string name="whitePlays">Wiss am Zug</string>
   <string name="blackPlays">Schwarz isch am Zug</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Din Gägner hät d\'Partie verlah, du chasch in %s Sekunde din Sieg beaschpruche</item>
+    <item quantity="one">Din Gägner hät d\'Partie verlah. Du chasch in %s Sekunde din Sieg beaschpruche</item>
     <item quantity="other">Din Gägner hät d\'Partie verlah, du chasch in %s Sekunde din Sieg beaschpruche</item>
   </plurals>
-  <string name="opponentLeftChoices">Din Gägner hät d\'Partie verlah. Du chasch de Sieg beaschpruche, Remis mache oder warte.</string>
+  <string name="opponentLeftChoices">Din Gägner hät s\'Schpiel verlah. Du chasch de Sieg beaschpruche, es Remis mache oder warte.</string>
   <string name="forceResignation">De Sieg beaschpruche</string>
   <string name="forceDraw">Remis mälde</string>
   <string name="talkInChat">Bitte blib nett im Chat!</string>
@@ -144,7 +144,7 @@
   <string name="claimADraw">Es Remis beaschpruche</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s Schpiller</item>
     <item quantity="other">%s Schpiller</item>
   </plurals>
@@ -512,8 +512,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="socialMediaLinks">Social Media Links</string>
   <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="savingMoves">Tämporäri Zugschpeicherig</string>
-  <string name="savingMovesHelp">Mir schpeichered dini Variante immer im Browser-Cache.</string>
   <string name="makeAStudy">Zum Variante sicher ufzbewahre und zum Witergeh, söttsch e Schtudie erschtelle.</string>
   <string name="clearSavedMoves">Gschpeichereti Züg lösche</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
@@ -667,21 +665,21 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
   <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
   <string name="aboutSimul">Bim Simultanschach schpillt 1 Simultanschpiller 
-glichzitig gäge beliebig vill Simultangegner.</string>
-  <string name="aboutSimulImage">Hät de Bobby Fischer, bi 50 Gegner, 47 Sieg 
+glichzitig gäge beliebig vill Simultangägner.</string>
+  <string name="aboutSimulImage">Hät de Bobby Fischer, bi 50 Gägner, 47 Sieg 
 und 2 Remis gschafft; nur 1 Partie hät er verlore.</string>
   <string name="aboutSimulRealLife">Bim Simultanschach schpillt 1 Simultanschpiller 
-glichzitig gäge beliebig vill Simultangegner, 
+glichzitig gäge beliebig vill Simultangägner, 
 so lang, bis alli Partie fertig gschpillt sind.</string>
   <string name="aboutSimulRules">Wie bi reale Simultanschach Veraschtaltige, gaht 
-de Simultanschpiller vu eim Simultangegner zum 
+de Simultanschpiller vu eim Simultangägner zum 
 Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Zugsrücknahme, zuesätzlichi Zit oder Revanche 
 gits nöd und es isch immer ungwertet.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch du glichzitig gäge mehreri Gegner schpille.</string>
-  <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangegner ussueche, was er schpille will.</string>
-  <string name="simulClockHint">Fischer Uhr: Je meh Gegner, umso meh Zit bruchsch wahrschinlich.</string>
+  <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch du glichzitig gäge mehreri Gägner schpille.</string>
+  <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
+  <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
   <string name="simulHostExtraTime">Extrazit Simultanschpiller</string>
   <string name="simulAddExtraTimePerPlayer">Gib für jede Schpiller, wo am Simultan teilnimmt, bi dinere Uhr Zit dezue</string>
@@ -959,8 +957,8 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="toggleAllAnalysis">Alli Computer-Analyse a-/abschalte</string>
   <string name="playComputerMove">Spill de bescht Computerzug</string>
   <string name="analysisOptions">Analyse Möglichkeite</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Chat fokussiere</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Zeig de Hilfsdialog</string>
+  <string name="focusChat">Chat fokussiere</string>
+  <string name="showHelpDialog">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
   <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance dis Konto wider zrugg z\'hole.</string>
   <string name="onlyWorksOnce">Das funktioniert aber nur eimal.</string>

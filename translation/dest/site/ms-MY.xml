@@ -135,7 +135,7 @@
   <string name="claimADraw">Tuntut Seri</string>
   <string name="offerDraw">Tawarkan Keputusan Seri</string>
   <string name="draw">Seri</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="other">%s pemain-pemain</item>
   </plurals>
   <string name="drawByMutualAgreement">Seri dengan persetujuan bersama</string>
@@ -466,8 +466,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="oneUrlPerLine">Satu URL setiap baris.</string>
   <string name="inlineNotation">Notasi dalaman</string>
-  <string name="savingMoves">Penyimpanan sementara</string>
-  <string name="savingMovesHelp">Kami sentiasa menyimpan variasi anda dalam cache pelayaran internet anda.</string>
   <string name="makeAStudy">Untuk penyimpanan dan perkongsian, pertimbangkan untuk membuat kajian pembelajaran.</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>

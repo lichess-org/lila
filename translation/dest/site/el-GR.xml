@@ -143,7 +143,7 @@
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
   <string name="offerDraw">Προσφορά ισοπαλίας</string>
   <string name="draw">Ισοπαλία</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s παίκτης</item>
     <item quantity="other">%s παίκτες</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
-  <string name="savingMoves">Προσωρινή αποθήκη κινήσεων</string>
-  <string name="savingMovesHelp">Αποθηκεύουμε τις παραλλαγές σας στη μνήμη του περιηγητή σας.</string>
   <string name="makeAStudy">Για αποθήκευση και διαμοιρασμό, μπορείτε να δημιουργήσετε μία μελέτη.</string>
   <string name="clearSavedMoves">Εκκαθάριση κινήσεων</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
@@ -949,8 +947,8 @@
   <string name="toggleAllAnalysis">Εναλλαγή όλων των αναλύσεων υπολογιστή</string>
   <string name="playComputerMove">Παίξτε την καλύτερη κίνηση που προτείνει ο υπολογιστής</string>
   <string name="analysisOptions">Ρυθμίσεις ανάλυσης</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Εστίαση στο chat</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
+  <string name="focusChat">Εστίαση στο chat</string>
+  <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
   <string name="reopenYourAccount">Ξανανοίξτε τον λογαριασμό σας</string>
   <string name="closedAccountChangedMind">Αν κλείσατε το λογαριασμό σας, αλλά έχετε αλλάξει γνώμη, μπορείτε να τον ξανανοίξετε.</string>
   <string name="onlyWorksOnce">Αυτό θα λειτουργήσει μόνο μία φορά.</string>

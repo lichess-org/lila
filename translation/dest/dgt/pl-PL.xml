@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">Szachownica DGT</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Wymagania szachownicy DGT</string>
+  <string name="dgtBoardLimitations">Ograniczenia szachownicy DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Ta strona pozwala na podłączenie szachownicy DGT do Lichess i używanie jej do rozgrywania partii.</string>
+  <string name="toConnectTheDgtBoard">Aby połączyć się z elektroniczną szachownicą DGT musisz zainstalować %s.</string>
+  <string name="downloadHere">Oprogramowanie możesz pobrać stąd: %s.</string>
+  <string name="openingThisLink">otwierając ten link</string>
+  <string name="configurationSection">Sekcja konfiguracji</string>
+  <string name="ifMoveNotDetected">Jeśli nie zostanie wykryty ruch</string>
+  <string name="reloadThisPage">Odśwież stronę</string>
+  <string name="dgtConfigure">DGT - Konfiguracja</string>
+  <string name="dgtPlayMenuEntryAdded">Do menu ZAGRAJ została dodana nowa pozycja %s.</string>
+  <string name="enableSpeechSynthesis">Włącz syntezator mowy</string>
+  <string name="debug">Debuguj</string>
+  <string name="configure">Skonfiguruj</string>
+</resources>

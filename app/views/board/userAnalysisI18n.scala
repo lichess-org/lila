@@ -71,8 +71,6 @@ object userAnalysisI18n:
     trans.openStudy,
     trans.preferences.preferences,
     trans.inlineNotation,
-    trans.savingMoves,
-    trans.savingMovesHelp,
     trans.makeAStudy,
     trans.clearSavedMoves,
     trans.replayMode,

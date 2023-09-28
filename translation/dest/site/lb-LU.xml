@@ -144,7 +144,7 @@
   <string name="claimADraw">Remis reklaméieren</string>
   <string name="offerDraw">Remis bidden</string>
   <string name="draw">Remis</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s Spiller</item>
     <item quantity="other">%s Spiller</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="oneUrlPerLine">Eng URL pro Zeil.</string>
   <string name="inlineNotation">Inline-Notatioun</string>
-  <string name="savingMoves">Temporär gespäichert Zich</string>
-  <string name="savingMovesHelp">Mir späicheren deng Varianten an dengem Browser Cache.</string>
   <string name="makeAStudy">Fir Varianten laangfristeg ze haalen an ze deelen, consideréier eng Etüd ze kreéieren.</string>
   <string name="clearSavedMoves">Zich läschen</string>
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
@@ -949,8 +947,8 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="toggleAllAnalysis">All Computer Analyse aktivéieren/desaktivéieren</string>
   <string name="playComputerMove">Beschten Computer Zuch spillen</string>
   <string name="analysisOptions">Analyse Optiounen</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Chat fokusséieren</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Dësen Hëllefdialog weisen</string>
+  <string name="focusChat">Chat fokusséieren</string>
+  <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
   <string name="reopenYourAccount">Konto nei opmaachen</string>
   <string name="closedAccountChangedMind">Wanns du dein Konto zougemaach has, mee säit deem deng Meenung geännert hues, kriss du eng Chance däin Konto zeréckzekréien.</string>
   <string name="onlyWorksOnce">Dat hei klappt just eemol.</string>

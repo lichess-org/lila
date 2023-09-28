@@ -153,7 +153,7 @@
   <string name="claimADraw">Įskaityti lygiąsias</string>
   <string name="offerDraw">Siūlyti lygiąsias</string>
   <string name="draw">Lygiosios</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s žaidėjas</item>
     <item quantity="few">%s žaidėjai</item>
     <item quantity="many">%s žaidėjų</item>
@@ -576,8 +576,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
-  <string name="savingMoves">Laikinas ėjimų saugojimas</string>
-  <string name="savingMovesHelp">Mes visada laikome jūsų variacijas jūsų naršyklės atmintyje.</string>
   <string name="makeAStudy">Norėdami pasiekti vėliau ar pasidalinti sukurkite studiją.</string>
   <string name="clearSavedMoves">Išvalyti ėjimus</string>
   <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
@@ -1033,8 +1031,8 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="toggleAllAnalysis">Įjungti/išjungti visą kompiuterio analizę</string>
   <string name="playComputerMove">Žaisti geriausią kompiuterio ėjimą</string>
   <string name="analysisOptions">Analizės nustatymai</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Perjungti į pokalbį</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Rodyti šį pagalbos dialogą</string>
+  <string name="focusChat">Perjungti į pokalbį</string>
+  <string name="showHelpDialog">Rodyti šį pagalbos dialogą</string>
   <string name="reopenYourAccount">Atidaryti uždarytą paskyrą</string>
   <string name="closedAccountChangedMind">Jei uždarėte savo paskyrą, tačiau apsigalvojote, turite vieną šansą ją atgauti.</string>
   <string name="onlyWorksOnce">Tai suveiks tik kartą.</string>

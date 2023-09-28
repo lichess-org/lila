@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="reloadThisPage">Recarrega aquesta pàgina</string>
+  <string name="dgtConfigure">Configuració DGT</string>
+  <string name="lichessConnectivity">Connectivitat amb Lichess</string>
+  <string name="validDgtOauthToken">Teniu un token OAuth disponible per jugar amb DGT.</string>
+  <string name="clickToGenerateOne">Cliqueu per generar-ne un</string>
+  <string name="textToSpeech">Text a veu</string>
+  <string name="debug">Depuració</string>
+  <string name="configure">Configura</string>
+</resources>

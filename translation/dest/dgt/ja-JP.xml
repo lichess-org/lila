@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT ボード</string>
+  <string name="lichessAndDgt">Lichess と DGT</string>
+  <string name="dgtBoardRequirements">DGT ボードの要件</string>
+  <string name="dgtBoardLimitations">DGT ボードでの制約</string>
+  <string name="thisPageAllowsConnectingDgtBoard">このページから DGT ボードを Lichess に接続し、対局に使うことができます。</string>
+  <string name="toConnectTheDgtBoard">DGT ボードを接続するにはまず %s をインストールする必要があります。</string>
+  <string name="downloadHere">同ソフトはこちらからダウンロードできます：%s</string>
+</resources>

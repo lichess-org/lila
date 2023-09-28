@@ -154,7 +154,7 @@
   <string name="claimADraw">Потребовать ничью</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s игрок</item>
     <item quantity="few">%s игрока</item>
     <item quantity="many">%s игроков</item>
@@ -576,8 +576,6 @@
   <string name="socialMediaLinks">Ссылки на соцсети</string>
   <string name="oneUrlPerLine">Один URL на строку.</string>
   <string name="inlineNotation">Строчная нотация</string>
-  <string name="savingMoves">Временное хранилище ходов</string>
-  <string name="savingMovesHelp">Мы всегда сохраняем ваши варианты в кеше вашего браузера.</string>
   <string name="makeAStudy">Чтобы сохранить и поделиться, рассмотрите возможность создания Студии.</string>
   <string name="clearSavedMoves">Очистить ходы</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
@@ -1033,8 +1031,8 @@
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Параметры анализа</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Переключиться в окно чата</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Показать справку</string>
+  <string name="focusChat">Переключиться в окно чата</string>
+  <string name="showHelpDialog">Показать справку</string>
   <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
   <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
   <string name="onlyWorksOnce">Это сработает только один раз.</string>

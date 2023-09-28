@@ -62,7 +62,7 @@ object post:
               given Me = me
               if !post.erased && post.canBeEditedByMe
               then
-                postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
+                postForm(action := routes.ForumPost.delete(post.id))(
                   submitButton(
                     cls      := "mod delete button button-empty confirm",
                     dataIcon := licon.Trash,
@@ -74,7 +74,7 @@ object post:
                   if canModCateg || topic.isUblogAuthor(me) then
                     a(
                       cls      := "mod delete button button-empty",
-                      href     := routes.ForumPost.delete(categ.slug, post.id),
+                      href     := routes.ForumPost.delete(post.id),
                       dataIcon := licon.Trash,
                       title    := "Delete"
                     )

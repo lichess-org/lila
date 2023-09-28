@@ -146,7 +146,7 @@
   <string name="claimADraw">Cere remiză</string>
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s jucător</item>
     <item quantity="few">%s jucători</item>
     <item quantity="other">%s jucători</item>
@@ -534,8 +534,6 @@
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
   <string name="inlineNotation">Notație integrată</string>
-  <string name="savingMoves">Stocarea temporară a mutărilor</string>
-  <string name="savingMovesHelp">Întotdeauna îți stocăm variațiile în memoria cache a browser-ului.</string>
   <string name="makeAStudy">Pentru păstrare în siguranță și partajare, aveți în vedere crearea unui studiu.</string>
   <string name="clearSavedMoves">Șterge mutările</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
@@ -977,8 +975,8 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="toggleAllAnalysis">Activează/dezactivează analiza computerizată</string>
   <string name="playComputerMove">Joacă cea mai bună mutare a calculatorului</string>
   <string name="analysisOptions">Opțiuni de analiză</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Focalizează conversația</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Arată acest dialog de ajutor</string>
+  <string name="focusChat">Focalizează conversația</string>
+  <string name="showHelpDialog">Arată acest dialog de ajutor</string>
   <string name="reopenYourAccount">Redeschide contul tău</string>
   <string name="closedAccountChangedMind">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
   <string name="onlyWorksOnce">Acest lucru va funcţiona o singură dată.</string>

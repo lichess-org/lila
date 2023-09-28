@@ -144,7 +144,7 @@
   <string name="claimADraw">Reivindicar empate</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s jogadores conectados</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Links de mídia social</string>
   <string name="oneUrlPerLine">Uma URL por linha.</string>
   <string name="inlineNotation">Notação em linha</string>
-  <string name="savingMoves">Armazenamento temporário de lances</string>
-  <string name="savingMovesHelp">Estamos salvando suas variantes no cache do seu navegador.</string>
   <string name="makeAStudy">Para salvar e compartilhar uma análise, crie um estudo.</string>
   <string name="clearSavedMoves">Limpar lances</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
@@ -948,8 +946,8 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="toggleAllAnalysis">Ativar/desativar todas análises locais do computador</string>
   <string name="playComputerMove">Jogar o melhor lance de computador</string>
   <string name="analysisOptions">Opções de análise</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Focar texto</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Mostrar esta mensagem de ajuda</string>
+  <string name="focusChat">Focar texto</string>
+  <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabra sua conta</string>
   <string name="closedAccountChangedMind">Caso você tenha encerrado sua conta, mas mudou de opinião, você tem ainda uma chance de recuperá-la.</string>
   <string name="onlyWorksOnce">Isso só vai funcionar uma vez.</string>
