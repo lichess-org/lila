@@ -15,4 +15,21 @@
   <string name="boardWillAutoConnect">ボードは進行中の対局か、新しく始まった対局に自動的に接続されます。複数の対局から選ぶ機能はまもなく追加の予定です。</string>
   <string name="timeControlsForCasualGames">非レート戦の持時間：クラシカル、通信戦、ラピッドのみ。</string>
   <string name="timeControlsForRatedGames">レート戦の持時間：クラシカル、通信戦、一部のラピッド（15+10、20+0など）のみ。</string>
+  <string name="whenReadySetupBoard">準備ができたらボードをセットアップし、 %s をクリックします。</string>
+  <string name="dgtConfigure">DGT ボード：設定</string>
+  <string name="lichessConnectivity">Lichess との接続</string>
+  <string name="validDgtOauthToken">DGT でのプレイに適合した OAuth トークンがあります。</string>
+  <string name="noSuitableOauthToken">適切な OAuth トークンが作成されていません。</string>
+  <string name="dgtBoardConnectivity">DGT ボードとの接続</string>
+  <string name="clickToGenerateOne">クリックして作成</string>
+  <string name="useWebSocketUrl">%2$s を別のマシンか別のポートで実行しているのでない限り「%1$s」を使用します。</string>
+  <string name="textToSpeech">読み上げ</string>
+  <string name="configureVoiceNarration">指し手の読み上げの設定。盤面に集中できます。</string>
+  <string name="enableSpeechSynthesis">音声合成を使う</string>
+  <string name="speechSynthesisVoice">音声合成の声</string>
+  <string name="announceAllMoves">すべての手を読み上げ</string>
+  <string name="selectAnnouncePreference">「はい」だと自分の手と相手の手の両方を読み上げます。「いいえ」だと相手の手だけを読み上げます。</string>
+  <string name="announceMoveFormat">読み上げる指し手の形式</string>
+  <string name="moveFormatDescription">SAN は Lichess の標準記法です（例：Nf6）。 UCI はエンジンでよく使われる記法です（例：g8f6）。</string>
+  <string name="configure">設定</string>
 </resources>
