@@ -115,7 +115,7 @@ object index:
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.Top) },
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(
                 posts,
                 p =>
@@ -173,7 +173,7 @@ object index:
           boxTop(h1(title)),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.Top) },
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(posts, np => route(np).url)
             )
           else div(cls := "ublog-index__posts--empty")(onEmpty)

@@ -172,12 +172,12 @@ object post:
         )
 
   enum ShowAt:
-    case Top, Bottom, None
+    case top, bottom, none
 
   def card(
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
-      showAuthor: ShowAt = ShowAt.None,
+      showAuthor: ShowAt = ShowAt.none,
       showIntro: Boolean = true
   )(using Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
@@ -185,10 +185,9 @@ object post:
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
         showAuthor match
-          case ShowAt.Top => userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image")
-          case ShowAt.Bottom =>
-            userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image below")
-          case ShowAt.None => None
+          case ShowAt.none => emptyFrag
+          case showAt =>
+            userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAt")
       ),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),

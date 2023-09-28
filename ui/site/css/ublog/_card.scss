@@ -24,7 +24,7 @@
     &__over-image {
       position: absolute;
       top: 0;
-      &.below {
+      &.pos-bottom {
         top: unset;
         bottom: 0;
       }
