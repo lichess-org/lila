@@ -36,7 +36,7 @@ object post:
       canModCateg: Boolean,
       canReact: Boolean
   )(using ctx: PageContext) = postWithFrag match
-    case ForumPost.WithFrag(post, body) =>
+    case ForumPost.WithFrag(post, body, hide) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg) option div(
@@ -103,8 +103,19 @@ object post:
           ),
           a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        p(cls := "forum-post__message expand-text"):
-          if post.erased then "<Comment deleted by user>" else body
+        frag:
+          val postFrag = p(cls := s"forum-post__message expand-text")(
+            if post.erased then "<Comment deleted by user>"
+            else body
+          )
+          if hide then
+            div(cls := "forum-post__blocked")(
+              postFrag,
+              button(cls := "button button-empty show-blocked", tpe := "button")(
+                "Show blocked message"
+              )
+            )
+          else postFrag
         ,
         !post.erased option reactions(post, canReact),
         ctx.me.soUse(post.shouldShowEditForm) option

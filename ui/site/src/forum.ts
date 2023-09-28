@@ -28,7 +28,10 @@ lichess.load.then(() => {
       xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
       return false;
     });
-
+  $('.forum-post__blocked button').on('click', e => {
+    const el = (e.target as HTMLElement).parentElement!;
+    $(el).replaceWith($('p', el));
+  });
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
