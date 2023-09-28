@@ -24,6 +24,10 @@
     &__over-image {
       position: absolute;
       top: 0;
+      &.pos-bottom {
+        top: unset;
+        bottom: 0;
+      }
       @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
 
       @if $theme-dark {
