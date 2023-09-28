@@ -99,12 +99,12 @@
   <string name="openingExplorer">Explorador de aperturas</string>
   <string name="openingEndgameExplorer">Explorador de aperturas y finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Juega la primera jugada del explorador de aperturas y finales</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Realiza el primer movimiento del explorador de aperturas y finales</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota o 50 movimientos por error anterior</string>
-  <string name="unknownDueToRounding">Victoria/derrota garantizada apenas si la línea de movimientos recomendados fue seguida desde el último movimiento de captura o de peón, a causa del posible redondeo.</string>
+  <string name="unknownDueToRounding">Victoria o derrota segura solo si se siguió la línea de movimientos recomendados desde la última captura o movimiento de peón, a causa del posible redondeo de valores DTZ de las Tablas de Finales Syzygy.</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -157,7 +157,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">puntuación %1$s en %2$s partida</item>
-    <item quantity="other">puntuación %1$s en %2$s partidas</item>
+    <item quantity="other">Puntuación de %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s partida favorita</item>
