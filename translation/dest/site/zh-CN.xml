@@ -113,7 +113,7 @@
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
-  <string name="showVariationArrows">显示变化箭头</string>
+  <string name="showVariationArrows">显示变着箭头</string>
   <string name="evaluationGauge">显示局面评分</string>
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>
@@ -685,7 +685,7 @@
   <string name="downloadImported">下载导入的棋局</string>
   <string name="crosstable">比分表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">你也可以用鼠标滚轮浏览棋局。</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">将鼠标移到电脑分析变招上进行预览</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">将鼠标移到电脑给出的变着上进行预览</string>
   <string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
   <string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
   <string name="receiveForumNotifications">在论坛中被提及时接收通知</string>
@@ -776,7 +776,7 @@
   <string name="findBetterMoveForWhite">为白方找更好走法</string>
   <string name="findBetterMoveForBlack">为黑方找更好走法</string>
   <string name="resumeLearning">继续学习</string>
-  <string name="youCanDoBetter">加油！有更好的一步棋·！</string>
+  <string name="youCanDoBetter">加油！有更好的一步棋！</string>
   <string name="tryAnotherMoveForWhite">为白方另找走法</string>
   <string name="tryAnotherMoveForBlack">为黑方另找走法</string>
   <string name="solution">解答</string>
@@ -797,7 +797,7 @@
   <string name="endgame">残局</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
-  <string name="playVariationToCreateConditionalPremoves">进入变着以创建条件预先走棋</string>
+  <string name="playVariationToCreateConditionalPremoves">走一步变着以创建条件预先走棋</string>
   <string name="noConditionalPremoves">没有条件预先走棋</string>
   <string name="playX">走 %s</string>
   <plurals name="andSaveNbPremoveLines">
