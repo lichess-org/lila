@@ -22,9 +22,7 @@ object admin:
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           adminTop(t, teamLeaders),
-          p(
-            "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
-          ),
+          p(onlyInviteLeadersTrust()),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
             form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t)),
             form3.actions(
