@@ -38,24 +38,23 @@ final private class ForumTopicApi(
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
       data <- categRepo byId categId flatMapz { categ =>
-        topicRepo.forUser(me).byTree(categId, slug) dmap:
-          _ map (categ -> _)
+        topicRepo
+          .forUser(me)
+          .byTree(categId, slug)
+          .dmap:
+            _.map(categ -> _)
       }
       blocking <- me.so(relationApi.fetchBlocking(_))
-      res <- data so { (categ, topic) =>
+      res <- data.so: (categ, topic) =>
         lila.mon.forum.topic.view.increment()
         paginator.topicPosts(topic, page) map { paginated =>
           (
             categ,
             topic,
-            paginated.withCurrentPageResults(
-              paginated.currentPageResults.map:
-                case ForumPost.WithFrag(post, body, _) =>
-                  lila.forum.ForumPost.WithFrag(post, body, post.userId so (blocking(_)))
-            )
+            paginated.mapResults: p =>
+              p.copy(hide = p.post.userId.so(blocking(_)))
           ).some
         }
-      }
     yield res
 
   object findDuplicate:
