@@ -43,16 +43,15 @@ object post:
       ).some,
       robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH),
       csp = defaultCsp.withTwitter.withInlineIconFont.some
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, (if ctx is user then "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-post")(
-          post.image.map { image =>
+          post.image.map: image =>
             frag(
               thumbnail(post, _.Size.Large)(cls := "ublog-post__image"),
               image.credit.map { p(cls := "ublog-post__image-credit")(_) }
-            )
-          },
+            ),
           ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash,
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
@@ -73,18 +72,17 @@ object post:
               cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
             ),
-            post.lived map { live =>
-              span(cls := "ublog-post__meta__date")(semanticDate(live.at))
-            },
+            post.lived.map: live =>
+              span(cls := "ublog-post__meta__date")(semanticDate(live.at)),
             likeButton(post, liked, showText = false),
             span(cls := "ublog-post__views")(
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
             ),
             if ctx is user then
               div(cls := "ublog-post__meta__owner")(
-                (if post.live then goodTag else badTag) (
+                (if post.live then goodTag else badTag):
                   if post.live then trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
-                ),
+                ,
                 " ",
                 editButton(post)
               )
@@ -105,9 +103,8 @@ object post:
               )
           ),
           div(cls := "ublog-post__topics")(
-            post.topics.map { topic =>
+            post.topics.map: topic =>
               a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
-            }
           ),
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
@@ -127,7 +124,6 @@ object post:
           )
         )
       )
-    }
 
   private def editButton(post: UblogPost)(using PageContext) = a(
     href     := editUrlOfPost(post),
@@ -162,11 +158,11 @@ object post:
         "ublog-post__follow" -> true,
         "followed"           -> followed
       )
-    )(
+    ):
       List(
         ("yes", trans.unfollowX, routes.Relation.unfollow, licon.Checkmark),
         ("no", trans.followX, routes.Relation.follow, licon.ThumbsUp)
-      ).map { case (role, text, route, icon) =>
+      ).map: (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
           dataIcon := icon,
@@ -174,8 +170,6 @@ object post:
         )(
           span(cls := "button-label")(text(user.titleUsername))
         )
-      }
-    )
 
   enum ShowAt:
     case Top, Bottom, None
