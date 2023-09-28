@@ -34,7 +34,12 @@ final class RelationApi(
   def fetchRelations(u1: UserId, u2: UserId): Fu[Relations] =
     fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.apply
 
-  export repo.{ blocking as fetchBlocking, following as fetchFollowing, freshFollowersFromSecondary }
+  export repo.{
+    blocking as fetchBlocking,
+    following as fetchFollowing,
+    freshFollowersFromSecondary,
+    filterBlocked
+  }
 
   def fetchFriends(userId: UserId) =
     coll

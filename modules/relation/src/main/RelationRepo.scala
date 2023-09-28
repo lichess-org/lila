@@ -103,6 +103,9 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
       coll.delete.one($inIds(ids)).void
     }
 
+  def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("u2", $doc("u2" $in candidates, "u1" -> by, "r" -> Block))
+
 object RelationRepo:
 
   def makeId(u1: UserId, u2: UserId) = s"$u1/$u2"

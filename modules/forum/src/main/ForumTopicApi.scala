@@ -44,17 +44,20 @@ final private class ForumTopicApi(
           .dmap:
             _.map(categ -> _)
       }
-      blocking <- me.so(relationApi.fetchBlocking(_))
       res <- data.so: (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator.topicPosts(topic, page) map { paginated =>
-          (
-            categ,
-            topic,
-            paginated.mapResults: p =>
-              p.copy(hide = p.post.userId.so(blocking(_)))
-          ).some
-        }
+        paginator
+          .topicPosts(topic, page)
+          .flatMap: paginated =>
+            val authors = paginated.currentPageResults.flatMap(_.post.userId)
+            me.so(relationApi.filterBlocked(_, authors))
+              .map: blockedAuthors =>
+                (
+                  categ,
+                  topic,
+                  paginated.mapResults: p =>
+                    p.copy(hide = p.post.userId.so(blockedAuthors(_)))
+                ).some
     yield res
 
   object findDuplicate:
