@@ -111,7 +111,7 @@ object post:
           if hide then
             div(cls := "forum-post__blocked")(
               postFrag,
-              button(cls := "button show-blocked", tpe := "button")(
+              button(cls := "button button-empty show-blocked", tpe := "button")(
                 "Show blocked message"
               )
             )
