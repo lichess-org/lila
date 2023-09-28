@@ -1580,6 +1580,7 @@ object I18nKeys:
     val `automaticLeaderboard` = I18nKey("broadcast:automaticLeaderboard")
     val `automaticLeaderboardNote` = I18nKey("broadcast:automaticLeaderboardNote")
     val `optional` = I18nKey("broadcast:optional")
+	val `optionalHelp` = I18nKey("broadcast:optionalHelp")
     val `sourceUrlOrGameIds` = I18nKey("broadcast:sourceUrlOrGameIds")
     val `sourceUrlHelp` = I18nKey("broadcast:sourceUrlHelp")
     val `gameIdsHelp` = I18nKey("broadcast:gameIdsHelp")

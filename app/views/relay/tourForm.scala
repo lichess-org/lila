@@ -96,12 +96,6 @@ object tourForm:
     form3.group(
       form("players"),
       optional(),
-      help = frag(
-        "One line per player, formatted as such:",
-        pre("Original name; Replacement name; Optional replacement rating; Optional replacement title"),
-        "Example:",
-        pre("""DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM""")
-      ).some
+      help = optionalHelp().some
     )(form3.textarea(_)(rows := 3))
   )

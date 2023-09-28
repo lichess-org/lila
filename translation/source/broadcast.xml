@@ -21,6 +21,15 @@
   <string name="automaticLeaderboard">Automatic leaderboard</string>
   <string name="automaticLeaderboardNote">Compute and display a simple leaderboard based on game results</string>
   <string name="optional">Optional: replace player names, ratings and titles</string>
+  <string name="optionalHelp">One line per player, formatted as such:
+
+Original name; Replacement name; Optional replacement rating; Optional replacement title
+
+Example:
+
+DrNykterstein;Magnus Carlsen;2863
+
+AnishGiri;Anish Giri;2764;GM</string>
   <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="gameIdsHelp">Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.</string>
