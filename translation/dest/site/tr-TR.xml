@@ -115,6 +115,7 @@
   <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
+  <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
@@ -143,7 +144,7 @@
   <string name="claimADraw">Beraberlik talep et</string>
   <string name="offerDraw">Beraberlik teklif et</string>
   <string name="draw">Berabere</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s çevrimiçi oyuncu</item>
     <item quantity="other">%s çevrimiçi oyuncu</item>
   </plurals>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
-  <string name="savingMoves">Geçici hamle depolama</string>
-  <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
   <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
   <string name="clearSavedMoves">Hamleleri sil</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
@@ -946,8 +945,8 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="toggleAllAnalysis">Genel bilgisayar analizini aç/kapat</string>
   <string name="playComputerMove">En iyi bilgisayar hamlesini oyna</string>
   <string name="analysisOptions">Analiz seçenekleri</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Sohbete odaklan</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Bu yardım iletisini göster</string>
+  <string name="focusChat">Sohbete odaklan</string>
+  <string name="showHelpDialog">Bu yardım iletisini göster</string>
   <string name="reopenYourAccount">Hesabı aktifleştir</string>
   <string name="closedAccountChangedMind">Hesabınızı kapatıp sonradan fikrinizi değiştirdiyseniz bir kereliğine mahsus olmak üzere hesabı tekrar açabilirsiniz.</string>
   <string name="onlyWorksOnce">Bu işlemi yalnızca bir kez yapabilirsiniz.</string>

@@ -144,7 +144,7 @@
   <string name="claimADraw">Berdinketa eskatu</string>
   <string name="offerDraw">Berdinketa eskaini</string>
   <string name="draw">Berdinketa</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s Jokalari</item>
     <item quantity="other">%s Jokalari</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
-  <string name="savingMoves">Jokaldiak gordetzeko momentuko tokia</string>
-  <string name="savingMovesHelp">Zure jokaldiak nabigatzailean gordetzen ari gara.</string>
   <string name="makeAStudy">Ondo gorde eta partekatzeko sortu azterlan bat.</string>
   <string name="clearSavedMoves">Garbitu jokaldiak</string>
   <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>
@@ -948,8 +946,8 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="toggleAllAnalysis">Aktibatu ordenagailu guztietako analisia</string>
   <string name="playComputerMove">Jokatu ordenagailuaren jokaldi onena</string>
   <string name="analysisOptions">Analisiaren aukerak</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Eraman fokua txatera</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Erakutsi laguntza leiho hau</string>
+  <string name="focusChat">Eraman fokua txatera</string>
+  <string name="showHelpDialog">Erakutsi laguntza leiho hau</string>
   <string name="reopenYourAccount">Berreskuratu zure kontua</string>
   <string name="closedAccountChangedMind">Zure kontua itxi bazenuen baina berreskuratu nahi baduzu, aukera bakarra duzu hori egiteko.</string>
   <string name="onlyWorksOnce">Honek behin bakarrik funtzionatuko du.</string>

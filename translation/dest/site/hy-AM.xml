@@ -144,7 +144,7 @@
   <string name="claimADraw">Պահանջել ոչ-ոքի</string>
   <string name="offerDraw">Առաջարկել ոչ-ոքի</string>
   <string name="draw">Ոչ-ոքի</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">Միացած խաղացողների թիվը՝ %s</item>
     <item quantity="other">Միացած խաղացողների թիվը՝ %s</item>
   </plurals>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
-  <string name="savingMoves">Քայլերի ժամանակավոր պահոց</string>
-  <string name="savingMovesHelp">Մենք միշտ պահպանում ենք Ձեր տարբերակները Ձեր դիտարկչի քեշում։</string>
   <string name="makeAStudy">Պահպանելու և կիսվելու համար դիտարկեք ստուդիա ստեղծելու հնարավորությունը։</string>
   <string name="clearSavedMoves">Մաքրել քայլերը</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
@@ -947,8 +945,8 @@
   <string name="toggleAllAnalysis">Փոխել համակարգչային վերլուծության բոլոր եղանակները</string>
   <string name="playComputerMove">Անել լավագույն համակարգչային քայլը</string>
   <string name="analysisOptions">Վերլուծության պարամետրերը</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Տեղափոխվել զրուցարանի պատուհան</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Ցույց տալ օգնությունը</string>
+  <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
+  <string name="showHelpDialog">Ցույց տալ օգնությունը</string>
   <string name="reopenYourAccount">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
   <string name="closedAccountChangedMind">Եթե Դուք փակել եք Ձեր մասնակցային հաշիվը, բայց մտափոխվել եք, մեկ անգամ այն վերականգնելու հնարավորություն ունեք։</string>
   <string name="onlyWorksOnce">Սա կաշխատի միայն մեկ անգամ։</string>

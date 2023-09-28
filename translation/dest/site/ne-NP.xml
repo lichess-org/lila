@@ -116,7 +116,7 @@
   <string name="claimADraw">बराबरीको दावी गर्नुहोस्</string>
   <string name="offerDraw">बराबरीको प्रस्ताव राख्नुहोस्</string>
   <string name="draw">बराबरी</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s खेलाडी</item>
     <item quantity="other">%s खेलाडीहरू</item>
   </plurals>

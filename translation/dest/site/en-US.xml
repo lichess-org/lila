@@ -144,7 +144,7 @@
   <string name="claimADraw">Claim a draw</string>
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
@@ -511,8 +511,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
-  <string name="savingMoves">Temporary move storage</string>
-  <string name="savingMovesHelp">We\'re always storing your variations in your browser cache.</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
   <string name="clearSavedMoves">Clear moves</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
@@ -950,8 +948,8 @@ Leave empty to start games from the normal initial position.</string>
   <string name="toggleAllAnalysis">Toggle all computer analysis</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Focus chat</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Show this help dialog</string>
+  <string name="focusChat">Focus chat</string>
+  <string name="showHelpDialog">Show this help dialog</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="closedAccountChangedMind">If you closed your account, but have since changed your mind, you get one chance of getting your account back.</string>
   <string name="onlyWorksOnce">This will only work once.</string>

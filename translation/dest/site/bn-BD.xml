@@ -136,7 +136,7 @@
   <string name="claimADraw">সমান দাবী করুন</string>
   <string name="offerDraw">সমানের জন্য আহ্‌বান জানান</string>
   <string name="draw">সমান</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s জন খেলোয়াড়</item>
     <item quantity="other">%s জন খেলোয়াড়</item>
   </plurals>
@@ -482,8 +482,6 @@
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="oneUrlPerLine">প্রতি লাইনে একটি লিংক।</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
-  <string name="savingMoves">চালগুলো বর্তমানে ক্ষণস্থায়ী ভাবে সংরক্ষিত</string>
-  <string name="savingMovesHelp">আপনার ব্রাউজার ক্যাচে ভ্যারিয়েশনগুলো সংরক্ষিত করছি আমরা.</string>
   <string name="makeAStudy">অধ্যায়ন নিরাপদ রাখার জন্য অন্য ইউজারদের সঙ্গে শেয়ারকরুন ও অধ্যায়ন তৈরি করুন.</string>
   <string name="clearSavedMoves">চাল গুলো মুছুন</string>
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>

@@ -143,7 +143,7 @@
   <string name="claimADraw">Döntetlen igénylése</string>
   <string name="offerDraw">Döntetlen felajánlása</string>
   <string name="draw">Döntetlen</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s játékos</item>
     <item quantity="other">%s játékos</item>
   </plurals>
@@ -509,8 +509,6 @@
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
-  <string name="savingMoves">Átmeneti lépéstároló</string>
-  <string name="savingMovesHelp">A változatokat mindig a böngésződ gyorsítótárában tároljuk.</string>
   <string name="makeAStudy">A biztonság kedvéért és a későbbi megosztás lehetőségéért fontold meg egy tanulmány létrehozását.</string>
   <string name="clearSavedMoves">Lépések törlése</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
@@ -948,8 +946,8 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="toggleAllAnalysis">Összes számítógépes elemzés engedélyezése</string>
   <string name="playComputerMove">Számítógép szerinti legjobb lépés megjátszása</string>
   <string name="analysisOptions">Elemzés beállításai</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Fókusz a csevegőre</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Mutasd ezt a súgót</string>
+  <string name="focusChat">Fókusz a csevegőre</string>
+  <string name="showHelpDialog">Mutasd ezt a súgót</string>
   <string name="reopenYourAccount">Fiók újranyitása</string>
   <string name="closedAccountChangedMind">Ha lezártad a fiókod, de azóta meggondoltad magad, van egy lehetőséged visszakapni a régi fiókod.</string>
   <string name="onlyWorksOnce">Ez csak egyszer működik.</string>

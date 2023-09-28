@@ -154,7 +154,7 @@
   <string name="claimADraw">Оголосити нічию</string>
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s гравець</item>
     <item quantity="few">%s гравці</item>
     <item quantity="many">%s гравців</item>
@@ -577,8 +577,6 @@
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
-  <string name="savingMoves">Тимчасове сховище ходів</string>
-  <string name="savingMovesHelp">Ми завжди зберігаємо ваші варіанти в кеші браузера.</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
   <string name="clearSavedMoves">Очистити ходи</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
@@ -1032,8 +1030,8 @@
   <string name="toggleAllAnalysis">Ввімкнути весь комп’ютерний аналіз</string>
   <string name="playComputerMove">Зіграти найкращий комп\'ютерний хід</string>
   <string name="analysisOptions">Можливості аналізу</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Обрати вікно чату</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Показати це діалогове вікно довідки</string>
+  <string name="focusChat">Обрати вікно чату</string>
+  <string name="showHelpDialog">Показати це діалогове вікно довідки</string>
   <string name="reopenYourAccount">Відновити ваш обліковий запис</string>
   <string name="closedAccountChangedMind">Якщо ви закрили свій обліковий запис та змінили свою думку, у вас є один шанс відновити свій профіль.</string>
   <string name="onlyWorksOnce">Це можна зробити лише один раз.</string>

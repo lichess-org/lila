@@ -154,7 +154,7 @@
   <string name="claimADraw">Reklamovat remízu</string>
   <string name="offerDraw">Nabídnout remízu</string>
   <string name="draw">Remíza</string>
-  <plurals name="nbPlayers" comment="%s is the number of players.&#10;&#10;Appears in many areas including but not limited to:&#10;- Currently connected players on the Lichess home page&#10;- Number of players in current and completed tournaments&#10;&#10;Because this text is used for current and past events, please do not translate as 'players connected'.">
+  <plurals name="nbPlayers">
     <item quantity="one">%s hráč online</item>
     <item quantity="few">%s hráči online</item>
     <item quantity="many">%s hráčů online</item>
@@ -576,8 +576,6 @@
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
-  <string name="savingMoves">Dočasné uložení tahů</string>
-  <string name="savingMovesHelp">Vždy ukládáme vaše varianty do mezipaměti prohlížeče.</string>
   <string name="makeAStudy">Pro bezpečné uložení a sdílení zvažte vytvoření studie.</string>
   <string name="clearSavedMoves">Vymazat tahy</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
@@ -1032,8 +1030,8 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="toggleAllAnalysis">Zapnout/vypnout všechny počítačové analýzy</string>
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
-  <string name="focusChat" comment="Focus is used a verb in this string.&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)&#10;&#10;This specific string gives the shortcut to select the chat box, while playing or analysing a game.">Vybrat chat</string>
-  <string name="showHelpDialog" comment="Guidance on keyboard shortcuts. It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Zobrazit tuto nápovědu</string>
+  <string name="focusChat">Vybrat chat</string>
+  <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
   <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
   <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>
   <string name="onlyWorksOnce">Toto je možné provést pouze jednou.</string>
