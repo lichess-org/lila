@@ -23,7 +23,8 @@ final private class ForumTopicApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    relationApi: lila.relation.RelationApi
 )(using Executor):
 
   import BSONHandlers.given
@@ -37,13 +38,23 @@ final private class ForumTopicApi(
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
       data <- categRepo byId categId flatMapz { categ =>
-        topicRepo.forUser(me).byTree(categId, slug) dmap {
+        topicRepo.forUser(me).byTree(categId, slug) dmap:
           _ map (categ -> _)
-        }
       }
+      blocking <- me.so(relationApi.fetchBlocking(_))
       res <- data so { (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator.topicPosts(topic, page) map { (categ, topic, _).some }
+        paginator.topicPosts(topic, page) map { paginated =>
+          (
+            categ,
+            topic,
+            paginated.withCurrentPageResults(
+              paginated.currentPageResults.map:
+                case ForumPost.WithFrag(post, body, _) =>
+                  lila.forum.ForumPost.WithFrag(post, body, post.userId so (blocking(_)))
+            )
+          ).some
+        }
       }
     yield res
 
