@@ -7,4 +7,12 @@
   <string name="thisPageAllowsConnectingDgtBoard">このページから DGT ボードを Lichess に接続し、対局に使うことができます。</string>
   <string name="toConnectTheDgtBoard">DGT ボードを接続するにはまず %s をインストールする必要があります。</string>
   <string name="downloadHere">同ソフトはこちらからダウンロードできます：%s</string>
+  <string name="ifLiveChessRunningOnThisComputer">%1$s がこのコンピュータで 実行中なら、 %2$s で接続を確認できます。</string>
+  <string name="openingThisLink">このリンクを開くこと</string>
+  <string name="ifLiveChessRunningElsewhere">%1$s が別のマシンか別のポートで実行中なら、%2$s で IP アドレスとポートを設定できます。</string>
+  <string name="configurationSection">設定セクション</string>
+  <string name="keepPlayPageOpen">「対局」のページはブラウザで開いたままにしておく必要があります。 見える必要はなく、最小化したり Lichess の対局ページの横に置いてもかまいませんが、閉じるとボードが機能しなくなります。</string>
+  <string name="boardWillAutoConnect">ボードは進行中の対局か、新しく始まった対局に自動的に接続されます。複数の対局から選ぶ機能はまもなく追加の予定です。</string>
+  <string name="timeControlsForCasualGames">非レート戦の持時間：クラシカル、通信戦、ラピッドのみ。</string>
+  <string name="timeControlsForRatedGames">レート戦の持時間：クラシカル、通信戦、一部のラピッド（15+10、20+0など）のみ。</string>
 </resources>
