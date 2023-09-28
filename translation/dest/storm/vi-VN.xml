@@ -25,7 +25,7 @@
   <string name="timePerMove">Thời gian trên mỗi nước đi</string>
   <string name="highestSolved">Câu giải được khó nhất</string>
   <string name="puzzlesPlayed">Các thế cờ đã chơi</string>
-  <string name="newRun">Chạy mới (phím nhanh: Dấu cách)</string>
+  <string name="newRun">Chạy lượt mới (phím nhanh: Dấu cách)</string>
   <string name="endRun">Kết thúc (phím nhanh: Enter)</string>
   <string name="highscores">Điểm cao</string>
   <string name="viewBestRuns">Xem các lần chạy tốt nhất</string>
