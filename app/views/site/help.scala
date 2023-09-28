@@ -16,11 +16,10 @@ object help:
 
   private def navigateMoves(using Lang) = frag(
     header(trans.navigateMoveTree()),
-    row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
-    row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
-    row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
-    row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
-    row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd())
+    row(frag(kbd("←"), or, kbd("k")), trans.keyMoveBackward()),
+    row(frag(kbd("→"), or, kbd("j")), trans.keyMoveForward()),
+    row(frag(kbd("↑"), or, kbd("0"), or, kbd("home")), trans.keyGoToStart()),
+    row(frag(kbd("↓"), or, kbd("$"), or, kbd("end")), trans.keyGoToEnd()),
   )
   private def flip(using Lang)       = row(kbd("f"), trans.flipBoard())
   private def zen(using Lang)        = row(kbd("z"), trans.preferences.zenMode())
@@ -65,21 +64,21 @@ object help:
       h2(trans.keyboardShortcuts()),
       table(
         tbody(
-          row(frag(kbd("←"), or, kbd("k")), "Move backward"),
-          row(frag(kbd("→"), or, kbd("j")), "Move forward"),
-          row(kbd("shift"), "Cycle selected variation"),
-          row(frag(kbd("↑"), or, kbd("↓")), "Cycle previous/next variation"),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
-          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch"),
-          row(frag(kbd("home"), or, kbd("↑"), or, kbd("0")), "Go to start"),
-          row(frag(kbd("end"), or, kbd("↓"), or, kbd("$")), "Go to end"),
+          row(frag(kbd("←"), or, kbd("k")), trans.keyMoveBackward()),
+          row(frag(kbd("→"), or, kbd("j")), trans.keyMoveForward()),
+          row(kbd("shift"), trans.keyCycleSelectedVariation()),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.keyCyclePreviousOrNextVariation()),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.keyPreviousBranch()),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.keyNextBranch()),
+          row(frag(kbd("home"), or, kbd("↑"), or, kbd("0")), trans.keyGoToStart()),
+          row(frag(kbd("end"), or, kbd("↓"), or, kbd("$")), trans.keyGoToEnd()),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
           localAnalysis,
           row(kbd("z"), trans.toggleAllAnalysis()),
           row(kbd("a"), trans.bestMoveArrow()),
-          row(kbd("v"), "Toggle variation arrows"),
+          row(kbd("v"), trans.toggleVariationArrows()),
           row(kbd("e"), trans.openingEndgameExplorer()),
           row(frag(kbd("shift"), kbd("space")), trans.playFirstOpeningEndgameExplorerMove()),
           row(kbd("r"), trans.keyRequestComputerAnalysis()),
@@ -96,7 +95,7 @@ object help:
             row(kbd("g"), trans.study.annotateWithGlyphs()),
             row(kbd("n"), trans.study.nextChapter()),
             row(kbd("p"), trans.study.prevChapter()),
-            row(frag((1 to 6).map(kbd(_))), "Toggle glyph annotations")
+            row(frag((1 to 6).map(kbd(_))), trans.toggleGlyphAnnotations())
           ),
           header(trans.mouseTricks()),
           tr(
@@ -117,11 +116,11 @@ object help:
       p("Variation arrows let you navigate without using the move list."),
       table(
         tbody(
-          row(kbd("v"), "Toggle variation arrows"),
-          row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), "Cycle selected variation"),
-          row(kbd("→"), "play selected move"),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
-          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch")
+          row(kbd("v"), trans.toggleVariationArrows()),
+          row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), trans.keyCycleSelectedVariation()),
+          row(kbd("→"), trans.playSelectedMove()),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.keyPreviousBranch()),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.keyNextBranch())
         )
       )
     )
