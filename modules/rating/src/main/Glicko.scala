@@ -23,6 +23,8 @@ case class Glicko(
   def rankable(variant: shogi.variant.Variant) =
     deviation <= {
       if (variant.standard) Glicko.standardRankableDeviation
+      else if (variant.chushogi) Glicko.chushogiRankableDeviation
+      else if (variant.annanshogi) Glicko.annanshogiRankableDeviation
       else Glicko.variantRankableDeviation
     }
   def provisional          = deviation >= Glicko.provisionalDeviation
@@ -75,12 +77,14 @@ case object Glicko {
 
   val defaultIntRating = default.rating.toInt
 
-  val minDeviation              = 45
-  val variantRankableDeviation  = 65
-  val standardRankableDeviation = 75
-  val provisionalDeviation      = 110
-  val cluelessDeviation         = 260
-  val maxDeviation              = 500d
+  val minDeviation                = 45
+  val chushogiRankableDeviation   = 85
+  val annanshogiRankableDeviation = 80
+  val variantRankableDeviation    = 70
+  val standardRankableDeviation   = 75
+  val provisionalDeviation        = 110
+  val cluelessDeviation           = 260
+  val maxDeviation                = 500d
 
   // past this, it might not stabilize ever again
   val maxVolatility = 0.1d
