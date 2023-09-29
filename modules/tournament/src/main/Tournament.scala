@@ -9,7 +9,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.i18n.defaultLang
 import lila.rating.PerfType
-import lila.user.User
+import lila.user.{ User, Me }
 import lila.gathering.GreatPlayer
 
 case class Tournament(
@@ -155,6 +155,7 @@ object Tournament:
 
   val minPlayers = 2
 
+  // TODO remove/merge with `fromSetup`
   def make(
       by: UserId,
       name: Option[String],
@@ -197,6 +198,26 @@ object Tournament:
       description = description,
       hasChat = hasChat
     )
+
+  def fromSetup(setup: TournamentSetup)(using me: Me) =
+    make(
+      by = me.userId,
+      name = setup.name,
+      clock = setup.clockConfig,
+      minutes = setup.minutes,
+      waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
+      startDate = setup.startDate,
+      mode = setup.realMode,
+      password = setup.password,
+      variant = setup.realVariant,
+      position = setup.realPosition,
+      berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
+      streakable = setup.streakable | true,
+      teamBattle = setup.teamBattleByTeam map TeamBattle.init,
+      description = setup.description,
+      hasChat = setup.hasChat | true
+    )
+      .copy(conditions = setup.conditions)
 
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(

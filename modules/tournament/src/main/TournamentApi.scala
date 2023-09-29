@@ -57,25 +57,7 @@ final class TournamentApi(
       leaderTeams: List[LeaderTeam],
       andJoin: Boolean = true
   )(using me: Me): Fu[Tournament] =
-    val tour = Tournament
-      .make(
-        by = me.userId,
-        name = setup.name,
-        clock = setup.clockConfig,
-        minutes = setup.minutes,
-        waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
-        startDate = setup.startDate,
-        mode = setup.realMode,
-        password = setup.password,
-        variant = setup.realVariant,
-        position = setup.realPosition,
-        berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
-        streakable = setup.streakable | true,
-        teamBattle = setup.teamBattleByTeam map TeamBattle.init,
-        description = setup.description,
-        hasChat = setup.hasChat | true
-      )
-      .copy(conditions = setup.conditions)
+    val tour = Tournament.fromSetup(setup)
     tournamentRepo.insert(tour) >> {
       setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).so { teamId =>
         tournamentRepo.setForTeam(tour.id, teamId).void

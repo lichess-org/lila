@@ -8,7 +8,7 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
-import lila.user.User
+import lila.user.{ User, Me }
 import lila.tournament.BSONHandlers.given
 
 final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
@@ -42,10 +42,10 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
   def update(old: Tournament, data: CrudForm.Data) =
     tournamentRepo update updateTour(old, data) void
 
-  def createForm = crudForm(none)
+  def createForm(using Me) = crudForm.newForm(none)
 
-  def create(data: CrudForm.Data, owner: User): Fu[Tournament] =
-    val tour = updateTour(empty, data).copy(id = data.id, createdBy = owner.id)
+  def create(data: CrudForm.NewData)(using Me): Fu[Tournament] =
+    val tour = data.toTour
     tournamentRepo insert tour inject tour
 
   def clone(old: Tournament) =

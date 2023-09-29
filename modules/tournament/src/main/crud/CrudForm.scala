@@ -67,14 +67,14 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       "homepageHours" -> number(min = 0, max = maxHomepageHours),
       "image"         -> stringIn(imageChoices),
       "headline"      -> text(minLength = 5, maxLength = 30),
-      "tour"          -> forms.create(Nil).mapping
+      "setup"         -> forms.create(Nil).mapping
     )(NewData.apply)(unapply)
   ) fill NewData(
     id = Tournament.makeId,
     homepageHours = 0,
     image = "",
     headline = "",
-    tour = forms.empty()
+    setup = forms.empty()
   )
 
   def editForm(tour: Tournament)(using me: Me) = newForm(tour.some) fill
@@ -83,7 +83,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.so(_.headline),
-      tour = forms.fillFromTour(tour)
+      setup = forms.fillFromTour(tour)
     )
 
 object CrudForm:
@@ -132,5 +132,19 @@ object CrudForm:
       homepageHours: Int,
       image: String,
       headline: String,
-      tour: TournamentSetup
-  )
+      setup: TournamentSetup
+  ):
+
+    def toTour(using Me) =
+      Tournament
+        .fromSetup(setup)
+        .copy(
+          id = id,
+          spotlight = Spotlight(
+            headline = headline,
+            description = "", // BC TODO, remove useless field
+            homepageHours = homepageHours.some.filterNot(0 ==),
+            iconFont = none,
+            iconImg = image.some.filter(_.nonEmpty)
+          ).some
+        )
