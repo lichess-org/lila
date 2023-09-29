@@ -64,7 +64,7 @@
   <string name="falsePositives">误报有时会发生，我们对此表示歉意。</string>
   <string name="ifLegit">如果你的申诉是合理的，我们将及时取消封禁。</string>
   <string name="accountLost">如果你确实使用了引擎帮助，哪怕只是一次，你的账户也会被永久禁用。</string>
-  <string name="doNotDeny">不要否认作弊。 如果你想要被允许创建一个新账户，承认你所做的事情， 并表明你理解这是一个错误。</string>
+  <string name="doNotDeny">不要否认作弊。 如果你还想被允许创建一个新账户，承认你所做的事情， 并表明你理解这是错误的行为。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">协作、法律、贸易等</string>
   <string name="monetizing">在 Lichess 获利</string>
