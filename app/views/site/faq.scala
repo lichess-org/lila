@@ -125,9 +125,9 @@ object faq:
             basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
-            li(inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(179, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(479, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(29, trans.ultraBullet())),
+            li(inferiorThanXsEqualYtimeControl(179, trans.bullet())),
+            li(inferiorThanXsEqualYtimeControl(479, trans.blitz())),
             li(inferiorThanXsEqualYtimeControl(1499, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
