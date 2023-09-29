@@ -18,44 +18,47 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = TourFields(form, none)
-      main(cls := "page-small")(
-        div(cls := "tour__form box box-pad")(
-          h1(cls := "box__top")(
-            if fields.isTeamBattle then trans.arena.newTeamBattle()
-            else trans.createANewTournament()
-          ),
-          postForm(cls := "form3", action := routes.Tournament.webCreate)(
-            div(cls := "form-group")(
-              a(
-                dataIcon := licon.InfoCircle,
-                cls      := "text",
-                href     := routes.ContentPage.loneBookmark("event-tips")
-              )(trans.ourEventTips())
-            ),
-            form3.globalError(form),
-            fields.name,
-            form3.split(fields.rated, fields.variant),
-            fields.clock,
-            form3.split(fields.minutes, fields.waitMinutes),
-            form3.split(fields.description(true), fields.startPosition),
-            form3.fieldset(trans.advancedSettings())(cls := "conditions")(
-              fields.advancedSettings,
-              div(cls := "form")(
-                conditionFields(form, fields, teams = leaderTeams, tour = none),
-                fields.startDate
-              )
-            ),
-            fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
-            form3.actions(
-              a(href := routes.Tournament.home)(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
-            )
-          )
-        ),
-        div(cls := "box box-pad tour__faq")(tournament.faq())
-      )
+      createForm(form, leaderTeams)
     }
+
+  private[tournament] def createForm(form: Form[?], leaderTeams: List[LeaderTeam])(using PageContext) =
+    val fields = TourFields(form, none)
+    main(cls := "page-small")(
+      div(cls := "tour__form box box-pad")(
+        h1(cls := "box__top")(
+          if fields.isTeamBattle then trans.arena.newTeamBattle()
+          else trans.createANewTournament()
+        ),
+        postForm(cls := "form3", action := routes.Tournament.webCreate)(
+          div(cls := "form-group")(
+            a(
+              dataIcon := licon.InfoCircle,
+              cls      := "text",
+              href     := routes.ContentPage.loneBookmark("event-tips")
+            )(trans.ourEventTips())
+          ),
+          form3.globalError(form),
+          fields.name,
+          form3.split(fields.rated, fields.variant),
+          fields.clock,
+          form3.split(fields.minutes, fields.waitMinutes),
+          form3.split(fields.description(true), fields.startPosition),
+          form3.fieldset(trans.advancedSettings())(cls := "conditions")(
+            fields.advancedSettings,
+            div(cls := "form")(
+              conditionFields(form, fields, teams = leaderTeams, tour = none),
+              fields.startDate
+            )
+          ),
+          fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
+          form3.actions(
+            a(href := routes.Tournament.home)(trans.cancel()),
+            form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
+          )
+        )
+      ),
+      div(cls := "box box-pad tour__faq")(tournament.faq())
+    )
 
   def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
