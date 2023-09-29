@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">ടീമുകള്‍</string>
+  <string name="teams">ടീമുകള്‍</string>
   <plurals name="nbMembers">
     <item quantity="one">അംഗങ്ങള്‍ %s</item>
     <item quantity="other">അംഗങ്ങള്‍ %s</item>

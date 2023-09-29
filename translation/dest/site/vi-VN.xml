@@ -766,7 +766,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="seeBestMove">Xem nước đi tốt nhất</string>
   <string name="hideBestMove">Ẩn nước đi tốt nhất</string>
   <string name="getAHint">Xem gợi ý</string>
-  <string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
+  <string name="evaluatingYourMove">Đang đánh giá nước đi của bạn...</string>
   <string name="whiteWinsGame">Trắng thắng</string>
   <string name="blackWinsGame">Đen thắng</string>
   <string name="learnFromYourMistakes">Học từ sai lầm của bạn</string>
