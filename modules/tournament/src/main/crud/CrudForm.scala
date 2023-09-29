@@ -77,6 +77,15 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
     tour = forms.empty()
   )
 
+  def editForm(tour: Tournament)(using me: Me) = newForm(tour.some) fill
+    NewData(
+      id = tour.id,
+      homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
+      image = ~tour.spotlight.flatMap(_.iconImg),
+      headline = tour.spotlight.so(_.headline),
+      tour = forms.fillFromTour(tour)
+    )
+
 object CrudForm:
 
   val maxHomepageHours = 24
