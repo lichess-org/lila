@@ -18,7 +18,10 @@ final class TournamentForm:
   import GatheringClock.*
 
   def create(leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
-    form(leaderTeams, none) fill TournamentSetup(
+    form(leaderTeams, none) fill empty(teamBattleId)
+
+  private[tournament] def empty(teamBattleId: Option[TeamId] = None)(using me: Me) =
+    TournamentSetup(
       name = teamBattleId.isEmpty option me.titleUsername,
       clockTime = timeDefault,
       clockIncrement = incrementDefault,

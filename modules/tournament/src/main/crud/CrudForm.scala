@@ -69,6 +69,12 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       "headline"      -> text(minLength = 5, maxLength = 30),
       "tour"          -> forms.create(Nil).mapping
     )(NewData.apply)(unapply)
+  ) fill NewData(
+    id = Tournament.makeId,
+    homepageHours = 0,
+    image = "",
+    headline = "",
+    tour = forms.empty()
   )
 
 object CrudForm:
