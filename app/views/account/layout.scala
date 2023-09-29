@@ -61,7 +61,7 @@ object layout:
           a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
             "API access tokens"
           ),
-          ctx.noBot option a(href := routes.DgtCtrl.index)("DGT board"),
+          ctx.noBot option a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard()),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close)(
             trans.settings.closeAccount()

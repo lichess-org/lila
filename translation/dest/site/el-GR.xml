@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
-  <string name="savingMoves">Προσωρινή αποθήκη κινήσεων</string>
-  <string name="savingMovesHelp">Αποθηκεύουμε τις παραλλαγές σας στη μνήμη του περιηγητή σας.</string>
   <string name="makeAStudy">Για αποθήκευση και διαμοιρασμό, μπορείτε να δημιουργήσετε μία μελέτη.</string>
   <string name="clearSavedMoves">Εκκαθάριση κινήσεων</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>

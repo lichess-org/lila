@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Enllaços a xarxes socials</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació lineal</string>
-  <string name="savingMoves">Emmagatzematge temporal de moviments</string>
-  <string name="savingMovesHelp">Sempre emmagatzemem les vostres variacions a la memòria CAU del navegador.</string>
   <string name="makeAStudy">Per guardar-les de forma segura i compartir-les, considereu fer-ne un estudi.</string>
   <string name="clearSavedMoves">Neteja moviments</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>

@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="savingMoves">Temporärer Zug-Speicher</string>
-  <string name="savingMovesHelp">Wir speichern deine Varianten in deinem Browser-Cache.</string>
   <string name="makeAStudy">Lege eine Studie an um Züge langfristig zu speichern oder zu teilen.</string>
   <string name="clearSavedMoves">Züge löschen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>

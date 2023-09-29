@@ -115,6 +115,7 @@
   <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қосулы</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
+  <string name="showVariationArrows">Тармақта нұсқағышты көрсету</string>
   <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
@@ -171,7 +172,7 @@
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s %2$s тақырыбын жария етті</string>
+  <string name="xPostedInForumY">%1$s %2$s тақырыбында сөз жазды</string>
   <string name="latestForumPosts">Форумдағы кейінгі жазбалар</string>
   <string name="players">Ойыншылар</string>
   <string name="friends">Достарыңыз</string>
@@ -270,7 +271,7 @@
   <string name="playingRightNow">Қазір ойнап отыр</string>
   <string name="eventInProgress">Қазір болып жатыр</string>
   <string name="finished">Аяқталды</string>
-  <string name="finishesX">аяқталуына %s қалды</string>
+  <string name="finishesX">%s аяқталады</string>
   <string name="abortGame">Ойынды тоқтату</string>
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
@@ -387,8 +388,8 @@
   <string name="xStartedStreaming">%s стрим бастады</string>
   <string name="averageElo">Орташа рейтинг</string>
   <string name="location">Аймақ</string>
-  <string name="filterGames">Ойындарды іріктеу</string>
-  <string name="reset">Қалпына келтіру</string>
+  <string name="filterGames">Ойын сүзгі</string>
+  <string name="reset">Қайтару</string>
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
@@ -510,8 +511,6 @@
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Біржолды хаттама</string>
-  <string name="savingMoves">Жүрістерді уақытша сақтау</string>
-  <string name="savingMovesHelp">Біз сіздің ойын тармақтарыңызды браузер кэшінде сақтаймыз.</string>
   <string name="makeAStudy">Ұзаққа сақтау әрі бөлісу үшін зерттеуді жасаған дұрыс.</string>
   <string name="clearSavedMoves">Жүрістерді жою</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>
@@ -806,7 +805,7 @@
   <string name="computerThinking">Компьютер ойлануда ...</string>
   <string name="seeBestMove">Үздік жүрісті көру</string>
   <string name="hideBestMove">Үздік жүрісті жасыру</string>
-  <string name="getAHint">Көмек алу</string>
+  <string name="getAHint">Көмек</string>
   <string name="evaluatingYourMove">Жүріс өңделіп жатыр ...</string>
   <string name="whiteWinsGame">Ақ жеңді</string>
   <string name="blackWinsGame">Қара жеңді</string>

@@ -7,13 +7,16 @@ import controllers.appeal.routes.{ Appeal as appealRoutes }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
+import Appeal.Filter
 import lila.report.Report.Inquiry
+import lila.user.UserMark
 
 object queue:
 
   def apply(
       appeals: List[Appeal.WithUser],
       inquiries: Map[UserId, Inquiry],
+      filter: Option[Filter],
       markedByMe: Set[UserId],
       scores: lila.report.Room.Scores,
       streamers: Int,
@@ -24,7 +27,7 @@ object queue:
         thead(
           tr(
             th("By"),
-            th("Last message"),
+            th(filterMarks(filter)),
             th(isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Presets"))
           )
         ),
@@ -61,3 +64,12 @@ object queue:
         )
       )
     )
+
+  private def filterMarks(current: Option[Filter]) =
+    span(cls := "appeal-filters btn-rack"):
+      Filter.allWithIcon.map: (filter, icon) =>
+        a(
+          cls      := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
+          href     := appealRoutes.queue(current.fold(filter.some)(_.toggle(filter)).map(_.key)),
+          dataIcon := icon.left.toOption
+        )(icon.toOption)

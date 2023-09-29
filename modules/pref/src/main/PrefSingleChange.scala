@@ -14,6 +14,10 @@ object PrefSingleChange:
     Change(field(PrefForm.fields)._1, field(PrefForm.fields)._2, f)
 
   val changes: Map[String, Change[?]] = List[Change[?]](
+    changing(_.bg): v =>
+      Pref.Bg.fromString.get(v).fold[Pref => Pref](identity)(bg => _.copy(bg = bg)),
+    changing(_.bgImg): v =>
+      _.copy(bgImg = v.some.filterNot(_.isBlank)),
     changing(_.theme): v =>
       _.copy(theme = v),
     changing(_.pieceSet): v =>

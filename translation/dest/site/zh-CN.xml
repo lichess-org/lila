@@ -477,8 +477,6 @@
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="oneUrlPerLine">每行一个URL。</string>
   <string name="inlineNotation">紧凑显示棋谱</string>
-  <string name="savingMoves">临时着法储存</string>
-  <string name="savingMovesHelp">我们总是在你的浏览器缓存中存储变着。</string>
   <string name="makeAStudy">这便于保管和分享，以及考虑创建一项研讨。</string>
   <string name="clearSavedMoves">清除着法储存</string>
   <string name="previouslyOnLichessTV">过去的 Lichess TV</string>

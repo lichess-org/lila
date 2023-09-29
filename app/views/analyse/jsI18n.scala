@@ -56,8 +56,6 @@ object jsI18n:
         trans.menu,
         trans.toStudy,
         trans.inlineNotation,
-        trans.savingMoves,
-        trans.savingMovesHelp,
         trans.makeAStudy,
         trans.clearSavedMoves,
         trans.computerAnalysis,

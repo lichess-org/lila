@@ -509,8 +509,6 @@
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="oneUrlPerLine">Har qatorda bitta URL.</string>
   <string name="inlineNotation">Ichki yozuv</string>
-  <string name="savingMoves">Vaqtinchalik yurishlar zaxirasi</string>
-  <string name="savingMovesHelp">Biz doim sizning variantlaringizni sizning brovzeringiz keshida saqlaymiz.</string>
   <string name="makeAStudy">Saqlash va ulashish uchun \"ta‘lim\" yaratishni ko‘rib chiqing.</string>
   <string name="clearSavedMoves">Yurishlarni tozalash</string>
   <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>

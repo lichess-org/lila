@@ -152,7 +152,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
     then fuFalse
     else
       perfOptionOf(id, PerfType.Standard).map:
-        _.fold(true)(UserPerfs.dubiousPuzzle(puzzle, _))
+        _.forall(UserPerfs.dubiousPuzzle(puzzle, _))
 
   object aggregate:
     val lookup = $lookup.simple(coll, "perfs", "_id", "_id")

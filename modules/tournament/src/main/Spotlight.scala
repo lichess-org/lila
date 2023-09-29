@@ -24,7 +24,7 @@ object Spotlight:
 
   private def select(tours: List[Tournament]): List[Tournament] =
     tours.filter: tour =>
-      tour.spotlight.fold(true)(manually(tour, _))
+      tour.spotlight.forall(manually(tour, _))
 
   private def selectForMe(tours: List[Tournament])(using User.WithPerfs): List[Tournament] =
     tours filter selectForMe
@@ -52,10 +52,10 @@ object Spotlight:
     given Me   = Me(me.user)
     given Perf = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&
-    tour.conditions.nbRatedGame.fold(true) { c =>
+    tour.conditions.nbRatedGame.forall { c =>
       c(tour.perfType).accepted
     } &&
-    tour.conditions.minRating.fold(true) { c =>
+    tour.conditions.minRating.forall { c =>
       c(tour.perfType).accepted
     } &&
-    tour.conditions.maxRating.fold(true)(_.maybe(tour.perfType))
+    tour.conditions.maxRating.forall(_.maybe(tour.perfType))

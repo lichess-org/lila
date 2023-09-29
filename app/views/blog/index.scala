@@ -36,7 +36,7 @@ object index:
           },
           div(cls := "blog-cards box__pad list infinite-scroll")(
             pager.currentPageResults flatMap MiniPost.apply map { post =>
-              primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
+              primaryPost.forall(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
             },
             pagerNext(pager, np => routes.Blog.index(np).url)
           )

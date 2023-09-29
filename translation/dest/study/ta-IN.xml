@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">தனிப்பட்ட</string>
+  <string name="myStudies">எனது கற்கைகள்</string>
+  <string name="studiesIContributeTo">நான் பங்களித்த கற்கைகள்</string>
+  <string name="myPublicStudies">பொதுவில் பகிர்ந்த எனது கற்கைகள்</string>
+  <string name="myPrivateStudies">எனது தனிப்பட்ட கற்கைகள்</string>
+  <string name="myFavoriteStudies">எனக்கு விருப்பமான கற்கைகள்</string>
+  <string name="whatAreStudies">கற்கைகள் என்றால் என்ன?</string>
+  <string name="allStudies">எல்லாக் கற்கைகளும்</string>
+  <string name="studiesCreatedByX">%s ஆல் உருவாக்கப்பட்ட கற்கை</string>
+  <string name="noneYet">எதுவும் இல்லை.</string>
+  <string name="hot">பிரபலமானவை</string>
+  <string name="dateAddedNewest">நேரப்படி சேர்க்கப்பட்டவை (புதிதாக)</string>
+  <string name="dateAddedOldest">நேரப்படி சேர்க்கப்பட்டவை (பழயவை)</string>
+  <string name="recentlyUpdated">அண்மையில் புதுப்பிக்கப்பட்டவை</string>
+  <string name="mostPopular">மிகவும் பிரபலமானவை</string>
+  <string name="alphabetical">அகரவரிசைப்படி</string>
+  <string name="addNewChapter">புதிய அத்தியாயத்தைச் சேர்க்க</string>
+  <string name="addMembers">உறுப்பினர்களை இணைக்க</string>
+  <string name="inviteToTheStudy">கற்கைக்கான அழைப்பு</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">உங்களுக்குத் தெரிந்த, இந்தக் கற்கையை ஊக்கத்துடன் கற்க விரும்புபவர்களை மட்டுமே அழையுங்கள்.</string>
+  <string name="searchByUsername">பயனர்பெயரில் தேட</string>
+  <string name="spectator">பார்வையாளர்</string>
+</resources>

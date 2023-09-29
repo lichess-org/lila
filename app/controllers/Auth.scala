@@ -481,25 +481,25 @@ final class Auth(
     ): Fu[Result] =
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
-      env.security.ipTrust
-        .rateLimitCostFactor(ip, _.proxyMultiplier(8))
-        .flatMap: cost =>
-          PasswordHasher.rateLimit[Result](
-            rateLimited,
-            enforce = env.net.rateLimit,
-            ipCost = cost.toInt + EmailAddress.isValid(id.value).so(2),
-            userCost = 1 + multipleIps.so(4)
-          )(id, req)(run)
-
-  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
-    env.security.ipTrust
-      .rateLimitCostFactor(ctx.ip, _.proxyMultiplier(8))
-      .flatMap: cost =>
+      passwordCost(req).flatMap: cost =>
         PasswordHasher.rateLimit[Result](
           rateLimited,
           enforce = env.net.rateLimit,
-          ipCost = cost.toInt
-        )(me.userId into UserIdOrEmail, req)(_ => run)
+          ipCost = cost.toInt + EmailAddress.isValid(id.value).so(2),
+          userCost = 1 + multipleIps.so(4)
+        )(id, req)(run)
+
+  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
+    passwordCost(req).flatMap: cost =>
+      PasswordHasher.rateLimit[Result](
+        rateLimited,
+        enforce = env.net.rateLimit,
+        ipCost = cost.toInt
+      )(me.userId into UserIdOrEmail, req)(_ => run)
+
+  private def passwordCost(req: RequestHeader): Fu[Float] =
+    env.security.ipTrust
+      .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
 
