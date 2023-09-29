@@ -42,7 +42,10 @@ final class TournamentForm:
     )
 
   def edit(leaderTeams: List[LeaderTeam], tour: Tournament)(using Me) =
-    form(leaderTeams, tour.some) fill TournamentSetup(
+    form(leaderTeams, tour.some) fill fillFromTour(tour)
+
+  private[tournament] def fillFromTour(tour: Tournament) =
+    TournamentSetup(
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
