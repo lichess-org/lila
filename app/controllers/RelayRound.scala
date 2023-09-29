@@ -89,19 +89,17 @@ final class RelayRound(
   def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
       negotiate(
-        html =
-          pageHit
-          WithRoundAndTour(ts, rs, id): rt =>
-            val sc =
-              if rt.round.sync.ongoing then
-                env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
-                  chapters.find(_.looksAlive) orElse chapters.headOption match
-                    case Some(chapter) =>
-                      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
-                    case None => env.study.api byIdWithChapter rt.round.studyId
-                }
-              else env.study.api byIdWithChapter rt.round.studyId
-            sc orNotFound { doShow(rt, _) }
+        html = WithRoundAndTour(ts, rs, id): rt =>
+          val sc =
+            if rt.round.sync.ongoing then
+              env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
+                chapters.find(_.looksAlive) orElse chapters.headOption match
+                  case Some(chapter) =>
+                    env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
+                  case None => env.study.api byIdWithChapter rt.round.studyId
+              }
+            else env.study.api byIdWithChapter rt.round.studyId
+          sc orNotFound { doShow(rt, _) }
         ,
         json = Found(env.relay.api.byIdWithTour(id)): rt =>
           Found(env.study.studyRepo.byId(rt.round.studyId)): study =>

@@ -17,7 +17,6 @@ final class Simul(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
-    pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok.page(html.simul.home(pending, created, started, finished))
     }
