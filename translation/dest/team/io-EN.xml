@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Esquadi</string>
+  <string name="teams">Esquadi</string>
   <string name="allTeams">Omna esquadi</string>
   <string name="newTeam">Nova esquado</string>
   <string name="myTeams">Mea esquadi</string>
