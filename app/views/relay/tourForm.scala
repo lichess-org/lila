@@ -80,8 +80,8 @@ object tourForm:
     form3.split(
       form3.checkbox(
         form("autoLeaderboard"),
-        raw(automaticLeaderboard()),
-        help = raw(automaticLeaderboardNote()).some,
+        automaticLeaderboard(),
+        help = automaticLeaderboardNote().some,
         half = true
       ),
       if isGranted(_.Relay) then

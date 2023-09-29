@@ -1576,7 +1576,6 @@ object I18nKeys:
     val `tournamentDescription` = I18nKey("broadcast:tournamentDescription")
     val `fullDescription` = I18nKey("broadcast:fullDescription")
     val `fullDescriptionHelp` = I18nKey("broadcast:fullDescriptionHelp")
-    val `howToUseLichessBroadcasts` = I18nKey("broadcast:howToUseLichessBroadcasts")
     val `automaticLeaderboard` = I18nKey("broadcast:automaticLeaderboard")
     val `automaticLeaderboardNote` = I18nKey("broadcast:automaticLeaderboardNote")
     val `optional` = I18nKey("broadcast:optional")
