@@ -156,7 +156,7 @@ object Tournament:
   val minPlayers = 2
 
   def make(
-      by: Either[UserId, User],
+      by: UserId,
       name: Option[String],
       clock: ClockConfig,
       minutes: Int,
@@ -181,7 +181,7 @@ object Tournament:
       status = Status.Created,
       clock = clock,
       minutes = minutes,
-      createdBy = by.fold(identity, _.id),
+      createdBy = by,
       createdAt = nowInstant,
       nbPlayers = 0,
       variant = variant,

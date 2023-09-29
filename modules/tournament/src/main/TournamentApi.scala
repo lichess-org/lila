@@ -59,7 +59,7 @@ final class TournamentApi(
   )(using me: Me): Fu[Tournament] =
     val tour = Tournament
       .make(
-        by = Right(me),
+        by = me.userId,
         name = setup.name,
         clock = setup.clockConfig,
         minutes = setup.minutes,
