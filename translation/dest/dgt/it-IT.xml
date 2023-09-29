@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="dgtBoard">Tavola DGT</string>
+  <string name="dgtBoard">Scacchiera DGT</string>
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
-  <string name="dgtBoardRequirements">Requisiti tavola DGT</string>
-  <string name="dgtBoardLimitations">Limitazioni tavola DGT</string>
-  <string name="thisPageAllowsConnectingDgtBoard">Questa pagina ti permette di connettere la tua tavola DGT a Lichess e di utilizzarla per giocare.</string>
+  <string name="dgtBoardRequirements">Requisiti scacchiera DGT</string>
+  <string name="dgtBoardLimitations">Limitazioni scacchiera DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Questa pagina ti permette di connettere la tua scacchiera DGT a Lichess e di utilizzarla per giocare.</string>
   <string name="toConnectTheDgtBoard">Per connettersi alla scacchiera elettronica DGT è necessario installare %s.</string>
   <string name="downloadHere">Puoi scaricare il software qui: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Se %1$s è in esecuzione su questo computer, è possibile controllare la connessione ad esso da %2$s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Se %1$s è in esecuzione su questo computer, puoi verificare di esserci connesso da %2$s.</string>
   <string name="openingThisLink">aprendo questo link</string>
   <string name="ifLiveChessRunningElsewhere">Se %1$s è in esecuzione su una macchina diversa o su una porta diversa, dovrai impostare l\'indirizzo IP e la porta qui: %2$s.</string>
   <string name="configurationSection">Impostazioni</string>
