@@ -254,13 +254,16 @@ object PerfType:
     byVariant(variant).fold(licon.CrownElite)(_.icon)
 
   def trans(pt: PerfType)(using Lang): String = pt match
+    case UltraBullet    => I18nKeys.ultraBullet.txt()
+    case Bullet         => I18nKeys.bullet.txt()
+    case Blitz          => I18nKeys.blitz.txt()
     case Rapid          => I18nKeys.rapid.txt()
     case Classical      => I18nKeys.classical.txt()
     case Correspondence => I18nKeys.correspondence.txt()
     case Puzzle         => I18nKeys.puzzles.txt()
     case pt             => pt.name
 
-  val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
+  val translated: Set[PerfType] = Set(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Puzzle)
 
   def desc(pt: PerfType)(using Lang): String = pt match
     case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
