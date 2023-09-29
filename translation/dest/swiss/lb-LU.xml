@@ -19,8 +19,8 @@
   </plurals>
   <string name="roundsAreStartedManually">Ronne ginn manuell gestart</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">%s Sekonn tëschent Ronnen</item>
-    <item quantity="other">%s Sekonne tëschent Ronnen</item>
+    <item quantity="one">%s Sekonn tëschent de Ronnen</item>
+    <item quantity="other">%s Sekonne tëschent de Ronnen</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">%s Minutt tëschent Ronnen</item>
@@ -36,9 +36,9 @@
   <string name="numberOfRounds">Unzuel u Ronnen</string>
   <string name="numberOfRoundsHelp">Eng ongerued Unzuel u Ronnen erlaabt fir eng optimal Säiteverdeelung.</string>
   <string name="roundInterval">Intervall tëschent de Ronnen</string>
-  <string name="forbiddenPairings">Verbuede Puerungen</string>
+  <string name="forbiddenPairings">Verbuede Paarungen</string>
   <string name="forbiddenPairingsHelp">Benotzernimm vu Spiller déi net géinteneen spillen däerfen (zum Beispill Geschwëster). Zwee Benotzernimm pro Zeil, getrennt duerch en Espace.</string>
-  <string name="newSwiss">Neien SchwäizerTurnéier</string>
+  <string name="newSwiss">Neit Schwäizer Turnéier</string>
   <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
   <string name="swissVsArenaA">An engem Turnéier nom Schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
 Et kann eng gutt Optioun sinn fir Clibb an offiziell Turnéier.</string>
