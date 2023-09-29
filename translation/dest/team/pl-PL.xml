@@ -49,6 +49,7 @@ Możesz w ten sposób wezwać graczy, aby dołączyli do turnieju lub potyczki k
 Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
+  <string name="onlyInviteLeadersTrust">Na leaderów wybieraj tylko tych, którym w pełni ufasz. Liderzy mogą wyrzucić graczy i innych leaderów z klubu.</string>
   <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
   <string name="leadersChat">Czat liderów</string>
   <string name="closeTeam">Zamknij klub</string>
