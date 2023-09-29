@@ -4,4 +4,7 @@
   <string name="lichessAndDgt">Lichess og DGT</string>
   <string name="dgtBoardRequirements">Krav til DGT-brett</string>
   <string name="dgtBoardLimitations">Begrensninger for DGT-brett</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Denne siden lar deg koble DGT-brettet ditt til Lichess, og bruke det til å spille partier.</string>
+  <string name="toConnectTheDgtBoard">For å koble til det elektroniske brettet fra DGT må du installere %s.</string>
+  <string name="downloadHere">Du kan laste ned programvaren her: %s.</string>
 </resources>
