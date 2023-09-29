@@ -51,7 +51,7 @@
   <string name="fideMate">根据 FIDE 国际象棋规则 6.9 项，如果存在着终止于将死的合规着法顺序，棋局不能被判和。</string>
   <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
   <string name="noRatingPoints">未获得等级分</string>
-  <string name="ratedGame">请确保你玩过排位赛。非排位对局不会影响玩家的等级分。</string>
+  <string name="ratedGame">请确保你玩过排位赛。休闲对局不会影响玩家的等级分。</string>
   <string name="botRatingAbuse">在与机器人账号的对局中，若发现玩家滥用其以获取积分，那么这场对局将不会授予积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果你遇到错误页面，您可以举报：</string>

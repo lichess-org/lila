@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">團隊</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">團隊</string>
+  <string name="teams">團隊</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成員</item>
   </plurals>
