@@ -172,6 +172,7 @@ final class RelayRound(
         sVersion  <- env.study.version(sc.study.id)
         streamers <- studyC.streamersOf(sc.study)
         page      <- renderPage(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
+        _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield Ok(page).enableSharedArrayBuffer
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
