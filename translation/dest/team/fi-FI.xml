@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Joukkue</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Joukkueet</string>
+  <string name="teams">Joukkueet</string>
   <plurals name="nbMembers">
     <item quantity="one">%s jäsentä</item>
     <item quantity="other">%s jäsentä</item>
