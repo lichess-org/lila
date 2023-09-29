@@ -488,8 +488,6 @@
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
-  <string name="savingMoves">अस्थायी चाल भंडारण</string>
-  <string name="savingMovesHelp">हम आपकी विविधताओं को हमेशा आपके ब्राउज़र कैश में संग्रहीत कर रहे हैं।</string>
   <string name="makeAStudy">सुरक्षित रखने और साझा करने के लिए, एक अध्ययन करने पर विचार करें।</string>
   <string name="clearSavedMoves">चाल हटाओ</string>
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>

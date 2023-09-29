@@ -48,7 +48,6 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   private def renderHome(using Context) =
-    pageHit
     Ok.page(views.html.clas.clas.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>

@@ -594,13 +594,7 @@ object mon:
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
     def openingBook(level: Int, variant: String, ply: Int, hit: Boolean, success: Boolean) =
       timer("fishnet.opening.hit").withTags:
-        tags(
-          "level"   -> level.toLong,
-          "variant" -> variant,
-          "ply"     -> ply.toLong,
-          "hit"     -> hitTag(hit),
-          "success" -> successTag(success)
-        )
+        tags("variant" -> variant, "hit" -> hitTag(hit))
   object opening:
     def searchTime = timer("opening.search.time").withoutTags()
   object study:

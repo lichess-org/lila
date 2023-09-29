@@ -197,5 +197,6 @@ object home:
     trans.side,
     trans.white,
     trans.randomColor,
-    trans.black
+    trans.black,
+    trans.boardEditor
   )

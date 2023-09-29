@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Lið</string>
+  <string name="teams">Lið</string>
   <plurals name="nbMembers">
     <item quantity="one">%s meðlimir</item>
     <item quantity="other">%s meðlimir</item>

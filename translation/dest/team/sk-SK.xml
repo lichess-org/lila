@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Družstvo</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Družstvá</string>
+  <string name="teams">Družstvá</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
     <item quantity="few">%s členovia</item>

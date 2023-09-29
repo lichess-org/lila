@@ -66,7 +66,7 @@ object Permission:
   case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case object PayPal                extends Permission("PAYPAL", "PayPal")
   case object Relay                 extends Permission("RELAY", "Manage broadcasts")
-  case object Cli                   extends Permission("ClI", "Command line")
+  case object Cli                   extends Permission("CLI", "Command line")
   case object Settings              extends Permission("SETTINGS", "Lila settings")
   case object Streamers             extends Permission("STREAMERS", "Manage streamers")
   case object Verified              extends Permission("VERIFIED", "Verified badge")
@@ -179,6 +179,7 @@ object Permission:
       extends Permission(
         "ADMIN",
         List(
+          LichessTeam,
           PrizeBan,
           RemoveRanking,
           BoostHunter,
@@ -325,6 +326,12 @@ object Permission:
   def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
 
   def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
+
+  def expanded(dbKeys: Seq[String]): Set[Permission] =
+    val level0 = apply(dbKeys)
+    val level1 = level0.flatMap(_.children)
+    val level2 = level1.flatMap(_.children)
+    level0 ++ level1 ++ level2
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
     !perms(perm) so perms.find(_ is perm)

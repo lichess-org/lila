@@ -50,7 +50,7 @@ final class Study(
     allResults(order, page)
 
   private def allResults(order: Order, page: Int)(using ctx: Context) =
-    Reasonable(page) {
+    Reasonable(page):
       order match
         case order if !Order.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
@@ -61,7 +61,6 @@ final class Study(
               apiStudies(pag)
             )
           }
-    }
 
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
 
@@ -407,16 +406,14 @@ final class Study(
 
   def pgn(id: StudyId) = Open:
     Found(env.study.api byId id): study =>
-      if req.method == "HEAD" then NoContent.withDateHeaders(studyLastModified(study))
-      else
+      HeadLastModifiedAt(study.updatedAt):
         PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
           CanView(study)(doPgn(study))(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
-        if req.method == "HEAD" then NoContent.withDateHeaders(studyLastModified(study))
-        else
+        HeadLastModifiedAt(study.updatedAt):
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
             CanView(study)(doPgn(study))(privateUnauthorizedText, privateForbiddenText)
     }
@@ -425,9 +422,7 @@ final class Study(
     Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
-      .withDateHeaders(studyLastModified(study))
-
-  private def studyLastModified(s: StudyModel) = LAST_MODIFIED -> s.updatedAt.atZone(utcZone)
+      .withDateHeaders(lastModified(study.updatedAt))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)

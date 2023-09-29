@@ -663,10 +663,6 @@ object Quote:
       "David Levy"
     ),
     Quote(
-      "Chess is a terrible game. If you have no center, your opponent has a freer position. If you do have a center, then you really have something to worry about!",
-      "Siegbert Tarrasch"
-    ),
-    Quote(
       "Many chess players were surprised when after the game, Fischer quietly explained: 'I had already analyzed this possibility’ in a position which I thought was not possible to foresee from the opening.",
       "Mikhail Tal"
     ),
@@ -675,10 +671,6 @@ object Quote:
       "Mikhail Botvinnik"
     ),
     Quote("The king is a fighting piece. Use it!", "Wilhelm Steinitz"),
-    Quote(
-      "A thorough understanding of the typical mating continuations makes the most complicated sacrificial combinations leading up to them not only not difficult, but almost a matter of course.",
-      "Siegbert Tarrasch"
-    ),
     Quote("Bobby Fischer is the greatest chess genius of all time!", "Alexander Kotov"),
     Quote(
       "The laws of chess do not permit a free choice: you have to move whether you like it or not.",
@@ -1046,10 +1038,6 @@ object Quote:
     ),
     Quote("Attack! Always Attack!", "Adolf Anderssen"),
     Quote(
-      "Attackers may sometimes regret bad moves, but it is much worse to forever regret an opportunity you allowed to pass you by.",
-      "Garry Kasparov"
-    ),
-    Quote(
       "Avoidance of mistakes is the beginning, as it is the end, of mastery in chess.",
       "Eugene Znosko-Borovsky"
     ),
@@ -1181,7 +1169,6 @@ object Quote:
       "Susan Polgar"
     ),
     Quote("Chess is a natural cerebral high.", "Walter Browne"),
-    Quote("Chess is a sea in which a gnat may drink and an elephant may bathe.", "Hindu proverb"),
     Quote("Chess is a sport. A violent sport.", "Marcel Duchamp"),
     Quote("Chess is a test of wills.", "Paul Keres"),
     Quote(
@@ -1224,10 +1211,6 @@ object Quote:
       "José Raúl Capablanca"
     ),
     Quote("Chess is the touchstone of intellect.", "Johann Wolfgang von Goethe"),
-    Quote(
-      "Chess is thirty to forty percent psychology. You don't have this when you play a computer. I can't confuse it.",
-      "Judit Polgar"
-    ),
     Quote(
       "Chess is thriving. There are ever less round robin tournaments and ever more World Champions.",
       "Robert Hübner"
@@ -1393,11 +1376,6 @@ object Quote:
     Quote(
       "First and foremost it is essential to understand the essence, the overall idea of any fashionable variation, and only then include it in one's repertoire. Otherwise the tactical trees will conceal from the player the strategic picture of the wood, in which his orientation will most likely be lost.",
       "Lev Polugaevsky"
-    ),
-    Quote("First restrain, next blockade, lastly destroy.", "Aron Nimzowitsch"),
-    Quote(
-      "First-class players lose to second-class players because second-class players sometimes play a first-class game.",
-      "Siegbert Tarrasch"
     ),
     Quote("Fischer is Fischer, but a knight is a knight!", "Mikhail Tal"),
     Quote(

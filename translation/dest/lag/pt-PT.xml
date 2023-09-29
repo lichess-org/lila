@@ -5,7 +5,7 @@
   <string name="noAndYourNetworkIsGood">Não. E a tua rede está boa.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Não. E a tua rede está má.</string>
   <string name="yesItWillBeFixedSoon">Sim. Será corrigido em breve!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">E agora, a resposta longa. O atraso de jogo é composto por dois valores não relacionados (quanto mais baixos melhor):</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">E agora, a resposta longa. O atraso de jogo é composto por dois valores não relacionados (quanto mais baixo, melhor):</string>
   <string name="lichessServerLatency">Latência do servidor do Lichess</string>
   <string name="lichessServerLatencyExplanation">É o tempo que leva para processar um movimento no servidor. É o mesmo para todos, e só depende da carga do servidor. Quanto mais jogadores, mais alto fica, mas os desenvolvedores do Lichess dão o seu melhor para o manter baixo. Raramente excede 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Rede entre ti e o Lichess</string>

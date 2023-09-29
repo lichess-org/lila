@@ -82,14 +82,15 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
-  def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me ?=>
-    Found(postApi getPost id): post =>
+  def delete(id: ForumPostId) = AuthBody { ctx ?=> me ?=>
+    Found(postApi.getPost(id).flatMapz(postApi.viewOf)): view =>
+      val post = view.post
       if post.userId.exists(_ is me) && !post.erased
       then postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
       else
-        TopicGrantModById(categId, post.topicId):
+        TopicGrantModById(post.categId, post.topicId):
           env.forum.delete
-            .post(categId, id)
+            .post(view)
             .inject:
               for
                 userId    <- post.userId
@@ -100,8 +101,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   if isGranted(_.ModerateForum) then MsgPreset.forumDeletion.byModerator
                   else if topic.exists(_ isUblogAuthor me) then
                     MsgPreset.forumDeletion.byBlogAuthor(me.username)
-                  else MsgPreset.forumDeletion.byTeamLeader(categId)
-              do env.msg.api.systemPost(userId, preset(reason))
+                  else MsgPreset.forumDeletion.byTeamLeader(post.categId)
+              do env.msg.api.systemPost(userId, preset(reason, view.logFormatted))
               NoContent
   }
 

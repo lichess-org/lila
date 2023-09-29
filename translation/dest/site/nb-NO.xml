@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Lenker til sosiale medier</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
-  <string name="savingMoves">Midlertidig lagring av trekk</string>
-  <string name="savingMovesHelp">Vi lagrer variantene dine i nettleserens mellomlager.</string>
   <string name="makeAStudy">Du kan lage en studie for å bevare og dele trekkene.</string>
   <string name="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>

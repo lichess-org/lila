@@ -15,22 +15,18 @@ final class ForumDelete(
     modLog: lila.mod.ModlogApi
 )(using Executor, akka.stream.Materializer):
 
-  def post(categId: ForumCategId, postId: ForumPostId)(using mod: Me): Funit =
-    postRepo.unsafe.byCategAndId(categId, postId) flatMapz { post =>
-      postApi.viewOf(post) flatMapz { view =>
-        doDelete(view) >> {
-          if MasterGranter(_.ModerateForum)
-          then
-            modLog.deletePost(
-              post.userId,
-              text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
-            )
-          else
-            fuccess:
-              logger.info:
-                s"${mod.username} deletes post by ${post.userId.so(_.value)} \"${post.text take 200}\""
-        }
-      }
+  def post(view: PostView)(using mod: Me): Funit =
+    doDelete(view) >> {
+      if MasterGranter(_.ModerateForum)
+      then
+        modLog.deletePost(
+          view.post.userId,
+          text = view.logFormatted
+        )
+      else
+        fuccess:
+          logger.info:
+            s"${mod.username} deletes post by ${view.post.userId.so(_.value)} \"${view.post.text take 200}\""
     }
 
   def allByUser(user: User): Funit =

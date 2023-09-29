@@ -280,7 +280,7 @@ export default class SetupController {
       color,
     });
 
-  validFen = (): boolean => this.variant() !== 'fromPosition' || !this.fenError;
+  validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
   validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
   validAiTime = (): boolean =>
     this.gameType !== 'ai' ||

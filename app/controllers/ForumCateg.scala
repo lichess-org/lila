@@ -9,7 +9,6 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
 
   def index = Open:
     NotForKids:
-      pageHit
       for
         allTeamIds <- ctx.userId so teamCache.teamIdsList
         teamIds <- allTeamIds.filterA:

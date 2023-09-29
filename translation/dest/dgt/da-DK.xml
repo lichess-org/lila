@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT-bræt</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Krav til DGT-bræt</string>
+  <string name="dgtBoardLimitations">DGT-bræt begrænsninger</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Denne side giver dig mulighed for at forbinde dit DGT-bræt til Lichess og bruge det til at spille partier.</string>
+</resources>

@@ -482,8 +482,6 @@
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="oneUrlPerLine">প্রতি লাইনে একটি লিংক।</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
-  <string name="savingMoves">চালগুলো বর্তমানে ক্ষণস্থায়ী ভাবে সংরক্ষিত</string>
-  <string name="savingMovesHelp">আপনার ব্রাউজার ক্যাচে ভ্যারিয়েশনগুলো সংরক্ষিত করছি আমরা.</string>
   <string name="makeAStudy">অধ্যায়ন নিরাপদ রাখার জন্য অন্য ইউজারদের সঙ্গে শেয়ারকরুন ও অধ্যায়ন তৈরি করুন.</string>
   <string name="clearSavedMoves">চাল গুলো মুছুন</string>
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>

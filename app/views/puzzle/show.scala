@@ -54,12 +54,11 @@ object show:
           description =
             if isStreak then trans.puzzle.streakDescription.txt()
             else
-              s"Lichess tactic trainer: ${puzzle.color
-                  .fold(
-                    trans.puzzle.findTheBestMoveForWhite,
-                    trans.puzzle.findTheBestMoveForBlack
-                  )
-                  .txt()}. Played by ${puzzle.plays} players."
+              val findMove = puzzle.color.fold(
+                trans.puzzle.findTheBestMoveForWhite,
+                trans.puzzle.findTheBestMoveForBlack
+              )
+              s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
         )
         .some,
       zoomable = true,

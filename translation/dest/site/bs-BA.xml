@@ -544,8 +544,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="oneUrlPerLine">Jedan link po redu.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
-  <string name="savingMoves">Privremeno skladište poteza</string>
-  <string name="savingMovesHelp">Uvijek spremamo Vaše varijacije u privremenu memoriju preglednika.</string>
   <string name="makeAStudy">Radi čuvanja i dijeljenja razmislite o izradi studije.</string>
   <string name="clearSavedMoves">Očistite poteze</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>

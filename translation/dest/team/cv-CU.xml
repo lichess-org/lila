@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Ушкӑн</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Ушкӑнсем</string>
+  <string name="teams">Ушкӑнсем</string>
   <plurals name="nbMembers">
     <item quantity="other">%s пайташ</item>
   </plurals>

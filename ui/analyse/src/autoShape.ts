@@ -17,6 +17,9 @@ const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
   brush: 'green',
 });
 
+const findShape = (uci?: Uci, shapes?: Tree.Shape[]) =>
+  ((shapes ?? []) as DrawShape[]).find(s => s.orig === uci?.slice(0, 2) && s.dest === uci?.slice(2, 4));
+
 export function makeShapesFromUci(
   color: Color,
   uci: Uci,
@@ -120,23 +123,29 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   shapes = shapes.concat(annotationShapes(ctrl));
-  if (ctrl.showVariationArrows()) {
-    ctrl.node.children.forEach((node, i) => {
-      const existing = shapes.find(s => s.orig === node.uci!.slice(0, 2) && s.dest === node.uci!.slice(2, 4));
-      if (existing) {
-        if (i === ctrl.fork.selected()) {
-          existing.modifiers ??= {};
-          existing.modifiers.hilite = true;
-        }
-      } else {
-        shapes.push({
-          orig: node.uci!.slice(0, 2) as Key,
-          dest: node.uci?.slice(2, 4) as Key,
-          brush: 'white',
-          modifiers: { hilite: i === ctrl.fork.selected() },
-        });
-      }
-    });
-  }
+  if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
   return shapes;
+}
+
+function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
+  for (const [i, node] of ctrl.node.children.entries()) {
+    const userShape = findShape(node.uci, ctrl.node.shapes);
+
+    if (userShape && i === ctrl.fork.selected()) autoShapes.push({ ...userShape }); // so we can hilite it
+
+    const existing = findShape(node.uci, autoShapes);
+    if (existing) {
+      if (i === ctrl.fork.selected()) {
+        existing.modifiers ??= {};
+        existing.modifiers.hilite = true;
+      }
+    } else if (!userShape) {
+      autoShapes.push({
+        orig: node.uci!.slice(0, 2) as Key,
+        dest: node.uci?.slice(2, 4) as Key,
+        brush: 'white',
+        modifiers: { hilite: i === ctrl.fork.selected() },
+      });
+    }
+  }
 }
