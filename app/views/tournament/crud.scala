@@ -38,10 +38,9 @@ object crud:
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
-          frag(
-            spotlight(form, none),
-            tournament.form.createForm(form, Nil)
-          )
+          spotlight(form, none),
+          tournament.form.setupForm(form, Nil),
+          form3.action(form3.submit(trans.apply()))
         )
       )
     }

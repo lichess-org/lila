@@ -66,25 +66,6 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       maxPerPage = MaxPerPage(20)
     )
 
-  private def empty =
-    Tournament.make(
-      by = User.lichessId,
-      name = none,
-      clock = Clock.Config(Clock.LimitSeconds(0), Clock.IncrementSeconds(0)),
-      minutes = 0,
-      variant = chess.variant.Standard,
-      position = none,
-      mode = chess.Mode.Rated,
-      password = None,
-      waitMinutes = 0,
-      startDate = none,
-      berserkable = true,
-      streakable = true,
-      teamBattle = none,
-      description = none,
-      hasChat = true
-    )
-
   private def updateTour(tour: Tournament, data: CrudForm.Data) =
     import data.*
     val clock = Clock.Config(Clock.LimitSeconds((clockTime * 60).toInt), clockIncrement)
