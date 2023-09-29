@@ -37,7 +37,12 @@ object crud:
     ) {
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New tournament"),
-        postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
+        postForm(cls := "form3", action := routes.TournamentCrud.create)(
+          frag(
+            spotlight(form, none),
+            tournament.form.createForm(form, Nil)
+          )
+        )
       )
     }
 
@@ -63,6 +68,34 @@ object crud:
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form, tour.some))
       )
     }
+
+  private def spotlight(form: Form[?], tour: Option[Tournament])(using PageContext) =
+    frag(
+      form3.split(
+        form3.group(
+          form("homepageHours"),
+          raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
+          half = true,
+          help = raw("Ask on slack first").some
+        )(form3.input(_, typ = "number")),
+        form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
+      ),
+      form3.split(
+        form3.group(
+          form("headline"),
+          raw("Homepage headline"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_)),
+        form3.group(
+          form("id"),
+          raw("Tournament ID (in the URL)"),
+          help =
+            raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
+          half = true
+        )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
+      )
+    )
 
   private def inForm(form: Form[?], tour: Option[Tournament])(using PageContext) =
     frag(
