@@ -472,8 +472,6 @@
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
-  <string name="savingMoves">임시 이동 저장</string>
-  <string name="savingMovesHelp">변동 사항들은 항상 당신의 브라우저 캐시에 저장됩니다.</string>
   <string name="makeAStudy">안전하게 보관하고 공유하려면 스터디를 만들어 보세요.</string>
   <string name="clearSavedMoves">저장된 움직임 삭제</string>
   <string name="previouslyOnLichessTV">이전 방송</string>

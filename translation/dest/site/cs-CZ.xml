@@ -576,8 +576,6 @@
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
-  <string name="savingMoves">Dočasné uložení tahů</string>
-  <string name="savingMovesHelp">Vždy ukládáme vaše varianty do mezipaměti prohlížeče.</string>
   <string name="makeAStudy">Pro bezpečné uložení a sdílení zvažte vytvoření studie.</string>
   <string name="clearSavedMoves">Vymazat tahy</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>

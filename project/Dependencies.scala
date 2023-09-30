@@ -72,7 +72,7 @@ object Dependencies {
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
-    val mailer      = "com.typesafe.play" %% "play-mailer"       % "9.0.0-M2"
+    val mailer      = "com.typesafe.play" %% "play-mailer"       % "9.0.0-RC1"
   }
 
   object playWs {

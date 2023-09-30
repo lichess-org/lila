@@ -117,7 +117,7 @@ final class SwissJson(
           // check that the winner is still correctly denormalized
           top3.headOption
             .map(_.userId)
-            .filter(w => swiss.winnerId.fold(true)(w !=))
+            .filter(w => swiss.winnerId.forall(w !=))
             .foreach:
               mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
 

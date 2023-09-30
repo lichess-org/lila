@@ -42,9 +42,10 @@ export function ctrl(
       const d = dimensionData();
       d.current = t;
       applyPiece(t, d.list, dimension() === 'd3');
+      const field = `pieceSet${dimension() === 'd3' ? '3d' : ''}`;
       xhr
-        .text('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
-          body: xhr.form({ set: t }),
+        .text(`/pref/${field}`, {
+          body: xhr.form({ [field]: t }),
           method: 'post',
         })
         .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));

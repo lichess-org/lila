@@ -45,6 +45,7 @@
   <string name="createDesc2">ემაილი არაა საჭიროო. პაროლი შეიქმნება, და მოსწავლეს გადასცემ, რათა შემოვიდნენ.</string>
   <string name="createDesc3">აუცილებელი: მოსწავლეს არ უნდა ჰქონდეს რამდენიმე პროფილი.</string>
   <string name="createDesc4">თუ უკვე აქ არიან, უბრალოდ მოიწვიეთ.</string>
+  <string name="createStudentWarning">გახსენი ანგარიშები მხოლოდ რეალური მოსწავლეებისთვის,, არ გახსნათ მრავალი ანგარიშები საკუთარი თავისთვის, დაჯარიმდებით.</string>
   <string name="lichessUsername">ლიჩესის მომხმარებელი</string>
   <string name="generateANewUsername">შექმენი ახალი მომხმარებელი</string>
   <string name="welcomeToClass">ეს შენი კლასია: %s.

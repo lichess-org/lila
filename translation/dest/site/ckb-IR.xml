@@ -509,8 +509,6 @@
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
   <string name="inlineNotation">نووسینی ناو هێڵ</string>
-  <string name="savingMoves">هەڵگرتنی جوڵەکان بەشێوەیەکی کاتی</string>
-  <string name="savingMovesHelp">ئێمە هەمیشە گۆڕانکارییەکانتان لە کونجێکی وێبگەڕەکەتدا هەڵدەگرین.</string>
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
   <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>

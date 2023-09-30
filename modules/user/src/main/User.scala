@@ -249,6 +249,7 @@ object User:
     val profile               = "profile"
     val toints                = "toints"
     val playTime              = "time"
+    val playTimeTotal         = "time.total"
     val createdAt             = "createdAt"
     val seenAt                = "seenAt"
     val kid                   = "kid"

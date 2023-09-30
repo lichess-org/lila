@@ -625,8 +625,6 @@
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
-  <string name="savingMoves">تخزين مؤقت للنقلات</string>
-  <string name="savingMovesHelp">نحن دائماً نخزن تفريعاتك في ذاكرة التخزين المؤقت للمتصفح.</string>
   <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
   <string name="clearSavedMoves">مسح النقلات</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>

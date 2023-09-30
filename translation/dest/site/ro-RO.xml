@@ -534,8 +534,6 @@
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
   <string name="inlineNotation">Notație integrată</string>
-  <string name="savingMoves">Stocarea temporară a mutărilor</string>
-  <string name="savingMovesHelp">Întotdeauna îți stocăm variațiile în memoria cache a browser-ului.</string>
   <string name="makeAStudy">Pentru păstrare în siguranță și partajare, aveți în vedere crearea unui studiu.</string>
   <string name="clearSavedMoves">Șterge mutările</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>

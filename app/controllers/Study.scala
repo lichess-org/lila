@@ -50,7 +50,7 @@ final class Study(
     allResults(order, page)
 
   private def allResults(order: Order, page: Int)(using ctx: Context) =
-    Reasonable(page) {
+    Reasonable(page):
       order match
         case order if !Order.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
@@ -61,7 +61,6 @@ final class Study(
               apiStudies(pag)
             )
           }
-    }
 
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
 
@@ -246,8 +245,8 @@ final class Study(
         Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
-    ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
-    ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
+    ctx.noKid && ctx.noBot &&                // no public chats for kids and bots
+    ctx.me.forall(env.chat.panic.allowed(_)) // anon can see public chats
   } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
     .mon(_.chat.fetch("study"))
@@ -406,30 +405,24 @@ final class Study(
   )
 
   def pgn(id: StudyId) = Open:
-    PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
-      Found(env.study.api byId id): study =>
-        CanView(study) {
-          doPgn(study)
-        }(privateUnauthorizedFu(study), privateForbiddenFu(study))
+    Found(env.study.api byId id): study =>
+      HeadLastModifiedAt(study.updatedAt):
+        PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
+          CanView(study)(doPgn(study))(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
-        if ctx.req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
-        else
+        HeadLastModifiedAt(study.updatedAt):
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
-            CanView(study) {
-              doPgn(study)
-            }(privateUnauthorizedText, privateForbiddenText)
+            CanView(study)(doPgn(study))(privateUnauthorizedText, privateForbiddenText)
     }
 
   private def doPgn(study: StudyModel)(using RequestHeader) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
-      .withDateHeaders(studyLastModified(study))
-
-  private def studyLastModified(s: StudyModel) = LAST_MODIFIED -> s.updatedAt.atZone(utcZone)
+      .withDateHeaders(lastModified(study.updatedAt))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)

@@ -40,17 +40,17 @@ object LoginContext:
 class Context(
     val req: RequestHeader,
     val lang: Lang,
-    val userContext: LoginContext,
+    val loginContext: LoginContext,
     val pref: Pref
 ):
-  export userContext.*
+  export loginContext.*
   def ip                    = HTTPRequest ipAddress req
   lazy val blind            = req.cookies.get(ApiConfig.blindCookie.name).exists(_.value.nonEmpty)
   def noBlind               = !blind
   lazy val mobileApiVersion = lila.security.Mobile.Api requestVersion req
   def isMobileApi           = mobileApiVersion.isDefined
   def flash(name: String): Option[String] = req.flash get name
-  def withLang(l: Lang)                   = new Context(req, l, userContext, pref)
+  def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

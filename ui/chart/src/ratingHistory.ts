@@ -25,7 +25,7 @@ export async function initModule({ data, singlePerfName, perfIndex }: Opts) {
   }
   const $el = $('div.rating-history');
   const singlePerfIndex = data.findIndex((x: any) => x.name === singlePerfName);
-  if (singlePerfName && data[singlePerfIndex].points.length === 0) {
+  if (singlePerfName && !data[singlePerfIndex]?.points.length) {
     $el.hide();
     return;
   }

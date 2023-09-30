@@ -92,6 +92,15 @@
     }
   }
 
+  &__blocked {
+    > p {
+      display: none;
+    }
+    > button {
+      margin: 2em;
+    }
+  }
+
   &__message {
     @extend %break-word, %zalgoverflow;
 

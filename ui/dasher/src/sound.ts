@@ -30,10 +30,10 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
   const postSet = throttlePromiseDelay(
     () => 1000,
-    (set: string) =>
+    (soundSet: string) =>
       xhr
         .text('/pref/soundSet', {
-          body: xhr.form({ set }),
+          body: xhr.form({ soundSet }),
           method: 'post',
         })
         .catch(() => lichess.announce({ msg: 'Failed to save sound preference' })),

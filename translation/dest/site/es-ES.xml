@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="savingMoves">Librería temporal de movimientos</string>
-  <string name="savingMovesHelp">Siempre almacenamos tus variantes en la caché de tu navegador.</string>
   <string name="makeAStudy">Para guardar y compartir, considera hacer un estudio.</string>
   <string name="clearSavedMoves">Borrar movimientos</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>

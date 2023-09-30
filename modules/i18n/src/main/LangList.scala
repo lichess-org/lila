@@ -127,7 +127,7 @@ object LangList:
     all.keys.toList.sortBy(l => langs.getOrElse(l, Int.MaxValue))
 
   lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
+    case l if defaultRegions.get(l.language).forall(_ == l) => l
   }
 
   lazy val popularAlternateLanguageCodes: List[String] =

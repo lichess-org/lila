@@ -509,8 +509,6 @@
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="oneUrlPerLine">Yksi URL per rivi.</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
-  <string name="savingMoves">Väliaikainen siirtojen tallennus</string>
-  <string name="savingMovesHelp">Muunnelmasi tallentuvat aina selaimesi välimuistiin.</string>
   <string name="makeAStudy">Tallenna analyysisi tutkielmaksi, jos haluat säilyttää sen tai jakaa sen muiden kanssa.</string>
   <string name="clearSavedMoves">Tyhjennä siirrot</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>

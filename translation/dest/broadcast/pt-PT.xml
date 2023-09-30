@@ -12,7 +12,7 @@
   <string name="upcoming">Brevemente</string>
   <string name="completed">Concluído</string>
   <string name="roundName">Nome da ronda</string>
-  <string name="roundNumber">Número da ronda</string>
+  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Número da ronda</string>
   <string name="tournamentName">Nome do torneio</string>
   <string name="tournamentDescription">Breve descrição do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
@@ -23,15 +23,15 @@
   <string name="startDate">Data de início no teu fuso horário</string>
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
   <string name="credits">Credita a fonte</string>
-  <string name="broadcastUrl">Transmitir o link</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">Transmitir o link</string>
   <string name="currentRoundUrl">Link da ronda atual</string>
   <string name="currentGameUrl">Link da partida atual</string>
-  <string name="downloadAllRounds">Descarregar todas as rondas</string>
+  <string name="downloadAllRounds">Transferir todas as rondas</string>
   <string name="resetRound">Reiniciar esta ronda</string>
   <string name="deleteRound">Apagar esta ronda</string>
-  <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e os seus jogos.</string>
-  <string name="deleteAllGamesOfThisRound">Eliminar todos os jogos desta ronda. A fonte deverá estar ativa para poder recriá-los.</string>
-  <string name="editRoundStudy">Editar estudo da ronda</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Eliminar definitivamente a ronda e os seus jogos.</string>
+  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round (https://lichess.org/broadcast). &quot;Source&quot; refers to the broadcasting source. The source is usually a URL pointing to a PGN file, which is continuously updated by the tournament organisers and polled by Lichess to get new moves.&#10;&#10;This button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source, the next time it is polled by Lichess.">Eliminar todos os jogos desta ronda. A fonte deverá estar ativa para poder recriá-los.</string>
+  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies. Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Editar estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneio</string>
   <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
 </resources>

@@ -68,6 +68,7 @@ object index:
     onEmpty = "Nothing to show."
   )
 
+  import views.html.ublog.post.ShowAt
   def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
@@ -114,7 +115,7 @@ object index:
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = true) },
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(
                 posts,
                 p =>
@@ -172,7 +173,7 @@ object index:
           boxTop(h1(title)),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = true) },
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(posts, np => route(np).url)
             )
           else div(cls := "ublog-index__posts--empty")(onEmpty)

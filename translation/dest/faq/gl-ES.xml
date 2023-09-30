@@ -32,9 +32,9 @@
   <string name="youCanUseOpeningBookNoEngine">En Lichess, a principal diferenza nas regras do xadrez por correspondencia é que se permite un libro de aperturas. O uso de máquinas segue a estar prohibido e dará lugar a que se etiquete ao usuario como trampón. Aínda que a ICCF permite o uso de módulos nas partidas por correspondencia, Lichess non o permite.</string>
   <string name="gameplay">Mecánica de xogo</string>
   <string name="howBulletBlitzEtcDecided">Como se deciden os controis de tempo en Bala, Lóstrego e outros?</string>
-  <string name="basedOnGameDuration">Os controis de tempo de Lichess están baseados na duración estimada dunha partida = %1$s
-Por exemplo, a duración estimada dunha partida de 5+3 é de 5 × 60 + 40 × 3 = 420 segundos.</string>
-  <string name="durationFormula">(tempo inicial do reloxo) + 40 × (incremento)</string>
+  <string name="basedOnGameDuration">Os controis de tempo de Lichess están baseados na duración estimada dunha partida = %1$s.
+Por exemplo, a duración estimada dunha partida de 5+3 é de (5 * 60) + (40 * 3) = 420 segundos.</string>
+  <string name="durationFormula">(tempo inicial do reloxo) + 40 * (incremento)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Que variantes podo xogar en Lichess?</string>
@@ -81,7 +81,7 @@ Mira o capítulo do %3$s sobre este movemento para practicar un pouco con el.</s
   <string name="lichessRecognizeAllOTBtitles">Lichess recoñece todos os títulos FIDE obtidos de xeito presencial, así como %1$s. Velaquí hai unha lista de títulos FIDE:</string>
   <string name="showYourTitle">Se tes un título presencial (OTB), podes solicitar que se amose na túa conta completando o %1$s, incluíndo unha imaxe clara dun documento/tarxeta de identificación e unha foto túa portando dito documento/tarxeta.
 
-A verificación como xogador titulado en Lichess dá acceso a xogar nos eventos de Arena para titulados.
+A verificación como xogador titulado en Lichess dá acceso a xogar nas Arenas para Titulados.
 
 Finalmente, existe o título honorífico %2$s.</string>
   <string name="asWellAsManyNMtitles">moitos títulos de mestres nacionais</string>
@@ -90,7 +90,7 @@ Finalmente, existe o título honorífico %2$s.</string>
   <string name="noUpperCaseDot">Non.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico non é oficial e só existe en Lichess.
 
-En raras ocasións outorgámosllelo a eito aos xogadores moi destacados que son bos cidadáns de Lichess. O título de LM non se consegue, senon que chega ós xogadores. Se cumpres os requisitos, recibirás unha mensaxe nosa ao respecto e a opción de aceptar ou rexeitar o título.
+En raras ocasións outorgámosllelo a eito aos xogadores moi destacados que son bos cidadáns de Lichess. O título de LM non se consegue, senón que chega ós xogadores. Se cumpres os requisitos, recibirás unha mensaxe nosa ao respecto e a opción de aceptar ou rexeitar o título.
 
 Non solicites o título de LM.</string>
   <string name="whatUsernameCanIchoose">Cal pode ser o meu nome de usuario?</string>
