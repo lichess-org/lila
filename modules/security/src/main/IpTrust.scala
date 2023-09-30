@@ -51,7 +51,7 @@ object IpTrust:
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
   val defaultRateLimitStrategy: RateLimitStrategy =
     case IsProxy.vpn         => 2.5
-    case IsProxy.tor         => 3
+    case IsProxy.tor         => 3.5
     case IsProxy.server      => 1.5
     case IsProxy.public      => 4.5
     case IsProxy.web         => 3
