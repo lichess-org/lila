@@ -45,7 +45,7 @@ object index:
     }
 
   def friends(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = "Friends blogs",
+    title = trans.ublog.friendsBlog.txt(),
     posts = posts,
     menuItem = "friends",
     route = routes.Ublog.friends,
@@ -53,7 +53,7 @@ object index:
   )
 
   def liked(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = "Liked blog posts",
+    title = trans.ublog.likedBlog.txt(),
     posts = posts,
     menuItem = "liked",
     route = routes.Ublog.liked,
@@ -72,7 +72,7 @@ object index:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
-      title = "Community blogs",
+      title = trans.ublog.communityBlog.txt(),
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
         st.title := "Lichess community blogs"
@@ -88,7 +88,7 @@ object index:
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
-            h1("Community blogs"),
+            h1(trans.ublog.communityBlog()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "ublog-lang",
@@ -131,12 +131,12 @@ object index:
   def topics(tops: List[UblogTopic.WithPosts])(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      title = "All blog topics"
+      title = trans.ublog.allBlogTopic.txt()
     ) {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
         div(cls := "page-menu__content box")(
-          boxTop(h1("All blog topics")),
+          boxTop(h1(trans.ublog.allBlogTopic())),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
