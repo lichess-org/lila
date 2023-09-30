@@ -979,4 +979,8 @@ Leave empty to start games from the normal initial position.</string>
   <string name="switchSides">Switch sides</string>
   <string name="closingAccountWithdrawAppeal">Closing your account will withdraw your appeal</string>
   <string name="ourEventTips">Our tips for organising events</string>
+  <string name="featuredBots">Featured bots</string>
+  <string name="communityBots">Community bots</string>
+  <string name="aboutLichessBots">About Lichess Bots</string>
+  <string name="onlineBots">Online bots</string>
 </resources>

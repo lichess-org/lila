@@ -10,7 +10,7 @@ import lila.user.User
 object bots:
 
   def apply(users: List[User.WithPerfs])(using PageContext) =
-    val title = s"${users.size} Online bots"
+    val title = s"${users.size} ${trans.onlineBots.txt()}"
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("slist"), cssTag("bot.list")),
@@ -22,16 +22,16 @@ object bots:
           case (featured, all) =>
             div(cls := "bots page-menu__content")(
               div(cls := "box bots__featured")(
-                h1(cls := "box__top")("Featured bots"),
+                h1(cls := "box__top")(trans.featuredBots()),
                 botTable(featured)
               ),
               div(cls := "box")(
                 boxTop(
-                  h1("Community bots"),
+                  h1(trans.communityBots()),
                   a(
                     cls  := "bots__about",
                     href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
-                  )("About Lichess Bots")
+                  )(trans.aboutLichessBots())
                 ),
                 botTable(all)
               )

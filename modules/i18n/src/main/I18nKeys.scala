@@ -850,6 +850,10 @@ object I18nKeys:
   val `nbSecondsToPlayTheFirstMove` = I18nKey("nbSecondsToPlayTheFirstMove")
   val `nbSeconds` = I18nKey("nbSeconds")
   val `andSaveNbPremoveLines` = I18nKey("andSaveNbPremoveLines")
+  val `featuredBots` = I18nKey("featuredBots")
+  val `communityBots` = I18nKey("communityBots")
+  val `aboutLichessBots` = I18nKey("aboutLichessBots")
+  val `onlineBots` = I18nKey("onlineBots")
 
   object arena:
     val `arenaTournaments` = I18nKey("arena:arenaTournaments")
