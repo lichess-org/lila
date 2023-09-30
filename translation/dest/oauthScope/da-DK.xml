@@ -31,4 +31,9 @@
   <string name="engineWrite">Opret og opdater eksternt skakprogram</string>
   <string name="webLogin">Opret godkendte hjemmesidesessioner (giver fuld adgang!)</string>
   <string name="webMod">Brug moderatorværktøjer (inden for rammerne af din tilladelse)</string>
+  <string name="personalAccessTokens">Personlige API-adgangstokens</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan lave OAuth-anmodninger uden at gå gennem %s.</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oprettet %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Senest brugt %s</string>
+  <string name="alreadyHavePlayedGames">Du har allerede spillet partier!</string>
 </resources>
