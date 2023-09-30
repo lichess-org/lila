@@ -15,5 +15,5 @@
 If you lost access to your authentication codes, you can also do a password reset via email.</string>
   <string name="openTwoFactorApp">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</string>
   <string name="setupReminder">Please enable two-factor authentication to secure your account at https://lichess.org/account/twofactor.
-You received this message because your account has special responsibilities such as team leader, coach, teacher or streamer</string>
+You received this message because your account has special responsibilities such as team leader, coach, teacher or streamer.</string>
 </resources>

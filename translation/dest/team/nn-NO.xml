@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Lag</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Lag</string>
+  <string name="teams">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
     <item quantity="other">%s medlemmer</item>
@@ -43,6 +43,7 @@ Du kan bruke dette til å ta kontakt med spelarar for å gjere dei merksame på 
 Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gruppa.</string>
   <string name="teamsIlead">Grupper eg er leiar av</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
+  <string name="onlyInviteLeadersTrust">Inviter berre leiarar du lit fullt ut på. Lagleiarar kan fjerne medlemar og andre leiarar frå laget.</string>
   <string name="usersWhoCanManageThisTeam">Brukarar som kan administrere denne gruppa</string>
   <string name="leadersChat">Chatt for gruppeleiarar</string>
   <string name="closeTeam">Steng ned laget</string>

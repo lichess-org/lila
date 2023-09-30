@@ -11,7 +11,7 @@
   <string name="openingThisLink">Ouvrir le lien</string>
   <string name="ifLiveChessRunningElsewhere">Si %1$s fonctionne sur une autre machine ou sur un port différent, vous devrez définir l\'adresse IP et le port ici dans l\' %2$s.</string>
   <string name="configurationSection">Section de configuration</string>
-  <string name="keepPlayPageOpen">La page de jeu doit rester ouverte dans le navigateur. Elle n\'a pas besoin d\'être visible. Vous pouvez la minimiser ou la placer côte à côte avec la page de la partie de Lichess, mais ne la fermez pas, car l\'échiquier cessera de fonctionner.</string>
+  <string name="keepPlayPageOpen">La page de configuration doit rester ouverte dans le navigateur. Elle n\'a pas besoin d\'être visible. Vous pouvez la minimiser ou la placer côte à côte avec la page de la partie de Lichess, mais ne la fermez pas, car l\'échiquier cessera de fonctionner.</string>
   <string name="boardWillAutoConnect">Le plateau se connectera automatiquement à n\'importe quelle partie qui est déjà en cours ou à n\'importe quelle nouvelle partie qui commence. La possibilité de choisir la partie sera bientôt disponible.</string>
   <string name="timeControlsForCasualGames">Contrôles de temps pour les parties amicales : Classique, Correspondance et Rapide seulement.</string>
   <string name="timeControlsForRatedGames">Contrôles de temps pour les parties classées : Classique, Correspondance et certains Rapides, dont 15+10 et 20+0</string>

@@ -29,6 +29,8 @@ case class RelayTour(
 
   def reAssignIfOfficial = if official then copy(ownerId = User.broadcasterId) else this
 
+  def path: String = s"/broadcast/$slug/$id"
+
 object RelayTour:
 
   val maxRelays = 64

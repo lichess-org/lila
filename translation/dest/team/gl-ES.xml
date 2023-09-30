@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Equipo</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Equipos</string>
+  <string name="teams">Equipos</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membro</item>
     <item quantity="other">%s membros</item>
@@ -43,6 +43,7 @@ Deste xeito podes convocar ós xogadores para que se unan a un torneo ou batalla
 Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Queres vincular un destes próximos torneos?</string>
+  <string name="onlyInviteLeadersTrust">Convida só líderes nos que confíes plenamente. Os líderes de equipo poden expulsar ós membros e ós outros líderes.</string>
   <string name="usersWhoCanManageThisTeam">Usuarios que poden administrar este equipo</string>
   <string name="leadersChat">Sala de conversa dos líderes</string>
   <string name="closeTeam">Pechar o equipo</string>

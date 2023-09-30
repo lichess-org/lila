@@ -23,7 +23,7 @@ export const fenInput = (ctrl: LobbyController) => {
         attrs: {
           'data-icon': licon.Pencil,
           title: trans('boardEditor'),
-          href: '/editor' + (fen ? `/${fen.replace(' ', '_')}` : ''),
+          href: '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(' ', '_')}` : ''),
         },
       }),
     ]),

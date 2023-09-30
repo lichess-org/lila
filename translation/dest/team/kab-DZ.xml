@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Igrawen</string>
+  <string name="teams">Igrawen</string>
   <plurals name="nbMembers">
     <item quantity="one">%s imedrawen</item>
     <item quantity="other">%s imedrawen</item>

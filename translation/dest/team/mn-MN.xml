@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Баг</string>
+  <string name="teams">Баг</string>
   <plurals name="nbMembers">
     <item quantity="one">%s гишүүд</item>
     <item quantity="other">%s гишүүд</item>

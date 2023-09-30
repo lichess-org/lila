@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">チーム</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">チーム</string>
+  <string name="teams">チーム</string>
   <plurals name="nbMembers">
     <item quantity="other">%s 人のメンバー</item>
   </plurals>
@@ -40,6 +40,7 @@
 メッセージを受けたくない人はチームを離れるかもしれません。</string>
   <string name="teamsIlead">リーダーを務めるチーム</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
+  <string name="onlyInviteLeadersTrust">招待するのは十分に信頼できるリーダーだけにしてください。チームリーダーはメンバーや他のリーダーをチームから追放できます。</string>
   <string name="usersWhoCanManageThisTeam">チームを管理できるユーザー</string>
   <string name="leadersChat">リーダー・チャット</string>
   <string name="closeTeam">チームを解散</string>

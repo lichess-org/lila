@@ -119,7 +119,7 @@ object security:
           a(
             href     := routes.OAuthToken.index,
             cls      := "button",
-            title    := "API access tokens",
+            title    := trans.oauthScope.apiAccessTokens.txt(),
             dataIcon := licon.Gear
           )
         )

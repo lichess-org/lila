@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Каманда</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Каманды</string>
+  <string name="teams">Каманды</string>
   <plurals name="nbMembers">
     <item quantity="one">%s чальцоў</item>
     <item quantity="few">%s удзельнікаў</item>

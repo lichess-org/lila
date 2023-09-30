@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">ਟੀਮਾਂ</string>
+  <string name="teams">ਟੀਮਾਂ</string>
   <string name="allTeams">ਸਾਰੀਆਂ ਟੀਮਾਂ</string>
   <string name="newTeam">ਨਵੀਂ ਟੀਮ</string>
   <string name="myTeams">ਮੇਰੀਆਂ ਟੀਮਾਂ</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Span</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Spanne</string>
+  <string name="teams">Spanne</string>
   <plurals name="nbMembers">
     <item quantity="one">%s lede</item>
     <item quantity="other">%s lede</item>
@@ -43,6 +43,7 @@ U kan dit gebruik om spelers te roep om deel te neem aan \'n toernooi of \'n spa
 Spelers wat nie daarvan hou om u boodskappe te ontvang nie, mag dalk die span verlaat.</string>
   <string name="teamsIlead">Spanne wat ek lei</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Wil u dalk een van hierdie komende toernooie koppel?</string>
+  <string name="onlyInviteLeadersTrust">Nooi slegs leiers wat jy ten volle vertrou. Spanleiers kan lede en ander leiers uit die span verwyder.</string>
   <string name="usersWhoCanManageThisTeam">Gebruikers wat hierdie span kan bestuur</string>
   <string name="leadersChat">Leiers se klets</string>
   <string name="closeTeam">Naby span</string>
