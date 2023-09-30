@@ -55,8 +55,8 @@
   <string name="skippedPuzzle">Ejercicio omitido</string>
   <string name="thisWeek">Esta semana</string>
   <string name="thisMonth">Este mes</string>
-  <string name="allTime">Todo</string>
+  <string name="allTime">Todos</string>
   <string name="clickToReload">Haz clic para recargar</string>
-  <string name="thisRunHasExpired">¡Esta ronda ha caducado!</string>
+  <string name="thisRunHasExpired">¡Se acabó el tiempo!</string>
   <string name="thisRunWasOpenedInAnotherTab">¡Esta ronda fue abierta en otra pestaña!</string>
 </resources>
