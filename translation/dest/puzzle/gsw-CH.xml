@@ -31,7 +31,7 @@
   <string name="byOpenings">Nach Eröffnige</string>
   <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
   <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i gwertete Partie</string>
-  <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
   <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
   <string name="trySomethingElse">Probier öppis Anders.</string>
@@ -70,7 +70,7 @@
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie z\'erreiche. Nimm dir Zit, es lauft kei Uhr. Doch nur 1 falsche Zug und es isch verbi! Aber du chasch 1 Zug pro Serie überschpringe.</string>
   <string name="yourStreakX">Dini Erfolgsserie: %s</string>
   <string name="streakSkipExplanation">Überschpring de Zug, um dini Erfolgsserie z\'hebe! Aber du chasch das nur 1x pro Serie mache.</string>
-  <string name="continueTheStreak">Erfolgsserie witerspille</string>
+  <string name="continueTheStreak">Erfolgsserie witerfüehre</string>
   <string name="newStreak">Neui Erfolgsserie</string>
   <string name="fromMyGames">Us eigene Schpil</string>
   <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
