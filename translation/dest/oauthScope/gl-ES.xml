@@ -31,4 +31,24 @@
   <string name="engineWrite">Crear e actualizar os teus motores de xadrez externos</string>
   <string name="webLogin">Crear sesións web autenticadas (concede acceso completo!)</string>
   <string name="webMod">Empregar ferramentas de moderador (dentro dos límites do teu permiso)</string>
+  <string name="personalAccessTokens">Tokens persoais de acceso á API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Podes facer solicitudes de OAuth sen pasar polo %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">fluxo de código de autenticación</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">En cambio, %s que podes empregar directamente nas solicitudes API.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">xera un token de acceso persoal</string>
+  <string name="guardTokensCarefully">Garda estes tokens con coidado! Son coma contrasinais. A vantaxe de usar tokens no canto de incorporar o teu contrasinal nun script é que os tokens poden revogarse, polo que podes xerar unha manchea deles.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Aquí hai un %1$s e esta é a %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">exemplo de token persoal da app</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">documentación da API</string>
+  <string name="newToken">Novo token de acceso</string>
+  <string name="apiAccessTokens">Tokens de acceso á API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Creado %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Último uso %s</string>
+  <string name="alreadyHavePlayedGames">Xa xogaches as túas partidas!</string>
+  <string name="attentionOfDevelopers">Nota reservada ós desenvolvedores:</string>
+  <string name="possibleToPrefill">É posible cubrir de antemán este formulario mediante o axuste dos parámetros de consulta da URL.</string>
+  <string name="forExample">Por exemplo: %s</string>
+  <string name="ticksTheScopes">marca os ámbitos %1$s e %2$s, e establece a descrición do token.</string>
+  <string name="scopesCanBeFound">Os códigos de ámbito poden atoparse no código HTML do formulario.</string>
+  <string name="givingPrefilledUrls">Dar de antemán estas URL ós teus usuarios axudará a que obteñan os ámbitos axeitados dos tokens.</string>
 </resources>
