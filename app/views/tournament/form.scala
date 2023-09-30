@@ -192,11 +192,6 @@ object form:
       )
     )
 
-  def startingPosition(field: Field, tour: Option[Tournament]) =
-    form3.input(field)(
-      tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
-    )
-
 final private class TourFields(form: Form[?], tour: Option[Tournament])(using
     PageContext,
     FormPrefix
@@ -249,7 +244,9 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using
       help =
         trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(
-      views.html.tournament.form.startingPosition(_, tour)
+      form3.input(_)(
+        tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
+      )
     )
   def clock =
     form3.split(
