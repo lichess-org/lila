@@ -31,4 +31,13 @@
   <string name="engineWrite">Externe engines aanmaken en bijwerken</string>
   <string name="webLogin">Geauthenticeerde website-sessies maken (verleent volledige toegang!)</string>
   <string name="webMod">Gebruik moderatortools (binnen de perken van uw toestemming)</string>
+  <string name="personalAccessTokens">Persoonlijke API-toegangstokens</string>
+  <string name="apiDocumentation">API-documentatie</string>
+  <string name="newToken">Nieuw toegangstoken</string>
+  <string name="apiAccessTokens">API-toegangstokens</string>
+  <string name="created">Gemaakt: %s</string>
+  <string name="lastUsed">Laatst gebruikt %s</string>
+  <string name="alreadyHavePlayedGames">Je hebt al partijen gespeeld!</string>
+  <string name="attentionOfDevelopers">Opmerking alleen voor ontwikkelaars:</string>
+  <string name="forExample">Bijvoorbeeld: %s</string>
 </resources>
