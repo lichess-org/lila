@@ -4,7 +4,7 @@
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="dgtBoardRequirements">DGT Schachbrätt Aforderige</string>
   <string name="dgtBoardLimitations">DGT Schachbrätt Beschränkige</string>
-  <string name="thisPageAllowsConnectingDgtBoard">Die Site erlaubt dir, dis DGT Schachbrätt z\'verbinde und demit Partie z\'spille.</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Die Site erlaubt dir, dis DGT Schachbrätt z\'verbinde und demit Partie z\'schpille.</string>
   <string name="toConnectTheDgtBoard">Zums elektronische DGT Schachbrätt verbinde, muesch du %s inschtalliere.</string>
   <string name="downloadHere">Du chasch die Software under %s abelade.</string>
   <string name="ifLiveChessRunningOnThisComputer">Falls %1$s uf dem Computer lauft, chasch du d\'Verbindig mit %2$s überprüefe.</string>
@@ -17,7 +17,7 @@
   <string name="timeControlsForRatedGames">D\'Zitkontrolle für gwerteti Partie sind: Klassisch, Korrespondänz und es paar Schnällschach-Variante wie 15+10 und 20+0</string>
   <string name="whenReadySetupBoard">Wänn du bereit bisch, schtellsch dis Brätt uf und klicksch uf %s.</string>
   <string name="ifMoveNotDetected">Falls en Zug nöd regischtriert worde isch</string>
-  <string name="checkYouHaveMadeOpponentsMove">Überprüef zerscht, ob du de Zug vum Gegner uf em DGT Brätt scho usgfüehrt häsch. Nimm din Zug zrugg. Zieh nomal.</string>
+  <string name="checkYouHaveMadeOpponentsMove">Überprüef zerscht, ob du de Zug vum Gägner uf em DGT Brätt scho usgfüehrt häsch. Nimm din Zug zrugg. Zieh nomal.</string>
   <string name="asALastResort">Als letschte Versuech: stell dis Brätt genau so uf wie das vu Lichess, dänn %s</string>
   <string name="reloadThisPage">Lad die Site neu</string>
   <string name="dgtConfigure">DGT Konfiguriere</string>
@@ -34,7 +34,7 @@
   <string name="enableSpeechSynthesis">Schprach-Synthese aktiviere</string>
   <string name="speechSynthesisVoice">Schprach-Synthese Schtimm</string>
   <string name="announceAllMoves">All Züg vorläse</string>
-  <string name="selectAnnouncePreference">Mit JA werded all Züg, vu dir und dim Gegner, vorgläse. Mit NEIN nur die vum Gegner.</string>
+  <string name="selectAnnouncePreference">Mit JA werded all Züg, vu dir und dim Gägner, vorgläse. Mit NEIN nur die vum Gägner.</string>
   <string name="announceMoveFormat">Zugsformat vorläse</string>
   <string name="moveFormatDescription">SAN (\"Nf6\") ischs Standardformat vu Lichess. UCI (\"g8f6\") wird gwöhnlich vu Emgines benutzt.</string>
   <string name="keywords">Schlüsselwörter</string>
