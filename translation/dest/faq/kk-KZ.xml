@@ -53,6 +53,7 @@
 Көп жағдайда бұны автоматты түрде шешу қиын. Әдетте біз уақытты кетірмеген ойыншыны қолдаймыз.
 
 Бір атпен не пілмен мат қою мүмкін екенін ескертеміз. Ол үшін қарсыластың өз патшасына бөгет болып тұратын тасы болуы шарт.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE нұсқаулығы</string>
   <string name="fideHandbookX">FIDE анықтамалығының %s</string>
   <string name="discoveringEnPassant">Бір сарбаз, қасынан басқа сарбаз өтіп болғанда, оны неге басып алуға қабілетті (жолай басу)?</string>
   <string name="explainingEnPassant">Бұл ережеге сай \"жолай басу\" жүрісі. Википедия мақаласында %1$s беріп тұр.

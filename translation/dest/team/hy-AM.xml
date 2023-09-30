@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Թիմ</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Թիմեր</string>
+  <string name="teams">Թիմեր</string>
   <plurals name="nbMembers">
     <item quantity="one">%s անդամ</item>
     <item quantity="other">%s անդամներ</item>

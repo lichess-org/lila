@@ -29,7 +29,7 @@ final class Report(
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
-    if Room(room).fold(true)(Room.isGranted)
+    if Room(room).forall(Room.isGranted)
     then renderList(room)
     else notFound
   }
@@ -54,7 +54,7 @@ final class Report(
           next.fold(
             Redirect:
               if prev.exists(_.isAppeal)
-              then appeal.routes.Appeal.queue
+              then appeal.routes.Appeal.queue()
               else report.routes.Report.list
           )(onInquiryStart)
   }
@@ -88,7 +88,7 @@ final class Report(
       case Some(url) => process() inject Redirect(url)
       case _ =>
         def redirectToList = Redirect(routes.Report.listWithFilter(inquiry.room.key))
-        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue)
+        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue())
         else if dataOpt.flatMap(_ get "next").exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous

@@ -85,6 +85,8 @@ trait LilaLibraryExtensions extends LilaTypes:
           case e: Exception => Future.failed(e)
           case _            => fufail(err.toString)
 
+  extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
+
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
     def abs      = if d.length < 0 then -d else d

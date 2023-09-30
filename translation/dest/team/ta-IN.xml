@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">அணிகள்</string>
+  <string name="teams">அணிகள்</string>
   <plurals name="nbMembers">
     <item quantity="one">%s உறுப்பினர்கள்</item>
     <item quantity="other">%s உறுப்பினர்கள்</item>

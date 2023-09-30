@@ -78,15 +78,19 @@ Ni rare aljuĝas ĝin al alte noteblaj ludantoj, kiuj estas bonaj civitanoj de L
 
 Ne petu por la LM titolo.</string>
   <string name="whatUsernameCanIchoose">Kio povas esti mia uzantnomo?</string>
+  <string name="usernamesNotOffensive">Ĝenerale, uzantnomoj ne povus esti: ofenda, imitanta de aliulo, aŭ varbanta. Vi povas legi plu pri la %1$s.</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
+  <string name="usernamesCannotBeChanged">Ne uzantnomoj ne povas esti ŝanĝita por teknikaj kaj praktikaj kialoj. Uzantnomoj estas materialaj en tro da lokoj: datumbazoj, eksportoj, protokoloj, kaj mensoj de homoj. Vi povas unue ĝustigi la majuskligo.</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
   <string name="ownerUniqueTrophies">Tiu trofeo estas unika en la historio de Lichess, neniu krom %1$s iam havos ĝin.</string>
   <string name="wayOfBerserkExplanation">Por akiri ĝin, hiimgosu defiis sin berserki kaj venki ciujn ludojn de %s.</string>
   <string name="aHourlyBulletTournament">hore kugla turniro</string>
+  <string name="goldenZeeExplanation">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
+  <string name="provisionalRatingExplanation">La demandosigno signifis, ke la rango estas provizora. Kialoj ampleksas:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">La ludanto ne finiĝis sufiĉe da rangaj ludoj kontraŭ %1$s en la rangkategorio.</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
   <string name="notPlayedRecently">La ludanto ne ludis sufiĉe da lastatempaj ludoj. Depende de la nombro da ludoj, kiujn vi ludis, eble daŭros ĉirkaŭ unu jaro da senaktiveco, por ke via rango reprovizoriĝas.</string>

@@ -79,7 +79,7 @@ final class Challenge(
       case lila.challenge.Challenge.Challenger.Open                  => false
 
   private def isForMe(challenge: ChallengeModel)(using me: Option[Me]) =
-    challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
+    challenge.destUserId.forall(dest => me.exists(_ is dest)) &&
       !challenge.challengerUserId.so(orig => me.exists(_ is orig))
 
   def accept(id: ChallengeId, color: Option[String]) = Open:

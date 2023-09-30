@@ -19,6 +19,8 @@ final class PrefApi(
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
     _.expireAfterAccess(10 minutes).buildAsyncFuture(fetchPref)
 
+  export cache.{ get as getPrefById }
+
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) = {
     if value then
       coll.update
@@ -33,8 +35,6 @@ final class PrefApi(
         .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
         .void andDo { cache invalidate user.id }
   } andDo { cache invalidate user.id }
-
-  def getPrefById(id: UserId): Fu[Option[Pref]] = cache get id
 
   def get(user: User): Fu[Pref] = cache get user.id dmap {
     _ getOrElse Pref.create(user)
@@ -84,10 +84,6 @@ final class PrefApi(
 
   def setPref(user: User, change: Pref => Pref): Funit =
     get(user) map change flatMap setPref
-
-  def setPrefString(user: User, name: String, value: String): Funit =
-    get(user) map { _.set(name, value) } orFail
-      s"Bad pref ${user.id} $name -> $value" flatMap setPref
 
   def agree(user: User): Funit =
     coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void andDo

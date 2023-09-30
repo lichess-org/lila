@@ -16,6 +16,7 @@
   <string name="otherWaysToHelp">други начини за подпомагане</string>
   <string name="areThereWebsitesBasedOnLichess">Има ли уебсайтове, базирани на Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Да. Lichess наистина вдъхнови други сайтове с отворен код, които използват нашите %1$s, %2$s или %3$s.</string>
+  <string name="keyboardShortcuts">Какви клавишни комбинации има?</string>
   <string name="fairPlay">Честна игра</string>
   <string name="whenAmIEligibleRatinRefund">Кога отговарям на условията за автоматично възстановяване на състезателният ми рейтинг от измамници?</string>
   <string name="ratingRefundExplanation">Една минута след като даден играч бъде маркиран, се вземат неговите 40 най-нови оценени игри през последните 3 дни. Ако сте техен опонент в тези игри, загубили сте рейтинг (поради загуба или равенство) и рейтингът ви не е временен, получавате възстановяване на сумата за рейтинг. Възстановяването е ограничено въз основа на най-високия ви рейтинг и напредъка ви в рейтинга след играта.

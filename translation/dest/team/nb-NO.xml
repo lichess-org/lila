@@ -43,6 +43,7 @@ Du kan bruke dette til å oppfordre spillere til å delta i en turnering eller e
 Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate laget.</string>
   <string name="teamsIlead">Lag jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
+  <string name="onlyInviteLeadersTrust">Inviter kun ledere som du stoler fullt ut på. Lagledere kan sparke ut medlemmer og andre ledere fra laget.</string>
   <string name="usersWhoCanManageThisTeam">Brukere som kan administrere dette laget</string>
   <string name="leadersChat">Ledersamtale</string>
   <string name="closeTeam">Legg ned laget</string>

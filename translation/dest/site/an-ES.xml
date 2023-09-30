@@ -498,8 +498,6 @@
   <string name="socialMediaLinks">Vinclos a rez socials</string>
   <string name="oneUrlPerLine">Una URL per linia.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="savingMoves">Almagacenamiento temporal de movimientos</string>
-  <string name="savingMovesHelp">Siempre almagacenamos las tuyas variants en a memoria caché d\'o tuyo navegador.</string>
   <string name="makeAStudy">Pa alzar-las de manera segura y compartir-las, considera fer un estudio.</string>
   <string name="clearSavedMoves">Limpia movimientos</string>
   <string name="previouslyOnLichessTV">Anteriorment en Lichess TV</string>

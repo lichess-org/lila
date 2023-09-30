@@ -9,11 +9,16 @@ lichess.load.then(() => {
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
       }).then(dlg => {
-        $('form', dlg.view).on('submit', () => {
-          //e.preventDefault();
-          xhr.text(link.href, { method: 'post' });
-          $(link).closest('.forum-post').hide();
-        });
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
         dlg.showModal();
       });
       return false;
@@ -23,7 +28,10 @@ lichess.load.then(() => {
       xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
       return false;
     });
-
+  $('.forum-post__blocked button').on('click', e => {
+    const el = (e.target as HTMLElement).parentElement!;
+    $(el).replaceWith($('p', el));
+  });
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';

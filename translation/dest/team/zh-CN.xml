@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">团队</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">团队</string>
+  <string name="teams">团队</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成员</item>
   </plurals>
@@ -40,6 +40,7 @@
 玩家如果不想接收你的消息可能会离开团队。</string>
   <string name="teamsIlead">我领导的团队</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">你可能想要链接这些即将到来的锦标赛？</string>
+  <string name="onlyInviteLeadersTrust">只邀请你完全信任的人。领队可以将成员或其他领队踢出团队。</string>
   <string name="usersWhoCanManageThisTeam">可以管理此团队的用户</string>
   <string name="leadersChat">领队聊天</string>
   <string name="closeTeam">关闭团队</string>

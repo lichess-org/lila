@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
-  <string name="waiting">چاوەڕوانی ڕازیبوونی لایەنی بەرامبەر</string>
+  <string name="waiting">چاوەڕوانی</string>
   <string name="yourTurn">سەرەی تۆیە</string>
   <string name="aiNameLevelAiLevel">%1$s ئاست %2$s</string>
   <string name="level">پلە</string>
@@ -509,8 +509,6 @@
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
   <string name="inlineNotation">نووسینی ناو هێڵ</string>
-  <string name="savingMoves">هەڵگرتنی جوڵەکان بەشێوەیەکی کاتی</string>
-  <string name="savingMovesHelp">ئێمە هەمیشە گۆڕانکارییەکانتان لە کونجێکی وێبگەڕەکەتدا هەڵدەگرین.</string>
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
   <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>

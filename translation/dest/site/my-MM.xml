@@ -123,8 +123,6 @@
   </plurals>
   <string name="pause">ခေတ္တ နားမည်</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
-  <string name="savingMoves">ရွှေ့ကွက်များ ယာယီ သိမ်းခြင်း</string>
-  <string name="savingMovesHelp">သင့် လိုင်းကွဲများကို သင့် ဘရောင်ဇာ၏ ကက်ရှ်တွင် သိမ်းပါမည်။</string>
   <string name="makeAStudy">ဘေးကင်းးရေးနှင့် ဝေမျှနိုင်ရေးတို့ အတွက် လေ့လာချက် အဖြစ် သိမ်းဆည်းရန် စဉ်းစားပါ။</string>
   <string name="clearSavedMoves">ရွှေ့ကွက်များ ရှင်းပစ်ပါ</string>
   <string name="help">အကူအညီ</string>

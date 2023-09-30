@@ -511,8 +511,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="oneUrlPerLine">Un URL per riga.</string>
   <string name="inlineNotation">Notazione in linea</string>
-  <string name="savingMoves">Salvataggio temporaneo delle mosse</string>
-  <string name="savingMovesHelp">Salviamo sempre le tue varianti nella cache del tuo browser.</string>
   <string name="makeAStudy">Per conservare e condividere l\'analisi, valuta di farne uno studio.</string>
   <string name="clearSavedMoves">Fai pulizia delle mosse</string>
   <string name="previouslyOnLichessTV">Già visti sulla TV di Lichess</string>

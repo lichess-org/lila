@@ -1,7 +1,7 @@
 import { view as cevalView } from 'ceval';
 import { defined } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon, iconTag } from 'common/snabbdom';
+import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { playable } from 'game';
 import * as router from 'game/router';
@@ -10,7 +10,7 @@ import statusView from 'game/view/status';
 import { h, VNode, VNodeChildren } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
-import { studyButton, view as actionMenu } from './actionMenu';
+import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
 import * as control from '../control';
 import crazyView from '../crazy/crazyView';
@@ -173,10 +173,6 @@ function controls(ctrl: AnalyseCtrl) {
           else if (action === 'menu') ctrl.actionMenu.toggle();
           else if (action === 'analysis' && ctrl.studyPractice)
             window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
-          else if (action === 'persistence') {
-            ctrl.persistence?.autoOpen(false);
-            ctrl.togglePersistence();
-          }
         }, ctrl.redraw),
       ),
     },
@@ -215,19 +211,6 @@ function controls(ctrl: AnalyseCtrl) {
                     class: {
                       hidden: menuIsOpen || !!ctrl.retro,
                       active: !!ctrl.practice,
-                    },
-                  })
-                : null,
-              ctrl.persistence
-                ? h('button.fbt.persistence', {
-                    attrs: {
-                      title: noarg('savingMoves'),
-                      'data-act': 'persistence',
-                      'data-icon': licon.ScreenDesktop,
-                    },
-                    class: {
-                      hidden: menuIsOpen || !!ctrl.retro,
-                      active: ctrl.persistence.open(),
                     },
                   })
                 : null,
@@ -446,7 +429,7 @@ export default function (deps?: typeof studyDeps) {
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),
-                      retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl) || renderPersistence(ctrl),
+                      retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                     ]),
               ])),
         menuIsOpen || tour ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
@@ -504,32 +487,4 @@ export default function (deps?: typeof studyDeps) {
       ],
     );
   };
-}
-
-function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
-  if (!ctrl.persistence?.open()) return;
-  const noarg = ctrl.trans.noarg;
-
-  return h('div.analyse__persistence.sub-box', [
-    h('div.title', noarg('savingMoves')),
-    h('p.analyse__persistence__help', [
-      iconTag(licon.InfoCircle),
-      noarg('savingMovesHelp'),
-      ctrl.ongoing ? null : ' ' + noarg('makeAStudy'),
-    ]),
-    h('div.analyse__persistence__actions', [
-      studyButton(ctrl),
-      h(
-        'button.button.button-empty.button-red',
-        {
-          attrs: {
-            title: noarg('clearSavedMoves'),
-            'data-icon': licon.Trash,
-          },
-          hook: bind('click', ctrl.persistence.clear),
-        },
-        noarg('clearSavedMoves'),
-      ),
-    ]),
-  ]);
 }

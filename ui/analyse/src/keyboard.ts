@@ -80,6 +80,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
       ctrl.redraw();
     })
+    .bind('v', () => {
+      ctrl.toggleVariationArrows();
+      ctrl.redraw();
+    })
     .bind('x', ctrl.toggleThreatMode)
     .bind('e', () => {
       ctrl.toggleExplorer();

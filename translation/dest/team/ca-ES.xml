@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Equip</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Equips</string>
+  <string name="teams">Equips</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membre</item>
     <item quantity="other">%s membres</item>
@@ -43,6 +43,7 @@ Pots fer-ho servir per avisar als jugadors per entrar a un torneig o batalla d\'
 Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</string>
   <string name="teamsIlead">Equips que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
+  <string name="onlyInviteLeadersTrust">Inviteu només líders en qui confieu plenament. Els líders de l\'equip podem expulsar membres i altres líders fora de l\'equip.</string>
   <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
   <string name="leadersChat">Xat de capitans</string>
   <string name="closeTeam">Eliminar equip</string>

@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
-  <string name="savingMoves">Jokaldiak gordetzeko momentuko tokia</string>
-  <string name="savingMovesHelp">Zure jokaldiak nabigatzailean gordetzen ari gara.</string>
   <string name="makeAStudy">Ondo gorde eta partekatzeko sortu azterlan bat.</string>
   <string name="clearSavedMoves">Garbitu jokaldiak</string>
   <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>

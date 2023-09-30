@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT-lauta</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">DGT-laudan vaatimukset</string>
+  <string name="dgtBoardLimitations">DGT-laudan rajoitukset</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Tältä sivulta voit yhdistää DGT-lautasi Lichessiin ja käyttää sitä pelien pelaamiseen.</string>
+  <string name="toConnectTheDgtBoard">Yhdistääksesi elektronisen DGT-laudan sinun on asennettava %s.</string>
+  <string name="downloadHere">Voit ladata ohjelmiston täältä: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Jos %1$s on käynnissä tällä tietokoneella, voit tarkistaa yhteytesi siihen %2$s.</string>
+  <string name="openingThisLink">avaamalla tämän linkin</string>
+  <string name="ifLiveChessRunningElsewhere">Jos %1$s on käynnissä eri koneella tai eri portissa, sinun on asetettava IP-osoite ja portti täällä %2$s.</string>
+  <string name="configurationSection">asetusosiossa</string>
+  <string name="keepPlayPageOpen">Pelaa-sivun on pysyttävä auki selaimessasi. Sen ei tarvitse olla näkyvissä, joten voit minimoida sen tai asettaa sen vierekkäin sivun kanssa, jossa näkyy kulloinkin Lichessissä pelaamasi peli. Älä kuitenkaan sulje Pelaa-sivua tai lauta lakkaa toimimasta.</string>
+  <string name="boardWillAutoConnect">Lauta yhdistää automaattisesti mihin tahansa jo käynnissä olevaan peliin tai alkavaan uuteen peliin. Pelattavan pelin valintaominaisuus on tulossa pian.</string>
+  <string name="timeControlsForCasualGames">Aikajärjestelmät rentoihin peleihin: Vain Klassinen, Kirjeshakki ja Nopea.</string>
+  <string name="timeControlsForRatedGames">Aikajärjestelmät pisteytettyihin peleihin: Klassinen, Kirjeshakki ja tietyt Nopeat kuten 15+10 ja 20+0</string>
+  <string name="ifMoveNotDetected">Jos siirtoa ei havaittu</string>
+  <string name="checkYouHaveMadeOpponentsMove">Tarkista, että olet ensin tehnyt vastustajasi siirron DGT-laudalla. Peruuta siirtosi ja siirrä uudelleen.</string>
+  <string name="asALastResort">Viimeisenä keinona aseta nappulat laudalle juuri niin kuin Lichessissä ja sitten %s</string>
+  <string name="reloadThisPage">Lataa tämä sivu uudelleen</string>
+</resources>

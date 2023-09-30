@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Foireann</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Foirne</string>
+  <string name="teams">Foirne</string>
   <plurals name="nbMembers">
     <item quantity="one">ball amháin</item>
     <item quantity="two">%s bhall</item>

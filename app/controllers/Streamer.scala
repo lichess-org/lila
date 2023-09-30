@@ -16,7 +16,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def index(page: Int) = Open: ctx ?=>
     NoBot:
       ctx.noKid.so:
-        pageHit
         val requests = getBool("requests") && isGrantedOpt(_.Streamers)
         for
           liveStreams <- env.streamer.liveStreamApi.all

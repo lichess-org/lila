@@ -53,7 +53,7 @@ object IpTrust:
     case IsProxy.vpn         => 2.5
     case IsProxy.tor         => 3
     case IsProxy.server      => 1.5
-    case IsProxy.public      => 4
+    case IsProxy.public      => 4.5
     case IsProxy.web         => 3
     case IsProxy.search      => 0.5
     case IsProxy.residential => 3

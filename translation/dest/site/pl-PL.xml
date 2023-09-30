@@ -576,8 +576,6 @@
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
-  <string name="savingMoves">Tymczasowe miejsce zapisu ruchów</string>
-  <string name="savingMovesHelp">Zawsze przechowujemy Twoje warianty w pamięci podręcznej przeglądarki.</string>
   <string name="makeAStudy">Aby bezpiecznie zapamiętać i udostępniać, rozważ stworzenie opracowania.</string>
   <string name="clearSavedMoves">Usuń ruchy</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>

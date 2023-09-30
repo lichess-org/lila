@@ -778,8 +778,9 @@ export default class AnalyseCtrl {
     return (
       !isTouchDevice() &&
       !chap?.practice &&
-      !chap?.conceal &&
+      chap?.conceal === undefined &&
       !chap?.gamebook &&
+      !this.retro &&
       this.variationArrowsProp() &&
       this.node.children.length > 1
     );
@@ -790,8 +791,8 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   };
 
-  toggleVariationArrows = (v: boolean): void => {
-    this.variationArrowsProp(v);
+  toggleVariationArrows = (v?: boolean): void => {
+    this.variationArrowsProp(v ?? !this.variationArrowsProp());
     this.resetAutoShapes();
   };
 
@@ -913,7 +914,6 @@ export default class AnalyseCtrl {
     if (this.retro) this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
-    this.persistence?.toggleOpen(false);
     this.actionMenu(false);
   };
 
@@ -945,12 +945,6 @@ export default class AnalyseCtrl {
       });
       this.setAutoShapes();
     }
-  };
-
-  togglePersistence = () => {
-    const isOpen = this.persistence?.open();
-    this.closeTools();
-    this.persistence?.toggleOpen(!isOpen);
   };
 
   restartPractice() {

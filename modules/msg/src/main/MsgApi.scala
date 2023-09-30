@@ -261,7 +261,7 @@ final class MsgApi(
       .list(msgsPerPage.value)
       .map:
         _.flatMap: doc =>
-          doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) so doc.asOpt[Msg]
+          doc.getAsOpt[List[UserId]]("del").forall(!_.has(me.id)) so doc.asOpt[Msg]
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
     colls.thread

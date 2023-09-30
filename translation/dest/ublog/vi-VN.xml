@@ -24,7 +24,7 @@
   <string name="thisIsADraft">Nó là một bản nháp</string>
   <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
   <string name="noPostsInThisBlogYet">Chưa có bài viết nào trong blog này.</string>
-  <string name="noDrafts">Không có bản nháp nào để hiển thị</string>
+  <string name="noDrafts">Không có bài nháp nào để hiển thị.</string>
   <string name="latestBlogPosts">Các bài blog mới nhất</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">Xem tất cả %s bài đăng</item>

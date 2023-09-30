@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Ekipp</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Ekippen</string>
+  <string name="teams">Ekippen</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Member</item>
     <item quantity="other">%s Memberen</item>

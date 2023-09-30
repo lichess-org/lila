@@ -127,7 +127,7 @@ function buttons(root: AnalyseCtrl): VNode {
       }),
       !ctrl.relay
         ? h('span.help', {
-            attrs: { title: 'Need help? Get the tour!', 'data-icon': licon.InfoCircle },
+            attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
             hook: bind('click', ctrl.startTour),
           })
         : null,
@@ -147,7 +147,7 @@ function metadata(ctrl: StudyCtrl): VNode {
         {
           class: { liked: d.liked },
           attrs: {
-            'data-icon': d.liked ? licon.Heart : licon.HeartOutline,
+            ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
             title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
@@ -189,7 +189,7 @@ export function side(ctrl: StudyCtrl): VNode {
           ctrl.redraw,
         ),
         attrs: {
-          'data-icon': licon.RadioTower,
+          ...dataIcon(licon.RadioTower),
           role: 'tab',
         },
       },
@@ -212,14 +212,14 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
     h('span.search.narrow', {
       attrs: {
-        'data-icon': licon.Search,
+        ...dataIcon(licon.Search),
         title: 'Search',
       },
       hook: bind('click', () => ctrl.search.open(true)),
     }),
     ctrl.members.isOwner()
       ? h('span.more.narrow', {
-          attrs: { 'data-icon': licon.Hamburger },
+          attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
           hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
         })
       : null,

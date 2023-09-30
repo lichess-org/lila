@@ -574,8 +574,6 @@
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="oneUrlPerLine">En URL na vrstico.</string>
   <string name="inlineNotation">Dodatna notacija</string>
-  <string name="savingMoves">Začasno shranjevanje potez</string>
-  <string name="savingMovesHelp">Vaše poteze vedno shranjujemo v predpomnilnik vašega brskalnika.</string>
   <string name="makeAStudy">Za varno shranjevanje in deljenje razmislite o tem, da bi naredili študijo.</string>
   <string name="clearSavedMoves">Počisti poteze</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>

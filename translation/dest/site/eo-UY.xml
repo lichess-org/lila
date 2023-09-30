@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
-  <string name="savingMoves">Dumtempa konservejo de movoj</string>
-  <string name="savingMovesHelp">Ni ĉiam konservas viajn variojn en via retumila kaŝmemoro.</string>
   <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
   <string name="clearSavedMoves">Forigi movojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>

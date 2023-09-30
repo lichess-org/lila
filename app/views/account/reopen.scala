@@ -43,7 +43,7 @@ object reopen:
       title = trans.reopenYourAccount.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark))(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
         p(trans.sentEmailWithLink()),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

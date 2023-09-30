@@ -508,8 +508,6 @@
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
-  <string name="savingMoves">دخیره سازی حرکت موقت</string>
-  <string name="savingMovesHelp">ما همیشه تغییرات شما را در حافظه پنهان مرورگر شما ذخیره می کنیم.</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک گذاری، ساختن یک پژوهش را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>

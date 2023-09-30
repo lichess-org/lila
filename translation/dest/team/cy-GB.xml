@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Tîm</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Tîmau</string>
+  <string name="teams">Tîmau</string>
   <plurals name="nbMembers">
     <item quantity="zero">%s o aelodau</item>
     <item quantity="one">%s o aelodau</item>

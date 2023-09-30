@@ -43,11 +43,9 @@ final class Main(
     }
 
   def webmasters = Open:
-    pageHit
     Ok.page(html.site.page.webmasters)
 
   def lag = Open:
-    pageHit
     Ok.page(html.site.lag())
 
   def mobile     = Open(serveMobile)
@@ -66,7 +64,6 @@ final class Main(
       html.mobile(doc, resolver)
 
   def dailyPuzzleSlackApp = Open:
-    pageHit
     Ok.page(html.site.dailyPuzzleSlackApp())
 
   def jslog(id: GameFullId) = Open:
