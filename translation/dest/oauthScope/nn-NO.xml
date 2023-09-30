@@ -31,4 +31,5 @@
   <string name="engineWrite">Opprett og oppdater ekstern motor</string>
   <string name="webLogin">Opprett autentiserte nettstadsesjonar (gjev full tilgjenge!)</string>
   <string name="webMod">Bruk moderatorverktøy (som er innanfor dine tilgangsrettar)</string>
+  <string name="personalAccessTokens">Personlege API-tilgangsnøklar</string>
 </resources>
