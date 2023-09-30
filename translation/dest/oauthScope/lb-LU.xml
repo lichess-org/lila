@@ -26,4 +26,7 @@
   <string name="botPlay">Partië mat der Bot-API spillen</string>
   <string name="engineRead">Deng extern Engines weisen a benotzen</string>
   <string name="engineWrite">Extern Engines kreéieren an aktualiséieren</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Fir d\'lescht benotzt %s</string>
+  <string name="alreadyHavePlayedGames">Du hues scho Partië gespillt!</string>
+  <string name="attentionOfDevelopers">Bemierkung just fir d\'Entwéckler:</string>
 </resources>
