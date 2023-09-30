@@ -2498,7 +2498,6 @@ object I18nKeys:
     val `personalTokenAppExample` = I18nKey("oauthScope:personalTokenAppExample")
     val `apiDocumentation` = I18nKey("oauthScope:apiDocumentation")
     val `newToken` = I18nKey("oauthScope:newToken")
-    val `deleteAccessToken` = I18nKey("oauthScope:deleteAccessToken")
     val `apiAccessTokens` = I18nKey("oauthScope:apiAccessTokens")
     val `created` = I18nKey("oauthScope:created")
     val `lastUsed` = I18nKey("oauthScope:lastUsed")

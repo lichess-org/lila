@@ -41,7 +41,6 @@
   <string name="personalTokenAppExample">personal token app example</string>
   <string name="apiDocumentation">API documentation</string>
   <string name="newToken">New access token</string>
-  <string name="deleteAccessToken">Delete this access token</string>
   <string name="apiAccessTokens">API access tokens</string>
   <string name="created">Created %s</string>
   <string name="lastUsed">Last used %s</string>
