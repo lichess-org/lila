@@ -22,4 +22,8 @@
   <string name="teamRead">Privat-Ekippen-Informatioune liesen</string>
   <string name="teamWrite">Bei Ekippe bäitrieden a se verloossen</string>
   <string name="msgWrite">E private Message un aner Spiller schécken</string>
+  <string name="boardPlay">Partië mat der Briet-API spillen</string>
+  <string name="botPlay">Partië mat der Bot-API spillen</string>
+  <string name="engineRead">Deng extern Engines weisen a benotzen</string>
+  <string name="engineWrite">Extern Engines kreéieren an aktualiséieren</string>
 </resources>
