@@ -869,7 +869,7 @@ object I18nKeys:
   val `playInTournaments` = I18nKey("playInTournaments")
   val `learnFromXAndY` = I18nKey("learnFromXAndY")
   val `configureLichess` = I18nKey("configureLichess")
-  val `explorerTheSiteAndHaveFun` = I18nKey("explorerTheSiteAndHaveFun")
+  val `exploreTheSiteAndHaveFun` = I18nKey("exploreTheSiteAndHaveFun")
 
   object arena:
     val `arenaTournaments` = I18nKey("arena:arenaTournaments")
