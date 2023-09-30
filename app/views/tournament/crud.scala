@@ -216,7 +216,7 @@ object crud:
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := licon.Eye, title := "View on site"))
               )
             },
-            pagerNextTable(tours, np => routes.TournamentCrud.index(np).url)
+            pagerNextTable(tours, routes.TournamentCrud.index(_).url)
           )
         )
       )
