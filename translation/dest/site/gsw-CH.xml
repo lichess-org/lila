@@ -32,7 +32,7 @@
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variante ändet</string>
   <string name="newOpponent">En neue Gägner</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpiil mit dir schpille</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpil mit dir schpille</string>
   <string name="joinTheGame">Tritt de Partie bi</string>
   <string name="whitePlays">Wiss am Zug</string>
   <string name="blackPlays">Schwarz isch am Zug</string>
@@ -86,7 +86,7 @@
   <string name="averageRatingX">Durchschnittlichi Wertigszahl: %s</string>
   <string name="recentGames">Aktuelli Partie</string>
   <string name="topGames">Beschti-Partie</string>
-  <string name="masterDbExplanation">2 Millione OTB Schpiel vu %1$s+ FIDE-gwertete Schpiller vu %2$s bis %3$s</string>
+  <string name="masterDbExplanation">2 Millione OTB Schpil vu %1$s+ FIDE-gwertete Schpiller vu %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt i %s Halbzug</item>
     <item quantity="other">Matt i %s Halbzüg</item>
@@ -462,7 +462,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="advancedSettings">Erwiterti Ischtellige</string>
   <string name="safeTournamentName">Wähl en möglichscht sichere Name fürs Turnier.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
-  <string name="emptyTournamentName">Frei la zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
+  <string name="emptyTournamentName">Frei la zum s\'Turnier nach eme namhafte Schachschpiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
   <string name="showAdvancedSettings">Zeig die erwiterete Ischtellige</string>
@@ -641,7 +641,7 @@ zum bewise dass du en Mänsch bisch.</string>
     <item quantity="one">%s Forum-Bitrag</item>
     <item quantity="other">%s Forum-Biträg</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Gsamti-Spillzit: %s</string>
+  <string name="tpTimeSpentPlaying">Gsamti-Schpillzit: %s</string>
   <string name="watchGames">Partie zueluege</string>
   <string name="tpTimeSpentOnTV">Gsamtzit uf Lichess TV: %s</string>
   <string name="watch">Zueluege</string>
@@ -863,7 +863,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="potentialProblem">Wänn es möglichs Problem entdeckt wird, zeiged mir die Mäldig.</string>
   <string name="howToAvoidThis">Wie chasch das verhindere?</string>
   <string name="playEveryGame">Schpill jedi Partie, wo du afangsch, au fertig.</string>
-  <string name="tryToWin">Probier jedes Spil z\'günne (oder mindeschtens es Remis z\'erreiche).</string>
+  <string name="tryToWin">Probier jedes Schpil z\'günne (oder mindeschtens es Remis z\'erreiche).</string>
   <string name="resignLostGames">Gib es verlores Schpiel uf (lass nöd eifach d\'Uhr ablaufe).</string>
   <string name="temporaryInconvenience">Mir entschuldiged eus für die vorübergehende Unannehmlichkeite,</string>
   <string name="wishYouGreatGames">und wünsched dir tolli Schpiel uf lichess.org.</string>
@@ -945,7 +945,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="simulDescription">Simultanschach Beschribig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
-  <string name="embedsAvailable">Füeg zum Ibette e Spil-URL oder e Schtudiekapitel-URL i.</string>
+  <string name="embedsAvailable">Füeg zum Ibette e Schpil-URL oder e Schtudiekapitel-URL i.</string>
   <string name="inYourLocalTimezone">I dinere lokale Zitzone</string>
   <string name="tournChat">Turnier Chat</string>
   <string name="noChat">Kein Chat</string>
@@ -955,7 +955,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="mouseTricks">Tricks mit de Muus</string>
   <string name="toggleLocalAnalysis">Lokali Computer-Analyse a-/abschalte</string>
   <string name="toggleAllAnalysis">Alli Computer-Analyse a-/abschalte</string>
-  <string name="playComputerMove">Spill de bescht Computerzug</string>
+  <string name="playComputerMove">Schpill de bescht Computerzug</string>
   <string name="analysisOptions">Analyse Möglichkeite</string>
   <string name="focusChat">Chat fokussiere</string>
   <string name="showHelpDialog">Zeig de Hilfsdialog</string>
