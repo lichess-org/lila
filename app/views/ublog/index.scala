@@ -45,7 +45,7 @@ object index:
     }
 
   def friends(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = trans.ublog.friendsBlog.txt(),
+    title = trans.ublog.friendBlog.txt(),
     posts = posts,
     menuItem = "friends",
     route = routes.Ublog.friends,
