@@ -38,7 +38,7 @@ final class TournamentCrud(env: Env) extends LilaController(env):
     crud.createForm
       .bindFromRequest()
       .fold(
-        err => BadRequest.page(html.tournament.crud.create(err.pp)),
+        err => BadRequest.page(html.tournament.crud.create(err)),
         data =>
           crud.create(data) map { tour =>
             Redirect {
