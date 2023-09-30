@@ -155,69 +155,33 @@ object Tournament:
 
   val minPlayers = 2
 
-  // TODO remove/merge with `fromSetup`
-  def make(
-      by: UserId,
-      name: Option[String],
-      clock: ClockConfig,
-      minutes: Int,
-      variant: chess.variant.Variant,
-      position: Option[Fen.Opening],
-      mode: Mode,
-      password: Option[String],
-      waitMinutes: Int,
-      startDate: Option[Instant],
-      berserkable: Boolean,
-      streakable: Boolean,
-      teamBattle: Option[TeamBattle],
-      description: Option[String],
-      hasChat: Boolean
-  ) =
+  def fromSetup(setup: TournamentSetup)(using me: Me) =
     Tournament(
       id = makeId,
-      name = name | position.match
+      name = setup.name | setup.realPosition.match
         case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
         case None      => GreatPlayer.randomName
       ,
       status = Status.Created,
-      clock = clock,
-      minutes = minutes,
-      createdBy = by,
-      createdAt = nowInstant,
-      nbPlayers = 0,
-      variant = variant,
-      position = position,
-      mode = mode,
-      password = password,
-      conditions = TournamentCondition.All.empty,
-      teamBattle = teamBattle,
-      noBerserk = !berserkable,
-      noStreak = !streakable,
-      schedule = None,
-      startsAt = startDate | nowInstant.plusMinutes(waitMinutes),
-      description = description,
-      hasChat = hasChat
-    )
-
-  def fromSetup(setup: TournamentSetup)(using me: Me) =
-    make(
-      by = me.userId,
-      name = setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
-      waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
-      startDate = setup.startDate,
-      mode = setup.realMode,
-      password = setup.password,
+      createdBy = me.userId,
+      createdAt = nowInstant,
+      nbPlayers = 0,
       variant = setup.realVariant,
       position = setup.realPosition,
-      berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
-      streakable = setup.streakable | true,
+      mode = setup.realMode,
+      password = setup.password,
+      conditions = setup.conditions,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
+      noBerserk = !((setup.berserkable | true) && !setup.timeControlPreventsBerserk),
+      noStreak = !(setup.streakable | true),
+      schedule = None,
+      startsAt =
+        setup.startDate | nowInstant.plusMinutes(setup.waitMinutes | TournamentForm.waitMinuteDefault),
       description = setup.description,
       hasChat = setup.hasChat | true
     )
-      .copy(conditions = setup.conditions)
 
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
