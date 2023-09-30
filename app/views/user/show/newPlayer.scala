@@ -39,6 +39,7 @@ object newPlayer:
         li(trans.learnFromXAndY(
           a(href := routes.Study.allDefault(1))(trans.toStudy()),
           a(href := routes.Video.index)(trans.learn.videos())
+          )
         ),
         li(a(href := routes.Pref.form("game-display"))(trans.configureLichess())),
         li(trans.exploreTheSiteAndHaveFun())
