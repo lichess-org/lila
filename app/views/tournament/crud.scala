@@ -31,6 +31,7 @@ object crud:
     }
 
   def create(form: Form[?])(using PageContext) =
+    given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
     layout(
       title = "New tournament",
       css = "mod.form"
@@ -97,6 +98,7 @@ object crud:
     )
 
   private def inForm(form: Form[?], tour: Option[Tournament])(using PageContext) =
+    given prefix: tournament.FormPrefix = tournament.FormPrefix.empty // DEBUG remove afterwards
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
