@@ -136,26 +136,42 @@ object CrudForm:
   ):
 
     def toTour(using Me) =
-      Tournament
-        .fromSetup(setup)
-        .copy(
-          id = id,
-          spotlight = Spotlight(
-            headline = headline,
-            description = "", // BC TODO, remove useless field
-            homepageHours = homepageHours.some.filterNot(0 ==),
-            iconFont = none,
-            iconImg = image.some.filter(_.nonEmpty)
-          ).some
-        )
+      withSchedule(
+        Tournament
+          .fromSetup(setup)
+          .copy(
+            id = id,
+            spotlight = Spotlight(
+              headline = headline,
+              description = "", // BC TODO, remove useless field
+              homepageHours = homepageHours.some.filterNot(0 ==),
+              iconFont = none,
+              iconImg = image.some.filter(_.nonEmpty)
+            ).some
+          )
+      )
     def update(old: Tournament) =
-      setup
-        .updateAll(old)
-        .copy(spotlight = Spotlight(
-            headline = headline,
-            description = ~old.spotlight.map(_.description),
-            homepageHours = homepageHours.some.filterNot(0 ==),
-            iconFont = none,
-            iconImg = image.some.filter(_.nonEmpty)
-          ).some
-        )
+      withSchedule(
+        setup
+          .updateAll(old)
+          .copy(spotlight =
+            Spotlight(
+              headline = headline,
+              description = ~old.spotlight.map(_.description),
+              homepageHours = homepageHours.some.filterNot(0 ==),
+              iconFont = none,
+              iconImg = image.some.filter(_.nonEmpty)
+            ).some
+          )
+      )
+
+    private def withSchedule(tour: Tournament) =
+      tour.copy(
+        schedule = Schedule(
+          freq = Schedule.Freq.Unique,
+          speed = Schedule.Speed.fromClock(tour.clock),
+          variant = tour.variant,
+          position = tour.position,
+          at = tour.startsAt.dateTime
+        ).some
+      )
