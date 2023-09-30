@@ -206,6 +206,7 @@ private[tournament] case class TournamentSetup(
           if old.isCreated || old.position.isDefined then realPosition
           else old.position
         },
+        
         noBerserk = !isBerserkable,
         noStreak = !(~streakable),
         teamBattle = old.teamBattle,

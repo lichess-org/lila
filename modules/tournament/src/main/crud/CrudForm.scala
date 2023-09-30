@@ -151,9 +151,9 @@ object CrudForm:
     def update(old: Tournament) =
       setup
         .updateAll(old)
-        .copy(spotlight =
-          Spotlight(
+        .copy(spotlight = Spotlight(
             headline = headline,
+            description = ~old.spotlight.map(_.description),
             homepageHours = homepageHours.some.filterNot(0 ==),
             iconFont = none,
             iconImg = image.some.filter(_.nonEmpty)

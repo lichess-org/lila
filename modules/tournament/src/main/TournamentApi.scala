@@ -77,7 +77,7 @@ final class TournamentApi(
   def apiUpdate(old: Tournament, data: TournamentSetup): Fu[Tournament] =
     updateTour(old, data, data updatePresent old)
 
-  private def updateTour(old: Tournament, data: TournamentSetup, tour: Tournament): Fu[Tournament] =
+  private[tournament] def updateTour(old: Tournament, data: TournamentSetup, tour: Tournament): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
