@@ -33,8 +33,12 @@
   <string name="castlingRules">Vergewësser dech, dass du d\'Rochadereegele verstees</string>
   <string name="tryCastling">Probéier dëst klengt, interaktiivt Spill aus fir d\'Rochade ze üben</string>
   <string name="insufficientMaterial">Ongenügend Mattmaterial</string>
+  <string name="fideMate">Laut de FIDE-Schachreegelen §6.9 ass d\'Partie kee Remis, wann ee Schachmatt duerch iergendeng Sequenz vu legalen Zich méiglech ass</string>
+  <string name="knightMate">Et ass méiglech just mat engem Sprénger oder engem Leefer schachmatt ze setzen, wann de Géigner méi wéi just ee Kinnek um Briet huet.</string>
   <string name="noRatingPoints">Keng Wäertungspunkten goufen verdeelt</string>
+  <string name="ratedGame">Vergewësser dech, dass du eng gewäerte Partie gespillt hues. Ongewäerte Partië beaflossen d\'Wäertung net.</string>
   <string name="errorPage">Feelersäit</string>
+  <string name="reportErrorPage">Wann s du op eng Feelersäit gestouss bass, kanns du se mellen:</string>
   <string name="wantBroadcastTournament">Ech wëll een Turnéier iwwerdroen</string>
   <string name="banAppeal">Asproch géint een Bann oder eng IP Restriktioun</string>
   <string name="engineAppeal">Engine- oder Bedruchsmarkéierung</string>
