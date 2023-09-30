@@ -5,4 +5,13 @@
   <string name="dgtBoardRequirements">Krav til DGT-bræt</string>
   <string name="dgtBoardLimitations">DGT-bræt begrænsninger</string>
   <string name="thisPageAllowsConnectingDgtBoard">Denne side giver dig mulighed for at forbinde dit DGT-bræt til Lichess og bruge det til at spille partier.</string>
+  <string name="textToSpeech">Tekst til tale</string>
+  <string name="announceMoveFormat">Annoncér træk-format</string>
+  <string name="moveFormatDescription">På Lichess er SAN standarden såsom \"Nf6\". UCI er det almindelige på skakmotorer såsom \"g8f6\".</string>
+  <string name="keywords">Nøgleord</string>
+  <string name="keywordFormatDescription">Nøgleord er i JSON-format. De bruges til at oversætte træk og resultater til dit sprog. Standarden er engelsk, men du er velkommen til at ændre det.</string>
+  <string name="debug">Fejlsøg</string>
+  <string name="toSeeConsoleMessage">Hvis du vil se konsolbesked, skal du trykke på Command + Option + C (Mac) eller Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="playWithDgtBoard">Spil med et DGT-bræt</string>
+  <string name="configure">Konfigurér</string>
 </resources>
