@@ -31,4 +31,7 @@
   <string name="engineWrite">Creează și actualizează motorul extern</string>
   <string name="webLogin">Creează sesiuni autentificate pentru website (acordă acces deplin!)</string>
   <string name="webMod">Utilizează instrumente de moderator (în limitele permisiunilor dumneavoastră)</string>
+  <string name="apiDocumentation">Documentație API</string>
+  <string name="created">Creat %s</string>
+  <string name="forExample">De exemplu: %s</string>
 </resources>
