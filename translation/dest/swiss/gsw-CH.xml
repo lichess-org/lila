@@ -80,7 +80,7 @@ En Organisator vume \"Schweizer Turnier\" chann aber entscheide, ob er so Schpil
 mit 11 Runde no ischtige vor Rundi 6 afangt oder bi 12 Runde, bevor Rundi 7 schtartet. 
 Jedem \"Schpatischtiger\" wird en halbe Punkt gschänkt, obwohl er mehreri Runde verpasst hät.</string>
   <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena Turnier ersetze?</string>
-  <string name="willSwissReplaceArenasA">Nei - sie sind nur zuesätzlichi Spielmöglichkeite</string>
+  <string name="willSwissReplaceArenasA">Nei - es isch nur e zuesätzlichi Schpillmöglichkeit</string>
   <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
   <string name="roundRobinA">Mir würded das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
 De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorzitig verlöhnd. 
@@ -111,8 +111,8 @@ aber unbekannti Turnierlängi</string>
 mit ähnlichem Rang</string>
   <string name="pairingSystemSwiss">Beschti Paarig gemäss Punktezahl und Finwertig</string>
   <string name="pairingWaitTime">Wartezit uf d\'Paarig</string>
-  <string name="pairingWaitTimeArena">Churz - wartet nöd uf all Spiller</string>
-  <string name="pairingWaitTimeSwiss">Lang - wartet uf all Spiller</string>
+  <string name="pairingWaitTimeArena">Schnäll: wartet nöd uf alli Schpiller</string>
+  <string name="pairingWaitTimeSwiss">Langsam: wartet uf alli Schpiller</string>
   <string name="identicalPairing">Idäntischi Paarig</string>
   <string name="possibleButNotConsecutive">Möglich, aber nöd nachenand</string>
   <string name="identicalForbidden">Verbote</string>
