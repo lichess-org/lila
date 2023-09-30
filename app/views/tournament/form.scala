@@ -11,6 +11,7 @@ import lila.tournament.{ Tournament, TournamentForm }
 import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
+  given prefix: FormPrefix = FormPrefix.empty
 
   def create(form: Form[?], leaderTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
@@ -18,7 +19,6 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ) {
-      given prefix: FormPrefix = FormPrefix.empty
       val fields               = TourFields(form, none)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -99,14 +99,12 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ) {
-      given prefix: FormPrefix = FormPrefix.empty
       val fields               = TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
-            setupEdit(tour, form, myTeams)
-          ),
+            setupEdit(tour, form, myTeams)),
           hr,
           br,
           br,
