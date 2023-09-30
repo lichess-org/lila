@@ -17,29 +17,10 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
   export tournamentRepo.{ uniqueById as one }
 
-  def editForm(tour: Tournament) =
-    crudForm(tour.some) fill CrudForm.Data(
-      id = tour.id,
-      name = tour.name,
-      homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
-      clockTime = tour.clock.limitInMinutes,
-      clockIncrement = tour.clock.incrementSeconds,
-      minutes = tour.minutes,
-      variant = tour.variant.id,
-      position = tour.position.map(_ into Fen.Epd),
-      date = tour.startsAt.dateTime,
-      image = ~tour.spotlight.flatMap(_.iconImg),
-      headline = tour.spotlight.so(_.headline),
-      description = tour.spotlight.so(_.description),
-      conditions = tour.conditions,
-      berserkable = !tour.noBerserk,
-      rated = tour.isRated,
-      streakable = tour.streakable,
-      teamBattle = tour.isTeamBattle,
-      hasChat = tour.hasChat
-    )
+  def editForm(tour: Tournament)(using Me) =
+    crudForm.editForm(tour)
 
-  def update(old: Tournament, data: CrudForm.Data) =
+  def update(old: Tournament, data: CrudForm.NewData) =
     tournamentRepo update updateTour(old, data) void
 
   def createForm(using Me) = crudForm.newForm(none)

@@ -148,3 +148,14 @@ object CrudForm:
             iconImg = image.some.filter(_.nonEmpty)
           ).some
         )
+    def update(old: Tournament) =
+      setup
+        .updateAll(old)
+        .copy(spotlight =
+          Spotlight(
+            headline = headline,
+            homepageHours = homepageHours.some.filterNot(0 ==),
+            iconFont = none,
+            iconImg = image.some.filter(_.nonEmpty)
+          ).some
+        )
