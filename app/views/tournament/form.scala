@@ -34,7 +34,7 @@ object form:
                 href     := routes.ContentPage.loneBookmark("event-tips")
               )(trans.ourEventTips())
             ),
-            setupForm(form, leaderTeams),
+            setupCreate(form, leaderTeams),
             form3.actions(
               a(href := routes.Tournament.home)(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
@@ -45,7 +45,7 @@ object form:
       )
     }
 
-  private[tournament] def setupForm(form: Form[?], leaderTeams: List[LeaderTeam])(using
+  private[tournament] def setupCreate(form: Form[?], leaderTeams: List[LeaderTeam])(using
       PageContext,
       FormPrefix
   ) =
@@ -67,6 +67,32 @@ object form:
       fields.isTeamBattle option form3.hidden(form("teamBattleByTeam"))
     )
 
+  private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using
+      PageContext,
+      FormPrefix
+  ) =
+    val fields = TourFields(form, tour.some)
+    frag(
+      form3.split(fields.name, tour.isCreated option fields.startDate),
+      form3.split(fields.rated, fields.variant),
+      fields.clock,
+      form3.split(
+        if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
+        else
+          form3.group(form("minutes"), trans.duration(), half = true)(
+            form3.input(_)(tpe := "number")
+          )
+      ),
+      form3.split(fields.description(true), fields.startPosition),
+      form3.globalError(form),
+      form3.fieldset(trans.advancedSettings())(cls := "conditions")(
+        fields.advancedSettings,
+        div(cls := "form")(
+          conditionFields(form, fields, teams = myTeams, tour = tour.some)
+        )
+      )
+    )
+
   def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
       title = tour.name(),
@@ -79,28 +105,7 @@ object form:
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
-            form3.split(fields.name, tour.isCreated option fields.startDate),
-            form3.split(fields.rated, fields.variant),
-            fields.clock,
-            form3.split(
-              if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
-              else
-                form3.group(form("minutes"), trans.duration(), half = true)(
-                  form3.input(_)(tpe := "number")
-                )
-            ),
-            form3.split(fields.description(true), fields.startPosition),
-            form3.globalError(form),
-            form3.fieldset(trans.advancedSettings())(cls := "conditions")(
-              fields.advancedSettings,
-              div(cls := "form")(
-                conditionFields(form, fields, teams = myTeams, tour = tour.some)
-              )
-            ),
-            form3.actions(
-              a(href := routes.Tournament.show(tour.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = licon.Trophy.some)
-            )
+            setupEdit(tour, form, myTeams)
           ),
           hr,
           br,
@@ -302,4 +307,6 @@ object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:
   def make(s: String) = FormPrefix(s.some)
 
 extension (f: Form[?])
-  def prefix(name: String)(using prefixOpt: FormPrefix) = f(prefixOpt.fold(name)(prefix => s"$prefix.$name".pp))
+  def prefix(name: String)(using prefixOpt: FormPrefix) = f(
+    prefixOpt.fold(name)(prefix => s"$prefix.$name".pp)
+  )

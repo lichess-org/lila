@@ -12,6 +12,7 @@ import lila.tournament.Tournament
 import lila.gathering.GatheringClock
 
 object crud:
+  given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
@@ -31,7 +32,6 @@ object crud:
     }
 
   def create(form: Form[?])(using PageContext) =
-    given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
     layout(
       title = "New tournament",
       css = "mod.form"
@@ -40,7 +40,7 @@ object crud:
         h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
           spotlight(form, none),
-          tournament.form.setupForm(form, Nil),
+          tournament.form.setupCreate(form, Nil),
           form3.action(form3.submit(trans.apply()))
         )
       )
@@ -65,7 +65,11 @@ object crud:
           )(form3.submit("Clone", licon.Trophy.some)(cls := "button-green button-empty"))
         ),
         standardFlash,
-        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form, tour.some))
+        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
+          spotlight(form, tour.some),
+          tournament.form.setupEdit(tour, form, Nil),
+          form3.action(form3.submit(trans.apply()))
+        )
       )
     }
 
