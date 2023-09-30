@@ -46,36 +46,3 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
       currentPage = page,
       maxPerPage = MaxPerPage(20)
     )
-
-  // private def updateTour(tour: Tournament, data: CrudForm.Data) =
-  //   import data.*
-  //   val clock = Clock.Config(Clock.LimitSeconds((clockTime * 60).toInt), clockIncrement)
-  //   tour.copy(
-  //     name = name,
-  //     clock = clock,
-  //     minutes = minutes,
-  //     variant = realVariant,
-  //     mode = if data.rated then Mode.Rated else Mode.Casual,
-  //     startsAt = date.instant,
-  //     schedule = Schedule(
-  //       freq = Schedule.Freq.Unique,
-  //       speed = Schedule.Speed.fromClock(clock),
-  //       variant = realVariant,
-  //       position = realPosition,
-  //       at = date
-  //     ).some,
-  //     spotlight = Spotlight(
-  //       headline = headline,
-  //       description = description,
-  //       homepageHours = homepageHours.some.filterNot(0 ==),
-  //       iconFont = none,
-  //       iconImg = image.some.filter(_.nonEmpty)
-  //     ).some,
-  //     position = data.realPosition,
-  //     noBerserk = !data.berserkable,
-  //     noStreak = !data.streakable,
-  //     teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
-  //     hasChat = data.hasChat,
-  //     conditions = data.conditions
-  //       .copy(teamMember = tour.conditions.teamMember) // can't change that
-  //   )
