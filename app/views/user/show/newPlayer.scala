@@ -11,13 +11,13 @@ object newPlayer:
 
   def apply(u: User)(implicit lang: Lang) =
     div(cls := "new-player")(
-      h2(trans.welcomeToX(lichess.org)),
+      h2(trans.welcomeToX("lichess.org")),
       p(
         trans.thisIsYourProfilePage(),
         u.profile.isEmpty option frag(
           br,
           trans.wouldYouLikeToX(
-            a(href := routes.Account.profile)(trans.improveIt())
+          a(href := routes.Account.profile)(trans.improveIt())
           )
         )
       ),
@@ -26,7 +26,6 @@ object newPlayer:
         else
           trans.enabledKidModeSuggestion(
           a(href := routes.Account.kid)(trans.kidMode())
-          )
         )
       ),
       p(trans.whatNowSuggestions()),
