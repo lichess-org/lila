@@ -72,14 +72,14 @@ final class TournamentApi(
     } inject tour
 
   def update(old: Tournament, data: TournamentSetup): Fu[Tournament] =
-    updateTour(old, data, data updateAll old)
+    updateTour(old, data updateAll old)
 
   def apiUpdate(old: Tournament, data: TournamentSetup): Fu[Tournament] =
-    updateTour(old, data, data updatePresent old)
+    updateTour(old, data updatePresent old)
 
-  private def updateTour(old: Tournament, data: TournamentSetup, tour: Tournament): Fu[Tournament] =
+  private def updateTour(old: Tournament, tour: Tournament): Fu[Tournament] =
     val finalized = tour.copy(
-      conditions = data.conditions
+      conditions = tour.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
       startsAt = if old.isCreated then tour.startsAt else old.startsAt,
       mode = if tour.position.isDefined then chess.Mode.Casual else tour.mode
