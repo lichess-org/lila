@@ -78,8 +78,8 @@ export function initModule(ctrl: AnalyseController) {
         });
       return h('main.analyse', [
         h('div.nvui', [
-          h('h1', 'Textual representation'),
-          h('h2', 'Game info'),
+          h('h1', ctrl.trans.noarg('textualRepresentation')),
+          h('h2', ctrl.trans.noarg('gameInfo')),
           ...['white', 'black'].map((color: Color) =>
             h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
           ),
@@ -111,9 +111,9 @@ export function initModule(ctrl: AnalyseController) {
                 explorerView(ctrl),
               ]
             : []),
-          h('h2', 'Pieces'),
+          h('h2', ctrl.trans.noarg('pieces')),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-          h('h2', 'Current position'),
+          h('h2', ctrl.trans.noarg('currentPosition')),
           h(
             'p.position.lastMove',
             {
@@ -125,7 +125,7 @@ export function initModule(ctrl: AnalyseController) {
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
-          h('h2', 'Move form'),
+          h('h2', ctrl.trans.noarg('moveForm')),
           h(
             'form',
             {
@@ -155,11 +155,11 @@ export function initModule(ctrl: AnalyseController) {
           notify.render(),
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
-          h('h2', 'Computer analysis'),
+          h('h2', ctrl.trans.noarg('computerAnalysis')),
           cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
-          h('h2', 'Board'),
+          h('h2', ctrl.trans.noarg('board')),
           h(
             'div.board',
             {
@@ -214,29 +214,29 @@ export function initModule(ctrl: AnalyseController) {
               },
             },
           }),
-          h('h2', 'Settings'),
-          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board settings'),
-          h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-          h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-          h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-          h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          h('h2', 'Keyboard shortcuts'),
+          h('h2', ctrl.trans.noarg('settings')),
+          h('label', [ctrl.trans.noarg('moveNotation'), renderSetting(moveStyle, ctrl.redraw)]),
+          h('h3', ctrl.trans.noarg('boardSettings')),
+          h('label', [ctrl.trans.noarg('pieceStyle'), renderSetting(pieceStyle, ctrl.redraw)]),
+          h('label', [ctrl.trans.noarg('piecePrefixStyle'), renderSetting(prefixStyle, ctrl.redraw)]),
+          h('label', [ctrl.trans.noarg('showPosition'), renderSetting(positionStyle, ctrl.redraw)]),
+          h('label', [ctrl.trans.noarg('boardLayout'), renderSetting(boardStyle, ctrl.redraw)]),
+          h('h2', ctrl.trans.noarg('keyboardShortcuts')),
           h('p', [
             'Use arrow keys to navigate in the game.',
             h('br'),
-            'l: toggle local computer analysis',
+            'l:' + ctrl.trans.noarg('toggleLocalAnalysis'),
             h('br'),
-            'z: toggle all computer analysis',
+            'z:' + ctrl.trans.noarg('toggleAllAnalysis'),
             h('br'),
-            'space: play best computer move',
+            'space:' + ctrl.trans.noarg('playBestComputerEvaluation'),
             h('br'),
-            'c: announce computer evaluation',
+            'c:' + ctrl.trans.noarg('announceComputerEvaluation'),
             h('br'),
-            'x: show threat',
+            'x:' + ctrl.trans.noarg('showThreat'),
             h('br'),
           ]),
-          h('h2', 'Board mode commands'),
+          h('h2', ctrl.trans.noarg('boardModeCommands')),
           h('p', [
             'Use these commands when focused on the board itself.',
             h('br'),
