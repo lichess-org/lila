@@ -6,7 +6,7 @@
   <string name="tokenDescription">Description du jeton</string>
   <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
   <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
-  <string name="doNotShareIt">Le jeton donne accès à votre compte. Ne le partagez PAS avec personne!</string>
+  <string name="doNotShareIt">Le jeton donnera l’accès à votre compte. Ne le partagez PAS avec qui que ce soit !</string>
   <string name="copyTokenNow">Assurez-vous de copier votre nouveau jeton d\'accès personnel immédiatement. Vous ne pourrez pas le voir à nouveau !</string>
   <string name="preferenceRead">Lire les préférences</string>
   <string name="preferenceWrite">Écrire les préférences</string>
