@@ -18,14 +18,14 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
   export tournamentRepo.{ uniqueById as one }
 
   def editForm(tour: Tournament)(using Me) =
-    crudForm.editForm(tour)
+    crudForm.edit(tour)
 
-  def update(old: Tournament, data: CrudForm.NewData) =
+  def update(old: Tournament, data: CrudForm.Data) =
     tourApi.updateTour(old, data.setup, data.update(old)).void
 
-  def createForm(using Me) = crudForm.newForm(none)
+  def createForm(using Me) = crudForm(none)
 
-  def create(data: CrudForm.NewData)(using Me): Fu[Tournament] =
+  def create(data: CrudForm.Data)(using Me): Fu[Tournament] =
     val tour = data.toTour
     tournamentRepo insert tour inject tour
 
