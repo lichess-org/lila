@@ -11,9 +11,13 @@ object AnalyseBsonHandlers:
     def reads(r: BSON.Reader) =
       val startPly = Ply(r intD "ply")
       val raw      = r str "data"
+      def id =
+        def getId[Id: BSONReader]: Id = r.get[Id]("_id")
+        r.getO[StudyId]("studyId") match
+          case Some(studyId) => Analysis.Id(studyId, getId[StudyChapterId])
+          case None          => Analysis.Id(getId[GameId])
       Analysis(
-        id = r.get[Analysis.Id]("_id"),
-        studyId = r.getO[StudyId]("studyId"),
+        id = id,
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
         date = r date "date",
@@ -21,12 +25,16 @@ object AnalyseBsonHandlers:
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
-        "_id"     -> a.id,
+        "_id"     -> a.id.id,
         "studyId" -> a.studyId,
         "data"    -> Info.encodeList(a.infos),
         "ply"     -> w.intO(a.startPly.value),
         "date"    -> w.date(a.date),
         "fk"      -> a.fk
       )
+
+  given BSONWriter[Analysis.Id] with
+    def writeTry(id: Analysis.Id) =
+      BSONWriter.stringWriter.writeTry(id.id)
 
   given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler
