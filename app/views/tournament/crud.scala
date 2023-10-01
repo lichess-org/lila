@@ -40,6 +40,7 @@ object crud:
         h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
           spotlight(form, none),
+          errMsg(form("setup")),
           tournament.form.setupCreate(form, Nil),
           form3.action(form3.submit(trans.apply()))
         )
@@ -67,6 +68,7 @@ object crud:
         standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
           spotlight(form, tour.some),
+          errMsg(form("setup")),
           tournament.form.setupEdit(tour, form, Nil),
           form3.action(form3.submit(trans.apply()))
         )
