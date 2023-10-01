@@ -26,4 +26,5 @@
   <string name="dgtPlayMenuEntryAdded">\"%s\" foi adicionado no topo do menu JOGAR.</string>
   <string name="noSuitableOauthToken">Nenhuma chave OAuth adequada foi criada.</string>
   <string name="dgtBoardConnectivity">Conexão com o tabuleiro DGT</string>
+  <string name="clickToGenerateOne">Clique para gerar</string>
 </resources>
