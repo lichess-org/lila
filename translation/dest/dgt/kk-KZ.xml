@@ -7,4 +7,8 @@
   <string name="thisPageAllowsConnectingDgtBoard">Бұл бетте сіз өз DGT тақтаңызды ойын үшін Лическе жалғай аласыз.</string>
   <string name="toConnectTheDgtBoard">DGT электронды тақтаны жалғау үшін %s деген програмды орнату керек.</string>
   <string name="downloadHere">Програмды осы жерден алыңыз: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Егер %1$s бұл компьютерде жұмыс істеп тұрса, байланысты %2$s тексеріңіз.</string>
+  <string name="openingThisLink">осы сілтемені ашумен</string>
+  <string name="ifLiveChessRunningElsewhere">Егер %1$s басқа компьютер не портта жұмыс істеп тұрса, %2$s IP мекенжай мен портты орнатуыңыз керек.</string>
+  <string name="configurationSection">Пішіндеме Бөлімінде</string>
 </resources>
