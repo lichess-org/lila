@@ -64,7 +64,7 @@ object form:
           fields.startDate
         )
       ),
-      fields.isTeamBattle option form3.hidden(form("teamBattleByTeam"))
+      fields.isTeamBattle option form3.hidden(form.prefix("teamBattleByTeam"))
     )
 
   private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using
@@ -79,7 +79,7 @@ object form:
       form3.split(
         if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
         else
-          form3.group(form("minutes"), trans.duration(), half = true)(
+          form3.group(form.prefix("minutes"), trans.duration(), half = true)(
             form3.input(_)(tpe := "number")
           )
       ),
@@ -104,7 +104,11 @@ object form:
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
-            setupEdit(tour, form, myTeams)
+            setupEdit(tour, form, myTeams),
+            form3.actions(
+              a(href := routes.Tournament.show(tour.id))(trans.cancel()),
+              form3.submit(trans.save(), icon = licon.Trophy.some)
+            )
           ),
           hr,
           br,
