@@ -115,6 +115,7 @@
   <string name="openStudy">Avaa tutkielma</string>
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
+  <string name="showVariationArrows">Näytä muunnelman nuolet</string>
   <string name="evaluationGauge">Arviomittari</string>
   <string name="multipleLines">Muunnelmien määrä</string>
   <string name="cpus">Suorittimia</string>
