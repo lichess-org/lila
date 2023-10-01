@@ -48,6 +48,7 @@
   <string name="attentionOfDevelopers">Note réservée aux développeurs :</string>
   <string name="possibleToPrefill">Vous pouvez préremplir ce formulaire en modifiant les paramètres de requête de l\'URL.</string>
   <string name="forExample">Exemple : %s</string>
+  <string name="ticksTheScopes">sélectionne les portées %1$s et %2$s et définit les jetons selon la description.</string>
   <string name="scopesCanBeFound">Les codes de portée se trouvent dans le code HTML du formulaire.</string>
   <string name="givingPrefilledUrls">Donner ces URL préremplies à vos utilisateurs les aidera à obtenir la bonne portée de jeton.</string>
 </resources>
