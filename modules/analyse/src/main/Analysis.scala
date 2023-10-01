@@ -10,13 +10,12 @@ case class Analysis(
     fk: Option[Analysis.FishnetKey]
 ):
 
-  lazy val infoAdvices: InfoAdvices = {
-    (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
-      info -> {
-        info.hasVariation so Advice(prev, info)
-      }
-    }
-  }.toList
+  lazy val infoAdvices: InfoAdvices =
+    (Info.start(startPly) :: infos)
+      .sliding(2)
+      .collect:
+        case List(prev, info) => info -> info.hasVariation.so(Advice(prev, info))
+      .toList
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
 
