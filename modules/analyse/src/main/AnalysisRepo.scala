@@ -15,7 +15,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
     game.metadata.analysed so byId(Analysis.Id(game.id))
 
   def byIds(ids: Seq[Analysis.Id]): Fu[Seq[Option[Analysis]]] =
-    coll.optionsByOrderedIds[Analysis, Analysis.Id](ids)(_.id)
+    coll.optionsByOrderedIds[Analysis, String](ids.map(_.id))(_.id.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
     byIds(games.map(g => Analysis.Id(g.id))).map: as =>

@@ -33,8 +33,4 @@ object AnalyseBsonHandlers:
         "fk"      -> a.fk
       )
 
-  given BSONWriter[Analysis.Id] with
-    def writeTry(id: Analysis.Id) =
-      BSONWriter.stringWriter.writeTry(id.id)
-
   given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler
