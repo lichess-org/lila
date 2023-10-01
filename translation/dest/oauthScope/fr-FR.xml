@@ -42,10 +42,12 @@
   <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">documentation API.</string>
   <string name="newToken">Nouveau jeton d\'accès</string>
   <string name="apiAccessTokens">Jeton d\'accès API</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Créé il y a %s</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Création : %s</string>
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Dernière utilisation : %s</string>
   <string name="alreadyHavePlayedGames">Vous avez déjà joué des parties.</string>
   <string name="attentionOfDevelopers">Note réservée aux développeurs :</string>
   <string name="possibleToPrefill">Vous pouvez préremplir ce formulaire en modifiant les paramètres de requête de l\'URL.</string>
   <string name="forExample">Exemple : %s</string>
+  <string name="scopesCanBeFound">Les codes de portée se trouvent dans le code HTML du formulaire.</string>
+  <string name="givingPrefilledUrls">Donner ces URL préremplies à vos utilisateurs les aidera à obtenir la bonne portée de jeton.</string>
 </resources>
