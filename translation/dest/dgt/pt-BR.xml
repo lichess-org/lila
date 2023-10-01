@@ -11,7 +11,19 @@
   <string name="openingThisLink">abrindo este link</string>
   <string name="ifLiveChessRunningElsewhere">Se o %1$s estiver rodando em outra máquina ou outra porta, é preciso definir o endereço de IP e a porta aqui, na %2$s.</string>
   <string name="configurationSection">Seção de configurações</string>
+  <string name="keepPlayPageOpen">A página de configurações precisa ficar aberta em seu navegador. Ela não precisa estar visível. Você pode minimizá-la ou colocá-la ao lado da página Lichess da partida, mas não a feche, senão o tabuleiro não funcionará.</string>
+  <string name="boardWillAutoConnect">O tabuleiro se conecta automaticamente a qualquer partida já iniciada ou que começar. Em breve será possível escolher a partida.</string>
+  <string name="timeControlsForCasualGames">Controles de tempo para jogos casuais: apenas Clássico, Por Correspondência e Rápido.</string>
+  <string name="timeControlsForRatedGames">Controles de tempo para jogos valendo pontos: Clássico, Por Correspondência e alguns Rápidos como 15+10 e 20+0</string>
+  <string name="whenReadySetupBoard">Configure o tabuleiro quando estiver pronto e clique em %s.</string>
+  <string name="ifMoveNotDetected">Se não detectar um movimento</string>
+  <string name="checkYouHaveMadeOpponentsMove">Verifique que você fez a jogada do seu oponente no DGT primeiro. Volte sua jogada. Jogue novamente.</string>
+  <string name="asALastResort">Em último caso, deixe o tabuleiro exatamente como está no Lichess, e depois %s</string>
+  <string name="reloadThisPage">recarregue a página</string>
+  <string name="dgtConfigure">Configurar o DGT</string>
+  <string name="lichessConnectivity">Conexão com o Lichess</string>
   <string name="validDgtOauthToken">Você tem uma chave OAuth adequada para usar o DGT.</string>
+  <string name="dgtPlayMenuEntryAdded">\"%s\" foi adicionado no topo do menu JOGAR.</string>
   <string name="noSuitableOauthToken">Nenhuma chave OAuth adequada foi criada.</string>
   <string name="dgtBoardConnectivity">Conexão com o tabuleiro DGT</string>
 </resources>
