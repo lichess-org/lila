@@ -31,4 +31,7 @@
   <string name="engineWrite">Opprette og oppdatere eksterne sjakkmotorer</string>
   <string name="webLogin">Opprette autentiserte nettstedøkter (gir full tilgang!)</string>
   <string name="webMod">Bruke moderatorverktøy (innenfor rammene av tillatelsene dine)</string>
+  <string name="personalAccessTokens">Personlige tilgangsnøkler for API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan gjøre OAuth-forespørsler uten å gå gjennom %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">autoriseringskodeflyten</string>
 </resources>
