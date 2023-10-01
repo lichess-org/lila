@@ -31,4 +31,9 @@
   <string name="engineWrite">Crea e aggiorna i motori esterni</string>
   <string name="webLogin">Crea sessioni del sito web autenticate (concede il pieno accesso!)</string>
   <string name="webMod">Utilizza strumenti da moderatore (entro i limiti dei tuoi permessi)</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">Documentazione API</string>
+  <string name="newToken">Nuovo token di accesso</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Creato %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Ultimo utilizzo %s</string>
+  <string name="forExample">Per esempio: %s</string>
 </resources>
