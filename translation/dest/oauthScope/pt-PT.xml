@@ -48,4 +48,7 @@
   <string name="attentionOfDevelopers">Nota apenas para a atenção dos programadores:</string>
   <string name="possibleToPrefill">É possível pré-preencher este formulário ajustando os parâmetros da URL.</string>
   <string name="forExample">Por exemplo: %s</string>
+  <string name="ticksTheScopes">marque os escopos %1$s e %2$s e define a descrição do token.</string>
+  <string name="scopesCanBeFound">Os códigos de escopo podem ser encontrados no código HTML do formulário.</string>
+  <string name="givingPrefilledUrls">Dar estas URLs pré-preenchidas para os teus utilizadores irá ajudá-los a obter os escopos do token corretos.</string>
 </resources>
