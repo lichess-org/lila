@@ -32,5 +32,6 @@
   <string name="webLogin">Permitir iniciar sessões autenticadas (garante acesso completo!)</string>
   <string name="webMod">Permitir usar ferramentas de moderador (com restrições)</string>
   <string name="personalAccessTokens">Chaves de acesso pessoal à API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Você pode fazer solicitações OAuth sem passar pelo %s.</string>
   <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">fluxo de código de autorização</string>
 </resources>
