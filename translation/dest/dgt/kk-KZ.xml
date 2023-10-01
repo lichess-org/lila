@@ -20,7 +20,7 @@
   <string name="checkYouHaveMadeOpponentsMove">DGT тақтада қарсыластың жүрісін жасағаныңызды тексеріңіз. Жүрісті қайта қайтарып, тағы жүріп көріңіз.</string>
   <string name="asALastResort">Ақырғы амал ретінде тақта күйін Лическе дәл келтіріп, %s</string>
   <string name="reloadThisPage">Парақшаны жаңартып көріңіз</string>
-  <string name="dgtConfigure">DGT пішіндеме</string>
+  <string name="dgtConfigure">DGT пішіндемесі</string>
   <string name="lichessConnectivity">Личестің байланыс қабілеті</string>
   <string name="validDgtOauthToken">Сізде DGT ойнау үшін OAuth токеніңіз бар.</string>
   <string name="dgtPlayMenuEntryAdded">Төбедегі Ойнау мәзіріне %s жазбасы қосылды.</string>
