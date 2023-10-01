@@ -4,7 +4,7 @@
   <string name="tokenGrantsPermission">Токен деген сіздің тіркелгіңізді басқа адамдарға ашып беретін рұқсат, кілт.</string>
   <string name="carefullySelect">Осы әрекеттерді сіздің атыңыздан жасайды. Мұқият таңдаңыз.</string>
   <string name="tokenDescription">Токен сипаттамасы</string>
-  <string name="rememberTokenUse">Бұл токен-нің не үшін қолданатынын есіңізде сақтайсыз</string>
+  <string name="rememberTokenUse">Бұл токен-нің не үшін қолданатынын есте сақтайсыз</string>
   <string name="whatTheTokenCanDo">Сіздің атыңыздан токен-нің жасайтыны:</string>
   <string name="doNotShareIt">Токен тіркелгіңізді басқа біреуге ашып беретін рұқсат. Оны кез-келгенмен бөлісе бермеңіз!</string>
   <string name="copyTokenNow">Жаңа жеке токен-іңізді қазір көшіріп алыңыз. Оны қайта көруге рұқсат болмайды!</string>
@@ -17,13 +17,13 @@
   <string name="studyRead">Жеке зерттеу мен көрсетілімдерді оқу</string>
   <string name="studyWrite">Зерттеу мен көрсетілімдерді құру, жаңарту, жою</string>
   <string name="tournamentWrite">Алаңды құру, жаңарту, қосылу</string>
-  <string name="racerWrite">Жұмбақ бәйгесін құру, қосылу</string>
+  <string name="racerWrite">Жұмбақ бәйгесін құрып қосылу</string>
   <string name="puzzleRead">Жұмбақ шешу белсенділігін оқу</string>
   <string name="teamRead">Жеке топ мәліметтерін оқу</string>
   <string name="teamWrite">Топқа қосылу, шығу</string>
   <string name="teamLead">Қоласты топтарыңызды басқару: жеке хабар жіберу, мүшелерін шығару</string>
   <string name="followRead">Серік болған ойыншыларды оқу</string>
-  <string name="followWrite">Ойыншыларға серік болу, ажырау</string>
+  <string name="followWrite">Ойыншыларға серік болу, болмау</string>
   <string name="msgWrite">Ойыншыларға жеке хабар жіберу</string>
   <string name="boardPlay">Тақта API-мен ойнау</string>
   <string name="botPlay">Бот API-мен ойнау</string>
@@ -31,4 +31,7 @@
   <string name="engineWrite">Бөтен есептеуіштерді құру, жаңарту</string>
   <string name="webLogin">Сайттың сәйкестік-расталған сессиясын құру (толық рұқсаты болады!)</string>
   <string name="webMod">Модератор құралдарын пайдалану (рұқсаттар аясында)</string>
+  <string name="personalAccessTokens">Жеке API токен-дер</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Сіз %s қолданбай-ақ OAuth сұранысын құра аласыз.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">рұқсат-растама кодтау жолын</string>
 </resources>
