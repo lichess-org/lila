@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dgtBoard">Tabuleiro DGT</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Requisitos do tabuleiro DGT</string>
+  <string name="dgtBoardLimitations">Limitações do tabuleiro DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Esta página permite conectar seu tabuleiro DGT ao Lichess e usá-lo para jogar.</string>
+  <string name="toConnectTheDgtBoard">Para conectar o tabuleiro eletrônico DGT, é preciso instalar o %s.</string>
+  <string name="downloadHere">Baixe o software aqui: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Se o %1$s estiver rodando neste computador, você pode verificar sua conexão %2$s.</string>
+  <string name="openingThisLink">abrindo este link</string>
+  <string name="noSuitableOauthToken">Nenhuma chave OAuth adequada foi criada.</string>
+  <string name="dgtBoardConnectivity">Conexão com o tabuleiro DGT</string>
+</resources>
