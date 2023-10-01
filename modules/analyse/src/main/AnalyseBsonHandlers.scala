@@ -25,7 +25,7 @@ object AnalyseBsonHandlers:
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
-        "_id"     -> a.id.id,
+        "_id"     -> a.id.value,
         "studyId" -> a.studyId,
         "data"    -> Info.encodeList(a.infos),
         "ply"     -> w.intO(a.startPly.value),

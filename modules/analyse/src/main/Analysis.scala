@@ -48,7 +48,7 @@ object Analysis:
 
     extension (id: Id)
 
-      def id: String = id match
+      def value: String = id match
         case Game(gameId) => gameId.value
         case Study(_, id) => id.value
 

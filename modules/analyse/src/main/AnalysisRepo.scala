@@ -9,13 +9,13 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
 
   def save(analysis: Analysis) = coll.insert one analysis void
 
-  def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id.id)
+  def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id.value)
 
   def byGame(game: Game): Fu[Option[Analysis]] =
     game.metadata.analysed so byId(Analysis.Id(game.id))
 
   def byIds(ids: Seq[Analysis.Id]): Fu[Seq[Option[Analysis]]] =
-    coll.optionsByOrderedIds[Analysis, String](ids.map(_.id))(_.id.id)
+    coll.optionsByOrderedIds[Analysis, String](ids.map(_.value))(_.id.value)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
     byIds(games.map(g => Analysis.Id(g.id))).map: as =>
