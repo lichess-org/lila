@@ -308,5 +308,5 @@ object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:
 
 extension (f: Form[?])
   def prefix(name: String)(using prefixOpt: FormPrefix) = f(
-    prefixOpt.fold(name)(prefix => s"$prefix.$name".pp)
+    prefixOpt.fold(name)(prefix => s"$prefix.$name")
   )
