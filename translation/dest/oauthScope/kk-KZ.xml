@@ -46,4 +46,8 @@
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Қолданды %s</string>
   <string name="alreadyHavePlayedGames">Сіз ойнағансыз!</string>
   <string name="attentionOfDevelopers">Әзірлеушілердің назарына ескерту:</string>
+  <string name="possibleToPrefill">Бұл сауал кестені автотолтырудың бір жолы - URL-ге сұраныс параметрлерін жазу.</string>
+  <string name="forExample">Мысалы: %s</string>
+  <string name="ticksTheScopes">Бұл %1$s мен %2$s жолдарын белгілеп, токен сипаттамасын толтырады.</string>
+  <string name="scopesCanBeFound">Жолдардың кодтары сауал кестенің HTML кодында бар.</string>
 </resources>
