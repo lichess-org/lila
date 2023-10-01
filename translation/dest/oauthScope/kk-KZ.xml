@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Жаңа жеке API токен</string>
-  <string name="tokenGrantsPermission">Токен деген сіздің тіркелгіңізді басқа адамдарға ашып беретін рұқсат, кілт.</string>
-  <string name="carefullySelect">Осы әрекеттерді сіздің атыңыздан жасайды. Мұқият таңдаңыз.</string>
+  <string name="tokenGrantsPermission">Токен деген сіздің тіркелгіңізді басқа адамдарға ашып беретін рұқсат.</string>
+  <string name="carefullySelect">Олар келесі әрекеттерді сіздің атыңыздан жасайтын болады. Мұқият таңдаңыз.</string>
   <string name="tokenDescription">Токен сипаттамасы</string>
-  <string name="rememberTokenUse">Бұл токен-нің не үшін қолданатынын есте сақтайсыз</string>
-  <string name="whatTheTokenCanDo">Сіздің атыңыздан токен-нің жасайтыны:</string>
+  <string name="rememberTokenUse">Басқа токендер арасынан тану үшін керек</string>
+  <string name="whatTheTokenCanDo">Сіздің атыңыздан токен-нің ашатыны:</string>
   <string name="doNotShareIt">Токен тіркелгіңізді басқа біреуге ашып беретін рұқсат. Оны кез-келгенмен бөлісе бермеңіз!</string>
-  <string name="copyTokenNow">Жаңа жеке токен-іңізді қазір көшіріп алыңыз. Оны қайта көруге рұқсат болмайды!</string>
+  <string name="copyTokenNow">Жаңа жеке токен-іңізді қазір көшіріп алыңыз. Оны қайта көруге амал болмайды!</string>
   <string name="preferenceRead">Баптауларды оқу</string>
   <string name="preferenceWrite">Баптауларды өзгерту</string>
   <string name="emailRead">Поштаның мекенжайын оқу</string>
@@ -29,7 +29,7 @@
   <string name="botPlay">Бот API-мен ойнау</string>
   <string name="engineRead">Бөтен есептеуіштерді көру, қолдану</string>
   <string name="engineWrite">Бөтен есептеуіштерді құру, жаңарту</string>
-  <string name="webLogin">Сайттың сәйкестік-расталған сессиясын құру (толық рұқсаты болады!)</string>
+  <string name="webLogin">Сайттың өкіл-расталған сессиясын құру (толық рұқсаты болады!)</string>
   <string name="webMod">Модератор құралдарын пайдалану (рұқсаттар аясында)</string>
   <string name="personalAccessTokens">Жеке API токен-дер</string>
   <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Сіз %s қолданбай-ақ OAuth сұранысын құра аласыз.</string>
@@ -50,4 +50,5 @@
   <string name="forExample">Мысалы: %s</string>
   <string name="ticksTheScopes">Бұл %1$s мен %2$s жолдарын белгілеп, токен сипаттамасын толтырады.</string>
   <string name="scopesCanBeFound">Жолдардың кодтары сауал кестенің HTML кодында бар.</string>
+  <string name="givingPrefilledUrls">Осындай толтырылған URL-ді пайдаланушыға жіберумен оларға дұрыс рұқсат жолдарын таңдауға көмек көрсетесіз.</string>
 </resources>
