@@ -43,6 +43,7 @@ Você pode usar isso para chamar jogadores para participar de um torneio ou de u
 Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</string>
   <string name="teamsIlead">Equipes que eu lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Talvez você queira enviar o link de algum destes torneios futuros?</string>
+  <string name="onlyInviteLeadersTrust">Só convide líderes de sua confiança. Os líderes de equipe podem expulsar membros e outros líderes da equipe.</string>
   <string name="usersWhoCanManageThisTeam">Usuários que podem gerenciar esta equipe</string>
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar equipe</string>
