@@ -47,7 +47,9 @@ object PrefSingleChange:
     changing(_.submitMove): v =>
       _.copy(submitMove = v),
     changing(_.confirmResign): v =>
-      _.copy(confirmResign = v)
+      _.copy(confirmResign = v),
+    changing(_.moretime): v =>
+      _.copy(moretime = v)
   ).map: change =>
     change.field -> change
   .toMap
