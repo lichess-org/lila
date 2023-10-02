@@ -9,7 +9,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.i18n.defaultLang
 import lila.rating.PerfType
-import lila.user.User
+import lila.user.{ User, Me }
 import lila.gathering.GreatPlayer
 
 case class Tournament(
@@ -136,9 +136,8 @@ case class Tournament(
 
   def startingPosition = position flatMap Thematic.byFen
 
-  lazy val prizeInDescription =
-    lila.gathering.looksLikePrize(s"$name ${~spotlight.map(_.description)} $description")
-  lazy val looksLikePrize = !isScheduled && prizeInDescription
+  lazy val prizeInDescription = lila.gathering.looksLikePrize(s"$name $description")
+  lazy val looksLikePrize     = !isScheduled && prizeInDescription
 
   def estimateNumberOfGamesOneCanPlay: Double =
     // There are 2 players, and they don't always use all their time (0.8)
@@ -155,47 +154,32 @@ object Tournament:
 
   val minPlayers = 2
 
-  def make(
-      by: Either[UserId, User],
-      name: Option[String],
-      clock: ClockConfig,
-      minutes: Int,
-      variant: chess.variant.Variant,
-      position: Option[Fen.Opening],
-      mode: Mode,
-      password: Option[String],
-      waitMinutes: Int,
-      startDate: Option[Instant],
-      berserkable: Boolean,
-      streakable: Boolean,
-      teamBattle: Option[TeamBattle],
-      description: Option[String],
-      hasChat: Boolean
-  ) =
+  def fromSetup(setup: TournamentSetup)(using me: Me) =
     Tournament(
       id = makeId,
-      name = name | position.match
+      name = setup.name | setup.realPosition.match
         case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
         case None      => GreatPlayer.randomName
       ,
       status = Status.Created,
-      clock = clock,
-      minutes = minutes,
-      createdBy = by.fold(identity, _.id),
+      clock = setup.clockConfig,
+      minutes = setup.minutes,
+      createdBy = me.userId,
       createdAt = nowInstant,
       nbPlayers = 0,
-      variant = variant,
-      position = position,
-      mode = mode,
-      password = password,
-      conditions = TournamentCondition.All.empty,
-      teamBattle = teamBattle,
-      noBerserk = !berserkable,
-      noStreak = !streakable,
+      variant = setup.realVariant,
+      position = setup.realPosition,
+      mode = setup.realMode,
+      password = setup.password,
+      conditions = setup.conditions,
+      teamBattle = setup.teamBattleByTeam map TeamBattle.init,
+      noBerserk = !((setup.berserkable | true) && !setup.timeControlPreventsBerserk),
+      noStreak = !(setup.streakable | true),
       schedule = None,
-      startsAt = startDate | nowInstant.plusMinutes(waitMinutes),
-      description = description,
-      hasChat = hasChat
+      startsAt =
+        setup.startDate | nowInstant.plusMinutes(setup.waitMinutes | TournamentForm.waitMinuteDefault),
+      description = setup.description,
+      hasChat = setup.hasChat | true
     )
 
   def scheduleAs(sched: Schedule, minutes: Int) =
