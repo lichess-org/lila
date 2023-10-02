@@ -20,7 +20,6 @@ final class Coach(env: Env) extends LilaController(env):
     searchResults(l, o, c, page)
 
   private def searchResults(l: String, o: String, c: String, page: Int)(using Context) =
-    pageHit
     val order   = CoachPager.Order(o)
     val lang    = (l != "all") so play.api.i18n.Lang.get(l)
     val country = (c != "all") so Flags.info(c)

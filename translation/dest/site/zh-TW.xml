@@ -475,8 +475,6 @@
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="oneUrlPerLine">每行一個網址</string>
   <string name="inlineNotation">棋譜集中顯示</string>
-  <string name="savingMoves">暫時著法儲存</string>
-  <string name="savingMovesHelp">我們始終將您的變體存儲在瀏覽器緩存中.</string>
   <string name="makeAStudy">為了安全保管和分享，考慮創建一項研討.</string>
   <string name="clearSavedMoves">清空著法儲存</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>

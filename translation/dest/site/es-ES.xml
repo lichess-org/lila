@@ -99,12 +99,12 @@
   <string name="openingExplorer">Explorador de aperturas</string>
   <string name="openingEndgameExplorer">Explorador de aperturas y finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Juega la primera jugada del explorador de aperturas y finales</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Realiza el primer movimiento del explorador de aperturas y finales</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota o 50 movimientos por error anterior</string>
-  <string name="unknownDueToRounding">Victoria/derrota garantizada apenas si la línea de movimientos recomendados fue seguida desde el último movimiento de captura o de peón, a causa del posible redondeo.</string>
+  <string name="unknownDueToRounding">Victoria o derrota segura solo si se siguió la línea de movimientos recomendados desde la última captura o movimiento de peón, a causa del posible redondeo de valores DTZ de las Tablas de Finales Syzygy.</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -157,7 +157,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">puntuación %1$s en %2$s partida</item>
-    <item quantity="other">puntuación %1$s en %2$s partidas</item>
+    <item quantity="other">Puntuación de %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s partida favorita</item>
@@ -219,7 +219,7 @@
   <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
   <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio y ese sitio se ha visto comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por tu comprensión.</string>
   <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
-  <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
+  <string name="neverTypeYourPassword">¡Nunca expongas tu contraseña de Lichess en otro sitio!</string>
   <string name="proceedToX">Ir a %s</string>
   <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="savingMoves">Librería temporal de movimientos</string>
-  <string name="savingMovesHelp">Siempre almacenamos tus variantes en la caché de tu navegador.</string>
   <string name="makeAStudy">Para guardar y compartir, considera hacer un estudio.</string>
   <string name="clearSavedMoves">Borrar movimientos</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>
@@ -623,12 +621,12 @@
   <string name="error.required">Este campo es obligatorio</string>
   <string name="error.email">Esta dirección de correo electrónico es inválida</string>
   <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e intenta de nuevo.</string>
-  <string name="error.email_unique">Dirección de correo inválida o en uso</string>
+  <string name="error.email_unique">Dirección de correo no válida o en uso</string>
   <string name="error.email_different">Esta ya es tu dirección de correo electrónico</string>
   <string name="error.minLength">Debe tener %s caracteres como mínimo</string>
   <string name="error.maxLength">Debe tener %s caracteres como máximo</string>
   <string name="error.min">Debe ser mayor o igual a %s</string>
-  <string name="error.max">Debe ser al menos %s</string>
+  <string name="error.max">Debe ser como máximo %s</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="ifRegistered">Si está registrado</string>
   <string name="onlyExistingConversations">Solo conversaciones existentes</string>

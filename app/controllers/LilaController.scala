@@ -319,7 +319,6 @@ abstract private[controllers] class LilaController(val env: Env)
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
         case ByHref.Refused(_) => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
-          pageHit
           f(using ctx.withLang(lang))
 
   import lila.rating.{ Perf, PerfType }

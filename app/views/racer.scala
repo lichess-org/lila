@@ -35,7 +35,7 @@ object racer:
 
   def show(data: JsObject)(using PageContext) =
     views.html.base.layout(
-      moreCss = frag(cssTag("racer")),
+      moreCss = cssTag("racer"),
       moreJs = jsModuleInit("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
       title = "Puzzle Racer",
       zoomable = true,

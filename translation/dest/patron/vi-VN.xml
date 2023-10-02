@@ -10,8 +10,9 @@
     <item quantity="other">%1$s là Lichess Patron trong %2$s tháng</item>
   </plurals>
   <string name="newPatrons">Những người ủng hộ mới</string>
-  <string name="freeChess">Cờ vua miễn phí cho mọi người, mãi mãi!</string>
-  <string name="noAdsNoSubs">Không quảng cáo, không đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
+  <string name="freeChess">Cờ Vua Miễn Phí Cho Mọi Người!
+Mãi Mãi!</string>
+  <string name="noAdsNoSubs">Không có quảng cáo, không cần đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
   <string name="thankYou">Cảm ơn sự ủng hộ của bạn!</string>
   <string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
   <string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>

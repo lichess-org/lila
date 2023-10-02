@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Squadra</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Gruppi</string>
+  <string name="teams">Gruppi</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membro</item>
     <item quantity="other">%s membri</item>
@@ -43,6 +43,7 @@ Puoi usarlo per chiamare i giocatori a partecipare a un torneo o una battaglia d
 I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squadra.</string>
   <string name="teamsIlead">Squadre che conduco</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
+  <string name="onlyInviteLeadersTrust">Invita solo capi di cui ti fidi pienamente. I capi del team possono cacciare membri e altri capi dalla squadra.</string>
   <string name="usersWhoCanManageThisTeam">Utenti che possono gestire questo team</string>
   <string name="leadersChat">Chat dei leader</string>
   <string name="closeTeam">Chiudi la squadra</string>

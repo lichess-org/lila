@@ -19,7 +19,7 @@ object topic:
         jsModule("forum"),
         captchaTag
       )
-    ) {
+    ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(
           h1(
@@ -29,26 +29,21 @@ object topic:
         ),
         st.section(cls := "warning")(
           h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
-          p(
-            trans.yourQuestionMayHaveBeenAnswered(
+          p:
+            trans.yourQuestionMayHaveBeenAnswered:
               strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
-            )
-          ),
-          p(
-            trans.toReportSomeoneForCheatingOrBadBehavior(
+          ,
+          p:
+            trans.toReportSomeoneForCheatingOrBadBehavior:
               strong(a(href := reportRoutes.form)(trans.useTheReportForm()))
-            )
-          ),
-          p(
-            trans.toRequestSupport(
+          ,
+          p:
+            trans.toRequestSupport:
               strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
-            )
-          ),
-          p(
-            trans.makeSureToRead(
+          ,
+          p:
+            trans.makeSureToRead:
               strong(a(href := routes.ContentPage.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
-            )
-          )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
           form3.group(form("name"), trans.subject())(form3.input(_)(autofocus)),
@@ -68,7 +63,6 @@ object topic:
           )
         )
       )
-    }
 
   def show(
       categ: lila.forum.ForumCateg,
@@ -215,9 +209,8 @@ object topic:
           cls  := "form-control"
         )(
           option(value := "")("no message"),
-          lila.msg.MsgPreset.forumDeletion.presets.map { reason =>
+          lila.msg.MsgPreset.forumDeletion.presets.map: reason =>
             option(value := reason)(reason)
-          }
         ),
         form3.actions(
           button(cls := "cancel button button-empty", tpe := "button")("Cancel"),

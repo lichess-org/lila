@@ -511,8 +511,6 @@
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
   <string name="inlineNotation">Вградена нотация</string>
-  <string name="savingMoves">Временно съхранение на вариацията</string>
-  <string name="savingMovesHelp">Винаги съхраняваме вашите вариации в кеша на браузъра ви.</string>
   <string name="makeAStudy">За съхранение и споделяне помислете за изготвяне на казус.</string>
   <string name="clearSavedMoves">Изтрий ходовете</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>

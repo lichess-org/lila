@@ -1,20 +1,12 @@
 import AnalyseCtrl from './ctrl';
 import { AnalyseState } from './interfaces';
-import { defined, prop } from 'common';
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
-import { storedBooleanProp } from 'common/storage';
 
 export default class Persistence {
   isDirty = false; // there are persisted user moves
-  open = prop(false);
-  autoOpen = storedBooleanProp('analyse.persistence-auto-open', true);
   moveDb?: ObjectStorage<AnalyseState>;
 
   constructor(readonly ctrl: AnalyseCtrl) {}
-
-  toggleOpen(v?: boolean) {
-    this.open(defined(v) ? v : !this.open());
-  }
 
   clear = (): void => {
     this.moveDb?.put(this.ctrl.data.game.id, {
@@ -38,7 +30,6 @@ export default class Persistence {
   onAddNode(node: Tree.Node, path: Tree.Path) {
     if (!this.isDirty) {
       this.isDirty = !this.ctrl.tree.pathExists(path + node.id);
-      if (this.autoOpen()) this.open(true);
     }
   }
 

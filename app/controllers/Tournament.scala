@@ -47,10 +47,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
           page     <- renderPage(html.tournament.home(scheduled, finished, winners, scheduleJson))
-        yield
-          pageHit
-          Ok(page).noCache
-        ,
+        yield Ok(page).noCache,
         json = Ok(scheduleJson)
       )
     yield response

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Отбор</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Отбори</string>
+  <string name="teams">Отбори</string>
   <plurals name="nbMembers">
     <item quantity="one">%s членове</item>
     <item quantity="other">%s членове</item>

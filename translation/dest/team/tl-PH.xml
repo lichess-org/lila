@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Koponan</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Mga Koponan</string>
+  <string name="teams">Mga Koponan</string>
   <plurals name="nbMembers">
     <item quantity="one">%s miyembro</item>
     <item quantity="other">%s mga miyembro</item>

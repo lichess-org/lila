@@ -510,8 +510,6 @@
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="oneUrlPerLine">Eén URL per regel.</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="savingMoves">Tijdelijke zettenopslag</string>
-  <string name="savingMovesHelp">We slaan je varianten op in de browser-cache.</string>
   <string name="makeAStudy">Maak een studie aan om ze te bewaren en/of te delen.</string>
   <string name="clearSavedMoves">Zetten wissen</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>

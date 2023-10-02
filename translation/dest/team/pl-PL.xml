@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Klub</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Kluby</string>
+  <string name="teams">Kluby</string>
   <plurals name="nbMembers">
     <item quantity="one">%s gracz</item>
     <item quantity="few">%s graczy</item>
@@ -16,7 +16,7 @@
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="onlyLeaderLeavesTeam">Zanim opuścisz klub, dodaj proszę nowego lidera lub zamknij klub.</string>
   <string name="quitTeam">Opuść klub</string>
-  <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o dopuszczenie</string>
+  <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o przyjęcie</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
@@ -49,6 +49,7 @@ Możesz w ten sposób wezwać graczy, aby dołączyli do turnieju lub potyczki k
 Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
+  <string name="onlyInviteLeadersTrust">Na leaderów wybieraj tylko tych, którym w pełni ufasz. Liderzy mogą wyrzucić graczy i innych leaderów z klubu.</string>
   <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
   <string name="leadersChat">Czat liderów</string>
   <string name="closeTeam">Zamknij klub</string>

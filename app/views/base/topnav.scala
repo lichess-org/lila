@@ -31,7 +31,7 @@ object topnav:
             a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
             a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
             a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
-            ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)("DGT board")
+            ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard())
           )
         )
       ),

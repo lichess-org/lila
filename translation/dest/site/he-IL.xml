@@ -576,8 +576,6 @@
   <string name="socialMediaLinks">קישורים לרשתות חברתיות</string>
   <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
-  <string name="savingMoves">אחסון מהלכים זמני</string>
-  <string name="savingMovesHelp">אנו תמיד מאחסנים את המהלכים שלך במחסנית של הדפדפן.</string>
   <string name="makeAStudy">כדי לשמור ולשתף, תוכל/י ליצור לוח למידה.</string>
   <string name="clearSavedMoves">הסרת המהלכים</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>

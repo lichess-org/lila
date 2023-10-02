@@ -511,8 +511,6 @@
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Біржолды хаттама</string>
-  <string name="savingMoves">Жүрістерді уақытша сақтау</string>
-  <string name="savingMovesHelp">Біз сіздің ойын тармақтарыңызды браузер кэшінде сақтаймыз.</string>
   <string name="makeAStudy">Ұзаққа сақтау әрі бөлісу үшін зерттеуді жасаған дұрыс.</string>
   <string name="clearSavedMoves">Жүрістерді жою</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>

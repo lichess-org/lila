@@ -465,8 +465,6 @@
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
-  <string name="savingMoves">Penyimpanan temporer</string>
-  <string name="savingMovesHelp">Kami selalu menyimpan variasi Anda di cache browser.</string>
   <string name="clearSavedMoves">Bersihkan gerakan</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>

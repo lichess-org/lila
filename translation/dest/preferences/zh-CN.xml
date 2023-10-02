@@ -33,7 +33,7 @@
   <string name="bothClicksAndDrag">两者都行</string>
   <string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（需要对手同意）</string>
-  <string name="inCasualGamesOnly">仅限于无积分对局</string>
+  <string name="inCasualGamesOnly">仅限于休闲对局</string>
   <string name="promoteToQueenAutomatically">兵自动升为后</string>
   <string name="explainPromoteToQueenAutomatically">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
   <string name="whenPremoving">预先走棋時</string>

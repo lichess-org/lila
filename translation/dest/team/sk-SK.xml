@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="team">Družstvo</string>
-  <string name="teams" comment="teams&#10;Navigation item under 'Community' selection">Družstvá</string>
+  <string name="teams">Družstvá</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
     <item quantity="few">%s členovia</item>
@@ -49,6 +49,7 @@ Týmto spôsobom môžete aj zavolať hráčov do turnaja alebo súboja družsti
 Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť vaše družstvo.</string>
   <string name="teamsIlead">Družstvá ktoré vediem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možno by ste chceli prepojiť jeden z týchto nadchádzajúcich turnajov?</string>
+  <string name="onlyInviteLeadersTrust">Pozývajte len lídrov, ktorým plne dôverujete! Lídri tímu môžu ako členov tak aj a iných lídrov z tímu vyhodiť.</string>
   <string name="usersWhoCanManageThisTeam">Užívatelia, ktorí môžu spravovať toto družstvo</string>
   <string name="leadersChat">Diskusia vedúcich</string>
   <string name="closeTeam">Zrušiť družstvo</string>

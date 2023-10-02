@@ -511,8 +511,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="oneUrlPerLine">Ein URL per line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
-  <string name="savingMoves">Mellombels lagring av trekk</string>
-  <string name="savingMovesHelp">Vi lagrar variantane dine i mellomlageret til nettlesaren.</string>
   <string name="makeAStudy">Om du vil ta vare på trekka til seinare er det betre å laga ein studie.</string>
   <string name="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
