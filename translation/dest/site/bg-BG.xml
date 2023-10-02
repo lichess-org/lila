@@ -20,7 +20,7 @@
   <string name="asWhite">с белите</string>
   <string name="asBlack">с черните</string>
   <string name="randomColor">Произволна страна</string>
-  <string name="createAGame">Създай игра</string>
+  <string name="createAGame">Създаване на игра</string>
   <string name="whiteIsVictorious">Белите победиха</string>
   <string name="blackIsVictorious">Черните победиха</string>
   <string name="youPlayTheWhitePieces">Вие играете с белите фигури</string>
@@ -188,11 +188,11 @@
   <string name="daysPerTurn">Дни за ход</string>
   <string name="oneDay">Един ден</string>
   <plurals name="nbDays">
-    <item quantity="one">%s дни</item>
+    <item quantity="one">%s ден</item>
     <item quantity="other">%s дни</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s часа</item>
+    <item quantity="one">%s час</item>
     <item quantity="other">%s часа</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -211,9 +211,9 @@
   <string name="signupEmailHint">Ще го използваме само за възстановяване на паролата.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промяна на паролата</string>
-  <string name="changeEmail">Промяна на имейл</string>
+  <string name="changeEmail">Промяна на имейла</string>
   <string name="email">Имейл</string>
-  <string name="passwordReset">Смяна на парола</string>
+  <string name="passwordReset">Задаване на нова парола</string>
   <string name="forgotPassword">Забравена парола?</string>
   <string name="error.weakPassword">Тази парола е често срещана и несигурна</string>
   <string name="error.namePassword">Моля, не използвайте потребителското си име като парола.</string>
@@ -528,7 +528,7 @@
   <string name="tournamentWinners">Победители от състезанията</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
-  <string name="descPrivate">Вътрешно описание</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Вътрешно описание</string>
   <string name="descPrivateHelp">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
@@ -760,7 +760,7 @@
   <string name="gameAnalysis">Анализ на партията</string>
   <string name="xHostsY">%1$s води %2$s</string>
   <string name="xJoinsY">%1$s се присъедини към %2$s</string>
-  <string name="xLikesY">%1$s хареса %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s хареса %2$s</string>
   <string name="quickPairing">Бързо свързване</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анонимен</string>
