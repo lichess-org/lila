@@ -31,4 +31,6 @@
   <string name="engineWrite">Crear i actualitzar el motor d\'anàlisis extern</string>
   <string name="webLogin">Crea sessions d\'autenticació del lloc web (permet l\'accés complet!)</string>
   <string name="webMod">Utilitza les eines de moderació (dins dels límits del vostre permís)</string>
+  <string name="personalAccessTokens">Tokens personals d\'accés a l\'API</string>
+  <string name="newToken">Nou token d\'accés</string>
 </resources>
