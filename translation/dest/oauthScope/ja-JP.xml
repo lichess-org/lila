@@ -31,4 +31,24 @@
   <string name="engineWrite">外部エンジンの作成と更新</string>
   <string name="webLogin">認証済みウェブサイトセッションの作成（フルアクセス可能！）</string>
   <string name="webMod">モデレーター用ツールの使用（権限の範囲内で）</string>
+  <string name="personalAccessTokens">個人 API アクセストークン</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">OAuth リクエストは %s を経由せずにできます。</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">認証コードフロー</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">代わりに、%s API リクエストに直接使うこともできます。</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">個人アクセストークンを生成して</string>
+  <string name="guardTokensCarefully">トークンの扱いには気を付けて！　パスワードと同じようなものです。スクリプトにパスワードではなくトークンを使う利点は、トークンは撤回でき、何個でも生成できる点です。</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">%1$s と %2$s をご覧ください。</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">個人トークンアプリの例</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">API ドキュメンテーション</string>
+  <string name="newToken">新しいアクセストークン</string>
+  <string name="apiAccessTokens">API アクセストークン</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">作成：%s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">最終使用：%s</string>
+  <string name="alreadyHavePlayedGames">すでにゲームをプレイしました！</string>
+  <string name="attentionOfDevelopers">開発者向けの注意：</string>
+  <string name="possibleToPrefill">URL のクエリパラメータを調整することで、このフォームを事前入力しておくことができます。</string>
+  <string name="forExample">例：%s</string>
+  <string name="ticksTheScopes">は %1$s と %2$s のスコープを調整し、トークンの説明を設定します。</string>
+  <string name="scopesCanBeFound">スコープのコードはフォームの HTML コード内にあります。</string>
+  <string name="givingPrefilledUrls">事前入力 URL をユーザーに知らせることで、トークンの適切なスコープを設定しやすくなります。</string>
 </resources>
