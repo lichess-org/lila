@@ -484,6 +484,7 @@
   <string name="firstName">प्रथम नाम</string>
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">झंडे</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>
@@ -505,7 +506,7 @@
   <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
-  <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
   <string name="descPrivateHelp">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
   <string name="no">नहीं</string>
   <string name="yes">हाँ</string>
@@ -732,7 +733,7 @@
   <string name="gameAnalysis">खेल अध्ययन</string>
   <string name="xHostsY">%1$s मेजबान %2$s</string>
   <string name="xJoinsY">%1$s मेजबान %2$s</string>
-  <string name="xLikesY">%1$s ने %2$s पसंद किया:</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s ने %2$s पसंद किया:</string>
   <string name="quickPairing">त्वरित युग्मन</string>
   <string name="lobby">लॉबी</string>
   <string name="anonymous">अज्ञात</string>
