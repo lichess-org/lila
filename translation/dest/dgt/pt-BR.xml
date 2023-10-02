@@ -27,4 +27,13 @@
   <string name="noSuitableOauthToken">Nenhuma chave OAuth adequada foi criada.</string>
   <string name="dgtBoardConnectivity">Conexão com o tabuleiro DGT</string>
   <string name="clickToGenerateOne">Clique para gerar</string>
+  <string name="useWebSocketUrl">Use \"%1$s\" a não ser que %2$s esteja rodando em uma máquina ou porta diferente.</string>
+  <string name="textToSpeech">Texto para fala</string>
+  <string name="configureVoiceNarration">Ative a narração de voz dos movimentos. Assim, você pode manter seus olhos no tabuleiro.</string>
+  <string name="enableSpeechSynthesis">Ativar síntese de fala</string>
+  <string name="speechSynthesisVoice">Voz da síntese de fala</string>
+  <string name="verboseLogging">Registro detalhado</string>
+  <string name="toSeeConsoleMessage">Para ver a mensagem de console, pressione Command + Option + C (Mac) ou Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="playWithDgtBoard">Jogue em um tabuleiro DGT</string>
+  <string name="configure">Configurar</string>
 </resources>
