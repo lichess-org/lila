@@ -6,7 +6,7 @@
   <string name="progressX">Напредък: %s</string>
   <string name="resetMyProgress">Анулирай напредъка ми</string>
   <string name="youWillLoseAllYourProgress">Ще загубите напредъка си!</string>
-  <string name="play">играй!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">играй!</string>
   <string name="chessPieces">Шахматни фигури</string>
   <string name="theRook">Топът</string>
   <string name="itMovesInStraightLines">Движи се в прави линии</string>
@@ -23,7 +23,7 @@
 един чернопол офицер.
 Трябват ви и двата!</string>
   <string name="bishopComplete">Поздравления! Можете да контролирате офицера.</string>
-  <string name="theQueen">Дамата</string>
+  <string name="theQueen">Царицата</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + офицер</string>
   <string name="queenIntro">Това е най-силната фигура. Нейно Величество - Дамата!</string>
   <string name="queenComplete">Поздравления! Дамата няма тайни от вас.</string>
