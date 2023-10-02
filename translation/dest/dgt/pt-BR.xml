@@ -32,6 +32,13 @@
   <string name="configureVoiceNarration">Ative a narração de voz dos movimentos. Assim, você pode manter seus olhos no tabuleiro.</string>
   <string name="enableSpeechSynthesis">Ativar síntese de fala</string>
   <string name="speechSynthesisVoice">Voz da síntese de fala</string>
+  <string name="announceAllMoves">Narrar todos os lances</string>
+  <string name="selectAnnouncePreference">Selecione SIM para narrar os seus lances e os do oponente. Selecione NÃO para narrar somente os lances do oponente.</string>
+  <string name="announceMoveFormat">Formato dos lances</string>
+  <string name="moveFormatDescription">SAN é o padrão no Lichess, como \"Nf6\". O UCI é comum em softwares, como \"g8f6\".</string>
+  <string name="keywords">Palavras-chave</string>
+  <string name="keywordFormatDescription">Palavras-chave vêm em formato JSON. São usadas para traduzir lances e resultados em sua língua. O inglês é a língua padrão, mas você pode escolher outra.</string>
+  <string name="debug">Depuração</string>
   <string name="verboseLogging">Registro detalhado</string>
   <string name="toSeeConsoleMessage">Para ver a mensagem de console, pressione Command + Option + C (Mac) ou Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Jogue em um tabuleiro DGT</string>
