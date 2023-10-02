@@ -509,6 +509,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="blog">Blog</string>
   <string name="notes">Nota</string>
   <string name="typePrivateNotesHere">Tulis nota peribadi di sini</string>
+  <string name="noNoteYet">Belum ada catatan</string>
   <string name="invalidUsernameOrPassword">Nama pengguna atau kata kunci tidak sah</string>
   <string name="incorrectPassword">Kata kunci tidak tepat</string>
   <string name="invalidAuthenticationCode">Kod authentikasi tidak sah</string>
@@ -528,8 +529,10 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="insideTheBoard">Dalam papan</string>
   <string name="outsideTheBoard">Luar papan</string>
   <string name="always">Selalu</string>
+  <string name="never">Tidak pernah</string>
   <string name="victory">Menang</string>
   <string name="defeat">Kalah</string>
+  <string name="timeline">Linimasa</string>
   <string name="starting">Mula:</string>
   <string name="allInformationIsPublicAndOptional">Setiap maklumat dapat dilihat umum dan tidak wajib.</string>
   <string name="biographyDescription">Ceritakan diri anda, minat anda, mengapa anda suka catur, bukaan kegemaran, pemain, ...</string>
