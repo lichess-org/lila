@@ -163,9 +163,9 @@ To make a new donation, head to $baseUrl/patron"""
           if lifetime then "lifetime Patron wings"
           else "Patron wings for one month"
         alsoSendAsPrivateMessage(from): _ =>
-          s"""You gift @${to.username} the $wings. Thank you so much!"""
+          s"""You gifted @${to.username} $wings. Thank you so much!"""
         alsoSendAsPrivateMessage(to): _ =>
-          s"""@${from.username} gifts you the $wings!"""
+          s"""@${from.username} gifted you $wings!"""
 
     }
 
