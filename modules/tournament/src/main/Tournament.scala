@@ -136,9 +136,8 @@ case class Tournament(
 
   def startingPosition = position flatMap Thematic.byFen
 
-  lazy val prizeInDescription =
-    lila.gathering.looksLikePrize(s"$name ${~spotlight.map(_.description)} $description")
-  lazy val looksLikePrize = !isScheduled && prizeInDescription
+  lazy val prizeInDescription = lila.gathering.looksLikePrize(s"$name $description")
+  lazy val looksLikePrize     = !isScheduled && prizeInDescription
 
   def estimateNumberOfGamesOneCanPlay: Double =
     // There are 2 players, and they don't always use all their time (0.8)

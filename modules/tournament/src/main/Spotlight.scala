@@ -7,7 +7,6 @@ import lila.rating.Perf
 
 case class Spotlight(
     headline: String,
-    description: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
     iconFont: Option[licon.Icon] = None,
     iconImg: Option[String] = None

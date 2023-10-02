@@ -67,7 +67,6 @@ object CrudForm:
             id = id,
             spotlight = Spotlight(
               headline = headline,
-              description = "", // BC TODO, remove useless field
               homepageHours = homepageHours.some.filterNot(0 ==),
               iconFont = none,
               iconImg = image.some.filter(_.nonEmpty)
@@ -81,7 +80,6 @@ object CrudForm:
           .copy(spotlight =
             Spotlight(
               headline = headline,
-              description = ~old.spotlight.map(_.description),
               homepageHours = homepageHours.some.filterNot(0 ==),
               iconFont = none,
               iconImg = image.some.filter(_.nonEmpty)
