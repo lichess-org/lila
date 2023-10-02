@@ -46,4 +46,8 @@
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Último uso %s</string>
   <string name="alreadyHavePlayedGames">Você já jogou!</string>
   <string name="attentionOfDevelopers">Nota reservada aos desenvolvedores:</string>
+  <string name="possibleToPrefill">É possível preencher previamente o formulário ajustando os parâmetros de consulta da URL.</string>
+  <string name="forExample">Por exemplo: %s</string>
+  <string name="ticksTheScopes">marca os escopos de %1$s e %2$s, e define a descrição da chave.</string>
+  <string name="scopesCanBeFound">Os códigos de escopo estão no código HTML do formulário.</string>
 </resources>
