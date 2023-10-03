@@ -73,7 +73,6 @@ final private class RoundMobileSocket(
     )
     .add("showCaptured" -> pref.captured)
     .add("showReplay", pref.replay == Pref.Replay.ALWAYS || (pref.replay == Pref.Replay.SLOW && (game.speed.key == SpeedKey("classical") || game.speed.key == SpeedKey("correspondence"))))
-    .add("showRatings", pref.ratings == Pref.Ratings.YES)
     .add("confirmResign", pref.confirmResign == Pref.ConfirmResign.YES)
     .add("enablePremove", pref.premove)
     .add("submitMove", roundJson.submitMovePref(pref, game, nvui = false))
