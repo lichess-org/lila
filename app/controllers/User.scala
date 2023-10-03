@@ -53,7 +53,8 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  private[controllers] val userShowRateLimit = env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.ip")
+  private[controllers] val userShowRateLimit =
+    env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>

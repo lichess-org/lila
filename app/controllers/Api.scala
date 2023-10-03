@@ -314,7 +314,7 @@ final class Api(
     else f(ids)
 
   val cloudEval =
-    val rateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "cloud-eval.api.ip")
+    val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip")
     Anon:
       rateLimit(req.ipAddress, rateLimited):
         get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
