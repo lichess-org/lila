@@ -376,12 +376,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
               },
               name,
             ),
-            name !== undefined && ctrl.data.playerName.previous().includes(name)
+            name && ctrl.data.playerName.previous().includes(name)
               ? h('button.remove', {
-                  attrs: {
-                    ...dataIcon(licon.X),
-                  },
-                  hook: bind('click', () => onRemove(name)),
+                  attrs: dataIcon(licon.X),
+                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
                   key: name,
                 })
               : null,
