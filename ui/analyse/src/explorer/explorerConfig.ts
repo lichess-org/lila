@@ -367,23 +367,27 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             ...ctrl.data.playerName.previous(),
           ]),
         ].map(name =>
-          h('div', [
-            h(
-              `button.button${nameToOptionalColor(name)}`,
-              {
-                hook: bind('click', () => onSelect(name)),
-                key: name,
-              },
-              name,
-            ),
-            name && ctrl.data.playerName.previous().includes(name)
-              ? h('button.remove', {
-                  attrs: dataIcon(licon.X),
-                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-                  key: name,
-                })
-              : null,
-          ]),
+          h(
+            'div',
+            {
+              key: name,
+            },
+            [
+              h(
+                `button.button${nameToOptionalColor(name)}`,
+                {
+                  hook: bind('click', () => onSelect(name)),
+                },
+                name,
+              ),
+              name && ctrl.data.playerName.previous().includes(name)
+                ? h('button.remove', {
+                    attrs: dataIcon(licon.X),
+                    hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                  })
+                : null,
+            ],
+          ),
         ),
       ),
     ],
