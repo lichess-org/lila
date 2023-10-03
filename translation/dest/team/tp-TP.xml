@@ -4,7 +4,7 @@
   <string name="teams">kulupu</string>
   <plurals name="nbMembers">
     <item quantity="one">jan kulupu %s</item>
-    <item quantity="other">jan kulupu pi mute %s</item>
+    <item quantity="other">jan kulupu %s</item>
   </plurals>
   <string name="allTeams">kulupu ale</string>
   <string name="newTeam">kulupu sin</string>

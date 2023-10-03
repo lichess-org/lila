@@ -5,7 +5,7 @@
 
   &.online .line {
     &::before {
-      content: '';
+      content: $licon-Disc;
     }
 
     color: $c-good;
@@ -34,15 +34,15 @@
     }
 
     &::before {
-      content: '';
+      content: $licon-DiscOutline;
     }
 
     &.patron::before {
-      content: '' !important;
+      content: $licon-Wings !important;
     }
 
     &.moderator::before {
-      content: '';
+      content: $licon-Agent;
     }
   }
 }

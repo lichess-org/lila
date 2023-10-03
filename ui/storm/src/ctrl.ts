@@ -110,7 +110,7 @@ export default class StormCtrl implements PuzCtrl {
       const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
       const pos = puzzle.position();
       const move = parseUci(uci)!;
-      let captureSound = pos.board.occupied.has(move.to);
+      const san = makeSan(pos, move);
       pos.play(move);
       const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
       if (correct) {
@@ -127,9 +127,7 @@ export default class StormCtrl implements PuzCtrl {
           if (!this.incPuzzle()) this.end();
         } else {
           puzzle.moveIndex++;
-          captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
         }
-        sound.move(captureSound);
       } else {
         sound.wrong();
         this.pushToHistory(false);
@@ -144,7 +142,7 @@ export default class StormCtrl implements PuzCtrl {
         if (this.run.clock.flag()) this.end();
         else if (!this.incPuzzle()) this.end();
       }
-      lichess.sound.move({ san: makeSan(pos, move), uci });
+      lichess.sound.move({ san, uci });
       this.redraw();
       this.redrawQuick();
       this.redrawSlow();

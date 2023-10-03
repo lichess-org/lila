@@ -52,6 +52,7 @@ object SetupForm:
     )(FriendConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Invalid speed", _.validSpeed(me.exists(_.isBot)))
+      .verifying("Can't create rated unlimited game", _.noRatedUnlimited)
       .verifying("invalidFen", _.validFen)
 
   def hookFilled(timeModeString: Option[String])(using me: Option[Me]): Form[HookConfig] =
@@ -69,7 +70,7 @@ object SetupForm:
       "color"       -> color
     )(HookConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
-      .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
+      .verifying("Can't create rated unlimited game", _.noRatedUnlimited)
 
   private lazy val boardApiHookBase: Mapping[HookConfig] =
     mapping(

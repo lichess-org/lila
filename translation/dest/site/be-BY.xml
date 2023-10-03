@@ -561,8 +561,6 @@
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="oneUrlPerLine">Адзін URL на радок.</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
-  <string name="savingMoves">Часовае сховішча хадоў</string>
-  <string name="savingMovesHelp">Мы заўсёды захоўваем вашы варыянты ў кэшы вашага браўзера.</string>
   <string name="makeAStudy">Для захавання і сумеснага выкарыстання стварыце студыю.</string>
   <string name="clearSavedMoves">Ачысціць хады</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>

@@ -259,6 +259,7 @@ object mon:
     def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
     def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
+    def httpGet(host: String)                      = future("relay.http.get", tags("host" -> host))
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
     def chats(username: String)   = counter("bot.chats").withTag("name", username)
@@ -593,13 +594,7 @@ object mon:
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
     def openingBook(level: Int, variant: String, ply: Int, hit: Boolean, success: Boolean) =
       timer("fishnet.opening.hit").withTags:
-        tags(
-          "level"   -> level.toLong,
-          "variant" -> variant,
-          "ply"     -> ply.toLong,
-          "hit"     -> hitTag(hit),
-          "success" -> successTag(success)
-        )
+        tags("variant" -> variant, "hit" -> hitTag(hit))
   object opening:
     def searchTime = timer("opening.search.time").withoutTags()
   object study:

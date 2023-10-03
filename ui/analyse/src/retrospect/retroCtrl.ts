@@ -26,6 +26,7 @@ export interface RetroCtrl {
   completion(): [number, number];
   reset(): void;
   flip(): void;
+  preventGoingToNextMove(): boolean;
   close(): void;
   node(): Tree.Node;
   redraw: Redraw;
@@ -238,6 +239,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         root.retro = make(root, opposite(color));
         redraw();
       }
+    },
+    preventGoingToNextMove: () => {
+      const cur = current();
+      return isSolving() && !!cur && root.path == cur.prev.path;
     },
     close: root.toggleRetro,
     trans: root.trans,

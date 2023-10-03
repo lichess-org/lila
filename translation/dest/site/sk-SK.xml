@@ -119,6 +119,7 @@
   <string name="openStudy">Otvoriť štúdie</string>
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
+  <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="cpus">Procesory</string>
@@ -575,8 +576,6 @@
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="oneUrlPerLine">Jedna URL na riadok.</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
-  <string name="savingMoves">Úložisko dočasných ťahov</string>
-  <string name="savingMovesHelp">Vaše varianty vždy ukladáme do cash pamäti Vášho prehliadača.</string>
   <string name="makeAStudy">Pre bezpečné uchovanie a zdieľanie pouvažujte nad vytvorením štúdie.</string>
   <string name="clearSavedMoves">Zrušiť dočasné ťahy</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>

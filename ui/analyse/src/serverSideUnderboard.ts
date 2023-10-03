@@ -1,7 +1,7 @@
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import * as licon from 'common/licon';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
@@ -137,23 +137,24 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     selection!.removeAllRanges();
     selection!.addRange(range);
   });
+
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
     // location.hash is percent encoded, so no need to escape and make &bg=...
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
-    modal({
-      content: $(
+    domDialog({
+      show: 'modal',
+      htmlText:
         '<div><strong style="font-size:1.5em">' +
-          $(this).html() +
-          '</strong><br /><br />' +
-          '<pre>' +
-          lichess.escapeHtml(iframe) +
-          '</pre><br />' +
-          iframe +
-          '<br /><br />' +
-          `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
-      ),
+        $(this).html() +
+        '</strong><br /><br />' +
+        '<pre>' +
+        lichess.escapeHtml(iframe) +
+        '</pre><br />' +
+        iframe +
+        '<br /><br />' +
+        `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
     });
   });
 }

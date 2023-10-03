@@ -115,6 +115,7 @@
   <string name="openStudy">Բացել ուսուցումը</string>
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
+  <string name="showVariationArrows">Ցուցադրել տարբերակների սլաքները</string>
   <string name="evaluationGauge">Գնահատման սանդղակ</string>
   <string name="multipleLines">Մի քանի շարունակություն</string>
   <string name="cpus">Պրոցեսորներ</string>
@@ -482,7 +483,7 @@
   <string name="tournamentComplete">Մրցաշարն ավարտված է</string>
   <string name="movesPlayed">Խաղացած քայլեր</string>
   <string name="whiteWins">Սպիտակները հաղթել են</string>
-  <string name="blackWins">Սևերն հաղթել են</string>
+  <string name="blackWins">Սևերը հաղթել են</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
-  <string name="savingMoves">Քայլերի ժամանակավոր պահոց</string>
-  <string name="savingMovesHelp">Մենք միշտ պահպանում ենք Ձեր տարբերակները Ձեր դիտարկչի քեշում։</string>
   <string name="makeAStudy">Պահպանելու և կիսվելու համար դիտարկեք ստուդիա ստեղծելու հնարավորությունը։</string>
   <string name="clearSavedMoves">Մաքրել քայլերը</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>

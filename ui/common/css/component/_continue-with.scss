@@ -1,6 +1,8 @@
 .continue-with {
   @extend %flex-column;
-
+  @media (hover: none) {
+    padding: 2em;
+  }
   > *:not(:first-child) {
     margin-top: 1em;
   }

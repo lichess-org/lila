@@ -3,7 +3,7 @@
   <string name="advancedPawn">অগ্রসর সৈন্য</string>
   <string name="advancedPawnDescription">আপনার একটি সৈন্য প্রতিপক্ষের অবস্থানের গভীরে গিয়েছে, সম্ভবত তা প্রমোশনের জন্য হুশিয়ারি দিচ্ছে।</string>
   <string name="advantage">লাভ</string>
-  <string name="advantageDescription">মারাত্বক লাভের জন্য আপনার সুযোগকে কাজে লাগান (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">মারাত্বক লাভের জন্য আপনার সুযোগকে কাজে লাগান (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">অ্যানেস্তেসিয়ার মাত</string>
   <string name="anastasiaMateDescription">একটা ঘোড়া এবং একটা নৌকা অথবা মন্ত্রীকে নিয়ে দল বাঁধান প্রতিপক্ষের রাজাকে বোর্ডের সাইড এবং তারই গুটির মাঝে ফাঁদে ফেলার জন্য।</string>
   <string name="arabianMate">আরবীয় মাত</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">রক্ষককে খান</string>
   <string name="capturingDefenderDescription">একটা গুটিকে খাওয়া যা আরেকটার প্রতিরক্ষা করে, যা পরের একটি চালে যেই গুটিকে রক্ষা করা হচ্ছিল তাকে খাওয়ার সুযোগ করে দেয়।</string>
   <string name="crushing">গুড়িয়ে দেয়া</string>
-  <string name="crushingDescription">অপনেন্টের ব্লানডারকে ধরে ফেলুন এবং প্রতিপক্ষকে গুড়িয়ে দিয়ে লাভ অর্জন করুন। (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">অপনেন্টের ব্লানডারকে ধরে ফেলুন এবং প্রতিপক্ষকে গুড়িয়ে দিয়ে লাভ অর্জন করুন। (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">দুটি হাতির মাত</string>
   <string name="doubleBishopMateDescription">পাশাপাশি দুটি আড়া-আড়ি রেখায় থাকা দুটি বিশপ/হাতি নিজের গুটি দ্বারা আটকা পড়া প্রতিপক্ষের রাজাকে কিস্তিমাত করবে।</string>
   <string name="dovetailMate">ডাভটেইল মাত</string>
   <string name="dovetailMateDescription">একটা মন্ত্রী রাজাকে বাজিমাত দেয়, যার কেবল দুটি মুক্তির ঘর নিজের গুটি দ্বারা দখলকৃত থাকে।</string>
   <string name="equality">সমতা</string>
-  <string name="equalityDescription">একটা হেরে যাওয়া অবস্থান থেকে ফিরে আসা, এবং ড্র অথবা একটা ভারসাম্যযুক্ত অবস্থানে নিয়ে আসা। (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">একটা হেরে যাওয়া অবস্থান থেকে ফিরে আসা, এবং ড্র অথবা একটা ভারসাম্যযুক্ত অবস্থানে নিয়ে আসা। (eval ≤ 200cp)</string>
   <string name="kingsideAttack">রাজার দিকে আক্রমণ</string>
   <string name="kingsideAttackDescription">প্রতিপক্ষের রাজার নিজের পাশে ক্যাসলিং করার পর, তাকে আক্রমণ করা।</string>
   <string name="clearance">পরিষ্কারকরণ</string>

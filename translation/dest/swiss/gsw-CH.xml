@@ -66,9 +66,7 @@ als villicht vu \"Krethi und Plethi\", wänn so es Turnier öffentlich isch.</st
 dass er i dere Rundi nöd schpille muess, aber trotzdem en Punkt überchunnt. 
 Zuesätzlich gits au en halbe Punkt, wänn er erscht schpöter is Turnier ischtigt.</string>
   <string name="earlyDrawsQ">Was passiert bi frühe Uslosige?</string>
-  <string name="earlyDrawsA">Wänn für en Schpiller kei Paarig gfunde wird, gits es \"bye\" - was bedütet, 
-dass er i dere Rundi nöd schpille muess, aber trotzdem 1 Punkt überchunnt. 
-Zuesätzlich gits en halbe Punkt, wänn er erscht schpöter is Turnier ischtigt.</string>
+  <string name="earlyDrawsAnswer">Bi Partie, in Turnier nach \"Schweizer System\", chann mer keis Remis veribare, bevor nöd mindeschtens 30 Züg gschpillt worde sind. Die Regelig chann zwar nöd verhindere, dass es Remis scho vor em Schpiel abgmacht wird, aber sie erschwerts es bizli, sich schpontan uf es Remis z\'einige.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en Schpiller nöd zur Partie ahtritt?</string>
   <string name="whatIfOneDoesntPlayA">Sini Zit lauft und wänn sie um isch, verlürt er das Schpiel.
 De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 

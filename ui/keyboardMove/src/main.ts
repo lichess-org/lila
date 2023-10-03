@@ -1,11 +1,9 @@
 import * as cg from 'chessground/types';
-import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { snabDialog } from 'common/dialog';
 import { propWithEffect, Prop } from 'common';
 import { load as loadKeyboardMove } from './plugins/keyboardMove';
 import KeyboardChecker from './plugins/keyboardChecker';
@@ -164,17 +162,10 @@ export function render(ctrl: KeyboardMove) {
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
-      ? snabModal({
-          class: 'keyboard-move-help',
-          content: [h('div.scrollable', spinner())],
+      ? snabDialog({
+          class: 'help.keyboard-move-help',
+          htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),
-          onInsert: async ($wrap: Cash) => {
-            const [, html] = await Promise.all([
-              lichess.loadCssPath('keyboardMove.help'),
-              xhr.text(xhr.url('/help/keyboard-move', {})),
-            ]);
-            $wrap.find('.scrollable').html(html);
-          },
         })
       : null,
   ]);

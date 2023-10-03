@@ -1,6 +1,6 @@
 import * as game from 'game';
 import throttle from 'common/throttle';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
 import { defined } from 'common';
@@ -145,11 +145,10 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       }
     },
     simulEnd(simul: game.Simul) {
-      lichess.loadCssPath('modal');
-      modal({
-        content: $(
-          `<div><p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
-        ),
+      domDialog({
+        htmlText:
+          '<div><p>Simul complete!</p><br /><br />' +
+          `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
       });
     },
   };

@@ -114,6 +114,7 @@
   <string name="openStudy">Open studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
+  <string name="showVariationArrows">Wys variasiepyle</string>
   <string name="evaluationGauge">Evaluering meter</string>
   <string name="multipleLines">Aantal lyne</string>
   <string name="cpus">CPU</string>
@@ -500,8 +501,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
   <string name="oneUrlPerLine">Een skakel per lyn.</string>
   <string name="inlineNotation">Binnelyn notasie</string>
-  <string name="savingMoves">Tydelike skuifstoor</string>
-  <string name="savingMovesHelp">Jou variasies word altyd in jou blaaier se cache gestoor.</string>
   <string name="makeAStudy">Oorweeg dit om \'n studie te skep om te bewaar en met ander te deel.</string>
   <string name="clearSavedMoves">Verwyder skuiwe</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>

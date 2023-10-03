@@ -113,6 +113,7 @@
   <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
+  <string name="showVariationArrows">変化手順の矢印を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
   <string name="multipleLines">解析ライン数</string>
   <string name="cpus">スレッド数</string>
@@ -477,8 +478,6 @@
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="savingMoves">手の一時保存</string>
-  <string name="savingMovesHelp">あなたの指した手順は常にブラウザのキャッシュに保存されます。</string>
   <string name="makeAStudy">永久保存や共有には「研究」機能をお使いください。</string>
   <string name="clearSavedMoves">手をクリアする</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>

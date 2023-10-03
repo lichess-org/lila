@@ -115,6 +115,7 @@
   <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
+  <string name="showVariationArrows">Mostra le frecce delle varianti</string>
   <string name="evaluationGauge">Indicatore di valutazione del vantaggio</string>
   <string name="multipleLines">Varianti multiple</string>
   <string name="cpus">Processori</string>
@@ -510,8 +511,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="oneUrlPerLine">Un URL per riga.</string>
   <string name="inlineNotation">Notazione in linea</string>
-  <string name="savingMoves">Salvataggio temporaneo delle mosse</string>
-  <string name="savingMovesHelp">Salviamo sempre le tue varianti nella cache del tuo browser.</string>
   <string name="makeAStudy">Per conservare e condividere l\'analisi, valuta di farne uno studio.</string>
   <string name="clearSavedMoves">Fai pulizia delle mosse</string>
   <string name="previouslyOnLichessTV">Già visti sulla TV di Lichess</string>

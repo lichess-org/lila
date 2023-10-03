@@ -115,6 +115,7 @@
   <string name="openStudy">Open study</string>
   <string name="enable">Enable</string>
   <string name="bestMoveArrow">Best move arrow</string>
+  <string name="showVariationArrows">Show variation arrows</string>
   <string name="evaluationGauge">Evaluation gauge</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="cpus">CPUs</string>
@@ -510,8 +511,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
-  <string name="savingMoves">Temporary move storage</string>
-  <string name="savingMovesHelp">We're always storing your variations in your browser cache.</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
   <string name="clearSavedMoves">Clear moves</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>

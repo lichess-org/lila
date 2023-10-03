@@ -261,7 +261,7 @@ package relation:
   case class UnFollow(u1: UserId, u2: UserId)
 
 package study:
-  case class RemoveStudy(studyId: StudyId, contributors: Set[UserId])
+  case class RemoveStudy(studyId: StudyId)
 
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)

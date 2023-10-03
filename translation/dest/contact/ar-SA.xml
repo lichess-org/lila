@@ -57,6 +57,7 @@
   <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
   <string name="wantBroadcastTournament">أريد بث بطولة</string>
   <string name="learnHowToMakeBroadcasts">تعلم كيفية بث بطولة على Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">بإمكانك أيضاً الاتصال بفريق البث الإذاعي عن البثوث الرسمية.</string>
   <string name="banAppeal">طلب لرفع حظر او تقييد على IP</string>
   <string name="engineAppeal">علامة الغش او استخدام محرك</string>
   <string name="sendAppealTo">يمكنك ارسال طلب الى %s.</string>

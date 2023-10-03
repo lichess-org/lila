@@ -7,7 +7,7 @@ import { build, postBuild } from './build';
 export function main() {
   const configPath = path.resolve(__dirname, '../build-config.json');
   const config: BuildOpts = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : {};
-  const oneDashArgs = ps.argv.filter(x => /^-([hpsw]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
+  const oneDashArgs = ps.argv.filter(x => /^-([hpdsw]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
 
   if (ps.argv.includes('--tsc') || ps.argv.includes('--sass') || ps.argv.includes('--esbuild')) {
     // cli args override json, including any of these flags sets those not present to false
@@ -28,11 +28,8 @@ export function main() {
   env.watch = ps.argv.includes('--watch') || oneDashArgs.includes('w');
   env.prod = ps.argv.includes('--prod') || oneDashArgs.includes('p');
   env.split = ps.argv.includes('--split') || oneDashArgs.includes('s');
+  env.debug = ps.argv.includes('--debug') || oneDashArgs.includes('d');
 
-  if (env.prod && env.watch) {
-    env.error('You cannot watch prod builds! Think of the children');
-    return;
-  }
   build(ps.argv.slice(2).filter(x => !x.startsWith('-')));
 }
 
@@ -115,6 +112,7 @@ class Env {
   watch = false;
   prod = false;
   split = false;
+  debug = false;
   exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
   startTime: number | undefined = Date.now();
 

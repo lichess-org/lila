@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.common.IpAddress
+import lila.common.{ IpAddress, HTTPRequest }
+import play.api.mvc.RequestHeader
 
 final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
 
@@ -28,13 +29,18 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
   ):
     import lila.memo.{ RateLimit as RL }
     private val limiter = RL[IpAddress](credits, duration, key)
-    def apply[A](ip: IpAddress, default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(op: => Fu[A])(using
-        Executor
-    ): Fu[A] = for
-      proxy <- proxyApi(ip)
-      ipCostFactor = strategy(IpTrust)(proxy)
-      res <- limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
-    yield res
+
+    def apply[A](default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(using req: RequestHeader)(
+        op: => Fu[A]
+    )(using Executor): Fu[A] =
+      val ip = HTTPRequest.ipAddress(req)
+      for
+        proxy <- proxyApi(ip)
+        ipCostFactor =
+          if HTTPRequest.nginxWhitelist(req) then 1
+          else strategy(IpTrust)(proxy)
+        res <- limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
+      yield res
 
   def rateLimitCostFactor(
       ip: IpAddress,
@@ -50,10 +56,10 @@ object IpTrust:
 
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
   val defaultRateLimitStrategy: RateLimitStrategy =
-    case IsProxy.vpn         => 2.5
-    case IsProxy.tor         => 3
+    case IsProxy.vpn         => 3
+    case IsProxy.tor         => 4
     case IsProxy.server      => 1.5
-    case IsProxy.public      => 4
+    case IsProxy.public      => 5
     case IsProxy.web         => 3
     case IsProxy.search      => 0.5
     case IsProxy.residential => 3

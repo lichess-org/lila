@@ -236,7 +236,8 @@ export default function (
     // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;
     lichess.pubsub.emit('chat.writeable', data.features.chat);
-    lichess.pubsub.emit('chat.permissions', { local: canContribute });
+    // official broadcasts cannot have local mods
+    lichess.pubsub.emit('chat.permissions', { local: canContribute && !relayData?.tour.official });
     lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
     const computer: boolean =
       !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);

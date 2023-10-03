@@ -8,17 +8,20 @@
   <string name="upcoming">Առաջիկայում սպասվող</string>
   <string name="completed">Ավարտված</string>
   <string name="roundName">Խաղափուլի անվանում</string>
-  <string name="roundNumber">Խաղափուլի համար</string>
+  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Խաղափուլի համար</string>
   <string name="tournamentName">Մրցաշարի անվանում</string>
   <string name="tournamentDescription">Իրադարձության համառոտ նկարագրություն</string>
   <string name="fullDescription">Իրադարձության ամբողջական նկարագրություն</string>
   <string name="startDate">Սկսվելու ամսաթիվը Ձեր ժամագոտում</string>
   <string name="startDateHelp">Լրացուցիչ, եթե գիտեք, թե երբ է սկսվելու իրադարձությունը</string>
   <string name="credits">Երախտագիտություն</string>
-  <string name="broadcastUrl">Հեռարձակման URL-հասցեն</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">Հեռարձակման URL-հասցեն</string>
   <string name="currentRoundUrl">Ընթացիկ խաղափուլի URL-հասցեն</string>
   <string name="currentGameUrl">Ընթացիկ պարտիայի URL-հասցեն</string>
   <string name="downloadAllRounds">Բեռնել բոլոր խաղափուլերը</string>
   <string name="resetRound">Հեռացնել այս խաղափուլը</string>
   <string name="deleteRound">Հեռացնել այս խաղափուլը</string>
+  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies. Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Խմբագրել խաղափուլի ստուդիան</string>
+  <string name="deleteTournament">Հեռացնել այս մրցաշարը</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Վերջնականապես հեռացնել ամբողջ մրցաշարը, նրա խաղափուլերը և պարտիաները։</string>
 </resources>

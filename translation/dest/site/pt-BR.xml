@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="showVariationArrows">Mostrar setas das variantes</string>
   <string name="evaluationGauge">Escala de avaliação</string>
   <string name="multipleLines">Linhas de análise</string>
   <string name="cpus">CPUs</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Links de mídia social</string>
   <string name="oneUrlPerLine">Uma URL por linha.</string>
   <string name="inlineNotation">Notação em linha</string>
-  <string name="savingMoves">Armazenamento temporário de lances</string>
-  <string name="savingMovesHelp">Estamos salvando suas variantes no cache do seu navegador.</string>
   <string name="makeAStudy">Para salvar e compartilhar uma análise, crie um estudo.</string>
   <string name="clearSavedMoves">Limpar lances</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>

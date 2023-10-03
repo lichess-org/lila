@@ -28,7 +28,7 @@ O modo Berserk só garante un punto adicional no caso de que se realicen polo me
 Así que rematas unha partida, voltas á sala de espera: alí serás emparellado cun xogador que estea preto na clasificación. Isto garante un mínimo tempo de espera, aínda que pode que non xogues contra todos os xogadores do torneo.
 Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis puntos.</string>
   <string name="howDoesItEnd">Como remata?</string>
-  <string name="howDoesItEndAnswer">O torneo ten un reloxo cunha conta atrás. Cando chega a cero, a clasificación do torneo se conxela e se proclama ó gañador. As partidas en curso nese momento deben rematar, pero non contan para a clasificación do torneo.</string>
+  <string name="howDoesItEndAnswer">O torneo ten un reloxo cunha conta atrás. Cando chega a cero, a clasificación do torneo conxélase e proclámase o gañador. Malia que as partidas en curso deben rematar, non contan para a clasificación do torneo.</string>
   <string name="otherRules">Outras regras importantes</string>
   <string name="thereIsACountdown">Hai unha conta atrás para a túa primeira xogada. Non executala neste tempo dará a vitoria ao teu opoñente.</string>
   <plurals name="drawingWithinNbMoves">

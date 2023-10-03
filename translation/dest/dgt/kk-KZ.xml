@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT тақта</string>
+  <string name="lichessAndDgt">Личес пен DGT</string>
+  <string name="dgtBoardRequirements">DGT тақта талаптары</string>
+  <string name="dgtBoardLimitations">DGT тақта шектеулері</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Бұл бетте сіз өз DGT тақтаңызды ойын үшін Лическе жалғай аласыз.</string>
+  <string name="toConnectTheDgtBoard">DGT электронды тақтаны жалғау үшін %s деген програмды орнату керек.</string>
+  <string name="downloadHere">Програмды осы жерден алыңыз: %s.</string>
+</resources>

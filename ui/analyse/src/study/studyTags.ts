@@ -57,7 +57,7 @@ function renderPgnTags(
     const existingTypes = chapter.tags.map(t => t[0]);
     rows.push([
       h(
-        'select',
+        'select.button.button-metal',
         {
           hook: {
             insert: vnode => {

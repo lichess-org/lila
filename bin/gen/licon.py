@@ -32,8 +32,6 @@ object licon:
   object Icon extends OpaqueString[Icon]
 """
 
-typescript_preamble = comment_preamble + '\n'
-
 def main():
     parser = argparse.ArgumentParser(description='lichess.sfd helper')
     parser.add_argument('--check', action='store_true', help='report any embedded licon literals in your sources')
@@ -95,14 +93,16 @@ def gen_sources(codes):
     with_type = lambda name: f'{name}: Icon'
     longest = len(max(codes.keys(), key=len)) + 6
 
-    with open('../../modules/common/src/main/Licon.scala', 'w') as scala:
+    with open('../../modules/common/src/main/Licon.scala', 'w') as scala, \
+         open('../../ui/common/src/licon.ts', 'w') as ts, \
+         open('../../ui/common/css/abstract/_licon.scss', 'w') as scss:
         scala.write(scala_preamble)
-        with open('../../ui/common/src/licon.ts', 'w') as ts:
-            ts.write(typescript_preamble)
-            for name in codes:
-                scala.write(f'  val {with_type(name).ljust(longest)} = "{chr(codes[name])}" // {codes[name]:x}\n')
-                ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
-
+        ts.write(comment_preamble + '\n')
+        scss.write(comment_preamble + '\n')
+        for name in codes:
+            scala.write(f'  val {with_type(name).ljust(longest)} = "{chr(codes[name])}" // {codes[name]:x}\n')
+            ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
+            scss.write(f"$licon-{name}: '{chr(codes[name])}'; // {codes[name]:x}\n")
 
 def gen_fonts():
     [f, name] = tempfile.mkstemp(suffix='.pe', dir='.')
@@ -122,11 +122,11 @@ def gen_fonts():
     os.remove(name)
 
 
-def find_replace_chars(names, do_replace):
+def find_replace_chars(names, replace):
     search_re = re.compile(u'([\'"]([\ue000-\uefff])[\'"])')
     search_cp_re = re.compile(r'([\'"]\\u(e[0-9a-f]{3})[\'"])', re.IGNORECASE)
 
-    print('Replacing...' if do_replace else 'Checking...')
+    print('Replacing...' if replace else 'Checking...')
 
     sources = []
 
@@ -136,12 +136,11 @@ def find_replace_chars(names, do_replace):
         sources.extend([join(dir, f) for f in filter(
             lambda f: \
                 any(map(lambda e: f.endswith(e), ['.ts', '.scala', '.scss'])) \
-                and not f in ['Licon.scala', 'licon.ts'],
+                and not f in ['Licon.scala', 'licon.ts', '_licon.scss'],
             files
         )])
 
     for source in sources:
-        replace = do_replace and not source.endswith('.scss')
         text = ''
         with open(source, 'r') as f:
             text = f.read()
@@ -152,7 +151,12 @@ def find_replace_chars(names, do_replace):
                     report = f'  {source}:{line} '
                     ch = m.group(2) if m.group(2)[:1].lower() != 'e' else chr(int(m.group(2),16))
                     if replace and ch in names:
-                        sub = f'licon.{names[ch]}'
+                        if source.endswith('.scss'):
+                            sub = f'$licon-{names[ch]}'
+                            if text[m.end():m.end()+1] == ']':
+                                sub = f"'#{{{sub}}}'"
+                        else:
+                            sub = f'licon.{names[ch]}'
                         text = text[:m.start()] + sub + text[m.end():]
                         report += f'{m.group(1)} -> {sub}'
                     else:

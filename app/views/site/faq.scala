@@ -10,7 +10,7 @@ object faq:
 
   import trans.faq.*
 
-  val fideHandbookUrl = "https://handbook.fide.com/chapter/E012018"
+  val fideHandbookUrl = "https://handbook.fide.com/chapter/E012023"
 
   private def question(id: String, title: String, answer: Frag*) =
     div(
@@ -161,7 +161,7 @@ object faq:
           p(
             explainingEnPassant(
               a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
-              a(href := fideHandbookUrl)(fideHandbookX("§3.7")),
+              a(href := fideHandbookUrl)(fideHandbook()),
               a(href := s"${routes.Learn.index}#/15")(lichessTraining())
             )
           ),
@@ -179,7 +179,7 @@ object faq:
           p(
             threefoldRepetitionExplanation(
               a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
-              a(href := fideHandbookUrl)(fideHandbookX("§9.2"))
+              a(href := fideHandbookUrl)(fideHandbook())
             )
           ),
           h4(notRepeatedMoves()),
@@ -377,9 +377,9 @@ object faq:
           """),
           p("""
             The red mute icon appears when your browser prevents lichess.org from playing a sound.
-            Usually this restriction is lifted once you click something, but a new game is a fresh page
-            which resets that temporary permission. And your browser does not know or care that
-            you were waiting to be paired in an unwatched tab.
+            Usually this restriction is lifted once you click something. On some mobile browsers,
+            touch dragging a piece does not count as a click. In that case you must tap the board to
+            allow sound at the start of each game.
           """),
           p("""
             We show the red icon to alert you when this happens. Often you can explicitly allow

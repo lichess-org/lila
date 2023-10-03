@@ -351,11 +351,11 @@ object GameApiV2:
       finished: Boolean = true
   ) extends Config:
     def postFilter(g: Game) =
-      rated.fold(true)(g.rated ==) && {
+      rated.forall(g.rated ==) && {
         perfType.isEmpty || perfType.contains(g.perfType)
-      } && color.fold(true) { c =>
+      } && color.forall { c =>
         g.player(c).userId has user.id
-      } && analysed.fold(true)(g.metadata.analysed ==)
+      } && analysed.forall(g.metadata.analysed ==)
 
   case class ByIdsConfig(
       ids: Seq[GameId],

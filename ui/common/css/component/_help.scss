@@ -1,5 +1,15 @@
-%help {
-  @extend %flex-column;
+dialog .help {
+  align-items: center;
+  text-align: center;
+  padding: 0.8em 0;
+
+  h2 {
+    margin: 0.5em 0 0 0;
+  }
+
+  table {
+    width: 100%;
+  }
 
   th p {
     margin: 1.2em 0 0.6em 0;
@@ -12,16 +22,6 @@
   td {
     padding: 0.2em 0.5em;
     text-align: left;
-  }
-
-  .keys {
-    padding-#{$end-direction}: 1em;
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .desc:first-letter {
-    text-transform: uppercase;
   }
 
   or {
@@ -43,64 +43,14 @@
     border-radius: 3px;
     box-shadow: inset 0 -1px 0 #bbb;
   }
-}
 
-%help-modal {
-  @extend %help;
-
-  table {
-    width: 100%;
+  .keys {
+    padding-#{$end-direction}: 1em;
+    text-align: right;
+    white-space: nowrap;
   }
 
-  > div {
-    padding: 0 !important;
-  }
-
-  h2 {
-    margin: 0.5em 0 0 0;
-  }
-
-  .scrollable {
-    overflow-y: auto;
-    padding: 0.8em 0;
-  }
-}
-
-.help-ephemeral {
-  @extend %help, %box-radius, %popup-shadow;
-  position: absolute;
-  z-index: 100;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  align-items: center;
-  background: $c-bg-popup;
-  padding: 1em 2em;
-  white-space: nowrap;
-  pointer-events: none;
-
-  kbd {
-    font-family: roboto, sans-serif;
-  }
-
-  table {
-    display: inline-block;
-    width: auto;
-  }
-
-  ul {
-    margin-bottom: 1em;
-    display: inline-block;
-    width: auto;
-    font-size: larger;
-    li {
-      padding-left: 0.5em;
-      list-style: disc;
-    }
-  }
-
-  &.fade-out {
-    transition: opacity 0.5s linear;
-    opacity: 0;
+  .desc:first-letter {
+    text-transform: uppercase;
   }
 }

@@ -12,7 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
-import lila.user.{ User, Me }
+import lila.user.{ User, Me, MyId }
 import lila.relay.RelayTour.ActiveWithSomeRounds
 
 final class RelayApi(
@@ -57,6 +57,13 @@ final class RelayApi(
 
   def byTourOrdered(tour: RelayTour): Fu[List[RelayRound.WithTour]] =
     roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))
+
+  def roundIdsById(tourId: RelayTour.Id): Fu[List[StudyId]] =
+    roundRepo.idsByTourId(tourId)
+
+  def kickBroadcast(userId: UserId, tourId: RelayTour.Id, who: MyId): Funit =
+    roundIdsById(tourId).flatMap:
+      _.map(studyApi.kick(_, userId, who)).parallel.void
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
@@ -372,6 +379,13 @@ final class RelayApi(
 
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void
+
+  private[relay] def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
+    roundRepo
+      .tourIdByStudyId(studyId)
+      .flatMapz: tourId =>
+        roundIdsById(tourId).flatMap:
+          _.map(studyApi.becomeAdmin(_, me)).sequence.void
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi members id.into(StudyId) map {

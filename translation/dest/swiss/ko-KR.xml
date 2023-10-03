@@ -55,8 +55,6 @@
   <string name="numberOfByesA">플레이어는 페어링 시스템이 상대를 찾을 수 없을 때마다 부전승으로 승점 1점을 받습니다.
 또한, 토너먼트에 늦게 참여한 플레이어는 0.5점을 받습니다.</string>
   <string name="earlyDrawsQ">이른 무승부는 어떻게 되나요?</string>
-  <string name="earlyDrawsA">플레이어는 페어링 시스템이 상대를 찾을 수 없을 때마다 부전승으로 승점 1점을 받습니다.
-또한, 토너먼트에 늦게 참여한 플레이어는 0.5점을 받습니다.</string>
   <string name="whatIfOneDoesntPlayQ">플레이어가 게임을 하지 않으면 어떻게 되나요?</string>
   <string name="whatIfOneDoesntPlayA">플레이어의 시간이 줄어들고, 시간이 다하면 게임에서 패배합니다.
 이후 시스템은 그 플레이어를 토너먼트에서 기권처리하므로 더 이상 점수를 잃지 않습니다.

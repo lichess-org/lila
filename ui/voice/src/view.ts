@@ -1,8 +1,7 @@
 import { h } from 'snabbdom';
 import * as licon from 'common/licon';
 import { onInsert, bind } from 'common/snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { snabDialog, type Dialog } from 'common/dialog';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
@@ -148,8 +147,8 @@ function voiceDisable() {
 }
 
 function renderHelpModal(ctrl: VoiceCtrl) {
-  const showMoveList = (el: Cash) => {
-    let html = '<table id="big-table"><tbody>';
+  const showMoveList = (dlg: Dialog) => {
+    let html = '<table class="big-table"><tbody>';
     const all =
       ctrl
         .module()
@@ -165,32 +164,30 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       html += '</tr>';
     }
     html += '</tbody></table>';
-    el.find('.scrollable').html(html);
+    dlg.view.innerHTML = html;
+    if (!dlg.open) dlg.showModal();
   };
-  return snabModal({
-    class: `voice-move-help`,
-    content: [h('div.scrollable', spinner())],
-    onClose: () => ctrl.showHelp(false),
-    onInsert: async el => {
-      const [, grammar, html] = await Promise.all([
-        lichess.loadCssPath('voiceMove.help'),
-        ctrl.moduleId !== 'coords'
-          ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`))
-          : Promise.resolve({ entries: [] }),
-        xhr.text(xhr.url(`/help/voice/${ctrl.moduleId}`, {})),
-      ]);
 
+  return snabDialog({
+    class: 'help.voice-move-help',
+    htmlUrl: `/help/voice/${ctrl.moduleId}`,
+    cssPath: 'voiceMove.help',
+    onClose: () => ctrl.showHelp(false),
+    onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {
-        showMoveList(el);
+        showMoveList(dlg);
         return;
       }
-      // using lexicon instead of crowdin translations for moves/commands
-      el.find('.scrollable').html(html);
+      const grammar =
+        ctrl.moduleId === 'coords'
+          ? []
+          : await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
         )?.in;
-      $('.val-to-word', el).each(function (this: HTMLElement) {
+      $('.val-to-word', dlg.view).each(function (this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
         this.innerText = this.innerText
@@ -198,7 +195,8 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           .map(v => tryPhonetic(v))
           .join(' ');
       });
-      el.find('#all-phrases-button').on('click', () => showMoveList(el));
+      $('.all-phrases-button', dlg.view).on('click', () => showMoveList(dlg));
+      dlg.showModal();
     },
   });
 }

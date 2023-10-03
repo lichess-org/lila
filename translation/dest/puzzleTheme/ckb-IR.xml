@@ -3,7 +3,7 @@
   <string name="advancedPawn">بەرەوپێشچوونەکانی سەرباز</string>
   <string name="advancedPawnDescription">یەکێک لە سەربازەکانت قووڵبۆتەوە ناو ناوچەی ڕکابەرەکەت، لەوانەیە هەڕەشەی پلە بەرزکردنەو بکات.</string>
   <string name="advantage">سوود</string>
-  <string name="advantageDescription">چانسی خۆت بقۆزەوە بۆ ئەوەی سوودێکی یەکلاکەرەوە بەدەستبهێنیت. (200cp ≤ ڕیزبەندی ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">چانسی خۆت بقۆزەوە بۆ ئەوەی سوودێکی یەکلاکەرەوە بەدەستبهێنیت. (200cp ≤ ڕیزبەندی ≤ 600cp)</string>
   <string name="anastasiaMate">نەخشەکانی کشومات</string>
   <string name="anastasiaMateDescription">ئەسپ و قەڵا یان شاژن یەکدەگرن بۆ ئەوەی پاشای بەرامبەر لە نێوان لای تەختەکە و پارچەیەکی دۆستانەدا بخەنە تەڵەوە.</string>
   <string name="arabianMate">کشوماتی عەرەبی</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">بەرگریکارەکان بگرە</string>
   <string name="capturingDefenderDescription">خواردنی داشێک کە گرینگە بۆ بەرگریکردن لە داشێکی تر، ڕێگەت دەدات ئەو داشەی بەرگری نامێنێت لە جوڵەی دواتردا ئاسانتر بگیرێت.</string>
   <string name="crushing">تێکشکاندن</string>
-  <string name="crushingDescription">هەڵە کوشندەکانی رکابەرەکەت ببینەوە بۆ ئەوەی بتوانی لێی سودمەندبیت و تێکی بشکێنی. (هەڵسەنگاندن ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">هەڵە کوشندەکانی رکابەرەکەت ببینەوە بۆ ئەوەی بتوانی لێی سودمەندبیت و تێکی بشکێنی. (هەڵسەنگاندن ≥ 600cp)</string>
   <string name="doubleBishopMate">کشومات بە دوو فیل</string>
   <string name="doubleBishopMateDescription">بە دوو داشی فیل دەتوانن پاشای رکابەر کشومات بکەن، کاتێک لەسەر هێڵە لارەکانیان لە شوێنی گونجاون و پاشای رکابەریش لە نێوان داشەکانی خۆی گیری خواردووە.</string>
   <string name="dovetailMate">کشوماتی Dovetail</string>
   <string name="dovetailMateDescription">شاژن دەتوانێت بە یاوەری پاشا کشومات بکات کاتێک پاشای بەرانبەر شوێنی هەڵاتنی لەلایەن دوو داشی خۆی گیراوە.</string>
   <string name="equality">یەکسانی</string>
-  <string name="equalityDescription">گۆڕینی باری دۆڕان بۆ باری یەکسان بوون یان هەوڵدان بۆ یەکسان بوون</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">گۆڕینی باری دۆڕان بۆ باری یەکسان بوون یان هەوڵدان بۆ یەکسان بوون</string>
   <string name="kingsideAttack">هێرشبردن لە بەری پاشا</string>
   <string name="kingsideAttackDescription">هێرشبردن بۆسەر پاشای بەرانبەر، کاتێک ڕکابەرەکەت لە بەرەی پاشاکەی کاستڵینگ دەکات.</string>
   <string name="clearance">پاککردبەوە</string>

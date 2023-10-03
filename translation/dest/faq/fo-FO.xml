@@ -37,7 +37,7 @@
   <string name="goodIntroduction">góð innførsla</string>
   <string name="lichessTraining">Lichess venjing</string>
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
-  <string name="threefoldRepetitionExplanation">Kemur sama støða fyri tríggjar ferðir, kunnu leikarar krevja remis við %1$s. Lichess nýtir almennu FIDE-reglurnar, ið verða lýstar í grein 9.2 (d) í %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Kemur sama støða fyri tríggjar ferðir, kunnu leikarar krevja remis við %1$s. Lichess nýtir almennu FIDE-reglurnar, ið verða lýstar í grein 9.2 í %2$s.</string>
   <string name="threefoldRepetitionLowerCase">endurtøka tríggjar ferðir</string>
   <string name="notRepeatedMoves">Vit endurtóku ikki leikir. Hví endaði talvið kortini við javnleiki, orsakað av endurtøku?</string>
   <string name="repeatedPositionsThatMatters">Trífalda endurtøkan snýr seg um endurtiknar %1$s, ikki leikir. Endurtøkurnar nýtast ikki at henda beint aftaná hvørja aðra.</string>

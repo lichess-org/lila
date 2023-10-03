@@ -77,9 +77,12 @@ final private class ChapterMaker(
       case Orientation.Fixed(color)      => color
       case _ if isMe(tags.players.white) => Color.white
       case _ if isMe(tags.players.black) => Color.black
-      case _ if tags.outcome.isDefined   => Color.white
-      case _ if data.isGamebook          => !root.lastMainlineNode.color
-      case _                             => root.lastMainlineNode.color
+      // if an outcome is known, then it's a finished game, which we show from white perspective by convention
+      case _ if tags.outcome.isDefined => Color.white
+      // in gamebooks (interactive chapter), we guess the orientation based on the last node
+      case _ if data.isGamebook => !root.lastMainlineNode.color
+      // else we show from the perspective of whoever turn it is to move
+      case _ => root.lastMainlineNode.color
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default

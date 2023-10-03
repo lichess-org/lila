@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">nanpa «DTZ50\'\'» pi ante \"sike\" (tan mute tawa ni: anpa ijo anu tawa pi jan utala li kama)</string>
   <string name="noGameFound">musi ala li lon</string>
+  <string name="maxDepthReached">sona pi tawa kama li pini!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">sina ken alasa e musi ante kepeken lipu wile.</string>
   <string name="openings">open</string>
   <string name="openingExplorer">ilo open</string>
@@ -367,6 +368,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="apply">kama lon</string>
   <string name="save">awen</string>
   <string name="leaderboard">jan pi pona mute</string>
+  <string name="screenshotCurrentPosition">o sitelen e musi lon ni</string>
   <string name="gameAsGIF">musi kepeken lipu kama</string>
   <string name="pasteTheFenStringHere">o pana e nimi FEN lon ni</string>
   <string name="pasteThePgnStringHere">o pana e nimi PGN lon ni</string>
@@ -529,6 +531,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="blog">lipu toki pi jan ni: li jo e lipu ni</string>
   <string name="notes">toki pi jan ante ala</string>
   <string name="typePrivateNotesHere">o sitelen e toki pi kulupu ala lon poki ni</string>
+  <string name="writeAPrivateNoteAboutThisUser">o sitelen e toki sona pi jan ni</string>
   <string name="invalidUsernameOrPassword">nimi jan anu nimi pi tawa li ike</string>
   <string name="incorrectPassword">nimi awen li ike</string>
   <string name="invalidAuthenticationCode">nanpa awen ike</string>

@@ -109,6 +109,7 @@
   <string name="openStudy">Abli nga Pagtoun</string>
   <string name="enable">Gipagana</string>
   <string name="bestMoveArrow">Pinakanindot nga lihok nga arrow</string>
+  <string name="showVariationArrows">Ipakita ang arrows sa variation</string>
   <string name="evaluationGauge">Sukdanan sa pagtuki</string>
   <string name="multipleLines">Daghn nga mga linya</string>
   <string name="cpus">CPUs</string>

@@ -26,7 +26,7 @@
   <string name="followWrite">Følge og slutte å følge andre spillere</string>
   <string name="msgWrite">Sende private meldinger til andre spillere</string>
   <string name="boardPlay">Spille partier med brett-api</string>
-  <string name="botPlay">Spille partier med bot-api</string>
+  <string name="botPlay">Spille partier med bot-API</string>
   <string name="engineRead">Vise og bruke dine eksterne sjakkmotorer</string>
   <string name="engineWrite">Opprette og oppdatere eksterne sjakkmotorer</string>
   <string name="webLogin">Opprette autentiserte nettstedøkter (gir full tilgang!)</string>

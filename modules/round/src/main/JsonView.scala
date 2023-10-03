@@ -116,17 +116,7 @@ final class JsonView(
                 .add("destination" -> (pref.destination && !pref.isBlindfold))
                 .add("enablePremove" -> pref.premove)
                 .add("showCaptured" -> pref.captured)
-                .add("submitMove" -> {
-                  import Pref.SubmitMove.*
-                  pref.submitMove match
-                    case _ if game.hasAi || flags.nvui                                 => false
-                    case n if (n & UNLIMITED) != 0 && game.isUnlimited                 => true
-                    case n if (n & CORRESPONDENCE) != 0 && game.hasCorrespondenceClock => true
-                    case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical)    => true
-                    case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid)            => true
-                    case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
-                    case _                                                             => false
-                })
+                .add("submitMove" -> submitMovePref(pref, game, flags.nvui))
           )
           .add("clock" -> game.clock.map(clockJson))
           .add("correspondence" -> game.correspondenceClock)
@@ -303,6 +293,17 @@ final class JsonView(
           .add("destination" -> (pref.destination && !pref.isBlindfold)),
         "userAnalysis" -> true
       )
+
+  def submitMovePref(pref: Pref, game: Game, nvui: Boolean) =
+    import Pref.SubmitMove.*
+    pref.submitMove match
+      case _ if game.hasAi || nvui                                       => false
+      case n if (n & UNLIMITED) != 0 && game.isUnlimited                 => true
+      case n if (n & CORRESPONDENCE) != 0 && game.hasCorrespondenceClock => true
+      case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical)    => true
+      case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid)            => true
+      case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
+      case _                                                             => false
 
   private def blurs(game: Game, player: lila.game.Player) =
     player.blurs.nonEmpty option {

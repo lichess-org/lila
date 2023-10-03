@@ -1,23 +1,25 @@
 import * as xhr from 'common/xhr';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 
 lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      modal({
-        content: $('.forum-delete-modal'),
-        onInsert($wrap) {
-          $wrap
-            .find('form')
-            .attr('action', link.href)
-            .on('submit', function (this: HTMLFormElement, e: Event) {
-              e.preventDefault();
-              xhr.formToXhr(this);
-              modal.close();
-              $(link).closest('.forum-post').hide();
-            });
-        },
+      domDialog({
+        cash: $('.forum-delete-modal'),
+        attrs: { view: { action: link.href } },
+      }).then(dlg => {
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.showModal();
       });
       return false;
     })
@@ -26,7 +28,10 @@ lichess.load.then(() => {
       xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
       return false;
     });
-
+  $('.forum-post__blocked button').on('click', e => {
+    const el = (e.target as HTMLElement).parentElement!;
+    $(el).replaceWith($('p', el));
+  });
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';

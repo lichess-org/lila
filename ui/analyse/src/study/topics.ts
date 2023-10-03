@@ -1,6 +1,6 @@
 import type Tagify from '@yaireo/tagify';
 import { prop } from 'common';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
@@ -43,13 +43,13 @@ export const view = (ctrl: StudyCtrl): VNode =>
 let tagify: Tagify | undefined;
 
 export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
-  snabModal({
+  snabDialog({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', ctrl.trans.noarg('topics')),
       h(
         'form',
@@ -84,14 +84,14 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
   lichess.loadCssPath('tagify');
-  lichess.loadIife('vendor/tagify/tagify.min.js').then(() => {
+  lichess.loadIife('npm/tagify/tagify.min.js').then(() => {
     const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, {
       pattern: /.{2,}/,
       maxTags: 30,
     }));
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {
-      const term = e.detail.value.trim();
+      const term = (e.detail as Tagify.TagData).value.trim();
       if (term.length < 2) return;
       tagi.settings.whitelist!.length = 0; // reset the whitelist
       abortCtrl && abortCtrl.abort();

@@ -59,8 +59,8 @@
     <item quantity="other">Ndeshur në %s turne Arenë</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
-    <item quantity="other">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
+    <item quantity="one">U rendit i %1$s (%2$s%% kryesuesit) me %3$s lojë në %4$s</item>
+    <item quantity="other">U rendit i %1$s (%2$s%% kryesuesit) me %3$s lojëra në %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">Konkuroi në turneun zviceran %s</item>

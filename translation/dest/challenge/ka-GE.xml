@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">გამოწვევები %1$s</string>
   <string name="challengeToPlay">გამოიწვიე სათამაშოთ</string>
   <string name="challengeDeclined">გამოწვევა უარყოფილია</string>
   <string name="challengeAccepted">გამოწვევა მიღებულია!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">ამ ვარიანტის თამაში ახლა არ მსურს.</string>
   <string name="declineNoBot">ბოტებისგან არ ვიღებ გამოწვევებს.</string>
   <string name="declineOnlyBot">მხოლოდ ბოტებისგან ვიღებ გამოწვევებს.</string>
+  <string name="inviteLichessUser">ან შეთავაზე ლიჩესის მომხმარებელს:</string>
 </resources>

@@ -1,4 +1,4 @@
-import modal from './modal';
+import { domDialog } from './dialog';
 
 export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector = 'a[href^="http"]') =>
   $(dom).on('click', selector, function (this: HTMLLinkElement) {
@@ -8,29 +8,28 @@ export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector =
 export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
   if (isPassList(url)) return true;
-  lichess.loadCssPath('linkPopup').then(() =>
-    modal({
-      content: $(
-        `<div class="link-popup">
-        <div class="link-popup__content">
-          <div class="link-popup__content__title">
-            <h2>${trans('youAreLeavingLichess')}</h2>
-            <p class="link-popup__content__advice">${trans('neverTypeYourPassword')}</p>
-          </div>
+
+  domDialog({
+    cssPath: 'linkPopup',
+    htmlText: `<div class="link-popup">
+      <div class="link-popup__content">
+        <div class="link-popup__content__title">
+          <h2>${trans('youAreLeavingLichess')}</h2>
+          <p class="link-popup__content__advice">${trans('neverTypeYourPassword')}</p>
         </div>
-        <div class="link-popup__actions">
-          <button class="cancel button-link" type="button">${trans('cancel')}</button>
-          <a href="${a.href}" target="_blank" class="button button-red button-no-upper">
-            ${trans('proceedToX', url.host)}
-          </a>
-        </div>
-      </div>`,
-      ),
-      onInsert($wrap) {
-        $wrap.find('.cancel').on('click', modal.close);
-      },
-    }),
-  );
+      </div>
+      <div class="link-popup__actions">
+        <button class="cancel button-link" type="button">${trans('cancel')}</button>
+        <a href="${a.href}" target="_blank" class="button button-red button-no-upper">
+          ${trans('proceedToX', url.host)}
+        </a>
+      </div>
+    </div>`,
+  }).then(dlg => {
+    $('.cancel', dlg.view).on('click', dlg.close);
+    $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
+    dlg.showModal();
+  });
   return false;
 };
 

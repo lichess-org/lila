@@ -64,6 +64,7 @@
   <string name="nextPayment">התשלום הבא</string>
   <string name="youWillBeChargedXOnY">את/ה תחויב/י ב%1$s ב%2$s.</string>
   <string name="makeAdditionalDonation">תרמו תרומה נוספת עכשיו</string>
+  <string name="giftPatronWingsShort">מתן כנפי תורם/ת</string>
   <string name="giftPatronWings">מתן כנפי תורם/ת לשחקן/ית</string>
   <string name="update">עדכן</string>
   <string name="changeMonthlyAmount">שנה את הסכום החודשי (%s)</string>

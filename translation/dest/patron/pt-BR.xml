@@ -60,6 +60,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Você será cobrado em %1$s no dia %2$s.</string>
   <string name="makeAdditionalDonation">Faça uma doação adicional agora</string>
+  <string name="giftPatronWingsShort">Presentear com asas de Patrono</string>
   <string name="giftPatronWings">Presenteie um jogador com asas de Patrono</string>
   <string name="update">Atualização</string>
   <string name="changeMonthlyAmount">Alterar o valor mensal (%s)</string>

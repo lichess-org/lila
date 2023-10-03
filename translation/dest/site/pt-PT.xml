@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="showVariationArrows">Ver setas de variação</string>
   <string name="evaluationGauge">Medidor da avaliação</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
@@ -144,8 +145,8 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogador conectado</item>
-    <item quantity="other">%s jogadores conectados</item>
+    <item quantity="one">%s jogador</item>
+    <item quantity="other">%s jogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
@@ -482,7 +483,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
-  <string name="whiteWins">Vitórias com brancas</string>
+  <string name="whiteWins">Vitórias com as brancas</string>
   <string name="blackWins">Vitórias com as pretas</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio de %s:</string>
@@ -510,8 +511,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
-  <string name="savingMoves">Armazenamento temporário da jogada</string>
-  <string name="savingMovesHelp">Guardamos as suas variações na cache do navegador.</string>
   <string name="makeAStudy">Para guardar e partilhar, considere fazer um estudo.</string>
   <string name="clearSavedMoves">Limpar jogadas</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
@@ -601,7 +600,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="biographyDescription">Fala de ti, do que gostas no xadrez, das tuas aberturas favoritas, jogos, jogadores...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s carácter.</item>
-    <item quantity="other">Máximo: %s carácteres.</item>
+    <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s bloqueado</item>
@@ -720,9 +719,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="readAboutOur">Lê sobre a nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede entre ti e o Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
-  <string name="downloadAnnotated">Descarregar a anotação</string>
-  <string name="downloadRaw">Descarregar o texto</string>
-  <string name="downloadImported">Descarregar a partida importada</string>
+  <string name="downloadAnnotated">Transferir anotação</string>
+  <string name="downloadRaw">Transferir texto</string>
+  <string name="downloadImported">Transferir a partida importada</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
@@ -912,7 +911,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="coachManager">Gestor de treinadores</string>
-  <string name="streamerManager">Gestor de streamers</string>
+  <string name="streamerManager">Gestor do streamer</string>
   <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
   <string name="tournDescriptionHelp">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [name](https://url)</string>

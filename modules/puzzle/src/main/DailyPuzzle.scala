@@ -18,10 +18,8 @@ final private[puzzle] class DailyPuzzle(
   import BsonHandlers.given
 
   private val cache =
-    cacheApi.unit[Option[DailyPuzzle.WithHtml]] {
-      _.refreshAfterWrite(1 minutes)
-        .buildAsyncFuture(_ => find)
-    }
+    cacheApi.unit[Option[DailyPuzzle.WithHtml]]:
+      _.refreshAfterWrite(1 minutes).buildAsyncFuture(_ => find)
 
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
 
@@ -41,22 +39,19 @@ final private[puzzle] class DailyPuzzle(
     none
   }
 
-  private def findCurrent =
-    colls.puzzle {
-      _.find($doc(F.day $gt nowInstant.minusDays(1)))
-        .sort($sort desc F.day)
-        .one[Puzzle]
-    }
+  private def findCurrent = colls.puzzle:
+    _.find($doc(F.day $gt nowInstant.minusDays(1)))
+      .sort($sort desc F.day)
+      .one[Puzzle]
 
   private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] =
     def tryAgainMaybe = (tries < 7) so findNewBiased(tries + 1)
     import PuzzleTheme.*
-    findNew flatMap {
+    findNew.flatMap:
       case None => tryAgainMaybe
       case Some(p) if p.hasTheme(anastasiaMate, arabianMate) && !odds(3) =>
         tryAgainMaybe.dmap(_ orElse p.some)
       case p => fuccess(p)
-    }
 
   private def findNew: Fu[Option[Puzzle]] =
     colls
@@ -69,7 +64,7 @@ final private[puzzle] class DailyPuzzle(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
-            PipelineOperator(
+            PipelineOperator:
               $lookup.pipeline(
                 from = colls.puzzle,
                 as = "puzzle",
@@ -86,15 +81,15 @@ final private[puzzle] class DailyPuzzle(
                   )
                 )
               )
-            ),
+            ,
             UnwindField("puzzle"),
             ReplaceRootField("puzzle"),
             AddFields($doc("dayScore" -> $doc("$multiply" -> $arr("$plays", "$vote")))),
             Sort(Descending("dayScore")),
             Limit(1)
           )
-      .flatMap: docOpt =>
-        docOpt.flatMap(puzzleReader.readOpt).so { puzzle =>
+      .flatMap:
+        _.flatMap(puzzleReader.readOpt).so { puzzle =>
           colls.puzzle(_.updateField($id(puzzle.id), F.day, nowInstant)) inject puzzle.some
         }
 

@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Reiniciar o meu progresso</string>
   <string name="youWillLoseAllYourProgress">Vais perder todo o teu progresso!</string>
-  <string name="play">joga!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joga!</string>
   <string name="chessPieces">Peças de xadrez</string>
   <string name="theRook">A torre</string>
   <string name="itMovesInStraightLines">Move-se em linhas retas</string>
@@ -195,7 +195,7 @@ Confirma que a tua jogada é legal!</string>
   <string name="takeThePieceWithTheHighestValue">Captura a peça
 de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Sabes o valor do material!
-Rainha = 9
+Dama = 9
 Torre = 5
 Bispo = 3
 Cavalo = 3

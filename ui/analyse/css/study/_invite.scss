@@ -1,11 +1,6 @@
 .study__invite {
   max-width: 50em;
-
-  > div {
-    overflow: visible !important;
-
-    // required by user autocomplete
-  }
+  overflow: visible !important;
 
   .info {
     @extend %box-radius, %flex-center-nowrap;

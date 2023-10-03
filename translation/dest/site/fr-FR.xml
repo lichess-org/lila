@@ -115,6 +115,7 @@
   <string name="openStudy">Ouvrir l\'analyse</string>
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
+  <string name="showVariationArrows">Afficher les flèches de variantes</string>
   <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="multipleLines">Lignes d\'analyse</string>
   <string name="cpus">Processeurs</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Liens des réseaux sociaux</string>
   <string name="oneUrlPerLine">Une URL par ligne.</string>
   <string name="inlineNotation">Notation en ligne</string>
-  <string name="savingMoves">Coups conservés temporairement</string>
-  <string name="savingMovesHelp">Vos variantes sont toujours conservées dans le cache de votre navigateur.</string>
   <string name="makeAStudy">Pour conserver et partager vos analyses, créez une étude.</string>
   <string name="clearSavedMoves">Supprimer les coups</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>

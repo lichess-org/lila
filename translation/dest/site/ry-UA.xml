@@ -447,7 +447,6 @@
   <string name="profile">Профіл</string>
   <string name="lastName">Прозвище</string>
   <string name="biography">За ся</string>
-  <string name="savingMovesHelp">Мы сокотиме ваші варіанты у кешови вашого браузера.</string>
   <string name="clearSavedMoves">Захарити ходы</string>
   <string name="success">Успіх</string>
   <plurals name="nbGamesInPlay">

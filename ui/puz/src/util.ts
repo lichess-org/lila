@@ -12,7 +12,6 @@ const loadSound = (file: string, volume?: number, delay?: number) => {
 };
 
 export const sound = {
-  move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
   good: loadSound('lisp/PuzzleStormGood', 0.9, 1000),
   wrong: loadSound('lisp/Error', 1, 1000),
   end: loadSound('lisp/PuzzleStormEnd', 1, 5000),

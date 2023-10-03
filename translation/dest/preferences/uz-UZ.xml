@@ -6,7 +6,7 @@
   <string name="notifications">Bildirishnomalar</string>
   <string name="pieceAnimation">Qism animatsiyalar</string>
   <string name="materialDifference">Materiallar farqi</string>
-  <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
+  <string name="boardHighlights">Doskadagi rang bila ajratsih (oxirgi yurish va shoh)</string>
   <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish</string>
   <string name="boardCoordinates">Doska koordinatalari (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">O\'yin davomida yurishlar ro\'yhatini ko\'rsatish</string>

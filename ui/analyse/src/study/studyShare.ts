@@ -1,6 +1,6 @@
 import { prop, Prop } from 'common';
 import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
@@ -22,6 +22,7 @@ export interface StudyShareCtrl {
   shareable(): boolean;
   redraw: () => void;
   trans: Trans;
+  gamebook: boolean;
 }
 
 function fromPly(ctrl: StudyShareCtrl): VNode {
@@ -75,6 +76,7 @@ export function ctrl(
     shareable: () => data.features.shareable,
     redraw,
     trans,
+    gamebook: data.chapter.gamebook,
   };
 }
 
@@ -100,7 +102,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
   const youCanPasteThis = () =>
     h(
       'p.form-help.text',
-      { attrs: { 'data-icon': licon.InfoCircle } },
+      { attrs: dataIcon(licon.InfoCircle) },
       ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'),
     );
   return h(
@@ -113,7 +115,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   'a.button.text',
                   {
                     attrs: {
-                      'data-icon': licon.StudyBoard,
+                      ...dataIcon(licon.StudyBoard),
                       href: `/study/${studyId}/clone`,
                     },
                   },
@@ -125,7 +127,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 'a.button.text',
                 {
                   attrs: {
-                    'data-icon': licon.Download,
+                    ...dataIcon(licon.Download),
                     href: `/api/broadcast/${ctrl.relay.data.tour.id}.pgn`,
                     download: true,
                   },
@@ -136,7 +138,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: ctrl.relay ? `${ctrl.relay.roundPath()}.pgn` : `/study/${studyId}.pgn`,
                   download: true,
                 },
@@ -147,7 +149,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: `/study/${studyId}/${chapter.id}.pgn`,
                   download: true,
                 },
@@ -158,7 +160,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Clipboard,
+                  ...dataIcon(licon.Clipboard),
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
                   tabindex: '0',
                 },
@@ -188,7 +190,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
                     fen: ctrl.currentNode().fen,
                     color: ctrl.bottomColor(),
@@ -206,7 +208,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
                     theme: document.body.dataset.boardTheme,
                     piece: document.body.dataset.pieceSet,
@@ -241,7 +243,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   h('button.button.copy', {
                     attrs: {
                       'data-rel': `study-share-${i18n}`,
-                      'data-icon': licon.Clipboard,
+                      ...dataIcon(licon.Clipboard),
                     },
                   }),
                 ]),
@@ -257,7 +259,9 @@ export function view(ctrl: StudyShareCtrl): VNode {
                     readonly: true,
                     disabled: isPrivate,
                     value: !isPrivate
-                      ? `<iframe width=600 height=371 src="${baseUrl()}${addPly(
+                      ? `<iframe ${
+                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                        } src="${baseUrl()}${addPly(
                           `/study/embed/${studyId}/${chapter.id}`,
                         )}" frameborder=0></iframe>`
                       : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
@@ -274,7 +278,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                             href: '/developers#embed-study',
                             target: '_blank',
                             rel: 'noopener',
-                            'data-icon': licon.InfoCircle,
+                            ...dataIcon(licon.InfoCircle),
                           },
                         },
                         ctrl.trans.noarg('readMoreAboutEmbedding'),

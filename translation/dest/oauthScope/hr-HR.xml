@@ -25,7 +25,7 @@
   <string name="followRead">Pročitajte praćene igrače</string>
   <string name="followWrite">Pratite i prestanite pratiti druge igrače</string>
   <string name="msgWrite">Šaljite privatne poruke drugim igračima</string>
-  <string name="boardPlay">Igrajte igre s Api-jem za ploču</string>
+  <string name="boardPlay">Igrajte igre s API-jem za ploču</string>
   <string name="botPlay">Igrajte igre s Api-jem za ploču</string>
   <string name="engineRead">Pogledajte i koristite svoje vanjske motore</string>
   <string name="engineWrite">Stvorite i ažurirajte vanjske motore</string>

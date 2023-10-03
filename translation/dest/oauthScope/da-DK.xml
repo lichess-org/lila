@@ -25,7 +25,7 @@
   <string name="followRead">Læs fulgte spillere</string>
   <string name="followWrite">Følg og affølg andre spillere</string>
   <string name="msgWrite">Send privat besked til andre spillere</string>
-  <string name="boardPlay">Spil partier med bræt-api</string>
+  <string name="boardPlay">Spil partier med bræt-API</string>
   <string name="botPlay">Spil partier med bot-api</string>
   <string name="engineRead">Se og brug dit eksterne skakprogram</string>
   <string name="engineWrite">Opret og opdater eksternt skakprogram</string>

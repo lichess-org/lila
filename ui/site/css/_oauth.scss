@@ -50,7 +50,7 @@
         @extend %data-icon;
         font-size: 1.5em;
         @include margin-inline-end(0.2em);
-        content: '';
+        content: $licon-CautionTriangle;
         color: $c-bad-over;
       }
     }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">Tabla DGT</string>
+  <string name="dgtBoardLimitations">Limitări ale tablei DGT</string>
+  <string name="reloadThisPage">Reîncarcă această pagină</string>
+  <string name="dgtConfigure">DGT - Configurare</string>
+  <string name="keywords">Cuvinte cheie</string>
+  <string name="debug">Depanare</string>
+  <string name="configure">Configurare</string>
+</resources>

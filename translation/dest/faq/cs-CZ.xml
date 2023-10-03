@@ -54,6 +54,7 @@ Počítačová analýza na Lichessu využívá program Stockfish. Hráčovy tahy
 Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. \"fortressů\", česky \"pevností\"). Pokud si nejsme jistí, vždy upřednostňujeme výhru hráče, který na čas neprohrál.
 
 Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má figuru, která by mohla králi zatarasit únikovou cestu.</string>
+  <string name="fideHandbook">Příručka FIDE</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
   <string name="explainingEnPassant">Tento tah je však platný a podle pravidel, a nazává se \"en passant\", neboli braní mimochodem. Můžete si přečíst tento článek na Wikipedii: %1$s.
@@ -65,7 +66,7 @@ Pro procvičení můžete použít %3$s.</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
   <string name="watchIMRosenCheckmate">Sledujte video mezinárodního mistra Erica Rosena: šach mat zbraním mimochodem %s.</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
-  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 pravidel FIDE, viz %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojí opakování pozice</string>
   <string name="notRepeatedMoves">Neopakovali jsme tahy, i tak ale hra skončila remízou pro opakování tahů? Proč?</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakování pozice se týká %1$s, nikoliv tahů. Pozice se nemusí opakovat ihned po sobě.</string>

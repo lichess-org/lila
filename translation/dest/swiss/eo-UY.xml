@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Svizaj turniroj</string>
+  <string name="swissTournaments">Svisaj turniroj</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vidi la raŭndon</item>
     <item quantity="other">Vidi ĉiuj %s raŭndoj</item>
@@ -62,8 +62,7 @@ Ni pensas, ke tiuj kondiĉoj estas pli ŝance estos renkontiĝi en teamo ol en m
   <string name="numberOfByesA">Ludanto ricevas unu poenton da malplena raŭndo ĉiufoje, kiam la pariga sistemo ne trovas paro por tiu.
 Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝas al turniro.</string>
   <string name="earlyDrawsQ">Kio okazas kun fruaj egalvenkoj?</string>
-  <string name="earlyDrawsA">Ludanto ricevas unu poenton da malplena raŭndo ĉiufoje, kiam la pariga sistemo ne trovas paro por tiu.
-Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝas al turniro.</string>
+  <string name="earlyDrawsAnswer">En svisaj ludoj, ludantoj ne povas konsenti pri egalvenko antaŭ 30 movoj estas luditaj. Dum tiu ne povas malhelpi antaŭaranĝitajn egalvenkojn, ĝi almenaŭ malfaciligas konsenti pri egalvenko spontanee.</string>
   <string name="whatIfOneDoesntPlayQ">Kio okazas, se ludanto ne ludas ludon?</string>
   <string name="whatIfOneDoesntPlayA">Ties horloĝo klakos, tiu flagiĝos kaj malvenkos.
 Tiam la sistemo eltiros la ludanton el la turniro, tiel tiu ne malvenkos pli da ludoj.

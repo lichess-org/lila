@@ -25,8 +25,8 @@
   <string name="followRead">خوێندنەوەی یاریزانانی فۆڵۆوکراو</string>
   <string name="followWrite">فۆڵۆو و ئەنفۆڵۆوی یاریزانانی تر بکە</string>
   <string name="msgWrite">ناردنی نامەی تایبەت بۆ یاریزانانی تر</string>
-  <string name="boardPlay">یاری لەگەڵ تەختەی Api بکە</string>
-  <string name="botPlay">یاری لەگەڵ تەختەی Apiـیەکە بکە</string>
+  <string name="boardPlay">یاری لەگەڵ تەختەی API بکە</string>
+  <string name="botPlay">یاری لەگەڵ تەختەی APIـیەکە بکە</string>
   <string name="engineRead">بینین یان بەکارهێنانی بزوێنەرە دەرەکییەکان</string>
   <string name="engineWrite">دروستکردن یان نوێکردنەوەی بزوێنەری دەرەکی</string>
   <string name="webLogin">دروستکردنی پێگەیەکی باوەڕپێکراو (رێگە بە گەیشتن بە هەمووی دەدات!)</string>

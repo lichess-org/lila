@@ -95,7 +95,7 @@
 
 .cmn-toggle:not(:checked) + label {
   &::before {
-    content: '';
+    content: $licon-X;
     color: $c-bad;
   }
 }
@@ -113,7 +113,7 @@
   }
 
   &::before {
-    content: '';
+    content: $licon-Checkmark;
     color: $c-good;
   }
 }

@@ -9,7 +9,7 @@
     <item quantity="other">%s учасників</item>
   </plurals>
   <string name="allTeams">Усі команди</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Лідер команд</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Капітан команд</string>
   <string name="newTeam">Нова команда</string>
   <string name="myTeams">Мої команди</string>
   <string name="noTeamFound">Не знайдено команди</string>
@@ -29,9 +29,9 @@
   <string name="whoToKick">Кого ви хочете виключити з команди?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запит на приєднання</item>
-    <item quantity="few">%s запити на приєднання</item>
-    <item quantity="many">%s запитів на приєднання</item>
-    <item quantity="other">%s запитів на приєднання</item>
+    <item quantity="few">%s запити на вступ</item>
+    <item quantity="many">%s запитів на вступ</item>
+    <item quantity="other">%s запитів на вступ</item>
   </plurals>
   <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
   <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>

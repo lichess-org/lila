@@ -11,9 +11,9 @@
   <string name="newTeam">Novo equipo</string>
   <string name="myTeams">Os meus equipos</string>
   <string name="noTeamFound">Ningún equipo atopado</string>
-  <string name="joinTeam">Únirse ó equipo</string>
+  <string name="joinTeam">Unirse ó equipo</string>
   <string name="onlyLeaderLeavesTeam">Por favor, engade un novo líder de equipo antes de saíres ou pecha o equipo.</string>
-  <string name="quitTeam">Sair do equipo</string>
+  <string name="quitTeam">Saír do equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores terán que escribir unha solicitude para unirse ao equipo, que ti poderás rexeitar ou aceptar.</string>
   <plurals name="teamLeaders">
@@ -43,6 +43,7 @@ Deste xeito podes convocar ós xogadores para que se unan a un torneo ou batalla
 Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Queres vincular un destes próximos torneos?</string>
+  <string name="onlyInviteLeadersTrust">Convida só líderes nos que confíes plenamente. Os líderes de equipo poden expulsar ós membros e ós outros líderes.</string>
   <string name="usersWhoCanManageThisTeam">Usuarios que poden administrar este equipo</string>
   <string name="leadersChat">Sala de conversa dos líderes</string>
   <string name="closeTeam">Pechar o equipo</string>

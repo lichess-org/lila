@@ -26,7 +26,7 @@
   <string name="followWrite">Följa och sluta följa andra spelare</string>
   <string name="msgWrite">Skicka privata meddelanden till andra spelare</string>
   <string name="boardPlay">Spela partier med bräd-api</string>
-  <string name="botPlay">Spela partier med bot-api</string>
+  <string name="botPlay">Spela partier med bot-API</string>
   <string name="engineRead">Visa och använd dina externa schackmotorer</string>
   <string name="engineWrite">Skapa och uppdatera externa schackmotorer</string>
   <string name="webLogin">Skapa autentiserade webbplatssessioner (ger fullständig åtkomst!)</string>

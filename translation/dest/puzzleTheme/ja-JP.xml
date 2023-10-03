@@ -3,7 +3,7 @@
   <string name="advancedPawn">進んだポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがテーマの問題。</string>
   <string name="advantage">優位</string>
-  <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="anastasiaMate">アナスタシアのメイト</string>
   <string name="anastasiaMateDescription">盤端と味方の駒にはさまれたキングを、ナイトとルーク（またはクイーン）でメイトする形。</string>
   <string name="arabianMate">アラビアのメイト</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
   <string name="crushing">圧倒</string>
-  <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="doubleBishopMate">ダブル・ビショップのメイト</string>
   <string name="doubleBishopMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが平行な効き筋でメイトする形。</string>
   <string name="dovetailMate">燕尾のメイト</string>
   <string name="dovetailMateDescription">斜め後ろを両方とも味方の駒に塞がれたキングを、クイーン1個でメイトする形。</string>
   <string name="equality">互角</string>
-  <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃する。</string>
   <string name="clearance">クリアランス（解放）</string>

@@ -233,6 +233,7 @@ GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
+POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -546,6 +547,7 @@ POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(userna
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
+POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)
@@ -601,7 +603,7 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, sl
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug, id)
+POST  /forum/delete/:id     controllers.ForumPost.delete(id)
 POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
@@ -698,6 +700,7 @@ GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
+POST  /api/account/preferences/:name   controllers.Pref.apiSet(name)
 GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
@@ -849,7 +852,7 @@ GET   /variant/:key                    controllers.ContentPage.variant(key)
 # Help
 GET   /help/contribute                 controllers.ContentPage.help
 GET   /help/master                     controllers.ContentPage.master
-GET   /help/analyse/shift-key          controllers.Main.analyseShiftKeyHelp
+GET   /help/analyse/variation-arrow    controllers.Main.analyseVariationArrowHelp
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

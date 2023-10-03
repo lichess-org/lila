@@ -15,6 +15,11 @@
   grid-template-columns: 280px 2vmin 210px;
   grid-template-rows: min-content auto min-content;
   grid-template-areas: '.            . e-tools' 'spare-top    . e-tools' 'e-board      . e-tools' 'spare-bottom . e-tools' '.            . e-tools';
+  @media (max-width: 576px) {
+    grid-template-columns: 100%;
+    grid-template-rows: auto min-content;
+    grid-template-areas: 'e-board' 'e-tools';
+  }
   user-select: none;
 
   .main-board {

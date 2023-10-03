@@ -9,28 +9,28 @@
   <string name="addRound">Thêm một vòng</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
-  <string name="completed">Hoàn thành</string>
+  <string name="completed">Đã hoàn thành</string>
   <string name="roundName">Tên vòng</string>
   <string name="roundNumber">Vòng đấu số</string>
   <string name="tournamentName">Tên giải đấu</string>
   <string name="tournamentDescription">Lời miêu tả giải đấu ngắn</string>
-  <string name="fullDescription">Mô tả đầy đủ sự kiện</string>
-  <string name="fullDescriptionHelp">Mô tả dài tùy chọn của buổi phát sóng. %1$s có thể sử dụng. Chiều dài phải nhỏ hơn %2$s ký tự.</string>
-  <string name="sourceUrlOrGameIds">URL nguồn, hoặc ID game</string>
-  <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ mạng Internet.</string>
-  <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, cách nhau bởi dấu cách.</string>
-  <string name="startDate">Ngày bắt đầu trong múi giờ của bạn</string>
+  <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
+  <string name="fullDescriptionHelp">Mô tả dài tùy chọn về giải đấu. %1$s có thể sử dụng. Độ dài phải nhỏ hơn %2$s ký tự.</string>
+  <string name="sourceUrlOrGameIds">URL nguồn, hoặc ID ván cờ</string>
+  <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
+  <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, phân tách bởi dấu cách.</string>
+  <string name="startDate">Ngày bắt đầu theo múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
-  <string name="broadcastUrl">Link buổi phát sóng</string>
-  <string name="currentRoundUrl">Link vòng đấu hiện tại</string>
+  <string name="broadcastUrl">URL buổi phát sóng</string>
+  <string name="currentRoundUrl">URL vòng đấu hiện tại</string>
   <string name="currentGameUrl">Link ván đấu hiện tại</string>
   <string name="downloadAllRounds">Tải xuống tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
   <string name="deleteRound">Xóa vòng này</string>
   <string name="definitivelyDeleteRound">Xóa hoàn toàn vòng đấu và các ván đấu trong đó.</string>
   <string name="deleteAllGamesOfThisRound">Xóa toàn bộ ván cờ trong vòng này. Để tạo lại chúng bạn cần thêm lại nguồn.</string>
-  <string name="editRoundStudy">Nghiên cứu chỉnh sửa vòng</string>
+  <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả các trò chơi của nó.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
 </resources>

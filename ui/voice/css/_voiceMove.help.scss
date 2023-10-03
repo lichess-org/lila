@@ -1,6 +1,4 @@
 .voice-move-help {
-  @extend %help-modal;
-
   td.tips li {
     list-style: disc;
     font-size: 1.1em;
@@ -10,15 +8,17 @@
   a {
     margin-#{$start-direction}: 0.25em;
   }
-  &#modal-wrap {
-    max-width: 1000px;
-    &.bigger {
-      width: 100%;
-    }
-  }
+
   table {
     align-self: start;
   }
+
+  voice {
+    display: block;
+    font-weight: bold;
+    color: $c-font;
+  }
+
   .commands {
     td:first-child {
       padding-#{$start-direction}: 2em;
@@ -29,11 +29,13 @@
       flex-direction: column;
     }
   }
-  #all-phrases-button {
+
+  .all-phrases-button {
     margin-top: 1em;
     padding: 0.6em 1.2em;
   }
-  #big-table {
+
+  .big-table {
     td {
       padding: 0 1em;
       white-space: nowrap;
@@ -48,9 +50,4 @@
       }
     }
   }
-}
-voice {
-  display: block;
-  font-weight: bold;
-  color: $c-font;
 }

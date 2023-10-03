@@ -55,8 +55,7 @@
   <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
 また途中参加の場合、0.5 ポイントのバイが 1 回だけ与えられます。</string>
   <string name="earlyDrawsQ">短手数でのドローはどうなりますか？</string>
-  <string name="earlyDrawsA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
-また途中参加の場合、0.5 ポイントのバイが 1 回だけ与えられます。</string>
+  <string name="earlyDrawsAnswer">スイス式トーナメントでは、30 手を終えるまでドローは認められません。これでも事前合意によるドローは防げませんが、少なくともその場でのドロー合意は難しくなります。</string>
   <string name="whatIfOneDoesntPlayQ">プレイヤーが対局しないとどうなりますか？</string>
   <string name="whatIfOneDoesntPlayA">時計が進み、持時間がなくなって負けになります。
 続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。

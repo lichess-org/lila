@@ -2,6 +2,7 @@
 <resources>
   <string name="settings">ಸಂಯೋಜನೆಗಳು</string>
   <string name="closeAccount">ಖಾತೆ ಮುಚ್ಚಿ</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿರ್ವಹಿಸಲಾಗಿದೆ ಮತ್ತು ಮುಚ್ಚಲಾಗುವುದಿಲ್ಲ.</string>
   <string name="closingIsDefinitive">ಖಾತೆ ಮುಚ್ಚಿದಲ್ಲಿ ಮತ್ತೆ ತೆರೆಯಲಾಗುವುದಿಲ್ಲ. ನಿಮ್ಮ ನಿರ್ಧಾರ ಖಚಿತವೇ?</string>
   <string name="cantOpenSimilarAccount">ನೀವು ಆ ಖಾತೆ ಹೆಸರಿನಲ್ಲಿ ಮುಂದೆ ಮತ್ತೊಂದು ಖಾತೆ ತೆರೆಯಲಾಗುವುದಿಲ್ಲ, case(a/A) ಬೇರೆಯಿದ್ದರೂ.</string>
   <string name="changedMindDoNotCloseAccount">ನಿರ್ಧಾರ ಬದಲಿಸಿದೆ, ಖಾತೆ ಮುಚ್ಚುವುದು ಬೇಡ</string>

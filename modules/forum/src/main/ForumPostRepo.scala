@@ -27,9 +27,6 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
 
   def byIds(ids: Seq[ForumPostId]) = coll.byIds[ForumPost, ForumPostId](ids)
 
-  def byCategAndId(categId: ForumCategId, id: ForumPostId): Fu[Option[ForumPost]] =
-    coll.one[ForumPost](selectCateg(categId) ++ $id(id))
-
   def countBeforeNumber(topicId: ForumTopicId, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 

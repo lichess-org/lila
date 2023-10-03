@@ -67,7 +67,6 @@ Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumi
   <string name="numberOfByesQ">Cik reižu var saņemt tehnisko uzvaru?</string>
   <string name="numberOfByesA">Spēlētājs saņem punktu par tehnisko uzvaru ik reizi kad sistēma nevar piemeklēt pretinieku. Papildus tiek piešķirts tehniskais puspunkts ja spēlētājs nokavē turnīra sākumu.</string>
   <string name="earlyDrawsQ">Kas notiek ar ātriem neizšķirtiem?</string>
-  <string name="earlyDrawsA">Spēlētājs saņem punktu par tehnisko uzvaru ik reizi kad sistēma nevar piemeklēt pretinieku. Papildus tiek piešķirts tehniskais puspunkts ja spēlētājs nokavē turnīra sākumu.</string>
   <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
   <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.

@@ -123,6 +123,11 @@ final class Mod(
       modApi.setRankban(sus, v) map some
   }(actionResult(username))
 
+  def arenaBan(username: UserStr, v: Boolean) = OAuthMod(_.ArenaBan) { _ ?=> me ?=>
+    withSuspect(username): sus =>
+      modApi.setArenaBan(sus, v) map some
+  }(actionResult(username))
+
   def prizeban(username: UserStr, v: Boolean) = OAuthMod(_.PrizeBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
       modApi.setPrizeban(sus, v) map some

@@ -71,8 +71,8 @@
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Kayıp devam yolu</string>
-  <string name="variantWin">Kazanç devam yolu</string>
+  <string name="variantLoss">Varyant yenilgisi</string>
+  <string name="variantWin">Varyant zaferi</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
+  <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
-  <string name="savingMoves">Geçici hamle depolama</string>
-  <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
   <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
   <string name="clearSavedMoves">Hamleleri sil</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>

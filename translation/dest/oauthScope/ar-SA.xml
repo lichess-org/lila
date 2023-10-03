@@ -25,7 +25,7 @@
   <string name="followRead">قراءة اللاعبين المتابعين</string>
   <string name="followWrite">متابعة/ الغاء متابعة اللاعبين الاخرين</string>
   <string name="msgWrite">ارسال رسالة خاصة للاعبين الاخرين</string>
-  <string name="boardPlay">العب مبارايات ضد بوت api</string>
+  <string name="boardPlay">العب مبارايات ضد بوت API</string>
   <string name="botPlay">العب مبارايات ضد بوت api</string>
   <string name="engineRead">عرض و استخدام المحركات الخارجية</string>
   <string name="engineWrite">إنشاء وتحديث محركات خارجية</string>

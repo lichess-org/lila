@@ -61,7 +61,7 @@ Ajoute le résultat de chaque adversaire battu par le joueur et la moitié du r�
   <string name="numberOfByesA">Un joueur reçoit un bye de un point chaque fois qu\'il est impossible de l\'apparier à un autre joueur.
 De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardivement à un tournoi.</string>
   <string name="earlyDrawsQ">Que se passe-t-il avec les nulles précoces?</string>
-  <string name="earlyDrawsA">Un joueur obtient un bye d\'un point à chaque fois qu\'il est impossible de l\'apparier avec un autre joueur. De plus, un joueur obtient un bye d\'un demi-point lorsqu\'il se joint à un tournoi après que celui-ci a commencé.</string>
+  <string name="earlyDrawsAnswer">Dans les parties suisses, les joueurs ne peuvent faire nulle avant 30 coups. Cette règle n\'empêche pas les nulles conclues d\'avance, mais elle rend plus difficiles les nulles rapides.</string>
   <string name="whatIfOneDoesntPlayQ">Qu\'arrive-t-il si un joueur ne se présente pas pour la partie?</string>
   <string name="whatIfOneDoesntPlayA">Son horloge démarrera et il perdra éventuellement la partie au temps.
 Ensuite, il sera retiré du tournoi pour éviter de perdre d\'autres parties par défaut.

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Lähetykset</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s lähetys</item>
+    <item quantity="other">%s lähetystä</item>
+  </plurals>
   <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
   <string name="newBroadcast">Uusi livelähetys</string>
   <string name="addRound">Lisää kierros</string>
@@ -8,7 +12,7 @@
   <string name="upcoming">Tulossa</string>
   <string name="completed">Päättyneet</string>
   <string name="roundName">Kierroksen nimi</string>
-  <string name="roundNumber">Kierroksen numero</string>
+  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Kierroksen numero</string>
   <string name="tournamentName">Turnauksen nimi</string>
   <string name="tournamentDescription">Turnauksen lyhyt kuvaus</string>
   <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>
@@ -19,14 +23,15 @@
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="credits">Mainitse lähde</string>
-  <string name="broadcastUrl">Lähetyksen URL</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">Lähetyksen URL</string>
   <string name="currentRoundUrl">Tämän kierroksen URL</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
   <string name="downloadAllRounds">Lataa kaikki kierrokset</string>
   <string name="resetRound">Nollaa tämä kierros</string>
   <string name="deleteRound">Poista tämä kierros</string>
-  <string name="definitivelyDeleteRound">Poista kierros ja sen pelit lopullisesti.</string>
-  <string name="deleteAllGamesOfThisRound">Poista kaikki tämän kierroksen pelit. Lähteen on oltava aktiivinen, jotta pelit voidaan luoda uudelleen.</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Poista kierros ja sen pelit lopullisesti.</string>
+  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round (https://lichess.org/broadcast). &quot;Source&quot; refers to the broadcasting source. The source is usually a URL pointing to a PGN file, which is continuously updated by the tournament organisers and polled by Lichess to get new moves.&#10;&#10;This button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source, the next time it is polled by Lichess.">Poista kaikki tämän kierroksen pelit. Lähteen on oltava aktiivinen, jotta pelit voidaan luoda uudelleen.</string>
+  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies. Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Kierrostutkielman muokkaus</string>
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
 </resources>

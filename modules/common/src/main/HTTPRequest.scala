@@ -79,7 +79,7 @@ object HTTPRequest:
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.value.lengthIs < 30)
+  def weirdUA(req: RequestHeader) = userAgent(req).forall(_.value.lengthIs < 30)
 
   def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
@@ -141,3 +141,7 @@ object HTTPRequest:
   def looksLikeLichessBot(req: RequestHeader) =
     userAgent(req).exists: ua =>
       ua.value.startsWith("lichess-bot/") || ua.value.startsWith("maia-bot/")
+
+  // this header is set by our nginx config, based on the nginx whitelist file.
+  def nginxWhitelist(req: RequestHeader) =
+    req.headers.get("X-Ip-Tier").flatMap(_.toIntOption).exists(_ > 1)

@@ -154,12 +154,13 @@ button#microphone-button {
   .active {
     @extend %active-primary;
   }
+}
 
-  &__device {
-    flex-flow: row nowrap;
-    select {
-      width: 0;
-      flex: 1;
-    }
+.voice-choices__device {
+  flex-flow: row nowrap;
+
+  select {
+    width: 0;
+    flex: 1;
   }
 }

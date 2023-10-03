@@ -119,6 +119,7 @@
   <string name="openStudy">Открыть в студии</string>
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
+  <string name="showVariationArrows">Показать стрелки вариантов</string>
   <string name="evaluationGauge">Шкала оценки</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
@@ -575,8 +576,6 @@
   <string name="socialMediaLinks">Ссылки на соцсети</string>
   <string name="oneUrlPerLine">Один URL на строку.</string>
   <string name="inlineNotation">Строчная нотация</string>
-  <string name="savingMoves">Временное хранилище ходов</string>
-  <string name="savingMovesHelp">Мы всегда сохраняем ваши варианты в кеше вашего браузера.</string>
   <string name="makeAStudy">Чтобы сохранить и поделиться, рассмотрите возможность создания Студии.</string>
   <string name="clearSavedMoves">Очистить ходы</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>

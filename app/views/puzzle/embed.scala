@@ -19,6 +19,7 @@ object embed:
         id  := "daily-puzzle",
         cls := "embedded"
       ),
+      chessgroundTag,
       jsModule("puzzle.embed")
     )
 

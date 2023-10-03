@@ -114,4 +114,5 @@ Najbliže što možete doći do Round Robina online je igrati švicarski turnir 
   <string name="unlimitedAndFree">Neograničeno i besplatno</string>
   <string name="predefinedUsers">Dopustite pridruživanje samo unaprijed definiranim korisnicima</string>
   <string name="forbiddedUsers">Ako ovaj popis nije prazan, korisnicima koji nisu na ovom popisu bit će zabranjeno pridruživanje. Jedno korisničko ime po retku.</string>
+  <string name="playYourGames">Igraj svoje partije</string>
 </resources>

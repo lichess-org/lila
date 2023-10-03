@@ -31,7 +31,7 @@
   <string name="byOpenings">தொடக்க ஆட்டத்தின்படி</string>
   <string name="puzzlesByOpenings">தொடக்க ஆட்டத்தின்படியான புதிர்கள்</string>
   <string name="openingsYouPlayedTheMost">மதிப்பிடப்பட்ட போட்டிகளில் நீங்கள் கூடுதலாகப் பாவித்த தொடக்க ஆட்டங்கள்</string>
-  <string name="useFindInPage">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் கண்டுபிடிக்க உலாவியின் \"Find in page\" ஐப் பயன்படுத்துக!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் கண்டுபிடிக்க உலாவியின் \"Find in page\" ஐப் பயன்படுத்துக!</string>
   <string name="useCtrlF">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் காண Ctrl+f ஐப் பயன்படுத்துக!</string>
   <string name="notTheMove">நகர்வு இதுவல்ல!</string>
   <string name="trySomethingElse">வேறு ஏதாவதை முயற்சிக்கவும்.</string>
@@ -47,6 +47,30 @@
   <string name="normal">இயல்பு</string>
   <string name="easier">இலகுவானது</string>
   <string name="easiest">மிகவும் இலகுவானது</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">உங்கள் புதிர் மதிப்பீட்டிலிருந்து ஒரு புள்ளி குறைவாக</item>
+    <item quantity="other">உங்கள் புதிர் மதிப்பீட்டிலிருந்து ஒரு %s புள்ளி கீழே</item>
+  </plurals>
   <string name="harder">கடினமானது</string>
   <string name="hardest">மிகக்கடினமானது</string>
+  <string name="example">எடுத்துக்காட்டு</string>
+  <string name="addAnotherTheme">வேறொரு வார்ப்புருவைச் சேர்</string>
+  <string name="nextPuzzle">அடுத்த புதிர்</string>
+  <string name="jumpToNextPuzzleImmediately">உடனடியாக அடுத்த புதிருக்கு</string>
+  <string name="puzzleDashboard">புதிர்க் கட்டுப்பாட்டகம் (dashboard)</string>
+  <string name="improvementAreas">முன்னேறவேண்டிய பகுதிகள்</string>
+  <string name="strengths">பலங்கள்</string>
+  <string name="history">புதிர்ச் சரித்திரம்</string>
+  <string name="solved">தீர்க்கப்பட்டது</string>
+  <string name="failed">தவறானது</string>
+  <string name="fromMyGames">எனது விளையாட்டுக்களிலிருந்து</string>
+  <string name="fromXGames">%s விளையாட்டுக்களிலிருந்தான புதிர்கள்</string>
+  <string name="searchPuzzles">புதிர்களைத் தேட</string>
+  <string name="fromMyGamesNone">தரவுத்தளத்தில் உங்களுக்குரிய புதிர்கள் ஏதுமில்லை, ஆனாலும் லீசெஸ் உங்களை மிகவும் விரும்புகின்றது!</string>
+  <string name="fromXGamesFound">%2$s விளையாட்டுக்களில் %1$s புதிர்கள் உள்ளன</string>
+  <string name="puzzleDashboardDescription">பயிற்சி, பகுப்பாய்வு, முன்னேற்றம்</string>
+  <string name="percentSolved">%s தீர்க்கப்பட்டது</string>
+  <string name="noPuzzlesToShow">காட்சிப்படுத்துவதற்கு எதுவுமில்லை. முதலில் சில புதிர்களைத் தீர்க்கவும்!</string>
+  <string name="improvementAreasDescription">உங்கள் முன்னேற்றத்தை உகப்பாக்க இவற்றைப் பயிலவும்!</string>
+  <string name="strengthDescription">இந்தக் கருப்பொருளில் நீங்கள் சிறப்பாக விளையாடினீர்கள்</string>
 </resources>

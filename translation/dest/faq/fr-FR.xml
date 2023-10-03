@@ -54,6 +54,7 @@ L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
+  <string name="fideHandbook">Manuel de la FIDE</string>
   <string name="fideHandbookX">manuel de la FIDE %s</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (prise en passant)</string>
   <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"capture en passant\" ou \"prise en passant\". L\'article de Wikipedia donne un %1$s.
@@ -67,7 +68,7 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="lichessTraining">Entraînement Lichess</string>
   <string name="watchIMRosenCheckmate">Regardez le maître international Eric Rosen mater %s.</string>
   <string name="threefoldRepetition">Triple répétition</string>
-  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
   <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s et non les coups. La répétition ne doit donc pas nécessairement se faire de manière consécutive.</string>

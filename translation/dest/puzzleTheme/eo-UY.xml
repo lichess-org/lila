@@ -3,7 +3,7 @@
   <string name="advancedPawn">Antaŭenigita peono</string>
   <string name="advancedPawnDescription">Unu de viaj peonoj estas avancita en kontraŭula pozicio, ĝi eble minacas promocii.</string>
   <string name="advantage">Avantaĝo</string>
-  <string name="advantageDescription">Profitu viajn ŝancojn por havi decida avantaĝo. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Profitu viajn ŝancojn por havi decida avantaĝo. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia ŝakmato</string>
   <string name="anastasiaMateDescription">Ĉevalo kaj turo aŭ damo laboras kune por kapti la kontraŭa reĝo inter la flanko de la tabulo kaj amika ŝakpeco.</string>
   <string name="arabianMate">Araba ŝakmato</string>
@@ -81,6 +81,8 @@
   <string name="veryLongDescription">Kvar aŭ pliaj movoj por venki.</string>
   <string name="xRayAttack">X-radia atako</string>
   <string name="zugzwang">Movdevigo</string>
+  <string name="healthyMix">Sana miksaĵo</string>
+  <string name="playerGames">Ludantaj ludoj</string>
   <string name="playerGamesDescription">Serĉu enigmojn generitajn de viaj ludoj, aŭ de la ludoj de alia ludanto.</string>
   <string name="puzzleDownloadInformation">Ĉi tiuj enigmoj estas en la publika domeno, kaj povas esti elŝutitaj de %s.</string>
 </resources>

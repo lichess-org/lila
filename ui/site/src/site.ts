@@ -18,9 +18,10 @@ import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
-import { trapFocus } from 'common/modal';
 import { isIOS } from 'common/mobile';
 
+window.$as = <T>(cashOrHtml: Cash | string) =>
+  (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 exportLichessGlobals();
 lichess.info = info;
 
@@ -114,17 +115,6 @@ lichess.load.then(() => {
       const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
       t.find('span').html('' + (count > 0 ? count : ''));
       return false;
-    });
-
-    $('body').on('focusin', trapFocus);
-
-    lichess.mousetrap.bind('esc', () => {
-      const $oc = $('#modal-wrap .close');
-      if ($oc.length) $oc.trigger('click');
-      else {
-        const $input = $(':focus');
-        if ($input.length) $input.trigger('blur');
-      }
     });
 
     /* Edge randomly fails to rasterize SVG on page load

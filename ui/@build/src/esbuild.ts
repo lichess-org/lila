@@ -9,12 +9,13 @@ const typeBundles = new Map<string, Map<string, string>>();
 export async function esbuild(): Promise<void> {
   if (!env.esbuild) return;
 
-  const define = {
+  const define: { [_: string]: string } = {
     __info__: JSON.stringify({
       date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
       commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
       message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
     }),
+    __debug__: String(env.debug),
   };
 
   for (const mod of buildModules) {

@@ -3,7 +3,7 @@
   <string name="advancedPawn">Advanced pawn</string>
   <string name="advancedPawnDescription">One of your pawns is deep into the opponent position, maybe threatening to promote.</string>
   <string name="advantage">Advantage</string>
-  <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia\'s mate</string>
   <string name="anastasiaMateDescription">A knight and rook or queen team up to trap the opposing king between the side of the board and a friendly piece.</string>
   <string name="arabianMate">Arabian mate</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defense of another piece, allowing the now undefended piece to be captured on a following move.</string>
   <string name="crushing">Crushing</string>
-  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Double bishop mate</string>
   <string name="doubleBishopMateDescription">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="dovetailMate">Dovetail mate</string>
   <string name="dovetailMateDescription">A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.</string>
   <string name="equality">Equality</string>
-  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside attack</string>
   <string name="kingsideAttackDescription">An attack of the opponent\'s king, after they castled on the king side.</string>
   <string name="clearance">Clearance</string>

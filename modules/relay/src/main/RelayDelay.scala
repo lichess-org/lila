@@ -28,7 +28,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     private val cache = CacheApi.scaffeineNoScheduler
       .initialCapacity(8)
-      .maximumSize(32)
+      .maximumSize(64)
       .build[UpstreamUrl, GamesSeenBy]()
       .underlying
 

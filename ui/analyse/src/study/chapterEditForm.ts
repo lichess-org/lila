@@ -12,7 +12,7 @@ import {
 import { defined, prop, Prop } from 'common';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { StudySocketSend } from '../socket';
 
 export interface StudyChapterEditFormCtrl {
@@ -88,13 +88,13 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
   const data = ctrl.current(),
     noarg = ctrl.trans.noarg;
   return data
-    ? snabModal({
+    ? snabDialog({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
           ctrl.redraw();
         },
-        content: [
+        vnodes: [
           h('h2', noarg('editChapter')),
           h(
             'form.form3',

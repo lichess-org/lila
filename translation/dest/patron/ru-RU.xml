@@ -64,7 +64,8 @@
   <string name="nextPayment">Следующий платёж</string>
   <string name="youWillBeChargedXOnY">%2$s с вашего счета будет списано %1$s.</string>
   <string name="makeAdditionalDonation">Сделайте дополнительное пожертвование сейчас</string>
-  <string name="giftPatronWings">Подарить «крылья» патрона игроку</string>
+  <string name="giftPatronWingsShort">Подарить крылья Спонсора</string>
+  <string name="giftPatronWings">Подарить крылья спонсора другому игроку</string>
   <string name="update">Обновить</string>
   <string name="changeMonthlyAmount">Изменить ежемесячную сумму (%s)</string>
   <string name="cancelSupport">отменить поддержку</string>
@@ -77,7 +78,7 @@
   <string name="date">Дата</string>
   <string name="amount">Сумма</string>
   <string name="transactionCompleted">Ваша транзакция завершена, и вам на почту отправлена квитанция о пожертвовании.</string>
-  <string name="permanentPatron">Теперь у вас учётная запись пожизненного покровителя.</string>
+  <string name="permanentPatron">Теперь у вас учётная запись спонсора пожизненно.</string>
   <string name="checkOutProfile">Посмотрите свою страницу профиля!</string>
   <string name="nowLifetime">Теперь вы пожизненный покровитель Lichess!</string>
   <string name="nowOneMonth">Теперь вы покровитель Lichess на один месяц!</string>

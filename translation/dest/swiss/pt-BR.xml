@@ -62,8 +62,7 @@ Pensamos que é mais provável encontrar essas condições em uma equipe, do que
   <string name="numberOfByesA">Um jogador ganha um bye valendo um ponto, toda vez que o sistema de pareamento não conseguir achar um adversário.
 Além disso, um bye valendo meio ponto é dado ao jogador, se ele entrar atrasado no torneio.</string>
   <string name="earlyDrawsQ">O que acontece com empates rápidos?</string>
-  <string name="earlyDrawsA">O jogador ganha um ponto de bye sempre que o sistema de emparceiramento não encontra um adversário.
-Além disso, apenas um meio ponto de bye é dado quando um jogador chega atrasado no torneio.</string>
+  <string name="earlyDrawsAnswer">Em torneios suíços, os jogadores não podem empatar antes dos primeiros 30 movimentos. Embora esta medida não impeça empates combinados previamente, ao menos torna mais difícil aceitar um empate durante o jogo.</string>
   <string name="whatIfOneDoesntPlayQ">O que acontece se um jogador não comparecer a uma partida?</string>
   <string name="whatIfOneDoesntPlayA">O relógio vai começar, ele será reportado e perderá a partida.
 Então, o sistema irá retirar o jogador do torneio, para evitar que ele perca mais jogos.

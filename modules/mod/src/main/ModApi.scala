@@ -148,6 +148,11 @@ final class ModApi(
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
     }
 
+  def setArenaBan(sus: Suspect, v: Boolean)(using Me.Id): Funit =
+    (sus.user.marks.arenaBan != v) so {
+      userRepo.setArenaBan(sus.user.id, v) >> logApi.arenaBan(sus, v)
+    }
+
   def setPrizeban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
     (sus.user.marks.prizeban != v) so {
       userRepo.setPrizeban(sus.user.id, v) >> logApi.prizeban(sus, v)

@@ -74,7 +74,7 @@ $mq-picture: $mq-large;
 
   &::before {
     font-family: 'lichess';
-    content: '';
+    content: $licon-Checkmark;
     font-size: 1.5em;
     margin-#{$end-direction}: 0.5em;
     vertical-align: middle;

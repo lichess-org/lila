@@ -59,9 +59,9 @@ object layout:
           a(href := routes.Plan.index)(trans.patron.lichessPatron()),
           div(cls := "sep"),
           a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
-            "API access tokens"
+            trans.oauthScope.apiAccessTokens()
           ),
-          ctx.noBot option a(href := routes.DgtCtrl.index)("DGT board"),
+          ctx.noBot option a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard()),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close)(
             trans.settings.closeAccount()

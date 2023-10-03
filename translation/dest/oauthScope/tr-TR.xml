@@ -25,8 +25,8 @@
   <string name="followRead">Takip edilen oyuncuları oku</string>
   <string name="followWrite">Diğer oyuncuları takip edin ve takibi bırakın</string>
   <string name="msgWrite">Diğer oyunculara özel mesajlar gönderin</string>
-  <string name="boardPlay">Tahta api\'si ile oyunlar oynayın</string>
-  <string name="botPlay">Bot api\'si ile oyunlar oynayın</string>
+  <string name="boardPlay">Tahta API\'si ile oyunlar oynayın</string>
+  <string name="botPlay">Bot API\'si ile oyunlar oynayın</string>
   <string name="engineRead">Harici motorlarınızı görüntüleyin ve kullanın</string>
   <string name="engineWrite">Harici motorlar oluşturun ve güncelleyin</string>
   <string name="webLogin">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>

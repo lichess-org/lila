@@ -4,6 +4,7 @@
 interface Lichess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
+  debug: boolean;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
@@ -118,7 +119,12 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
-type SoundMove = (node?: { san?: string; uci?: string }, music?: boolean) => void;
+type SoundMove = (opts?: {
+  name?: string; // either provide this or valid san/uci
+  san?: string;
+  uci?: string;
+  filter?: 'music' | 'game'; // undefined allows either
+}) => void;
 
 interface SoundI {
   ctx?: AudioContext;
@@ -580,4 +586,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const $as: <T>(cash: Cash) => T;
+declare const $as: <T>(cashOrHtml: Cash | string) => T;
