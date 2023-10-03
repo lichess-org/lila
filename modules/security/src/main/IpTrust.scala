@@ -2,6 +2,7 @@ package lila.security
 
 import lila.common.{ IpAddress, HTTPRequest }
 import play.api.mvc.RequestHeader
+import lila.common.config.MaxPerSecond
 
 final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
 
@@ -48,6 +49,14 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
   ): Fu[Float] =
     proxyApi(ip).dmap(strategy(IpTrust))
 
+  def throttle(base: MaxPerSecond)(using req: RequestHeader)(using Executor): Fu[MaxPerSecond] =
+    if HTTPRequest.nginxWhitelist(req) then fuccess(base)
+    else
+      proxyApi(HTTPRequest.ipAddress(req))
+        .map(defaultThrottleStrategy)
+        .map: div =>
+          base.map(mps => (mps / div).toInt)
+
 object IpTrust:
 
   case class IpData(proxy: IsProxy, location: Location)
@@ -68,3 +77,10 @@ object IpTrust:
   def proxyMultiplier(times: Float): RateLimitStrategy =
     case IsProxy.empty => 1
     case proxy         => defaultRateLimitStrategy(proxy) * times
+
+  type ThrottleStrategy = IsProxy => Float
+
+  val defaultThrottleStrategy: ThrottleStrategy =
+    case IsProxy.server => 1
+    case IsProxy.search => 1
+    case p              => defaultRateLimitStrategy(p)
