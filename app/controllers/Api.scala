@@ -38,7 +38,7 @@ final class Api(
     Ok(views.html.site.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userC.userShowRateLimit(ctx.ip, rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
+    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
       userApi.extended(
         name,
         withFollows = userWithFollows,
@@ -316,7 +316,7 @@ final class Api(
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip")
     Anon:
-      rateLimit(req.ipAddress, rateLimited):
+      rateLimit(rateLimited):
         get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
           import chess.variant.Variant
           JsonOptionOk:

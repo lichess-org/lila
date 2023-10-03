@@ -66,7 +66,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
-      userShowRateLimit(req.ipAddress, rateLimited, cost = if env.socket.isOnline(u.id) then 1 else 2):
+      userShowRateLimit(rateLimited, cost = if env.socket.isOnline(u.id) then 1 else 2):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)

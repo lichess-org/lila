@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.common.IpAddress
+import lila.common.{ IpAddress, HTTPRequest }
+import play.api.mvc.RequestHeader
 
 final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
 
@@ -28,13 +29,18 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
   ):
     import lila.memo.{ RateLimit as RL }
     private val limiter = RL[IpAddress](credits, duration, key)
-    def apply[A](ip: IpAddress, default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(op: => Fu[A])(using
-        Executor
-    ): Fu[A] = for
-      proxy <- proxyApi(ip)
-      ipCostFactor = strategy(IpTrust)(proxy)
-      res <- limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
-    yield res
+
+    def apply[A](default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(using req: RequestHeader)(
+        op: => Fu[A]
+    )(using Executor): Fu[A] =
+      val ip = HTTPRequest.ipAddress(req)
+      for
+        proxy <- proxyApi(ip)
+        ipCostFactor =
+          if HTTPRequest.nginxWhitelist(req) then 1
+          else strategy(IpTrust)(proxy)
+        res <- limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
+      yield res
 
   def rateLimitCostFactor(
       ip: IpAddress,
