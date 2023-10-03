@@ -46,16 +46,19 @@ object PrefForm:
     val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
     val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
+    val captured      = "captured"      -> booleanNumber
+    val ratings       = "ratings"       -> booleanNumber
+    val replay        = "replay"        -> checkedNumber(Pref.Replay.choices)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
       "display" -> mapping(
         "animation"     -> numberIn(Set(0, 1, 2, 3)),
-        "captured"      -> booleanNumber,
+        fields.captured,
         "highlight"     -> booleanNumber,
         "destination"   -> booleanNumber,
         "coords"        -> checkedNumber(Pref.Coords.choices),
-        "replay"        -> checkedNumber(Pref.Replay.choices),
+        fields.replay,
         "pieceNotation" -> optional(booleanNumber),
         fields.zen.map2(optional),
         "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
@@ -88,7 +91,7 @@ object PrefForm:
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
-      "ratings"      -> optional(booleanNumber)
+      fields.ratings.map2(optional),
     )(PrefData.apply)(unapply)
   )
 
