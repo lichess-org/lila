@@ -123,6 +123,7 @@
         text-transform: none;
       }
       .remove {
+        @extend %button-none;
         $remove-button-diameter: 1.75em;
         margin-#{$start-direction}: -$remove-button-diameter;
         width: $remove-button-diameter;
@@ -132,7 +133,6 @@
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;
-        border: none;
         &:hover {
           background-color: $c-error;
         }
