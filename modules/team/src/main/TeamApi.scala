@@ -276,6 +276,17 @@ final class TeamApi(
 
   def kick(team: Team, userId: UserId)(using me: Me): Funit =
     (userId != team.createdBy) so {
+
+      //create a request to set declined in order to prevent kicked use to rejoin
+      val request = Request.make(
+        team = team.id,
+        user = userId,
+        message = "kicked from team",
+        declined = true
+      )
+
+      requestRepo.coll.insert.one(request).void andDo cached.nbRequests.invalidate(team.createdBy)
+
       quit(team, userId) >>
         (!team.leaders(me)).so {
           modLog.teamKick(userId, team.name)

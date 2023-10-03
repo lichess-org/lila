@@ -19,14 +19,16 @@ object Request:
 
   val defaultMessage = "Hello, I would like to join the team!"
 
-  def make(team: TeamId, user: UserId, message: String): Request = Request(
+  def make(team: TeamId, user: UserId, message: String, declined: Boolean = false): Request = Request(
     _id = makeId(team, user),
     user = user,
     team = team,
     message = message.trim,
     date = nowInstant,
-    declined = false
+    declined = declined
   )
+
+
 
 case class RequestWithUser(request: Request, user: User.WithPerfs):
   export request.{ user as _, * }
