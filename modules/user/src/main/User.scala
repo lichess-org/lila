@@ -85,7 +85,7 @@ case class User(
   def isBot = title has Title.BOT
   def noBot = !isBot
 
-  def rankable = noBot && !marks.rankban
+  def rankable = enabled.yes && noBot && !marks.rankban
 
   def withPerf(perf: Perf): User.WithPerf = User.WithPerf(this, perf)
 
