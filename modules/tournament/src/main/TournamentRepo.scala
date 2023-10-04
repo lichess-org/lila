@@ -198,7 +198,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   def scheduledStarted: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect)
 
-  def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int) =
+  def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int): Fu[List[Tournament]] =
     coll.list[Tournament](
       startingSoonSelect(aheadMinutes) ++ forTeamsSelect(teamIds),
       _.sec

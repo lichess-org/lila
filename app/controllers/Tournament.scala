@@ -22,22 +22,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 
-  private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
-    _.refreshAfterWrite(3.seconds)
-      .buildAsyncFuture { _ =>
-        for
-          visible   <- api.fetchVisibleTournaments
-          scheduled <- repo.allScheduledDedup
-        yield (visible, scheduled)
-      }
-  }
-
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
     for
-      (visible, scheduled) <- upcomingCache.getUnit
+      (visible, scheduled) <- env.tournament.featuring.tourIndex.get
       teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
       allTeamIds = (TeamId.from(env.featuredTeamsSetting.get().value) ++ teamIds).distinct
       teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
@@ -383,7 +373,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def featured = Open:
     negotiateJson:
       WithMyPerfs:
-        env.tournament.cached.onHomepage.getUnit.recoverDefault map {
+        env.tournament.featuring.homepage.get.recoverDefault map {
           lila.tournament.Spotlight.select(_, 4)
         } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
 
