@@ -75,4 +75,5 @@ final private class RoundMobileSocket(
     .add("showReplay", pref.replay == Pref.Replay.ALWAYS || (pref.replay == Pref.Replay.SLOW && (game.speed.key == SpeedKey("classical") || game.speed.key == SpeedKey("correspondence"))))
     .add("confirmResign", pref.confirmResign == Pref.ConfirmResign.YES)
     .add("enablePremove", pref.premove)
+    .add("blindfold", pref.isBlindfold)
     .add("submitMove", roundJson.submitMovePref(pref, game, nvui = false))

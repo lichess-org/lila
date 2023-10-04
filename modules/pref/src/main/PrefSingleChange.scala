@@ -55,7 +55,9 @@ object PrefSingleChange:
     changing(_.captured): v =>
       _.copy(captured = v == 1),
     changing(_.replay): v =>
-      _.copy(replay = v)
+      _.copy(replay = v),
+    changing(_.blindfold): v =>
+      _.copy(blindfold = v)
   ).map: change =>
     change.field -> change
   .toMap

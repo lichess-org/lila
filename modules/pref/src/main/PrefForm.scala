@@ -49,6 +49,7 @@ object PrefForm:
     val captured      = "captured"      -> booleanNumber
     val ratings       = "ratings"       -> booleanNumber
     val replay        = "replay"        -> checkedNumber(Pref.Replay.choices)
+    val blindfold     = "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -62,7 +63,7 @@ object PrefForm:
         "pieceNotation" -> optional(booleanNumber),
         fields.zen.map2(optional),
         "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"    -> checkedNumber(Pref.Blindfold.choices)
+        fields.blindfold,
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
         "moveEvent" -> optional(numberIn(Set(0, 1, 2))),
