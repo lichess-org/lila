@@ -100,6 +100,7 @@
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
   <string name="realtimeReplay">პირდაპირი</string>
+  <string name="byCPL">CPL-ის მიერ</string>
   <string name="openStudy">გახსენი სწავლება</string>
   <string name="enable">ჩართვა</string>
   <string name="bestMoveArrow">საუკეთესო სვლის ისარი</string>
@@ -133,7 +134,7 @@
     <item quantity="other">%s ჩანიშნული თამაში</item>
   </plurals>
   <string name="viewInFullSize">სრული ზომით ნახვა</string>
-  <string name="logOut">გამოსვლა</string>
+  <string name="logOut">გასვლა</string>
   <string name="signIn">შესვლა</string>
   <string name="rememberMe">დამტოვე შესული</string>
   <string name="youNeedAnAccountToDoThat">აღნიშნული ქმედებისთვის საჭიროა რეგისტრაცია</string>
@@ -325,7 +326,7 @@
   <string name="reset">აღდგენა</string>
   <string name="apply">დათანხმება</string>
   <string name="save">შენახვა</string>
-  <string name="leaderboard">ლიდერი</string>
+  <string name="leaderboard">ლიდერბორდი</string>
   <string name="screenshotCurrentPosition">სქრინშოთის თავდაპირველი პოზიცია</string>
   <string name="gameAsGIF">თამაშის GIF-ად შენახვა</string>
   <string name="pasteTheFenStringHere">ჩასვით FEN ტექსტი</string>
@@ -427,6 +428,7 @@
   <string name="firstName">სახელი</string>
   <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ალამი</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="previouslyOnLichessTV">წინა Lichess TV-ზე</string>
   <string name="onlinePlayers">ონლაინ მოთამაშეები</string>
@@ -466,7 +468,7 @@
   <string name="other">სხვა</string>
   <string name="reportDescriptionHelp">ჩასვით თამაშ(ებ)ის ბმული და მიუთითეთ თუ რა არის საეჭვო მომხმარებლის ქცევაში.</string>
   <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
-  <string name="by">%s-ით</string>
+  <string name="by">%s-ის</string>
   <string name="thisTopicIsNowClosed">თემა დახურულია.</string>
   <string name="blog">ბლოგი</string>
   <string name="notes">შენიშვნები</string>
@@ -624,7 +626,7 @@
   <string name="gameAnalysis">თამაშის ანალიზი</string>
   <string name="xHostsY">%1$s-ს მასპინძლობს %2$s-ს</string>
   <string name="xJoinsY">%1$s-ს უერთდება %2$s-ს</string>
-  <string name="xLikesY">%1$s-ს მოსწონს %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s-ს მოსწონს %2$s</string>
   <string name="quickPairing">ჩქარი დაწყვილება</string>
   <string name="anonymous">ანონიმური</string>
   <string name="yourScore">თქვენი ქულა: %s</string>
