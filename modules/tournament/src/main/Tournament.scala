@@ -45,7 +45,8 @@ case class Tournament(
 
   def isPrivate = password.isDefined
 
-  def isTeamBattle = teamBattle.isDefined
+  def isTeamBattle  = teamBattle.isDefined
+  def isTeamRelated = isTeamBattle || conditions.teamMember.isDefined
 
   def name(full: Boolean = true)(using Lang): String =
     if isMarathon || isUnique then name

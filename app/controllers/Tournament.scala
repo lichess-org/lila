@@ -27,9 +27,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private def serveHome(using ctx: Context) = NoBot:
     for
-      teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
-      allTeamIds = (TeamId.from(env.featuredTeamsSetting.get().value) ++ teamIds).distinct
-      (scheduled, visible) <- env.tournament.featuring.tourIndex.get(allTeamIds)
+      teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
+      (scheduled, visible) <- env.tournament.featuring.tourIndex.get(teamIds)
       scheduleJson         <- env.tournament.apiJsonView(visible)
       response <- negotiate(
         html = for
@@ -372,9 +371,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def featured = Open:
     negotiateJson:
       WithMyPerfs:
-        env.tournament.featuring.homepage.get.recoverDefault map {
-          lila.tournament.Spotlight.select(_, 4)
-        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
+        for
+          teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
+          tours   <- env.tournament.featuring.homepage.get(teamIds)
+          spotlight = lila.tournament.Spotlight.select(tours, 4)
+          json <- env.tournament.apiJsonView.featured(spotlight)
+        yield Ok(json)
 
   def shields = Open:
     for

@@ -32,9 +32,7 @@ object bits:
               tour.name(full = false)
             )
           ),
-          tour.schedule.fold(td) { s =>
-            td(momentFromNow(s.at.instant))
-          },
+          td(momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))),
           td(tour.durationString),
           td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
         )

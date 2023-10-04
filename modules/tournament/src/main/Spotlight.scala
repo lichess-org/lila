@@ -37,7 +37,7 @@ object Spotlight:
       tour.startsAt.minusHours(hours).isBeforeNow
 
   private def automatically(tour: Tournament)(using me: User.WithPerfs): Boolean =
-    tour.schedule.so: sched =>
+    tour.isTeamRelated || tour.schedule.so: sched =>
       def playedSinceWeeks(weeks: Int) = me.perfs(tour.perfType).latest.so(_.plusWeeks(weeks).isAfterNow)
       sched.freq match
         case Hourly                               => canMaybeJoinLimited(tour) && playedSinceWeeks(2)

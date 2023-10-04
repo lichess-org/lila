@@ -9,23 +9,26 @@ final class TournamentFeaturing(
 )(using Executor):
 
   object tourIndex:
-    def get(forTeamIds: List[TeamId]): Fu[(List[Tournament], VisibleTournaments)] = for
-      (visible, scheduled) <- sameForEveryone get ()
-      teamVisible          <- repo.visibleForTeams(forTeamIds, 5 * 60)
-      forMe = visible add teamVisible
+    def get(teamIds: List[TeamId]): Fu[(List[Tournament], VisibleTournaments)] = for
+      (base, scheduled) <- sameForEveryone get ()
+      teamTours         <- visibleForTeams(teamIds, 5 * 60, "index")
+      forMe = base add teamTours
     yield (scheduled, forMe)
 
     private val sameForEveryone = cacheApi.unit[(VisibleTournaments, List[Tournament])]:
-      _.refreshAfterWrite(3.seconds)
-        .buildAsyncFuture: _ =>
-          for
-            visible   <- api.fetchVisibleTournaments
-            scheduled <- repo.allScheduledDedup
-          yield (visible, scheduled)
+      _.refreshAfterWrite(3.seconds).buildAsyncFuture: _ =>
+        for
+          visible   <- api.fetchVisibleTournaments
+          scheduled <- repo.allScheduledDedup
+        yield (visible, scheduled)
 
   object homepage:
-    def get: Fu[List[Tournament]] = cache get ()
-    private val cache = cacheApi.unit[List[Tournament]]:
+    def get(teamIds: List[TeamId]): Fu[List[Tournament]] = for
+      base      <- sameForEveryone get ()
+      teamTours <- visibleForTeams(teamIds, 3 * 60, "homepage")
+    yield base ::: teamTours
+
+    private val sameForEveryone = cacheApi.unit[List[Tournament]]:
       _.refreshAfterWrite(2 seconds)
         .buildAsyncFuture: _ =>
           repo.scheduledStillWorthEntering zip repo.scheduledCreated(
@@ -52,3 +55,9 @@ final class TournamentFeaturing(
             case Daily                      => 1 * 30
             case _                          => 20
           if tour.variant.exotic && schedule.freq != Unique then base / 3 else base
+
+  private def visibleForTeams(teamIds: List[TeamId], nb: Int, page: String): Fu[List[Tournament]] =
+    teamIds.nonEmpty.so:
+      repo
+        .visibleForTeams(teamIds, nb)
+        .monSuccess(_.tournament.featuring.forTeams(page))
