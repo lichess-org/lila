@@ -132,13 +132,20 @@ object GameMod:
           case ids      => Query.users(ids)
       )
 
+  val maxGames = 500
+
   val filterForm = Form:
     mapping(
-      "arena"      -> optional(nonEmptyText),
-      "swiss"      -> optional(nonEmptyText),
-      "perf"       -> optional(of[Perf.Key]),
-      "opponents"  -> optional(nonEmptyText),
-      "nbGamesOpt" -> optional(number(min = 1, max = 500))
+      "arena"     -> optional(nonEmptyText),
+      "swiss"     -> optional(nonEmptyText),
+      "perf"      -> optional(of[Perf.Key]),
+      "opponents" -> optional(nonEmptyText),
+      "nbGamesOpt" -> optional(
+        number(min = 1).transform(
+          _.atMost(maxGames),
+          identity
+        )
+      )
     )(Filter.apply)(unapply)
 
   val actionForm = Form:
