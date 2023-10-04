@@ -245,7 +245,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       then 5
       else 20
     CreateLimitPerUser(me, fail, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail, cost = cost, msg = me.username):
+      CreateLimitPerIP(fail, cost = cost, msg = me.username):
         create
 
   def webCreate = AuthBody(_ ?=> _ ?=> create)

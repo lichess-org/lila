@@ -82,10 +82,10 @@ object PrefForm:
         "rookCastle" -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
-        "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
-        "bar"      -> booleanNumber,
-        "sound"    -> booleanNumber,
-        fields.moretime,
+        "tenths" -> checkedNumber(Pref.ClockTenths.choices),
+        "bar"    -> booleanNumber,
+        "sound"  -> booleanNumber,
+        fields.moretime
       )(ClockData.apply)(unapply),
       "follow"       -> booleanNumber,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
