@@ -75,8 +75,9 @@ object IpTrust:
     case _                   => 1
 
   def proxyMultiplier(times: Float): RateLimitStrategy =
-    case IsProxy.empty => 1
-    case proxy         => defaultRateLimitStrategy(proxy) * times
+    case IsProxy.empty  => 1
+    case IsProxy.search => 0.5
+    case proxy          => defaultRateLimitStrategy(proxy) * times
 
   type ThrottleStrategy = IsProxy => Float
 
