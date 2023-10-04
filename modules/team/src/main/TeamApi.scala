@@ -275,13 +275,19 @@ final class TeamApi(
     }
 
   def kick(team: Team, userId: UserId)(using me: Me): Funit =
-    (userId != team.createdBy) so {
-      quit(team, userId) >>
-        (!team.leaders(me)).so {
-          modLog.teamKick(userId, team.name)
-        } andDo
-        Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
-    }
+    (userId != team.createdBy).so:
+      // create a request to set declined in order to prevent kicked use to rejoin
+      val request = Request.make(
+        team = team.id,
+        user = userId,
+        message = "Kicked from team",
+        declined = true
+      )
+      for
+        _ <- requestRepo.coll.insert.one(request)
+        _ <- quit(team, userId)
+        _ <- !team.leaders(me) so modLog.teamKick(userId, team.name)
+      yield Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
     val users  = parseTagifyInput(json).toList
