@@ -12,4 +12,16 @@
   <string name="arrowKeys">Use arrow keys to navigate in the game</string>
   <string name="playBestComputerMove">Play best computer move</string>
   <string name="announceComputerEvaluation">Announce computer evaluation</string>
+
+  <string name="puzzleInfo">Puzzle info</string>
+  <string name="pieces">Pieces</string>
+  <string name="lastMove">Last move</string>
+  <string name="moveForm">Move form</string>
+  <string name="actions">Actions</string>
+  <string name="boardSettings">Board settings</string>
+  <string name="puzzleSettings">Puzzle settings</string>
+  <string name="commands">Commands</string>
+  <string name="boardModeCommands">Board mode commands</string>
+  <string name="promotion">Promotion</string>
+  <string name="puzzleStatus">Puzzle status</string>
 </resources>
