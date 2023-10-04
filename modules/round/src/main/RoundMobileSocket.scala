@@ -68,7 +68,8 @@ final private class RoundMobileSocket(
   private def prefsJson(game: Game, pref: Pref): JsObject = Json
     .obj(
       "autoQueen" ->
-        (if game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER else pref.autoQueen)
+        (if game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER else pref.autoQueen),
+      "zen" -> pref.zen
     )
     .add("confirmResign", pref.confirmResign == Pref.ConfirmResign.YES)
     .add("enablePremove", pref.premove)

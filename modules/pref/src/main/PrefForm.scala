@@ -46,6 +46,7 @@ object PrefForm:
     val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
     val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
+    val ratings       = "ratings"       -> booleanNumber
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -88,7 +89,7 @@ object PrefForm:
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
-      "ratings"      -> optional(booleanNumber)
+      fields.ratings.map2(optional)
     )(PrefData.apply)(unapply)
   )
 
