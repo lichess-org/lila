@@ -27,6 +27,7 @@
   <string name="noSuitableOauthToken">Nenhuma chave OAuth adequada foi criada.</string>
   <string name="dgtBoardConnectivity">Conexão com o tabuleiro DGT</string>
   <string name="clickToGenerateOne">Clique para gerar</string>
+  <string name="webSocketUrl">URL WebSocket do %s</string>
   <string name="useWebSocketUrl">Use \"%1$s\" a não ser que %2$s esteja rodando em uma máquina ou porta diferente.</string>
   <string name="textToSpeech">Texto para fala</string>
   <string name="configureVoiceNarration">Ative a narração de voz dos movimentos. Assim, você pode manter seus olhos no tabuleiro.</string>
