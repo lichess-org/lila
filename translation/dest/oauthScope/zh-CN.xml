@@ -31,4 +31,9 @@
   <string name="engineWrite">创建和更新外部引擎</string>
   <string name="webLogin">创建认证的网站会话 (授予完全访问权限!)</string>
   <string name="webMod">使用版主工具 (在你的权限范围内)</string>
+  <string name="personalAccessTokens">个人访问令牌</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">创建于 %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">上次使用：%s</string>
+  <string name="alreadyHavePlayedGames">你已经有过对局了！</string>
+  <string name="forExample">例如：%s</string>
 </resources>

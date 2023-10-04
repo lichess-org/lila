@@ -30,7 +30,7 @@
   <string name="newRun">Нов опит (натисни: Интервал)</string>
   <string name="endRun">Приключване на опита (натисни: Enter)</string>
   <string name="highscores">Рекорди</string>
-  <string name="viewBestRuns">Вижте най-добрите опити</string>
+  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Вижте най-добрите опити</string>
   <string name="bestRunOfDay">Най-добрият опит за деня</string>
   <string name="runs">Опити</string>
   <string name="getReady">Пригответе се!</string>

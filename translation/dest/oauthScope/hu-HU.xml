@@ -31,4 +31,18 @@
   <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
   <string name="webLogin">Azonosított munkamenet létrehozása (teljes hozzáférést biztosít!)</string>
   <string name="webMod">Moderálási eszközök használata (jogosultsági köreiden belül)</string>
+  <string name="personalAccessTokens">Egyéni API tokenek</string>
+  <string name="authorizationCodeFlow">authorizációs folyamat</string>
+  <string name="generatePersonalToken">egyéni token létrehozása</string>
+  <string name="guardTokensCarefully">Tárold a tokeneket biztonságosan, hiszen a jelszavakkal egyenértékűek. A tokenek előnye a jelszavakkal szemben az, hogy a tokeneket vissza lehet vonni és sokat lehet belőlük generálni.</string>
+  <string name="personalTokenAppExample">példa a token használatára</string>
+  <string name="apiDocumentation">API dokumentáció</string>
+  <string name="newToken">Új token</string>
+  <string name="apiAccessTokens">API tokenek</string>
+  <string name="created">Létrehozva: %s</string>
+  <string name="lastUsed">Legutóbb használva: %s</string>
+  <string name="alreadyHavePlayedGames">Már játszottál játszmákat!</string>
+  <string name="attentionOfDevelopers">Fejlesztők figyelmébe:</string>
+  <string name="possibleToPrefill">A query paraméterek segítségével az űrlap kitölthető.</string>
+  <string name="forExample">Például: %s</string>
 </resources>

@@ -43,6 +43,7 @@ Voit kutsua tällä pelaajia liittymään turnauksiin tai joukkuetaisteluihin.
 Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä joukkueesta.</string>
   <string name="teamsIlead">Johtamani joukkueet</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
+  <string name="onlyInviteLeadersTrust">Kutsu vain johtajia, joihin luotat. Joukkueen johtajat voivat poistaa joukkueesta jäseniä ja muita johtajia.</string>
   <string name="usersWhoCanManageThisTeam">Käyttäjät, jotka voivat hallita tätä joukkuetta</string>
   <string name="leadersChat">Johtajien keskustelu</string>
   <string name="closeTeam">Sulje joukkue</string>

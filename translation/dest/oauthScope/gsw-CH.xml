@@ -31,4 +31,24 @@
   <string name="engineWrite">Erschtell und aktualisier e externi Engine</string>
   <string name="webLogin">Erschtelle vu authentifizierte Website-Sitzige (gewährt volle Zuegriff!)</string>
   <string name="webMod">Nutzig vu Moderatoretools (im Rahme vu ihrer Erlaubnis)</string>
+  <string name="personalAccessTokens">Persönlichs API Zuegangs Token</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du chasch au OAuth Afrage mache, ohni %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">Berächtigungs-Code-Fluss</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Anstatt %s, wo du diräkt in API Afrage verwände chasch.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">generier es persönlichs Zuegangs Token</string>
+  <string name="guardTokensCarefully">Bewahr die Tokens guet uf - sie sind wie Passwörter! De Vorteil vu Tokens, gägenüber Passwörter, für es Skript, isch, dass mer Tokens chann widerrüefe und dass mer viel vu dene erzüge chann.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Da isch es %1$s und de %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">persönlichs Token App Bischpil</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">API Dokumentation</string>
+  <string name="newToken">Neus Zugangs Token</string>
+  <string name="apiAccessTokens">API Zuegangs Tokens</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Gmacht %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Zletscht benutzt %s</string>
+  <string name="alreadyHavePlayedGames">Du häsch scho Partie gschpillt!</string>
+  <string name="attentionOfDevelopers">De Hiwis isch nur für Entwickler:</string>
+  <string name="possibleToPrefill">Es isch möglich, das Formular vorab uszfülle, idem d\'Abfrageparameter vu de URL g\'änderet werded.</string>
+  <string name="forExample">Zum Bischpil: %s</string>
+  <string name="ticksTheScopes">markiert d\'Bereich %1$s und %2$s und setzt d\'Tokenbeschribig.</string>
+  <string name="scopesCanBeFound">Die Gältigsbereichcodes sind im HTML-Code vum Formular z\'finde.</string>
+  <string name="givingPrefilledUrls">Wänn du dine Benutzer die vorusgfüllte URLs zur Verfüegig schtellsch, chömeds die richtige Token-Bereich über.</string>
 </resources>

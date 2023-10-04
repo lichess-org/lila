@@ -31,4 +31,16 @@
   <string name="engineWrite">Opret og opdater eksternt skakprogram</string>
   <string name="webLogin">Opret godkendte hjemmesidesessioner (giver fuld adgang!)</string>
   <string name="webMod">Brug moderatorværktøjer (inden for rammerne af din tilladelse)</string>
+  <string name="personalAccessTokens">Personlige API-adgangstokens</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan lave OAuth-anmodninger uden at gå gennem %s.</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">API-dokumentation</string>
+  <string name="newToken">Ny adgangstoken</string>
+  <string name="apiAccessTokens">API-adgangstoken</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oprettet %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Senest brugt %s</string>
+  <string name="alreadyHavePlayedGames">Du har allerede spillet partier!</string>
+  <string name="attentionOfDevelopers">Bemærkning kun til udviklere:</string>
+  <string name="possibleToPrefill">Det er muligt at forhåndsudfylde denne formular ved at tilpasse forespørgselsparametrene i URL\'en.</string>
+  <string name="forExample">For eksempel: %s</string>
+  <string name="ticksTheScopes">markerer %1$s og %2$s omfang og indstiller token-beskrivelsen.</string>
 </resources>

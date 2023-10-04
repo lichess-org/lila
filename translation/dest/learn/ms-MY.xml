@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">main!</string>
+  <string name="chessPieces">Bidak catur</string>
   <string name="theRook">Benteng</string>
   <string name="theBishop">Gajah</string>
   <string name="theQueen">Menteri</string>
@@ -14,4 +16,5 @@
   <string name="escapeWithTheKing">Melarikan raja anda!</string>
   <string name="theKingCannotEscapeButBlock">Raja tidak dapat melarikan diri, tetapi anda boleh menghalang serangan pihak lawan!</string>
   <string name="defeatTheOpponentsKing">Tewaskan raja lawan</string>
+  <string name="puzzles">Teka-teki</string>
 </resources>
