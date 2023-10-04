@@ -34,7 +34,10 @@ object bits:
           ),
           td(momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))),
           td(tour.durationString),
-          td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
+          tour.conditions.teamMember match
+            case None => td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
+            case Some(t) =>
+              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(tour.nbPlayers)
         )
     )
 

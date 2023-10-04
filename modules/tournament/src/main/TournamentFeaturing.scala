@@ -26,7 +26,7 @@ final class TournamentFeaturing(
     def get(teamIds: List[TeamId]): Fu[List[Tournament]] = for
       base      <- sameForEveryone get ()
       teamTours <- visibleForTeams(teamIds, 3 * 60, "homepage")
-    yield base ::: teamTours
+    yield teamTours ::: base
 
     private val sameForEveryone = cacheApi.unit[List[Tournament]]:
       _.refreshAfterWrite(2 seconds)
