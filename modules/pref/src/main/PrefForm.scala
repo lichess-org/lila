@@ -89,7 +89,7 @@ object PrefForm:
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
-      fields.ratings.map2(optional),
+      fields.ratings.map2(optional)
     )(PrefData.apply)(unapply)
   )
 
