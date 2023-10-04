@@ -56,7 +56,7 @@
   <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
   <string name="analysis">Bảng phân tích</string>
   <string name="depthX">Độ sâu %s</string>
-  <string name="usingServerAnalysis">Phân tích bằng máy chủ</string>
+  <string name="usingServerAnalysis">Sử dụng phân tích bằng máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
   <string name="calculatingMoves">Đang tính nước đi...</string>
   <string name="engineFailed">Lỗi khi tải động cơ</string>
@@ -199,7 +199,7 @@
   <string name="signupEmailHint">Chúng tôi chỉ sử dụng nó cho việc khôi phục mật khẩu.</string>
   <string name="password">Mật khẩu</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
-  <string name="changeEmail">Thay đổi email</string>
+  <string name="changeEmail">Thay đổi thư điện tử</string>
   <string name="email">Thư điện tử</string>
   <string name="passwordReset">Đặt lại mật khẩu</string>
   <string name="forgotPassword">Quên mật khẩu?</string>
@@ -494,7 +494,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
-  <string name="descPrivate">Mô tả riêng tư</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Mô tả riêng tư</string>
   <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
@@ -721,7 +721,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
-  <string name="xLikesY">%1$s thích %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
