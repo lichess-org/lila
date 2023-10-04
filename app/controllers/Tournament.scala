@@ -27,11 +27,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private def serveHome(using ctx: Context) = NoBot:
     for
-      (visible, scheduled) <- env.tournament.featuring.tourIndex.get
-      teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
+      teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       allTeamIds = (TeamId.from(env.featuredTeamsSetting.get().value) ++ teamIds).distinct
-      teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-      scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
+      (scheduled, visible) <- env.tournament.featuring.tourIndex.get(allTeamIds)
+      scheduleJson         <- env.tournament.apiJsonView(visible)
       response <- negotiate(
         html = for
           finished <- api.notableFinished
