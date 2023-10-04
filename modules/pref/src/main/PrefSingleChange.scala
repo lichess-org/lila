@@ -51,13 +51,7 @@ object PrefSingleChange:
     changing(_.moretime): v =>
       _.copy(moretime = v),
     changing(_.ratings): v =>
-      _.copy(ratings = v),
-    changing(_.captured): v =>
-      _.copy(captured = v == 1),
-    changing(_.replay): v =>
-      _.copy(replay = v),
-    changing(_.blindfold): v =>
-      _.copy(blindfold = v)
+      _.copy(ratings = v)
   ).map: change =>
     change.field -> change
   .toMap
