@@ -60,7 +60,7 @@ object PrefForm:
         "pieceNotation" -> optional(booleanNumber),
         fields.zen.map2(optional),
         "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"     -> checkedNumber(Pref.Blindfold.choices),
+        "blindfold"    -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
         "moveEvent" -> optional(numberIn(Set(0, 1, 2))),
