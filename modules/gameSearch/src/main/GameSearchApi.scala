@@ -8,14 +8,19 @@ import lila.search.*
 
 final class GameSearchApi(
     client: ESClient,
-    gameRepo: GameRepo
+    gameRepo: GameRepo,
+    userRepo: lila.user.UserRepo
 )(using Executor, Scheduler)
     extends SearchReadApi[Game, Query]:
 
-  def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary res.ids.map(GameId(_))
-    }
+  def search(query: Query, from: From, size: Size): Fu[List[Game]] =
+    userRepo
+      .filterDisabled(query.userIds)
+      .flatMap:
+        _.isEmpty.so:
+          client.search(query, from, size) flatMap { res =>
+            gameRepo gamesFromSecondary GameId.from(res.ids)
+          }
 
   def count(query: Query) =
     client.count(query).dmap(_.value)
@@ -24,7 +29,7 @@ final class GameSearchApi(
     client.search(query, From(0), Size(max)).map(_.ids)
 
   def store(game: Game) =
-    storable(game) so {
+    storable(game).so:
       gameRepo isAnalysed game.id flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
@@ -34,7 +39,6 @@ final class GameSearchApi(
             logger.some
           )
       }
-    }
 
   private def storable(game: Game) = game.finished || game.imported
 
