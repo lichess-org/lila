@@ -27,7 +27,7 @@
   <string name="noSuitableOauthToken">Non se creou ningún token OAuth axeitado.</string>
   <string name="dgtBoardConnectivity">Conectividade do taboleiro DGT</string>
   <string name="clickToGenerateOne">Fai clic para xerar un</string>
-  <string name="webSocketUrl">URL do WebSocket %s</string>
+  <string name="webSocketUrl">URL de WebSocket do %s</string>
   <string name="useWebSocketUrl">Usa \"%1$s\" a menos que %2$s estea executándose nunha máquina ou porto diferente.</string>
   <string name="textToSpeech">Texto lido</string>
   <string name="configureVoiceNarration">Configura a lectura en voz alta das xogadas realizadas para poderes manter a vista no taboleiro.</string>
