@@ -36,23 +36,22 @@ final private class StudySocket(
     )
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
-    eval match
-      case ServerEval.Progress(chapterId, tree, analysis, division) =>
-        import lila.game.JsonView.given
-        send(
-          RP.Out.tellRoom(
-            studyId,
-            makeMessage(
-              "analysisProgress",
-              Json.obj(
-                "analysis" -> analysis,
-                "ch"       -> chapterId,
-                "tree"     -> defaultNodeJsonWriter.writes(tree),
-                "division" -> division
-              )
-            )
+    import eval.*
+    import lila.game.JsonView.given
+    send(
+      RP.Out.tellRoom(
+        studyId,
+        makeMessage(
+          "analysisProgress",
+          Json.obj(
+            "analysis" -> analysis,
+            "ch"       -> chapterId,
+            "tree"     -> defaultNodeJsonWriter.writes(tree),
+            "division" -> division
           )
         )
+      )
+    )
 
   private lazy val studyHandler: Handler =
     case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)

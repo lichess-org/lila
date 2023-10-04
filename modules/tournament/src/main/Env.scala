@@ -105,6 +105,8 @@ final class Env(
 
   lazy val getTourName = new GetTourName(cached.nameCache)
 
+  lazy val featuring = wire[TournamentFeaturing]
+
   wire[TournamentBusHandler]
 
   wire[CreatedOrganizer]

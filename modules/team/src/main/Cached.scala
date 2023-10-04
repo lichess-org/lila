@@ -26,7 +26,7 @@ final class Cached(
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
-    initialCapacity = 131072,
+    initialCapacity = 131_072,
     compute = u =>
       memberRepo.coll
         .aggregateOne(_.sec): framework =>

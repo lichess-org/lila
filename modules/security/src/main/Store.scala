@@ -50,19 +50,21 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       req: RequestHeader,
       apiVersion: Option[ApiVersion],
       up: Boolean,
-      fp: Option[FingerPrint]
+      fp: Option[FingerPrint],
+      proxy: IsProxy
   ): Funit =
     coll.insert
       .one:
         $doc(
-          "_id"  -> sessionId,
-          "user" -> userId,
-          "ip"   -> HTTPRequest.ipAddress(req),
-          "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date" -> nowInstant,
-          "up"   -> up,
-          "api"  -> apiVersion, // lichobile
-          "fp"   -> fp.flatMap(FingerHash.from)
+          "_id"   -> sessionId,
+          "user"  -> userId,
+          "ip"    -> HTTPRequest.ipAddress(req),
+          "ua"    -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "date"  -> nowInstant,
+          "up"    -> up,
+          "api"   -> apiVersion, // lichobile
+          "fp"    -> fp.flatMap(FingerHash.from),
+          "proxy" -> proxy
         )
       .void
 

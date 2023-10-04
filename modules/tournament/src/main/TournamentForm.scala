@@ -18,7 +18,10 @@ final class TournamentForm:
   import GatheringClock.*
 
   def create(leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
-    form(leaderTeams, none) fill TournamentSetup(
+    form(leaderTeams, none) fill empty(teamBattleId)
+
+  private[tournament] def empty(teamBattleId: Option[TeamId] = None)(using me: Me) =
+    TournamentSetup(
       name = teamBattleId.isEmpty option me.titleUsername,
       clockTime = timeDefault,
       clockIncrement = incrementDefault,
@@ -39,7 +42,10 @@ final class TournamentForm:
     )
 
   def edit(leaderTeams: List[LeaderTeam], tour: Tournament)(using Me) =
-    form(leaderTeams, tour.some) fill TournamentSetup(
+    form(leaderTeams, tour.some) fill fillFromTour(tour)
+
+  private[tournament] def fillFromTour(tour: Tournament) =
+    TournamentSetup(
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,

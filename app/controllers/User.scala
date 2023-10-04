@@ -53,7 +53,8 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  private[controllers] val userShowRateLimit = env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.ip")
+  private[controllers] val userShowRateLimit =
+    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -65,7 +66,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
-      userShowRateLimit(req.ipAddress, rateLimited, cost = if env.socket.isOnline(u.id) then 1 else 2):
+      userShowRateLimit(rateLimited, cost = if env.socket.isOnline(u.id) then 2 else 3):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)

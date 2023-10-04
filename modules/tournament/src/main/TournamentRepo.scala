@@ -198,15 +198,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   def scheduledStarted: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect)
 
-  def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int) =
+  def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int): Fu[List[Tournament]] = teamIds.nonEmpty.so:
     coll.list[Tournament](
-      startingSoonSelect(aheadMinutes) ++ forTeamsSelect(teamIds),
+      forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(aheadMinutes)),
       _.sec
-    ) zip
-      coll
-        .list[Tournament](startedSelect ++ forTeamsSelect(teamIds), _.sec) dmap { case (created, started) =>
-        created ::: started
-      }
+    )
 
   private[tournament] def shouldStartCursor =
     coll
@@ -220,37 +216,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament]()
       .list(5)
 
-  private def scheduledStillWorthEntering: Fu[List[Tournament]] =
+  private[tournament] def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect) dmap {
       _.filter(_.isStillWorthEntering)
-    }
-
-  private def canShowOnHomepage(tour: Tournament): Boolean =
-    tour.schedule exists { schedule =>
-      tour.startsAt isBefore nowInstant.plusMinutes {
-        import Schedule.Freq.*
-        val base = schedule.freq match
-          case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
-          case Unique | Yearly | Marathon => 24 * 60
-          case Monthly | Shield           => 6 * 60
-          case Weekly | Weekend           => 3 * 45
-          case Daily                      => 1 * 30
-          case _                          => 20
-        if tour.variant.exotic && schedule.freq != Unique then base / 3 else base
-      }
-    }
-
-  private[tournament] def onHomepage: Fu[List[Tournament]] =
-    scheduledStillWorthEntering zip scheduledCreated(crud.CrudForm.maxHomepageHours * 60) map {
-      case (started, created) =>
-        (started ::: created)
-          .sortBy(_.startsAt.toSeconds)
-          .foldLeft(List.empty[Tournament]) {
-            case (acc, tour) if !canShowOnHomepage(tour)     => acc
-            case (acc, tour) if acc.exists(_ similarTo tour) => acc
-            case (acc, tour)                                 => tour :: acc
-          }
-          .reverse
     }
 
   def uniques(max: Int): Fu[List[Tournament]] =

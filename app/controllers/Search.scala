@@ -24,7 +24,7 @@ final class Search(env: Env) extends LilaController(env):
   )
 
   def index(p: Int) = OpenBody:
-    env.game.cached.nbTotal flatMap { nbGames =>
+    env.game.cached.nbTotal.flatMap: nbGames =>
       if ctx.isAnon then
         negotiate(
           Unauthorized.page(html.search.login(nbGames)),
@@ -66,4 +66,3 @@ final class Search(env: Env) extends LilaController(env):
                         .recoverWith: _ =>
                           serverError("Sorry, we can't process that query at the moment")
                   )
-    }

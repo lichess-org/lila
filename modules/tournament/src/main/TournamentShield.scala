@@ -125,13 +125,15 @@ object TournamentShield:
     val byKey                               = values.mapBy(_.key)
     def of(t: Tournament): Option[Category] = list.find(_ matches t)
 
-  def spotlight(name: String) =
-    Spotlight(
+  def make(name: String)(t: Tournament) = t.copy(
+    name = s"$name Shield",
+    description =
+      s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
+The winner keeps it for one month,
+then must defend it during the next $name Shield tournament!""".some,
+    spotlight = Spotlight(
       iconFont = licon.Shield.some,
       headline = s"Battle for the $name Shield",
-      description =
-        s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
-The winner keeps it for one month,
-then must defend it during the next $name Shield tournament!""",
       homepageHours = 6.some
-    )
+    ).some
+  )

@@ -45,6 +45,8 @@ object PrefForm:
     val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
     val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
+    val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
+    val ratings       = "ratings"       -> booleanNumber
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -77,17 +79,17 @@ object PrefForm:
         "rookCastle" -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
-        "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
-        "bar"      -> booleanNumber,
-        "sound"    -> booleanNumber,
-        "moretime" -> checkedNumber(Pref.Moretime.choices)
+        "tenths" -> checkedNumber(Pref.ClockTenths.choices),
+        "bar"    -> booleanNumber,
+        "sound"  -> booleanNumber,
+        fields.moretime
       )(ClockData.apply)(unapply),
       "follow"       -> booleanNumber,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
-      "ratings"      -> optional(booleanNumber)
+      fields.ratings.map2(optional)
     )(PrefData.apply)(unapply)
   )
 

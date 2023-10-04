@@ -86,6 +86,30 @@ export async function initModule({ data, singlePerfName, perfIndex }: Opts) {
       },
       tooltip: {
         valueDecimals: 0,
+        useHTML: true,
+        formatter: function (this: any) {
+          const tooltipSymbolMapping = {
+            circle: '&#9679',
+            diamond: '&#9670',
+            square: '&#9632',
+            triangle: '&#9652',
+            'triangle-down': '&#9662',
+          };
+          let tooltipHTML = '<b>' + window.Highcharts.dateFormat('%A, %b %e, %Y', this.x) + '</b>';
+          this.points.forEach((point: any) => {
+            tooltipHTML +=
+              '<br/><span style="color: ' +
+              point.series.color +
+              '; margin-right: 5px;"> ' +
+              (tooltipSymbolMapping[point.series.symbol as keyof typeof tooltipSymbolMapping] ||
+                tooltipSymbolMapping['circle']) +
+              '</span>' +
+              point.series.name +
+              ': ' +
+              point.y;
+          });
+          return tooltipHTML;
+        },
       },
       xAxis: {
         title: noText,

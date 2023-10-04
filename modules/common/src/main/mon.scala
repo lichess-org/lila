@@ -376,6 +376,8 @@ object mon:
     object notifier:
       def tournaments = counter("tournament.notify.tournaments").withoutTags()
       def players     = counter("tournament.notify.players").withoutTags()
+    object featuring:
+      def forTeams(page: String) = future("tournament.featuring.forTeams", page)
   object swiss:
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags()
