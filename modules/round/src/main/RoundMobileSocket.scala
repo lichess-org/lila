@@ -10,7 +10,7 @@ import lila.socket.Socket
 import lila.common.LightUser
 import lila.common.Json.given
 import LightUser.lightUserWrites
-import chess.{ Color, ByColor, SpeedKey }
+import chess.{ Color, ByColor, Speed }
 import lila.pref.Pref
 
 final private class RoundMobileSocket(
@@ -69,10 +69,13 @@ final private class RoundMobileSocket(
     .obj(
       "autoQueen" ->
         (if game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER else pref.autoQueen),
-      "zen"       -> pref.zen,
+      "zen" -> pref.zen
     )
     .add("showCaptured" -> pref.captured)
-    .add("showReplay", pref.replay == Pref.Replay.ALWAYS || (pref.replay == Pref.Replay.SLOW && (game.speed.key == SpeedKey("classical") || game.speed.key == SpeedKey("correspondence"))))
+    .add(
+      "showReplay",
+      pref.replay == Pref.Replay.ALWAYS || (pref.replay == Pref.Replay.SLOW && game.speed >= Speed.Classical)
+    )
     .add("confirmResign", pref.confirmResign == Pref.ConfirmResign.YES)
     .add("enablePremove", pref.premove)
     .add("blindfold", pref.isBlindfold)
