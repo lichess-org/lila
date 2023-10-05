@@ -1,6 +1,6 @@
 package lila.relay
 
-import akka.stream.scaladsl.Source
+import akka.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
@@ -14,6 +14,7 @@ import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBo
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
 import lila.relay.RelayTour.ActiveWithSomeRounds
+import lila.i18n.I18nKeys.streamer.visibility
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -300,6 +301,44 @@ final class RelayApi(
         }
       }
 
+  def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
+    val tour = from.copy(
+      _id = RelayTour.makeId,
+      name = s"${from.name} (clone)",
+      ownerId = me.userId,
+      createdAt = nowInstant,
+      syncedAt = none
+    )
+    tourRepo.coll.insert.one(tour) >>
+      roundRepo
+        .byTourOrderedCursor(from)
+        .documentSource()
+        .mapAsync(1)(cloneWithStudy(_, tour))
+        .runWith(Sink.ignore)
+        .inject(tour)
+
+  private def cloneWithStudy(from: RelayRound, to: RelayTour)(using me: Me): Fu[RelayRound] =
+    val round = from.copy(
+      _id = RelayRound.makeId,
+      tourId = to.id
+    )
+    for
+      _ <- studyApi
+        .byId(from.studyId)
+        .flatMapz: s =>
+          studyApi
+            .justCloneNoChecks(
+              me,
+              s,
+              _.copy(
+                _id = round.studyId,
+                visibility = Study.Visibility.Public
+              )
+            ) >>
+            studyApi.addTopics(round.studyId, List("Broadcast"))
+      _ <- roundRepo.coll.insert.one(round)
+    yield round
+
   def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, ?] =
 
     val lookup = $lookup.pipeline(
@@ -339,6 +378,7 @@ final class RelayApi(
           .toList
       .throttle(perSecond.value, 1 second)
       .take(nb)
+  end officialTourStream
 
   private[relay] def autoStart: Funit =
     roundRepo.coll

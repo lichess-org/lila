@@ -393,7 +393,7 @@ final class Study(
       CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
           CanView(prev) {
-            env.study.api.clone(me, prev) map { study =>
+            env.study.api.cloneWithCheckAndChat(me, prev) map { study =>
               Redirect(routes.Study.show((study | prev).id))
             }
           }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))

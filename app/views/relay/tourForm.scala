@@ -44,6 +44,11 @@ object tourForm:
           submitButton(
             cls := "button button-red button-empty confirm"
           )(strong(deleteTournament()), em(definitivelyDeleteTournament()))
+        ),
+        isGranted(_.Relay) option postForm(action := routes.RelayTour.cloneTour(t.id))(
+          submitButton(
+            cls := "button button-green button-empty confirm"
+          )(strong("Clone as broadcast admin"), em("Clone this broadcast, its rounds, and their studies"))
         )
       )
     )
