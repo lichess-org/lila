@@ -45,8 +45,11 @@ object homepageSpotlight:
       span(cls := "content")(
         span(cls := "name")(
           tour.name(),
-          tour.conditions.teamMember.map: t =>
-            iconTag(licon.Group)(cls := "tour-team-icon", title := t.teamName)
+          tour.isTeamRelated option
+            iconTag(licon.Group)(
+              cls   := "tour-team-icon",
+              title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
+            )
         ),
         span(cls := "more")(
           trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),

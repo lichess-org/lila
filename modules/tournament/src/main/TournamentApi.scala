@@ -59,9 +59,10 @@ final class TournamentApi(
   )(using me: Me): Fu[Tournament] =
     val tour = Tournament.fromSetup(setup)
     tournamentRepo.insert(tour) >> {
-      setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).so { teamId =>
-        tournamentRepo.setForTeam(tour.id, teamId).void
-      }
+      setup.teamBattleByTeam
+        .orElse(tour.conditions.teamMember.map(_.teamId))
+        .so: teamId =>
+          tournamentRepo.setForTeam(tour.id, teamId).void
     } >> {
       (andJoin && !me.isBot && !me.lame) so join(
         tour.id,

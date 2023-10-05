@@ -36,9 +36,13 @@ object bits:
           td(momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))),
           td(tour.durationString),
           tour.conditions.teamMember match
-            case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
             case Some(t) =>
               td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
+            case _ if tour.isTeamBattle =>
+              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt())(
+                visiblePlayers
+              )
+            case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
         )
     )
 
