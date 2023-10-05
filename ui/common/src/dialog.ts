@@ -1,6 +1,6 @@
 import { VNode, Attrs } from 'snabbdom';
 import { onInsert, lh as h, MaybeVNodes } from './snabbdom';
-import { isTouchDevice } from './mobile';
+import { isTouchDevice } from './device';
 import * as xhr from './xhr';
 import * as licon from './licon';
 

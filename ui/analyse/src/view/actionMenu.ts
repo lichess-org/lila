@@ -1,7 +1,7 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { domDialog } from 'common/dialog';
-import { isTouchDevice } from 'common/mobile';
+import { isTouchDevice } from 'common/device';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';

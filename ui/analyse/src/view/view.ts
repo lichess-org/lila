@@ -3,7 +3,7 @@ import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
 import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon } from 'common/snabbdom';
-import { bindMobileMousedown, isMobile } from 'common/mobile';
+import { bindMobileMousedown, isMobile } from 'common/device';
 import { playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';

@@ -6,7 +6,7 @@ import { Convo } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { userName } from './util';
 import * as licon from 'common/licon';
-import { hookMobileMousedown } from 'common/mobile';
+import { hookMobileMousedown } from 'common/device';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;

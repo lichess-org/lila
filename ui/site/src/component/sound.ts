@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
 import { charRole } from 'chess';
 

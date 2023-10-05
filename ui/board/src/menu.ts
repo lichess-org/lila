@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { Toggle, onClickAway } from 'common/common';
-import { bindMobileMousedown } from 'common/mobile';
+import { bindMobileMousedown } from 'common/device';
 import * as licon from 'common/licon';
 import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
 import { Redraw } from 'chessground/types';
