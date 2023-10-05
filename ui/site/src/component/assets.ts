@@ -27,10 +27,10 @@ export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> =>
 };
 
 export const loadCssPath = async (key: string): Promise<void> => {
-  const theme = $('body').data('theme');
+  const theme = document.body.dataset.theme!;
   const load = (theme: string, media?: 'dark' | 'light') =>
     loadCss(
-      `css/${key}.${document.dir || 'ltr'}.${theme}.${$('body').data('dev') ? 'dev' : 'min'}.css`,
+      `css/${key}.${document.dir || 'ltr'}.${theme}.${document.body.dataset.dev ? 'dev' : 'min'}.css`,
       media,
     );
   if (theme === 'system') {
@@ -42,7 +42,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
   } else await load(theme);
 };
 
-export const jsModule = (name: string) => `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
+export const jsModule = (name: string) => `compiled/${name}${document.body.dataset.dev ? '' : '.min'}.js`;
 
 const scriptCache = new Map<string, Promise<void>>();
 

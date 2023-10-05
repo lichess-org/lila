@@ -146,7 +146,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
     .addClass(cls);
 
-  const prev = $('body').data('theme');
+  const prev = document.body.dataset.theme!;
   const sheet = key == 'darkBoard' ? 'dark' : key;
   $('body').data('theme', sheet);
   if (prev === 'system') {
