@@ -7,9 +7,9 @@
   <string name="thisPageAllowsConnectingDgtBoard">Ta strona pozwala na podłączenie szachownicy DGT do Lichess i używanie jej do rozgrywania partii.</string>
   <string name="toConnectTheDgtBoard">Aby połączyć się z elektroniczną szachownicą DGT musisz zainstalować %s.</string>
   <string name="downloadHere">Oprogramowanie możesz pobrać stąd: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Jeśli %1$s jest uruchomiony na tym komputerze, możesz sprawdzić połączenie z nim za pomocą %2$s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Jeśli %1$s jest uruchomiony na tym komputerze, możesz sprawdzić połączenie z nim %2$s.</string>
   <string name="openingThisLink">otwierając ten link</string>
-  <string name="ifLiveChessRunningElsewhere">Jeśli %1$s działa na innym komputerze lub na innym porcie, musisz ustawić adres IP i port tutaj %2$s.</string>
+  <string name="ifLiveChessRunningElsewhere">Jeśli %1$s działa na innym komputerze lub na innym porcie, musisz ustawić adres IP i port tutaj: %2$s.</string>
   <string name="configurationSection">Sekcja konfiguracji</string>
   <string name="keepPlayPageOpen">Strona z partią musi pozostać cały czas otwarta w przeglądarce. Nie musi być widoczna, możesz ją zminimalizować lub ustawić obok strony z partią Lichess, ale nie zamykaj jej bo szachownica przestanie działać.</string>
   <string name="boardWillAutoConnect">Szachownica zostanie automatycznie połączona z bieżącą lub nowo rozpoczętą partią. Wkrótce zostanie również dodana możliwość wyboru, czy partia ma być rozgrywana z użyciem szachownicy DGT.</string>
@@ -27,7 +27,7 @@
   <string name="noSuitableOauthToken">Nie utworzono odpowiedniego tokenu OAuth.</string>
   <string name="dgtBoardConnectivity">Łączność z szachownicą DGT</string>
   <string name="clickToGenerateOne">Kliknij, aby go wygenerować</string>
-  <string name="webSocketUrl">Adres URL WebSocket %s</string>
+  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">Adres URL WebSocket %s</string>
   <string name="useWebSocketUrl">Użyj \"%1$s\", chyba że %2$s działa na innym komputerze lub innym porcie.</string>
   <string name="textToSpeech">Przetwarzanie tekstu na mowę</string>
   <string name="configureVoiceNarration">Skonfiguruj głosowe powiadomienia o posunięciach, dzięki czemu będziesz mógł skupić się na szachownicy.</string>
