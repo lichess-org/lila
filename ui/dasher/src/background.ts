@@ -148,7 +148,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
   const prev = document.body.dataset.theme!;
   const sheet = key == 'darkBoard' ? 'dark' : key;
-  $('body').data('theme', sheet);
+  document.body.dataset.theme = sheet;
   if (prev === 'system') {
     const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     const other = active === 'dark' ? 'light' : 'dark';

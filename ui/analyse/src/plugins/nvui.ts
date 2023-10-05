@@ -207,7 +207,7 @@ export function initModule(ctrl: AnalyseController) {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
                 root.find('.copy-pgn').on('click', function (this: HTMLElement) {
-                  navigator.clipboard.writeText($(this).data('pgn')).then(() => {
+                  navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
                     notify.set('PGN copied into clipboard.');
                   });
                 });

@@ -70,7 +70,7 @@ object admin:
       moreCss = cssTag("team"),
       moreJs = embedJsUnsafeLoadThen("""
 $('.copy-url-button').on('click', function(e) {
-$('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') + '\n')
+$('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n')
 })""")
     ) {
       main(cls := "page-menu page-small")(

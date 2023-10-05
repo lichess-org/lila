@@ -57,7 +57,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
         lichess.clockWidget(this, {
-          time: parseFloat($(this).data('time')),
+          time: parseFloat(this.dataset.time!),
         });
       });
   };
