@@ -15,24 +15,15 @@ final class GameSearchApi(
     extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size): Fu[List[Game]] =
-    withoutClosedAccounts(query):
-      client.search(query, from, size) flatMap { res =>
-        gameRepo gamesFromSecondary GameId.from(res.ids)
-      }
+    client.search(query, from, size) flatMap { res =>
+      gameRepo gamesFromSecondary GameId.from(res.ids)
+    }
 
   def count(query: Query) =
-    withoutClosedAccounts(query):
-      client.count(query).dmap(_.value)
+    client.count(query).dmap(_.value)
 
-  def ids(query: Query, max: Int): Fu[List[String]] =
-    withoutClosedAccounts(query):
-      client.search(query, From(0), Size(max)).map(_.ids)
-
-  private def withoutClosedAccounts[A](query: Query)(f: => Fu[A])(using zero: Zero[A]): Fu[A] =
-    userRepo
-      .filterDisabled(query.userIds)
-      .flatMap:
-        _.isEmpty.so(f)
+  def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
+    fuccess(forMod) >>| !userRepo.containsDisabled(query.userIds)
 
   def store(game: Game) =
     storable(game).so:
@@ -51,11 +42,12 @@ final class GameSearchApi(
   private def toDoc(game: Game, analysed: Boolean) =
     Json
       .obj(
-        Fields.status -> (game.status match
-          case s if s.is(_.Timeout) => chess.Status.Resign
-          case s if s.is(_.NoStart) => chess.Status.Resign
-          case _                    => game.status
-        ).id,
+        Fields.status -> game.status
+          .match
+            case s if s.is(_.Timeout) => chess.Status.Resign
+            case s if s.is(_.NoStart) => chess.Status.Resign
+            case _                    => game.status
+          .id,
         Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.id,
