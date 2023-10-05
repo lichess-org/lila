@@ -22,6 +22,7 @@ import {
 import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
+import disableDarkBoard from './disableDarkBoard';
 
 export default class LobbyController {
   data: LobbyData;
@@ -117,6 +118,7 @@ export default class LobbyController {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      disableDarkBoard();
     });
 
     window.addEventListener('beforeunload', () => this.leavePool());

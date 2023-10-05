@@ -52,6 +52,8 @@ export const isIOS = (constraint?: { below?: number; atLeast?: number }) => {
   return answer;
 };
 
+export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
+
 export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
 export const isTouchDevice = () => !hasMouse();
