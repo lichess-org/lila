@@ -104,6 +104,9 @@ case class Tournament(
       case (Some(s1), Some(s2)) if s1 similarTo s2 => true
       case _                                       => false
 
+  def sameNameAndTeam(other: Tournament) =
+    name == other.name && conditions.teamMember == other.conditions.teamMember
+
   def speed = Speed(clock)
 
   def perfType: PerfType = PerfType(variant, speed)

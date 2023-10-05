@@ -23,6 +23,7 @@ final class TournamentFeaturing(
         yield (visible, scheduled)
 
   object homepage:
+
     def get(teamIds: List[TeamId]): Fu[List[Tournament]] = for
       base      <- sameForEveryone get ()
       teamTours <- visibleForTeams(teamIds, 3 * 60, "homepage")
@@ -56,8 +57,13 @@ final class TournamentFeaturing(
             case _                          => 20
           if tour.variant.exotic && schedule.freq != Unique then base / 3 else base
 
-  private def visibleForTeams(teamIds: List[TeamId], nb: Int, page: String): Fu[List[Tournament]] =
+  private def visibleForTeams(teamIds: List[TeamId], aheadMinutes: Int, page: String): Fu[List[Tournament]] =
     teamIds.nonEmpty.so:
       repo
-        .visibleForTeams(teamIds, nb)
+        .visibleForTeams(teamIds, aheadMinutes)
+        // .map:
+        //   _.foldLeft(List.empty[Tournament]): (dedup, tour) =>
+        //     if dedup.exists(_ sameNameAndTeam tour) then dedup
+        //     else tour :: dedup
+        //   .reverse
         .monSuccess(_.tournament.featuring.forTeams(page))

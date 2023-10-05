@@ -199,10 +199,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     coll.list[Tournament](startedSelect ++ scheduledSelect)
 
   def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int): Fu[List[Tournament]] = teamIds.nonEmpty.so:
-    coll.list[Tournament](
-      forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(aheadMinutes)),
-      _.sec
-    )
+    coll
+      .find(forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(aheadMinutes)))
+      .sort($sort asc "startsAt")
+      .cursor[Tournament](ReadPref.sec)
+      .list(30)
 
   private[tournament] def shouldStartCursor =
     coll
