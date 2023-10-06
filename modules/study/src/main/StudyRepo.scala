@@ -81,9 +81,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   private[study] def selectOwnerId(ownerId: UserId)   = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: UserId) = $doc(F.uids -> memberId)
-  private[study] val selectPublic = $doc(
+  private[study] val selectPublic = $doc:
     "visibility" -> (Study.Visibility.Public: Study.Visibility)
-  )
   private[study] val selectPrivateOrUnlisted =
     "visibility" $ne (Study.Visibility.Public: Study.Visibility)
   private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
@@ -92,6 +91,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
   private[study] def selectTopic(topic: StudyTopic) = $doc(F.topics -> topic)
+  private[study] def selectNotBroadcast             = $doc(F.topics $ne StudyTopic.broadcast)
 
   def countByOwner(ownerId: UserId) = coll(_.countSel(selectOwnerId(ownerId)))
 
@@ -212,9 +212,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       chapterColl: AsyncColl
   )(userId: UserId, nb: Int) =
     coll:
-      _.aggregateList(nb) { framework =>
+      _.aggregateList(nb): framework =>
         import framework.*
-        Match(query(userId)) -> List(
+        Match(query(userId) ++ selectNotBroadcast) -> List(
           Sort(Descending("updatedAt")),
           Project(idNameProjection),
           PipelineOperator(
@@ -228,13 +228,12 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           ),
           AddFields($doc("chapters" -> $doc("$size" -> "$chapters")))
         )
-      }
-        .map: docs =>
-          for
-            doc        <- docs
-            idName     <- idNameHandler.readOpt(doc)
-            nbChapters <- doc.int("chapters")
-          yield (idName, nbChapters)
+      .map: docs =>
+        for
+          doc        <- docs
+          idName     <- idNameHandler.readOpt(doc)
+          nbChapters <- doc.int("chapters")
+        yield (idName, nbChapters)
 
   def isContributor(studyId: StudyId, userId: UserId) =
     coll(_.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w")))

@@ -10,7 +10,7 @@ import scala.util.chaining.*
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
+import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
 import lila.relay.RelayTour.ActiveWithSomeRounds
@@ -232,7 +232,7 @@ final class RelayApi(
           )
         ) >>
         tourRepo.setActive(tour.id, true) >>
-        studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
+        studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast)) inject relay
     }
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
@@ -335,7 +335,7 @@ final class RelayApi(
                 visibility = Study.Visibility.Public
               )
             ) >>
-            studyApi.addTopics(round.studyId, List("Broadcast"))
+            studyApi.addTopics(round.studyId, List(StudyTopic.broadcast))
       _ <- roundRepo.coll.insert.one(round)
     yield round
 
