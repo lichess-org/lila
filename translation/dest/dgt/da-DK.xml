@@ -5,15 +5,20 @@
   <string name="dgtBoardRequirements">Krav til DGT-bræt</string>
   <string name="dgtBoardLimitations">DGT-bræt begrænsninger</string>
   <string name="thisPageAllowsConnectingDgtBoard">Denne side giver dig mulighed for at forbinde dit DGT-bræt til Lichess og bruge det til at spille partier.</string>
+  <string name="toConnectTheDgtBoard">For at oprette forbindelse til DGT Electronic Board skal du installere %s.</string>
   <string name="downloadHere">Du kan downloade softwaren her: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Hvis %1$s kører på denne computer, kan du tjekke din forbindelse til den ved at %2$s.</string>
   <string name="openingThisLink">åbne dette link</string>
+  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Hvis %1$s kører på en anden maskine eller en anden port, du skal angive IP-adressen og porten her i %2$s.</string>
   <string name="configurationSection">Konfigurationssektion</string>
   <string name="keepPlayPageOpen">Spilsiden skal forblive åben i din browser. Den behøver ikke at være synlig, du kan minimere den eller sætte den side om side med Lichess-partisiden, men du må ikke lukke den, for så holder brættet op med at virke.</string>
   <string name="boardWillAutoConnect">Brættet vil automatisk forbinde til ethvert parti, der allerede er i gang eller ethvert nyt parti, der starter. Mulighed for at vælge, hvilket parti at spille kommer snart.</string>
   <string name="timeControlsForCasualGames">Tidskontrol for uformelle spil: Kun Classical, Correspondance og Rapid.</string>
+  <string name="timeControlsForRatedGames">Tidskontrol for rated games: Classical, Correspondence og nogle Rapids inklusive 15+10 og 20+0</string>
+  <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Når du er klar, stil dit bræt op, og klik derefter på %s.</string>
   <string name="ifMoveNotDetected">Hvis et træk ikke registreres</string>
   <string name="checkYouHaveMadeOpponentsMove">Tjek, at du har lavet din modstanders træk på DGT-brættet først. Tag dit træk tilbage. Træk igen.</string>
+  <string name="asALastResort">Som en sidste udvej, sæt brættet op identisk med Lichess, derefter %s</string>
   <string name="reloadThisPage">Genindlæs denne side</string>
   <string name="dgtConfigure">DGT - Indstil</string>
   <string name="lichessConnectivity">Lichess-forbindelse</string>
