@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="textToSpeech">Převod textu na řeč</string>
+  <string name="enableSpeechSynthesis">Povolit syntézu řeči</string>
+  <string name="speechSynthesisVoice">Hlas pro syntézu řeči</string>
+  <string name="announceAllMoves">Oznámit všechny tahy</string>
+</resources>
