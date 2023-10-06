@@ -263,7 +263,7 @@ final class Study(
             owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
             contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
             res <-
-              if owner.isEmpty && contrib.isEmpty then createStudy(data, me)
+              if owner.isEmpty && contrib.isEmpty then createStudy(data)
               else
                 val back = HTTPRequest.referer(ctx.req) orElse
                   data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
@@ -275,13 +275,14 @@ final class Study(
   def create = AuthBody { ctx ?=> me ?=>
     StudyForm.importGame.form
       .bindFromRequest()
+      .pp
       .fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)),
-        data => createStudy(data, me)
+        createStudy
       )
   }
 
-  private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
+  private def createStudy(data: StudyForm.importGame.Data)(using ctx: Context, me: Me) =
     Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
       Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
