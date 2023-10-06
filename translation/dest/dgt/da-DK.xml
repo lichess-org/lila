@@ -6,11 +6,16 @@
   <string name="dgtBoardLimitations">DGT-bræt begrænsninger</string>
   <string name="thisPageAllowsConnectingDgtBoard">Denne side giver dig mulighed for at forbinde dit DGT-bræt til Lichess og bruge det til at spille partier.</string>
   <string name="downloadHere">Du kan downloade softwaren her: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Hvis %1$s kører på denne computer, kan du tjekke din forbindelse til den ved at %2$s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Hvis %1$s kører på denne computer, kan du tjekke din forbindelse til den ved at %2$s.</string>
   <string name="openingThisLink">åbne dette link</string>
+  <string name="configurationSection">Konfigurationssektion</string>
+  <string name="keepPlayPageOpen">Spilsiden skal forblive åben i din browser. Den behøver ikke at være synlig, du kan minimere den eller sætte den side om side med Lichess-partisiden, men du må ikke lukke den, for så holder brættet op med at virke.</string>
+  <string name="boardWillAutoConnect">Brættet vil automatisk forbinde til ethvert parti, der allerede er i gang eller ethvert nyt parti, der starter. Mulighed for at vælge, hvilket parti at spille kommer snart.</string>
+  <string name="timeControlsForCasualGames">Tidskontrol for uformelle spil: Kun Classical, Correspondance og Rapid.</string>
   <string name="ifMoveNotDetected">Hvis et træk ikke registreres</string>
   <string name="checkYouHaveMadeOpponentsMove">Tjek, at du har lavet din modstanders træk på DGT-brættet først. Tag dit træk tilbage. Træk igen.</string>
   <string name="reloadThisPage">Genindlæs denne side</string>
+  <string name="dgtConfigure">DGT - Indstil</string>
   <string name="lichessConnectivity">Lichess-forbindelse</string>
   <string name="validDgtOauthToken">Du har en OAuth-token, der er egnet til DGT-spil.</string>
   <string name="dgtPlayMenuEntryAdded">En %s-post blev tilføjet til din SPIL-menu i toppen.</string>
@@ -18,7 +23,7 @@
   <string name="dgtBoardConnectivity">Forbindelse til DGT-bræt</string>
   <string name="clickToGenerateOne">Klik for at generere en</string>
   <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">%s WebSocket URL</string>
-  <string name="useWebSocketUrl">Brug \"%1$s\", medmindre %2$s kører på en anden maskine eller en anden port.</string>
+  <string name="useWebSocketUrl" comment="useWebSocketUrl&#10;&#10;%1$s = ws://localhost:1982/api/v1.0&#10;(this is a URL)&#10;%2$s = LiveChess&#10;&#10;Complete string: Use &quot;ws://localhost:1982/api/v1.0&quot; unless LiveChess is running on a different machine or different port.&#10;&#10;LiveChess is a move broadcasting technology by the DGT Company, used by many third parties.">Brug \"%1$s\", medmindre %2$s kører på en anden maskine eller en anden port.</string>
   <string name="textToSpeech">Tekst til tale</string>
   <string name="configureVoiceNarration">Konfigurer talegengivelse af de spillede træk, så du kan holde øjnene på brættet.</string>
   <string name="enableSpeechSynthesis">Aktivér talesyntese</string>
