@@ -91,7 +91,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         method: 'post',
         action: '/study/as',
       },
-      hook: bind('click submit', e => {
+      hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (!ctrl.persistence || ctrl.persistence.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
