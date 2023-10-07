@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN (\"Sf6\"), ist das Standardformat von Lichess. UCI (\"g8f6\") wird gewöhnlich von Engines benutzt.</string>
   <string name="keywords">Schlüsselwörter</string>
   <string name="keywordFormatDescription">Schlüsselwörter sind im JSON-Format. Sie werden verwendet, um Züge und Ergebnisse in deine Sprache zu übersetzen. Standardsprache ist Englisch, aber du kannst sie jederzeit ändern.</string>
-  <string name="debug">Fehlersuche</string>
-  <string name="verboseLogging">Ausführliche Protokollierung</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Fehlersuche</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Ausführliche Protokollierung</string>
   <string name="toSeeConsoleMessage">Um die Konsolen-Nachricht zu sehen, drücke Command + Option + C (Mac) oder Steuerung + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Spiele mit einem DGT-Brett</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Konfiguriere</string>
