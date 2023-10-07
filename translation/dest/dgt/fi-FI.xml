@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN (esim. \"Nf6) on Lichessin standardi. UCI (esim. g8f6) on yleinen shakkitietokoneissa.</string>
   <string name="keywords">Avainsanat</string>
   <string name="keywordFormatDescription">Avainsanat ovat JSON-muodossa. Niitä käytetään siirtojen ja tulosten kääntämiseen kielellesi. Oletus on englanti, mutta voit muuttaa sen mielesi mukaan.</string>
-  <string name="debug">Vianetsintä</string>
-  <string name="verboseLogging">Yksityiskohtainen lokikirjaus</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Vianetsintä</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Yksityiskohtainen lokikirjaus</string>
   <string name="toSeeConsoleMessage">Katso konsoliviesti painamalla Command + Option + C (Mac) tai Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Pelaa DGT-laudalla</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Asetukset</string>
