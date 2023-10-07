@@ -41,8 +41,8 @@ D\'Möglichkeit uszwähle, welere Partie me will biträtte, chunnt bald...</stri
   <string name="moveFormatDescription">SAN (\"Nf6\") ischs Standardformat vu Lichess. UCI (\"g8f6\") wird gwöhnlich vu Engines benutzt.</string>
   <string name="keywords">Schlüsselwörter</string>
   <string name="keywordFormatDescription">Schlüsselwörter sind im Format JSON. Sie werded verwändet, zum Züg und Ergäbnis in dini Schprach z\'übersetze. Englisch isch Standard, das chasch aber ändere.</string>
-  <string name="debug">Fehlersuechi</string>
-  <string name="verboseLogging">Usfüherlichi Protokollierig</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Fehlersuechi</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Usfüherlichi Protokollierig</string>
   <string name="toSeeConsoleMessage">Zum Konsole-Nachrichte z\'gseh trucksch: \"Ctrl + Shift + C\" (in Windows, Linux, Chrome OS) oder \"Command + Option + C\" (bi Mac)</string>
   <string name="playWithDgtBoard">Schpill mit eme DGT Schachbrätt</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Konfiguriere</string>
