@@ -20,7 +20,7 @@
   <string name="checkYouHaveMadeOpponentsMove">Comproba en primeiro lugar que realizaches o movemento do opoñente no taboleiro DGT. Reverte a túa xogada. Xoga de novo.</string>
   <string name="asALastResort">Como último recurso, configura o taboleiro de xeito idéntico a Lichess, logo %s</string>
   <string name="reloadThisPage">Recarga esta páxina</string>
-  <string name="dgtConfigure">DGT - Configurar</string>
+  <string name="dgtConfigure">Configuración DGT</string>
   <string name="lichessConnectivity">Conectividade de Lichess</string>
   <string name="validDgtOauthToken">Tes un token de OAuth axeitado para o xogo con DGT.</string>
   <string name="dgtPlayMenuEntryAdded">A entrada %s foi engadida ó menú XOGAR que se atopa na parte superior.</string>
