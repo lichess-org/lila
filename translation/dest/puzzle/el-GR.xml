@@ -19,6 +19,7 @@
   <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένους γρίφους:</string>
   <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
+  <string name="dailyPuzzle">Ο Γρίφος της Ημέρας</string>
   <string name="clickToSolve">Κάντε κλικ για να τον λύσετε</string>
   <string name="goodMove">Καλή κίνηση</string>
   <string name="bestMove">Παίξατε την καλύτερη κίνηση!</string>
@@ -28,7 +29,7 @@
   <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
   <string name="ratingX">Βαθμολογία: %s</string>
-  <string name="hidden">κρυφό</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">κρυφό</string>
   <plurals name="playedXTimes">
     <item quantity="one">Λύθηκε %s φορά</item>
     <item quantity="other">Λύθηκε %s φορές</item>
