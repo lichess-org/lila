@@ -16,7 +16,7 @@
   <string name="findTheBestMoveForWhite">Ağlar üçün ən yaxşı gedişi tapın.</string>
   <string name="findTheBestMoveForBlack">Qaralar üçün ən yaxşı gedişi tapın.</string>
   <string name="toGetPersonalizedPuzzles">Fərdiləşdirilmiş tapmacalar üçün:</string>
-  <string name="puzzleId">Tapmaca %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Tapmaca %s</string>
   <string name="puzzleOfTheDay">Günün tapmacası</string>
   <string name="clickToSolve">Həll etmək üçün kliklə</string>
   <string name="goodMove">Yaxşı gediş</string>
@@ -26,9 +26,9 @@
   <string name="puzzleComplete">Tapmaca tamamlandı!</string>
   <string name="notTheMove">Düzgün gediş deyil!</string>
   <string name="trySomethingElse">Başqa bir şey yoxlayın.</string>
-  <string name="ratingX">Reytinq: %s</string>
-  <string name="hidden">gizli</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Reytinq: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">gizli</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">%s dəfə həll edildi</item>
     <item quantity="other">%s dəfə həll edildi</item>
   </plurals>
