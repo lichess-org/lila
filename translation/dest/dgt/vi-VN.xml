@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN là tiêu chuẩn của Lichess như \"Nf6\". UCI phổ biến trên các động cơ như \"g8f6\".</string>
   <string name="keywords">Các từ khóa</string>
   <string name="keywordFormatDescription">Từ khóa có định dạng JSON. Chúng được sử dụng để dịch các nước đi và kết quả sang ngôn ngữ của bạn. Mặc định là tiếng Anh nhưng bạn có thể thoải mái thay đổi nó.</string>
-  <string name="debug">Gỡ lỗi</string>
-  <string name="verboseLogging">Ghi nhật ký chi tiết</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Gỡ lỗi</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Ghi nhật ký chi tiết</string>
   <string name="toSeeConsoleMessage">Để xem thông báo trên bảng điều khiển, nhấn Control + Shift + C (Windows, Linux, Chrome OS) hoặc Command + Option + C (Mac)</string>
   <string name="playWithDgtBoard">Chơi với bàn cờ công nghệ kỹ thuật số</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Cấu hình</string>
