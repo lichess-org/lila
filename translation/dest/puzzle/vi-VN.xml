@@ -19,8 +19,8 @@
   <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
   <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
   <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
-  <string name="puzzleId">Câu đố %s</string>
-  <string name="puzzleOfTheDay">Thế cờ của ngày</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Câu đố %s</string>
+  <string name="puzzleOfTheDay">Câu đố của ngày</string>
   <string name="dailyPuzzle">Câu đố Hàng ngày</string>
   <string name="clickToSolve">Nhấn để giải</string>
   <string name="goodMove">Nước đi tốt</string>
@@ -35,9 +35,9 @@
   <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích của bạn!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
-  <string name="ratingX">Hệ số: %s</string>
-  <string name="hidden">ẩn</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Hệ số: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ẩn</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="other">Đã chơi %s lần</item>
   </plurals>
   <string name="fromGameLink">Từ ván cờ %s</string>
