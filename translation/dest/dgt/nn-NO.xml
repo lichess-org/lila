@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN (t. d. \"Sf6\") er standard på Lichess. UCI (t. d. \"g8f6\") er vanleg på sjakkmotorar.</string>
   <string name="keywords">Nøkkelord</string>
   <string name="keywordFormatDescription">Nøkkelord er i JSON-format. Dei vert brukt til å oversetje trekk og resultat til ditt språk. Engelsk er standardspråket, men endre gjerne språk.</string>
-  <string name="debug">Feilsøk</string>
-  <string name="verboseLogging">Detaljert logging</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Feilsøk</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Detaljert logging</string>
   <string name="toSeeConsoleMessage">For å sjå konsoll-meldingar kan du på Mac trykkje Kommando + Alternativ + C. På Windows, Linux og Chrome OS trykkjer du Kontroll + Shift + C</string>
   <string name="playWithDgtBoard">Spel med eit DGT-brett</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Konfigurer</string>
