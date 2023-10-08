@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">แทงเบี้ย</string>
+  <string name="advancedPawnDescription">หนึ่งในเบี้ยของคุณอยู่ในตำแหน่งฝั่งคู่แข่งคุณ และมีโอกาสที่เบี้ยจะเลื่อนขั้น</string>
   <string name="advantage">ความได้เปรียบ</string>
   <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">ชิงโอกาสได้เปรียบมาให้ได้ (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">การรุกจนแบบ Anastasia</string>
+  <string name="anastasiaMateDescription">ม้า เรือ หรือ ควีน ช่วยกันต้อน คิง ของฝ่ายตรงข้ามไประหว่างริมกระดานกับหมากของฝ่ายเรา</string>
+  <string name="arabianMate">การรุกจนแบบ Arabian</string>
+  <string name="arabianMateDescription">ม้า และ เรือ ช่วยกันต้อน คิง ไปอยู่ที่มุมกระดาน</string>
+  <string name="attackingF2F7">โจมตีช่อง f2 หรือ f7</string>
+  <string name="attackingF2F7Description">การโจมตีที่พุ่งเป้าไปยังเบี้ย f2 หรือ f7 เช่น การเปิดเกมแบบ fried liver</string>
+  <string name="attraction">การดึงดูด</string>
+  <string name="backRankMate">รุกจนที่แถวสุดท้าย</string>
+  <string name="bishopEndgame">ท้ายเกมที่มีบิชอป</string>
+  <string name="bishopEndgameDescription">ท้ายเกมที่มีแต่บิชอปกับเบี้ย</string>
+  <string name="bodenMate">การรุกจนแบบ Boden</string>
   <string name="castling">การเข้าป้อม</string>
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
+  <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="kingsideAttack">การบุกฝั่งคิง</string>
   <string name="endgame">ท้ายเกม</string>
   <string name="fork">การโจมตีสองทาง</string>
