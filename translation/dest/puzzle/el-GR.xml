@@ -19,7 +19,7 @@
   <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένους γρίφους:</string>
   <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
-  <string name="dailyPuzzle">Ο Γρίφος της Ημέρας</string>
+  <string name="dailyPuzzle">Ημερήσιος Γρίφος</string>
   <string name="clickToSolve">Κάντε κλικ για να τον λύσετε</string>
   <string name="goodMove">Καλή κίνηση</string>
   <string name="bestMove">Παίξατε την καλύτερη κίνηση!</string>
