@@ -28,7 +28,11 @@
   <string name="fork">การโจมตีสองทาง</string>
   <string name="hangingPiece">หมากลอย</string>
   <string name="hookMate">การรุกจนแบบ Hook</string>
+  <string name="interference">ตาเดินขั้นระหว่าง</string>
+  <string name="interferenceDescription">เดินหมากของตนไปขั้นระหว่างหมากสองตัวของฝ่ายตรงข้าม ทำให้หมากสองตัวปกป้องกันไม่ได้ เช่น เอาม้าไปขั้นระหว่างช่องที่เรือสองลำปกป้องอยู่</string>
+  <string name="intermezzo">อินเตอร์เมโซ่</string>
   <string name="knightEndgame">ท้ายเกมม้า</string>
+  <string name="knightEndgameDescription">ท้ายเกมที่มีแต่น้าและเบี้ย</string>
   <string name="long">สามตาเดิน</string>
   <string name="longDescription">ปริศนาที่มี 3 ตาเดิน</string>
   <string name="master">เกมหลัก</string>
