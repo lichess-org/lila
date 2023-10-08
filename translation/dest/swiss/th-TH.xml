@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swissTournaments">ทวร์นาเมนต์สวิส</string>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">รอบที่%s</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="other">รอบสวิสที่%s</item>
+  </plurals>
   <string name="startingSoon">กำลังจะเริ่มในเร็ว ๆ นี้</string>
   <string name="numberOfGames">จำนวนเกม</string>
   <string name="pairingSystem">ระบบจับคู่</string>
