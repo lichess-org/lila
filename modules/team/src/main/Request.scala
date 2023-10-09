@@ -28,8 +28,6 @@ object Request:
     declined = declined
   )
 
-
-
 case class RequestWithUser(request: Request, user: User.WithPerfs):
   export request.{ user as _, * }
 
