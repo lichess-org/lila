@@ -50,6 +50,18 @@ case class TutorPerfReport(
     List((perf, awareness))
   )
 
+  lazy val globalResourcefulnessCompare = TutorCompare[PerfType, GoodPercent](
+    InsightDimension.Perf,
+    TutorMetric.Resourcefulness,
+    List((perf, resourcefulness))
+  )
+
+  lazy val globalConversionCompare = TutorCompare[PerfType, GoodPercent](
+    InsightDimension.Perf,
+    TutorMetric.Conversion,
+    List((perf, conversion))
+  )
+
   lazy val globalPressureCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
     TutorMetric.GlobalClock,
@@ -68,16 +80,16 @@ case class TutorPerfReport(
   //   List((perf, flagging))
   // )
 
-  def skillCompares = List(globalAccuracyCompare, globalAwarenessCompare)
+  def skillCompares =
+    List(globalAccuracyCompare, globalAwarenessCompare, globalResourcefulnessCompare, globalConversionCompare)
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
-  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap { color =>
+  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap: color =>
     val op = openings(color)
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare).map(_ as color)
-  }
 
   lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
 
