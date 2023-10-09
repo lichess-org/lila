@@ -12,7 +12,8 @@ import lila.user.User
 case class InsightPerfStats(
     rating: MeanRating,
     nbGames: ByColor[Int],
-    time: FiniteDuration
+    time: FiniteDuration,
+    dates: Option[TimeInterval]
 ):
   def totalNbGames = nbGames.white + nbGames.black
   def peers        = Question.Peers(rating)
@@ -43,15 +44,18 @@ final class InsightPerfStatsApi(
               F.perf   -> true,
               F.rating -> true,
               F.color  -> true,
+              F.date   -> true,
               "t"      -> $doc("$sum" -> s"$$${F.moves("t")}")
             )
           ),
           GroupField(F.perf)(
-            "r"   -> AvgField(F.rating),
-            "nw"  -> Sum($doc("$cond" -> $arr("$c", 1, 0))),
-            "nb"  -> Sum($doc("$cond" -> $arr("$c", 0, 1))),
-            "t"   -> SumField("t"),
-            "ids" -> PushField("_id")
+            "r"    -> AvgField(F.rating),
+            "nw"   -> Sum($doc("$cond" -> $arr("$c", 1, 0))),
+            "nb"   -> Sum($doc("$cond" -> $arr("$c", 0, 1))),
+            "t"    -> SumField("t"),
+            "ids"  -> PushField("_id"),
+            "from" -> LastField(F.date),
+            "to"   -> FirstField(F.date)
           ),
           AddFields(
             $doc(
@@ -72,9 +76,13 @@ final class InsightPerfStatsApi(
           t   <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
           gameIds = ids map GameId.take
+          interval = for
+            start <- doc.getAsOpt[Instant]("from")
+            end   <- doc.getAsOpt[Instant]("to")
+          yield TimeInterval(start, end)
         yield pt -> InsightPerfStats
           .WithGameIds(
-            InsightPerfStats(MeanRating(ra.toInt), ByColor(nw, nb), t.toDuration),
+            InsightPerfStats(MeanRating(ra.toInt), ByColor(nw, nb), t.toDuration, interval),
             gameIds
           )
       .map(_.toMap)

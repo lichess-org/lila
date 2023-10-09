@@ -19,8 +19,8 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.html.tutor.home(av, user))
   }
 
-  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.html.tutor.perf(perf, user))
+  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.html.tutor.perf(full.report, perf, user))
   }
 
   def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
