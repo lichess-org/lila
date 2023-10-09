@@ -183,7 +183,7 @@ To make a new donation, head to $baseUrl/patron"""
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
               "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
-            val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
+            val disableLink = s"$baseUrl/account/preferences/notification#correspondence-email-notif"
             mailer send Mailer.Message(
               to = email,
               subject = "Daily correspondence notice",
