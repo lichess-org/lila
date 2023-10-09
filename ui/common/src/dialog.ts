@@ -216,7 +216,9 @@ function assets(o: DialogOpts) {
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
-      : Promise.resolve(o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText),
+      : Promise.resolve(
+          o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
+        ),
     o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve(),
   ]);
 }
