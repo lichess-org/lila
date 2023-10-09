@@ -104,7 +104,8 @@ case class TutorPerfReport(
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
       phaseCompares.flatMap(_.peerComparisons) :::
-      clockCompares.flatMap(_.peerComparisons)
+      clockCompares.flatMap(_.peerComparisons) :::
+      skillCompares.flatMap(_.peerComparisons)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     GoodPercent(fam.performance.mine.count, stats.nbGames(color))
