@@ -6,8 +6,8 @@ import play.api.mvc.Call
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
+import lila.tutor.{ TutorCompare, TutorPerfReport }
 import lila.tutor.TutorCompare.given
-import lila.tutor.TutorPerfReport
 import lila.user.User
 import lila.rating.PerfType
 
@@ -24,7 +24,7 @@ object perf:
           report.perf.trans
         )
       ),
-      bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
+      bits.mascotSays(ul(TutorCompare.mixedBag(report.relevantComparisons)(4) map compare.show)),
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(
           frag(report.perf.trans, " skills"),

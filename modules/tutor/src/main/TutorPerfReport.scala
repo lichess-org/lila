@@ -7,6 +7,7 @@ import lila.common.LilaOpeningFamily
 import lila.insight.*
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.AnyComparison
+import lila.tutor.TutorCompare.Comparison
 
 // for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(
@@ -106,6 +107,7 @@ case class TutorPerfReport(
       phaseCompares.flatMap(_.peerComparisons) :::
       clockCompares.flatMap(_.peerComparisons) :::
       skillCompares.flatMap(_.peerComparisons)
+  val relevantHighlights = TutorCompare.mixedBag(relevantComparisons)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     GoodPercent(fam.performance.mine.count, stats.nbGames(color))
