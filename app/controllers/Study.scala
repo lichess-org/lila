@@ -275,7 +275,6 @@ final class Study(
   def create = AuthBody { ctx ?=> me ?=>
     StudyForm.importGame.form
       .bindFromRequest()
-      .pp
       .fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)),
         createStudy
