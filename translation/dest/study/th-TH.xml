@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">วันที่เพิ่ม (เก่าสุด)</string>
   <string name="recentlyUpdated">อัพเดตเร็วๆนี้</string>
   <string name="mostPopular">นิยมที่สุด</string>
+  <string name="alphabetical">ตามอักษร</string>
   <string name="addNewChapter">เพิ่มบทใหม่</string>
   <plurals name="nbChapters">
     <item quantity="other">%s บท</item>
@@ -37,6 +38,7 @@
   <string name="youAreNowASpectator">ตอนนี้คุณคือผู้ชม</string>
   <string name="pgnTags">แท็ก PGN</string>
   <string name="like">ชอบ</string>
+  <string name="unlike">ไม่ชอบ</string>
   <string name="newTag">แท็กใหม่</string>
   <string name="commentThisPosition">วิจารณ์ตำแหน่งนี้</string>
   <string name="commentThisMove">วิจารณ์การเดินนี้</string>
@@ -57,6 +59,8 @@
   <string name="studyPgn">PGN กรณีศึกษา</string>
   <string name="downloadAllGames">ดาวน์โหลดเกมทั้งหมด</string>
   <string name="chapterPgn">PGN บท</string>
+  <string name="copyChapterPgn">คัดลอก PGN</string>
+  <string name="copyChapterPgnDescription">คัดลอกPGN ไปยังแป้นพิมพ์</string>
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
@@ -71,11 +75,13 @@
   <string name="studyNotFound">ไม่พบกรณีศึกษา</string>
   <string name="editChapter">แก้ไขบท</string>
   <string name="newChapter">บทใหม่</string>
+  <string name="importFromChapterX">นำเข้าโดย %s</string>
   <string name="orientation">ทิศทาง</string>
   <string name="analysisMode">โหมดวิเคราะห์</string>
   <string name="pinnedChapterComment">ความคิดเห็นที่ถูกปักของบท</string>
   <string name="saveChapter">บันทึกบท</string>
   <string name="clearAnnotations">ล้างหมายเหตุ</string>
+  <string name="clearVariations">ล้างการผันแปร</string>
   <string name="deleteChapter">ลบบท</string>
   <string name="deleteThisChapter">ลบบทหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="clearAllCommentsInThisChapter">ล้างความคิดเห็น, สัญลักษณ์, และรูปวาดทั้งหมดในบทนี้?</string>
@@ -120,8 +126,41 @@
   <string name="clearChat">ล้างแชท</string>
   <string name="deleteTheStudyChatHistory">ลบประวัติแชทกรณีศึกษาหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="deleteStudy">ลบกรณีศึกษา</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">ลบกรณีศึกษาทั้งหมดเหรอ คุณไม่สามารถนำกลับมาได้นะ โปรดพิมพ์ชื่อกรณีศึกษาเพื่อยืนยัน: %s</string>
   <string name="whereDoYouWantToStudyThat">คุณต้องการศึกษาที่ไหน?</string>
   <string name="goodMove">เดินได้ดี</string>
   <string name="mistake">พลาด</string>
+  <string name="brilliantMove">ตาเดินที่หลักแหลม</string>
   <string name="blunder">พลาดมหันต์</string>
+  <string name="interestingMove">ตาเดืนที่น่าสนใจ</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ตาเดินที่แคลงใจ</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ตาเดินเดียว</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">ไม่มีตาเดินที่ดี</string>
+  <string name="equalPosition">ตำแหน่งเสมอ</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">ตำแหน่งที่ไม่แน่นอน</string>
+  <string name="whiteIsSlightlyBetter">ขาวเป็นต่อเล็กน้อย</string>
+  <string name="blackIsSlightlyBetter">ดำเป็นต่อเล็กน้อย</string>
+  <string name="whiteIsBetter">ขาวเป็นต่อ</string>
+  <string name="blackIsBetter">ดำเป็นต่อ</string>
+  <string name="whiteIsWinning">ขาวกำลังชนะ</string>
+  <string name="blackIsWinning">ดำกำลังชนะ</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">ความแปลกใหม่</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">พัฒนาหมาก</string>
+  <string name="initiative">การเริ่ม</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">โจมตี</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">เล่นตอบโต้</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">เวลาใกล้หมด</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">โดยการชดเชย</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">โดยมีไอเดีย</string>
+  <string name="nextChapter">บทต่อไป</string>
+  <string name="prevChapter">บทก่อนหน้า</string>
+  <string name="studyActions">การดำเนินการศึกษา</string>
+  <string name="topics">หัวข้อ</string>
+  <string name="myTopics">หัวข้อของฉัน</string>
+  <string name="popularTopics">หัวข้อยอดนิยม</string>
+  <string name="manageTopics">จัดการหัวข้อ</string>
+  <string name="back">กลับ</string>
+  <string name="playAgain">เล่นใหม่</string>
+  <string name="whatWouldYouPlay">คุณจะเดินอะไรในตำแหน่งนี้</string>
+  <string name="youCompletedThisLesson">ยินดีด้วย! คุณจบบทเรียนนี้แล้ว</string>
 </resources>

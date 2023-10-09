@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN és l\'estàndard en Lichess, per exemple \"Nf6\". UCI és comú en motors, per exemple \"g8f6\".</string>
   <string name="keywords">Paraules clau</string>
   <string name="keywordFormatDescription">Les paraules clau estan en format JSON. S\'utilitzen per a traduir moviments i resultats al teu idioma. Per defecte és l\'anglès, però no dubtis a canviar-lo.</string>
-  <string name="debug">Depuració</string>
-  <string name="verboseLogging">Registre detallat</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Depuració</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Registre detallat</string>
   <string name="toSeeConsoleMessage">Per a veure missatges de consola pressiona Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Jugar amb un tauler DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configurar</string>

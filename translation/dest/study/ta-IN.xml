@@ -22,4 +22,7 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">உங்களுக்குத் தெரிந்த, இந்தக் கற்கையை ஊக்கத்துடன் கற்க விரும்புபவர்களை மட்டுமே அழையுங்கள்.</string>
   <string name="searchByUsername">பயனர்பெயரில் தேட</string>
   <string name="spectator">பார்வையாளர்</string>
+  <string name="contributor">பங்களிப்பாளர்</string>
+  <string name="kick">நீங்கவும்</string>
+  <string name="leaveTheStudy">கற்கையிலிருந்து வெளியேற</string>
 </resources>

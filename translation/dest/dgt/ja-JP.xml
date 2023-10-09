@@ -38,8 +38,8 @@
   <string name="moveFormatDescription">SAN は Lichess の標準記法です（例：Nf6）。 UCI はエンジンでよく使われる記法です（例：g8f6）。</string>
   <string name="keywords">キーワード</string>
   <string name="keywordFormatDescription">キーワードは JSON 形式です。これを使うと指し手や結果をあなたの言語に翻訳することもできます。デフォルトは英語ですが自由に変更できます。</string>
-  <string name="debug">デバッグ</string>
-  <string name="verboseLogging">詳細なログの保存</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">デバッグ</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">詳細なログの保存</string>
   <string name="toSeeConsoleMessage">コンソールメッセージを表示するには「Control + Shift + C」(Windows、Linux、Chrome OS) か「Command + Option + C」 (Mac) を押します。</string>
   <string name="playWithDgtBoard">DGT ボードで対局</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">設定</string>

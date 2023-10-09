@@ -196,8 +196,10 @@
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="error.weakPassword">รหัสผ่านนี้ เป็นรหัสผ่านที่ใช้กันทั่วไป และสามารถเดาได้ง่าย</string>
   <string name="error.namePassword">โปรดอย่าใส่ชื่อผู้ใช้งานเป็นรหัสผ่าน</string>
+  <string name="blankedPassword">คุณใช้รหัสผ่านเดียวกันบนไซต์อื่น และไซต์นั้นถูกบุกรุก เพื่อให้มั่นใจในความปลอดภัยของบัญชี Lichess ของคุณ เราต้องการให้คุณตั้งรหัสผ่านใหม่ ขอขอบคุณสำหรับความเข้าใจของคุณ</string>
   <string name="youAreLeavingLichess">คุณกำลังออกจากเว็บไซต์ Lichess</string>
   <string name="neverTypeYourPassword">อย่าบอกรหัสผ่าน Lichess ของคุณให้เว็บไซต์อื่น!</string>
+  <string name="proceedToX">ไปที่ %s</string>
   <string name="passwordSuggestion">อย่าตั้งรหัสผ่านที่คนอี่นแนะนำให้ตั้ง พวกเขาจะสามารถขโมยบัญชีของคุณได้</string>
   <string name="emailSuggestion">อย่าตั้งรหัสผ่านที่คนอี่นแนะนำให้ตั้ง พวกเขาจะสามารถขโมยบัญชีของคุณได้</string>
   <string name="emailConfirmHelp">ขอความช่วยเหลือในการรับอีเมลยืนยันตัวตน</string>
@@ -314,6 +316,7 @@
   </plurals>
   <string name="viewTournament">ดูทัวร์นาเมนต์</string>
   <string name="backToTournament">กลับสู่ทัวร์นาเมนต์</string>
+  <string name="noDrawBeforeSwissLimit">คุณไม่สามารถขอเสมอได้ก่อนตาเดินที่ 30 ในทัวร์นาเมนต์สวิส</string>
   <string name="thematic">ธีมาติก</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s เกมที่คิดคะแนน</item>
@@ -472,7 +475,7 @@
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
-  <string name="descPrivate">คำบรรยายส่วนตัว</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">คำบรรยายส่วนตัว</string>
   <string name="descPrivateHelp">ข้อความที่สมาชิกทีมเท่านั้นที่เห็นได้ ถ้าตั้งไว้ก็จะไปแทนที่คำอธิบายสาธารณะสำหรับสมาชิกทีม</string>
   <string name="no">ไม่</string>
   <string name="yes">ใช่</string>
@@ -624,7 +627,11 @@
   <string name="keyMoveBackwardOrForward">เดินถอยหลัง/ไปหน้า</string>
   <string name="keyGoToStartOrEnd">ไปยังตอนเริ่ม/ตอนจบ</string>
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
-  <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
+  <string name="keyEnterOrExitVariation" comment="In a Lichess move list, a set of moves branching from the mainline is called a 'variation'.&#10;&#10;For example, in 1. e4 e5 (1...e6 2. d4) 2. Bc4:&#10;1. e4 e5 is the mainline&#10;(1... e6 2.d4) is the variation. Pawn to e6 an alternative move for Black, which prompts White to respond differently, with d4 instead of Bc4 which they planned originally in case Black played e5.&#10;&#10;This string is for keyboard shortcuts. While checking moves using the keyboard, you can move in and out of variations in the move list. Shift + left or right let you change between navigating through moves in the mainline or the variation. This also works for sub-variations.">เข้าสู่/ออกจากตัวแปรกติกา</string>
+  <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
+  <string name="keyNextBlunder">ตาเดินที่ผิดมหันต์ต่อไป</string>
+  <string name="keyNextMistake">ตาเดินที่ผิดพลาดต่อไป</string>
+  <string name="keyNextInaccuracy">ตาเดินที่ไม่แม่นยำต่อไป</string>
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
   <string name="tournamentHomeTitle">ทัวร์นาเมนต์หมากรุกซึ่งมีการควบคุมเวลาและตัวแปรกติกาต่างๆ</string>
   <string name="tournamentHomeDescription">เล่นทัวร์นาเมนต์หมากรุกได้ทันที! เข้าร่วมทัวร์นาเมนต์ที่กำหนดเวลาไว้อย่างเป็นทางการ หรือสร้างขึ้นด้วยตัวคุณเอง  มีทั้งบุลลิท, บลิทซ์, คลาสสิก, หมากรุก960, ราชันย์แห่งขุนเขา, สามรุก, และตัวเลือกที่มีให้อีกมากมายเพื่อความสนุกที่ไม่รู้จบของหมากรุก</string>
@@ -690,7 +697,7 @@
   <string name="gameAnalysis">วิเคราะห์เกม</string>
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
-  <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s ชื่นชอบ %2$s</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
@@ -700,6 +707,7 @@
   <string name="light">สว่าง</string>
   <string name="dark">มืด</string>
   <string name="transparent">โปร่งใส</string>
+  <string name="deviceTheme">ธีมของเครื่อง</string>
   <string name="backgroundImageUrl">URL รูปภาพพื้นหลัง:</string>
   <string name="boardGeometry">ทรงกระดาน</string>
   <string name="boardTheme">รูปลักษณ์กระดาน</string>
@@ -875,6 +883,8 @@
   <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
   <string name="since">ตั้งแต่</string>
   <string name="until">จนถึง</string>
+  <string name="lichessDbExplanation">เกมคิดคะแนนที่เล่นใน Lichess</string>
   <string name="switchSides">สลับด้าน</string>
   <string name="closingAccountWithdrawAppeal">การปิดบัญชีของคุณจะเป็นการถอนคำอุทธรณ์ของคุณ</string>
+  <string name="ourEventTips">คำแนะนำในการจัดการอีเว้นท์นี้</string>
 </resources>

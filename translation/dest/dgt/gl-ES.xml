@@ -20,7 +20,7 @@
   <string name="checkYouHaveMadeOpponentsMove">Comproba en primeiro lugar que realizaches o movemento do opoñente no taboleiro DGT. Reverte a túa xogada. Xoga de novo.</string>
   <string name="asALastResort">Como último recurso, configura o taboleiro de xeito idéntico a Lichess, logo %s</string>
   <string name="reloadThisPage">Recarga esta páxina</string>
-  <string name="dgtConfigure">DGT - Configurar</string>
+  <string name="dgtConfigure">Configuración DGT</string>
   <string name="lichessConnectivity">Conectividade de Lichess</string>
   <string name="validDgtOauthToken">Tes un token de OAuth axeitado para o xogo con DGT.</string>
   <string name="dgtPlayMenuEntryAdded">A entrada %s foi engadida ó menú XOGAR que se atopa na parte superior.</string>
@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN é o estándar en Lichess, como por exemplo \"Nf6\". UCI é común nas máquinas de xadrez, como por exemplo \"g8f6\".</string>
   <string name="keywords">Palabras chave</string>
   <string name="keywordFormatDescription">As palabras chave están en formato JSON. Empréganse para traducir as xogadas e os resultados á túa lingua. Por defecto é o inglés, pero podes cambialo.</string>
-  <string name="debug">Depuración</string>
-  <string name="verboseLogging">Rexistro detallado</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Depuración</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Rexistro detallado</string>
   <string name="toSeeConsoleMessage">Para ver mensaxes na consola, preme Command + Opción + C (Mac) ou Control + Maiúsculas + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Xogar cun taboleiro DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configurar</string>

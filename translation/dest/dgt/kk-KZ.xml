@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">\"Nf6\" сияқты SAN - Личесте стандартты жүйе. UCI \"g8f6\" сияқты есептеуішке тән.</string>
   <string name="keywords">Кілтсөздер</string>
   <string name="keywordFormatDescription">Кілтсөздер JSON пішінінде. Олар жүрістер мен нәтижелерді сіздің тіліңізге аудару үшін керек. Әдепкі күйде - Ағылшын, оны өзгертуге жолыңыз ашық.</string>
-  <string name="debug">Жөндеу</string>
-  <string name="verboseLogging">Егжейлі журнал жазу</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Жөндеу</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Егжейлі журнал жазу</string>
   <string name="toSeeConsoleMessage">Консол хабарын көру үшін Command + Option + C (Mac) не Control + Shift + C (Windows, Linux, Chrome OS) басыңыз</string>
   <string name="playWithDgtBoard">DGT тақтада ойнау</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Пішіндеу</string>

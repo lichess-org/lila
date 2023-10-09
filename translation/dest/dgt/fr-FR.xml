@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN est le format standard de Lichess, ex. « Cf6 ». UCI est un format commun pour les moteurs d\'échecs, ex. « g8f6 ».</string>
   <string name="keywords">Mots-clés</string>
   <string name="keywordFormatDescription">Les mots-clés sont au format JSON. Ils sont utilisés pour traduire des déplacements et des résultats dans votre langue. La valeur par défaut est l\'anglais, mais n\'hésitez pas à la modifier.</string>
-  <string name="debug">Débogage</string>
-  <string name="verboseLogging">Journal détaillé</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Débogage</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Journal détaillé</string>
   <string name="toSeeConsoleMessage">Pour voir le message de la console, appuyez sur Command + Option + Option + C (Mac) ou Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Jouer avec un échiquier DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configurer</string>

@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">வகுப்புகள்</string>
+  <string name="teachClassesOfChessStudents">சதுரங்க மாணவர்களுக்கு லீசெஸ் வகுப்பறைக் கருவிகளூடாகக் கற்பியுங்கள்.</string>
+  <string name="features">வசதிகள்</string>
+  <string name="quicklyGenerateSafeUsernames">மாணவர்களுக்கான பயனர் பெயர்களையும் கடவுச்சொற்களையும் விரைவாகவும் பாதுகாப்பாகவும் உருவாக்கு</string>
+  <string name="trackStudentProgress">விளையாட்டிலும் புதிர்களிலும் மாணவர்களின் முன்னேற்றத்தைக் கண்காணிக்கவும்</string>
+  <string name="messageAllStudents">வகுப்பில் புதிதாகச் சேர்க்கப்பட்டதை எல்லா மாணவர்களுக்கும் அறிவிக்கவும்</string>
+  <string name="freeForAllForever">எல்லோரிற்கும் எப்போதும் 100% இலவசமாக, விளம்பரமோ பின்தொடர்பவர்களோ இல்லாமல்</string>
+  <string name="applyToBeLichessTeacher">லீசெஸ் ஆசிரியராக விண்ணப்பியுங்கள்</string>
+  <string name="noClassesYet">இன்னமும் வகுப்புக்கள் இல்லை.</string>
+  <string name="teachersX">ஆசிரியர்: %s</string>
+  <string name="newClass">புதிய வகுப்பு</string>
+</resources>
