@@ -1,4 +1,4 @@
-@mixin rendered-markdown($element-margin: 1em) {
+@mixin rendered-markdown($element-margin: 1em, $img-max-height: 50vh) {
   @extend %break-word;
 
   strong {
@@ -75,7 +75,7 @@
   img {
     display: block;
     max-width: 100%;
-    max-height: 50vh;
+    max-height: $img-max-height;
     margin: auto;
   }
 
