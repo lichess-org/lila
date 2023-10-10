@@ -11,6 +11,7 @@
   <string name="attackingF2F7">โจมตีช่อง f2 หรือ f7</string>
   <string name="attackingF2F7Description">การโจมตีที่พุ่งเป้าไปยังเบี้ย f2 หรือ f7 เช่น การเปิดเกมแบบ fried liver</string>
   <string name="attraction">การดึงดูด</string>
+  <string name="attractionDescription">การเสียสละแบบแลกเปลี่ยน ผลักดันให้หมากฝ่ายตรงข้ามไปบนช่องที่สามารถทำให้เกิดกลยุทธ์ที่ตามมาได้</string>
   <string name="backRankMate">รุกจนที่แถวสุดท้าย</string>
   <string name="bishopEndgame">ท้ายเกมที่มีบิชอป</string>
   <string name="bishopEndgameDescription">ท้ายเกมที่มีแต่บิชอปกับเบี้ย</string>
