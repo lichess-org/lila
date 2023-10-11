@@ -7,15 +7,15 @@ import lila.memo.CacheApi.*
 import cats.derived.*
 
 object TeamSecurity:
-  enum Permission(val desc: String) derives Eq:
-    case Public   extends Permission("Visible as leader on the team page")
-    case Settings extends Permission("Manage the team settings")
-    case Tour     extends Permission("Create, manage and join team tournaments")
-    case Comm     extends Permission("Moderate the forum and chats")
-    case Request  extends Permission("Accept and decline join requests")
-    case PmAll    extends Permission("Send private messages to all members")
-    case Kick     extends Permission("Kick members of the team")
-    case Admin    extends Permission("Manage leader permissions")
+  enum Permission(val name: String, val desc: String) derives Eq:
+    case Public   extends Permission("Public", "Visible as leader on the team page")
+    case Settings extends Permission("Settings", "Manage the team settings")
+    case Tour     extends Permission("Tournaments", "Create, manage and join team tournaments")
+    case Comm     extends Permission("Moderation", "Moderate the forum and chats")
+    case Request  extends Permission("Requests", "Accept and decline join requests")
+    case PmAll    extends Permission("Messages", "Send private messages to all members")
+    case Kick     extends Permission("Kick", "Kick members of the team")
+    case Admin    extends Permission("Admin", "Manage leader permissions")
     def key = toString.toLowerCase
   object Permission:
     type Selector = Permission.type => Permission
@@ -56,13 +56,13 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: U
       single("leaders" -> seq(leaderForm))
         .verifying(
           "You are not allowed to change permissions",
-          _ => t.leaders.exists(l => l.is(me) && l.perms(Permission.Admin))
+          _ => Granter(_.ManageTeam) || t.leaders.exists(l => l.is(me) && l.perms(Permission.Admin))
         )
         .verifying(
           "You can't make Lichess a leader",
-          _.exists(_.name is User.lichessId) &&
-            !t.leaders.exists(_ is User.lichessId) &&
-            !Granter(_.ManageTeam)
+          Granter(_.ManageTeam) ||
+            !_.exists(_.name is User.lichessId) ||
+            t.leaders.exists(_ is User.lichessId)
         )
         .verifying(
           "There must be at least one leader able to manage permissions",

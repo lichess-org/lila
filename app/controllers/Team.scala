@@ -183,11 +183,16 @@ final class Team(
       api
         .withLeaders(team)
         .flatMap: team =>
-          env.team.security.form.leaders(team).bindFromRequest().value so {
-            env.team.security.setLeaders(team, _)
-          } inject Redirect(
-            routes.Team.show(team.id)
-          ).flashSuccess
+          env.team.security.form
+            .leaders(team)
+            .bindFromRequest()
+            .pp
+            .fold(
+              err => BadRequest.page(html.team.admin.leaders(team, err)),
+              data =>
+                env.team.security.setLeaders(team, data) inject
+                  Redirect(routes.Team.show(team.id)).flashSuccess
+            )
   }
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>

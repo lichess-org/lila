@@ -11,17 +11,17 @@ import lila.common.licon
 trait FormHelper:
   self: I18nHelper =>
 
-  def errMsg(form: Field)(using Lang): Frag = errMsg(form.errors)
+  def errMsg(form: Field)(using Lang): Seq[Tag] = errMsg(form.errors)
 
-  def errMsg(form: Form[?])(using Lang): Frag = errMsg(form.errors)
+  def errMsg(form: Form[?])(using Lang): Seq[Tag] = errMsg(form.errors)
 
-  def errMsg(error: FormError)(using Lang): Frag =
+  def errMsg(error: FormError)(using Lang): Tag =
     p(cls := "error")(transKey(I18nKey(error.message), error.args))
 
-  def errMsg(errors: Seq[FormError])(using Lang): Frag =
+  def errMsg(errors: Seq[FormError])(using Lang): Seq[Tag] =
     errors map errMsg
 
-  def globalError(form: Form[?])(using Lang): Option[Frag] =
+  def globalError(form: Form[?])(using Lang): Option[Tag] =
     form.globalError map errMsg
 
   def globalErrorNamed(form: Form[?], name: String)(using Lang): Option[Frag] =

@@ -64,23 +64,20 @@ object show:
       )(
         boxTop(
           h1(cls := "text", dataIcon := licon.Group)(t.name),
-          div(
+          div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else
-              canSeeMembers option a(href := routes.Team.members(t.slug))(
+              canSeeMembers option a(href := routes.Team.members(t.slug)):
                 nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
-              )
-          )
         ),
         div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
             enabledOrLeader option st.section(cls := "team-show__meta")(
-              p(
-                teamLeaders.pluralSame(t.leaders.size),
+              t.publicLeaders.nonEmpty option p(
+                teamLeaders.pluralSame(t.publicLeaders.size),
                 ": ",
-                fragList(t.leaders.toList.map { l =>
-                  userIdLink(l.some)
-                })
+                fragList(t.publicLeaders.toList.map: l =>
+                  userIdLink(l.some))
               ),
               info.ledByMe option a(
                 dataIcon := licon.InfoCircle,
@@ -171,9 +168,8 @@ object show:
               ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(
                 href := routes.Team.show(t.id, 1, mod = true),
                 cls  := "button button-red"
-              )(
+              ):
                 "View team as Mod"
-              )
             ),
             canSeeMembers option div(
               cls := "team-show__members"

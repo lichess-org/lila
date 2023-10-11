@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.team.Team
+import lila.team.{ Team, TeamSecurity }
 
 object admin:
 
@@ -17,22 +17,44 @@ object admin:
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = jsModule("team.admin")
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         bits.menu(none),
-        div(cls := "page-menu__content box box-pad")(
+        div(cls := "page-menu__content box")(
           adminTop(t.team, teamLeaders),
-          p(onlyInviteLeadersTrust()),
-          postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
-            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t.team)),
-            form3.actions(
+          p(cls := "box__pad")(onlyInviteLeadersTrust()),
+          postForm(cls := "team-leaders form3", action := routes.Team.leaders(t.id))(
+            globalError(form).map(_(cls := "box__pad")),
+            table(cls := "slist slist-pad")(
+              thead:
+                th:
+                  TeamSecurity.Permission.values.map: perm =>
+                    td(st.title := perm.desc)(perm.name)
+              ,
+              tbody:
+                t.leaders.mapWithIndex: (l, i) =>
+                  tr(
+                    td(
+                      userIdLink(l.user.some),
+                      form3.hidden(s"leaders[$i].name", l.user)
+                    ),
+                    TeamSecurity.Permission.values.map: perm =>
+                      td:
+                        st.input(
+                          tpe   := "checkbox",
+                          name  := s"leaders[$i].perms[]",
+                          value := perm.key,
+                          l.perms.contains(perm) option st.checked
+                        )
+                  )
+            ),
+            form3.actions(cls := "box__pad")(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())
             )
           )
         )
       )
-    }
 
   def kick(t: Team, form: Form[?])(using PageContext) =
     views.html.base.layout(

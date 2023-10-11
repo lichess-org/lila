@@ -1,0 +1,22 @@
+.team-edit {
+  .inline {
+    display: inline;
+  }
+  .accent {
+    textarea {
+      border-color: $c-brag;
+    }
+    label {
+      color: $c-brag;
+    }
+  }
+}
+.team-leaders {
+  .slist thead {
+    @extend %break-nope;
+  }
+  .form-actions {
+    border: none;
+    padding-bottom: $box-padding-vert;
+  }
+}

@@ -1,4 +1,4 @@
-const perms = ['public', 'settings', 'tour', 'comm', 'accept', 'kick', 'admin'];
+const perms = ['public', 'settings', 'tour', 'comm', 'request', 'pmall', 'kick', 'admin'];
 
 db.team.find().forEach(function (team) {
   team.leaders.forEach(function (leader) {
