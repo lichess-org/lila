@@ -60,4 +60,19 @@
   <string name="editChapter">அத்தியாயத்தைத் திருத்த</string>
   <string name="newChapter">புதிய அத்தியாயம்</string>
   <string name="importFromChapterX">%s இலிருந்து பெற்றுக்கொள்ள</string>
+  <string name="orientation">திசையமைவு</string>
+  <string name="analysisMode">பகுப்பாய்வுப் பாங்கு</string>
+  <string name="pinnedChapterComment">பலகையில் கீழ் எப்போதும் வரும் குறிப்புரை</string>
+  <string name="saveChapter">அத்தியாயத்தைச் சேமிக்க</string>
+  <string name="clearAnnotations">குறிப்புரைகளை நீக்க</string>
+  <string name="deleteChapter">அத்தியாயத்தை நீக்க</string>
+  <string name="deleteThisChapter">இந்த அத்தியாயத்தை அழிக்கவும். அழித்தால் மீள்விக்க இயலாது!</string>
+  <string name="clearAllCommentsInThisChapter">இந்த அத்தியாயத்திற்குரிய எல்லாக் குறிப்புரைகளையும் குறியீடுகளையும் வரையப்பட்ட உருவங்களையும் நீக்கவும்</string>
+  <string name="rightUnderTheBoard">சதுரங்கப் பலகைக்குக் கீழே</string>
+  <string name="brilliantMove">சிறப்பான நகர்வு</string>
+  <string name="blunder">பெருந்தவறு</string>
+  <string name="interestingMove">ஆர்வமூட்டும் நகர்வு</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ஐயத்திற்கிடமான நகர்வு</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ஒரேயொரு சாத்தியமான நகர்வு</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">இக்கட்டான நகர்வு</string>
 </resources>
