@@ -75,4 +75,15 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ஐயத்திற்கிடமான நகர்வு</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ஒரேயொரு சாத்தியமான நகர்வு</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">இக்கட்டான நகர்வு</string>
+  <string name="equalPosition">சமநிலை</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">வெற்றி தோல்வி தீர்மானிக்க இயலாத நிலை</string>
+  <string name="whiteIsSlightlyBetter">வெள்ளை ஓரளவு சிறப்பாகவுள்ளது</string>
+  <string name="blackIsSlightlyBetter">கறுப்பு ஓரளவு சிறப்பாகவுள்ளது</string>
+  <string name="whiteIsBetter">வெள்ளை சிறப்பாகவுள்ளது</string>
+  <string name="blackIsBetter">கறுப்பு சிறப்பாகவுள்ளது</string>
+  <string name="whiteIsWinning">வெள்ளை வெல்கின்றது</string>
+  <string name="blackIsWinning">கறுப்பு வெல்கின்றது</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">புதுமை</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">அபிவிருத்தி</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">தாக்கு</string>
 </resources>
