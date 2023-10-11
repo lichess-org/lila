@@ -1,13 +1,8 @@
 import throttle from 'common/throttle';
-import {
-  CevalState,
-  CevalWorker,
-  WebWorker,
-  ThreadedWasmWorker,
-  ExternalEngine,
-  ExternalWorker,
-} from './worker';
-import { Cache } from './cache';
+import { CevalState, CevalWorker, WebWorker } from './engines/worker';
+import { VariantWasmWorker } from './engines/variantWasmWorker';
+import { WasmWorker } from './engines/wasmWorker';
+import { ExternalEngine, ExternalWorker } from './engines/externalEngine';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
 import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
 import { defaultPosition, setupPosition } from 'chessops/variant';
@@ -15,7 +10,7 @@ import { parseFen } from 'chessops/fen';
 import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Toggle, toggle } from 'common';
+import { prop, propWithEffect, Toggle, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
@@ -47,7 +42,7 @@ export default class CevalCtrl {
   multiPv: StoredProp<number>;
   allowed = toggle(true);
   enabled: Toggle;
-  downloadProgress = prop(0);
+  downloadProgress = propWithEffect(0, () => this.opts.redraw());
   hovering = prop<Hovering | null>(null);
   pvBoard = prop<PvBoard | null>(null);
   isDeeper = toggle(false);
@@ -173,32 +168,20 @@ export default class CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!this.worker) {
+      const nnueProgress = throttle(200, mb => this.downloadProgress(mb));
       if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine, this.opts.redraw);
-      else if (this.technology == 'nnue')
-        this.worker = new ThreadedWasmWorker(
-          {
-            baseUrl: 'npm/stockfish-nnue.wasm/',
-            module: 'Stockfish',
-            downloadProgress: throttle(200, mb => {
-              this.downloadProgress(mb);
-              this.opts.redraw();
-            }),
-            version: 'b6939d',
-            wasmMemory: sharedWasmMemory(2048, this.platform.maxWasmPages(2048)),
-            cache: window.indexedDB && new Cache('ceval-wasm-cache'),
-          },
-          this.opts.redraw,
-        );
+      else if (this.technology == 'nnue') this.worker = new WasmWorker(sharedWasmMemory(2048), nnueProgress);
       else if (this.technology == 'hce')
-        this.worker = new ThreadedWasmWorker(
-          {
-            baseUrl: this.officialStockfish ? 'npm/stockfish.wasm/' : 'npm/stockfish-mv.wasm/',
-            module: this.officialStockfish ? 'Stockfish' : 'StockfishMv',
-            version: 'a022fa',
-            wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
-          },
-          this.opts.redraw,
-        );
+        this.worker = this.officialStockfish
+          ? new WasmWorker(sharedWasmMemory(1024))
+          : new VariantWasmWorker(
+              {
+                baseUrl: 'npm/stockfish-mv.wasm/',
+                version: 'a022fa',
+                wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
+              },
+              this.opts.redraw,
+            );
       else
         this.worker = new WebWorker(
           {
@@ -283,7 +266,7 @@ export default class CevalCtrl {
     this.curDepth() < 99 &&
     !this.isDeeper() &&
     ((!this.infinite() && this.getState() !== CevalState.Computing) || this.showingCloud());
-  shortEngineName = () => engineName(this.technology, this.externalEngine);
+  shortEngineName = () => engineName(this.technology, this.officialStockfish, this.externalEngine);
   longEngineName = () => this.worker?.engineName();
   destroy = () => this.worker?.destroy();
 }

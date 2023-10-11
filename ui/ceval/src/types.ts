@@ -1,7 +1,7 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import CevalCtrl from './ctrl';
-import { ExternalEngine } from './worker';
+import { ExternalEngine } from './engines/externalEngine';
 
 export interface Eval {
   cp?: number;

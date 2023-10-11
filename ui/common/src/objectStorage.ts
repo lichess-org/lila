@@ -1,4 +1,4 @@
-/* 
+/*
 usage:
   const store = await objectStorage<MyObject>({store: 'my-store'});
   const value = await store.get(key);
@@ -15,14 +15,17 @@ export interface ObjectStorage<V> {
   get(key: string): Promise<V>;
   put(key: string, value: V): Promise<string>; // returns key
   count(key: string): Promise<number>;
-  remove(key: string): Promise<void>; // delete one
-  clear(): Promise<void>; // delete all
-  txn(mode: IDBTransactionMode): IDBTransaction;
+  remove(key: string): Promise<void>;
+  clear(): Promise<void>; // remove all
+  txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
 }
 
 export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>> {
-  const name = dbInfo.store;
-  const db = await dbAsync(dbInfo);
+  const db = await dbConnect(dbInfo);
+
+  function objectStore(mode: IDBTransactionMode) {
+    return db.transaction(dbInfo.store, mode).objectStore(dbInfo.store);
+  }
 
   function actionPromise<V>(f: () => IDBRequest) {
     return new Promise<V>((resolve, reject) => {
@@ -31,42 +34,35 @@ export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>
       res.onerror = (e: Event) => reject((e.target as IDBRequest).result);
     });
   }
+
   return {
     get(key: string) {
-      const store = db.transaction(name, 'readonly').objectStore(name);
-      return actionPromise<V>(store.get.bind(store, key));
+      return actionPromise<V>(() => objectStore('readonly').get(key));
     },
-
     put(key: string, value: V) {
-      const store = db.transaction(name, 'readwrite').objectStore(name);
-      return actionPromise<string>(store.put.bind(store, value, key));
+      return actionPromise<string>(() => objectStore('readwrite').put(value, key));
     },
-
     count(key: string) {
-      const store = db.transaction(name, 'readonly').objectStore(name);
-      return actionPromise<number>(store.count.bind(store, key));
+      return actionPromise<number>(() => objectStore('readonly').count(key));
     },
-
     remove(key: string) {
-      const store = db.transaction(name, 'readwrite').objectStore(name);
-      return actionPromise<void>(store.delete.bind(store, key));
+      return actionPromise<void>(() => objectStore('readwrite').delete(key));
     },
-
     clear() {
-      const store = db.transaction(name, 'readwrite').objectStore(name);
-      return actionPromise<void>(store.clear.bind(store));
+      return actionPromise<void>(() => objectStore('readwrite').clear());
     },
-
     txn(mode: IDBTransactionMode) {
-      return db.transaction(name, mode);
+      return db.transaction(dbInfo.store, mode);
     },
   };
 }
 
-async function dbAsync(dbInfo: DbInfo) {
+async function dbConnect(dbInfo: DbInfo) {
   const dbName = dbInfo?.db || `${dbInfo.store}--db`;
+
   return new Promise<IDBDatabase>((resolve, reject) => {
     const result = window.indexedDB.open(dbName, dbInfo?.version ?? 1);
+
     result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);
     result.onerror = (e: Event) => reject((e.target as IDBOpenDBRequest).result ?? 'IndexedDB Unavailable');
     result.onupgradeneeded = (e: IDBVersionChangeEvent) => {
@@ -75,6 +71,7 @@ async function dbAsync(dbInfo: DbInfo) {
       const store = db.objectStoreNames.contains(dbInfo.store)
         ? txn!.objectStore(dbInfo.store)
         : db.createObjectStore(dbInfo.store);
+
       dbInfo.upgrade?.(e, store);
     };
   });

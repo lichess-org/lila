@@ -1,6 +1,6 @@
 import { isAndroid, isIOS, isIPad } from 'common/device';
 import { pow2floor, sharedWasmMemory } from './util';
-import { ExternalEngine } from './worker';
+import { ExternalEngine } from './engines/externalEngine';
 
 export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
 
@@ -55,9 +55,6 @@ export function detectPlatform(
       )
     : 1;
 
-  // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
-  // scales like native stockfish with increasing hash. prefer smaller, non-crashing values
-  // steer the high performance crowd towards external engine as it gets better
   const maxHashMB = (): number => {
     let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
     if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera

@@ -3,7 +3,7 @@ import * as view from './view';
 import * as winningChances from './winningChances';
 
 export type { NodeEvals, Eval, EvalMeta, CevalOpts } from './types';
-export type { ExternalEngine } from './worker';
+export type { ExternalEngine } from './engines/externalEngine';
 export { isEvalBetter, renderEval, sanIrreversible } from './util';
 export { CevalCtrl, view, winningChances };
 

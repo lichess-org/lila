@@ -13,7 +13,7 @@ import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
-import { CevalState } from './worker';
+import { CevalState } from './engines/worker';
 import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
@@ -95,8 +95,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
           'span.technology.good',
           {
             attrs: {
-              title:
-                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
+              title: 'Multi-threaded WebAssembly with SIMD',
             },
           },
           'NNUE',
