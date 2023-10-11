@@ -38,7 +38,7 @@ final class Team(
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api team id) { renderTeam(_, page, mod) }
+      Found(api team id) { renderTeam(_, page, mod && isGrantedOpt(_.ManageTeam)) }
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, config.Max(50)):
@@ -66,17 +66,17 @@ final class Team(
             html.team.list.search(text, _)
           }
 
-  private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: Context) = for
+  private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team    <- api.withLeaders(team)
-    info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, requestModView))
+    info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
     members <- paginator.teamMembers(team.team, page)
-    log     <- (requestModView && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
-    hasChat = canHaveChat(info, requestModView)
+    log     <- asMod.so(env.mod.logApi.teamLog(team.id))
+    hasChat = canHaveChat(info, asMod)
     chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
     _ <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds ::: chat.so(_.chat.userIds)
     version <- hasChat soFu env.team.version(team.id)
-    page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
+    page    <- renderPage(html.team.show(team, members, info, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canHaveChat(info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
@@ -89,14 +89,14 @@ final class Team(
       (isGrantedOpt(_.Shusher) && requestModView)
     }
 
-  private def canHaveForum(team: TeamModel, requestModView: Boolean)(member: Option[TeamMember])(using
+  private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
       ctx: Context
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
       team.isForumFor(_.EVERYONE) ||
       (team.isForumFor(_.LEADERS) && member.exists(_.perms.nonEmpty)) ||
       (team.isForumFor(_.MEMBERS) && member.isDefined) ||
-      (isGrantedOpt(_.ModerateForum) && requestModView)
+      (isGrantedOpt(_.ModerateForum) && asMod)
     }
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>

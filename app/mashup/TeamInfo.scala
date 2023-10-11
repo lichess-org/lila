@@ -4,7 +4,7 @@ package mashup
 import concurrent.duration.DurationInt
 
 import lila.forum.MiniForumPost
-import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
+import lila.team.{ TeamSecurity, Request, RequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
@@ -23,8 +23,9 @@ case class TeamInfo(
 
   export withLeaders.{ team, leaders, publicLeaders }
 
-  def mine    = member.isDefined
-  def ledByMe = member.exists(_.perms.nonEmpty)
+  def mine                                              = member.isDefined
+  def ledByMe                                           = member.exists(_.perms.nonEmpty)
+  def amGranted(perm: TeamSecurity.Permission.Selector) = member.exists(_.isGranted(perm))
 
   def hasRequests = requests.nonEmpty
 
