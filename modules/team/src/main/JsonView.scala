@@ -22,10 +22,10 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
   given memberWithPermsWrites: OWrites[TeamMember] = OWrites: m =>
     Json.obj("user" -> lightUserApi.syncFallback(m.user), "perms" -> m.perms.map(_.key))
 
-  given teamWithLeadersWrites: OWrites[Team.WithLeaders] = OWrites: t =>
-    teamWrites.writes(t.team) ++ Json.obj("leaders" -> t.leaders)
+  given teamWithLeadersWrites: OWrites[Team.WithPublicLeaderIds] = OWrites: t =>
+    teamWrites.writes(t.team) ++ Json.obj("leaders" -> t.publicLeaders.map(lightUserApi.syncFallback))
 
-  given OWrites[Request] = OWrites { req =>
+  given OWrites[Request] = OWrites: req =>
     Json
       .obj(
         "userId"  -> req.user,
@@ -34,7 +34,6 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
         "date"    -> req.date
       )
       .add("declined" -> req.declined)
-  }
 
   given requestWithUserWrites: OWrites[RequestWithUser] = OWrites:
     case RequestWithUser(req, user) =>

@@ -47,8 +47,14 @@ object Team:
   case class WithLeaders(team: Team, leaders: List[TeamMember]):
     export team.*
     def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.isGranted(_.Admin))
+    def publicLeaders   = leaders.filter(_.isGranted(_.Public))
 
   case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
+
+  case class WithMyLeadership(team: Team, amLeader: Boolean):
+    export team.*
+
+  case class WithPublicLeaderIds(team: Team, publicLeaders: List[UserId])
 
   import chess.variant.Variant
   val variants: Map[Variant.LilaKey, Mini] = Variant.list.all.view.collect {

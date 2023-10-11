@@ -21,7 +21,7 @@ case class TeamInfo(
     simuls: Seq[Simul]
 ):
 
-  export withLeaders.{ team, leaders }
+  export withLeaders.{ team, leaders, publicLeaders }
 
   def mine    = member.isDefined
   def ledByMe = member.exists(_.perms.nonEmpty)

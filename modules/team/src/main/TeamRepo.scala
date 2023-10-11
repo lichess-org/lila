@@ -30,36 +30,12 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def enabled(id: TeamId) = coll.one[Team]($id(id) ++ enabledSelect)
 
-  def byIdsSortPopular(ids: Seq[TeamId]): Fu[List[Team]] =
+  def byIdsSortPopular(ids: Iterable[TeamId]): Fu[List[Team]] =
     coll
       .find($inIds(ids))
       .sort(sortPopular)
       .cursor[Team](ReadPref.sec)
       .list(100)
-
-  def enabledTeamsByLeader(userId: UserId): Fu[List[Team]] =
-    coll
-      .find($doc("leaders" -> userId) ++ enabledSelect)
-      .sort(sortPopular)
-      .cursor[Team](ReadPref.sec)
-      .list(100)
-
-  def enabledTeamIdsByLeader(userId: UserId): Fu[List[TeamId]] =
-    coll
-      .primitive[TeamId](
-        $doc("leaders" -> userId) ++ enabledSelect,
-        sortPopular,
-        "_id"
-      )
-
-  def leadersOf(teamId: TeamId): Fu[Set[UserId]] =
-    coll.primitiveOne[Set[UserId]]($id(teamId), "leaders").dmap(~_)
-
-  def setLeaders(teamId: TeamId, leaders: Set[UserId]): Funit =
-    coll.updateField($id(teamId), "leaders", leaders).void
-
-  def leads(teamId: TeamId, userId: UserId) =
-    coll.exists($id(teamId) ++ $doc("leaders" -> userId))
 
   def name(id: TeamId): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")
@@ -93,37 +69,6 @@ final class TeamRepo(val coll: Coll)(using Executor):
       .void
 
   def cursor = coll.find(enabledSelect).cursor[Team](ReadPref.sec)
-
-  def countRequestsOfLeader(userId: UserId, requestColl: Coll): Fu[Int] =
-    coll
-      .aggregateOne(_.sec): framework =>
-        import framework.*
-        Match($doc("leaders" -> userId)) -> List(
-          Group(BSONNull)("ids" -> PushField("_id")),
-          PipelineOperator(
-            $lookup.pipelineFull(
-              from = requestColl.name,
-              as = "requests",
-              let = $doc("teams" -> "$ids"),
-              pipe = List(
-                $doc(
-                  "$match" -> $expr(
-                    $doc(
-                      $and(
-                        $doc("$in" -> $arr("$team", "$$teams")),
-                        $doc("$ne" -> $arr("$declined", true))
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          ),
-          Group(BSONNull)(
-            "nb" -> Sum($doc("$size" -> "$requests"))
-          )
-        )
-      .map(~_.flatMap(_.int("nb")))
 
   def forumAccess(id: TeamId): Fu[Option[Team.Access]] =
     coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")

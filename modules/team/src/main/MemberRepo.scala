@@ -4,7 +4,8 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.user.{ MyId, User }
+import lila.team.TeamSecurity.Permission
 
 final class MemberRepo(val coll: Coll)(using Executor):
 
@@ -18,7 +19,7 @@ final class MemberRepo(val coll: Coll)(using Executor):
     coll.delete.one(teamQuery(teamId)).void
 
   def removeByUser(userId: UserId): Funit =
-    coll.delete.one(userQuery(userId)).void
+    coll.delete.one(selectUser(userId)).void
 
   def get[U: UserIdOf](teamId: TeamId, userId: U): Fu[Option[TeamMember]] =
     coll.byId[TeamMember](TeamMember.makeId(teamId, userId))
@@ -51,39 +52,46 @@ final class MemberRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def hasPerm[A: UserIdOf](teamId: TeamId, user: A, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
-    coll.exists(selectId(teamId, user) ++ $doc("perms" -> perm(TeamSecurity.Permission)))
+  def hasPerm[A: UserIdOf](teamId: TeamId, user: A, perm: Permission.Selector): Fu[Boolean] =
+    coll.exists(selectId(teamId, user) ++ $doc("perms" -> perm(Permission)))
 
   def hasAnyPerm[A: UserIdOf](teamId: TeamId, user: A): Fu[Boolean] =
     coll.exists(selectId(teamId, user) ++ selectAnyPerm)
 
-  def setPerms[A: UserIdOf](teamId: TeamId, user: A, perms: Set[TeamSecurity.Permission]): Funit =
+  def setPerms[A: UserIdOf](teamId: TeamId, user: A, perms: Set[Permission]): Funit =
     coll
-      .updateOrUnsetField(
-        $id(TeamMember.makeId(teamId, user.id)),
-        "perms",
-        perms.nonEmpty option perms
-      )
+      .updateOrUnsetField(selectId(teamId, user.id), "perms", perms.nonEmpty option perms)
       .void
 
-  def leaders(teamId: TeamId): Fu[List[TeamMember]] =
+  def leaders(teamId: TeamId, perm: Option[Permission.Selector] = None): Fu[List[TeamMember]] =
     coll
-      .find(teamQuery(teamId) ++ selectAnyPerm)
+      .find(teamQuery(teamId) ++ perm.fold(selectAnyPerm)(selectPerm))
       .sort($doc("_id" -> 1))
       .cursor[TeamMember]()
       .listAll()
 
+  def leadersOf[U: UserIdOf](user: U, perm: Permission.Selector): Fu[List[TeamMember]] =
+    coll.list[TeamMember](selectUser(user) ++ selectPerm(perm))
+
   def leaderIds(teamId: TeamId): Fu[Set[UserId]] =
     coll.primitive[UserId](teamQuery(teamId) ++ selectAnyPerm, "user").dmap(_.toSet)
 
-  def publicLeaderIds(teamId: TeamId): Fu[List[UserId]] =
+  def publicLeaderIds(teamIds: Seq[TeamId]): Fu[List[UserId]] =
     coll.primitive[UserId](
-      teamQuery(teamId) ++ $doc("perms" -> TeamSecurity.Permission.Public),
+      teamQuery(teamIds) ++ $doc("perms" -> Permission.Public),
       "user"
     )
 
-  def leadsOneOf(userId: UserId, teamIds: Iterable[TeamId]): Fu[Boolean] = teamIds.nonEmpty so
-    coll.secondaryPreferred.exists($inIds(teamIds.map(TeamMember.makeId(_, userId))) ++ selectAnyPerm)
+  def leadsOneOf(userId: UserId, teamIds: Seq[TeamId]): Fu[Boolean] = teamIds.nonEmpty so
+    coll.secondaryPreferred.exists(selectIds(teamIds, userId) ++ selectAnyPerm)
+
+  def teamsWhereIsLeader(teamIds: Seq[TeamId], leader: UserId): Fu[Set[TeamId]] =
+    coll.secondaryPreferred
+      .primitive[TeamId](selectIds(teamIds, leader) ++ selectAnyPerm, "team")
+      .dmap(_.toSet)
+
+  def teamsLedBy[U: UserIdOf](leader: U): Fu[Seq[TeamId]] =
+    coll.secondaryPreferred.primitive[TeamId](selectUser(leader) ++ selectAnyPerm, "team")
 
   def unsetAllPerms(teamId: TeamId): Funit =
     coll.update
@@ -95,10 +103,30 @@ final class MemberRepo(val coll: Coll)(using Executor):
       coll.update.one(selectId(teamId, l.name), $set("perms" -> l.perms))
     }
 
+  def addPublicLeaderIds(teams: Seq[Team]): Fu[Seq[Team.WithPublicLeaderIds]] =
+    coll
+      .primitive[String](
+        teamQuery(teams.map(_.id)) ++ $doc("perms" -> Permission.Public),
+        "_id"
+      )
+      .map:
+        _.flatMap(TeamMember.parseId).groupBy(_._2).view.mapValues(_.map(_._1)).toMap
+      .map: grouped =>
+        teams.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil)))
+
+  def addMyLeadership(teams: Seq[Team])(using me: Option[MyId]): Fu[List[Team.WithMyLeadership]] =
+    me.so(teamsWhereIsLeader(teams.map(_.id), _))
+      .map: myTeams =>
+        teams.view.map(t => Team.WithMyLeadership(t, myTeams contains t.id)).toList
+
   private[team] def countUnsub(teamId: TeamId): Fu[Int] =
     coll.countSel(teamQuery(teamId) ++ $doc("unsub" -> true))
 
   def teamQuery(teamId: TeamId)                              = $doc("team" -> teamId)
+  def teamQuery(teamIds: Seq[TeamId])                        = $doc("team" $in teamIds)
   private def selectId[U: UserIdOf](teamId: TeamId, user: U) = $id(TeamMember.makeId(teamId, user.id))
-  private def userQuery(userId: UserId)                      = $doc("user" -> userId)
-  private def selectAnyPerm                                  = $doc("perms" $exists true)
+  private def selectIds[U: UserIdOf](teamIds: Seq[TeamId], user: U) = $inIds:
+    teamIds.map(TeamMember.makeId(_, user.id))
+  private def selectUser[U: UserIdOf](user: U)      = $doc("user" -> user)
+  private def selectAnyPerm                         = $doc("perms" $exists true)
+  private def selectPerm(perm: Permission.Selector) = $doc("perms" -> perm(Permission))

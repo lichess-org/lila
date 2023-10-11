@@ -106,7 +106,7 @@ object show:
                       submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
                     )
                   )
-                else ctx.isAuth option joinButton(t)
+                else ctx.isAuth option joinButton(t.team)
               ),
               t.enabled && info.mine option
                 postForm(
@@ -198,11 +198,11 @@ object show:
             ),
             log.nonEmpty option renderLog(log),
             (t.enabled || manageTeamEnabled) option st.section(cls := "team-show__desc")(
-              bits.markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
+              bits.markdown(t.team, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
-              views.html.team.request.list(info.requests, t.some)
+              views.html.team.request.list(info.requests, t.team.some)
             ),
             div(
               t.enabled && info.simuls.nonEmpty option frag(

@@ -92,8 +92,8 @@ final class TeamApi(
   def isCreatorGranted(team: Team, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
     memberRepo.hasPerm(team.id, team.createdBy, perm)
 
-  def mine(using me: Me): Fu[List[Team]] =
-    cached teamIdsList me flatMap teamRepo.byIdsSortPopular
+  def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
+    cached teamIdsList me flatMap teamRepo.byIdsSortPopular flatMap memberRepo.addMyLeadership
 
   def countTeamsOf(me: Me) =
     cached teamIds me dmap (_.size)
@@ -130,7 +130,8 @@ final class TeamApi(
     requestRepo.findDeclinedByTeam(team.id, 50) flatMap requestsWithUsers
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for
-    teamIds   <- teamRepo enabledTeamIdsByLeader user.id
+    requestManagers <- memberRepo.leadersOf(user, _.Request)
+    teamIds = requestManagers.map(_.team)
     requests  <- requestRepo findActiveByTeams teamIds
     withUsers <- requestsWithUsers(requests)
   yield withUsers
@@ -196,13 +197,12 @@ final class TeamApi(
     requestRepo
       .getByUserId(userId)
       .flatMap:
-        _.map: request =>
+        _.traverse: request =>
           requestRepo.remove(request.id) >>
-            teamRepo
-              .leadersOf(request.team)
+            memberRepo
+              .leaders(request.team, Some(_.Request))
               .map:
-                _ foreach cached.nbRequests.invalidate
-        .parallel
+                _.map(_.user) foreach cached.nbRequests.invalidate
 
   def doJoin(team: Team)(using me: Me): Funit = {
     !belongsTo(team.id, me) flatMapz {
@@ -340,6 +340,11 @@ final class TeamApi(
       .leaderIds(teamId)
       .map: ids =>
         ids.nonEmpty option Team.IdAndLeaderIds(teamId, ids)
+
+  def teamsLedBy[U: UserIdOf](leader: U): Fu[List[Team]] = for
+    ids   <- memberRepo.teamsLedBy(leader)
+    teams <- teamRepo.byIdsSortPopular(ids)
+  yield teams
 
   export memberRepo.{ publicLeaderIds, isSubscribed, subscribe }
 

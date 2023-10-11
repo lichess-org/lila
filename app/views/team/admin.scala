@@ -24,7 +24,7 @@ object admin:
           adminTop(t.team, teamLeaders),
           p(onlyInviteLeadersTrust()),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
-            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t)),
+            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t.team)),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())

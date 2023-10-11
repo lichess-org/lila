@@ -29,3 +29,7 @@ object TeamMember:
     team = team,
     date = nowInstant
   )
+
+  private[team] def parseId(id: String): Option[(UserId, TeamId)] = id.split('@') match
+    case Array(userId, teamId) => (UserId(userId), TeamId(teamId)).some
+    case _                     => None

@@ -56,7 +56,7 @@ final class Swiss(
                   env.user.lightUserApi.preloadMany(c.chat.userIds) inject
                     c.copy(locked = !env.api.chatFreshness.of(swiss)).some
             streamers  <- streamerCache get swiss.id
-            isLocalMod <- canChat so ctx.me so { env.team.api.isLeader(swiss.teamId, _) }
+            isLocalMod <- ctx.me.so { env.team.api.isGranted(swiss.teamId, _, _.Comm) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such swiss tournament")): swiss =>
@@ -99,7 +99,7 @@ final class Swiss(
       }
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx.me so { env.team.api.isLeader(teamId, _) } elseNotFound f
+    ctx.me so { env.team.api.isGranted(teamId, _, _.Tour) } elseNotFound f
 
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
@@ -126,7 +126,7 @@ final class Swiss(
   def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
     else
-      env.team.api.isLeader(teamId, me) flatMap {
+      env.team.api.isGranted(teamId, me, _.Tour) flatMap {
         if _ then
           env.swiss.forms
             .create(me)
