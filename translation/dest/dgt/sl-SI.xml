@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN je standard za Lichess, kot je \"Nf6\". UCI je pogost pri motorjih, kot je \"g8f6\".</string>
   <string name="keywords">Ključne besede</string>
   <string name="keywordFormatDescription">Ključne besede so v formatu JSON. Uporabljajo se za prevajanje potez in rezultatov v vaš jezik. Privzeto je angleščina, vendar jo lahko spremenite.</string>
-  <string name="debug">Razhroščevanje</string>
-  <string name="verboseLogging">Podrobno vodenje dnevnika</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Razhroščevanje</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Podrobno vodenje dnevnika</string>
   <string name="toSeeConsoleMessage">Če si želite ogledati sporočilo konzole, pritisnite Command + Option + C (Mac) ali Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Igrajte s ploščo DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Nastavi</string>

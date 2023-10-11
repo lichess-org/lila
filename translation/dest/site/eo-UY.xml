@@ -21,7 +21,7 @@
   <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
-  <string name="whiteIsVictorious">Blanko venkas</string>
+  <string name="whiteIsVictorious">Blanko venkis</string>
   <string name="blackIsVictorious">Nigro venkis</string>
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
   <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
@@ -527,7 +527,7 @@
   <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
-  <string name="descPrivate">Privata priskribo</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Privata priskribo</string>
   <string name="descPrivateHelp">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
@@ -684,7 +684,7 @@
   <string name="keyMoveBackwardOrForward">movi (mal)antaŭen</string>
   <string name="keyGoToStartOrEnd">iri al komenco/fino</string>
   <string name="keyShowOrHideComments">(mal)montri komentojn</string>
-  <string name="keyEnterOrExitVariation">eniru/forlasu variaĵon</string>
+  <string name="keyEnterOrExitVariation" comment="In a Lichess move list, a set of moves branching from the mainline is called a 'variation'.&#10;&#10;For example, in 1. e4 e5 (1...e6 2. d4) 2. Bc4:&#10;1. e4 e5 is the mainline&#10;(1... e6 2.d4) is the variation. Pawn to e6 an alternative move for Black, which prompts White to respond differently, with d4 instead of Bc4 which they planned originally in case Black played e5.&#10;&#10;This string is for keyboard shortcuts. While checking moves using the keyboard, you can move in and out of variations in the move list. Shift + left or right let you change between navigating through moves in the mainline or the variation. This also works for sub-variations.">eniru/forlasu variaĵon</string>
   <string name="keyRequestComputerAnalysis">Peti komputilan analizon, Lerni de viaj eraroj</string>
   <string name="keyNextLearnFromYourMistakes">Sekvo (Lerni de viaj eraroj)</string>
   <string name="keyNextBlunder">Sekva erarego</string>
@@ -759,7 +759,7 @@
   <string name="gameAnalysis">Ludanalizo</string>
   <string name="xHostsY">%1$s gastigas %2$s</string>
   <string name="xJoinsY">%1$s kuplas %2$s</string>
-  <string name="xLikesY">%1$s ŝatas %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s ŝatas %2$s</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
   <string name="anonymous">Sennoma</string>

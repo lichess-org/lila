@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
   <string name="toGetPersonalizedPuzzles">Če želite prejeti uganke po meri:</string>
-  <string name="puzzleId">Uganka %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Uganka %s</string>
   <string name="puzzleOfTheDay">Uganka dneva</string>
   <string name="dailyPuzzle">Uganka dneva</string>
   <string name="clickToSolve">Kliknite za rešitev</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Po otvoritvah</string>
   <string name="puzzlesByOpenings">Uganke po otvoritvah</string>
   <string name="openingsYouPlayedTheMost">Otvoritve, ki ste jih največ igrali v rangiranih igrah</string>
-  <string name="useFindInPage">Uporabite \"Poišči na strani\" v meniju brskalnika, da poiščete svoje najljubšo otvoritev!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Uporabite \"Poišči na strani\" v meniju brskalnika, da poiščete svoje najljubšo otvoritev!</string>
   <string name="useCtrlF">Uporabite Ctrl+f, da najdete vašo najljubšo otvoritev!</string>
   <string name="notTheMove">To ni pravilna poteza!</string>
   <string name="trySomethingElse">Poskusite kakšno drugo potezo.</string>
-  <string name="ratingX">Uvrstitev: %s</string>
-  <string name="hidden">skrit</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Uvrstitev: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">skrit</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Odigrano %s krat</item>
     <item quantity="two">Odigrano %s krat</item>
     <item quantity="few">Odigrano %s krat</item>

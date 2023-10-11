@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN ass de Standard op Lichess (z. B. „Sf6“). UCI gëtt meeschtens vun Engines benotzt (z. B. „g8f6“).</string>
   <string name="keywords">Schlësselwierder</string>
   <string name="keywordFormatDescription">D\'Schlësselwierder sinn am JSON-Format. Si gi gebraucht, fir Zich a Resultater an deng Sprooch z\'iwwersetzen. De Standard ass Englesch, mee du kanns zu all Moment änneren.</string>
-  <string name="debug">Feelersich</string>
-  <string name="verboseLogging">Ausféierleche Protokoll</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Feelersich</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Ausféierleche Protokoll</string>
   <string name="toSeeConsoleMessage">Fir Konsolennoriichten ze gesinn, dréck Command + Option + C (Mac) oder Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Mat engem DGT-Briet spillen</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Konfiguréieren</string>

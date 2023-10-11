@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN es el estándar en Lichess, por ejemplo \"Nf6\". UCI es común en motores, como por ejemplo \"g8f6\".</string>
   <string name="keywords">Palabras clave</string>
   <string name="keywordFormatDescription">Las palabras clave están en formato JSON. Se utilizan para traducir movimientos y resultados a tu idioma. Por defecto es el inglés, pero no dudes en cambiarlo.</string>
-  <string name="debug">Depurar fallos</string>
-  <string name="verboseLogging">Registro detallado</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Depurar fallos</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Registro detallado</string>
   <string name="toSeeConsoleMessage">Para ver mensajes de consola presiona Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Jugar con un tablero DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configurar</string>

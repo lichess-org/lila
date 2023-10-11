@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
   <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
   <string name="toGetPersonalizedPuzzles">Për të marrë ushtrime të personalizuara:</string>
-  <string name="puzzleId">Ushtrimi %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Ushtrimi %s</string>
   <string name="puzzleOfTheDay">Ushtrimi i ditës</string>
   <string name="clickToSolve">Klikoni për t’a zgjidhur</string>
   <string name="goodMove">Lëvizje e mirë</string>
@@ -29,13 +29,13 @@
   <string name="puzzleComplete">Ushtrimi u plotësua!</string>
   <string name="byOpenings">Sipas hapjesh</string>
   <string name="openingsYouPlayedTheMost">Hapje që bëtë në lojërat më të vlerësuara</string>
-  <string name="useFindInPage">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
   <string name="useCtrlF">Që të gjeni hapjen tuaj të parapëlqyer, përdorni Ctrl+f!</string>
   <string name="notTheMove">S’është lëvizja e duhur!</string>
   <string name="trySomethingElse">Provoni diçka tjetër.</string>
-  <string name="ratingX">Vlerësimi: %s</string>
-  <string name="hidden">i fshehur</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Vlerësimi: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">i fshehur</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Luajtur %s herë</item>
     <item quantity="other">Luajtur %s herë</item>
   </plurals>

@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN — стандарт Lichess, выглядит как «Nf6». UCI обычно используется в движках как «g8f6».</string>
   <string name="keywords">Ключевые слова</string>
   <string name="keywordFormatDescription">Ключевые слова имеют формат JSON. Они используются для перевода ходов и результата на ваш язык. По умолчанию они на английском, но вы можете изменить это.</string>
-  <string name="debug">Отладка</string>
-  <string name="verboseLogging">Подробное журналирование</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Отладка</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Подробное журналирование</string>
   <string name="toSeeConsoleMessage">Чтобы увидеть сообщения в консоли, нажмите Command + Option + C (Mac) или Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Играть на доске DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Настроить</string>

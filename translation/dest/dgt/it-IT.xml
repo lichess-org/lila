@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN è lo standard su Lichess, come \"Nf6\". UCI è comune sui computer scacchistici, come \"g8f6\".</string>
   <string name="keywords">Parole chiave</string>
   <string name="keywordFormatDescription">Le parole chiave sono in formato JSON. Sono usate per tradurre mosse e risultati nella tua lingua. Il valore predefinito è l\'inglese, ma sentiti libero di cambiarlo.</string>
-  <string name="debug">Debug</string>
-  <string name="verboseLogging">Log dettagliato</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Debug</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Log dettagliato</string>
   <string name="toSeeConsoleMessage">Per visualizzare il messaggio della console premere Command + Opzione + C (Mac) o Control + Maiusc + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Gioca con una scacchiera DGT</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configura</string>
