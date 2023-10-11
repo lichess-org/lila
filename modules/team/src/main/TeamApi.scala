@@ -86,23 +86,17 @@ final class TeamApi(
       cached.forumAccess.invalidate(team.id)
       indexer ! InsertTeam(team)
 
-  def isGranted(teamId: TeamId, perm: TeamMember.Permission.Selector)(using
-      me: Me
-  ): Fu[Boolean] =
-    memberRepo.hasPerm(teamId, me, perm(TeamMember.Permission))
+  def isGranted(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(using me: Me): Fu[Boolean] =
+    memberRepo.hasPerm(teamId, me, perm)
 
-  def isCreatorGranted(team: Team, perm: TeamMember.Permission.Selector): Fu[Boolean] =
-    memberRepo.hasPerm(team.id, team.createdBy, perm(TeamMember.Permission))
+  def isCreatorGranted(team: Team, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
+    memberRepo.hasPerm(team.id, team.createdBy, perm)
 
   def mine(using me: Me): Fu[List[Team]] =
     cached teamIdsList me flatMap teamRepo.byIdsSortPopular
 
-  def isSubscribed = memberRepo.isSubscribed
-
-  def subscribe = memberRepo.subscribe
-
   def countTeamsOf(me: Me) =
-    cached teamIdsList me dmap (_.size)
+    cached teamIds me dmap (_.size)
 
   def hasJoinedTooManyTeams(using me: Me) =
     countTeamsOf(me).dmap(_ > Team.maxJoin(me))
@@ -315,9 +309,18 @@ final class TeamApi(
     }
   } getOrElse Set.empty
 
-  // def isLeaderOf(leader: UserId, member: UserId) =
-  //   cached.teamIdsList(member) flatMap: teamIds =>
-  //     teamIds.nonEmpty so teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
+  def isLeader[U: UserIdOf](team: TeamId, leader: U) =
+    belongsTo(team, leader).flatMapz:
+      memberRepo.hasAnyPerm(team, leader)
+
+  def isGranted(team: TeamId, user: User, perm: TeamSecurity.Permission.Selector) =
+    fuccess(Granter.of(_.ManageTeam)(user)) >>|
+      belongsTo(team, user).flatMapz:
+        memberRepo.hasPerm(team, user, perm)
+
+  def isLeaderOf[U: UserIdOf](leader: UserId, member: U) =
+    cached.teamIdsList(member) flatMap:
+      memberRepo.leadsOneOf(leader, _)
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     isCreatorGranted(team, _.Admin).flatMap: activeCreator =>
@@ -338,7 +341,7 @@ final class TeamApi(
       .map: ids =>
         ids.nonEmpty option Team.IdAndLeaderIds(teamId, ids)
 
-  export memberRepo.publicLeaderIds
+  export memberRepo.{ publicLeaderIds, isSubscribed, subscribe }
 
   // delete for ever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit =

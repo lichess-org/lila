@@ -6,7 +6,7 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
-    cached: Cached
+    api: TeamApi
 )(using Executor):
 
   lazy val rooms = makeRoomMap(send)
@@ -18,9 +18,8 @@ final private class TeamSocket(
     chat,
     logger,
     roomId => _.Team(roomId into TeamId).some,
-    localTimeout = Some { (roomId, modId, suspectId) =>
-      cached.isLeader(roomId into TeamId, modId) >>& !cached.isLeader(roomId into TeamId, suspectId)
-    },
+    localTimeout = Some: (roomId, modId, suspectId) =>
+      api.isLeader(roomId into TeamId, modId) >>& !api.isLeader(roomId into TeamId, suspectId),
     chatBusChan = _.Team
   )
 

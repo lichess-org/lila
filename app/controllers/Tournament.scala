@@ -181,7 +181,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
     data.team
-      .so { env.team.cached.isLeader(_, me) }
+      .so { env.team.api.isLeader(_, me) }
       .flatMap: isLeader =>
         api.joinWithResult(tourId, data = data, isLeader)
 

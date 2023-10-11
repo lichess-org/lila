@@ -19,16 +19,14 @@ object show:
   import trans.team.*
 
   def apply(
-      t: Team,
+      t: Team.WithLeaders,
       members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],
       requestedModView: Boolean = false,
       log: List[Modlog] = Nil
-  )(using
-      ctx: PageContext
-  ) =
+  )(using ctx: PageContext) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui

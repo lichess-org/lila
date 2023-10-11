@@ -6,12 +6,13 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.team.Team
 
 object admin:
 
   import trans.team.*
 
-  def leaders(t: lila.team.Team.WithLeaders, form: Form[?])(using PageContext) =
+  def leaders(t: Team.WithLeaders, form: Form[?])(using PageContext) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -20,7 +21,7 @@ object admin:
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          adminTop(t, teamLeaders),
+          adminTop(t.team, teamLeaders),
           p(onlyInviteLeadersTrust()),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
             form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t)),
@@ -33,7 +34,7 @@ object admin:
       )
     }
 
-  def kick(t: lila.team.Team, form: Form[?])(using PageContext) =
+  def kick(t: Team, form: Form[?])(using PageContext) =
     views.html.base.layout(
       title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -54,11 +55,11 @@ object admin:
       )
     }
 
-  private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
+  private def teamMembersAutoComplete(team: Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
   def pmAll(
-      t: lila.team.Team,
+      t: Team,
       form: Form[?],
       tours: List[lila.tournament.Tournament],
       unsubs: Int,
@@ -134,7 +135,6 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
       )
     }
 
-  private def adminTop(t: lila.team.Team, i18n: lila.i18n.I18nKey)(using Lang) =
-    boxTop(
+  private def adminTop(t: Team, i18n: lila.i18n.I18nKey)(using Lang) =
+    boxTop:
       h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
-    )

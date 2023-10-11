@@ -46,6 +46,7 @@ object Team:
 
   case class WithLeaders(team: Team, leaders: List[TeamMember]):
     export team.*
+    def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.isGranted(_.Admin))
 
   case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
 
@@ -56,6 +57,7 @@ object Team:
       v.key -> Mini(nameToId(name), name)
   }.toMap
 
+  val maxLeaders     = 10
   val maxJoinCeiling = 50
 
   def maxJoin(u: User) =
@@ -87,6 +89,7 @@ object Team:
     def toArray: Array[TeamId] = TeamId.from(value split IdsStr.separator)
     def toList                 = value.nonEmpty so toArray.toList
     def toSet                  = value.nonEmpty so toArray.toSet
+    def size                   = value.count(_ == separator) + 1
 
   object IdsStr:
 

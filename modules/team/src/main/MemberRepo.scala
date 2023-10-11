@@ -39,8 +39,8 @@ final class MemberRepo(val coll: Coll)(using Executor):
     users.nonEmpty so
       coll.distinctEasy[UserId, Set]("user", $inIds(users.map { TeamMember.makeId(teamId, _) }))
 
-  def isSubscribed(team: Team, user: User): Fu[Boolean] =
-    !coll.exists(selectId(team.id, user.id) ++ $doc("unsub" -> true))
+  def isSubscribed[U: UserIdOf](team: Team, user: U): Fu[Boolean] =
+    !coll.exists(selectId(team.id, user) ++ $doc("unsub" -> true))
 
   def subscribe(teamId: TeamId, userId: UserId, v: Boolean): Funit =
     coll.update
@@ -51,18 +51,18 @@ final class MemberRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def hasPerm[A: UserIdOf](teamId: TeamId, user: A, perm: TeamMember.Permission): Fu[Boolean] =
-    coll.exists(selectId(teamId, user) ++ $doc("perms" -> perm.key))
+  def hasPerm[A: UserIdOf](teamId: TeamId, user: A, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
+    coll.exists(selectId(teamId, user) ++ $doc("perms" -> perm(TeamSecurity.Permission)))
 
   def hasAnyPerm[A: UserIdOf](teamId: TeamId, user: A): Fu[Boolean] =
     coll.exists(selectId(teamId, user) ++ selectAnyPerm)
 
-  def setPerms[A: UserIdOf](teamId: TeamId, user: A, perms: Set[TeamMember.Permission]): Funit =
+  def setPerms[A: UserIdOf](teamId: TeamId, user: A, perms: Set[TeamSecurity.Permission]): Funit =
     coll
       .updateOrUnsetField(
         $id(TeamMember.makeId(teamId, user.id)),
         "perms",
-        perms.nonEmpty option perms.map(_.key)
+        perms.nonEmpty option perms
       )
       .void
 
@@ -78,9 +78,22 @@ final class MemberRepo(val coll: Coll)(using Executor):
 
   def publicLeaderIds(teamId: TeamId): Fu[List[UserId]] =
     coll.primitive[UserId](
-      teamQuery(teamId) ++ $doc("perms" -> TeamMember.Permission.Public.key),
+      teamQuery(teamId) ++ $doc("perms" -> TeamSecurity.Permission.Public),
       "user"
     )
+
+  def leadsOneOf(userId: UserId, teamIds: Iterable[TeamId]): Fu[Boolean] = teamIds.nonEmpty so
+    coll.secondaryPreferred.exists($inIds(teamIds.map(TeamMember.makeId(_, userId))) ++ selectAnyPerm)
+
+  def unsetAllPerms(teamId: TeamId): Funit =
+    coll.update
+      .one(teamQuery(teamId) ++ selectAnyPerm, $unset("perms"), multi = true)
+      .void
+
+  def setAllPerms(teamId: TeamId, data: Seq[TeamSecurity.LeaderData]): Funit =
+    data.traverse_ { l =>
+      coll.update.one(selectId(teamId, l.name), $set("perms" -> l.perms))
+    }
 
   private[team] def countUnsub(teamId: TeamId): Fu[Int] =
     coll.countSel(teamQuery(teamId) ++ $doc("unsub" -> true))

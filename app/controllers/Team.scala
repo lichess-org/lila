@@ -12,6 +12,7 @@ import lila.memo.RateLimit
 import lila.team.{ Requesting, Team as TeamModel, TeamMember }
 import lila.user.{ User as UserModel }
 import Api.ApiResult
+import lila.team.TeamSecurity
 
 final class Team(
     env: Env,
@@ -63,10 +64,11 @@ final class Team(
         else env.teamSearch(text, page) map { html.team.list.search(text, _) }
 
   private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: Context) = for
-    info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
-    members <- paginator.teamMembers(team, page)
+    team    <- api.withLeaders(team)
+    info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, requestModView))
+    members <- paginator.teamMembers(team.team, page)
     log     <- (requestModView && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
-    hasChat = canHaveChat(team, info, requestModView)
+    hasChat = canHaveChat(info, requestModView)
     chat          <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
     publicLeaders <- env.team.api.publicLeaderIds(team.id)
     _ <- env.user.lightUserApi.preloadMany:
@@ -75,9 +77,10 @@ final class Team(
     page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
-  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
+  private def canHaveChat(info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: Context
   ): Boolean =
+    import info.*
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
@@ -170,7 +173,7 @@ final class Team(
       api
         .withLeaders(team)
         .flatMap: team =>
-          Ok.page(html.team.admin.leaders(team, forms.leaders(team)))
+          Ok.page(html.team.admin.leaders(team, env.team.security.form.leaders(team)))
   }
 
   def leaders(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -178,7 +181,7 @@ final class Team(
       api
         .withLeaders(team)
         .flatMap: team =>
-          forms.leaders(team).bindFromRequest().value so {
+          env.team.security.form.leaders(team).bindFromRequest().value so {
             api.setLeaders(team, _, me, isGranted(_.ManageTeam))
           } inject Redirect(
             routes.Team.show(team.id)
@@ -504,10 +507,15 @@ final class Team(
       else Forbidden.page(views.html.site.message.teamCreateLimit)
     }
 
-  private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
+  private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
+      f: TeamModel => Fu[Result]
+  )(using Context): Fu[Result] =
     Found(api team teamId): team =>
-      if ctx.userId.exists(team.leaders.contains) || isGrantedOpt(_.ManageTeam) then f(team)
-      else Redirect(routes.Team.show(team.id))
+      ctx.user
+        .so(api.isGranted(team.id, _, perm))
+        .flatMap:
+          if _ then f(team)
+          else Redirect(routes.Team.show(team.id))
 
   private def WithOwnedTeamEnabled(
       teamId: TeamId
@@ -516,11 +524,15 @@ final class Team(
       if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
       else notFound
 
-  private def WithOwnedTeamEnabledApi(teamId: TeamId)(
+  private def WithOwnedTeamEnabledApi(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: TeamModel => Fu[ApiResult]
   )(using me: Me): Fu[Result] =
     api teamEnabled teamId flatMap {
-      case Some(team) if team leaders me => f(team)
-      case Some(_)                       => fuccess(ApiResult.ClientError("Not your team"))
-      case None                          => fuccess(ApiResult.NoData)
+      case Some(team) =>
+        api
+          .isGranted(team.id, me.user, perm)
+          .flatMap:
+            if _ then f(team)
+            else fuccess(ApiResult.ClientError("Not your team"))
+      case None => fuccess(ApiResult.NoData)
     } map apiC.toHttp

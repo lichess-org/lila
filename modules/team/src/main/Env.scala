@@ -66,7 +66,7 @@ final class Env(
       api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
-      promise completeWith cached.isLeader(teamId, userId)
+      promise completeWith api.isLeader(teamId, userId)
     },
     "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
       promise completeWith cached.teamIdsList(userId)

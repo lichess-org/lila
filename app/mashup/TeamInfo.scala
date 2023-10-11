@@ -11,7 +11,8 @@ import lila.swiss.{ Swiss, SwissApi }
 import lila.simul.{ Simul, SimulApi }
 
 case class TeamInfo(
-    me: Option[TeamMember],
+    withLeaders: Team.WithLeaders,
+    member: Option[TeamMember],
     myRequest: Option[Request],
     subscribed: Boolean,
     requests: List[RequestWithUser],
@@ -20,8 +21,10 @@ case class TeamInfo(
     simuls: Seq[Simul]
 ):
 
-  def mine    = me.isDefined
-  def ledByMe = me.exists(_.perms.nonEmpty)
+  export withLeaders.{ team, leaders }
+
+  def mine    = member.isDefined
+  def ledByMe = member.exists(_.perms.nonEmpty)
 
   def hasRequests = requests.nonEmpty
 
@@ -66,25 +69,28 @@ final class TeamInfoApi(
       (pmAllCredits - entry.v / pmAllCost, entry.until)
     }
 
-  def apply(team: Team, me: Option[User], withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] =
-    for
-      requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) so api.requestsWithUsers(team)
-      mine       <- me.so(m => api.belongsTo(team.id, m.id))
-      myRequest  <- !mine so me.so(m => requestRepo.find(team.id, m.id))
-      subscribed <- me.ifTrue(mine) so { api.isSubscribed(team, _) }
-      forumPosts <- withForum(mine) soFu forumRecent(team.id)
-      tours      <- tournaments(team, 5, 5)
-      simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
-    yield TeamInfo(
-      mine = mine,
-      ledByMe = me.exists(m => team.leaders(m.id)),
-      myRequest = myRequest,
-      subscribed = subscribed,
-      requests = requests,
-      forum = forumPosts,
-      tours = tours,
-      simuls = simuls
-    )
+  def apply(
+      team: Team.WithLeaders,
+      me: Option[User],
+      withForum: Option[TeamMember] => Boolean
+  ): Fu[TeamInfo] = for
+    member     <- me.so(api.memberOf(team.id, _))
+    requests   <- (team.enabled && member.exists(_.isGranted(_.Request))) so api.requestsWithUsers(team.team)
+    myRequest  <- member.isEmpty so me.so(m => requestRepo.find(team.id, m.id))
+    subscribed <- member.so(api.isSubscribed(team.team, _))
+    forumPosts <- withForum(member) soFu forumRecent(team.id)
+    tours      <- tournaments(team.team, 5, 5)
+    simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
+  yield TeamInfo(
+    withLeaders = team,
+    member = member,
+    myRequest = myRequest,
+    subscribed = subscribed,
+    requests = requests,
+    forum = forumPosts,
+    tours = tours,
+    simuls = simuls
+  )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
     tourApi.visibleByTeam(team.id, nbPast, nbSoon) zip swissApi.visibleByTeam(team.id, nbPast, nbSoon) map {
