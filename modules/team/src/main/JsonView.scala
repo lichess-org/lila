@@ -3,11 +3,12 @@ package lila.team
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.common.LightUser.lightUserWrites
 import lila.user.LightUserApi
 
 final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
 
-  given teamWrites: OWrites[Team] = OWrites { team =>
+  given teamWrites: OWrites[Team] = OWrites: team =>
     Json
       .obj(
         "id"          -> team.id,
@@ -15,10 +16,14 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
         "description" -> team.description,
         "open"        -> team.open,
         "leader"      -> lightUserApi.sync(team.createdBy), // for BC
-        "leaders"     -> team.leaders.flatMap(lightUserApi.sync),
         "nbMembers"   -> team.nbMembers
       )
-  }
+
+  given memberWithPermsWrites: OWrites[TeamMember] = OWrites: m =>
+    Json.obj("user" -> lightUserApi.syncFallback(m.user), "perms" -> m.perms.map(_.key))
+
+  given teamWithLeadersWrites: OWrites[Team.WithLeaders] = OWrites: t =>
+    teamWrites.writes(t.team) ++ Json.obj("leaders" -> t.leaders)
 
   given OWrites[Request] = OWrites { req =>
     Json

@@ -20,7 +20,6 @@ case class Team(
     open: Boolean,
     createdAt: Instant,
     createdBy: UserId,
-    leaders: Set[UserId],
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Option[Boolean]
@@ -41,11 +40,14 @@ case class Team(
   def passwordMatches(pw: String) =
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 
-  def isOnlyLeader(userId: UserId) = leaders == Set(userId)
-
 object Team:
 
   case class Mini(id: TeamId, name: String)
+
+  case class WithLeaders(team: Team, leaders: List[TeamMember]):
+    export team.*
+
+  case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
 
   import chess.variant.Variant
   val variants: Map[Variant.LilaKey, Mini] = Variant.list.all.view.collect {
@@ -115,16 +117,14 @@ object Team:
     open = open,
     createdAt = nowInstant,
     createdBy = createdBy.id,
-    leaders = Set(createdBy.id),
     chat = Access.MEMBERS,
     forum = Access.MEMBERS,
     hideMembers = none
   )
 
   def nameToId(name: String) =
-    lila.common.String.slugify(name) pipe { slug =>
-      // if most chars are not latin, go for random slug
-      if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
-    }
+    val slug = lila.common.String.slugify(name)
+    // if most chars are not latin, go for random slug
+    if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
 
   private[team] def randomId() = TeamId(ThreadLocalRandom nextString 8)

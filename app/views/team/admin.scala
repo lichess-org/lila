@@ -1,8 +1,7 @@
 package views.html.team
 
 import controllers.routes
-import play.api.data.Field
-import play.api.data.Form
+import play.api.data.{ Field, Form }
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
@@ -12,7 +11,7 @@ object admin:
 
   import trans.team.*
 
-  def leaders(t: lila.team.Team, form: Form[?])(using PageContext) =
+  def leaders(t: lila.team.Team.WithLeaders, form: Form[?])(using PageContext) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),

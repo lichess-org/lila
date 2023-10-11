@@ -48,6 +48,8 @@ final class Env(
 
   val getTeamName = GetTeamNameSync(cached.blockingTeamName)
 
+  lazy val security = wire[TeamSecurity]
+
   lazy val api = wire[TeamApi]
 
   def cli: lila.common.Cli = new:

@@ -4,15 +4,14 @@ package mashup
 import concurrent.duration.DurationInt
 
 import lila.forum.MiniForumPost
-import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamApi }
+import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
 import lila.simul.{ Simul, SimulApi }
 
 case class TeamInfo(
-    mine: Boolean,
-    ledByMe: Boolean,
+    me: Option[TeamMember],
     myRequest: Option[Request],
     subscribed: Boolean,
     requests: List[RequestWithUser],
@@ -20,6 +19,9 @@ case class TeamInfo(
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
 ):
+
+  def mine    = me.isDefined
+  def ledByMe = me.exists(_.perms.nonEmpty)
 
   def hasRequests = requests.nonEmpty
 
@@ -64,7 +66,7 @@ final class TeamInfoApi(
       (pmAllCredits - entry.v / pmAllCost, entry.until)
     }
 
-  def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
+  def apply(team: Team, me: Option[User], withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] =
     for
       requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) so api.requestsWithUsers(team)
       mine       <- me.so(m => api.belongsTo(team.id, m.id))

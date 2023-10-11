@@ -9,7 +9,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
-import lila.team.{ Requesting, Team as TeamModel }
+import lila.team.{ Requesting, Team as TeamModel, TeamMember }
 import lila.user.{ User as UserModel }
 import Api.ApiResult
 
@@ -67,9 +67,10 @@ final class Team(
     members <- paginator.teamMembers(team, page)
     log     <- (requestModView && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(team, info, requestModView)
-    chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
+    chat          <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
+    publicLeaders <- env.team.api.publicLeaderIds(team.id)
     _ <- env.user.lightUserApi.preloadMany:
-      team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
+      publicLeaders ::: info.userIds ::: chat.so(_.chat.userIds)
     version <- hasChat soFu env.team.version(team.id)
     page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
@@ -78,18 +79,18 @@ final class Team(
       ctx: Context
   ): Boolean =
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
-      (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
+      (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       (isGrantedOpt(_.Shusher) && requestModView)
     }
 
-  private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(using
+  private def canHaveForum(team: TeamModel, requestModView: Boolean)(member: Option[TeamMember])(using
       ctx: Context
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
       team.isForumFor(_.EVERYONE) ||
-      (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
-      (team.isForumFor(_.MEMBERS) && isMember) ||
+      (team.isForumFor(_.LEADERS) && member.exists(_.perms.nonEmpty)) ||
+      (team.isForumFor(_.MEMBERS) && member.isDefined) ||
       (isGrantedOpt(_.ModerateForum) && requestModView)
     }
 
@@ -166,16 +167,22 @@ final class Team(
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id): team =>
-      Ok.page(html.team.admin.leaders(team, forms leaders team))
+      api
+        .withLeaders(team)
+        .flatMap: team =>
+          Ok.page(html.team.admin.leaders(team, forms.leaders(team)))
   }
 
   def leaders(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
-      forms.leaders(team).bindFromRequest().value so {
-        api.setLeaders(team, _, me, isGranted(_.ManageTeam))
-      } inject Redirect(
-        routes.Team.show(team.id)
-      ).flashSuccess
+      api
+        .withLeaders(team)
+        .flatMap: team =>
+          forms.leaders(team).bindFromRequest().value so {
+            api.setLeaders(team, _, me, isGranted(_.ManageTeam))
+          } inject Redirect(
+            routes.Team.show(team.id)
+          ).flashSuccess
   }
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
@@ -191,7 +198,7 @@ final class Team(
   }
 
   def disable(id: TeamId) = AuthBody { ctx ?=> me ?=>
-    WithOwnedTeamEnabled(id) { team =>
+    WithOwnedTeamEnabled(id): team =>
       val redirect = Redirect(routes.Team show id)
       forms.explain
         .bindFromRequest()
@@ -202,14 +209,12 @@ final class Team(
               env.mod.logApi.toggleTeam(team.id, team.enabled, explain) inject
               redirect.flashSuccess
         )
-    }
   }
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      forms.anyCaptcha flatMap { captcha =>
+      forms.anyCaptcha.flatMap: captcha =>
         Ok.page(html.team.form.create(forms.create, captcha))
-      }
   }
 
   private val OneAtATime = lila.memo.FutureConcurrencyLimit[UserId](
@@ -237,9 +242,8 @@ final class Team(
 
   def mine = Auth { ctx ?=> me ?=>
     Ok.pageAsync:
-      api.mine map {
+      api.mine.map:
         html.team.list.mine(_)
-      }
   }
 
   private def tooManyTeamsHtml(using Context, Me): Fu[Result] =
@@ -269,11 +273,10 @@ final class Team(
               .fold(
                 jsonFormError,
                 setup =>
-                  api.join(team, setup.message, setup.password) flatMap {
+                  api.join(team, setup.message, setup.password) flatMap:
                     case Requesting.Joined       => jsonOkResult
                     case Requesting.NeedRequest  => BadRequest(jsonError("This team requires confirmation."))
                     case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                  }
               )
           )
   }

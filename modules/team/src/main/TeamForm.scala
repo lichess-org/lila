@@ -121,12 +121,6 @@ final private[team] class TeamForm(
 
   val explain = Form(single("explain" -> cleanText(minLength = 3, maxLength = 9000)))
 
-  def leaders(t: Team) =
-    Form(single("leaders" -> nonEmptyText)) fill t.leaders
-      .flatMap(lightUserApi.sync)
-      .map(_.name)
-      .mkString(", ")
-
   def members = Form(
     single("members" -> nonEmptyText)
   )
