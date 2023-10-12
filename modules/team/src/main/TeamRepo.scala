@@ -16,9 +16,6 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def byOrderedIds(ids: Seq[TeamId]) = coll.byOrderedIds[Team, TeamId](ids)(_.id)
 
-  def byLeader(id: TeamId, leaderId: UserId): Fu[Option[Team]] =
-    coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
-
   def lightsByIds(ids: Iterable[TeamId]): Fu[List[LightTeam]] =
     coll
       .find($inIds(ids) ++ enabledSelect, $doc("name" -> true).some)

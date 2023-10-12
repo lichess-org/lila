@@ -363,8 +363,10 @@ final class Team(
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     Found(for
       requestOption <- api request requestId
-      teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))
-    yield (teamOption, requestOption).tupled): (team, request) =>
+      teamOption    <- requestOption.so(req => env.team.teamRepo byId req.team)
+      isGranted <- teamOption.so: team =>
+        api.isGranted(team.id, me, _.Request)
+    yield (teamOption ifTrue isGranted, requestOption).tupled): (team, request) =>
       forms.processRequest
         .bindFromRequest()
         .fold(
