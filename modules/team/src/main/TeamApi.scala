@@ -60,7 +60,7 @@ final class TeamApi(
         createdBy = me
       )
       _ <- teamRepo.coll.insert.one(team)
-      _ <- memberRepo.add(team.id, me.id)
+      _ <- memberRepo.add(team.id, me.id, TeamSecurity.Permission.values.toSet)
     yield
       cached invalidateTeamIds me.id
       indexer ! InsertTeam(team)

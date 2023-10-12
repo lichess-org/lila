@@ -27,8 +27,8 @@ final class MemberRepo(val coll: Coll)(using Executor):
   def exists[U: UserIdOf](teamId: TeamId, user: U): Fu[Boolean] =
     coll.exists(selectId(teamId, user))
 
-  def add(teamId: TeamId, userId: UserId): Funit =
-    coll.insert.one(TeamMember.make(team = teamId, user = userId)).void
+  def add(teamId: TeamId, userId: UserId, perms: Set[TeamSecurity.Permission] = Set.empty): Funit =
+    coll.insert.one(TeamMember.make(team = teamId, user = userId).copy(perms = perms)).void
 
   def remove(teamId: TeamId, userId: UserId): Fu[WriteResult] =
     coll.delete.one(selectId(teamId, userId))
