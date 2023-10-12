@@ -162,11 +162,23 @@ object show:
                   trans.settings.settings()
                 ),
               ((t.enabled && info.amGranted(_.Admin)) || asMod) option
-                a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
+                a(
+                  cls      := "button button-empty text",
+                  href     := routes.Team.leaders(t.id),
+                  dataIcon := licon.Group
+                )(teamLeaders()),
               ((t.enabled && info.amGranted(_.Kick)) || asMod) option
-                a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
+                a(
+                  cls      := "button button-empty text",
+                  href     := routes.Team.kick(t.id),
+                  dataIcon := licon.InternalArrow
+                )(kickSomeone()),
               ((t.enabled && info.amGranted(_.Request)) || asMod) option
-                a(cls := "button button-empty", href := routes.Team.declinedRequests(t.id))(
+                a(
+                  cls      := "button button-empty text",
+                  href     := routes.Team.declinedRequests(t.id),
+                  dataIcon := licon.Cancel
+                )(
                   declinedRequests()
                 ),
               ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !asMod) option a(
