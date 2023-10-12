@@ -1,0 +1,61 @@
+.team-edit {
+  .inline {
+    display: inline;
+  }
+  .accent {
+    textarea {
+      border-color: $c-brag;
+    }
+    label {
+      color: $c-brag;
+    }
+  }
+}
+.team-permissions {
+  p.error {
+    font-size: 1.3em;
+  }
+
+  .form-help {
+    margin: 2em 0 0 0;
+  }
+  .form-actions {
+    border: none;
+    padding-bottom: $box-padding-vert;
+  }
+  table {
+    .highlight {
+      background: mix($c-primary, $c-bg-page, 20%) !important;
+      a {
+        color: $c-font-clearer;
+      }
+    }
+    .cmn-toggle:not(:checked) + label {
+      background-color: $c-bg-low;
+    }
+    th {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      strong {
+        @extend %break-nope;
+        font-size: 1.3em;
+        color: $c-brag;
+      }
+      p {
+        margin: 0;
+      }
+    }
+    td {
+      border-left: $border;
+    }
+  }
+}
+.team-add-leader {
+  &__input {
+    display: flex;
+  }
+  margin-bottom: $box-padding-vert;
+  .error {
+    color: $c-bad;
+  }
+}

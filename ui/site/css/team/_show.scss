@@ -148,17 +148,3 @@ $section-margin-more: 5vh;
     margin-bottom: 2em;
   }
 }
-
-.team-edit {
-  .inline {
-    display: inline;
-  }
-  .accent {
-    textarea {
-      border-color: $c-brag;
-    }
-    label {
-      color: $c-brag;
-    }
-  }
-}

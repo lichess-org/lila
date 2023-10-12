@@ -105,6 +105,7 @@ interface UserCompleteOpts {
   friend?: boolean;
   tour?: string;
   swiss?: string;
+  team?: string;
 }
 
 interface QuestionChoice {

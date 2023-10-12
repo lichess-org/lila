@@ -63,9 +63,8 @@ final private class TournamentSocket(
       logger,
       roomId => _.Tournament(roomId into TourId).some,
       chatBusChan = _.Tournament,
-      localTimeout = Some { (roomId, modId, _) =>
+      localTimeout = Some: (roomId, modId, _) =>
         repo.fetchCreatedBy(roomId into TourId).map(_ has modId)
-      }
     )
 
   private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>

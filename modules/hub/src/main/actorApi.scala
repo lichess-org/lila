@@ -191,6 +191,7 @@ package team:
   case class JoinTeam(id: TeamId, userId: UserId)
   case class IsLeader(id: TeamId, userId: UserId, promise: Promise[Boolean])
   case class IsLeaderOf(leaderId: UserId, memberId: UserId, promise: Promise[Boolean])
+  case class IsLeaderWithCommPerm(id: TeamId, userId: UserId, promise: Promise[Boolean])
   case class KickFromTeam(teamId: TeamId, userId: UserId)
   case class LeaveTeam(teamId: TeamId, userId: UserId)
   case class TeamIdsJoinedBy(userId: UserId, promise: Promise[List[TeamId]])

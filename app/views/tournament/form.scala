@@ -6,14 +6,14 @@ import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.tournament.{ Tournament, TournamentForm }
 import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
   given prefix: FormPrefix = FormPrefix.empty
 
-  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using PageContext) =
+  def create(form: Form[?], leaderTeams: List[LightTeam])(using PageContext) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -45,7 +45,7 @@ object form:
       )
     }
 
-  private[tournament] def setupCreate(form: Form[?], leaderTeams: List[LeaderTeam])(using
+  private[tournament] def setupCreate(form: Form[?], leaderTeams: List[LightTeam])(using
       PageContext,
       FormPrefix
   ) =
@@ -67,7 +67,7 @@ object form:
       fields.isTeamBattle option form3.hidden(form.prefix("teamBattleByTeam"))
     )
 
-  private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using
+  private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using
       PageContext,
       FormPrefix
   ) =
@@ -93,7 +93,7 @@ object form:
       )
     )
 
-  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using PageContext) =
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using PageContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -125,7 +125,7 @@ object form:
   def conditionFields(
       form: Form[?],
       fields: TourFields,
-      teams: List[LeaderTeam],
+      teams: List[LightTeam],
       tour: Option[Tournament]
   )(using ctx: PageContext, prefix: FormPrefix) =
     frag(

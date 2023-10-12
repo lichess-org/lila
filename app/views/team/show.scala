@@ -19,16 +19,14 @@ object show:
   import trans.team.*
 
   def apply(
-      t: Team,
+      t: Team.WithLeaders,
       members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],
-      requestedModView: Boolean = false,
+      asMod: Boolean = false,
       log: List[Modlog] = Nil
-  )(using
-      ctx: PageContext
-  ) =
+  )(using ctx: PageContext) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui
@@ -43,7 +41,7 @@ object show:
         Json
           .obj("id" -> t.id)
           .add("socketVersion" -> socketVersion)
-          .add("chat" -> chatOption.map { chat =>
+          .add("chat" -> chatOption.map: chat =>
             views.html.chat.json(
               chat.chat,
               name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
@@ -51,38 +49,31 @@ object show:
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
               localMod = ctx.userId exists t.leaders.contains
-            )
-          })
+            ))
       )
-    ) {
-      val manageTeamEnabled = isGranted(_.ManageTeam) && requestedModView
-      val enabledOrLeader   = t.enabled || info.ledByMe || manageTeamEnabled
-      val canSeeMembers     = t.enabled && (t.publicMembers || info.mine || manageTeamEnabled)
+    ):
+      val canSeeMembers = asMod || (t.enabled && (t.publicMembers || info.mine))
       main(
         cls := "team-show box",
-        socketVersion.map { v =>
+        socketVersion.map: v =>
           data("socket-version") := v
-        }
       )(
         boxTop(
           h1(cls := "text", dataIcon := licon.Group)(t.name),
-          div(
+          div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else
-              canSeeMembers option a(href := routes.Team.members(t.slug))(
+              canSeeMembers option a(href := routes.Team.members(t.slug)):
                 nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
-              )
-          )
         ),
         div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
-            enabledOrLeader option st.section(cls := "team-show__meta")(
-              p(
-                teamLeaders.pluralSame(t.leaders.size),
+            (t.enabled || info.ledByMe || asMod) option st.section(cls := "team-show__meta")(
+              t.publicLeaders.nonEmpty option p(
+                teamLeaders.pluralSame(t.publicLeaders.size),
                 ": ",
-                fragList(t.leaders.toList.map { l =>
-                  userIdLink(l.some)
-                })
+                fragList(t.publicLeaders.toList.map: l =>
+                  userIdLink(l.some))
               ),
               info.ledByMe option a(
                 dataIcon := licon.InfoCircle,
@@ -104,11 +95,10 @@ object show:
                 else if info.myRequest.isDefined then
                   frag(
                     strong(beingReviewed()),
-                    postForm(action := routes.Team.quit(t.id))(
+                    postForm(action := routes.Team.quit(t.id)):
                       submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
-                    )
                   )
-                else ctx.isAuth option joinButton(t)
+                else ctx.isAuth option joinButton(t.team)
               ),
               t.enabled && info.mine option
                 postForm(
@@ -124,62 +114,79 @@ object show:
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
-              t.enabled && info.ledByMe option frag(
+              t.enabled && info.amGranted(_.Tour) option frag(
                 a(
                   href     := routes.Tournament.teamBattleForm(t.id),
                   cls      := "button button-empty text",
                   dataIcon := licon.Trophy
-                )(
+                ):
                   span(
                     strong(teamBattle()),
                     em(teamBattleOverview())
                   )
-                ),
+                ,
                 a(
                   href     := s"${routes.Tournament.form}?team=${t.id}",
                   cls      := "button button-empty text",
                   dataIcon := licon.Trophy
-                )(
+                ):
                   span(
                     strong(teamTournament()),
                     em(teamTournamentOverview())
                   )
-                ),
+                ,
                 a(
                   href     := s"${routes.Swiss.form(t.id)}",
                   cls      := "button button-empty text",
                   dataIcon := licon.Trophy
-                )(
+                ):
                   span(
                     strong(trans.swiss.swissTournaments()),
                     em(swissTournamentOverview())
                   )
-                ),
+              ),
+              t.enabled && info.amGranted(_.PmAll) option frag(
                 a(
                   href     := routes.Team.pmAll(t.id),
                   cls      := "button button-empty text",
                   dataIcon := licon.Envelope
-                )(
+                ):
                   span(
                     strong(messageAllMembers()),
                     em(messageAllMembersOverview())
                   )
-                )
               ),
-              ((t.enabled && info.ledByMe) || manageTeamEnabled) option
+              ((t.enabled && info.amGranted(_.Settings)) || asMod) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := licon.Gear)(
                   trans.settings.settings()
                 ),
-              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(
+              ((t.enabled && info.amGranted(_.Admin)) || asMod) option
+                a(
+                  cls      := "button button-empty text",
+                  href     := routes.Team.leaders(t.id),
+                  dataIcon := licon.Group
+                )(teamLeaders()),
+              ((t.enabled && info.amGranted(_.Kick)) || asMod) option
+                a(
+                  cls      := "button button-empty text",
+                  href     := routes.Team.kick(t.id),
+                  dataIcon := licon.InternalArrow
+                )(kickSomeone()),
+              ((t.enabled && info.amGranted(_.Request)) || asMod) option
+                a(
+                  cls      := "button button-empty text",
+                  href     := routes.Team.declinedRequests(t.id),
+                  dataIcon := licon.Cancel
+                )(
+                  declinedRequests()
+                ),
+              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !asMod) option a(
                 href := routes.Team.show(t.id, 1, mod = true),
                 cls  := "button button-red"
-              )(
+              ):
                 "View team as Mod"
-              )
             ),
-            canSeeMembers option div(
-              cls := "team-show__members"
-            )(
+            canSeeMembers option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
                 h2(a(href := routes.Team.members(t.slug))(teamRecentMembers())),
                 div(cls := "userlist infinite-scroll")(
@@ -193,18 +200,17 @@ object show:
           ),
           div(cls := "team-show__content__col2")(
             standardFlash,
-            t.intro.isEmpty && info.ledByMe option div(cls := "flash flash-warning")(
-              div(cls := "flash__content")(
+            t.intro.isEmpty && info.amGranted(_.Settings) option div(cls := "flash flash-warning")(
+              div(cls := "flash__content"):
                 a(href := routes.Team.edit(t.id))("Give your team a short introduction text!")
-              )
             ),
             log.nonEmpty option renderLog(log),
-            (t.enabled || manageTeamEnabled) option st.section(cls := "team-show__desc")(
-              bits.markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
+            (t.enabled || asMod) option st.section(cls := "team-show__desc")(
+              bits.markdown(t.team, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
-              views.html.team.request.list(info.requests, t.some)
+              views.html.team.request.list(info.requests, t.team.some)
             ),
             div(
               t.enabled && info.simuls.nonEmpty option frag(
@@ -246,7 +252,6 @@ object show:
           )
         )
       )
-    }
 
   // handle special teams here
   private def joinButton(t: Team)(using PageContext) =

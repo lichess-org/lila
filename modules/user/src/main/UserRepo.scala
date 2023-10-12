@@ -291,6 +291,9 @@ final class UserRepo(val coll: Coll)(using Executor):
   def filterNotKid(ids: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ $doc(F.kid $ne true)))
 
+  def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]] =
+    coll.distinct[UserId, Set]("_id", Some($inIds(ids.map(_.id)) ++ $doc(F.kid $eq true)))
+
   def isTroll(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
   def isBot(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ botSelect(true))

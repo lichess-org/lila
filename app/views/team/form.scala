@@ -44,11 +44,6 @@ object form:
           boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
           standardFlash,
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
-            div(cls := "form-group")(
-              a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
-              a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
-              a(cls := "button button-empty", href := routes.Team.declinedRequests(t.id))(declinedRequests())
-            ),
             entryFields(form, t.some),
             textFields(form),
             accessFields(form),
@@ -57,41 +52,39 @@ object form:
               form3.submit(trans.apply())
             )
           ),
-          ctx.userId.exists(t.leaders) || isGranted(_.ManageTeam) option frag(
-            hr,
-            t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
+          hr,
+          t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
+            explainInput,
+            submitButton(
+              dataIcon := licon.CautionCircle,
+              cls      := "submit button text explain button-empty button-red",
+              st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
+            )(closeTeam())
+          ),
+          isGranted(_.ManageTeam) option
+            postForm(cls := "inline", action := routes.Team.close(t.id))(
               explainInput,
               submitButton(
-                dataIcon := licon.CautionCircle,
-                cls      := "submit button text explain button-empty button-red",
-                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
-              )(closeTeam())
+                dataIcon := licon.Trash,
+                cls      := "text button button-empty button-red explain",
+                st.title := "Deletes the team and its memberships. Cannot be reverted!"
+              )(trans.delete())
             ),
-            isGranted(_.ManageTeam) option
-              postForm(cls := "inline", action := routes.Team.close(t.id))(
-                explainInput,
-                submitButton(
-                  dataIcon := licon.Trash,
-                  cls      := "text button button-empty button-red explain",
-                  st.title := "Deletes the team and its memberships. Cannot be reverted!"
-                )(trans.delete())
-              ),
-            (t.disabled && isGranted(_.ManageTeam)) option
-              postForm(cls := "inline", action := routes.Team.disable(t.id))(
-                explainInput,
-                submitButton(
-                  cls      := "button button-empty explain",
-                  st.title := "Re-enables the team and restores memberships"
-                )("Re-enable")
-              )
-          )
+          (t.disabled && isGranted(_.ManageTeam)) option
+            postForm(cls := "inline", action := routes.Team.disable(t.id))(
+              explainInput,
+              submitButton(
+                cls      := "button button-empty explain",
+                st.title := "Re-enables the team and restores memberships"
+              )("Re-enable")
+            )
         )
       )
     }
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
-  private def textFields(form: Form[?])(using PageContext) = frag(
+  private def textFields(form: Form[?])(using Context) = frag(
     form3.group(
       form("intro"),
       "Introduction",
@@ -119,7 +112,7 @@ object form:
     )
   )
 
-  private def accessFields(form: Form[?])(using PageContext) =
+  private def accessFields(form: Form[?])(using Context) =
     frag(
       form3.checkbox(
         form("hideMembers"),
@@ -159,7 +152,7 @@ object form:
       )
     )
 
-  private def entryFields(form: Form[?], team: Option[Team])(using ctx: PageContext) =
+  private def entryFields(form: Form[?], team: Option[Team])(using ctx: Context) =
     form3.split(
       form3.checkbox(
         form("request"),
@@ -172,8 +165,5 @@ object form:
         trans.team.entryCode(),
         help = trans.team.entryCodeDescriptionForLeader().some,
         half = true
-      ) { field =>
-        if team.forall(t => ctx.userId.exists(t.leaders.contains)) then form3.input(field)
-        else form3.input(field)(tpe := "password", disabled)
-      }
+      )(form3.input(_))
     )

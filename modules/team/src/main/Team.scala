@@ -6,7 +6,7 @@ import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
-import lila.hub.LightTeam.TeamName
+import lila.hub.LightTeam
 
 case class Team(
     _id: TeamId, // also the url slug
@@ -20,7 +20,6 @@ case class Team(
     open: Boolean,
     createdAt: Instant,
     createdBy: UserId,
-    leaders: Set[UserId],
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Option[Boolean]
@@ -41,11 +40,23 @@ case class Team(
   def passwordMatches(pw: String) =
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 
-  def isOnlyLeader(userId: UserId) = leaders == Set(userId)
+  def light = LightTeam(id, name)
 
 object Team:
 
   case class Mini(id: TeamId, name: String)
+
+  case class WithLeaders(team: Team, leaders: List[TeamMember]):
+    export team.*
+    def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.isGranted(_.Admin))
+    def publicLeaders   = leaders.filter(_.isGranted(_.Public))
+
+  case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
+
+  case class WithMyLeadership(team: Team, amLeader: Boolean):
+    export team.*
+
+  case class WithPublicLeaderIds(team: Team, publicLeaders: List[UserId])
 
   import chess.variant.Variant
   val variants: Map[Variant.LilaKey, Mini] = Variant.list.all.view.collect {
@@ -54,6 +65,7 @@ object Team:
       v.key -> Mini(nameToId(name), name)
   }.toMap
 
+  val maxLeaders     = 10
   val maxJoinCeiling = 50
 
   def maxJoin(u: User) =
@@ -85,6 +97,7 @@ object Team:
     def toArray: Array[TeamId] = TeamId.from(value split IdsStr.separator)
     def toList                 = value.nonEmpty so toArray.toList
     def toSet                  = value.nonEmpty so toArray.toSet
+    def size                   = value.count(_ == separator) + 1
 
   object IdsStr:
 
@@ -96,7 +109,7 @@ object Team:
 
   def make(
       id: TeamId,
-      name: TeamName,
+      name: LightTeam.TeamName,
       password: Option[String],
       intro: Option[String],
       description: Markdown,
@@ -115,16 +128,14 @@ object Team:
     open = open,
     createdAt = nowInstant,
     createdBy = createdBy.id,
-    leaders = Set(createdBy.id),
     chat = Access.MEMBERS,
     forum = Access.MEMBERS,
     hideMembers = none
   )
 
   def nameToId(name: String) =
-    lila.common.String.slugify(name) pipe { slug =>
-      // if most chars are not latin, go for random slug
-      if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
-    }
+    val slug = lila.common.String.slugify(name)
+    // if most chars are not latin, go for random slug
+    if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
 
   private[team] def randomId() = TeamId(ThreadLocalRandom nextString 8)
