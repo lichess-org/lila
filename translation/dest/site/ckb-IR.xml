@@ -866,6 +866,7 @@
   <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">بڵیتز\"خێرا\"</string>
   <string name="rapid">خێرا</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">یارییە شێتانە خێراکان: کەمتر لە ٣٠ چرکە</string>
