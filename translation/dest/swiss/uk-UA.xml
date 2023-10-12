@@ -75,6 +75,7 @@
   <string name="numberOfByesA">Гравець отримує один bye щоразу коли система не може підібрати для нього пару.
 Крім того, половина bye приписується за запізнення.</string>
   <string name="earlyDrawsQ">Що відбувається з ранніми нічиїми?</string>
+  <string name="earlyDrawsAnswer">У швейцарських іграх, гравці не можуть зробити нічию до 30 ходів. Хоча цей захід не може запобігти заздалегідь домовленим жеребкуванням, він принаймні ускладнює погодження на нічию на льоту.</string>
   <string name="whatIfOneDoesntPlayQ">Що станеться, якщо гравець не грає в гру?</string>
   <string name="whatIfOneDoesntPlayA">Його годинник буде йти, час мине і він програє гру.
 Тоді система вилучить гравця з турніру, щоб він більше не програвав.
@@ -98,7 +99,7 @@
   <string name="teamOnly">Турніри за швейцарською системою можуть бути створені лише лідерами команд, а брати участь у них можуть лише члени команди.           
 %1$s щоб почати гру в швейцарських турнірах.</string>
   <string name="joinOrCreateTeam">Приєднатися або створити команду</string>
-  <string name="nowPlaying">Зараз грають</string>
+  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Зараз грають</string>
   <string name="startingSoon">Скоро розпочнуться</string>
   <string name="comparison">Порівняння</string>
   <string name="tournDuration">Тривалість турніру</string>

@@ -480,7 +480,7 @@
   <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="name">Nama</string>
   <string name="description">Keterangan</string>
-  <string name="descPrivate">Deskripsi pribadi</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Deskripsi pribadi</string>
   <string name="descPrivateHelp">Teks yang hanya bisa dilihat oleh anggota tim. Jika ditetapkan, akan menggantikan deskripsi publik untuk anggota tim.</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
@@ -632,10 +632,12 @@
   <string name="keyMoveBackwardOrForward">Mundurkan/Majukan</string>
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>
   <string name="keyShowOrHideComments">Tampilkan/sembunyikan komentar</string>
-  <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
+  <string name="keyEnterOrExitVariation" comment="In a Lichess move list, a set of moves branching from the mainline is called a 'variation'.&#10;&#10;For example, in 1. e4 e5 (1...e6 2. d4) 2. Bc4:&#10;1. e4 e5 is the mainline&#10;(1... e6 2.d4) is the variation. Pawn to e6 an alternative move for Black, which prompts White to respond differently, with d4 instead of Bc4 which they planned originally in case Black played e5.&#10;&#10;This string is for keyboard shortcuts. While checking moves using the keyboard, you can move in and out of variations in the move list. Shift + left or right let you change between navigating through moves in the mainline or the variation. This also works for sub-variations.">masuk/keluar dari variasi</string>
   <string name="keyRequestComputerAnalysis">Minta analisis komputer, belajar dari kesalahan anda</string>
   <string name="keyNextLearnFromYourMistakes">Berikutnya (Belajar dari kesalahan anda)</string>
+  <string name="keyNextBlunder">Blunder selanjutnya</string>
   <string name="keyNextMistake">Kesalahan berikutnya</string>
+  <string name="keyNextInaccuracy">Ketidakakuratan selanjutnya</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
   <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>
@@ -650,6 +652,7 @@
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s lebih baik daripada %2$s dari %3$s pemain.</string>
+  <string name="betterThanPercentPlayers">Anda lebih baik %1$s dari %2$s pemain lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
   <string name="yourRating">Rating Anda</string>
   <string name="cumulative">Kumulatif</string>
@@ -702,7 +705,7 @@
   <string name="gameAnalysis">Analisa Permainan</string>
   <string name="xHostsY">%1$s tuan rumah %2$s</string>
   <string name="xJoinsY">%1$s bergabung %2$s</string>
-  <string name="xLikesY">%1$s suka %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s suka %2$s</string>
   <string name="quickPairing">Pencarian cepat</string>
   <string name="lobby">Ruang Lobi</string>
   <string name="anonymous">Tanpa Nama</string>
@@ -731,6 +734,7 @@
   <string name="invalidFen">FEN tidak valid</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
+  <string name="notificationsX">Pemberitahuan: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -904,4 +908,5 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
+  <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
 </resources>
