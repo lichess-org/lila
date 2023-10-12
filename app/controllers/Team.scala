@@ -189,8 +189,17 @@ final class Team(
             .fold(
               err => BadRequest.page(leadersPage(team, None, err.some)),
               data =>
-                env.team.security.setPermissions(team, data) inject
-                  Redirect(routes.Team.leaders(team.id)).flashSuccess
+                env.team.security
+                  .setPermissions(team, data)
+                  .flatMap:
+                    _.traverse: change =>
+                      env.msg.api.systemPost(
+                        change.user,
+                        lila.msg.MsgPreset
+                          .newPermissions(me, team.team.light, change.perms.map(_.name), env.net.baseUrl)
+                      )
+                    .inject:
+                      Redirect(routes.Team.leaders(team.id)).flashSuccess
             )
   }
 
@@ -577,6 +586,6 @@ final class Team(
           .isGranted(team.id, me.value, perm)
           .flatMap:
             if _ then f(team)
-            else fuccess(ApiResult.ClientError("Not your team"))
+            else fuccess(ApiResult.ClientError("Insufficient team permissions"))
       case None => fuccess(ApiResult.NoData)
     } map apiC.toHttp

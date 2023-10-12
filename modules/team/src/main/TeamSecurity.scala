@@ -25,19 +25,29 @@ object TeamSecurity:
   def tableStr(data: Seq[LeaderData]) =
     data.map(d => s"${d.name} (${d.perms.map(_.key).mkString(" ")})").mkString("\n")
 
+  case class NewPermissions(user: UserId, perms: Set[Permission])
+
 final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: UserRepo, cached: Cached)(using
     Executor
 ):
 
   import TeamSecurity.*
 
-  def setPermissions(team: Team.WithLeaders, data: Seq[LeaderData])(using by: Me): Funit = for
-    _ <- memberRepo.unsetAllPerms(team.id)
-    _ <- memberRepo.setAllPerms(team.id, data)
-  yield
-    team.leaders.map(_.user) foreach cached.nbRequests.invalidate
-    data.map(_.name.id) foreach cached.nbRequests.invalidate
-    logger.info(s"valid setLeaders ${team.id} by ${by.userId}: ${tableStr(data)}")
+  def setPermissions(t: Team.WithLeaders, data: Seq[LeaderData])(using by: Me): Fu[List[NewPermissions]] =
+    for
+      _ <- memberRepo.unsetAllPerms(t.id)
+      _ <- memberRepo.setAllPerms(t.id, data)
+    yield
+      val changes = data.flatMap: d =>
+        t.leaders
+          .find(_.user is d.name)
+          .filter(_.perms != d.perms && d.perms.nonEmpty)
+          .map: l =>
+            NewPermissions(l.user, d.perms)
+      t.leaders.map(_.user) foreach cached.nbRequests.invalidate
+      data.map(_.name.id) foreach cached.nbRequests.invalidate
+      logger.info(s"valid setLeaders ${t.id} by ${by.userId}: ${tableStr(data)}")
+      changes.toList
 
   def addLeader(team: Team.WithLeaders, name: UserStr)(using by: Me): Funit =
     memberRepo.setPerms(team.id, name.id, Set(Permission.Public))
@@ -86,6 +96,10 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: U
         .verifying(
           "There must be at least one leader able to manage permissions",
           _.exists(_.perms(Permission.Admin))
+        )
+        .verifying(
+          "Illegal adding/removing leaders through permissions form",
+          _.map(_.name.id).toSet == t.leaders.map(_.user).toSet
         )
         .verifying(
           s"No more than ${Team.maxLeaders} leaders, please",

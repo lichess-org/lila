@@ -6,7 +6,7 @@ import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
-import lila.hub.LightTeam.TeamName
+import lila.hub.LightTeam
 
 case class Team(
     _id: TeamId, // also the url slug
@@ -39,6 +39,8 @@ case class Team(
 
   def passwordMatches(pw: String) =
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
+
+  def light = LightTeam(id, name)
 
 object Team:
 
@@ -107,7 +109,7 @@ object Team:
 
   def make(
       id: TeamId,
-      name: TeamName,
+      name: LightTeam.TeamName,
       password: Option[String],
       intro: Option[String],
       description: Markdown,
