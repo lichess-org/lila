@@ -25,4 +25,78 @@
   <string name="contributor">பங்களிப்பாளர்</string>
   <string name="kick">நீங்கவும்</string>
   <string name="leaveTheStudy">கற்கையிலிருந்து வெளியேற</string>
+  <string name="youAreNowAContributor">நீங்கள் இப்போது ஓர் பங்களிப்பாளர்</string>
+  <string name="youAreNowASpectator">நீங்கள் இப்போது ஓர் பார்வையாளர்</string>
+  <string name="pgnTags">PGN ஒட்டுக்கள்</string>
+  <string name="like">விரும்பு</string>
+  <string name="unlike">விரும்பவில்லை</string>
+  <string name="newTag">புதிய ஒட்டு</string>
+  <string name="commentThisPosition">இந்த நிலைகுறித்த கருத்து</string>
+  <string name="commentThisMove">இந்த நகர்வுபற்றிய கருத்து</string>
+  <string name="annotateWithGlyphs">காய்களின் குறியீட்டுடன் சிறுகுறிப்புக்கள்</string>
+  <string name="theChapterIsTooShortToBeAnalysed">நகர்வுகள் குறைவாக உள்ளதால் இந்த அத்தியாயத்தைப் பகுப்பாய்வு செய்ய இயலாதுள்ளது.</string>
+  <string name="onlyContributorsCanRequestAnalysis">இந்தக் கற்கையில் பங்களிப்பவர் மட்டுமே கணினிப் பகுப்பாய்வைக் கோரலாம்.</string>
+  <string name="makeSureTheChapterIsComplete">இந்த அத்தியாயம் முடிவடைந்ததும், நீங்கள் பகுப்பாய்வை ஒருமுறை கோரலாம்.</string>
+  <string name="playing">விளையாடுகிறார்</string>
+  <string name="first">முதலாவது</string>
+  <string name="previous">முந்தைய</string>
+  <string name="next">அடுத்து</string>
+  <string name="last">இறுதி</string>
+  <string name="cloneStudy">நகல்</string>
+  <string name="studyPgn">PGN கற்கை</string>
+  <string name="downloadAllGames">எல்லா விளையாட்டுக்களையும் பதிவிறக்க</string>
+  <string name="chapterPgn">அத்தியாயத்திற்குரிய PGN</string>
+  <string name="copyChapterPgn">PGN நகல்</string>
+  <string name="copyChapterPgnDescription">அத்தியாயத்திற்குரிய PGN ஐக் கிளிப்போட்டிற்கு பிரதிபண்ண.</string>
+  <string name="downloadGame">விளையாட்டைப் பதிவிறக்க</string>
+  <string name="studyUrl">கற்கை URL</string>
+  <string name="currentChapterUrl">இந்த அத்தியாய URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">மன்றத்தில் அல்லது லீசெஸ் வலைப்பதிவில் உட்பொதிக்க நீங்கள் இதை ஒட்டலாம்</string>
+  <string name="startAtInitialPosition">கற்கையை இந்த இடத்திலிருந்து ஆரம்பிக்கவும்</string>
+  <string name="startAtX">%s இல் ஆரம்பிக்க</string>
+  <string name="embedInYourWebsite">உங்கள் வலைத்தளத்தில் உட்பொதிக்க</string>
+  <string name="readMoreAboutEmbedding">உட்பொதிப்பதைப் பற்றி மேலும் அறிய</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">பொதுக் கற்கைகளை மாத்திரமே உட்பொதிக்கலாம்!</string>
+  <string name="open">திற</string>
+  <string name="studyNotFound">கற்கையைக் காணவில்லை</string>
+  <string name="editChapter">அத்தியாயத்தைத் திருத்த</string>
+  <string name="newChapter">புதிய அத்தியாயம்</string>
+  <string name="importFromChapterX">%s இலிருந்து பெற்றுக்கொள்ள</string>
+  <string name="orientation">திசையமைவு</string>
+  <string name="analysisMode">பகுப்பாய்வுப் பாங்கு</string>
+  <string name="pinnedChapterComment">பலகையில் கீழ் எப்போதும் வரும் குறிப்புரை</string>
+  <string name="saveChapter">அத்தியாயத்தைச் சேமிக்க</string>
+  <string name="clearAnnotations">குறிப்புரைகளை நீக்க</string>
+  <string name="deleteChapter">அத்தியாயத்தை நீக்க</string>
+  <string name="deleteThisChapter">இந்த அத்தியாயத்தை அழிக்கவும். அழித்தால் மீள்விக்க இயலாது!</string>
+  <string name="clearAllCommentsInThisChapter">இந்த அத்தியாயத்திற்குரிய எல்லாக் குறிப்புரைகளையும் குறியீடுகளையும் வரையப்பட்ட உருவங்களையும் நீக்கவும்</string>
+  <string name="rightUnderTheBoard">சதுரங்கப் பலகைக்குக் கீழே</string>
+  <string name="noPinnedComment">எதுவுமில்லை</string>
+  <string name="normalAnalysis">சாதாரண பகுப்பாய்வு</string>
+  <string name="hideNextMoves">அடுத்த நகர்வை ஒழிக்கவும்</string>
+  <string name="chapterX">%s ஆம் அத்தியாயம்</string>
+  <string name="startFromInitialPosition">கற்கையை இந்த இடத்திலிருந்து ஆரம்பிக்கவும்</string>
+  <string name="save">சேமி</string>
+  <string name="clearChat">கருத்துரைகளை நீக்க</string>
+  <string name="deleteStudy">கற்கையை அழிக்க</string>
+  <string name="goodMove">சிறந்த நகர்வு</string>
+  <string name="mistake">தவறு</string>
+  <string name="brilliantMove">சிறப்பான நகர்வு</string>
+  <string name="blunder">பெருந்தவறு</string>
+  <string name="interestingMove">ஆர்வமூட்டும் நகர்வு</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ஐயத்திற்கிடமான நகர்வு</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ஒரேயொரு சாத்தியமான நகர்வு</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">இக்கட்டான நகர்வு</string>
+  <string name="equalPosition">சமநிலை</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">வெற்றி தோல்வி தீர்மானிக்க இயலாத நிலை</string>
+  <string name="whiteIsSlightlyBetter">வெள்ளை ஓரளவு சிறப்பாகவுள்ளது</string>
+  <string name="blackIsSlightlyBetter">கறுப்பு ஓரளவு சிறப்பாகவுள்ளது</string>
+  <string name="whiteIsBetter">வெள்ளை சிறப்பாகவுள்ளது</string>
+  <string name="blackIsBetter">கறுப்பு சிறப்பாகவுள்ளது</string>
+  <string name="whiteIsWinning">வெள்ளை வெல்கின்றது</string>
+  <string name="blackIsWinning">கறுப்பு வெல்கின்றது</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">புதுமை</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">அபிவிருத்தி</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">தாக்கு</string>
+  <string name="playAgain">மீண்டும் விளையாட</string>
 </resources>
