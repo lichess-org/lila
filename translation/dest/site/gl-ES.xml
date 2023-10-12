@@ -527,7 +527,7 @@
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrición privada</string>
+  <string name="descPrivate">Descrición privada</string>
   <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe a túa descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
@@ -684,7 +684,7 @@
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
-  <string name="keyEnterOrExitVariation" comment="In a Lichess move list, a set of moves branching from the mainline is called a 'variation'.&#10;&#10;For example, in 1. e4 e5 (1...e6 2. d4) 2. Bc4:&#10;1. e4 e5 is the mainline&#10;(1... e6 2.d4) is the variation. Pawn to e6 an alternative move for Black, which prompts White to respond differently, with d4 instead of Bc4 which they planned originally in case Black played e5.&#10;&#10;This string is for keyboard shortcuts. While checking moves using the keyboard, you can move in and out of variations in the move list. Shift + left or right let you change between navigating through moves in the mainline or the variation. This also works for sub-variations.">Entrar/saír da variante</string>
+  <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
   <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
   <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
@@ -759,7 +759,7 @@
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">a %1$s gústalle %2$s</string>
+  <string name="xLikesY">a %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
   <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
