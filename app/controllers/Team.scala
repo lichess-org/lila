@@ -192,14 +192,15 @@ final class Team(
                 env.team.security
                   .setPermissions(team, data)
                   .flatMap:
-                    _.traverse: change =>
-                      env.msg.api.systemPost(
-                        change.user,
-                        lila.msg.MsgPreset
-                          .newPermissions(me, team.team.light, change.perms.map(_.name), env.net.baseUrl)
-                      )
-                    .inject:
-                      Redirect(routes.Team.leaders(team.id)).flashSuccess
+                    _.filter(_.user isnt me)
+                      .traverse: change =>
+                        env.msg.api.systemPost(
+                          change.user,
+                          lila.msg.MsgPreset
+                            .newPermissions(me, team.team.light, change.perms.map(_.name), env.net.baseUrl)
+                        )
+                      .inject:
+                        Redirect(routes.Team.leaders(team.id)).flashSuccess
             )
   }
 
