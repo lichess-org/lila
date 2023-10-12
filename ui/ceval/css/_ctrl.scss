@@ -99,6 +99,8 @@
   .bar span {
     display: block;
     height: 3px;
+    border-radius: 2px;
+    transform: translate3d(3px, -11px, 0);
     width: 0;
     background: $c-good;
     transition: width 1s;
