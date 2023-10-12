@@ -238,9 +238,8 @@ trait FormHelper:
       )
 
     def globalError(form: Form[?])(using Lang): Option[Frag] =
-      form.globalError map { err =>
+      form.globalError.map: err =>
         div(cls := "form-group is-invalid")(error(err))
-      }
 
     def fieldset(legend: Frag): Tag =
       st.fieldset(cls := "form-fieldset")(st.legend(legend))

@@ -31,7 +31,7 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: U
 
   import TeamSecurity.*
 
-  def setLeaders(team: Team.WithLeaders, data: Seq[LeaderData])(using by: Me): Funit = for
+  def setPermissions(team: Team.WithLeaders, data: Seq[LeaderData])(using by: Me): Funit = for
     _ <- memberRepo.unsetAllPerms(team.id)
     _ <- memberRepo.setAllPerms(team.id, data)
   yield
@@ -39,11 +39,34 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: U
     data.map(_.name.id) foreach cached.nbRequests.invalidate
     logger.info(s"valid setLeaders ${team.id} by ${by.userId}: ${tableStr(data)}")
 
+  def addLeader(team: Team.WithLeaders, name: UserStr)(using by: Me): Funit =
+    memberRepo.setPerms(team.id, name.id, Set(Permission.Public))
+
   object form:
     import play.api.data.*
     import play.api.data.Forms.*
 
-    private val leaderForm = mapping(
+    def addLeader(t: Team.WithLeaders)(using Me): Form[UserStr] = Form:
+      single:
+        "name" -> lila.user.UserForm.historicalUsernameField
+          .verifying(
+            s"No more than ${Team.maxLeaders} leaders, please",
+            _ => t.leaders.sizeIs < Team.maxLeaders
+          )
+          .verifying(
+            "You can't make Lichess a leader",
+            n => Granter(_.ManageTeam) || n.isnt(User.lichessId)
+          )
+          .verifying(
+            "This user is already a team leader",
+            n => !t.leaders.exists(_ is n)
+          )
+          .verifying(
+            "This user is not part of the team",
+            n => memberRepo.exists(t.id, n).await(1.second, "team member exists")
+          )
+
+    private val permissionsForm = mapping(
       "name" -> lila.user.UserForm.historicalUsernameField,
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
@@ -52,12 +75,8 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: U
         )
     )(LeaderData.apply)(unapply)
 
-    def leaders(t: Team.WithLeaders)(using me: Me): Form[Seq[LeaderData]] = Form(
-      single("leaders" -> seq(leaderForm))
-        .verifying(
-          "You are not allowed to change permissions",
-          _ => Granter(_.ManageTeam) || t.leaders.exists(l => l.is(me) && l.perms(Permission.Admin))
-        )
+    def permissions(t: Team.WithLeaders)(using me: Me): Form[Seq[LeaderData]] = Form(
+      single("leaders" -> seq(permissionsForm))
         .verifying(
           "You can't make Lichess a leader",
           Granter(_.ManageTeam) ||
@@ -83,7 +102,7 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: U
               l.name.is(t.createdBy) && l.perms(Permission.Admin)
         )
         .verifying(
-          "Kid accounts cannot be manage permissions",
+          "Kid accounts cannot manage permissions",
           d =>
             userRepo
               .filterKid(d.filter(_.perms(Permission.Admin)).map(_.name))

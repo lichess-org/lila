@@ -11,7 +11,14 @@
     }
   }
 }
-.team-leaders {
+.team-permissions {
+  p.error {
+    font-size: 1.3em;
+  }
+
+  .form-help {
+    margin: 2em 0 0 0;
+  }
   .form-actions {
     border: none;
     padding-bottom: $box-padding-vert;
@@ -20,11 +27,21 @@
     padding-top: 1em;
     padding-bottom: 1em;
     strong {
+      @extend %break-nope;
       font-size: 1.3em;
       color: $c-brag;
     }
     p {
       margin: 0;
     }
+  }
+}
+.team-add-leader {
+  &__input {
+    display: flex;
+  }
+  margin-bottom: $box-padding-vert;
+  .error {
+    color: $c-bad;
   }
 }

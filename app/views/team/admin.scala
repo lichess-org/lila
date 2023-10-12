@@ -12,7 +12,13 @@ object admin:
 
   import trans.team.*
 
-  def leaders(t: Team.WithLeaders, form: Form[?])(using PageContext) =
+  def leaders(
+      t: Team.WithLeaders,
+      addLeaderForm: Form[UserStr],
+      permsForm: Form[Seq[TeamSecurity.LeaderData]]
+  )(using
+      PageContext
+  ) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -22,37 +28,52 @@ object admin:
         bits.menu(none),
         div(cls := "page-menu__content box")(
           adminTop(t.team, teamLeaders),
-          p(cls := "box__pad")(onlyInviteLeadersTrust()),
-          postForm(cls := "team-leaders form3", action := routes.Team.leaders(t.id))(
-            globalError(form).map(_(cls := "box__pad")),
-            table(cls := "slist slist-pad")(
-              thead:
-                tr(
-                  th("Permission"),
-                  t.leaders.mapWithIndex: (l, i) =>
-                    th(
-                      userIdLink(l.user.some),
-                      form3.hidden(s"leaders[$i].name", l.user)
-                    )
-                )
-              ,
-              tbody:
-                TeamSecurity.Permission.values.map: perm =>
+          standardFlash.map(div(cls := "box__pad")(_)),
+          postForm(
+            cls    := "team-add-leader box__pad complete-parent",
+            action := routes.Team.addLeader(t.id)
+          )(
+            errMsg(addLeaderForm),
+            div(cls := "team-add-leader__input")(
+              st.input(name := "name", attrData("team-id") := t.id, placeholder := "Add a new leader"),
+              form3.submit("Add")
+            )
+          ),
+          postForm(cls := "team-permissions form3", action := routes.Team.permissions(t.id))(
+            globalError(permsForm).map(_(cls := "box__pad text", dataIcon := licon.CautionTriangle)),
+            div(cls := "slist-wrapper"):
+              table(cls := "slist slist-pad")(
+                thead:
                   tr(
-                    th(
-                      strong(perm.name),
-                      p(perm.desc)
-                    ),
+                    th("Permission"),
                     t.leaders.mapWithIndex: (l, i) =>
-                      td:
-                        form3.cmnToggle(
-                          fieldId = s"leaders-$i-perms-${perm.key}",
-                          fieldName = s"leaders[$i].perms[]",
-                          checked = l.perms.contains(perm),
-                          value = perm.key
-                        )
+                      th(
+                        userIdLink(l.user.some, withOnline = false),
+                        form3.hidden(s"leaders[$i].name", l.user)
+                      ),
                   )
-            ),
+                ,
+                tbody:
+                  TeamSecurity.Permission.values.toList.mapWithIndex: (perm, pi) =>
+                    tr(
+                      th(
+                        strong(perm.name),
+                        p(perm.desc)
+                      ),
+                      t.leaders.mapWithIndex: (l, li) =>
+                        permsForm.data.pp
+                        td:
+                          form3.cmnToggle(
+                            fieldId = s"leaders-$li-perms-${perm.key}",
+                            fieldName = s"leaders[$li].perms[]",
+                            checked = (0 to TeamSecurity.Permission.values.size).exists: i =>
+                              permsForm.data.get(s"leaders[$li].perms[$i]").contains(perm.key),
+                            value = perm.key
+                          )
+                    )
+              )
+            ,
+            p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),
             form3.actions(cls := "box__pad")(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())

@@ -13,7 +13,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
-import lila.user.{ User, UserApi, UserRepo, Me }
+import lila.user.{ User, UserApi, UserRepo, Me, MyId }
 import lila.security.Granter
 import java.time.Period
 
@@ -254,11 +254,11 @@ final class TeamApi(
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
-  def searchMembersAs(teamId: TeamId, term: UserStr, as: Option[User], nb: Int): Fu[List[UserId]] =
+  def searchMembersAs(teamId: TeamId, term: UserStr, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
     User.validateId(term) so { valid =>
       team(teamId).flatMapz: team =>
         val canSee =
-          fuccess(team.publicMembers) >>| as.so(me => cached.teamIds(me.id).map(_.contains(teamId)))
+          fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
         canSee.flatMapz:
           memberRepo.coll.primitive[UserId](
             selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith valid.value),

@@ -9,6 +9,13 @@ lichess.load.then(() => {
   $('#form3-members').each(function (this: HTMLInputElement) {
     initTagify(this, 100);
   });
+  $('form.team-add-leader input[name="name"]').each(function (this: HTMLInputElement) {
+    lichess.userComplete({
+      input: this,
+      team: this.dataset.teamId,
+      tag: 'span',
+    });
+  });
 });
 
 function initTagify(input: HTMLInputElement, maxTags: number) {

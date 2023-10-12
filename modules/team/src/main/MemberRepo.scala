@@ -24,8 +24,8 @@ final class MemberRepo(val coll: Coll)(using Executor):
   def get[U: UserIdOf](teamId: TeamId, userId: U): Fu[Option[TeamMember]] =
     coll.byId[TeamMember](TeamMember.makeId(teamId, userId))
 
-  def exists(teamId: TeamId, userId: UserId): Fu[Boolean] =
-    coll.exists(selectId(teamId, userId))
+  def exists[U: UserIdOf](teamId: TeamId, user: U): Fu[Boolean] =
+    coll.exists(selectId(teamId, user))
 
   def add(teamId: TeamId, userId: UserId): Funit =
     coll.insert.one(TeamMember.make(team = teamId, user = userId)).void
@@ -100,7 +100,7 @@ final class MemberRepo(val coll: Coll)(using Executor):
 
   def setAllPerms(teamId: TeamId, data: Seq[TeamSecurity.LeaderData]): Funit =
     data.traverse_ { l =>
-      coll.update.one(selectId(teamId, l.name), $set("perms" -> l.perms))
+      setPerms(teamId, l.name, l.perms)
     }
 
   def addPublicLeaderIds(teams: Seq[Team]): Fu[Seq[Team.WithPublicLeaderIds]] =

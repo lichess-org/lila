@@ -170,30 +170,55 @@ final class Team(
         api.kick(team, username.id) inject ApiResult.Done
   }
 
-  def leadersForm(id: TeamId) = Auth { ctx ?=> _ ?=>
+  def leaders(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Admin): team =>
       api
         .withLeaders(team)
         .flatMap: team =>
-          Ok.page(html.team.admin.leaders(team, env.team.security.form.leaders(team)))
+          Ok.page(leadersPage(team, None, None))
   }
 
-  def leaders(id: TeamId) = AuthBody { ctx ?=> me ?=>
+  def permissions(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Admin): team =>
       api
         .withLeaders(team)
         .flatMap: team =>
           env.team.security.form
-            .leaders(team)
+            .permissions(team)
             .bindFromRequest()
-            .pp
             .fold(
-              err => BadRequest.page(html.team.admin.leaders(team, err)),
+              err => BadRequest.page(leadersPage(team, None, err.some)),
               data =>
-                env.team.security.setLeaders(team, data) inject
-                  Redirect(routes.Team.show(team.id)).flashSuccess
+                env.team.security.setPermissions(team, data) inject
+                  Redirect(routes.Team.leaders(team.id)).flashSuccess
             )
   }
+
+  def addLeader(id: TeamId) = AuthBody { ctx ?=> me ?=>
+    WithOwnedTeamEnabled(id, _.Admin): team =>
+      api
+        .withLeaders(team)
+        .flatMap: team =>
+          env.team.security.form
+            .addLeader(team)
+            .bindFromRequest()
+            .fold(
+              err => BadRequest.page(leadersPage(team, err.some, None)),
+              name =>
+                env.team.security.addLeader(team, name) inject
+                  Redirect(routes.Team.leaders(team.id)).flashSuccess
+            )
+  }
+
+  private def leadersPage(
+      team: TeamModel.WithLeaders,
+      addLeader: Option[Form[UserStr]] = None,
+      permissions: Option[Form[Seq[TeamSecurity.LeaderData]]] = None
+  )(using PageContext, Me) = html.team.admin.leaders(
+    team,
+    addLeader | env.team.security.form.addLeader(team),
+    permissions | env.team.security.form.permissions(team)
+  )
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
     Found(api team id): team =>
