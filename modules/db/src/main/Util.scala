@@ -1,6 +1,7 @@
 package lila.db
 
 import dsl.*
+import reactivemongo.api.bson.BSONArray
 
 object Util:
 
@@ -13,3 +14,8 @@ object Util:
         doc.getAsOpt[Int]("_id") map (1 +)
       } getOrElse 1
     }
+
+  def removeEmptyArray(field: String)(doc: Bdoc): Bdoc =
+    if doc.getAsOpt[BSONArray](field).exists(_.isEmpty)
+    then (doc -- field)
+    else doc
