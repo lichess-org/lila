@@ -65,8 +65,11 @@ final class Env(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
     },
-    "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
-      promise completeWith api.isLeader(teamId, userId)
+    "teamIsLeader" -> {
+      case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+        promise completeWith api.isLeader(teamId, userId)
+      case lila.hub.actorApi.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
+        promise completeWith api.hasPerm(teamId, userId, _.Comm)
     },
     "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
       promise completeWith cached.teamIdsList(userId)

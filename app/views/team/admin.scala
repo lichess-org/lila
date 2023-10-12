@@ -27,9 +27,11 @@ object admin:
             globalError(form).map(_(cls := "box__pad")),
             table(cls := "slist slist-pad")(
               thead:
-                th:
+                tr(
+                  th,
                   TeamSecurity.Permission.values.map: perm =>
-                    td(st.title := perm.desc)(perm.name)
+                    th(st.title := perm.desc)(perm.name)
+                )
               ,
               tbody:
                 t.leaders.mapWithIndex: (l, i) =>
