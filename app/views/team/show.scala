@@ -41,7 +41,7 @@ object show:
         Json
           .obj("id" -> t.id)
           .add("socketVersion" -> socketVersion)
-          .add("chat" -> chatOption.map { chat =>
+          .add("chat" -> chatOption.map: chat =>
             views.html.chat.json(
               chat.chat,
               name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
@@ -49,8 +49,7 @@ object show:
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
               localMod = ctx.userId exists t.leaders.contains
-            )
-          })
+            ))
       )
     ):
       val canSeeMembers = asMod || (t.enabled && (t.publicMembers || info.mine))
