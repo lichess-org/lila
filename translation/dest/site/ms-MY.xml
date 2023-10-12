@@ -639,7 +639,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="gameAnalysis">Analysis permainan</string>
   <string name="xHostsY">%1$s meng\'host\' %2$s</string>
   <string name="xJoinsY">%1$s menyertai %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s menyukai%2$s</string>
+  <string name="xLikesY">%1$s menyukai%2$s</string>
   <string name="quickPairing">Seimbangan pantas</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Nyah-identiti</string>
