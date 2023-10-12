@@ -23,16 +23,30 @@
     border: none;
     padding-bottom: $box-padding-vert;
   }
-  tbody th {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    strong {
-      @extend %break-nope;
-      font-size: 1.3em;
-      color: $c-brag;
+  table {
+    .highlight {
+      background: mix($c-primary, $c-bg-page, 20%) !important;
+      a {
+        color: $c-font-clearer;
+      }
     }
-    p {
-      margin: 0;
+    .cmn-toggle:not(:checked) + label {
+      background-color: $c-bg-low;
+    }
+    th {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      strong {
+        @extend %break-nope;
+        font-size: 1.3em;
+        color: $c-brag;
+      }
+      p {
+        margin: 0;
+      }
+    }
+    td {
+      border-left: $border;
     }
   }
 }

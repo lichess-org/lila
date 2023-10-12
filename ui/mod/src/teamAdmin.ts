@@ -16,7 +16,23 @@ lichess.load.then(() => {
       tag: 'span',
     });
   });
+  $('form.team-permissions table').each(function (this: HTMLTableElement) {
+    permissionsTable(this);
+  });
 });
+
+function permissionsTable(table: HTMLTableElement) {
+  $(table)
+    .find('tbody td')
+    .on('mouseenter', function (this: HTMLTableCellElement) {
+      const index = $(this).index() + 1;
+      $(table).find('.highlight').removeClass('highlight');
+      $(table).find(`tbody td:nth-child(${index}), thead th:nth-child(${index})`).addClass('highlight');
+    });
+  $(table).on('mouseleave', function () {
+    $(table).find('.highlight').removeClass('highlight');
+  });
+}
 
 function initTagify(input: HTMLInputElement, maxTags: number) {
   const team = input.dataset.rel;

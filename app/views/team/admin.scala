@@ -40,17 +40,17 @@ object admin:
           postForm(cls := "team-permissions form3", action := routes.Team.permissions(t.id))(
             globalError(permsForm).map(_(cls := "box__pad text", dataIcon := licon.CautionTriangle)),
             div(cls := "slist-wrapper"):
+              val header = thead:
+                tr(
+                  th,
+                  t.leaders.mapWithIndex: (l, i) =>
+                    th(
+                      userIdLink(l.user.some, withOnline = false),
+                      form3.hidden(s"leaders[$i].name", l.user)
+                    ),
+                )
               table(cls := "slist slist-pad")(
-                thead:
-                  tr(
-                    th("Permission"),
-                    t.leaders.mapWithIndex: (l, i) =>
-                      th(
-                        userIdLink(l.user.some, withOnline = false),
-                        form3.hidden(s"leaders[$i].name", l.user)
-                      ),
-                  )
-                ,
+                header,
                 tbody:
                   TeamSecurity.Permission.values.toList.mapWithIndex: (perm, pi) =>
                     tr(
@@ -68,6 +68,8 @@ object admin:
                             value = perm.key
                           )
                     )
+                ,
+                header
               )
             ,
             p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),

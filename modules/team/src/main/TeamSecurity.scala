@@ -9,7 +9,7 @@ import cats.derived.*
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:
     case Public   extends Permission("Public", "Visible as leader on the team page")
-    case Settings extends Permission("Settings", "Manage the team settings")
+    case Settings extends Permission("Settings", "Change settings and descriptions")
     case Tour     extends Permission("Tournaments", "Create, manage and join team tournaments")
     case Comm     extends Permission("Moderation", "Moderate the forum and chats")
     case Request  extends Permission("Requests", "Accept and decline join requests")
