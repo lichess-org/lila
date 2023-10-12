@@ -197,6 +197,29 @@
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="error.weakPassword">პაროლი ძალიან მარტივია, ადვილი გამოსაცნობი.</string>
   <string name="error.namePassword">გთხოვთ არ გამოიყენოთ თქვენი სახელი პაროლად.</string>
+  <string name="blankedPassword">თქვენ გამოიყენეთ იგივე პაროლი სხვა საიტზე და ის საიტი დაჰაკულია. თქვენი ლიჩესის ექაუნთის უსაფრთხოებისთვის გვჭირდება რომ, დააყენოთ ახალი პაროლი. მადლობა გაგებისთვის.</string>
+  <string name="youAreLeavingLichess">თქვენ დატოვებთ ლიჩესს</string>
+  <string name="neverTypeYourPassword">არასოდეს ჩაწეროთ თქვენი ლიჩესის ექაუნთის პაროლი სხა ვებსაიტზე!</string>
+  <string name="proceedToX">გადავიდეთ %s</string>
+  <string name="passwordSuggestion">არ დააყენოთ სხვის მიერ შეთავაზებული პაროლი. გამოიყენებენ თქვენი ექაუნთის გასატეხად.</string>
+  <string name="emailSuggestion">არ დააყენოთ სხვის მიერ შეთავაზებული იმეილი. გამოიყენებენ თქვენი ექაუნთის გასატეხად.</string>
+  <string name="emailConfirmHelp">დახმარება იმეილის დადასტურებაში</string>
+  <string name="emailConfirmNotReceived">არმოგსვლიათ დამადასტურებელი ელფოსტა რეგისტრაციის შემდეგ?</string>
+  <string name="whatSignupUsername">რა სახელი გამოიყენეთ რეგისტრაციისას?</string>
+  <string name="usernameNotFound">არ მოიძებნა მომხმარებელი ამ სახელით: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">შეგიძლიათ გამოიყენოთ ეს სახელი ახალი ექაუნთის შესაქმნელად</string>
+  <string name="emailSent">ჩვენ გამოგიგზავნეთ ელფოსტა ამ მისამართზე %s.</string>
+  <string name="emailCanTakeSomeTime">დაჭირდება გარკვეული დრო მოსასვლელად.</string>
+  <string name="refreshInboxAfterFiveMinutes">დაელოდეთ 5 წუთი და განაახლეთ თქვენი ელფოსტის ინბოქსი.</string>
+  <string name="checkSpamFolder">ასევე შეამოწმეთ სპამის ფოლდერი, შეიძლება იქ იყოს, თუ ასეა, მონიშნეთ როგორც, არა სპამი.</string>
+  <string name="emailForSignupHelp">თუ არაფერი მუშაობს, გამოგვიგზავნეთ ეს ელფოსტა:</string>
+  <string name="copyTextToEmail">დააკოპირეთ და ჩასვით ტექსტი და გამოაგზავნეთ აქ %s</string>
+  <string name="waitForSignupHelp">ჩვენ მალე დაგიბრუნდებით, რათა დაგეხმაროთ რეგისტრაციის დასრულებაში.</string>
+  <string name="accountConfirmed">ეს მომხმარებელი %s წარმატებულად დადასტურდა.</string>
+  <string name="accountCanLogin">შეგიძლიათ ახლავე შეხვიდეთ, როგორც %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">თქვენ არ გჭირდებათ დამადასტურებელი ელფოსტა.</string>
+  <string name="accountClosed">ექაუნთი %s დახურულია.</string>
+  <string name="accountRegisteredWithoutEmail">ექაუნთი %s დარეგისტრირდა ელფოსტის გარეშე.</string>
   <string name="rank">რანგი</string>
   <string name="rankX">რეიტინგი: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -307,6 +330,7 @@
   </plurals>
   <string name="viewTournament">ნახეთ ტურნირი</string>
   <string name="backToTournament">ტურნირში დაბრუნება</string>
+  <string name="noDrawBeforeSwissLimit">შვეიცარიულ ტურნირზე არ შეგიძლიათ ყაიმი, სანამ 30 სვლა არაა ნათამაშები.</string>
   <string name="thematic">თემატური</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s რეიტინგული პარტია</item>
@@ -336,6 +360,7 @@
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="xJoinedTeamY">%1$s დაკავშირებული ჯგუფი %2$s</string>
   <string name="xCreatedTeamY">%1$s შექმნილი ჯგუფი %2$s</string>
+  <string name="startedStreaming">-მა დაიწყო სტრიმინგი</string>
   <string name="xStartedStreaming">%s-მა დაიწყო სტრიმინგი</string>
   <string name="averageElo">საშვალო ელო</string>
   <string name="location">მდებარეობა</string>
@@ -354,6 +379,7 @@
   <string name="toStudy">კვლევად გადაკეთება</string>
   <string name="importGame">თამაშის იმპორტი</string>
   <string name="importGameExplanation">პარტიის PGN-ს დაკოპირებისას მიიღებთ სრულ თამაშს, კომპიუტერის ანალიზს, თამაშის მიმოწერას და გასაზიარებელ ლინკს.</string>
+  <string name="importGameCaveat">ვარიაციები წაიშლება. მათი შესანარჩუნებლად, დააიმპორტეთ PGN კვლევის მეშვეობით.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s იმპორტირებული თამაშები</item>
     <item quantity="other">%s იმპორტირებული თამაშები</item>
@@ -362,6 +388,8 @@
   <string name="clickOnTheBoardToMakeYourMove">დააჭირეთ მაგიდაზე რომ გააკეთოთ სვლა, და დაამტკიცოთ რომ ადამიანი ხართ</string>
   <string name="captcha.fail">გთხოვთ ამოხსენით ჭადრაკის კაპჩა.</string>
   <string name="notACheckmate">არ არის მატი</string>
+  <string name="whiteCheckmatesInOneMove">შამათი თეთრებით ერთ სვლაში</string>
+  <string name="blackCheckmatesInOneMove">შამათი შავებით, ერთ სვლაში</string>
   <string name="retry">ხელახლა ცდა</string>
   <string name="reconnecting">რეკონექცია</string>
   <plurals name="nbFriendsOnline">
@@ -372,6 +400,8 @@
   <string name="follow">გაყოლა</string>
   <string name="following">მიმდინარე</string>
   <string name="unfollow">არამიმდინარე</string>
+  <string name="followX">გამოგვყევით %s</string>
+  <string name="unfollowX">არგაყვეთ %s</string>
   <string name="block">დაბლოკვა</string>
   <string name="blocked">დაბლოკილი</string>
   <string name="unblock">ბლოკის მოხსნა</string>
