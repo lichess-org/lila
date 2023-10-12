@@ -49,6 +49,7 @@
 Гравці, яким не подобається отримувати повідомлення, можуть покинути команду.</string>
   <string name="teamsIlead">Команди, лідером яких я є</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
+  <string name="onlyInviteLeadersTrust">Запрошуйте лише тих лідерів, яким ви повністю довіряєте. Лідери команд можуть висувати членів та інших лідерів з команди.</string>
   <string name="usersWhoCanManageThisTeam">Користувачі, які можуть керувати цією командою</string>
   <string name="leadersChat">Чат лідерів</string>
   <string name="closeTeam">Закрити команду</string>
