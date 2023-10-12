@@ -185,12 +185,18 @@
   <string name="username">მომხმარებლის სახელი</string>
   <string name="usernameOrEmail">მომხმარებლის სახელი</string>
   <string name="changeUsername">მომხმარებლის სახელის შეცვლა</string>
+  <string name="changeUsernameNotSame">იცვლება მხოლოდ დიდ და პატარა ასოებზე. მაგალითად \"johndoe\" \"JohnDoe\" - ზე.</string>
+  <string name="changeUsernameDescription">შეცვალე სახელი. ცვლილება შეიძლება მხოლოდ ერთხელ, პატარა ასოების დიდებზე თქვენს სახელში.</string>
+  <string name="signupUsernameHint">აირჩიეთ მისაღები-ზრდილობიანი სახელი. ვერ შეძლებთ შემდგომში სახელის შეცვლას და ყველა ექაუნთი მიუღებელი სახელით დაიხურება!</string>
+  <string name="signupEmailHint">გამოვიყენებთ მხოლოდ პაროლის აღსადგენად.</string>
   <string name="password">პაროლი</string>
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>
   <string name="email">ელ. ფოსტა</string>
   <string name="passwordReset">პაროლის აღდგენა</string>
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
+  <string name="error.weakPassword">პაროლი ძალიან მარტივია, ადვილი გამოსაცნობი.</string>
+  <string name="error.namePassword">გთხოვთ არ გამოიყენოთ თქვენი სახელი პაროლად.</string>
   <string name="rank">რანგი</string>
   <string name="rankX">რეიტინგი: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -694,6 +700,7 @@
   <string name="playEveryGame">ითამაშეთ თქვენს მიერ დაწყებული ყოველი თამაში.</string>
   <string name="tryToWin">ეცადეთ, რომ მოიგოთ (ან მინიმუმ ფრედ დაამთავროთ) ყველა თამაში.</string>
   <string name="edit">რედაქტირება</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ბლიცი</string>
   <string name="rapid">სწრაფი</string>
   <string name="classical">კლასიკური</string>
   <string name="ultraBulletDesc">გიჟურად ჩქარი თამაში: 30 წამზე ნაკლები</string>
