@@ -18,7 +18,7 @@ object admin:
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = jsModule("team.admin")
     ):
-      main(cls := "page-menu page-small")(
+      main(cls := "page-menu")(
         bits.menu(none),
         div(cls := "page-menu__content box")(
           adminTop(t.team, teamLeaders),
@@ -28,25 +28,28 @@ object admin:
             table(cls := "slist slist-pad")(
               thead:
                 tr(
-                  th,
-                  TeamSecurity.Permission.values.map: perm =>
-                    th(st.title := perm.desc)(perm.name)
+                  th("Permission"),
+                  t.leaders.mapWithIndex: (l, i) =>
+                    th(
+                      userIdLink(l.user.some),
+                      form3.hidden(s"leaders[$i].name", l.user)
+                    )
                 )
               ,
               tbody:
-                t.leaders.mapWithIndex: (l, i) =>
+                TeamSecurity.Permission.values.map: perm =>
                   tr(
-                    td(
-                      userIdLink(l.user.some),
-                      form3.hidden(s"leaders[$i].name", l.user)
+                    th(
+                      strong(perm.name),
+                      p(perm.desc)
                     ),
-                    TeamSecurity.Permission.values.map: perm =>
+                    t.leaders.mapWithIndex: (l, i) =>
                       td:
-                        st.input(
-                          tpe   := "checkbox",
-                          name  := s"leaders[$i].perms[]",
-                          value := perm.key,
-                          l.perms.contains(perm) option st.checked
+                        form3.cmnToggle(
+                          fieldId = s"leaders-$i-perms-${perm.key}",
+                          fieldName = s"leaders[$i].perms[]",
+                          checked = l.perms.contains(perm),
+                          value = perm.key
                         )
                   )
             ),

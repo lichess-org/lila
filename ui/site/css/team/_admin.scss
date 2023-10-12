@@ -12,11 +12,19 @@
   }
 }
 .team-leaders {
-  .slist thead {
-    @extend %break-nope;
-  }
   .form-actions {
     border: none;
     padding-bottom: $box-padding-vert;
+  }
+  tbody th {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    strong {
+      font-size: 1.3em;
+      color: $c-brag;
+    }
+    p {
+      margin: 0;
+    }
   }
 }
