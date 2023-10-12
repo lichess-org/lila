@@ -66,7 +66,7 @@ final class MemberRepo(val coll: Coll)(using Executor):
   def leaders(teamId: TeamId, perm: Option[Permission.Selector] = None): Fu[List[TeamMember]] =
     coll
       .find(teamQuery(teamId) ++ perm.fold(selectAnyPerm)(selectPerm))
-      .sort($doc("_id" -> 1))
+      .sort($doc("date" -> 1))
       .cursor[TeamMember]()
       .listAll()
 
