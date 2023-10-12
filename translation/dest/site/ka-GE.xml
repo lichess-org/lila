@@ -784,6 +784,10 @@
   <string name="tryToWin">ეცადეთ, რომ მოიგოთ (ან მინიმუმ ფრედ დაამთავროთ) ყველა თამაში.</string>
   <string name="resignLostGames">წაგებული პარტიებიდან გამოდით, დატოვეთ თამაში (ნუ დაელოდებით დროის გასვლას).</string>
   <string name="temporaryInconvenience">ბოდიშს გიხდით დროებითი დისკომფორტისთვის,</string>
+  <string name="wishYouGreatGames">და გისურვებთ კარგი პარტიების თამაშს lichess.org - ზე.</string>
+  <string name="thankYouForReading">მადლობთ, რომ კითხულობთ!</string>
+  <string name="lifetimeScore">მთლიანი ანგარიში</string>
+  <string name="currentMatchScore">მიმდინარე პარტიის ანგარიში</string>
   <string name="edit">რედაქტირება</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ბლიცი</string>
   <string name="rapid">სწრაფი</string>
