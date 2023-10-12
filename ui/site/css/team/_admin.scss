@@ -24,8 +24,10 @@
     padding-bottom: $box-padding-vert;
   }
   table {
-    .highlight {
-      background: mix($c-primary, $c-bg-page, 20%) !important;
+    .highlight,
+    tbody tr:hover td,
+    tbody tr:hover th {
+      background: mix($c-primary, $c-bg-page, 15%) !important;
       a {
         color: $c-font-clearer;
       }
@@ -45,7 +47,8 @@
         margin: 0;
       }
     }
-    td {
+    td,
+    th {
       border-left: $border;
     }
   }
