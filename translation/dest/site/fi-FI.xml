@@ -157,7 +157,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">%1$s-vahvuusluku %2$s pelistä</item>
-    <item quantity="other">%1$s arvosana %2$s peliä</item>
+    <item quantity="other">%1$s-vahvuusluku %2$s pelistä</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s oma kirjanmerkki</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Pikapeli</string>
   <string name="rapid">Nopea</string>
   <string name="classical">Klassinen</string>
   <string name="ultraBulletDesc">Järjettömän nopeat pelit: alle 30 sekuntia</string>
