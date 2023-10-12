@@ -110,7 +110,7 @@ object show:
                     label(`for` := "team-subscribe")(subToTeamMessages.txt())
                   )
                 ),
-              (info.mine && !info.ledByMe) option
+              (info.mine && !info.amGranted(_.Admin)) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),

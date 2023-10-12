@@ -32,7 +32,7 @@ object list:
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(myTeams()),
-          standardFlash,
+          standardFlash.map(div(cls := "box__pad")(_)),
           ctx.me.filter(me => teams.size > Team.maxJoin(me)) map { me =>
             flashMessage("failure"):
               s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
