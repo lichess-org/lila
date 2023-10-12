@@ -283,6 +283,7 @@ object Flags:
     C("_adygea", "Adygea"),
     C("_belarus-wrw", "Belarus White-red-white"),
     C("_east-turkestan", "East Turkestan"),
+    C("_esperanto", "Esperanto"),
     C("_lichess", "Lichess"),
     C("_pirate", "Pirate"),
     C("_rainbow", "Rainbow"),
@@ -310,7 +311,8 @@ object Flags:
     "_rainbow",
     "_united-nations",
     "_earth",
-    "_transgender"
+    "_transgender",
+    "_esperanto"
   )
 
   def info(code: String): Option[Flag] = map get code
