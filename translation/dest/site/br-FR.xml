@@ -607,7 +607,7 @@
   <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Deskrivadur prevez</string>
+  <string name="descPrivate">Deskrivadur prevez</string>
   <string name="descPrivateHelp">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
   <string name="no">Nann</string>
   <string name="yes">Ya</string>
@@ -770,7 +770,7 @@
   <string name="keyMoveBackwardOrForward">mont war-raok/kilañ</string>
   <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
-  <string name="keyEnterOrExitVariation" comment="In a Lichess move list, a set of moves branching from the mainline is called a 'variation'.&#10;&#10;For example, in 1. e4 e5 (1...e6 2. d4) 2. Bc4:&#10;1. e4 e5 is the mainline&#10;(1... e6 2.d4) is the variation. Pawn to e6 an alternative move for Black, which prompts White to respond differently, with d4 instead of Bc4 which they planned originally in case Black played e5.&#10;&#10;This string is for keyboard shortcuts. While checking moves using the keyboard, you can move in and out of variations in the move list. Shift + left or right let you change between navigating through moves in the mainline or the variation. This also works for sub-variations.">mont ebarzh/kuitaat an eilstumm</string>
+  <string name="keyEnterOrExitVariation">mont ebarzh/kuitaat an eilstumm</string>
   <string name="keyNextLearnFromYourMistakes">Da heul (deskit diouzh ho fazioù)</string>
   <string name="keyNextBlunder">Blunder nesañ</string>
   <string name="keyNextMistake">Fazi nesañ</string>
@@ -846,7 +846,7 @@
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
   <string name="xHostsY">%1$s a ro bod da %2$s</string>
   <string name="xJoinsY">%1$s a gemer perzh e %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">Plijet eo %1$s gant %2$s</string>
+  <string name="xLikesY">Plijet eo %1$s gant %2$s</string>
   <string name="quickPairing">Koubladeg war ar prim</string>
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
