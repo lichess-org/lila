@@ -16,9 +16,7 @@ object admin:
       t: Team.WithLeaders,
       addLeaderForm: Form[UserStr],
       permsForm: Form[Seq[TeamSecurity.LeaderData]]
-  )(using
-      PageContext
-  ) =
+  )(using PageContext) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -61,7 +59,6 @@ object admin:
                         p(perm.desc)
                       ),
                       t.leaders.mapWithIndex: (l, li) =>
-                        permsForm.data.pp
                         td:
                           form3.cmnToggle(
                             fieldId = s"leaders-$li-perms-${perm.key}",
@@ -120,7 +117,7 @@ object admin:
 $('.copy-url-button').on('click', function(e) {
 $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n')
 })""")
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -128,9 +125,9 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
           p(messageAllMembersLongDescription()),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
-            p(
-              ul(
-                tours.map { t =>
+            p:
+              ul:
+                tours.map: t =>
                   li(
                     tournamentLink(t),
                     " ",
@@ -142,9 +139,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
                       data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                     )
                   )
-                }
-              )
-            ),
+            ,
             br
           ),
           postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
@@ -181,7 +176,6 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
           )
         )
       )
-    }
 
   private def adminTop(t: Team, i18n: lila.i18n.I18nKey)(using Lang) =
     boxTop:

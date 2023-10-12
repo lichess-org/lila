@@ -10,7 +10,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
 import lila.user.{ User, UserApi, UserRepo, Me, MyId }
@@ -37,9 +37,10 @@ final class TeamApi(
 
   def teamEnabled(id: TeamId) = teamRepo enabled id
 
-  def leaderTeam(id: TeamId) = teamRepo.coll.byId[LeaderTeam](id, $doc("name" -> true))
+  def leaderTeam(id: TeamId) = teamRepo.coll.byId[LightTeam](id, $doc("name" -> true))
 
-  def lightsByLeader = teamRepo.lightsByLeader
+  def lightsByTourLeader[U: UserIdOf](leader: U): Fu[List[LightTeam]] =
+    memberRepo.teamsLedBy(leader, Some(_.Tour)) flatMap teamRepo.lightsByIds
 
   def request(id: Request.ID) = requestRepo.coll.byId[Request](id)
 
@@ -85,12 +86,6 @@ final class TeamApi(
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
       indexer ! InsertTeam(team)
-
-  def isGranted(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(using me: Me): Fu[Boolean] =
-    memberRepo.hasPerm(teamId, me, perm)
-
-  def isCreatorGranted(team: Team, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
-    memberRepo.hasPerm(team.id, team.createdBy, perm)
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached teamIdsList me flatMap teamRepo.byIdsSortPopular flatMap memberRepo.addMyLeadership
@@ -309,22 +304,6 @@ final class TeamApi(
     }
   } getOrElse Set.empty
 
-  def isLeader[U: UserIdOf](team: TeamId, leader: U) =
-    belongsTo(team, leader).flatMapz:
-      memberRepo.hasAnyPerm(team, leader)
-
-  def isGranted(team: TeamId, user: User, perm: TeamSecurity.Permission.Selector) =
-    fuccess(Granter.of(_.ManageTeam)(user)) >>|
-      hasPerm(team, user.id, perm)
-
-  def hasPerm(team: TeamId, userId: UserId, perm: TeamSecurity.Permission.Selector) =
-    belongsTo(team, userId).flatMapz:
-      memberRepo.hasPerm(team, userId, perm)
-
-  def isLeaderOf[U: UserIdOf](leader: UserId, member: U) =
-    cached.teamIdsList(member) flatMap:
-      memberRepo.leadsOneOf(leader, _)
-
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     isCreatorGranted(team, _.Admin).flatMap: activeCreator =>
       if Granter(_.ManageTeam) || me.is(team.createdBy) || !activeCreator
@@ -345,7 +324,7 @@ final class TeamApi(
         ids.nonEmpty option Team.IdAndLeaderIds(teamId, ids)
 
   def teamsLedBy[U: UserIdOf](leader: U): Fu[List[Team]] = for
-    ids   <- memberRepo.teamsLedBy(leader)
+    ids   <- memberRepo.teamsLedBy(leader, None)
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
 
@@ -369,9 +348,27 @@ final class TeamApi(
     belongsTo(teamId, u).flatMapz:
       memberRepo.get(teamId, u)
 
-  def leads[U: UserIdOf](teamId: TeamId, u: U): Fu[Boolean] =
-    belongsTo(teamId, u).flatMapz:
-      memberRepo.hasAnyPerm(teamId, u)
+  def isGranted(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(using me: Me): Fu[Boolean] =
+    memberRepo.hasPerm(teamId, me, perm)
+
+  def isCreatorGranted(team: Team, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
+    memberRepo.hasPerm(team.id, team.createdBy, perm)
+
+  def isLeader[U: UserIdOf](team: TeamId, leader: U) =
+    belongsTo(team, leader).flatMapz:
+      memberRepo.hasAnyPerm(team, leader)
+
+  def isGranted(team: TeamId, user: User, perm: TeamSecurity.Permission.Selector) =
+    fuccess(Granter.of(_.ManageTeam)(user)) >>|
+      hasPerm(team, user.id, perm)
+
+  def hasPerm(team: TeamId, userId: UserId, perm: TeamSecurity.Permission.Selector) =
+    belongsTo(team, userId).flatMapz:
+      memberRepo.hasPerm(team, userId, perm)
+
+  def isLeaderOf[U: UserIdOf](leader: UserId, member: U) =
+    cached.teamIdsList(member) flatMap:
+      memberRepo.leadsOneOf(leader, _)
 
   def withLeaders(team: Team): Fu[Team.WithLeaders] =
     memberRepo.leaders(team.id).map(Team.WithLeaders(team, _))

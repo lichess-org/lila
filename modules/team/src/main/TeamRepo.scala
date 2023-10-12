@@ -6,13 +6,11 @@ import reactivemongo.api.bson.*
 import java.time.Period
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 
 final class TeamRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
-
-  private val lightProjection = $doc("name" -> true).some
 
   def byId(id: TeamId) = coll.byId[Team](id)
 
@@ -21,11 +19,11 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def byLeader(id: TeamId, leaderId: UserId): Fu[Option[Team]] =
     coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
 
-  def lightsByLeader(leaderId: UserId): Fu[List[LeaderTeam]] =
+  def lightsByIds(ids: Iterable[TeamId]): Fu[List[LightTeam]] =
     coll
-      .find($doc("leaders" -> leaderId) ++ enabledSelect, lightProjection)
+      .find($inIds(ids) ++ enabledSelect, $doc("name" -> true).some)
       .sort(sortPopular)
-      .cursor[LeaderTeam](ReadPref.sec)
+      .cursor[LightTeam](ReadPref.sec)
       .list(100)
 
   def enabled(id: TeamId) = coll.one[Team]($id(id) ++ enabledSelect)

@@ -85,13 +85,14 @@ final class MemberRepo(val coll: Coll)(using Executor):
   def leadsOneOf(userId: UserId, teamIds: Seq[TeamId]): Fu[Boolean] = teamIds.nonEmpty so
     coll.secondaryPreferred.exists(selectIds(teamIds, userId) ++ selectAnyPerm)
 
-  def teamsWhereIsLeader(teamIds: Seq[TeamId], leader: UserId): Fu[Set[TeamId]] =
+  def teamsLedBy[U: UserIdOf](leader: U, perm: Option[Permission.Selector]): Fu[Seq[TeamId]] =
+    coll.secondaryPreferred
+      .primitive[TeamId](selectUser(leader) ++ perm.fold(selectAnyPerm)(selectPerm), "team")
+
+  def filterLedBy(teamIds: Seq[TeamId], leader: UserId): Fu[Set[TeamId]] =
     coll.secondaryPreferred
       .primitive[TeamId](selectIds(teamIds, leader) ++ selectAnyPerm, "team")
       .dmap(_.toSet)
-
-  def teamsLedBy[U: UserIdOf](leader: U): Fu[Seq[TeamId]] =
-    coll.secondaryPreferred.primitive[TeamId](selectUser(leader) ++ selectAnyPerm, "team")
 
   def unsetAllPerms(teamId: TeamId): Funit =
     coll.update
@@ -115,7 +116,7 @@ final class MemberRepo(val coll: Coll)(using Executor):
         teams.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil)))
 
   def addMyLeadership(teams: Seq[Team])(using me: Option[MyId]): Fu[List[Team.WithMyLeadership]] =
-    me.so(teamsWhereIsLeader(teams.map(_.id), _))
+    me.so(filterLedBy(teams.map(_.id), _))
       .map: myTeams =>
         teams.view.map(t => Team.WithMyLeadership(t, myTeams contains t.id)).toList
 

@@ -161,6 +161,14 @@ object show:
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := licon.Gear)(
                   trans.settings.settings()
                 ),
+              ((t.enabled && info.amGranted(_.Admin)) || asMod) option
+                a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
+              ((t.enabled && info.amGranted(_.Kick)) || asMod) option
+                a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
+              ((t.enabled && info.amGranted(_.Request)) || asMod) option
+                a(cls := "button button-empty", href := routes.Team.declinedRequests(t.id))(
+                  declinedRequests()
+                ),
               ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !asMod) option a(
                 href := routes.Team.show(t.id, 1, mod = true),
                 cls  := "button button-red"

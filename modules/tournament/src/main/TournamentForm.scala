@@ -5,10 +5,9 @@ import chess.{ Clock, Mode }
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import play.api.data.*
 import play.api.data.Forms.*
-import scala.util.chaining.*
 
 import lila.common.Form.{ *, given }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.user.Me
 import lila.gathering.GatheringClock
 
@@ -17,7 +16,7 @@ final class TournamentForm:
   import TournamentForm.*
   import GatheringClock.*
 
-  def create(leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
+  def create(leaderTeams: List[LightTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
     form(leaderTeams, none) fill empty(teamBattleId)
 
   private[tournament] def empty(teamBattleId: Option[TeamId] = None)(using me: Me) =
@@ -41,7 +40,7 @@ final class TournamentForm:
       hasChat = true.some
     )
 
-  def edit(leaderTeams: List[LeaderTeam], tour: Tournament)(using Me) =
+  def edit(leaderTeams: List[LightTeam], tour: Tournament)(using Me) =
     form(leaderTeams, tour.some) fill fillFromTour(tour)
 
   private[tournament] def fillFromTour(tour: Tournament) =
@@ -65,21 +64,21 @@ final class TournamentForm:
       hasChat = tour.hasChat.some
     )
 
-  private def form(leaderTeams: List[LeaderTeam], prev: Option[Tournament])(using Me) =
+  private def form(leaderTeams: List[LightTeam], prev: Option[Tournament])(using Me) =
     Form:
-      makeMapping(leaderTeams).pipe: m =>
-        prev.fold(m): tour =>
-          m
-            .verifying(
-              "Can't change variant after players have joined",
-              _.realVariant == tour.variant || tour.nbPlayers == 0
-            )
-            .verifying(
-              "Can't change time control after players have joined",
-              _.speed == tour.speed || tour.nbPlayers == 0
-            )
+      val m = makeMapping(leaderTeams)
+      prev.fold(m): tour =>
+        m
+          .verifying(
+            "Can't change variant after players have joined",
+            _.realVariant == tour.variant || tour.nbPlayers == 0
+          )
+          .verifying(
+            "Can't change time control after players have joined",
+            _.speed == tour.speed || tour.nbPlayers == 0
+          )
 
-  private def makeMapping(leaderTeams: List[LeaderTeam])(using me: Me) =
+  private def makeMapping(leaderTeams: List[LightTeam])(using me: Me) =
     mapping(
       "name"           -> optional(eventName(2, 30, me.isVerifiedOrAdmin)),
       "clockTime"      -> numberInDouble(timeChoices),
