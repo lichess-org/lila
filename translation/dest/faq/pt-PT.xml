@@ -31,7 +31,7 @@
   <string name="fairPlayPage">página de fair-play</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
-  <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
+  <string name="howBulletBlitzEtcDecided">Como é que bullet, rápidas e outros ritmos de jogo são decididos?</string>
   <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
