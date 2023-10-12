@@ -527,7 +527,7 @@
   <string name="tournamentWinners">Verseny győztesek</string>
   <string name="name">Név</string>
   <string name="description">Leírás</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Privát leírás</string>
+  <string name="descPrivate">Privát leírás</string>
   <string name="descPrivateHelp">Szöveg, amit csak a csapattagok láthatnak. Kitöltés esetén lecseréli a nyilvános leírást a csapattagok számára.</string>
   <string name="no">Nem</string>
   <string name="yes">Igen</string>
@@ -684,7 +684,7 @@
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
-  <string name="keyEnterOrExitVariation" comment="In a Lichess move list, a set of moves branching from the mainline is called a 'variation'.&#10;&#10;For example, in 1. e4 e5 (1...e6 2. d4) 2. Bc4:&#10;1. e4 e5 is the mainline&#10;(1... e6 2.d4) is the variation. Pawn to e6 an alternative move for Black, which prompts White to respond differently, with d4 instead of Bc4 which they planned originally in case Black played e5.&#10;&#10;This string is for keyboard shortcuts. While checking moves using the keyboard, you can move in and out of variations in the move list. Shift + left or right let you change between navigating through moves in the mainline or the variation. This also works for sub-variations.">ki/belépés változatba</string>
+  <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
   <string name="keyRequestComputerAnalysis">Kérelmezz számítógépes elemzést és tanulj a hibáidból</string>
   <string name="keyNextLearnFromYourMistakes">Következő (Tanulj a hibáidból)</string>
   <string name="keyNextBlunder">Következő baklövés</string>
@@ -759,7 +759,7 @@
   <string name="gameAnalysis">Játék elemzés</string>
   <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
   <string name="xJoinsY">%1$s csatlakozott a %2$shoz</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s kedvel egy tanulmányt: %2$s</string>
+  <string name="xLikesY">%1$s kedvel egy tanulmányt: %2$s</string>
   <string name="quickPairing">Gyors játszma</string>
   <string name="lobby">Lobbi</string>
   <string name="anonymous">Névtelen</string>
