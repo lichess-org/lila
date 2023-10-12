@@ -54,6 +54,7 @@
 У рідкісних випадках це складно визначити автоматично (серія вимушених ходів, фортеці). Зазвичай ми завжди на стороні гравця, який не вичерпав часу.
 
 Зверніть увагу, що можна поставити мат одним конем або слоном, якщо суперник має фігуру, яка може заблокувати короля.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Довідник FIDE</string>
   <string name="fideHandbookX">Довідник ФІДЕ %s</string>
   <string name="discoveringEnPassant">Чому пішак може захопити іншого пішака, коли він вже пройшов? (взяття на проході)</string>
   <string name="explainingEnPassant">Це дозволений хід, відомий як \"взяття на проході\". Стаття Вікіпедії дає %1$s.
