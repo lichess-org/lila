@@ -895,6 +895,7 @@
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Clasic</string>
   <string name="ultraBulletDesc">Partide incredibil de rapide: mai puțin de 30 de secunde</string>
