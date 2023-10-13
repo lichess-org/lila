@@ -46,7 +46,7 @@
     <item quantity="one">Huet %s Simultanvirstellung presentéiert</item>
     <item quantity="other">Huet %s Simultanvirstellunge presentéiert</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Huet bei %s Simultanvirstellung matgemaach</item>
     <item quantity="other">Huet bei %s Simultanvirstellunge matgemaach</item>
   </plurals>
