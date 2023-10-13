@@ -46,7 +46,7 @@
     <item quantity="one">Piti %s simultaanin</item>
     <item quantity="other">Piti %s simultaania</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Osallistui %s simultaaniin</item>
     <item quantity="other">Osallistui %s simultaaniin</item>
   </plurals>
