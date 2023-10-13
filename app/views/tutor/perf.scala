@@ -80,6 +80,8 @@ object perf:
   )(using Context) = p(
     report percentTimeOf perfReport.perf map { percent =>
       frag(
+        perfReport.perf.trans,
+        " games represent ",
         bits.percentFrag(percent),
         " of your chess playing time.",
         br
