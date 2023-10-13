@@ -247,7 +247,6 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         forms
           .create(teams)
           .bindFromRequest()
-          .pp
           .fold(
             err =>
               negotiate(
