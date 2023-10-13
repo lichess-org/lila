@@ -46,7 +46,7 @@
     <item quantity="one">%s \"एक विरूद्ध अनेक\" प्रदर्शनाचे आतिथ्य केले</item>
     <item quantity="other">%s एकावेळी प्रदर्शनाचे आतिथ्य केले</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">एका वेळच्या प्रदर्शनामध्ये %s वेळ सहभाग घेतला</item>
     <item quantity="other">एका वेळच्या प्रदर्शनामध्ये %s वेळा सहभाग घेतला</item>
   </plurals>
