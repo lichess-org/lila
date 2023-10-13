@@ -120,10 +120,15 @@ final class Team(
         html.team.tournaments.page(team, _)
       }
 
+  private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: PageContext) = for
+    member <- env.team.memberRepo.get(team.id, me).orFail(s"no member ${me.userId} in ${team.id}")
+    _      <- env.msg.twoFactorReminder(me)
+    page   <- renderPage(html.team.form.edit(team, forms.edit(team), member))
+  yield page
+
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>
-      env.msg.twoFactorReminder(me) >>
-        Ok.page(html.team.form.edit(team, forms edit team))
+      Ok.pageAsync(renderEdit(team, forms.edit(team)))
   }
 
   def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -132,7 +137,7 @@ final class Team(
         .edit(team)
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(html.team.form.edit(team, err)),
+          err => BadRequest.pageAsync(renderEdit(team, err)),
           data => api.update(team, data) inject Redirect(routes.Team.show(team.id)).flashSuccess
         )
   }

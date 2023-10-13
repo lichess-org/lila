@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.team.Team
+import lila.team.{ Team, TeamMember }
 
 object form:
 
@@ -36,7 +36,7 @@ object form:
       )
     }
 
-  def edit(t: Team, form: Form[?])(using ctx: PageContext) =
+  def edit(t: Team, form: Form[?], member: TeamMember)(using ctx: PageContext) =
     bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
@@ -53,14 +53,15 @@ object form:
             )
           ),
           hr,
-          t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
-            explainInput,
-            submitButton(
-              dataIcon := licon.CautionCircle,
-              cls      := "submit button text explain button-empty button-red",
-              st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
-            )(closeTeam())
-          ),
+          (t.enabled && (member.isGranted(_.Admin) || isGranted(_.ManageTeam))) option
+            postForm(cls := "inline", action := routes.Team.disable(t.id))(
+              explainInput,
+              submitButton(
+                dataIcon := licon.CautionCircle,
+                cls      := "submit button text explain button-empty button-red",
+                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
+              )(closeTeam())
+            ),
           isGranted(_.ManageTeam) option
             postForm(cls := "inline", action := routes.Team.close(t.id))(
               explainInput,
