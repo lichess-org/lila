@@ -710,7 +710,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="zeroAdvertisement">Không có quảng cáo</string>
   <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
-  <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ chậm</string>
+  <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ nhanh, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem lời giải</string>
