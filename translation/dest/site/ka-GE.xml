@@ -593,13 +593,18 @@
   <string name="opponent">მოწინააღმდეგე</string>
   <string name="learnMenu">შესწავლა</string>
   <string name="studyMenu">კვლევა</string>
+  <string name="practice">ვარჯიში</string>
   <string name="community">საზოგადოება</string>
   <string name="tools">ინსტრუმენთა პანელი</string>
   <string name="increment">დანამატი</string>
+  <string name="error.unknown">არასწორი პარამეტრი</string>
   <string name="error.required">აღნიშნული ველის შევსება სავალდებულოა</string>
+  <string name="error.email">აღნიშნული ელფოსტის მისამართი არასწორია</string>
   <string name="error.email_acceptable">ეს ელ. ფოსტა მიუღებელია. გთხოვთ ხელმეორედ გადაამოწმოთ და თავიდან სცადოთ.</string>
   <string name="error.email_unique">ელ. ფოსტის მისამართი არასწორია ან დაკავებულია</string>
   <string name="error.email_different">ეს თქვენი მოქმედი ელ. ფოსტის მისამართია</string>
+  <string name="error.minLength">უნდა შეიცავდეს მინიმუმ %s სიმბოლოს</string>
+  <string name="error.maxLength">უნდა იყოს მაქსიმუმ %s სიმბოლო</string>
   <string name="error.min">უნდა იყოს მინიმუმ %s</string>
   <string name="error.max">უნდა იყოს მაქსიმუმ %s</string>
   <string name="ifRatingIsPlusMinusX">თუ რეიტინგი არის +/- %s</string>
@@ -624,6 +629,7 @@
   <string name="webmasters">ვებმასტერები</string>
   <string name="about">შესახებ</string>
   <string name="aboutX">%s-(ი)ს შესახებ</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s არის უფასო (%2$s), რეკლამის გარეშე, ღია პროექტი, ჭადრაკის სათამაშო სერვერი.</string>
   <string name="really">მართლა</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="termsOfService">მომსახურების პირობები</string>
