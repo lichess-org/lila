@@ -27,7 +27,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def byIdsSortPopular(ids: Iterable[TeamId]): Fu[List[Team]] =
     coll
-      .find($inIds(ids))
+      .find($inIds(ids) ++ enabledSelect)
       .sort(sortPopular)
       .cursor[Team](ReadPref.sec)
       .list(100)
