@@ -30,7 +30,7 @@
     <item quantity="one">Hosted %s sabay na eksibisyon</item>
     <item quantity="other">Naka-host na %s sabay na eksibisyon</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Sumali sa %s sabay-sabay na eksibisyon</item>
     <item quantity="other">Sumali sa %s sabay-sabay na eksibisyon</item>
   </plurals>
