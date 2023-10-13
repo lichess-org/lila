@@ -932,6 +932,7 @@
   <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Рэдагаваць</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Хуткія</string>
   <string name="classical">Класіка</string>
   <string name="ultraBulletDesc">Вар\'яцкі хуткія гульні: меней 30 секунд</string>

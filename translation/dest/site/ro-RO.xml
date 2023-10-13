@@ -552,7 +552,7 @@
   <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Descriere privată</string>
+  <string name="descPrivate">Descriere privată</string>
   <string name="descPrivateHelp">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
@@ -784,7 +784,7 @@
   <string name="gameAnalysis">Analiza jocului</string>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s îi place %2$s</string>
+  <string name="xLikesY">%1$s îi place %2$s</string>
   <string name="quickPairing">Potrivire rapidă</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonim</string>
@@ -895,6 +895,7 @@
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Clasic</string>
   <string name="ultraBulletDesc">Partide incredibil de rapide: mai puțin de 30 de secunde</string>

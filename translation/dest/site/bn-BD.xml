@@ -500,7 +500,7 @@
   <string name="tournamentWinners">Tournament বিজয়ীরা</string>
   <string name="name">নাম</string>
   <string name="description">বিবরণ</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">ব্যাক্তিগত বর্ননা</string>
+  <string name="descPrivate">ব্যাক্তিগত বর্ননা</string>
   <string name="descPrivateHelp">যে লেখা শুধু দলের সদস্য দেখতে পাবে.</string>
   <string name="no">না</string>
   <string name="yes">হ্যা</string>
@@ -724,7 +724,7 @@
   <string name="gameAnalysis">খেলা বিশ্লেষন</string>
   <string name="xHostsY">%1$s নির্মানকর্তা %2$s</string>
   <string name="xJoinsY">%1$s যোগদেয় %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s পচ্ছন্দ %2$s</string>
+  <string name="xLikesY">%1$s পচ্ছন্দ %2$s</string>
   <string name="quickPairing">দ্রুত জোর-বাঁধানো</string>
   <string name="lobby">উপশালা</string>
   <string name="anonymous">অজ্ঞাত</string>

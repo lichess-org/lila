@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã nhập?</string>
   <string name="replayMode">Chế độ xem lại</string>
   <string name="realtimeReplay">Thời gian thực</string>
-  <string name="byCPL">Theo thất thế</string>
+  <string name="byCPL">Theo phần trăm mất tốt (CPL)</string>
   <string name="openStudy">Mở nghiên cứu</string>
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
@@ -494,7 +494,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Mô tả riêng tư</string>
+  <string name="descPrivate">Mô tả riêng tư</string>
   <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
@@ -642,13 +642,13 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
-  <string name="averageCentipawnLoss">Thất thế trung bình mỗi nước (ACPL)</string>
+  <string name="averageCentipawnLoss">Phần trăm mất tốt trung bình mỗi nước (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
   <string name="keyboardShortcuts">Các phím tắt</string>
   <string name="keyMoveBackwardOrForward">tua lại/đi tới</string>
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
-  <string name="keyEnterOrExitVariation">vào/thoát biến thể cờ</string>
+  <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ lỗi sai của bạn</string>
   <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ lỗi sai của bạn)</string>
   <string name="keyNextBlunder">Nước sai lầm nghiêm trọng tiếp theo</string>
@@ -721,7 +721,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s thích %2$s</string>
+  <string name="xLikesY">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
@@ -826,6 +826,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Cờ chớp</string>
   <string name="rapid">Cờ nhanh</string>
   <string name="classical">Cờ chậm</string>
   <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>

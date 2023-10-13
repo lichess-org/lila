@@ -887,6 +887,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Ludo brze partije: vrijeme manje od 30 sekundi</string>

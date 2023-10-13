@@ -693,7 +693,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
-  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, blitz, clássico, chess960, rei da colina, três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
+  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, Rápida, Clássica, Chess960, Rei da Colina, Três Xeques e mais opções disponíveis para uma diversão ilimitada.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O torneio pode ter sido cancelado, se todos os jogadores tiverem saíram antes do seu começo.</string>
@@ -868,6 +868,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rápidas</string>
   <string name="rapid">Semi-rápidas</string>
   <string name="classical">Clássicas</string>
   <string name="ultraBulletDesc">Partidas incrivelmente rápidas: menos de 30 segundos</string>

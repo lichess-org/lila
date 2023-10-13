@@ -54,6 +54,7 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
 드물지만 자동으로 결정하기 힘들 수도 있습니다. (강제수, 요새 구축 등) 기본적으로 우리는 항상 시간이 부족하지 않은 플레이어의 편입니다.
 
 상대의 기물이 상대 킹의 진로를 막고 있는 상황에서는 비숍이나 나이트 한 개만으로도 상대 킹을 체크메이트 시킬 수 있다는 것에 유의하세요.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE 안내문</string>
   <string name="fideHandbookX">FIDE 핸드북 %s</string>
   <string name="discoveringEnPassant">왜 폰이 이미 지나쳐간 다른 폰을 잡을 수 있나요? (앙파상)</string>
   <string name="explainingEnPassant">\"앙파상\"이라는 규칙입니다. 위키피디아의 %1$s를 읽어보세요.

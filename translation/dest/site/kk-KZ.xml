@@ -564,7 +564,7 @@
   <string name="noNoteYet">Жазба жоқ</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Сәйкестік-растау құлыпсөзі қате</string>
+  <string name="invalidAuthenticationCode">Өкіл-растама құлыпсөзі қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>

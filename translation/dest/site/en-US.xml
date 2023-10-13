@@ -868,6 +868,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
   <string name="edit">Edit</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Insanely fast games: less than 30 seconds</string>
