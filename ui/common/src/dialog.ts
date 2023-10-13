@@ -41,8 +41,8 @@ export interface DomDialogOpts extends DialogOpts {
 }
 
 export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: MaybeVNodes; // snabDialog auto-shows by default, but you must still call redraw
-  onInsert?: (dialog: Dialog) => void; // prevents showModal, caller must do so manually
+  vnodes?: MaybeVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
+  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 
 // Action can be any "clickable" client button, usually to dismiss the dialog
