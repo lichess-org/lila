@@ -46,7 +46,7 @@
     <item quantity="one">%s مسابقه هم‌زمان برگزار کرد</item>
     <item quantity="other">%s مسابقه هم‌زمان برگزار کرد</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">در %s مسابقه هم‌زمان شرکت کرد</item>
     <item quantity="other">در %s مسابقه هم‌زمان شرکت کرد</item>
   </plurals>
