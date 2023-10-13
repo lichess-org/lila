@@ -253,7 +253,7 @@
   <string name="yourOpponentOffersADraw">Đối thủ xin hoà</string>
   <string name="accept">Đồng ý</string>
   <string name="decline">Từ chối</string>
-  <string name="playingRightNow">Ván đấu đang đánh</string>
+  <string name="playingRightNow">Đang diễn ra</string>
   <string name="eventInProgress">Đang diễn ra</string>
   <string name="finished">Hoàn thành</string>
   <string name="finishesX">kết thúc trong %s</string>
