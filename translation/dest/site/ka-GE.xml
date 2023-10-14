@@ -507,8 +507,8 @@
   <string name="tournamentWinners">ტურნირის გამარჯვებულნი</string>
   <string name="name">სახელი</string>
   <string name="description">აღწერა</string>
-  <string name="descPrivate">პრივატული აღწერილობა</string>
-  <string name="descPrivateHelp">ტექსტი, რომელსაც მხოლოდ გუნდის წევრები ნახავენ. თუ დაყენებულია, ცვლის საჯარო აღწერილობას გუნდის წევრებისთვის.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">პრივატული აღწერილობა</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ტექსტი, რომელსაც მხოლოდ გუნდის წევრები ნახავენ. თუ დაყენებულია, ცვლის საჯარო აღწერილობას გუნდის წევრებისთვის.</string>
   <string name="no">არა</string>
   <string name="yes">დიახ</string>
   <string name="help">დახმარება</string>
@@ -653,24 +653,39 @@
   <string name="simulClockHint">ფიშერის საათის გამართვა. რაც მეტ მოთამაშეს დაუპირისპირდებით, შესაძლოა მით მეტი დრო დაგჭირდეთ.</string>
   <string name="simulAddExtraTime">თქვენ შეგიძლიათ დროის დამატება ერთდროული თამაშისას.</string>
   <string name="simulHostExtraTime">თამაშის შემქნელის დამატები დრო</string>
+  <string name="simulAddExtraTimePerPlayer">დაამატეთ საწყისი დრო თქვენს საათს თითოეული მოთამაშისთვის, რომელიც უერთდება სიმულს.</string>
+  <string name="simulHostExtraTimePerPlayer">დაამატე დრო სიმულის შემქმნელის საათზე, ყოველ შემოსულ მოთამაშეზე</string>
   <string name="lichessTournaments">Lichess ტურნირები</string>
   <string name="tournamentFAQ">Arena ტურნირის ხშირი შეკითხვები</string>
   <string name="timeBeforeTournamentStarts">ტურნირის დაწყებამდე დარჩენილი დრო</string>
   <string name="averageCentipawnLoss">საშუალო დანაკარგი \"პაიკ-პროცენტში\" (პაიკის მეასედი)</string>
+  <string name="accuracy">სიზუსტე</string>
   <string name="keyboardShortcuts">კომბინაციები კლავიატურაზე</string>
   <string name="keyMoveBackwardOrForward">უკანსვლა/წინსვლა</string>
   <string name="keyGoToStartOrEnd">დასაწყისი/დასასრული</string>
   <string name="keyShowOrHideComments">კომენტარების ჩვენება/დამალვა</string>
   <string name="keyEnterOrExitVariation">ვარიაციაში შესვლა/გამოსვლა</string>
+  <string name="keyRequestComputerAnalysis">მოითხოვეთ კომპიუტერული ანალიზი, ისწავლეთ თქვენს შეცდომებზე</string>
+  <string name="keyNextLearnFromYourMistakes">შემდეგი (ისწავლეთ თქვენს შეცდომებზე)</string>
+  <string name="keyNextBlunder">შემდეგი შეცდომა</string>
+  <string name="keyNextMistake">შემდეგი შეცდომა</string>
+  <string name="keyNextInaccuracy">შემდეგი უზუსტობა</string>
   <string name="newTournament">ახალი ტურნირი</string>
   <string name="tournamentHomeTitle">ჭადრაკის ტურნირი სხვადასხვა დროითი კონტროლითა და ვარიანტებით</string>
+  <string name="tournamentHomeDescription">ითამაშეთ სწრაფი ტემპით საჭადრაკო ტურნირები! შეუერთდით ოფიციალურ დაგეგმილ ტურნირს, ან შექმენით საკუთარი. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck და სხვა ვარიანტები ხელმისაწვდომია ჭადრაკის სათამაშოდ.</string>
   <string name="tournamentNotFound">ტურნირი ნაპოვნი არ არის</string>
   <string name="tournamentDoesNotExist">აღნიშნული ტურნირი არ არსებობს.</string>
   <string name="tournamentMayHaveBeenCanceled">ტურნირი შესაძლოა გაუქმებული იყოს, თუ ის ყველა მოთამაშემ დატოვა მის დაწყებამდე.</string>
   <string name="returnToTournamentsHomepage">ტურნირების მთავარ გვერდზე დაბრუნება</string>
+  <string name="weeklyPerfTypeRatingDistribution">ყოველკვირეული %s რეიტინგის განაწილება</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s მოთამაშე ამ კვირაში.</item>
+    <item quantity="other">%1$s %2$s მოთამაშე ამ კვირაში.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">შენი %1$s რეიტინგი არის %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">შენ უკეთესი ხარ ვიდრე %1$s , %2$s მოთამაშიდან</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s უკეთესია, ვიდრე %3$s-ის მოთამაშეების %2$s პროცენტი.</string>
+  <string name="betterThanPercentPlayers">შენ თამაშობ %1$s- ზე უკეთესად, %2$s- ის მოთამაშეებიდან</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">შენ არ გაქვს დამკვიდრებული %s რეიტინგი.</string>
   <string name="yourRating">თქვენი რეიტინგი</string>
   <string name="glicko2Rating">Glicko-2 რეიტინგი</string>
