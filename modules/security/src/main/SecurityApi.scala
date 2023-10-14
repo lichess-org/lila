@@ -23,7 +23,7 @@ final class SecurityApi(
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    oAuthServer: lila.oauth.OAuthServer,
+    oAuthServer: OAuthServer,
     tor: Tor,
     ip2proxy: Ip2Proxy
 )(using ec: Executor, mode: Mode):
@@ -129,7 +129,7 @@ final class SecurityApi(
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
-  ): Fu[lila.oauth.OAuthServer.AuthResult] =
+  ): Fu[OAuthServer.AuthResult] =
     oAuthServer
       .auth(req, required)
       .addEffect:
