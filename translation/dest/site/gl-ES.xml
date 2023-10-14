@@ -528,7 +528,7 @@
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrición privada</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que só verán os membros do equipo. Se se emprega, substitúe a túa descrición pública cando sexa visto polos membros do equipo.</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
