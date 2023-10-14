@@ -48,7 +48,7 @@ object show:
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-              localMod = ctx.userId exists t.leaders.contains
+              localMod = info.amGranted(_.Comm)
             ))
       )
     ):
