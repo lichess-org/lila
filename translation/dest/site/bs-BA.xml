@@ -562,8 +562,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
-  <string name="descPrivate">Privatni opis</string>
-  <string name="descPrivateHelp">Tekst koji će vidjeti samo članovi tima. Ako se postavi, mijenja javni opis za članove tima.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privatni opis</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst koji će vidjeti samo članovi tima. Ako se postavi, mijenja javni opis za članove tima.</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
@@ -828,7 +828,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="invalidFen">Neispiravan FEN</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="notificationsX">Obavještenja: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Obavještenja: %1$s</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -910,6 +910,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
   <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
   <string name="edit">Uredite</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blic</string>
   <string name="rapid">Ubrzani šah</string>
   <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Ludo brze partije: manje od 30 sekundi</string>
@@ -937,7 +938,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="mentionedYouInX">spomenuo Vas je u \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s vas je spomenuo u \"%2$s\".</string>
   <string name="invitedYouToX">vas je pozvao u \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s vas je pozvao u \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>
