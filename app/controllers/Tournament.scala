@@ -207,7 +207,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoBot:
       env.team.api.lightsByTourLeader(me) flatMap { teams =>
-        env.team.api.isGranted(teamId, _.Tour) elseNotFound
+        env.team.api.isGranted(teamId, me, _.Tour) elseNotFound
           Ok.page(html.tournament.form.create(forms.create(teams, teamId.some), Nil))
       }
   }

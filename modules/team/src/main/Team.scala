@@ -48,8 +48,8 @@ object Team:
 
   case class WithLeaders(team: Team, leaders: List[TeamMember]):
     export team.*
-    def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.isGranted(_.Admin))
-    def publicLeaders   = leaders.filter(_.isGranted(_.Public))
+    def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.hasPerm(_.Admin))
+    def publicLeaders   = leaders.filter(_.hasPerm(_.Public))
 
   case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
 

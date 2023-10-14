@@ -23,9 +23,9 @@ case class TeamInfo(
 
   export withLeaders.{ team, leaders, publicLeaders }
 
-  def mine                                              = member.isDefined
-  def ledByMe                                           = member.exists(_.perms.nonEmpty)
-  def amGranted(perm: TeamSecurity.Permission.Selector) = member.exists(_.isGranted(perm))
+  def mine                                             = member.isDefined
+  def ledByMe                                          = member.exists(_.perms.nonEmpty)
+  def havePerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
 
   def hasRequests = requests.nonEmpty
 
@@ -76,7 +76,7 @@ final class TeamInfoApi(
       withForum: Option[TeamMember] => Boolean
   ): Fu[TeamInfo] = for
     member     <- me.so(api.memberOf(team.id, _))
-    requests   <- (team.enabled && member.exists(_.isGranted(_.Request))) so api.requestsWithUsers(team.team)
+    requests   <- (team.enabled && member.exists(_.hasPerm(_.Request))) so api.requestsWithUsers(team.team)
     myRequest  <- member.isEmpty so me.so(m => requestRepo.find(team.id, m.id))
     subscribed <- member.so(api.isSubscribed(team.team, _))
     forumPosts <- withForum(member) soFu forumRecent(team.id)

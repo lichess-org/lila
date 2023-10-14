@@ -403,7 +403,7 @@ final class Team(
       api
         .withLeaders(team)
         .flatMap: t =>
-          val admins = t.leaders.filter(_.isGranted(_.Admin))
+          val admins = t.leaders.filter(_.hasPerm(_.Admin))
           if admins.nonEmpty && admins.forall(_ is me)
           then
             val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
