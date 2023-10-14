@@ -868,8 +868,8 @@
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
-  <string name="rapid">Rápida</string>
-  <string name="classical">Clásica</string>
+  <string name="rapid">Rápidas</string>
+  <string name="classical">Clásicas</string>
   <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
