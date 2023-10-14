@@ -34,7 +34,7 @@
   <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính = %1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
   <string name="durationFormula">(thời gian ban đầu tính bằng giây) + 40 × (thời gian gia tăng)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s giây = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s giây = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
