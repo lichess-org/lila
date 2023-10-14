@@ -13,8 +13,8 @@
   <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Sección da configuración</string>
   <string name="keepPlayPageOpen">A páxina de configuración ten que ficar aberta no teu navegador. Non ten que ser visible, podes minimizala ou poñela a carón da páxina da partida de Lichess. Non a peches ou o taboleiro deixará de funcionar.</string>
   <string name="boardWillAutoConnect">O taboleiro vaise conectar automaticamente a calquera partida en curso ou a calquera partida que comece. Pronto estará dispoñible a posibilidade de seleccionar que partida xogar.</string>
-  <string name="timeControlsForCasualGames">Controis de tempo para partidas amigables: só Clásica, Postal e Rápida.</string>
-  <string name="timeControlsForRatedGames">Controis de tempo para partidas puntuadas: Clásica, Postal e algunhas Rápidas, incluíndo 15+10 e 20+0</string>
+  <string name="timeControlsForCasualGames">Controis de tempo para partidas amigables: só Clásicas, Postal e Rápidas.</string>
+  <string name="timeControlsForRatedGames">Controis de tempo para partidas puntuadas: Clásicas, Postal e algunhas Rápidas, incluíndo 15 + 10 e 20 + 0</string>
   <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Cando esteas preparado, configura o teu taboleiro e logo preme %s.</string>
   <string name="ifMoveNotDetected">Se non se detecta un movemento</string>
   <string name="checkYouHaveMadeOpponentsMove">Comproba en primeiro lugar que realizaches o movemento do opoñente no taboleiro DGT. Reverte a túa xogada. Xoga de novo.</string>
