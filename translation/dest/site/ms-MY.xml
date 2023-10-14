@@ -325,20 +325,20 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s %2$s rated games</item>
+    <item quantity="other">≥ %1$s %2$s permainan dinilai</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">You need to play %1$s more %2$s rated games</item>
+    <item quantity="other">Anda perlu bermain %1$s lagi %2$s permainan dinilai</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="other">You need to play %s more rated games</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
-  <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
-  <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
-  <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
+  <string name="yourPerfRatingIsProvisional">Penilaian %s anda adalah sementara</string>
+  <string name="yourPerfRatingIsTooHigh">Penilaian %1$s anda (%2$s) terlalu tinggi</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Penilaian %1$s teratas mingguan anda (%2$s) terlalu tinggi</string>
+  <string name="yourPerfRatingIsTooLow">Penilaian %1$s anda (%2$s) terlalu rendah</string>
+  <string name="ratedMoreThanInPerf">Dinilai ≥ %1$s dalam %2$s</string>
+  <string name="ratedLessThanInPerf">Dinilai ≤ %1$s dalam %2$s untuk minggu lepas</string>
   <string name="mustBeInTeam">Must be in team %s</string>
   <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
@@ -611,6 +611,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
     <item quantity="other">%1$s pemain %2$s minggu ini.</item>
   </plurals>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s lebih bagus daripada %2$s pemain %3$s.</string>
+  <string name="cumulative">Kumulatif</string>
   <string name="withNobody">Dengan tiada siapa-siapa</string>
   <string name="withFriends">Dengan rakan-rakan</string>
   <string name="withEverybody">Dengan semua</string>
@@ -628,7 +629,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="zeroAdvertisement">Sifar iklan</string>
   <string name="fullFeatured">Ciri-ciri premium</string>
   <string name="phoneAndTablet">Telefon bimbit dan tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasik</string>
+  <string name="bulletBlitzClassical">Peluru, blitz, klasik</string>
   <string name="correspondenceChess">Catur jangka panjang</string>
   <string name="onlineAndOfflinePlay">Dalam talian dan luar talian permainan</string>
   <string name="viewTheSolution">Papar jawapan</string>
@@ -732,7 +733,8 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="wishYouGreatGames">kami berharap anda mempunyai permainan yang baik di lichess.org.</string>
   <string name="thankYouForReading">Terima kasih kerana membaca!</string>
   <string name="edit">Sunting</string>
-  <string name="rapid">Rapid</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="rapid">Pantas</string>
   <string name="classical">Classical</string>
   <string name="important">Penting</string>
   <string name="yourQuestionMayHaveBeenAnswered">Soalan anda mungkin telah dijawab %1$s</string>
