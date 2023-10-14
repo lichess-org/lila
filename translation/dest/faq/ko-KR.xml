@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">FAQ</string>
+  <string name="faqAbbreviation">자주 묻는 질문</string>
   <string name="frequentlyAskedQuestions">자주 묻는 질문들</string>
   <string name="whyIsLichessCalledLichess">Lichess는 무슨 뜻인가요?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 부릅니다.</string>
@@ -35,8 +35,8 @@
   <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
 예를 들어 5+3 게임의 예상 시간은 5 × 60 + 40 × 3 = 420초입니다.</string>
   <string name="durationFormula">(초기 시간) + 40 × (증분)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s초 = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s초 = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess에서 플레이할 수 있는 변형 체스에는 무엇이 있나요?</string>
   <string name="lichessSupportChessAnd">Lichess는 일반 체스와 %1$s를 지원합니다.</string>
   <string name="eightVariants">8가지 변형 체스</string>
