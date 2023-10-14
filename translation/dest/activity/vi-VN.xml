@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Hoạt động</string>
-  <string name="hostedALiveStream">Đã chủ trì một luồng trực tuyến</string>
+  <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
@@ -50,7 +50,7 @@
   <plurals name="competedInNbSwissTournaments">
     <item quantity="other">Hoàn thành %s giải đấu hệ Thụy Sỹ</item>
   </plurals>
-  <string name="rankedInSwissTournament">Xếp hạng %1$s trong %2$s</string>
+  <string name="rankedInSwissTournament">Hạng %1$s trong giải %2$s</string>
   <string name="signedUp">Đã ghi danh ở lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Đã gia nhập %s đội</item>
