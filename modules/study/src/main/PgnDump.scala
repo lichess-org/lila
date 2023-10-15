@@ -65,7 +65,6 @@ final class PgnDump(
       val opening = chapter.opening
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
-        Tag(_.Site, chapterUrl(study.id, chapter.id)),
         Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
         Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
@@ -79,7 +78,7 @@ final class PgnDump(
           Tag("SetUp", "1")
         )
       ) :::
-        flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
+        (!flags.source).so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
         flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
         chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
       genTags
