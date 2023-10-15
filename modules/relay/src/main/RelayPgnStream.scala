@@ -27,7 +27,7 @@ final class RelayPgnStream(
     comments = false,
     variations = false,
     clocks = true,
-    source = false,
+    source = true,
     orientation = false
   )
   private val fileR         = """[\s,]""".r
