@@ -1,6 +1,6 @@
 package lila.swiss
 
-import lila.hub.actorApi.team.IsLeader
+import lila.hub.actorApi.team.IsLeaderWithCommPerm
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
@@ -37,11 +37,10 @@ final private class SwissSocket(
       chat,
       logger,
       roomId => _.Swiss(SwissId(roomId.value)).some,
-      localTimeout = Some { (roomId, modId, _) =>
+      localTimeout = Some: (roomId, modId, _) =>
         teamOf(SwissId(roomId.value)) flatMapz { teamId =>
-          lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(teamId, modId, _) }
-        }
-      },
+          lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeaderWithCommPerm(teamId, modId, _) }
+        },
       chatBusChan = _.Swiss
     )
 

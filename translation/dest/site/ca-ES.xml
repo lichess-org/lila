@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ràpides</string>
   <string name="classical">Clàssic</string>
   <string name="ultraBulletDesc">Partides extramadament ràpides: menys de 30 segons</string>

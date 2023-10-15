@@ -25,7 +25,7 @@ lichess.load.then(() => {
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
-      xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
+      xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
     });
   $('.forum-post__blocked button').on('click', e => {

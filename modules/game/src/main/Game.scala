@@ -250,11 +250,11 @@ case class Game(
   lazy val perfType: PerfType = PerfType(variant, speed)
   def perfKey: Perf.Key       = perfType.key
 
-  def ratingVariant =
+  def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant
 
   def ratingPerfType: Option[PerfType] =
-    if variant.fromPosition then isTournament option PerfType.Standard
+    if variant.fromPosition then isTournament option PerfType(ratingVariant, speed)
     else perfType.some
 
   def started = status >= Status.Started

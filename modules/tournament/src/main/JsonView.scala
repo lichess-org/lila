@@ -554,10 +554,7 @@ object JsonView:
 
   private[tournament] given OWrites[Spotlight] = OWrites: s =>
     Json
-      .obj(
-        "headline"    -> s.headline,
-        "description" -> s.description
-      )
+      .obj("headline" -> s.headline)
       .add("iconImg" -> s.iconImg)
       .add("iconFont" -> s.iconFont)
 

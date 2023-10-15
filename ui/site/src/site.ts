@@ -18,7 +18,7 @@ import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
-import { isIOS } from 'common/mobile';
+import { isIOS } from 'common/device';
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
@@ -49,7 +49,7 @@ lichess.load.then(() => {
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
         const showCheckmark = () => $(this).attr('data-icon', licon.Checkmark);
-        $('#' + $(this).data('rel')).each(function (this: HTMLInputElement) {
+        $('#' + this.dataset.rel).each(function (this: HTMLInputElement) {
           try {
             navigator.clipboard.writeText(this.value).then(showCheckmark);
           } catch (e) {
@@ -96,8 +96,8 @@ lichess.load.then(() => {
       const start = () =>
         userComplete({
           input: this,
-          friend: $(this).data('friend'),
-          tag: $(this).data('tag'),
+          friend: !!this.dataset.friend,
+          tag: this.dataset.tag as any,
           focus,
         });
 
@@ -164,7 +164,7 @@ lichess.load.then(() => {
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
-      if ($('#announce').length || $('body').data('tournament-id') == data.id) return;
+      if ($('#announce').length || document.body.dataset.tournamentId == data.id) return;
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')

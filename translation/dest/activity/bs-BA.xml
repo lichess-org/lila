@@ -57,7 +57,7 @@
     <item quantity="few">Bio/la domaćin %s simultanke</item>
     <item quantity="other">Bio/la domaćin %s simultanki</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Učestvovao/la u %s simultanki</item>
     <item quantity="few">Učestvovao/la u %s simultanke</item>
     <item quantity="other">Učestvovao/la u %s simultanki</item>

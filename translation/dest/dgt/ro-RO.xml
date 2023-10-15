@@ -5,6 +5,6 @@
   <string name="reloadThisPage">Reîncarcă această pagină</string>
   <string name="dgtConfigure">DGT - Configurare</string>
   <string name="keywords">Cuvinte cheie</string>
-  <string name="debug">Depanare</string>
-  <string name="configure">Configurare</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Depanare</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configurare</string>
 </resources>

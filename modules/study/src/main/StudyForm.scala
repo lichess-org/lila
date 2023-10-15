@@ -38,22 +38,20 @@ object StudyForm:
         variant: Option[Variant] = None,
         asStr: Option[String] = None
     ):
-      def as: As =
-        asStr match
-          case None | Some("study") => As.NewStudy
-          case Some(studyId)        => As.ChapterOf(StudyId(studyId))
+      def as: As = asStr match
+        case None | Some("study") => As.NewStudy
+        case Some(studyId)        => As.ChapterOf(StudyId(studyId))
 
-      def toChapterData =
-        ChapterMaker.Data(
-          name = StudyChapterName(""),
-          game = gameId.map(_.value),
-          variant = variant,
-          fen = fen,
-          pgn = pgnStr,
-          orientation = orientation | ChapterMaker.Orientation.Auto,
-          mode = ChapterMaker.Mode.Normal,
-          initial = false
-        )
+      def toChapterData = ChapterMaker.Data(
+        name = StudyChapterName(""),
+        game = gameId.map(_.value),
+        variant = variant,
+        fen = fen,
+        pgn = pgnStr,
+        orientation = orientation | ChapterMaker.Orientation.Auto,
+        mode = ChapterMaker.Mode.Normal,
+        initial = false
+      )
 
     enum As:
       case NewStudy

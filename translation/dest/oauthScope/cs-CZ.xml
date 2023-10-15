@@ -31,4 +31,10 @@
   <string name="engineWrite">Vytvořit a aktualizovat externí engine</string>
   <string name="webLogin">Vytváření ověřených webových sezení (poskytuje plný přístup!)</string>
   <string name="webMod">Používat nástroje moderátora (v mezích Vašeho oprávnění)</string>
+  <string name="personalAccessTokens">Osobní přístupový token API</string>
+  <string name="generatePersonalToken">generovat osobní přístupový token</string>
+  <string name="apiDocumentation">Dokumentace API</string>
+  <string name="newToken">Nový přístupový token</string>
+  <string name="possibleToPrefill">Tento formulář lze předvyplnit úpravou parametrů dotazu URL.</string>
+  <string name="forExample">%s</string>
 </resources>

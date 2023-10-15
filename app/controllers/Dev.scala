@@ -26,7 +26,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.apiExplorerGamesPerSecond,
     env.fishnet.openingBookDepth,
     env.noDelaySecretSetting,
-    env.featuredTeamsSetting,
     env.prizeTournamentMakers,
     env.pieceImageExternal,
     env.tournament.reloadEndpointSetting,
@@ -70,9 +69,8 @@ final class Dev(env: Env) extends LilaController(env):
         err => BadRequest.page(html.dev.cli(err, "Invalid command".some)),
         command =>
           Ok.pageAsync:
-            runCommand(command) map { res =>
+            runCommand(command).map: res =>
               html.dev.cli(commandForm fill command, s"$command\n\n$res".some)
-            }
       )
   }
 

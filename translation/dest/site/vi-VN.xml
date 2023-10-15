@@ -37,9 +37,9 @@
   <string name="whitePlays">Lượt Trắng đi</string>
   <string name="blackPlays">Lượt Đen đi</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">Đối thủ bỏ cuộc. Bạn có thể tuyên bố thắng cuộc trong %s giây.</item>
+    <item quantity="other">Đối thủ đã rời khỏi ván cờ. Bạn có thể tuyên bố thắng cuộc trong %s giây.</item>
   </plurals>
-  <string name="opponentLeftChoices">Đối thủ đã rời khỏi ván cờ. Bạn có thể buộc đối phương chịu thua, chọn hòa hoặc đợi.</string>
+  <string name="opponentLeftChoices">Đối thủ của bạn đã rời khỏi ván cờ. Bạn có thể tuyên bố chiến thắng, chọn hòa hoặc đợi.</string>
   <string name="forceResignation">Giành chiến thắng</string>
   <string name="forceDraw">Bắt buộc hòa</string>
   <string name="talkInChat">Hãy cư xử thân thiện trong cuộc trò chuyện!</string>
@@ -56,7 +56,7 @@
   <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
   <string name="analysis">Bảng phân tích</string>
   <string name="depthX">Độ sâu %s</string>
-  <string name="usingServerAnalysis">Phân tích bằng máy chủ</string>
+  <string name="usingServerAnalysis">Sử dụng phân tích bằng máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
   <string name="calculatingMoves">Đang tính nước đi...</string>
   <string name="engineFailed">Lỗi khi tải động cơ</string>
@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã nhập?</string>
   <string name="replayMode">Chế độ xem lại</string>
   <string name="realtimeReplay">Thời gian thực</string>
-  <string name="byCPL">Theo thất thế</string>
+  <string name="byCPL">Theo phần trăm mất tốt (CPL)</string>
   <string name="openStudy">Mở nghiên cứu</string>
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
@@ -199,7 +199,7 @@
   <string name="signupEmailHint">Chúng tôi chỉ sử dụng nó cho việc khôi phục mật khẩu.</string>
   <string name="password">Mật khẩu</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
-  <string name="changeEmail">Thay đổi email</string>
+  <string name="changeEmail">Thay đổi thư điện tử</string>
   <string name="email">Thư điện tử</string>
   <string name="passwordReset">Đặt lại mật khẩu</string>
   <string name="forgotPassword">Quên mật khẩu?</string>
@@ -253,7 +253,7 @@
   <string name="yourOpponentOffersADraw">Đối thủ xin hoà</string>
   <string name="accept">Đồng ý</string>
   <string name="decline">Từ chối</string>
-  <string name="playingRightNow">Ván đấu đang đánh</string>
+  <string name="playingRightNow">Đang diễn ra</string>
   <string name="eventInProgress">Đang diễn ra</string>
   <string name="finished">Hoàn thành</string>
   <string name="finishesX">kết thúc trong %s</string>
@@ -494,8 +494,8 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
-  <string name="descPrivate">Mô tả riêng tư</string>
-  <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Mô tả riêng tư</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
   <string name="help">Hỗ trợ:</string>
@@ -642,13 +642,13 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
-  <string name="averageCentipawnLoss">Thất thế trung bình mỗi nước (ACPL)</string>
+  <string name="averageCentipawnLoss">Phần trăm mất tốt trung bình mỗi nước (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
   <string name="keyboardShortcuts">Các phím tắt</string>
   <string name="keyMoveBackwardOrForward">tua lại/đi tới</string>
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
-  <string name="keyEnterOrExitVariation">vào/thoát biến thể cờ</string>
+  <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ lỗi sai của bạn</string>
   <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ lỗi sai của bạn)</string>
   <string name="keyNextBlunder">Nước sai lầm nghiêm trọng tiếp theo</string>
@@ -671,7 +671,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="betterThanPercentPlayers">Bạn giỏi hơn %1$s người chơi %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
   <string name="yourRating">Xếp hạng của bạn</string>
-  <string name="cumulative">Tích luỹ</string>
+  <string name="cumulative">Giỏi hơn so với còn lại</string>
   <string name="glicko2Rating">Xếp hạng Glicko-2</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi đã gửi cho bạn một email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn.</string>
@@ -710,7 +710,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="zeroAdvertisement">Không có quảng cáo</string>
   <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
-  <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ chậm</string>
+  <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ nhanh, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem lời giải</string>
@@ -750,10 +750,10 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
-  <string name="notificationsX">Thông báo: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Thông báo: %1$s</string>
   <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
+    <item quantity="other">Còn %s giây để đi nước đầu tiên</item>
   </plurals>
   <string name="practiceWithComputer">Luyện tập với máy tính</string>
   <string name="anotherWasX">Nước đi khác là %s</string>
@@ -826,6 +826,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Cờ chớp</string>
   <string name="rapid">Cờ nhanh</string>
   <string name="classical">Cờ chậm</string>
   <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
@@ -853,7 +854,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã nhắc đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s đã mời bạn tham gia \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s đã mời bạn tham gia \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Bây giờ bạn là một phần của đội.</string>
   <string name="youHaveJoinedTeamX">Bạn đã tham gia \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ai đó mà bạn báo cáo đã bị cấm</string>

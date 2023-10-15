@@ -43,6 +43,7 @@ Këtë mund ta përdorni për t’i ftuar lojëtarët të marrin pjesë në një
 Lojtarët të cilëve s’u pëlqen të marrin mesazhe nga ju, mund të dalin nga ekipi.</string>
   <string name="teamsIlead">Ekipet e drejtuara nga unë</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Doni të lidhni një nga turnetë e ardhshme?</string>
+  <string name="onlyInviteLeadersTrust">Ftoni vetëm drejtues të cilëve u besoni plotësisht. Drejtuesit e ekipeve mund të përzënë nga ekipi anëtarë dhe drejtues të tjerë.</string>
   <string name="usersWhoCanManageThisTeam">Përdorues që mund të administrojnë këtë ekip</string>
   <string name="leadersChat">Bisedë drejtuesish</string>
   <string name="closeTeam">Mbylle ekipin</string>

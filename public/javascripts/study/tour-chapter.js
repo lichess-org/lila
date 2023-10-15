@@ -1,5 +1,5 @@
 function loadShepherd(f) {
-  const dataTheme = $('body').data('theme');
+  const dataTheme = document.body.dataset.theme;
   const theme =
     'shepherd-theme-' +
     (dataTheme === 'system'

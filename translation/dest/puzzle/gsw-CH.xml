@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiss.</string>
   <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Für personalisierti Ufgabe muesch:</string>
-  <string name="puzzleId">Ufgab %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Ufgab %s</string>
   <string name="puzzleOfTheDay">Ufgab vom Tag</string>
   <string name="dailyPuzzle">Täglichi Ufgab</string>
   <string name="clickToSolve">Zum Löse klicke</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Nach Eröffnige</string>
   <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
   <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i gwertete Partie</string>
-  <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
   <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
   <string name="trySomethingElse">Probier öppis Anders.</string>
-  <string name="ratingX">Wertig: %s</string>
-  <string name="hidden">verschteckt</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Wertig: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">verschteckt</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">%s mal gschpillt</item>
     <item quantity="other">%s mal gschpillt</item>
   </plurals>
@@ -70,7 +70,7 @@
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie z\'erreiche. Nimm dir Zit, es lauft kei Uhr. Doch nur 1 falsche Zug und es isch verbi! Aber du chasch 1 Zug pro Serie überschpringe.</string>
   <string name="yourStreakX">Dini Erfolgsserie: %s</string>
   <string name="streakSkipExplanation">Überschpring de Zug, um dini Erfolgsserie z\'hebe! Aber du chasch das nur 1x pro Serie mache.</string>
-  <string name="continueTheStreak">Erfolgsserie witerspille</string>
+  <string name="continueTheStreak">Erfolgsserie witerfüehre</string>
   <string name="newStreak">Neui Erfolgsserie</string>
   <string name="fromMyGames">Us eigene Schpil</string>
   <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>

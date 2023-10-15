@@ -459,15 +459,15 @@ object layout:
       trans.timeago.nbYearsAgo
     )
 
-    private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
-
+    private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
     private def jsCode(using lang: Lang) =
-      cache.getOrElseUpdate(
+      cache.computeIfAbsent(
         lang,
-        s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
-            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
+        _ =>
+          val qty  = lila.i18n.JsQuantity(lang)
+          val i18n = safeJsonValue(i18nJsObject(i18nKeys))
+          s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
-
     def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)
   end inlineJs

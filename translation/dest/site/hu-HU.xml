@@ -115,6 +115,7 @@
   <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Engedélyezve</string>
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
+  <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>

@@ -149,7 +149,7 @@
   <plurals name="nbPlayers">
     <item quantity="one">%s jucător</item>
     <item quantity="few">%s jucători</item>
-    <item quantity="other">%s jucători</item>
+    <item quantity="other">%s de jucători</item>
   </plurals>
   <string name="drawByMutualAgreement">Remiză prin acord reciproc</string>
   <string name="fiftyMovesWithoutProgress">Cincizeci de mișcări fără progres</string>
@@ -157,7 +157,7 @@
   <plurals name="nbGames">
     <item quantity="one">%s partidă</item>
     <item quantity="few">%s partide</item>
-    <item quantity="other">%s partide</item>
+    <item quantity="other">%s de partide</item>
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">Rating %1$s din %2$s meci</item>
@@ -196,12 +196,12 @@
   <plurals name="nbDays">
     <item quantity="one">%s zi</item>
     <item quantity="few">%s zile</item>
-    <item quantity="other">%s zile</item>
+    <item quantity="other">%s de zile</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s oră</item>
     <item quantity="few">%s ore</item>
-    <item quantity="other">%s ore</item>
+    <item quantity="other">%s de ore</item>
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s minut</item>
@@ -321,17 +321,17 @@
   <plurals name="nbWins">
     <item quantity="one">%s victorie</item>
     <item quantity="few">%s victorii</item>
-    <item quantity="other">%s victorii</item>
+    <item quantity="other">%s de victorii</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s înfrângere</item>
     <item quantity="few">%s înfrângeri</item>
-    <item quantity="other">%s înfrângeri</item>
+    <item quantity="other">%s de înfrângeri</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remiză</item>
     <item quantity="few">%s remize</item>
-    <item quantity="other">%s remize</item>
+    <item quantity="other">%s de remize</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s îl joacă</item>
@@ -366,7 +366,7 @@
   <plurals name="nbStudies">
     <item quantity="one">%s studiu</item>
     <item quantity="few">%s studii</item>
-    <item quantity="other">%s studii</item>
+    <item quantity="other">%s de studii</item>
   </plurals>
   <string name="viewTournament">Vizualizați turneul</string>
   <string name="backToTournament">Înapoi la turneu</string>
@@ -544,7 +544,7 @@
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidă în desfășurare</item>
     <item quantity="few">%s partide în desfășurare</item>
-    <item quantity="other">%s partide în desfășurare</item>
+    <item quantity="other">%s de partide în desfășurare</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
@@ -665,7 +665,7 @@
   <plurals name="nbForumPosts">
     <item quantity="one">%s postare pe forum</item>
     <item quantity="few">%s postări pe forum</item>
-    <item quantity="other">%s postări pe forum</item>
+    <item quantity="other">%s de postări pe forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Timp petrecut jucând: %s</string>
   <string name="watchGames">Vezi partide</string>
@@ -728,7 +728,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Scorul %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ești mai bun ca %1$s dintre jucătorii de %2$s.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun ca %2$s dintre jucătorii de %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun decât %2$s dintre jucătorii de %3$s.</string>
   <string name="betterThanPercentPlayers">Mai bun decât %1$s dintre jucătorii de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un scor %s definit.</string>
   <string name="yourRating">Scorul tău</string>
@@ -895,6 +895,7 @@
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Clasic</string>
   <string name="ultraBulletDesc">Partide incredibil de rapide: mai puțin de 30 de secunde</string>

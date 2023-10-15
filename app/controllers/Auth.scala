@@ -506,6 +506,4 @@ final class Auth(
   private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result]
 
   private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx.me match
-      case Some(me) => Redirect(routes.User.show(me.username))
-      case None     => f
+    ctx.me.fold(f)(me => Redirect(routes.User.show(me.username)))

@@ -97,7 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' з округленням на основі кількості півходів до наступного взяття чи ходу пішака</string>
   <string name="noGameFound">Ігор не знайдено</string>
-  <string name="maxDepthReached">Досягнуто найбільшої глибини!</string>
+  <string name="maxDepthReached">Максимальна глибина досягнута!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Дослідження дебютів</string>
@@ -952,6 +952,7 @@
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
   <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>

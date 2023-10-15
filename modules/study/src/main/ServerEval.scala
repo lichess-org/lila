@@ -59,9 +59,9 @@ object ServerEval:
       divider: lila.game.Divider
   )(using Executor):
 
-    def apply(analysis: Analysis, complete: Boolean): Funit =
-      analysis.studyId.so: studyId =>
-        sequencer.sequenceStudyWithChapter(studyId, analysis.id into StudyChapterId):
+    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match
+      case Analysis.Id.Study(studyId, chapterId) =>
+        sequencer.sequenceStudyWithChapter(studyId, chapterId):
           case Study.WithChapter(_, chapter) =>
             (complete so chapterRepo.completeServerEval(chapter)) >> {
               chapter.root.mainline
@@ -110,7 +110,7 @@ object ServerEval:
                 } void
             } andDo {
               chapterRepo
-                .byId(analysis.id into StudyChapterId)
+                .byId(chapterId)
                 .foreach:
                   _.so: chapter =>
                     socket.onServerEval(
@@ -123,6 +123,7 @@ object ServerEval:
                       )
                     )
             } logFailure logger
+      case _ => funit
 
     def divisionOf(chapter: Chapter) =
       divider(
@@ -133,15 +134,17 @@ object ServerEval:
       )
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val (_, games, error) = chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant)
-      error foreach { e => logger.info(e.value) }
-      games.reverse match
+      val (_, reversedGames, error) =
+        chess.Replay.gameMoveWhileValidReverse(info.variation take 20, root.fen, variant)
+      error.foreach(e => logger.info(e.value))
+      reversedGames match
         case Nil => none
         case (g, m) :: rest =>
           rest
-            .foldLeft[Branch](makeBranch(g, m)) { case (node, (g, m)) =>
-              makeBranch(g, m) addChild node
-            } some
+            .foldLeft(makeBranch(g, m)):
+              case (node, (g, m)) =>
+                makeBranch(g, m).addChild(node)
+            .some
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Branch(

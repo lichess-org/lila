@@ -30,6 +30,8 @@ case class Query(
     blackUser: Option[UserId] = None
 ):
 
+  def userIds: Set[UserId] = Set(user1, user2, winner, loser, whiteUser, blackUser).flatten
+
   def nonEmpty =
     user1.nonEmpty ||
       user2.nonEmpty ||

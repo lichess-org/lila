@@ -635,7 +635,9 @@
   <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
   <string name="keyRequestComputerAnalysis">Minta analisis komputer, belajar dari kesalahan anda</string>
   <string name="keyNextLearnFromYourMistakes">Berikutnya (Belajar dari kesalahan anda)</string>
+  <string name="keyNextBlunder">Blunder selanjutnya</string>
   <string name="keyNextMistake">Kesalahan berikutnya</string>
+  <string name="keyNextInaccuracy">Ketidakakuratan selanjutnya</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
   <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>
@@ -650,6 +652,7 @@
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s lebih baik daripada %2$s dari %3$s pemain.</string>
+  <string name="betterThanPercentPlayers">Anda lebih baik %1$s dari %2$s pemain lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
   <string name="yourRating">Rating Anda</string>
   <string name="cumulative">Kumulatif</string>
@@ -731,6 +734,7 @@
   <string name="invalidFen">FEN tidak valid</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
+  <string name="notificationsX">Pemberitahuan: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -904,4 +908,5 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
+  <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
 </resources>

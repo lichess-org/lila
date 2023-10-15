@@ -1,7 +1,7 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { domDialog } from 'common/dialog';
-import { isTouchDevice } from 'common/mobile';
+import { isTouchDevice } from 'common/device';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
@@ -91,7 +91,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         method: 'post',
         action: '/study/as',
       },
-      hook: bind('click submit', e => {
+      hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (!ctrl.persistence || ctrl.persistence.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);

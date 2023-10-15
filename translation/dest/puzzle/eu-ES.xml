@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Zurien jokaldi onena bilatu.</string>
   <string name="findTheBestMoveForBlack">Beltzen jokaldi onena bilatu.</string>
   <string name="toGetPersonalizedPuzzles">Ariketa pertsonalizatuak lortzeko:</string>
-  <string name="puzzleId">%s ariketa</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">%s ariketa</string>
   <string name="puzzleOfTheDay">Eguneko ariketa</string>
   <string name="dailyPuzzle">Eguneroko ariketa</string>
   <string name="clickToSolve">Ebazteko klik egin</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Hasieraka</string>
   <string name="puzzlesByOpenings">Hasierakako ariketak</string>
   <string name="openingsYouPlayedTheMost">Gehien jokatu dituzun hasierak</string>
-  <string name="useFindInPage">Erabili zure nabigatzaileko \"Bilatu orrian\" funtzioa zure hasiera gogokoena bilatzeko!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Erabili zure nabigatzaileko \"Bilatu orrian\" funtzioa zure hasiera gogokoena bilatzeko!</string>
   <string name="useCtrlF">Erabili Ctrl+f zure hasiera gogokoena bilatzeko!</string>
   <string name="notTheMove">Hori ez zen jokaldia!</string>
   <string name="trySomethingElse">Saiatu beste batekin.</string>
-  <string name="ratingX">Sailkapena: %s</string>
-  <string name="hidden">ezkutuan</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Sailkapena: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ezkutuan</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Behin jokatuta</item>
     <item quantity="other">%s aldiz jokatuta</item>
   </plurals>

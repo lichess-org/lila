@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
@@ -12,7 +12,7 @@ export default new (class implements SoundI {
   ctx = makeAudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
-  theme = $('body').data('sound-set');
+  theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });

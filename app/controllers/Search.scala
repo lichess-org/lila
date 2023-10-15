@@ -24,7 +24,7 @@ final class Search(env: Env) extends LilaController(env):
   )
 
   def index(p: Int) = OpenBody:
-    env.game.cached.nbTotal flatMap { nbGames =>
+    env.game.cached.nbTotal.flatMap: nbGames =>
       if ctx.isAnon then
         negotiate(
           Unauthorized.page(html.search.login(nbGames)),
@@ -55,8 +55,11 @@ final class Search(env: Env) extends LilaController(env):
                       ),
                     data =>
                       data.nonEmptyQuery
-                        .soFu:
-                          env.gameSearch.paginator(_, page)
+                        .soFu: query =>
+                          env.gameSearch.api
+                            .validateAccounts(query, isGrantedOpt(_.GamesModView))
+                            .flatMap:
+                              _.so(env.gameSearch.paginator(query, page))
                         .flatMap: pager =>
                           negotiate(
                             Ok.page(html.search.index(searchForm fill data, pager, nbGames)),
@@ -66,4 +69,3 @@ final class Search(env: Env) extends LilaController(env):
                         .recoverWith: _ =>
                           serverError("Sorry, we can't process that query at the moment")
                   )
-    }

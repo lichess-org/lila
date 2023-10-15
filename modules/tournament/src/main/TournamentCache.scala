@@ -11,9 +11,7 @@ final class TournamentCache(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
-)(using
-    ec: Executor
-):
+)(using Executor):
 
   object tourCache:
     private val cache = cacheApi[TourId, Option[Tournament]](512, "tournament.tournament"):
@@ -28,17 +26,11 @@ final class TournamentCache(
   val nameCache = cacheApi.sync[(TourId, Lang), Option[String]](
     name = "tournament.name",
     initialCapacity = 65536,
-    compute = { case (id, lang) =>
-      tournamentRepo byId id dmap2 { _.name()(using lang) }
-    },
+    compute = (id, lang) => tournamentRepo byId id dmap2 { _.name()(using lang) },
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
-
-  val onHomepage = cacheApi.unit[List[Tournament]]:
-    _.refreshAfterWrite(2 seconds)
-      .buildAsyncFuture(_ => tournamentRepo.onHomepage)
 
   def ranking(tour: Tournament): Fu[FullRanking] =
     if tour.isFinished then finishedRanking get tour.id

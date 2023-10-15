@@ -478,6 +478,7 @@
   <string name="firstName">প্রথম নাম</string>
   <string name="lastName">শেষ নাম</string>
   <string name="biography">জীবনবৃত্তান্ত</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ফ্ল্যাগ</string>
   <string name="thankYou">ধন্যবাদ</string>
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="oneUrlPerLine">প্রতি লাইনে একটি লিংক।</string>
@@ -649,6 +650,7 @@
   <string name="tournamentFAQ">কর্মক্ষেত্র প্রতিযোগিতার প্রশ্নবলী</string>
   <string name="timeBeforeTournamentStarts">সময়ের পূর্বে প্রতিযোগিতা শুরু</string>
   <string name="averageCentipawnLoss">গড় ছিন্টেপাওন ক্ষতি</string>
+  <string name="accuracy">নির্ভুলতা</string>
   <string name="keyboardShortcuts">কী-বোর্ড শর্টকাট</string>
   <string name="keyMoveBackwardOrForward">পেছনে সরান/সামনে যান</string>
   <string name="keyGoToStartOrEnd">শুরু করতে যান/শেষ</string>

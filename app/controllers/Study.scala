@@ -194,7 +194,9 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-      analysis <- chapter.serverEval.exists(_.done) so env.analyse.analyser.byId(chapter.id into Analysis.Id)
+      analysis <- chapter.serverEval.exists(_.done) so env.analyse.analyser.byId(
+        Analysis.Id(study.id, chapter.id)
+      )
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData <- env.api.roundApi.withExternalEngines(
         ctx.me,
@@ -261,7 +263,7 @@ final class Study(
             owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
             contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
             res <-
-              if owner.isEmpty && contrib.isEmpty then createStudy(data, me)
+              if owner.isEmpty && contrib.isEmpty then createStudy(data)
               else
                 val back = HTTPRequest.referer(ctx.req) orElse
                   data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
@@ -275,11 +277,11 @@ final class Study(
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)),
-        data => createStudy(data, me)
+        createStudy
       )
   }
 
-  private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
+  private def createStudy(data: StudyForm.importGame.Data)(using ctx: Context, me: Me) =
     Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
       Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
@@ -391,7 +393,7 @@ final class Study(
       CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
           CanView(prev) {
-            env.study.api.clone(me, prev) map { study =>
+            env.study.api.cloneWithCheckAndChat(me, prev) map { study =>
               Redirect(routes.Study.show((study | prev).id))
             }
           }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))

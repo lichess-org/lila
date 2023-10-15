@@ -23,8 +23,9 @@ final class SecurityApi(
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    oAuthServer: lila.oauth.OAuthServer,
-    tor: Tor
+    oAuthServer: OAuthServer,
+    tor: Tor,
+    ip2proxy: Ip2Proxy
 )(using ec: Executor, mode: Mode):
 
   val AccessUri = "access_uri"
@@ -98,9 +99,11 @@ final class SecurityApi(
     userRepo mustConfirmEmail userId flatMap {
       if _ then fufail(SecurityApi MustConfirmEmail userId)
       else
-        val sessionId = SecureRandom nextString 22
-        if tor isExitNode HTTPRequest.ipAddress(req) then logger.info(s"Tor login $userId")
-        store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
+        ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
+          val sessionId = SecureRandom nextString 22
+          proxy.name.foreach: p =>
+            logger.info(s"Proxy login $p $userId")
+          store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy) inject sessionId
     }
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
@@ -126,7 +129,7 @@ final class SecurityApi(
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
-  ): Fu[lila.oauth.OAuthServer.AuthResult] =
+  ): Fu[OAuthServer.AuthResult] =
     oAuthServer
       .auth(req, required)
       .addEffect:

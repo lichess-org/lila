@@ -60,7 +60,7 @@ Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere 
   <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
 Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan verilir.</string>
   <string name="earlyDrawsQ">Erken beraberlik durumunda ne oluyor?</string>
-  <string name="earlyDrawsAnswer">İsviçre oyunlarında oyuncular 30 hamle oynanmadan beraberlik yapamazlar. Bu önlem önceden ayarlanmış kura çekimini engelleyemese de, en azından anında kura çekimine varmayı zorlaştırıyor.</string>
+  <string name="earlyDrawsAnswer">İsviçre sistemi maçlarda 30 hamle oynanmadan oyuncular berabere kalamaz. Bu önlem, maçtan önce ayarlanmış beraberlikleri engelleyemese de maç esnasında berabere kalmayı zorlaştırır.</string>
   <string name="whatIfOneDoesntPlayQ">Rakip oyuna gelmezse ne olur?</string>
   <string name="whatIfOneDoesntPlayA">Süresi bitene kadar oyun devam eder ve süre bittiğinde mağlup sayılır.
 Sonrasında sistem bu oyuncuyu daha fazla oyun kaybetmemesi için turnuvadan çeker.
@@ -78,7 +78,7 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="swissDescription">İsviçre sistemi turnuvalarda %1$s, her oyuncunun bütün katılımcılarla maç yapması şart değildir. Her tur eşleştirmeler yapılırken turnuva puanları esas alınır. Oyuncular kendilerine en yakın turnuva puanına sahip rakiplerden biriyle eşleşir ancak aynı rakip ile birden fazla maç yapamaz. Turnuvanın galibi, bütün turlarda kazandığı puanların toplamı en yüksek olan oyuncu olur. Katılımcı sayısı bir tek sayı olmadığı sürece bütün yarışmacılar her turda maç yapar.</string>
   <string name="teamOnly">İsviçre sistemi turnuvalar sadece takım liderleri tarafından oluşturulabilir ve bu turnuvalara yalnızca takım üyeleri katılabilir. İsviçre sistemi turnuvalarda yer almak için %1$s.</string>
   <string name="joinOrCreateTeam">bir takıma katılın veya yeni bir takım oluşturun</string>
-  <string name="nowPlaying">Devam eden turnuvalar</string>
+  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Devam eden turnuvalar</string>
   <string name="startingSoon">Başlamak üzere</string>
   <string name="comparison">Karşılaştırma</string>
   <string name="tournDuration">Turnuvanın uzunluğu</string>

@@ -96,7 +96,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function (this: HTMLElement) {
-    const panel = $(this).data('panel');
+    const panel = this.dataset.panel!;
     storage.set(panel);
     setPanel(panel);
   });

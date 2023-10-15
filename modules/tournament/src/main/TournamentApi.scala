@@ -11,7 +11,7 @@ import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
@@ -54,32 +54,15 @@ final class TournamentApi(
 
   def createTournament(
       setup: TournamentSetup,
-      leaderTeams: List[LeaderTeam],
+      leaderTeams: List[LightTeam],
       andJoin: Boolean = true
   )(using me: Me): Fu[Tournament] =
-    val tour = Tournament
-      .make(
-        by = Right(me),
-        name = setup.name,
-        clock = setup.clockConfig,
-        minutes = setup.minutes,
-        waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
-        startDate = setup.startDate,
-        mode = setup.realMode,
-        password = setup.password,
-        variant = setup.realVariant,
-        position = setup.realPosition,
-        berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
-        streakable = setup.streakable | true,
-        teamBattle = setup.teamBattleByTeam map TeamBattle.init,
-        description = setup.description,
-        hasChat = setup.hasChat | true
-      )
-      .copy(conditions = setup.conditions)
+    val tour = Tournament.fromSetup(setup)
     tournamentRepo.insert(tour) >> {
-      setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).so { teamId =>
-        tournamentRepo.setForTeam(tour.id, teamId).void
-      }
+      setup.teamBattleByTeam
+        .orElse(tour.conditions.teamMember.map(_.teamId))
+        .so: teamId =>
+          tournamentRepo.setForTeam(tour.id, teamId).void
     } >> {
       (andJoin && !me.isBot && !me.lame) so join(
         tour.id,
@@ -95,7 +78,11 @@ final class TournamentApi(
   def apiUpdate(old: Tournament, data: TournamentSetup): Fu[Tournament] =
     updateTour(old, data, data updatePresent old)
 
-  private def updateTour(old: Tournament, data: TournamentSetup, tour: Tournament): Fu[Tournament] =
+  private[tournament] def updateTour(
+      old: Tournament,
+      data: TournamentSetup,
+      tour: Tournament
+  ): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that

@@ -46,7 +46,7 @@
     <item quantity="one">Бе домакин на %s шахматен сеанс</item>
     <item quantity="other">Домакин на %s шахматни сеанса</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Участва в %s шахматен сеанс</item>
     <item quantity="other">Участва в %s шахматни сеанса</item>
   </plurals>

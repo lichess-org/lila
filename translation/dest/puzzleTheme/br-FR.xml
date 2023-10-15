@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="anastasiaMate">Lamm d\'ar roue mod Ananastasia</string>
   <string name="arabianMate">Lamm d\'ar roue mod Arabia</string>
   <string name="attackingF2F7">Tagañ f2 pe f7</string>
   <string name="bodenMate">Lamm d\'ar roue mod Boden</string>
   <string name="castling">Rokañ</string>
   <string name="castlingDescription">Gwarezit ho roue ha kasit ho tour d\'an emgann.</string>
   <string name="dovetailMate">Lamm d\'ar roue mod Dovetail</string>
+  <string name="kingsideAttack">Tagañ tu ar roue</string>
   <string name="doubleCheck">Bec\'h d\'ar roue doubl</string>
   <string name="endgame">Fin ar c\'hrogad</string>
   <string name="fork">Forc\'h</string>

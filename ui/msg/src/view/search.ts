@@ -4,7 +4,7 @@ import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
 import { userName, userIcon } from './util';
-import { hookMobileMousedown } from 'common/mobile';
+import { hookMobileMousedown } from 'common/device';
 
 export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [

@@ -147,32 +147,43 @@ final class StudyApi(
         indexStudy(sc.study) inject sc.some
     }
 
-  def clone(me: User, prev: Study): Fu[Option[Study]] =
-    Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) so {
-      val study1 = prev.cloneFor(me)
-      chapterRepo
-        .orderedByStudySource(prev.id)
-        .map(_ cloneFor study1)
-        .mapAsync(4): c =>
-          chapterRepo.insert(c) inject c
-        .toMat(Sink.reduce[Chapter] { case (prev, _) => prev })(Keep.right)
-        .run()
-        .flatMap { (first: Chapter) =>
-          val study = study1 rewindTo first
-          studyRepo.insert(study) >>
-            chatApi.userChat.system(
-              study.id into ChatId,
-              s"Cloned from lichess.org/study/${prev.id}",
-              _.Study
-            ) inject study.some
-        }
-    }
+  def cloneWithCheckAndChat(
+      me: User,
+      prev: Study,
+      update: Study => Study = identity
+  ): Fu[Option[Study]] =
+    Settings.UserSelection
+      .allows(prev.settings.cloneable, prev, me.id.some)
+      .so:
+        justCloneNoChecks(me, prev, update).flatMap: study =>
+          chatApi.userChat.system(
+            study.id into ChatId,
+            s"Cloned from lichess.org/study/${prev.id}",
+            _.Study
+          ) inject study.some
+
+  def justCloneNoChecks(
+      me: User,
+      prev: Study,
+      update: Study => Study = identity
+  ): Fu[Study] =
+    val study1 = update(prev.cloneFor(me))
+    chapterRepo
+      .orderedByStudySource(prev.id)
+      .map(_ cloneFor study1)
+      .mapAsync(1): c =>
+        chapterRepo.insert(c) inject c
+      .toMat(Sink.reduce[Chapter] { (prev, _) => prev })(Keep.right)
+      .run()
+      .flatMap: first =>
+        val study = study1 rewindTo first
+        studyRepo.insert(study) inject study
 
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =
     chapters.headOption match
       case Some(c) if study.isOld && study.position != c.initialPosition =>
         val newStudy = study rewindTo c
-        studyRepo.updateSomeFields(newStudy) zip chapterRepo.byId(c.id) map { case (_, chapter) =>
+        studyRepo.updateSomeFields(newStudy) zip chapterRepo.byId(c.id) map { (_, chapter) =>
           newStudy -> chapter
         }
       case _ => fuccess(study -> none)

@@ -18,7 +18,7 @@
   <string name="findTheBestMoveForWhite">Найдіт лїпшый ход для білых.</string>
   <string name="findTheBestMoveForBlack">Найдіт лїпшый ход для чорных.</string>
   <string name="toGetPersonalizedPuzzles">Обы достати персоналізовані задачі:</string>
-  <string name="puzzleId">Задача %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
   <string name="dailyPuzzle">Задача дня</string>
   <string name="clickToSolve">Клопкніт, обы рішити</string>
@@ -31,8 +31,8 @@
   <string name="puzzlesByOpenings">Задачі по дебютам</string>
   <string name="notTheMove">Недобрый ход!</string>
   <string name="trySomethingElse">Попробуйте дашто другоє.</string>
-  <string name="ratingX">Рейтiнґ: %s</string>
-  <string name="hidden">спрятано</string>
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Рейтiнґ: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">спрятано</string>
   <string name="fromGameLink">Из бавкы %s</string>
   <string name="continueTraining">Продовжити цвіченя</string>
   <string name="difficultyLevel">Уровень чажкости</string>

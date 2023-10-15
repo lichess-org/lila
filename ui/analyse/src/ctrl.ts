@@ -7,7 +7,7 @@ import { plural } from './view/util';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type makeStudyCtrl from './study/studyCtrl';
-import { isTouchDevice } from 'common/mobile';
+import { isTouchDevice } from 'common/device';
 import throttle from 'common/throttle';
 import {
   AnalyseOpts,

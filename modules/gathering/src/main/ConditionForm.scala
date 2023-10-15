@@ -2,7 +2,7 @@ package lila.gathering
 
 import play.api.data.Forms.*
 
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.gathering.Condition.*
 import lila.common.Form.{ *, given }
 import play.api.data.Mapping
@@ -41,7 +41,7 @@ object ConditionForm:
   val titled: Mapping[Option[Titled.type]] =
     optional(boolean).transform(_.contains(true) option Titled, _.isDefined option true)
 
-  def teamMember(leaderTeams: List[LeaderTeam]): Mapping[Option[TeamMember]] = optional:
+  def teamMember(leaderTeams: List[LightTeam]): Mapping[Option[TeamMember]] = optional:
     mapping(
       "teamId" -> of[TeamId].verifying(id => leaderTeams.exists(_.id == id))
     )(id => TeamMember(id, leaderTeams.find(_.id == id).err(s"Team $id not found").name))(_.teamId.some)

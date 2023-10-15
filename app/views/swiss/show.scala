@@ -38,7 +38,7 @@ object show:
               "data"   -> data,
               "i18n"   -> bits.jsI18n,
               "userId" -> ctx.userId,
-              "chat" -> chatOption.map { c =>
+              "chat" -> chatOption.map: c =>
                 chat.json(
                   c.chat,
                   name = trans.chatRoom.txt(),
@@ -47,8 +47,7 @@ object show:
                   resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
                   localMod = isLocalMod,
                   writeable = !c.locked
-                )
-              },
+                ),
               "showRatings" -> ctx.pref.showRatings
             )
             .add("schedule" -> hasScheduleInput)
@@ -65,9 +64,8 @@ object show:
           description =
             s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +
-              s.winnerId.fold("Winner is not yet decided.") { winnerId =>
+              s.winnerId.fold("Winner is not yet decided."): winnerId =>
                 s"${titleNameOrId(winnerId)} takes the prize home!"
-              }
         )
         .some
     )(

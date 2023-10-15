@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Арена турнири</string>
+  <string name="arenaTournaments">Турнири в арената</string>
   <string name="isItRated">С рейтинг ли е?</string>
   <string name="willBeNotified">Ще бъдете уведомени когато турнирът започне, така че е безопасно да се играе в друг раздел докато чакате.</string>
   <string name="isRated">Този турнир ще се отрази на вашия рейтинг.</string>
@@ -41,10 +41,10 @@
   <string name="drawStreakVariants">Минималната продължителност на играта, при която се присъждат точки за игра завършила реми, е различна в различните варианти. В таблицата по-долу е посочена продължителността за всеки вариант.</string>
   <string name="variant">Вариант</string>
   <string name="minimumGameLength">Минимален брой ходове</string>
-  <string name="history">История на Арената</string>
+  <string name="history">История на арената</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Вижте отбора</item>
-    <item quantity="other">Вижте всички %s отбора</item>
+    <item quantity="one">Преглед на отбора</item>
+    <item quantity="other">Преглед на всички %s отбора</item>
   </plurals>
   <string name="newTeamBattle">Нова отборна битка</string>
   <string name="customStartDate">Начална дата</string>
@@ -58,5 +58,5 @@
   <string name="noArenaStreaks">Без поредици в Арената</string>
   <string name="averagePerformance">Средна производителност</string>
   <string name="averageScore">Average score</string>
-  <string name="myTournaments">Мои турнири</string>
+  <string name="myTournaments">Моите турнири</string>
 </resources>

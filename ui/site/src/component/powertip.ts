@@ -7,7 +7,7 @@ import { requestIdleCallback } from './functions';
 const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?.contains(el);
 
 const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el: HTMLAnchorElement) => {
-  const url = ($(el).data('href') || el.href).replace(/\?.+$/, '');
+  const url = (el.dataset.href || el.href).replace(/\?.+$/, '');
   if (preload) preload(url);
   xhr.text(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
@@ -24,7 +24,7 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
     .powerTip({
       preRender: onPowertipPreRender('powerTip', (url: string) => {
         const u = url.slice(3);
-        const name = $(el).data('name') || $(el).html();
+        const name = el.dataset.name || $(el).html();
         $('#powerTip').html(
           '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
             name +

@@ -59,45 +59,49 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
         WithVs: vs =>
-          val finished = getBoolOpt("finished") | true
-          val config = GameApiV2.ByUserConfig(
-            user = user,
-            format = format,
-            vs = vs,
-            since = getTimestamp("since"),
-            until = getTimestamp("until"),
-            max = getInt("max").map(_ atLeast 1),
-            rated = getBoolOpt("rated"),
-            perfType = (~get("perfType") split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
-            color = get("color") flatMap chess.Color.fromName,
-            analysed = getBoolOpt("analysed"),
-            flags = requestPgnFlags(extended = false),
-            sort =
-              if get("sort") has "dateAsc" then GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
-            perSecond = MaxPerSecond(ctx.me match
+          env.security.ipTrust
+            .throttle(MaxPerSecond(ctx.me match
               case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
               case Some(m) if m is user.id                   => 60
               case Some(_) if ctx.isOAuth => 30 // bonus for oauth logged in only (not for CSRF)
-              case _                      => 20
-            ),
-            playerFile = get("players"),
-            ongoing = getBool("ongoing") || !finished,
-            finished = finished
-          )
-          if ctx.me.exists(_ is lila.user.User.explorerId) then
-            Ok.chunked(env.api.gameApiV2.exportByUser(config))
-              .pipe(noProxyBuffer)
-              .as(gameContentType(config))
-          else
-            apiC
-              .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
-                env.api.gameApiV2.exportByUser(config)
-              ): source =>
-                Ok.chunked(source)
-                  .pipe:
-                    asAttachmentStream:
-                      s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
+              case _                      => 25
+            ))
+            .flatMap: perSecond =>
+              val finished = getBoolOpt("finished") | true
+              val config = GameApiV2.ByUserConfig(
+                user = user,
+                format = format,
+                vs = vs,
+                since = getTimestamp("since"),
+                until = getTimestamp("until"),
+                max = getInt("max").map(_ atLeast 1),
+                rated = getBoolOpt("rated"),
+                perfType = (~get("perfType") split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
+                color = get("color") flatMap chess.Color.fromName,
+                analysed = getBoolOpt("analysed"),
+                flags = requestPgnFlags(extended = false),
+                sort =
+                  if get("sort") has "dateAsc" then GameApiV2.GameSort.DateAsc
+                  else GameApiV2.GameSort.DateDesc,
+                perSecond = perSecond,
+                playerFile = get("players"),
+                ongoing = getBool("ongoing") || !finished,
+                finished = finished
+              )
+              if ctx.me.exists(_ is lila.user.User.explorerId) then
+                Ok.chunked(env.api.gameApiV2.exportByUser(config))
+                  .pipe(noProxyBuffer)
                   .as(gameContentType(config))
+              else
+                apiC
+                  .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
+                    env.api.gameApiV2.exportByUser(config)
+                  ): source =>
+                    Ok.chunked(source)
+                      .pipe:
+                        asAttachmentStream:
+                          s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
+                      .as(gameContentType(config))
 
       }
     }

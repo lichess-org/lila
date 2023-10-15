@@ -46,7 +46,7 @@
     <item quantity="one">ఏకకాలంలో %s ప్రదర్శనను నిర్వహించారు</item>
     <item quantity="other">ఏకకాలంలో %s ప్రదర్శలను నిర్వహించారు</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">ఏకకాలంలో %s ప్రదర్శనలో పాల్గొన్నారు</item>
     <item quantity="other">ఏకకాలంలో %s ప్రదర్శనలలో పాల్గొన్నారు</item>
   </plurals>

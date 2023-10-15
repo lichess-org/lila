@@ -79,7 +79,7 @@
   <string name="winning">胜棋</string>
   <string name="losing">输棋</string>
   <string name="drawn">和棋</string>
-  <string name="unknown">结局未知</string>
+  <string name="unknown">未知</string>
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
   <string name="averageRatingX">平均等级分：%s</string>
@@ -97,7 +97,7 @@
   <string name="openingExplorer">开局浏览器</string>
   <string name="openingEndgameExplorer">开局/残局浏览器</string>
   <string name="xOpeningExplorer">%s 开局浏览器</string>
-  <string name="playFirstOpeningEndgameExplorerMove">播放首次打开/端Game-浏览器移动</string>
+  <string name="playFirstOpeningEndgameExplorerMove">在开局/残局浏览器走第一步棋</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
   <string name="winOr50MovesByPriorMistake">赢棋或因先前错误而50步作和</string>
@@ -119,19 +119,19 @@
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">无限分析</string>
-  <string name="removesTheDepthLimit">取消深度限制，会使电脑发热</string>
+  <string name="removesTheDepthLimit">取消深度限制 (提高电脑温度)</string>
   <string name="engineManager">引擎管理</string>
   <string name="blunder">漏着</string>
-  <string name="mistake">失误</string>
-  <string name="inaccuracy">疑着</string>
+  <string name="mistake">错着</string>
+  <string name="inaccuracy">失准</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 次漏着</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="other">%s 次失误</item>
+    <item quantity="other">%s 次错着</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="other">%s 次疑着</item>
+    <item quantity="other">%s 次失准</item>
   </plurals>
   <string name="moveTimes">走棋时间</string>
   <string name="flipBoard">翻转棋盘</string>
@@ -215,16 +215,16 @@
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
   <string name="whatSignupUsername">你用了什么用户名注册？</string>
   <string name="usernameNotFound">找不到用户 %s</string>
-  <string name="usernameCanBeUsedForNewAccount">你可以使用这个用户名来创建账户</string>
+  <string name="usernameCanBeUsedForNewAccount">你可以使用此用户名创建账户</string>
   <string name="emailSent">我们已经向 %s 发送了一封电子邮件。</string>
   <string name="emailCanTakeSomeTime">可能需要一些时间才能收到。</string>
   <string name="refreshInboxAfterFiveMinutes">稍等 5 分钟并刷新你的收件箱。</string>
-  <string name="checkSpamFolder">尝试检查你的垃圾邮件收件箱，它可能在那里。如果在，请将其标记为非垃圾邮件。</string>
+  <string name="checkSpamFolder">尝试检查你的垃圾邮件箱，它可能在那里。如果在，请将其标记为非垃圾邮件。</string>
   <string name="emailForSignupHelp">如果还是不行，请向我们发送这封邮件：</string>
   <string name="copyTextToEmail">复制上面的文本并发送到 %s</string>
   <string name="waitForSignupHelp">我们很快就会给你回复，帮助你完成注册。</string>
   <string name="accountConfirmed">用户 %s 已成功注册。</string>
-  <string name="accountCanLogin">你可以使用 %s 登录了。</string>
+  <string name="accountCanLogin">你可以以 %s 登录了。</string>
   <string name="accountConfirmationEmailNotNeeded">你不需要确认电子邮件。</string>
   <string name="accountClosed">账户 %s 已被关闭。</string>
   <string name="accountRegisteredWithoutEmail">账户 %s 未使用电子邮箱注册。</string>
@@ -648,11 +648,11 @@
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入／退出变着</string>
-  <string name="keyRequestComputerAnalysis">请求引擎分析，并从你的失误中学习</string>
+  <string name="keyRequestComputerAnalysis">请求电脑分析，并从你的失误中学习</string>
   <string name="keyNextLearnFromYourMistakes">下一个 (从你的失误中学习)</string>
   <string name="keyNextBlunder">下一个漏着</string>
   <string name="keyNextMistake">下一个错着</string>
-  <string name="keyNextInaccuracy">下一个疑着</string>
+  <string name="keyNextInaccuracy">下一个失准着</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与 Lichess 官方的锦标赛，或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给你带来无尽的国际象棋乐趣。</string>
@@ -779,7 +779,7 @@
   <string name="youCanDoBetter">加油！有更好的一步棋！</string>
   <string name="tryAnotherMoveForWhite">为白方另找走法</string>
   <string name="tryAnotherMoveForBlack">为黑方另找走法</string>
-  <string name="solution">解答</string>
+  <string name="solution">解法</string>
   <string name="waitingForAnalysis">正在等待分析</string>
   <string name="noMistakesFoundForWhite">未找到白方失误</string>
   <string name="noMistakesFoundForBlack">未找到黑方失误</string>
