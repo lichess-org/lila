@@ -263,24 +263,21 @@ final class TeamApi(
           )
     }
 
-  def kick(team: Team, userId: UserId)(using me: Me): Funit =
-    (userId != team.createdBy).so:
-      memberRepo
-        .exists(team.id, userId)
-        .flatMapz:
-          // create a request to set declined in order to prevent kicked use to rejoin
-          val request = Request.make(
-            team = team.id,
-            user = userId,
-            message = "Kicked from team",
-            declined = true
-          )
-          for
-            _        <- requestRepo.coll.insert.one(request)
-            _        <- quit(team, userId)
-            isLeader <- isGranted(team.id, _.Kick)
-            _        <- isLeader so modLog.teamKick(userId, team.name)
-          yield Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
+  def kick(team: Team, userId: UserId)(using me: Me): Funit = for
+    kicked <- memberRepo.get(team.id, userId)
+    myself <- memberRepo.get(team.id, me)
+    allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
+      myself.exists: myself =>
+        kicked.perms.isEmpty || myself.isGranted(_.Admin) || Granter(_.ManageTeam)
+    _ <- allowed.so:
+      // create a request to set declined in order to prevent kicked use to rejoin
+      val request = Request.make(team.id, userId, "Kicked from team", declined = true)
+      for
+        _ <- requestRepo.coll.insert.one(request)
+        _ <- quit(team, userId)
+        _ <- !Granter(_.ManageTeam) so modLog.teamKick(userId, team.name)
+      yield Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
+  yield ()
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
     val users  = parseTagifyInput(json).toList
