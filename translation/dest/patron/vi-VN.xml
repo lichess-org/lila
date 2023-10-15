@@ -2,14 +2,14 @@
 <resources>
   <string name="donate">Ủng hộ</string>
   <string name="donateAsX">Ủng hộ bằng tài khoản %s</string>
-  <string name="lichessPatron">Lichess Patron</string>
+  <string name="lichessPatron">Bảo trợ Lichess</string>
   <string name="freeAccount">Tài khoản miễn phí</string>
-  <string name="becomePatron">Trở thành một Lichess Patron</string>
+  <string name="becomePatron">Trở thành một người Bảo Trợ Lichess</string>
   <string name="xBecamePatron">%s đã trở thành một Lichess Patron</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="other">%1$s là Lichess Patron trong %2$s tháng</item>
+    <item quantity="other">%1$s là người Bảo Trợ Lichess trong %2$s tháng</item>
   </plurals>
-  <string name="newPatrons">Những người ủng hộ mới</string>
+  <string name="newPatrons">Những người bảo trợ mới</string>
   <string name="freeChess">Cờ Vua Miễn Phí Cho Mọi Người!
 Mãi Mãi!</string>
   <string name="noAdsNoSubs">Không có quảng cáo, không cần đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
@@ -59,7 +59,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="nextPayment">Lần thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Ủng hộ thêm ngay bây giờ</string>
-  <string name="giftPatronWingsShort">Tặng cánh Patron</string>
+  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;The word 'gift' is used as a verb here. This function allows players to donate in another player's name, and have that player receive patron wings.">Tặng cánh Patron</string>
   <string name="giftPatronWings">Tặng cánh Patron cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi số tiền hàng tháng (%s)</string>
