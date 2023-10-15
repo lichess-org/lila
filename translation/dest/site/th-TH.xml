@@ -475,8 +475,8 @@
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
-  <string name="descPrivate">คำบรรยายส่วนตัว</string>
-  <string name="descPrivateHelp">ข้อความที่สมาชิกทีมเท่านั้นที่เห็นได้ ถ้าตั้งไว้ก็จะไปแทนที่คำอธิบายสาธารณะสำหรับสมาชิกทีม</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">คำบรรยายส่วนตัว</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ข้อความที่สมาชิกทีมเท่านั้นที่เห็นได้ ถ้าตั้งไว้ก็จะไปแทนที่คำอธิบายสาธารณะสำหรับสมาชิกทีม</string>
   <string name="no">ไม่</string>
   <string name="yes">ใช่</string>
   <string name="help">ช่วยเหลือ:</string>
@@ -801,6 +801,7 @@
   <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">บลิตซ์</string>
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>
   <string name="ultraBulletDesc">เกมด่วนจี๋: น้อยกว่า 30 วินาที</string>
@@ -826,7 +827,7 @@
   <string name="mentionedYouInX">กล่าวถึงคุณใน \"%1$s\"</string>
   <string name="xMentionedYouInY">%1$s ได้กล่าวถึงคุณใน \"%2$s\"</string>
   <string name="invitedYouToX">ได้เชิญคุณไปที่ \"%1$s\"</string>
-  <string name="xInvitedYouToY">%1$s ได้เชิญคุณไปที่ \"%2$s\"</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ได้เชิญคุณไปที่ \"%2$s\"</string>
   <string name="youAreNowPartOfTeam">ตอนนี้คุณเป็นส่วนหนึ่งของทีม</string>
   <string name="youHaveJoinedTeamX">คุณได้เข้าร่วม \"%1$s\"</string>
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
