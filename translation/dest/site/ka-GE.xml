@@ -902,4 +902,5 @@
   <string name="minimumRatedGames">მინიმალური რეიტინგული თამაშები</string>
   <string name="minimumRating">მაქსიმალური რეიტინგი</string>
   <string name="maximumWeeklyRating">მაქსიმალური კვირეული რეიტინგი</string>
+  <string name="onlyTitled">მხოლოდ ტიტულოვანი მოთამაშეები</string>
 </resources>
