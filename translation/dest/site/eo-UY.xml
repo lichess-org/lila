@@ -527,8 +527,8 @@
   <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
-  <string name="descPrivate">Privata priskribo</string>
-  <string name="descPrivateHelp">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privata priskribo</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="help">Helpo:</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">Nevalida FEN</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
-  <string name="notificationsX">Sciigoj: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Sciigoj: %1$s</string>
   <string name="perfRatingX">Rango: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapida</string>
   <string name="classical">Klasika</string>
   <string name="ultraBulletDesc">Freneze rapidaj ludoj: malpli ol 30 sekundoj</string>
@@ -894,7 +895,7 @@
   <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
   <string name="invitedYouToX">invitis vin al \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s invitis vin al \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">La ludanto, kiun vi reportis estis blokita</string>

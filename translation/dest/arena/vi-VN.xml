@@ -8,11 +8,11 @@
   <string name="someRated">Một số giải đấu có tính Elo và sẽ ảnh hưởng đến Elo của bạn.</string>
   <string name="howAreScoresCalculated">Điểm được tính thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
-Nếu bạn thắng hai ván liên tiếp bạn sẽ bắt đầu có chuỗi gấp đôi điểm, thể hiện bằng hình ngọn lửa.
-Các ván đấu sau đó sẽ tiếp tục gấp đôi điểm đến khi bạn thua một ván.
+Nếu bạn thắng hai ván liên tiếp bạn sẽ bắt đầu có chuỗi nhân đôi điểm, thể hiện bằng hình ngọn lửa.
+Các ván đấu sau đó sẽ tiếp tục nhân đôi điểm đến khi bạn thua một ván.
 Nghĩa là, một ván thắng được 4 điểm, hòa: 2 điểm, thua: 0 điểm.
 
-Ví dụ, thắng 2 ván rồi hòa 1 ván sẽ được 6 điểm: 2 + 2 + (2 x 1)</string>
+Ví dụ, thắng 2 ván rồi hòa 1 ván sẽ được 6 điểm: 2 + 2 + (1 x 2)</string>
   <string name="berserk">Berserk trong đấu trường</string>
   <string name="berserkAnswer">Khi người chơi nhấn nút Berserk lúc bắt đầu ván cờ, họ sẽ mất nửa thời gian của họ, nhưng nếu thắng sẽ được thêm một điểm giải đấu.
 
@@ -45,7 +45,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Xem tất cả %s đội</item>
   </plurals>
-  <string name="newTeamBattle">Giải đấu đội mới</string>
+  <string name="newTeamBattle">Giải Đấu Đội Mới</string>
   <string name="customStartDate">Chọn thời gian bắt đầu</string>
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Berserk</string>
@@ -53,7 +53,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng chat</string>
   <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
-  <string name="noBerserkAllowed">Không cho phép Berserk</string>
+  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Không cho phép Berserk</string>
   <string name="noArenaStreaks">Không có chuỗi Đấu trường</string>
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>

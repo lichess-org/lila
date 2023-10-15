@@ -23,7 +23,7 @@
   <plurals name="gainedNbFollowers">
     <item quantity="other">co\'a se catlu %s da</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="other">jivna fo %s cabysi\'u nuntigni</item>
   </plurals>
   <plurals name="createdNbStudies">

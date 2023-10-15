@@ -68,7 +68,7 @@
     <item quantity="many">Rozegranie %s symultan</item>
     <item quantity="other">Rozegranie %s symultan</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Udział w %s symultanie</item>
     <item quantity="few">Udział w %s symultanach</item>
     <item quantity="many">Udział w %s symultanach</item>

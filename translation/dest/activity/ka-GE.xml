@@ -46,7 +46,7 @@
     <item quantity="one">უმასპინძლა %s ერთდროულ თამაშს</item>
     <item quantity="other">უმასპინძლა %s ერთდროულ თამაშს</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">შეუერთდა %s ერთდროულ თამაშს</item>
     <item quantity="other">შეუერთდა %s ერთდროულ თამაშს</item>
   </plurals>
