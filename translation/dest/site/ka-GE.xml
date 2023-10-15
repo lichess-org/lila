@@ -885,4 +885,21 @@
   <string name="lostAgainstTOSViolator">თქვენ დაკარგეთ სარეიტინგო ქულები იმასთან, ვინც დაარღვია Lichess-ის TOS</string>
   <string name="refundXpointsTimeControlY">აგინაზღაურდათ %1$s რეიტინგის ქულა %2$s დროის ფორმატში.</string>
   <string name="timeAlmostUp">დრო თითქმის ამოიწურა!</string>
+  <string name="clickToRevealEmailAddress">[დააჭირეთ ელფოსტის სანახავად]</string>
+  <string name="download">ჩამოტვირთვა</string>
+  <string name="welcome">მოგესალმებით!</string>
+  <string name="lichessPatronInfo">Lichess -ი არის საქველმოქმედო და სრულიად უფასო/თავისუფალი ღია კოდის მქონე პროგრამა.
+ყველა საოპერაციო ხარჯი, დეველოპმენტი და კონტენტი ფინანსდება მხოლოდ მომხმარებლის შემოწირულობებით.</string>
+  <string name="coachManager">მასწავლებლის მენეჯერი</string>
+  <string name="streamerManager">სტრიმერის მენეჯერი</string>
+  <string name="cancelTournament">ტურნირის გაუქმება</string>
+  <string name="tournDescription">ტურნირის აღწერა</string>
+  <string name="tournDescriptionHelp">რაიმე განსაკუთრებული გსურთ უთხრათ მონაწილეებს? შეეცადეც, რომ ტექსტი დიდი არ იყოს. მარკდაუნის ბმულები ხელმისაწვდომია: [name](https://url)</string>
+  <string name="ratedFormHelp">თამაშები რეიტინგზეა
+და გავლენას ახდენს მოთამაშეების რეიტინგზე</string>
+  <string name="onlyMembersOfTeam">მხოლოდ გუნდის წევრები</string>
+  <string name="noRestriction">არანაირი შეზღუდვები</string>
+  <string name="minimumRatedGames">მინიმალური რეიტინგული თამაშები</string>
+  <string name="minimumRating">მაქსიმალური რეიტინგი</string>
+  <string name="maximumWeeklyRating">მაქსიმალური კვირეული რეიტინგი</string>
 </resources>
