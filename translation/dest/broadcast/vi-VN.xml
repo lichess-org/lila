@@ -11,26 +11,26 @@
   <string name="upcoming">Sắp diễn ra</string>
   <string name="completed">Đã hoàn thành</string>
   <string name="roundName">Tên vòng</string>
-  <string name="roundNumber">Vòng đấu số</string>
+  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Vòng đấu số</string>
   <string name="tournamentName">Tên giải đấu</string>
   <string name="tournamentDescription">Lời miêu tả giải đấu ngắn</string>
   <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
   <string name="fullDescriptionHelp">Mô tả dài tùy chọn về giải đấu. %1$s có thể sử dụng. Độ dài phải nhỏ hơn %2$s ký tự.</string>
-  <string name="sourceUrlOrGameIds">URL nguồn, hoặc ID ván cờ</string>
+  <string name="sourceUrlOrGameIds">URL nguồn hoặc ID ván cờ</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, phân tách bởi dấu cách.</string>
   <string name="startDate">Ngày bắt đầu theo múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
-  <string name="broadcastUrl">URL buổi phát sóng</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">URL phát sóng</string>
   <string name="currentRoundUrl">URL vòng đấu hiện tại</string>
-  <string name="currentGameUrl">Link ván đấu hiện tại</string>
+  <string name="currentGameUrl">URL ván đấu hiện tại</string>
   <string name="downloadAllRounds">Tải xuống tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
   <string name="deleteRound">Xóa vòng này</string>
-  <string name="definitivelyDeleteRound">Xóa hoàn toàn vòng đấu và các ván đấu trong đó.</string>
-  <string name="deleteAllGamesOfThisRound">Xóa toàn bộ ván cờ trong vòng này. Để tạo lại chúng bạn cần thêm lại nguồn.</string>
-  <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
-  <string name="deleteTournament">Xóa giải đấu này</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Xóa hoàn toàn vòng đấu và các ván đấu trong đó.</string>
+  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round (https://lichess.org/broadcast). &quot;Source&quot; refers to the broadcasting source. The source is usually a URL pointing to a PGN file, which is continuously updated by the tournament organisers and polled by Lichess to get new moves.&#10;&#10;This button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source, the next time it is polled by Lichess.">Xóa toàn bộ ván cờ trong vòng này. Để tạo lại chúng bạn cần thêm lại nguồn.</string>
+  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies (https://lichess.org/study). Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Chỉnh sửa vòng nghiên cứu</string>
+  <string name="deleteTournament" comment="A button which lets you delete broadcast on https://lichess.org/broadcast">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
 </resources>
