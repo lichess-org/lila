@@ -63,7 +63,13 @@
   <string name="sendAppealTo">อนุญาติให้ยื่นอุทธรณ์แก่ %s</string>
   <string name="falsePositives">ผลบวกลวงเกิดขึ้นได้ในบางครั้ง และเราขออภัยสำหรับเรื่องนั้น</string>
   <string name="ifLegit">หากคำยื่นอุทธรณ์มีความถูกทำนองคลองธรรม เราจะเอาแบนออกโดยเร็ว</string>
+  <string name="accountLost">อย่างไรก็ตามหากคุณใช้เครื่องจักรช่วยคริงๆ แม้ครั้งเดียวก็ตาม บัญชีคุณจะหายไปแบบยับย่อย</string>
+  <string name="doNotDeny">อย่าปฏิเสธว่าโกง หากคุณต้องการได้รับอนุญาตให้สร้างบัญชีใหม่ เพียงยอมรับสิ่งที่คุณทำ และแสดงให้เห็นว่าคุณเข้าใจว่ามันเป็นความผิดพลาด</string>
+  <string name="otherRestriction">ข้อจำกัดอื่นๆ</string>
+  <string name="collaboration">การทำงานร่วมกัน ถูกกฏ ทางการค้า</string>
+  <string name="monetizing">สร้างรายได้ใน Lichess</string>
   <string name="buyingLichess">ซื้อ Lichess</string>
+  <string name="authorizationToUse">มีสิทธิ์ในการใช้ Lichess</string>
   <string name="noneOfTheAbove">ไม่มีข้อใดถูก</string>
   <string name="sendEmailAt">ส่งอีเมลหาเราที่ %s</string>
   <string name="explainYourRequest">กรุณาอธิบายคำขอของคุณอย่างชัดเจนและทั่วถึง ระบุชื่อผู้ใช้ Lichess ของคุณ และข้อมูลใดๆ ที่สามารถช่วยให้เราช่วยเหลือคุณได้</string>
