@@ -48,7 +48,7 @@ object show:
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-              localMod = info.amGranted(_.Comm)
+              localMod = info.havePerm(_.Comm)
             ))
       )
     ):
@@ -110,11 +110,11 @@ object show:
                     label(`for` := "team-subscribe")(subToTeamMessages.txt())
                   )
                 ),
-              (info.mine && !info.amGranted(_.Admin)) option
+              (info.mine && !info.havePerm(_.Admin)) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
-              t.enabled && info.amGranted(_.Tour) option frag(
+              t.enabled && info.havePerm(_.Tour) option frag(
                 a(
                   href     := routes.Tournament.teamBattleForm(t.id),
                   cls      := "button button-empty text",
@@ -145,7 +145,7 @@ object show:
                     em(swissTournamentOverview())
                   )
               ),
-              t.enabled && info.amGranted(_.PmAll) option frag(
+              t.enabled && info.havePerm(_.PmAll) option frag(
                 a(
                   href     := routes.Team.pmAll(t.id),
                   cls      := "button button-empty text",
@@ -156,23 +156,23 @@ object show:
                     em(messageAllMembersOverview())
                   )
               ),
-              ((t.enabled && info.amGranted(_.Settings)) || asMod) option
+              ((t.enabled && info.havePerm(_.Settings)) || asMod) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := licon.Gear)(
                   trans.settings.settings()
                 ),
-              ((t.enabled && info.amGranted(_.Admin)) || asMod) option
+              ((t.enabled && info.havePerm(_.Admin)) || asMod) option
                 a(
                   cls      := "button button-empty text",
                   href     := routes.Team.leaders(t.id),
                   dataIcon := licon.Group
                 )(teamLeaders()),
-              ((t.enabled && info.amGranted(_.Kick)) || asMod) option
+              ((t.enabled && info.havePerm(_.Kick)) || asMod) option
                 a(
                   cls      := "button button-empty text",
                   href     := routes.Team.kick(t.id),
                   dataIcon := licon.InternalArrow
                 )(kickSomeone()),
-              ((t.enabled && info.amGranted(_.Request)) || asMod) option
+              ((t.enabled && info.havePerm(_.Request)) || asMod) option
                 a(
                   cls      := "button button-empty text",
                   href     := routes.Team.declinedRequests(t.id),
@@ -200,7 +200,7 @@ object show:
           ),
           div(cls := "team-show__content__col2")(
             standardFlash,
-            t.intro.isEmpty && info.amGranted(_.Settings) option div(cls := "flash flash-warning")(
+            t.intro.isEmpty && info.havePerm(_.Settings) option div(cls := "flash flash-warning")(
               div(cls := "flash__content"):
                 a(href := routes.Team.edit(t.id))("Give your team a short introduction text!")
             ),

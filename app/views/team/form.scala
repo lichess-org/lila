@@ -53,7 +53,7 @@ object form:
             )
           ),
           hr,
-          (t.enabled && (member.isGranted(_.Admin) || isGranted(_.ManageTeam))) option
+          (t.enabled && (member.hasPerm(_.Admin) || isGranted(_.ManageTeam))) option
             postForm(cls := "inline", action := routes.Team.disable(t.id))(
               explainInput,
               submitButton(

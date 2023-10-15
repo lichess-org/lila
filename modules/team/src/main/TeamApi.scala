@@ -81,7 +81,7 @@ final class TeamApi(
     )
     for
       _        <- teamRepo.coll.update.one($id(team.id), team)
-      isLeader <- isGranted(team.id, _.Settings)
+      isLeader <- hasPerm(team.id, me, _.Settings)
     yield
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
@@ -344,9 +344,6 @@ final class TeamApi(
   def memberOf[U: UserIdOf](teamId: TeamId, u: U): Fu[Option[TeamMember]] =
     belongsTo(teamId, u).flatMapz:
       memberRepo.get(teamId, u)
-
-  def isGranted(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(using me: Me): Fu[Boolean] =
-    memberRepo.hasPerm(teamId, me, perm)
 
   def isCreatorGranted(team: Team, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
     memberRepo.hasPerm(team.id, team.createdBy, perm)
