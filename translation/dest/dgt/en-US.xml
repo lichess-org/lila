@@ -4,8 +4,8 @@
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="dgtBoardRequirements">DGT Board Requirements</string>
   <string name="dgtBoardLimitations">DGT Board Limitations</string>
-  <string name="thisPageAllowsConnectingDgtBoard">This page allows you to connect your DGT board to Lichess, and to use it for playing games.</string>
-  <string name="toConnectTheDgtBoard">To connect to the DGT Electronic Board you will need to install %s.</string>
+  <string name="thisPageAllowsConnectingDgtBoard">This page allows you to connect your DGT board to Lichess and use it for games.</string>
+  <string name="toConnectTheDgtBoard">To connect to the DGT Electronic Board, you will need to install %s.</string>
   <string name="downloadHere">You can download the software here: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">If %1$s is running on this computer, you can check your connection to it by %2$s.</string>
   <string name="openingThisLink">opening this link</string>
