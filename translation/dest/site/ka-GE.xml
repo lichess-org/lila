@@ -872,4 +872,17 @@
   <string name="youCannotPostYetPlaySomeGames">ჯერ არ შეგიძლია ფორუმზე გამოქვეყნება. ითამაშეთ რამდენიმე თამაში!</string>
   <string name="subscribe">გამოწერა</string>
   <string name="unsubscribe">გამოწერის გაუქმება</string>
+  <string name="mentionedYouInX">გახსენა \"%1$s\" - ში</string>
+  <string name="xMentionedYouInY">%1$s -მა გახსენა  \"%2$s\" -ში.</string>
+  <string name="invitedYouToX">მიგიწვია \"%1$s\" - ში.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s -მა მოგიწვია \"%2$s\" -ში.</string>
+  <string name="youAreNowPartOfTeam">თქვენ გახდით გუნდის წევრი.</string>
+  <string name="youHaveJoinedTeamX">თქვენ შეუერთდით \"%1$s\" -ს.</string>
+  <string name="someoneYouReportedWasBanned">თქვენ საჩივარზე ვიღაცას ექაუნთი დაეხურა</string>
+  <string name="congratsYouWon">გილოცავთ! მოიგეთ!</string>
+  <string name="gameVsX">პარტია %1$s-ს წინააღმდეგ</string>
+  <string name="resVsX">%1$s-ი %2$s-ის წინააღმდეგ</string>
+  <string name="lostAgainstTOSViolator">თქვენ დაკარგეთ სარეიტინგო ქულები იმასთან, ვინც დაარღვია Lichess-ის TOS</string>
+  <string name="refundXpointsTimeControlY">აგინაზღაურდათ %1$s რეიტინგის ქულა %2$s დროის ფორმატში.</string>
+  <string name="timeAlmostUp">დრო თითქმის ამოიწურა!</string>
 </resources>
