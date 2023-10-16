@@ -43,7 +43,7 @@
   <string name="opponentLeftChoices">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप जीत का दावा कर सकते हैं, खेल को ड्रा कह सकते हैं, या प्रतीक्षा कर सकते हैं।</string>
   <string name="forceResignation">जीत का दवा करें</string>
   <string name="forceDraw">बराबरी पर खेल समाप्त करें</string>
-  <string name="talkInChat">कृपया चैट में अच्छे बनें!</string>
+  <string name="talkInChat">कृपया सज्जनतापूर्ण बातचीत करें!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">इस URL पर आने वाला पहला व्यक्ति आपके साथ खेलेगा।</string>
   <string name="whiteResigned">सफेद ने हार मान ली</string>
   <string name="blackResigned">काले ने हार मान ली</string>
@@ -506,8 +506,8 @@
   <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
-  <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
-  <string name="descPrivateHelp">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
   <string name="no">नहीं</string>
   <string name="yes">हाँ</string>
   <string name="help">सहायता</string>
@@ -855,6 +855,7 @@
   <string name="useTheReportForm">रिपोर्ट फॉर्म का उपयोग करें</string>
   <string name="toRequestSupport">समर्थन का अनुरोध करने के लिए,%1$s</string>
   <string name="tryTheContactPage">संपर्क पृष्ठ का प्रयास करें</string>
+  <string name="makeSureToRead">पढ़ना ना भुलें %1$s</string>
   <string name="thisTopicIsArchived">इस विषय को संग्रहीत किया गया है और अब इसका उत्तर नहीं दिया जा सकता है।</string>
   <string name="joinTheTeamXToPost">इस फ़ोरम में पोस्ट करने के लिए%1$s से जुड़ें</string>
   <string name="teamNamedX">%1$s टीम</string>
@@ -864,7 +865,7 @@
   <string name="mentionedYouInX">आपने \"%1$s\" में उल्लेख किया है।</string>
   <string name="xMentionedYouInY">%1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
   <string name="invitedYouToX">आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
-  <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
   <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
   <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>
   <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
@@ -935,4 +936,5 @@
   <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
   <string name="switchSides">पार्श्व बदलना</string>
   <string name="closingAccountWithdrawAppeal">आपका खाता बंद करने से आपकी अपील वापस ले ली जाएगी</string>
+  <string name="ourEventTips">कार्यक्रम आयोजित करने कि सलाह</string>
 </resources>
