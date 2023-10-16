@@ -18,7 +18,7 @@ export default function table(ctrl: LobbyController) {
     ]),
     h(
       'div.lobby__start',
-      (lichess.blindMode ? [h('h2', 'Play')] : []).concat(
+      (lichess.blindMode ? [h('h2', ctrl.trans.noarg('Play'))] : []).concat(
         [
           ['hook', 'createAGame', hookDisabled],
           ['friend', 'playWithAFriend', hasOngoingRealTimeGame],

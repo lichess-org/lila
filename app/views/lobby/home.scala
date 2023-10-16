@@ -72,7 +72,7 @@ object home:
             if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
         ,
         div(cls := "lobby__side")(
-          ctx.blind option h2("Highlights"),
+          ctx.blind option h2(trans.highlights()),
           ctx.noKid option st.section(cls := "lobby__streams")(
             views.html.streamer.bits liveStreams streams,
             streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
@@ -99,7 +99,7 @@ object home:
           ),
           if ctx.isAuth then
             div(cls := "timeline")(
-              ctx.blind option h2("Timeline"),
+              ctx.blind option h2(trans.timeline()),
               views.html.timeline entries userTimeline,
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
                 trans.more(),
@@ -108,7 +108,7 @@ object home:
             )
           else
             div(cls := "about-side")(
-              ctx.blind option h2("About"),
+              ctx.blind option h2(trans.about()),
               trans.xIsAFreeYLibreOpenSourceChessServer(
                 "Lichess",
                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
@@ -142,7 +142,7 @@ object home:
           )
         ),
         div(cls := "lobby__about")(
-          ctx.blind option h2("About"),
+          ctx.blind option h2(trans.about()),
           a(href := "/about")(trans.aboutX("Lichess")),
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
@@ -150,7 +150,7 @@ object home:
           a(href := routes.ContentPage.tos)(trans.termsOfService()),
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
-          a(href := "/ads")("Ads"),
+          a(href := "/ads")(trans.ads()),
           views.html.base.bits.connectLinks
         )
       )
