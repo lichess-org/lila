@@ -25,7 +25,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       env.user.repo
         .isManaged(me)
         .flatMap:
-          if _ then notFoundJson()
+          if _ then notFoundJson("Managed accounts cannot be bots.")
           else
             {
               for
