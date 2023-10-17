@@ -903,4 +903,15 @@
   <string name="minimumRating">მაქსიმალური რეიტინგი</string>
   <string name="maximumWeeklyRating">მაქსიმალური კვირეული რეიტინგი</string>
   <string name="onlyTitled">მხოლოდ ტიტულოვანი მოთამაშეები</string>
+  <string name="onlyTitledHelp">მოითხოვეთ ოფიციალური ტიტული ტურნირში შესასვლელად</string>
+  <string name="positionInputHelp">ჩასვით მოქმედი FEN, რათა დაიწყოთ ყველა თამაში მოცემული პოზიციიდან.
+ის მუშაობს მხოლოდ სტანდარტულ თამაშებზე და არა ვარიანტებზე.
+შეგიძლიათ გამოიყენოთ %s FEN პოზიციის შესაქმნელად, შემდეგ ჩასვით აქ.
+დატოვეთ ცარიელი, რომ დაიწყოთ თამაშები ჩვეულებრივი საწყისი პოზიციიდან.</string>
+  <string name="cancelSimul">გააუქმეთ სიმული</string>
+  <string name="simulHostcolor">სიმულის შემქმნელის ფერი ყოველი პარტიისთვის</string>
+  <string name="estimatedStart">დაწყების სავარაუდო დრო</string>
+  <string name="simulFeatured">სიმული ლინკზე %s</string>
+  <string name="simulFeaturedHelp">აჩვენეთ თქვენი სიმული ყველას %s -ზე. გამორთეთ პირადი სიმულებისთვის.</string>
+  <string name="simulDescription">სიმულის აღწერა</string>
 </resources>
