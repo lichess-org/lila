@@ -143,7 +143,7 @@ object I18nKeys:
   val `latestForumPosts` = I18nKey("latestForumPosts")
   val `players` = I18nKey("players")
   val `friends` = I18nKey("friends")
-  vak `otherPlayers` = I18nKey("otherPlayers")
+  val `otherPlayers` = I18nKey("otherPlayers")
   val `discussions` = I18nKey("discussions")
   val `today` = I18nKey("today")
   val `yesterday` = I18nKey("yesterday")
@@ -1563,7 +1563,7 @@ object I18nKeys:
     val `supportUsWithAPatronAccount` = I18nKey("supportUsWithAPatronAccount")
     val `allFeaturesAreFreeForEverybody` = I18nKey("allFeaturesAreFreeForEverybody")
     val `weBelieveEveryChessPlayerDeservesTheBest` = I18nKey("weBelieveEveryChessPlayerDeservesTheBest")
-	val `zeroAdsAndNoTracking` = I18nKey("zeroAdsAndNoTracking")
+    val `zeroAdsAndNoTracking` = I18nKey("zeroAdsAndNoTracking")
 
   object coach:
     val `lichessCoaches` = I18nKey("coach:lichessCoaches")
