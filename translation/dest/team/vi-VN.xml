@@ -36,7 +36,7 @@
   <string name="messageAllMembers">Nhắn tin tới tất cả thành viên</string>
   <string name="messageAllMembersOverview">Gửi một tin nhắn riêng cho mỗi thành viên của đội</string>
   <string name="messageAllMembersLongDescription">Gửi tin nhắn riêng tới TẤT CẢ các thành viên của đội.
-Bạn có thể dùng chức năng này để gọi các người chơi đến tham gia một giải đấu hoặc thi đấu theo đội.
+Bạn có thể dùng chức năng này để gọi các người chơi đến tham gia một giải đấu hoặc giải đấu đội.
 Những người chơi không muốn nhận tin nhắn của bạn có thể sẽ thoát khỏi đội.</string>
   <string name="teamsIlead">Những đội mà tôi làm đội trưởng</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn đường dẫn tới một trong những giải đấu sắp tới?</string>
