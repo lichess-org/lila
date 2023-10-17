@@ -527,8 +527,8 @@
   <string name="tournamentWinners">Turnausvoittajat</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
-  <string name="descPrivate">Yksityinen kuvaus</string>
-  <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Yksityinen kuvaus</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
   <string name="help">Apu:</string>
@@ -692,7 +692,7 @@
   <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
   <string name="newTournament">Uusi turnaus</string>
   <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
-  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Blitz, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
+  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Pikapeli, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
   <string name="tournamentNotFound">Turnausta ei löydy</string>
   <string name="tournamentDoesNotExist">Tätä turnausta ei ole olemassa.</string>
   <string name="tournamentMayHaveBeenCanceled">Se on saatettua perua, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.</string>
@@ -747,7 +747,7 @@
   <string name="zeroAdvertisement">Ei mainoksia</string>
   <string name="fullFeatured">Kaikki ominaisuudet</string>
   <string name="phoneAndTablet">Puhelin ja tabletti</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassinen</string>
+  <string name="bulletBlitzClassical">Bullet, pikapeli, klassinen</string>
   <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">FEN ei kelpaa</string>
   <string name="custom">Mukautettu</string>
   <string name="notifications">Ilmoitukset</string>
-  <string name="notificationsX">Ilmoitukset: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Ilmoitukset: %1$s</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">mainitsi sinut \"%1$s\":ssa.</string>
   <string name="xMentionedYouInY">%1$s mainitsi sinut viestissä \"%2$s\".</string>
   <string name="invitedYouToX">kutsui sinut tutkielmaan \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
   <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ilmoittamasi pelaaja on saanut porttikiellon</string>

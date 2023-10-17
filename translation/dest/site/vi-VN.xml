@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Chơi với bạn bè</string>
   <string name="playWithTheMachine">Chơi với máy tính</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
   <string name="gameOver">Kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="waiting">Đang chờ</string>
@@ -375,7 +375,8 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
-  <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL có thể chia sẻ được.</string>
+  <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, 
+trò chuyện trong ván đấu và có một URL có thể chia sẻ được.</string>
   <string name="importGameCaveat">Các biến thể sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s các ván cờ đã nhập</item>
@@ -476,7 +477,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
   <string name="thankYou">Cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
-  <string name="oneUrlPerLine">Một đường dẫn (URL/Link) mỗi dòng.</string>
+  <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
   <string name="clearSavedMoves">Xóa nước cờ</string>
