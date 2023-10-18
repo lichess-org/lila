@@ -111,18 +111,29 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
             });
         }),
       },
-      (devices || []).map(d =>
-        h(
-          'option',
-          {
-            attrs: {
-              value: d.deviceId,
-              selected: d.deviceId === ctrl.micId(),
+      devices
+        ? devices.map(d =>
+            h(
+              'option',
+              {
+                attrs: {
+                  value: d.deviceId,
+                  selected: d.deviceId === ctrl.micId(),
+                },
+              },
+              d.label,
+            ),
+          )
+        : h(
+            'option',
+            {
+              attrs: {
+                value: 'none',
+                selected: true,
+              },
             },
-          },
-          d.label,
-        ),
-      ),
+            'Please grant access to your microphone',
+          ),
     ),
   ]);
 }
