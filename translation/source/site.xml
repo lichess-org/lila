@@ -4,6 +4,10 @@
   <string name="counters">Counters</string>
   <string name="highlights">Highlights</string>
   <string name="ads">Ads</string>
+  <string name="accessability">Accessibility</string>
+  <string name="blindMode">blind mode</string>
+  <string name="disable">Disable</string>
+  <string name="createTheGame">Create the game</string>
   <string name="playWithTheMachine">Play with the computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>

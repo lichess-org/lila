@@ -97,9 +97,9 @@ object layout:
   private def blindModeForm(using ctx: PageContext) = raw:
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if ctx.blind then 0 else 1
-      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${
-        if ctx.blind then "Disable" else "Enable"
-      } blind mode</button></form>"""
+      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">${trans.accessability.txt()} ${
+        if ctx.blind then trans.disable.txt() else trans.enable.txt() 
+      } ${trans.blindMode.txt()}</button></form>"""
 
   private def zenZone(using Lang) = spaceless:
     s"""

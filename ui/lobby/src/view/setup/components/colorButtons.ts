@@ -23,7 +23,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   h(
     'button',
     { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } },
-    'Create the game',
+    ctrl.trans.noarg('createTheGame'),
   ),
 ];
 
