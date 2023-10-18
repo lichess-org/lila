@@ -86,11 +86,11 @@ object features:
               a(href := routes.Racer.home)("Puzzle Racer")
             ),
             tr(check)(
-              trans.xGlobalOpeningExplorer(
+              trans.features.xGlobalOpeningExplorer(
               a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorer()))
             ),
             tr(check)(
-			  trans.features.personalOpeningExplorerX(
+              trans.features.personalOpeningExplorerX(
               a(href := s"${routes.UserAnalysis.index}#explorer/me")(trans.features.personalOpeningExplorer()),
               a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.otherPlayers()))
             ),
@@ -157,7 +157,7 @@ object features:
           header(h1(trans.supportLichess())),
           tbody(cls := "support")(
             st.tr(
-              th(trans.features.contributeToLichessAndGetIcon),
+              th(trans.features.contributeToLichessAndGetIcon()),
               td("-"),
               td(span(dataIcon := patronIconChar, cls := "is is-green text check")(trans.yes()))
             ),

@@ -1565,6 +1565,7 @@ object I18nKeys:
     val `weBelieveEveryChessPlayerDeservesTheBest` = I18nKey("features:weBelieveEveryChessPlayerDeservesTheBest")
     val `zeroAdsAndNoTracking` = I18nKey("features:zeroAdsAndNoTracking")
     val `ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess` = I18nKey("features:ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess")
+    val `everybodyGetsAllFeaturesForFree` = I18nKey("features:everybodyGetsAllFeaturesForFree")
 
   object coach:
     val `lichessCoaches` = I18nKey("coach:lichessCoaches")
