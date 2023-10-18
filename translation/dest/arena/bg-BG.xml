@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Турнири в арената</string>
+  <string name="arenaTournaments">Арена турнири</string>
   <string name="isItRated">С рейтинг ли е?</string>
   <string name="willBeNotified">Ще бъдете уведомени когато турнирът започне, така че е безопасно да се играе в друг раздел докато чакате.</string>
   <string name="isRated">Този турнир ще се отрази на вашия рейтинг.</string>
@@ -54,8 +54,8 @@
   <string name="allowChatHelp">Позволи на играчите да обсъждат в чата</string>
   <string name="arenaStreaks">Поредици в арената</string>
   <string name="arenaStreaksHelp">След 2 победи, всяка последователна победа носи 4 точки вместо 2.</string>
-  <string name="noBerserkAllowed">Берсек не е позволен</string>
-  <string name="noArenaStreaks">Без поредици в Арената</string>
+  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
   <string name="averagePerformance">Средна производителност</string>
   <string name="averageScore">Average score</string>
   <string name="myTournaments">Моите турнири</string>
