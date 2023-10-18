@@ -86,28 +86,24 @@ object features:
               a(href := routes.Racer.home)("Puzzle Racer")
             ),
             tr(check)(
-			  trans.xGlobalOpeningExplorer(
-              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorer())
-              )
+              trans.xGlobalOpeningExplorer(
+              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorer()))
             ),
             tr(check)(
 			  trans.features.personalOpeningExplorerX(
               a(href := s"${routes.UserAnalysis.index}#explorer/me")(trans.features.personalOpeningExplorer()),
-              a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.otherPlayers())
-              )
+              a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.otherPlayers()))
             ),
             tr(unlimited)(
               a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
-                trans.features.endgameTablebase()
-              )
+                trans.features.endgameTablebase())
             ),
             tr(check)(
               trans.features.downloadOrUploadAnyGameAsPgn()
             ),
             tr(unlimited)(
-			  trans.features.xThroughLichess4BillionGames(
-              a(href := routes.Search.index(1))(trans.search.advancedSearch())
-              )
+              trans.features.xThroughLichessBillionGames(
+              a(href := routes.Search.index(1))(trans.search.advancedSearch()))
             ),
             tr(unlimited)(
               a(href := routes.Video.index)(trans.videoLibrary())
@@ -175,7 +171,7 @@ object features:
         p(cls := "explanation")(
           strong(trans.features.everybodyGetsAllFeaturesForFree()),
           br,
-          trans.builtForTheLoveOfChessNotMoney,
+          trans.builtForTheLoveOfChessNotMoney(),
           br,
           trans.features.weBelieveEveryChessPlayerDeservesTheBest(),
           br,
