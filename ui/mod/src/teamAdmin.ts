@@ -52,7 +52,7 @@ function initTagify(input: HTMLInputElement, maxTags: number) {
     300,
   );
   tagify.on('input', e => {
-    const term = e.detail.value.trim();
+    const term = (e.detail as Tagify.TagData).value.trim();
     if (term.length < 3) return;
     tagify.whitelist = [];
     tagify.settings.enforceWhitelist = true;

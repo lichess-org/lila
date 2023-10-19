@@ -164,7 +164,8 @@ final class ForumPostApi(
             topicName = topic.name,
             userId = post.userId,
             text = post.text take 200,
-            createdAt = post.createdAt categId = topic.categId
+            createdAt = post.createdAt,
+            categId = topic.categId
           )
         }
     }

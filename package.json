@@ -36,7 +36,7 @@
     "eslint": "^8.47.0",
     "lint-staged": "^14.0.0",
     "prettier": "^3.0.2",
-    "typescript": "^5.2"
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "format": "prettier --write --log-level warn .",

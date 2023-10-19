@@ -48,7 +48,6 @@ export default function main(opts: LobbyOpts) {
       side.append(timeline);
       table.append(forum);
     }
-    forum.classList.toggle('none', cols < 4);
   }
 
   return ctrl;

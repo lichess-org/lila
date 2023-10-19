@@ -76,6 +76,10 @@ $app-tab-spacer: calc(2.25em + 2px);
       'leader   winner  tours   tours'
       'about    about   about   about';
 
+    &__forum {
+      display: block;
+    }
+
     &__side {
       @include lobby-app-size;
       padding-top: $app-tab-spacer;
