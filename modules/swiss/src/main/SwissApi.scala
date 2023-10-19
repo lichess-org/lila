@@ -617,7 +617,7 @@ final class SwissApi(
         )
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.map { withdraw(_, user.id) }.parallel.void
+        _.traverse_ { withdraw(_, user.id) }
 
   def isUnfinished(id: SwissId): Fu[Boolean] =
     mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false))

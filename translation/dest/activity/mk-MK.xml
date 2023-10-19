@@ -46,7 +46,7 @@
     <item quantity="one">Организираше %s симултана партија</item>
     <item quantity="other">Организираше %s симултани партии</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Учествуваше во %s симултана партија</item>
     <item quantity="other">Учествуваше во %s симултани партији</item>
   </plurals>

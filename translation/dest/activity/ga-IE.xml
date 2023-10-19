@@ -79,7 +79,7 @@
     <item quantity="many">Bhí %s taispeántas comhuaineacha faoi cúram</item>
     <item quantity="other">Bhí %s taispeántas comhuaineacha faoi cúram</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Glacadh páirt i dtaispeántas comhuaineach amháin</item>
     <item quantity="two">Glacadh páirt i %s thaispeántais comhuaineacha</item>
     <item quantity="few">Glacadh páirt i %s dtaispeántais comhuaineacha</item>

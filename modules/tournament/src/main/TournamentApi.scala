@@ -366,9 +366,9 @@ final class TournamentApi(
 
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {
-      _.map {
+      _.traverse_ {
         withdraw(_, user.id, isPause = false, isStalling = false)
-      }.parallel.void
+      }
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =

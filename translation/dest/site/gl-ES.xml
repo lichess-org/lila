@@ -527,8 +527,8 @@
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
-  <string name="descPrivate">Descrición privada</string>
-  <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe a túa descrición pública cando sexa visto polos membros do equipo.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrición privada</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
@@ -763,7 +763,7 @@
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
-  <string name="yourScore">A túa puntuación: %s</string>
+  <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">FEN non válido</string>
   <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
-  <string name="notificationsX">Notificacións: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificacións: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para facer o primeiro movemento</item>
@@ -868,8 +868,8 @@
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
-  <string name="rapid">Rápida</string>
-  <string name="classical">Clásica</string>
+  <string name="rapid">Rápidas</string>
+  <string name="classical">Clásicas</string>
   <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">mencionoute en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mencionoute en \"%2$s\".</string>
   <string name="invitedYouToX">invitoute a \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s invitoute a \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s invitoute a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Agora formas parte do equipo.</string>
   <string name="youHaveJoinedTeamX">Unícheste a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Alguén a quen denunciaches foi suspendido</string>

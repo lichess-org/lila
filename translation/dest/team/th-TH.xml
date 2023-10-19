@@ -6,11 +6,18 @@
     <item quantity="other">%s สมาชิก</item>
   </plurals>
   <string name="allTeams">ทีมทั้งหมด</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">ทีมผู้นำ</string>
   <string name="newTeam">ทีมใหม่</string>
   <string name="myTeams">ทีมของฉัน</string>
   <string name="noTeamFound">ไม่พบทีมใด</string>
   <string name="joinTeam">เข้าร่วมทีม</string>
+  <string name="onlyLeaderLeavesTeam">โปรดเพิ่มผู้นำทีมใหม่ก่อนออกไปหรือยุบทีม</string>
   <string name="quitTeam">ออกจากทีม</string>
+  <string name="manuallyReviewAdmissionRequests">ตรวจสอบคำขอรับเข้าด้วยตนเอง</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">หากเลือกตัวเลือกนี้ ผู้เล่นจะต้องเขียนคำขอเข้าร่วมทีม ซึ่งคุณสามารถปฏิเสธหรือยอมรับได้</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">ผู้นำของทีม</item>
+  </plurals>
   <string name="teamRecentMembers">สมาชิกล่าสุดของทีม</string>
   <string name="kickSomeone">เตะบางคนออกจากทีม</string>
   <string name="whoToKick">คุณต้องการเตะใครออกจากทีม?</string>
@@ -19,5 +26,9 @@
   </plurals>
   <string name="willBeReviewed">คำขอเข้าร่วมของคุณจะถูกพิจารณาโดยผู้นำทีม</string>
   <string name="beingReviewed">คำขอเข้าร่วมของคุณกำลังถูกพิจารณาโดยผู้นำทีม</string>
+  <string name="requestDeclined">การข้อเข้าร่วมทีมถูกปฏิเสธโดยผู้นำทีม</string>
+  <string name="subToTeamMessages">สมัครสมาชิกให้ข้อความของทีม</string>
   <string name="teamBattle">การสู้เป็นทีม</string>
+  <string name="teamBattleOverview">การแข่งขันแบบหลายทีม ผู้เล่นแต่ละคนจะต้องทำคะแนนเพื่อทีมของตัวเอง</string>
+  <string name="teamTournament">ทัวร์นาเมนต์ทีม</string>
 </resources>

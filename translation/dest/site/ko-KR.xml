@@ -488,8 +488,8 @@
   <string name="tournamentWinners">토너먼트 우승자</string>
   <string name="name">이름</string>
   <string name="description">설명</string>
-  <string name="descPrivate">비공개 설명</string>
-  <string name="descPrivateHelp">팀 멤버만 볼 수 있는 텍스트입니다. 설정된다면, 팀 멤버에게는 공개 설명 대신 보이게 됩니다.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">비공개 설명</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">팀 멤버만 볼 수 있는 텍스트입니다. 설정된다면, 팀 멤버에게는 공개 설명 대신 보이게 됩니다.</string>
   <string name="no">아니오</string>
   <string name="yes">예</string>
   <string name="help">힌트:</string>
@@ -744,7 +744,7 @@
   <string name="invalidFen">잘못된 FEN입니다.</string>
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
-  <string name="notificationsX">알림: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
@@ -820,6 +820,7 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블릿츠</string>
   <string name="rapid">래피드</string>
   <string name="classical">클래시컬</string>
   <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
@@ -847,7 +848,7 @@
   <string name="mentionedYouInX">당신이 %1$s에서 언급됨</string>
   <string name="xMentionedYouInY">%1$s가 당신을 \"%2$s\"에서 언급했습니다.</string>
   <string name="invitedYouToX">%1$s에 초대합니다.</string>
-  <string name="xInvitedYouToY">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
   <string name="youAreNowPartOfTeam">당신은 이제 팀에 소속되었습니다.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\"에 가입되었습니다.</string>
   <string name="someoneYouReportedWasBanned">당신이 신고한 플레이어가 차단되었습니다.</string>

@@ -12,7 +12,7 @@ case class TeamMember(
 ):
   inline def id = _id
 
-  def isGranted(perm: TeamSecurity.Permission.Selector): Boolean =
+  def hasPerm(perm: TeamSecurity.Permission.Selector): Boolean =
     perms(perm(TeamSecurity.Permission))
 
 object TeamMember:

@@ -56,7 +56,7 @@ final class Swiss(
                   env.user.lightUserApi.preloadMany(c.chat.userIds) inject
                     c.copy(locked = !env.api.chatFreshness.of(swiss)).some
             streamers  <- streamerCache get swiss.id
-            isLocalMod <- ctx.me.so { env.team.api.isGranted(swiss.teamId, _, _.Comm) }
+            isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such swiss tournament")): swiss =>

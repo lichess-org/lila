@@ -108,6 +108,10 @@ export class ExplorerConfigCtrl {
     if (!name) return;
     const previous = this.data.playerName.previous().filter(n => n !== name);
     this.data.playerName.previous(previous);
+
+    if (this.data.playerName.value() === name) {
+      this.data.playerName.value('');
+    }
   };
 
   toggleMany =

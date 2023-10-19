@@ -46,7 +46,7 @@
     <item quantity="one">Aldibereko partiden saio %s antolatu du</item>
     <item quantity="other">Aldibereko partiden %s saio antolatu ditu</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Aldibireko saio %sean hartu du parte</item>
     <item quantity="other">Aldibireko %s saiotan hartu du parte</item>
   </plurals>

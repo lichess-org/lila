@@ -134,15 +134,17 @@ object ServerEval:
       )
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val (_, games, error) = chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant)
-      error foreach { e => logger.info(e.value) }
-      games.reverse match
+      val (_, reversedGames, error) =
+        chess.Replay.gameMoveWhileValidReverse(info.variation take 20, root.fen, variant)
+      error.foreach(e => logger.info(e.value))
+      reversedGames match
         case Nil => none
         case (g, m) :: rest =>
           rest
-            .foldLeft[Branch](makeBranch(g, m)) { case (node, (g, m)) =>
-              makeBranch(g, m) addChild node
-            } some
+            .foldLeft(makeBranch(g, m)):
+              case (node, (g, m)) =>
+                makeBranch(g, m).addChild(node)
+            .some
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Branch(

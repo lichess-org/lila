@@ -42,6 +42,6 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
       (me.count.game > 0 && me.createdSinceDays(2)) || me.hasTitle || me.isVerified || me.isPatron
     }
 
-  def isGrantedMod(categId: ForumCategId)(using me: Option[Me]): Fu[Boolean] = me.soUse: _ ?=>
+  def isGrantedMod(categId: ForumCategId)(using meOpt: Option[Me]): Fu[Boolean] = meOpt.so: me =>
     if Granter.opt(_.ModerateForum) then fuTrue
-    else ForumCateg.toTeamId(categId).so(teamApi.isGranted(_, _.Comm))
+    else ForumCateg.toTeamId(categId).so(teamApi.hasPerm(_, me, _.Comm))
