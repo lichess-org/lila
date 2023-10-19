@@ -74,7 +74,8 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  // So far this only hits a prod index if $select contains `topics`
+  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
+  // i.e. byDate can only be true if $select contains `topics`
   private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int, byDate: Boolean = false) =
     colls.post
       .aggregateList(length, _.sec): framework =>
