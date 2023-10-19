@@ -331,7 +331,8 @@ final class Challenge(
         )
 
   def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
-    env.setup.forms.api.open
+    env.setup.forms.api
+      .open(isAdmin = isGrantedOpt(_.ApiChallengeAdmin))
       .bindFromRequest()
       .fold(
         jsonFormError,
