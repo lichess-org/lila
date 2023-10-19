@@ -1,12 +1,14 @@
-@import 'layout';
+@import 'defs';
 @import 'app/app';
 @import 'table';
 @import 'stream';
 @import 'spotlight';
 @import 'timeline';
+@import 'forum';
 @import 'box';
 @import 'support';
 @import 'about';
+@import 'layout';
 
 body {
   /* improves preload */
@@ -33,8 +35,26 @@ body {
 
 .lobby__side {
   @extend %flex-column;
+}
 
-  overflow: hidden;
+.lobby__counters {
+  @extend %page-text;
+  display: none;
+  position: relative;
+  z-index: 1;
+  height: 2em;
+  grid-template-columns: 1fr 1fr;
+  top: 0.5em;
+
+  a {
+    text-align: center;
+    font-family: Roboto;
+    color: $c-font-page;
+
+    &:hover {
+      color: $c-link;
+    }
+  }
 }
 
 .lobby__nope {

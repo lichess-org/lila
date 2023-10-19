@@ -1,31 +1,14 @@
-$mq-col2: $mq-xx-small;
-$mq-col3: $mq-small;
-$mq-col4: $mq-x-large;
-
-$mq-not-col3: $mq-not-small;
-
-@mixin lobby-app-size {
-  min-height: 300px;
-
-  @include breakpoint($mq-col2) {
-    min-height: 400px;
-  }
-
-  @include breakpoint($mq-col3) {
-    height: 600px;
-    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
-  }
-}
+$app-tab-spacer: calc(2.25em + 2px);
 
 .lobby {
+  --cols: 1; // ui/lobby/src/main.ts
+
   grid-area: main;
   display: grid;
-  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'about';
+  align-items: stretch;
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'tours' 'leader' 'winner' 'timeline' 'about';
   grid-gap: $block-gap;
-
-  &__counters {
-    margin-top: $block-gap;
-  }
+  grid-auto-rows: auto;
 
   &__tournaments,
   &__simuls,
@@ -34,22 +17,19 @@ $mq-not-col3: $mq-not-small;
     max-height: 20em;
   }
 
-  .timeline {
-    display: none;
-  }
-
   @include breakpoint($mq-col2) {
+    --cols: 2;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto repeat(3, fit-content(0));
     grid-template-areas:
-      'app    app'
-      'side  table'
-      'blog   blog'
-      'tv   puzzle'
-      'support support'
-      'tours  tours'
-      'leader winner'
-      'about  about';
+      'app      app'
+      'side     table'
+      'blog     blog'
+      'tv       puzzle'
+      'support  support'
+      'tours    tours'
+      'leader   winner'
+      'timeline timeline'
+      'about    about';
 
     &__support {
       display: grid;
@@ -59,63 +39,56 @@ $mq-not-col3: $mq-not-small;
   }
 
   @include breakpoint($mq-col3) {
+    --cols: 3;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em repeat(2, fit-content(0)) auto auto fit-content(0);
     grid-template-areas:
-      'table  app     app'
-      'side   app     app'
+      'table  app     app' // table gets counters, side, and timeline
       'tv     blog    blog'
       'tv     support support'
       'puzzle tours   tours'
       'puzzle leader  winner'
-      'about  leader  winner';
+      '.      leader  winner'
+      'about  about   about';
 
-    &__start {
-      flex-flow: column;
-      align-items: stretch;
-      justify-content: center;
+    &__table {
+      @include lobby-app-size;
+      padding-top: $app-tab-spacer;
+      justify-content: start;
+
+      button {
+        padding: 0.75em;
+      }
     }
 
     &__counters {
-      margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
-    }
-
-    .timeline {
-      display: block;
-      margin-#{$start-direction}: 0;
+      display: grid !important;
+      grid-area: table;
     }
   }
 
   @include breakpoint($mq-col4) {
+    --cols: 4;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, fit-content(0)) auto minmax(0, 1fr);
     grid-template-areas:
-      'side   app     app   table'
-      'tv     blog    blog  puzzle'
-      'tv     tours  tours  puzzle'
-      'about  tours  tours  support'
-      'about  leader winner support';
+      'side     app     app     table' // side gets counters & timeline, table gets forum
+      'tv       blog    blog    puzzle'
+      'tv       support support puzzle'
+      'leader   winner  tours   tours'
+      'about    about   about   about';
 
     &__side {
-      margin-top: 2em;
+      @include lobby-app-size;
+      padding-top: $app-tab-spacer;
+      overflow: hidden;
     }
 
     &__counters {
-      margin: 0;
-    }
-
-    &__support {
-      display: flex;
-      flex-flow: column;
-      gap: $block-gap;
-      a {
-        flex: 0 1 auto;
-      }
+      grid-area: side;
     }
   }
 
   &__side {
-    grid-area: side;
+    grid-area: side; // events, contains timeline as well in col4
   }
 
   &__app,
@@ -150,6 +123,7 @@ $mq-not-col3: $mq-not-small;
   &__tournaments-simuls {
     grid-area: tours;
   }
+
   &__simuls {
     margin-top: $block-gap;
   }
@@ -164,5 +138,13 @@ $mq-not-col3: $mq-not-small;
 
   &__about {
     grid-area: about;
+  }
+
+  &__timeline {
+    grid-area: timeline;
+  }
+
+  &__forum {
+    grid-area: forum;
   }
 }

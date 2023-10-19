@@ -48,20 +48,6 @@ object home:
           "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
         )
       )(
-        div(cls := "lobby__table")(
-          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
-            cls   := "bg-switch",
-            title := "Dark mode"
-          )(
-            div(cls := "bg-switch__track"),
-            div(cls := "bg-switch__thumb")
-          ),
-          div(cls := "lobby__start")(
-            button(cls := "button button-metal", tpe := "button", trans.createAGame()),
-            button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
-            button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
-          )
-        ),
         currentGame
           .map(bits.currentGameInfo)
           .orElse:
@@ -71,6 +57,37 @@ object home:
           .getOrElse:
             if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
         ,
+        featured.map: g =>
+          div(cls := "lobby__tv"):
+            views.html.game.mini(Pov naturalOrientation g, tv = true)
+        ,
+        puzzle.map: p =>
+          views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
+        bits.lastPosts(lastPost, ublogPosts),
+        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
+        div(cls := "lobby__support")(
+          a(href := routes.Plan.index)(
+            iconTag(patronIconChar),
+            span(cls := "lobby__support__text")(
+              strong(trans.patron.donate()),
+              span(trans.patron.becomePatron())
+            )
+          ),
+          a(href := "https://shop.spreadshirt.com/lichess-org")(
+            iconTag(licon.Tshirt),
+            span(cls := "lobby__support__text")(
+              strong("Swag Store"),
+              span(trans.playChessInStyle())
+            )
+          )
+        ),
+        div(cls := "lobby__table")(
+          div(cls := "lobby__start")(
+            button(cls := "button button-metal", tpe := "button", trans.createAGame()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
+          )
+        ),
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(
@@ -96,9 +113,11 @@ object home:
                 simulBBB map views.html.simul.bits.homepageSpotlight
               )
             }
-          ),
+          )
+        ),
+        div(cls := "lobby__timeline")(
           if ctx.isAuth then
-            div(cls := "timeline")(
+            div(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
@@ -117,30 +136,11 @@ object home:
               a(href := "/about")(trans.aboutX("Lichess"), "...")
             )
         ),
-        featured.map: g =>
-          div(cls := "lobby__tv"):
-            views.html.game.mini(Pov naturalOrientation g, tv = true)
-        ,
-        puzzle.map: p =>
-          views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastPost, ublogPosts),
-        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        div(cls := "lobby__support")(
-          a(href := routes.Plan.index)(
-            iconTag(patronIconChar),
-            span(cls := "lobby__support__text")(
-              strong(trans.patron.donate()),
-              span(trans.patron.becomePatron())
-            )
-          ),
-          a(href := "https://shop.spreadshirt.com/lichess-org")(
-            iconTag(licon.Tshirt),
-            span(cls := "lobby__support__text")(
-              strong("Swag Store"),
-              span(trans.playChessInStyle())
-            )
-          )
+        div(cls := "lobby__forum")(
+          h3("Recent topics"),
+          views.html.forum.bits.recentTopics(forumTopics)
         ),
+        div(cls := "lobby__counters"),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lichess")),
@@ -166,7 +166,9 @@ object home:
     trans.daysPerTurn,
     trans.ratingRange,
     trans.nbPlayers,
+    trans.nbPlayersOnline,
     trans.nbGamesInPlay,
+    trans.nbTotalGames,
     trans.player,
     trans.time,
     trans.joinTheGame,

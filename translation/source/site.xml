@@ -148,6 +148,10 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
+  <plurals name="nbPlayersOnline">
+    <item quantity="one">%s player online</item>
+    <item quantity="other">%s players online</item>
+  </plurals>
   <string name="drawByMutualAgreement">Draw by mutual agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
@@ -521,6 +525,10 @@ computer analysis, game chat and shareable URL.</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s game in play</item>
     <item quantity="other">%s games in play</item>
+  </plurals>
+  <plurals name="nbTotalGames">
+    <item quantity="one">%s game</item>
+    <item quantity="other">%s total games</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
