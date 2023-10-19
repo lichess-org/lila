@@ -81,6 +81,7 @@ final class UblogPaginator(
         import framework.*
         Match(select ++ $doc("live" -> true)) -> List(
           Sort(Descending(if byDate then "lived.at" else "rank")),
+          Limit(500),
           PipelineOperator:
             $lookup.pipeline(
               from = colls.blog,
