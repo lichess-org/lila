@@ -676,7 +676,7 @@ export default function (token: string) {
           Timer:
             gameInfo.speed +
             ' ' +
-            (gameInfo.clock !== null
+            (gameInfo.clock
               ? String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''"
               : '∞'),
           'Last Move': lastMove.player + ' ' + lastMove.move + ' by ' + lastMove.by,
