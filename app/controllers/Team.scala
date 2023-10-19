@@ -506,15 +506,17 @@ final class Team(
     JsonOptionOk:
       api teamEnabled id flatMapz { team =>
         for
-          joined    <- ctx.userId.so { api.belongsTo(id, _) }
-          requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
-        yield {
-          env.team.jsonView.teamWrites.writes(team) ++ Json
+          joined      <- ctx.userId.so { api.belongsTo(id, _) }
+          requested   <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
+          withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
+          _           <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
+        yield some:
+          import env.team.jsonView.given
+          Json.toJsObject(withLeaders) ++ Json
             .obj(
               "joined"    -> joined,
               "requested" -> requested
             )
-        }.some
       }
 
   def apiSearch(text: String, page: Int) = Anon:
