@@ -30,6 +30,7 @@ b(iy?t?|t)ch
 blow(job|)
 blumpkin
 bollock
+bomb (yo)?ur?(self)?
 boner
 boob
 bozo
@@ -63,6 +64,7 @@ fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
 gangbang(e?d|)
 gay
+go (and )?bomb
 gobshite?
 gook
 gypo
@@ -244,6 +246,7 @@ uebok
 cabr[oó]na?
 cag[oó]n
 ching(ue|a)
+chupa ?pija
 chupame
 cobarde
 est[úu]pid[ao]
@@ -271,6 +274,7 @@ baldracca
 bastardo
 cazzo
 coglione
+cornutt?o
 cretino
 di merda
 figa
@@ -349,6 +353,7 @@ cancer
 (die|burn)s? irl
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 g?kys
+get bombed
 k y s
 ky5
 (l|1|ı|\|)<ys
