@@ -15,9 +15,9 @@ object CuteNameGenerator:
     val name = makeForSure(lang)
     if name.value.sizeIs <= maxSize then name.some
     else if triesLeft <= 0 then none
-    else make(maxSize, triesLeft - 1)
+    else make(maxSize, triesLeft - 1, lang)
 
-  def makeForSure(lang: Language = defaultLang): UserName = UserName:
+  def makeForSure(lang: Language): UserName = UserName:
     anyOf(getCombinations(lang)).map(anyOf).mkString
 
   def fromSeed(seed: Int, lang: Language = defaultLang): UserName = UserName:
@@ -34,19 +34,24 @@ object CuteNameGenerator:
 
   private lazy val defaultCombinations =
     import CuteNameDicts.en.*
+    val beings = animals ++ pieces ++ CuteNameDicts.any.players
     Vector(
-      List(colors ++ adjectives, animals ++ pieces ++ jobs),
-      List(colors, adjectives, animals ++ pieces ++ jobs),
-      List(colors ++ adjectives, adjectives, animals ++ pieces ++ jobs),
-      List(colors ++ adjectives, jobs, animals ++ pieces)
+      List(colors ++ adjectives, beings ++ jobs),
+      List(colors, adjectives, beings ++ jobs),
+      List(colors ++ adjectives, adjectives, beings ++ jobs),
+      List(colors ++ adjectives, jobs, beings)
     )
 
   private lazy val combinations: Map[Language, Combinations] = Map(
     defaultLang -> defaultCombinations,
     "fr" -> {
       import CuteNameDicts.fr.*
+      val beings = animals ++ pieces ++ CuteNameDicts.any.players
       Vector(
-        List(colors)
+        List(adjectives, beings),
+        List(adjectives, beings, colors),
+        List(beings, adjectives),
+        List(beings, adjectives, colors)
       )
     }
   )
