@@ -101,6 +101,7 @@
   <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Joacă prima mutare de deschidere/final de joc-explorator</string>
   <string name="winPreventedBy50MoveRule">Victoria partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="winOr50MovesByPriorMistake">Câștig sau remiză la 50 de mutări din cauza unei greșeli anterioare</string>
@@ -116,12 +117,14 @@
   <string name="openStudy">Studiu deschis</string>
   <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
+  <string name="showVariationArrows">Afișează săgețile variației</string>
   <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="multipleLines">Mutări multiple</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
+  <string name="engineManager">Manager de motor</string>
   <string name="blunder">Gafă</string>
   <string name="mistake">Greșeală</string>
   <string name="inaccuracy">Inexactitate</string>
@@ -368,6 +371,11 @@
     <item quantity="few">%s studii</item>
     <item quantity="other">%s de studii</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="few">%s simul</item>
+    <item quantity="other">%s simul</item>
+  </plurals>
   <string name="viewTournament">Vizualizați turneul</string>
   <string name="backToTournament">Înapoi la turneu</string>
   <string name="noDrawBeforeSwissLimit">Nu poți declara remiză înainte ca 30 de mutări să fie jucate într-un turneu elvețian.</string>
@@ -530,6 +538,7 @@
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Steag</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
@@ -552,8 +561,8 @@
   <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
-  <string name="descPrivate">Descriere privată</string>
-  <string name="descPrivateHelp">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descriere privată</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
   <string name="help">Ajutor:</string>
@@ -713,6 +722,11 @@
   <string name="keyGoToStartOrEnd">început/sfârșit</string>
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
+  <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
+  <string name="keyNextLearnFromYourMistakes">Următorul (Învață din greșelile tale)</string>
+  <string name="keyNextBlunder">Următoarea greșeală gravă</string>
+  <string name="keyNextMistake">Următoarea greșeală</string>
+  <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
   <string name="newTournament">Turneu nou</string>
   <string name="tournamentHomeTitle">Turneu de șah cu control de timp și variante</string>
   <string name="tournamentHomeDescription">Joacă turnee rapide de șah! Intră într-un turneu oficial planificat sau crează-ți-l tu. Bullet (Glonț),  Blitz (Fulger), Classical (Clasic), Chess960, Regele în centru, Trei șahuri și alte opțiuni sunt disponibile pentru o distracție continuă.</string>
@@ -813,7 +827,7 @@
   <string name="invalidFen">FEN invalid</string>
   <string name="custom">Personalizat</string>
   <string name="notifications">Notificări</string>
-  <string name="notificationsX">Notificări: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificări: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secundă rămasă pentru a începe jocul</item>
@@ -923,7 +937,7 @@
   <string name="mentionedYouInX">te-a menționat în \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te-a menționat în \"%2$s\".</string>
   <string name="invitedYouToX">te-a invitat la \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s te-a invitat la \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s te-a invitat la \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Acum faci parte din echipă.</string>
   <string name="youHaveJoinedTeamX">V-ați alăturat la \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Cineva pe care l-ai raportat a fost banat</string>
