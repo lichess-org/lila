@@ -15,6 +15,10 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def modForm(using Context)  = AppealModel.modForm
   private def userForm(using Context) = AppealModel.form
 
+  private val filterStore =
+    env.memo.cacheApi.notLoadingSync[UserId, Option[AppealModel.Filter]](64, "appeal.filter"):
+      _.expireAfterAccess(30 minutes).build()
+
   def home = Auth { _ ?=> me ?=>
     Ok async renderAppealOrTree()
   }
@@ -45,7 +49,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   }
 
   def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
-    val filter = filterStr.map(AppealModel.Filter.byName)
+    if filterStr.contains("reset") then filterStore.invalidate(me.userId)
+
+    val filter: Option[AppealModel.Filter] =
+      filterStr.map(AppealModel.Filter.byName) | filterStore.getIfPresent(me.userId).flatten
+    filterStore.put(me.userId, filter)
+
     for
       appeals                          <- env.appeal.api.myQueue(filter)
       inquiries                        <- env.report.api.inquiries.allBySuspect

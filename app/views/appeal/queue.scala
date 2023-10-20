@@ -69,7 +69,9 @@ object queue:
     span(cls := "appeal-filters btn-rack"):
       Filter.allWithIcon.map: (filter, icon) =>
         a(
-          cls      := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
-          href     := appealRoutes.queue(current.fold(filter.some)(_.toggle(filter)).map(_.key)),
+          cls := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
+          href := appealRoutes.queue(
+            current.fold(filter.some)(_.toggle(filter)).map(_.key).getOrElse("reset").some
+          ),
           dataIcon := icon.left.toOption
         )(icon.toOption)

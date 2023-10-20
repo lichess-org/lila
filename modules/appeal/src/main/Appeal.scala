@@ -104,7 +104,10 @@ object Appeal:
       UserMark.Alt.some    -> Right("A"),
       none                 -> Left(licon.User)
     )
-    def byName(name: String): Filter = Filter(UserMark.indexed.get(name.toLowerCase))
+    val indexed =
+      UserMark.indexed.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
+
+    def byName(name: String): Option[Filter] = indexed.get(name)
 
 case class AppealMsg(
     by: UserId,
