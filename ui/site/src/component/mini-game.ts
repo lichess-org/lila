@@ -71,8 +71,10 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
 
 export const finish = (node: HTMLElement, win?: 'black' | 'white') =>
   ['white', 'black'].forEach(color => {
-    const $clock = $(node).find('.mini-game__clock--' + color);
+    const clock: HTMLElement | null = node.querySelector('.mini-game__clock--' + color);
     // don't interfere with snabbdom clocks
-    if (!$clock.data('managed'))
-      $clock.replaceWith(`<span class="mini-game__result">${win ? (win === color[0] ? 1 : 0) : '½'}</span>`);
+    if (clock && !clock.dataset['managed'])
+      $(clock).replaceWith(
+        `<span class="mini-game__result">${win ? (win === color[0] ? 1 : 0) : '½'}</span>`,
+      );
   });
