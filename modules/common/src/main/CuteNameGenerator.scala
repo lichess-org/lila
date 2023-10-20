@@ -51,7 +51,7 @@ object CuteNameGenerator:
         List(adjectives, beings),
         List(adjectives, beings, colors),
         List(beings, adjectives),
-        List(beings, adjectives, colors)
+        List(beings, colors, adjectives)
       )
     }
   )

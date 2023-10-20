@@ -2,6 +2,7 @@ package lila.clas
 
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.i18n.Lang
 
 import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
@@ -257,7 +258,7 @@ final class ClasApi(
         clas: Clas,
         data: ClasForm.ManyNewStudent,
         teacher: User
-    ): Fu[List[Student.WithPassword]] =
+    )(using Lang): Fu[List[Student.WithPassword]] =
       count(clas.id).flatMap: nbCurrentStudents =>
         data.realNames
           .take(Clas.maxStudents - nbCurrentStudents)
