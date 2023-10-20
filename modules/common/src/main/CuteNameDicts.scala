@@ -1,6 +1,13 @@
 package lila
 package common
 
+/*
+ * Lichess usernames must only have latin characters, or it would become very hard for other people to type them.
+ * To contribute a new language, modify
+ * https://github.com/lichess-org/lila/blob/master/modules/common/src/main/CuteNameDicts.scala
+ * and, if you can,
+ * https://github.com/lichess-org/lila/blob/master/modules/common/src/main/CuteNameGenerator.scala#L45.
+ */
 private object CuteNameDicts:
   object any:
     def players = Vector(
