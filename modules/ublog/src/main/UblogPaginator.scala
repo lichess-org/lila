@@ -14,6 +14,7 @@ import lila.user.Me
 final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
+    userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -96,6 +97,19 @@ final class UblogPaginator(
             )
           ,
           UnwindField("blog"),
+          PipelineOperator:
+            $lookup.pipeline(
+              from = userRepo.coll,
+              as = "user",
+              local = "created.by",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc(User.BSONFields.enabled -> true)),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ,
+          UnwindField("user"),
           Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
           Skip(offset),
           Limit(length)
