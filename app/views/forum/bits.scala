@@ -51,7 +51,7 @@ object bits:
           )
         ),
         div(cls := "contributors")(
-          topic.contribs.map(userIdLink(_)).join(" · "),
+          fragList(topic.contribs.map(userIdLink(_)), " · "),
           span(cls := "time", momentFromNow(topic.updatedAt))
         )
       )

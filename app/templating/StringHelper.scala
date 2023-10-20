@@ -46,6 +46,3 @@ trait StringHelper:
   extension (e: String)
     def active(other: String, one: String = "active")  = if e == other then one else ""
     def activeO(other: String, one: String = "active") = e == other option one
-
-  extension [A](seq: Seq[A]) def join(sep: A)      = seq.flatMap(List(_, sep)).dropRight(1)
-  extension [A](seq: Seq[A]) def join(sep: String) = seq.flatMap(List(_, stringFrag(sep))).dropRight(1)
