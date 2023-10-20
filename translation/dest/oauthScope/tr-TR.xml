@@ -8,10 +8,10 @@
   <string name="whatTheTokenCanDo">Jeton senin adına neler yapabilir:</string>
   <string name="doNotShareIt">Jeton, hesabınıza erişim sağlayacaktır. Kimseyle PAYLAŞMAYIN!</string>
   <string name="copyTokenNow">Yeni kişisel erişim jetonunuzu şimdi kopyaladığınızdan emin olun. Bir daha göremeyeceksin!</string>
-  <string name="preferenceRead">Oyun tercihleri ​​oku</string>
-  <string name="preferenceWrite">Oyun tercihlerini değiştir</string>
-  <string name="emailRead">E-posta adresini oku</string>
-  <string name="challengeRead">Gelen oyun tekliflerini oku</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Oyun tercihleri ​​oku</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Oyun tercihlerini değiştir</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">E-posta adresini oku</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Gelen oyun tekliflerini oku</string>
   <string name="challengeWrite">Maç teklifleri gönder, kabul et veya reddet</string>
   <string name="challengeBulk">Diğer oyuncular için aynı anda birçok oyun oluştur</string>
   <string name="studyRead">Özel çalışmaları ve yayınları okuyun</string>
@@ -31,4 +31,5 @@
   <string name="engineWrite">Harici motorlar oluşturun ve güncelleyin</string>
   <string name="webLogin">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
   <string name="webMod">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
+  <string name="personalAccessTokens">Kişisel API erişim tokenleri</string>
 </resources>
