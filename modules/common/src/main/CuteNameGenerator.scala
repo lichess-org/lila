@@ -48,10 +48,12 @@ object CuteNameGenerator:
       import CuteNameDicts.fr.*
       val beings = animals ++ pieces ++ CuteNameDicts.any.players
       Vector(
-        List(adjectives, beings),
-        List(adjectives, beings, colors),
-        List(beings, adjectives),
-        List(beings, colors, adjectives)
+        List(adjectives.pre, beings),
+        List(adjectives.pre, beings, colors),
+        List(adjectives.pre, beings, adjectives.post),
+        List(beings, colors),
+        List(beings, adjectives.post),
+        List(beings, colors, adjectives.post)
       )
     }
   )
