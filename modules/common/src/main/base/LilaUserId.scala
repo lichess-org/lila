@@ -39,7 +39,7 @@ trait LilaUserId:
   // "chess-" is a valid username prefix, but not a valid username
   opaque type UserSearch = String
   object UserSearch extends OpaqueString[UserSearch]:
-    private val regex = "(?i)[a-z0-9][a-z0-9_-]{0,28}".r
+    private val regex = "(?i)[a-z0-9][a-z0-9_-]{3,28}".r
     def read(str: String): Option[UserSearch] =
       val clean = str.trim.takeWhile(' ' !=)
       if regex.matches(clean) then Some(clean) else None
