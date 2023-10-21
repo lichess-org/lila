@@ -94,7 +94,7 @@ object Appeal:
     given Eq[Filter] = Eq.fromUniversalEquals
     extension (filter: Filter)
       def toggle(to: Filter) = to != filter option to
-      def is(mark: UserMark) = filter.value.contains(mark)
+      def is(mark: UserMark) = filter.contains(mark)
       def key                = filter.fold("clean")(_.key)
 
     val allWithIcon = List[(Filter, Either[licon.Icon, String])](
@@ -104,10 +104,8 @@ object Appeal:
       UserMark.Alt.some    -> Right("A"),
       none                 -> Left(licon.User)
     )
-    val indexed =
-      UserMark.indexed.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
-
-    def byName(name: String): Option[Filter] = indexed.get(name)
+    val byName: Map[String, Filter] =
+      UserMark.byKey.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
 
 case class AppealMsg(
     by: UserId,
