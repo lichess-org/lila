@@ -17,15 +17,14 @@ object gamesContent:
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
-        filters.list.map { f =>
+        filters.list.map: f =>
           a(
             cls  := s"nm-item to-${f.name}${(filters.current == f) so " active"}",
             href := routes.User.games(u.username, f.name)
           )(userGameFilterTitle(u, nbs, f))
-        }
       ),
       nbs.crosstable.ifTrue(filters.current.name == "me").map {
         views.html.game.crosstable(_, none)

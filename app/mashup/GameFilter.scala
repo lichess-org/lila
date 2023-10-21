@@ -118,6 +118,5 @@ object GameFilterMenu:
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
   )(using Request[?], FormBinding, Lang): play.api.data.Form[?] =
-    filter match
-      case Search => userGameSearch.requestForm
-      case _      => userGameSearch.defaultForm
+    if filter == Search then userGameSearch.requestForm
+    else userGameSearch.defaultForm
