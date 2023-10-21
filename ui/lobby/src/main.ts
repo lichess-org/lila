@@ -30,6 +30,8 @@ export default function main(opts: LobbyOpts) {
 
 let cols = 0;
 
+/* Move the timeline to/from the bottom depending on screen width.
+ * This must not cause any FOUC or layout shifting on page load. */
 const layoutHacks = () =>
   requestAnimationFrame(() => {
     $('main.lobby').each(function (this: HTMLElement) {
