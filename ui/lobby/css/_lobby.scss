@@ -175,3 +175,19 @@ body {
 .tour-team-icon {
   color: $c-brag;
 }
+
+.lobby__counters {
+  @extend %flex-around, %page-text;
+
+  a {
+    color: $c-font-page;
+
+    padding-top: 1vmin;
+
+    @include transition(color);
+
+    &:hover {
+      color: $c-link;
+    }
+  }
+}

@@ -35,31 +35,4 @@
       }
     }
   }
-
-  &__counters {
-    @extend %flex-between, %page-text;
-
-    display: none;
-
-    @include breakpoint($mq-col3) {
-      display: flex;
-    }
-
-    @include breakpoint($mq-col4) {
-      flex-flow: column;
-      align-items: flex-start;
-      position: absolute;
-      bottom: 0;
-    }
-
-    a {
-      color: $c-font-page;
-
-      @include transition(color);
-
-      &:hover {
-        color: $c-link;
-      }
-    }
-  }
 }
