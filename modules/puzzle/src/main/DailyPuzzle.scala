@@ -44,7 +44,7 @@ final private[puzzle] class DailyPuzzle(
       .sort($sort desc F.day)
       .one[Puzzle]
 
-  private val maxTries = 10
+  private val maxTries     = 10
   private val minPlaysBase = 9000
   private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] =
     def tryAgainMaybe = (tries < maxTries) so findNewBiased(tries + 1)
