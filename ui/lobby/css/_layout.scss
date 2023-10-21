@@ -35,6 +35,10 @@ $mq-not-col3: $mq-not-small;
     max-height: 20em;
   }
 
+  > .lobby__timeline {
+    display: block;
+  }
+
   @include breakpoint($mq-col2) {
     --cols: 2; // ui/lobby/src/main.ts
     grid-template-columns: repeat(2, 1fr);
@@ -81,7 +85,7 @@ $mq-not-col3: $mq-not-small;
       margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
     }
 
-    &__timeline {
+    &__side .lobby__timeline {
       display: block;
       margin-#{$start-direction}: 0 !important;
     }
@@ -164,5 +168,6 @@ $mq-not-col3: $mq-not-small;
 
   &__timeline {
     grid-area: timeline;
+    display: none;
   }
 }
