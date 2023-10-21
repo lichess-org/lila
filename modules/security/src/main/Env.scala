@@ -42,7 +42,7 @@ final class Env(
     scheduler = scheduler
   )
 
-  lazy val flood = wire[Flood]
+  lazy val flood = new Flood
 
   lazy val hcaptcha: Hcaptcha =
     if config.hcaptcha.enabled then wire[HcaptchaReal]

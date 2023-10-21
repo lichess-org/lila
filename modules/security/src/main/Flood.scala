@@ -2,14 +2,14 @@ package lila.security
 
 import com.github.blemale.scaffeine.Cache
 
-final class Flood(duration: FiniteDuration):
+final class Flood:
 
   import Flood.*
 
   private val floodNumber = 4
 
   private val cache: Cache[Source, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(duration)
+    .expireAfterAccess(1.minute)
     .build[Source, Messages]()
 
   def allowMessage(source: Source, text: String): Boolean =

@@ -40,8 +40,8 @@ object Bus:
       bus.unsubscribe(Tellable.Actor(ref), _)
 
   def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Matchable)(using
-      ec: lila.Lila.Executor,
-      scheduler: Scheduler
+      Executor,
+      Scheduler
   ): Fu[A] =
     val promise = Promise[A]()
     val msg     = makeMsg(promise)
