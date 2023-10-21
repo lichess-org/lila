@@ -20,5 +20,24 @@ export default function main(opts: LobbyOpts) {
     tableVNode = patch(tableVNode, tableView(ctrl));
   }
 
+  lichess.requestIdleCallback(() => {
+    layoutHacks();
+    window.addEventListener('resize', layoutHacks);
+  });
+
   return ctrl;
 }
+
+let cols = 0;
+
+const layoutHacks = () =>
+  requestAnimationFrame(() => {
+    $('main.lobby').each(function (this: HTMLElement) {
+      const newCols = Number(window.getComputedStyle(this).getPropertyValue('--cols'));
+      if (newCols != cols) {
+        cols = newCols;
+        if (cols > 2) $('.lobby .lobby__timeline').appendTo('.lobby__side');
+        else $('.lobby__side .lobby__timeline').appendTo('.lobby');
+      }
+    });
+  });
