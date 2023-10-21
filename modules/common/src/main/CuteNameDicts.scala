@@ -1405,6 +1405,7 @@ private object CuteNameDicts:
         "Knowing",
         "Kooky",
         "Kosher",
+        "Large",
         "Lasting",
         "Laudable",
         "Laureate",
