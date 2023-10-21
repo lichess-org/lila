@@ -90,12 +90,11 @@ $mq-not-col3: $mq-not-small;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, fit-content(0)) auto minmax(0, 1fr);
     grid-template-areas:
-      'side   app     app   table'
-      'tv     blog    blog  puzzle'
-      'tv     tours  tours  puzzle'
-      'about  tours  tours  support'
-      'about  leader winner support';
-
+      'side   app     app     table'
+      'tv     blog    blog    puzzle'
+      'tv     support support puzzle'
+      'leader tours   tours   winner'
+      'about  about   about   about';
     &__side {
       margin-top: 2em;
     }
@@ -105,12 +104,7 @@ $mq-not-col3: $mq-not-small;
     }
 
     &__support {
-      display: flex;
-      flex-flow: column;
-      gap: $block-gap;
-      a {
-        flex: 0 1 auto;
-      }
+      grid-gap: $block-gap;
     }
   }
 
