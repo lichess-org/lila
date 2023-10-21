@@ -18,9 +18,10 @@ $mq-not-col3: $mq-not-small;
 }
 
 .lobby {
+  --cols: 1; // ui/lobby/src/main.ts
   grid-area: main;
   display: grid;
-  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'about';
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'timeline' 'about';
   grid-gap: $block-gap;
 
   &__counters {
@@ -34,22 +35,24 @@ $mq-not-col3: $mq-not-small;
     max-height: 20em;
   }
 
-  .timeline {
-    display: none;
+  > .lobby__timeline {
+    display: block;
   }
 
   @include breakpoint($mq-col2) {
+    --cols: 2; // ui/lobby/src/main.ts
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(3, fit-content(0));
     grid-template-areas:
-      'app    app'
-      'side  table'
-      'blog   blog'
-      'tv   puzzle'
-      'support support'
-      'tours  tours'
-      'leader winner'
-      'about  about';
+      'app      app'
+      'side     table'
+      'blog     blog'
+      'tv       puzzle'
+      'support  support'
+      'tours    tours'
+      'leader   winner'
+      'timeline timeline'
+      'about    about';
 
     &__support {
       display: grid;
@@ -59,6 +62,7 @@ $mq-not-col3: $mq-not-small;
   }
 
   @include breakpoint($mq-col3) {
+    --cols: 3; // ui/lobby/src/main.ts
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 12em repeat(2, fit-content(0)) auto auto fit-content(0);
     grid-template-areas:
@@ -68,7 +72,8 @@ $mq-not-col3: $mq-not-small;
       'tv     support support'
       'puzzle tours   tours'
       'puzzle leader  winner'
-      'about  leader  winner';
+      '.      leader  winner'
+      'about  about   about';
 
     &__start {
       flex-flow: column;
@@ -80,22 +85,22 @@ $mq-not-col3: $mq-not-small;
       margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
     }
 
-    .timeline {
+    &__side .lobby__timeline {
       display: block;
-      margin-#{$start-direction}: 0;
+      margin-#{$start-direction}: 0 !important;
     }
   }
 
   @include breakpoint($mq-col4) {
+    --cols: 4; // ui/lobby/src/main.ts
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, fit-content(0)) auto minmax(0, 1fr);
     grid-template-areas:
-      'side   app     app   table'
-      'tv     blog    blog  puzzle'
-      'tv     tours  tours  puzzle'
-      'about  tours  tours  support'
-      'about  leader winner support';
-
+      'side   app     app     table'
+      'tv     blog    blog    puzzle'
+      'tv     support support puzzle'
+      'leader tours   tours   winner'
+      'about  about   about   about';
     &__side {
       margin-top: 2em;
     }
@@ -105,12 +110,7 @@ $mq-not-col3: $mq-not-small;
     }
 
     &__support {
-      display: flex;
-      flex-flow: column;
-      gap: $block-gap;
-      a {
-        flex: 0 1 auto;
-      }
+      grid-gap: $block-gap;
     }
   }
 
@@ -164,5 +164,10 @@ $mq-not-col3: $mq-not-small;
 
   &__about {
     grid-area: about;
+  }
+
+  &__timeline {
+    grid-area: timeline;
+    display: none;
   }
 }
