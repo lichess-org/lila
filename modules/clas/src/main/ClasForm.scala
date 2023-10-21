@@ -2,6 +2,7 @@ package lila.clas
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.i18n.Lang
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 
@@ -45,51 +46,42 @@ final class ClasForm(
 
   object student:
 
-    val create: Form[CreateStudent] =
-      Form(
-        mapping(
-          "create-username" -> securityForms.signup.username,
-          "create-realName" -> cleanNonEmptyText(maxLength = 100)
-        )(CreateStudent.apply)(unapply)
-      )
+    val create: Form[CreateStudent] = Form:
+      mapping(
+        "create-username" -> securityForms.signup.username,
+        "create-realName" -> cleanNonEmptyText(maxLength = 100)
+      )(CreateStudent.apply)(unapply)
 
-    def generate: Fu[Form[CreateStudent]] =
-      nameGenerator() map { username =>
-        create fill
-          CreateStudent(
-            username = username | UserName(""),
-            realName = ""
-          )
-      }
+    def generate(using Lang): Fu[Form[CreateStudent]] =
+      nameGenerator().map: username =>
+        create fill CreateStudent(
+          username = username | UserName(""),
+          realName = ""
+        )
 
-    def invite(c: Clas) =
-      Form(
-        mapping(
-          "username" -> lila.user.UserForm.historicalUsernameField
-            .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
-            .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
-          "realName" -> cleanNonEmptyText
-        )(InviteStudent.apply)(unapply)
-      )
+    def invite(c: Clas) = Form:
+      mapping(
+        "username" -> lila.user.UserForm.historicalUsernameField
+          .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
+          .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
+        "realName" -> cleanNonEmptyText
+      )(InviteStudent.apply)(unapply)
 
-    def edit(s: Student) =
-      Form(
-        mapping(
-          "realName" -> cleanNonEmptyText,
-          "notes"    -> text(maxLength = 20000)
-        )(StudentData.apply)(unapply)
-      ) fill StudentData(s.realName, s.notes)
+    def edit(s: Student) = Form(
+      mapping(
+        "realName" -> cleanNonEmptyText,
+        "notes"    -> text(maxLength = 20000)
+      )(StudentData.apply)(unapply)
+    ) fill StudentData(s.realName, s.notes)
 
     def release = Form(single("email" -> securityForms.signup.emailField))
 
-    def manyCreate(max: Int): Form[ManyNewStudent] =
-      Form(
-        mapping(
-          "realNames" -> cleanNonEmptyText
-        )(ManyNewStudent.apply)(_.realNamesText.some).verifying(
-          s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
-          _.realNames.lengthIs <= max
-        )
+    def manyCreate(max: Int): Form[ManyNewStudent] = Form:
+      mapping(
+        "realNames" -> cleanNonEmptyText
+      )(ManyNewStudent.apply)(_.realNamesText.some).verifying(
+        s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
+        _.realNames.lengthIs <= max
       )
 
   private def blockingFetchUser(username: UserStr) =
