@@ -3,11 +3,14 @@ package lila.appeal
 import lila.db.dsl.{ given, * }
 import lila.user.{ Me, NoteApi, User, UserRepo, UserMark }
 import lila.user.Me
+import lila.memo.CacheApi
+import Appeal.Filter
 
 final class AppealApi(
     coll: Coll,
     userRepo: UserRepo,
     noteApi: NoteApi,
+    cacheApi: CacheApi,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
 )(using Executor):
 
@@ -53,11 +56,11 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def myQueue(filter: Option[Appeal.Filter])(using me: Me) =
+  def myQueue(filter: Option[Filter])(using me: Me) =
     bothQueues(filter, snoozer snoozedKeysOf me.userId map (_.appealId.userId))
 
   private def bothQueues(
-      filter: Option[Appeal.Filter],
+      filter: Option[Filter],
       exceptIds: Iterable[UserId]
   ): Fu[List[Appeal.WithUser]] =
     fetchQueue(
@@ -78,7 +81,7 @@ final class AppealApi(
 
   private def fetchQueue(
       selector: Bdoc,
-      filter: Option[Appeal.Filter],
+      filter: Option[Filter],
       ascending: Boolean,
       nb: Int
   ): Fu[List[Appeal.WithUser]] =
@@ -107,7 +110,7 @@ final class AppealApi(
           user   <- doc.getAsOpt[User]("user")
         yield Appeal.WithUser(appeal, user)
 
-  def filterSelector(filter: Appeal.Filter) =
+  def filterSelector(filter: Filter) =
     import User.BSONFields as F
     filter.value match
       case Some(mark) => $doc(F.marks $in List(mark.key))
@@ -132,3 +135,11 @@ final class AppealApi(
 
   def snooze(appealId: Appeal.Id, duration: String)(using mod: Me): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
+
+  object modFilter:
+    private var store = Map.empty[UserId, Option[Filter]]
+    def fromQuery(str: Option[String])(using me: Me): Option[Filter] =
+      if str.has("reset") then store = store - me.userId
+      val filter = str.map(Filter.byName.get) | store.get(me.userId).flatten
+      store = store + (me.userId -> filter)
+      filter
