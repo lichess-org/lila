@@ -83,9 +83,8 @@ object CacheApi:
     def invalidateAll(): Unit    = cache.underlying.synchronous.invalidateAll()
 
     def update(key: K, f: V => V): Unit =
-      cache.getIfPresent(key) foreach { v =>
+      cache.getIfPresent(key).foreach: v =>
         cache.put(key, v dmap f)
-      }
 
   extension [V](cache: AsyncCache[Unit, V])
     def invalidateUnit(): Unit = cache.underlying.synchronous.invalidate {}
