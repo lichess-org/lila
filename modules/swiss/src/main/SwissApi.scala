@@ -285,20 +285,17 @@ final class SwissApi(
             }
           }
 
-  def searchPlayers(id: SwissId, term: UserStr, nb: Int): Fu[List[UserId]] =
-    User
-      .validateId(term)
-      .so: valid =>
-        SwissPlayer.fields: f =>
-          mongo.player.primitive[UserId](
-            selector = $doc(
-              f.swissId -> id,
-              f.userId $startsWith valid.value
-            ),
-            sort = $sort desc f.score,
-            nb = nb,
-            field = f.userId
-          )
+  def searchPlayers(id: SwissId, term: UserSearch, nb: Int): Fu[List[UserId]] =
+    SwissPlayer.fields: f =>
+      mongo.player.primitive[UserId](
+        selector = $doc(
+          f.swissId -> id,
+          f.userId $startsWith term.value
+        ),
+        sort = $sort desc f.score,
+        nb = nb,
+        field = f.userId
+      )
 
   def pageOf(swiss: Swiss, userId: UserId): Fu[Option[Int]] =
     rankingApi(swiss) map {

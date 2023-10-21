@@ -39,17 +39,15 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
         )
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
-  def followingLike(userId: UserId, term: UserStr): Fu[List[UserId]] =
-    User.validateId(term) so { valid =>
-      coll.secondaryPreferred.distinctEasy[UserId, List](
-        "u2",
-        $doc(
-          "u1" -> userId,
-          "u2" $startsWith valid.value,
-          "r" -> Follow
-        )
+  def followingLike(userId: UserId, term: UserSearch): Fu[List[UserId]] =
+    coll.secondaryPreferred.distinctEasy[UserId, List](
+      "u2",
+      $doc(
+        "u1" -> userId,
+        "u2" $startsWith term.value,
+        "r" -> Follow
       )
-    }
+    )
 
   private def relaters(
       userId: UserId,

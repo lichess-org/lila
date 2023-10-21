@@ -538,9 +538,10 @@ final class User(
       )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
-    getUserStr("term").flatMap(UserModel.validateId) match
-      case None                          => BadRequest("No search term provided")
-      case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
+    get("term").flatMap(UserSearch.read) match
+      case None => BadRequest("No search term provided")
+      case Some(term) if getBool("exists") =>
+        UserModel.validateId(term into UserStr).so(env.user.repo.exists) map JsonOk
       case Some(term) =>
         {
           (get("tour"), get("swiss"), get("team")) match

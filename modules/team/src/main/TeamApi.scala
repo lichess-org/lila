@@ -249,19 +249,17 @@ final class TeamApi(
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
-  def searchMembersAs(teamId: TeamId, term: UserStr, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
-    User.validateId(term) so { valid =>
-      team(teamId).flatMapz: team =>
-        val canSee =
-          fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
-        canSee.flatMapz:
-          memberRepo.coll.primitive[UserId](
-            selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith valid.value),
-            sort = $sort desc "user",
-            nb = nb,
-            field = "user"
-          )
-    }
+  def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
+    team(teamId).flatMapz: team =>
+      val canSee =
+        fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
+      canSee.flatMapz:
+        memberRepo.coll.primitive[UserId](
+          selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith term.value),
+          sort = $sort desc "user",
+          nb = nb,
+          field = "user"
+        )
 
   def kick(team: Team, userId: UserId)(using me: Me): Funit = for
     kicked <- memberRepo.get(team.id, userId)
