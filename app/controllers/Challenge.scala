@@ -331,7 +331,8 @@ final class Challenge(
         )
 
   def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
-    env.setup.forms.api.open
+    env.setup.forms.api
+      .open(isAdmin = isGrantedOpt(_.ApiChallengeAdmin) || ctx.me.exists(_.isVerified))
       .bindFromRequest()
       .fold(
         jsonFormError,
@@ -342,9 +343,10 @@ final class Challenge(
               .createOpen(config)
               .map: challenge =>
                 JsonOk:
+                  val url = s"${env.net.baseUrl}/${challenge.id}"
                   env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                    "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
-                    "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
+                    "urlWhite" -> s"$url?color=white",
+                    "urlBlack" -> s"$url?color=black"
                   )
           .dmap(_ as JSON)
       )

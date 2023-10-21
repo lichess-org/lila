@@ -39,7 +39,7 @@ object crud:
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
-          spotlight(form, none),
+          spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
           tournament.form.setupCreate(form, Nil),
           form3.action(form3.submit(trans.apply()))
@@ -67,7 +67,7 @@ object crud:
         ),
         standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
-          spotlight(form, tour.some),
+          spotlightAndTeamBattle(form, tour.some),
           errMsg(form("setup")),
           tournament.form.setupEdit(tour, form, Nil),
           form3.action(form3.submit(trans.apply()))
@@ -75,7 +75,7 @@ object crud:
       )
     }
 
-  private def spotlight(form: Form[?], tour: Option[Tournament])(using PageContext) =
+  private def spotlightAndTeamBattle(form: Form[?], tour: Option[Tournament])(using PageContext) =
     frag(
       form3.split(
         form3.group(
@@ -100,6 +100,11 @@ object crud:
             raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
           half = true
         )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
+      ),
+      form3.checkbox(
+        form("teamBattle"),
+        raw("Team battle"),
+        half = true
       )
     )
 

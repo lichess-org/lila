@@ -704,7 +704,7 @@
   <string name="zeroAdvertisement">광고가 없습니다</string>
   <string name="fullFeatured">모든 기능을 지원합니다</string>
   <string name="phoneAndTablet">스마트폰과 태블릿 지원</string>
-  <string name="bulletBlitzClassical">불릿, 블릿츠, 클래식 방식 지원</string>
+  <string name="bulletBlitzClassical">불릿, 블리츠, 클래식 방식 지원</string>
   <string name="correspondenceChess">우편 체스 지원</string>
   <string name="onlineAndOfflinePlay">온라인/오프라인 게임 모두 지원</string>
   <string name="viewTheSolution">해답 보기</string>
@@ -820,7 +820,7 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블릿츠</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
   <string name="classical">클래시컬</string>
   <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>

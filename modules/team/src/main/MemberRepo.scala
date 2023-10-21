@@ -115,6 +115,16 @@ final class MemberRepo(val coll: Coll)(using Executor):
       .map: grouped =>
         teams.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil)))
 
+  def addPublicLeaderIds(team: Team): Fu[Team.WithPublicLeaderIds] =
+    coll
+      .primitive[String](
+        teamQuery(team.id) ++ $doc("perms" -> Permission.Public),
+        "_id"
+      )
+      .map:
+        _.flatMap(TeamMember.parseId).view.map(_._1).toList
+      .map(Team.WithPublicLeaderIds(team, _))
+
   def addMyLeadership(teams: Seq[Team])(using me: Option[MyId]): Fu[List[Team.WithMyLeadership]] =
     me.so(filterLedBy(teams.map(_.id), _))
       .map: myTeams =>
