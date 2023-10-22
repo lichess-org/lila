@@ -42,7 +42,7 @@ trait LilaUserId:
     private val regex = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
     def read(str: String): Option[UserSearch] =
       val clean = str.trim.takeWhile(' ' !=)
-      if regex.matches(clean) then Some(clean) else None
+      if regex.matches(clean) then Some(clean.toLowerCase) else None
 
   opaque type UserStrOrEmail = String
   object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
