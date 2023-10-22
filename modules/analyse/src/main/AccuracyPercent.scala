@@ -99,16 +99,12 @@ for x in xs:
     // }
 
     def colorAccuracy(color: Color) = for
-      weighted <- Maths.weightedMean {
-        weightedAccuracies collect {
+      weighted <- Maths.weightedMean:
+        weightedAccuracies.collect:
           case (weightedAccuracy, c) if c == color => weightedAccuracy
-        }
-      }
-      harmonic <- Maths.harmonicMean {
-        weightedAccuracies collect {
+      harmonic <- Maths.harmonicMean:
+        weightedAccuracies.collect:
           case ((accuracy, _), c) if c == color => accuracy
-        }
-      }
     yield AccuracyPercent((weighted + harmonic) / 2)
 
     ByColor(colorAccuracy)
