@@ -9,6 +9,7 @@ import lila.user.{ User, LightUserApi }
 import lila.common.config.Max
 import lila.game.Pov
 import lila.memo.{ SettingStore, CacheApi }
+import lila.tutor.TutorPeriodReport.Query
 import chess.format.pgn.PgnStr
 
 final private class TutorQueue(
@@ -38,9 +39,9 @@ final private class TutorQueue(
 
   def status(user: User): Fu[Status] = workQueue { fetchStatus(user) }
 
-  def enqueue(user: User): Fu[Status] = workQueue:
+  def enqueue(query: Query): Fu[Status] = workQueue:
     colls.queue.insert
-      .one($doc(F.id -> user.id, F.requestedAt -> nowInstant))
+      .one($doc(F.id -> query.user, F.requestedAt -> nowInstant))
       .recover(lila.db.ignoreDuplicateKey)
       .void >> fetchStatus(user)
 
@@ -55,25 +56,28 @@ final private class TutorQueue(
     many            = rated ::: casual.take(30 - rated.size)
     povs            = ornicar.scalalib.ThreadLocalRandom.shuffle(many).take(30)
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
-  yield povs map { pov =>
+  yield povs.map: pov =>
     import chess.format.pgn.*
     def playerTag(player: lila.game.Player) =
       player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
     val tags = Tags(pov.game.players.flatMap(playerTag))
     pov -> PgnStr(s"$tags\n\n${pov.game.chess.sans.mkString(" ")}")
-  }
 
   private def fetchStatus(user: User): Fu[Status] =
     colls.queue.primitiveOne[Instant]($id(user.id), F.requestedAt) flatMap {
-      _.fold(fuccess(NotInQueue)) { at =>
+      _.fold(fuccess(NotInQueue)): at =>
         for
           position    <- colls.queue.countSel($doc(F.requestedAt $lte at))
           avgDuration <- durationCache.get({})
         yield InQueue(position, avgDuration)
-      }
     }
 
 object TutorQueue:
+
+  case class Queued(query: Query, requestedAt: Instant, startedAt: Option[Instant])
+  object Queued:
+    given BSONDocumentReader[Query]  = Macros.reader
+    given BSONDocumentReader[Queued] = Macros.reader
 
   sealed trait Status
   case object NotInQueue extends Status
@@ -87,5 +91,6 @@ object TutorQueue:
 
   object F:
     val id          = "_id"
+    val query       = "query"
     val requestedAt = "requestedAt"
     val startedAt   = "startedAt"

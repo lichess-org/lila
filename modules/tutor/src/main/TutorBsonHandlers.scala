@@ -50,11 +50,12 @@ private object TutorBsonHandlers:
       metric => List(metric.mine, metric.peer)
     )
 
-  given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
-  given BSONDocumentHandler[TutorColorOpenings] = Macros.handler
-  given BSONDocumentHandler[TutorPhase]         = Macros.handler
-  given BSONDocumentHandler[TutorFlagging]      = Macros.handler
-  given BSONDocumentHandler[InsightPerfStats]   = Macros.handler
-  given BSONDocumentHandler[TutorPerfReport]    = Macros.handler
-  given BSONDocumentHandler[TutorPeriodReport]  = Macros.handler
-  given BSONDocumentHandler[TutorFullReport]    = Macros.handler
+  given BSONDocumentHandler[TutorOpeningFamily]        = Macros.handler
+  given BSONDocumentHandler[TutorColorOpenings]        = Macros.handler
+  given BSONDocumentHandler[TutorPhase]                = Macros.handler
+  given BSONDocumentHandler[TutorFlagging]             = Macros.handler
+  given BSONDocumentHandler[InsightPerfStats]          = Macros.handler
+  given BSONDocumentHandler[TutorPerfReport]           = Macros.handler
+  given BSONDocumentHandler[TutorPeriodReport]         = Macros.handler
+  given BSONDocumentHandler[TutorPeriodReport.Preview] = Macros.handler
+  given BSONDocumentHandler[TutorFullReport]           = Macros.handler

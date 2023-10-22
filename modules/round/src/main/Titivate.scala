@@ -84,14 +84,12 @@ final private[round] class Titivate(
           gameRepo unsetCheckAt game.id
 
         case game if game.outoftime(withGrace = true) =>
-          fuccess {
+          fuccess:
             tellRound(game.id, QuietFlag)
-          }
 
         case game if game.abandoned =>
-          fuccess {
+          fuccess:
             tellRound(game.id, Abandon)
-          }
 
         case game if game.unplayed =>
           bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)

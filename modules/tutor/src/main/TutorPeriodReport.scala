@@ -16,7 +16,10 @@ object TutorPeriodReport:
     val presets: List[NbGames]        = List(10_000, 2_000, 500, 100, 20)
     def from(i: Int): Option[NbGames] = presets.find(_ == i)
 
-  case class Query(user: UserId, perf: PerfType, nb: NbGames)
+  case class Query(user: UserId, perf: PerfType, nb: NbGames):
+    override def toString = s"$user ${perf.key} $nb"
+
+  case class Preview(perf: PerfType, nbGames: NbGames, at: Instant)
 
   object F:
     val user       = "user"
