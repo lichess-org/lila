@@ -46,7 +46,7 @@ object GameFilterMenu:
 
     val current = currentOf(filters, currentName)
 
-    new GameFilterMenu(filters, current)
+    GameFilterMenu(filters, current)
 
   def currentOf(filters: NonEmptyList[GameFilter], name: String) =
     filters.find(_.name == name) | filters.head
@@ -108,18 +108,15 @@ object GameFilterMenu:
             sort = $empty,
             nb = nb
           )(page)
-            .flatMap {
+            .flatMap:
               _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
-            }
-            .addEffect { p =>
+            .addEffect: p =>
               p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids
-            }
         case Search => userGameSearch(user, page)
 
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
   )(using Request[?], FormBinding, Lang): play.api.data.Form[?] =
-    filter match
-      case Search => userGameSearch.requestForm
-      case _      => userGameSearch.defaultForm
+    if filter == Search then userGameSearch.requestForm
+    else userGameSearch.defaultForm

@@ -7,6 +7,8 @@ import play.api.Configuration
 
 import lila.common.config.*
 import lila.search.*
+import lila.team.Team
+import lila.common.paginator.Paginator
 
 @Module
 private class TeamSearchConfig(
@@ -34,7 +36,7 @@ final class Env(
 
   lazy val api: TeamSearchApi = wire[TeamSearchApi]
 
-  def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
+  def apply(text: String, page: Int): Fu[Paginator[Team]] = paginatorBuilder(Query(text), page)
 
   def cli: lila.common.Cli = new:
     def process = { case "team" :: "search" :: "reset" :: Nil =>

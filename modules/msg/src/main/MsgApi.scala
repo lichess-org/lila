@@ -2,7 +2,6 @@ package lila.msg
 
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
-import scala.util.Try
 
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
@@ -74,7 +73,7 @@ final class MsgApi(
     val userId   = username.id
     val threadId = MsgThread.id(me, userId)
     val before = beforeMillis.flatMap: millis =>
-      Try(millisToInstant(millis)).toOption
+      util.Try(millisToInstant(millis)).toOption
     (userId isnt me) so lightUserApi.async(userId).flatMapz { contact =>
       for
         _         <- setReadBy(threadId, me, userId)

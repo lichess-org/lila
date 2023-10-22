@@ -35,7 +35,7 @@
   <plurals name="hostedNbSimuls">
     <item quantity="other">%s Алып барган бер үк вакыттагы күргәзмәләрне</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="other">Иштирак ителгән %s бер үк ватыттагы күргәзмәләр</item>
   </plurals>
   <plurals name="createdNbStudies">

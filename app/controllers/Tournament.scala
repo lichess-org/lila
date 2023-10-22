@@ -181,7 +181,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
     data.team
-      .so { env.team.cached.isLeader(_, me) }
+      .so { env.team.api.isGranted(_, me, _.Tour) }
       .flatMap: isLeader =>
         api.joinWithResult(tourId, data = data, isLeader)
 
@@ -199,15 +199,15 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def form = Auth { ctx ?=> me ?=>
     NoBot:
-      env.team.api.lightsByLeader(me) flatMap { teams =>
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
         Ok.page(html.tournament.form.create(forms.create(teams), teams))
       }
   }
 
   def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoBot:
-      env.team.api.lightsByLeader(me) flatMap { teams =>
-        env.team.api.leads(teamId, me) elseNotFound
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
+        env.team.api.isGranted(teamId, me, _.Tour) elseNotFound
           Ok.page(html.tournament.form.create(forms.create(teams, teamId.some), Nil))
       }
   }
@@ -242,7 +242,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def create(using BodyContext[?])(using me: Me) = NoBot:
     def whenRateLimited = negotiate(Redirect(routes.Tournament.home), rateLimited)
     env.team.api
-      .lightsByLeader(me)
+      .lightsByTourLeader(me)
       .flatMap: teams =>
         forms
           .create(teams)
@@ -279,7 +279,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     cachedTour(id).flatMap:
       _.filter(_.createdBy.is(me) || isGranted(_.ManageTournament)) so { tour =>
-        env.team.api.lightsByLeader(me) flatMap { teams =>
+        env.team.api.lightsByTourLeader(me) flatMap { teams =>
           forms
             .edit(teams, tour)
             .bindFromRequest()
@@ -405,7 +405,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def edit(id: TourId) = Auth { ctx ?=> me ?=>
     WithEditableTournament(id): tour =>
-      env.team.api.lightsByLeader(me) flatMap { teams =>
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
         val form = forms.edit(teams, tour)
         Ok.page(html.tournament.form.edit(tour, form, teams))
       }
@@ -413,7 +413,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def update(id: TourId) = AuthBody { ctx ?=> me ?=>
     WithEditableTournament(id): tour =>
-      env.team.api.lightsByLeader(me) flatMap { teams =>
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
         forms
           .edit(teams, tour)
           .bindFromRequest()

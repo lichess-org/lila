@@ -702,6 +702,7 @@ object I18nKeys:
   val `agreementPolicy` = I18nKey("agreementPolicy")
   val `searchOrStartNewDiscussion` = I18nKey("searchOrStartNewDiscussion")
   val `edit` = I18nKey("edit")
+  val `blitz` = I18nKey("blitz")
   val `rapid` = I18nKey("rapid")
   val `classical` = I18nKey("classical")
   val `ultraBulletDesc` = I18nKey("ultraBulletDesc")

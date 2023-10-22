@@ -11,7 +11,7 @@ import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
@@ -54,7 +54,7 @@ final class TournamentApi(
 
   def createTournament(
       setup: TournamentSetup,
-      leaderTeams: List[LeaderTeam],
+      leaderTeams: List[LightTeam],
       andJoin: Boolean = true
   )(using me: Me): Fu[Tournament] =
     val tour = Tournament.fromSetup(setup)
@@ -366,9 +366,9 @@ final class TournamentApi(
 
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {
-      _.map {
+      _.traverse_ {
         withdraw(_, user.id, isPause = false, isStalling = false)
-      }.parallel.void
+      }
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =

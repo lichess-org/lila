@@ -68,7 +68,7 @@
     <item quantity="few">Gostil %s simultanke</item>
     <item quantity="other">Gostil %s simultank</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Sodeloval pri %s simultanki</item>
     <item quantity="two">Sodeloval pri %s simultankah</item>
     <item quantity="few">Sodeloval pri %s simultankah</item>

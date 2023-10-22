@@ -98,7 +98,7 @@ object home:
             }
           ),
           if ctx.isAuth then
-            div(cls := "timeline")(
+            div(cls := "lobby__timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(

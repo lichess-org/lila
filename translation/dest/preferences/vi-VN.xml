@@ -32,9 +32,9 @@
   <string name="dragPiece">Thả quân cờ</string>
   <string name="bothClicksAndDrag">Cả hai</string>
   <string name="premovesPlayingDuringOpponentTurn">Nước cờ dự đoán (được thực hiện khi đang đến lượt đi của đối phương)</string>
-  <string name="takebacksWithOpponentApproval">Đi lại (với sự chấp thuận của đối thủ)</string>
-  <string name="inCasualGamesOnly">Chỉ trong các ván đấu không tính hệ số</string>
-  <string name="promoteToQueenAutomatically">Phong Hậu một cách tự động</string>
+  <string name="takebacksWithOpponentApproval">Hoãn nước đi (với sự chấp thuận của đối thủ)</string>
+  <string name="inCasualGamesOnly">Chỉ trong các ván đấu không tính Elo</string>
+  <string name="promoteToQueenAutomatically">Tự động phong cấp thành quân Hậu</string>
   <string name="explainPromoteToQueenAutomatically">Giữ nút &lt;ctrl&gt; trong khi phong cấp để tạm thời hủy bỏ việc phong cấp tự động</string>
   <string name="whenPremoving">Khi đi trước</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp cờ ba lần</string>
@@ -43,7 +43,7 @@
   <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong trò chơi với menu bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
   <string name="correspondenceAndUnlimited">Cờ qua thư và không giới hạn</string>
-  <string name="confirmResignationAndDrawOffers">Xác nhận đầu hàng và đề nghị hòa</string>
+  <string name="confirmResignationAndDrawOffers">Xác nhận chịu thua và đề nghị hòa</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cách nhập thành</string>
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
   <string name="castleByMovingOntoTheRook">Di chuyển vua vào xe</string>
@@ -52,7 +52,7 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào ô của nước đi hợp lệ</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (Ván cờ hay, chơi hay lắm) sau khi hòa hoặc thua</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
-  <string name="scrollOnTheBoardToReplayMoves">Cuộn trên bàn cờ để xem lại nước đi</string>
+  <string name="scrollOnTheBoardToReplayMoves">Cuộn con chuột trên bàn cờ để xem lại nước đi</string>
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả những ván cờ qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
   <string name="notifyInboxMsg">Tin nhắn mới</string>

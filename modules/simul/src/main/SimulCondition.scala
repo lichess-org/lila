@@ -4,7 +4,7 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ UserPerfs, Me }
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 
 object SimulCondition:
 
@@ -33,7 +33,7 @@ object SimulCondition:
   object form:
     import play.api.data.Forms.*
     import lila.gathering.ConditionForm.*
-    def all(leaderTeams: List[LeaderTeam]) =
+    def all(leaderTeams: List[LightTeam]) =
       mapping(
         "maxRating" -> maxRating,
         "minRating" -> minRating,

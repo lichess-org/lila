@@ -7,7 +7,7 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
 import lila.common.Form.{ *, given }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.user.Me
 import chess.Clock
 import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
@@ -53,7 +53,7 @@ object SimulForm:
         else validation.Valid
     )
 
-  def create(teams: List[LeaderTeam])(using host: Me) =
+  def create(teams: List[LightTeam])(using host: Me) =
     baseForm(teams) fill Setup(
       name = host.titleUsername,
       clockTime = clockTimeDefault,
@@ -69,7 +69,7 @@ object SimulForm:
       conditions = SimulCondition.All.empty
     )
 
-  def edit(teams: List[LeaderTeam], simul: Simul)(using Me) =
+  def edit(teams: List[LightTeam], simul: Simul)(using Me) =
     baseForm(teams) fill Setup(
       name = simul.name,
       clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
@@ -85,7 +85,7 @@ object SimulForm:
       conditions = simul.conditions
     )
 
-  private def baseForm(teams: List[LeaderTeam])(using host: Me) =
+  private def baseForm(teams: List[LightTeam])(using host: Me) =
     Form(
       mapping(
         "name"                -> nameType,

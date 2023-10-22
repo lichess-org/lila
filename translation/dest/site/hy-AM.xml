@@ -866,6 +866,7 @@
   <string name="agreementPolicy">Հաստատում եմ, որ հետևելու եմ Lichess-ի բոլոր կանոններին։</string>
   <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Բլից</string>
   <string name="rapid">Արագ</string>
   <string name="classical">Դասական</string>
   <string name="ultraBulletDesc">Խելահեղորեն արագ պարտիաներ` 30 վայրկյանից պակաս</string>

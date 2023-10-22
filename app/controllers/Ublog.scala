@@ -269,13 +269,13 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.topic.withPosts.map:
           html.ublog.index.topics(_)
 
-  def topic(str: String, page: Int) = Open:
+  def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
       Reasonable(page, config.Max(100)):
         lila.ublog.UblogTopic.fromUrl(str) so { top =>
           Ok.pageAsync:
-            env.ublog.paginator.liveByTopic(top, page) map {
-              html.ublog.index.topic(top, _)
+            env.ublog.paginator.liveByTopic(top, page, byDate) map {
+              html.ublog.index.topic(top, _, byDate)
             }
         }
 

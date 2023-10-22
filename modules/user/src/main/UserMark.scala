@@ -15,9 +15,9 @@ enum UserMark:
   def key = toString.toLowerCase
 
 object UserMark:
-  val indexed                 = values.mapBy(_.key)
-  val bannable: Set[UserMark] = Set(Boost, Engine, Troll, Alt)
-  given BSONHandler[UserMark] = stringAnyValHandler[UserMark](_.key, indexed.apply)
+  val byKey: Map[String, UserMark] = values.mapBy(_.key)
+  val bannable: Set[UserMark]      = Set(Boost, Engine, Troll, Alt)
+  given BSONHandler[UserMark]      = valueMapHandler(byKey)(_.key)
 
 opaque type UserMarks = List[UserMark]
 object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:

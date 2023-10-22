@@ -9,7 +9,7 @@
   <string name="doNotShareIt">ئەو نیشانە ڕێگە بە چونەژوورەوەی هەژمارەکەت دەدا. مەیدە ڤە هیچ کەسێک!</string>
   <string name="copyTokenNow">دڵنیا ببەوە لەوەی کە ئێستا نیشانەکەت کۆپی کردووە. جارێکی دیکە ناتوانیت بیبینیەوە!</string>
   <string name="preferenceRead">هەڵبژاردەکان بخوێنەرەوە</string>
-  <string name="preferenceWrite">هەڵبژاردەکان بنووسەوە</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, a setting that enables permission to edit/change preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">هەڵبژاردەکان بنووسەوە</string>
   <string name="emailRead">ئیمێڵەکە بخوێنەوە</string>
   <string name="challengeRead">چالێنجەکانی داهاتوو بخوێنەرەوە</string>
   <string name="challengeWrite">ناردن و قبوڵکردن و ڕەتکردنەوەی چاڵێنجەکان</string>
@@ -31,4 +31,5 @@
   <string name="engineWrite">دروستکردن یان نوێکردنەوەی بزوێنەری دەرەکی</string>
   <string name="webLogin">دروستکردنی پێگەیەکی باوەڕپێکراو (رێگە بە گەیشتن بە هەمووی دەدات!)</string>
   <string name="webMod">ئامرازەکانی بەڕێوەبەر بەکاربهێنە (لە سنووری مۆڵەتەکەتدا)</string>
+  <string name="personalAccessTokens">نیشانەی نوێ کەسی تایبەت بە API</string>
 </resources>

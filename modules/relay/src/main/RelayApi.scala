@@ -397,22 +397,22 @@ final class RelayApi(
         .parallel.void
 
   private[relay] def autoFinishNotSyncing: Funit =
-    roundRepo.coll.list[RelayRound](
-      $doc(
-        "sync.until" $exists false,
-        "finished" -> false,
-        "startedAt" $lt nowInstant.minusHours(3),
-        $or(
-          "startsAt" $exists false,
-          "startsAt" $lt nowInstant
+    roundRepo.coll
+      .list[RelayRound]:
+        $doc(
+          "sync.until" $exists false,
+          "finished" -> false,
+          "startedAt" $lt nowInstant.minusHours(3),
+          $or(
+            "startsAt" $exists false,
+            "startsAt" $lt nowInstant
+          )
         )
-      )
-    ) flatMap {
-      _.map: relay =>
-        logger.info(s"Automatically finish $relay")
-        update(relay)(_.finish)
-      .parallel.void
-    }
+      .flatMap:
+        _.map: relay =>
+          logger.info(s"Automatically finish $relay")
+          update(relay)(_.finish)
+        .parallel.void
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id) flatMapz f

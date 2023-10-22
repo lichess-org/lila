@@ -6,6 +6,6 @@ trait TellMap[Id]:
 object LightTeam:
   type TeamName = String
 
-case class LeaderTeam(_id: TeamId, name: LightTeam.TeamName):
+case class LightTeam(_id: TeamId, name: LightTeam.TeamName):
   inline def id = _id
   def pair      = id -> name

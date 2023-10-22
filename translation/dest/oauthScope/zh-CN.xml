@@ -8,10 +8,10 @@
   <string name="whatTheTokenCanDo">令牌可以代表你做什么：</string>
   <string name="doNotShareIt">令牌将授权访问你的账户。不要与任何人分享它！</string>
   <string name="copyTokenNow">请确保你已复制个人访问令牌。令牌将不再显示。</string>
-  <string name="preferenceRead">读取首选项</string>
-  <string name="preferenceWrite">写入首选项</string>
-  <string name="emailRead">阅读电子邮件地址</string>
-  <string name="challengeRead">读取收到的挑战</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">读取首选项</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">写入首选项</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">阅读电子邮件地址</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">读取收到的挑战</string>
   <string name="challengeWrite">发送、接受和拒绝挑战</string>
   <string name="challengeBulk">为其他玩家一次创建许多游戏</string>
   <string name="studyRead">阅读私人研讨和广播</string>
@@ -32,8 +32,13 @@
   <string name="webLogin">创建认证的网站会话 (授予完全访问权限!)</string>
   <string name="webMod">使用版主工具 (在你的权限范围内)</string>
   <string name="personalAccessTokens">个人访问令牌</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API 文档</string>
+  <string name="newToken">新增访问令牌</string>
+  <string name="apiAccessTokens">API 访问令牌</string>
   <string name="created" comment="%s is relative time, e.g. 2 hours ago.">创建于 %s</string>
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">上次使用：%s</string>
   <string name="alreadyHavePlayedGames">你已经有过对局了！</string>
-  <string name="forExample">例如：%s</string>
+  <string name="attentionOfDevelopers">给开发者的提示：</string>
+  <string name="possibleToPrefill">可以通过调整 URL 参数来预填此界面。</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">例如：%s</string>
 </resources>

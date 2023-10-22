@@ -1,5 +1,6 @@
 package lila.team
 
+import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -43,3 +44,29 @@ final class RequestRepo(val coll: Coll)(using Executor):
   def removeByTeam(teamId: TeamId) = coll.delete.one(teamQuery(teamId))
 
   def removeByUser(userId: UserId) = coll.delete.one($doc("user" -> userId))
+
+  def countForLeader(leader: UserId, memberColl: Coll): Fu[Int] =
+    memberColl
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc("user" -> leader, "perms" -> TeamSecurity.Permission.Request)) -> List(
+          Group(BSONNull)("teams" -> PushField("team")),
+          PipelineOperator(
+            $lookup.pipelineFull(
+              from = coll.name,
+              as = "requests",
+              let = $doc("teams" -> "$teams"),
+              pipe = List:
+                $doc:
+                  "$match" -> $expr:
+                    $doc:
+                      $and(
+                        $doc("$in" -> $arr("$team", "$$teams")),
+                        $doc("$ne" -> $arr("$declined", true))
+                      )
+            )
+          ),
+          Group(BSONNull):
+            "nb" -> Sum($doc("$size" -> "$requests"))
+        )
+      .map(~_.flatMap(_.int("nb")))

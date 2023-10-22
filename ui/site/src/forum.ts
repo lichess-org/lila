@@ -130,7 +130,11 @@ lichess.load.then(() => {
                     // and there are no matches in the forum thread participants
                     xhr
                       .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)));
+                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                      .catch(error => {
+                        console.error('Autocomplete request failed:', error);
+                        callback([]);
+                      });
                   } else {
                     callback([]);
                   }

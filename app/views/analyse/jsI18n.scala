@@ -52,6 +52,7 @@ object jsI18n:
         trans.accuracy,
         trans.viewTheSolution,
         trans.youNeedAnAccountToDoThat,
+        trans.aiNameLevelAiLevel,
         // action menu
         trans.menu,
         trans.toStudy,

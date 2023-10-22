@@ -8,7 +8,7 @@ import lila.user.{ User, UserRepo, UserApi }
 import lila.security.Ip2Proxy
 import lila.security.IsProxy
 
-final class UserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
+final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
   def apply(query: String): Fu[List[User.WithEmails]] =
     EmailAddress.from(query).map(searchEmail) getOrElse
@@ -22,6 +22,6 @@ final class UserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
       userRepo.byPrevEmail(normalized) map current.toList.:::
     }
 
-object UserSearch:
+object ModUserSearch:
   val form = Form:
     single("q" -> lila.common.Form.trim(nonEmptyText))

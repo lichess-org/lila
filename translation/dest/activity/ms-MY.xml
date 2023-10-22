@@ -35,7 +35,7 @@
   <plurals name="hostedNbSimuls">
     <item quantity="other">%s perlawanan simul telah dihos</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="other">%s perlawanan simul telah disertai</item>
   </plurals>
   <plurals name="createdNbStudies">
