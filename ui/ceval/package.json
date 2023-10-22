@@ -22,8 +22,7 @@
     "snabbdom": "^3.5.1",
     "stockfish-web": "^0.0.8",
     "stockfish-mv.wasm": "^0.6.1",
-    "stockfish.js": "^10.0.2",
-    "stockfish.wasm": "^0.10.0"
+    "stockfish.js": "^10.0.2"
   },
   "scripts": {
     "compile": "tsc",
