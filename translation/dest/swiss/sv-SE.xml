@@ -62,6 +62,7 @@ Vi tror att dessa villkor har större sannolikhet att uppfyllas inom ett lag än
   <string name="numberOfByesA">En spelare får en frirond och en poäng varje gång lottningssystemet inte kan hitta en motståndare.
 Dessutom får spelaren ytterligare en halv poäng när en spelare går sent med i en turnering.</string>
   <string name="earlyDrawsQ">Vad händer vid snabba remier?</string>
+  <string name="earlyDrawsAnswer">I schweiziska spel kan spelare inte erbjuda remi innan 30 drag har spelats. Även om denna åtgärd inte kan förhindra uppgjorda oavgjorda partier, gör det åtminstone svårare att gå med på remi mitt i spelet.</string>
   <string name="whatIfOneDoesntPlayQ">Vad händer om en spelare inte spelar ett parti?</string>
   <string name="whatIfOneDoesntPlayA">Deras klocka kommer att gå, deras tid kommer gå ut, och de kommer förlora spelet.
 Därefter kommer systemet att ta bort spelaren från turneringen, så att de inte förlorar fler partier.
@@ -83,7 +84,7 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="teamOnly">Schweizer-turneringar kan bara skapas av lagledare, och bara lagmedlemmar kan delta.           
 %1$s för att börja spela i schweizer-turneringar.</string>
   <string name="joinOrCreateTeam">Gå med eller skapa ett team</string>
-  <string name="nowPlaying">Spelas nu</string>
+  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Spelas nu</string>
   <string name="startingSoon">Börjar snart</string>
   <string name="comparison">Jämförelse</string>
   <string name="tournDuration">Turneringens varaktighet</string>
