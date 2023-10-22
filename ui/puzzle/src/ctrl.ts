@@ -133,12 +133,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     );
 
     // just to delay button display
-    vm.canViewSolution = !rated();
+    vm.canViewSolution = false;
     if (!vm.canViewSolution) {
-      setTimeout(() => {
-        vm.canViewSolution = true;
-        redraw();
-      }, 4000);
+      setTimeout(
+        () => {
+          vm.canViewSolution = true;
+          redraw();
+        },
+        rated() ? 4000 : 1000,
+      );
     }
 
     withGround(g => {
