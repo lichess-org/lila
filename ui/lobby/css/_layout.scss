@@ -1,22 +1,3 @@
-$mq-col2: $mq-xx-small;
-$mq-col3: $mq-small;
-$mq-col4: $mq-x-large;
-
-$mq-not-col3: $mq-not-small;
-
-@mixin lobby-app-size {
-  min-height: 300px;
-
-  @include breakpoint($mq-col2) {
-    min-height: 400px;
-  }
-
-  @include breakpoint($mq-col3) {
-    height: 600px;
-    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
-  }
-}
-
 .lobby {
   --cols: 1; // ui/lobby/src/main.ts
   grid-area: main;
@@ -24,19 +5,11 @@ $mq-not-col3: $mq-not-small;
   grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'timeline' 'about';
   grid-gap: $block-gap;
 
-  &__counters {
-    margin-top: $block-gap;
-  }
-
   &__tournaments,
   &__simuls,
   &__leaderboard,
   &__winners {
     max-height: 20em;
-  }
-
-  > .lobby__timeline {
-    display: block;
   }
 
   @include breakpoint($mq-col2) {
@@ -76,18 +49,19 @@ $mq-not-col3: $mq-not-small;
       'about  about   about';
 
     &__start {
+      margin: 2em 0 0 0;
       flex-flow: column;
       align-items: stretch;
       justify-content: center;
     }
 
     &__counters {
-      margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
+      display: flex;
     }
 
-    &__side .lobby__timeline {
-      display: block;
-      margin-#{$start-direction}: 0 !important;
+    &__side,
+    &__timeline {
+      margin-#{$start-direction}: 0;
     }
   }
 
@@ -99,14 +73,28 @@ $mq-not-col3: $mq-not-small;
       'side   app     app     table'
       'tv     blog    blog    puzzle'
       'tv     support support puzzle'
-      'leader tours   tours   winner'
+      'leader winner  tours   tours'
       'about  about   about   about';
+
+    &__start {
+      justify-content: center;
+
+      button {
+        margin: 1.2em 0;
+        padding: 1em;
+      }
+    }
+
     &__side {
       margin-top: 2em;
     }
 
     &__counters {
       margin: 0;
+      flex-flow: column;
+      align-items: flex-start;
+      position: absolute;
+      bottom: 0;
     }
 
     &__support {
@@ -168,6 +156,5 @@ $mq-not-col3: $mq-not-small;
 
   &__timeline {
     grid-area: timeline;
-    display: none;
   }
 }

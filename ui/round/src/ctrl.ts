@@ -549,6 +549,7 @@ export default class RoundController {
     ) {
       this.reload(d);
     }
+    this.promotion.cancel();
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
