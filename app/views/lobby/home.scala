@@ -48,20 +48,6 @@ object home:
           "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
         )
       )(
-        div(cls := "lobby__table")(
-          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
-            cls   := "bg-switch",
-            title := "Dark mode"
-          )(
-            div(cls := "bg-switch__track"),
-            div(cls := "bg-switch__thumb")
-          ),
-          div(cls := "lobby__start")(
-            button(cls := "button button-metal", tpe := "button", trans.createAGame()),
-            button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
-            button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
-          )
-        ),
         currentGame
           .map(bits.currentGameInfo)
           .orElse:
@@ -117,14 +103,27 @@ object home:
               a(href := "/about")(trans.aboutX("Lichess"), "...")
             )
         ),
+        div(cls := "lobby__table")(
+          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
+            cls   := "bg-switch",
+            title := "Dark mode"
+          )(
+            div(cls := "bg-switch__track"),
+            div(cls := "bg-switch__thumb")
+          ),
+          div(cls := "lobby__start")(
+            button(cls := "button button-metal", tpe := "button", trans.createAGame()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
+          )
+        ),
+        bits.lastPosts(lastPost, ublogPosts),
         featured.map: g =>
           div(cls := "lobby__tv"):
             views.html.game.mini(Pov naturalOrientation g, tv = true)
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastPost, ublogPosts),
-        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
@@ -141,6 +140,7 @@ object home:
             )
           )
         ),
+        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lichess")),
