@@ -57,7 +57,7 @@ final class ForumPostApi(
             shutup ! {
               if post.isTeam
               then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, post.text)
+              else lila.hub.actorApi.shutup.RecordPublicForumMessage(post.id, me, post.text)
             }
             if anonMod
             then logAnonPost(post, edit = false)

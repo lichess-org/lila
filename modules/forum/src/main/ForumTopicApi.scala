@@ -106,7 +106,7 @@ final private class ForumTopicApi(
             shutup ! {
               val text = s"${topic.name} ${post.text}"
               if post.isTeam then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
+              else lila.hub.actorApi.shutup.RecordPublicForumMessage(post.id, me, text)
             }
             if !post.troll && !categ.quiet then
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
