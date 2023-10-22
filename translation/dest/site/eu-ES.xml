@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Txapelketaren irabazleak</string>
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
-  <string name="descPrivate">Deskribapen pribatua</string>
-  <string name="descPrivateHelp">Taldekideek bakarrik ikusiko duten testua. Ezarrita badago, taldekideei taldearen deskribapenaren ordez agertuko zaie testu hau.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Deskribapen pribatua</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Taldekideek bakarrik ikusiko duten testua. Ezarrita badago, taldekideei taldearen deskribapenaren ordez agertuko zaie testu hau.</string>
   <string name="no">Ez</string>
   <string name="yes">Bai</string>
   <string name="help">Laguntza:</string>
   <string name="createANewTopic">Gai berria sortu</string>
   <string name="topics">Gaiak</string>
   <string name="posts">Mezuak</string>
-  <string name="lastPost">Azken mezua</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Azken mezua</string>
   <string name="views">Bisitak</string>
   <string name="replies">Erantzunak</string>
   <string name="replyToThisTopic">Gai honi erantzun</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">FENa ez da zuzena</string>
   <string name="custom">Pertsonalizatua</string>
   <string name="notifications">Jakinarazpenak</string>
-  <string name="notificationsX">Jakinarazpenak: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Jakinarazpenak: %1$s</string>
   <string name="perfRatingX">Sailkapena: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Aktiboa</string>
   <string name="classical">Estandarra</string>
   <string name="ultraBulletDesc">Partida oso oso azkarrak: 30 segundo baino gutxiago</string>
@@ -894,7 +895,7 @@
   <string name="mentionedYouInX">\"%1$s\" -n aipatu zaituzte.</string>
   <string name="xMentionedYouInY">%1$s jokalariak \"%2$s\" artikuluan aipatu zaitu.</string>
   <string name="invitedYouToX">\"%1$s\" taldera sartzeko gonbidapena.</string>
-  <string name="xInvitedYouToY">%1$s jokalariak \"%2$s\" taldera gonbidatu zaitu.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s jokalariak \"%2$s\" taldera gonbidatu zaitu.</string>
   <string name="youAreNowPartOfTeam">Taldearen parte zara.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" taldera sartu zara.</string>
   <string name="someoneYouReportedWasBanned">Zuk salatutako jokalari bat bota egin dugu</string>
