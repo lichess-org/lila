@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="features" comment="https://lichess.org/features">Features</string>
-  <string name="playAndCreateX">"Play and create %s</string>
-  <string name="simultaneousExhibitions">simultaneous exhibitions</string>
-  <string name="tournaments">tournaments</string>
+  <string name="playAndCreateSimul">Play and create simultaneous exhibitions</string>
+  <string name="playAndCreateTournaments">Play and create tournaments</string>
   <string name="correspondenceWithConditionalPremoves">Correspondence chess with conditional premoves</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Standard chess and %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Deep %s server analysis</string>
-  <string name="boardEditorAndAnalysisBoardWithSf14">Board editor and analysis board with Stockfish 14+</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Board editor and analysis board with %s</string>
   <string name="cloudEngineAnalysis">Cloud engine analysis</string>
   <string name="studies">Studies (shared and persistent analysis)</string>
   <string name="chessInsights">Chess insights (detailed analysis of your play)</string>
   <string name="allChessBasicsLessons">All chess basics lessons</string>
   <string name="tacticalPuzzlesFromUserGames">Tactical puzzles from user games</string>
   <string name="personalOpeningExplorerX">%1$s (also works on %2$s)</string>
-  <string name="xGlobalOpeningExplorer">%s (450 million games!)</string>
   <string name="personalOpeningExplorer">Personal opening explorer</string>
-  <string name="globalOpeningExplorer">Global opening explorer</string>
+  <string name="globalOpeningExplorerInNbGames">Global opening explorer (%s million games!)</string>
   <string name="endgameTablebase">7-piece endgame tablebase</string>
   <string name="downloadOrUploadAnyGameAsPgn">Download/Upload any game as PGN</string>
   <string name="xThroughLichessBillionGames">%s through Lichess 4 billion games</string>

@@ -32,12 +32,10 @@ object features:
               strong(trans.features.zeroAdsAndNoTracking())
             ),
             tr(unlimited)(
-              trans.features.playAndCreateX(
-              a(href := routes.Tournament.home)(trans.features.tournaments()))
+              a(href := routes.Tournament.home)(trans.features.playAndCreateTournaments()))
             ),
             tr(unlimited)(
-              trans.features.playAndCreateX(
-              a(href := routes.Simul.home)(trans.features.simultaneousExhibitions()))
+              a(href := routes.Tournament.home)(trans.features.playAndCreateSimul()))
             ),
             tr(unlimited)(
               trans.features.correspondenceWithConditionalPremoves()
@@ -50,7 +48,7 @@ object features:
               trans.features.deepXServerAnalysis(engineFullName)
             ),
             tr(unlimited)(
-              trans.features.boardEditorAndAnalysisBoardWithSf14()
+              trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 16, Fairy-Stockfish 14")
             ),
             tr(unlimited)(
               a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
@@ -86,8 +84,7 @@ object features:
               a(href := routes.Racer.home)("Puzzle Racer")
             ),
             tr(check)(
-              trans.features.xGlobalOpeningExplorer(
-              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorer()))
+              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorerInNbGames("430")))
             ),
             tr(check)(
               trans.features.personalOpeningExplorerX(
@@ -136,7 +133,7 @@ object features:
               a(href := routes.Tournament.home)(trans.arena.arenaTournaments())
             ),
             tr(check)(
-              trans.features.boardEditorAndAnalysisBoardWithSf14()
+              trans.features.boardEditorAndAnalysisBoardWithEngine("14+")
             ),
             tr(unlimited)(
               a(href := routes.Puzzle.home)(trans.features.tacticalPuzzlesFromUserGames())
