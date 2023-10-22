@@ -24,7 +24,7 @@ export const redirect = async (opts: string | Opts, beep?: boolean) => {
   redirectInProgress = href;
   location.href = href;
   try {
-    if (beep) await lichess.sound.play('genericNotify');
+    if (beep) lichess.sound.play('genericNotify');
   } catch (e) {
     console.warn(e);
   }
