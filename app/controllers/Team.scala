@@ -121,7 +121,7 @@ final class Team(
       }
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: PageContext) = for
-    member <- env.team.memberRepo.get(team.id, me).orFail(s"no member ${me.userId} in ${team.id}")
+    member <- env.team.memberRepo.get(team.id, me)
     _      <- env.msg.twoFactorReminder(me)
     page   <- renderPage(html.team.form.edit(team, forms.edit(team), member))
   yield page

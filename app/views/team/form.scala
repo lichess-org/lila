@@ -36,7 +36,7 @@ object form:
       )
     }
 
-  def edit(t: Team, form: Form[?], member: TeamMember)(using ctx: PageContext) =
+  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
     bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
@@ -53,7 +53,7 @@ object form:
             )
           ),
           hr,
-          (t.enabled && (member.hasPerm(_.Admin) || isGranted(_.ManageTeam))) option
+          (t.enabled && (member.exists(_.hasPerm(_.Admin)) || isGranted(_.ManageTeam))) option
             postForm(cls := "inline", action := routes.Team.disable(t.id))(
               explainInput,
               submitButton(
