@@ -1,3 +1,5 @@
+import { promiseTimeout } from 'common/promise';
+
 let redirectInProgress: false | string = false;
 
 interface Opts {
@@ -6,6 +8,11 @@ interface Opts {
 }
 
 export const redirect = async (opts: string | Opts, beep?: boolean) => {
+  try {
+    if (beep) await promiseTimeout(lichess.sound.play('genericNotify'), 1000);
+  } catch (e) {
+    console.warn(e);
+  }
   let url: string;
   if (typeof opts == 'string') url = opts;
   else {
@@ -23,11 +30,6 @@ export const redirect = async (opts: string | Opts, beep?: boolean) => {
   const href = '//' + location.host + '/' + url.replace(/^\//, '');
   redirectInProgress = href;
   location.href = href;
-  try {
-    if (beep) lichess.sound.play('genericNotify');
-  } catch (e) {
-    console.warn(e);
-  }
 };
 
 export const unload = {
