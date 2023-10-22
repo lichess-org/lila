@@ -84,7 +84,7 @@ object features:
               a(href := routes.Racer.home)("Puzzle Racer")
             ),
             tr(check)(
-              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorerInNbGames("430")))
+              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorerInNbGames("430"))
             ),
             tr(check)(
               trans.features.personalOpeningExplorerX(
