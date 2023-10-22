@@ -50,7 +50,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Berserk</string>
   <string name="allowBerserkHelp">Cho phép các kỳ thủ giảm một nửa thời gian để lấy thêm một điểm</string>
-  <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng chat</string>
+  <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng trò chuyện</string>
   <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
   <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Không cho phép Berserk</string>
