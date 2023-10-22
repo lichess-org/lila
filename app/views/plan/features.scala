@@ -162,7 +162,6 @@ object features:
               td(cls := "green")("$0"),
               td(a(href := routes.Plan.index, cls := "green button")("$5/month"))
             )
-          )
         ),
         p(cls := "explanation")(
           strong(trans.features.everybodyGetsAllFeaturesForFree()),
@@ -175,9 +174,7 @@ object features:
           strong(trans.features.allFeaturesAreFreeForEverybody()),
           br,
           trans.features.ifYouLoveLichess(),
-          a(cls := "button", href := routes.Plan.index)(trans.features.supportUsWithAPatronAccount())
-        )
-      )
+          a(cls := "button", href := routes.Plan.index)(trans.features.supportUsWithAPatronAccount()))
     }
 
   private def header(name: Frag)(using Lang) =
