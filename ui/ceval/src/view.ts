@@ -51,7 +51,12 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         hook: bind('click', ceval.goDeeper),
       }),
     );
-  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
+  else if (
+    !(depth >= 99 && ceval.shortEngineName() === 'Stockfish 16') &&
+    !evs.client.cloud &&
+    evs.client.knps
+  )
+    t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
   return t;
 }
 
