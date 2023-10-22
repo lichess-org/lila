@@ -137,12 +137,16 @@ final class TeamApi(
       .map: users =>
         RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 
-  def join(team: Team, request: Option[String], password: Option[String])(using Me): Fu[Requesting] =
-    if team.open then
-      if team.passwordMatches(~password)
-      then doJoin(team) inject Requesting.Joined
-      else fuccess(Requesting.NeedPassword)
-    else motivateOrJoin(team, request)
+  def join(team: Team, request: Option[String], password: Option[String])(using me: Me): Fu[Requesting] =
+    blocklist
+      .has(team, me.userId)
+      .flatMap:
+        if _ then fuccess(Requesting.Blocklist)
+        else if team.open then
+          if team.passwordMatches(~password)
+          then doJoin(team) inject Requesting.Joined
+          else fuccess(Requesting.NeedPassword)
+        else motivateOrJoin(team, request)
 
   private def motivateOrJoin(team: Team, msg: Option[String])(using Me) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
@@ -283,6 +287,17 @@ final class TeamApi(
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
     users.traverse_(kick(team, _))
+
+  object blocklist:
+    def set(team: Team, list: String): Funit =
+      teamRepo.coll.updateOrUnsetField($id(team.id), "blocklist", list.nonEmpty option list).void
+    def get(team: Team): Fu[String] =
+      teamRepo.coll
+        .primitiveOne[String]($id(team.id), "blocklist")
+        .dmap(~_)
+    def has(team: Team, user: UserId): Fu[Boolean] =
+      get(team).map: list =>
+        UserStr.from(list.split("\n")).exists(_ is user)
 
   private case class TagifyUser(value: String)
   private given Reads[TagifyUser] = Json.reads
