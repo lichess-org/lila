@@ -10,7 +10,7 @@ import { parseFen } from 'chessops/fen';
 import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, propWithEffect, Toggle, toggle } from 'common';
+import { prop, Toggle, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
@@ -42,7 +42,7 @@ export default class CevalCtrl {
   multiPv: StoredProp<number>;
   allowed = toggle(true);
   enabled: Toggle;
-  downloadProgress = propWithEffect(0, () => this.opts.redraw());
+  download?: { bytes: number; total: number };
   hovering = prop<Hovering | null>(null);
   pvBoard = prop<PvBoard | null>(null);
   isDeeper = toggle(false);
@@ -168,7 +168,10 @@ export default class CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!this.worker) {
-      const nnueProgress = throttle(200, mb => this.downloadProgress(mb));
+      const nnueProgress = throttle(200, (download?: { bytes: number; total: number }) => {
+        this.download = download;
+        this.opts.redraw();
+      });
       if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine, this.opts.redraw);
       else if (this.technology == 'nnue') this.worker = new WasmWorker(sharedWasmMemory(2048), nnueProgress);
       else if (this.technology == 'hce')

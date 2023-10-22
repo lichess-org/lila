@@ -172,9 +172,6 @@ importers:
       stockfish.js:
         specifier: ^10.0.2
         version: 10.0.2
-      stockfish.wasm:
-        specifier: ^0.10.0
-        version: 0.10.0
 
   ui/challenge:
     dependencies:
@@ -4815,10 +4812,6 @@ packages:
 
   /stockfish.js@10.0.2:
     resolution: {integrity: sha512-treB3AYcdvRJ9SDPOyL0R2NcEAtQgG432nStfRzR4wzVELGQ6iVoeBHwvirHTfocNOTims7XNkK3SADaocsJmQ==}
-    dev: false
-
-  /stockfish.wasm@0.10.0:
-    resolution: {integrity: sha512-OTvOlz0ijCSmIb/YvOZ1Dn6vwZVS4Ge3N+RcV0d2b6LXUtCJ9UwmBHypRW3DZ+VXf8WNm7E3P+6jMTVvb3QaBg==}
     dev: false
 
   /string-argv@0.3.2:

@@ -28,11 +28,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
     if (state == CevalState.Failed) return [trans.noarg('engineFailed')];
-    const mb = ceval.downloadProgress() / 1024 / 1024;
-    const localEvalText =
-      state == CevalState.Loading
-        ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
-        : trans.noarg('calculatingMoves');
+    const localEvalText = state == CevalState.Loading ? loadingText(ctrl) : trans.noarg('calculatingMoves');
     return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
@@ -495,4 +491,11 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     },
   });
   return h('div.pv-board', h('div.pv-board-square', cgVNode));
+}
+
+function loadingText(ctrl: ParentCtrl): string {
+  const d = ctrl.getCeval().download;
+  if (d && d.total)
+    return `Downloaded ${Math.round((d.bytes * 100) / d.total)}% of ${Math.round(d.total / 1000 / 1000)}MB`;
+  else return ctrl.trans.noarg('loadingEngine');
 }

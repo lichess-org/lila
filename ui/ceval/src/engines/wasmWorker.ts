@@ -13,7 +13,7 @@ export class WasmWorker implements CevalWorker {
 
   constructor(
     readonly wasmMemory: WebAssembly.Memory,
-    readonly nnueProgress?: (mb: number) => void,
+    readonly nnueProgress?: (download?: { bytes: number; total: number }) => void,
   ) {
     this.boot().catch(e => {
       console.error(e);
@@ -54,7 +54,7 @@ export class WasmWorker implements CevalWorker {
 
         req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { version: nnueVersion }), true);
         req.responseType = 'arraybuffer';
-        req.onprogress = e => this.nnueProgress?.(e.loaded);
+        req.onprogress = e => this.nnueProgress!({ bytes: e.loaded, total: e.total });
 
         nnueBuffer = await new Promise((resolve, reject) => {
           req.onerror = reject;
@@ -62,7 +62,7 @@ export class WasmWorker implements CevalWorker {
           req.send();
         });
 
-        this.nnueProgress(0);
+        this.nnueProgress();
         nnueStore.put(nnueVersion, nnueBuffer!).catch(() => console.warn('IDB store failed'));
       }
       module.setNnueBuffer(nnueBuffer!);
