@@ -36,4 +36,12 @@
   <string name="announceAllMoves">Meddela alla drag</string>
   <string name="selectAnnouncePreference">Välj JA för att meddela både dina drag och din motståndares drag. Välj NEJ för att meddela endast motståndarens drag.</string>
   <string name="announceMoveFormat">Välj format för schacknotation</string>
+  <string name="moveFormatDescription">SAN är standard på Lichess som \"Nf6\". UCI är vanligt förekommande på schackmotorer som \"g8f6\".</string>
+  <string name="keywords">Nyckelord</string>
+  <string name="keywordFormatDescription">Nyckelord är i JSON-format. De används för att översätta rörelser och resultat till ditt språk. Standard är engelska, men ändra gärna det.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Felsökning</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Utförliga loggar</string>
+  <string name="toSeeConsoleMessage">För att se konsolmeddelandet trycker du på Kommando + Alternativ + C (Mac) eller Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="playWithDgtBoard">Spela med ett DGT-bräde</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Konfigurera</string>
 </resources>
