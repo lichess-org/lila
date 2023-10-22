@@ -11,7 +11,10 @@ import lila.insight.{
   InsightApi,
   InsightDimension,
   InsightPerfStatsApi,
-  Question
+  Question,
+  InsightPerfStats,
+  MeanRating,
+  Point
 }
 import lila.rating.PerfType
 import lila.user.{ User, UserApi }
@@ -31,11 +34,11 @@ final private class TutorBuilder(
 
   val maxTime = fishnet.maxTime + 5.minutes
 
-  def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
-    user     <- userApi withPerfs userId orFail s"No such user $userId"
-    hasFresh <- hasFreshReport(user)
+  def apply(query: TutorPeriodReport.Query): Fu[Option[TutorPeriodReport]] = for
+    user     <- userApi withPerfs query.user orFail s"No such user $query"
+    hasFresh <- hasFreshReport(query)
     report <- !hasFresh so {
-      val chrono = lila.common.Chronometer.lapTry(produce(user))
+      val chrono = lila.common.Chronometer.lapTry(produceReport(query, user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for
         lap    <- chrono.lap
@@ -49,56 +52,45 @@ final private class TutorBuilder(
     }
   yield report
 
-  private def produce(user: User.WithPerfs): Fu[TutorFullReport] = for
+  private def produceReport(query: TutorPeriodReport.Query, user: User.WithPerfs): Fu[TutorPeriodReport] = for
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
-    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
+    perfStats <- perfStatsApi
+      .only(user, query.perf, query.nb into config.Max, fishnet.maxGamesToConsider)
       .monSuccess(_.tutor buildSegment "perf-stats")
-    peerMatches <- findPeerMatches(perfStats.mapValues(_.stats.rating).toMap)
-    tutorUsers = perfStats
-      .map { (pt, stats) => TutorUser(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
-      .toList
-      .sortBy(-_.perfStats.totalNbGames)
-    _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- (tutorUsers.toNel so TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
-  yield TutorFullReport(user.id, nowInstant, perfs)
+      .map(_ | InsightPerfStats.empty)
+    peerCache <- findPeerMatch(query.perf, perfStats.stats.rating)
+    tutorUser = TutorUser(user, query.perf, perfStats.stats, peerCache)
+    _      <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
+    report <- TutorPerfReport.compute(tutorUser).monSuccess(_.tutor buildSegment "perf-report")
+  yield TutorPeriodReport(user.id, nowInstant, query.nb, report)
 
   private[tutor] def eligiblePerfTypesOf(user: User.WithPerfs) =
     PerfType.standardWithUltra.filter: pt =>
       user.perfs(pt).latest.exists(_ isAfter nowInstant.minusMonths(12))
 
-  private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists:
+  private def hasFreshReport(query: TutorPeriodReport.Query): Fu[Boolean] = colls.report.exists:
     $doc(
-      TutorFullReport.F.user -> user.id,
-      TutorFullReport.F.at $gt nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
+      TutorPeriodReport.F.user    -> query.user,
+      TutorPeriodReport.F.nbGames -> query.nb,
+      TutorPeriodReport.F.at $gt nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
     )
 
-  private def findPeerMatches(
-      perfs: Map[PerfType, lila.insight.MeanRating]
-  ): Fu[List[TutorPerfReport.PeerMatch]] =
-    perfs
-      .map: (pt, rating) =>
-        colls.report
-          .one[Bdoc](
-            $doc(
-              TutorFullReport.F.perfs -> $doc(
-                "$elemMatch" -> $doc("perf" -> pt.id, "stats.rating" -> rating)
-              ),
-              TutorFullReport.F.at $gt nowInstant.minusMonths(1) // index hit
-            ),
-            $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
-          )
-          .map: docO =>
-            for
-              doc     <- docO
-              reports <- doc.getAsOpt[List[TutorPerfReport]](TutorFullReport.F.perfs)
-              report  <- reports.headOption
-              if report.perf == pt
-            yield TutorPerfReport.PeerMatch(report)
-      .parallel
-      .map(_.toList.flatten)
-      .addEffect: matches =>
-        perfs.keys.foreach: pt =>
-          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt)).increment()
+  private def findPeerMatch(
+      perf: PerfType,
+      rating: MeanRating
+  ): Fu[Option[TutorPerfReport.PeerMatch]] =
+    colls.report
+      .one[TutorPeriodReport](
+        $doc(
+          TutorPeriodReport.F.perf -> perf.id,
+          TutorPeriodReport.F.meanRating.$gte(rating - 2).$lte(rating + 2),
+          TutorPeriodReport.F.at $gt nowInstant.minusMonths(1) // index hit
+        )
+      )
+      .map:
+        _.map(_.report).map(TutorPerfReport.PeerMatch.apply)
+      .addEffect: res =>
+        lila.mon.tutor.peerMatch(res.isDefined).increment()
 
   private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
 
@@ -114,14 +106,14 @@ private object TutorBuilder:
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
-    .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
+    .ask(question filter perfFilter(user), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key.value)) map AnswerMine.apply
 
   def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
-    .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
+    .askPeers(question filter perfFilter(user), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value)) map AnswerPeer.apply
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(using
@@ -132,20 +124,20 @@ private object TutorBuilder:
     peer <- answerPeer(question, user, nbPeerGames)
   yield Answers(mine, peer)
 
-  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
-      insightApi: InsightApi,
-      ec: Executor
-  ): Fu[Answers[Dim]] = for
-    mine <- insightApi
-      .ask(
-        question filter perfsFilter(tutorUsers.toList.map(_.perfType)),
-        tutorUsers.head.user,
-        withPovs = false
-      )
-      .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
-    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.parallel
-    peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
-  yield Answers(mine, peer)
+  // def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
+  //     insightApi: InsightApi,
+  //     ec: Executor
+  // ): Fu[Answers[Dim]] = for
+  //   mine <- insightApi
+  //     .ask(
+  //       question filter perfsFilter(tutorUsers.toList.map(_.perfType)),
+  //       tutorUsers.head.user,
+  //       withPovs = false
+  //     )
+  //     .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
+  //   peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.parallel
+  //   peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
+  // yield Answers(mine, peer)
 
   sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]):
 
@@ -164,11 +156,9 @@ private object TutorBuilder:
   case class AnswerPeer[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
 
   case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]):
-
     def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
+    def valueMetric(dim: Dim)                = TutorBothValueOptions(mine.get(dim), peer.get(dim))
 
-    def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
-
-  def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))
-  def perfFilter(perfType: PerfType)             = Filter(InsightDimension.Perf, List(perfType))
-  def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)
+  def colorFilter(color: Color)   = Filter(InsightDimension.Color, List(color))
+  def perfFilter(user: TutorUser) = Filter(InsightDimension.Perf, List(user.perfType))
+  // def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)

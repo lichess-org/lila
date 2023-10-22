@@ -6,9 +6,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.common.config
 
-final private class AggregationPipeline(store: InsightStorage)(using
-    ec: Executor
-):
+final private class AggregationPipeline(store: InsightStorage)(using Executor):
   import InsightStorage.*
   import BSONHandlers.given
 

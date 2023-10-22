@@ -50,6 +50,13 @@ object TutorFullReport:
     case Empty(status: TutorQueue.Status)
     case InsufficientGames
 
+  enum Period(val nb: Int):
+    case Max      extends Period(10_000)
+    case Last2000 extends Period(2000)
+    case Last500  extends Period(500)
+    case Last100  extends Period(100)
+    case Last20   extends Period(20)
+
   export Availability.*
 
   object F:

@@ -23,15 +23,9 @@ final private class TutorFishnet(
 
   val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
 
-  def ensureSomeAnalysis(stats: Map[PerfType, InsightPerfStats.WithGameIds]): Funit =
-    val totalNbGames = stats.values.map(_.stats.totalNbGames).sum
-    stats.values.toList
-      .map { s =>
-        val ids = s.gameIds.take(s.stats.totalNbGames * maxGamesToConsider.value / totalNbGames)
-        gameRepo.unanalysedGames(ids, config.Max(s.stats.totalNbGames * maxToAnalyse.value / totalNbGames))
-      }
-      .parallel
-      .map(_.flatten) flatMap { games =>
-      games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
-      awaiter(games.map(_.id), maxTime)
-    }
+  def ensureSomeAnalysis(stats: InsightPerfStats.WithGameIds): Funit =
+    gameRepo
+      .unanalysedGames(stats.gameIds.take(maxGamesToConsider.value), maxToAnalyse)
+      .flatMap: games =>
+        games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
+        awaiter(games.map(_.id), maxTime)

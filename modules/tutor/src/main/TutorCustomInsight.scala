@@ -7,34 +7,30 @@ import lila.db.AggregationPipeline
 import lila.db.dsl.*
 
 final private class TutorCustomInsight[A: TutorNumber](
-    users: NonEmptyList[TutorUser],
+    user: TutorUser,
     question: Question[PerfType],
     monitoringKey: String,
     peerMatch: TutorPerfReport.PeerMatch => TutorBothValueOptions[A]
-)(clusterParser: List[Bdoc] => List[Cluster[PerfType]]):
+)(pointParser: Bdoc => Option[ValueCount[Double]]):
 
   def apply(insightColl: Coll)(
       aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
       aggregatePeer: Bdoc => AggregationPipeline[insightColl.PipelineOperator]
-  )(using Executor): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using Executor): Fu[TutorBothValueOptions[Double]] =
     for
       mine <- insightColl
-        .aggregateList(maxDocs = Int.MaxValue)(_ =>
-          aggregateMine(InsightStorage.selectUserId(users.head.user.id))
-        )
-        .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
+        .aggregateOne(): _ =>
+          aggregateMine(InsightStorage.selectUserId(user.user.id))
+        .map(_ flatMap pointParser)
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
-      peerDocs <- users.toList.map { u =>
-        u.peerMatch.flatMap(peerMatch(_).peer) match
-          case Some(cached) =>
-            fuccess(List(Cluster(u.perfType, Insight.Single(Point(cached.double.value)), cached.count, Nil)))
+      peer <-
+        user.peerMatch.flatMap(peerMatch(_).peer) match
+          case Some(cached) => fuccess(cached.double.some)
           case None =>
-            val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
-              InsightStorage.selectPeers(u.perfStats.peers)
+            val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> user.perfType) ++
+              InsightStorage.selectPeers(user.perfStats.peers)
             insightColl
-              .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
-              .map(clusterParser)
-              .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key.value))
-      }.parallel
-      peer = TutorBuilder.AnswerPeer(Answer(question, peerDocs.flatten, Nil))
-    yield TutorBuilder.Answers(mine, peer)
+              .aggregateOne()(_ => aggregatePeer(peerSelect))
+              .map(_ flatMap pointParser)
+              .monSuccess(_.tutor.askPeer(monitoringKey, user.perfType.key.value))
+    yield TutorBothValueOptions(mine, peer)

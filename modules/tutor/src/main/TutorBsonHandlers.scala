@@ -56,4 +56,5 @@ private object TutorBsonHandlers:
   given BSONDocumentHandler[TutorFlagging]      = Macros.handler
   given BSONDocumentHandler[InsightPerfStats]   = Macros.handler
   given BSONDocumentHandler[TutorPerfReport]    = Macros.handler
+  given BSONDocumentHandler[TutorPeriodReport]  = Macros.handler
   given BSONDocumentHandler[TutorFullReport]    = Macros.handler

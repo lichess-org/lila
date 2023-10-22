@@ -114,6 +114,8 @@ case class TutorPerfReport(
 
 private object TutorPerfReport:
 
+  // just an optimization. If a similar report (date, rating) exists,
+  // we reuse its peers data instead of recomputing it
   case class PeerMatch(report: TutorPerfReport):
     export report.*
 
@@ -126,34 +128,29 @@ private object TutorPerfReport:
     InsightMetric.ClockPercent,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
-  private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(user: TutorUser)(using InsightApi, Executor): Fu[TutorPerfReport] =
     for
-      accuracy        <- answerManyPerfs(accuracyQuestion, users)
-      awareness       <- answerManyPerfs(awarenessQuestion, users)
-      resourcefulness <- TutorResourcefulness compute users
-      conversion      <- TutorConversion compute users
-      clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
-      globalClock <- clockUsers.soFu(answerManyPerfs(globalClockQuestion, _))
-      clockUsage  <- clockUsers.soFu(TutorClockUsage.compute)
-      perfReports <- Future sequence users.toList.map { user =>
-        for
-          openings <- TutorOpening compute user
-          phases   <- TutorPhases compute user
-          flagging <- hasClock(user.perfType) so TutorFlagging.compute(user)
-        yield TutorPerfReport(
-          user.perfType,
-          user.perfStats,
-          accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
-          awareness = GoodPercent.from(awareness valueMetric user.perfType),
-          resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
-          conversion = GoodPercent.from(conversion valueMetric user.perfType),
-          globalClock = ClockPercent.from(globalClock.so(_ valueMetric user.perfType)),
-          clockUsage = ClockPercent.from(clockUsage.so(_ valueMetric user.perfType)),
-          openings,
-          phases,
-          flagging
-        )
-      }
-    yield perfReports
+      accuracy        <- answerBoth(accuracyQuestion, user)
+      awareness       <- answerBoth(awarenessQuestion, user)
+      resourcefulness <- TutorResourcefulness compute user
+      conversion      <- TutorConversion compute user
+      hasClock = user.perfType != PerfType.Correspondence
+      globalClock <- hasClock soFu answerBoth(globalClockQuestion, user)
+      clockUsage  <- hasClock soFu TutorClockUsage.compute(user)
+      openings    <- TutorOpening compute user
+      phases      <- TutorPhases compute user
+      flagging    <- hasClock so TutorFlagging.compute(user)
+    yield TutorPerfReport(
+      user.perfType,
+      user.perfStats,
+      accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
+      awareness = GoodPercent.from(awareness valueMetric user.perfType),
+      resourcefulness = GoodPercent.from(resourcefulness),
+      conversion = GoodPercent.from(conversion),
+      globalClock = ClockPercent.from(globalClock.so(_ valueMetric user.perfType)),
+      clockUsage = ClockPercent.from(clockUsage),
+      openings,
+      phases,
+      flagging
+    )
