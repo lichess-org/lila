@@ -336,6 +336,7 @@
   </plurals>
   <string name="viewTournament">प्रतियोगिता देखें</string>
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
+  <string name="noDrawBeforeSwissLimit">स्विस टूर्नामेंट में 30 चालें खेले जाने से पहले आप ड्रॉ नहीं कर सकते।</string>
   <string name="thematic">कथ्यपरक</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s रेटेड खेल</item>
@@ -514,7 +515,7 @@
   <string name="createANewTopic">एक नया विषय बनाएँ</string>
   <string name="topics">विषय</string>
   <string name="posts">पोस्ट की संख्या</string>
-  <string name="lastPost">आख़िरी  पोस्ट</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">आख़िरी  पोस्ट</string>
   <string name="views">देखे जाने की संख्या</string>
   <string name="replies">उत्तरों की संख्या</string>
   <string name="replyToThisTopic">इस विषय पर उत्तर दें</string>
