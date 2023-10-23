@@ -382,7 +382,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
     <item quantity="other">%s các ván cờ đã nhập</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Nhấn vào bàn cờ để di chuyển và chứng minh bạn là con người.</string>
   <string name="captcha.fail">Hãy giải mã captcha cờ vua.</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
   <string name="whiteCheckmatesInOneMove">Trắng chiếu hết trong một nước đi</string>
@@ -461,7 +461,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các thế cờ trong tàn cuộc</string>
   <string name="chess960StartPosition">Ván đấu Chess960 bắt đầu bằng thế cờ: %s</string>
-  <string name="startPosition">Thế trận ban đầu</string>
+  <string name="startPosition">Thế cờ ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="loadPosition">Tải thế cờ</string>
   <string name="isPrivate">Riêng tư</string>
@@ -503,7 +503,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
   <string name="posts">Số bài viết</string>
-  <string name="lastPost">Bài đăng gần đây nhất</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
   <string name="replies">Bình luận</string>
   <string name="replyToThisTopic">Bình luận chủ đề này</string>

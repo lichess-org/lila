@@ -2,16 +2,16 @@
 <resources>
   <string name="newAccessToken">Ny personlig API-åtkomsttoken</string>
   <string name="tokenGrantsPermission">En token ger andra personer tillstånd att använda ditt konto.</string>
-  <string name="carefullySelect">Välj noga vad den är tillåten att göra åt dig.</string>
+  <string name="carefullySelect">Välj noga vad som är tillåtet att göra för din räkning.</string>
   <string name="tokenDescription">Beskrivning av token</string>
   <string name="rememberTokenUse">Så du kommer ihåg vad denna token är för</string>
   <string name="whatTheTokenCanDo">Vad denna token kan göra åt dig:</string>
   <string name="doNotShareIt">Denna token ger åtkomst till ditt konto. Dela den INTE med någon!</string>
   <string name="copyTokenNow">Se till att kopiera din nya personliga åtkomsttoken nu. Du kommer inte kunna se den igen!</string>
-  <string name="preferenceRead">Se inställningar</string>
-  <string name="preferenceWrite">Ändra inställningar</string>
-  <string name="emailRead">Se e-postadress</string>
-  <string name="challengeRead">Se inkommande utmaningar</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Se inställningar</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Ändra inställningar</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Se e-postadress</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Se inkommande utmaningar</string>
   <string name="challengeWrite">Skicka, acceptera och avvisa utmaningar</string>
   <string name="challengeBulk">Skapa många partier samtidigt för andra spelare</string>
   <string name="studyRead">Se privata studier och sändningar</string>
@@ -31,4 +31,19 @@
   <string name="engineWrite">Skapa och uppdatera externa schackmotorer</string>
   <string name="webLogin">Skapa autentiserade webbplatssessioner (ger fullständig åtkomst!)</string>
   <string name="webMod">Använda moderatorverktyg (inom dina behörigheter)</string>
+  <string name="personalAccessTokens">Personlig API-åtkomsttoken</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan göra OAuth-förfrågningar utan att gå igenom %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">auktoriseringskodflödet</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Istället, %s som du kan använda direkt i API-förfrågningar.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">generera en personlig åtkomst-token</string>
+  <string name="guardTokensCarefully">Skydda dessa tokens noga! De är som lösenord. Fördelen med att använda tokens över att sätta ditt lösenord i ett skript är att tokens kan återkallas, och du kan generera massor av dem.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Här är ett %1$s och %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">exempel på en personlig token-app</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API-dokumentationen</string>
+  <string name="newToken">Ny åtkomsttoken</string>
+  <string name="apiAccessTokens">API åtkomsttokens</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Skapad %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Senast använd %s</string>
+  <string name="alreadyHavePlayedGames">Du har redan spelat spel!</string>
+  <string name="attentionOfDevelopers">Anteckning endast för utvecklarnas kännedom:</string>
 </resources>
