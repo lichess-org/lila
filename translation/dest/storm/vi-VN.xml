@@ -50,7 +50,7 @@
   <string name="skipExplanation">Bỏ qua nước đi này để giữ chuỗi của bạn! Chỉ dùng được một lần mỗi cuộc đua.</string>
   <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">Các thế cờ đã giải sai</string>
   <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">Các thế cờ làm chậm</string>
-  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Đã bỏ qua câu đố</string>
+  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Câu đố đã bỏ qua</string>
   <string name="thisWeek">Tuần này</string>
   <string name="thisMonth">Tháng này</string>
   <string name="allTime">Trước tới nay</string>
