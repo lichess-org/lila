@@ -76,7 +76,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("sеx"), List("sex"))
   }
   test("russian") {
-    // assertEquals(find("сука пизда"), List("сука", "пизда"))
+    assertEquals(find("сука пизда"), Nil)
   }
   test("prod msg") {
     assert(
