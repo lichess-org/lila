@@ -5,6 +5,7 @@ import lila.common.paginator.*
 import lila.common.String.noShouting
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.hub.actorApi.shutup.PublicSource
 import lila.memo.CacheApi
 import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Me, User }
@@ -106,7 +107,7 @@ final private class ForumTopicApi(
             shutup ! {
               val text = s"${topic.name} ${post.text}"
               if post.isTeam then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(post.id, me, text)
+              else lila.hub.actorApi.shutup.RecordPublicChat(me, text, PublicSource.Forum(post.id))
             }
             if !post.troll && !categ.quiet then
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))

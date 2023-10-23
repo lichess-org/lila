@@ -5,6 +5,7 @@ import scala.util.chaining.*
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.hub.actorApi.shutup.PublicSource
 import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Me, User }
 
@@ -57,7 +58,7 @@ final class ForumPostApi(
             shutup ! {
               if post.isTeam
               then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(post.id, me, post.text)
+              else lila.hub.actorApi.shutup.RecordPublicChat(me, post.text, PublicSource.Forum(post.id))
             }
             if anonMod
             then logAnonPost(post, edit = false)

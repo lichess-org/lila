@@ -5,6 +5,7 @@ import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.shutup.PublicSource
 import lila.memo.PicfitApi
 import lila.security.Granter
 import lila.user.{ User, UserApi, Me }
@@ -46,7 +47,8 @@ final class UblogApi(
           timeline ! Propagate(
             lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
           ).toFollowersOf(user.id)
-          shutup ! lila.hub.actorApi.shutup.RecordUserBlogPost(post.id, user.id, post.allText)
+          shutup ! lila.hub.actorApi.shutup
+            .RecordPublicChat(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =

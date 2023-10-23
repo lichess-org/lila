@@ -26,14 +26,9 @@ final class ShutupApi(
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
-  def publicUserBlogPost(postId: UblogPostId, userId: UserId, text: String) =
-    record(userId, text.pp("reported text"), TextType.UblogPost, PublicSource.Ublog(postId).some)
-
-  def publicForumMessage(postId: ForumPostId, userId: UserId, text: String) =
-    record(userId, text, TextType.PublicForumMessage, PublicSource.Forum(postId).some)
   def teamForumMessage(userId: UserId, text: String) = record(userId, text, TextType.TeamForumMessage)
   def publicChat(userId: UserId, text: String, source: PublicSource) =
-    record(userId, text, TextType.PublicChat, source.some)
+    record(userId, text, TextType.of(source), source.some)
 
   def privateChat(chatId: String, userId: UserId, text: String) =
     gameRepo.getSourceAndUserIds(GameId(chatId)) flatMap {
