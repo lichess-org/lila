@@ -33,6 +33,7 @@ final class Env(
     Props(new Actor:
       import lila.hub.actorApi.shutup.*
       def receive =
+        case RecordUserBlogPost(postId, userId, text)       => api.publicUserBlogPost(postId, userId, text)
         case RecordPublicForumMessage(postId, userId, text) => api.publicForumMessage(postId, userId, text)
         case RecordTeamForumMessage(userId, text)           => api.teamForumMessage(userId, text)
         case RecordPrivateMessage(userId, toUserId, text)   => api.privateMessage(userId, toUserId, text)

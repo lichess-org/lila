@@ -15,6 +15,7 @@ final class UblogApi(
     userApi: UserApi,
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
+    shutup: lila.hub.actors.Shutup,
     irc: lila.irc.IrcApi
 )(using Executor):
 
@@ -45,6 +46,7 @@ final class UblogApi(
           timeline ! Propagate(
             lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
           ).toFollowersOf(user.id)
+          shutup ! lila.hub.actorApi.shutup.RecordUserBlogPost(post.id, user.id, post.allText)
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =

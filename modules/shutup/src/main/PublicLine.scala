@@ -28,6 +28,7 @@ object PublicLine:
         case Array("e", id) => Success(Source.Team(TeamId(id)))
         case Array("i", id) => Success(Source.Swiss(SwissId(id)))
         case Array("f", id) => Success(Source.Forum(ForumPostId(id)))
+        case Array("b", id) => Success(Source.Ublog(UblogPostId(id)))
         case _              => lila.db.BSON.handlerBadValue(s"Invalid PublicLine source $v")
     },
     x =>
@@ -39,6 +40,7 @@ object PublicLine:
         case Source.Team(id)        => s"e:$id"
         case Source.Swiss(id)       => s"i:$id"
         case Source.Forum(id)       => s"f:$id"
+        case Source.Ublog(id)       => s"b:$id"
       )
   )
 

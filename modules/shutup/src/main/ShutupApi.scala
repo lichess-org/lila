@@ -26,6 +26,9 @@ final class ShutupApi(
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
+  def publicUserBlogPost(postId: UblogPostId, userId: UserId, text: String) =
+    record(userId, text.pp("reported text"), TextType.UblogPost, PublicSource.Ublog(postId).some)
+
   def publicForumMessage(postId: ForumPostId, userId: UserId, text: String) =
     record(userId, text, TextType.PublicForumMessage, PublicSource.Forum(postId).some)
   def teamForumMessage(userId: UserId, text: String) = record(userId, text, TextType.TeamForumMessage)
@@ -96,11 +99,7 @@ final class ShutupApi(
         .one(
           $id(userRecord.userId),
           $unset(
-            TextType.PublicForumMessage.key,
-            TextType.TeamForumMessage.key,
-            TextType.PrivateMessage.key,
-            TextType.PrivateChat.key,
-            TextType.PublicChat.key
+            TextType.values.map(_.key)
           )
         )
         .void

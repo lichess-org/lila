@@ -63,6 +63,7 @@ package puzzle:
   case class StreakRun(userId: UserId, score: Int)
 
 package shutup:
+  case class RecordUserBlogPost(postId: UblogPostId, userId: UserId, text: String)
   case class RecordPublicForumMessage(postId: ForumPostId, userId: UserId, text: String)
   case class RecordTeamForumMessage(userId: UserId, text: String)
   case class RecordPrivateMessage(userId: UserId, toUserId: UserId, text: String)
@@ -77,6 +78,7 @@ package shutup:
     case Team(id: TeamId)        extends PublicSource("team")
     case Swiss(id: SwissId)      extends PublicSource("swiss")
     case Forum(id: ForumPostId)  extends PublicSource("forum")
+    case Ublog(id: UblogPostId)  extends PublicSource("ublog")
 
 package mod:
   case class MarkCheater(userId: UserId, value: Boolean)

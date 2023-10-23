@@ -6,6 +6,7 @@ case class UserRecord(
     puf: Option[List[Double]],
     tef: Option[List[Double]],
     prm: Option[List[Double]],
+    ubp: Option[List[Double]],
     prc: Option[List[Double]],
     puc: Option[List[Double]]
 ):
@@ -50,6 +51,7 @@ enum TextType(val key: String, val rotation: Int, val name: String):
   case PublicForumMessage extends TextType("puf", 20, "Public forum message")
   case TeamForumMessage   extends TextType("tef", 20, "Team forum message")
   case PrivateMessage     extends TextType("prm", 20, "Private message")
+  case UblogPost          extends TextType("ubp", 20, "User blog post")
   case PrivateChat        extends TextType("prc", 40, "Private chat")
   case PublicChat         extends TextType("puc", 60, "Public chat")
 
