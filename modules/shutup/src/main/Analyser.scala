@@ -57,10 +57,16 @@ object Analyser:
       """\b"""
   }.r
 
+  // unicode compatible bounds
+  // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
+  private object bounds:
+    val pre  = """(?<=[\s,.:;"']|^)"""
+    val post = """(?=[\s,.:;"']|$)"""
+
   private val ruBigRegex = {
-    """(?iu)\b""" +
+    """(?iu)""" + bounds.pre +
       Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:") +
-      """\b"""
+      bounds.post
   }.r
 
   private val criticalRegex = {
