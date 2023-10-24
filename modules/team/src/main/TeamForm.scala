@@ -45,7 +45,7 @@ final private[team] class TeamForm(
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
 
-  val create = Form(
+  val create = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -58,30 +58,28 @@ final private[team] class TeamForm(
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha)
-  )
 
-  def edit(team: Team) =
-    Form(
-      mapping(
-        Fields.password,
-        Fields.intro,
-        Fields.description,
-        Fields.descPrivate,
-        Fields.request,
-        Fields.chat,
-        Fields.forum,
-        Fields.hideMembers
-      )(TeamEdit.apply)(unapply)
-    ) fill TeamEdit(
-      password = team.password,
-      intro = team.intro,
-      description = team.description,
-      descPrivate = team.descPrivate,
-      request = !team.open,
-      chat = team.chat,
-      forum = team.forum,
-      hideMembers = team.hideMembers.has(true)
-    )
+  def edit(team: Team) = Form(
+    mapping(
+      Fields.password,
+      Fields.intro,
+      Fields.description,
+      Fields.descPrivate,
+      Fields.request,
+      Fields.chat,
+      Fields.forum,
+      Fields.hideMembers
+    )(TeamEdit.apply)(unapply)
+  ) fill TeamEdit(
+    password = team.password,
+    intro = team.intro,
+    description = team.description,
+    descPrivate = team.descPrivate,
+    request = !team.open,
+    chat = team.chat,
+    forum = team.forum,
+    hideMembers = team.hideMembers.has(true)
+  )
 
   def request(team: Team) = Form(
     mapping(
@@ -93,37 +91,38 @@ final private[team] class TeamForm(
     password = None
   )
 
-  def apiRequest(team: Team) = Form(
+  def apiRequest(team: Team) = Form:
     mapping(
       Fields.requestMessage(team),
       Fields.passwordCheck(team)
     )(RequestSetup.apply)(unapply)
-  )
 
-  val processRequest = Form(
+  val processRequest = Form:
     tuple(
       "process" -> nonEmptyText,
       "url"     -> nonEmptyText
     )
-  )
 
-  val selectMember = Form(
-    single(
+  val selectMember = Form:
+    single:
       "userId" -> lila.user.UserForm.historicalUsernameField
-    )
-  )
 
   def createWithCaptcha = withCaptcha(create)
 
-  val pmAll = Form(
+  val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints minLength 3, Constraints maxLength 9000))
-  )
 
-  val explain = Form(single("explain" -> cleanText(minLength = 3, maxLength = 9000)))
+  val explain = Form:
+    single("explain" -> cleanText(minLength = 3, maxLength = 9000))
 
-  def members = Form(
+  def members = Form:
     single("members" -> nonEmptyText)
-  )
+
+  val blocklist = Form:
+    val sep = "\n"
+    single:
+      "names" -> cleanText(maxLength = 9000)
+        .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.name))
