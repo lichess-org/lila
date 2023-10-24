@@ -26,10 +26,9 @@ final class ShutupApi(
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
-  def publicForumMessage(userId: UserId, text: String) = record(userId, text, TextType.PublicForumMessage)
-  def teamForumMessage(userId: UserId, text: String)   = record(userId, text, TextType.TeamForumMessage)
-  def publicChat(userId: UserId, text: String, source: PublicSource) =
-    record(userId, text, TextType.PublicChat, source.some)
+  def teamForumMessage(userId: UserId, text: String) = record(userId, text, TextType.TeamForumMessage)
+  def publicText(userId: UserId, text: String, source: PublicSource) =
+    record(userId, text, TextType.of(source), source.some)
 
   def privateChat(chatId: String, userId: UserId, text: String) =
     gameRepo.getSourceAndUserIds(GameId(chatId)) flatMap {
@@ -95,11 +94,7 @@ final class ShutupApi(
         .one(
           $id(userRecord.userId),
           $unset(
-            TextType.PublicForumMessage.key,
-            TextType.TeamForumMessage.key,
-            TextType.PrivateMessage.key,
-            TextType.PrivateChat.key,
-            TextType.PublicChat.key
+            TextType.values.map(_.key)
           )
         )
         .void
