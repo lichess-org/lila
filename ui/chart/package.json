@@ -8,6 +8,7 @@
   "types": "dist/game.d.ts",
   "dependencies": {
     "@types/highcharts": "=4.2.57",
+    "chart.js": "4.4.0",
     "common": "workspace:*"
   },
   "scripts": {
@@ -20,7 +21,8 @@
       "esm": {
         "src/ratingDistribution.ts": "chart.ratingDistribution",
         "src/ratingHistory.ts": "chart.ratingHistory",
-        "src/game.ts": "chart.game"
+        "src/game.ts": "chart.game",
+        "src/lag.ts": "chart.lag"
       }
     }
   }

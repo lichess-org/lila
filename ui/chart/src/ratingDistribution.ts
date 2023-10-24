@@ -1,130 +1,146 @@
-import { loadHighcharts } from './common';
+import { DistributionData } from './interface';
+import * as chart from 'chart.js';
 
-export async function initModule(data: any) {
-  await loadHighcharts('highchart');
-  const trans = lichess.trans(data.i18n);
-  const Highcharts = window.Highcharts;
-  const disabled = { enabled: false };
-  $('#rating_distribution_chart').each(function (this: HTMLElement) {
-    const colors = Highcharts.getOptions().colors;
+chart.Chart.register(
+  chart.LineController,
+  chart.LinearScale,
+  chart.PointElement,
+  chart.LineElement,
+  chart.Tooltip,
+  chart.Filler,
+);
+
+export async function initModule(data: DistributionData) {
+  $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
-    const cumul = [];
-    const buildRatingLine = (v: number, color: string, yCoord: number, label: string) => {
-      const right = v > 1800;
-      return v
-        ? [
-            {
-              label: {
-                text: label,
-                verticalAlign: 'top',
-                align: right ? 'right' : 'left',
-                y: yCoord,
-                x: right ? -5 : 5,
-                style: {
-                  color: color,
-                },
-                rotation: -0,
-              },
-              dashStyle: 'dash',
-              color: color,
-              width: 3,
-              value: v,
-            },
-          ]
-        : [];
-    };
+    const cumul: [number, number][] = [];
     for (let i = 0; i < data.freq.length; i++)
-      cumul.push(Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100));
-    Highcharts.chart(this, {
-      credits: disabled,
-      legend: disabled,
-      series: [
-        {
-          name: trans.noarg('players'),
-          type: 'area',
-          data: data.freq.map((nb: number, i: number) => [ratingAt(i), nb]),
-          color: colors[1],
-          fillColor: {
-            linearGradient: {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1.1,
-            },
-            stops: [
-              [0, colors[1]],
-              [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')],
-            ],
-          },
-          marker: {
-            radius: 5,
-          },
-          lineWidth: 4,
-        },
-        {
-          name: trans.noarg('cumulative'),
-          type: 'line',
-          yAxis: 1,
-          data: cumul.map(function (p, i) {
-            return [ratingAt(i), p];
-          }),
-          color: Highcharts.Color(colors[11]).setOpacity(0.8).get('rgba'),
-          marker: {
-            radius: 1,
-          },
-          shadow: true,
-          tooltip: {
-            valueSuffix: '%',
-          },
-        },
-      ],
-      chart: {
-        zoomType: 'xy',
-        alignTicks: false,
-      },
-      plotOptions: {},
-      title: {
-        text: null,
-      },
-      xAxis: {
-        type: 'category',
-        title: {
-          text: trans.noarg('glicko2Rating'),
-        },
-        labels: {
-          rotation: -45,
-        },
-        gridLineWidth: 1,
-        gridZIndex: -1,
-        tickInterval: 100,
-        plotLines: buildRatingLine(data.myRating, colors[2], 13, trans.noarg('yourRating')).concat(
-          buildRatingLine(data.otherRating, colors[6], 50, data.otherPlayer),
-        ),
-      },
-      yAxis: [
-        {
-          // frequency
-          title: {
-            text: trans.noarg('players'),
-          },
-          gridZIndex: -1,
-        },
-        {
-          // cumulative
-          min: 0,
-          max: 100,
-          gridLineWidth: 0,
-          title: {
-            text: trans.noarg('cumulative'),
-          },
-          labels: {
-            format: '{value}%',
-          },
-          opposite: true,
-        },
-      ],
+      cumul.push([ratingAt(i), Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100)]);
+    const gradient = this.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
+    gradient?.addColorStop(0, 'rgba(119, 152, 191, 1)');
+    gradient?.addColorStop(1, 'rgba(119, 152, 191, 0.2)');
+    const seriesCommonData = (color: string) => ({
+      pointHoverRadius: 5,
+      pointHoverBorderColor: 'white',
+      borderColor: color,
+      pointBackgroundColor: color,
+      pointHitRadius: 200,
     });
+    const gridcolor = '#404040';
+
+    const datasets: chart.Chart['data']['datasets'] = [
+      {
+        ...seriesCommonData('#dddf0d'),
+        data: cumul.map(x => x[1]),
+        yAxisID: 'y2',
+        label: data.i18n.cumulative,
+      },
+      {
+        ...seriesCommonData('#7798bf'),
+        data: data.freq.map((nb: number) => nb),
+        backgroundColor: gradient,
+        yAxisID: 'y',
+        fill: true,
+        label: data.i18n.players,
+      },
+    ];
+    const pushLine = (color: string, rating: number, label: string) =>
+      datasets.push({
+        ...seriesCommonData(color),
+        yAxisID: 'y2',
+        data: [
+          [rating, 0],
+          [rating, 100],
+        ],
+        segment: {
+          borderDash: [10],
+        },
+        label: label,
+        pointRadius: 4,
+      });
+    if (data.myRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
+    if (data.otherRating && data.otherPlayer) pushLine('#eeaaee', data.otherRating, data.otherPlayer);
+    const chartData: chart.Chart['data'] = {
+      labels: cumul.map(x => x[0]),
+      datasets: datasets,
+    };
+
+    const config: chart.Chart['config'] = {
+      type: 'line',
+      data: chartData,
+      options: {
+        scales: {
+          x: {
+            type: 'linear',
+            grid: {
+              color: gridcolor,
+            },
+            ticks: {
+              maxTicksLimit: 25,
+              callback: val => `${val}`, // remove thousands separator
+            },
+            title: {
+              display: true,
+              text: data.i18n.glicko2Rating,
+            },
+          },
+          y: {
+            grid: {
+              color: gridcolor,
+              tickLength: 0,
+            },
+            ticks: {
+              padding: 10,
+              precision: 0,
+            },
+            title: {
+              display: true,
+              text: data.i18n.players,
+            },
+          },
+          y2: {
+            position: 'right',
+            grid: {
+              display: false,
+            },
+            ticks: {
+              callback: val => `${val}%`,
+            },
+            title: {
+              display: true,
+              text: data.i18n.cumulative,
+            },
+          },
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          tooltip: {
+            rtl: document.dir == 'rtl',
+            callbacks: {
+              label: item => {
+                switch (item.datasetIndex) {
+                  case 0:
+                    return `${data.i18n.cumulative}: ${item.formattedValue}%`;
+                  case 1:
+                    return `${data.i18n.players}: ${item.formattedValue}`;
+                  //Annotation tooltip formatting hacks:
+                  case 2:
+                    return data.i18n.yourRating;
+                  case 3:
+                    return data.otherPlayer!;
+                  default:
+                    return item.formattedValue;
+                }
+              },
+              title: items => items[0].label.replace(/,|\./, ''),
+            },
+          },
+        },
+      },
+    };
+    new chart.Chart(this, config);
   });
 }

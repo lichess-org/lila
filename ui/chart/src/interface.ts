@@ -49,3 +49,21 @@ export interface ChartGame {
   acpl(el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
   movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): Promise<PlyChart>;
 }
+
+export interface DistributionData {
+  freq: number[];
+  i18n: {
+    cumulative: string;
+    glicko2Rating: string;
+    players: string;
+    yourRating: string;
+  };
+  myRating: number | null;
+  otherPlayer: string | null;
+  otherRating: number | null;
+}
+
+export interface PerfRatingHistory {
+  name: string;
+  points: [number, number, number, number][];
+}
