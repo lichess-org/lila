@@ -7,7 +7,7 @@ import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
 import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicText }
 import lila.memo.CacheApi.*
 import lila.user.{ Me, User, UserRepo }
 
@@ -90,7 +90,7 @@ final class ChatApi(
                   if persist then
                     if publicSource.isDefined then cached invalidate chatId
                     shutup ! publicSource.match
-                      case Some(source) => RecordPublicChat(userId, text, source)
+                      case Some(source) => RecordPublicText(userId, text, source)
                       case _            => RecordPrivateChat(chatId.value, userId, text)
                     lila.mon.chat
                       .message(publicSource.fold("player")(_.parentName), line.troll)

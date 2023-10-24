@@ -66,7 +66,7 @@ package shutup:
   case class RecordTeamForumMessage(userId: UserId, text: String)
   case class RecordPrivateMessage(userId: UserId, toUserId: UserId, text: String)
   case class RecordPrivateChat(chatId: String, userId: UserId, text: String)
-  case class RecordPublicChat(userId: UserId, text: String, source: PublicSource)
+  case class RecordPublicText(userId: UserId, text: String, source: PublicSource)
 
   enum PublicSource(val parentName: String):
     case Tournament(id: TourId)  extends PublicSource("tournament")

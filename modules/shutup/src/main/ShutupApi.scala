@@ -27,7 +27,7 @@ final class ShutupApi(
       }
 
   def teamForumMessage(userId: UserId, text: String) = record(userId, text, TextType.TeamForumMessage)
-  def publicChat(userId: UserId, text: String, source: PublicSource) =
+  def publicText(userId: UserId, text: String, source: PublicSource) =
     record(userId, text, TextType.of(source), source.some)
 
   def privateChat(chatId: String, userId: UserId, text: String) =

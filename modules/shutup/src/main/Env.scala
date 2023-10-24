@@ -36,7 +36,7 @@ final class Env(
         case RecordTeamForumMessage(userId, text)         => api.teamForumMessage(userId, text)
         case RecordPrivateMessage(userId, toUserId, text) => api.privateMessage(userId, toUserId, text)
         case RecordPrivateChat(chatId, userId, text)      => api.privateChat(chatId, userId, text)
-        case RecordPublicChat(userId, text, source)       => api.publicChat(userId, text, source)
+        case RecordPublicText(userId, text, source)       => api.publicText(userId, text, source)
     ),
     name = config.actorName
   )
