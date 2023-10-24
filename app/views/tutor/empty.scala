@@ -4,27 +4,28 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorQueue
-import lila.user.User
 import lila.game.Pov
 import play.api.i18n.Lang
 import chess.format.pgn.PgnStr
+import lila.tutor.{ TutorQueue, TutorPeriodReport }
+import lila.user.User
 
 object empty:
 
-  def start(user: User)(using PageContext) =
-    bits.layout(menu = emptyFrag, pageSmall = true)(
-      cls := "tutor__empty box",
-      boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-      bits.mascotSays("Explain what tutor is about here."),
-      postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
-        submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
-      )
-    )
+  // def start(user: User)(using PageContext) =
+  //   bits.layout(menu = emptyFrag, pageSmall = true)(
+  //     cls := "tutor__empty box",
+  //     boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+  //     bits.mascotSays("Explain what tutor is about here."),
+  //     postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
+  //       submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
+  //     )
+  //   )
 
-  def queued(in: TutorQueue.InQueue, user: User.WithPerfs, waitGames: List[(Pov, PgnStr)])(using
-      PageContext
+  def queued(reports: TutorPeriodReport.UserReports, in: TutorQueue.InQueue, waitGames: List[(Pov, PgnStr)])(
+      using PageContext
   ) =
+    import reports.user
     bits.layout(
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
@@ -35,7 +36,7 @@ object empty:
       bits.mascotSays(
         p(strong(cls := "tutor__intro")("I'm examining your games.")),
         examinationMethod,
-        nbGames(user),
+        // nbGames(user),
         p(
           "There are ",
           (in.position - 1),
@@ -57,10 +58,10 @@ object empty:
       st.data("pov") := game._1.color.name
     )
 
-  private def nbGames(user: User.WithPerfs)(using Lang) =
-    val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0): (nb, pt) =>
-      nb + user.perfs(pt).nb
-    p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")
+  // private def nbGames(user: User.WithPerfs)(using Lang) =
+  //   val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0): (nb, pt) =>
+  //     nb + user.perfs(pt).nb
+  //   p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")
 
   private def examinationMethod = p(
     "Using the best chess engine: ",

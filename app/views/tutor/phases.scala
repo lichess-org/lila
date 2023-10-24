@@ -4,18 +4,19 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorPerfReport
+import lila.tutor.TutorPeriodReport
 import lila.insight.{ Phase, InsightPosition }
 
 object phases:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
+  def apply(reports: TutorPeriodReport.UserReports, report: TutorPeriodReport)(using PageContext) =
+    import reports.user
     bits.layout(menu = perf.menu(user, report, "phases"))(
       cls := "tutor__phases box",
       boxTop(
         h1(
           a(
-            href     := routes.Tutor.perf(user.username, report.perf.key),
+            href     := routes.Tutor.perf(user.username, report.perf.key, report.id),
             dataIcon := licon.LessThan,
             cls      := "text"
           ),
@@ -51,7 +52,10 @@ object phases:
                 )("Watch ", phase.phase.name, " videos")
               ),
               phase.phase == Phase.Opening option
-                a(cls := "tutor-card__more", href := routes.Tutor.openings(user.username, report.perf.key))(
+                a(
+                  cls  := "tutor-card__more",
+                  href := routes.Tutor.openings(user.username, report.perf.key, report.id)
+                )(
                   "More about your ",
                   report.perf.trans,
                   " openings"

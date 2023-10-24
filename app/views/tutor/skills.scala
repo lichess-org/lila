@@ -4,18 +4,19 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorPerfReport
+import lila.tutor.TutorPeriodReport
 import lila.insight.InsightPosition
 
 object skills:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
-    bits.layout(menu = perf.menu(user, report, "skills"))(
+  def apply(reports: TutorPeriodReport.UserReports, report: TutorPeriodReport)(using PageContext) =
+    import reports.user
+    bits.layout(menu = perf.menu(reports.user, report, "skills"))(
       cls := "tutor__skills box",
       boxTop(
         h1(
           a(
-            href     := routes.Tutor.perf(user.username, report.perf.key),
+            href     := routes.Tutor.perf(user.username, report.perf.key, report.id),
             dataIcon := licon.LessThan,
             cls      := "text"
           ),

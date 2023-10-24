@@ -4,17 +4,18 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorPerfReport
+import lila.tutor.TutorPeriodReport
 
 object openings:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using ctx: PageContext) =
-    bits.layout(menu = perf.menu(user, report, "openings"))(
+  def apply(reports: TutorPeriodReport.UserReports, report: TutorPeriodReport)(using ctx: PageContext) =
+    import reports.user
+    bits.layout(menu = perf.menu(reports.user, report, "openings"))(
       cls := "tutor__openings box",
       boxTop(
         h1(
           a(
-            href     := routes.Tutor.perf(user.username, report.perf.key),
+            href     := routes.Tutor.perf(user.username, report.perf.key, report.id),
             dataIcon := licon.LessThan,
             cls      := "text"
           ),
@@ -33,7 +34,7 @@ object openings:
             div(
               cls := "tutor__openings__opening tutor-card tutor-card--link",
               dataHref := routes.Tutor
-                .opening(user.username, report.perf.key, color.name, fam.family.key.value)
+                .opening(user.username, report.perf.key, report.id, color.name, fam.family.key.value)
             )(
               div(cls := "tutor-card__top")(
                 div(cls := "no-square")(pieceTag(cls := s"pawn ${color.name}")),

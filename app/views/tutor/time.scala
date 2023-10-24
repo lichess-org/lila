@@ -5,17 +5,18 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
-import lila.tutor.TutorPerfReport
+import lila.tutor.TutorPeriodReport
 
 object time:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
+  def apply(reports: TutorPeriodReport.UserReports, report: TutorPeriodReport)(using PageContext) =
+    import reports.user
     bits.layout(menu = perf.menu(user, report, "time"))(
       cls := "tutor__time box",
       boxTop(
         h1(
           a(
-            href     := routes.Tutor.perf(user.username, report.perf.key),
+            href     := routes.Tutor.perf(user.username, report.perf.key, report.id),
             dataIcon := licon.LessThan,
             cls      := "text"
           ),

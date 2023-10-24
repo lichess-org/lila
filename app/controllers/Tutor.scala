@@ -6,7 +6,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User as UserModel }
-import lila.tutor.{ TutorFullReport, TutorPeriodReport, TutorPerfReport, TutorQueue }
+import lila.tutor.{ TutorPeriodReport, TutorPerfReport }
 import lila.tutor.TutorPeriodReport.Id
 import lila.common.LilaOpeningFamily
 
@@ -18,6 +18,10 @@ final class Tutor(env: Env) extends LilaController(env):
 
   def user(username: UserStr) = TutorPage(username) { _ ?=> reports =>
     Ok.page(views.html.tutor.home(reports))
+  }
+
+  def request(username: UserStr) = TutorPage(username) { _ ?=> reports =>
+    ???
   }
 
   def perf(username: UserStr, perf: Perf.Key, id: Id) =
@@ -34,14 +38,16 @@ final class Tutor(env: Env) extends LilaController(env):
     TutorReportPage(username, id) { _ ?=> reports => report =>
       chess.Color
         .fromName(colName)
-        .fold(Redirect(routes.Tutor.openings(reports.user.username, report.perf.key)).toFuccess): color =>
-          LilaOpeningFamily
-            .find(opName)
-            .flatMap(report.openings(color).find)
-            .fold(Redirect(routes.Tutor.openings(reports.user.username, report.perf.key)).toFuccess):
-              family =>
+        .fold(Redirect(routes.Tutor.openings(reports.user.username, report.perf.key, report.id)).toFuccess):
+          color =>
+            LilaOpeningFamily
+              .find(opName)
+              .flatMap(report.openings(color).find)
+              .fold(
+                Redirect(routes.Tutor.openings(reports.user.username, report.perf.key, report.id)).toFuccess
+              ): family =>
                 env.puzzle.opening.find(family.family.key) flatMap { puzzle =>
-                  Ok.page(views.html.tutor.opening(perf, family, color, user, puzzle))
+                  Ok.page(views.html.tutor.opening(reports, report, family, color, puzzle))
                 }
     }
 
@@ -64,10 +70,10 @@ final class Tutor(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> TutorPeriodReport.UserReports => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
-      def proceed(user: UserModel.WithPerfs) = env.tutor.api.reports(user).flatMap(f(user.user))
-      if me is username then env.user.api.withPerfs(me.value).flatMap(proceed)
+      def proceed(user: UserModel) = env.tutor.api.reports(user).flatMap(f)
+      if me is username then proceed(me.value)
       else
-        Found(env.user.api.withPerfs(username)): user =>
+        Found(env.user.repo.byId(username)): user =>
           if isGranted(_.SeeInsight) then proceed(user)
           else
             (user.enabled.yes so env.clas.api.clas.isTeacherOf(me, user.id)) flatMap {
@@ -82,8 +88,8 @@ final class Tutor(env: Env) extends LilaController(env):
       env.tutor.api
         .get(reports.user, id)
         .flatMap:
-          _.fold(redirHome(reports.user)): report =>
-            f(user)(reports)(report)
+          _.fold(redirHome(reports.user).toFuccess): report =>
+            f(reports)(report)
     }
 
   private def redirHome(user: UserModel) = Redirect(routes.Tutor.user(user.username))

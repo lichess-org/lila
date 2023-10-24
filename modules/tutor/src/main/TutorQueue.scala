@@ -2,6 +2,7 @@ package lila.tutor
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import reactivemongo.api.bson.Macros.Annotations.Key
 import com.softwaremill.tagging.*
 
 import lila.db.dsl.{ *, given }
@@ -30,9 +31,9 @@ final private class TutorQueue(
       colls.report
         .aggregateOne(_.sec): framework =>
           import framework.*
-          Sort(Descending(TutorFullReport.F.at)) -> List(
+          Sort(Descending(TutorPeriodReport.F.at)) -> List(
             Limit(100),
-            Group(BSONNull)(TutorFullReport.F.millis -> AvgField(TutorFullReport.F.millis))
+            Group(BSONNull)(TutorPeriodReport.F.millis -> AvgField(TutorPeriodReport.F.millis))
           )
         .map:
           ~_.flatMap(_.getAsOpt[Double](TutorFullReport.F.millis))
@@ -73,8 +74,12 @@ final private class TutorQueue(
 
 object TutorQueue:
 
-  case class Queued(_id: UserId, query: Query, requestedAt: Instant, startedAt: Option[Instant]):
-    def userId = _id
+  case class Queued(
+      @Key("_id") userId: UserId,
+      query: Query,
+      requestedAt: Instant,
+      startedAt: Option[Instant]
+  )
   object Queued:
     def apply(query: Query): Queued = Queued(query.user, query, nowInstant, none)
   object F:
@@ -84,4 +89,5 @@ object TutorQueue:
     val startedAt   = "startedAt"
 
   case class InQueue(query: Query, position: Int, avgDuration: FiniteDuration):
+    export query.*
     def eta = avgDuration * position

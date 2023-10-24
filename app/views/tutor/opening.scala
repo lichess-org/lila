@@ -5,24 +5,25 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
-import lila.tutor.{ TutorOpeningFamily, TutorPerfReport }
+import lila.tutor.{ TutorOpeningFamily, TutorPeriodReport }
 
 object opening:
 
   def apply(
-      perfReport: TutorPerfReport,
+      reports: TutorPeriodReport.UserReports,
+      period: TutorPeriodReport,
       report: TutorOpeningFamily,
       as: chess.Color,
-      user: lila.user.User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
   )(using PageContext) =
+    import reports.user
     bits.layout(
-      title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
+      title = s"Lichess Tutor • ${period.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = frag(
-        perfReport.openings(as).families map { family =>
+        period.openings(as).families map { family =>
           a(
             href := routes.Tutor
-              .opening(user.username, perfReport.perf.key, as.name, family.family.key.value),
+              .opening(user.username, period.perf.key, period.id, as.name, family.family.key.value),
             cls := family.family.key.value.active(report.family.key.value)
           )(family.family.name.value)
         }
@@ -32,12 +33,12 @@ object opening:
       boxTop(
         h1(
           a(
-            href     := routes.Tutor.openings(user.username, perfReport.perf.key),
+            href     := routes.Tutor.openings(user.username, period.perf.key, period.id),
             dataIcon := licon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),
-          perfReport.perf.trans,
+          period.perf.trans,
           ": ",
           report.family.name,
           " as ",
@@ -57,7 +58,7 @@ object opening:
             " in ",
             report.performance.mine.count.localize,
             " games, which is ",
-            bits.percentFrag(perfReport.openingFrequency(as, report)),
+            bits.percentFrag(period.openingFrequency(as, report)),
             " of the time you played as ",
             as.name,
             "."
