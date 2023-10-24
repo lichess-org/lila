@@ -103,13 +103,10 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
               else JsonBadRequest(jsonError("Cannot berserk"))
         case _ => notFoundJson("No such command")
 
-  def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
+  def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>
     cmd.split('/') match
-      case Array("game", id, "chat") =>
-        if ctx.isMobileOauth
-        then WithPov(GameAnyId(id))(getChat)
-        else WithPovAsBoard(GameAnyId(id))(getChat)
-      case _ => notFoundJson("No such command")
+      case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id))(getChat)
+      case _                         => notFoundJson("No such command")
   }
 
   def botCommandGet(cmd: String) = ScopedBody(_.Bot.Play) { _ ?=> me ?=>
