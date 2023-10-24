@@ -137,7 +137,7 @@ private object TutorPerfReport:
       conversion      <- TutorConversion compute user
       hasClock = user.perfType != PerfType.Correspondence
       globalClock <- hasClock soFu answerBoth(globalClockQuestion, user)
-      clockUsage  <- hasClock soFu TutorClockUsage.compute(user)
+      clockUsage  <- hasClock so TutorClockUsage.compute(user)
       openings    <- TutorOpening compute user
       phases      <- TutorPhases compute user
       flagging    <- hasClock so TutorFlagging.compute(user)
@@ -146,10 +146,10 @@ private object TutorPerfReport:
       user.perfStats,
       accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
       awareness = GoodPercent.from(awareness valueMetric user.perfType),
-      resourcefulness = GoodPercent.from(resourcefulness),
-      conversion = GoodPercent.from(conversion),
+      resourcefulness = resourcefulness,
+      conversion = conversion,
       globalClock = ClockPercent.from(globalClock.so(_ valueMetric user.perfType)),
-      clockUsage = ClockPercent.from(clockUsage),
+      clockUsage = clockUsage,
       openings,
       phases,
       flagging

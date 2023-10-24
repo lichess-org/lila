@@ -16,7 +16,7 @@ object TutorConversion:
 
   private[tutor] def compute(
       user: TutorUser
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBothValueOptions[Double]] =
+  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBothValueOptions[GoodPercent]] =
     val question = Question(
       InsightDimension.Perf,
       InsightMetric.Result,
@@ -29,7 +29,7 @@ object TutorConversion:
         perf <- doc.getAsOpt[PerfType]("_id")
         wins <- doc.getAsOpt[Int]("win")
         size <- doc.int("nb")
-        percent = wins * 100d / size
+        percent = GoodPercent(wins * 100d / size)
       yield ValueCount(percent, size)
     insightApi.coll: coll =>
       import coll.AggregationFramework.*

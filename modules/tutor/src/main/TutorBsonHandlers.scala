@@ -59,3 +59,5 @@ private object TutorBsonHandlers:
   given BSONDocumentHandler[TutorPeriodReport]         = Macros.handler
   given BSONDocumentHandler[TutorPeriodReport.Preview] = Macros.handler
   given BSONDocumentHandler[TutorFullReport]           = Macros.handler
+  given BSONDocumentHandler[TutorPeriodReport.Query]   = Macros.handler
+  given BSONDocumentHandler[TutorQueue.Queued]         = Macros.handler

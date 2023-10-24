@@ -15,18 +15,18 @@ object TutorClockUsage:
 
   private[tutor] def compute(
       user: TutorUser
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBothValueOptions[Double]] =
+  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBothValueOptions[ClockPercent]] =
     val question = Question(
       InsightDimension.Perf,
       InsightMetric.ClockPercent,
       List(TutorBuilder.perfFilter(user))
     )
     val select = $doc(F.result -> Result.Loss.id)
-    val compute = TutorCustomInsight(user, question, "clock_usage", _.clockUsage): doc =>
+    val compute = TutorCustomInsight[ClockPercent](user, question, "clock_usage", _.clockUsage): doc =>
       for
         clockPercent <- doc.getAsOpt[ClockPercent]("cp")
         size         <- doc.int("nb")
-      yield ValueCount(100 - clockPercent.value, size)
+      yield ValueCount(ClockPercent(100 - clockPercent.value), size)
     insightApi.coll: coll =>
       import coll.AggregationFramework.*
       val sharedPipeline = List(

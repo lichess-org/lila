@@ -16,7 +16,7 @@ object TutorResourcefulness:
 
   private[tutor] def compute(
       user: TutorUser
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBothValueOptions[Double]] =
+  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBothValueOptions[GoodPercent]] =
     val question = Question(
       InsightDimension.Perf,
       InsightMetric.MeanAccuracy,
@@ -31,7 +31,7 @@ object TutorResourcefulness:
         perf <- doc.getAsOpt[PerfType]("_id")
         loss <- doc.getAsOpt[Int]("loss")
         size <- doc.int("nb")
-        percent = (size - loss) * 100d / size
+        percent = GoodPercent((size - loss) * 100d / size)
       yield ValueCount(percent, size)
 
     insightApi.coll: coll =>

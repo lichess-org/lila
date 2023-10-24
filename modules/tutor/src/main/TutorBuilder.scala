@@ -62,7 +62,7 @@ final private class TutorBuilder(
     tutorUser = TutorUser(user, query.perf, perfStats.stats, peerCache)
     _      <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
     report <- TutorPerfReport.compute(tutorUser).monSuccess(_.tutor buildSegment "perf-report")
-  yield TutorPeriodReport(user.id, nowInstant, query.nb, report)
+  yield TutorPeriodReport(TutorPeriodReport.Id.make, user.id, nowInstant, query.nb, report)
 
   private[tutor] def eligiblePerfTypesOf(user: User.WithPerfs) =
     PerfType.standardWithUltra.filter: pt =>

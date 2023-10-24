@@ -1,15 +1,23 @@
 package lila.tutor
 
 import lila.rating.PerfType
+import ornicar.scalalib.ThreadLocalRandom
+import lila.user.User
 
 case class TutorPeriodReport(
+    _id: TutorPeriodReport.Id,
     user: UserId,
     at: Instant,
     nbGames: TutorPeriodReport.NbGames,
     report: TutorPerfReport
-)
+):
+  export report.*
 
 object TutorPeriodReport:
+
+  opaque type Id = String
+  object Id extends OpaqueString[Id]:
+    def make: Id = ThreadLocalRandom nextString 6
 
   opaque type NbGames = Int
   object NbGames extends OpaqueInt[NbGames]:
@@ -20,6 +28,8 @@ object TutorPeriodReport:
     override def toString = s"$user ${perf.key} $nb"
 
   case class Preview(perf: PerfType, nbGames: NbGames, at: Instant)
+
+  case class UserReports(user: User, past: List[Preview], next: Option[TutorQueue.InQueue])
 
   object F:
     val user       = "user"
