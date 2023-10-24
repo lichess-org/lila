@@ -22,7 +22,7 @@ object Analyser:
   private val logger = lila log "security" branch "shutup"
 
   private def latinify(text: String): String =
-    text map {
+    text.map:
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'
@@ -32,7 +32,6 @@ object Analyser:
       case 'Н' => 'h'
       case 'о' => 'o'
       case c   => c
-    }
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>

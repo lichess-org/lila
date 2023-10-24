@@ -24,9 +24,8 @@ case class Player(
 ) derives Eq:
 
   def playerUser =
-    userId flatMap { uid =>
+    userId.flatMap: uid =>
       rating map { PlayerUser(uid, _, ratingDiff) }
-    }
 
   def isAi = aiLevel.isDefined
 

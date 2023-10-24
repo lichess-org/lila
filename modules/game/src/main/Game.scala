@@ -81,14 +81,14 @@ case class Game(
 
   def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
 
-  def isTournament         = tournamentId.isDefined
-  def isSimul              = simulId.isDefined
-  def isSwiss              = swissId.isDefined
+  export tournamentId.{ isDefined as isTournament }
+  export simulId.{ isDefined as isSimul }
+  export swissId.{ isDefined as isSwiss }
   def isMandatory          = isTournament || isSimul || isSwiss
   def nonMandatory         = !isMandatory
   def canTakebackOrAddTime = !isMandatory
 
-  def hasChat = !isTournament && !isSimul && nonAi
+  def hasChat = !isTournament && !isSimul && !isSwiss && nonAi
 
   // we can't rely on the clock,
   // because if moretime was given,
