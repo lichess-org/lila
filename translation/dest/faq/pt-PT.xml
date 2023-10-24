@@ -7,7 +7,7 @@
   <string name="leechess">li-tchéss</string>
   <string name="hearItPronouncedBySpecialist">Ouve-o pronunciado por um especialista.</string>
   <string name="whyLiveLightLibre">\"Live\" (direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
-  <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
+  <string name="whyIsLilaCalledLila">Do mesmo modo, o código-fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é essencialmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de patronos e dos esforços de uma equipa de voluntários.</string>
   <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo uma %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
@@ -91,9 +91,9 @@ Finalmente, há um título honorário %2$s.</string>
   <string name="noUpperCaseDot">Não.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
 
-Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+Raramente, premiamos jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito e poderás aceitar ou recusar.
 
-Não perguntes pelo título LM.</string>
+Não peças pelo título LM.</string>
   <string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
   <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém ou publicitários.
 
