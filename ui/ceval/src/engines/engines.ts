@@ -17,11 +17,11 @@ export class Engines {
     this.ctrl.opts.externalEngines?.map(e => ({ requires: 'external', ...e })) ?? [];
 
   lastSelected = storedStringProp('ceval.engine', this.localEngines[0].id);
-  active: EngineInfo;
+  active?: EngineInfo;
 
   constructor(readonly ctrl: CevalCtrl) {
     if (this.lastSelected() === 'lichess') this.localEngines[0].id; // backcompat
-    this.select(this.lastSelected());
+    this.active = this.engineFor({ id: this.lastSelected() });
   }
 
   get external() {
@@ -36,8 +36,8 @@ export class Engines {
   }
 
   select(id: string) {
-    this.lastSelected(id);
     this.active = this.engineFor({ id })!;
+    this.lastSelected(id);
   }
 
   engineFor(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
@@ -51,7 +51,7 @@ export class Engines {
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
-    const e = this.engineFor(selector);
+    const e = (this.active = this.engineFor(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.lastSelected()}}`);
     const progress = (download?: { bytes: number; total: number }) => {
       if (this.ctrl.enabled()) this.ctrl.download = download;
