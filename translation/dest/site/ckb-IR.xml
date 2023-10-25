@@ -115,7 +115,7 @@
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە شێووی تیر دیاری بکە</string>
-  <string name="showVariationArrows"></string>
+  <string name="showVariationArrows">تیرەکانی جۆرەکان پیشان بدە</string>
   <string name="evaluationGauge">پێوانەی هەڵسەنگاندن</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
   <string name="cpus">CPUs</string>
