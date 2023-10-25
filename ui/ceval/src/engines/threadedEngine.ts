@@ -33,7 +33,7 @@ export class ThreadedEngine implements CevalEngine {
     readonly redraw: Redraw,
     readonly progress?: (download?: { bytes: number; total: number }) => void,
   ) {
-    this.module = this.info.id === 'sf11mv' ? 'StockfishMv' : 'Stockfish';
+    this.module = this.info.id === '__sf11mv' ? 'StockfishMv' : 'Stockfish';
   }
 
   getState() {
@@ -55,7 +55,7 @@ export class ThreadedEngine implements CevalEngine {
 
     // Fetch WASM file ourselves, for caching and progress indication.
     let wasmBinary: ArrayBuffer | undefined;
-    if (this.info.id === 'sf14nnue') {
+    if (this.info.id === '__sf14nnue') {
       const cache = window.indexedDB && new Cache('ceval-wasm-cache');
       try {
         if (cache) {
@@ -92,7 +92,7 @@ export class ThreadedEngine implements CevalEngine {
       wasmBinary,
       locateFile: (path: string) =>
         lichess.assetUrl(`${root}/${path}`, { version, sameDomain: path.endsWith('.worker.js') }),
-      wasmMemory: sharedWasmMemory(this.info.id === 'sf14nnue' ? 2048 : 1080),
+      wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
 
     sf.addMessageListener(data => this.protocol.received(data));

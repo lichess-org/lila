@@ -44,9 +44,10 @@ export class Engines {
     const id = selector?.id ?? this.lastSelected();
     const variant = selector?.variant ?? 'standard';
     return (
-      this.ctrl.opts.externalEngines?.find(e => e.id === id && e.variants?.includes(variant)) ??
+      this.externalEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
       this.localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
-      this.localEngines.find(e => e.variants?.includes(variant))
+      this.localEngines.find(e => e.variants?.includes(variant)) ??
+      this.externalEngines.find(e => e.variants?.includes(variant))
     );
   }
 
@@ -71,9 +72,10 @@ function maxHashMB() {
   return 256; // this is safe, mostly desktop firefox / mac safari users here
 }
 
-const withDefaults = (engine: BrowserEngineInfo) => ({
+const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
   variants: ['standard', 'chess960', 'fromPosition'],
   maxThreads: navigator.hardwareConcurrency ?? 1,
+  minMem: 1024,
   maxHash,
   ...engine,
   assets: { version, ...engine.assets },
@@ -88,11 +90,12 @@ const localEngineMap = new Map<string, WithMake>(
   [
     {
       info: {
-        id: 'sf16nnue7',
+        id: '__sf16nnue7',
         name: 'Stockfish 16 NNUE (7 MB)',
         short: 'SF 16 · 7MB',
         class: 'NNUE',
         requires: 'simd',
+        minMem: 1536,
         assets: {
           root: 'npm/stockfish-web',
           js: 'stockfishWeb.js',
@@ -103,11 +106,12 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sf16nnue40',
+        id: '__sf16nnue40',
         name: 'Stockfish 16 NNUE (40 MB)',
         short: 'SF 16 · 40MB',
         class: 'NNUE',
         requires: 'simd',
+        minMem: 2048,
         assets: {
           root: 'npm/stockfish-web',
           js: 'stockfishWeb.js',
@@ -118,7 +122,7 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sf16hce',
+        id: '__sf16hce',
         name: 'Stockfish 16 HCE',
         short: 'SF 16',
         class: 'HCE',
@@ -133,12 +137,13 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sf14nnue',
+        id: '__sf14nnue',
         name: 'Stockfish 14 NNUE',
         short: 'SF 14',
         version: 'b6939d',
         class: 'NNUE',
         requires: 'simd',
+        minMem: 1536,
         assets: {
           root: 'npm/stockfish-nnue.wasm',
           js: 'stockfish.js',
@@ -149,7 +154,7 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sf11hce',
+        id: '__sf11hce',
         name: 'Stockfish 11 HCE',
         short: 'SF 11',
         class: 'HCE',
@@ -164,7 +169,7 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sf11mv',
+        id: '__sf11mv',
         name: 'Stockfish 11 MV',
         short: 'SF 11 · MV',
         class: 'HCE',
@@ -191,7 +196,7 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sfwasm',
+        id: '__sfwasm',
         name: 'Stockfish WASM',
         short: 'Stockfish',
         class: 'WASM',
@@ -206,7 +211,7 @@ const localEngineMap = new Map<string, WithMake>(
     },
     {
       info: {
-        id: 'sfjs',
+        id: '__sfjs',
         name: 'Stockfish JS',
         short: 'Stockfish',
         class: 'JS',

@@ -6,7 +6,7 @@ import type StockfishWeb from 'stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
   failed = false;
-  protocol = new Protocol({ reasonableDepthLimit: 99 });
+  protocol = new Protocol();
   module: StockfishWeb;
   wasmMemory: WebAssembly.Memory;
 
@@ -18,7 +18,7 @@ export class StockfishWebEngine implements CevalEngine {
       console.error(e);
       this.failed = true;
     });
-    this.wasmMemory = sharedWasmMemory(info.id !== 'sf16hce' ? 2048 : 1024);
+    this.wasmMemory = sharedWasmMemory(info.minMem!);
   }
 
   async boot() {

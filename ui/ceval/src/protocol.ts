@@ -11,16 +11,13 @@ export class Protocol {
   private work: Work | undefined;
   private currentEval: Tree.LocalEval | undefined;
   private expectedPvs = 1;
-  private reasonableDepthLimit: number | undefined;
 
   private nextWork: Work | undefined;
 
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
-  constructor(o?: { reasonableDepthLimit: number }) {
-    this.reasonableDepthLimit = o?.reasonableDepthLimit;
-  }
+  constructor() {}
 
   connected(send: (cmd: string) => void): void {
     this.send = send;
@@ -159,7 +156,7 @@ export class Protocol {
         // dunno why. it's not the stack but doesn't seem to happen on desktop builds. added the
         // additional depth guard as a workaround until we can look into it further
         if (
-          depth >= (this.reasonableDepthLimit ?? maxStockfishPlies) ||
+          depth >= 99 ||
           (depth >= this.work.maxDepth &&
             elapsedMs > 8000 &&
             nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
