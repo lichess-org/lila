@@ -1,8 +1,8 @@
 .ceval {
   @extend %metal-bg;
-
   position: relative;
   display: flex;
+  column-gap: 6px;
   align-items: stretch;
 
   &.enabled {
@@ -14,15 +14,16 @@
     }
   }
 
+  // [ div.switch, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
+
   .switch {
     @extend %flex-center;
-
     flex: 0 0 40px;
-    margin-#{$end-direction}: 8px;
+    margin-#{$start-direction}: 6px;
   }
 
   pearl {
-    flex: 0 0 75px;
+    flex: 1 0 auto;
     line-height: 38px;
     font-size: 1.6em;
     text-align: center;
@@ -36,8 +37,7 @@
   help,
   .engine {
     @extend %nowrap-hidden;
-
-    flex: 1 1 auto;
+    flex: 2 1 auto;
     font-size: 12px;
     line-height: 16px;
     margin-top: 3px;
@@ -48,7 +48,6 @@
     .cloud,
     .infinite {
       @extend %roboto, %box-radius;
-
       margin-#{$start-direction}: 4px;
       background: $c-secondary-dim;
       color: $c-secondary-over;
@@ -72,8 +71,45 @@
     }
   }
 
+  .show-threat {
+    @extend %button-none;
+    flex: 0 0 18px;
+    color: $c-font-dim;
+    font-size: 16px;
+    overflow: hidden;
+    visibility: hidden;
+
+    &:hover:not(.hidden),
+    &.active {
+      color: $c-red;
+    }
+
+    &.hidden {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  .settings-gear {
+    @extend %button-none;
+    color: $c-font-dim;
+    font-size: 16px;
+    padding: 0 6px;
+    margin-#{$end-direction}: 6px;
+
+    &:hover {
+      color: $c-font;
+    }
+
+    &.active {
+      color: white;
+      background-color: $c-primary;
+    }
+  }
+
   .technology {
     margin-#{$start-direction}: 5px;
+
     &.good {
       color: $c-good;
     }
@@ -111,25 +147,5 @@
   &.computing .bar span {
     background-image: img-url('bar-highlight.png');
     animation: bar-anim 1000s linear infinite;
-  }
-
-  .show-threat {
-    flex: 0 99 auto;
-    line-height: 38px;
-    color: $c-font-dim;
-    font-size: 0.9em;
-    padding-#{$end-direction}: 0.5em;
-    overflow: hidden;
-    visibility: hidden;
-
-    &:hover:not(.hidden),
-    &.active {
-      color: $c-red;
-    }
-
-    &.hidden {
-      opacity: 0.3;
-      cursor: default;
-    }
   }
 }

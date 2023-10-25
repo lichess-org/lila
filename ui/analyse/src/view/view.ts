@@ -2,7 +2,7 @@ import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon } from 'common/snabbdom';
+import { bind, bindNonPassive, onInsert, dataIcon } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/device';
 import { playable } from 'game';
 import * as router from 'game/router';
@@ -250,21 +250,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
-  ctrl.ceval.possible && ctrl.ceval.allowed()
-    ? h('div.comp-off__hint', [
-        h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
-        h(
-          'button',
-          {
-            hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
-            attrs: { type: 'button' },
-          },
-          ctrl.trans.noarg('enable'),
-        ),
-      ])
-    : undefined;
-
 const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
@@ -426,7 +411,7 @@ export default function (deps?: typeof studyDeps) {
                 ...(menuIsOpen
                   ? [actionMenu(ctrl)]
                   : [
-                      ctrl.showComputer() ? cevalView.renderCeval(ctrl) : analysisDisabled(ctrl),
+                      ...cevalView.renderCeval(ctrl),
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),

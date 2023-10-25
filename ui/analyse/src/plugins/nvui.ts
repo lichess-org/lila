@@ -156,7 +156,7 @@ export function initModule(ctrl: AnalyseController) {
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
-          cevalView.renderCeval(ctrl),
+          ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),

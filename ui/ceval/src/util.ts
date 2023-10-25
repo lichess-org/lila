@@ -1,5 +1,4 @@
-import { CevalTechnology } from './platform';
-import { ExternalEngine } from './worker';
+import { Feature } from 'common/device';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
@@ -24,42 +23,34 @@ export const pow2floor = (n: number) => {
   return pow2;
 };
 
-export const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory => {
+export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {
+  let shrink = 4;
   while (true) {
     try {
-      return new WebAssembly.Memory({ shared: true, initial, maximum });
+      return new WebAssembly.Memory({ shared: true, initial: lo, maximum: hi });
     } catch (e) {
-      if (e instanceof RangeError) {
-        if (initial === maximum) throw e;
-        maximum = Math.max(initial, Math.floor(maximum / 2));
-      } else throw e;
+      if (hi <= lo || !(e instanceof RangeError)) throw e;
+      hi = Math.ceil(hi - hi / shrink);
+      shrink = shrink === 4 ? 3 : 4;
     }
   }
 };
 
-export function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
+export function defaultDepth(
+  feature: Feature | 'external' | undefined,
+  threads: number,
+  multiPv: number,
+): number {
   const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);
-  switch (technology) {
-    case 'asmjs':
-      return 18;
+  switch (feature) {
     case 'wasm':
       return 20;
+    case 'sharedMem':
+    case 'simd':
+      return 22 + extraDepth;
     case 'external':
       return 24 + extraDepth;
     default:
-      return 22 + extraDepth;
-  }
-}
-
-export function engineName(technology: CevalTechnology, externalEngine?: ExternalEngine): string {
-  if (externalEngine) return externalEngine.name;
-  switch (technology) {
-    case 'wasm':
-    case 'asmjs':
-      return 'Stockfish 10+';
-    case 'hce':
-      return 'Stockfish 11+';
-    default:
-      return 'Stockfish 14+';
+      return 18;
   }
 }

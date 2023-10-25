@@ -77,7 +77,7 @@ export async function copies() {
       watcher.on('change', () => {
         updated.add(dir);
         clearTimeout(watchTimeout);
-        watchTimeout = setTimeout(fire, 600);
+        watchTimeout = setTimeout(fire, 2000);
       });
       watcher.on('error', (err: Error) => env.error(err));
     }
@@ -99,7 +99,7 @@ async function globCopy(cp: Copy): Promise<Set<string>> {
   const srcs = await globArray(cp.src, { cwd: cp.mod.root, abs: false });
 
   watchDirs.add(path.join(cp.mod.root, globRoot));
-  env.log(`[${c.grey(cp.mod.name)}] - Copy '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);
+  env.log(`[${c.grey(cp.mod.name)}] - Sync '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);
   for (const src of srcs) {
     const srcPath = path.join(cp.mod.root, src);
     watchDirs.add(path.dirname(srcPath));

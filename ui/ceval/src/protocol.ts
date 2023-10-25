@@ -11,11 +11,16 @@ export class Protocol {
   private work: Work | undefined;
   private currentEval: Tree.LocalEval | undefined;
   private expectedPvs = 1;
+  private reasonableDepthLimit: number | undefined;
 
   private nextWork: Work | undefined;
 
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
+
+  constructor(o?: { reasonableDepthLimit: number }) {
+    this.reasonableDepthLimit = o?.reasonableDepthLimit;
+  }
 
   connected(send: (cmd: string) => void): void {
     this.send = send;
@@ -149,15 +154,21 @@ export class Protocol {
         // pruning. Therefore not using `go depth ${this.work.maxDepth}` and
         // manually ensuring Stockfish gets to spend a minimum amount of
         // time/nodes on each position.
+
+        // stockfish-web throws movepick.cpp/h assertions sometimes at very high depths > 140
+        // dunno why. it's not the stack but doesn't seem to happen on desktop builds. added the
+        // additional depth guard as a workaround until we can look into it further
         if (
-          depth >= this.work.maxDepth &&
-          elapsedMs > 8000 &&
-          nodes > 4000 * Math.exp(this.work.maxDepth * 0.3)
+          depth >= (this.reasonableDepthLimit ?? maxStockfishPlies) ||
+          (depth >= this.work.maxDepth &&
+            elapsedMs > 8000 &&
+            nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
         )
           this.stop();
       }
     } else if (command && !['Stockfish', 'id', 'option', 'info'].includes(parts[0])) {
-      console.log('SF:', command);
+      // filtered because some think it's a bug when they see it in the console
+      if (command !== 'No such option: Analysis Contempt') console.log('SF:', command);
     }
   }
 
