@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">イベント中継</string>
+  <string name="myBroadcasts">自分の配信</string>
   <plurals name="nbBroadcasts">
     <item quantity="other">%s ブロードキャスト</item>
   </plurals>
