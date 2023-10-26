@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Հեռարձակումներ</string>
+  <string name="myBroadcasts">Իմ հեռարձակումները</string>
   <string name="liveBroadcasts">Մրցաշարի ուղիղ հեռարձակումներ</string>
   <string name="newBroadcast">Նոր ուղիղ հեռարձակում</string>
   <string name="addRound">Ավելացնել խաղափուլ</string>
