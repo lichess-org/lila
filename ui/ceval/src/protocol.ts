@@ -1,5 +1,4 @@
 import { defined } from 'common';
-import { lichessRules } from 'chessops/compat';
 import { Work } from './types';
 
 const minDepth = 6;
@@ -17,7 +16,7 @@ export class Protocol {
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
-  constructor() {}
+  constructor(readonly variantMap?: (v: VariantKey) => string) {}
 
   connected(send: (cmd: string) => void): void {
     this.send = send;
@@ -186,12 +185,7 @@ export class Protocol {
       this.currentEval = undefined;
       this.expectedPvs = 1;
 
-      this.setOption(
-        'UCI_Variant',
-        this.work.variant === 'antichess'
-          ? 'giveaway' // for old asmjs fallback
-          : lichessRules(this.work.variant),
-      );
+      this.setOption('UCI_Variant', this.variantMap?.(this.work.variant) ?? this.work.variant);
       this.setOption('Threads', this.work.threads);
       this.setOption('Hash', this.work.hashSize || 16);
       this.setOption('MultiPV', Math.max(1, this.work.multiPv));

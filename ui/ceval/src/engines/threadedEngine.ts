@@ -32,6 +32,7 @@ export class ThreadedEngine implements CevalEngine {
     readonly info: BrowserEngineInfo,
     readonly redraw: Redraw,
     readonly progress?: (download?: { bytes: number; total: number }) => void,
+    readonly variantMap?: (v: string) => string,
   ) {
     this.module = this.info.id === '__sf11mv' ? 'StockfishMv' : 'Stockfish';
   }
@@ -49,11 +50,14 @@ export class ThreadedEngine implements CevalEngine {
   }
 
   private async boot(): Promise<Stockfish> {
-    const ass = this.info.assets;
-    const [root, js, wasm, version] = [ass.root, ass.js, ass.wasm, ass.version];
-    const wasmPath = `${root}/${wasm}`;
+    const [root, js, wasm, version] = [
+        this.info.assets.root,
+        this.info.assets.js,
+        this.info.assets.wasm,
+        this.info.assets.version,
+      ],
+      wasmPath = `${root}/${wasm}`;
 
-    // Fetch WASM file ourselves, for caching and progress indication.
     let wasmBinary: ArrayBuffer | undefined;
     if (this.info.id === '__sf14nnue') {
       const cache = window.indexedDB && new Cache('ceval-wasm-cache');
@@ -102,7 +106,7 @@ export class ThreadedEngine implements CevalEngine {
 
   async start(work: Work) {
     if (!this.protocol) {
-      this.protocol = new Protocol();
+      this.protocol = new Protocol(this.variantMap);
       this.boot().catch(err => {
         console.error(err);
         this.failed = true;

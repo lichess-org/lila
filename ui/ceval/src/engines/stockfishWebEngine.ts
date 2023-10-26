@@ -6,14 +6,16 @@ import type StockfishWeb from 'stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
   failed = false;
-  protocol = new Protocol();
+  protocol: Protocol;
   module: StockfishWeb;
   wasmMemory: WebAssembly.Memory;
 
   constructor(
     readonly info: BrowserEngineInfo,
     readonly nnueProgress?: (download?: { bytes: number; total: number }) => void,
+    variantMap?: (v: string) => string,
   ) {
+    this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
       console.error(e);
       this.failed = true;
@@ -22,8 +24,12 @@ export class StockfishWebEngine implements CevalEngine {
   }
 
   async boot() {
-    const ass = this.info.assets;
-    const [version, root, js, wasm] = [ass.version, ass.root, ass.js, ass.wasm];
+    const [version, root, js, wasm] = [
+      this.info.assets.version,
+      this.info.assets.root,
+      this.info.assets.js,
+      this.info.assets.wasm,
+    ];
     const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
 
     const module: StockfishWeb = await makeModule.default({

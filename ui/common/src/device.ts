@@ -58,13 +58,11 @@ export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
 export const isTouchDevice = () => !hasMouse();
 
-// some newer iPads pretend to be Macs, hence checking for "Macintosh"
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 export type Feature = 'wasm' | 'sharedMem' | 'simd';
 
-// sloppy input = golf elsewhere
 export const hasFeature = (feat?: string) => !feat || features().includes(feat as Feature);
 
 export const features = memoize<readonly Feature[]>(() => {
@@ -74,7 +72,7 @@ export const features = memoize<readonly Feature[]>(() => {
     typeof WebAssembly.validate === 'function' &&
     WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
   ) {
-    features.push('wasm'); // WebAssembly 1.0
+    features.push('wasm');
     if (sharedMemory()) {
       features.push('sharedMem');
       // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
@@ -90,23 +88,16 @@ const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || is
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
 function sharedMemory(): boolean {
-  // Atomics
   if (typeof Atomics !== 'object') return false;
-
-  // SharedArrayBuffer
   if (typeof SharedArrayBuffer !== 'function') return false;
 
   let mem;
-
   try {
-    // Shared memory
     mem = new WebAssembly.Memory({ shared: true, initial: 1, maximum: 2 });
-
     if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
 
-    // Structured cloning
     window.postMessage(mem.buffer, '*');
-  } catch (e) {
+  } catch (_) {
     return false;
   }
   return mem.buffer instanceof SharedArrayBuffer;

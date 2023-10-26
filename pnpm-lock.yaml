@@ -157,6 +157,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      fairy-stockfish-web:
+        specifier: ^0.0.1
+        version: 0.0.1
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
@@ -3005,6 +3008,10 @@ packages:
       jest-matcher-utils: 29.6.2
       jest-message-util: 29.6.2
       jest-util: 29.6.2
+    dev: false
+
+  /fairy-stockfish-web@0.0.1:
+    resolution: {integrity: sha512-EPK6GlgYnFZ2xt0rn636LhK6nWbC/UXjJpIIkBkJaaUkXhGFFVybP+Sb4h6EYbFqKnRGpMhq2o0xFmPU/IpVkQ==}
     dev: false
 
   /fast-deep-equal@3.1.3:
