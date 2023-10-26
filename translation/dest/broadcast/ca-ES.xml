@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Retransmissions</string>
+  <string name="myBroadcasts">Les meves retransmissions</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s retransmissió</item>
     <item quantity="other">%s retransmissions</item>
