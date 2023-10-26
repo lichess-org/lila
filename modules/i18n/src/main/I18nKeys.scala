@@ -1556,6 +1556,7 @@ object I18nKeys:
 
   object broadcast:
     val `broadcasts` = I18nKey("broadcast:broadcasts")
+    val `myBroadcasts` = I18nKey("broadcast:myBroadcasts")
     val `liveBroadcasts` = I18nKey("broadcast:liveBroadcasts")
     val `newBroadcast` = I18nKey("broadcast:newBroadcast")
     val `addRound` = I18nKey("broadcast:addRound")
