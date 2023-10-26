@@ -528,15 +528,15 @@
   <string name="tournamentWinners">Жарыс женімпаздары</string>
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
-  <string name="descPrivate">Құпия сипаттама</string>
-  <string name="descPrivateHelp">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Құпия сипаттама</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
   <string name="no">Жоқ</string>
   <string name="yes">Иә</string>
   <string name="help">Көмек:</string>
   <string name="createANewTopic">Жаңа тақырып құру</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
-  <string name="lastPost">Кейінгі хабар</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Кейінгі хабар</string>
   <string name="views">Қаралған</string>
   <string name="replies">Жауаптар</string>
   <string name="replyToThisTopic">Осы тақырыпта жауап беру</string>
@@ -693,7 +693,7 @@
   <string name="keyNextInaccuracy">Келесі ағаттық</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
-  <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Дайын жарысқа қосылу не жаңасын құрастыру – таңдау сізде. Буллит, Блитц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз!</string>
+  <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Личестің ресми жарыстарына қатысам десеңіз не жаңадан жарысты құрастыру – таңдау сізде. Буллит, Блиц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз.</string>
   <string name="tournamentNotFound">Жарыс табылмады</string>
   <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
   <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
@@ -748,7 +748,7 @@
   <string name="zeroAdvertisement">Еш жарнамасыз</string>
   <string name="fullFeatured">Толыққанды жабдықталған</string>
   <string name="phoneAndTablet">Телепон мен планшет</string>
-  <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
+  <string name="bulletBlitzClassical">Буллит, Блиц, Классикалық</string>
   <string name="correspondenceChess">Хат-хабарлы шахмат</string>
   <string name="onlineAndOfflinePlay">Онлайн мен оффлайн ойнау</string>
   <string name="viewTheSolution">Жауабты қарау</string>
@@ -789,7 +789,7 @@
   <string name="invalidFen">Қате FEN</string>
   <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
-  <string name="notificationsX">Хабарламалар: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Хабарламалар: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
@@ -868,6 +868,7 @@
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
@@ -895,7 +896,7 @@
   <string name="mentionedYouInX">%1$s біреу сіз туралы жазды.</string>
   <string name="xMentionedYouInY">%1$s сіз туралы %2$s жазды.</string>
   <string name="invitedYouToX">сізді %1$s шақырды.</string>
-  <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
   <string name="someoneYouReportedWasBanned">Сіз шағым жіберегенсіз, ол ойыншы шектелді</string>

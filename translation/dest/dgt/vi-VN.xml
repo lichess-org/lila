@@ -23,7 +23,7 @@
   <string name="dgtConfigure">Bàn cờ công nghệ kỹ thuật số (DGT) - Cấu hình</string>
   <string name="lichessConnectivity">Kết nối Lichess</string>
   <string name="validDgtOauthToken">Bạn có một mã thông báo OAuth phù hợp để chơi DGT.</string>
-  <string name="dgtPlayMenuEntryAdded">Mục nhập %s đã được thêm vào mực lục PHÁT của bạn ở trên cùng.</string>
+  <string name="dgtPlayMenuEntryAdded">Mục nhập %s đã được thêm vào mục lục PHÁT của bạn ở trên cùng.</string>
   <string name="noSuitableOauthToken">Không có mã thông báo OAuth phù hợp nào được tạo.</string>
   <string name="dgtBoardConnectivity">Kết nối bàn cờ DGT</string>
   <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Nhấn để tạo một cái</string>
