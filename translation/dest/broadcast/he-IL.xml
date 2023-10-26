@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">הקרנות</string>
+  <string name="myBroadcasts">ההקרנות שלי</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">הקרנה %s</item>
     <item quantity="two">%s הקרנות</item>
