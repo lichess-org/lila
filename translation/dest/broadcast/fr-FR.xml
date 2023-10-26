@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Diffusions</string>
+  <string name="myBroadcasts">Ma diffusion</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s diffusion</item>
     <item quantity="other">%s diffusions</item>
