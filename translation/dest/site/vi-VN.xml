@@ -597,7 +597,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
-  <string name="menu">Menu</string>
+  <string name="menu">Mục lục</string>
   <string name="castling">Nhập thành</string>
   <string name="whiteCastlingKingside">Trắng O-O</string>
   <string name="blackCastlingKingside">Đen O-O</string>
@@ -759,7 +759,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="practiceWithComputer">Luyện tập với máy tính</string>
   <string name="anotherWasX">Nước đi khác là %s</string>
   <string name="bestWasX">Nước đi tốt nhất là %s</string>
-  <string name="youBrowsedAway">Bạn thử biến quá khác</string>
+  <string name="youBrowsedAway">Bạn đã duyệt đi</string>
   <string name="resumePractice">Tiếp tục luyện</string>
   <string name="drawByFiftyMoves">Ván đấu được xử hòa theo luật 50 nước.</string>
   <string name="theGameIsADraw">Ván cờ kết thúc hòa.</string>
