@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emitovanja</string>
+  <string name="myBroadcasts">Moja emitiranja</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s emitovanje</item>
     <item quantity="few">%s emitovanja</item>
