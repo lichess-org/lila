@@ -30,7 +30,7 @@ lichess.load.then(() => {
     });
   $('.forum-post__blocked button').on('click', e => {
     const el = (e.target as HTMLElement).parentElement!;
-    $(el).replaceWith($('p', el));
+    $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
