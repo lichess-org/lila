@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Uitsendings</string>
+  <string name="myBroadcasts">My uitsendings</string>
   <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
   <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
   <string name="addRound">Voeg \'n ronde by</string>
