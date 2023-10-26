@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Αναμεταδόσεις</string>
+  <string name="myBroadcasts">Η μεταδόσεις μου</string>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
   <string name="addRound">Προσθήκη γύρου</string>
