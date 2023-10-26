@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Phát sóng</string>
+  <string name="myBroadcasts">Các buổi phát sóng của tôi</string>
   <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
