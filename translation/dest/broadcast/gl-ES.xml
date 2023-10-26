@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emisións en directo</string>
+  <string name="myBroadcasts">As miñas emisións</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
