@@ -41,7 +41,7 @@ object Dependencies {
   }
 
   object flexmark {
-    val version = "0.64.0"
+    val version = "0.64.8"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
         List("ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
@@ -50,7 +50,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.5.8"
+    val version = "2.5.9"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.4"
@@ -66,7 +66,7 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.14"
+    val playVersion = "2.8.18-lila_3.16"
     val json        = "com.typesafe.play" %% "play-json"         % "2.10.1"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
@@ -83,7 +83,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.5.11"
+    val version    = "2.6.5"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
