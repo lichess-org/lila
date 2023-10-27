@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Et forumemne blir opprettet, der man kan kommentere innlegget ditt</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av for å vise innlegget på bloggen din. Ellers er det et utkast, som ikke vises.</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Har publisert et blogginnlegg</item>
     <item quantity="other">Har publisert %s blogginnlegg</item>
   </plurals>
@@ -33,8 +33,8 @@
     <item quantity="other">Vis alle %s innleggene</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Last opp et bilde til innlegget ditt</string>
-  <string name="imageAlt">Alternativ tekst for bildet</string>
-  <string name="imageCredit">Bildekreditering</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternativ tekst for bildet</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Bildekreditering</string>
   <string name="deleteBlog">Slett dette blogginnlegget for godt</string>
   <string name="deleteImage">Slett bildet</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Det er trygt å bruke bilder fra disse nettstedene: </string>
