@@ -119,6 +119,7 @@
   <string name="openStudy">Atverti studiją</string>
   <string name="enable">Įjungti</string>
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
+  <string name="showVariationArrows">Rodyti variacijų rodykles</string>
   <string name="evaluationGauge">Vertinimo matuoklis</string>
   <string name="multipleLines">Keletas linijų</string>
   <string name="cpus">Procesoriai</string>
