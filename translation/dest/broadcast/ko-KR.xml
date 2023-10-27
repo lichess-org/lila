@@ -31,5 +31,5 @@
   <string name="definitivelyDeleteRound">라운드와 해당 게임을 완전히 삭제합니다.</string>
   <string name="deleteAllGamesOfThisRound">이 라운드의 모든 게임을 삭제합니다. 다시 생성하려면 소스가 활성화되어 있어야 합니다.</string>
   <string name="deleteTournament">이 토너먼트 삭제</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">토너먼트 전체의 모든 라운드와 게임을 완전히 삭제합니다.</string>
+  <string name="definitivelyDeleteTournament">토너먼트 전체의 모든 라운드와 게임을 완전히 삭제합니다.</string>
 </resources>

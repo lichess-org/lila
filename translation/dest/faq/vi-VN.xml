@@ -116,7 +116,7 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
   <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu được xếp hạng so với %1$s trong danh mục xếp hạng.</string>
   <string name="similarOpponents">đối thủ có năng lực tương đương</string>
   <string name="notPlayedRecently">Người chơi không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để xếp hạng của bạn trở lại tạm thời.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, xếp hạng càng ổn định.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, hệ số Elo càng ổn định.</string>
   <string name="howDoLeaderoardsWork">Thứ hạng và bảng thành tích hoạt động như thế nào?</string>
   <string name="inOrderToAppearsYouMust">Để nhận được %1$s, bạn phải:</string>
   <string name="ratingLeaderboards">thứ hạng trên bảng xếp hạng</string>

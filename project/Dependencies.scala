@@ -34,7 +34,7 @@ object Dependencies {
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.0.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.1.0"
 
   object tests {
     val bundle = Seq(munit)
@@ -67,7 +67,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.16"
-    val json        = "com.typesafe.play" %% "play-json"         % "2.10.1"
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.2"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -76,7 +76,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.3"
+    val version = "2.2.4"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

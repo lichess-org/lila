@@ -85,7 +85,7 @@
   <string name="averageRatingX">Xếp loại bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
-  <string name="masterDbExplanation">Hai triệu ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến năm %3$s</string>
+  <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
@@ -262,11 +262,11 @@
   <string name="standard">Tiêu chuẩn</string>
   <string name="unlimited">Không giới hạn</string>
   <string name="mode">Chế độ</string>
-  <string name="casual">Không tính Elo</string>
-  <string name="rated">Tính Elo</string>
+  <string name="casual">Không xếp hạng</string>
+  <string name="rated">Có xếp hạng</string>
   <string name="casualTournament">Không tính elo</string>
-  <string name="ratedTournament">Có tính Elo</string>
-  <string name="thisGameIsRated">Ván cờ này có tính Elo</string>
+  <string name="ratedTournament">Có xếp hạng</string>
+  <string name="thisGameIsRated">Ván cờ này có xếp hạng</string>
   <string name="rematch">Tái đấu</string>
   <string name="rematchOfferSent">Yêu cầu tái đấu đã được gửi</string>
   <string name="rematchOfferAccepted">Yêu cầu đấu lại được chấp nhận</string>
@@ -287,7 +287,7 @@
   <string name="incrementInSeconds">Gia tăng theo giây</string>
   <string name="freeOnlineChess">Chơi Cờ Vua Trực Tuyến Miễn Phí</string>
   <plurals name="nbRated">
-    <item quantity="other">%s tính elo</item>
+    <item quantity="other">%s xếp hạng</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s thắng</item>
@@ -343,13 +343,13 @@ Sự Kiện Cờ Đồng Loạt</item>
     <item quantity="other">Bạn cần chơi thêm %1$s ván %2$s xếp hạng</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">Bạn cần chơi %s ván xếp hạng nữa</item>
+    <item quantity="other">Bạn cần chơi thêm %s ván xếp hạng</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Xếp hạng %s của bạn là tạm thời</string>
-  <string name="yourPerfRatingIsTooHigh">Xếp hạng %1$s (%2$s) của bạn quá cao</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Xếp hạng %1$s theo tuần của bạn quá cao (%2$s)</string>
-  <string name="yourPerfRatingIsTooLow">Xếp hạng %1$s của bạn quá thấp (%2$s)</string>
-  <string name="ratedMoreThanInPerf">Elo %2$s ≥ %1$s</string>
+  <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
+  <string name="yourPerfRatingIsTooHigh">Hệ số %1$s (%2$s) của bạn quá cao</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s theo tuần của bạn quá cao (%2$s)</string>
+  <string name="yourPerfRatingIsTooLow">Hệ số %1$s của bạn quá thấp (%2$s)</string>
+  <string name="ratedMoreThanInPerf">Hệ số %2$s ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Xếp hạng %2$s tuần trước ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
@@ -377,7 +377,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="importGame">Nhập ván cờ</string>
   <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, 
 trò chuyện trong ván đấu và có một URL có thể chia sẻ được.</string>
-  <string name="importGameCaveat">Các biến thể sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
+  <string name="importGameCaveat">Các biến sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s các ván cờ đã nhập</item>
   </plurals>
@@ -447,7 +447,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="resume">Tiếp tục</string>
   <string name="youArePlaying">Bạn đã vào ván!</string>
   <string name="winRate">Tỉ lệ thắng</string>
-  <string name="berserkRate">Tỉ lệ berserk</string>
+  <string name="berserkRate">Tỉ lệ Berserk</string>
   <string name="performance">Hiệu suất</string>
   <string name="tournamentComplete">Kết thúc giải đấu</string>
   <string name="movesPlayed">Số nước đi</string>
@@ -467,7 +467,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="isPrivate">Riêng tư</string>
   <string name="reportXToModerators">Báo cáo %s cho quản trị viên</string>
   <string name="profileCompletion">Hoàn thành hồ sơ: %s</string>
-  <string name="xRating">Xếp hạng %s</string>
+  <string name="xRating">Elo %s</string>
   <string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
   <string name="profile">Hồ sơ</string>
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
@@ -484,7 +484,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
   <string name="onlinePlayers">Các kỳ thủ đang trực tuyến</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ tính Elo nhưng không tính thời gian!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ có xếp hạng nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s trận đang chơi</item>
@@ -597,7 +597,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
-  <string name="menu">Menu</string>
+  <string name="menu">Mục lục</string>
   <string name="castling">Nhập thành</string>
   <string name="whiteCastlingKingside">Trắng O-O</string>
   <string name="blackCastlingKingside">Đen O-O</string>
@@ -636,8 +636,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="whenCreateSimul">Khi bạn tạo một sự kiện cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
   <string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi sẽ được lựa chọn chơi biến thể nào.</string>
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
-  <string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
-  <string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
+  <string name="simulAddExtraTime">Bạn có thể thêm thời gian ban đầu cho đồng hồ của mình để đấu cờ đồng loạt dễ hơn.</string>
+  <string name="simulHostExtraTime">Thời gian ban đầu thêm cho người chủ trì</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia cờ đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thêm thời gian cho người chủ trì cho mỗi người tham gia trận cờ đồng loạt</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
@@ -759,7 +759,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="practiceWithComputer">Luyện tập với máy tính</string>
   <string name="anotherWasX">Nước đi khác là %s</string>
   <string name="bestWasX">Nước đi tốt nhất là %s</string>
-  <string name="youBrowsedAway">Bạn thử biến quá khác</string>
+  <string name="youBrowsedAway">Bạn đã duyệt xa</string>
   <string name="resumePractice">Tiếp tục luyện</string>
   <string name="drawByFiftyMoves">Ván đấu được xử hòa theo luật 50 nước.</string>
   <string name="theGameIsADraw">Ván cờ kết thúc hòa.</string>
@@ -859,7 +859,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="youAreNowPartOfTeam">Bây giờ bạn là một phần của đội.</string>
   <string name="youHaveJoinedTeamX">Bạn đã tham gia \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ai đó mà bạn báo cáo đã bị cấm</string>
-  <string name="congratsYouWon">Xin chúc mừng, bạn đã giành chiến thắng!</string>
+  <string name="congratsYouWon">Chúc mừng, bạn đã giành chiến thắng!</string>
   <string name="gameVsX">Ván đấu với %1$s</string>
   <string name="resVsX">%1$s với %2$s</string>
   <string name="lostAgainstTOSViolator">Bạn đã mất điểm xếp hạng vào người vi phạm Điều hhoản Dịch vụ của Lichess</string>
@@ -923,7 +923,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
   <string name="since">Từ</string>
   <string name="until">Cho tới</string>
-  <string name="lichessDbExplanation">Các ván đấu tính Elo được lấy từ tất cả các kỳ thủ trên Lichess</string>
+  <string name="lichessDbExplanation">Các ván đấu có xếp hạng được lấy từ tất cả các kỳ thủ trên Lichess</string>
   <string name="switchSides">Đổi bên</string>
   <string name="closingAccountWithdrawAppeal">Việc đóng tài khoản sẽ rút lại kháng cáo của bạn</string>
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>

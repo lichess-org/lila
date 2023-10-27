@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Minden játék törlése ebben a fordulóban. A forrásnak aktívnak kell lennie, hogy újra létre lehessen hozni őket.</string>
   <string name="editRoundStudy">Forduló tanulmányának szerkesztése</string>
   <string name="deleteTournament">Verseny törlése</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Az egész verseny végleges törlése az összes fordulóval és játszmával együtt.</string>
+  <string name="definitivelyDeleteTournament">Az egész verseny végleges törlése az összes fordulóval és játszmával együtt.</string>
 </resources>

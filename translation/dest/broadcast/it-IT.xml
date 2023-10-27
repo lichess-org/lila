@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Dirette</string>
+  <string name="myBroadcasts">Le mie trasmissioni</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s diretta</item>
     <item quantity="other">%s dirette</item>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Elimina tutte le partite di questo turno. L\'emittente dovrà essere attiva per poterli ricreare.</string>
   <string name="editRoundStudy">Modifica lo studio del turno</string>
   <string name="deleteTournament">Elimina questo torneo</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
+  <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
 </resources>
