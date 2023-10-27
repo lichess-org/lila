@@ -394,7 +394,7 @@
     <item quantity="many">%s studií</item>
     <item quantity="other">%s studií</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultánka</item>
     <item quantity="few">%s simultánky</item>
     <item quantity="many">%s simultánek</item>
@@ -595,15 +595,15 @@
   <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
-  <string name="descPrivate">Soukromý popis</string>
-  <string name="descPrivateHelp">Text, který uvidí pouze členové týmu, kteří poté uvidí jenom tento text.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Soukromý popis</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text, který uvidí pouze členové týmu, kteří poté uvidí jenom tento text.</string>
   <string name="no">Ne</string>
   <string name="yes">Ano</string>
   <string name="help">Nápověda:</string>
   <string name="createANewTopic">Vytvořit nové téma</string>
   <string name="topics">Témata</string>
   <string name="posts">Příspěvky</string>
-  <string name="lastPost">Poslední Příspěvek</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Poslední Příspěvek</string>
   <string name="views">Zobrazení</string>
   <string name="replies">Odpovědi</string>
   <string name="replyToThisTopic">Odpovědět na toto téma</string>
@@ -866,7 +866,7 @@
   <string name="invalidFen">Neplatný formát FEN</string>
   <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
-  <string name="notificationsX">Oznámení: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Oznámení: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na první tah</item>
@@ -979,7 +979,7 @@
   <string name="mentionedYouInX">vás zmínil v \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
   <string name="invitedYouToX">vás pozval ke studii \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s vás pozval ke studii \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
   <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
