@@ -11,7 +11,7 @@
   <string name="published">Nai-publish</string>
   <string name="publishOnYourBlog">I-publish sa iyong blog</string>
   <string name="publishHelp">Kung susuriin, ang post ay nakalista sa iyong blog. Kung hindi, magiging pribado ito, sa iyong mga draft na post</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Nag-publish ng isang post sa blog</item>
     <item quantity="other">Nai-publish %s na mga post sa blog</item>
   </plurals>
