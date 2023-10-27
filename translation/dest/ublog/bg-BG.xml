@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Ще бъде създадена тема във форума, за да се даде възможност за оставяне на коментари</string>
   <string name="publishOnYourBlog">Публикувайте във Вашия блог</string>
   <string name="publishHelp">Ако е отбелязано, публикацията ще бъде показана във Вашия блог. В противен случай ще остане частна, във Вашите чернови</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Публикувана публикация</item>
     <item quantity="other">Публикувани %s публикации</item>
   </plurals>
@@ -33,8 +33,8 @@
     <item quantity="other">Вижте всички %s публикации</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Качване на изображение към публикацията</string>
-  <string name="imageAlt">Алтернативен текст на изображението</string>
-  <string name="imageCredit">Права на изображението</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Алтернативен текст на изображението</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Права на изображението</string>
   <string name="deleteBlog">Изтийте тази публикация окончателно</string>
   <string name="deleteImage">Изтриване на изображението</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Може безопасно да използвате изображения от следните уебстраници: </string>
