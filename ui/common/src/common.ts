@@ -71,11 +71,14 @@ export const memoize = <A>(compute: () => A): (() => A) => {
   };
 };
 
-export const scrollToInnerSelector = (el: HTMLElement, selector: string) =>
-  scrollTo(el, el.querySelector(selector));
+export const scrollToInnerSelector = (el: HTMLElement, selector: string, horiz: boolean = false) =>
+  scrollTo(el, el.querySelector(selector), horiz);
 
-export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
-  if (target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
+export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boolean = false) => {
+  if (target)
+    horiz
+      ? (el.scrollLeft = target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2)
+      : (el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2);
 };
 
 export const onClickAway = (f: () => void) => (el: HTMLElement) => {
