@@ -87,7 +87,7 @@ final private[team] class TeamForm(
       Fields.passwordCheck(team)
     )(RequestSetup.apply)(unapply)
   ) fill RequestSetup(
-    message = Request.defaultMessage.some,
+    message = TeamRequest.defaultMessage.some,
     password = None
   )
 

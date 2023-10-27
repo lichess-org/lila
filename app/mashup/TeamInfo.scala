@@ -4,7 +4,7 @@ package mashup
 import concurrent.duration.DurationInt
 
 import lila.forum.MiniForumPost
-import lila.team.{ TeamSecurity, Request, RequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
+import lila.team.{ TeamSecurity, TeamRequest, RequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
@@ -13,7 +13,7 @@ import lila.simul.{ Simul, SimulApi }
 case class TeamInfo(
     withLeaders: Team.WithLeaders,
     member: Option[TeamMember],
-    myRequest: Option[Request],
+    myRequest: Option[TeamRequest],
     subscribed: Boolean,
     requests: List[RequestWithUser],
     forum: Option[List[MiniForumPost]],

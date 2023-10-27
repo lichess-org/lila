@@ -55,7 +55,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def disable(team: Team): Funit =
     coll.updateField($id(team.id), "enabled", false).void
 
-  def addRequest(teamId: TeamId, request: Request): Funit =
+  def addRequest(teamId: TeamId, request: TeamRequest): Funit =
     coll.update
       .one(
         $id(teamId) ++ $doc("requests.user" $ne request.user),
