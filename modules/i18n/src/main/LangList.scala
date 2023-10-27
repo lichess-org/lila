@@ -18,6 +18,7 @@ object LangList:
     Lang("br", "FR")  -> "Brezhoneg",
     Lang("bs", "BA")  -> "Bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("ckb", "IR") -> "کوردی سۆرانی",
     Lang("co", "FR")  -> "Corsu",
     Lang("cs", "CZ")  -> "Čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
