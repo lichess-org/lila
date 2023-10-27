@@ -84,7 +84,7 @@
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
   <string name="averageRatingX">Xếp loại bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
-  <string name="topGames">Các ván đấu hàng đầu</string>
+  <string name="topGames">Các ván cờ hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
@@ -264,7 +264,7 @@
   <string name="mode">Chế độ</string>
   <string name="casual">Không xếp hạng</string>
   <string name="rated">Có xếp hạng</string>
-  <string name="casualTournament">Không tính elo</string>
+  <string name="casualTournament">Không xếp hạng</string>
   <string name="ratedTournament">Có xếp hạng</string>
   <string name="thisGameIsRated">Ván cờ này có xếp hạng</string>
   <string name="rematch">Tái đấu</string>
@@ -426,7 +426,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
-  <string name="advancedSettings">Cài đặt nâng cao</string>
+  <string name="advancedSettings">Thiết lập nâng cao</string>
   <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
   <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
   <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một người chơi đáng chú ý.</string>
