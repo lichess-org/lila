@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Bit će kreirana tema na forumu kako bi ljudi mogli komentirati Vašu objavu</string>
   <string name="publishOnYourBlog">Objavite na svom blogu</string>
   <string name="publishHelp">Ako je označeno, članak će biti navedena na vašem blogu. Ako ne, bit će privatno, u vašim nacrtima objava</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Objavljen članak</item>
     <item quantity="few">Objavljeno %s članka na blogu</item>
     <item quantity="other">Objavljeno %s članaka na blogu</item>
@@ -36,8 +36,8 @@
     <item quantity="other">Pregledajte svih %s objava</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Otpremite sliku za svoju objavu</string>
-  <string name="imageAlt">Slika alternativnog teksta</string>
-  <string name="imageCredit">Kredit za sliku</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Slika alternativnog teksta</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Kredit za sliku</string>
   <string name="deleteBlog">Definitivno izbrišite ovu objavu na blogu</string>
   <string name="deleteImage">Izbrišite sliku</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Sigurno je koristiti slike sa sljedećih veb-sajtova: </string>
