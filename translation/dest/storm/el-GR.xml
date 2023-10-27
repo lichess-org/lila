@@ -52,7 +52,7 @@
   <string name="skipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το combo σας! Αυτό μπορείτε να το κάνετε μόνο μία φορά σε κάθε αγώνα.</string>
   <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">Γρίφοι που δε λύθηκαν σωστά</string>
   <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">Γρίφοι που λύθηκαν αργά</string>
-  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Παζλ με κίνηση που παραλείφθηκε</string>
+  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Γρίφος με κίνηση που παραλείφθηκε</string>
   <string name="thisWeek">Αυτήν την εβδομάδα</string>
   <string name="thisMonth">Aυτόν τον μήνα</string>
   <string name="allTime">Από την αρχή</string>
