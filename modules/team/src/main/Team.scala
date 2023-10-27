@@ -98,6 +98,7 @@ object Team:
     def toList                 = value.nonEmpty so toArray.toList
     def toSet                  = value.nonEmpty so toArray.toSet
     def size                   = value.count(_ == separator) + 1
+    def nonEmpty               = value.nonEmpty
 
   object IdsStr:
 

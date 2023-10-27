@@ -94,6 +94,13 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
       .primitive[TeamId](selectIds(teamIds, leader) ++ selectAnyPerm, "team")
       .dmap(_.toSet)
 
+  def teamsWhereIsGrantedRequest(leader: UserId): Fu[List[TeamId]] =
+    coll.distinctEasy[TeamId, List](
+      "team",
+      $doc("user" -> leader, "perms" -> TeamSecurity.Permission.Request),
+      _.sec
+    )
+
   def unsetAllPerms(teamId: TeamId): Funit =
     coll.update
       .one(teamQuery(teamId) ++ selectAnyPerm, $unset("perms"), multi = true)
