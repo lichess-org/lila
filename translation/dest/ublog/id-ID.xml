@@ -12,7 +12,7 @@
   <string name="createBlogDiscussion">Aktifkan komentar</string>
   <string name="publishOnYourBlog">Terbitkan di blog Anda</string>
   <string name="publishHelp">Jika dicentang, post ini akan di munculkan di blog Anda. Jika tidak, akan menjadi privat di draf Anda</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="other">Telah menerbitkan %s blog post</item>
   </plurals>
   <plurals name="nbViews">
@@ -29,8 +29,8 @@
     <item quantity="other">Lihat %s post</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Unggah gambar untuk post Anda</string>
-  <string name="imageAlt">Teks alternatif gambar</string>
-  <string name="imageCredit">Kredit gambar</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Teks alternatif gambar</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Kredit gambar</string>
   <string name="deleteBlog">Hapus blog post ini</string>
   <string name="deleteImage">Hapus gambar</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Aman untuk menggunakan gambar dari website ini: </string>
