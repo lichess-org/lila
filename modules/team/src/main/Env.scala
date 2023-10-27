@@ -27,8 +27,8 @@ final class Env(
 )(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
-  lazy val memberRepo  = MemberRepo(db(CollName("team_member")))
-  lazy val requestRepo = RequestRepo(db(CollName("team_request")))
+  lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = TeamRequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[TeamForm]
 

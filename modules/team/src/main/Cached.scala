@@ -8,8 +8,8 @@ import lila.hub.LightTeam.TeamName
 
 final class Cached(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 

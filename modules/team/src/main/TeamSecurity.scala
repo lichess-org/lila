@@ -27,7 +27,7 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(teamRepo: TeamRepo, memberRepo: MemberRepo, userRepo: UserRepo, cached: Cached)(using
+final class TeamSecurity(teamRepo: TeamRepo, memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(using
     Executor
 ):
 

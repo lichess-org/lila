@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.{ MyId, User }
 import lila.team.TeamSecurity.Permission
 
-final class MemberRepo(val coll: Coll)(using Executor):
+final class TeamMemberRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 

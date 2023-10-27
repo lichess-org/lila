@@ -9,8 +9,8 @@ import lila.user.MyId
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     userApi: lila.user.UserApi,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):

@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class RequestRepo(val coll: Coll)(using Executor):
+final class TeamRequestRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 

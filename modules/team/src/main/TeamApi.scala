@@ -19,8 +19,8 @@ import java.time.Period
 
 final class TeamApi(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     userRepo: UserRepo,
     userApi: UserApi,
     cached: Cached,
