@@ -1,39 +1,32 @@
+import { chartYMax, chartYMin } from './common';
 import { Division } from './interface';
+import * as chart from 'chart.js';
 
-const divisionLine = (division: string, ply: number) => {
-  const textWeak = window.Highcharts.theme.lichess.text.weak;
-  return {
-    label: {
-      text: division,
-      verticalAlign: 'top',
-      align: 'left',
-      y: 0,
-      style: {
-        color: textWeak,
-      },
-    },
-    color: textWeak,
-    width: 1,
-    value: ply,
-    zIndex: 5,
-  };
-};
-
-export default function (div: Division | undefined, trans: Trans) {
-  const lines = [];
-  lines.push({
-    color: window.Highcharts.theme.lichess.line.accent,
-    width: 1,
-    value: 0,
-    zIndex: 6,
-  });
+export default function (trans: Trans, div?: Division) {
+  const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
-    if (div.middle > 1) lines.push(divisionLine(trans('opening'), 0));
-    lines.push(divisionLine(trans('middlegame'), div.middle - 1));
+    if (div.middle > 1) lines.push({ div: trans('opening'), loc: 0 });
+    lines.push({ div: trans('middlegame'), loc: div.middle - 1 });
   }
   if (div?.end) {
-    if (div.end > 1 && !div?.middle) lines.push(divisionLine(trans('middlegame'), 0));
-    lines.push(divisionLine(trans('endgame'), div.end - 1));
+    if (div.end > 1 && !div?.middle) lines.push({ div: trans('middlegame'), loc: 0 });
+    lines.push({ div: trans('endgame'), loc: div.end - 1 });
   }
-  return lines;
+  const annotationColor = '#707070';
+  const annotations: chart.Chart['config']['data']['datasets'] = lines.map(line => ({
+    label: line.div,
+    data: [
+      [line.loc, chartYMin],
+      [line.loc, chartYMax],
+    ],
+    pointHoverRadius: 5,
+    borderWidth: 1,
+    pointHoverBorderColor: annotationColor,
+    borderColor: annotationColor,
+    pointBackgroundColor: annotationColor,
+    pointHitRadius: 200,
+    pointRadius: 0,
+    order: 1,
+  }));
+  return annotations;
 }

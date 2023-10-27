@@ -1,6 +1,6 @@
-import type Highcharts from 'highcharts';
+import { Chart } from 'chart.js';
 
-export interface PlyChart extends Highcharts.ChartObject {
+export interface PlyChart extends Chart {
   firstPly: number;
   selectPly(ply: number, isMainline: boolean): void;
 }
@@ -46,8 +46,8 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
-  movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): Promise<PlyChart>;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<Chart>;
+  movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): void;
 }
 
 export interface DistributionData {

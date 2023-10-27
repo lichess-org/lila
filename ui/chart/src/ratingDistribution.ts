@@ -36,6 +36,7 @@ export async function initModule(data: DistributionData) {
         data: cumul.map(x => x[1]),
         yAxisID: 'y2',
         label: data.i18n.cumulative,
+        pointRadius: 0,
       },
       {
         ...seriesCommonData('#7798bf'),
@@ -119,6 +120,7 @@ export async function initModule(data: DistributionData) {
         plugins: {
           tooltip: {
             rtl: document.dir == 'rtl',
+            caretPadding: 8,
             callbacks: {
               label: item => {
                 switch (item.datasetIndex) {

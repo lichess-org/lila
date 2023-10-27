@@ -21,8 +21,7 @@
       "esm": {
         "src/ratingDistribution.ts": "chart.ratingDistribution",
         "src/ratingHistory.ts": "chart.ratingHistory",
-        "src/game.ts": "chart.game",
-        "src/lag.ts": "chart.lag"
+        "src/game.ts": "chart.game"
       }
     }
   }

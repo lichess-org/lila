@@ -1,175 +1,177 @@
-import { loadHighcharts, MovePoint, selectPly } from './common';
-import divisionLines from './division';
-import { AcplChart, AnalyseData, Player } from './interface';
+import * as chart from 'chart.js';
+import { currentTheme } from 'common/theme';
+import { AnalyseData, Player, PlyChart } from './interface';
+import division from './division';
+import { chartYMax, chartYMin, selectPly } from './common';
 
-export default async function (el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans) {
-  await loadHighcharts('highchart');
+chart.Chart.register(
+  chart.LineController,
+  chart.LinearScale,
+  chart.PointElement,
+  chart.LineElement,
+  chart.Tooltip,
+  chart.Filler,
+);
 
-  const area = window.Highcharts.theme.lichess.area;
-  const line = window.Highcharts.theme.lichess.line;
+export default async function (
+  el: HTMLCanvasElement,
+  data: AnalyseData,
+  mainline: Tree.Node[],
+  trans: Trans,
+) {
+  const ctx = el.getContext('2d');
+  if (ctx) {
+    const maybeChart = chart.Chart.getChart(ctx);
+    if (maybeChart) return maybeChart;
+  }
 
+  const lightTheme = currentTheme() == 'light'; // TODO: reloadallthethings
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
+  const winChances: number[] = [];
+  const labels: string[] = [];
+  const pointStyles: chart.PointStyle[] = [];
+  const orangeAccent = '#d85000';
+  const whiteFill = lightTheme ? 'white' : '#676665';
+  const blackFill = lightTheme ? '#999999' : 'black';
+  const fontFamily = (title = false) => ({
+    family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+    size: title ? 13 : 12,
+    weight: 'bold',
+  });
+  const fontColor = '#A0A0A0';
+  const divisionLines = division(trans, data.game.division);
 
-  const makeSerieData = (d: AnalyseData, mainline: Tree.Node[]) => {
-    const partial = !d.analysis || d.analysis.partial;
-    return mainline.slice(1).map(node => {
-      const isWhite = (node.ply & 1) == 1;
+  mainline.slice(1).map(node => {
+    const partial = !data.analysis || data.analysis.partial;
+    const isWhite = (node.ply & 1) == 1;
+    let cp: number = 0;
+    if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
+    else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
+    if (data.game.variant.key === 'antichess') cp = -cp;
+    else if (node.eval?.cp) cp = node.eval.cp;
+    const turn = Math.floor((node.ply - 1) / 2) + 1;
+    const dots = isWhite ? '.' : '...';
+    // TODO: maybe export from ceval and import here?
+    const winChance = 2 / (1 + Math.exp(-0.00368208 * cp)) - 1;
+    // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
+    winChances.push(winChance);
+    const { advice: judgment } = glyphProperties(node);
+    let label = turn + dots + ' ' + node.san;
+    let annotation = '';
+    if (judgment) annotation = ` [${trans(judgment)}]`;
+    const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
+    if (isBlur) annotation = ' [blur]';
+    labels.push(label + annotation);
+    // TODO Christmas lights.
+    pointStyles.push(isBlur ? 'rect' : 'circle'); // TODO style blurs
+  });
 
-      let cp;
-      if (node.eval && node.eval.mate) {
-        cp = node.eval.mate > 0 ? Infinity : -Infinity;
-      } else if (node.san?.includes('#')) {
-        cp = isWhite ? Infinity : -Infinity;
-        if (d.game.variant.key === 'antichess') cp = -cp;
-      } else if (node.eval && typeof node.eval.cp !== 'undefined') {
-        cp = node.eval.cp;
-      } else return { y: null };
-
-      const turn = Math.floor((node.ply - 1) / 2) + 1;
-      const dots = isWhite ? '.' : '...';
-      const point: MovePoint = {
-        name: turn + dots + ' ' + node.san,
-        y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-      };
-      let [annotation, fillColor] = glyphProperties(node);
-      const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
-      if (isBlur) {
-        annotation = 'blur';
-        fillColor = isWhite ? line.white : line.black;
-      }
-      if (annotation) {
-        point.marker = {
-          symbol: isBlur ? 'square' : 'circle',
-          radius: 4,
-          lineWidth: '1px',
-          lineColor: isBlur ? line.accent : fillColor,
-          fillColor: fillColor,
-        };
-        point.name += ` [${annotation}]`;
-      }
-      return point;
-    });
-  };
-
-  const disabled = { enabled: false };
-  const noText = { text: null };
-  const serieData = makeSerieData(data, mainline);
-  const chart: AcplChart = window.Highcharts.chart(el, {
-    credits: disabled,
-    legend: disabled,
-    series: [
-      {
-        name: trans('advantage'),
-        data: serieData,
-      },
-    ],
-    chart: {
-      type: 'area',
-      spacing: [3, 0, 3, 0],
-      animation: false,
-      events: {
-        click(e: any) {
-          lichess.pubsub.emit('analysis.chart.click', Math.round(e.xAxis[0].value));
-        },
-        load(e: any) {
-          // Drop-in fix for Highcharts issue #7293
-          e.target.renderer.globalAnimation = false;
-        },
-      },
-    },
-    plotOptions: {
-      series: {
-        animation: false,
-      },
-      area: {
-        fillColor: area.white,
-        negativeFillColor: area.black,
-        threshold: 0,
-        lineWidth: 1,
-        color: line.accent,
-        states: {
-          hover: {
-            lineWidth: 1,
-          },
-        },
-        events: {
-          click(e: any) {
-            lichess.pubsub.emit('analysis.chart.click', e.point.x);
-          },
-        },
-        marker: {
-          radius: 0,
-          states: {
-            hover: {
-              radius: 3,
-              lineColor: line.accent,
-            },
-            select: {
-              enabled: false,
-            },
-          },
-        },
-      },
-    },
-    tooltip: {
-      pointFormatter: function (this: any, format: string) {
-        format = format.replace('{series.name}', trans('advantage'));
-        const ev = mainline[this.x + 1].eval;
-        if (!ev) return;
-        else if (ev.mate) return format.replace('{point.y}', '#' + ev.mate);
-        else if (typeof ev.cp !== 'undefined') {
-          const e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-          return format.replace('{point.y}', e > 0 ? `+${e}` : `${e}`);
-        }
-        return;
-      },
-    },
-    title: noText,
-    xAxis: {
-      title: noText,
-      labels: disabled,
-      lineWidth: 0,
-      tickWidth: 0,
-      plotLines: divisionLines(data.game.division, trans),
-    },
-    yAxis: {
-      title: noText,
-      min: -1.1,
-      max: 1.1,
-      startOnTick: false,
-      endOnTick: false,
-      labels: disabled,
-      lineWidth: 1,
-      gridLineWidth: 0,
-      plotLines: [
+  const config: chart.Chart['config'] = {
+    type: 'line',
+    data: {
+      labels: labels.map((_, index) => index),
+      datasets: [
         {
-          color: window.Highcharts.theme.lichess.text.weak,
-          width: 1,
-          value: 0,
+          label: trans('advantage'),
+          data: winChances,
+          borderWidth: 1,
+          fill: {
+            target: 'origin',
+            below: blackFill,
+            above: whiteFill,
+          },
+          pointRadius: 0,
+          pointHitRadius: 100,
+          borderColor: orangeAccent,
+          hoverRadius: 4,
+          pointBackgroundColor: orangeAccent,
+          pointStyle: pointStyles,
+          order: 5,
+        },
+        ...divisionLines,
+        {
+          label: 'ply',
+          data: [
+            [-1, chartYMin],
+            [-1, chartYMax],
+          ],
+          borderColor: orangeAccent,
+          pointRadius: 0,
+          borderWidth: 1,
         },
       ],
     },
-  });
-  chart.firstPly = data.treeParts[0].ply;
-  chart.selectPly = selectPly.bind(chart);
-  chart.updateData = (d: AnalyseData, mainline: Tree.Node[]) =>
-    chart.series[0].setData(makeSerieData(d, mainline) as any);
-
-  lichess.pubsub.on('ply', chart.selectPly);
+    options: {
+      scales: {
+        x: {
+          min: 0,
+          max: labels.length - 1,
+          display: false,
+          type: 'linear',
+        },
+        y: {
+          // Set max and min to center the graph at y=0.
+          min: chartYMin,
+          max: chartYMax,
+          display: false,
+        },
+      },
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+        tooltip: {
+          bodyColor: fontColor,
+          titleColor: fontColor,
+          titleFont: fontFamily(true),
+          bodyFont: fontFamily(),
+          caretPadding: 10,
+          displayColors: false,
+          callbacks: {
+            label: item => {
+              switch (item.datasetIndex) {
+                case 0:
+                  const ev = mainline[item.dataIndex + 1]?.eval;
+                  if (!ev) return ''; // Pos is mate
+                  let e = 0,
+                    mateSymbol = '',
+                    advantageSign = '';
+                  if (typeof ev?.cp !== 'undefined') {
+                    e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
+                    if (ev.cp > 0) advantageSign = '+';
+                  }
+                  if (ev.mate) {
+                    e = ev.mate;
+                    mateSymbol = '#';
+                  }
+                  return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
+                default:
+                  return item.dataset.label;
+              }
+            },
+            title: items => (items[0].datasetIndex == 0 ? labels[items[0].dataIndex] : ''),
+          },
+        },
+      },
+      onClick(_event, elements, _chart) {
+        if (elements[0].datasetIndex == 0) lichess.pubsub.emit('analysis.chart.click', elements[0].index);
+      },
+    },
+  };
+  const acplChart = new chart.Chart(el, config) as PlyChart;
+  acplChart.selectPly = selectPly.bind(acplChart);
+  lichess.pubsub.on('ply', acplChart.selectPly);
   lichess.pubsub.emit('ply.trigger');
-
-  return chart;
+  return acplChart;
 }
 
-// the color prefixes below are mirrored in analyse/src/roundTraining.ts
-const glyphProperties = (node: Tree.Node) => {
-  const playerAndAlpha = `${node.ply & 1}00`;
-  if (node.glyphs?.some(g => g.id == 4)) return ['blunder', '#db303' + playerAndAlpha];
-  else if (node.glyphs?.some(g => g.id == 2)) return ['mistake', '#cc9b0' + playerAndAlpha];
-  else if (node.glyphs?.some(g => g.id == 6)) return ['inaccuracy', '#1c9ae' + playerAndAlpha];
-  else return [undefined, undefined];
-};
+const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+// the color prefixes below are mirrored in analyse/src/roundTraining.ts
+type Advice = 'blunder' | 'mistake' | 'inaccuracy';
+const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } => {
+  if (node.glyphs?.some(g => g.id == 4)) return { advice: 'blunder', color: '#db303' };
+  else if (node.glyphs?.some(g => g.id == 2)) return { advice: 'mistake', color: '#cc9b0' };
+  else if (node.glyphs?.some(g => g.id == 6)) return { advice: 'inaccuracy', color: '#1c9ae' };
+  else return { advice: undefined, color: undefined };
+};

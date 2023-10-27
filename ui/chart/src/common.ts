@@ -1,20 +1,37 @@
-import { PlyChart } from './interface';
+import { Chart } from 'chart.js';
 import { currentTheme } from 'common/theme';
 
 export interface MovePoint {
-  y: number | null;
+  y: number;
   x?: number;
-  name?: any;
+  name?: string;
   marker?: any;
 }
 
 let highchartsPromise: Promise<any> | undefined;
 
-export function selectPly(this: PlyChart, ply: number, onMainline: boolean) {
-  const plyline = (this.xAxis[0] as any).plotLinesAndBands[0];
-  plyline.options.value = ply - 1 - this.firstPly;
-  plyline.svgElem?.dashstyleSetter(onMainline ? 'solid' : 'dash');
-  plyline.render();
+// Add a slight offset so the graph doesn't get cutoff when eval = mate.
+export const chartYMax = 1 + 0.05;
+export const chartYMin = -chartYMax;
+
+export function selectPly(this: Chart, ply: number, onMainline: boolean) {
+  ply = ply - 1;
+  const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
+  this.data.datasets[index] = {
+    label: 'ply',
+    data: [
+      [ply, chartYMin],
+      [ply, chartYMax],
+    ],
+    borderColor: '#d85000',
+    pointRadius: 0,
+    borderWidth: 1,
+    animation: false,
+    segment: !onMainline ? { borderDash: [5] } : undefined,
+    order: 0,
+    pointHitRadius: 0,
+  };
+  this.update();
 }
 
 export async function loadHighcharts(tpe: string) {
