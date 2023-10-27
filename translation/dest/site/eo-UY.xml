@@ -348,7 +348,7 @@
     <item quantity="one">%s studo</item>
     <item quantity="other">%s studoj</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s samtempludo</item>
     <item quantity="other">%s samtempludoj</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">Krei novan temon</string>
   <string name="topics">Temoj</string>
   <string name="posts">Afiŝoj</string>
-  <string name="lastPost">Lasta afiŝo</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Lasta afiŝo</string>
   <string name="views">Legoj</string>
   <string name="replies">Respondoj</string>
   <string name="replyToThisTopic">Resondoj al tiu ĉi temo</string>
