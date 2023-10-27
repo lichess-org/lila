@@ -331,7 +331,7 @@
   <string name="createANewTopic">Creaut a new topic</string>
   <string name="topics">Topics</string>
   <string name="posts">Posts</string>
-  <string name="lastPost">Last post</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Last post</string>
   <string name="replies">Replies</string>
   <string name="replyToThisTopic">Reply tae this topic</string>
   <string name="reply">Reply</string>
