@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Transmetime</string>
   <string name="myBroadcasts">Transmetimet e mia</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s transmetim</item>
     <item quantity="other">%s transmetime</item>
   </plurals>
