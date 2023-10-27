@@ -35,5 +35,5 @@
   <string name="deleteAllGamesOfThisRound">Ištrinti visas partijas šiame raunde. Norint jas perkurti reikės aktyvaus šaltinio.</string>
   <string name="editRoundStudy">Keisti raundo studiją</string>
   <string name="deleteTournament">Ištrinti šį turnyrą</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
+  <string name="definitivelyDeleteTournament">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
 </resources>

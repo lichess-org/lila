@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Streamer của Lichess</string>
   <string name="live">TRỰC TIẾP!</string>
   <string name="offline">NGOẠI TUYẾN</string>
-  <string name="currentlyStreaming">Đang phát trực tiếp: %s</string>
-  <string name="lastStream">Lần stream cuối %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Đang phát trực tiếp: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Lần stream cuối %s</string>
   <string name="becomeStreamer">Trở thành một Streamer của Lichess</string>
   <string name="doYouHaveStream">Bạn có kênh YouTube hoặc Twitch không?</string>
   <string name="hereWeGo">Bắt đầu nào!</string>
@@ -29,17 +29,17 @@
   <string name="pendingReview">Luồng của bạn đang được quản trị viên đánh giá.</string>
   <string name="pleaseFillIn">Hãy điền thông tin về luồng của bạn và tải lên một hình ảnh.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành Streamer của Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu các quản trị viên đánh giá</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu các quản trị viên đánh giá</string>
   <string name="streamerLanguageSettings">Trang streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng stream cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
   <string name="twitchUsername">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
-  <string name="youTubeChannelId">ID kênh YouTube của bạn</string>
+  <string name="youTubeChannelId" comment="youTubeChannelId&#10;&#10;The Channel ID is a special alphanumeric string. You can retrieve it by following this guide: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language version of YouTube: https://www.youtube.com/account_advanced">ID kênh YouTube của bạn</string>
   <string name="streamerName">Tên luồng của bạn trên Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>
   <string name="visibility">Hiện lên ở trang các streamer</string>
-  <string name="whenApproved">Khi được quản trị viên xác nhận</string>
+  <string name="whenApproved">Khi được quản trị viên chấp thuận</string>
   <string name="headline">Tiêu đề</string>
   <string name="tellUsAboutTheStream">Giới thiệu về luồng của bạn trong một câu</string>
   <string name="longDescription">Miêu tả dài</string>
