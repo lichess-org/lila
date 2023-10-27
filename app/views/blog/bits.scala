@@ -10,7 +10,7 @@ import controllers.routes
 object bits:
 
   def menu(year: Option[Int], active: Option[String])(using ctx: Context) =
-    views.html.site.bits.subnav(
+    views.html.site.bits.pageMenuSubnav(
       cls := "force-ltr",
       ctx.noKid option a(
         cls  := active.has("community").option("active"),

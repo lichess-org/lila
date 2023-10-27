@@ -11,7 +11,7 @@ import controllers.routes
 object bits:
 
   def communityMenu(active: String)(using Context) =
-    views.html.site.bits.subnav(
+    views.html.site.bits.pageMenuSubnav(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
       a(
         cls  := active.active("ratings"),
