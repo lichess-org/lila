@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Трансляції</string>
   <string name="myBroadcasts">Мої трансляції</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s трансляція</item>
     <item quantity="few">%s трансляції</item>
     <item quantity="many">%s трансляцій</item>
