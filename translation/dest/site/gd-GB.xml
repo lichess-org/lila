@@ -211,7 +211,7 @@
   <string name="createANewTopic">Cruthaich cuspair ùr</string>
   <string name="topics">Cuspairean</string>
   <string name="posts">Postaichean</string>
-  <string name="lastPost">Am post mu dheireadh</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Am post mu dheireadh</string>
   <string name="views">Air a shealltainn</string>
   <string name="replies">Freagairtean</string>
   <string name="replyToThisTopic">Freagair dhan chuspair seo</string>
