@@ -370,7 +370,7 @@
     <item quantity="one">%s izpēte</item>
     <item quantity="other">%s izpētes</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="zero">%s simultānspēles</item>
     <item quantity="one">%s simultānspēle</item>
     <item quantity="other">%s simultānspēles</item>
