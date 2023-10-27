@@ -58,7 +58,7 @@ importers:
         version: 29.5.3
       breakpoint-sass:
         specifier: ^3.0.0
-        version: 3.0.0(sass@1.65.1)
+        version: 3.0.0(sass@1.69.5)
       jest:
         specifier: ^29.6.2
         version: 29.6.2(@types/node@20.5.0)
@@ -164,8 +164,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       lila-stockfish-web:
-        specifier: link:/home/gamblej/ws/lichess/lila-stockfish-web
-        version: link:../../../lila-stockfish-web
+        specifier: ^0.0.1
+        version: 0.0.1
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -2408,12 +2408,12 @@ packages:
       fill-range: 7.0.1
     dev: false
 
-  /breakpoint-sass@3.0.0(sass@1.65.1):
+  /breakpoint-sass@3.0.0(sass@1.69.5):
     resolution: {integrity: sha512-qxJqSfTaOHI+RCGzvKWVRwwC2hMIaS0KV1b+asqWUFxdLv/yKNADF7AtT1uNnkt2VxSMZ2csM22CSc+Hez+EIg==}
     peerDependencies:
       sass: ^1.25
     dependencies:
-      sass: 1.65.1
+      sass: 1.69.5
     dev: false
 
   /browserslist@4.21.10:
@@ -2528,7 +2528,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /ci-info@3.7.0:
@@ -3108,8 +3108,8 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: false
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -3280,8 +3280,8 @@ packages:
     engines: {node: '>= 4'}
     dev: false
 
-  /immutable@4.3.2:
-    resolution: {integrity: sha512-oGXzbEDem9OOpDWZu88jGiYCvIsLHMvGw+8OXlpsvTFvIQplQbjg1B1cvKg8f7Hoch6+NGjpPsH1Fr+Mc2D1aA==}
+  /immutable@4.3.4:
+    resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
     dev: false
 
   /import-fresh@3.3.0:
@@ -3640,7 +3640,7 @@ packages:
       micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /jest-haste-map@29.6.2:
@@ -3659,7 +3659,7 @@ packages:
       micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /jest-leak-detector@29.6.2:
@@ -4112,6 +4112,10 @@ packages:
       chessground: 9.0.2
       chessops: 0.12.7
       snabbdom: 3.5.1
+    dev: false
+
+  /lila-stockfish-web@0.0.1:
+    resolution: {integrity: sha512-F48Gy3U3IXPCUbFjCnh0FAi9mZsn9Addu/FUq3JLUeYe6ZxyQZjY+/S+gm7iGSf9xBv6GXQywPumfcJzl7PteA==}
     dev: false
 
   /lilconfig@2.1.0:
@@ -4701,13 +4705,13 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
 
-  /sass@1.65.1:
-    resolution: {integrity: sha512-9DINwtHmA41SEd36eVPQ9BJKpn7eKDQmUHmpI0y5Zv2Rcorrh0zS+cFrt050hdNbmmCNKTW3hV5mWfuegNRsEA==}
+  /sass@1.69.5:
+    resolution: {integrity: sha512-qg2+UCJibLr2LCVOt3OlPhr/dqVHWOa9XtZf2OjbLs/T4VPSJ00udtgJxH3neXZm+QqX8B+3cU7RaLqp1iVfcQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
-      immutable: 4.3.2
+      immutable: 4.3.4
       source-map-js: 1.0.2
     dev: false
 
