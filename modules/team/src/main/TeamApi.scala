@@ -19,8 +19,8 @@ import java.time.Period
 
 final class TeamApi(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     userRepo: UserRepo,
     userApi: UserApi,
     cached: Cached,
@@ -42,7 +42,7 @@ final class TeamApi(
   def lightsByTourLeader[U: UserIdOf](leader: U): Fu[List[LightTeam]] =
     memberRepo.teamsLedBy(leader, Some(_.Tour)) flatMap teamRepo.lightsByIds
 
-  def request(id: Request.ID) = requestRepo.coll.byId[Request](id)
+  def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
@@ -131,18 +131,22 @@ final class TeamApi(
     withUsers <- requestsWithUsers(requests)
   yield withUsers
 
-  private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
+  private def requestsWithUsers(requests: List[TeamRequest]): Fu[List[RequestWithUser]] =
     userApi
       .listWithPerfs(requests.map(_.user))
       .map: users =>
         RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 
-  def join(team: Team, request: Option[String], password: Option[String])(using Me): Fu[Requesting] =
-    if team.open then
-      if team.passwordMatches(~password)
-      then doJoin(team) inject Requesting.Joined
-      else fuccess(Requesting.NeedPassword)
-    else motivateOrJoin(team, request)
+  def join(team: Team, request: Option[String], password: Option[String])(using me: Me): Fu[Requesting] =
+    blocklist
+      .has(team, me.userId)
+      .flatMap:
+        if _ then fuccess(Requesting.Blocklist)
+        else if team.open then
+          if team.passwordMatches(~password)
+          then doJoin(team) inject Requesting.Joined
+          else fuccess(Requesting.NeedPassword)
+        else motivateOrJoin(team, request)
 
   private def motivateOrJoin(team: Team, msg: Option[String])(using Me) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
@@ -160,10 +164,10 @@ final class TeamApi(
 
   def createRequest(team: Team, msg: String)(using me: Me): Funit =
     requestable(team).flatMapz {
-      val request = Request.make(
+      val request = TeamRequest.make(
         team = team.id,
         user = me,
-        message = if me.marks.troll then Request.defaultMessage else msg
+        message = if me.marks.troll then TeamRequest.defaultMessage else msg
       )
       requestRepo.coll.insert.one(request).void andDo cached.nbRequests.invalidate(team.createdBy)
     }
@@ -174,7 +178,7 @@ final class TeamApi(
       else quit(team, me)
     }
 
-  def processRequest(team: Team, request: Request, decision: String): Funit = {
+  def processRequest(team: Team, request: TeamRequest, decision: String): Funit = {
     if decision == "decline"
     then requestRepo.coll.updateField($id(request.id), "declined", true).void
     else if decision == "accept"
@@ -249,19 +253,17 @@ final class TeamApi(
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
-  def searchMembersAs(teamId: TeamId, term: UserStr, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
-    User.validateId(term) so { valid =>
-      team(teamId).flatMapz: team =>
-        val canSee =
-          fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
-        canSee.flatMapz:
-          memberRepo.coll.primitive[UserId](
-            selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith valid.value),
-            sort = $sort desc "user",
-            nb = nb,
-            field = "user"
-          )
-    }
+  def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
+    team(teamId).flatMapz: team =>
+      val canSee =
+        fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
+      canSee.flatMapz:
+        memberRepo.coll.primitive[UserId](
+          selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith term.value),
+          sort = $sort desc "user",
+          nb = nb,
+          field = "user"
+        )
 
   def kick(team: Team, userId: UserId)(using me: Me): Funit = for
     kicked <- memberRepo.get(team.id, userId)
@@ -271,7 +273,7 @@ final class TeamApi(
         kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
     _ <- allowed.so:
       // create a request to set declined in order to prevent kicked use to rejoin
-      val request = Request.make(team.id, userId, "Kicked from team", declined = true)
+      val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
       for
         _ <- requestRepo.coll.insert.one(request)
         _ <- quit(team, userId)
@@ -285,6 +287,17 @@ final class TeamApi(
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
     users.traverse_(kick(team, _))
+
+  object blocklist:
+    def set(team: Team, list: String): Funit =
+      teamRepo.coll.updateOrUnsetField($id(team.id), "blocklist", list.nonEmpty option list).void
+    def get(team: Team): Fu[String] =
+      teamRepo.coll
+        .primitiveOne[String]($id(team.id), "blocklist")
+        .dmap(~_)
+    def has(team: Team, user: UserId): Fu[Boolean] =
+      get(team).map: list =>
+        UserStr.from(list.split("\n")).exists(_ is user)
 
   private case class TagifyUser(value: String)
   private given Reads[TagifyUser] = Json.reads

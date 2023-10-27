@@ -58,7 +58,7 @@ final class PgnDump(
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
   private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
+    Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
 
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     Tags:

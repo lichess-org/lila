@@ -8,8 +8,8 @@ import lila.hub.LightTeam.TeamName
 
 final class Cached(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -64,8 +64,11 @@ final class Cached(
     _.expireAfterAccess(40 minutes)
       .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>
-        teamIds(userId).flatMap:
-          _.value.nonEmpty so requestRepo.countForLeader(userId, memberRepo.coll)
+        for
+          myTeams     <- teamIds(userId)
+          leaderTeams <- myTeams.nonEmpty so memberRepo.teamsWhereIsGrantedRequest(userId)
+          nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
+        yield nbReqs
 
   val forumAccess = cacheApi[TeamId, Team.Access](1024, "team.forum.access"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))

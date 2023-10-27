@@ -191,7 +191,7 @@ final class RelationApi(
       else funit
     }
 
-  def searchFollowedBy(u: User, term: UserStr, max: Int): Fu[List[UserId]] =
+  def searchFollowedBy(u: User, term: UserSearch, max: Int): Fu[List[UserId]] =
     repo.followingLike(u.id, term) map { list =>
       lila.common.Heapsort.topN(list, max)(using stringOrdering[UserId].reverse)
     }

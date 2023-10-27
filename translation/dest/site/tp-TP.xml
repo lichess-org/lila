@@ -500,15 +500,15 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
-  <string name="descPrivate">sitelen sona pi jan kulupu</string>
-  <string name="descPrivateHelp">jan pi kulupu ni taso li ken lukin e sitelen ni. ona li lon la, ona li weka e sitelen sona pi jan ale.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">sitelen sona pi jan kulupu</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">jan pi kulupu ni taso li ken lukin e sitelen ni. ona li lon la, ona li weka e sitelen sona pi jan ale.</string>
   <string name="no">ala</string>
   <string name="yes">lon</string>
   <string name="help">o pona</string>
   <string name="createANewTopic">o pali e lipu toki sin</string>
   <string name="topics">lipu toki li</string>
   <string name="posts">toki li</string>
-  <string name="lastPost">toki sin li</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">toki sin li</string>
   <string name="views">oko li</string>
   <string name="replies">toki tawa ni</string>
   <string name="replyToThisTopic">o toki tawa lipu toki ni</string>
@@ -532,6 +532,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="notes">toki pi jan ante ala</string>
   <string name="typePrivateNotesHere">o sitelen e toki pi kulupu ala lon poki ni</string>
   <string name="writeAPrivateNoteAboutThisUser">o sitelen e toki sona pi jan ni</string>
+  <string name="noNoteYet">tenpo ni la lipu li lon ala</string>
   <string name="invalidUsernameOrPassword">nimi jan anu nimi pi tawa li ike</string>
   <string name="incorrectPassword">nimi awen li ike</string>
   <string name="invalidAuthenticationCode">nanpa awen ike</string>
@@ -855,7 +856,7 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="mentionedYouInX">li toki e sina lon toki \"%1$s\".</string>
   <string name="xMentionedYouInY">jan %1$s li toki e sina lon toki \"%2$s\".</string>
   <string name="invitedYouToX">li sin e sina tawa musi pi kama sona \"%1$s\".</string>
-  <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
   <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. mi mute li weka wawa e ona</string>

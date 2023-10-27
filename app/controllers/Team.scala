@@ -121,7 +121,7 @@ final class Team(
       }
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: PageContext) = for
-    member <- env.team.memberRepo.get(team.id, me).orFail(s"no member ${me.userId} in ${team.id}")
+    member <- env.team.memberRepo.get(team.id, me)
     _      <- env.msg.twoFactorReminder(me)
     page   <- renderPage(html.team.form.edit(team, forms.edit(team), member))
   yield page
@@ -144,14 +144,16 @@ final class Team(
 
   def kickForm(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Kick): team =>
-      Ok.page(html.team.admin.kick(team, forms.members))
+      api.blocklist
+        .get(team)
+        .flatMap: blocklist =>
+          Ok.page(html.team.admin.kick(team, forms.members, forms.blocklist.fill(blocklist)))
   }
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Kick): team =>
-      forms.members.bindFromRequest().value so { api.kickMembers(team, _) } inject Redirect(
-        routes.Team.show(team.id)
-      ).flashSuccess
+      forms.members.bindFromRequest().value so { api.kickMembers(team, _) } inject
+        Redirect(routes.Team.show(team.id)).flashSuccess
   }
 
   private val ApiKickRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
@@ -173,6 +175,12 @@ final class Team(
         fuccess(ApiResult.Limited)
       ApiKickRateLimitPerIP(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
         api.kick(team, username.id) inject ApiResult.Done
+  }
+
+  def blocklist(id: TeamId) = AuthBody { ctx ?=> me ?=>
+    WithOwnedTeamEnabled(id, _.Kick): team =>
+      forms.blocklist.bindFromRequest().value so { api.blocklist.set(team, _) } inject
+        Redirect(routes.Team.show(team.id)).flashSuccess
   }
 
   def leaders(id: TeamId) = Auth { ctx ?=> _ ?=>
@@ -327,6 +335,7 @@ final class Team(
                     case Requesting.Joined       => jsonOkResult
                     case Requesting.NeedRequest  => BadRequest(jsonError("This team requires confirmation."))
                     case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
+                    case Requesting.Blocklist    => BadRequest(jsonError("You cannot join this team."))
               )
           )
   }
@@ -373,6 +382,8 @@ final class Team(
       case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess
       case Requesting.NeedRequest | Requesting.NeedPassword =>
         Redirect(routes.Team.requestForm(team.id)).flashSuccess
+      case Requesting.Blocklist =>
+        Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
     }
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
@@ -506,15 +517,17 @@ final class Team(
     JsonOptionOk:
       api teamEnabled id flatMapz { team =>
         for
-          joined    <- ctx.userId.so { api.belongsTo(id, _) }
-          requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
-        yield {
-          env.team.jsonView.teamWrites.writes(team) ++ Json
+          joined      <- ctx.userId.so { api.belongsTo(id, _) }
+          requested   <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
+          withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
+          _           <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
+        yield some:
+          import env.team.jsonView.given
+          Json.toJsObject(withLeaders) ++ Json
             .obj(
               "joined"    -> joined,
               "requested" -> requested
             )
-        }.some
       }
 
   def apiSearch(text: String, page: Int) = Anon:
@@ -548,7 +561,7 @@ final class Team(
   def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) {
     _ ?=> me ?=>
       WithOwnedTeamEnabledApi(teamId, _.Request): team =>
-        api request lila.team.Request.makeId(team.id, userId.id) flatMap {
+        api request lila.team.TeamRequest.makeId(team.id, userId.id) flatMap {
           case None      => fuccess(ApiResult.ClientError("No such team join request"))
           case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
         }

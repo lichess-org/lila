@@ -31,20 +31,20 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.6.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.99.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.100.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.0.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.1.0"
 
   object tests {
     val bundle = Seq(munit, scalacheck, munitCheck, testKit)
   }
 
   object flexmark {
-    val version = "0.64.0"
+    val version = "0.64.8"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
         List("ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
@@ -53,7 +53,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.5.8"
+    val version = "2.5.9"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.4"
@@ -69,8 +69,8 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.13"
-    val json        = "com.typesafe.play" %% "play-json"         % "2.10.1"
+    val playVersion = "2.8.18-lila_3.16"
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.2"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -79,14 +79,14 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.3"
+    val version = "2.2.4"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
   }
 
   object kamon {
-    val version    = "2.5.11"
+    val version    = "2.6.5"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

@@ -3,9 +3,9 @@
   <string name="arenaTournaments">Các giải đấu đấu trường</string>
   <string name="isItRated">Có tính Elo?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
-  <string name="isRated">Giải đấu này có tính Elo và sẽ ảnh hưởng đến Elo của bạn.</string>
-  <string name="isNotRated">Giải đấu này *không* tính Elo và sẽ *không* ảnh hưởng đến Elo của bạn.</string>
-  <string name="someRated">Một số giải đấu có tính Elo và sẽ ảnh hưởng đến Elo của bạn.</string>
+  <string name="isRated">Giải đấu này có xếp hạng và sẽ ảnh hưởng đến Elo của bạn.</string>
+  <string name="isNotRated">Giải đấu này *không* xếp hạng và sẽ *không* ảnh hưởng đến Elo của bạn.</string>
+  <string name="someRated">Một số giải đấu có xếp hạng và sẽ ảnh hưởng đến Elo của bạn.</string>
   <string name="howAreScoresCalculated">Điểm được tính thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
 Nếu bạn thắng hai ván liên tiếp bạn sẽ bắt đầu có chuỗi nhân đôi điểm, thể hiện bằng hình ngọn lửa.
@@ -50,7 +50,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Berserk</string>
   <string name="allowBerserkHelp">Cho phép các kỳ thủ giảm một nửa thời gian để lấy thêm một điểm</string>
-  <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng chat</string>
+  <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng trò chuyện</string>
   <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
   <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Không cho phép Berserk</string>

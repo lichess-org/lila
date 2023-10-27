@@ -87,6 +87,10 @@
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
   <string name="masterDbExplanation">ორი მილიონი პარტია ფიდე %1$s+ მოთამაშეებს შორის %2$s-დან %3$s-მდე</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">შამათი %s ნახევარ სვლაში</item>
+    <item quantity="other">შამათი %s ნახევარ სვლებში</item>
+  </plurals>
   <string name="dtzWithRounding">DTZ50\" დამრგვალებით, პირველი სვლების რაოდენობაზე დაყრდნობით შემდეგ მოკვლამდე ან პაიკის სვლამდე</string>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
   <string name="maxDepthReached">მაქსიმალური სიღრმე!</string>
@@ -122,6 +126,18 @@
   <string name="blunder">უხეში შეცდომა</string>
   <string name="mistake">შეცდომა</string>
   <string name="inaccuracy">უზუსტობა</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s უხეში შეცდომა</item>
+    <item quantity="other">%s უხეში შეცდომები</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s შეცდომა</item>
+    <item quantity="other">%s შეცდომები</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s უზუსტობა</item>
+    <item quantity="other">%s უზუსტობები</item>
+  </plurals>
   <string name="moveTimes">სვლის დრო</string>
   <string name="flipBoard">დაფის შემობრუნება</string>
   <string name="threefoldRepetition">სამჯერადი გამეორება</string>
@@ -138,6 +154,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s თამაში</item>
     <item quantity="other">%s თამაში</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s პარტიის, %1$s -ის რეიტინგი</item>
+    <item quantity="other">%2$s პარტიის, %1$s -ის რეიტინგი</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ჩანიშნული თამაში</item>
@@ -792,11 +812,14 @@
   <string name="learnFromThisMistake">ისწავლეთ ამ შეცდომისგან</string>
   <string name="skipThisMove">გამოტოვეთ ეს სვლა</string>
   <string name="next">შემდეგი</string>
+  <string name="xWasPlayed">%s - ა ნათამაშები</string>
   <string name="findBetterMoveForWhite">იპოვე უკეთესი სვლა თეთრისათვის</string>
   <string name="findBetterMoveForBlack">იპოვე უკეთესი სვლა შავისთვის</string>
+  <string name="resumeLearning">გააგრძელე სწავლა</string>
   <string name="youCanDoBetter">უკეთესად შეგიძლიათ</string>
   <string name="tryAnotherMoveForWhite">სცადეთ სხვა სვლა თეთრისთვის</string>
   <string name="tryAnotherMoveForBlack">სცადეთ სხვა სვლა შავისთვის</string>
+  <string name="solution">გამოსავალი</string>
   <string name="waitingForAnalysis">ანალიზს ველოდებით</string>
   <string name="noMistakesFoundForWhite">თეთრზე შეცდომები არ მოიძებნა</string>
   <string name="noMistakesFoundForBlack">შავზე შეცდომები არ მოიძებნა</string>
@@ -838,6 +861,11 @@
   <string name="thankYouForReading">მადლობთ, რომ კითხულობთ!</string>
   <string name="lifetimeScore">მთლიანი ანგარიში</string>
   <string name="currentMatchScore">მიმდინარე პარტიის ანგარიში</string>
+  <string name="agreementAssistance">ვთანხმდები, რომ არავითარ შემთხვევაში არ მივიღებ დახმარებას ჩემი თამაშების დროს (ჭადრაკის კომპიუტერიდან, წიგნიდან, მონაცემთა ბაზიდან ან სხვა პირისგან).</string>
+  <string name="agreementNice">ვთანხმდები, რომ ყოველთვის პატივს ვცემ სხვა მოთამაშეებს.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ვთანხმდები, რომ არ შევქმნი რამდენიმე ექაუნთს (გარდა %s-ში მითითებული მიზეზებისა).</string>
+  <string name="agreementPolicy">ვთანხმდები, რომ დავიცავ Lichess -ის პოლიტიკას.</string>
+  <string name="searchOrStartNewDiscussion">მოძებნეთ ან დაიწყეთ საუბარი</string>
   <string name="edit">რედაქტირება</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ბლიცი</string>
   <string name="rapid">სწრაფი</string>
@@ -847,7 +875,97 @@
   <string name="blitzDesc">ჩქარი თამაში: 3-დან 8 წუთამდე</string>
   <string name="rapidDesc">სწრაფი თამაში: 8-დან 25 წუთამდე</string>
   <string name="classicalDesc">კლასიკური თამაში: 25 წუთი და მეტი</string>
+  <string name="correspondenceDesc">პარტიები სადაც ერთი ან რამდენიმე დღე გაქვთ სათამაშოდ ყოველი სვლისთვის</string>
+  <string name="puzzleDesc">ჭადრაკის ტაქტიკის ვარჯიში</string>
   <string name="important">მნიშვნელოვანი</string>
+  <string name="yourQuestionMayHaveBeenAnswered">თქვენს შეკითხვაზე პასუხი შეიძლება გაცემული იყოს %1$s</string>
+  <string name="inTheFAQ">FAQ-ში</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">მომხმარებლის არასამართლიანი თამაშის ან ცუდი ქცევის შესახებ შეტყობინებისთვის, %1$s</string>
+  <string name="useTheReportForm">გამოიყენეთ ოქმის ფორმა</string>
+  <string name="toRequestSupport">დახმარების მისაღებად, %1$s</string>
+  <string name="tryTheContactPage">გამოიყენეთ საკონტაქტო გვერდი</string>
+  <string name="makeSureToRead">დარწმუნდით, რომ წაიკითხეთ %1$s</string>
+  <string name="theForumEtiquette">ფორუმის ეტიკეტი</string>
+  <string name="thisTopicIsArchived">ეს თემა დაარქივებულია და მასზე პასუხის გაცემა აღარ არის შესაძლებელი.</string>
+  <string name="joinTheTeamXToPost">შეუერთდით %1$s ამ ფორუმზე დასაპოსტად</string>
+  <string name="teamNamedX">%1$s გუნდს</string>
+  <string name="youCannotPostYetPlaySomeGames">ჯერ არ შეგიძლია ფორუმზე გამოქვეყნება. ითამაშეთ რამდენიმე თამაში!</string>
   <string name="subscribe">გამოწერა</string>
   <string name="unsubscribe">გამოწერის გაუქმება</string>
+  <string name="mentionedYouInX">გახსენა \"%1$s\" - ში</string>
+  <string name="xMentionedYouInY">%1$s -მა გახსენა  \"%2$s\" -ში.</string>
+  <string name="invitedYouToX">მიგიწვია \"%1$s\" - ში.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s -მა მოგიწვია \"%2$s\" -ში.</string>
+  <string name="youAreNowPartOfTeam">თქვენ გახდით გუნდის წევრი.</string>
+  <string name="youHaveJoinedTeamX">თქვენ შეუერთდით \"%1$s\" -ს.</string>
+  <string name="someoneYouReportedWasBanned">თქვენ საჩივარზე ვიღაცას ექაუნთი დაეხურა</string>
+  <string name="congratsYouWon">გილოცავთ! მოიგეთ!</string>
+  <string name="gameVsX">პარტია %1$s-ს წინააღმდეგ</string>
+  <string name="resVsX">%1$s-ი %2$s-ის წინააღმდეგ</string>
+  <string name="lostAgainstTOSViolator">თქვენ დაკარგეთ სარეიტინგო ქულები იმასთან, ვინც დაარღვია Lichess-ის TOS</string>
+  <string name="refundXpointsTimeControlY">აგინაზღაურდათ %1$s რეიტინგის ქულა %2$s დროის ფორმატში.</string>
+  <string name="timeAlmostUp">დრო თითქმის ამოიწურა!</string>
+  <string name="clickToRevealEmailAddress">[დააჭირეთ ელფოსტის სანახავად]</string>
+  <string name="download">ჩამოტვირთვა</string>
+  <string name="welcome">მოგესალმებით!</string>
+  <string name="lichessPatronInfo">Lichess -ი არის საქველმოქმედო და სრულიად უფასო/თავისუფალი ღია კოდის მქონე პროგრამა.
+ყველა საოპერაციო ხარჯი, დეველოპმენტი და კონტენტი ფინანსდება მხოლოდ მომხმარებლის შემოწირულობებით.</string>
+  <string name="coachManager">მასწავლებლის მენეჯერი</string>
+  <string name="streamerManager">სტრიმერის მენეჯერი</string>
+  <string name="cancelTournament">ტურნირის გაუქმება</string>
+  <string name="tournDescription">ტურნირის აღწერა</string>
+  <string name="tournDescriptionHelp">რაიმე განსაკუთრებული გსურთ უთხრათ მონაწილეებს? შეეცადეც, რომ ტექსტი დიდი არ იყოს. მარკდაუნის ბმულები ხელმისაწვდომია: [name](https://url)</string>
+  <string name="ratedFormHelp">თამაშები რეიტინგზეა
+და გავლენას ახდენს მოთამაშეების რეიტინგზე</string>
+  <string name="onlyMembersOfTeam">მხოლოდ გუნდის წევრები</string>
+  <string name="noRestriction">არანაირი შეზღუდვები</string>
+  <string name="minimumRatedGames">მინიმალური რეიტინგული თამაშები</string>
+  <string name="minimumRating">მაქსიმალური რეიტინგი</string>
+  <string name="maximumWeeklyRating">მაქსიმალური კვირეული რეიტინგი</string>
+  <string name="onlyTitled">მხოლოდ ტიტულოვანი მოთამაშეები</string>
+  <string name="onlyTitledHelp">მოითხოვეთ ოფიციალური ტიტული ტურნირში შესასვლელად</string>
+  <string name="positionInputHelp">ჩასვით მოქმედი FEN, რათა დაიწყოთ ყველა თამაში მოცემული პოზიციიდან.
+ის მუშაობს მხოლოდ სტანდარტულ თამაშებზე და არა ვარიანტებზე.
+შეგიძლიათ გამოიყენოთ %s FEN პოზიციის შესაქმნელად, შემდეგ ჩასვით აქ.
+დატოვეთ ცარიელი, რომ დაიწყოთ თამაშები ჩვეულებრივი საწყისი პოზიციიდან.</string>
+  <string name="cancelSimul">გააუქმეთ სიმული</string>
+  <string name="simulHostcolor">სიმულის შემქმნელის ფერი ყოველი პარტიისთვის</string>
+  <string name="estimatedStart">დაწყების სავარაუდო დრო</string>
+  <string name="simulFeatured">სიმული ლინკზე %s</string>
+  <string name="simulFeaturedHelp">აჩვენეთ თქვენი სიმული ყველას %s -ზე. გამორთეთ პირადი სიმულებისთვის.</string>
+  <string name="simulDescription">სიმულის აღწერა</string>
+  <string name="simulDescriptionHelp">რისი თქმა გსურთ მონაწილეებისთვის?</string>
+  <string name="markdownAvailable">%s ხელმისაწვდომია უფრო რთული სინტაქსისთვის.</string>
+  <string name="embedsAvailable">ჩასვით თამაშის ლინკი ან კვლევის ლინკი მის ჩასაშენებლად.</string>
+  <string name="inYourLocalTimezone">თქვენს ადგილობრივ სასაათო სარტყელში</string>
+  <string name="tournChat">ტურნირის ჩატი</string>
+  <string name="noChat">ჩატის გარეშე</string>
+  <string name="onlyTeamLeaders">მხოლოდ გუნდის ლიდერებითვის</string>
+  <string name="onlyTeamMembers">მხოლოდ გუნდის წევრებისთვის</string>
+  <string name="navigateMoveTree">სვლების ნავიგაცია</string>
+  <string name="mouseTricks">მაუსის ხრიკები</string>
+  <string name="toggleLocalAnalysis">კომპიუტერული ანალიზის ჩართვა</string>
+  <string name="toggleAllAnalysis">Მთლიანი კომპიუტერული ანალიზის ჩართვა (ლიჩესის და თქვენი კომპიუტერის)</string>
+  <string name="playComputerMove">ითამაშე კომპიუტერის საუკეთესო სვლა</string>
+  <string name="analysisOptions">ანალიზის ვარიანტები</string>
+  <string name="focusChat">ფოკუსირება ჩატზე</string>
+  <string name="showHelpDialog">დახმარების დიალოგის ჩვენება</string>
+  <string name="reopenYourAccount">ხელახლა გახსენით თქვენი ექაუნთი</string>
+  <string name="closedAccountChangedMind">თუ დახურეთ თქვენი ექაუნთი, მაგრამ მას შემდეგ გადაიფიქრეთ, გექნებათ თქვენი ექაუნთის დაბრუნების ერთი შანსი.</string>
+  <string name="onlyWorksOnce">ეს მხოლოდ ერთხელ იმუშავებს.</string>
+  <string name="cantDoThisTwice">მეორედ თუ დახურავთ თქვენს ექაუნთს, აღდგენის შანსი აღარ გექნებათ.</string>
+  <string name="emailAssociatedToaccount">ელფოსტის მისამართი, ასოცირებული ექაუნთთან</string>
+  <string name="sentEmailWithLink">გამოგიგზავნეთ ელფოსტა ლინკით.</string>
+  <string name="tournamentEntryCode">ტურნირში შესასვლელი კოდი</string>
+  <string name="hangOn">ცოტაც მოიცადეთ!</string>
+  <string name="gameInProgress">თქვენ უკვე თამაშობთ %s -სთან.</string>
+  <string name="abortTheGame">შეწყვიტეთ თამაში</string>
+  <string name="resignTheGame">თამაშიდან გამოსვლა</string>
+  <string name="youCantStartNewGame">ვერ შეძლებთ ახალი თამაშის დაწყებას, სანამ მიმდინარე არ დასრულდება.</string>
+  <string name="since">დან</string>
+  <string name="until">მდე</string>
+  <string name="lichessDbExplanation">Lichess-ზე ჩატარებული რეიტინგული თამაშები</string>
+  <string name="switchSides">მხარეების შეცვლა</string>
+  <string name="closingAccountWithdrawAppeal">თქვენი ექაუნთის დახურვა გამოიწვევს თქვენი აპელაციის ამოღებას</string>
+  <string name="ourEventTips">ჩვენი რჩევები ღონისძიებების ორგანიზებისთვის</string>
 </resources>

@@ -12,7 +12,8 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    div(cls := "tv-channels subnav"):
+    views.html.site.bits.subnav(
+      cls := "tv-channels",
       lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
@@ -26,17 +27,19 @@ object side:
             span(
               strong(c.name),
               span(cls := "champion")(
-                champions.get(c).fold[Frag](raw(" - ")) { p =>
-                  frag(
-                    p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
-                    ratingTag(
-                      " ",
-                      p.rating
+                champions
+                  .get(c)
+                  .fold[Frag](raw(" - ")): p =>
+                    frag(
+                      p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
+                      ratingTag(
+                        " ",
+                        p.rating
+                      )
                     )
-                  )
-                }
               )
             )
+    )
 
   private val separator = " • "
 

@@ -40,19 +40,16 @@ object queue:
                 markedByMe.contains(appeal.userId) option span(
                   dataIcon := licon.CautionTriangle,
                   cls      := "marked-by-me text"
-                )(
-                  "My mark"
-                ),
+                )("My mark"),
                 views.html.user.mod.userMarks(user, None)
               ),
-              td(appeal.msgs.lastOption map { msg =>
+              td(appeal.msgs.lastOption.map: msg =>
                 frag(
                   userIdLink(msg.by.some),
                   " ",
                   momentFromNowOnce(msg.at),
                   p(shorten(msg.text, 200))
-                )
-              }),
+                )),
               td(
                 a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.userId) map { i =>
@@ -69,7 +66,9 @@ object queue:
     span(cls := "appeal-filters btn-rack"):
       Filter.allWithIcon.map: (filter, icon) =>
         a(
-          cls      := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
-          href     := appealRoutes.queue(current.fold(filter.some)(_.toggle(filter)).map(_.key)),
+          cls := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
+          href := appealRoutes.queue(
+            current.fold(filter.some)(_.toggle(filter)).fold("reset")(_.key).some
+          ),
           dataIcon := icon.left.toOption
         )(icon.toOption)

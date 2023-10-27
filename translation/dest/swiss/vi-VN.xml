@@ -39,7 +39,7 @@
   <string name="pointsCalculationA">Một trận thắng là 1 điểm, một trận hòa là 0.5 điểm và một trận thua không tính điểm.
 Khi có người không được ghép đôi trong một vòng đấu, họ nhận được 1 điểm \"bye\".</string>
   <string name="tiebreaksCalculationQ">Tie break được tính như thế nào?</string>
-  <string name="sonnebornBergerScore">Điểm số Sonneborn-Berger</string>
+  <string name="sonnebornBergerScore">Điểm Sonneborn-Berger</string>
   <string name="tiebreaksCalculationA">Với %s.
 Cộng điểm số của tất cả người chơi mà người này thắng và nửa số điểm của mỗi người chơi mà người này hòa.</string>
   <string name="pairingsQ">Các cặp đấu được xác định như thế nào?</string>
@@ -76,7 +76,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="otherSystemsQ">Vậy còn những hệ thống giải đấu khác?</string>
   <string name="otherSystemsA">Hiện tại chúng tôi chưa có ý định thêm các hệ thống giải đấu khác vào Lichess.</string>
   <string name="swissDescription">Trong một giải đấu hệ Thụy Sĩ %1$s, mỗi kì thủ không nhất thiết phải đấu với tất cả những người tham gia khác. Các kì thủ một đối một trong mỗi vòng và được ghép cặp với nhau bằng cách sử dụng một bộ quy tắc được thiết kế để đảm bảo rằng mỗi đấu thủ sẽ đấu với các đối thủ có điểm số tương tự nhưng không gặp lại cùng một đối thủ ở các vòng trước. Người chiến thắng là người có tổng điểm cao nhất sau tất cả các vòng. Mỗi vòng đấu tất cả các đấu thủ sẽ đều được chơi trừ khi số người chơi là số lẻ.</string>
-  <string name="teamOnly">Giải đấu Thụy Sĩ chỉ có thể được tạo bởi đội trưởng, và chỉ có thể được tham gia bởi các thành viên trong đội. %1$s để bắt đầu chơi trong các giải đấu Thụy Sĩ.</string>
+  <string name="teamOnly">Giải đấu Thụy Sĩ chỉ có thể được tạo bởi đội trưởng và chỉ có thể được tham gia bởi các thành viên trong đội. %1$s để bắt đầu chơi trong các giải đấu Thụy Sĩ.</string>
   <string name="joinOrCreateTeam">Tham gia hoặc tạo một nhóm</string>
   <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Đang chơi</string>
   <string name="startingSoon">Sắp bắt đầu</string>
@@ -102,7 +102,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="pauseSwiss">Cho phép nhưng phải giảm số vòng đấu</string>
   <string name="streaksAndBerserk">Streaks và Berserk</string>
   <string name="similarToOTB">Tương tự các giải đấu OTB</string>
-  <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
+  <string name="unlimitedAndFree">Miễn phí và không giới hạn</string>
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
   <string name="playYourGames">Chơi trò chơi của bạn</string>

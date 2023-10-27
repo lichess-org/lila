@@ -25,7 +25,7 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
   given teamWithLeadersWrites: OWrites[Team.WithPublicLeaderIds] = OWrites: t =>
     teamWrites.writes(t.team) ++ Json.obj("leaders" -> t.publicLeaders.map(lightUserApi.syncFallback))
 
-  given OWrites[Request] = OWrites: req =>
+  given OWrites[TeamRequest] = OWrites: req =>
     Json
       .obj(
         "userId"  -> req.user,

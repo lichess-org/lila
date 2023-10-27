@@ -93,7 +93,7 @@
   }
 
   &__blocked {
-    > p {
+    .forum-post__message {
       display: none;
     }
     > button {

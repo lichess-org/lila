@@ -49,13 +49,6 @@ object home:
         )
       )(
         div(cls := "lobby__table")(
-          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
-            cls   := "bg-switch",
-            title := "Dark mode"
-          )(
-            div(cls := "bg-switch__track"),
-            div(cls := "bg-switch__thumb")
-          ),
           div(cls := "lobby__start")(
             button(cls := "button button-metal", tpe := "button", trans.createAGame()),
             button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
@@ -98,7 +91,7 @@ object home:
             }
           ),
           if ctx.isAuth then
-            div(cls := "timeline")(
+            div(cls := "lobby__timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(

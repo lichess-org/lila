@@ -26,7 +26,7 @@ object admin:
       main(cls := "page-menu")(
         bits.menu(none),
         div(cls := "page-menu__content box")(
-          adminTop(t.team, teamLeaders),
+          adminTop(t.team, teamLeaders()),
           standardFlash.map(div(cls := "box__pad")(_)),
           postForm(
             cls    := "team-add-leader box__pad complete-parent",
@@ -78,26 +78,44 @@ object admin:
         )
       )
 
-  def kick(t: Team, form: Form[?])(using PageContext) =
+  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) =
     views.html.base.layout(
       title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = jsModule("team.admin")
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         bits.menu(none),
-        div(cls := "page-menu__content box box-pad")(
-          adminTop(t, kickSomeone),
-          postForm(action := routes.Team.kick(t.id))(
-            form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
-            form3.actions(
-              a(href := routes.Team.show(t.id))(trans.cancel()),
-              form3.submit(trans.save())
+        div(cls := "page-menu__content")(
+          div(cls := "box box-pad")(
+            adminTop(t, kickSomeone()),
+            postForm(action := routes.Team.kick(t.id))(
+              form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
+              form3.actions(
+                a(href := routes.Team.show(t.id))(trans.cancel()),
+                form3.submit(lila.i18n.I18nKeys.study.kick())
+              )
+            )
+          ),
+          br,
+          div(cls := "box box-pad")(
+            adminTop(t, "User blocklist"),
+            postForm(action := routes.Team.blocklist(t.id))(
+              form3
+                .group(
+                  blocklistForm("names"),
+                  frag("List of usernames who cannot join the team. One per line.")
+                )(
+                  form3.textarea(_)(rows := 4)
+                ),
+              form3.actions(
+                a(href := routes.Team.show(t.id))(trans.cancel()),
+                form3.submit(trans.save())
+              )
             )
           )
         )
       )
-    }
 
   private def teamMembersAutoComplete(team: Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
@@ -120,7 +138,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          adminTop(t, messageAllMembers),
+          adminTop(t, messageAllMembers()),
           p(messageAllMembersLongDescription()),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
@@ -176,6 +194,6 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
         )
       )
 
-  private def adminTop(t: Team, i18n: lila.i18n.I18nKey)(using Lang) =
+  private def adminTop(t: Team, title: Frag)(using Lang) =
     boxTop:
-      h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
+      h1(a(href := routes.Team.show(t.slug))(t.name), " • ", title)

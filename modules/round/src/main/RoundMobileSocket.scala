@@ -12,6 +12,7 @@ import lila.common.Json.given
 import LightUser.lightUserWrites
 import chess.{ Color, ByColor }
 import lila.pref.Pref
+import lila.chat.Chat
 
 final private class RoundMobileSocket(
     lightUserGet: LightUser.Getter,
@@ -20,7 +21,8 @@ final private class RoundMobileSocket(
     roundJson: JsonView,
     prefApi: lila.pref.PrefApi,
     takebacker: Takebacker,
-    moretimer: Moretimer
+    moretimer: Moretimer,
+    chatApi: lila.chat.ChatApi
 )(using Executor):
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
@@ -34,6 +36,7 @@ final private class RoundMobileSocket(
     prefs        <- myPlayer.flatMap(_.userId).so(prefApi.getPrefById)
     takebackable <- takebacker.isAllowedIn(game)
     moretimeable <- moretimer.isAllowedIn(game)
+    chat         <- getPlayerChat(game, myPlayer.exists(_.hasUser))
   yield
     def playerJson(color: Color) =
       val player = game player color
@@ -64,6 +67,13 @@ final private class RoundMobileSocket(
       .add("moretimeable" -> moretimeable)
       .add("youAre", myPlayer.map(_.color))
       .add("prefs", prefs.map(prefsJson(game, _)))
+      .add(
+        "chat",
+        chat.map: c =>
+          Json
+            .obj("lines" -> lila.chat.JsonView(c.chat))
+            .add("restricted", c.restricted)
+      )
 
   private def prefsJson(game: Game, pref: Pref): JsObject = Json
     .obj(
@@ -74,3 +84,9 @@ final private class RoundMobileSocket(
     .add("confirmResign", pref.confirmResign == Pref.ConfirmResign.YES)
     .add("enablePremove", pref.premove)
     .add("submitMove", roundJson.submitMovePref(pref, game, nvui = false))
+
+  private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
+    game.hasChat.so:
+      chatApi.playerChat.findIf(game.id into ChatId, !game.justCreated) map { chat =>
+        Chat.Restricted(chat, restricted = game.fromLobby && !isAuth).some
+      }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Uitsendings</string>
+  <string name="myBroadcasts">My uitsendings</string>
   <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
   <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
   <string name="addRound">Voeg \'n ronde by</string>
@@ -28,5 +29,5 @@
   <string name="definitivelyDeleteRound">Skrap die rondte en sy spelle beslis uit.</string>
   <string name="deleteAllGamesOfThisRound">Skrap alle spelle van hierdie rondte. Die bron sal aktief moet wees om hulle te kan herskep.</string>
   <string name="deleteTournament">Vee hierdie toernooi uit</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
+  <string name="definitivelyDeleteTournament">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
 </resources>

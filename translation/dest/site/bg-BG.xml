@@ -20,7 +20,7 @@
   <string name="asWhite">с белите</string>
   <string name="asBlack">с черните</string>
   <string name="randomColor">Произволна страна</string>
-  <string name="createAGame">Създаване на игра</string>
+  <string name="createAGame">Създай игра</string>
   <string name="whiteIsVictorious">Белите победиха</string>
   <string name="blackIsVictorious">Черните победиха</string>
   <string name="youPlayTheWhitePieces">Вие играете с белите фигури</string>
@@ -528,8 +528,8 @@
   <string name="tournamentWinners">Победители от състезанията</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
-  <string name="descPrivate">Вътрешно описание</string>
-  <string name="descPrivateHelp">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Вътрешно описание</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="help">Помощ:</string>
@@ -789,7 +789,7 @@
   <string name="invalidFen">Невалиден FEN</string>
   <string name="custom">По избор</string>
   <string name="notifications">Известия</string>
-  <string name="notificationsX">Известия: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Известия: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за първия ход</item>
@@ -868,7 +868,7 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Редактиране</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ускорен</string>
   <string name="classical">Класически</string>
   <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
@@ -896,7 +896,7 @@
   <string name="mentionedYouInX">Ви спомена в \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s Ви спомена в \"%2$s\".</string>
   <string name="invitedYouToX">Ви покани на \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s Ви покани на \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s Ви покани на \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
   <string name="youHaveJoinedTeamX">Присъединихте се към \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Някого когото сте докладвали беше блокиран</string>
@@ -907,7 +907,7 @@
   <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
-  <string name="download">Изтегляне</string>
+  <string name="download">Изтегли</string>
   <string name="welcome">Добре дошли!</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
   <string name="coachManager">Настройки за треньори</string>

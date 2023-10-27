@@ -31,8 +31,8 @@
   <string name="fairPlayPage">адал ойын парақшасында</string>
   <string name="youCanUseOpeningBookNoEngine">Личестегі хат-хабарлы ойынның басты ерекшелігі – бастаулар кітабын пайдалану рұқсат. Компьютердің көмегін қолдану бұрынғыдай тыйым, әрі шектеу белгісіне шалдықтырады. ICCF ұйымы хат-хабарлы ойындарда есептеуіш көмегін рұқсат еткенімен, біздің ережеміз өзгеше.</string>
   <string name="gameplay">Ойын</string>
-  <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
-  <string name="basedOnGameDuration">Личесте уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s
+  <string name="howBulletBlitzEtcDecided">Буллит, Блиц пен басқа да уақыт қалыптарының айырмашылығы неде?</string>
+  <string name="basedOnGameDuration">Личестегі уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s.
 Мысалы, 5+3 ойынның болжаулы ұзақтығы 5 × 60 + 40 × 3 = 420 секунд.</string>
   <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>

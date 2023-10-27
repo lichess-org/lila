@@ -249,23 +249,20 @@ final class UserRepo(val coll: Coll)(using Executor):
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(ids), F.id)
 
-  def userIdsLikeWithRole(text: UserStr, role: String, max: Int = 10): Fu[List[UserId]] =
+  def userIdsLikeWithRole(text: UserSearch, role: String, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
 
-  private[user] def userIdsLikeFilter(text: UserStr, filter: Bdoc, max: Int): Fu[List[UserId]] =
-    User.validateId(text) so { id =>
-      coll
-        .find(
-          $doc(F.id $startsWith id.value) ++ enabledSelect ++ filter,
-          $doc(F.id -> true).some
-        )
-        .sort($doc("len" -> 1))
-        .cursor[Bdoc](ReadPref.sec)
-        .list(max)
-        .map {
-          _ flatMap { _.getAsOpt[UserId](F.id) }
-        }
-    }
+  private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
+    coll
+      .find(
+        $doc(F.id $startsWith text.value) ++ enabledSelect ++ filter,
+        $doc(F.id -> true).some
+      )
+      .sort($doc("len" -> 1))
+      .cursor[Bdoc](ReadPref.sec)
+      .list(max)
+      .map:
+        _.flatMap { _.getAsOpt[UserId](F.id) }
 
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void

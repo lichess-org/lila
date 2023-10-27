@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.{ MyId, User }
 import lila.team.TeamSecurity.Permission
 
-final class MemberRepo(val coll: Coll)(using Executor):
+final class TeamMemberRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
@@ -94,6 +94,13 @@ final class MemberRepo(val coll: Coll)(using Executor):
       .primitive[TeamId](selectIds(teamIds, leader) ++ selectAnyPerm, "team")
       .dmap(_.toSet)
 
+  def teamsWhereIsGrantedRequest(leader: UserId): Fu[List[TeamId]] =
+    coll.distinctEasy[TeamId, List](
+      "team",
+      $doc("user" -> leader, "perms" -> TeamSecurity.Permission.Request),
+      _.sec
+    )
+
   def unsetAllPerms(teamId: TeamId): Funit =
     coll.update
       .one(teamQuery(teamId) ++ selectAnyPerm, $unset("perms"), multi = true)
@@ -114,6 +121,16 @@ final class MemberRepo(val coll: Coll)(using Executor):
         _.flatMap(TeamMember.parseId).groupBy(_._2).view.mapValues(_.map(_._1)).toMap
       .map: grouped =>
         teams.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil)))
+
+  def addPublicLeaderIds(team: Team): Fu[Team.WithPublicLeaderIds] =
+    coll
+      .primitive[String](
+        teamQuery(team.id) ++ $doc("perms" -> Permission.Public),
+        "_id"
+      )
+      .map:
+        _.flatMap(TeamMember.parseId).view.map(_._1).toList
+      .map(Team.WithPublicLeaderIds(team, _))
 
   def addMyLeadership(teams: Seq[Team])(using me: Option[MyId]): Fu[List[Team.WithMyLeadership]] =
     me.so(filterLedBy(teams.map(_.id), _))

@@ -11,9 +11,9 @@ final private[timeline] class TimelinePush(
     userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
-    memberRepo: lila.team.MemberRepo,
+    memberRepo: lila.team.TeamMemberRepo,
     teamCache: lila.team.Cached,
-    teamMemberRepo: lila.team.MemberRepo
+    teamMemberRepo: lila.team.TeamMemberRepo
 ) extends Actor:
 
   private given Executor = context.dispatcher

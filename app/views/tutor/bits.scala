@@ -37,6 +37,6 @@ object bits:
       csp = defaultCsp.withInlineIconFont.some
     ):
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
-        st.aside(cls := "page-menu__menu subnav")(menu),
+        views.html.site.bits.subnav(menu),
         div(cls := "page-menu__content")(content)
       )
