@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Тохиргоо</string>
+  <string name="display">Дэлгэц</string>
   <string name="pieceAnimation">Хөлгийн хөдөлгөөнийг амилуулах</string>
   <string name="materialDifference">Талуудын хөлгийн зөрүүг үзүүлэх</string>
   <string name="boardHighlights">Хийгдсэн нүүдлүүдийг тодотгох (сүүлчийн нүүдэл, мад, шаг)</string>
@@ -41,4 +42,6 @@
   <string name="castleByMovingOntoTheRook">Ноёноо тэрэгрүүгээ нүүх</string>
   <string name="inputMovesWithTheKeyboard">Гарнаас нүүдэл оруулах</string>
   <string name="yourPreferencesHaveBeenSaved">Таны шинэчлэгдсэн тохиргоо хадгалагдлаа.</string>
+  <string name="notifyChallenge">Саналууд</string>
+  <string name="notifyTournamentSoon">Тэмцээн удахгүй эхэллээ яараарай!!</string>
 </resources>
