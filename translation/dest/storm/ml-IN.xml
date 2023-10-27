@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">തുടങ്ങാനായി കരു നീക്കുക</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ വെള്ള കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ കറുത്ത കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ വെള്ള കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ കറുത്ത കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
   <string name="puzzlesSolved">ഉത്തരം ശരിയാണ്</string>
-  <string name="newDailyHighscore">പുതിയ  പ്രതിദിന ഹൈസ്കോര്‍!</string>
-  <string name="newWeeklyHighscore">പുതിയ പ്രതിവാര ഹൈസ്കോര്‍!</string>
-  <string name="newMonthlyHighscore">പ്രതിവാരപുതിയ പ്രതിമാസ ഹൈസ്കോര്‍!</string>
-  <string name="newAllTimeHighscore">പുതിയ ഏറ്റവും മികച്ച സ്കോര്‍!</string>
-  <string name="previousHighscoreWasX">പഴയ മികച്ച സ്കോര്‍ %s ആയിരുന്നു</string>
+  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">പുതിയ  പ്രതിദിന ഹൈസ്കോര്‍!</string>
+  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">പുതിയ പ്രതിവാര ഹൈസ്കോര്‍!</string>
+  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">പ്രതിവാരപുതിയ പ്രതിമാസ ഹൈസ്കോര്‍!</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">പുതിയ ഏറ്റവും മികച്ച സ്കോര്‍!</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">പഴയ മികച്ച സ്കോര്‍ %s ആയിരുന്നു</string>
   <string name="playAgain">വീണ്ടും കളിക്കൂക</string>
   <plurals name="xRuns">
     <item quantity="one">1 തവണ</item>
     <item quantity="other">%s തവണകള്‍</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm">
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
     <item quantity="one">%2$s ഒരു തവണ കളിച്ചു</item>
     <item quantity="other">%2$s %1$s തവണ കളിച്ചു</item>
   </plurals>
-  <string name="highscoreX">മികച്ച സ്കോര്‍: %s</string>
-  <string name="score">സ്കോര്‍</string>
-  <string name="moves">കരു നീക്കങ്ങള്‍</string>
-  <string name="accuracy">കൃത്യത</string>
-  <string name="combo">തുടര്‍ച്ച</string>
-  <string name="time">സമയം</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">മികച്ച സ്കോര്‍: %s</string>
+  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">സ്കോര്‍</string>
+  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">കരു നീക്കങ്ങള്‍</string>
+  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">കൃത്യത</string>
+  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">തുടര്‍ച്ച</string>
+  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">സമയം</string>
   <string name="timePerMove">ഓരോ നീക്കത്തിനും എടുത്ത സമയം</string>
   <string name="highestSolved">ശരിയാക്കിയത്തില്‍ ഏറ്റവും ഉയര്‍ന്നത്</string>
   <string name="newRun">വീണ്ടും കളിക്കുക (ഹോട്ട്കീ: സ്പേസ്)</string>
   <string name="endRun">അവസാനിപ്പിക്കുക (ഹോട്ട്കീ: എന്റര്‍)</string>
-  <string name="highscores">താങ്കളുടെ മികച്ച സ്കോറുകള്‍</string>
-  <string name="viewBestRuns">മികച്ച ശ്രമങ്ങള്‍ കാണിക്കുക</string>
+  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">താങ്കളുടെ മികച്ച സ്കോറുകള്‍</string>
+  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">മികച്ച ശ്രമങ്ങള്‍ കാണിക്കുക</string>
   <string name="bestRunOfDay">ദിവസത്തെ മികച്ച ശ്രമം</string>
-  <string name="runs">ആകെ ശ്രമങ്ങള്‍</string>
+  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">ആകെ ശ്രമങ്ങള്‍</string>
   <string name="getReady">തയ്യാറായി നില്ക്കു‍ക!</string>
   <string name="waitingForMorePlayers">മറ്റു കളിക്കാര്‍ക്കായി കാത്തുനില്‍ക്കുന്നു...</string>
   <string name="raceComplete">മത്സരം അവസാനിച്ചു!</string>
@@ -43,7 +43,7 @@
   <string name="createNewGame">പുതിയ മത്സരം തുടങ്ങുക</string>
   <string name="joinPublicRace">പൊതു മത്സരത്തില്‍ പങ്കെടുക്കുക</string>
   <string name="raceYourFriends">സുഹൃത്തുക്കളുമായി മത്സരിക്കുക</string>
-  <string name="skip">ഒഴിവാക്കുക</string>
+  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">ഒഴിവാക്കുക</string>
   <string name="skipHelp">നിങ്ങള്‍ക്ക്‌ ഒരു മത്സരത്തില്‍ ഒരു നീക്കം ഒഴിവാക്കാം:</string>
   <string name="skipExplanation">ഈ നീക്കം ഒഴിവാക്കി തുടര്‍ച്ച നിലനിര്‍ത്തുക! ഒരു മത്സരത്തില്‍ ഒരു തവണ മാത്രം.</string>
 </resources>
