@@ -348,7 +348,7 @@
     <item quantity="one">%s estudio</item>
     <item quantity="other">%s estudios</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultánea</item>
     <item quantity="other">%s simultáneas</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicaciones</string>
-  <string name="lastPost">Última publicación</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Última publicación</string>
   <string name="views">Visitas</string>
   <string name="replies">Respuestas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
@@ -867,7 +867,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Relámpago</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
   <string name="ultraBulletDesc">Partidas increíblemente rápidas: menos de 30 segundos</string>
