@@ -496,7 +496,7 @@
   <string name="createANewTopic">새 토픽</string>
   <string name="topics">토픽</string>
   <string name="posts">글</string>
-  <string name="lastPost">최근 글</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">최근 글</string>
   <string name="views">조회</string>
   <string name="replies">답글</string>
   <string name="replyToThisTopic">답글 달기</string>
