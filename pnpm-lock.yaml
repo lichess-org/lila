@@ -163,6 +163,9 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      lila-stockfish-web:
+        specifier: link:/home/gamblej/ws/lichess/lila-stockfish-web
+        version: link:../../../lila-stockfish-web
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -172,9 +175,6 @@ importers:
       stockfish-nnue.wasm:
         specifier: ^1.0.0-1946a675.smolnet
         version: 1.0.0-1946a675.smolnet
-      stockfish-web:
-        specifier: ^0.1.0
-        version: 0.1.0
       stockfish.js:
         specifier: ^10.0.2
         version: 10.0.2
@@ -4815,10 +4815,6 @@ packages:
 
   /stockfish-nnue.wasm@1.0.0-1946a675.smolnet:
     resolution: {integrity: sha512-ofHHGb60dsMuz1SFurbkUBStMz6zmSLEculHUYdryX3782dys785hWgY9HJVgxMZQW+uhAARFcwPtPlyeW/nZg==}
-    dev: false
-
-  /stockfish-web@0.1.0:
-    resolution: {integrity: sha512-s7Fimn9hYfDC3G0vybl6lsrBmuEHsPGOFj+tAVnnEhRawEO9MB90xBoVqiceznd5slznNH7/YqkaDD4ft1/VjQ==}
     dev: false
 
   /stockfish.js@10.0.2:

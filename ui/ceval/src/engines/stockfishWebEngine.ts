@@ -2,7 +2,7 @@ import { Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
 import { Protocol } from '../protocol';
 import { objectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
-import type StockfishWeb from 'stockfish-web';
+import type StockfishWeb from 'lila-stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
   failed = false;
@@ -12,8 +12,8 @@ export class StockfishWebEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly nnueProgress?: (download?: { bytes: number; total: number }) => void,
-    variantMap?: (v: string) => string,
+    readonly nnue?: (download?: { bytes: number; total: number }) => void,
+    readonly variantMap?: (v: string) => string,
   ) {
     this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
@@ -24,18 +24,13 @@ export class StockfishWebEngine implements CevalEngine {
   }
 
   async boot() {
-    const [version, root, js, wasm] = [
-      this.info.assets.version,
-      this.info.assets.root,
-      this.info.assets.js,
-      this.info.assets.wasm,
-    ];
+    const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
     const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
 
     const module: StockfishWeb = await makeModule.default({
       wasmMemory: this.wasmMemory,
       locateFile: (name: string) =>
-        lichess.assetUrl(`${root}/${name === 'stockfishWeb.wasm' ? wasm : name}`, {
+        lichess.assetUrl(`${root}/${name}`, {
           version,
           sameDomain: name.endsWith('.worker.js'),
         }),
@@ -64,7 +59,7 @@ export class StockfishWebEngine implements CevalEngine {
 
         req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { version: nnueVersion }), true);
         req.responseType = 'arraybuffer';
-        req.onprogress = e => this.nnueProgress!({ bytes: e.loaded, total: e.total });
+        req.onprogress = e => this.nnue?.({ bytes: e.loaded, total: e.total });
 
         nnueBuffer = await new Promise((resolve, reject) => {
           req.onerror = reject;
@@ -72,7 +67,7 @@ export class StockfishWebEngine implements CevalEngine {
           req.send();
         });
 
-        this.nnueProgress!();
+        this.nnue?.();
         nnueStore?.put(nnueVersion, nnueBuffer!).catch(() => console.warn('IDB store failed'));
       }
       module.setNnueBuffer(nnueBuffer!);

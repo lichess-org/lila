@@ -1,4 +1,4 @@
-import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Redraw, Progress } from '../types';
+import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
 import CevalCtrl from '../ctrl';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
@@ -21,6 +21,10 @@ export class Engines {
 
   constructor(readonly ctrl: CevalCtrl) {
     this.localEngineMap = this.makeEngineMap();
+
+    if (hasFeature('wasm')) this.localEngineMap.delete('__sfjs');
+    if (hasFeature('sharedMem')) this.localEngineMap.delete('__sfwasm');
+
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ requires: 'external', ...e })) ?? [];
 
@@ -78,35 +82,63 @@ export class Engines {
         {
           info: {
             id: '__sf16nnue7',
-            name: 'Stockfish 16 NNUE (7 MB)',
+            name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             class: 'NNUE',
             requires: 'simd',
             minMem: 1536,
             assets: {
-              root: 'npm/stockfish-web',
-              js: 'stockfishWeb.js',
-              wasm: 'stockfishWeb.7.wasm',
+              root: 'npm/lila-stockfish-web',
+              js: 'linrock-nnue-7.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
         },
+        /*{
+          info: {
+            id: '__sf16nnue12',
+            name: 'Stockfish 16 NNUE · 12MB',
+            short: 'SF 16 · 12MB',
+            class: 'NNUE',
+            requires: 'simd',
+            minMem: 1536,
+            assets: {
+              root: 'npm/lila-stockfish-web',
+              js: 'linrock-nnue-12.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
+        },*/
         {
           info: {
             id: '__sf16nnue40',
-            name: 'Stockfish 16 NNUE (40 MB)',
+            name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             class: 'NNUE',
             requires: 'simd',
             minMem: 2048,
             assets: {
-              root: 'npm/stockfish-web',
-              js: 'stockfishWeb.js',
-              wasm: 'stockfishWeb.wasm',
+              root: 'npm/lila-stockfish-web',
+              js: 'sf-nnue-40.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
         },
+        /*{
+          info: {
+            id: '__sf16nnue60',
+            name: 'Stockfish 16 NNUE · 60MB',
+            short: 'SF 16 · 60MB',
+            class: 'NNUE',
+            requires: 'simd',
+            minMem: 4096,
+            assets: {
+              root: 'npm/lila-stockfish-web',
+              js: 'sf-nnue-60.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
+        },*/
         {
           info: {
             id: '__sf16hce',
@@ -115,9 +147,8 @@ export class Engines {
             class: 'HCE',
             requires: 'simd',
             assets: {
-              root: 'npm/stockfish-web',
-              js: 'stockfishWeb.js',
-              wasm: 'stockfishWeb.wasm',
+              root: 'npm/lila-stockfish-web',
+              js: 'sf-nnue-40.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e),
@@ -125,14 +156,11 @@ export class Engines {
         {
           info: {
             id: '__fsfhce',
-            name: 'Fairy Stockfish',
-            short: 'FSF',
+            name: 'Fairy Stockfish 16',
+            short: 'FSF 16',
             class: 'HCE',
             requires: 'simd',
             variants: [
-              'standard',
-              'chess960',
-              'fromPosition',
               'crazyhouse',
               'atomic',
               'horde',
@@ -142,27 +170,22 @@ export class Engines {
               'threeCheck',
             ],
             assets: {
-              root: 'npm/fairy-stockfish-web',
-              js: 'fairyStockfishWeb.js',
-              wasm: 'fairyStockfishWeb.wasm',
+              root: 'npm/lila-stockfish-web',
+              js: 'fsf-hce.js',
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new StockfishWebEngine(e, undefined, v => {
-              if (v === 'standard' || v === 'fromPosition' || v === 'chess960') return 'chess';
-              else if (v === 'threeCheck') return '3check';
-              else return v.toLowerCase();
-            }),
+            new StockfishWebEngine(e, undefined, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
         },
         {
           info: {
             id: '__sf14nnue',
-            name: 'Stockfish 14 NNUE',
+            name: 'Stockfish 14 NNUE · 12MB',
             short: 'SF 14',
             version: 'b6939d',
             class: 'NNUE',
             requires: 'simd',
-            minMem: 1536,
+            minMem: 2048,
             assets: {
               root: 'npm/stockfish-nnue.wasm',
               js: 'stockfish.js',
@@ -173,30 +196,12 @@ export class Engines {
         },
         {
           info: {
-            id: '__sf11hce',
-            name: 'Stockfish 11 HCE',
-            short: 'SF 11',
-            class: 'HCE',
-            requires: 'sharedMem',
-            assets: {
-              root: 'npm/stockfish.wasm',
-              js: 'stockfish.js',
-              wasm: 'stockfish.wasm',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw),
-        },
-        {
-          info: {
             id: '__sf11mv',
             name: 'Stockfish 11 MV',
             short: 'SF 11 · MV',
             class: 'HCE',
             requires: 'sharedMem',
             variants: [
-              'standard',
-              'chess960',
-              'fromPosition',
               'crazyhouse',
               'atomic',
               'horde',
@@ -215,6 +220,21 @@ export class Engines {
             new ThreadedEngine(e, redraw, undefined, (v: VariantKey) =>
               v === 'antichess' ? 'giveaway' : lichessRules(v),
             ),
+        },
+        {
+          info: {
+            id: '__sf11hce',
+            name: 'Stockfish 11',
+            short: 'SF 11',
+            class: 'HCE',
+            requires: 'sharedMem',
+            assets: {
+              root: 'npm/stockfish.wasm',
+              js: 'stockfish.js',
+              wasm: 'stockfish.wasm',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw),
         },
         {
           info: {
@@ -246,7 +266,7 @@ export class Engines {
           make: (e: BrowserEngineInfo) => new SimpleEngine(e, redraw),
         },
       ]
-        .filter(e => hasFeature(e.info.requires))
+        .filter(e => e && hasFeature(e.info.requires))
         .map(e => ({ info: withDefaults(e.info as BrowserEngineInfo), make: e.make }))
         .map(e => [e.info.id, e] as [string, WithMake]),
     );
@@ -272,5 +292,5 @@ const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
 
 type WithMake = {
   info: BrowserEngineInfo;
-  make: (e: BrowserEngineInfo, download?: Progress, redraw?: Redraw) => CevalEngine;
+  make: (e: BrowserEngineInfo) => CevalEngine;
 };

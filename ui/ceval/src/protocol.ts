@@ -164,7 +164,8 @@ export class Protocol {
       }
     } else if (command && !['Stockfish', 'id', 'option', 'info'].includes(parts[0])) {
       // filtered because some think it's a bug when they see it in the console
-      if (command !== 'No such option: Analysis Contempt') console.log('SF:', command);
+      if (!['No such option: Analysis Contempt', 'No such option: UCI_Variant'].includes(command))
+        console.warn('SF:', command);
     }
   }
 
