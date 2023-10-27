@@ -347,7 +347,7 @@
     <item quantity="one">%s цӀех-рех</item>
     <item quantity="other">%s цӀех-рех</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s сеанс</item>
     <item quantity="other">%s сеанс</item>
   </plurals>
@@ -526,15 +526,15 @@
   <string name="tournamentWinners">Турниралда бергьарал</string>
   <string name="name">ЦӀар</string>
   <string name="description">Гьелъул хӀакъалъулъ хъвай</string>
-  <string name="descPrivate">Бахчараб бицин</string>
-  <string name="descPrivateHelp">ЦохӀо къокъаялда бихьизе бугеб бицин. Гъун батани, халкъияб бицин къокъадул лугбазе хисула.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Бахчараб бицин</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ЦохӀо къокъаялда бихьизе бугеб бицин. Гъун батани, халкъияб бицин къокъадул лугбазе хисула.</string>
   <string name="no">Гуро</string>
   <string name="yes">У</string>
   <string name="help">Квербакъи:</string>
   <string name="createANewTopic">ЦӀияб тема гьабизе</string>
   <string name="topics">Темаби</string>
   <string name="posts">Публикацияби</string>
-  <string name="lastPost">Ахирисеб публикация</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Ахирисеб публикация</string>
   <string name="views">Балагьи</string>
   <string name="replies">Жавабал</string>
   <string name="replyToThisTopic">Гьеб темаялда жаваб кьезе</string>
@@ -778,7 +778,7 @@
   <string name="invalidFen">Мекъаб FEN</string>
   <string name="custom">Дирго хӀай</string>
   <string name="notifications">Ругьалаби</string>
-  <string name="notificationsX">Ругьел: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Ругьел: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунд тӀоцебесеб хъурщи гьабизе</item>
@@ -875,7 +875,7 @@
   <string name="mentionedYouInX">мун \"%1$s\"-ялда рехсана.</string>
   <string name="xMentionedYouInY">%1$s-(и)ца мун \"%2$s\"-ялда рехсана.</string>
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
-  <string name="xInvitedYouToY">%1$s-(и)ца мун \"%2$s\"-ялде ахӀана.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s-(и)ца мун \"%2$s\"-ялде ахӀана.</string>
   <string name="youAreNowPartOfTeam">Мун гьанже къокъаялда вуго.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
   <string name="congratsYouWon">Баркула, мун бергьана!</string>
