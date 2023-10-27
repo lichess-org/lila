@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transliacijos</string>
+  <string name="myBroadcasts">Mano transliacijos</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s transliacija</item>
     <item quantity="few">%s transliacijos</item>
