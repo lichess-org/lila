@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">イベント中継</string>
   <string name="myBroadcasts">自分の配信</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="other">%s ブロードキャスト</item>
   </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
