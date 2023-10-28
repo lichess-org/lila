@@ -371,7 +371,7 @@
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simul</item>
     <item quantity="few">%s simula</item>
     <item quantity="other">%s simula</item>
@@ -570,7 +570,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="createANewTopic">Kreirajte novu temu</string>
   <string name="topics">Teme</string>
   <string name="posts">Objave</string>
-  <string name="lastPost">Zadnja objava</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Zadnja objava</string>
   <string name="views">Pregleda</string>
   <string name="replies">Odgovora</string>
   <string name="replyToThisTopic">Odgovori na ovu temu</string>

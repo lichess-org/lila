@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Αυτό επιτρέπει την απόκρυψη όλων τις βαθμολογίες από την ιστοσελίδα, έτσι ώστε να μπορείτε να επικεντρωθείτε στο σκάκι. Τα παιχνίδια θα αξιολογούνται, η ρύθμιση αυτή επηρεάζει την εμφάνιση μόνο.</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
+  <string name="inGameOnly" comment="Appears on the display preferences page: https://lichess.org/account/preferences/display&#10;&#10;This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
   <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
@@ -58,10 +58,13 @@
   <string name="notifyInboxMsg">Νέο εισερχόμενο μήνυμα</string>
   <string name="notifyForumMention">Το σχόλιο του φόρουμ σας αναφέρει</string>
   <string name="notifyInvitedStudy">Πρόσκληση μελέτης</string>
+  <string name="notifyGameEvent">Ενημερώσεις σε παιχνίδια αλληλογραφίας</string>
   <string name="notifyChallenge">Προκλήσεις</string>
   <string name="notifyTournamentSoon">Το πρωτάθλημα ξεκινά σύντομα</string>
+  <string name="notifyTimeAlarm">Το ρολόι εξαντλείται στο παιχνίδι αλληλογραφίας</string>
   <string name="notifyBell">Ειδοποίηση με καμπανάκι εντός του Lichess</string>
   <string name="notifyPush">Ειδοποίηση συσκευής όταν δεν είστε στο Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Συσκευή</string>
+  <string name="bellNotificationSound">Ειδοποίηση με ήχο από καμπανάκι</string>
 </resources>

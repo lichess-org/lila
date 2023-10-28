@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Një temë do të krijohet në forum për të lejuar njerëzit të komentojnë postimin tuaj</string>
   <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
   <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Botoi një postim blogu</item>
     <item quantity="other">Botoi %s postime blogu</item>
   </plurals>
@@ -33,8 +33,8 @@
     <item quantity="other">Shihni krejt %s postimet</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Ngarkoni një figurë për postimin tuaj</string>
-  <string name="imageAlt">Tekst alternativ për figurën</string>
-  <string name="imageCredit">Kreditet e imazhit</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Tekst alternativ për figurën</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Kreditet e imazhit</string>
   <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
   <string name="deleteImage">Fshije figurën</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Është pa rrezik të përdoren figura nga sajtet vijues: </string>

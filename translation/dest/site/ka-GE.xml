@@ -348,7 +348,7 @@
     <item quantity="one">%s კვლევა</item>
     <item quantity="other">%s კვლევა</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s სიმული</item>
     <item quantity="other">%s სიმულები</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">ახალი თემის შექმნა</string>
   <string name="topics">თემები</string>
   <string name="posts">წერილი</string>
-  <string name="lastPost">უკანასკნელი წერილი</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">უკანასკნელი წერილი</string>
   <string name="views">ნახვა</string>
   <string name="replies">პასუხი</string>
   <string name="replyToThisTopic">უპასუხე თემას</string>

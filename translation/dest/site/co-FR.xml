@@ -486,15 +486,15 @@
   <string name="tournamentWinners">Vincitori di i turnei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizzione</string>
-  <string name="descPrivate">Descrizzione privata</string>
-  <string name="descPrivateHelp">Testu soltantu vistu da i membri di a squadra.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrizzione privata</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Testu soltantu vistu da i membri di a squadra.</string>
   <string name="no">Innò</string>
   <string name="yes">Iè</string>
   <string name="help">Aiuta:</string>
   <string name="createANewTopic">Creà un tema novu</string>
   <string name="topics">Temi</string>
   <string name="posts">Posti</string>
-  <string name="lastPost">Ultimu postu</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Ultimu postu</string>
   <string name="views">Fighjate</string>
   <string name="replies">Risposte</string>
   <string name="replyToThisTopic">Risponde à issu tema</string>
@@ -838,7 +838,7 @@
   <string name="mentionedYouInX">hà parlatu di voi in %1$s.</string>
   <string name="xMentionedYouInY">%1$shà parlatu di voi in%2$s.</string>
   <string name="invitedYouToX">vi hà invitatu in %1$s.</string>
-  <string name="xInvitedYouToY">%1$s vi hà invitatu in %2$s.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s vi hà invitatu in %2$s.</string>
   <string name="youAreNowPartOfTeam">Site un membru di a squadra avà.</string>
   <string name="youHaveJoinedTeamX">Avete ghjuntu %1$s.</string>
   <string name="someoneYouReportedWasBanned">Una persona ch\' avete denunciata hè stata messa fora</string>

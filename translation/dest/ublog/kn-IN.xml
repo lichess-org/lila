@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">ನಿಮ್ಮ ಪೋಸ್ಟ್‌ನಲ್ಲಿ ಜನರು ಕಾಮೆಂಟ್ ಮಾಡಲು ಫೋರಮ್ ವಿಷಯವನ್ನು ರಚಿಸಲಾಗುತ್ತದೆ</string>
   <string name="publishOnYourBlog">ನಿಮ್ಮ ಬ್ಲಾಗ್‌ನಲ್ಲಿ ಪ್ರಕಟಿಸಿ</string>
   <string name="publishHelp">ಪರಿಶೀಲಿಸಿದರೆ, ಪೋಸ್ಟ್ ಅನ್ನು ನಿಮ್ಮ ಬ್ಲಾಗ್‌ನಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡಲಾಗುತ್ತದೆ. ಇಲ್ಲದಿದ್ದರೆ, ಅದು ನಿಮ್ಮ ಡ್ರಾಫ್ಟ್ ಪೋಸ್ಟ್‌ಗಳಲ್ಲಿ ಖಾಸಗಿಯಾಗಿರುತ್ತದೆ</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">ಬ್ಲಾಗ್ ಪೋಸ್ಟ್ ಪ್ರಕಟಿಸಿದೆ</item>
     <item quantity="other">%s ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳನ್ನು ಪ್ರಕಟಿಸಲಾಗಿದೆ</item>
   </plurals>
@@ -33,8 +33,8 @@
     <item quantity="other">ಎಲ್ಲಾ %s ಪೋಸ್ಟ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಿ</item>
   </plurals>
   <string name="uploadAnImageForYourPost">ನಿಮ್ಮ ಪೋಸ್ಟ್‌ಗಾಗಿ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</string>
-  <string name="imageAlt">ಚಿತ್ರ ಪರ್ಯಾಯ ಪಠ್ಯ</string>
-  <string name="imageCredit">ಚಿತ್ರ ಕ್ರೆಡಿಟ್</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">ಚಿತ್ರ ಪರ್ಯಾಯ ಪಠ್ಯ</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">ಚಿತ್ರ ಕ್ರೆಡಿಟ್</string>
   <string name="deleteBlog">ಈ ಬ್ಲಾಗ್ ಪೋಸ್ಟ್ ಅನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಿ</string>
   <string name="deleteImage">ಚಿತ್ರವನ್ನು ಅಳಿಸಿ</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">ಕೆಳಗಿನ ವೆಬ್‌ಸೈಟ್‌ಗಳಿಂದ ಚಿತ್ರಗಳನ್ನು ಬಳಸುವುದು ಸುರಕ್ಷಿತವಾಗಿದೆ: </string>

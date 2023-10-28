@@ -348,7 +348,7 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studiar</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultant parti</item>
     <item quantity="other">%s simultane parti</item>
   </plurals>
@@ -528,15 +528,15 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentWinners">Turneringsvinnarar</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
-  <string name="descPrivate">Privat omtale</string>
-  <string name="descPrivateHelp">Tekst som berre lagmedlemar kan sjå. Dersom utfylt vert den ei erstatning av den offentlege omtalen, til bruk for laget sine medlemar.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privat omtale</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst som berre lagmedlemar kan sjå. Dersom utfylt vert den ei erstatning av den offentlege omtalen, til bruk for laget sine medlemar.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjelp:</string>
   <string name="createANewTopic">Opprett eit nytt emne</string>
   <string name="topics">Emne</string>
   <string name="posts">Innlegg</string>
-  <string name="lastPost">Siste innlegg</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Siste innlegg</string>
   <string name="views">Visningar</string>
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svar på dette emnet</string>
@@ -693,7 +693,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyNextInaccuracy">Neste upresise trekk</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
-  <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lyn-, snøgg-, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
+  <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, faste turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
   <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
@@ -789,7 +789,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
-  <string name="notificationsX">Varsel: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -868,6 +868,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>
   <string name="ultraBulletDesc">Ekstremt snøgge parti: under 30 sekund</string>
@@ -895,7 +896,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="mentionedYouInX">nemnde deg i \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s nemnde deg i \"%2$s\".</string>
   <string name="invitedYouToX">inviterte deg til \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s inviterte deg til \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s inviterte deg til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er no med i laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nokon du rapporterte vart stengt ute</string>

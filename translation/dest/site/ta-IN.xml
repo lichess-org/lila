@@ -467,7 +467,7 @@
   <string name="createANewTopic">ஒரு புதிய தலைப்பை உருவாக்க</string>
   <string name="topics">தலைப்புகள்</string>
   <string name="posts">இடுகைகள்</string>
-  <string name="lastPost">கடைசி இடுகை</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">கடைசி இடுகை</string>
   <string name="views">பார்வைகள்</string>
   <string name="replies">பதில்கள்</string>
   <string name="replyToThisTopic">இந்த தலைப்பிற்கு பதிலளி</string>

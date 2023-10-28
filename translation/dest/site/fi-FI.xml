@@ -348,7 +348,7 @@
     <item quantity="one">%s tutkielma</item>
     <item quantity="other">­%s tutkielmaa</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultaani</item>
     <item quantity="other">%s simultaania</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">Luo uusi aihe</string>
   <string name="topics">Aiheet</string>
   <string name="posts">Viestit</string>
-  <string name="lastPost">Viimeisin viesti</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Viimeisin viesti</string>
   <string name="views">Katselukertoja</string>
   <string name="replies">Vastaukset</string>
   <string name="replyToThisTopic">Vastaa tähän aiheeseen</string>

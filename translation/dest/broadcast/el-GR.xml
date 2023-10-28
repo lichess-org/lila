@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Αναμεταδόσεις</string>
-  <string name="myBroadcasts">Η μεταδόσεις μου</string>
+  <string name="myBroadcasts">Η αναμεταδόσεις μου</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+    <item quantity="one">%s αναμετάδοση</item>
+    <item quantity="other">%s αναμεταδόσεις</item>
+  </plurals>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
   <string name="addRound">Προσθήκη γύρου</string>

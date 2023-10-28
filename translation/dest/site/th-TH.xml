@@ -483,7 +483,7 @@
   <string name="createANewTopic">สร้างหัวข้อใหม่</string>
   <string name="topics">หัวข้อ</string>
   <string name="posts">โพสต์</string>
-  <string name="lastPost">โพสต์ล่าสุด</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">โพสต์ล่าสุด</string>
   <string name="views">ดู</string>
   <string name="replies">ตอบ</string>
   <string name="replyToThisTopic">ตอบกลับหัวข้อนี้</string>

@@ -347,7 +347,7 @@
     <item quantity="one">%s μελέτη</item>
     <item quantity="other">%s μελέτες</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s σιμουλτανέ</item>
     <item quantity="other">%s σιμουλτανέ</item>
   </plurals>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
-  <string name="descPrivate">Ιδιωτική περιγραφή</string>
-  <string name="descPrivateHelp">Κείμενο που θα δουν μόνο τα μέλη της ομάδας. Εάν οριστεί, αντικαθιστά τη δημόσια περιγραφή για τα μέλη της ομάδας.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Ιδιωτική περιγραφή</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Κείμενο που θα δουν μόνο τα μέλη της ομάδας. Εάν οριστεί, αντικαθιστά τη δημόσια περιγραφή για τα μέλη της ομάδας.</string>
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
   <string name="help">Βοήθεια:</string>
   <string name="createANewTopic">Δημιουργήστε καινούριο θέμα</string>
   <string name="topics">Θέματα</string>
   <string name="posts">Δημοσιεύσεις</string>
-  <string name="lastPost">Τελευταία δημοσίευση</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Τελευταία δημοσίευση</string>
   <string name="views">Εμφανίσεις</string>
   <string name="replies">Απαντήσεις</string>
   <string name="replyToThisTopic">Απαντήστε σε αυτό το θέμα</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">Μη έγκυρο FEN</string>
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
-  <string name="notificationsX">Ειδοποιήσεις: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Ειδοποιήσεις: %1$s</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Κλασικό</string>
   <string name="ultraBulletDesc">Εξαιρετικά γρήγορες παρτίδες: λιγότερο από 30 δεύτερα</string>
@@ -894,7 +895,7 @@
   <string name="mentionedYouInX">σας ανέφερε στο \"%1$s\".</string>
   <string name="xMentionedYouInY">Ο χρήστης %1$s σας ανέφερε στο «%2$s».</string>
   <string name="invitedYouToX">σας προσκάλεσε στο «%1$s».</string>
-  <string name="xInvitedYouToY">Ο χρήστης %1$s σας προσκάλεσε στο «%2$s».</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">Ο χρήστης %1$s σας προσκάλεσε στο «%2$s».</string>
   <string name="youAreNowPartOfTeam">Είστε πλέον μέλος της ομάδας.</string>
   <string name="youHaveJoinedTeamX">Είστε πλέον μέλος της ομάδας «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Κάποιος που αναφέρατε έχει αποκλειστεί</string>

@@ -480,15 +480,15 @@
   <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="name">Nama</string>
   <string name="description">Keterangan</string>
-  <string name="descPrivate">Deskripsi pribadi</string>
-  <string name="descPrivateHelp">Teks yang hanya bisa dilihat oleh anggota tim. Jika ditetapkan, akan menggantikan deskripsi publik untuk anggota tim.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Deskripsi pribadi</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Teks yang hanya bisa dilihat oleh anggota tim. Jika ditetapkan, akan menggantikan deskripsi publik untuk anggota tim.</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
   <string name="help">Bantuan:</string>
   <string name="createANewTopic">Buat topik baru</string>
   <string name="topics">Topik</string>
   <string name="posts">Posting</string>
-  <string name="lastPost">Posting terbaru</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Posting terbaru</string>
   <string name="views">Penampilan</string>
   <string name="replies">Jawaban</string>
   <string name="replyToThisTopic">Jawab topik ini</string>
@@ -734,7 +734,7 @@
   <string name="invalidFen">FEN tidak valid</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
-  <string name="notificationsX">Pemberitahuan: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Pemberitahuan: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -837,7 +837,7 @@
   <string name="mentionedYouInX">membahas anda di \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s membahas anda di \"%2$s\".</string>
   <string name="invitedYouToX">mengundang anda ke \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s mengundang ke \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s mengundang ke \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Anda sekarang bagian dalam tim.</string>
   <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Seseorang yang Anda laporkan telah di-ban</string>

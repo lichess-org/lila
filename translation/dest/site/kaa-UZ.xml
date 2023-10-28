@@ -275,13 +275,13 @@
   <string name="tournamentWinners">Turnir jeńimpazları</string>
   <string name="name">Atı</string>
   <string name="description">Táriypi</string>
-  <string name="descPrivate">Jeke táriyp</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Jeke táriyp</string>
   <string name="no">Yaq</string>
   <string name="yes">Awa</string>
   <string name="help">Járdem:</string>
   <string name="createANewTopic">Jańa tema jaratıw</string>
   <string name="topics">Temalar</string>
-  <string name="lastPost">Sońǵı xabar</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Sońǵı xabar</string>
   <string name="replies">Juwaplar</string>
   <string name="message">Xabar</string>
   <string name="user">Paydalanıwshı</string>

@@ -8,5 +8,6 @@
   <string name="mostChessCourses">Шатрын ихэнх хичээл, дугуйлангууд алгебрын тэмдэглэгээг өргөн хэрэглэдэг.</string>
   <string name="talkToYourChessFriends">Энэ нь шатрын өргийн талаар найзтайгаа ярихад хялбар болгодог.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Та шатрын өргийг илүү үр дүнтэйгээр шинжэлж чадна.</string>
+  <string name="showPieces">Дүрсээ харах</string>
   <string name="startTraining">Дасгалыг эхлүүлэх</string>
 </resources>

@@ -485,7 +485,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="createANewTopic">Buat topik baharu</string>
   <string name="topics">Topik</string>
   <string name="posts">Pos</string>
-  <string name="lastPost">Post terakhir</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Post terakhir</string>
   <string name="views">Paparkan</string>
   <string name="replies">Balasan</string>
   <string name="replyToThisTopic">Balasan kepada topik ini</string>

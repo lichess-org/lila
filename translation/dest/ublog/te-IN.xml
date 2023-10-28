@@ -11,7 +11,7 @@
   <string name="published">ప్రచురణ</string>
   <string name="publishOnYourBlog">మీ బ్లాగులో ప్రచురించండి</string>
   <string name="publishHelp">ఒకవేళ చెక్ చేయబడినట్లయితే, పోస్ట్ మీ బ్లాగ్ లో జాబితా చేయబడుతుంది. కాకపోతే, మీ డ్రాఫ్ట్ పోస్ట్ లలో ఇది ప్రైవేట్ గా ఉంటుంది</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">ఒక బ్లాగ్ పోస్ట్ ప్రచురించబడింది</item>
     <item quantity="other">%s ప్రచురించబడిన బ్లాగ్ పోస్ట్ లు</item>
   </plurals>
@@ -31,6 +31,6 @@
     <item quantity="other">మొత్తం %s పోస్ట్‌లను చూడండి</item>
   </plurals>
   <string name="uploadAnImageForYourPost">మీ పోస్ట్ కోసం చిత్రాన్ని అప్‌లోడ్ చేయండి</string>
-  <string name="imageAlt">చిత్రం ప్రత్యామ్నాయ టెక్స్ట్</string>
-  <string name="imageCredit">చిత్ర క్రెడిట్</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">చిత్రం ప్రత్యామ్నాయ టెక్స్ట్</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">చిత్ర క్రెడిట్</string>
 </resources>

@@ -322,7 +322,7 @@
     <item quantity="one">%s অধ্যায়ন</item>
     <item quantity="other">%s অধ্যায়নগুলি</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s শিমুল</item>
     <item quantity="other">%s শিমুলগুলো</item>
   </plurals>
@@ -500,15 +500,15 @@
   <string name="tournamentWinners">Tournament বিজয়ীরা</string>
   <string name="name">নাম</string>
   <string name="description">বিবরণ</string>
-  <string name="descPrivate">ব্যাক্তিগত বর্ননা</string>
-  <string name="descPrivateHelp">যে লেখা শুধু দলের সদস্য দেখতে পাবে.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">ব্যাক্তিগত বর্ননা</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">যে লেখা শুধু দলের সদস্য দেখতে পাবে.</string>
   <string name="no">না</string>
   <string name="yes">হ্যা</string>
   <string name="help">সাহায্য</string>
   <string name="createANewTopic">নতুন বিষয়  তৈরি করুন</string>
   <string name="topics">বিষয়</string>
   <string name="posts">লেখা</string>
-  <string name="lastPost">শেষলেখা</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">শেষলেখা</string>
   <string name="views">দৃষ্টিপাত</string>
   <string name="replies">উত্তর</string>
   <string name="replyToThisTopic">এই বিষয়ে উত্তর দিন</string>
@@ -854,7 +854,7 @@
   <string name="mentionedYouInX">\"%1$s\" এ আপনাকে উল্লেখ করেছেন।</string>
   <string name="xMentionedYouInY">%1$s , \"%2$s\" এ আপনার নাম উল্লেখ করেছেন।</string>
   <string name="invitedYouToX">\"%1$s\" এ আপনাকে আমন্ত্রণ জানিয়েছেন।</string>
-  <string name="xInvitedYouToY">%1$s, আপনাকে \"%2$s\" এ আমন্ত্রণ জানিয়েছেন।</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s, আপনাকে \"%2$s\" এ আমন্ত্রণ জানিয়েছেন।</string>
   <string name="youAreNowPartOfTeam">আপনি এখন দলের একটি অংশ।</string>
   <string name="youHaveJoinedTeamX">আপনি \"%1$s\" এ যোগদান করেছেন।</string>
   <string name="someoneYouReportedWasBanned">আপনি অভিযুক্ত একজনকে ব্যান করা হয়েছে</string>

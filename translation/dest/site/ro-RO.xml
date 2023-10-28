@@ -371,7 +371,7 @@
     <item quantity="few">%s studii</item>
     <item quantity="other">%s de studii</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simul</item>
     <item quantity="few">%s simul</item>
     <item quantity="other">%s simul</item>
@@ -569,7 +569,7 @@
   <string name="createANewTopic">Creează un nou topic</string>
   <string name="topics">Subiecte</string>
   <string name="posts">Postări</string>
-  <string name="lastPost">Ultima postare</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Ultima postare</string>
   <string name="views">Vizualizări</string>
   <string name="replies">Răspunsuri</string>
   <string name="replyToThisTopic">Răspunde la acest topic</string>

@@ -346,7 +346,7 @@
     <item quantity="one">%s درس</item>
     <item quantity="other">%s درس ها</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s سیمولتانه</item>
     <item quantity="other">%s سیمولتانه</item>
   </plurals>
@@ -525,15 +525,15 @@
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
-  <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">توضیحات خصوصی</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
   <string name="posts">پست ها</string>
-  <string name="lastPost">آخرین ارسال</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">آخرین ارسال</string>
   <string name="views">نمایش ها</string>
   <string name="replies">پاسخ ها</string>
   <string name="replyToThisTopic">پاسخ به این موضوع</string>
@@ -779,7 +779,7 @@
   <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
-  <string name="notificationsX">هشدار: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">هشدار: %1$s</string>
   <string name="perfRatingX">ریتینگ. %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -885,7 +885,7 @@
   <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
   <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
   <string name="invitedYouToX">شما به \"%1$s\" دعوت شده اید.</string>
-  <string name="xInvitedYouToY">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
   <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
   <string name="someoneYouReportedWasBanned">شخصی که گزارش کردید مسدود شد</string>

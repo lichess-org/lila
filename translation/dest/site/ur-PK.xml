@@ -459,14 +459,14 @@
   <string name="tournamentWinners">مسابقوں کے فاتحین</string>
   <string name="name">نام</string>
   <string name="description">تفصیل</string>
-  <string name="descPrivate">نجی تفصیل</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">نجی تفصیل</string>
   <string name="no">نہ</string>
   <string name="yes">ہاں</string>
   <string name="help">تفصیل:</string>
   <string name="createANewTopic">نیا موضوع تخلیق کریں</string>
   <string name="topics">موضوعات</string>
   <string name="posts">تبصرے</string>
-  <string name="lastPost">آخری تبصرہ</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">آخری تبصرہ</string>
   <string name="views">ملاحظے</string>
   <string name="replies">آرا</string>
   <string name="replyToThisTopic">اس موضوع پر اپنی رائے دیں</string>

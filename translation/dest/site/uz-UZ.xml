@@ -347,7 +347,7 @@
     <item quantity="one">%s o\'rganish</item>
     <item quantity="other">%s o\'rganishlar</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s seans</item>
     <item quantity="other">%s seanslar</item>
   </plurals>
@@ -526,15 +526,15 @@
   <string name="tournamentWinners">Turnir g\'oliblari</string>
   <string name="name">Ism</string>
   <string name="description">Izoh</string>
-  <string name="descPrivate">Yopiq izoh</string>
-  <string name="descPrivateHelp">Faqat jamoa a‘zolari ko‘ra oladigan matn. Agar uni kiritsangiz, jamoaning barcha a‘zolarining namoyish izohlari shunga almashadi.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Yopiq izoh</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Faqat jamoa a‘zolari ko‘ra oladigan matn. Agar uni kiritsangiz, jamoaning barcha a‘zolarining namoyish izohlari shunga almashadi.</string>
   <string name="no">Yo\'q</string>
   <string name="yes">Ha</string>
   <string name="help">Yordam:</string>
   <string name="createANewTopic">Yangi mavzu yaratish</string>
   <string name="topics">Mavzular</string>
   <string name="posts">Postlar</string>
-  <string name="lastPost">Oxirgi post</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Oxirgi post</string>
   <string name="views">Ko\'rish</string>
   <string name="replies">Javob berish</string>
   <string name="replyToThisTopic">Ushbu mavzuga javob berish</string>
@@ -787,7 +787,7 @@
   <string name="invalidFen">FEN da xatolik</string>
   <string name="custom">Boshqa</string>
   <string name="notifications">Xabarlar</string>
-  <string name="notificationsX">Xabarlar: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Xabarlar: %1$s</string>
   <string name="perfRatingX">Reyting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish uchun %s sekund</item>
@@ -893,7 +893,7 @@
   <string name="mentionedYouInX">siz \"%1$s\" da eslab o‘tilgansiz.</string>
   <string name="xMentionedYouInY">%1$s sizni \"%2$s\" da qayd etgan.</string>
   <string name="invitedYouToX">sizni \"%1$s\" ga taklif qilgan.</string>
-  <string name="xInvitedYouToY">%1$s sizni \"%2$s\" ga taklif qilgan.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s sizni \"%2$s\" ga taklif qilgan.</string>
   <string name="youAreNowPartOfTeam">Siz endi jamoa a‘zosisiz.</string>
   <string name="youHaveJoinedTeamX">Siz \"%1$s\" ga qo‘shildingiz.</string>
   <string name="someoneYouReportedWasBanned">Kimdir sizning murojaatingiz bilan bloklangan</string>

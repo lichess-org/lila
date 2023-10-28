@@ -348,7 +348,7 @@
     <item quantity="one">%s зерттеу</item>
     <item quantity="other">%s зерттеу</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s көпшілікке қарсы ойын</item>
     <item quantity="other">%s көпшілікке қарсы ойын</item>
   </plurals>
