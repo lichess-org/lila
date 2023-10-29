@@ -50,6 +50,9 @@ final private class HookRepo:
   def remove(hook: Hook): Unit =
     hooks = hooks removed hook
 
+  def exists(hook: Hook): Boolean =
+    hooks.contains(hook.id)
+
   // returns removed hooks
   def cleanupOld: Set[Hook] =
     val limit   = nowInstant minusMinutes 15
