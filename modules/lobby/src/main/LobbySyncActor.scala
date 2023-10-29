@@ -171,9 +171,10 @@ final private class LobbySyncActor(
     }
 
   private def remove(hook: Hook) =
-    hookRepo remove hook
-    socket ! RemoveHook(hook.id)
-    Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
+    if hookRepo.exists(hook) then
+      hookRepo remove hook
+      socket ! RemoveHook(hook.id)
+      Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
 
 private object LobbySyncActor:
 
