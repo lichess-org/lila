@@ -36,7 +36,9 @@ final private class LobbySyncActor(
       hook.sid.so: sid =>
         hookRepo bySid sid foreach remove
       !hook.compatibleWithPools so findCompatible(hook) match
-        case Some(h) => biteHook(h.id, hook.sri, hook.user)
+        case Some(h) =>
+          biteHook(h.id, hook.sri, hook.user)
+          publishRemoveHook(hook)
         case None =>
           hookRepo save msg.hook
           socket ! msg
@@ -174,7 +176,10 @@ final private class LobbySyncActor(
     if hookRepo.exists(hook) then
       hookRepo remove hook
       socket ! RemoveHook(hook.id)
-      Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
+      publishRemoveHook(hook)
+
+  private def publishRemoveHook(hook: Hook): Unit =
+    Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
 
 private object LobbySyncActor:
 
