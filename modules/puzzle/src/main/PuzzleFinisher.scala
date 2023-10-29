@@ -176,7 +176,7 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.doubleCheck,
       PuzzleTheme.mateIn1,
       PuzzleTheme.castling
-    ).map(_.key)
+    ).map(_.key) ++ PuzzleTheme.allMates
 
     private def weightOf(angle: PuzzleAngle, win: PuzzleWin) =
       angle.asTheme.fold(1f) { theme =>
