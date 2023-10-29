@@ -220,7 +220,7 @@ object mon:
     private val userSegment  = timer("user.segment")
     def segment(seg: String) = userSegment.withTag("segment", seg)
     def leaderboardCompute   = future("user.leaderboard.compute")
-  object trouper:
+  object actor:
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
   object mod:
     object report:

@@ -5,7 +5,7 @@ import lila.socket.Socket.Sri
 import scala.collection.View
 
 // NOT thread safe.
-// control concurrency from LobbyTrouper
+// control concurrency from LobbySyncActor
 final private class HookRepo:
 
   type ID = String

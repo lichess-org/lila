@@ -28,7 +28,7 @@ final private class LobbySyncActor(
   val process: SyncActor.Receive =
 
     // solve circular reference
-    case SetSocket(trouper) => socket = trouper
+    case SetSocket(actor) => socket = actor
 
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
@@ -114,7 +114,7 @@ final private class LobbySyncActor(
 
       lila.mon.lobby.socket.member.update(sris.size)
       lila.mon.lobby.hook.size.record(hookRepo.size)
-      lila.mon.trouper.queueSize("lobby").update(queueSize)
+      lila.mon.actor.queueSize("lobby").update(queueSize)
       promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove
@@ -183,7 +183,7 @@ final private class LobbySyncActor(
 
 private object LobbySyncActor:
 
-  case class SetSocket(trouper: SyncActor)
+  case class SetSocket(actor: SyncActor)
 
   private case class Tick(promise: Promise[Unit])
 
@@ -192,18 +192,15 @@ private object LobbySyncActor:
   def start(
       broomPeriod: FiniteDuration,
       resyncIdsPeriod: FiniteDuration
-  )(
-      makeTrouper: () => LobbySyncActor
-  )(using ec: Executor, scheduler: Scheduler) =
-    val trouper = makeTrouper()
-    Bus.subscribe(trouper, "lobbyActor")
-    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
+  )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
+    val actor = makeActor()
+    Bus.subscribe(actor, "lobbyActor")
+    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => actor ! actorApi.Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",
       _.Every(broomPeriod),
       _.AtMost(10 seconds),
       _.Delay(7 seconds)
-    ) {
-      trouper.ask[Unit](Tick.apply)
-    }
-    trouper
+    ):
+      actor.ask[Unit](Tick.apply)
+    actor
