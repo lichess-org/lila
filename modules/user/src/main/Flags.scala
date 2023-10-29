@@ -290,7 +290,8 @@ object Flags:
     C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
     C("_earth", "Earth"),
-    C("_transgender", "Transgender")
+    C("_transgender", "Transgender"),
+    C("_fsm", "Flying Spaghetti Monster")
   )
 
   val allPairs = all.map: c =>
