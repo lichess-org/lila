@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">lipu pi jan %s</string>
+  <string name="newPost">lipu sin</string>
+  <string name="postTitle">nimi</string>
+  <string name="postIntro">open</string>
+  <string name="postBody">sijelo</string>
+  <string name="drafts">lipu pi pana ala</string>
+  <string name="published">mi pana a</string>
+  <string name="deleteImage">o weka e sitelen</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">sina ken kepeken sitelen ni: </string>
+</resources>
