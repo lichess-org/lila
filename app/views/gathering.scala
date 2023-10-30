@@ -36,7 +36,7 @@ object gathering:
                 v.verdict match
                   case Condition.RefusedUntil(until) =>
                     frag(
-                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
+                      "Because you missed your last Swiss game, you cannot enter a new Swiss tournament until ",
                       absClientInstant(until),
                       "."
                     )
