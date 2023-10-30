@@ -33,7 +33,7 @@
     <item quantity="one">%s sany birwagtly sergi gurnady</item>
     <item quantity="other">%s sany birwagtly sergi gurnady</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">%s sany birwagtly sergä gatnaşdy</item>
     <item quantity="other">%s sany birwagtly sergä gatnaşdy</item>
   </plurals>
