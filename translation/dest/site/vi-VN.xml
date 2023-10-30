@@ -280,7 +280,7 @@
   <string name="chatRoom">Phòng trò chuyện</string>
   <string name="loginToChat">Đăng nhập để trò chuyện</string>
   <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
-  <string name="spectatorRoom">Phòng theo dõi</string>
+  <string name="spectatorRoom">Phòng khán giả</string>
   <string name="composeMessage">Soạn tin nhắn</string>
   <string name="subject">Chủ đề</string>
   <string name="send">Gửi</string>
