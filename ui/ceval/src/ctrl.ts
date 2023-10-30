@@ -217,7 +217,6 @@ export default class CevalCtrl {
 
   canGoDeeper = () =>
     this.getState() !== CevalState.Computing &&
-    this.curEval?.pvs[0].mate === undefined &&
     this.curDepth() < 99;
 
   infinite = () => this.searchMs() === Number.POSITIVE_INFINITY;
