@@ -31,9 +31,8 @@ export function view(ctrl: ServerEval): VNode {
 
   if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
-
-  return h(
-    'div.study__server-eval.ready.' + analysis.id,
+  const chart = h(
+    'canvas.study__server-eval.ready.' + analysis.id,
     {
       hook: onInsert(el => {
         lichess.requestIdleCallback(async () => {
@@ -48,6 +47,8 @@ export function view(ctrl: ServerEval): VNode {
     },
     [h('div.study__message', spinnerVdom())],
   );
+
+  return h('div.study__server-eval.ready.', chart)
 }
 
 const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');

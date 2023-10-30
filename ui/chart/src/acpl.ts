@@ -1,17 +1,32 @@
-import * as chart from 'chart.js';
-import { currentTheme } from 'common/theme';
-import { AnalyseData, Player, PlyChart } from './interface';
+import {
+  Chart,
+  ChartConfiguration,
+  Filler,
+  LineController,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  PointStyle,
+} from 'chart.js';
+import { winningChances } from 'ceval';
+import {
+  blackFill,
+  chartYMax,
+  chartYMin,
+  fontColor,
+  fontFamily,
+  maybeChart,
+  orangeAccent,
+  plyLine,
+  selectPly,
+  toBlurArray,
+  whiteFill,
+} from './common';
 import division from './division';
-import { chartYMax, chartYMin, selectPly } from './common';
+import { AnalyseData, PlyChart } from './interface';
 
-chart.Chart.register(
-  chart.LineController,
-  chart.LinearScale,
-  chart.PointElement,
-  chart.LineElement,
-  chart.Tooltip,
-  chart.Filler,
-);
+Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export default async function (
   el: HTMLCanvasElement,
@@ -19,27 +34,15 @@ export default async function (
   mainline: Tree.Node[],
   trans: Trans,
 ) {
-  const ctx = el.getContext('2d');
-  if (ctx) {
-    const maybeChart = chart.Chart.getChart(ctx);
-    if (maybeChart) return maybeChart;
-  }
+  const possibleChart = maybeChart(el);
+  if (possibleChart) return possibleChart;
 
-  const lightTheme = currentTheme() == 'light'; // TODO: reloadallthethings
+  // TODO: reloadallthethings
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
   const winChances: number[] = [];
   const labels: string[] = [];
-  const pointStyles: chart.PointStyle[] = [];
-  const orangeAccent = '#d85000';
-  const whiteFill = lightTheme ? 'white' : '#676665';
-  const blackFill = lightTheme ? '#999999' : 'black';
-  const fontFamily = (title = false) => ({
-    family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
-    size: title ? 13 : 12,
-    weight: 'bold',
-  });
-  const fontColor = '#A0A0A0';
+  const pointStyles: PointStyle[] = [];
   const divisionLines = division(trans, data.game.division);
 
   mainline.slice(1).map(node => {
@@ -52,12 +55,15 @@ export default async function (
     else if (node.eval?.cp) cp = node.eval.cp;
     const turn = Math.floor((node.ply - 1) / 2) + 1;
     const dots = isWhite ? '.' : '...';
-    // TODO: maybe export from ceval and import here?
-    const winChance = 2 / (1 + Math.exp(-0.00368208 * cp)) - 1;
+    const winchance = winningChances.povChances('white', {
+      cp: cp,
+      mate: node.eval ? node.eval.mate : isWhite ? 1 : -1,
+    });
     // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
-    winChances.push(winChance);
+    winChances.push(winchance);
+
     const { advice: judgment } = glyphProperties(node);
-    let label = turn + dots + ' ' + node.san;
+    const label = turn + dots + ' ' + node.san;
     let annotation = '';
     if (judgment) annotation = ` [${trans(judgment)}]`;
     const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
@@ -67,7 +73,8 @@ export default async function (
     pointStyles.push(isBlur ? 'rect' : 'circle'); // TODO style blurs
   });
 
-  const config: chart.Chart['config'] = {
+  const ply = plyLine(0);
+  const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
       labels: labels.map((_, index) => index),
@@ -84,29 +91,24 @@ export default async function (
           pointRadius: 0,
           pointHitRadius: 100,
           borderColor: orangeAccent,
-          hoverRadius: 4,
           pointBackgroundColor: orangeAccent,
           pointStyle: pointStyles,
           order: 5,
         },
+        ply,
         ...divisionLines,
-        {
-          label: 'ply',
-          data: [
-            [-1, chartYMin],
-            [-1, chartYMax],
-          ],
-          borderColor: orangeAccent,
-          pointRadius: 0,
-          borderWidth: 1,
-        },
       ],
     },
     options: {
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false,
+      },
       scales: {
         x: {
           min: 0,
-          max: labels.length - 1,
+          max: labels.length,
           display: false,
           type: 'linear',
         },
@@ -129,43 +131,47 @@ export default async function (
           displayColors: false,
           callbacks: {
             label: item => {
-              switch (item.datasetIndex) {
-                case 0:
-                  const ev = mainline[item.dataIndex + 1]?.eval;
-                  if (!ev) return ''; // Pos is mate
-                  let e = 0,
-                    mateSymbol = '',
-                    advantageSign = '';
-                  if (typeof ev?.cp !== 'undefined') {
-                    e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-                    if (ev.cp > 0) advantageSign = '+';
-                  }
-                  if (ev.mate) {
-                    e = ev.mate;
-                    mateSymbol = '#';
-                  }
-                  return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
-                default:
-                  return item.dataset.label;
+              if (item.datasetIndex == 0) {
+                const ev = mainline[item.dataIndex + 1]?.eval;
+                if (!ev) return ''; // Pos is mate
+                let e = 0,
+                  mateSymbol = '',
+                  advantageSign = '';
+                if (typeof ev?.cp !== 'undefined') {
+                  e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
+                  if (ev.cp > 0) advantageSign = '+';
+                }
+                if (ev.mate) {
+                  e = ev.mate;
+                  mateSymbol = '#';
+                }
+                return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
               }
+              return '';
             },
-            title: items => (items[0].datasetIndex == 0 ? labels[items[0].dataIndex] : ''),
+            title: items => {
+              const data = items.find(serie => serie.datasetIndex == 0);
+              if (!data) return '';
+              let title = labels[data.dataIndex];
+              const division = items.find(serie => serie.datasetIndex > 1);
+              if (division) title = `${division.dataset.label} \n` + title;
+              return title;
+            },
           },
         },
       },
       onClick(_event, elements, _chart) {
-        if (elements[0].datasetIndex == 0) lichess.pubsub.emit('analysis.chart.click', elements[0].index);
+        const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
+        lichess.pubsub.emit('analysis.chart.click', data.index);
       },
     },
   };
-  const acplChart = new chart.Chart(el, config) as PlyChart;
+  const acplChart = new Chart(el, config) as PlyChart;
   acplChart.selectPly = selectPly.bind(acplChart);
   lichess.pubsub.on('ply', acplChart.selectPly);
   lichess.pubsub.emit('ply.trigger');
   return acplChart;
 }
-
-const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
 // the color prefixes below are mirrored in analyse/src/roundTraining.ts
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';

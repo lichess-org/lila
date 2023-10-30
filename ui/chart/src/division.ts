@@ -1,6 +1,6 @@
 import { chartYMax, chartYMin } from './common';
 import { Division } from './interface';
-import * as chart from 'chart.js';
+import { ChartDataset } from 'chart.js';
 
 export default function (trans: Trans, div?: Division) {
   const lines: { div: string; loc: number }[] = [];
@@ -13,18 +13,16 @@ export default function (trans: Trans, div?: Division) {
     lines.push({ div: trans('endgame'), loc: div.end - 1 });
   }
   const annotationColor = '#707070';
-  const annotations: chart.Chart['config']['data']['datasets'] = lines.map(line => ({
+  const annotations: ChartDataset<'line'>[] = lines.map(line => ({
+    type: 'line',
     label: line.div,
     data: [
-      [line.loc, chartYMin],
-      [line.loc, chartYMax],
+      { x: line.loc, y: chartYMin },
+      { x: line.loc, y: chartYMax },
     ],
-    pointHoverRadius: 5,
+    pointHoverRadius: 0,
     borderWidth: 1,
-    pointHoverBorderColor: annotationColor,
     borderColor: annotationColor,
-    pointBackgroundColor: annotationColor,
-    pointHitRadius: 200,
     pointRadius: 0,
     order: 1,
   }));

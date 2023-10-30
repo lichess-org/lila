@@ -9,7 +9,8 @@
   "dependencies": {
     "@types/highcharts": "=4.2.57",
     "chart.js": "4.4.0",
-    "common": "workspace:*"
+    "common": "workspace:*",
+    "ceval": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

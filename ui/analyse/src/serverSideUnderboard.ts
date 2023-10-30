@@ -88,7 +88,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       lichess.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
-        m.movetime($('#movetimes-chart')[0] as HTMLElement, data, ctrl.trans, ctrl.opts.hunter);
+        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.trans, ctrl.opts.hunter);
       });
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);

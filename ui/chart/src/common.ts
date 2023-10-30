@@ -1,11 +1,10 @@
-import { Chart } from 'chart.js';
+import { Chart, ChartDataset } from 'chart.js';
 import { currentTheme } from 'common/theme';
+import { Player } from './interface';
 
 export interface MovePoint {
   y: number;
-  x?: number;
-  name?: string;
-  marker?: any;
+  x: number;
 }
 
 let highchartsPromise: Promise<any> | undefined;
@@ -14,23 +13,56 @@ let highchartsPromise: Promise<any> | undefined;
 export const chartYMax = 1 + 0.05;
 export const chartYMin = -chartYMax;
 
+const lightTheme = currentTheme() == 'light';
+export const orangeAccent = '#d85000';
+export const whiteFill = lightTheme ? 'white' : '#676665';
+export const blackFill = lightTheme ? '#999999' : 'black';
+export const fontColor = '#A0A0A0';
+
+export function fontFamily(title = false) {
+  return {
+    family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+    size: title ? 13 : 12,
+    weight: 'bold',
+  };
+}
+
+export function maybeChart(el: HTMLCanvasElement): Chart | undefined {
+  const ctx = el.getContext('2d');
+  if (ctx) {
+    const maybeChart = Chart.getChart(ctx);
+    if (maybeChart) return maybeChart;
+  }
+  return undefined;
+}
+
+export function toBlurArray(player: Player) {
+  return player.blurs?.bits?.split('') ?? [];
+}
+
+export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
+  return {
+    type: 'line',
+    label: 'ply',
+    data: [
+      { x: ply, y: chartYMin },
+      { x: ply, y: chartYMax },
+    ],
+    borderColor: orangeAccent,
+    pointRadius: 0,
+    pointHoverRadius: 0,
+    borderWidth: 1,
+    animation: false,
+    segment: !mainline ? { borderDash: [5] } : undefined,
+    order: 0,
+  };
+}
+
 export function selectPly(this: Chart, ply: number, onMainline: boolean) {
   ply = ply - 1;
   const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
-  this.data.datasets[index] = {
-    label: 'ply',
-    data: [
-      [ply, chartYMin],
-      [ply, chartYMax],
-    ],
-    borderColor: '#d85000',
-    pointRadius: 0,
-    borderWidth: 1,
-    animation: false,
-    segment: !onMainline ? { borderDash: [5] } : undefined,
-    order: 0,
-    pointHitRadius: 0,
-  };
+  const line = plyLine(ply, onMainline);
+  this.data.datasets[index] = line;
   this.update();
 }
 

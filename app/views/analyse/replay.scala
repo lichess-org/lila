@@ -185,7 +185,7 @@ object replay:
                     )
                 ),
                 div(cls := "move-times")(
-                  game.ply > 1 option div(id := "movetimes-chart")
+                  game.ply > 1 option div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart"))
                 ),
                 div(cls := "fen-pgn")(
                   div(

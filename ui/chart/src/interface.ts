@@ -47,7 +47,7 @@ export interface AnalyseData {
 
 export interface ChartGame {
   acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<Chart>;
-  movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): void;
+  movetime(el: HTMLCanvasElement, data: AnalyseData, trans: Trans, hunter: boolean): void;
 }
 
 export interface DistributionData {

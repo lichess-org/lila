@@ -1,14 +1,18 @@
 import { DistributionData } from './interface';
-import * as chart from 'chart.js';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartData,
+  ChartDataset,
+  Filler,
+  LineController,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Tooltip,
+} from 'chart.js';
 
-chart.Chart.register(
-  chart.LineController,
-  chart.LinearScale,
-  chart.PointElement,
-  chart.LineElement,
-  chart.Tooltip,
-  chart.Filler,
-);
+Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export async function initModule(data: DistributionData) {
   $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
@@ -30,7 +34,7 @@ export async function initModule(data: DistributionData) {
     });
     const gridcolor = '#404040';
 
-    const datasets: chart.Chart['data']['datasets'] = [
+    const datasets: ChartDataset<'line'>[] = [
       {
         ...seriesCommonData('#dddf0d'),
         data: cumul.map(x => x[1]),
@@ -52,8 +56,8 @@ export async function initModule(data: DistributionData) {
         ...seriesCommonData(color),
         yAxisID: 'y2',
         data: [
-          [rating, 0],
-          [rating, 100],
+          { x: rating, y: 0 },
+          { x: rating, y: 100 },
         ],
         segment: {
           borderDash: [10],
@@ -63,12 +67,12 @@ export async function initModule(data: DistributionData) {
       });
     if (data.myRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
     if (data.otherRating && data.otherPlayer) pushLine('#eeaaee', data.otherRating, data.otherPlayer);
-    const chartData: chart.Chart['data'] = {
+    const chartData: ChartData<'line'> = {
       labels: cumul.map(x => x[0]),
       datasets: datasets,
     };
 
-    const config: chart.Chart['config'] = {
+    const config: ChartConfiguration<'line'> = {
       type: 'line',
       data: chartData,
       options: {
@@ -143,6 +147,6 @@ export async function initModule(data: DistributionData) {
         },
       },
     };
-    new chart.Chart(this, config);
+    new Chart(this, config);
   });
 }
