@@ -12,8 +12,8 @@ import lila.gathering.Condition
 
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
 
-  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
-    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
+  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)):
+    tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
         val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
         val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
@@ -22,8 +22,6 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Ex
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
           funit
-    }
-  }
 
 private object TournamentScheduler:
 
