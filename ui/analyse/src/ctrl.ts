@@ -612,7 +612,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.chessground.setAutoShapes(computeAutoShapes(this));
+    this.chessground?.setAutoShapes(computeAutoShapes(this));
     keyboard.maybeShowVariationArrowHelp(this);
   };
 
