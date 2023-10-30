@@ -376,7 +376,7 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="createANewTopic">Meitsje in nij ûnderwerp</string>
   <string name="topics">Underwerpen</string>
   <string name="posts">Berjochten</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Lêste berjocht</string>
+  <string name="lastPost">Lêste berjocht</string>
   <string name="views">Sjoen</string>
   <string name="replies">Antwurden</string>
   <string name="replyToThisTopic">Antwurdzje op dit ûnderwerp</string>
