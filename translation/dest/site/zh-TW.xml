@@ -323,7 +323,7 @@
   <plurals name="nbStudies">
     <item quantity="other">%s個研究</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="other">%s 個進行的車輪戰棋局</item>
   </plurals>
   <string name="viewTournament">觀看錦標賽</string>
@@ -491,15 +491,15 @@
   <string name="tournamentWinners">比赛赢家</string>
   <string name="name">名</string>
   <string name="description">描述</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">內部簡介</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">僅團隊成員可見，設置後將覆蓋公開簡介為團隊成員展示。</string>
+  <string name="descPrivate">內部簡介</string>
+  <string name="descPrivateHelp">僅團隊成員可見，設置後將覆蓋公開簡介為團隊成員展示。</string>
   <string name="no">否</string>
   <string name="yes">是</string>
   <string name="help">幫助：</string>
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
   <string name="posts">貼文</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">最近貼文</string>
+  <string name="lastPost">最近貼文</string>
   <string name="views">浏览</string>
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复此话题</string>
@@ -747,7 +747,7 @@
   <string name="invalidFen">無效的FEN</string>
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">通知: %1$s</string>
+  <string name="notificationsX">通知: %1$s</string>
   <string name="perfRatingX">評分:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
@@ -850,7 +850,7 @@
   <string name="mentionedYouInX">在 \"%1$s\" 中提到了您。</string>
   <string name="xMentionedYouInY">%1$s 在 \"%2$s\" 中提到了您。</string>
   <string name="invitedYouToX">邀請您至\"%1$s\"。</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s 邀請您至\"%2$s\"。</string>
+  <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
   <string name="youAreNowPartOfTeam">您現在是團隊的成員了。</string>
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
   <string name="someoneYouReportedWasBanned">您檢舉的玩家已被封鎖帳號</string>
