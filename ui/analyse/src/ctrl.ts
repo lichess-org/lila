@@ -612,7 +612,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
+    this.chessground.setAutoShapes(computeAutoShapes(this));
     keyboard.maybeShowVariationArrowHelp(this);
   };
 
@@ -785,7 +785,7 @@ export default class AnalyseCtrl {
       !isTouchDevice() &&
       !chap?.practice &&
       chap?.conceal === undefined &&
-      !(chap?.gamebook && !this.study?.members.canContribute()) &&
+      !this.study?.gamebookPlay() &&
       !this.retro &&
       this.variationArrowsProp() &&
       this.node.children.length > 1

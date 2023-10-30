@@ -129,7 +129,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const chap = ctrl.study?.data.chapter;
-  const isGamebookEditor = chap?.gamebook && ctrl.study?.members.canContribute();
+  const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay();
 
   for (const [i, node] of ctrl.node.children.entries()) {
     const userShape = findShape(node.uci, ctrl.node.shapes);
