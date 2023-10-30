@@ -46,7 +46,7 @@
     <item quantity="one">%s көпшілікке қарсы ойын бастады</item>
     <item quantity="other">%s көпшілікке қарсы ойын бастады</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">%s көпшілікке қарсы ойынға қатысты</item>
     <item quantity="other">%s көпшілікке қарсы ойынға қатысты</item>
   </plurals>
