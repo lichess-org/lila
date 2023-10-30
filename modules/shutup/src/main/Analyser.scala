@@ -59,14 +59,14 @@ object Analyser:
 
   // unicode compatible bounds
   // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
-  private object bounds:
-    val pre  = """(?<=[\s,.:;"']|^)"""
-    val post = """(?=[\s,.:;"']|$)"""
+  object bounds:
+    val pre                 = """(?<=[\s,.:;"']|^)"""
+    val post                = """(?=[\s,.:;"']|$)"""
+    def wrap(regex: String) = pre + regex + post
 
   private val ruBigRegex = {
-    """(?iu)""" + bounds.pre +
-      Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:") +
-      bounds.post
+    """(?iu)""" + bounds.wrap:
+      Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:")
   }.r
 
   private val criticalRegex = {
