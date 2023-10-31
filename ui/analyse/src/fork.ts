@@ -111,12 +111,17 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       }),
     },
     state.node.children.map((node, it) => {
+      const classes = {
+        selected: it === state.selected,
+        correct: ctrl.isGamebook() && it === 0,
+        wrong: ctrl.isGamebook() && it > 0,
+      };
       const conceal = isMainline && concealOf!(true)(ctrl.path + node.id, node);
       if (!conceal)
         return h(
           'move',
           {
-            class: { selected: it === state.selected },
+            class: classes,
             attrs: { 'data-it': it },
           },
           renderIndexAndMove(
