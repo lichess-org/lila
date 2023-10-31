@@ -12,7 +12,8 @@ case class Profile(
     rcfRating: Option[Int] = None,
     cfcRating: Option[Int] = None,
     dsbRating: Option[Int] = None,
-    links: Option[String] = None
+    links: Option[String] = None,
+    flair: Option[UserFlair] = None
 ):
 
   def nonEmptyRealName =
@@ -60,4 +61,5 @@ object Profile:
   val default = Profile()
 
   import reactivemongo.api.bson.*
+  import lila.db.dsl.given
   private[user] given BSONDocumentHandler[Profile] = Macros.handler[Profile]

@@ -26,7 +26,8 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
-    onlineIds: lila.socket.OnlineIds
+    onlineIds: lila.socket.OnlineIds,
+    assetBaseUrl: AssetBaseUrl
 )(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
@@ -70,6 +71,8 @@ final class Env(
   lazy val authenticator = wire[Authenticator]
 
   lazy val forms = wire[UserForm]
+
+  lazy val flairApi = wire[UserFlairApi]
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>

@@ -27,7 +27,7 @@ final class UserForm:
 
   def usernameOf(user: User) = username(user) fill user.username
 
-  val profile: Form[Profile] = Form(
+  val profile: Form[Profile] = Form:
     mapping(
       "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
       "location"   -> optional(cleanNonEmptyText(maxLength = 80)),
@@ -40,9 +40,9 @@ final class UserForm:
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
       "cfcRating"  -> optional(number(min = 0, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
-      "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
+      "links"      -> optional(cleanNonEmptyText(maxLength = 3000)),
+      "flair"      -> optional(text.into[UserFlair].verifying(UserFlair.all contains _))
     )(Profile.apply)(unapply)
-  )
 
   def profileOf(user: User) = profile fill user.profileOrDefault
 
