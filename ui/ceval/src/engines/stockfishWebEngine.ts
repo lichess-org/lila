@@ -57,7 +57,7 @@ export class StockfishWebEngine implements CevalEngine {
       if (!nnueBuffer || nnueBuffer.byteLength < 1024 * 1024) {
         const req = new XMLHttpRequest();
 
-        req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { version: nnueVersion }), true);
+        req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.nnue?.({ bytes: e.loaded, total: e.total });
 
