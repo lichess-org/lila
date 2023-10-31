@@ -49,7 +49,6 @@ export default function wikiTheory(): WikiTheory {
         const title = `Chess_Opening_Theory/${path}`;
         try {
           const res = await fetch(`${wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`);
-          console.log(`${wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`);
           const saveAndShow = (html: string) => {
             cache.set(path, html);
             show(html);
@@ -57,7 +56,6 @@ export default function wikiTheory(): WikiTheory {
           if (res.ok) {
             const json = await res.json();
             const page = json.query.pages[0];
-            console.log(page);
             if (page.missing) saveAndShow('');
             else if (page.extract === '') saveAndShow('');
             else if (page.invalid) show('invalid request: ' + page.invalidreason);
