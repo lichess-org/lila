@@ -105,30 +105,28 @@ object ServerEval:
               nextPath,
               List(
                 F.score -> info.eval.score
-                  .ifTrue {
+                  .ifTrue:
                     node.eval.isEmpty ||
-                    advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                  }
+                      advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
                   .flatMap(bsonWriteOpt),
                 F.comments -> advOpt
-                  .map { adv =>
+                  .map: adv =>
                     node.comments + Comment(
                       Comment.Id.make,
                       adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
                       Comment.Author.Lichess
                     )
-                  }
                   .flatMap(bsonWriteOpt),
                 F.glyphs -> advOpt
-                  .map { adv =>
-                    node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                  }
+                  .map(adv => node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph)))
                   .flatMap(bsonWriteOpt)
               )
             )
 
       saveAnalysisLine()
         >> saveInfoAdvice().inject(nextPath)
+
+    end saveAnalysis
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
       val (_, reversedGames, error) =
