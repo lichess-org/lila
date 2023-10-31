@@ -204,10 +204,10 @@ private[tournament] case class TournamentSetup(
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password,
-        position = newVariant.standard so {
+        position = newVariant.standard.so:
           if old.isCreated || old.position.isDefined then realPosition
           else old.position
-        },
+        ,
         noBerserk = !isBerserkable,
         noStreak = !(~streakable),
         teamBattle = old.teamBattle,
@@ -239,7 +239,7 @@ private[tournament] case class TournamentSetup(
         hasChat = hasChat | old.hasChat
       )
 
-  private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
+  private def estimateNumberOfGamesOneCanPlay: Double = (minutes.atMost(720) * 60) / estimatedGameSeconds
 
   // There are 2 players, and they don't always use all their time (0.8)
   // add 15 seconds for pairing delay

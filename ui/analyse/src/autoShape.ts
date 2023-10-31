@@ -128,14 +128,25 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
+  const chap = ctrl.study?.data.chapter;
+  const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay();
+
   for (const [i, node] of ctrl.node.children.entries()) {
     const userShape = findShape(node.uci, ctrl.node.shapes);
 
     if (userShape && i === ctrl.fork.selected()) autoShapes.push({ ...userShape }); // so we can hilite it
 
     const existing = findShape(node.uci, autoShapes);
+    const brush = isGamebookEditor
+      ? i === 0
+        ? 'paleGreen'
+        : 'paleRed'
+      : existing
+      ? existing.brush
+      : 'white';
     if (existing) {
       if (i === ctrl.fork.selected()) {
+        existing.brush = brush;
         existing.modifiers ??= {};
         existing.modifiers.hilite = true;
       }
@@ -143,7 +154,7 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
       autoShapes.push({
         orig: node.uci!.slice(0, 2) as Key,
         dest: node.uci?.slice(2, 4) as Key,
-        brush: 'white',
+        brush,
         modifiers: { hilite: i === ctrl.fork.selected() },
       });
     }
