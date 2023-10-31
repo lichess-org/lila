@@ -234,7 +234,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               h('div.form-group', [
                 h('label.form-label', ctrl.trans.noarg(i18n)),
                 h('div.form-control-with-clipboard', [
-                  h(`input#study-share-${i18n}.form-control.copyable`, {
+                  h(`input#study-share-${i18n}.form-control.copyable.autoselect`, {
                     attrs: {
                       readonly: true,
                       value: `${baseUrl()}${path}`,
@@ -254,19 +254,27 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'div.form-group',
               [
                 h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
-                h('input.form-control.autoselect', {
-                  attrs: {
-                    readonly: true,
-                    disabled: isPrivate,
-                    value: !isPrivate
-                      ? `<iframe ${
-                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
-                        } src="${baseUrl()}${addPly(
-                          `/study/embed/${studyId}/${chapter.id}`,
-                        )}" frameborder=0></iframe>`
-                      : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
-                  },
-                }),
+                h('div.form-control-with-clipboard', [
+                  h('input.form-control.copyable.autoselect', {
+                    attrs: {
+                      readonly: true,
+                      disabled: isPrivate,
+                      value: !isPrivate
+                        ? `<iframe ${
+                            ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                          } src="${baseUrl()}${addPly(
+                            `/study/embed/${studyId}/${chapter.id}`,
+                          )}" frameborder=0></iframe>`
+                        : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
+                    },
+                  }),
+                  h('button.button.copy', {
+                    attrs: {
+                      'data-rel': `study-share-embed`,
+                      ...dataIcon(licon.Clipboard),
+                    },
+                  }),
+                ]),
               ].concat(
                 !isPrivate
                   ? [
@@ -289,12 +297,20 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ),
             h('div.form-group', [
               h('label.form-label', 'FEN'),
-              h('input.form-control.autoselect', {
-                attrs: {
-                  readonly: true,
-                  value: ctrl.currentNode().fen,
-                },
-              }),
+              h('div.form-control-with-clipboard', [
+                h('input.form-control.copyable.autoselect', {
+                  attrs: {
+                    readonly: true,
+                    value: ctrl.currentNode().fen,
+                  },
+                }),
+                h('button.button.copy', {
+                  attrs: {
+                    'data-rel': `study-share-fen`,
+                    ...dataIcon(licon.Clipboard),
+                  },
+                }),
+              ]),
             ]),
           ]),
         ]
