@@ -70,7 +70,9 @@ function localInfo(ctrl: ParentCtrl, ev?: Tree.ClientEval | false): EvalInfo {
   const knps = ev.nodes / (ev?.millis ?? Number.POSITIVE_INFINITY);
 
   if (knps > 0) {
-    info.npsText = `${knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : knps + ' Kn/s'}`;
+    info.npsText = `${
+      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' Kn/s'
+    }`;
     info.knps = knps;
   }
   return info;
