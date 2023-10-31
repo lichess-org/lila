@@ -358,7 +358,7 @@ object faq:
         question(
           makeABotQ.txt(),
           p(
-            toLearnHowToCreateABotA(
+            makeABotA(
             a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess Bot"),
             a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(thisBlogPost())
             )
