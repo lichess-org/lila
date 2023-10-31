@@ -263,7 +263,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using
     )
   def minutes =
     form3.group(form.prefix("minutes"), trans.duration(), half = true)(
-      form3.select(_, TournamentForm.minuteChoices)
+      form3.select(_, TournamentForm.minuteChoicesKeepingCustom(tour))
     )
   def waitMinutes =
     form3.group(form.prefix("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(

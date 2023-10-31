@@ -66,7 +66,7 @@ final class TournamentForm:
 
   private def form(leaderTeams: List[LightTeam], prev: Option[Tournament])(using Me) =
     Form:
-      val m = makeMapping(leaderTeams)
+      val m = makeMapping(leaderTeams, prev)
       prev.fold(m): tour =>
         m
           .verifying(
@@ -78,14 +78,14 @@ final class TournamentForm:
             _.speed == tour.speed || tour.nbPlayers == 0
           )
 
-  private def makeMapping(leaderTeams: List[LightTeam])(using me: Me) =
+  private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
     mapping(
       "name"           -> optional(eventName(2, 30, me.isVerifiedOrAdmin)),
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
         if lila.security.Granter(_.ManageTournament) then number
-        else numberIn(minuteChoices)
+        else numberIn(minuteChoicesKeepingCustom(prev))
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
       "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
@@ -113,6 +113,9 @@ object TournamentForm:
   val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minuteDefault = 45
   val minuteChoices = options(minutes, "%d minute{s}")
+  def minuteChoicesKeepingCustom(prev: Option[Tournament]) = prev.fold(minuteChoices): tour =>
+    if minuteChoices.exists(_._1 == tour.minutes) then minuteChoices
+    else minuteChoices ++ List(tour.minutes -> s"${tour.minutes} minutes")
 
   val waitMinutes       = Seq(1, 2, 3, 5, 10, 15, 20, 30, 45, 60)
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
