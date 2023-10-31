@@ -41,7 +41,7 @@ final class UserForm:
       "cfcRating"  -> optional(number(min = 0, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(cleanNonEmptyText(maxLength = 3000)),
-      "flair"      -> optional(text.into[UserFlair].verifying(UserFlair.all contains _))
+      "flair"      -> optional(text.into[UserFlair].verifying(UserFlair.db.set(_)))
     )(Profile.apply)(unapply)
 
   def profileOf(user: User) = profile fill user.profileOrDefault
