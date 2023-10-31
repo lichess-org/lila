@@ -255,7 +255,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               [
                 h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
                 h('div.form-control-with-clipboard', [
-                  h('input.form-control.copyable.autoselect', {
+                  h('input#study-share-embed.form-control.copyable.autoselect', {
                     attrs: {
                       readonly: true,
                       disabled: isPrivate,
@@ -298,7 +298,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             h('div.form-group', [
               h('label.form-label', 'FEN'),
               h('div.form-control-with-clipboard', [
-                h('input.form-control.copyable.autoselect', {
+                h('input#study-share-fen.form-control.copyable.autoselect', {
                   attrs: {
                     readonly: true,
                     value: ctrl.currentNode().fen,
