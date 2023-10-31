@@ -164,12 +164,13 @@ private[tournament] case class TournamentSetup(
   def validClock = (clockTime + clockIncrement.value) > 0
 
   def realMode =
-    if realPosition.isDefined then Mode.Casual
+    if !balancedPosition then Mode.Casual
     else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 
   def realPosition: Option[Fen.Opening] = position.ifTrue(realVariant.standard).map(_.opening)
+  def balancedPosition                  = realPosition.flatMap(Thematic.byFen).isDefined
 
   def clockConfig = Clock.Config(LimitSeconds((clockTime * 60).toInt), clockIncrement)
 
