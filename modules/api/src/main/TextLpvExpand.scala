@@ -35,7 +35,7 @@ final class TextLpvExpand(
         case link                        => fuccess(link -> link)
       .parallel
       .map:
-        _.collect { case (url, Some(pgn)) => url -> pgn }.toMap
+        _.collect { case (url, Some(LpvEmbed.PublicPgn(pgn))) => url -> pgn }.toMap
       .map: pgns =>
         (url, _) =>
           pgns
@@ -62,7 +62,7 @@ final class TextLpvExpand(
       .parallel
       .map:
         _.collect:
-          case (id, Some(pgn)) => id -> pgn
+          case (id, Some(LpvEmbed.PublicPgn(embed))) => id -> embed
         .toMap
 
   private val regex = LpvGameRegex(net.domain)
@@ -74,32 +74,44 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val gamePgnCache = cacheApi[GameId, Option[PgnStr]](512, "textLpvExpand.pgn.game"):
-    _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
+  private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](512, "textLpvExpand.pgn.game"):
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(gameIdToPgn)
 
-  private val chapterPgnCache = cacheApi[StudyChapterId, Option[PgnStr]](512, "textLpvExpand.pgn.chapter"):
+  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](512, "textLpvExpand.pgn.chapter"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyChapterIdToPgn)
 
-  private val studyPgnCache = cacheApi[StudyId, Option[PgnStr]](512, "textLpvExpand.pgn.firstChapter"):
+  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](512, "textLpvExpand.pgn.firstChapter"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
-  private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
+  private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
     gameRepo gameWithInitialFen id flatMapz { g =>
       analysisRepo.byId(Analysis.Id(id)) flatMap { analysis =>
-        pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
+        pgnDump(g.game, g.fen, analysis, pgnFlags) map { pgn =>
+          LpvEmbed.PublicPgn(pgn.render).some
+        }
       }
     }
 
-  private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[PgnStr]] =
+  private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byChapterId(id) flatMapz { sc =>
-      studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) dmap some
+    studyApi.byChapterId(id) flatMap {
+      case Some(sc) if sc.study.isPrivate => fuccess(LpvEmbed.PrivateStudy.some)
+      case Some(sc) =>
+        studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) map { pgn =>
+          LpvEmbed.PublicPgn(pgn).some
+        }
+      case None => fuccess(none)
     }
 
-  private def studyIdToPgn(id: StudyId): Fu[Option[PgnStr]] =
+  private def studyIdToPgn(id: StudyId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byId(id) flatMapz { s =>
-      studyPgnDump.ofFirstChapter(s, flags)
+    studyApi.byId(id) flatMap {
+      case Some(s) if s.isPrivate => fuccess(LpvEmbed.PrivateStudy.some)
+      case Some(s) =>
+        studyPgnDump.ofFirstChapter(s, flags) dmap { maybePgn =>
+          maybePgn.map(LpvEmbed.PublicPgn.apply)
+        }
+      case None => fuccess(none)
     }
 
 final class LpvGameRegex(domain: NetDomain):
@@ -116,3 +128,7 @@ final class LpvGameRegex(domain: NetDomain):
   val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
   val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
   val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r
+
+enum LpvEmbed:
+  case PublicPgn(pgn: PgnStr)
+  case PrivateStudy
