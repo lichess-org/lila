@@ -91,7 +91,7 @@ export default class CevalCtrl {
 
     const step = steps[steps.length - 1];
 
-    if (((threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.searchMs()) {
+    if (!this.isDeeper() && ((threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.searchMs()) {
       this.lastStarted = { path, steps, threatMode };
       return;
     }
