@@ -1,7 +1,6 @@
 import {
   BarController,
   BarElement,
-  CategoryScale,
   Chart,
   ChartDataset,
   LineController,
@@ -26,16 +25,7 @@ import {
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 
-Chart.register(
-  LineController,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  BarElement,
-  BarController,
-  CategoryScale,
-);
+Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
 export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: Trans, hunter: boolean) {
   const possibleChart = maybeChart(el);

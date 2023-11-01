@@ -18,8 +18,6 @@ export default class ServerEval {
     this.requested = false;
   };
 
-  onMergeAnalysisData = () => this.chart?.updateData(this.root.data, this.root.mainline);
-
   request = () => {
     this.root.socket.send('requestAnalysis', this.chapterId());
     this.requested = true;

@@ -14,6 +14,7 @@ import {
   blackFill,
   chartYMax,
   chartYMin,
+  christmasTree,
   fontColor,
   fontFamily,
   maybeChart,
@@ -27,7 +28,6 @@ import division from './division';
 import { AcplChart, AnalyseData } from './interface';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler);
-const ply = plyLine(0);
 
 export default async function (
   el: HTMLCanvasElement,
@@ -38,20 +38,23 @@ export default async function (
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
   const blurBackgroundColor = '#343138';
-  const pointBackgroundColors: (typeof orangeAccent | typeof blurBackgroundColor)[] = [];
+  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
+  const ply = plyLine(0);
+  const divisionLines = division(trans, data.game.division);
 
   // TODO: reloadallthethings
 
-  const makeDatasetsAndPushLabels = (d: AnalyseData, mainline: Tree.Node[]) => {
+  const makeDataset = (d: AnalyseData, mainline: Tree.Node[]) => {
+    const pointBackgroundColors: (typeof orangeAccent | typeof blurBackgroundColor)[] = [];
+    const adviceHoverColors: string[] = [];
     const labels: string[] = [];
     const pointStyles: PointStyle[] = [];
     const pointSizes: number[] = [];
     const winChances: number[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
     if (d.player.color === 'white') blurs.reverse();
-    const divisionLines = division(trans, d.game.division);
     mainline.slice(1).map(node => {
-      const partial = !d.analysis || d.analysis.partial;
+      const partial = isPartial(d);
       const isWhite = (node.ply & 1) == 1;
       let cp: number = 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
@@ -67,50 +70,50 @@ export default async function (
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push(winchance);
 
-      const { advice: judgment } = glyphProperties(node);
+      const { advice, color: glyphColor } = glyphProperties(node);
       const label = turn + dots + ' ' + node.san;
       let annotation = '';
-      if (judgment) annotation = ` [${trans(judgment)}]`;
+      if (advice) annotation = ` [${trans(advice)}]`;
       const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
       if (isBlur) annotation = ' [blur]';
       labels.push(label + annotation);
-      // TODO Christmas lights.
       pointStyles.push(isBlur ? 'rect' : 'circle');
       pointSizes.push(isBlur ? 5 : 0);
       pointBackgroundColors.push(isBlur ? blurBackgroundColor : orangeAccent);
+      adviceHoverColors.push(glyphColor ?? orangeAccent);
     });
     return {
-      datasets: [
-        {
-          label: trans('advantage'),
-          data: winChances,
-          borderWidth: 1,
-          fill: {
-            target: 'origin',
-            below: blackFill,
-            above: whiteFill,
-          },
-          pointRadius: d.player.blurs ? pointSizes : 0,
-          pointHitRadius: 100,
-          borderColor: orangeAccent,
-          pointBackgroundColor: pointBackgroundColors,
-          pointStyle: pointStyles,
-          hoverBackgroundColor: orangeAccent,
-          order: 5,
+      acpl: {
+        label: trans('advantage'),
+        data: winChances,
+        borderWidth: 1,
+        fill: {
+          target: 'origin',
+          below: blackFill,
+          above: whiteFill,
         },
-        ply,
-        ...divisionLines,
-      ],
+        pointRadius: d.player.blurs ? pointSizes : 0,
+        pointHitRadius: 100,
+        borderColor: orangeAccent,
+        pointBackgroundColor: pointBackgroundColors,
+        pointStyle: pointStyles,
+        hoverBackgroundColor: orangeAccent,
+        order: 5,
+      },
       labels,
+      adviceHoverColors,
     };
   };
 
-  const { datasets, labels } = makeDatasetsAndPushLabels(data, mainline);
+  const dataset = makeDataset(data, mainline);
+  const acpl = dataset.acpl;
+  const labels = dataset.labels;
+  let adviceHoverColors = dataset.adviceHoverColors;
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
       labels: labels.map((_, index) => index),
-      datasets: datasets,
+      datasets: [acpl, ply, ...divisionLines],
     },
     options: {
       interaction: {
@@ -182,22 +185,24 @@ export default async function (
   const acplChart = new Chart(el, config) as AcplChart;
   acplChart.selectPly = selectPly.bind(acplChart);
   acplChart.updateData = (d: AnalyseData, mainline: Tree.Node[]) => {
-    const { datasets } = makeDatasetsAndPushLabels(d, mainline);
-    console.log(acplChart);
-    acplChart.data.datasets[0] = datasets[0];
+    const dataset = makeDataset(d, mainline);
+    adviceHoverColors = dataset.adviceHoverColors;
+    const acpl = dataset.acpl;
+    acplChart.data.datasets[0].data = acpl.data;
+    if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
     acplChart.update();
-    console.log('After:', acplChart);
   };
   lichess.pubsub.on('ply', acplChart.selectPly);
   lichess.pubsub.emit('ply.trigger');
+  if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }
 
 // the color prefixes below are mirrored in analyse/src/roundTraining.ts
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';
 const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } => {
-  if (node.glyphs?.some(g => g.id == 4)) return { advice: 'blunder', color: '#db303' };
-  else if (node.glyphs?.some(g => g.id == 2)) return { advice: 'mistake', color: '#cc9b0' };
-  else if (node.glyphs?.some(g => g.id == 6)) return { advice: 'inaccuracy', color: '#1c9ae' };
+  if (node.glyphs?.some(g => g.id == 4)) return { advice: 'blunder', color: '#db3031' };
+  else if (node.glyphs?.some(g => g.id == 2)) return { advice: 'mistake', color: '#e69d00' };
+  else if (node.glyphs?.some(g => g.id == 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
   else return { advice: undefined, color: undefined };
 };
