@@ -326,7 +326,7 @@ object faq:
             whyAreRatingHigherExplanation()
           ),
           p(
-            a(href := routes.ContentPage.loneBookmark("rating-systems"))(moreAboutRatingSystems())
+            a(href := routes.ContentPage.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(
@@ -353,16 +353,6 @@ object faq:
           p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
           p(
             lichessCanOptionnalySendPopUps()
-          )
-        ),
-        question(
-          "make-a-bot",
-          makeABotQ.txt(),
-          p(
-            makeABotA(
-            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess Bot"),
-            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(thisBlogPost())
-            )
           )
         ),
         question(
@@ -399,6 +389,19 @@ object faq:
             li(browsersMicrosoftEdge3()),
             li(browsersMicrosoftEdge4()),
             li(browsersMicrosoftEdge5())
+          )
+        ),
+        question(
+          "make-a-bot",
+          "Make a Lichess bot?",
+          p(
+            "To learn how to create a ",
+            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
+            ", please read ",
+            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
+              "this blog post"
+            ),
+            "."
           )
         )
       )

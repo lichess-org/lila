@@ -129,7 +129,6 @@ Another point to note is that, as time passes, the confidence interval will incr
   <string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
 
 It's best to think of ratings as "relative" figures (as opposed to "absolute" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.</string>
-  <string name="moreAboutRatingSystems">More about rating systems</string>
   <string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
   <string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressing %2$s during a game.</string>
   <string name="displayPreferences">display preferences</string>
@@ -143,9 +142,6 @@ It's best to think of ratings as "relative" figures (as opposed to "absolute" fi
 Click the lock icon next to the lichess.org address in the URL bar of your browser.
 
 Then select whether to allow or block notifications from Lichess.</string>
-  <string name="makeABotQ">Make a Lichess bot?</string>
-  <string name="makeABotA">To learn how to create a %1$s, please read %2$s.</string>
-  <string name="thisBlogPost">this blog post</string>
   <string name="enableAutoplayForSoundsQ">Enable autoplay for sounds?</string>
   <string name="enableAutoplayForSoundsA">Most browsers can prevent sound from playing on a freshly loaded page to protect users. Imagine if every website could immediately bombard you with audio ads.
 
