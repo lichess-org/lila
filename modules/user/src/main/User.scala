@@ -131,7 +131,7 @@ object User:
     import LoginCandidate.*
     def apply(p: PasswordAndToken): Result =
       val res =
-        if must2fa then Result.Must2fa
+        if !user.has2fa && must2fa then Result.Must2fa
         else if check(p.password) then
           user.totpSecret.fold[Result](Result.Success(user)): tp =>
             p.token.fold[Result](Result.MissingTotpToken): token =>
