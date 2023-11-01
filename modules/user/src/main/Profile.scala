@@ -34,6 +34,8 @@ case class Profile(
 
   def actualLinks: List[Link] = links so Links.make
 
+  def checkedFlair: Option[UserFlair] = flair.filter(UserFlair.exists)
+
   import Profile.OfficialRating
 
   def officialRating: Option[OfficialRating] =

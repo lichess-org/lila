@@ -30,19 +30,20 @@ object UserFlair extends OpaqueString[UserFlair]:
   private var _db: Db                                       = Db(Nil)
   private[user] def updateDb(lines: Iterator[String]): Unit = _db = Db(UserFlair from lines.toList)
 
-  def db = _db
+  def db                                = _db
+  def exists(flair: UserFlair): Boolean = db.list.isEmpty || db.set(flair)
 
 final private class UserFlairApi(ws: StandaloneWSClient, assetBaseUrl: config.AssetBaseUrl)(using Executor)(
-    using scheduler: akka.actor.Scheduler
+    using
+    scheduler: akka.actor.Scheduler,
+    mode: play.api.Mode
 ):
-  private val listUrl = s"http://l1.org/assets/lifat/flairs/list.txt"
+  private val listUrl = s"$assetBaseUrl/assets/lifat/flair/list.txt"
 
   private def refresh: Funit =
-    ws.url(s"$assetBaseUrl/assets/lifat/flairs/list.txt")
-      .get()
-      .map:
-        case res if res.status == 200 => UserFlair.updateDb(res.body[String].linesIterator)
-        case _                        => logger.error(s"Cannot fetch $listUrl")
+    ws.url(listUrl).get() map:
+      case res if res.status == 200 => UserFlair.updateDb(res.body[String].linesIterator)
+      case _                        => logger.error(s"Cannot fetch $listUrl")
 
-  scheduler.scheduleWithFixedDelay(4 seconds, 11 minutes): () =>
+  scheduler.scheduleWithFixedDelay(51 seconds, 7 minutes): () =>
     refresh

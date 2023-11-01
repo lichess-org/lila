@@ -72,7 +72,7 @@ final class Env(
 
   lazy val forms = wire[UserForm]
 
-  lazy val flairApi = wire[UserFlairApi]
+  val flairApi = wire[UserFlairApi]
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>

@@ -20,7 +20,7 @@ object header:
         if u.isPatron then
           h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
             a(href := routes.Plan.index)(patronIcon),
-            userSpan(u, withPowerTip = false, withOnline = false)
+            userSpan(u, withPowerTip = false, withOnline = false, withFlair = true)
           )
         else h1(userSpan(u, withPowerTip = false)),
         div(

@@ -10,10 +10,10 @@ import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs }
+import lila.user.{ User, UserPerfs, UserFlair }
 
 trait UserHelper extends HasEnv:
-  self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
+  self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
 
   given Conversion[User.WithPerfs, User] = _.user
 
@@ -196,6 +196,7 @@ trait UserHelper extends HasEnv:
       withPowerTip: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
+      withFlair: Boolean = false,
       name: Option[Frag] = None
   )(using Lang): Frag =
     span(
@@ -205,6 +206,7 @@ trait UserHelper extends HasEnv:
       withOnline so lineIcon(user),
       withTitle option titleTag(user.title),
       name | user.username,
+      withFlair option userFlair(user),
       withPerfRating.map(userRating(user, _))
     )
 
@@ -218,6 +220,15 @@ trait UserHelper extends HasEnv:
       withOnline so lineIcon(user),
       user.map(titleTag),
       name
+    )
+
+  private def userFlair(user: User): Option[Frag] =
+    user.profile.flatMap(_.flair).flatMap(userFlair)
+
+  private def userFlair(flair: UserFlair): Option[Frag] =
+    UserFlair.exists(flair) option img(
+      cls := "uflair",
+      src := staticAssetUrl(s"lifat/flair/img/$flair.webp")
     )
 
   private def renderRating(perf: Perf): Frag =
