@@ -314,7 +314,7 @@ final class Api(
     else f(ids)
 
   val cloudEval =
-    val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip")
+    val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
     Anon:
       rateLimit(rateLimited):
         get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>

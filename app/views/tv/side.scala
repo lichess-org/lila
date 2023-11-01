@@ -13,7 +13,6 @@ object side:
       baseUrl: String
   ): Frag =
     views.html.site.bits.subnav(
-      cls := "tv-channels",
       lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",

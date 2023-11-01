@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">フォーラムにトピックを作るといろんな人からコメントが来ます</string>
   <string name="publishOnYourBlog">ブログ上で公開</string>
   <string name="publishHelp">チェックすると投稿がブログに表示されます。しないと下書きで非公開となります。</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="other">%s 件のブログ記事を公開</item>
   </plurals>
   <plurals name="nbViews">
@@ -30,8 +30,8 @@
     <item quantity="other">%s 件の投稿を表示</item>
   </plurals>
   <string name="uploadAnImageForYourPost">投稿記事のトップ画像をアップロード</string>
-  <string name="imageAlt">画像代替テキスト</string>
-  <string name="imageCredit">画像クレジット</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">画像代替テキスト</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">画像クレジット</string>
   <string name="deleteBlog">このブログ投稿を永久に削除する</string>
   <string name="deleteImage">画像を削除</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">以下のウェブサイトの画像を使うのが安全です: </string>

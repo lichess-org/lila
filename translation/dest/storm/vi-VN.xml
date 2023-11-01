@@ -13,10 +13,10 @@
   <plurals name="xRuns">
     <item quantity="other">%s lần chạy</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm">
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
     <item quantity="other">Đã chơi %1$s lượt %2$s</item>
   </plurals>
-  <string name="highscoreX">Điểm cao: %s</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">Điểm cao: %s</string>
   <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">Điểm</string>
   <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">Các nước đi</string>
   <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">Độ chính xác</string>

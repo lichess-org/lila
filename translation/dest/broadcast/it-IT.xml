@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Dirette</string>
   <string name="myBroadcasts">Le mie trasmissioni</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s diretta</item>
     <item quantity="other">%s dirette</item>
   </plurals>

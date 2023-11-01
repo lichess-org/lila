@@ -210,7 +210,7 @@
   <string name="puzzles">ପ୍ରହେଳିକା</string>
   <string name="name">ନାମ</string>
   <string name="description">ଵର୍ଣ୍ଣନା</string>
-  <string name="descPrivate">ଘରୋଇ ଵର୍ଣ୍ଣନା</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">ଘରୋଇ ଵର୍ଣ୍ଣନା</string>
   <string name="no">ନାହିଁ</string>
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>

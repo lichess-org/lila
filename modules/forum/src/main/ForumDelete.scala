@@ -39,15 +39,17 @@ final class ForumDelete(
       .runWith(Sink.ignore)
       .void
 
+  def deleteTopic(view: PostView) =
+    for
+      postIds <- postRepo.idsByTopicId(view.topic.id)
+      _       <- postRepo removeByTopic view.topic.id
+      _       <- topicRepo.remove(view.topic)
+      _       <- categApi denormalize view.categ
+    yield indexer ! RemovePosts(postIds)
+
   private def doDelete(view: PostView) =
     postRepo.isFirstPost(view.topic.id, view.post.id).flatMap {
-      if _ then
-        for
-          postIds <- postRepo.idsByTopicId(view.topic.id)
-          _       <- postRepo removeByTopic view.topic.id
-          _       <- topicRepo.remove(view.topic)
-          _       <- categApi denormalize view.categ
-        yield indexer ! RemovePosts(postIds)
+      if _ then deleteTopic(view)
       else
         for
           _ <- postRepo.remove(view.post)

@@ -34,7 +34,7 @@ object ConditionHandlers:
                 val date = DateTimeFormatter
                   .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
                   .withLocale(lang.toLocale)
-                s"Because you missed your last swiss game, you cannot enter a new swiss tournament until $date"
+                s"Because you missed your last Swiss game, you cannot enter a new Swiss tournament until $date"
           )
         },
         "accepted" -> verdicts.accepted

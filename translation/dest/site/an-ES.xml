@@ -515,15 +515,15 @@
   <string name="tournamentWinners">Ganadors de torneyos</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
-  <string name="descPrivate">Descripción privada</string>
-  <string name="descPrivateHelp">Texto que nomás veyerán los miembros de l\'equipo. Si s\'emplega, los miembros de l\'equipo lo veyerán en cuentas d\'a descripción publica.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descripción privada</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que nomás veyerán los miembros de l\'equipo. Si s\'emplega, los miembros de l\'equipo lo veyerán en cuentas d\'a descripción publica.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Aduya:</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicacions</string>
-  <string name="lastPost">Zaguera publicación</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Zaguera publicación</string>
   <string name="views">Visitas</string>
   <string name="replies">Respuestas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
@@ -875,7 +875,7 @@
   <string name="mentionedYouInX">t\'ha mencionau en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s t\'ha mencionau en \"%2$s\".</string>
   <string name="invitedYouToX">t\'ha convidau a \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s t\'ha convidau a \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s t\'ha convidau a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ya yes en l\'equipo.</string>
   <string name="youHaveJoinedTeamX">T\'has uniu a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Belún a qui has denunciau ha estau expulsau</string>

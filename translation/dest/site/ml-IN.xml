@@ -468,15 +468,15 @@
   <string name="tournamentWinners">പരമ്പരയിലെ ജേതാക്കൾ</string>
   <string name="name">പേര്</string>
   <string name="description">വിവരണം</string>
-  <string name="descPrivate">സ്വകാര്യ വിവരണം</string>
-  <string name="descPrivateHelp">ഈ ടെക്സ്റ്റ്‌ ടീം അംഗങ്ങൾ കാണും സജ്ജീകരിച്ചിട്ടുടെങ്കിൽ പൊതു വിവരണം മാറ്റിസ്ഥാപിക്കും.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">സ്വകാര്യ വിവരണം</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ഈ ടെക്സ്റ്റ്‌ ടീം അംഗങ്ങൾ കാണും സജ്ജീകരിച്ചിട്ടുടെങ്കിൽ പൊതു വിവരണം മാറ്റിസ്ഥാപിക്കും.</string>
   <string name="no">ഇല്ല</string>
   <string name="yes">അതെ</string>
   <string name="help">സഹായം:</string>
   <string name="createANewTopic">ഒരു പുതിയ വിഷയം തുടങ്ങാം</string>
   <string name="topics">വിഷയങ്ങൾ</string>
   <string name="posts">കുറിപ്പുകൾ</string>
-  <string name="lastPost">അവസാന കുറിപ്പ്</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">അവസാന കുറിപ്പ്</string>
   <string name="views">നിരീക്ഷണങ്ങൾ</string>
   <string name="replies">പ്രതികരണങ്ങൾ</string>
   <string name="replyToThisTopic">ഈ വിഷയത്തിനുള്ള മറുപടി</string>
@@ -805,7 +805,7 @@
   <string name="mentionedYouInX">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
   <string name="xMentionedYouInY">%2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
   <string name="invitedYouToX">%1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
-  <string name="xInvitedYouToY">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>
   <string name="youAreNowPartOfTeam">നിങ്ങളിപ്പോൾ ടീമിന്റെ ഭാഗമായി.</string>
   <string name="youHaveJoinedTeamX">നിങ്ങൾ %1$s ഇൽ ചേർന്നു.</string>
   <string name="someoneYouReportedWasBanned">നിങ്ങൾ റിപ്പോർട്ടുചെയ്‌ത ഒരു കളിക്കാരനെ നിരോധിച്ചിരിക്കുന്നു</string>

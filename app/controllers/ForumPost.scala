@@ -85,8 +85,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def delete(id: ForumPostId) = AuthBody { ctx ?=> me ?=>
     Found(postApi.getPost(id).flatMapz(postApi.viewOf)): view =>
       val post = view.post
-      if post.userId.exists(_ is me) && !post.erased
-      then postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
+      if post.userId.exists(_ is me) && !post.erased then
+        if view.topic.nbPosts == 1 then
+          env.forum.delete.deleteTopic(view) inject Redirect(routes.ForumCateg.show(view.categ.slug))
+        else postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
       else
         TopicGrantModById(post.categId, post.topicId):
           env.forum.delete

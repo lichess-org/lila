@@ -93,7 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
-  <string name="maxDepthReached">Тереңдіктің шегіне жетті!</string>
+  <string name="maxDepthReached">Іздеу шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
@@ -348,7 +348,7 @@
     <item quantity="one">%s зерттеу</item>
     <item quantity="other">%s зерттеу</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s көпшілікке қарсы ойын</item>
     <item quantity="other">%s көпшілікке қарсы ойын</item>
   </plurals>

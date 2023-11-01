@@ -1,5 +1,6 @@
 package lila.security
 
+import com.softwaremill.tagging.*
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
@@ -15,6 +16,7 @@ import lila.oauth.{ OAuthScope, OAuthServer, AccessToken }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo, Me }
 import lila.socket.Socket.Sri
+import lila.user.User.LoginCandidate.Result
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -24,8 +26,8 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     oAuthServer: OAuthServer,
-    tor: Tor,
-    ip2proxy: Ip2Proxy
+    ip2proxy: Ip2Proxy,
+    proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: Mode):
 
   val AccessUri = "access_uri"
@@ -43,7 +45,7 @@ final class SecurityApi(
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
-  private def loadedLoginForm(candidate: Option[LoginCandidate]) =
+  private def loadedLoginForm(candidate: Option[LoginCandidate]): Form[Result] =
     import LoginCandidate.Result.*
     Form(
       mapping(
@@ -64,17 +66,29 @@ final class SecurityApi(
             Invalid(
               Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
             )
+          case Must2fa =>
+            Invalid(Seq(ValidationError("2-Factor Authentication is required to log in from this network.")))
           case err => Invalid(Seq(ValidationError(err.toString)))
       })
     )
 
-  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] =
+  private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
+    ip2proxy(HTTPRequest.ipAddress(req)).map: p =>
+      p.name.exists(proxy2faSetting.get().value.has(_)) option p
+
+  def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
         case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
       .map(_.filter(_.user isnt User.lichessId))
+      .flatMap:
+        _.so: candidate =>
+          must2fa(req).map:
+            _.fold(candidate.some): p =>
+              lila.mon.security.login.proxy(p.value).increment()
+              candidate.copy(must2fa = true).some
       .map(loadedLoginForm)
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(

@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Emisións en directo</string>
   <string name="myBroadcasts">As miñas emisións</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
   </plurals>

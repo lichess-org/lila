@@ -348,7 +348,7 @@
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultánea</item>
     <item quantity="other">%s simultáneas</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">Crear novo tema</string>
   <string name="topics">Temas</string>
   <string name="posts">Entradas</string>
-  <string name="lastPost">Última entrada</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Última entrada</string>
   <string name="views">Visitas</string>
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tema</string>

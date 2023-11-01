@@ -348,7 +348,7 @@
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultânea</item>
     <item quantity="other">%s simultâneas</item>
   </plurals>
@@ -528,15 +528,15 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
-  <string name="descPrivate">Descrição privada</string>
-  <string name="descPrivateHelp">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrição privada</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Criar um novo tópico</string>
   <string name="topics">Tópicos</string>
   <string name="posts">Publicações</string>
-  <string name="lastPost">Última publicação</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Última publicação</string>
   <string name="views">Visualizações</string>
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tópico</string>
@@ -789,7 +789,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
-  <string name="notificationsX">Notificações: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
@@ -896,7 +896,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="mentionedYouInX">foste mencionado em \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mencionou-te em \"%2$s\".</string>
   <string name="invitedYouToX">convidou-te para \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s convidou-te para \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s convidou-te para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Já fazes parte da equipa.</string>
   <string name="youHaveJoinedTeamX">Juntaste-te a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Alguém que denunciaste foi banido</string>

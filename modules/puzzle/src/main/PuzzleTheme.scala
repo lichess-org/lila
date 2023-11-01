@@ -200,6 +200,8 @@ object PuzzleTheme:
     checkFirst
   ).map(_.key)
 
+  val allMates: Set[Key] = visible.filter(_.key.value.endsWith("Mate")).map(_.key).toSet
+
   // themes that can't be viewed by players
   val hiddenThemes: Set[Key] = Set(checkFirst.key)
 

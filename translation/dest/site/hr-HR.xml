@@ -555,7 +555,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="createANewTopic">Kreiraj novu temu</string>
   <string name="topics">Teme</string>
   <string name="posts">Objave</string>
-  <string name="lastPost">Zadnja objava</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Zadnja objava</string>
   <string name="views">Pregleda</string>
   <string name="replies">Odgovora</string>
   <string name="replyToThisTopic">Odgovori na ovu temu</string>

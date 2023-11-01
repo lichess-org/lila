@@ -122,6 +122,6 @@
   <string name="healthyMix">Προτεινόμενο μίγμα</string>
   <string name="healthyMixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
   <string name="playerGames">Παιχνίδια παίκτη</string>
-  <string name="playerGamesDescription">Αναζητήστε παζλ που δημιουργήθηκαν από παιχνίδια είτε δικά σας είτε άλλων παικτών.</string>
+  <string name="playerGamesDescription">Αναζητήστε γρίφους που δημιουργήθηκαν από παιχνίδια είτε δικά σας είτε άλλων παικτών.</string>
   <string name="puzzleDownloadInformation">Αυτοί οι γρίφοι είναι δημόσιοι και μπορείτε να τους κατεβάσετε εδώ %s.</string>
 </resources>

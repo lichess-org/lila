@@ -348,7 +348,7 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultan</item>
     <item quantity="other">%s simultaner</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">Opret et nyt emne</string>
   <string name="topics">Emner</string>
   <string name="posts">Opslag</string>
-  <string name="lastPost">Seneste opslag</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Seneste opslag</string>
   <string name="views">Visninger</string>
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svar på dette emne</string>

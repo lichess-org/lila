@@ -521,7 +521,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="createANewTopic">Loo uus teema</string>
   <string name="topics">Teemad</string>
   <string name="posts">Postitused</string>
-  <string name="lastPost">Viimane postitus</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Viimane postitus</string>
   <string name="views">Vaatamisi</string>
   <string name="replies">Vastused</string>
   <string name="replyToThisTopic">Vasta sellele teemale</string>

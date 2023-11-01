@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmissões</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Minhas transmissões</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s transmissão</item>
     <item quantity="other">%s transmissões</item>
   </plurals>

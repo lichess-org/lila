@@ -348,7 +348,7 @@
     <item quantity="one">%s estudi</item>
     <item quantity="other">%s estudis</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultània</item>
     <item quantity="other">%s simultànies</item>
   </plurals>

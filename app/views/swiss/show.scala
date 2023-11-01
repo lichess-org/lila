@@ -62,7 +62,7 @@ object show:
           title = s"${fullName(s)}: ${s.variant.name} ${s.clock.show} #${s.id}",
           url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
           description =
-            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
+            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +
               s.winnerId.fold("Winner is not yet decided."): winnerId =>
                 s"${titleNameOrId(winnerId)} takes the prize home!"

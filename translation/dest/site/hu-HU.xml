@@ -348,7 +348,7 @@
     <item quantity="one">%s tanulmány</item>
     <item quantity="other">%s tanulmány</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s szimultán</item>
     <item quantity="other">%s szimultán</item>
   </plurals>
@@ -535,7 +535,7 @@
   <string name="createANewTopic">Új téma létrehozása</string>
   <string name="topics">Témák</string>
   <string name="posts">Hozzászólások</string>
-  <string name="lastPost">Utolsó hozzászólás</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Utolsó hozzászólás</string>
   <string name="views">Megtekintések</string>
   <string name="replies">Hozzászólások</string>
   <string name="replyToThisTopic">Hozzászólás</string>

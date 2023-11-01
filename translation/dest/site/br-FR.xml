@@ -607,15 +607,15 @@
   <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
-  <string name="descPrivate">Deskrivadur prevez</string>
-  <string name="descPrivateHelp">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Deskrivadur prevez</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
   <string name="no">Nann</string>
   <string name="yes">Ya</string>
   <string name="help">Sikour:</string>
   <string name="createANewTopic">Krouiñ ur sujed nevez</string>
   <string name="topics">Temoù</string>
   <string name="posts">Kemennadennoù</string>
-  <string name="lastPost">Kemennadenn ziwezhañ</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Kemennadenn ziwezhañ</string>
   <string name="views">Gwelet</string>
   <string name="replies">Respontoù</string>
   <string name="replyToThisTopic">Respont d\'ar sujed-mañ</string>
@@ -874,7 +874,7 @@
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
-  <string name="notificationsX">Rebuzadurioù: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Rebuzadurioù: %1$s</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
@@ -989,7 +989,7 @@
   <string name="mentionedYouInX">he/en deus meneget ac\'hanoc\'h e \"%1$s\".</string>
   <string name="xMentionedYouInY">Meneget oc’h bet gant %1$s e \"%2$s\".</string>
   <string name="invitedYouToX">en deus pedet ac’hanoc’h da \"%1$s\".</string>
-  <string name="xInvitedYouToY">Pedet oc’h bet gant %1$s da \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">Pedet oc’h bet gant %1$s da \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
   <string name="youHaveJoinedTeamX">Ezel oc\'h eus \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Skarzhet eo bet kuit unan bennak ho peus savet klemm outañ</string>
