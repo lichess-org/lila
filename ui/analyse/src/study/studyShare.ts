@@ -93,6 +93,14 @@ async function writePgnClipboard(url: string): Promise<void> {
   }
 }
 
+const copyButton = (rel: string) =>
+  h('button.button.copy', {
+    attrs: {
+      'data-rel': rel,
+      ...dataIcon(licon.Clipboard),
+    },
+  });
+
 export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
@@ -240,12 +248,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                       value: `${baseUrl()}${path}`,
                     },
                   }),
-                  h('button.button.copy', {
-                    attrs: {
-                      'data-rel': `study-share-${i18n}`,
-                      ...dataIcon(licon.Clipboard),
-                    },
-                  }),
+                  copyButton(`study-share-${i18n}`),
                 ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
               ]),
@@ -268,12 +271,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                         : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
                     },
                   }),
-                  h('button.button.copy', {
-                    attrs: {
-                      'data-rel': `study-share-embed`,
-                      ...dataIcon(licon.Clipboard),
-                    },
-                  }),
+                  copyButton(`study-share-embed`),
                 ]),
               ].concat(
                 !isPrivate
@@ -304,12 +302,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                     value: ctrl.currentNode().fen,
                   },
                 }),
-                h('button.button.copy', {
-                  attrs: {
-                    'data-rel': `study-share-fen`,
-                    ...dataIcon(licon.Clipboard),
-                  },
-                }),
+                copyButton(`study-share-fen`),
               ]),
             ]),
           ]),
