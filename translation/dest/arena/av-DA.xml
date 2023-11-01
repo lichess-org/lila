@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaTournaments">Аренаялъул турнирал</string>
+  <string name="variant">Вариант</string>
+  <string name="averageScore">Гьоркьохъеб рикӀкӀин</string>
+  <string name="myTournaments">Дир турнирал</string>
+</resources>

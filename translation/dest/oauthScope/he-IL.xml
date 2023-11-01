@@ -31,4 +31,24 @@
   <string name="engineWrite">יצירה ועדכון של מנוע חיצוני</string>
   <string name="webLogin">יצירה של התחברות מאובטחת לאתרים (עם גישה מלאה)!</string>
   <string name="webMod">שימוש בכלים של מנהלים (במסגרת ההרשאות שלך)</string>
+  <string name="personalAccessTokens">תווי גישה אישיים ל-API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">ניתן לבקש בקשות OAuth מבלי לעבור %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">authorization code flow</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">לחלופין, %s שתוכלו להשתמש בו ישירות לצורך בקשות API.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">צרו תו גישה אישי</string>
+  <string name="guardTokensCarefully">שמרו על התווים האלה בזהירות רבה! הם כמו סיסמאות. היתרון בשימוש בתווים על פני סיסמאות הוא שניתן לבטל אותם או לייצר רבים מהם.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">הנה %1$s ופה ניתן למצוא %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">דוגמה ליישומון של תווים אישיים</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">תיעוד ה-API</string>
+  <string name="newToken">תו גישה חדש</string>
+  <string name="apiAccessTokens">תווי גישה ל-API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">נוצר %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">היה בשימוש לאחרונה %s</string>
+  <string name="alreadyHavePlayedGames">כבר שיחקת משחקים!</string>
+  <string name="attentionOfDevelopers">הערה לשימוש מתכנתים בלבד:</string>
+  <string name="possibleToPrefill">ניתן למלא מראש את הטופס הזה על ידי שינויי ה-query parameters של הקישור (URL).</string>
+  <string name="forExample">לדוגמה: %s</string>
+  <string name="ticksTheScopes">מגדיר את ההיקף (scope) של %1$s ושל %2$s ויוצר תיאור לתו הגישה.</string>
+  <string name="scopesCanBeFound">ניתן למצוא את קטעי הקוד של הגדרות ההיקף (scope codes) בקוד ה-HTML של הטופס.</string>
+  <string name="givingPrefilledUrls">תוכלו לתת למשתמשים שלכם את הקישורים האלה שמולאו מראש כדי לעזור להם לקבל את התווים בהיקף המתאים.</string>
 </resources>

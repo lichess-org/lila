@@ -2,7 +2,8 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
+import lila.user.{ User, UserMark }
+import lila.common.licon
 
 case class Appeal(
     @Key("_id") id: Appeal.Id,
@@ -87,6 +88,24 @@ object Appeal:
 
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Appeal.Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
+
+  opaque type Filter = Option[UserMark]
+  object Filter extends TotalWrapper[Filter, Option[UserMark]]:
+    given Eq[Filter] = Eq.fromUniversalEquals
+    extension (filter: Filter)
+      def toggle(to: Filter) = to != filter option to
+      def is(mark: UserMark) = filter.contains(mark)
+      def key                = filter.fold("clean")(_.key)
+
+    val allWithIcon = List[(Filter, Either[licon.Icon, String])](
+      UserMark.Troll.some  -> Left(licon.BubbleSpeech),
+      UserMark.Boost.some  -> Left(licon.LineGraph),
+      UserMark.Engine.some -> Left(licon.Cogs),
+      UserMark.Alt.some    -> Right("A"),
+      none                 -> Left(licon.User)
+    )
+    val byName: Map[String, Filter] =
+      UserMark.byKey.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
 
 case class AppealMsg(
     by: UserId,

@@ -9,7 +9,7 @@ import { stepwiseScroll } from 'common/scroll';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { onInsert, bindNonPassive } from 'common/snabbdom';
-import { bindMobileMousedown } from 'common/mobile';
+import { bindMobileMousedown } from 'common/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { renderVoiceBar } from 'voice';

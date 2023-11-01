@@ -1,4 +1,4 @@
-import { isAndroid, isIOS, isIPad } from 'common/mobile';
+import { isAndroid, isIOS, isIPad } from 'common/device';
 import { pow2floor, sharedWasmMemory } from './util';
 import { ExternalEngine } from './worker';
 

@@ -1,7 +1,7 @@
 lichess.load.then(() => {
   $('.event .countdown').each(function () {
     var $el = $(this);
-    var seconds = parseInt($(this).data('seconds')) - 1;
+    var seconds = parseInt(this.dataset.seconds) - 1;
     var target = new Date().getTime() + seconds * 1000;
 
     var second = 1000,

@@ -110,7 +110,7 @@ GET   /blog                            controllers.Blog.index(page: Int ?= 1)
 GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id)
 GET   /blog/topic                      controllers.Ublog.topics
-GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1)
+GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
 GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
@@ -233,6 +233,7 @@ GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
+POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -246,6 +247,7 @@ GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
+POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
@@ -434,8 +436,10 @@ POST  /team/:id/edit                          controllers.Team.update(id)
 GET   /team/:id/kick                          controllers.Team.kickForm(id)
 POST  /team/:id/kick                          controllers.Team.kick(id)
 POST  /team/:id/kick/:user                    controllers.Team.kickUser(id, user)
-GET   /team/:id/leaders                       controllers.Team.leadersForm(id)
-POST  /team/:id/leaders                       controllers.Team.leaders(id)
+POST  /team/:id/blocklist                     controllers.Team.blocklist(id)
+GET   /team/:id/leaders                       controllers.Team.leaders(id)
+POST  /team/:id/permissions                   controllers.Team.permissions(id)
+POST  /team/:id/leaders                       controllers.Team.addLeader(id)
 GET   /team/:id/members                       controllers.Team.members(id, page: Int ?= 1)
 POST  /team/:id/close                         controllers.Team.close(id)
 POST  /team/:id/disable                       controllers.Team.disable(id)
@@ -551,6 +555,7 @@ POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(userna
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
+POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)
@@ -606,7 +611,7 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, sl
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug, id)
+POST  /forum/delete/:id     controllers.ForumPost.delete(id)
 POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
@@ -703,6 +708,7 @@ GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
+POST  /api/account/preferences/:name   controllers.Pref.apiSet(name)
 GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate

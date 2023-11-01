@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Überträgige</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Mini Überträgige</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s Überträgige</item>
     <item quantity="other">%s Überträgige</item>
   </plurals>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Lösch alli Spiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
   <string name="editRoundStudy">Studie Rundi bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Lösch das ganze Turnier, alli Runde und alli Partie.</string>
+  <string name="definitivelyDeleteTournament">Lösch das ganze Turnier, alli Runde und alli Partie.</string>
 </resources>

@@ -12,8 +12,8 @@ import lila.gathering.Condition
 
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
 
-  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
-    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
+  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)):
+    tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
         val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
         val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
@@ -22,8 +22,6 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Ex
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
           funit
-    }
-  }
 
 private object TournamentScheduler:
 
@@ -100,12 +98,12 @@ private object TournamentScheduler:
             _.copy(
               name = s"${date.getYear} Lichess Anniversary",
               minutes = 12 * 60,
-              spotlight = Spotlight(
-                headline = s"$yo years of free chess!",
-                description = s"""
+              description = s"""
 We've had $yo great chess years together!
 
-Thank you all, you rock!""",
+Thank you all, you rock!""".some,
+              spotlight = Spotlight(
+                headline = s"$yo years of free chess!",
                 homepageHours = 24.some
               ).some
             )
@@ -187,16 +185,9 @@ Thank you all, you rock!""",
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical,
             month.firstWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.firstWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
-          ).flatMap { (day, speed) =>
-            at(day, 16) map { date =>
-              Schedule(Shield, speed, Standard, none, date) plan {
-                _.copy(
-                  name = s"${speed.toString} Shield",
-                  spotlight = Some(TournamentShield spotlight speed.toString)
-                )
-              }
-            }
-          },
+          ).flatMap: (day, speed) =>
+            at(day, 16).map: date =>
+              Schedule(Shield, speed, Standard, none, date) plan TournamentShield.make(speed.toString),
           List( // shield variant tournaments!
             month.secondWeek.withDayOfWeek(SUNDAY)   -> Chess960,
             month.thirdWeek.withDayOfWeek(MONDAY)    -> Crazyhouse,
@@ -206,16 +197,9 @@ Thank you all, you rock!""",
             month.thirdWeek.withDayOfWeek(FRIDAY)    -> Atomic,
             month.thirdWeek.withDayOfWeek(SATURDAY)  -> Horde,
             month.thirdWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
-          ).flatMap { (day, variant) =>
-            at(day, 16) map { date =>
-              Schedule(Shield, Blitz, variant, none, date) plan {
-                _.copy(
-                  name = s"${variant.name} Shield",
-                  spotlight = Some(TournamentShield spotlight variant.name)
-                )
-              }
-            }
-          }
+          ).flatMap: (day, variant) =>
+            at(day, 16).map: date =>
+              Schedule(Shield, Blitz, variant, none, date) plan TournamentShield.make(variant.name)
         ).flatten
       },
       List( // weekly standard tournaments!

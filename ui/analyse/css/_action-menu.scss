@@ -38,30 +38,25 @@
   }
 
   &__tools {
-    flex: 0 0 auto;
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    gap: 0 1em;
+    grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
 
-    > * {
-      @extend %flex-column;
-
-      flex: 0 0 50%;
-      text-align: center;
-      padding: 0;
-      height: 75px;
-      justify-content: center;
-    }
-
-    .button {
-      color: $c-font;
-      text-transform: none;
-      white-space: normal;
+    button,
+    > a {
+      @extend %button-none;
+      display: flex;
+      align-items: center;
+      line-height: 1.2em;
+      min-height: 3em;
 
       &::before {
-        display: block;
-        font-size: 2em;
-        line-height: 1em;
-        margin-bottom: 5px;
+        padding-#{$end-direction}: 8px;
+        font-size: 1.7em;
+      }
+
+      &:hover {
+        color: $c-primary;
       }
     }
   }

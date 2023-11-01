@@ -28,42 +28,35 @@ object JsonView:
       "writeable" -> writeable
     )
 
-  def boardApi(chat: UserChat) = JsArray {
-    chat.lines collect {
+  def boardApi(chat: UserChat) = JsArray:
+    chat.lines.collect:
       case UserLine(name, _, _, text, troll, del) if !troll && !del =>
         Json.obj("text" -> text, "user" -> name)
-    }
-  }
 
   object writers:
 
-    given OWrites[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
+    given OWrites[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason]: r =>
       Json.obj("key" -> r.key, "name" -> r.name)
-    }
 
     given (using lightUser: LightUser.GetterSync): OWrites[ChatTimeout.UserEntry] =
-      OWrites[ChatTimeout.UserEntry] { e =>
+      OWrites[ChatTimeout.UserEntry]: e =>
         Json.obj(
           "reason" -> e.reason.key,
           "mod"    -> lightUser(e.mod).fold(UserName("?"))(_.name),
           "date"   -> e.createdAt
         )
-      }
 
-    given mixedChatWriter: Writes[MixedChat] = Writes { c =>
+    given mixedChatWriter: Writes[MixedChat] = Writes: c =>
       JsArray(c.lines map lineWriter.writes)
-    }
 
-    given userChatWriter: Writes[UserChat] = Writes { c =>
+    given userChatWriter: Writes[UserChat] = Writes: c =>
       JsArray(c.lines map userLineWriter.writes)
-    }
 
-    private[chat] val lineWriter: OWrites[Line] = OWrites {
+    private[chat] val lineWriter: OWrites[Line] = OWrites:
       case l: UserLine   => userLineWriter writes l
       case l: PlayerLine => playerLineWriter writes l
-    }
 
-    val userLineWriter: OWrites[UserLine] = OWrites { l =>
+    val userLineWriter: OWrites[UserLine] = OWrites: l =>
       Json
         .obj(
           "u" -> l.username,
@@ -73,11 +66,9 @@ object JsonView:
         .add("d" -> l.deleted)
         .add("p" -> l.patron)
         .add("title" -> l.title)
-    }
 
-    val playerLineWriter: OWrites[PlayerLine] = OWrites { l =>
+    val playerLineWriter: OWrites[PlayerLine] = OWrites: l =>
       Json.obj(
         "c" -> l.color.name,
         "t" -> l.text
       )
-    }

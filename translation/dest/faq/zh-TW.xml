@@ -63,7 +63,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="goodIntroduction">好的自我介紹</string>
   <string name="lichessTraining">Lichess 訓練</string>
   <string name="threefoldRepetition">三次重複局面</string>
-  <string name="threefoldRepetitionExplanation">如果同一個局面出現了三次，玩家可以根據%1$s提和。Lichess執行FIDE官方規則，這些規則在 %2$s第9.2(d)條中已有規定。</string>
+  <string name="threefoldRepetitionExplanation">如果同一個局面出現了三次，玩家可以根據%1$s提和。Lichess執行FIDE官方規則，這些規則在 %2$s第9.2條中已有規定。</string>
   <string name="threefoldRepetitionLowerCase">三次重複局面</string>
   <string name="notRepeatedMoves">我們沒有重復著法。為什麼對局仍然被判和？</string>
   <string name="repeatedPositionsThatMatters">三次重復局面是關於局面的%1$s重復，而不是著法。重復局面不一定會連續發生。</string>

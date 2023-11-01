@@ -1,6 +1,6 @@
 function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
-    const dataTheme = $('body').data('theme');
+    const dataTheme = document.body.dataset.theme;
     const theme =
       'shepherd-theme-' +
       (dataTheme === 'system'

@@ -46,7 +46,7 @@
     <item quantity="one">Mêvandariya %s pêşangeha hevdemî kir</item>
     <item quantity="other">Mêvandariya %s pêşangehên hevdemî kir</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Beşdariya %s pêşangeha hevdemî kir</item>
     <item quantity="other">Beşdariya %s pêşangehên hevdemî kir</item>
   </plurals>

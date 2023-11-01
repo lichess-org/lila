@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Հեռարձակումներ</string>
+  <string name="myBroadcasts">Իմ հեռարձակումները</string>
   <string name="liveBroadcasts">Մրցաշարի ուղիղ հեռարձակումներ</string>
   <string name="newBroadcast">Նոր ուղիղ հեռարձակում</string>
   <string name="addRound">Ավելացնել խաղափուլ</string>
@@ -21,4 +22,7 @@
   <string name="downloadAllRounds">Բեռնել բոլոր խաղափուլերը</string>
   <string name="resetRound">Հեռացնել այս խաղափուլը</string>
   <string name="deleteRound">Հեռացնել այս խաղափուլը</string>
+  <string name="editRoundStudy">Խմբագրել խաղափուլի ստուդիան</string>
+  <string name="deleteTournament">Հեռացնել այս մրցաշարը</string>
+  <string name="definitivelyDeleteTournament">Վերջնականապես հեռացնել ամբողջ մրցաշարը, նրա խաղափուլերը և պարտիաները։</string>
 </resources>

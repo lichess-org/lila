@@ -17,7 +17,6 @@ final class Simul(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
-    pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok.page(html.simul.home(pending, created, started, finished))
     }
@@ -62,7 +61,7 @@ final class Simul(env: Env) extends LilaController(env):
         env.chat.panic.allowed(_)
       } && simul.conditions.teamMember
         .map(_.teamId)
-        .fold(true): teamId =>
+        .forall: teamId =>
           ctx.userId.exists:
             env.team.api.syncBelongsTo(teamId, _) || isGrantedOpt(_.ChatTimeout)
 
@@ -104,24 +103,22 @@ final class Simul(env: Env) extends LilaController(env):
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       Ok.pageAsync:
-        env.team.api.lightsByLeader(me) map { teams =>
-          html.simul.form.create(forms.create(teams), teams)
-        }
+        env.team.api
+          .lightsByTourLeader(me)
+          .map: teams =>
+            html.simul.form.create(forms.create(teams), teams)
   }
 
   def create = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       env.team.api
-        .lightsByLeader(me)
+        .lightsByTourLeader(me)
         .flatMap: teams =>
           forms
             .create(teams)
             .bindFromRequest()
             .fold(
-              err =>
-                env.team.api.lightsByLeader(me) flatMap { teams =>
-                  BadRequest.page(html.simul.form.create(err, teams))
-                },
+              err => BadRequest.page(html.simul.form.create(err, teams)),
               setup =>
                 env.simul.api.create(setup, teams) map { simul =>
                   Redirect(routes.Simul.show(simul.id))
@@ -149,7 +146,7 @@ final class Simul(env: Env) extends LilaController(env):
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>
     WithEditableSimul(id) { simul =>
       Ok.pageAsync:
-        env.team.api.lightsByLeader(me) map { teams =>
+        env.team.api.lightsByTourLeader(me) map { teams =>
           html.simul.form.edit(forms.edit(teams, simul), teams, simul)
         }
     }
@@ -158,7 +155,7 @@ final class Simul(env: Env) extends LilaController(env):
   def update(id: SimulId) = AuthBody { ctx ?=> me ?=>
     WithEditableSimul(id): simul =>
       env.team.api
-        .lightsByLeader(me)
+        .lightsByTourLeader(me)
         .flatMap: teams =>
           forms
             .edit(teams, simul)

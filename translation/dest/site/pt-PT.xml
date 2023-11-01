@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="showVariationArrows">Ver setas de variação</string>
   <string name="evaluationGauge">Medidor da avaliação</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
@@ -144,8 +145,8 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogador conectado</item>
-    <item quantity="other">%s jogadores conectados</item>
+    <item quantity="one">%s jogador</item>
+    <item quantity="other">%s jogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
@@ -347,7 +348,7 @@
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultânea</item>
     <item quantity="other">%s simultâneas</item>
   </plurals>
@@ -482,7 +483,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
-  <string name="whiteWins">Vitórias com brancas</string>
+  <string name="whiteWins">Vitórias com as brancas</string>
   <string name="blackWins">Vitórias com as pretas</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio de %s:</string>
@@ -510,8 +511,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
-  <string name="savingMoves">Armazenamento temporário da jogada</string>
-  <string name="savingMovesHelp">Guardamos as suas variações na cache do navegador.</string>
   <string name="makeAStudy">Para guardar e partilhar, considere fazer um estudo.</string>
   <string name="clearSavedMoves">Limpar jogadas</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
@@ -529,15 +528,15 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
-  <string name="descPrivate">Descrição privada</string>
-  <string name="descPrivateHelp">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrição privada</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Criar um novo tópico</string>
   <string name="topics">Tópicos</string>
   <string name="posts">Publicações</string>
-  <string name="lastPost">Última publicação</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Última publicação</string>
   <string name="views">Visualizações</string>
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tópico</string>
@@ -601,7 +600,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="biographyDescription">Fala de ti, do que gostas no xadrez, das tuas aberturas favoritas, jogos, jogadores...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s carácter.</item>
-    <item quantity="other">Máximo: %s carácteres.</item>
+    <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s bloqueado</item>
@@ -694,7 +693,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
-  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, blitz, clássico, chess960, rei da colina, três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
+  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, Rápida, Clássica, Chess960, Rei da Colina, Três Xeques e mais opções disponíveis para uma diversão ilimitada.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O torneio pode ter sido cancelado, se todos os jogadores tiverem saíram antes do seu começo.</string>
@@ -720,9 +719,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="readAboutOur">Lê sobre a nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede entre ti e o Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
-  <string name="downloadAnnotated">Descarregar a anotação</string>
-  <string name="downloadRaw">Descarregar o texto</string>
-  <string name="downloadImported">Descarregar a partida importada</string>
+  <string name="downloadAnnotated">Transferir anotação</string>
+  <string name="downloadRaw">Transferir texto</string>
+  <string name="downloadImported">Transferir a partida importada</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
@@ -790,7 +789,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
-  <string name="notificationsX">Notificações: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
@@ -869,6 +868,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rápidas</string>
   <string name="rapid">Semi-rápidas</string>
   <string name="classical">Clássicas</string>
   <string name="ultraBulletDesc">Partidas incrivelmente rápidas: menos de 30 segundos</string>
@@ -896,7 +896,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="mentionedYouInX">foste mencionado em \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mencionou-te em \"%2$s\".</string>
   <string name="invitedYouToX">convidou-te para \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s convidou-te para \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s convidou-te para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Já fazes parte da equipa.</string>
   <string name="youHaveJoinedTeamX">Juntaste-te a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Alguém que denunciaste foi banido</string>
@@ -912,7 +912,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="coachManager">Gestor de treinadores</string>
-  <string name="streamerManager">Gestor de streamers</string>
+  <string name="streamerManager">Gestor do streamer</string>
   <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
   <string name="tournDescriptionHelp">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [name](https://url)</string>

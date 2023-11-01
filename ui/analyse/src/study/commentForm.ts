@@ -120,6 +120,10 @@ export function view(root: AnalyseCtrl): VNode {
               const heightStore = lichess.storage.make('study.comment.height');
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
+
+              $(el).on('keydown', e => {
+                if (e.code === 'Escape') el.blur();
+              });
             },
             postpatch: (old, vnode) => setupTextarea(vnode, old),
           },

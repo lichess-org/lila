@@ -3,7 +3,7 @@
   <string name="advancedPawn">Алга киткән җирле</string>
   <string name="advancedPawnDescription">Сезнең җәяүлеләрнең берсе көндәш позициясенә тирән керә, бәлки алга җибәрү белән куркытыр.</string>
   <string name="advantage">Өстенлек</string>
-  <string name="advantageDescription">Хәлиткеч өстенлек алу мөмкинлеген кулланыгыз. (200cp ≤ бәяләү ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Хәлиткеч өстенлек алу мөмкинлеген кулланыгыз. (200cp ≤ бәяләү ≤ 600cp)</string>
   <string name="anastasiaMate">Әнәстәсия маты</string>
   <string name="anastasiaMateDescription">Атчы, Тура яки Вәзир командасы каршы шаһны такта ягы белән дуслар арасына тозакка эләктерәләр.</string>
   <string name="arabianMate">Гарәп маты</string>

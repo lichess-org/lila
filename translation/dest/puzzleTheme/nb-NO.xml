@@ -3,7 +3,7 @@
   <string name="advancedPawn">Framskutt bonde</string>
   <string name="advancedPawnDescription">En bonde står dypt inne i motstanderens stilling, muligens med trussel om bondeforvandling.</string>
   <string name="advantage">Fordel</string>
-  <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
   <string name="anastasiaMateDescription">Tårn eller dronning slår seg sammen med springer for å fange motstanderens konge mellom kanten av brettet og egen brikke.</string>
   <string name="arabianMate">Arabisk matt</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
   <string name="crushing">Knusende</string>
-  <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Dobbeltløpermatt</string>
   <string name="doubleBishopMateDescription">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="dovetailMate">Halematt</string>
   <string name="dovetailMateDescription">Dronning setter tilstøtende konge matt, da de to eneste fluktfeltene er blokkert av egne brikker.</string>
   <string name="equality">Utligning</string>
-  <string name="equalityDescription">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Angrep på kongefløyen</string>
   <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
   <string name="clearance">Feltrømming</string>

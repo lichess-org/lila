@@ -43,7 +43,14 @@ object homepageSpotlight:
     } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
       iconTag(tour.perfType.icon)(cls := "img"),
       span(cls := "content")(
-        span(cls := "name")(tour.name()),
+        span(cls := "name")(
+          tour.name(),
+          tour.isTeamRelated option
+            iconTag(licon.Group)(
+              cls   := "tour-team-icon",
+              title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
+            )
+        ),
         span(cls := "more")(
           trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
           " • ",

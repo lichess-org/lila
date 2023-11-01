@@ -100,8 +100,8 @@ case class UserPerfs(
     types
       .map(apply)
       .foldLeft(none[IntRating]):
-        case (ro, p) if p.nb >= nbGames && ro.fold(true)(_ < p.intRating) => p.intRating.some
-        case (ro, _)                                                      => ro
+        case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
+        case (ro, _)                                                  => ro
 
   def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
@@ -241,7 +241,8 @@ object UserPerfs:
       blitz = bot,
       rapid = bot,
       classical = bot,
-      correspondence = bot
+      correspondence = bot,
+      chess960 = bot
     )
 
   def variantLens(variant: chess.variant.Variant): Option[UserPerfs => Perf] =

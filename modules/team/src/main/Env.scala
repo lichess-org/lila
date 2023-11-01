@@ -27,8 +27,8 @@ final class Env(
 )(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
-  lazy val memberRepo  = MemberRepo(db(CollName("team_member")))
-  lazy val requestRepo = RequestRepo(db(CollName("team_request")))
+  lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = TeamRequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[TeamForm]
 
@@ -48,6 +48,8 @@ final class Env(
 
   val getTeamName = GetTeamNameSync(cached.blockingTeamName)
 
+  lazy val security = wire[TeamSecurity]
+
   lazy val api = wire[TeamApi]
 
   def cli: lila.common.Cli = new:
@@ -63,8 +65,11 @@ final class Env(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
     },
-    "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
-      promise completeWith cached.isLeader(teamId, userId)
+    "teamIsLeader" -> {
+      case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+        promise completeWith api.isLeader(teamId, userId)
+      case lila.hub.actorApi.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
+        promise completeWith api.hasPerm(teamId, userId, _.Comm)
     },
     "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
       promise completeWith cached.teamIdsList(userId)

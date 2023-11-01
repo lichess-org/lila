@@ -23,17 +23,16 @@ export async function makeCtrl(): Promise<Ctrl> {
 
   return {
     zf,
-    setBot(name: string) {
+    async setBot(name: string) {
       const net = bots[name]?.net;
       if (!net) throw new Error(`unknown bot ${name} or no net`);
       if (zf.netName !== bots[name].net) {
-        if (!nets.has(bots[name].net)) {
-          nets.set(bots[name].net, fetchNet(bots[name].net));
+        if (!nets.has(bots[name].net!)) {
+          nets.set(bots[name].net!, await fetchNet(bots[name].net!));
         }
-        return nets.get(bots[name].net).then(buf => {
-          zf.setNet(buf);
-          zf.netName = bots[name].net;
-        });
+        const net = nets.get(bots[name].net!);
+        zf.setNet(name, net!);
+        zf.netName = bots[name].net;
       }
     },
     move(fen: string) {

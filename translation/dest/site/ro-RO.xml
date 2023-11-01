@@ -101,6 +101,7 @@
   <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Joacă prima mutare de deschidere/final de joc-explorator</string>
   <string name="winPreventedBy50MoveRule">Victoria partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="winOr50MovesByPriorMistake">Câștig sau remiză la 50 de mutări din cauza unei greșeli anterioare</string>
@@ -116,12 +117,14 @@
   <string name="openStudy">Studiu deschis</string>
   <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
+  <string name="showVariationArrows">Afișează săgețile variației</string>
   <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="multipleLines">Mutări multiple</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
+  <string name="engineManager">Manager de motor</string>
   <string name="blunder">Gafă</string>
   <string name="mistake">Greșeală</string>
   <string name="inaccuracy">Inexactitate</string>
@@ -149,7 +152,7 @@
   <plurals name="nbPlayers">
     <item quantity="one">%s jucător</item>
     <item quantity="few">%s jucători</item>
-    <item quantity="other">%s jucători</item>
+    <item quantity="other">%s de jucători</item>
   </plurals>
   <string name="drawByMutualAgreement">Remiză prin acord reciproc</string>
   <string name="fiftyMovesWithoutProgress">Cincizeci de mișcări fără progres</string>
@@ -157,7 +160,7 @@
   <plurals name="nbGames">
     <item quantity="one">%s partidă</item>
     <item quantity="few">%s partide</item>
-    <item quantity="other">%s partide</item>
+    <item quantity="other">%s de partide</item>
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">Rating %1$s din %2$s meci</item>
@@ -196,12 +199,12 @@
   <plurals name="nbDays">
     <item quantity="one">%s zi</item>
     <item quantity="few">%s zile</item>
-    <item quantity="other">%s zile</item>
+    <item quantity="other">%s de zile</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s oră</item>
     <item quantity="few">%s ore</item>
-    <item quantity="other">%s ore</item>
+    <item quantity="other">%s de ore</item>
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s minut</item>
@@ -321,17 +324,17 @@
   <plurals name="nbWins">
     <item quantity="one">%s victorie</item>
     <item quantity="few">%s victorii</item>
-    <item quantity="other">%s victorii</item>
+    <item quantity="other">%s de victorii</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s înfrângere</item>
     <item quantity="few">%s înfrângeri</item>
-    <item quantity="other">%s înfrângeri</item>
+    <item quantity="other">%s de înfrângeri</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remiză</item>
     <item quantity="few">%s remize</item>
-    <item quantity="other">%s remize</item>
+    <item quantity="other">%s de remize</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s îl joacă</item>
@@ -366,7 +369,12 @@
   <plurals name="nbStudies">
     <item quantity="one">%s studiu</item>
     <item quantity="few">%s studii</item>
-    <item quantity="other">%s studii</item>
+    <item quantity="other">%s de studii</item>
+  </plurals>
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+    <item quantity="one">%s simul</item>
+    <item quantity="few">%s simul</item>
+    <item quantity="other">%s simul</item>
   </plurals>
   <string name="viewTournament">Vizualizați turneul</string>
   <string name="backToTournament">Înapoi la turneu</string>
@@ -530,12 +538,11 @@
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Steag</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
   <string name="inlineNotation">Notație integrată</string>
-  <string name="savingMoves">Stocarea temporară a mutărilor</string>
-  <string name="savingMovesHelp">Întotdeauna îți stocăm variațiile în memoria cache a browser-ului.</string>
   <string name="makeAStudy">Pentru păstrare în siguranță și partajare, aveți în vedere crearea unui studiu.</string>
   <string name="clearSavedMoves">Șterge mutările</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
@@ -546,7 +553,7 @@
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidă în desfășurare</item>
     <item quantity="few">%s partide în desfășurare</item>
-    <item quantity="other">%s partide în desfășurare</item>
+    <item quantity="other">%s de partide în desfășurare</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
@@ -554,15 +561,15 @@
   <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
-  <string name="descPrivate">Descriere privată</string>
-  <string name="descPrivateHelp">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descriere privată</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
   <string name="help">Ajutor:</string>
   <string name="createANewTopic">Creează un nou topic</string>
   <string name="topics">Subiecte</string>
   <string name="posts">Postări</string>
-  <string name="lastPost">Ultima postare</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Ultima postare</string>
   <string name="views">Vizualizări</string>
   <string name="replies">Răspunsuri</string>
   <string name="replyToThisTopic">Răspunde la acest topic</string>
@@ -667,7 +674,7 @@
   <plurals name="nbForumPosts">
     <item quantity="one">%s postare pe forum</item>
     <item quantity="few">%s postări pe forum</item>
-    <item quantity="other">%s postări pe forum</item>
+    <item quantity="other">%s de postări pe forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Timp petrecut jucând: %s</string>
   <string name="watchGames">Vezi partide</string>
@@ -715,6 +722,11 @@
   <string name="keyGoToStartOrEnd">început/sfârșit</string>
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
+  <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
+  <string name="keyNextLearnFromYourMistakes">Următorul (Învață din greșelile tale)</string>
+  <string name="keyNextBlunder">Următoarea greșeală gravă</string>
+  <string name="keyNextMistake">Următoarea greșeală</string>
+  <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
   <string name="newTournament">Turneu nou</string>
   <string name="tournamentHomeTitle">Turneu de șah cu control de timp și variante</string>
   <string name="tournamentHomeDescription">Joacă turnee rapide de șah! Intră într-un turneu oficial planificat sau crează-ți-l tu. Bullet (Glonț),  Blitz (Fulger), Classical (Clasic), Chess960, Regele în centru, Trei șahuri și alte opțiuni sunt disponibile pentru o distracție continuă.</string>
@@ -730,7 +742,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Scorul %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ești mai bun ca %1$s dintre jucătorii de %2$s.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun ca %2$s dintre jucătorii de %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun decât %2$s dintre jucătorii de %3$s.</string>
   <string name="betterThanPercentPlayers">Mai bun decât %1$s dintre jucătorii de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un scor %s definit.</string>
   <string name="yourRating">Scorul tău</string>
@@ -815,7 +827,7 @@
   <string name="invalidFen">FEN invalid</string>
   <string name="custom">Personalizat</string>
   <string name="notifications">Notificări</string>
-  <string name="notificationsX">Notificări: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificări: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secundă rămasă pentru a începe jocul</item>
@@ -897,6 +909,7 @@
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Clasic</string>
   <string name="ultraBulletDesc">Partide incredibil de rapide: mai puțin de 30 de secunde</string>
@@ -924,7 +937,7 @@
   <string name="mentionedYouInX">te-a menționat în \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te-a menționat în \"%2$s\".</string>
   <string name="invitedYouToX">te-a invitat la \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s te-a invitat la \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s te-a invitat la \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Acum faci parte din echipă.</string>
   <string name="youHaveJoinedTeamX">V-ați alăturat la \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Cineva pe care l-ai raportat a fost banat</string>

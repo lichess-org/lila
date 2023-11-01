@@ -31,4 +31,24 @@
   <string name="engineWrite">Permitir criar e atualizar softwares de assistência externos</string>
   <string name="webLogin">Permitir iniciar sessões autenticadas (garante acesso completo!)</string>
   <string name="webMod">Permitir usar ferramentas de moderador (com restrições)</string>
+  <string name="personalAccessTokens">Chaves de acesso pessoal à API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Você pode fazer solicitações OAuth sem passar pelo %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">fluxo de código de autorização</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Em vez disso, %s para usar diretamente nos pedidos da API.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">crie uma chave de acesso pessoal</string>
+  <string name="guardTokensCarefully">Guarde as chaves com cuidado! Elas são como senhas. A vantagem de usar chaves em vez de colocar sua senha num script é que as chaves podem ser revogadas, e você pode criar várias.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Aqui está um %1$s e a %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">exemplo de chave pessoal num aplicativo</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">documentação da API</string>
+  <string name="newToken">Nova chave de acesso</string>
+  <string name="apiAccessTokens">Chaves de acesso à API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Criado %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Último uso %s</string>
+  <string name="alreadyHavePlayedGames">Você já jogou!</string>
+  <string name="attentionOfDevelopers">Nota reservada aos desenvolvedores:</string>
+  <string name="possibleToPrefill">É possível pré-preencher o formulário ajustando os parâmetros de consulta da URL.</string>
+  <string name="forExample">Por exemplo: %s</string>
+  <string name="ticksTheScopes">marca os escopos de %1$s e %2$s, e define a descrição da chave.</string>
+  <string name="scopesCanBeFound">Os códigos de escopo estão no código HTML do formulário.</string>
+  <string name="givingPrefilledUrls">As URLs pré-preenchidas ajudam seus usuários a obterem os escopos de chave certos.</string>
 </resources>

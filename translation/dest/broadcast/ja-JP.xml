@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">イベント中継</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">自分の配信</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="other">%s ブロードキャスト</item>
   </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
@@ -32,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">このラウンドのすべてのゲームを削除します。復活させるには情報源がアクティブでなくてはなりません。</string>
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
+  <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
 </resources>

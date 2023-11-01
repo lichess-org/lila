@@ -62,6 +62,7 @@ Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="nextPayment">Următoarea plată</string>
   <string name="youWillBeChargedXOnY">Veți plăti %1$s pe %2$s.</string>
   <string name="makeAdditionalDonation">Faceți o donație în plus acum</string>
+  <string name="giftPatronWingsShort">Dăruiește aripi Patron</string>
   <string name="giftPatronWings">Dăruiește aripi de Patron unui jucător</string>
   <string name="update">Actualizare</string>
   <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>

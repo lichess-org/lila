@@ -52,12 +52,11 @@ object jsI18n:
         trans.accuracy,
         trans.viewTheSolution,
         trans.youNeedAnAccountToDoThat,
+        trans.aiNameLevelAiLevel,
         // action menu
         trans.menu,
         trans.toStudy,
         trans.inlineNotation,
-        trans.savingMoves,
-        trans.savingMovesHelp,
         trans.makeAStudy,
         trans.clearSavedMoves,
         trans.computerAnalysis,

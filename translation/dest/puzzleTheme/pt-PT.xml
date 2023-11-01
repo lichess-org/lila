@@ -3,11 +3,11 @@
   <string name="advancedPawn">Peão avançado</string>
   <string name="advancedPawnDescription">A chave do tático é um peão a promover ou a ameaçar promover.</string>
   <string name="advantage">Vantagem</string>
-  <string name="advantageDescription">Aproveita a oportunidade de obter uma vantagem decisiva. (200cp ≤ aval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Aproveita a oportunidade de obter uma vantagem decisiva. (200cp ≤ aval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate Anastasia</string>
-  <string name="anastasiaMateDescription">Um cavalo e uma torre ou dama cooperam de forma a prender o rei inimigo entre um lado do tabuleiro e outra peça inimiga.</string>
+  <string name="anastasiaMateDescription">Um cavalo e uma torre ou dama cooperam para prender o rei inimigo entre um lado do tabuleiro e outra peça inimiga.</string>
   <string name="arabianMate">Mate Árabe</string>
-  <string name="arabianMateDescription">Um cavalo e uma torre cooperam de forma a prenderem o rei inimigo no canto do tabuleiro.</string>
+  <string name="arabianMateDescription">Um cavalo e uma torre cooperam para prenderem o rei inimigo no canto do tabuleiro.</string>
   <string name="attackingF2F7">Atacar f2 ou f7</string>
   <string name="attackingF2F7Description">Um ataque ao peão de f2 ou f7, como a abertura \"Fried Liver\".</string>
   <string name="attraction">Atração</string>
@@ -23,15 +23,15 @@
   <string name="capturingDefender">Capturar o defensor</string>
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
   <string name="crushing">Esmagar</string>
-  <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate com dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos em diagonais adjacentes dão mate ao rei inimigo obstruído por peças aliadas.</string>
   <string name="dovetailMate">Mate cauda-de-andorinha</string>
   <string name="dovetailMateDescription">Uma dama dá mate ao rei inimigo cujas jogadas de escape estão bloqueadas por peças aliadas.</string>
   <string name="equality">Igualdade</string>
-  <string name="equalityDescription">Recupera de uma posição perdedora e garante um empate ou uma posição de equilíbrio. (avaliação ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Recupera de uma posição perdedora e garante um empate ou uma posição de equilíbrio. (avaliação ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque no lado do rei</string>
-  <string name="kingsideAttackDescription">Um ataque ao rei do adversário, depois de este ter feito roque menor (para o lado do rei).</string>
+  <string name="kingsideAttackDescription">Um ataque ao rei do adversário, após este ter feito roque menor (para o lado do rei).</string>
   <string name="clearance">Limpeza</string>
   <string name="clearanceDescription">Uma jogada, com tempo, que limpa uma casa, fila, coluna ou diagonal para uma ideia tática subsequente.</string>
   <string name="defensiveMove">Movimento defensivo</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">Mistura saudável</string>
   <string name="healthyMixDescription">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
   <string name="playerGames">Jogos de jogadores</string>
-  <string name="playerGamesDescription">Procure quebra-cabeças gerados a partir dos seus jogos ou de jogos de outro jogador.</string>
-  <string name="puzzleDownloadInformation">Esses quebra-cabeças são do domínio público e podem ser obtidos em %s.</string>
+  <string name="playerGamesDescription">Procura problemas gerados a partir dos teus jogos ou de jogos de outro jogador.</string>
+  <string name="puzzleDownloadInformation">Esses problemas são do domínio público e podem ser obtidos em %s.</string>
 </resources>

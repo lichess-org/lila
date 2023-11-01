@@ -16,7 +16,8 @@
     "round": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*",
-    "zerofish": "^0.0.13"
+    "zerofish": "^0.0.13",
+    "lila-stockfish-web": "^0.0.1"
   },
   "scripts": {
     "compile": "tsc",
@@ -28,6 +29,12 @@
       "esm": {
         "src/main.ts": "localPlay"
       }
-    }
+    },
+    "copy": [
+      {
+        "src": "node_modules/lila-stockfish-web/*.{js,wasm}",
+        "dest": "../../public/npm"
+      }
+    ]
   }
 }

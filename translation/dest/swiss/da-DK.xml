@@ -62,8 +62,7 @@ Vi mener, at disse betingelser har større chance for at blive opfyldt inden for
   <string name="numberOfByesA">En spiller får en bye på et point, hver gang parringssystemet ikke kan finde en parring for dem.
 Derudover tildeles en enkelt bye på et halvt point, når en spiller først sent slutter sig til en turnering.</string>
   <string name="earlyDrawsQ">Hvad sker der ved tidlige remiser?</string>
-  <string name="earlyDrawsA">En spiller får en bye på et point, hver gang parringssystemet ikke kan finde en parring til dem.
-Derudover tildeles en enkelt bye på et halvt point, når en spiller først sent slutter sig til en turnering.</string>
+  <string name="earlyDrawsAnswer">I schweizer-partier kan spillerne ikke opnå remis, før der er lavet 30 træk. Selvom denne foranstaltning ikke kan forhindre aftalte remiser, gør den det i det mindste sværere at blive enige om en remis undervejs.</string>
   <string name="whatIfOneDoesntPlayQ">Hvad sker der, hvis en spiller ikke spiller et spil?</string>
   <string name="whatIfOneDoesntPlayA">Deres ur vil løbe ud, og de taber partiet.
 Så vil systemet trække spilleren ud af turneringen, så de ikke taber flere partier.

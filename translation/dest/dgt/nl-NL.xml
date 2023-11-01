@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT-bord</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Vereisten voor DGT-bord</string>
+  <string name="dgtBoardLimitations">Beperkingen van DGT-bord</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Op deze pagina kun je je DGT-bord met Lichess verbinden en het gebruiken om partijen te spelen.</string>
+  <string name="toConnectTheDgtBoard">Om verbinding te maken met het elektronische DGT-bord moet je %s installeren.</string>
+  <string name="downloadHere">Je kunt de software hier downloaden: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Als %1$s op deze computer draait, kan je je verbinding controleren door %2$s.</string>
+  <string name="openingThisLink">deze link openen</string>
+  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Als %1$s op een andere machine of poort draait, dan moet je het IP-adres en de poort hier in de %2$s instellen.</string>
+  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Configuratiesectie</string>
+  <string name="reloadThisPage">Herlaad deze pagina</string>
+  <string name="textToSpeech">Tekst naar spraak</string>
+  <string name="enableSpeechSynthesis">Spraaksynthese inschakelen</string>
+  <string name="speechSynthesisVoice">Spraaksynthese stem</string>
+  <string name="announceAllMoves">Kondig alle zetten aan</string>
+  <string name="keywords">Trefwoorden</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configureren</string>
+</resources>

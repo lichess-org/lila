@@ -13,7 +13,7 @@
   <string name="freeChess">永远让每个人免费下棋！</string>
   <string name="noAdsNoSubs">没有广告，无需订阅；保持开源和热情。</string>
   <string name="thankYou">感谢你的捐赠！</string>
-  <string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
+  <string name="youHaveLifetime">你有了一个终身赞助者账户，太棒了！</string>
   <string name="patronUntil">你的赞助账户持续到 %s。</string>
   <string name="ifNotRenewedThenAccountWillRevert">如果未续订，你的账户会变回普通账户。</string>
   <string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的象棋平台。</string>
@@ -22,7 +22,7 @@
   <string name="payLifetimeOnce">支付 %s 一次。永远成为 Lichess 赞助者！</string>
   <string name="lifetimePatron">永久 Lichess 赞助者</string>
   <string name="monthly">按月</string>
-  <string name="recurringBilling">定期账单，每月续订你的捐助者之翼。</string>
+  <string name="recurringBilling">定期账单，每月续订你的赞助者之翼。</string>
   <string name="onetime">单次</string>
   <string name="singleDonation">单次捐赠会赠予你一个月的赞助者之翼。</string>
   <string name="otherAmount">其他</string>
@@ -33,7 +33,7 @@
   <string name="celebratedPatrons">著名的赞助者让 Lichess 成为可能。</string>
   <string name="whereMoneyGoes">捐助都会去哪儿？</string>
   <string name="serversAndDeveloper">首先是强大的服务器。
-然后我们将聘请一个全职开发人员： %s，Lichess 的创始人。</string>
+然后我们将聘请一个全职开发人员：%s，Lichess 的创始人。</string>
   <string name="costBreakdown">查看详细的费用明细</string>
   <string name="officialNonProfit">Lichess 是官方的非营利组织吗？</string>
   <string name="actOfCreation">是的。参考法人成立公务文书（法语）</string>
@@ -43,7 +43,7 @@
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他捐赠方法？</string>
   <string name="lichessIsRegisteredWith">Lichess 注册于 %s。</string>
-  <string name="bankTransfers">我们还接受银行转帐</string>
+  <string name="bankTransfers">我们还接受银行转账</string>
   <string name="onlyDonationFromAbove">请注意，只有上面的捐赠表将授予赞助者状态。</string>
   <string name="patronFeatures">赞助者会有特殊功能吗？</string>
   <string name="noPatronFeatures">没有，Lichess 是完全免费的。这是我们的承诺。
@@ -58,7 +58,8 @@
   <string name="nextPayment">下次付款</string>
   <string name="youWillBeChargedXOnY">你将于 %2$s 充值 %1$s。</string>
   <string name="makeAdditionalDonation">立即捐款</string>
-  <string name="giftPatronWings">将赞助勋章赠送给其它玩家</string>
+  <string name="giftPatronWingsShort">赠送赞助者之翼</string>
+  <string name="giftPatronWings">赠送赞助者之翼给其它玩家</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">更改每月数量 (%s)</string>
   <string name="cancelSupport">取消你的赞助</string>

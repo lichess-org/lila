@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">转播</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="other">%s 直播</item>
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>
@@ -32,5 +32,5 @@
   <string name="deleteAllGamesOfThisRound">删除此回合的所有游戏。源需要激活才能重新创建。</string>
   <string name="editRoundStudy">编辑该轮次的棋局研究</string>
   <string name="deleteTournament">删除该锦标赛</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
+  <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
 </resources>

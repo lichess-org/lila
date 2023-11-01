@@ -9,15 +9,17 @@
   <string name="lengths">Dužine</string>
   <string name="mates">Matovi</string>
   <string name="goals">Ciljevi</string>
+  <string name="origin">Porijeklo</string>
   <string name="specialMoves">Specijalni potezi</string>
   <string name="didYouLikeThisPuzzle">Je li Vam se svidio ovaj problem?</string>
   <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
   <string name="upVote">Pozitivno ocijenite problem</string>
   <string name="downVote">Negativno ocijenite problem</string>
+  <string name="yourPuzzleRatingWillNotChange">Vaša ocjena slagalice se neće promijeniti. Imajte na umu da zagonetke nisu takmičenje. Vaša ocjena pomaže u odabiru najboljih zagonetki za vašu trenutnu vještinu.</string>
   <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
-  <string name="puzzleId">Problem %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problem %s</string>
   <string name="puzzleOfTheDay">Problem dana</string>
   <string name="dailyPuzzle">Problem dana</string>
   <string name="clickToSolve">Kliknite da riješite</string>
@@ -26,17 +28,38 @@
   <string name="keepGoing">Nastavite…</string>
   <string name="puzzleSuccess">Uspješno!</string>
   <string name="puzzleComplete">Problem završen!</string>
+  <string name="byOpenings">Po otvorima</string>
+  <string name="puzzlesByOpenings">Zagonetke po otvorima</string>
+  <string name="openingsYouPlayedTheMost">Otvaranja koja ste najviše igrali u ocenjenim igrama</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Koristite \"Pronađi na stranici\" u meniju pretraživača da pronađete svoje omiljeno otvaranje!</string>
+  <string name="useCtrlF">Koristite Ctrl+f da pronađete svoj omiljeni otvor!</string>
   <string name="notTheMove">To nije traženi potez!</string>
   <string name="trySomethingElse">Pokušajte nešto drugo.</string>
-  <string name="ratingX">Rejting: %s</string>
-  <string name="hidden">skriven</string>
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Rejting: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">skriven</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+    <item quantity="one">Igrano %s put</item>
+    <item quantity="few">Igrano %s puta</item>
+    <item quantity="other">Igrano %s puta</item>
+  </plurals>
+  <string name="fromGameLink">Iz %s igre</string>
   <string name="continueTraining">Nastavite trening</string>
   <string name="difficultyLevel">Nivo težine</string>
   <string name="normal">Normalni</string>
   <string name="easier">Lakši</string>
   <string name="easiest">Najlakši</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Bod ispod vašeg rejtinga u problemima</item>
+    <item quantity="few">%s boda ispod vašeg rejtinga u problemima</item>
+    <item quantity="other">%s bodova ispod vašeg rejtinga u problemima</item>
+  </plurals>
   <string name="harder">Teži</string>
   <string name="hardest">Najteži</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Bod iznad vašeg rejtinga u problemima</item>
+    <item quantity="few">%s boda iznad vašeg rejtinga u problemima</item>
+    <item quantity="other">%s bodova iznad vašeg rejtinga u problemima</item>
+  </plurals>
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodajte drugu temu</string>
   <string name="nextPuzzle">Sljedeći problem</string>
@@ -44,7 +67,9 @@
   <string name="puzzleDashboard">Kontrolna tabla za probleme</string>
   <string name="improvementAreas">Područja za poboljšanje</string>
   <string name="strengths">Jake strane</string>
+  <string name="history">Istorija slagalice</string>
   <string name="solved">riješeno</string>
+  <string name="failed">nepravilno</string>
   <string name="streakDescription">Rješavajte progresivno teže probleme i napravite niz pobjeda. Nema vremenskog ograničenja, pa uzmite vremena. Jedan pogrešan potez i igra je gotova! No, možete preskočiti jedan potez po sesiji.</string>
   <string name="yourStreakX">Vaš niz: %s</string>
   <string name="streakSkipExplanation">Preskočite ovaj potez da sačuvate niz! To možete samo jednom po rundi.</string>
@@ -57,4 +82,19 @@
   <string name="fromMyGamesNone">Nemate probleme u bazi podataka, ali Vas Lichess i dalje mnogo voli.
 Igrajte ubrzani i klasični šah kako biste povećali šanse da bude dodan Vaš problem!</string>
   <string name="fromXGamesFound">Pronađeno %1$s problema u partijama %2$s</string>
+  <string name="puzzleDashboardDescription">Trenirajte, analizirajte, usavršavajte se</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s igrana</item>
+    <item quantity="few">%s igrane</item>
+    <item quantity="other">%s igrano</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s da ponovite</item>
+    <item quantity="few">%s da ponovite</item>
+    <item quantity="other">%s da ponovite</item>
+  </plurals>
+  <string name="percentSolved">%s riješeno</string>
+  <string name="noPuzzlesToShow">Ništa za pokazati, idite prvo da igrate neke zagonetke!</string>
+  <string name="improvementAreasDescription">Trenirajte ove da biste usavršili svoj napredak!</string>
+  <string name="strengthDescription">U ovim temama najbolje učestvujete</string>
 </resources>

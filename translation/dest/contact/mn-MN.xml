@@ -9,4 +9,5 @@
   <string name="wantCloseAccount">Хэрэглэгчийн дансаа хаая</string>
   <string name="wantReopen">Хэрэглэгчийн дансаа сэргээе</string>
   <string name="wantChangeUsername">Хэрэглэгчийн нэрээ өөрчилмөөр байна</string>
+  <string name="wantReport">Би хэн нэгэнг барьж өгье</string>
 </resources>

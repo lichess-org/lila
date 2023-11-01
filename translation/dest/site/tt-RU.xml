@@ -425,15 +425,15 @@
   <string name="tournamentWinners">Бәйге җиңүчеселәре</string>
   <string name="name">Исем</string>
   <string name="description">Тафсиры</string>
-  <string name="descPrivate">Шәхси тафсиры</string>
-  <string name="descPrivateHelp">Язма төркемле уенчыларга гына күренә ала. Әгәр куйсагыз, алыштырсагыз төркем әгъзалары өчен җәмәгать тасвирламасын.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Шәхси тафсиры</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Язма төркемле уенчыларга гына күренә ала. Әгәр куйсагыз, алыштырсагыз төркем әгъзалары өчен җәмәгать тасвирламасын.</string>
   <string name="no">Юк</string>
   <string name="yes">Әйе</string>
   <string name="help">Булышу:</string>
   <string name="createANewTopic">Яңа сәрхаү ачу</string>
   <string name="topics">Сәрхәү</string>
   <string name="posts">Хәбәрләр</string>
-  <string name="lastPost">Соңгы хәбәр</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Соңгы хәбәр</string>
   <string name="views">Карамаклар</string>
   <string name="replies">Җаваплар</string>
   <string name="replyToThisTopic">Бу сәрхәүгә җавап</string>
@@ -752,7 +752,7 @@
   <string name="mentionedYouInX">\"%1$s\" сезне искә алдылар.</string>
   <string name="xMentionedYouInY">%1$s сезне \"%2$s\" да искә алды.</string>
   <string name="invitedYouToX">\"%1$s\" сезне яште.</string>
-  <string name="xInvitedYouToY">%1$s сезне \"%2$s\" чакырды.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s сезне \"%2$s\" чакырды.</string>
   <string name="youAreNowPartOfTeam">Сез хәзер җәмәга әгъзасы.</string>
   <string name="youHaveJoinedTeamX">Сез \"%1$s\" га кушылдыгыз.</string>
   <string name="someoneYouReportedWasBanned">Сез хәбәр иткән кеше тыелган</string>

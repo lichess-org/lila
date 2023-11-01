@@ -154,6 +154,10 @@
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s ಆಟಗಳಿಗಿಂತ %1$s ರೇಟಿಂಗ್</item>
+    <item quantity="other">%1$s ರೇಟಿಂಗ್ ಮೇಲ್ಮೆ %2$s ಆಟಗಳು</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ಗುರುತುಸಂಗ್ರಹ</item>
     <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
@@ -343,6 +347,10 @@
     <item quantity="one">%s ಅಧ್ಯಯನ</item>
     <item quantity="other">%s ಅಧ್ಯಯನಗಳು</item>
   </plurals>
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+    <item quantity="one">%s ಸಿಮ್ಯುಲ್</item>
+    <item quantity="other">%s ಸಿಮ್ಯುಲ್‌ಗಳು</item>
+  </plurals>
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
   <string name="noDrawBeforeSwissLimit">ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ 30 ಚಲನೆಗಳನ್ನು ಆಡುವ ಮೊದಲು ನೀವು ಡ್ರಾ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
@@ -501,8 +509,6 @@
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
   <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
-  <string name="savingMoves">ತಾತ್ಕಾಲಿಕ ಚಲನೆಯ ಸಂಗ್ರಹಣೆ</string>
-  <string name="savingMovesHelp">ನಿಮ್ಮ ಬ್ರೌಸರ್ ಸಂಗ್ರಹದಲ್ಲಿ ನಾವು ಯಾವಾಗಲೂ ನಿಮ್ಮ ಆಟದ ಬದಲಾವಣೆಗಳನ್ನು ಸಂಗ್ರಹಿಸುತ್ತೇವೆ.</string>
   <string name="makeAStudy">ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನವನ್ನು ಮಾಡಲು ಪರಿಗಣಿಸಿ.</string>
   <string name="clearSavedMoves">ಎಲ್ಲಾ ಚಲನೆಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
@@ -520,15 +526,15 @@
   <string name="tournamentWinners">ಪಂದ್ಯಾವಳಿಯ ವಿಜೇತರು</string>
   <string name="name">ಹೆಸರು</string>
   <string name="description">ವಿವರಣೆ</string>
-  <string name="descPrivate">ಖಾಸಗಿ ವಿವರಣೆಗಳು</string>
-  <string name="descPrivateHelp">ತಂಡದ ಸದಸ್ಯರಿಗೆ ಮಾತ್ರ ಕಾಣುವಂತಹ ಟಿಪ್ಪಣಿಗಳು. ಖಾಸಗಿ ಟಿಪ್ಪಣಿಯನ್ನು ಭರ್ತಿ ಮಾಡಿದ್ದರೆ, ತಂಡದ ಎಲ್ಲಾ ಸದಸ್ಯರಿಗೆ ಸಾರ್ವಜನಿಕ-ಟಿಪ್ಪಣಿಯ ಬದಲು ಈ ಖಾಸಗಿ-ಟಿಪ್ಪಣಿ ಕಾಣುವುದು.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">ಖಾಸಗಿ ವಿವರಣೆಗಳು</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ತಂಡದ ಸದಸ್ಯರಿಗೆ ಮಾತ್ರ ಕಾಣುವಂತಹ ಟಿಪ್ಪಣಿಗಳು. ಖಾಸಗಿ ಟಿಪ್ಪಣಿಯನ್ನು ಭರ್ತಿ ಮಾಡಿದ್ದರೆ, ತಂಡದ ಎಲ್ಲಾ ಸದಸ್ಯರಿಗೆ ಸಾರ್ವಜನಿಕ-ಟಿಪ್ಪಣಿಯ ಬದಲು ಈ ಖಾಸಗಿ-ಟಿಪ್ಪಣಿ ಕಾಣುವುದು.</string>
   <string name="no">ಬೇಡ</string>
   <string name="yes">ಹೌದು</string>
   <string name="help">ಸಹಾಯ:</string>
   <string name="createANewTopic">ಹೊಸ ವಿಷಯ ರಚಿಸಿ</string>
   <string name="topics">ವಿಷಯಗಳು</string>
   <string name="posts">ಪೋಸ್ಟ್ ಗಳು</string>
-  <string name="lastPost">ಅಂತಿಮ ಪೋಸ್ಟ್</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">ಅಂತಿಮ ಪೋಸ್ಟ್</string>
   <string name="views">ವೀಕ್ಷಣೆಗಳು</string>
   <string name="replies">ಪ್ರತ್ಯುತ್ತರಗಳು</string>
   <string name="replyToThisTopic">ಈ ವಿಷಯಕ್ಕೆ ಪ್ರತ್ಯುತ್ತರಿಸಿ</string>
@@ -781,7 +787,7 @@
   <string name="invalidFen">FEN ಸರಿ ಇಲ್ಲ</string>
   <string name="custom">ಸ್ವಂತೀಕರಿಸಿ</string>
   <string name="notifications">ಅಧಿಸೂಚನೆಗಳು</string>
-  <string name="notificationsX">ಅಧಿಸೂಚನೆಗಳು: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">ಅಧಿಸೂಚನೆಗಳು: %1$s</string>
   <string name="perfRatingX">ಧಾರಣೆ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ಸೆಕೆಂಡು ಬಾಕಿ ಇದೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>
@@ -887,7 +893,7 @@
   <string name="mentionedYouInX">\"%1$s\" ರಲ್ಲಿ ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="xMentionedYouInY">%1$s ಅವರು ನಿಮ್ಮನ್ನು %2$s ನಲ್ಲಿ ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
-  <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="youAreNowPartOfTeam">ನೀವು ಈಗ ತಂಡದ ಭಾಗವಾಗಿದ್ದೀರಿ.</string>
   <string name="youHaveJoinedTeamX">ನೀವು ತಂಡ %1$s ವನ್ನು ಸೇರಿದ್ದೀರಿ.</string>
   <string name="someoneYouReportedWasBanned">ನೀವು ದೂರು ಸಲ್ಲಿಸಿದ ಖಾತೆಯೊಂದನ್ನು ಬಹಿಸ್ಕರಿಸಲಾಗಿದೆ</string>

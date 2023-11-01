@@ -14,6 +14,7 @@ object StudyTopic extends OpaqueString[StudyTopic]:
 
   val minLength = 2
   val maxLength = 50
+  val broadcast = "Broadcast"
 
   def fromStr(str: String): Option[StudyTopic] =
     str.trim match

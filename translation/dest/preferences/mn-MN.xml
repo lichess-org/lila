@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Тохиргоо</string>
+  <string name="display">Дэлгэц</string>
   <string name="pieceAnimation">Хөлгийн хөдөлгөөнийг амилуулах</string>
   <string name="materialDifference">Талуудын хөлгийн зөрүүг үзүүлэх</string>
   <string name="boardHighlights">Хийгдсэн нүүдлүүдийг тодотгох (сүүлчийн нүүдэл, мад, шаг)</string>
@@ -10,7 +11,7 @@
   <string name="pgnPieceNotation">Нүүдлийн тэмдэглэгээ</string>
   <string name="chessPieceSymbol">Шатрын дүрсний тэмдэглэгээ</string>
   <string name="pgnLetter">Тэмлэглэгээ (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Өрсөлдөгчийн чансааг нуух</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Цэгцлэх моде</string>
   <string name="displayBoardResizeHandle">Хэмжээг өөрчлөх самбарыг харуул</string>
   <string name="onlyOnInitialPosition">Зөвхөн анхны байрлал дээр</string>
   <string name="blindfoldChess">Харахгүйгээр тоглох (шатрын хөлгүүд үзэгдэхгүй)</string>
@@ -41,4 +42,6 @@
   <string name="castleByMovingOntoTheRook">Ноёноо тэрэгрүүгээ нүүх</string>
   <string name="inputMovesWithTheKeyboard">Гарнаас нүүдэл оруулах</string>
   <string name="yourPreferencesHaveBeenSaved">Таны шинэчлэгдсэн тохиргоо хадгалагдлаа.</string>
+  <string name="notifyChallenge">Саналууд</string>
+  <string name="notifyTournamentSoon">Тэмцээн удахгүй эхэллээ яараарай!!</string>
 </resources>

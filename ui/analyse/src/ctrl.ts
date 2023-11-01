@@ -7,7 +7,7 @@ import { plural } from './view/util';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type makeStudyCtrl from './study/studyCtrl';
-import { isTouchDevice } from 'common/mobile';
+import { isTouchDevice } from 'common/device';
 import throttle from 'common/throttle';
 import {
   AnalyseOpts,
@@ -612,7 +612,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
+    this.chessground?.setAutoShapes(computeAutoShapes(this));
     keyboard.maybeShowVariationArrowHelp(this);
   };
 
@@ -784,8 +784,9 @@ export default class AnalyseCtrl {
     return (
       !isTouchDevice() &&
       !chap?.practice &&
-      !chap?.conceal &&
-      !chap?.gamebook &&
+      chap?.conceal === undefined &&
+      !this.study?.gamebookPlay() &&
+      !this.retro &&
       this.variationArrowsProp() &&
       this.node.children.length > 1
     );
@@ -796,8 +797,8 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   };
 
-  toggleVariationArrows = (v: boolean): void => {
-    this.variationArrowsProp(v);
+  toggleVariationArrows = (v?: boolean): void => {
+    this.variationArrowsProp(v ?? !this.variationArrowsProp());
     this.resetAutoShapes();
   };
 
@@ -919,7 +920,6 @@ export default class AnalyseCtrl {
     if (this.retro) this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
-    this.persistence?.toggleOpen(false);
     this.actionMenu(false);
   };
 
@@ -951,12 +951,6 @@ export default class AnalyseCtrl {
       });
       this.setAutoShapes();
     }
-  };
-
-  togglePersistence = () => {
-    const isOpen = this.persistence?.open();
-    this.closeTools();
-    this.persistence?.toggleOpen(!isOpen);
   };
 
   restartPractice() {

@@ -3,7 +3,7 @@
   <string name="advancedPawn">רגלי מתקדם</string>
   <string name="advancedPawnDescription">אחד מהחיילים שלך עמוק בקווי היריב, אולי מאיים להיות מוכתר.</string>
   <string name="advantage">יתרון</string>
-  <string name="advantageDescription">נצל/י את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">נצל/י את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
   <string name="anastasiaMate">המט של אנסטסיה</string>
   <string name="anastasiaMateDescription">פרש, יחד עם צריח או מלכה, לוכדים את המלך היריב בין דופן הלוח לבין כלי מכוחותיו.</string>
   <string name="arabianMate">מט ערבי</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">הכה את המגן</string>
   <string name="capturingDefenderDescription">הסרת כלי קריטי להגנה על כלי אחר, המאפשרת להכות את הכלי החשוף כעת במסע הבא.</string>
   <string name="crushing">ריסוק</string>
-  <string name="crushingDescription">זהו את השגיאה החמורה של היריב כדי להשיג יתרון מוחץ. (הערכת יתרון מעל 6.0)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">זהו את השגיאה החמורה של היריב כדי להשיג יתרון מוחץ. (הערכת יתרון מעל 6.0)</string>
   <string name="doubleBishopMate">מט שני רצים</string>
   <string name="doubleBishopMateDescription">שני רצים תוקפים באלכסונים סמוכים מבצעים מט למלך החסום על ידי כלים מכוחותיו.</string>
   <string name="dovetailMate">מט קוזיו</string>
   <string name="dovetailMateDescription">מלכה מבצעת מט למלך סמוך, ששתי משבצות הבריחה שלו חסומות על ידי כלים מכוחותיו.</string>
   <string name="equality">שוויון</string>
-  <string name="equalityDescription">חזרו למשחק מעמדת הפסד, והבטיחו תיקו או עמדה מאוזנת. (הערכת יתרון קטנה מ-2.0)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">חזרו למשחק מעמדת הפסד, והבטיחו תיקו או עמדה מאוזנת. (הערכת יתרון קטנה מ-2.0)</string>
   <string name="kingsideAttack">תקיפת צד המלך</string>
   <string name="kingsideAttackDescription">תקיפת המלך של היריב, לאחר שהצריח לצד המלך.</string>
   <string name="clearance">פינוי</string>

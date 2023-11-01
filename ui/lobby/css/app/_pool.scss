@@ -1,9 +1,3 @@
-.lobby__app-pools {
-  @include breakpoint($mq-col2) {
-    height: 400px;
-  }
-}
-
 .lpools {
   @extend %roboto;
 

@@ -425,7 +425,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="createANewTopic">Täze mowzuk döret</string>
   <string name="topics">Mowzuklar</string>
   <string name="posts">Neşirler</string>
-  <string name="lastPost">Iň soňky neşir</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Iň soňky neşir</string>
   <string name="views">Seretmeler</string>
   <string name="replies">Jogaplar</string>
   <string name="replyToThisTopic">Bu mowzuga jogap ber</string>

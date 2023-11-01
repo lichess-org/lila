@@ -42,5 +42,6 @@
   <string name="allowChatHelp">ผู้เล่นจะสามารถพูดคุยในห้องแชตได้</string>
   <string name="arenaStreaks">เพิ่มคะแนนเมื่อชนะต่อเนื่อง</string>
   <string name="arenaStreaksHelp">หลังจากชนะ 2 ครั้ง การชนะต่อเนื่องจะให้คะแนน 4 คะแนน แทน 2 คะแนน</string>
+  <string name="noBerserkAllowed">ไม่มีการเบอร์เซิร์ก</string>
   <string name="myTournaments">ทัวร์นาเมนต์ของฉัน</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="thisPageAllowsConnectingDgtBoard">Tato stránka umožňuje připojení DGT desky k Lichess a její použití pro hraní her.</string>
+  <string name="openingThisLink">otevírám tento odkaz</string>
+  <string name="reloadThisPage">Obnovit tuto stránku</string>
+  <string name="dgtConfigure">DGT - Konfigurace</string>
+  <string name="lichessConnectivity">Připojení k Lichess</string>
+  <string name="textToSpeech">Převod textu na řeč</string>
+  <string name="enableSpeechSynthesis">Povolit syntézu řeči</string>
+  <string name="speechSynthesisVoice">Hlas pro syntézu řeči</string>
+  <string name="announceAllMoves">Oznámit všechny tahy</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT-lauta</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">DGT-laudan vaatimukset</string>
+  <string name="dgtBoardLimitations">DGT-laudan rajoitukset</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Tältä sivulta voit yhdistää DGT-lautasi Lichessiin ja käyttää sitä pelien pelaamiseen.</string>
+  <string name="toConnectTheDgtBoard">Yhdistääksesi elektronisen DGT-laudan sinun on asennettava %s.</string>
+  <string name="downloadHere">Voit ladata ohjelmiston täältä: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Jos %1$s on käynnissä tällä tietokoneella, voit tarkistaa yhteytesi siihen %2$s.</string>
+  <string name="openingThisLink">avaamalla tämän linkin</string>
+  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Jos %1$s on käynnissä eri koneella tai eri portissa, sinun on asetettava IP-osoite ja portti täällä %2$s.</string>
+  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">asetusosiossa</string>
+  <string name="keepPlayPageOpen">Pelaa-sivun on pysyttävä auki selaimessasi. Sen ei tarvitse olla näkyvissä, joten voit minimoida sen tai asettaa sen vierekkäin sivun kanssa, jossa näkyy kulloinkin Lichessissä pelaamasi peli. Älä kuitenkaan sulje Pelaa-sivua tai lauta lakkaa toimimasta.</string>
+  <string name="boardWillAutoConnect">Lauta yhdistää automaattisesti mihin tahansa jo käynnissä olevaan peliin tai alkavaan uuteen peliin. Pelattavan pelin valintaominaisuus on tulossa pian.</string>
+  <string name="timeControlsForCasualGames">Aikajärjestelmät rentoihin peleihin: Vain Klassinen, Kirjeshakki ja Nopea.</string>
+  <string name="timeControlsForRatedGames">Aikajärjestelmät pisteytettyihin peleihin: Klassinen, Kirjeshakki ja tietyt Nopeat kuten 15+10 ja 20+0</string>
+  <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Kun olet valmis, asettele nappulat laudallesi ja napsauta sitten %s.</string>
+  <string name="ifMoveNotDetected">Jos siirtoa ei havaittu</string>
+  <string name="checkYouHaveMadeOpponentsMove">Tarkista, että olet ensin tehnyt vastustajasi siirron DGT-laudalla. Peruuta siirtosi ja siirrä uudelleen.</string>
+  <string name="asALastResort">Viimeisenä keinona aseta nappulat laudalle juuri niin kuin Lichessissä ja sitten %s</string>
+  <string name="reloadThisPage">Lataa tämä sivu uudelleen</string>
+  <string name="dgtConfigure">DGT - Asetukset</string>
+  <string name="lichessConnectivity">Yhteys Lichessiin</string>
+  <string name="validDgtOauthToken">Sinulla on DGT:llä pelaamiseen soveltuva OAuth-tunnus.</string>
+  <string name="dgtPlayMenuEntryAdded">%s merkintä lisättiin yläreunan Pelaa-valikkoon.</string>
+  <string name="noSuitableOauthToken">Sopivaa OAuth-tunnusta ei ole luotu.</string>
+  <string name="dgtBoardConnectivity">DGT-laudan yhdistäminen</string>
+  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Luo sellainen napsauttamalla tätä</string>
+  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">%s WebSocket-URL</string>
+  <string name="useWebSocketUrl" comment="useWebSocketUrl&#10;&#10;%1$s = ws://localhost:1982/api/v1.0&#10;(this is a URL)&#10;%2$s = LiveChess&#10;&#10;Complete string: Use &quot;ws://localhost:1982/api/v1.0&quot; unless LiveChess is running on a different machine or different port.&#10;&#10;LiveChess is a move broadcasting technology by the DGT Company, used by many third parties.">Käytä \"%1$s\" ellei %2$s ole käynnissä eri koneessa tai eri portissa.</string>
+  <string name="textToSpeech">Teksti puheeksi</string>
+  <string name="configureVoiceNarration">Tässä voit määrittää pelattujen siirtojen ääneenlukutavan, jotta voit pelatessasi pitää katseesi laudalla.</string>
+  <string name="enableSpeechSynthesis">Ota puhesynteesi käyttöön</string>
+  <string name="speechSynthesisVoice">Puhesynteesin ääni</string>
+  <string name="announceAllMoves">Lausu kaikki siirrot</string>
+  <string name="selectAnnouncePreference">Valitse Kyllä, jos haluat Lichessin lausuvan kaikki omat siirtosi ja vastustajasi siirrot. Jos valitset Ei, lausutaan vain vastustajasi siirrot.</string>
+  <string name="announceMoveFormat">Siirtojen lausuntamuoto</string>
+  <string name="moveFormatDescription">SAN (esim. \"Nf6) on Lichessin standardi. UCI (esim. g8f6) on yleinen shakkitietokoneissa.</string>
+  <string name="keywords">Avainsanat</string>
+  <string name="keywordFormatDescription">Avainsanat ovat JSON-muodossa. Niitä käytetään siirtojen ja tulosten kääntämiseen kielellesi. Oletus on englanti, mutta voit muuttaa sen mielesi mukaan.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Vianetsintä</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Yksityiskohtainen lokikirjaus</string>
+  <string name="toSeeConsoleMessage">Katso konsoliviesti painamalla Command + Option + C (Mac) tai Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="playWithDgtBoard">Pelaa DGT-laudalla</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Asetukset</string>
+</resources>

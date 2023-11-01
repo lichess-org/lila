@@ -46,7 +46,7 @@
     <item quantity="one">Aldibereko partiden saio %s antolatu du</item>
     <item quantity="other">Aldibereko partiden %s saio antolatu ditu</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Aldibireko saio %sean hartu du parte</item>
     <item quantity="other">Aldibireko %s saiotan hartu du parte</item>
   </plurals>
@@ -59,7 +59,7 @@
     <item quantity="other">%s txapelketetan parte hartu du</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%1$s. postua (%% %2$s onenen artean) partida %3$s jokatuta %4$s txapelketan</item>
+    <item quantity="one">%1$s. postua lortu du (%% %2$s onenen artean) partida %3$s jokatuta %4$s txapelketan</item>
     <item quantity="other">%1$s. postua (%% %2$s onenen artean) %3$s partida jokatuta %4$s txapelketan</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">

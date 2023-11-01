@@ -3,7 +3,7 @@
   <string name="advancedPawn">الأخذ بالتجاوز</string>
   <string name="advancedPawnDescription">و يُعتبر ترقية البيدق أو التهديد بترقيته هو مفتاح التكتيك.</string>
   <string name="advantage">أفضلية</string>
-  <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
   <string name="anastasiaMate">أنماط كش مات</string>
   <string name="anastasiaMateDescription">يتعاون الحصان والقلعة أو الوزير ليحاصروا الملك المنافس بين جانب الرقعة وقطعة صديقة.</string>
   <string name="arabianMate">كش مات عربي</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">خذ المدافع</string>
   <string name="capturingDefenderDescription">إزالة قطعة ذات أهمية حاسمة للدفاع عن قطعة أخرى، مما يسمح للقطعة التي لا يمكن الدفاع عنها الآن أن يتم الاستيلاء عليها في الحركة التالية.</string>
   <string name="crushing">سحق</string>
-  <string name="crushingDescription">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
   <string name="doubleBishopMate">كش مات بفيلين</string>
   <string name="doubleBishopMateDescription">فيلين يهاجمان الملك على أوتار متجاورة ويكون الملكك محاصر بقطع صديقة ليشكل كش مات.</string>
   <string name="dovetailMate">كش مات \"Dovetail\"</string>
   <string name="dovetailMateDescription">الوزير يكش مات للملك العدو المجاور، و يكون المربعات الي يمكن الهرب إليها مشغولة بقطع صديقة.</string>
   <string name="equality">المساواة</string>
-  <string name="equalityDescription">تحويل الوضعية الخاسرة إلى وصعية تعادل أو موقف متعادل</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">تحويل الوضعية الخاسرة إلى وصعية تعادل أو موقف متعادل</string>
   <string name="kingsideAttack">هجوم من طرف الملك</string>
   <string name="kingsideAttackDescription">الهجوم على ملك الخصم بعد أن يجري التبييت على جناح الملك.</string>
   <string name="clearance">تصفية</string>

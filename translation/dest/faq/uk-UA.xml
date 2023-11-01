@@ -54,6 +54,7 @@
 У рідкісних випадках це складно визначити автоматично (серія вимушених ходів, фортеці). Зазвичай ми завжди на стороні гравця, який не вичерпав часу.
 
 Зверніть увагу, що можна поставити мат одним конем або слоном, якщо суперник має фігуру, яка може заблокувати короля.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Довідник FIDE</string>
   <string name="fideHandbookX">Довідник ФІДЕ %s</string>
   <string name="discoveringEnPassant">Чому пішак може захопити іншого пішака, коли він вже пройшов? (взяття на проході)</string>
   <string name="explainingEnPassant">Це дозволений хід, відомий як \"взяття на проході\". Стаття Вікіпедії дає %1$s.
@@ -67,7 +68,7 @@
   <string name="lichessTraining">Тренування Lichess</string>
   <string name="watchIMRosenCheckmate">Перегляньте мат %s міжнародного майстра Еріка Розена.</string>
   <string name="threefoldRepetition">Триразове повторення</string>
-  <string name="threefoldRepetitionExplanation">Якщо позиція відбулася тричі, гравці можуть оголосити нічию %1$s. Lichess впроваджує офіційні правила FIDE, як описано в статті 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Якщо позиція відбулася тричі, гравці можуть оголосити нічию %1$s. Lichess впроваджує офіційні правила FIDE, як описано в статті 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трикратне повторення</string>
   <string name="notRepeatedMoves">Ми не повторювали рухів. Чому гра закінчилась повторенням?</string>
   <string name="repeatedPositionsThatMatters">Триразове повторення стосується повторення %1$s, а не кроків. Повторення не обов\'язково має відбуватися послідовно.</string>

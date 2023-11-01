@@ -9,21 +9,29 @@ lichess.load.then(() => {
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
       }).then(dlg => {
-        $('form', dlg.view).on('submit', () => {
-          //e.preventDefault();
-          xhr.text(link.href, { method: 'post' });
-          $(link).closest('.forum-post').hide();
-        });
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
         dlg.showModal();
       });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
-      xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
+      xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
     });
-
+  $('.forum-post__blocked button').on('click', e => {
+    const el = (e.target as HTMLElement).parentElement!;
+    $(el).replaceWith($('.forum-post__message', el));
+  });
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
@@ -122,7 +130,11 @@ lichess.load.then(() => {
                     // and there are no matches in the forum thread participants
                     xhr
                       .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)));
+                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                      .catch(error => {
+                        console.error('Autocomplete request failed:', error);
+                        callback([]);
+                      });
                   } else {
                     callback([]);
                   }

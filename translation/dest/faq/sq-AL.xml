@@ -54,6 +54,7 @@ Analiza kompjuterike në Lichess bazohet në Stockfish.</string>
 Në rastet e rralla kjo mund të jetë e vështirë të vendoset automatikisht (forced lines, fortresses). Si parazgjedhje, ne mbajmë anën e lojtarit të cilit nuk i mbaroi koha.
 
 Kini parasysh se është e mundur të jepet mat me një kalë ose oficer të vetëm, nëse kundërshtari ka një gur që mund të bllokonte mbretin.</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Doracaku FIDE</string>
   <string name="fideHandbookX">Doracaku FIDE %s</string>
   <string name="discoveringEnPassant">Pse mundet një ushtar të hajë një ushtar tjetër, kur është bërë tashmë prerja? (me prerje)</string>
   <string name="explainingEnPassant">Kjo është një lëvizje e ligjshme, e njohur si “me prerje”. Artikulli i Wikipedia-s jep një %1$s.
@@ -67,7 +68,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="lichessTraining">Trajnim Lichess</string>
   <string name="watchIMRosenCheckmate">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
-  <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 (d) të %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 të %2$s.</string>
   <string name="threefoldRepetitionLowerCase">përsëritje e trefishtë</string>
   <string name="notRepeatedMoves">S’përsëritëm lëvizje. Pse prapë doli loja barazim për shkak përsëritjeje?</string>
   <string name="repeatedPositionsThatMatters">Përsëritja e trefishtë ka të bëjë me përsëritje të %1$s, jo përsëritje lëvizjesh. Përsëritja mund edhe të mos ndodhë radhazi.</string>

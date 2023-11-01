@@ -115,6 +115,7 @@
   <string name="openStudy">Բացել ուսուցումը</string>
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
+  <string name="showVariationArrows">Ցուցադրել տարբերակների սլաքները</string>
   <string name="evaluationGauge">Գնահատման սանդղակ</string>
   <string name="multipleLines">Մի քանի շարունակություն</string>
   <string name="cpus">Պրոցեսորներ</string>
@@ -347,7 +348,7 @@
     <item quantity="one">%s ստուդիա</item>
     <item quantity="other">%s ուսուցում</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s խաղաշար</item>
     <item quantity="other">%s խաղաշար</item>
   </plurals>
@@ -482,7 +483,7 @@
   <string name="tournamentComplete">Մրցաշարն ավարտված է</string>
   <string name="movesPlayed">Խաղացած քայլեր</string>
   <string name="whiteWins">Սպիտակները հաղթել են</string>
-  <string name="blackWins">Սևերն հաղթել են</string>
+  <string name="blackWins">Սևերը հաղթել են</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
-  <string name="savingMoves">Քայլերի ժամանակավոր պահոց</string>
-  <string name="savingMovesHelp">Մենք միշտ պահպանում ենք Ձեր տարբերակները Ձեր դիտարկչի քեշում։</string>
   <string name="makeAStudy">Պահպանելու և կիսվելու համար դիտարկեք ստուդիա ստեղծելու հնարավորությունը։</string>
   <string name="clearSavedMoves">Մաքրել քայլերը</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
@@ -528,15 +527,15 @@
   <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
-  <string name="descPrivate">Մասնավոր նկարագրություն</string>
-  <string name="descPrivateHelp">Նկարագրություն, որը կտեսնեն միայն ակումբի անդամները։ Եթե սահմանված է, ապա փոխարինում է ակումբի բոլոր անդամների հրապարակային նկարագրությունը։</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Մասնավոր նկարագրություն</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Նկարագրություն, որը կտեսնեն միայն ակումբի անդամները։ Եթե սահմանված է, ապա փոխարինում է ակումբի բոլոր անդամների հրապարակային նկարագրությունը։</string>
   <string name="no">Ոչ</string>
   <string name="yes">այո</string>
   <string name="help">Օգնություն.</string>
   <string name="createANewTopic">Ստեղծել նոր թեմա</string>
   <string name="topics">Թեմաներ</string>
   <string name="posts">Հաղորդագրություններ</string>
-  <string name="lastPost">Վերջին հաղորդագրությունը</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Վերջին հաղորդագրությունը</string>
   <string name="views">Դիտումներ</string>
   <string name="replies">Պատասխաններ</string>
   <string name="replyToThisTopic">Պատասխանել այս թեմայում</string>
@@ -788,7 +787,7 @@
   <string name="invalidFen">Ոչ կոռեկտ PGN</string>
   <string name="custom">Սեփական խաղ</string>
   <string name="notifications">Ծանուցումներ</string>
-  <string name="notificationsX">Ծանուցումներ: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Ծանուցումներ: %1$s</string>
   <string name="perfRatingX">Վարկանիշ՝ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s վայրկյան առաջին քայլի համար</item>
@@ -867,6 +866,7 @@
   <string name="agreementPolicy">Հաստատում եմ, որ հետևելու եմ Lichess-ի բոլոր կանոններին։</string>
   <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Բլից</string>
   <string name="rapid">Արագ</string>
   <string name="classical">Դասական</string>
   <string name="ultraBulletDesc">Խելահեղորեն արագ պարտիաներ` 30 վայրկյանից պակաս</string>
@@ -894,7 +894,7 @@
   <string name="mentionedYouInX">հիշատակել է Ձեզ «%1$s»-ում։</string>
   <string name="xMentionedYouInY">%1$s-ը հիշատակել է Ձեզ  «%2$s»-ում։</string>
   <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
-  <string name="xInvitedYouToY">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
   <string name="youAreNowPartOfTeam">Այժմ Դուք ակումբի անդամ եք։</string>
   <string name="youHaveJoinedTeamX">Դուք ընդգրկվել եք «%1$s»-ում։</string>
   <string name="someoneYouReportedWasBanned">Ինչ-որ մենք արգելափակվել է Ձեր դիմումով</string>

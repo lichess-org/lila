@@ -17,6 +17,8 @@ object tree:
 
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
   val engineMarked             = "Your account is marked for external assistance in games.";
+  val arenaBanned              = "Your account is banned from joining arenas."
+  val prizeBanned              = "Your account is banned from tournaments with real prizes."
   val boosterMarked            = "Your account is marked for rating manipulation.";
   val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
@@ -214,6 +216,67 @@ object tree:
       ).some
     )
 
+  private def arenaBanMenu(using PageContext): Branch =
+    val noPlay  = "I have joined many arenas without playing in them"
+    val noStart = "I did not move in many arenas games"
+    val deny    = "I have followed fair-play and arenas rules"
+    Branch(
+      "root",
+      arenaBanned,
+      List(
+        Leaf(
+          "arena-ban-no-play",
+          noPlay,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(noPlay)
+          )
+        ),
+        Leaf(
+          "arena-ban-not-starting",
+          noStart,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(noStart)
+          )
+        ),
+        Leaf(
+          "arena-ban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(deny)
+          )
+        )
+      )
+    )
+
+  private def prizebanMenu(using PageContext): Branch =
+    val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
+    val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
+    Branch(
+      "root",
+      prizeBanned,
+      List(
+        Leaf(
+          "prizeban-expired",
+          prizebanExpired,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(prizebanExpired)
+          )
+        ),
+        Leaf(
+          "prizeban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(deny)
+          )
+        )
+      )
+    )
+
   private def playbanMenu: Branch =
     Branch(
       "root",
@@ -291,6 +354,8 @@ object tree:
                 else if me.marks.troll || query.contains("shadowban") then muteMenu
                 else if playban || query.contains("playban") then playbanMenu
                 else if me.marks.rankban || query.contains("rankban") then rankBanMenu
+                else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
+                else if me.marks.prizeban || query.contains("prizeban") then prizebanMenu
                 else cleanMenu
               },
               none,

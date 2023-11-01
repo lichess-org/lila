@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Retransmissions</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Les meves retransmissions</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s retransmissió</item>
     <item quantity="other">%s retransmissions</item>
   </plurals>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Eliminar totes les partides d\'aquesta ronda. L\'origen ha d\'estar actiu per a recrear-les.</string>
   <string name="editRoundStudy">Edita l\'estudi de la ronda</string>
   <string name="deleteTournament">Elimina aquest torneig</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
+  <string name="definitivelyDeleteTournament">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
 </resources>

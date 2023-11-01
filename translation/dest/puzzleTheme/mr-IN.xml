@@ -3,7 +3,7 @@
   <string name="advancedPawn">पुढे गेलेले प्यादे</string>
   <string name="advancedPawnDescription">तुमचे एखादे प्यादे विरोधकाच्या स्थितीमध्ये खूप आत गेले आहे, बहुधा बढती करायची धमकी देत आहे.</string>
   <string name="advantage">फायदा</string>
-  <string name="advantageDescription">संधी  साधून निर्णायक फायदा मिळवा (200 cp ≤ मूल्यांकन ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">संधी  साधून निर्णायक फायदा मिळवा (200 cp ≤ मूल्यांकन ≤ 600cp)</string>
   <string name="anastasiaMate">एनास्ताशियाची मात</string>
   <string name="anastasiaMateDescription">घोडा आणि हत्ती किंवा वजीर एकत्र येऊन राजाला पटाची बाजू आणि त्याच्याच सोंगट्या यांमध्ये अडकवतात.</string>
   <string name="arabianMate">अरेबीयन मात</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">रक्षकाला मारा</string>
   <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला मारणे, म्हणजे नवीन बचाव नसलेली सोंगटी पुढच्या चलित परत मारता येऊ शकते.</string>
   <string name="crushing">निर्णायक</string>
-  <string name="crushingDescription">विरोधकाची घोडचूक ओळखून निर्णायक स्थिती प्राप्त करा. (मूल्यांकन ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">विरोधकाची घोडचूक ओळखून निर्णायक स्थिती प्राप्त करा. (मूल्यांकन ≥ 600cp)</string>
   <string name="doubleBishopMate">दोन उंटाचा मात</string>
   <string name="doubleBishopMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
   <string name="dovetailMate">डवटेल मात</string>
   <string name="dovetailMateDescription">वजीर जवळच्या राजाला मात देतो, जिथे राजाला सुटकेसाठी फक्त दोन उपलब्ध घरे त्याच्याच सोंगट्यांनी अडवली आहेत.</string>
   <string name="equality">समानता</string>
-  <string name="equalityDescription">पराभवाच्या स्थितीतून बाहेर पडून खेळ बरोबरीत सोडवा किंवा संतुलित स्थिती प्राप्त करा. (मूल्यांकन ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">पराभवाच्या स्थितीतून बाहेर पडून खेळ बरोबरीत सोडवा किंवा संतुलित स्थिती प्राप्त करा. (मूल्यांकन ≤ 200cp)</string>
   <string name="kingsideAttack">राजाच्या बाजुचा हल्ला</string>
   <string name="kingsideAttackDescription">विरोधकाच्या राजाने किल्लेकोट केल्यावर त्याच राजाच्या बाजुने हल्ला चढवणे.</string>
   <string name="clearance">जागा मोकळी करणे</string>

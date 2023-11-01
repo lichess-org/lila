@@ -60,6 +60,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="nextPayment">Volgende betaling</string>
   <string name="youWillBeChargedXOnY">Er wordt %1$s in rekening gebracht op %2$s.</string>
   <string name="makeAdditionalDonation">Maak nu een extra donatie</string>
+  <string name="giftPatronWingsShort">Doneer Patroon-vleugels</string>
   <string name="giftPatronWings">Doneer Patroonvleugels aan een speler</string>
   <string name="update">Bijwerken</string>
   <string name="changeMonthlyAmount">Het maandelijkse bedrag wijzigen (%s)</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Xogar cun amigo</string>
-  <string name="playWithTheMachine">Xogar contra a máquina</string>
+  <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
+  <string name="showVariationArrows">Amosar as frechas das variantes</string>
   <string name="evaluationGauge">Indicador de avaliación</string>
   <string name="multipleLines">Liñas múltiples</string>
   <string name="cpus">Procesadores</string>
@@ -347,7 +348,7 @@
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s simultánea</item>
     <item quantity="other">%s simultáneas</item>
   </plurals>
@@ -481,7 +482,7 @@
   <string name="performance">Rendemento</string>
   <string name="tournamentComplete">Torneo rematado</string>
   <string name="movesPlayed">Movementos xogados</string>
-  <string name="whiteWins">Brancas gañan</string>
+  <string name="whiteWins">Vitorias das brancas</string>
   <string name="blackWins">Vitorias das negras</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Ligazóns ás redes sociais</string>
   <string name="oneUrlPerLine">Unha URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="savingMoves">Almacenamento temporal das xogadas</string>
-  <string name="savingMovesHelp">Sempre gardamos as túas variantes na caché do teu navegador.</string>
   <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
   <string name="clearSavedMoves">Eliminar movementos</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
@@ -528,15 +527,15 @@
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
-  <string name="descPrivate">Descrición privada</string>
-  <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe a túa descrición pública cando sexa visto polos membros do equipo.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrición privada</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
   <string name="createANewTopic">Crear novo tema</string>
   <string name="topics">Temas</string>
   <string name="posts">Entradas</string>
-  <string name="lastPost">Última entrada</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Última entrada</string>
   <string name="views">Visitas</string>
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
@@ -560,7 +559,7 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
-  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada sobre este usuario</string>
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
@@ -637,8 +636,8 @@
   <string name="whiteCastlingKingside">Brancas O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s mensaxe no foro</item>
-    <item quantity="other">%s mensaxes no foro</item>
+    <item quantity="one">%s Mensaxe no Foro</item>
+    <item quantity="other">%s Mensaxes no Foro</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
@@ -685,7 +684,7 @@
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
-  <string name="keyEnterOrExitVariation">entrar/saír da variante</string>
+  <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
   <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
   <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
@@ -764,7 +763,7 @@
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
-  <string name="yourScore">A túa puntuación: %s</string>
+  <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
@@ -789,7 +788,7 @@
   <string name="invalidFen">FEN non válido</string>
   <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
-  <string name="notificationsX">Notificacións: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificacións: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para facer o primeiro movemento</item>
@@ -837,14 +836,14 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio xogo</string>
   <string name="endgame">Final</string>
-  <string name="conditionalPremoves">Movementos anticipados condicionais</string>
+  <string name="conditionalPremoves">Premovementos condicionais</string>
   <string name="addCurrentVariation">Engadir a variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear movementos anticipados condicionais</string>
-  <string name="noConditionalPremoves">Sen movementos anticipados condicionais</string>
+  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>
+  <string name="noConditionalPremoves">Sen premovementos condicionais</string>
   <string name="playX">Xogar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">e garda %s variante de movementos anticipados</item>
-    <item quantity="other">e garda %s variantes de movementos anticipados</item>
+    <item quantity="one">e garda %s variante de premovementos</item>
+    <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>
@@ -868,8 +867,9 @@
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
-  <string name="rapid">Rápida</string>
-  <string name="classical">Clásica</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
+  <string name="rapid">Rápidas</string>
+  <string name="classical">Clásicas</string>
   <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">mencionoute en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mencionoute en \"%2$s\".</string>
   <string name="invitedYouToX">invitoute a \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s invitoute a \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s invitoute a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Agora formas parte do equipo.</string>
   <string name="youHaveJoinedTeamX">Unícheste a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Alguén a quen denunciaches foi suspendido</string>
@@ -908,7 +908,7 @@
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
   <string name="welcome">Benvid@!</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un software totalmente libre e de código aberto.
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="coachManager">Administrador de adestradores</string>
   <string name="streamerManager">Administrador de presentadores</string>

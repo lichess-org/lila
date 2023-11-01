@@ -81,7 +81,7 @@ Féach ar %3$s ar an mbeart seo le haghaidh cleachtadh leis.</string>
   <string name="lichessTraining">Traenáil Lichess</string>
   <string name="watchIMRosenCheckmate">Féach ar marbhsháinn an Máistir Idirnáisiúnta Eric Rosen %s.</string>
   <string name="threefoldRepetition">Athshuíomh faoi thrí</string>
-  <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">athshuíomh faoi thrí</string>
   <string name="notRepeatedMoves">Ní dhearna muid bearta athshuíomh. Cén fáth go raibh an cluiche fós réitithe mar cluiche cothrom trí athshuíomh?</string>
   <string name="repeatedPositionsThatMatters">Baineann athshuíomh trí athshuíomh %1$s, agus ní bearta. Ní gá go dtarlódh athshuíomh i ndiaidh a chéile.</string>

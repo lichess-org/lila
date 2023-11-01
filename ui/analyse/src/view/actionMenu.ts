@@ -1,7 +1,7 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { domDialog } from 'common/dialog';
-import { isTouchDevice } from 'common/mobile';
+import { isTouchDevice } from 'common/device';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
@@ -69,10 +69,10 @@ const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(
 
 const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
-export function studyButton(ctrl: AnalyseCtrl) {
+function studyButton(ctrl: AnalyseCtrl) {
   if (ctrl.study && !ctrl.ongoing)
     return h(
-      'a.button.button-empty',
+      'a',
       {
         attrs: {
           href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
@@ -105,7 +105,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
       h(
-        'button.button.button-empty',
+        'button',
         {
           attrs: {
             type: 'submit',
@@ -128,7 +128,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const tools: MaybeVNodes = [
     h('div.action-menu__tools', [
       h(
-        'a.button.button-empty',
+        'a',
         {
           hook: bind('click', ctrl.flip),
           attrs: {
@@ -141,7 +141,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ctrl.ongoing
         ? null
         : h(
-            'a.button.button-empty',
+            'a',
             {
               attrs: {
                 href: d.userAnalysis
@@ -160,7 +160,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           ),
       canContinue
         ? h(
-            'a.button.button-empty',
+            'a',
             {
               hook: bind('click', () =>
                 domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
@@ -171,9 +171,21 @@ export function view(ctrl: AnalyseCtrl): VNode {
           )
         : null,
       studyButton(ctrl),
+      ctrl.persistence?.isDirty
+        ? h(
+            'a',
+            {
+              attrs: {
+                title: noarg('clearSavedMoves'),
+                'data-icon': licon.Trash,
+              },
+              hook: bind('click', ctrl.persistence.clear),
+            },
+            noarg('clearSavedMoves'),
+          )
+        : null,
     ]),
   ];
-
   const notSupported =
     (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
 
@@ -204,7 +216,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   },
                   ctrl,
                 ),
-
                 ctrlToggle(
                   {
                     name: 'evaluationGauge',

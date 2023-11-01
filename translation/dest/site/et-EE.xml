@@ -491,12 +491,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="firstName">Eesnimi</string>
   <string name="lastName">Perekonnanimi</string>
   <string name="biography">Kirjeldus</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lipp</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
-  <string name="savingMoves">Ajutine käikude säilitamine</string>
-  <string name="savingMovesHelp">Me salvestame variatsioonid alati brauseri vahemällu.</string>
   <string name="makeAStudy">Hoiustamiseks ja jagamiseks kaalutle uuringu koostamist.</string>
   <string name="clearSavedMoves">Tühista käigud</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
@@ -514,15 +513,15 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentWinners">Turniiri võitjad</string>
   <string name="name">Nimi</string>
   <string name="description">Kirjeldus</string>
-  <string name="descPrivate">Privaatne kirjeldus</string>
-  <string name="descPrivateHelp">Tekst mida näevad ainult võistkonna liikmed. Kui on valitud siis asendatakse avalik kirjeldus võistkonna liikmetele.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privaatne kirjeldus</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst mida näevad ainult võistkonna liikmed. Kui on valitud siis asendatakse avalik kirjeldus võistkonna liikmetele.</string>
   <string name="no">Ei</string>
   <string name="yes">Jah</string>
   <string name="help">Abi:</string>
   <string name="createANewTopic">Loo uus teema</string>
   <string name="topics">Teemad</string>
   <string name="posts">Postitused</string>
-  <string name="lastPost">Viimane postitus</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Viimane postitus</string>
   <string name="views">Vaatamisi</string>
   <string name="replies">Vastused</string>
   <string name="replyToThisTopic">Vasta sellele teemale</string>
@@ -670,6 +669,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
+  <string name="keyNextMistake">Järgmine viga</string>
+  <string name="keyNextInaccuracy">Järgmine ebatäpsus</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
@@ -767,6 +768,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="custom">Kohandatud</string>
   <string name="notifications">Teavitused</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Märguanded: %1$s</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
@@ -845,6 +847,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="agreementPolicy">Ma nõustun, et järgin kõiki Lichessi eeskirju.</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut vestlust</string>
   <string name="edit">Muuda</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Välkmale</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
   <string name="ultraBulletDesc">Ultrakiired mängud: vähem kui 30 sekundit</string>
@@ -872,7 +875,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="mentionedYouInX">mainis sind sõnumis \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mainis sind sõnumis \"%2$s\".</string>
   <string name="invitedYouToX">kutsus sind \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s kutsus sind \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s kutsus sind \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
   <string name="youHaveJoinedTeamX">Oled liitunud meeskonnaga \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Keegi, kellest sa teatasid, sai mängukeelu</string>

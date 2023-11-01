@@ -63,11 +63,10 @@ package puzzle:
   case class StreakRun(userId: UserId, score: Int)
 
 package shutup:
-  case class RecordPublicForumMessage(userId: UserId, text: String)
   case class RecordTeamForumMessage(userId: UserId, text: String)
   case class RecordPrivateMessage(userId: UserId, toUserId: UserId, text: String)
   case class RecordPrivateChat(chatId: String, userId: UserId, text: String)
-  case class RecordPublicChat(userId: UserId, text: String, source: PublicSource)
+  case class RecordPublicText(userId: UserId, text: String, source: PublicSource)
 
   enum PublicSource(val parentName: String):
     case Tournament(id: TourId)  extends PublicSource("tournament")
@@ -76,6 +75,8 @@ package shutup:
     case Watcher(gameId: GameId) extends PublicSource("watcher")
     case Team(id: TeamId)        extends PublicSource("team")
     case Swiss(id: SwissId)      extends PublicSource("swiss")
+    case Forum(id: ForumPostId)  extends PublicSource("forum")
+    case Ublog(id: UblogPostId)  extends PublicSource("ublog")
 
 package mod:
   case class MarkCheater(userId: UserId, value: Boolean)
@@ -191,6 +192,7 @@ package team:
   case class JoinTeam(id: TeamId, userId: UserId)
   case class IsLeader(id: TeamId, userId: UserId, promise: Promise[Boolean])
   case class IsLeaderOf(leaderId: UserId, memberId: UserId, promise: Promise[Boolean])
+  case class IsLeaderWithCommPerm(id: TeamId, userId: UserId, promise: Promise[Boolean])
   case class KickFromTeam(teamId: TeamId, userId: UserId)
   case class LeaveTeam(teamId: TeamId, userId: UserId)
   case class TeamIdsJoinedBy(userId: UserId, promise: Promise[List[TeamId]])
@@ -261,7 +263,7 @@ package relation:
   case class UnFollow(u1: UserId, u2: UserId)
 
 package study:
-  case class RemoveStudy(studyId: StudyId, contributors: Set[UserId])
+  case class RemoveStudy(studyId: StudyId)
 
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)

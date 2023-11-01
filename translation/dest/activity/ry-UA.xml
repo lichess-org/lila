@@ -57,7 +57,7 @@
     <item quantity="few">Проведені %s сеансы єдночасної бавкы</item>
     <item quantity="other">Проведені %s сеансув єдночасної бавкы</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Участь у %s сеансови єдночасної бавкы</item>
     <item quantity="few">Участь у %s сеансах єдночасної бавкы</item>
     <item quantity="other">Участь у %s сеансах єдночасної бавкы</item>

@@ -67,7 +67,7 @@ Skatīt %3$s šim gājienam, lai ar to trenētos.</string>
   <string name="lichessTraining">Lichess treniņu</string>
   <string name="watchIMRosenCheckmate">Skatīties, kā Starptautiskais Meistars Ēriks Rosens piesaka matu ar gājienu garāmejot: %s.</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
-  <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. Lichess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2 (d).</string>
+  <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. Lichess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2.</string>
   <string name="threefoldRepetitionLowerCase">trīskāršas atkārtošanās</string>
   <string name="notRepeatedMoves">Mēs neatkārtojām gājienus. Kādēļ spēle beidzās ar atkārtošanās neizšķirtu?</string>
   <string name="repeatedPositionsThatMatters">Trīskārša atkārtošanās attiecas uz atkārtotām %1$s, nevis gājieniem. Atkārtojumiem nav jānotiek pēc kārtas.</string>

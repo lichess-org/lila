@@ -53,7 +53,8 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  private[controllers] val userShowRateLimit = env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.ip")
+  private[controllers] val userShowRateLimit =
+    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -65,7 +66,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
-      userShowRateLimit(req.ipAddress, rateLimited, cost = if env.socket.isOnline(u.id) then 1 else 2):
+      userShowRateLimit(rateLimited, cost = if env.socket.isOnline(u.id) then 2 else 3):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)
@@ -537,16 +538,17 @@ final class User(
       )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
-    getUserStr("term").flatMap(UserModel.validateId) match
-      case None                          => BadRequest("No search term provided")
-      case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
+    get("term").flatMap(UserSearch.read) match
+      case None => BadRequest("No search term provided")
+      case Some(term) if getBool("exists") =>
+        UserModel.validateId(term into UserStr).so(env.user.repo.exists) map JsonOk
       case Some(term) =>
         {
           (get("tour"), get("swiss"), get("team")) match
             case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
             case (_, Some(swissId), _) =>
               env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-            case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, ctx.me, 10)
+            case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
             case _ =>
               ctx.me.ifTrue(getBool("friend")) match
                 case Some(follower) =>

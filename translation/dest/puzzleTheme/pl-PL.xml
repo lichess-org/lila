@@ -3,7 +3,7 @@
   <string name="advancedPawn">Zaawansowany pion</string>
   <string name="advancedPawnDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w taktyce.</string>
   <string name="advantage">Przewaga</string>
-  <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat Anastazji</string>
   <string name="anastasiaMateDescription">Skoczek, wieża lub hetman łączą siły, aby złapać przeciwnego króla w pułapkę pomiędzy bandą szachownicy, a jego inną figurą.</string>
   <string name="arabianMate">Mat arabski</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
   <string name="crushing">Decydująca przewaga</string>
-  <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="doubleBishopMate">Mat dwoma gońcami</string>
   <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="dovetailMate">Jaskółczy ogon</string>
   <string name="dovetailMateDescription">Hetman matuje sąsiedniego króla, którego jedyne dwa pola ucieczki są zablokowane przez własne bierki.</string>
   <string name="equality">Równowaga</string>
-  <string name="equalityDescription">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="kingsideAttackDescription">Atak na króla przeciwnika po krótkiej roszadzie.</string>
   <string name="clearance">Zwolnienie</string>

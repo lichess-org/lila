@@ -5,11 +5,12 @@ import lila.common.paginator.*
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
+import lila.user.MyId
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     userApi: lila.user.UserApi,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
@@ -19,28 +20,38 @@ final private[team] class PaginatorBuilder(
 
   import BSONHandlers.given
 
-  def popularTeams(page: Int): Fu[Paginator[Team]] =
+  def popularTeams(page: Int)(using me: Option[MyId]): Fu[Paginator[Team.WithMyLeadership]] =
     Paginator(
-      adapter = new Adapter(
-        collection = teamRepo.coll,
-        selector = teamRepo.enabledSelect,
-        projection = none,
-        sort = teamRepo.sortPopular
-      ),
+      adapter = popularTeamsAdapter(page).mapFutureList(memberRepo.addMyLeadership),
       page,
       maxPerPage
     )
 
+  def popularTeamsWithPublicLeaders(page: Int): Fu[Paginator[Team.WithPublicLeaderIds]] =
+    Paginator(
+      adapter = popularTeamsAdapter(page).mapFutureList(memberRepo.addPublicLeaderIds),
+      page,
+      maxPerPage
+    )
+
+  private def popularTeamsAdapter(page: Int): Adapter[Team] =
+    Adapter[Team](
+      collection = teamRepo.coll,
+      selector = teamRepo.enabledSelect,
+      projection = none,
+      sort = teamRepo.sortPopular
+    )
+
   def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] =
     Paginator(
-      adapter = new TeamAdapter(team),
+      adapter = TeamAdapter(team),
       page,
       maxUserPerPage
     )
 
   def teamMembersWithDate(team: Team, page: Int): Fu[Paginator[TeamMember.UserAndDate]] =
     Paginator(
-      adapter = new TeamAdapterWithDate(team),
+      adapter = TeamAdapterWithDate(team),
       page,
       maxUserPerPage
     )
@@ -99,7 +110,7 @@ final private[team] class PaginatorBuilder(
           .find(selector)
           .sort(sorting)
           .skip(offset)
-          .cursor[Request]()
+          .cursor[TeamRequest]()
           .list(length)
         users <- userApi.listWithPerfs(requests.map(_.user))
       yield RequestWithUser.combine(requests, users)

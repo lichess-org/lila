@@ -120,6 +120,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
+  <string name="engineManager">Merañ an urzhiataer</string>
   <string name="blunder">Bourd</string>
   <string name="mistake">Fazi</string>
   <string name="inaccuracy">Diresisted</string>
@@ -166,6 +167,13 @@
     <item quantity="few">%s krogad</item>
     <item quantity="many">%s krogad</item>
     <item quantity="other">%s krogad</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Renkadur %1$s diwar %2$s c\'hrogad</item>
+    <item quantity="two">Renkadur %1$s diwar %2$s grogad</item>
+    <item quantity="few">Renkadur %1$s diwar %2$s c\'h/krogad</item>
+    <item quantity="many">Renkadur %1$s diwar %2$s c\'hrogad</item>
+    <item quantity="other">Renkadur %1$s diwar %2$s c\'hrogad</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s er roll-istor</item>
@@ -256,6 +264,7 @@
   <string name="accountCanLogin">Gallout a rit kevreañ dindan an anv %s.</string>
   <string name="accountConfirmationEmailNotNeeded">N\'ho peus ket ezhomm deus ur postel-kadarnaat.</string>
   <string name="accountClosed">Serr eo ar gont %s.</string>
+  <string name="accountRegisteredWithoutEmail">Ar gont %s zo bet krouet hep chomlec\'h postel.</string>
   <string name="rank">Renk</string>
   <string name="rankX">Renk: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -575,6 +584,7 @@
   <string name="firstName">Anv</string>
   <string name="lastName">Anv familh</string>
   <string name="biography">Diwar ho penn</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Banniel</string>
   <string name="thankYou">Trugarez!</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>
   <string name="oneUrlPerLine">Un URL dre linenn.</string>
@@ -597,15 +607,15 @@
   <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
-  <string name="descPrivate">Deskrivadur prevez</string>
-  <string name="descPrivateHelp">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Deskrivadur prevez</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
   <string name="no">Nann</string>
   <string name="yes">Ya</string>
   <string name="help">Sikour:</string>
   <string name="createANewTopic">Krouiñ ur sujed nevez</string>
   <string name="topics">Temoù</string>
   <string name="posts">Kemennadennoù</string>
-  <string name="lastPost">Kemennadenn ziwezhañ</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Kemennadenn ziwezhañ</string>
   <string name="views">Gwelet</string>
   <string name="replies">Respontoù</string>
   <string name="replyToThisTopic">Respont d\'ar sujed-mañ</string>
@@ -761,6 +771,10 @@
   <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="keyEnterOrExitVariation">mont ebarzh/kuitaat an eilstumm</string>
+  <string name="keyNextLearnFromYourMistakes">Da heul (deskit diouzh ho fazioù)</string>
+  <string name="keyNextBlunder">Blunder nesañ</string>
+  <string name="keyNextMistake">Fazi nesañ</string>
+  <string name="keyNextInaccuracy">Diresisted nesañ</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentHomeTitle">Tournamantoù echedoù o zizh hag o variantoù liesseurt</string>
   <string name="tournamentHomeDescription">C\'hoariit tournamantoù echedoù fonnus! Kemerit perzh en un tournamant ofisiel raktreset, pe krouit hoc\'h hini. Bullet, Blitz, Klasel, Echedoù960, Roue d\'ar c\'hreiz, Tribec\'h, ha dibaboù all evit ur blijadur beurbadus gant an echedoù.</string>
@@ -779,6 +793,7 @@
   <string name="yourPerfTypeRatingIsRating">%2$s eo ho renkadur e %1$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Barrekoc\'h oc\'h evit %1$s eus ar c\'hoarierien %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Barrekoc\'h eo %1$s evit %2$s eus ar c\'hoarierien %3$s.</string>
+  <string name="betterThanPercentPlayers">Gwelloc\'h evit %1$s eus ar c\'hoarierien %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">N\'ho peus ket ur renkadur e %s c\'hoazh.</string>
   <string name="yourRating">Ho renkadur</string>
   <string name="cumulative">Berniet</string>
@@ -859,6 +874,7 @@
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Rebuzadurioù: %1$s</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
@@ -973,17 +989,20 @@
   <string name="mentionedYouInX">he/en deus meneget ac\'hanoc\'h e \"%1$s\".</string>
   <string name="xMentionedYouInY">Meneget oc’h bet gant %1$s e \"%2$s\".</string>
   <string name="invitedYouToX">en deus pedet ac’hanoc’h da \"%1$s\".</string>
-  <string name="xInvitedYouToY">Pedet oc’h bet gant %1$s da \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">Pedet oc’h bet gant %1$s da \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
   <string name="youHaveJoinedTeamX">Ezel oc\'h eus \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Skarzhet eo bet kuit unan bennak ho peus savet klemm outañ</string>
   <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
   <string name="gameVsX">Krogad a-enep %1$s</string>
   <string name="resVsX">%1$s a-enep %2$s</string>
+  <string name="lostAgainstTOSViolator">Kollet ho peus poentoù a-enep unan ha n\'en deus ket doujet d\'ar reolennoù</string>
+  <string name="refundXpointsTimeControlY">Bet daskoret: %1$s poent e %2$s.</string>
   <string name="timeAlmostUp">Ne chom ket kalz amzer!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="download">Pellgargañ</string>
   <string name="welcome">Degemer mat!</string>
+  <string name="coachManager">Korn ar gourdoner</string>
   <string name="streamerManager">Merañ ar stream</string>
   <string name="cancelTournament">Nullañ an tournamant</string>
   <string name="tournDescription">Ur gerig diwar-benn an tournamant</string>
@@ -991,6 +1010,7 @@
   <string name="ratedFormHelp">Renket eo ar c\'hrogadoù ha cheñch a reont renkadur ar c\'hoarierien</string>
   <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
   <string name="noRestriction">Harz ebet</string>
+  <string name="minimumRatedGames">Niver a grogadoù renket rekis</string>
   <string name="minimumRating">Renkadur bihanañ</string>
   <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="simulHostcolor">Liv an ostiz evit pep krogad</string>

@@ -23,7 +23,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
-    memberRepo: lila.team.MemberRepo,
+    memberRepo: lila.team.TeamMemberRepo,
     teamCache: lila.team.Cached
 )(using
     ec: Executor,

@@ -11,7 +11,7 @@ export const fenInput = (ctrl: SetupCtrl) => {
         attrs: { placeholder: ctrl.root.trans('pasteTheFenStringHere'), value: fen },
         on: {
           input: (e: InputEvent) => {
-            ctrl.fen((e.target as HTMLInputElement).value);
+            ctrl.fen((e.target as HTMLInputElement).value.trim());
             ctrl.validateFen();
           },
         },
@@ -22,14 +22,14 @@ export const fenInput = (ctrl: SetupCtrl) => {
         attrs: {
           'data-icon': licon.Pencil,
           title: ctrl.root.trans('boardEditor'),
-          href: '/editor' + (fen ? `/${fen.replace(' ', '_')}` : ''),
+          href: '/editor' + (fen && !ctrl.fenError ? `/${fen.replace(' ', '_')}` : ''),
         },
       }),
     ]),
     h(
       'a.fen__board',
-      { attrs: { href: '/editor' } },
-      ctrl.fenError || !ctrl.lastValidFen
+      { attrs: { href: `/editor/${ctrl.lastValidFen.replace(' ', '_')}` } },
+      !ctrl.lastValidFen || !ctrl.validFen()
         ? null
         : h(
             'span.preview',

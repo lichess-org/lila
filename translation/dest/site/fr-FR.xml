@@ -115,6 +115,7 @@
   <string name="openStudy">Ouvrir l\'analyse</string>
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
+  <string name="showVariationArrows">Afficher les flèches de variantes</string>
   <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="multipleLines">Lignes d\'analyse</string>
   <string name="cpus">Processeurs</string>
@@ -347,9 +348,9 @@
     <item quantity="one">%s étude</item>
     <item quantity="other">%s études</item>
   </plurals>
-  <plurals name="nbSimuls">
-    <item quantity="one">%s simultanée(s)</item>
-    <item quantity="other">%s simultanées</item>
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+    <item quantity="one">%s simultané(e)s</item>
+    <item quantity="other">%s simultané(e)s</item>
   </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
@@ -509,8 +510,6 @@
   <string name="socialMediaLinks">Liens des réseaux sociaux</string>
   <string name="oneUrlPerLine">Une URL par ligne.</string>
   <string name="inlineNotation">Notation en ligne</string>
-  <string name="savingMoves">Coups conservés temporairement</string>
-  <string name="savingMovesHelp">Vos variantes sont toujours conservées dans le cache de votre navigateur.</string>
   <string name="makeAStudy">Pour conserver et partager vos analyses, créez une étude.</string>
   <string name="clearSavedMoves">Supprimer les coups</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
@@ -528,15 +527,15 @@
   <string name="tournamentWinners">Vainqueurs de tournois</string>
   <string name="name">Nom</string>
   <string name="description">Description</string>
-  <string name="descPrivate">Description privée</string>
-  <string name="descPrivateHelp">Texte que seuls les membres de l\'équipe verront. Si utilisé, remplace la description publique pour les membres de l\'équipe.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Description privée</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texte que seuls les membres de l\'équipe verront. Si utilisé, remplace la description publique pour les membres de l\'équipe.</string>
   <string name="no">Non</string>
   <string name="yes">Oui</string>
   <string name="help">Aide :</string>
   <string name="createANewTopic">Créer un nouveau sujet</string>
   <string name="topics">Sujets</string>
   <string name="posts">Messages</string>
-  <string name="lastPost">Dernier message</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Dernier message</string>
   <string name="views">Vues</string>
   <string name="replies">Réponses</string>
   <string name="replyToThisTopic">Répondre à ce sujet</string>
@@ -789,7 +788,7 @@
   <string name="invalidFen">FEN non valide</string>
   <string name="custom">Personnalisée</string>
   <string name="notifications">Notifications</string>
-  <string name="notificationsX">Notifications : %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notifications : %1$s</string>
   <string name="perfRatingX">Classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>
@@ -868,6 +867,7 @@
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapide</string>
   <string name="classical">Classique</string>
   <string name="ultraBulletDesc">Parties éclairs : moins de 30 secondes</string>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">vous a mentionné dans « %1$s ».</string>
   <string name="xMentionedYouInY">%1$s vous a mentionné dans « %2$s ».</string>
   <string name="invitedYouToX">vous a invité à « %1$s ».</string>
-  <string name="xInvitedYouToY">%1$s vous a invité à « %2$s ».</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s vous a invité à « %2$s ».</string>
   <string name="youAreNowPartOfTeam">Vous faites maintenant partie de l’équipe.</string>
   <string name="youHaveJoinedTeamX">Vous avez joint l\'équipe \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Quelqu\'un que vous avez signalé a été banni.</string>

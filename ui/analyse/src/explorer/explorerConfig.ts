@@ -104,6 +104,16 @@ export class ExplorerConfigCtrl {
     this.data.playerName.open(false);
   };
 
+  removePlayer = (name?: string) => {
+    if (!name) return;
+    const previous = this.data.playerName.previous().filter(n => n !== name);
+    this.data.playerName.previous(previous);
+
+    if (this.data.playerName.value() === name) {
+      this.data.playerName.value('');
+    }
+  };
+
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
     (value: T) => {
@@ -362,11 +372,25 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
           ]),
         ].map(name =>
           h(
-            `button.button${nameToOptionalColor(name)}`,
+            'div',
             {
-              hook: bind('click', () => onSelect(name)),
+              key: name,
             },
-            name,
+            [
+              h(
+                `button.button${nameToOptionalColor(name)}`,
+                {
+                  hook: bind('click', () => onSelect(name)),
+                },
+                name,
+              ),
+              name && ctrl.data.playerName.previous().includes(name)
+                ? h('button.remove', {
+                    attrs: dataIcon(licon.X),
+                    hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                  })
+                : null,
+            ],
           ),
         ),
       ),

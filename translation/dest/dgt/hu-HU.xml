@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT tábla</string>
+  <string name="lichessAndDgt">Lichess és DGT</string>
+  <string name="dgtBoardRequirements">DGT tábla követelmények</string>
+  <string name="dgtBoardLimitations">DGT tábla limitációk</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Az alábbi oldal segítséget nyújt a DGT táblád csatlakoztatásához, hogy azt használhasd a játszmákban.</string>
+  <string name="toConnectTheDgtBoard">A DGT táblád csatlakoztatásához telepítened kell: %s.</string>
+  <string name="downloadHere">A szoftver innen letölthető: %s.</string>
+  <string name="openingThisLink">az alábbi link megnyitásával</string>
+  <string name="reloadThisPage">Oldal frissítése</string>
+  <string name="dgtConfigure">DGT - Beállítások</string>
+  <string name="lichessConnectivity">Lichess csatlakoztatás</string>
+  <string name="validDgtOauthToken">DGT játékhoz megfelelő OAuth token rendelkezésre áll.</string>
+  <string name="noSuitableOauthToken">Nem található OAuth token.</string>
+  <string name="dgtBoardConnectivity">DGT tábla csatlakoztatás</string>
+  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Token létrehozása</string>
+  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">%s WebSocket URL</string>
+  <string name="textToSpeech">Szövegfelolvasás</string>
+  <string name="configureVoiceNarration">A lépések narrációjának beállításával a tektintetedet a táblán tarthatod.</string>
+  <string name="speechSynthesisVoice">Beszédszintetizátor</string>
+  <string name="announceAllMoves">Összes lépés bejelentése</string>
+  <string name="selectAnnouncePreference">Az IGEN opció bejelenti mindkét fél lépését, a NEM csak az ellenfeled lépését jelenti be.</string>
+  <string name="announceMoveFormat">Lépésformátum</string>
+  <string name="moveFormatDescription">A Lichess a SAN jelölést használja, például \"Nf6\". Az UCI jelölést általában sakkmotorok használják, például \"g8f6\".</string>
+  <string name="keywords">Kulcsszavak</string>
+  <string name="keywordFormatDescription">A kulcsszavak JSON formátumban, melyekkel az általad használt nyelvre fordítjuk a lépéseket és eredményeket. Alapértelmezetten Angol, de ezt bármikor megváltoztathatod.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Hibakeresés</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Részletes naplózás</string>
+  <string name="playWithDgtBoard">Játék DGT táblával</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Beállítás</string>
+</resources>

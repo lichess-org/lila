@@ -115,6 +115,7 @@
   <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
+  <string name="showVariationArrows">Visa variationspilar</string>
   <string name="evaluationGauge">Utvärderingsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">Processorer</string>
@@ -153,6 +154,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$sranking över %2$s parti</item>
+    <item quantity="other">%1$sranking över %2$s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bokmärke</item>
@@ -343,8 +348,13 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+    <item quantity="one">%s simultanparti</item>
+    <item quantity="other">%s simultanpartier</item>
+  </plurals>
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
+  <string name="noDrawBeforeSwissLimit">Ni kan inte ta remi innan drag 30 i en schweizer-turnering.</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rankat parti</item>
@@ -393,6 +403,7 @@
   <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
+  <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
@@ -494,16 +505,11 @@
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
   <string name="biography">Biografi</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flagga</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="oneUrlPerLine">En URL per rad.</string>
   <string name="inlineNotation">Visa notation</string>
-  <string name="savingMoves">Temporär lagring av drag. 
-Vi lagrar alltid dina drag i webbläsarens cache. Överväg att skapa en studie, för trygg förvaring och möjlighet att dela.
-
-För information, Lichess studier är en funktion som gör det möjligt för spelare att enkelt spara och spela igenom partier:
-https://lichess. org/study</string>
-  <string name="savingMovesHelp">Vi lagrar alltid dina variationer i din webbläsares cache.</string>
   <string name="makeAStudy">För förvaring och delning, överväg att göra en studie.</string>
   <string name="clearSavedMoves">Rensa schack drag</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
@@ -521,15 +527,15 @@ https://lichess. org/study</string>
   <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="name">Namn</string>
   <string name="description">Beskrivning</string>
-  <string name="descPrivate">Privat beskrivning</string>
-  <string name="descPrivateHelp">Text som endast lagmedlemmarna kommer att se. Om angivet, ersätter den offentliga beskrivningen för lagmedlemmar.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privat beskrivning</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text som endast lagmedlemmarna kommer att se. Om angivet, ersätter den offentliga beskrivningen för lagmedlemmar.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
   <string name="help">Hjälp:</string>
   <string name="createANewTopic">Skapa ett nytt ämne</string>
   <string name="topics">Ämnen</string>
   <string name="posts">Inlägg</string>
-  <string name="lastPost">Senaste inlägget</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Senaste inlägget</string>
   <string name="views">Visningar</string>
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svara på ämnet</string>
@@ -667,6 +673,8 @@ https://lichess. org/study</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>
   <string name="simulHostExtraTime">Värdens extratid</string>
+  <string name="simulAddExtraTimePerPlayer">Lägg till en starttid på klockan för varje spelare som går med i simultanmatchen.</string>
+  <string name="simulHostExtraTimePerPlayer">Extratid för värden för varje spelare som deltar</string>
   <string name="lichessTournaments">Lichess-turneringar</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
@@ -677,6 +685,11 @@ https://lichess. org/study</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
+  <string name="keyRequestComputerAnalysis">Begär datoranalys, lär av dina misstag</string>
+  <string name="keyNextLearnFromYourMistakes">Nästa (Lär av dina misstag)</string>
+  <string name="keyNextBlunder">Nästa blunder</string>
+  <string name="keyNextMistake">Nästa misstag</string>
+  <string name="keyNextInaccuracy">Nästa felaktighet</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
   <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
@@ -692,6 +705,7 @@ https://lichess. org/study</string>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av alla som spelar %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s är bättre än %2$s av alla %3$sspelare.</string>
+  <string name="betterThanPercentPlayers">Bättre än %1$s av %2$sspelare</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Kumulativ</string>
@@ -774,6 +788,7 @@ https://lichess. org/study</string>
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="custom">Anpassad</string>
   <string name="notifications">Aviseringar</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notiser: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund kvar för att spela första draget</item>
@@ -852,6 +867,7 @@ https://lichess. org/study</string>
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snabbschack</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Vansinnigt snabba partier: mindre än 30 sekunder</string>
@@ -868,6 +884,8 @@ https://lichess. org/study</string>
   <string name="useTheReportForm">använd rapportformuläret</string>
   <string name="toRequestSupport">För att begära support, %1$s</string>
   <string name="tryTheContactPage">prova kontaktsidan</string>
+  <string name="makeSureToRead">Se till att läsa %1$s</string>
+  <string name="theForumEtiquette">forumets etikett</string>
   <string name="thisTopicIsArchived">Detta ämne har arkiverats och kan inte längre besvaras.</string>
   <string name="joinTheTeamXToPost">Gå med i %1$s, för att posta i detta forum</string>
   <string name="teamNamedX">%1$s-teamet</string>
@@ -877,7 +895,7 @@ https://lichess. org/study</string>
   <string name="mentionedYouInX">nämnde dig i \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s nämnde dig i \"%2$s\".</string>
   <string name="invitedYouToX">bjöd in dig till \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s bjöd in dig till \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s bjöd in dig till \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du är nu en del av laget.</string>
   <string name="youHaveJoinedTeamX">Du har gått med i \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Någon du rapporterade blev avstängd</string>

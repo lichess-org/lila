@@ -60,6 +60,7 @@
   <string name="nextPayment">پارەی دواتر</string>
   <string name="youWillBeChargedXOnY">%1$sت لێ وەردەگیرێت لەسەر %2$s.</string>
   <string name="makeAdditionalDonation">بەخشینێکی زیادە بکە</string>
+  <string name="giftPatronWingsShort">پێدانی باڵی یاریدەدەر بە دیاری</string>
   <string name="giftPatronWings">هێمای باڵەکانی بەخشین بە دیاری بدە بە یاریزانێک</string>
   <string name="update">نوێکردنەوە</string>
   <string name="changeMonthlyAmount">گۆڕینی بڕی مانگانە (%s)</string>

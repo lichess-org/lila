@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">När man spelar mot ett bot-konto kan ett rankat parti under vissa omständigheter inte ge några ranking-poäng. Detta om det fastslås att spelaren missbrukar boten för att manipulera sin rating.</string>
   <string name="errorPage">Felsida</string>
   <string name="reportErrorPage">Om du stöter på en felsida, kan du rapportera det:</string>
+  <string name="wantBroadcastTournament">Jag vill sända en turnering</string>
+  <string name="learnHowToMakeBroadcasts">Lär dig hur du gör dina egna sändningar på Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">Du kan också kontakta sändningsteamet om officiella sändningar.</string>
   <string name="banAppeal">Överklaga en avstängning eller IP-begränsning</string>
   <string name="engineAppeal">Schackmotor eller fuskstämpel</string>
   <string name="sendAppealTo">Du kan skicka ett överklagande till %s.</string>

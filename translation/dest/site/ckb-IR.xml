@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
-  <string name="waiting">چاوەڕوانی ڕازیبوونی لایەنی بەرامبەر</string>
+  <string name="waiting">چاوەڕوانی</string>
   <string name="yourTurn">سەرەی تۆیە</string>
   <string name="aiNameLevelAiLevel">%1$s ئاست %2$s</string>
   <string name="level">پلە</string>
@@ -45,8 +45,8 @@
   <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
   <string name="talkInChat">تکایە بەرێزەوە گفتوگۆ بکە!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">یەکەم کەس ئەم لینکە بەکاربهێنێت یاریت لەگەڵ دەکات.</string>
-  <string name="whiteResigned">سپی خۆی بەدەستەوەدا</string>
-  <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
+  <string name="whiteResigned">سپی کشایەوە</string>
+  <string name="blackResigned">رەش کشایەوە</string>
   <string name="whiteLeftTheGame">سپی یاری بەجێهێشت</string>
   <string name="blackLeftTheGame">ڕەش یاری بەجێهێشت</string>
   <string name="whiteDidntMove">سپی جووڵەی نەکرد</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە شێووی تیر دیاری بکە</string>
+  <string name="showVariationArrows">تیرەکانی جۆرەکان پیشان بدە</string>
   <string name="evaluationGauge">پێوانەی هەڵسەنگاندن</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
   <string name="cpus">CPUs</string>
@@ -347,7 +348,7 @@
     <item quantity="one">%s خوێندن</item>
     <item quantity="other">%s خوێندن</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s هاوکات</item>
     <item quantity="other">%s هاوکاتەکان</item>
   </plurals>
@@ -504,12 +505,11 @@
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
   <string name="biography">ژیاننامە</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ئاڵا</string>
   <string name="thankYou">سوپاس!</string>
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
   <string name="inlineNotation">نووسینی ناو هێڵ</string>
-  <string name="savingMoves">هەڵگرتنی جوڵەکان بەشێوەیەکی کاتی</string>
-  <string name="savingMovesHelp">ئێمە هەمیشە گۆڕانکارییەکانتان لە کونجێکی وێبگەڕەکەتدا هەڵدەگرین.</string>
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
   <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">براوەکانی پاڵەوانیەتی</string>
   <string name="name">ناو</string>
   <string name="description">باسکردن</string>
-  <string name="descPrivate">باسێکی تایبەت</string>
-  <string name="descPrivateHelp">ئەو نووسینە تەنها ئەندامانی گرووپ دەیبینن، ئەگەر دابنرێت، بیگۆڕە بۆ باسکردنێکی گشتی بۆ ئەندامانی گرووپ.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">باسێکی تایبەت</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ئەو نووسینە تەنها ئەندامانی گرووپ دەیبینن، ئەگەر دابنرێت، بیگۆڕە بۆ باسکردنێکی گشتی بۆ ئەندامانی گرووپ.</string>
   <string name="no">نەخێر</string>
   <string name="yes">بەڵێ</string>
   <string name="help">یارمەتی:</string>
   <string name="createANewTopic">مژارێکی نوێ دروستبکە</string>
   <string name="topics">مژارەکان</string>
   <string name="posts">بڵاوکراوەکان</string>
-  <string name="lastPost">دواین بڵاوکراوە</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">دواین بڵاوکراوە</string>
   <string name="views">بینەر</string>
   <string name="replies">وەڵامەکان</string>
   <string name="replyToThisTopic">وەڵامی ئەو مژارە بدەوە</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">FEB ـەکەت هەڵەیە</string>
   <string name="custom">تەرخانکراو</string>
   <string name="notifications">ئاگادارکردنەوەکان</string>
-  <string name="notificationsX">ئاگادارکردنەوەکان: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">ئاگادارکردنەوەکان: %1$s</string>
   <string name="perfRatingX">هەڵسەنگاندن: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s چرکە ماوە بۆ یەکەم جوڵە</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">بڵیتز\"خێرا\"</string>
   <string name="rapid">خێرا</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">یارییە شێتانە خێراکان: کەمتر لە ٣٠ چرکە</string>
@@ -894,7 +895,7 @@
   <string name="mentionedYouInX">ئاماژەی بە تۆکردووە لە \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s تۆی بانگکردووە لە \"%2$s\".</string>
   <string name="invitedYouToX">تۆی بانگهێشتکردووە بۆ \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s تۆی بانگهێشتکرد بۆ \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s تۆی بانگهێشتکرد بۆ \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">ئێستا تۆ بەشێکی لەو یانەیە.</string>
   <string name="youHaveJoinedTeamX">تۆ باشداریتکرد لە \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">کەسێک کە تۆ راپۆرتتلێدا ئێستا قەدەغەکراوە</string>

@@ -30,7 +30,10 @@ object theirs:
                   if c.isOpen then c.name | "Open challenge"
                   else
                     user.fold[Frag]("Anonymous"): u =>
-                      frag(userLink(u.user), " (", u.perf.glicko.display, ")")
+                      frag(
+                        userLink(u.user),
+                        ctx.pref.showRatings option frag(" (", u.perf.glicko.display, ")")
+                      )
               ,
               bits.details(c, color),
               c.notableInitialFen.map: fen =>

@@ -26,6 +26,7 @@ case class UblogPost(
   def isBy[U: UserIdOf](u: U) = created.by is u
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
+  def allText   = s"$title $intro $markdown"
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 

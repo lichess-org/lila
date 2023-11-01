@@ -6,6 +6,7 @@ import lila.study.Study
 import lila.common.Seconds
 
 case class RelayRound(
+    /* Same as the Study id it refers to */
     _id: RelayRoundId,
     tourId: RelayTour.Id,
     name: RelayRoundName,

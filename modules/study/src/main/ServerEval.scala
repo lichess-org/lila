@@ -23,34 +23,34 @@ object ServerEval:
     private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
 
     def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
-      chapter.serverEval.fold(true) { eval =>
-        !eval.done && onceEvery(chapter.id)
-      } so {
-        val unlimitedFu =
-          fuccess(unlimited) >>|
-            fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(Granter.opt(_.Relay)(using _))
-        unlimitedFu flatMap { unlimited =>
-          chapterRepo.startServerEval(chapter) andDo {
-            fishnet ! StudyChapterRequest(
-              studyId = study.id,
-              chapterId = chapter.id,
-              initialFen = chapter.root.fen.some,
-              variant = chapter.setup.variant,
-              moves = chess.format
-                .UciDump(
-                  moves = chapter.root.mainline.map(_.move.san),
+      chapter.serverEval
+        .forall: eval =>
+          !eval.done && onceEvery(chapter.id)
+        .so:
+          val unlimitedFu =
+            fuccess(unlimited) >>|
+              fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(Granter.opt(_.Relay)(using _))
+          unlimitedFu.flatMap: unlimited =>
+            chapterRepo
+              .startServerEval(chapter)
+              .andDo:
+                fishnet ! StudyChapterRequest(
+                  studyId = study.id,
+                  chapterId = chapter.id,
                   initialFen = chapter.root.fen.some,
                   variant = chapter.setup.variant,
-                  force960Notation = true
+                  moves = chess.format
+                    .UciDump(
+                      moves = chapter.root.mainline.map(_.move.san),
+                      initialFen = chapter.root.fen.some,
+                      variant = chapter.setup.variant,
+                      force960Notation = true
+                    )
+                    .toOption
+                    .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+                  userId = userId,
+                  unlimited = unlimited
                 )
-                .toOption
-                .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-              userId = userId,
-              unlimited = unlimited
-            )
-          }
-        }
-      }
 
   final class Merger(
       sequencer: StudySequencer,
@@ -59,9 +59,9 @@ object ServerEval:
       divider: lila.game.Divider
   )(using Executor):
 
-    def apply(analysis: Analysis, complete: Boolean): Funit =
-      analysis.studyId so { studyId =>
-        sequencer.sequenceStudyWithChapter(studyId, analysis.id into StudyChapterId) {
+    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match
+      case Analysis.Id.Study(studyId, chapterId) =>
+        sequencer.sequenceStudyWithChapter(studyId, chapterId):
           case Study.WithChapter(_, chapter) =>
             (complete so chapterRepo.completeServerEval(chapter)) >> {
               chapter.root.mainline
@@ -110,7 +110,7 @@ object ServerEval:
                 } void
             } andDo {
               chapterRepo
-                .byId(analysis.id into StudyChapterId)
+                .byId(chapterId)
                 .foreach:
                   _.so: chapter =>
                     socket.onServerEval(
@@ -123,8 +123,7 @@ object ServerEval:
                       )
                     )
             } logFailure logger
-        }
-      }
+      case _ => funit
 
     def divisionOf(chapter: Chapter) =
       divider(
@@ -135,15 +134,17 @@ object ServerEval:
       )
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val (_, games, error) = chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant)
-      error foreach { e => logger.info(e.value) }
-      games.reverse match
+      val (_, reversedGames, error) =
+        chess.Replay.gameMoveWhileValidReverse(info.variation take 20, root.fen, variant)
+      error.foreach(e => logger.info(e.value))
+      reversedGames match
         case Nil => none
         case (g, m) :: rest =>
           rest
-            .foldLeft[Branch](makeBranch(g, m)) { case (node, (g, m)) =>
-              makeBranch(g, m) addChild node
-            } some
+            .foldLeft(makeBranch(g, m)):
+              case (node, (g, m)) =>
+                makeBranch(g, m).addChild(node)
+            .some
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Branch(

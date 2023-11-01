@@ -3,7 +3,7 @@
   <string name="advancedPawn">Просунутий пішак</string>
   <string name="advancedPawnDescription">Один з Ваших пішаків просунувся по позиціях суперника, ймовірна загроза перетворення.</string>
   <string name="advantage">Перевага</string>
-  <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Мат Анастасії</string>
   <string name="anastasiaMateDescription">Кінь з турою або ферзем ловлять короля між краєм дошки та власною фігурою.</string>
   <string name="arabianMate">Арабський мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>
   <string name="crushing">Руйнування</string>
-  <string name="crushingDescription">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусідніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="dovetailMate">Мат \"ластів\'ячий хвіст\"</string>
   <string name="dovetailMateDescription">Королева ставить мат королю поруч, єдині два поля для відступу якого зайняті його власними фігурами.</string>
   <string name="equality">Рівність</string>
-  <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
   <string name="kingsideAttackDescription">Атака короля суперника, після його короткого рокірування.</string>
   <string name="clearance">Очищення</string>

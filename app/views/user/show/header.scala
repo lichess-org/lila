@@ -224,7 +224,7 @@ object header:
           )
       ,
       (ctx.noKid && info.ublog.so(_.latests).nonEmpty) option div(cls := "user-show__blog ublog-post-cards")(
-        info.ublog.so(_.latests) map { views.html.ublog.post.card(_, showAuthor = false) }
+        info.ublog.so(_.latests) map { views.html.ublog.post.card(_) }
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
         a(

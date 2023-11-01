@@ -59,6 +59,8 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下載所有棋局</string>
   <string name="chapterPgn">章節PGN</string>
+  <string name="copyChapterPgn">複製PGN</string>
+  <string name="copyChapterPgnDescription">複製章節PGN到剪貼板。</string>
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>
   <string name="currentChapterUrl">目前章節連結</string>
@@ -73,6 +75,7 @@
   <string name="studyNotFound">找無此研究</string>
   <string name="editChapter">編輯章節</string>
   <string name="newChapter">建立新章節</string>
+  <string name="importFromChapterX">從 %s 導入</string>
   <string name="orientation">視角</string>
   <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置頂留言</string>
@@ -131,6 +134,7 @@
   <string name="blunder">嚴重失誤</string>
   <string name="interestingMove">有趣的一着</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">值得商榷的一着</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一著法</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">等著</string>
   <string name="equalPosition">勢均力敵</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
@@ -140,12 +144,17 @@
   <string name="blackIsBetter">黑方占優勢</string>
   <string name="whiteIsWinning">白方要取得勝利了</string>
   <string name="blackIsWinning">黑方要取得勝利了</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">新奇的</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">發展</string>
+  <string name="initiative">佔據主動</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">攻擊</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反擊</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">時間壓力</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">優勢補償</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">教科書式的</string>
   <string name="nextChapter">下一章</string>
   <string name="prevChapter">上一章</string>
+  <string name="studyActions">研討操作</string>
   <string name="topics">主題</string>
   <string name="myTopics">我的主題</string>
   <string name="popularTopics">熱門主題</string>

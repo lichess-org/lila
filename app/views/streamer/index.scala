@@ -69,9 +69,8 @@ object index:
         div(cls := "page-menu__content box streamer-list")(
           boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
           !requests option div(cls := "list force-ltr live")(
-            live.map { s =>
+            live.map: s =>
               st.article(cls := "streamer")(widget(s, s.stream))
-            }
           ),
           div(cls := "list force-ltr infinite-scroll")(
             (live.size % 2 == 1) option div(cls := "none"),

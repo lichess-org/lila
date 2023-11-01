@@ -113,6 +113,7 @@
   <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
+  <string name="showVariationArrows">変化手順の矢印を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
   <string name="multipleLines">解析ライン数</string>
   <string name="cpus">スレッド数</string>
@@ -324,7 +325,7 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 研究</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="other">%s 同時対局</item>
   </plurals>
   <string name="viewTournament">トーナメントを見る</string>
@@ -477,8 +478,6 @@
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="savingMoves">手の一時保存</string>
-  <string name="savingMovesHelp">あなたの指した手順は常にブラウザのキャッシュに保存されます。</string>
   <string name="makeAStudy">永久保存や共有には「研究」機能をお使いください。</string>
   <string name="clearSavedMoves">手をクリアする</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
@@ -495,15 +494,15 @@
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
-  <string name="descPrivate">非公開説明文</string>
-  <string name="descPrivateHelp">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">非公開説明文</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
   <string name="no">いいえ</string>
   <string name="yes">はい</string>
   <string name="help">ヘルプ：</string>
   <string name="createANewTopic">新しいトピックを作成</string>
   <string name="topics">トピック</string>
   <string name="posts">投稿数</string>
-  <string name="lastPost">最終投稿</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">最終投稿</string>
   <string name="views">閲覧数</string>
   <string name="replies">返信数</string>
   <string name="replyToThisTopic">このトピックに返信</string>
@@ -751,7 +750,7 @@
   <string name="invalidFen">無効な FEN</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
-  <string name="notificationsX">通知：%1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">通知：%1$s</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
@@ -827,6 +826,7 @@
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ブリッツ</string>
   <string name="rapid">ラピッド</string>
   <string name="classical">クラシカル</string>
   <string name="ultraBulletDesc">極早指し戦：30 秒未満</string>
@@ -854,7 +854,7 @@
   <string name="mentionedYouInX">「%1$s」であなたの名前が出ました。</string>
   <string name="xMentionedYouInY">%1$sさんが「%2$s」であなたの名前を出しました。</string>
   <string name="invitedYouToX">「%1$s」 への招待が来ました。</string>
-  <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>
   <string name="someoneYouReportedWasBanned">あなたが通報した人が追放されました</string>

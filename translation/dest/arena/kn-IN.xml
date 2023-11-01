@@ -31,6 +31,33 @@
 ವೇಗವಾಗಿ ಆಟವಾಡಿ ಮತ್ತು ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಆಡಲು ಮತ್ತು ಹೆಚ್ಚಿನ ಅಂಕಗಳನ್ನು ಗೆಲ್ಲಲು ಲಾಬಿಗೆ ಹಿಂತಿರುಗಿ.</string>
   <string name="howDoesItEnd">ಅದು ಹೇಗೆ ಕೊನೆಗೊಳ್ಳುತ್ತದೆ?</string>
   <string name="howDoesItEndAnswer">ಪಂದ್ಯಾವಳಿಯು ಕೌಂಟ್‌ಡೌನ್ ಗಡಿಯಾರವನ್ನು ಹೊಂದಿದೆ. ಅದು ಶೂನ್ಯವನ್ನು ತಲುಪಿದಾಗ, ಪಂದ್ಯಾವಳಿಯ ಶ್ರೇಯಾಂಕಗಳನ್ನು ಫ್ರೀಜ್ ಮಾಡಲಾಗುತ್ತದೆ ಮತ್ತು ವಿಜೇತರನ್ನು ಘೋಷಿಸಲಾಗುತ್ತದೆ. ಪ್ರಗತಿಯಲ್ಲಿರುವ ಆಟಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಬೇಕು, ಆದಾಗ್ಯೂ ಅವುಗಳು ಪಂದ್ಯಾವಳಿಗೆ ಪರಿಗಣಿಸುವುದಿಲ್ಲ.</string>
+  <string name="otherRules">ಇತರ ಪ್ರಮುಖ ನಿಯಮಗಳು</string>
+  <string name="thereIsACountdown">ನಿಮ್ಮ ಮೊದಲ ನಡೆಗೆ ಕ್ಷಣಗಣನೆ ಇದೆ. ಈ ಸಮಯದೊಳಗೆ ನಡೆಯಲು ವಿಫಲವಾದರೆ ನಿಮ್ಮ ಎದುರಾಳಿಗೆ ಆಟವನ್ನು ಕಳೆದುಕೊಳ್ಳುತ್ತದೆ.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">ಮೊದಲ %s ಚಲನೆಯೊಳಗೆ ಆಟವನ್ನು ಚಿತ್ರಿಸುವುದರಿಂದ ಆಟಗಾರರು ಯಾವುದೇ ಅಂಕಗಳನ್ನು ಗಳಿಸುವುದಿಲ್ಲ.</item>
+    <item quantity="other">ಮೊದಲ %s ನಡೆಗಳೊಳಗೆ ಆಟವನ್ನು ಚಿತ್ರಿಸುವುದರಿಂದ ಆಟಗಾರರು ಯಾವುದೇ ಅಂಕಗಳನ್ನು ಗಳಿಸುವುದಿಲ್ಲ.</item>
+  </plurals>
+  <string name="thisIsPrivate">ಇದೊಂದು ಖಾಸಗಿ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="shareUrl">ಜನರು ಸೇರಲು ಈ URL ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಿ: %s</string>
+  <string name="drawStreakStandard">ಗೆರೆಗಳನ್ನು ಎಳೆಯಿರಿ: ಆಟಗಾರನು ಅಖಾಡದಲ್ಲಿ ಸತತ ಡ್ರಾಗಳನ್ನು ಹೊಂದಿದಾಗ, ಮೊದಲ ಡ್ರಾ ಮಾತ್ರ ಒಂದು ಪಾಯಿಂಟ್‌ಗೆ ಕಾರಣವಾಗುತ್ತದೆ, ಅಥವಾ ಪ್ರಮಾಣಿತ ಆಟಗಳಲ್ಲಿ %s ಗಿಂತ ಹೆಚ್ಚು ಚಲಿಸುತ್ತದೆ. ಡ್ರಾ ಸ್ಟ್ರೀಕ್ ಅನ್ನು ಗೆಲುವಿನಿಂದ ಮಾತ್ರ ಮುರಿಯಬಹುದು, ಸೋಲು ಅಥವಾ ಡ್ರಾ ಅಲ್ಲ.</string>
+  <string name="drawStreakVariants">ಡ್ರಾ ಮಾಡಿದ ಆಟಗಳಿಗೆ ಪಾಯಿಂಟ್‌ಗಳನ್ನು ನೀಡಲು ಕನಿಷ್ಠ ಆಟದ ಉದ್ದವು ರೂಪಾಂತರದಿಂದ ಭಿನ್ನವಾಗಿರುತ್ತದೆ. ಕೆಳಗಿನ ಕೋಷ್ಟಕವು ಪ್ರತಿ ರೂಪಾಂತರದ ಮಿತಿಯನ್ನು ಪಟ್ಟಿ ಮಾಡುತ್ತದೆ.</string>
+  <string name="variant">ಶೈಲಿಗಳು</string>
+  <string name="minimumGameLength">ಭಿನ್ನತೆ</string>
+  <string name="history">ಅರೆನಾ ಇತಿಹಾಸ</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">ತಂಡವನ್ನು ವೀಕ್ಷಿಸಿ</item>
+    <item quantity="other">ಎಲ್ಲಾ %s ತಂಡಗಳನ್ನು ವೀಕ್ಷಿಸಿ</item>
+  </plurals>
+  <string name="newTeamBattle">ಹೊಸ ತಂಡದ ಯುದ್ಧ</string>
+  <string name="customStartDate">ಕಸ್ಟಮ್ ಪ್ರಾರಂಭ ದಿನಾಂಕ</string>
+  <string name="customStartDateHelp">ನಿಮ್ಮ ಸ್ವಂತ ಸ್ಥಳೀಯ ಸಮಯವಲಯದಲ್ಲಿ. ಇದು \"ಟೂರ್ನಮೆಂಟ್ ಪ್ರಾರಂಭವಾಗುವ ಸಮಯ\" ಸೆಟ್ಟಿಂಗ್ ಅನ್ನು ಅತಿಕ್ರಮಿಸುತ್ತದೆ</string>
+  <string name="allowBerserk">ಬರ್ಸರ್ಕ್ ಅನ್ನು ಅನುಮತಿಸಿ</string>
+  <string name="allowBerserkHelp">ಹೆಚ್ಚುವರಿ ಪಾಯಿಂಟ್ ಗಳಿಸಲು ಆಟಗಾರರು ತಮ್ಮ ಗಡಿಯಾರದ ಸಮಯವನ್ನು ಅರ್ಧಕ್ಕೆ ಇಳಿಸಲಿ</string>
+  <string name="allowChatHelp">ಆಟಗಾರರು ಚಾಟ್ ರೂಮ್‌ನಲ್ಲಿ ಚರ್ಚಿಸಲಿ</string>
+  <string name="arenaStreaks">ಅರೆನಾ ಗೆರೆಗಳು</string>
+  <string name="arenaStreaksHelp">2 ಗೆಲುವುಗಳ ನಂತರ, ಸತತ ಗೆಲುವುಗಳು 2 ಬದಲಿಗೆ 4 ಅಂಕಗಳನ್ನು ನೀಡುತ್ತದೆ.</string>
+  <string name="noBerserkAllowed">ಯಾವುದೇ ಬರ್ಸರ್ಕ್ ಅನ್ನು ಅನುಮತಿಸಲಾಗುವುದಿಲ್ಲ</string>
+  <string name="noArenaStreaks">ಅರೆನಾ ಗೆರೆಗಳಿಲ್ಲ</string>
   <string name="averagePerformance">ಸರಾಸರಿ ಕಾರ್ಯಕ್ಷಮತೆ</string>
   <string name="averageScore">ಸರಾಸರಿ ಸ್ಕೋರ್</string>
   <string name="myTournaments">ನನ್ನ ಪಂದ್ಯಾವಳಿಗಳು</string>

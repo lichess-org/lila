@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emisións en directo</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">As miñas emisións</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
   </plurals>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A transmisión en orixe terá que estar activa para volver crealas.</string>
   <string name="editRoundStudy">Editar o estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneo</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Eliminar o torneo de forma definitiva, con todas as súas rondas e partidas.</string>
+  <string name="definitivelyDeleteTournament">Eliminar o torneo de forma definitiva, con todas as súas rondas e partidas.</string>
 </resources>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Նախընտրություններ</string>
+  <string name="preferences">Կարգավորումներ</string>
   <string name="display">Ցուցադրել</string>
   <string name="privacy">Գաղտնիություն</string>
+  <string name="notifications">Ծանուցումներ</string>
   <string name="pieceAnimation">Խաղաքարերի ձևավորում</string>
-  <string name="materialDifference">Ցուցադրել նյութական առավելությունը</string>
-  <string name="boardHighlights">Խաղատախտակի բնութագիր (Վերջին քայլը եւ շախ)</string>
+  <string name="materialDifference">Ցուցադրել նյութական տարբերությունը</string>
+  <string name="boardHighlights">Խաղատախտակի բնութագիր (վերջին քայլը և շախը)</string>
   <string name="pieceDestinations">Ցույց տալ թույլատրելի քայլերը</string>
   <string name="boardCoordinates">Խաղատախտակի համակարգում (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">քայլերի ցուցակը խաղի ժամանակ</string>
@@ -14,6 +15,7 @@
   <string name="pgnLetter">Խաղաքարի տառը (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Ձեն ռեժիմ</string>
   <string name="showPlayerRatings">Ցուցադրել խաղացողի վարկանիշը</string>
+  <string name="explainShowPlayerRatings">Հնարավորություն է տալիս թաքցնելու կայքի բոլոր վարկանիշները՝ խաղի վրա կենտրոնանալու համար։ Պարտիաները մնում են վարկանիշային, պարզապես Դուք դա չեք տեսնի։</string>
   <string name="displayBoardResizeHandle">Ցույց տալ խաղատախտակի չափսի փոփոխության պատկերագիրը</string>
   <string name="onlyOnInitialPosition">Միայն սկզբնական դիրքում</string>
   <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Միայն խաղի մեջ</string>
@@ -44,9 +46,17 @@
   <string name="castleByMovingTwoSquares">Արքան տեղափոխել երկու վանդակ</string>
   <string name="castleByMovingOntoTheRook">Արքան տեղափոխել նավակի վրա</string>
   <string name="inputMovesWithTheKeyboard">Քայլերը մուտքագրել ստեղնաշարով</string>
-  <string name="inputMovesWithVoice">Քայլերի ներմուծումը ձայնի միջոցով</string>
+  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Քայլերի ներմուծումը ձայնի միջոցով</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Սլաքներով ցույց տալ միայն թույլատրելի քայլերը</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Պարտությունից կամ ոչ-ոքիից հետո զրուցարանում գրել. «Good game, well played»</string>
   <string name="yourPreferencesHaveBeenSaved">Ձեր նախընտրությունները պահպանված են</string>
   <string name="scrollOnTheBoardToReplayMoves">Քայլերը դիտելու համար մկնիկի անիվը պտտեք խաղատախտակի վրա</string>
+  <string name="notifyInvitedStudy">Ստուդիայի հրավեր</string>
+  <string name="notifyGameEvent">Նամակագրական խաղին առնչվող թարմացումներ</string>
+  <string name="notifyTournamentSoon">Մրցաշարը շուտով կսկսվի</string>
+  <string name="notifyTimeAlarm">Նամակագրական խաղում ժամանակը շուտով կսպառվի</string>
+  <string name="notifyBell">Lichess-ի ձայնային տեղեկացում</string>
+  <string name="notifyWeb">Դիտարկիչ</string>
+  <string name="notifyDevice">Սարք</string>
+  <string name="bellNotificationSound">Ծանուցումների զանգակի ձայնը</string>
 </resources>

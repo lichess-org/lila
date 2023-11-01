@@ -46,7 +46,7 @@
     <item quantity="one">Har vore vert for %s simultanframsyningar</item>
     <item quantity="other">Har vore vert for %s simultan-matcher</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Har vore deltakar i %s simultanframsyningar</item>
     <item quantity="other">Har vore deltakar i %s simultanmatcher</item>
   </plurals>

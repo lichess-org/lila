@@ -42,7 +42,7 @@
   <string name="goodIntroduction">якшы кереш сүз</string>
   <string name="lichessTraining">Lichess күнегүе</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
-  <string name="threefoldRepetitionExplanation">Әгәр дә позиция өч тапкыр килеп чыкса, уенчылар %1$s белән җирәбә таләп итә ала. Lichess рәсми FIDE кагыйдәләрен тормышка ашыра, %2$s ның 9.2 (d) статьясында күрсәтелгәнчә.</string>
+  <string name="threefoldRepetitionExplanation">Әгәр дә позиция өч тапкыр килеп чыкса, уенчылар %1$s белән җирәбә таләп итә ала. Lichess рәсми FIDE кагыйдәләрен тормышка ашыра, %2$s ның 9.2 статьясында күрсәтелгәнчә.</string>
   <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
   <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
   <string name="positions">позициясе</string>

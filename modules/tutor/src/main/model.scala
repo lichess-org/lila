@@ -45,11 +45,13 @@ object TutorBothValueOptions:
 enum TutorMetric[V](val metric: InsightMetric):
   case GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
   // time used when losing ((100 - clockPercent) on last move)
-  case ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
-  case Flagging    extends TutorMetric[ClockPercent](InsightMetric.Termination)
-  case Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
-  case Awareness   extends TutorMetric[GoodPercent](InsightMetric.Awareness)
-  case Performance extends TutorMetric[IntRating](InsightMetric.Performance)
+  case ClockUsage      extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  case Flagging        extends TutorMetric[ClockPercent](InsightMetric.Termination)
+  case Accuracy        extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
+  case Awareness       extends TutorMetric[GoodPercent](InsightMetric.Awareness)
+  case Performance     extends TutorMetric[IntRating](InsightMetric.Performance)
+  case Resourcefulness extends TutorMetric[GoodPercent](InsightMetric.Result)
+  case Conversion      extends TutorMetric[GoodPercent](InsightMetric.Result)
 
 // higher is better
 opaque type GoodPercent = Double

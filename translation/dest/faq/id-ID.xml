@@ -65,7 +65,7 @@ Lihat bagian %3$s mengenai gerakan ini untuk melatihnya.</string>
   <string name="lichessTraining">latihan Lichess</string>
   <string name="watchIMRosenCheckmate">Tonton Master Internasional Eric Rosen skakmat %s.</string>
   <string name="threefoldRepetition">Pengulangan tiga kali</string>
-  <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 (d) dari %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 dari %2$s.</string>
   <string name="threefoldRepetitionLowerCase">pengulangan tiga kali</string>
   <string name="notRepeatedMoves">Kami tidak mengulangi gerakan. Kenapa permainan masih remis dengan pengulangan?</string>
   <string name="repeatedPositionsThatMatters">Pengulanan tiga kali lipat adalah tentang pengulangan %1$s, bukan gerakan. Pengulangan tidak harus terjadi secara berurutan.</string>

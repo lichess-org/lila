@@ -94,7 +94,6 @@ export default class RoundController {
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   zerofish?: Zerofish;
-  zenable = false;
 
   constructor(
     readonly opts: RoundOpts,
@@ -147,8 +146,6 @@ export default class RoundController {
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
-    this.zenable = !d.player.spectator || !!d.tv;
-
     setTimeout(this.delayedInit, 200);
 
     setTimeout(this.showExpiration, 350);
@@ -162,12 +159,10 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      if (this.zenable) {
-        const zen = $('body').toggleClass('zen').hasClass('zen');
-        window.dispatchEvent(new Event('resize'));
-        if (!$('body').hasClass('zen-auto')) {
-          xhr.setZen(zen);
-        }
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      if (!$('body').hasClass('zen-auto')) {
+        xhr.setZen(zen);
       }
     });
 
@@ -576,6 +571,7 @@ export default class RoundController {
     ) {
       this.reload(d);
     }
+    this.promotion.cancel();
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
@@ -679,23 +675,18 @@ export default class RoundController {
         prompt: this.noarg('takebackPropositionSent'),
         no: { action: this.cancelTakebackPreventDraws, key: 'cancel' },
       };
-    } else if (this.data.player.offeringDraw) {
-      this.voiceMove?.listenForResponse('cancelDraw', v => !v && this.socket.sendLoading('draw-no'));
-      return {
-        prompt: this.noarg('drawOfferSent'),
-        no: { action: () => this.socket.sendLoading('draw-no'), key: 'cancel' },
-      };
-    } else if (this.data.opponent.proposingTakeback)
-      return {
-        prompt: this.noarg('yourOpponentProposesATakeback'),
-        yes: { action: this.takebackYes, icon: licon.Back },
-        no: { action: () => this.socket.send('takeback-no') },
-      };
+    } else if (this.data.player.offeringDraw) return { prompt: this.noarg('drawOfferSent') };
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: this.noarg('yourOpponentOffersADraw'),
         yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
         no: { action: () => this.socket.send('draw-no') },
+      };
+    else if (this.data.opponent.proposingTakeback)
+      return {
+        prompt: this.noarg('yourOpponentProposesATakeback'),
+        yes: { action: this.takebackYes, icon: licon.Back },
+        no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
     else return false;

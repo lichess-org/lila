@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
@@ -12,7 +12,7 @@ export default new (class implements SoundI {
   ctx = makeAudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
-  theme = $('body').data('sound-set');
+  theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
@@ -54,7 +54,6 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    //console.trace('play', name);
     if (!this.enabled()) return;
     const sound = await this.load(name);
     if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
@@ -201,22 +200,23 @@ export default new (class implements SoundI {
       }
     }
     // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
-    if (this.ctx?.state === 'suspended') {
-      const ctxResume = this.ctx.resume();
+    if (this.ctx?.state === 'suspended')
       await new Promise<void>(resolve => {
         const resumeTimer = setTimeout(() => {
           $('#warn-no-autoplay').addClass('shown');
           resolve();
         }, 400);
-        ctxResume
+        this.ctx
+          ?.resume()
           .then(() => {
             clearTimeout(resumeTimer);
             resolve();
           })
           .catch(resolve);
       });
-    }
-    return this.ctx?.state === 'running';
+    if (this.ctx?.state !== 'running') return false;
+    $('#warn-no-autoplay').removeClass('shown');
+    return true;
   }
 
   primer = () => {

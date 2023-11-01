@@ -6,7 +6,7 @@
   <string name="tokenDescription">Description du jeton</string>
   <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
   <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
-  <string name="doNotShareIt">Le jeton donne accès à votre compte. Ne le partagez PAS avec personne!</string>
+  <string name="doNotShareIt">Le jeton donnera l’accès à votre compte. Ne le partagez PAS avec qui que ce soit !</string>
   <string name="copyTokenNow">Assurez-vous de copier votre nouveau jeton d\'accès personnel immédiatement. Vous ne pourrez pas le voir à nouveau !</string>
   <string name="preferenceRead">Lire les préférences</string>
   <string name="preferenceWrite">Écrire les préférences</string>
@@ -31,4 +31,24 @@
   <string name="engineWrite">Créer et modifier des moteurs externes</string>
   <string name="webLogin">Créer des sessions Web authentifiées (donne un accès complet !)</string>
   <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
+  <string name="personalAccessTokens">Jetons d\'accès personnel API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Vous pouvez faire des demandes OAuth sans passer par le %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">processus de code d\'autorisation.</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Au lieu de cela, %s que vous pouvez utiliser directement dans les requêtes API.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">créez un jeton d\'accès personnel</string>
+  <string name="guardTokensCarefully">Protégez vos jetons! Ils sont comme des mots de passe. L\'avantage d\'utiliser un jeton plutôt qu\'un mot de passe dans un script, c\'est qu\'un jeton peut être révoqué et que vous pouvez en générer beaucoup.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Voici un %1$s et la %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">exemple d\'application de jeton personnel</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">documentation API.</string>
+  <string name="newToken">Nouveau jeton d\'accès</string>
+  <string name="apiAccessTokens">Jeton d\'accès API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Création : %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Dernière utilisation : %s</string>
+  <string name="alreadyHavePlayedGames">Vous avez déjà joué des parties.</string>
+  <string name="attentionOfDevelopers">Note réservée aux développeurs :</string>
+  <string name="possibleToPrefill">Vous pouvez préremplir ce formulaire en modifiant les paramètres de requête de l\'URL.</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Exemple : %s</string>
+  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">sélectionne les portées %1$s et %2$s et définit les jetons selon la description.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">Les codes de portée se trouvent dans le code HTML du formulaire.</string>
+  <string name="givingPrefilledUrls">Donner ces URL préremplies à vos utilisateurs les aidera à obtenir les bonnes portées de jetons.</string>
 </resources>

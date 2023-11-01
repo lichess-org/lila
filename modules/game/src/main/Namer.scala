@@ -10,20 +10,18 @@ object Namer:
     playerTextUser(player, player.userId flatMap lightUser, withRating)
 
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String] =
-    player.userId.so(lightUser) dmap {
+    player.userId.so(lightUser) dmap:
       playerTextUser(player, _, withRating)
-    }
 
   private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
-    player.aiLevel.fold(
-      user.fold(player.name | "Anon.") { u =>
-        ratingString(player).ifTrue(withRating).fold(u.titleName) { rating =>
-          s"${u.titleName} ($rating)"
-        }
-      }
-    ) { level =>
-      s"Stockfish level $level"
-    }
+    player.aiLevel match
+      case Some(level) => s"Stockfish level $level"
+      case None =>
+        user.fold(player.name | "Anon."): u =>
+          ratingString(player)
+            .ifTrue(withRating)
+            .fold(u.titleName): rating =>
+              s"${u.titleName} ($rating)"
 
   def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(using
       lightUser: LightUser.GetterSync
@@ -37,6 +35,5 @@ object Namer:
       }
 
   def ratingString(p: Player): Option[String] =
-    p.rating.map { rating =>
+    p.rating.map: rating =>
       s"$rating${p.provisional.yes so "?"}"
-    }

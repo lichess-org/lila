@@ -6,7 +6,6 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { richHTML } from 'common/richText';
 import { rounds as relayTourRounds } from './relay/relayTourView';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
@@ -126,9 +125,9 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag(licon.NodeBranching),
       }),
-      !ctrl.relay
+      !ctrl.relay && !ctrl.data.chapter.gamebook
         ? h('span.help', {
-            attrs: { title: 'Need help? Get the tour!', 'data-icon': licon.InfoCircle },
+            attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
             hook: bind('click', ctrl.startTour),
           })
         : null,
@@ -139,20 +138,16 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay?.data.tour.credit,
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', { attrs: { title } }, [
-        title,
-        credit ? h('span.credit', { hook: richHTML(credit, false) }) : undefined,
-      ]),
+      h('span.name', { attrs: { title } }, title),
       h(
         'span.liking.text',
         {
           class: { liked: d.liked },
           attrs: {
-            'data-icon': d.liked ? licon.Heart : licon.HeartOutline,
+            ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
             title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
@@ -194,7 +189,7 @@ export function side(ctrl: StudyCtrl): VNode {
           ctrl.redraw,
         ),
         attrs: {
-          'data-icon': licon.RadioTower,
+          ...dataIcon(licon.RadioTower),
           role: 'tab',
         },
       },
@@ -217,14 +212,14 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
     h('span.search.narrow', {
       attrs: {
-        'data-icon': licon.Search,
+        ...dataIcon(licon.Search),
         title: 'Search',
       },
       hook: bind('click', () => ctrl.search.open(true)),
     }),
     ctrl.members.isOwner()
       ? h('span.more.narrow', {
-          attrs: { 'data-icon': licon.Hamburger },
+          attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
           hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
         })
       : null,

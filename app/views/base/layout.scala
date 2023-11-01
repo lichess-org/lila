@@ -121,13 +121,13 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
@@ -459,15 +459,15 @@ object layout:
       trans.timeago.nbYearsAgo
     )
 
-    private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
-
+    private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
     private def jsCode(using lang: Lang) =
-      cache.getOrElseUpdate(
+      cache.computeIfAbsent(
         lang,
-        s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
-            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
+        _ =>
+          val qty  = lila.i18n.JsQuantity(lang)
+          val i18n = safeJsonValue(i18nJsObject(i18nKeys))
+          s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
-
     def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)
   end inlineJs

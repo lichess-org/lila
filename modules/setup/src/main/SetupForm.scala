@@ -52,6 +52,7 @@ object SetupForm:
     )(FriendConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Invalid speed", _.validSpeed(me.exists(_.isBot)))
+      .verifying("Can't create rated unlimited game", _.noRatedUnlimited)
       .verifying("invalidFen", _.validFen)
 
   def hookFilled(timeModeString: Option[String])(using me: Option[Me]): Form[HookConfig] =
@@ -69,7 +70,7 @@ object SetupForm:
       "color"       -> color
     )(HookConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
-      .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
+      .verifying("Can't create rated unlimited game", _.noRatedUnlimited)
 
   private lazy val boardApiHookBase: Mapping[HookConfig] =
     mapping(
@@ -156,24 +157,29 @@ object SetupForm:
         "fen"   -> fenField
       )(ApiAiConfig.from)(_ => none).verifying("invalidFen", _.validFen)
 
-    lazy val open = Form:
-      mapping(
-        "name" -> optional(LilaForm.cleanNonEmptyText(maxLength = 200)),
-        variant,
-        clock,
-        optionalDays,
-        "rated" -> boolean,
-        "fen"   -> fenField,
-        "users" -> optional:
-          LilaForm.strings
-            .separator(",")
-            .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
-            .transform[List[UserStr]](UserStr.from(_), UserStr.raw(_))
-        ,
-        "rules" -> optional(gameRules),
-        "expiresAt" -> optional:
-          inTheFuture(ISOInstantOrTimestamp.mapping)
-            .verifying("Open challenges must expire within 2 weeks", _.isBefore(nowInstant.plusWeeks(2)))
-      )(OpenConfig.from)(_ => none)
-        .verifying("invalidFen", _.validFen)
-        .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
+    def open(isAdmin: Boolean) = Form:
+      openMapping.verifying(
+        "The `noAbort` rule is now restricted to challenge administrators",
+        d => !d.rules.contains(lila.game.GameRule.NoAbort) || isAdmin
+      )
+
+    private lazy val openMapping = mapping(
+      "name" -> optional(LilaForm.cleanNonEmptyText(maxLength = 200)),
+      variant,
+      clock,
+      optionalDays,
+      "rated" -> boolean,
+      "fen"   -> fenField,
+      "users" -> optional:
+        LilaForm.strings
+          .separator(",")
+          .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+          .transform[List[UserStr]](UserStr.from(_), UserStr.raw(_))
+      ,
+      "rules" -> optional(gameRules),
+      "expiresAt" -> optional:
+        inTheFuture(ISOInstantOrTimestamp.mapping)
+          .verifying("Open challenges must expire within 2 weeks", _.isBefore(nowInstant.plusWeeks(2)))
+    )(OpenConfig.from)(_ => none)
+      .verifying("invalidFen", _.validFen)
+      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)

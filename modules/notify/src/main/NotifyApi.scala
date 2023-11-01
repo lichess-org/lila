@@ -158,14 +158,14 @@ final class NotifyApi(
   private def pushMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
     Bus.publish(PushNotification(recips, content), "notifyPush")
 
-  private def shouldSkip(note: Notification): Fu[Boolean] =
-    note.content match
-      case MentionedInThread(_, _, topicId, _, _) =>
-        userRepo.isKid(note.to) >>|
-          repo.hasRecent(note, "content.topicId" -> topicId, 3.days)
-      case InvitedToStudy(_, _, studyId) =>
-        userRepo.isKid(note.to) >>|
-          repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
-      case PrivateMessage(sender, _) =>
-        repo.hasRecentPrivateMessageFrom(note.to, sender)
-      case _ => userRepo.isKid(note.to)
+  private def shouldSkip(note: Notification): Fu[Boolean] = note.content match
+    case MentionedInThread(_, _, topicId, _, _) =>
+      userRepo.isKid(note.to) >>|
+        repo.hasRecent(note, "content.topicId" -> topicId, 3.days)
+    case InvitedToStudy(_, _, studyId) =>
+      userRepo.isKid(note.to) >>|
+        repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
+    case PrivateMessage(sender, _) =>
+      repo.hasRecentPrivateMessageFrom(note.to, sender)
+    case _: CorresAlarm => fuFalse
+    case _              => userRepo.isKid(note.to)

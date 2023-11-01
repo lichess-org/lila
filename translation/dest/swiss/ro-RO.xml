@@ -69,8 +69,7 @@ Considerăm că este mai probabil ca aceste condiții să fie îndeplinite în c
   <string name="numberOfByesA">Un jucător primește un \"bye\" de un punct de fiecare dată când sistemul de asociere nu ii găsește un adversar.
 În plus, un singur \"bye\" de jumătate de punct este atribuit atunci când un jucător se alătură unui turneu mai târziu.</string>
   <string name="earlyDrawsQ">Ce se întâmplă cu remizele timpurii?</string>
-  <string name="earlyDrawsA">Un jucător primește un \"bye\" de un punct de fiecare dată când sistemul de asociere nu îi găsește un adversar.
-În plus, un singur \"bye\" de jumătate de punct este atribuit atunci când un jucător se alătură unui turneu mai târziu.</string>
+  <string name="earlyDrawsAnswer">În sistemul elvețian, jucătorii nu pot face remiză înainte de a juca 30 de mutări. Deși această măsură nu poate preveni remizele prestabilite, este puțin mai dificil să se convină asupra unei remize în timpul partidei.</string>
   <string name="whatIfOneDoesntPlayQ">Ce se întâmplă dacă un jucător nu joacă un joc?</string>
   <string name="whatIfOneDoesntPlayA">Ceasul va porni si va pierde jocul din cauza timpului.
 Apoi sistemul va retrage jucătorul din turneu, astfel încât să nu piardă mai multe partide.
@@ -121,4 +120,5 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="unlimitedAndFree">Nelimitat și gratuit</string>
   <string name="predefinedUsers">Permite doar utilizatorilor predefiniți să se alăture</string>
   <string name="forbiddedUsers">Dacă această listă nu este goală, atunci utilizatorii care nu apar în această listă nu vor putea să se alăture. Un nume de utilizator pe linie.</string>
+  <string name="playYourGames">Joacă jocurile tale</string>
 </resources>

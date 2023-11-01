@@ -45,10 +45,21 @@
   <string name="createDesc2">ემაილი არაა საჭიროო. პაროლი შეიქმნება, და მოსწავლეს გადასცემ, რათა შემოვიდნენ.</string>
   <string name="createDesc3">აუცილებელი: მოსწავლეს არ უნდა ჰქონდეს რამდენიმე პროფილი.</string>
   <string name="createDesc4">თუ უკვე აქ არიან, უბრალოდ მოიწვიეთ.</string>
+  <string name="createStudentWarning">გახსენი ანგარიშები მხოლოდ რეალური მოსწავლეებისთვის,, არ გახსნათ მრავალი ანგარიშები საკუთარი თავისთვის, დაჯარიმდებით.</string>
   <string name="lichessUsername">ლიჩესის მომხმარებელი</string>
   <string name="generateANewUsername">შექმენი ახალი მომხმარებელი</string>
   <string name="welcomeToClass">ეს შენი კლასია: %s.
 აქაა ლინკი შენი კლასისთვის დასაკავშირებლად.</string>
   <string name="invitationToClass">მოწვეული ხარ კლასში \"%s\" როგორც მოსწავლე.</string>
   <string name="clickToViewInvitation">დააჭირე ლინკს რათა ნახო მოწვევა:</string>
+  <string name="teachers">მასწავლებლები</string>
+  <string name="students">მოსწავლეები</string>
+  <string name="progress">წინსვლა</string>
+  <string name="noStudents">მოსწავლეები ჯერ არ არიან კლასში.</string>
+  <string name="noRemovedStudents">უარყოფილი მოსწავლეები არ არის.</string>
+  <string name="timePlaying">ნათამაშები დრო</string>
+  <string name="invite">დაპატიჟეთ</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ან</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">შექმენი ახალი კლასები</string>
+  <string name="studentsRealNamesOnePerLine">მოსწავლის ნამდვილი სახელი, თითო თითო ხაზზე</string>
 </resources>

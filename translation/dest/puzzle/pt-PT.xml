@@ -15,13 +15,13 @@
   <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>
   <string name="upVote">Aprove o puzzle</string>
   <string name="downVote">Desaprove o puzzle</string>
-  <string name="yourPuzzleRatingWillNotChange">A sua classificação de quebra-cabeças não será alterada. Note que os quebra-cabeças não são uma competição. A classificação ajuda a selecionar os melhores quebra-cabeças para o seu nível atual.</string>
+  <string name="yourPuzzleRatingWillNotChange">A tua classificação de problemas não será alterada. Nota que os problemas não são uma competição. A classificação ajuda a selecionar os melhores problemas para o teu nível atual.</string>
   <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontra a melhor jogada para as pretas.</string>
   <string name="toGetPersonalizedPuzzles">Para obter desafios personalizados:</string>
-  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problema %s</string>
   <string name="puzzleOfTheDay">Problema do dia</string>
-  <string name="dailyPuzzle">Puzzle do Dia</string>
+  <string name="dailyPuzzle">Problema diário</string>
   <string name="clickToSolve">Clica para resolveres</string>
   <string name="goodMove">Boa jogada</string>
   <string name="bestMove">Melhor jogada!</string>
@@ -29,15 +29,15 @@
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Problema resolvido!</string>
   <string name="byOpenings">Por abertura</string>
-  <string name="puzzlesByOpenings">Quebra-cabeças por abertura</string>
+  <string name="puzzlesByOpenings">Problemas por abertura</string>
   <string name="openingsYouPlayedTheMost">Aberturas que jogou mais vezes em partidas com rating</string>
-  <string name="useFindInPage">Usar \"Localizar na página\" no menu do navegador para encontrar a sua abertura favorita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Usar \"Localizar na página\" no menu do navegador para encontrar a sua abertura favorita!</string>
   <string name="useCtrlF">Usar Ctrl+f para encontrar a sua abertura favorita!</string>
   <string name="notTheMove">Não é esse movimento!</string>
   <string name="trySomethingElse">Tenta outra coisa.</string>
-  <string name="ratingX">Pontuação: %s</string>
-  <string name="hidden">oculta</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Pontuação: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">oculta</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Jogado %s vez</item>
     <item quantity="other">Jogado %s vezes</item>
   </plurals>
@@ -90,7 +90,7 @@ Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de tere
     <item quantity="other">%s para repetir</item>
   </plurals>
   <string name="percentSolved">%s resolvido</string>
-  <string name="noPuzzlesToShow">Nada para mostrar, jogue alguns quebra-cabeças primeiro!</string>
-  <string name="improvementAreasDescription">Treine estes para optimizar o seu progresso!</string>
-  <string name="strengthDescription">Você tem melhor performance nestes temas</string>
+  <string name="noPuzzlesToShow">Nada para mostrar, joga alguns problemas primeiro!</string>
+  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
+  <string name="strengthDescription">Você tem melhor desempenho nestes temas</string>
 </resources>

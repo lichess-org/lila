@@ -21,7 +21,7 @@
   <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
-  <string name="whiteIsVictorious">Blanko venkas</string>
+  <string name="whiteIsVictorious">Blanko venkis</string>
   <string name="blackIsVictorious">Nigro venkis</string>
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
   <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="showVariationArrows">Montri variaĵojn sagojn</string>
   <string name="evaluationGauge">Gaŭĝo de rangado</string>
   <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
@@ -347,6 +348,10 @@
     <item quantity="one">%s studo</item>
     <item quantity="other">%s studoj</item>
   </plurals>
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+    <item quantity="one">%s samtempludo</item>
+    <item quantity="other">%s samtempludoj</item>
+  </plurals>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
   <string name="noDrawBeforeSwissLimit">Vi ne povas egalvenki antaŭ 30 movoj estas luditaj en svisa turniro.</string>
@@ -505,8 +510,6 @@
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
-  <string name="savingMoves">Dumtempa konservejo de movoj</string>
-  <string name="savingMovesHelp">Ni ĉiam konservas viajn variojn en via retumila kaŝmemoro.</string>
   <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
   <string name="clearSavedMoves">Forigi movojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
@@ -524,15 +527,15 @@
   <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
-  <string name="descPrivate">Privata priskribo</string>
-  <string name="descPrivateHelp">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privata priskribo</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="help">Helpo:</string>
   <string name="createANewTopic">Krei novan temon</string>
   <string name="topics">Temoj</string>
   <string name="posts">Afiŝoj</string>
-  <string name="lastPost">Lasta afiŝo</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Lasta afiŝo</string>
   <string name="views">Legoj</string>
   <string name="replies">Respondoj</string>
   <string name="replyToThisTopic">Resondoj al tiu ĉi temo</string>
@@ -785,7 +788,7 @@
   <string name="invalidFen">Nevalida FEN</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
-  <string name="notificationsX">Sciigoj: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Sciigoj: %1$s</string>
   <string name="perfRatingX">Rango: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -864,6 +867,7 @@
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapida</string>
   <string name="classical">Klasika</string>
   <string name="ultraBulletDesc">Freneze rapidaj ludoj: malpli ol 30 sekundoj</string>
@@ -891,7 +895,7 @@
   <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
   <string name="invitedYouToX">invitis vin al \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s invitis vin al \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">La ludanto, kiun vi reportis estis blokita</string>

@@ -26,9 +26,29 @@
   <string name="followWrite">Følge og slutte å følge andre spillere</string>
   <string name="msgWrite">Sende private meldinger til andre spillere</string>
   <string name="boardPlay">Spille partier med brett-api</string>
-  <string name="botPlay">Spille partier med bot-api</string>
+  <string name="botPlay">Spille partier med bot-API</string>
   <string name="engineRead">Vise og bruke dine eksterne sjakkmotorer</string>
   <string name="engineWrite">Opprette og oppdatere eksterne sjakkmotorer</string>
   <string name="webLogin">Opprette autentiserte nettstedøkter (gir full tilgang!)</string>
   <string name="webMod">Bruke moderatorverktøy (innenfor rammene av tillatelsene dine)</string>
+  <string name="personalAccessTokens">Personlige tilgangsnøkler for API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan gjøre OAuth-forespørsler uten å gå gjennom %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">autoriseringskodeflyten</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">I stedet kan du %s som du kan bruke direkte i API-forespørsler.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">en personlig tilgangsnøkkel</string>
+  <string name="guardTokensCarefully">Pass nøye på tilgangsnøklene! De er som passord. Fordelen med å bruke tilgangsnøkler fremfor å sette inn passordet ditt i et skript er at tilgangsnøkler kan tilbakekalles, og at du kan generere mange av dem.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Her er et %1$s og %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">eksempel på en app for personlige tilgangsnøkler</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">API-dokumentasjonen</string>
+  <string name="newToken">Ny tilgangsnøkkel</string>
+  <string name="apiAccessTokens">Tilgangsnøkler for API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Opprettet %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Sist brukt %s</string>
+  <string name="alreadyHavePlayedGames">Du har allerede spilt partier!</string>
+  <string name="attentionOfDevelopers">Merknad kun for utviklere:</string>
+  <string name="possibleToPrefill">Det er mulig å forhåndsutfylle dette skjemaet ved å justere spørreparametrene i URL-en.</string>
+  <string name="forExample">For eksempel: %s</string>
+  <string name="ticksTheScopes">aktiverer omfangskodene %1$s og %2$s, og setter beskrivelsen for tilgangsnøkkelen.</string>
+  <string name="scopesCanBeFound">Du finner omfangskodene i HTML-koden til skjemaet.</string>
+  <string name="givingPrefilledUrls">Hvis du gir disse forhåndsutfylte URL-ene til brukerne dine, hjelper du dem med å få de riktige omfangene for tilgangsnøkkelen.</string>
 </resources>

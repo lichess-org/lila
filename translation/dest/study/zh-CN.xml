@@ -32,7 +32,7 @@
   <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
-  <string name="kick">踢除</string>
+  <string name="kick">踢出</string>
   <string name="leaveTheStudy">离开研讨</string>
   <string name="youAreNowAContributor">你现在是一位贡献者</string>
   <string name="youAreNowASpectator">你现在是一位旁观者</string>
@@ -81,7 +81,7 @@
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
   <string name="clearAnnotations">清除注解</string>
-  <string name="clearVariations">清除棋路</string>
+  <string name="clearVariations">清除变着</string>
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>
@@ -129,12 +129,12 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">确定删除整个研讨？该操作不可恢复，输入研讨名以确认：%s</string>
   <string name="whereDoYouWantToStudyThat">你想从哪里开始此项研究？</string>
   <string name="goodMove">好棋</string>
-  <string name="mistake">坏棋</string>
+  <string name="mistake">错着</string>
   <string name="brilliantMove">极好</string>
-  <string name="blunder">极坏</string>
+  <string name="blunder">漏着</string>
   <string name="interestingMove">略好</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">略坏</string>
-  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">别无他法</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一着法</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">均势</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局势不明</string>

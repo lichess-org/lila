@@ -46,7 +46,7 @@
     <item quantity="one">Huet %s Simultanvirstellung presentéiert</item>
     <item quantity="other">Huet %s Simultanvirstellunge presentéiert</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Huet bei %s Simultanvirstellung matgemaach</item>
     <item quantity="other">Huet bei %s Simultanvirstellunge matgemaach</item>
   </plurals>
@@ -59,7 +59,7 @@
     <item quantity="other">Huet bei %s Arena Turnéiere matgemaach</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Huet sech als #%1$s (iewescht %2$s%%) mat %3$s Parti an %4$s placéiert</item>
+    <item quantity="one">Huet sech als #%1$s (iewescht %2$s%%) mat %3$s Partie an %4$s placéiert</item>
     <item quantity="other">Huet sech als #%1$s (iewescht %2$s%%) mat %3$s Partien an %4$s placéiert</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">

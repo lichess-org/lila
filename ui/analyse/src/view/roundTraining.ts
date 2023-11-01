@@ -107,13 +107,13 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
       hook: {
         insert: vnode => {
           $(vnode.elm as HTMLElement)
-            .on('click', 'div.symbol', function (this: Element) {
-              ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
+            .on('click', 'div.symbol', function (this: HTMLElement) {
+              ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
             })
-            .on('mouseenter', 'div.symbol', function (this: Element) {
+            .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
               showMarkers(this, true);
             })
-            .on('mouseleave', 'div.symbol', function (this: Element) {
+            .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
               showMarkers(this, false);
             });
         },

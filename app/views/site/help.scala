@@ -65,15 +65,21 @@ object help:
       h2(trans.keyboardShortcuts()),
       table(
         tbody(
-          navigateMoves,
-          row(frag(kbd("↑"), or, kbd("↓")), "Cycle selected variation"),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Rewind to mainline"),
+          row(frag(kbd("←"), or, kbd("k")), "Move backward"),
+          row(frag(kbd("→"), or, kbd("j")), "Move forward"),
+          row(kbd("shift"), "Cycle selected variation"),
+          row(frag(kbd("↑"), or, kbd("↓")), "Cycle previous/next variation"),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch"),
+          row(frag(kbd("home"), or, kbd("↑"), or, kbd("0")), "Go to start"),
+          row(frag(kbd("end"), or, kbd("↓"), or, kbd("$")), "Go to end"),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
           localAnalysis,
           row(kbd("z"), trans.toggleAllAnalysis()),
           row(kbd("a"), trans.bestMoveArrow()),
+          row(kbd("v"), "Toggle variation arrows"),
           row(kbd("e"), trans.openingEndgameExplorer()),
           row(frag(kbd("shift"), kbd("space")), trans.playFirstOpeningEndgameExplorerMove()),
           row(kbd("r"), trans.keyRequestComputerAnalysis()),
@@ -108,17 +114,14 @@ object help:
 
   def analyseVariationArrow(using Lang) =
     div(cls := "help-ephemeral")(
-      p("Variation arrows allow navigation without using the move list."),
-      p(
-        "The '",
-        strong("Show variation arrows"),
-        "' toggle in the hamburger menu turns them off."
-      ),
+      p("Variation arrows let you navigate without using the move list."),
       table(
         tbody(
-          row(frag(kbd("↑"), or, kbd("↓")), "Cycle selected variation"),
+          row(kbd("v"), "Toggle variation arrows"),
+          row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), "Cycle selected variation"),
           row(kbd("→"), "play selected move"),
-          row(span(kbd("shift"), kbd("←")), "return to previous mainline move")
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), "Previous branch"),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), "Next branch")
         )
       )
     )

@@ -41,10 +41,10 @@
   <string name="drawStreakVariants">Минималната продължителност на играта, при която се присъждат точки за игра завършила реми, е различна в различните варианти. В таблицата по-долу е посочена продължителността за всеки вариант.</string>
   <string name="variant">Вариант</string>
   <string name="minimumGameLength">Минимален брой ходове</string>
-  <string name="history">История на Арената</string>
+  <string name="history">История на арената</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Вижте отбора</item>
-    <item quantity="other">Вижте всички %s отбора</item>
+    <item quantity="one">Преглед на отбора</item>
+    <item quantity="other">Преглед на всички %s отбора</item>
   </plurals>
   <string name="newTeamBattle">Нова отборна битка</string>
   <string name="customStartDate">Начална дата</string>
@@ -54,9 +54,9 @@
   <string name="allowChatHelp">Позволи на играчите да обсъждат в чата</string>
   <string name="arenaStreaks">Поредици в арената</string>
   <string name="arenaStreaksHelp">След 2 победи, всяка последователна победа носи 4 точки вместо 2.</string>
-  <string name="noBerserkAllowed">Берсек не е позволен</string>
-  <string name="noArenaStreaks">Без поредици в Арената</string>
+  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
   <string name="averagePerformance">Средна производителност</string>
   <string name="averageScore">Average score</string>
-  <string name="myTournaments">Мои турнири</string>
+  <string name="myTournaments">Моите турнири</string>
 </resources>

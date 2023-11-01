@@ -68,7 +68,7 @@
     <item quantity="many">אירח/ה %s משחקים סימולטניים</item>
     <item quantity="other">אירח/ה %s משחקים סימולטניים</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">השתתף/ה במשחק סימולטני %s</item>
     <item quantity="two">השתתף/ה ב־%s משחקים סימולטניים</item>
     <item quantity="many">השתתף/ה ב־%s משחקים סימולטניים</item>

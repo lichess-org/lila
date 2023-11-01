@@ -3,7 +3,7 @@
   <string name="advancedPawn">Peón avanzado</string>
   <string name="advancedPawnDescription">Uno de tus peones está bien avanzado en territorio enemigo, quizás amenazando promocionar.</string>
   <string name="advantage">Ventaja</string>
-  <string name="advantageDescription">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate de Anastasia</string>
   <string name="anastasiaMateDescription">Un caballo y una torre o dama se unen para atrapar al rey contrario entre un extremo del tablero y una pieza de su bando.</string>
   <string name="arabianMate">Mate árabe</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>
   <string name="crushing">Aplastante</string>
-  <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de los dos alfiles</string>
   <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
   <string name="dovetailMate">Mate de Cozio</string>
   <string name="dovetailMateDescription">Una dama da mate al rey adyacente, cuyas únicas dos casillas de escape están obstruidas por piezas de su bando.</string>
   <string name="equality">Igualdad</string>
-  <string name="equalityDescription">Recupérate de una posición perdedora y asegura las tablas o una posición de igualdad. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Recupérate de una posición perdedora y asegura las tablas o una posición de igualdad. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
   <string name="kingsideAttackDescription">Un ataque contra el enroque corto.</string>
   <string name="clearance">Despeje</string>

@@ -45,28 +45,20 @@ object side:
           )
         ),
         tour.teamBattle map teamBattle(tour),
-        tour.spotlight map { s =>
-          st.section(cls := "description")(
-            markdownLinksOrRichText(s.description),
-            shieldOwner map { owner =>
-              p(cls := "defender", dataIcon := licon.Shield)(
-                "Defender:",
-                userIdLink(owner.some)
-              )
-            }
-          )
-        },
         variantTeamLinks.get(tour.variant.key) filter { (team, _) =>
           tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
-        } map { case (team, link) =>
+        } map { (team, link) =>
           st.section(
             if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
             else trans.team.joinLichessVariantTeam(link)
           )
         },
-        tour.description map { d =>
-          st.section(cls := "description")(markdownLinksOrRichText(d))
-        },
+        tour.description.map: d =>
+          st.section(cls := "description")(
+            shieldOwner.map: owner =>
+              p(cls := "defender", dataIcon := licon.Shield)("Defender:", userIdLink(owner.some)),
+            markdownLinksOrRichText(d)
+          ),
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         views.html.gathering.verdicts(verdicts, tour.perfType),
         tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),

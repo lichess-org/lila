@@ -21,7 +21,6 @@ final class Lobby(env: Env) extends LilaController(env):
   )
 
   def home = Open:
-    pageHit
     negotiate(
       serveHtmlHome,
       json =

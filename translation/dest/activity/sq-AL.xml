@@ -46,7 +46,7 @@
     <item quantity="one">Zhvilloi %s lojëra të njëkohësishme</item>
     <item quantity="other">Zhvilloi %s lojëra të njëkohësishme</item>
   </plurals>
-  <plurals name="joinedNbSimuls">
+  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
     <item quantity="one">Mori pjesë në %s ndeshje të njëkohësishme</item>
     <item quantity="other">Mori pjesë në %s ndeshje të njëkohësishme</item>
   </plurals>
@@ -59,8 +59,8 @@
     <item quantity="other">Ndeshur në %s turne Arenë</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
-    <item quantity="other">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
+    <item quantity="one">U rendit i %1$s (%2$s%% kryesuesit) me %3$s lojë në %4$s</item>
+    <item quantity="other">U rendit i %1$s (%2$s%% kryesuesit) me %3$s lojëra në %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">Konkuroi në turneun zviceran %s</item>

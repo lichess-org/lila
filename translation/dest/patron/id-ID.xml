@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">Donasi</string>
   <string name="donateAsX">Donasi sebagai %s</string>
-  <string name="lichessPatron">Patron lichess</string>
+  <string name="lichessPatron">Patron Lichess</string>
   <string name="freeAccount">Akun gratis</string>
   <string name="becomePatron">Menjadi Penyokong Lichess</string>
   <string name="xBecamePatron">%s menjadi Penyokong Lichess</string>

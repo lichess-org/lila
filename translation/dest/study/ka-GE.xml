@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">კერძო</string>
+  <string name="myStudies">ჩემი სწავლანი</string>
+  <string name="studiesIContributeTo">სწავლების ხელის შეწყობა</string>
+  <string name="myPublicStudies">ჩემი საჯარო  სწავლებანი</string>
+  <string name="myPrivateStudies">ჩემი კერძო სწავლებანი</string>
+  <string name="myFavoriteStudies">ჩემი საყვარელი სწავლებანი</string>
+  <string name="allStudies">ყველა ეტიუდი</string>
+  <string name="spectator">მაყურებელი</string>
+  <string name="kick">განდევნა</string>
+  <string name="members">წევრები</string>
+</resources>

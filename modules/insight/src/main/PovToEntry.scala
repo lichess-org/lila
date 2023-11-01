@@ -42,7 +42,7 @@ final private class PovToEntry(
     else
       lila.game.Pov(game, userId) so { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed so analysisRepo.byId(game.id into Analysis.Id)) map { (fen, an) =>
+          (game.metadata.analysed so analysisRepo.byId(Analysis.Id(game.id))) map { (fen, an) =>
             chess.Replay
               .situations(
                 sans = game.sans,

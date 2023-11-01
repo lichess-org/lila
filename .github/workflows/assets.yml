@@ -22,7 +22,7 @@ jobs:
   assets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - uses: pnpm/action-setup@v2
@@ -34,7 +34,7 @@ jobs:
           node-version: '19'
           cache: pnpm
       - run: pnpm install
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: lichess-org/ab
           ssh-key: ${{ secrets.id_rsa_ab }}

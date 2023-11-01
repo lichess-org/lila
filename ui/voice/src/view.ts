@@ -128,7 +128,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
 }
 
 function voiceDisable() {
-  return !$('body').data('user')
+  return !document.body.dataset.user
     ? null
     : h(
         'a.button',

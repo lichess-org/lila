@@ -54,6 +54,7 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
   In zeldzame gevallen kan het moeilijk zijn om dit automatisch te beslissen (geforceerde lijnen, vestingen). Standaard scharen we ons altijd aan de kant van de speler die niet in tijdnood is gekomen.
 
   Merk op dat het mogelijk kan zijn om met één paard of loper mat te zetten, als de tegenstander een stuk heeft dat de koning kan blokkeren.</string>
+  <string name="fideHandbook">FIDE-handboek</string>
   <string name="fideHandbookX">FIDE handboek %s</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan wanneer die al gepasseerd is? (en passant)</string>
   <string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
@@ -67,7 +68,7 @@ Zie de %3$s over deze zet om er wat mee te oefenen.</string>
   <string name="lichessTraining">Lichess-training</string>
   <string name="watchIMRosenCheckmate">Bekijk hoe Internationaal Meester Eric Rosen %s schaakmat zet.</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
-  <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 van de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">driemaal dezelfde stelling</string>
   <string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
   <string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>

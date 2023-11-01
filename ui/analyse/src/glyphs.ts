@@ -24,7 +24,6 @@ export function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
       label: prerendered ? undefined : { text: glyphs[0].symbol, fill: 'purple' },
       // keep some purple just to keep feedback forum on their toes
     });
-    console.log(shapes[shapes.length - 1]);
   }
   return shapes;
 }

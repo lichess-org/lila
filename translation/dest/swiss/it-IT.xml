@@ -61,8 +61,7 @@ Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadr
   <string name="numberOfByesQ">Quanti bye può ottenere un giocatore?</string>
   <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
   <string name="earlyDrawsQ">Che conseguenze ci sono per partite che finiscono rapidamente in parità?</string>
-  <string name="earlyDrawsA">Ogni volta che il sistema non riesce a trovare un avversario per un giocatore, questo riceve un bye da un punto.
-Un bye del valore di mezzo punto è assegnato una tantum se un giocatore si unisce ad un torneo già iniziato.</string>
+  <string name="earlyDrawsAnswer">Nelle partite con sistema svizzero, i giocatori non possono pattare prima di aver giocato 30 mosse. Sebbene questa misura non possa impedire le patte concordate, rende quanto meno più difficile accordarsi per una patta, durante la partita.</string>
   <string name="whatIfOneDoesntPlayQ">Cosa succede se un giocatore non gioca una partita?</string>
   <string name="whatIfOneDoesntPlayA">Il suo orologio verrà fatto partire e la partita verrà persa per tempo.
 Il giocatore sarà squalificato dal torneo, così da non perdere altre partite.

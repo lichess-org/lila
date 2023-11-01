@@ -31,4 +31,23 @@
   <string name="engineWrite">Crea e aggiorna i motori esterni</string>
   <string name="webLogin">Crea sessioni del sito web autenticate (concede il pieno accesso!)</string>
   <string name="webMod">Utilizza strumenti da moderatore (entro i limiti dei tuoi permessi)</string>
+  <string name="personalAccessTokens">Token di accesso API personale</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Puoi fare richieste OAuth senza bisogno del %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">processo di autorizzazione del codice</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Puoi invece %s che puoi usare direttamente nelle chiamate all\'API.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">generare un token di accesso personale</string>
+  <string name="guardTokensCarefully">Custodisci questi token con cautela! Sono come password. Il vantaggio di usare dei token, invece che scrivere la tua password in uno script, è che i token possono essere revocati e ne puoi generare a volontà.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Qui trovi %1$s e %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">esempio di token personale per un\'app</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">Documentazione API</string>
+  <string name="newToken">Nuovo token di accesso</string>
+  <string name="apiAccessTokens">Token di accesso API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Creato %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Ultimo utilizzo %s</string>
+  <string name="attentionOfDevelopers">Nota agli sviluppatori:</string>
+  <string name="possibleToPrefill">È possibile precompilare questo form modificando i parametri dell\'URL.</string>
+  <string name="forExample">Per esempio: %s</string>
+  <string name="ticksTheScopes">seleziona gli scope %1$s e %2$s ed imposta la descrizione del token.</string>
+  <string name="scopesCanBeFound">I codici degli scope sono disponibili nel codice HTML del form.</string>
+  <string name="givingPrefilledUrls">Con questi URL precompilati puoi aiutare i tuoi utenti ad impostare il giusto scope per i token.</string>
 </resources>

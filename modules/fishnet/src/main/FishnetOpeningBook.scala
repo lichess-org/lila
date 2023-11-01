@@ -24,7 +24,7 @@ final private class FishnetOpeningBook(
   private val outOfBook = lila.memo.ExpireSetMemo[GameId](10 minutes)
 
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
-    (game.ply < depth.get() && !outOfBook.get(game.id)) so {
+    (game.ply < depth.get() && !outOfBook.get(game.id)).so:
       ws.url(s"${config.explorerEndpoint}/lichess")
         .withRequestTimeout(800.millis)
         .withQueryStringParameters(
@@ -37,7 +37,7 @@ final private class FishnetOpeningBook(
           "source"      -> "fishnet"
         )
         .get()
-        .map {
+        .map:
           case res if res.status != 200 =>
             logger.warn(s"opening book ${game.id} ${level} ${res.status} ${res.body}")
             none
@@ -47,12 +47,11 @@ final private class FishnetOpeningBook(
               _ = if data.moves.isEmpty then outOfBook.put(game.id)
               move <- data randomPonderedMove (game.turnColor, level)
             yield move.uci
-        }
         .recover { case _: java.util.concurrent.TimeoutException =>
           outOfBook.put(game.id)
           none
         }
-        .monTry { res =>
+        .monTry: res =>
           _.fishnet
             .openingBook(
               level = level,
@@ -61,8 +60,6 @@ final private class FishnetOpeningBook(
               hit = res.toOption.exists(_.isDefined),
               success = res.isSuccess
             )
-        }
-    }
 
 object FishnetOpeningBook:
 

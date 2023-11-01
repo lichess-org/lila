@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT 보드</string>
+  <string name="thisPageAllowsConnectingDgtBoard">이 페이지에서는 DGT 보드를 Lichess에 연결하여 사용 할 수 있습니다.</string>
+  <string name="toConnectTheDgtBoard">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
+  <string name="downloadHere">소프트웨어 다운로드가 가능합니다: %s.</string>
+  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">구성 섹션</string>
+  <string name="boardWillAutoConnect">이 보드는 이미 진행 중인 게임이나 시작하는 새로운 게임에 자동으로 연결됩니다. 어떤 게임을 할지 선택할 수 있는 기능이 곧 나올 예정입니다.</string>
+  <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">준비가 되셨으면 보드를 설치한 다음 %s를 클릭하세요.</string>
+  <string name="ifMoveNotDetected">움직임이 감지되지 않을 경우</string>
+  <string name="checkYouHaveMadeOpponentsMove">DGT 보드에서 먼저 상대방이 말을 움직였는지 확인하고, 다시 시도해주세요.</string>
+  <string name="asALastResort">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
+  <string name="reloadThisPage">이 페이지를 다시 로드하세요</string>
+  <string name="lichessConnectivity">Lichess 연결</string>
+  <string name="noSuitableOauthToken">알맞은 OAuth 토큰이 생성되지 않았습니다</string>
+  <string name="dgtBoardConnectivity">DGT 보드 연결</string>
+  <string name="textToSpeech">텍스트 음성 변환</string>
+  <string name="configureVoiceNarration">각 플레이어의 수에 음성 내레이션을 구성하여 보드에 더 집중 할 수 있게 만듭니다</string>
+  <string name="enableSpeechSynthesis">합성 음성 활성화</string>
+  <string name="speechSynthesisVoice">합성 음성 출력</string>
+  <string name="announceAllMoves">모든 수 알리기</string>
+  <string name="selectAnnouncePreference">YES를 선택하면 자신의 수와 상대의 수를 모두 알 수 있고, NO를 선택하면 상대의 수만 알 수 있습니다.</string>
+  <string name="keywords">키워드</string>
+  <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">디버그</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">상세 로깅</string>
+  <string name="toSeeConsoleMessage">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
+  <string name="playWithDgtBoard">DGT 보드로 게임을 해 보세요.</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">설정</string>
+</resources>

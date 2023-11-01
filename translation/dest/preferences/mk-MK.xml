@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Поставки</string>
-  <string name="pieceAnimation">Движење на фигурите</string>
+  <string name="pieceAnimation">Анимација на фигурите</string>
   <string name="materialDifference">Материјална разлика</string>
   <string name="boardHighlights">Нагласени полиња (последен потег и шах)</string>
   <string name="pieceDestinations">Легални потези (важечки потези и претпотези)</string>

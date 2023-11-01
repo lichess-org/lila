@@ -11,9 +11,7 @@ import lila.user.User
 import lila.socket.Socket.Sri
 import lila.oauth.AccessToken
 
-final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
-    ec: Executor
-):
+final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import Store.*
   import FingerHash.given
@@ -25,7 +23,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
         .one[Bdoc]
         .map:
           _.flatMap: doc =>
-            if doc.getAsOpt[Instant]("date").fold(true)(_ isBefore nowInstant.minusHours(12)) then
+            if doc.getAsOpt[Instant]("date").forall(_ isBefore nowInstant.minusHours(12)) then
               coll.updateFieldUnchecked($id(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
 
@@ -36,9 +34,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
     coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)) map { ids =>
-      blocking {
+      blocking:
         ids foreach blockingUncache
-      }
     }
   // blocks loading values! https://github.com/ben-manes/caffeine/issues/148
   private def blockingUncache(sessionId: String) =
@@ -50,19 +47,21 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       req: RequestHeader,
       apiVersion: Option[ApiVersion],
       up: Boolean,
-      fp: Option[FingerPrint]
+      fp: Option[FingerPrint],
+      proxy: IsProxy
   ): Funit =
     coll.insert
       .one:
         $doc(
-          "_id"  -> sessionId,
-          "user" -> userId,
-          "ip"   -> HTTPRequest.ipAddress(req),
-          "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date" -> nowInstant,
-          "up"   -> up,
-          "api"  -> apiVersion, // lichobile
-          "fp"   -> fp.flatMap(FingerHash.from)
+          "_id"   -> sessionId,
+          "user"  -> userId,
+          "ip"    -> HTTPRequest.ipAddress(req),
+          "ua"    -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "date"  -> nowInstant,
+          "up"    -> up,
+          "api"   -> apiVersion, // lichobile
+          "fp"    -> fp.flatMap(FingerHash.from),
+          "proxy" -> proxy
         )
       .void
 

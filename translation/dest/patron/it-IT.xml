@@ -60,6 +60,7 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="nextPayment">Prossimo pagamento</string>
   <string name="youWillBeChargedXOnY">Ti verrà addebitato %1$s il %2$s.</string>
   <string name="makeAdditionalDonation">Fai un\'altra donazione ora</string>
+  <string name="giftPatronWingsShort">Regala le ali da patrono</string>
   <string name="giftPatronWings">Dona le ali da Patron ad un giocatore</string>
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>

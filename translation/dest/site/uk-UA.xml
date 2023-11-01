@@ -32,7 +32,7 @@
   <string name="raceFinished">Перегони завершено</string>
   <string name="variantEnding">Гру завершено</string>
   <string name="newOpponent">Новий суперник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник знову хоче з вами зіграти</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник хоче зіграти знову</string>
   <string name="joinTheGame">Приєднатися до гри</string>
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
@@ -97,7 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' з округленням на основі кількості півходів до наступного взяття чи ходу пішака</string>
   <string name="noGameFound">Ігор не знайдено</string>
-  <string name="maxDepthReached">Досягнуто найбільшої глибини!</string>
+  <string name="maxDepthReached">Максимальна глибина досягнута!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Дослідження дебютів</string>
@@ -119,6 +119,7 @@
   <string name="openStudy">Почати дослідження</string>
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
+  <string name="showVariationArrows">Показати стрілки для варіантів</string>
   <string name="evaluationGauge">Шкала оцінки</string>
   <string name="multipleLines">Кількість стрілок</string>
   <string name="cpus">Потоки</string>
@@ -393,7 +394,7 @@
     <item quantity="many">%s досліджень</item>
     <item quantity="other">%s досліджень</item>
   </plurals>
-  <plurals name="nbSimuls">
+  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
     <item quantity="one">%s сеанс</item>
     <item quantity="few">%s сеанса</item>
     <item quantity="many">%s сеансів</item>
@@ -576,8 +577,6 @@
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
-  <string name="savingMoves">Тимчасове сховище ходів</string>
-  <string name="savingMovesHelp">Ми завжди зберігаємо ваші варіанти в кеші браузера.</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
   <string name="clearSavedMoves">Очистити ходи</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
@@ -597,15 +596,15 @@
   <string name="tournamentWinners">Переможці турнірів</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
-  <string name="descPrivate">Приватний опис</string>
-  <string name="descPrivateHelp">Текст, який побачать лише учасники команди. Якщо встановити, замінить публічний опис для учасників команди.</string>
+  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Приватний опис</string>
+  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Текст, який побачать лише учасники команди. Якщо встановити, замінить публічний опис для учасників команди.</string>
   <string name="no">Ні</string>
   <string name="yes">Так</string>
   <string name="help">Допомога:</string>
   <string name="createANewTopic">Створити нову тему</string>
   <string name="topics">Теми</string>
   <string name="posts">Дописи</string>
-  <string name="lastPost">Останній допис</string>
+  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Останній допис</string>
   <string name="views">Переглядів</string>
   <string name="replies">Відповідей</string>
   <string name="replyToThisTopic">Відповісти на цю тему</string>
@@ -868,7 +867,7 @@
   <string name="invalidFen">Неприпустимий FEN</string>
   <string name="custom">Своя гра</string>
   <string name="notifications">Сповіщення</string>
-  <string name="notificationsX">Сповіщення: %1$s</string>
+  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
@@ -953,6 +952,7 @@
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
   <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>
@@ -980,7 +980,7 @@
   <string name="mentionedYouInX">згадав вас у \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s згадав вас у \"%2$s\".</string>
   <string name="invitedYouToX">запросив вас до \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s запросив вас до \"%2$s\".</string>
+  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s запросив вас до \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ви тепер частина команди.</string>
   <string name="youHaveJoinedTeamX">Ви приєдналися до \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Хтось на кого ви поскаржились був забанений</string>

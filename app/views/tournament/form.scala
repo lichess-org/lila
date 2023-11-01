@@ -6,18 +6,19 @@ import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.tournament.{ Tournament, TournamentForm }
 import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
+  given prefix: FormPrefix = FormPrefix.empty
 
-  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using PageContext) =
+  def create(form: Form[?], leaderTeams: List[LightTeam])(using PageContext) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
-    ) {
+    ):
       val fields = TourFields(form, none)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -33,20 +34,7 @@ object form:
                 href     := routes.ContentPage.loneBookmark("event-tips")
               )(trans.ourEventTips())
             ),
-            form3.globalError(form),
-            fields.name,
-            form3.split(fields.rated, fields.variant),
-            fields.clock,
-            form3.split(fields.minutes, fields.waitMinutes),
-            form3.split(fields.description(true), fields.startPosition),
-            form3.fieldset(trans.advancedSettings())(cls := "conditions")(
-              fields.advancedSettings,
-              div(cls := "form")(
-                conditionFields(form, fields, teams = leaderTeams, tour = none),
-                fields.startDate
-              )
-            ),
-            fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
+            setupCreate(form, leaderTeams),
             form3.actions(
               a(href := routes.Tournament.home)(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
@@ -55,37 +43,65 @@ object form:
         ),
         div(cls := "box box-pad tour__faq")(tournament.faq())
       )
-    }
 
-  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using PageContext) =
+  private[tournament] def setupCreate(form: Form[?], leaderTeams: List[LightTeam])(using
+      PageContext,
+      FormPrefix
+  ) =
+    val fields = TourFields(form, none)
+    frag(
+      form3.globalError(form),
+      fields.name,
+      form3.split(fields.rated, fields.variant),
+      fields.clock,
+      form3.split(fields.minutes, fields.waitMinutes),
+      form3.split(fields.description(true), fields.startPosition),
+      form3.fieldset(trans.advancedSettings())(cls := "conditions")(
+        fields.advancedSettings,
+        div(cls := "form")(
+          conditionFields(form, fields, teams = leaderTeams, tour = none),
+          fields.startDate
+        )
+      ),
+      fields.isTeamBattle option form3.hidden(form.prefix("teamBattleByTeam"))
+    )
+
+  private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using
+      PageContext,
+      FormPrefix
+  ) =
+    val fields = TourFields(form, tour.some)
+    frag(
+      form3.split(fields.name, tour.isCreated option fields.startDate),
+      form3.split(fields.rated, fields.variant),
+      fields.clock,
+      form3.split(
+        if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
+        else
+          form3.group(form.prefix("minutes"), trans.duration(), half = true):
+            form3.input(_)(tpe := "number")
+      ),
+      form3.split(fields.description(true), fields.startPosition),
+      form3.globalError(form),
+      form3.fieldset(trans.advancedSettings())(cls := "conditions")(
+        fields.advancedSettings,
+        div(cls := "form"):
+          conditionFields(form, fields, teams = myTeams, tour = tour.some)
+      )
+    )
+
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using PageContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
-    ) {
+    ):
       val fields = TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
-            form3.split(fields.name, tour.isCreated option fields.startDate),
-            form3.split(fields.rated, fields.variant),
-            fields.clock,
-            form3.split(
-              if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
-              else
-                form3.group(form("minutes"), trans.duration(), half = true)(
-                  form3.input(_)(tpe := "number")
-                )
-            ),
-            form3.split(fields.description(true), fields.startPosition),
-            form3.globalError(form),
-            form3.fieldset(trans.advancedSettings())(cls := "conditions")(
-              fields.advancedSettings,
-              div(cls := "form")(
-                conditionFields(form, fields, teams = myTeams, tour = tour.some)
-              )
-            ),
+            setupEdit(tour, form, myTeams),
             form3.actions(
               a(href := routes.Tournament.show(tour.id))(trans.cancel()),
               form3.submit(trans.save(), icon = licon.Trophy.some)
@@ -94,26 +110,23 @@ object form:
           hr,
           br,
           br,
-          postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
+          postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id)):
+            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm"):
               trans.cancelTournament()
-            )
-          )
         )
       )
-    }
 
   def conditionFields(
       form: Form[?],
       fields: TourFields,
-      teams: List[LeaderTeam],
+      teams: List[LightTeam],
       tour: Option[Tournament]
-  )(using ctx: PageContext) =
+  )(using ctx: PageContext, prefix: FormPrefix) =
     frag(
       form3.split(
         fields.entryCode,
         tour.isEmpty && teams.nonEmpty option {
-          val baseField = form("conditions.teamMember.teamId")
+          val baseField = form.prefix("conditions.teamMember.teamId")
           val field = ctx.req.queryString
             .get("team")
             .flatMap(_.headOption)
@@ -124,19 +137,19 @@ object form:
         }
       ),
       form3.split(
-        form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true):
+        form3.group(form.prefix("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true):
           form3.select(_, ConditionForm.nbRatedGameChoices)
       ),
       form3.split(
-        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true):
+        form3.group(form.prefix("conditions.minRating.rating"), trans.minimumRating(), half = true):
           form3.select(_, ConditionForm.minRatingChoices)
         ,
-        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true):
+        form3.group(form.prefix("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true):
           form3.select(_, ConditionForm.maxRatingChoices)
       ),
       form3.split(
         form3.group(
-          form("conditions.allowList"),
+          form.prefix("conditions.allowList"),
           trans.swiss.predefinedUsers(),
           help = trans.swiss.forbiddedUsers().some,
           half = true
@@ -145,51 +158,49 @@ object form:
       form3.split(
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
           form3.checkbox(
-            form("conditions.titled"),
+            form.prefix("conditions.titled"),
             trans.onlyTitled(),
             help = trans.onlyTitledHelp().some,
             half = true
           )
         },
         form3.checkbox(
-          form("berserkable"),
+          form.prefix("berserkable"),
           trans.arena.allowBerserk(),
           help = trans.arena.allowBerserkHelp().some,
           half = true
         ),
-        form3.hiddenFalse(form("berserkable"))
+        form3.hiddenFalse(form.prefix("berserkable"))
       ),
       form3.split(
         form3.checkbox(
-          form("hasChat"),
+          form.prefix("hasChat"),
           trans.chatRoom(),
           help = trans.arena.allowChatHelp().some,
           half = true
         ),
-        form3.hiddenFalse(form("hasChat")),
+        form3.hiddenFalse(form.prefix("hasChat")),
         form3.checkbox(
-          form("streakable"),
+          form.prefix("streakable"),
           trans.arena.arenaStreaks(),
           help = trans.arena.arenaStreaksHelp().some,
           half = true
         ),
-        form3.hiddenFalse(form("streakable"))
+        form3.hiddenFalse(form.prefix("streakable"))
       )
     )
 
-  def startingPosition(field: Field, tour: Option[Tournament]) =
-    form3.input(field)(
-      tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
-    )
+final private class TourFields(form: Form[?], tour: Option[Tournament])(using
+    PageContext,
+    FormPrefix
+):
 
-final private class TourFields(form: Form[?], tour: Option[Tournament])(using PageContext):
-
-  def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
+  def isTeamBattle = tour.exists(_.isTeamBattle) || form.prefix("teamBattleByTeam").value.nonEmpty
 
   private def disabledAfterStart = tour.exists(!_.isCreated)
 
   def name =
-    form3.group(form("name"), trans.name()) { f =>
+    form3.group(form.prefix("name"), trans.name()) { f =>
       div(
         form3.input(f),
         " ",
@@ -208,14 +219,14 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Pa
   def rated =
     frag(
       form3.checkbox(
-        form("rated"),
+        form.prefix("rated"),
         trans.rated(),
         help = trans.ratedFormHelp().some
       ),
-      form3.hiddenFalse(form("rated"))
+      form3.hiddenFalse(form.prefix("rated"))
     )
   def variant =
-    form3.group(form("variant"), trans.variant(), half = true)(
+    form3.group(form.prefix("variant"), trans.variant(), half = true)(
       form3.select(
         _,
         translatedVariantChoicesWithVariants.map(x => x._1 -> x._2),
@@ -224,55 +235,52 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Pa
     )
   def startPosition =
     form3.group(
-      form("position"),
+      form.prefix("position"),
       trans.startPosition(),
       klass = "position",
       half = true,
       help =
         trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
-    )(
-      views.html.tournament.form.startingPosition(_, tour)
-    )
+    ):
+      form3.input(_):
+        tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
   def clock =
     form3.split(
-      form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
+      form3.group(form.prefix("clockTime"), trans.clockInitialTime(), half = true):
         form3.select(_, GatheringClock.timeChoices, disabled = disabledAfterStart)
-      ),
-      form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
+      ,
+      form3.group(form.prefix("clockIncrement"), trans.clockIncrement(), half = true):
         form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
-      )
     )
   def minutes =
-    form3.group(form("minutes"), trans.duration(), half = true)(
-      form3.select(_, TournamentForm.minuteChoices)
-    )
+    form3.group(form.prefix("minutes"), trans.duration(), half = true):
+      form3.select(_, TournamentForm.minuteChoicesKeepingCustom(tour))
   def waitMinutes =
-    form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
+    form3.group(form.prefix("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true):
       form3.select(_, TournamentForm.waitMinuteChoices)
-    )
   def description(half: Boolean) =
     form3.group(
-      form("description"),
+      form.prefix("description"),
       trans.tournDescription(),
       help = trans.tournDescriptionHelp().some,
       half = half
     )(form3.textarea(_)(rows := 4))
   def entryCode =
     form3.group(
-      form("password"),
+      form.prefix("password"),
       trans.tournamentEntryCode(),
       help = trans.makePrivateTournament().some,
       half = true
     )(form3.input(_)(autocomplete := "off"))
   def startDate =
     form3.group(
-      form("startDate"),
+      form.prefix("startDate"),
       trans.arena.customStartDate(),
       help = trans.arena.customStartDateHelp().some
     )(form3.flatpickr(_))
   def advancedSettings =
     frag(
-      errMsg(form("conditions")),
+      errMsg(form.prefix("conditions")),
       p(
         strong(dataIcon := licon.CautionTriangle, cls := "text")(trans.recommendNotTouching()),
         " ",
@@ -281,3 +289,13 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Pa
         a(cls := "show")(trans.showAdvancedSettings())
       )
     )
+
+private opaque type FormPrefix = Option[String]
+object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:
+  val empty           = FormPrefix(none)
+  def make(s: String) = FormPrefix(s.some)
+
+extension (f: Form[?])
+  def prefix(name: String)(using prefixOpt: FormPrefix) = f(
+    prefixOpt.fold(name)(prefix => s"$prefix.$name")
+  )

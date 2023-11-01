@@ -10,7 +10,7 @@
     <item quantity="one">%1$s е Lichess Дарител за %2$s месец</item>
     <item quantity="other">%1$s е Lichess Дарител за %2$s месеца</item>
   </plurals>
-  <string name="newPatrons">Нови дарители</string>
+  <string name="newPatrons">Нови Дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
   <string name="noAdsNoSubs">Без реклами, без абонаменти; просто отворен код и страст.</string>
   <string name="thankYou">Благодарим Ви за дарението!</string>
@@ -60,6 +60,7 @@
   <string name="nextPayment">Следващо плащане</string>
   <string name="youWillBeChargedXOnY">Ще платите %1$s на %2$s.</string>
   <string name="makeAdditionalDonation">Направете допълнително дарение сега</string>
+  <string name="giftPatronWingsShort">Подари крила на Дарител</string>
   <string name="giftPatronWings">Подари \"крила\" на Дарител на друг играч</string>
   <string name="update">Актуализиране</string>
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>

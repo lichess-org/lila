@@ -9,14 +9,15 @@ enum UserMark:
   case Troll
   case Reportban
   case Rankban
+  case ArenaBan
   case PrizeBan
   case Alt
   def key = toString.toLowerCase
 
 object UserMark:
-  val indexed                 = values.mapBy(_.key)
-  val bannable: Set[UserMark] = Set(Boost, Engine, Troll, Alt)
-  given BSONHandler[UserMark] = stringAnyValHandler[UserMark](_.key, indexed.apply)
+  val byKey: Map[String, UserMark] = values.mapBy(_.key)
+  val bannable: Set[UserMark]      = Set(Boost, Engine, Troll, Alt)
+  given BSONHandler[UserMark]      = valueMapHandler(byKey)(_.key)
 
 opaque type UserMarks = List[UserMark]
 object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
@@ -29,6 +30,7 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def reportban: Boolean           = has(UserMark.Reportban)
     def rankban: Boolean             = has(UserMark.Rankban)
     def prizeban: Boolean            = has(UserMark.PrizeBan)
+    def arenaBan: Boolean            = has(UserMark.ArenaBan)
     def alt: Boolean                 = has(UserMark.Alt)
 
     def nonEmpty   = a.value.nonEmpty option a

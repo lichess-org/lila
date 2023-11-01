@@ -21,7 +21,7 @@ final private[tv] class TvSyncActor(
 
   Bus.subscribe(this, "startGame")
 
-  private val channelTroupers: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.values.map { c =>
+  private val channelActors: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.values.map { c =>
     c -> ChannelSyncActor(
       c,
       onSelect = this.!,
@@ -34,7 +34,7 @@ final private[tv] class TvSyncActor(
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
 
   private def forward[A](channel: Tv.Channel, msg: Any) =
-    channelTroupers get channel foreach { _ ! msg }
+    channelActors get channel foreach { _ ! msg }
 
   protected val process: SyncActor.Receive =
 
@@ -55,11 +55,11 @@ final private[tv] class TvSyncActor(
     case lila.game.actorApi.StartGame(g) =>
       if g.hasClock then
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
-        channelTroupers collect {
-          case (chan, trouper) if chan filter candidate => trouper
+        channelActors collect {
+          case (chan, actor) if chan filter candidate => actor
         } foreach (_ addCandidate g)
 
-    case s @ TvSyncActor.Select => channelTroupers.foreach(_._2 ! s)
+    case s @ TvSyncActor.Select => channelActors.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage

@@ -55,7 +55,7 @@ function dedupEntries(el: HTMLElement) {
   $(el)
     .find('[data-dedup]')
     .each(function (this: HTMLElement) {
-      const id = $(this).data('dedup');
+      const id = this.dataset.dedup;
       if (id) {
         if (ids.has(id)) $(this).remove();
         else ids.add(id);

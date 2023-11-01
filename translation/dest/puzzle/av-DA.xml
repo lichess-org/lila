@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Масъалаби</string>
+  <string name="advanced">ЦӀебетӀураб</string>
+  <string name="lengths">Халалъи</string>
+  <string name="mates">Матал</string>
+  <string name="goals">Мурадал</string>
+  <string name="specialMoves">БатӀиял хъурщиял</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">%s масъала</string>
+  <string name="goodMove">ЛъикӀаб хъурщи</string>
+  <string name="bestMove">Бищун лъикӀаб хъурщи!</string>
+  <string name="puzzleSuccess">Бергьенлъи!</string>
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Рейтинг: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">бахчун буго</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+    <item quantity="one">%s нухалъ хӀана</item>
+    <item quantity="other">%s нухалъ хӀана</item>
+  </plurals>
+  <string name="fromGameLink">%s хӀаялдаса</string>
+  <string name="difficultyLevel">ЗахӀмалъиялъул даража</string>
+  <string name="normal">ГӀадатаб</string>
+  <string name="easier">Бигьаяб</string>
+  <string name="easiest">Бищун бигьаяб</string>
+  <string name="harder">ЗахӀматаб</string>
+  <string name="hardest">Бищун захӀматаб</string>
+  <string name="example">Мисал</string>
+  <string name="nextPuzzle">Хадусеб масъала</string>
+  <string name="strengths">Къуватал</string>
+  <string name="searchPuzzles">Масъалаби ралагьизе</string>
+</resources>

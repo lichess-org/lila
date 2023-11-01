@@ -26,7 +26,7 @@ object TutorResourcefulness:
       F.analysed -> true,
       F.moves    -> $doc("$elemMatch" -> $doc("w" $lt WinPercent(33.3), "i" $lt -1))
     )
-    val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness) { docs =>
+    val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness): docs =>
       for
         doc  <- docs
         perf <- doc.getAsOpt[PerfType]("_id")
@@ -34,8 +34,8 @@ object TutorResourcefulness:
         size <- doc.int("nb")
         percent = (size - loss) * 100d / size
       yield Cluster(perf, Insight.Single(Point(percent)), size, Nil)
-    }
-    insightApi.coll { coll =>
+
+    insightApi.coll: coll =>
       import coll.AggregationFramework.*
       val groupByPerf = GroupField(F.perf)(
         "loss" -> Sum(
@@ -56,4 +56,3 @@ object TutorResourcefulness:
             groupByPerf
           )
       )
-    }

@@ -9,15 +9,9 @@ final private class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V
     toK2: V => K2
 ):
 
-  def values: Iterable[V] = index1.values
-
-  def size: Int = index1.size
-
-  def get1(k1: K1): Option[V] = index1 get k1
+  export index1.{ values, size, contains, keys as key1s, get as get1 }
 
   def get2(k2: K2): Option[V] = index2 get k2
-
-  def key1s: Iterable[K1] = index1.keys
 
   def updated(toAdd: V): MultiKeyMap[K1, K2, V] =
     val (k1, k2) = (toK1(toAdd), toK2(toAdd))

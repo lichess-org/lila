@@ -76,8 +76,7 @@ Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż
   <string name="numberOfByesA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
 Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju po jego rozpoczęciu.</string>
   <string name="earlyDrawsQ">Co się stanie gdy zbyt wcześnie nastąpi remis?</string>
-  <string name="earlyDrawsA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
-Dodatkowo, wolny los przyznawany jest graczowi, który dołącza do turnieju po jego rozpoczęciu.</string>
+  <string name="earlyDrawsAnswer">W turniejach szwajcarskich, gracze nie mogą proponować remisu przed 30 posunięciem. Mimo że środek ten nie zapobiega remisom na żądanie, to przynajmniej utrudnia takie praktyki.</string>
   <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli uczestnik nie rozpocznie partii?</string>
   <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
 Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.

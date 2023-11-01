@@ -100,8 +100,8 @@ object StreamerForm:
           case _ =>
             streamer.approval.copy(
               granted = streamer.approval.granted &&
-                newStreamer.twitch.fold(true)(streamer.twitch.has) &&
-                newStreamer.youTube.fold(true)(streamer.youTube.has)
+                newStreamer.twitch.forall(streamer.twitch.has) &&
+                newStreamer.youTube.forall(streamer.youTube.has)
             )
       )
 

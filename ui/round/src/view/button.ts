@@ -205,21 +205,6 @@ export function threefoldSuggestion(ctrl: RoundController) {
     : null;
 }
 
-export function askQuestion(ctrl: RoundController) {
-  const o = ctrl.question();
-  if (!o) return null;
-
-  const btn = (tpe: 'yes' | 'no', icon: string, i18nKey: I18nKey, action: () => void) =>
-    ctrl.nvui
-      ? h('button', { hook: util.bind('click', action) }, ctrl.noarg(i18nKey))
-      : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: util.bind('click', action) });
-
-  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.key || 'decline', o.no.action);
-  const yesBtn = o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.key || 'accept', o.yes.action);
-
-  return h('div.question', { key: o.prompt }, [noBtn, h('p', o.prompt), yesBtn]);
-}
-
 export function backToTournament(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data;
   return d.tournament?.running
