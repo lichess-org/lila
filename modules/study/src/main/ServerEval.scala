@@ -4,7 +4,7 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
-import lila.analyse.{ Analysis, Info }
+import lila.analyse.{ Advice, Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
@@ -63,75 +63,70 @@ object ServerEval:
       case Analysis.Id.Study(studyId, chapterId) =>
         sequencer.sequenceStudyWithChapter(studyId, chapterId):
           case Study.WithChapter(_, chapter) =>
-            (complete so chapterRepo.completeServerEval(chapter)) >> {
-              chapter.root.mainline
+            for
+              _ <- complete.so(chapterRepo.completeServerEval(chapter))
+              _ <- chapter.root.mainline
                 .zip(analysis.infoAdvices)
-                .foldM(UciPath.root) { case (path, (node, (info, advOpt))) =>
-                  chapter.root
-                    .nodeAt(path)
-                    .flatMap: parent =>
-                      analysisLine(parent, chapter.setup.variant, info).map: subTree =>
-                        parent.addChild(subTree) -> subTree
-                    .so { (newParent, subTree) =>
-                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
-                    } >> {
-                    import BSONHandlers.given
-                    import lila.db.dsl.given
-                    import lila.study.Node.{ BsonFields as F }
-                    ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) so
-                      chapterRepo
-                        .setNodeValues(
-                          chapter,
-                          path + node.id,
-                          List(
-                            F.score -> info.eval.score
-                              .ifTrue {
-                                node.eval.isEmpty ||
-                                advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                              }
-                              .flatMap(bsonWriteOpt),
-                            F.comments -> advOpt
-                              .map { adv =>
-                                node.comments + Comment(
-                                  Comment.Id.make,
-                                  adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
-                                  Comment.Author.Lichess
-                                )
-                              }
-                              .flatMap(bsonWriteOpt),
-                            F.glyphs -> advOpt
-                              .map { adv =>
-                                node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                              }
-                              .flatMap(bsonWriteOpt)
-                          )
-                        )
-                  } inject path + node.id
-                } void
-            } andDo {
-              chapterRepo
-                .byId(chapterId)
-                .foreach:
-                  _.so: chapter =>
-                    socket.onServerEval(
-                      studyId,
-                      ServerEval.Progress(
-                        chapterId = chapter.id,
-                        tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                        analysis = toJson(chapter, analysis),
-                        division = divisionOf(chapter)
-                      )
-                    )
-            } logFailure logger
+                .foldM(UciPath.root):
+                  case (path, (node, (info, advOpt))) =>
+                    saveAnalysis(chapter, node, path, info, advOpt)
+                .andDo(sendProgress(chapter, studyId, chapterId, analysis))
+                .logFailure(logger)
+            yield ()
       case _ => funit
 
-    def divisionOf(chapter: Chapter) =
-      divider(
-        id = chapter.id into GameId,
-        sans = chapter.root.mainline.map(_.move.san).toVector,
-        variant = chapter.setup.variant,
-        initialFen = chapter.root.fen.some
-      )
+    private def saveAnalysis(
+        chapter: Chapter,
+        node: Branch,
+        path: UciPath,
+        info: Info,
+        advOpt: Option[Advice]
+    ): Future[UciPath] =
+
+      val nextPath = path + node.id
+
+      def saveAnalysisLine() =
+        chapter.root
+          .nodeAt(path)
+          .flatMap: parent =>
+            analysisLine(parent, chapter.setup.variant, info).map: subTree =>
+              parent.addChild(subTree) -> subTree
+          .so: (newParent, subTree) =>
+            chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+
+      def saveInfoAdvice() =
+        import BSONHandlers.given
+        import lila.db.dsl.given
+        import lila.study.Node.{ BsonFields as F }
+        ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) so
+          chapterRepo
+            .setNodeValues(
+              chapter,
+              nextPath,
+              List(
+                F.score -> info.eval.score
+                  .ifTrue:
+                    node.eval.isEmpty ||
+                      advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                  .flatMap(bsonWriteOpt),
+                F.comments -> advOpt
+                  .map: adv =>
+                    node.comments + Comment(
+                      Comment.Id.make,
+                      adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
+                      Comment.Author.Lichess
+                    )
+                  .flatMap(bsonWriteOpt),
+                F.glyphs -> advOpt
+                  .map(adv => node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph)))
+                  .flatMap(bsonWriteOpt)
+              )
+            )
+
+      saveAnalysisLine()
+        >> saveInfoAdvice().inject(nextPath)
+
+    end saveAnalysis
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
       val (_, reversedGames, error) =
@@ -156,6 +151,34 @@ object ServerEval:
         crazyData = g.situation.board.crazyData,
         clock = none,
         forceVariation = false
+      )
+
+    private def sendProgress(
+        chapter: Chapter,
+        studyId: StudyId,
+        chapterId: StudyChapterId,
+        analysis: Analysis
+    ) =
+      chapterRepo
+        .byId(chapterId)
+        .foreach:
+          _.so: chapter =>
+            socket.onServerEval(
+              studyId,
+              ServerEval.Progress(
+                chapterId = chapter.id,
+                tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                analysis = toJson(chapter, analysis),
+                division = divisionOf(chapter)
+              )
+            )
+
+    def divisionOf(chapter: Chapter) =
+      divider(
+        id = chapter.id into GameId,
+        sans = chapter.root.mainline.map(_.move.san).toVector,
+        variant = chapter.setup.variant,
+        initialFen = chapter.root.fen.some
       )
 
   case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
