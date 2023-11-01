@@ -175,7 +175,7 @@ export default class AnalyseCtrl {
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
       try {
-        this.getCeval().selectedEngine(urlEngine);
+        this.getCeval().engines.select(urlEngine);
         this.ensureCevalRunning();
       } catch (e) {
         console.info(e);
@@ -621,12 +621,10 @@ export default class AnalyseCtrl {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
-          node.threat = threat;
+        if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
       } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (!ev.cloud) {
         if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
-        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
       }
 
       if (path === this.path) {
@@ -636,7 +634,6 @@ export default class AnalyseCtrl {
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
           this.evalCache.onCeval();
-          if (ev.cloud && ev.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
         }
         this.redraw();
       }
@@ -732,7 +729,7 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   };
 
-  private cevalReset(): void {
+  cevalReset(): void {
     this.ceval.stop();
     if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
@@ -743,21 +740,6 @@ export default class AnalyseCtrl {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
     this.evalCache.clear();
-    this.cevalReset();
-  };
-
-  cevalSetThreads = (v: number): void => {
-    this.ceval.setThreads(v);
-    this.cevalReset();
-  };
-
-  cevalSetHashSize = (v: number): void => {
-    this.ceval.setHashSize(v);
-    this.cevalReset();
-  };
-
-  cevalSetInfinite = (v: boolean): void => {
-    this.ceval.infinite(v);
     this.cevalReset();
   };
 

@@ -61,7 +61,7 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
   storedProp<number>(
     k,
     defaultValue,
-    str => parseInt(str),
+    str => Number(str),
     v => v + '',
   );
 
