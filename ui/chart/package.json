@@ -8,9 +8,9 @@
   "types": "dist/game.d.ts",
   "dependencies": {
     "@types/highcharts": "=4.2.57",
+    "ceval": "workspace:*",
     "chart.js": "4.4.0",
-    "common": "workspace:*",
-    "ceval": "workspace:*"
+    "common": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

@@ -1,14 +1,16 @@
-// import divisionLines from './division';
 import {
   BarController,
   BarElement,
   CategoryScale,
   Chart,
+  ChartDataset,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
+  PointStyle,
   Tooltip,
+  Point,
 } from 'chart.js';
 import {
   MovePoint,
@@ -17,10 +19,11 @@ import {
   fontColor,
   fontFamily,
   maybeChart,
+  orangeAccent,
   plyLine,
   selectPly,
 } from './common';
-import { AnalyseData, PlyChart } from './interface';
+import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 
 Chart.register(
@@ -29,31 +32,33 @@ Chart.register(
   PointElement,
   LineElement,
   Tooltip,
-  BarController,
   BarElement,
+  BarController,
   CategoryScale,
 );
 
 export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: Trans, hunter: boolean) {
   const possibleChart = maybeChart(el);
-  if (possibleChart) return;
+  if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
   if (!moveCentis) return; // imported games
-  const moveSeries = {
-    white: [] as MovePoint[],
-    black: [] as MovePoint[],
+  type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
+  const moveSeries: PlotSeries = {
+    white: [],
+    black: [],
   };
-  const totalSeries = {
-    white: [] as MovePoint[],
-    black: [] as MovePoint[],
+  const totalSeries: PlotSeries = {
+    white: [],
+    black: [],
   };
   const labels: string[] = [];
   const blueLineColor = '#3893e8';
   const colors = ['white', 'black'] as const;
+  const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
+  const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
 
   const tree = data.treeParts;
   let showTotal = !hunter;
-  console.log(showTotal);
 
   const logC = Math.pow(Math.log(3), 2);
 
@@ -65,7 +70,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
     const ply = node ? node.ply : tree[x].ply + 1;
     const san = node ? node.san : '-';
     // Current behaviour: Game-ending action is assigned to the next color
-    // regardless of whether they made it or not 
+    // regardless of whether they made it or not
     // e.g. White makes a move and then immediately resigns
 
     const turn = (ply + 1) >> 1;
@@ -80,7 +85,12 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
     };
 
     if (blurs[color].shift() === '1') {
+      pointStyles[colorName].push('rect');
+      pointRadius[colorName].push(4.5);
       label += ' [blur]';
+    } else {
+      pointStyles[colorName].push('circle');
+      pointRadius[colorName].push(0);
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
@@ -107,59 +117,67 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
     labels.push(label);
   });
 
-  const totalSeriesMax = Math.max(
-    ...colors.flatMap(color => totalSeries[color].map(point => Math.abs(point.y))),
-  );
-  const moveSeriesMax = Math.max(
-    ...colors.flatMap(color => moveSeries[color].map(point => Math.abs(point.y))),
-  );
-  const totalSeriesOpts = colors.map(color => ({
-    type: 'line' as const,
-    xAxisId: 'x',
-    data: totalSeries[color].map(point => ({ x: point.x, y: point.y / totalSeriesMax })),
-    backgroundColor: blueLineColor,
-    borderColor: blueLineColor,
-    pointRadius: 0,
-    pointHitRadius: 200,
-    borderWidth: 1.5,
-    order: 1,
-    fill: {
-      target: 'origin',
-      below: 'rgba(0,0,0,0.3)',
-      above: 'rgba(153, 153, 153, .3)',
-    },
-  }));
-  const moveSeriesOpts = colors.map(color => ({
-    type: 'bar' as const,
-    xAxisId: 'x',
-    data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
-    backgroundColor: color,
-    categoryPercentage: 2,
-    barPercentage: 1,
-    grouped: false,
-    order: 2,
-    borderColor: color == 'white' ? '#838383' : '#3d3d3d',
-    borderWidth: 1,
-  }));
+  const colorSeriesMax = (series: PlotSeries) =>
+    Math.max(...colors.flatMap(color => series[color].map(point => Math.abs(point.y))));
+  const totalSeriesMax = colorSeriesMax(totalSeries);
+  const moveSeriesMax = colorSeriesMax(moveSeries);
+
+  const lineBuilder = (series: PlotSeries, moveSeries: boolean): ChartDataset[] =>
+    colors.map(color => ({
+      type: 'line',
+      data: series[color].map(point => ({
+        x: point.x,
+        y: point.y / (moveSeries ? moveSeriesMax : totalSeriesMax),
+      })),
+      backgroundColor: color,
+      borderColor: moveSeries && showTotal ? (color == 'white' ? '#838383' : '#3d3d3d') : blueLineColor,
+      borderWidth: moveSeries && showTotal ? 1 : 1.5,
+      pointHitRadius: moveSeries && showTotal ? 0 : 200,
+      pointHoverBorderColor: moveSeries && !showTotal ? orangeAccent : blueLineColor,
+      pointRadius: moveSeries && !showTotal ? pointRadius[color] : 0,
+      pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
+      fill: {
+        target: 'origin',
+        above: moveSeries ? (showTotal ? 'white' : '#696866') : 'rgba(153, 153, 153, .3)',
+        below: moveSeries ? 'black' : 'rgba(0,0,0,0.3)',
+      },
+      order: moveSeries ? 2 : 1,
+    }));
+
+  const moveSeriesSet: ChartDataset[] = showTotal
+    ? colors.map(color => ({
+        type: 'bar',
+        data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
+        backgroundColor: color,
+        grouped: false,
+        categoryPercentage: 2,
+        barPercentage: 1,
+        order: 2,
+        borderColor: color == 'white' ? '#838383' : '#616161',
+        borderWidth: 1,
+      }))
+    : lineBuilder(moveSeries, true);
   const plyline = plyLine(0);
   const divisionLines = division(trans, data.game.division);
-  console.log(divisionLines.map(line => line.data[0]));
 
+  const datasets: ChartDataset[] = [...moveSeriesSet, plyline, ...divisionLines];
+  if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   const config: Chart['config'] = {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: labels,
-      datasets: [...totalSeriesOpts, ...moveSeriesOpts, plyline, ...divisionLines],
+      datasets: datasets,
     },
     options: {
       maintainAspectRatio: false,
       responsive: true,
       scales: {
         x: {
-          type: 'linear',
-          display: false,
           min: 0,
-          max: labels.length,
+          type: 'linear',
+          // Omit game-ending action to sync acpl and movetime charts
+          max: labels[labels.length - 1].includes('-') ? labels.length - 1 : labels.length,
+          display: false,
         },
         y: {
           type: 'linear',
@@ -170,11 +188,20 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       },
       plugins: {
         tooltip: {
+          caretPadding: 10,
           titleColor: fontColor,
-          titleFont: fontFamily(),
+          titleFont: fontFamily(true),
           displayColors: false,
           callbacks: {
-            title: items => labels[items[0].parsed.x],
+            title: items => {
+              const division = divisionLines.find(line => {
+                const first = line.data[0] as Point;
+                return first.x == items[0].parsed.x;
+              });
+              let title = division?.label ? division.label + '\n' : '';
+              title += labels[items[0].dataset.label == 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x];
+              return title;
+            },
             label: () => '',
           },
         },
@@ -185,14 +212,15 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       },
     },
   };
-  const movetimes: PlyChart = new Chart(el, config) as PlyChart;
-  movetimes.selectPly = selectPly.bind(movetimes);
-  lichess.pubsub.on('ply', movetimes.selectPly);
+  const movetimeChart = new Chart(el, config) as PlyChart;
+  movetimeChart.selectPly = selectPly.bind(movetimeChart);
+  lichess.pubsub.on('ply', movetimeChart.selectPly);
   lichess.pubsub.emit('ply.trigger');
-  return movetimes;
+  return movetimeChart;
 }
 
-const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
+const toBlurArray = (player: Player) =>
+  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 
 const formatClock = (centis: number) => {
   let result = '';

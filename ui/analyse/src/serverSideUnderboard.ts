@@ -9,8 +9,6 @@ import { ChartGame, AcplChart } from 'chart';
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard!);
 
-  $('#adv-chart').attr('id', 'acpl-chart-container');
-
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
@@ -42,7 +40,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
-        // advChart?.reflow();
       } else {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
       }
@@ -57,7 +54,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!advChart) startAdvantageChart();
-      // else advChart?.updateData(d, ctrl.mainline);
+      else advChart.updateData(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-container-loader').remove();
     });
   }
@@ -70,11 +67,16 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart-container').length)
-      $panel.html('<div id="acpl-chart-container"></div>' + (loading ? chartLoader() : ''));
+      $panel.html(
+        '<div id="acpl-chart-container"><canvas id="acpl-chart"></canvas></div>' +
+          (loading ? chartLoader() : ''),
+      );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
-    lichess
-      .loadEsm<ChartGame>('chart.game')
-      .then(m => m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.mainline, ctrl.trans));
+    lichess.loadEsm<ChartGame>('chart.game').then(m =>
+      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.mainline, ctrl.trans).then(chart => {
+        advChart = chart;
+      }),
+    );
   }
 
   const storage = lichess.storage.make('analysis.panel');

@@ -48,7 +48,7 @@ export function view(ctrl: ServerEval): VNode {
     [h('div.study__message', spinnerVdom())],
   );
 
-  return h('div.study__server-eval.ready.', chart)
+  return h('div.study__server-eval.ready.', chart);
 }
 
 const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');

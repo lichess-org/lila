@@ -100,7 +100,6 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
       .attr('fill', `${prefix}${visible ? 'ff' : '00'}`)
       .attr('stroke', `${prefix}${visible ? 'ff' : '00'}`);
   };
-
   return h(
     'div.advice-summary',
     {

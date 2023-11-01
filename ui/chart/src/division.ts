@@ -15,6 +15,8 @@ export default function (trans: Trans, div?: Division) {
   const annotationColor = '#707070';
   const annotations: ChartDataset<'line'>[] = lines.map(line => ({
     type: 'line',
+    xAxisID: 'x',
+    yAxisID: 'y',
     label: line.div,
     data: [
       { x: line.loc, y: chartYMin },

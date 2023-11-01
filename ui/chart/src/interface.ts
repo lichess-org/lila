@@ -1,7 +1,6 @@
 import { Chart } from 'chart.js';
 
 export interface PlyChart extends Chart {
-  firstPly: number;
   selectPly(ply: number, isMainline: boolean): void;
 }
 
@@ -46,8 +45,13 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<Chart>;
-  movetime(el: HTMLCanvasElement, data: AnalyseData, trans: Trans, hunter: boolean): void;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
+  movetime(
+    el: HTMLCanvasElement,
+    data: AnalyseData,
+    trans: Trans,
+    hunter: boolean,
+  ): Promise<PlyChart | undefined>;
 }
 
 export interface DistributionData {

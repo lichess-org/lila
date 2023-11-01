@@ -29,10 +29,7 @@ export function fontFamily(title = false) {
 
 export function maybeChart(el: HTMLCanvasElement): Chart | undefined {
   const ctx = el.getContext('2d');
-  if (ctx) {
-    const maybeChart = Chart.getChart(ctx);
-    if (maybeChart) return maybeChart;
-  }
+  if (ctx) return Chart.getChart(ctx);
   return undefined;
 }
 
@@ -42,6 +39,7 @@ export function toBlurArray(player: Player) {
 
 export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
   return {
+    xAxisID: 'x',
     type: 'line',
     label: 'ply',
     data: [
