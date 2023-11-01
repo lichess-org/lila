@@ -164,7 +164,7 @@ private[tournament] case class TournamentSetup(
   def validClock = (clockTime + clockIncrement.value) > 0
 
   def realMode =
-    if !balancedPosition then Mode.Casual
+    if !thematicPosition then Mode.Casual
     else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
