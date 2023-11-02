@@ -1,4 +1,5 @@
 import { Redraw, Work, ExternalEngineInfo, CevalEngine, CevalState } from '../types';
+import { LegacyBot } from './legacyBot';
 import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
 
@@ -14,7 +15,7 @@ interface ExternalEngineOutput {
   }[];
 }
 
-export class ExternalEngine implements CevalEngine {
+export class ExternalEngine extends LegacyBot implements CevalEngine {
   private state = CevalState.Initial;
   private sessionId = randomToken();
   private req: AbortController | undefined;
@@ -22,7 +23,9 @@ export class ExternalEngine implements CevalEngine {
   constructor(
     private opts: ExternalEngineInfo,
     private redraw: Redraw,
-  ) {}
+  ) {
+    super(opts);
+  }
 
   getState() {
     return this.state;

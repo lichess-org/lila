@@ -1,16 +1,19 @@
 import { Protocol } from '../protocol';
+import { LegacyBot } from './legacyBot';
 import { Redraw, Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
 
-export class SimpleEngine implements CevalEngine {
+export class SimpleEngine extends LegacyBot implements CevalEngine {
   private failed = false;
-  private protocol = new Protocol();
+  private protocol: Protocol;
   private worker: Worker | undefined;
   url: string;
 
   constructor(
-    info: BrowserEngineInfo,
+    readonly info: BrowserEngineInfo,
     private redraw: Redraw,
   ) {
+    super(info);
+    if (!info.isBot) this.protocol = new Protocol();
     this.url = `${info.assets.root}/${info.assets.js}`;
   }
 

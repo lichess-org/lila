@@ -7,6 +7,7 @@ import makeZerofish, { Zerofish, PV } from 'zerofish';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import { Key } from 'chessground/types';
+import { Engines } from 'ceval';
 
 type Player = 'human' | 'zero' | 'fish';
 
@@ -24,6 +25,7 @@ export class BvbCtrl {
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
 
+  engines = new Engines();
   constructor(
     readonly opts: BvbOpts,
     readonly redraw: () => void,

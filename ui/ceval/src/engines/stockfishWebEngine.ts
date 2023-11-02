@@ -2,27 +2,40 @@ import { Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
 import { Protocol } from '../protocol';
 import { objectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
+import { LegacyBot } from './legacyBot';
 import type StockfishWeb from 'lila-stockfish-web';
 
-export class StockfishWebEngine implements CevalEngine {
+export class StockfishWebEngine extends LegacyBot implements CevalEngine {
   failed = false;
   protocol: Protocol;
-  module: StockfishWeb;
+  sfweb: StockfishWeb;
   wasmMemory: WebAssembly.Memory;
-
+  loaded = () => {};
+  isLoaded = new Promise<void>(resolve => {
+    this.loaded = resolve;
+  });
   constructor(
     readonly info: BrowserEngineInfo,
     readonly nnue?: (download?: { bytes: number; total: number }) => void,
     readonly variantMap?: (v: string) => string,
   ) {
+    super(info);
     this.protocol = new Protocol(variantMap);
+    this.wasmMemory = sharedWasmMemory(info.minMem!);
     this.boot().catch(e => {
       console.error(e);
       this.failed = true;
     });
-    this.wasmMemory = sharedWasmMemory(info.minMem!);
   }
-
+  get module() {
+    return {
+      postMessage: (x: string) => this.sfweb.postMessage(x),
+      listen: (x: (y: string) => void) => (this.sfweb.listen = x),
+    };
+  }
+  load(): Promise<void> {
+    return this.isLoaded;
+  }
   async boot() {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
     const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
@@ -74,7 +87,8 @@ export class StockfishWebEngine implements CevalEngine {
     }
     module.listen = (data: string) => this.protocol.received(data);
     this.protocol.connected(cmd => module.postMessage(cmd));
-    this.module = module;
+    this.sfweb = module;
+    this.loaded();
   }
 
   getState() {

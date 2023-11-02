@@ -2,6 +2,7 @@ import { Protocol } from '../protocol';
 import { Redraw, Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
 import { sharedWasmMemory } from '../util';
 import { Cache } from '../cache';
+import { LegacyBot } from './legacyBot';
 
 interface WasmModule {
   (opts: {
@@ -13,6 +14,7 @@ interface WasmModule {
 
 interface Stockfish {
   addMessageListener(cb: (msg: string) => void): void;
+  removeMessageListener(cb: (msg: string) => void): void;
   postMessage(msg: string): void;
 }
 
@@ -23,16 +25,35 @@ declare global {
   }
 }
 
-export class ThreadedEngine implements CevalEngine {
+export class ThreadedEngine extends LegacyBot implements CevalEngine {
   failed: boolean;
   protocol: Protocol;
-
+  loaded = () => {};
+  isLoaded = new Promise<void>(resolve => {
+    this.loaded = resolve;
+  });
+  moduleProxy: { postMessage: (msg: string) => void; listen: (cb: (msg: string) => void) => void };
   constructor(
     readonly info: BrowserEngineInfo,
     readonly redraw: Redraw,
     readonly progress?: (download?: { bytes: number; total: number }) => void,
     readonly variantMap?: (v: string) => string,
-  ) {}
+  ) {
+    super(info);
+    if (!this.info.isBot) this.protocol = new Protocol(this.variantMap);
+    this.boot().catch(err => {
+      console.error(err);
+      this.failed = true;
+      this.redraw();
+    });
+  }
+
+  get module() {
+    return this.moduleProxy;
+  }
+  load(): Promise<void> {
+    return this.isLoaded;
+  }
 
   getState() {
     return !this.protocol
@@ -95,21 +116,24 @@ export class ThreadedEngine implements CevalEngine {
         lichess.assetUrl(`${root}/${path}`, { version, sameDomain: path.endsWith('.worker.js') }),
       wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
-
-    sf.addMessageListener(data => this.protocol.received(data));
-    this.protocol.connected(msg => sf.postMessage(msg));
+    if (!this.info.isBot) {
+      sf.addMessageListener(data => this.protocol.received(data));
+      this.protocol.connected(msg => sf.postMessage(msg));
+    } else {
+      let oldListener: (msg: string) => void;
+      this.moduleProxy = {
+        postMessage: (msg: string) => sf.postMessage(msg),
+        listen: (cb: (msg: string) => void) => {
+          if (oldListener) sf.removeMessageListener(oldListener);
+          sf.addMessageListener((oldListener = cb));
+        },
+      };
+    }
+    this.loaded();
     return sf;
   }
 
   async start(work: Work) {
-    if (!this.protocol) {
-      this.protocol = new Protocol(this.variantMap);
-      this.boot().catch(err => {
-        console.error(err);
-        this.failed = true;
-        this.redraw();
-      });
-    }
     this.protocol.compute(work);
   }
 

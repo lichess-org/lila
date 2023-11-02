@@ -34,6 +34,7 @@ export interface EngineInfo {
   maxThreads?: number;
   maxHash?: number;
   requires?: Feature;
+  isBot?: boolean;
 }
 
 export interface ExternalEngineInfo extends EngineInfo {

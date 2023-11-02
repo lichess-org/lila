@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
+    "ceval": "workspace:*",
     "chess": "workspace:*",
     "chessops": "^0.12.7",
     "common": "workspace:*",
@@ -29,12 +30,6 @@
       "esm": {
         "src/main.ts": "localPlay"
       }
-    },
-    "copy": [
-      {
-        "src": "node_modules/lila-stockfish-web/*.{js,wasm}",
-        "dest": "../../public/npm"
-      }
-    ]
+    }
   }
 }

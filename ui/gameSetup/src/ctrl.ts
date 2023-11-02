@@ -292,11 +292,11 @@ export class SetupCtrl {
       this.closeModal();
       return;
     }
-
     this.loading = true;
     this.root.redraw();
 
     let urlPath = `/setup/${this.gameType}`;
+    console.log(urlPath);
     if (this.gameType === 'hook') urlPath += '/' + lichess.sri;
     const urlParams = { user: this.friendUser || undefined };
     let response;
