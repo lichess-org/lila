@@ -41,7 +41,7 @@ const newFormatter = () => {
   };
   // for many users, using the islamic calendar is not practical on the internet
   // due to international context, so we make sure it's displayed using the gregorian calender
-  const lang = document.documentElement.lang.startsWith('ar-') ? 'ar-ma' : document.documentElement.lang;
+  const lang = document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang;
   return new Intl.DateTimeFormat(lang, options).format;
 };
 
