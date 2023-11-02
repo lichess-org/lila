@@ -61,7 +61,7 @@ object player:
         )
       ),
       openGraph = povOpenGraph(pov).some,
-      playing = true,
+      playing = pov.game.playable,
       zenable = true
     ):
       main(cls := "round")(
