@@ -507,15 +507,15 @@
   <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
+  <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
+  <string name="descPrivateHelp">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
   <string name="no">नहीं</string>
   <string name="yes">हाँ</string>
   <string name="help">सहायता</string>
   <string name="createANewTopic">एक नया विषय बनाएँ</string>
   <string name="topics">विषय</string>
   <string name="posts">पोस्ट की संख्या</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">आख़िरी  पोस्ट</string>
+  <string name="lastPost">आख़िरी  पोस्ट</string>
   <string name="views">देखे जाने की संख्या</string>
   <string name="replies">उत्तरों की संख्या</string>
   <string name="replyToThisTopic">इस विषय पर उत्तर दें</string>
@@ -866,7 +866,7 @@
   <string name="mentionedYouInX">आपने \"%1$s\" में उल्लेख किया है।</string>
   <string name="xMentionedYouInY">%1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
   <string name="invitedYouToX">आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
+  <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
   <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
   <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>
   <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>

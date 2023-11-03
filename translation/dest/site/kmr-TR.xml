@@ -475,7 +475,7 @@
   <string name="createANewTopic">Mijareke nû çêke</string>
   <string name="topics">Mijar</string>
   <string name="posts">Şandî</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Şandiya dawîn</string>
+  <string name="lastPost">Şandiya dawîn</string>
   <string name="views">Dîtin</string>
   <string name="replies">Bersiv</string>
   <string name="replyToThisTopic">Vê mijarê bibersivîne</string>
@@ -793,7 +793,7 @@
   <string name="mentionedYouInX">qala te kir li %1$s.</string>
   <string name="xMentionedYouInY">%1$s qala te kir li %2$s.</string>
   <string name="invitedYouToX">te vexwend %1$s.</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s te vexwend %2$s.</string>
+  <string name="xInvitedYouToY">%1$s te vexwend %2$s.</string>
   <string name="youAreNowPartOfTeam">Tu niha endamê komekê yî.</string>
   <string name="youHaveJoinedTeamX">Tu tevlê %1$s bûyî.</string>
   <string name="someoneYouReportedWasBanned">Kesê ku te gilî kiribû hat qedexe kirin</string>

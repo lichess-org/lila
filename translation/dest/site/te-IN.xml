@@ -444,15 +444,15 @@
   <string name="tournamentWinners">టోర్నమెంట్ విజేతలు</string>
   <string name="name">పేరు</string>
   <string name="description">అతడు/ఆమె చేసిన తప్పేంటి</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">ప్రైవేట్ సమాచారం</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">టీమ్ మెంబర్స్ మాత్రమే చూడగలిగే సమాచారం. సెట్ చేస్తే, బృంద సభ్యుల కోసం పబ్లిక్ సమాచారాన్ని భర్తీ చేస్తుంది.</string>
+  <string name="descPrivate">ప్రైవేట్ సమాచారం</string>
+  <string name="descPrivateHelp">టీమ్ మెంబర్స్ మాత్రమే చూడగలిగే సమాచారం. సెట్ చేస్తే, బృంద సభ్యుల కోసం పబ్లిక్ సమాచారాన్ని భర్తీ చేస్తుంది.</string>
   <string name="no">లేదు</string>
   <string name="yes">అవును</string>
   <string name="help">సహాయం:</string>
   <string name="createANewTopic">కొత్త అంశాన్ని సృష్టించండి</string>
   <string name="topics">అంశాలు</string>
   <string name="posts">పోస్ట్‌లు</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">చివరి పోస్ట్</string>
+  <string name="lastPost">చివరి పోస్ట్</string>
   <string name="views">వీక్షకులు</string>
   <string name="replies">సమాధానాలు</string>
   <string name="replyToThisTopic">ఈ అంశానికి సమాధానం ఇవ్వండి</string>

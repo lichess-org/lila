@@ -46,7 +46,7 @@
     <item quantity="one">Var vertur fyri %s fjøltalvi</item>
     <item quantity="other">Var vertur fyri %s fjøltalvum</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Var við í %s fjøltalvi</item>
     <item quantity="other">Var við í %s fjøltalvum</item>
   </plurals>

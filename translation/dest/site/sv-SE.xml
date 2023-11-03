@@ -348,7 +348,7 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultanparti</item>
     <item quantity="other">%s simultanpartier</item>
   </plurals>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="name">Namn</string>
   <string name="description">Beskrivning</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privat beskrivning</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text som endast lagmedlemmarna kommer att se. Om angivet, ersätter den offentliga beskrivningen för lagmedlemmar.</string>
+  <string name="descPrivate">Privat beskrivning</string>
+  <string name="descPrivateHelp">Text som endast lagmedlemmarna kommer att se. Om angivet, ersätter den offentliga beskrivningen för lagmedlemmar.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
   <string name="help">Hjälp:</string>
   <string name="createANewTopic">Skapa ett nytt ämne</string>
   <string name="topics">Ämnen</string>
   <string name="posts">Inlägg</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Senaste inlägget</string>
+  <string name="lastPost">Senaste inlägget</string>
   <string name="views">Visningar</string>
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svara på ämnet</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="custom">Anpassad</string>
   <string name="notifications">Aviseringar</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notiser: %1$s</string>
+  <string name="notificationsX">Notiser: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund kvar för att spela första draget</item>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">nämnde dig i \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s nämnde dig i \"%2$s\".</string>
   <string name="invitedYouToX">bjöd in dig till \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s bjöd in dig till \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s bjöd in dig till \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du är nu en del av laget.</string>
   <string name="youHaveJoinedTeamX">Du har gått med i \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Någon du rapporterade blev avstängd</string>

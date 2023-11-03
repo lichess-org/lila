@@ -468,15 +468,15 @@
   <string name="tournamentWinners">Mga nanalo sa paligsahan</string>
   <string name="name">Pangalan</string>
   <string name="description">Paglalarawan</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Pribadong deskripsyon</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text na makikita lang ng mga team members mo. Pag na-set na, mapapalitan yung publikong deskripsyon para sa mga team members.</string>
+  <string name="descPrivate">Pribadong deskripsyon</string>
+  <string name="descPrivateHelp">Text na makikita lang ng mga team members mo. Pag na-set na, mapapalitan yung publikong deskripsyon para sa mga team members.</string>
   <string name="no">Hindi</string>
   <string name="yes">Oo</string>
   <string name="help">Tulong:</string>
   <string name="createANewTopic">Gumawa ng bagong paksa</string>
   <string name="topics">Mga paksa</string>
   <string name="posts">Mga post</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Huling post</string>
+  <string name="lastPost">Huling post</string>
   <string name="views">Mga tanawin</string>
   <string name="replies">Mga sagot</string>
   <string name="replyToThisTopic">Sumagot sa paksang ito</string>
@@ -818,7 +818,7 @@
   <string name="mentionedYouInX">ay nabanggit ka sa \"%1$s\".</string>
   <string name="xMentionedYouInY">Nabanggit ka ni %1$s sa \"%2$s\".</string>
   <string name="invitedYouToX">ay inanyayahan ka sa \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">Inanyayahan ka ni %1$s sa \"%2$s\".</string>
+  <string name="xInvitedYouToY">Inanyayahan ka ni %1$s sa \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ikaw ay miyembro na ng team.</string>
   <string name="youHaveJoinedTeamX">Sumali ka sa \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Yung na-report mong user ay pinagbawalan na</string>

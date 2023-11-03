@@ -83,7 +83,7 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
 %1$s, hogy részt vehess svájci rendszerű versenyben.</string>
   <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
-  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Most játszik</string>
+  <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
   <string name="tournDuration">A verseny időtartama</string>

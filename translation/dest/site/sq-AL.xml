@@ -347,7 +347,7 @@
     <item quantity="one">%s studim</item>
     <item quantity="other">%s studime</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultane</item>
     <item quantity="other">%s simultane</item>
   </plurals>
@@ -528,15 +528,15 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emër</string>
   <string name="description">Përshkrim</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Përshkrim privat</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst që do ta shohin vetëm anëtarët e ekipit. Në u dhëntë, zëvendëson përshkrimin publik për anëtarët e ekipit.</string>
+  <string name="descPrivate">Përshkrim privat</string>
+  <string name="descPrivateHelp">Tekst që do ta shohin vetëm anëtarët e ekipit. Në u dhëntë, zëvendëson përshkrimin publik për anëtarët e ekipit.</string>
   <string name="no">Jo</string>
   <string name="yes">Po</string>
   <string name="help">Ndihmë:</string>
   <string name="createANewTopic">Krijoni një temë të re</string>
   <string name="topics">Temat</string>
   <string name="posts">Postimet</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Postimi i fundit</string>
+  <string name="lastPost">Postimi i fundit</string>
   <string name="views">Shikime</string>
   <string name="replies">Përgjigje</string>
   <string name="replyToThisTopic">Përgjigjuni tek kjo temë</string>
@@ -789,7 +789,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="invalidFen">FEN e pavlefshme</string>
   <string name="custom">Vetjake</string>
   <string name="notifications">Njoftime</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Njoftime: %1$s</string>
+  <string name="notificationsX">Njoftime: %1$s</string>
   <string name="perfRatingX">Vlerësimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekondë për kryerjen e lëvizjes së parë</item>
@@ -895,7 +895,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="mentionedYouInX">ju përmendi te “%1$s”.</string>
   <string name="xMentionedYouInY">%1$s ju përmendi te “%2$s”.</string>
   <string name="invitedYouToX">ju ftoi në studimin \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ju ftoi në “%2$s”.</string>
+  <string name="xInvitedYouToY">%1$s ju ftoi në “%2$s”.</string>
   <string name="youAreNowPartOfTeam">Tani jeni pjesë e ekipit.</string>
   <string name="youHaveJoinedTeamX">U bëtë pjesë e “%1$s”.</string>
   <string name="someoneYouReportedWasBanned">Dikush që raportuat, u dëbua</string>
