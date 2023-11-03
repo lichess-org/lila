@@ -34,7 +34,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
         'p',
         ctrl.trans.vdom(
           'puzzleId',
-          ctrl.vm.mode === 'play'
+          ctrl.streak && ctrl.vm.mode === 'play'
             ? h('span.hidden', ctrl.trans.noarg('hidden'))
             : h(
                 'a',
