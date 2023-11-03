@@ -35,17 +35,17 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
         ctrl.trans.vdom(
           'puzzleId',
           ctrl.vm.mode === 'play'
-          ? h('span.hidden', ctrl.trans.noarg('hidden'))
-          : h(
-            'a',
-            {
-              attrs: {
-                href: router.withLang(`/training/${puzzle.id}`),
-                ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
-              },
-            },
-            '#' + puzzle.id,
-          ),
+            ? h('span.hidden', ctrl.trans.noarg('hidden'))
+            : h(
+                'a',
+                {
+                  attrs: {
+                    href: router.withLang(`/training/${puzzle.id}`),
+                    ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
+                  },
+                },
+                '#' + puzzle.id,
+              ),
         ),
       ),
       ctrl.showRatings
