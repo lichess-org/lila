@@ -26,9 +26,9 @@ object profile:
         postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
-            form3.group(form("flag"), trans.flag(), half = true) { f =>
-              form3.select(f, lila.user.Flags.allPairs, default = "".some)
-            },
+            div(cls := "form-group form-half")(
+              div(cls := "emoji-picker")(userFlair(u))
+            ),
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),
           ctx.noKid option

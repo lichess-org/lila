@@ -222,7 +222,7 @@ trait UserHelper extends HasEnv:
       name
     )
 
-  private def userFlair(user: User): Option[Frag] =
+  def userFlair(user: User): Option[Frag] =
     user.profile.flatMap(_.flair).flatMap(userFlair)
 
   private def userFlair(flair: UserFlair): Option[Frag] =

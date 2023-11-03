@@ -28,7 +28,7 @@ final class Env(
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds,
     assetBaseUrl: AssetBaseUrl
-)(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer):
+)(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
