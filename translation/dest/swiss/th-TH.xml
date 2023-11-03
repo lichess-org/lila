@@ -35,7 +35,7 @@
   <string name="dutchSystem">ระบบดัตช์</string>
   <string name="lateJoinQ">ผู้เล่นเข้าที่หลังได้ไหม</string>
   <string name="joinOrCreateTeam">เข้าร่วมหรือสร้างทีม</string>
-  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">กำลังเล่น</string>
+  <string name="nowPlaying">กำลังเล่น</string>
   <string name="startingSoon">กำลังจะเริ่มในเร็ว ๆ นี้</string>
   <string name="numberOfGames">จำนวนเกม</string>
   <string name="pairingSystem">ระบบจับคู่</string>

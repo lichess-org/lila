@@ -79,7 +79,7 @@
     <item quantity="many">Roet bod da %s abadenn gempred</item>
     <item quantity="other">Roet bod da %s abadenn gempred</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Kemeret perzh en %s abadenn gempred</item>
     <item quantity="two">Kemeret perzh e %s abadenn gempred</item>
     <item quantity="few">Kemeret perzh e %s abadenn gempred</item>

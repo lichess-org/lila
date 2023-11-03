@@ -348,7 +348,7 @@
     <item quantity="one">%s estudi</item>
     <item quantity="other">%s estudis</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultània</item>
     <item quantity="other">%s simultànies</item>
   </plurals>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Guanyadors de torneigs</string>
   <string name="name">Nom</string>
   <string name="description">Descripció</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descripció privada</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text que només veuran els membres de l\'equip. Si conté text, substituïrà la descripció pública pels membres de l\'equip.</string>
+  <string name="descPrivate">Descripció privada</string>
+  <string name="descPrivateHelp">Text que només veuran els membres de l\'equip. Si conté text, substituïrà la descripció pública pels membres de l\'equip.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Crea un nou tema</string>
   <string name="topics">Temes</string>
   <string name="posts">Entrades</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Darrer post</string>
+  <string name="lastPost">Darrer post</string>
   <string name="views">Visites</string>
   <string name="replies">Respostes</string>
   <string name="replyToThisTopic">Respon aquest tema</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">FEN no vàlid</string>
   <string name="custom">Personalitzat</string>
   <string name="notifications">Avisos</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificacions: %1$s</string>
+  <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Classificació: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">t\'ha mencionat en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s t\'ha mencionat en \"%2$s\".</string>
   <string name="invitedYouToX">t\'ha invitat a \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s t\'ha invitat a \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ara formes part de l\'equip.</string>
   <string name="youHaveJoinedTeamX">T\'has unit a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Algú que vas denunciar ha estat expulsat</string>

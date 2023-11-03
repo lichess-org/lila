@@ -371,7 +371,7 @@
     <item quantity="few">%s studii</item>
     <item quantity="other">%s de studii</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simul</item>
     <item quantity="few">%s simul</item>
     <item quantity="other">%s simul</item>
@@ -561,15 +561,15 @@
   <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descriere privată</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
+  <string name="descPrivate">Descriere privată</string>
+  <string name="descPrivateHelp">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
   <string name="help">Ajutor:</string>
   <string name="createANewTopic">Creează un nou topic</string>
   <string name="topics">Subiecte</string>
   <string name="posts">Postări</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Ultima postare</string>
+  <string name="lastPost">Ultima postare</string>
   <string name="views">Vizualizări</string>
   <string name="replies">Răspunsuri</string>
   <string name="replyToThisTopic">Răspunde la acest topic</string>
@@ -827,7 +827,7 @@
   <string name="invalidFen">FEN invalid</string>
   <string name="custom">Personalizat</string>
   <string name="notifications">Notificări</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificări: %1$s</string>
+  <string name="notificationsX">Notificări: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secundă rămasă pentru a începe jocul</item>
@@ -937,7 +937,7 @@
   <string name="mentionedYouInX">te-a menționat în \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te-a menționat în \"%2$s\".</string>
   <string name="invitedYouToX">te-a invitat la \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s te-a invitat la \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s te-a invitat la \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Acum faci parte din echipă.</string>
   <string name="youHaveJoinedTeamX">V-ați alăturat la \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Cineva pe care l-ai raportat a fost banat</string>

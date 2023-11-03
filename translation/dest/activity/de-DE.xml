@@ -46,7 +46,7 @@
     <item quantity="one">Hat %s Simultanvorstellung gegeben</item>
     <item quantity="other">Hat %s Simultanvorstellungen gegeben</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Hat an %s Simultanvorstellung teilgenommen</item>
     <item quantity="other">Hat an %s Simultanvorstellungen teilgenommen</item>
   </plurals>

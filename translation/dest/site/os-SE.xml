@@ -451,15 +451,15 @@
   <string name="tournamentWinners">Турнирты уæлахиздзаутæ</string>
   <string name="name">Ном</string>
   <string name="description">Радзырд</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Хицæн радзырд</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Радзырд, æрмæст клубы уæнгтæ кæй фендзысты. Баргъæвд куы у, уæд ивы æхсæны радзырд клубы уæнгтæн.</string>
+  <string name="descPrivate">Хицæн радзырд</string>
+  <string name="descPrivateHelp">Радзырд, æрмæст клубы уæнгтæ кæй фендзысты. Баргъæвд куы у, уæд ивы æхсæны радзырд клубы уæнгтæн.</string>
   <string name="no">Нæ</string>
   <string name="yes">О</string>
   <string name="help">Æххуыс:</string>
   <string name="createANewTopic">Ног тæрхон саразын</string>
   <string name="topics">Тæрхонтæ</string>
   <string name="posts">Фыстæджытæ</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Фæстаг фыстæг</string>
+  <string name="lastPost">Фæстаг фыстæг</string>
   <string name="views">Æркастытæ</string>
   <string name="replies">Дзуаппытæ</string>
   <string name="replyToThisTopic">Дзуапп раттын ацы тæрхоны</string>

@@ -475,15 +475,15 @@
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">คำบรรยายส่วนตัว</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">ข้อความที่สมาชิกทีมเท่านั้นที่เห็นได้ ถ้าตั้งไว้ก็จะไปแทนที่คำอธิบายสาธารณะสำหรับสมาชิกทีม</string>
+  <string name="descPrivate">คำบรรยายส่วนตัว</string>
+  <string name="descPrivateHelp">ข้อความที่สมาชิกทีมเท่านั้นที่เห็นได้ ถ้าตั้งไว้ก็จะไปแทนที่คำอธิบายสาธารณะสำหรับสมาชิกทีม</string>
   <string name="no">ไม่</string>
   <string name="yes">ใช่</string>
   <string name="help">ช่วยเหลือ:</string>
   <string name="createANewTopic">สร้างหัวข้อใหม่</string>
   <string name="topics">หัวข้อ</string>
   <string name="posts">โพสต์</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">โพสต์ล่าสุด</string>
+  <string name="lastPost">โพสต์ล่าสุด</string>
   <string name="views">ดู</string>
   <string name="replies">ตอบ</string>
   <string name="replyToThisTopic">ตอบกลับหัวข้อนี้</string>
@@ -827,7 +827,7 @@
   <string name="mentionedYouInX">กล่าวถึงคุณใน \"%1$s\"</string>
   <string name="xMentionedYouInY">%1$s ได้กล่าวถึงคุณใน \"%2$s\"</string>
   <string name="invitedYouToX">ได้เชิญคุณไปที่ \"%1$s\"</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ได้เชิญคุณไปที่ \"%2$s\"</string>
+  <string name="xInvitedYouToY">%1$s ได้เชิญคุณไปที่ \"%2$s\"</string>
   <string name="youAreNowPartOfTeam">ตอนนี้คุณเป็นส่วนหนึ่งของทีม</string>
   <string name="youHaveJoinedTeamX">คุณได้เข้าร่วม \"%1$s\"</string>
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>

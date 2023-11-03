@@ -99,7 +99,7 @@
   <string name="teamOnly">Турніри за швейцарською системою можуть бути створені лише лідерами команд, а брати участь у них можуть лише члени команди.           
 %1$s щоб почати гру в швейцарських турнірах.</string>
   <string name="joinOrCreateTeam">Приєднатися або створити команду</string>
-  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Зараз грають</string>
+  <string name="nowPlaying">Зараз грають</string>
   <string name="startingSoon">Скоро розпочнуться</string>
   <string name="comparison">Порівняння</string>
   <string name="tournDuration">Тривалість турніру</string>

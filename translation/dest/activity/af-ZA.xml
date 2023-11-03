@@ -46,7 +46,7 @@
     <item quantity="one">Het %s simul(gelyktydige ekshibisie) gereël</item>
     <item quantity="other">Het %s simuls(gelyktydige ekshibisies) gereël</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Het in %s simul(gelyktydige ekshibisie) gespeel</item>
     <item quantity="other">Het %s simuls(gelyktydige ekshibisies) gespeel</item>
   </plurals>

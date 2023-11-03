@@ -394,7 +394,7 @@
     <item quantity="many">%s studijų</item>
     <item quantity="other">%s studijų</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultanas</item>
     <item quantity="few">%s simultanai</item>
     <item quantity="many">%s simultano</item>
@@ -596,15 +596,15 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tournamentWinners">Turnyrų nugalėtojai</string>
   <string name="name">Pavadinimas</string>
   <string name="description">Aprašymas</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privatus aprašymas</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekstas, kurį gali matyti tik komandos nariai. Jei nustatytas, komandos nariams pakeičia viešą aprašymą.</string>
+  <string name="descPrivate">Privatus aprašymas</string>
+  <string name="descPrivateHelp">Tekstas, kurį gali matyti tik komandos nariai. Jei nustatytas, komandos nariams pakeičia viešą aprašymą.</string>
   <string name="no">Ne</string>
   <string name="yes">Taip</string>
   <string name="help">Pagalba:</string>
   <string name="createANewTopic">Sukurti naują temą</string>
   <string name="topics">Temos</string>
   <string name="posts">Pranešimai</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Paskutinis pranešimas</string>
+  <string name="lastPost">Paskutinis pranešimas</string>
   <string name="views">Peržiūrų</string>
   <string name="replies">Atsakymų</string>
   <string name="replyToThisTopic">Atsakyti šioje temoje</string>
@@ -867,7 +867,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="invalidFen">Netinkamas FEN</string>
   <string name="custom">Kitoks</string>
   <string name="notifications">Pranešimai</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Pranešimai: %1$s</string>
+  <string name="notificationsX">Pranešimai: %1$s</string>
   <string name="perfRatingX">Reitingas: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
@@ -980,7 +980,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="mentionedYouInX">paminėjo jus \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s paminėjo jus \"%2$s\".</string>
   <string name="invitedYouToX">pakvietė jus į \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s pakvietė jus į \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s pakvietė jus į \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jūs jau esate komandos dalis.</string>
   <string name="youHaveJoinedTeamX">Jūs prisijungėte prie \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Kažkas, apie ką pranešėte, buvo užblokuotas</string>

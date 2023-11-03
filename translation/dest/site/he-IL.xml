@@ -394,7 +394,7 @@
     <item quantity="many">%s לוחות למידה</item>
     <item quantity="other">%s לוחות למידה</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">משחק סימולטני %s</item>
     <item quantity="two">%s משחקים סימולטניים</item>
     <item quantity="many">%s משחקים סימולטניים</item>
@@ -595,15 +595,15 @@
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="name">שם</string>
   <string name="description">תיאור</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">תיאור פרטי</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">טקסט שרק חברי הקבוצה יראו. אם נכתב, יחליף את התיאור הפומבי עבור חברי הקבוצה.</string>
+  <string name="descPrivate">תיאור פרטי</string>
+  <string name="descPrivateHelp">טקסט שרק חברי הקבוצה יראו. אם נכתב, יחליף את התיאור הפומבי עבור חברי הקבוצה.</string>
   <string name="no">לא</string>
   <string name="yes">כן</string>
   <string name="help">עזרה:</string>
   <string name="createANewTopic">צרו נושא חדש</string>
   <string name="topics">נושאים</string>
   <string name="posts">פוסטים</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">הפוסט האחרון</string>
+  <string name="lastPost">הפוסט האחרון</string>
   <string name="views">צפיות</string>
   <string name="replies">תגובות</string>
   <string name="replyToThisTopic">הגיבו לפוסט הזה</string>
@@ -866,7 +866,7 @@
   <string name="invalidFen">FEN לא חוקי</string>
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">התראות: %1$s</string>
+  <string name="notificationsX">התראות: %1$s</string>
   <string name="perfRatingX">דירוג: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">שנייה %s לשחק את המסע הראשון</item>
@@ -979,7 +979,7 @@
   <string name="mentionedYouInX">תייג/ה אותך ב- %1$s.</string>
   <string name="xMentionedYouInY">%1$s הזכיר/ה אותך בהודעה ב-\"%2$s\".</string>
   <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s הזמין/ה אותך ללוח הלמידה \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s הזמין/ה אותך ללוח הלמידה \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">את/ה כעת חבר/ה בקבוצה.</string>
   <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">מישהו שדיווחת עליו נחסם</string>

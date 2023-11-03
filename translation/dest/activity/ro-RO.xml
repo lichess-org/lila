@@ -57,7 +57,7 @@
     <item quantity="few">A găzduit %s simultane de șah</item>
     <item quantity="other">A găzduit %s simultane de șah</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">A participat în %s simultan de șah</item>
     <item quantity="few">A participat în %s simultane de șah</item>
     <item quantity="other">A participat în %s simultane de șah</item>

@@ -46,7 +46,7 @@
     <item quantity="one">হোস্টেড %s সমকালীন প্রদর্শনী</item>
     <item quantity="other">হোস্টেড %s সমকালীন প্রদর্শনী</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">অংশগ্রহণ করী %s সমকালীন প্রদর্শনী</item>
     <item quantity="other">অংশগ্রহণ করী %s সমকালীন প্রদর্শনী</item>
   </plurals>

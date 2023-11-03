@@ -57,7 +57,7 @@
     <item quantity="one">Sarīkoja %s simultānseansu</item>
     <item quantity="other">Sarīkoja %s simultānseansus</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="zero">Piedalījās %s simultānseansos</item>
     <item quantity="one">Piedalījās %s simultānseansā</item>
     <item quantity="other">Piedalījās %s simultānseansos</item>

@@ -46,7 +46,7 @@
     <item quantity="one">Hät %s Simultanschach gmacht</item>
     <item quantity="other">Hät %s Simultanschachs gmacht</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Hät a %s Simultanschach mitgmacht</item>
     <item quantity="other">Hät a %s Simultanschachs mitgmacht</item>
   </plurals>

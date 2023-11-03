@@ -46,7 +46,7 @@
     <item quantity="one">Var vært for %s simultanskakarrangement</item>
     <item quantity="other">Var vært for %s simultanskakarrangementer</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Deltog i %s simultanskakarrangement</item>
     <item quantity="other">Deltog i %s simultanskakarrangementer</item>
   </plurals>
