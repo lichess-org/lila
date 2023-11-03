@@ -17,25 +17,38 @@ $mq-col2: $mq-col2-uniboard;
     display: flex;
     flex-flow: column;
     justify-content: stretch;
-    /*#white {
-      background-color: white;
-      color: #333;
-    }
-    #black {
-      background-color: black;
-      color: white;
-    }*/
     .puz-bot {
-      @extend %flex-column;
-      align-items: center;
-      width: 300px;
-    }
-    .totals {
-      font-size: xx-large;
-      text-align: center;
+      @extend %flex-between;
+      padding: 8px;
+      border: 1px solid $c-primary;
+      align-content: center;
+      width: 360px;
+      font-size: 1em;
+      &.white {
+        background-color: white;
+        color: #333;
+      }
+      &.black {
+        background-color: black;
+        color: white;
+      }
+      .select-engine {
+        width: 60%;
+      }
+      .totals {
+        font-size: large;
+        text-align: center;
+      }
     }
     .spacer {
       flex: 1 1 auto;
+    }
+    .starting-fen {
+      &::placeholder {
+        font-family: monospace;
+        color: #888;
+      }
+      width: 100%;
     }
     #controls {
       @extend %flex-column;

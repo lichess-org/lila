@@ -284,7 +284,7 @@ export class Engines {
 }
 
 function maxHashMB() {
-  if (navigator.deviceMemory) return pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
+  if (navigator.deviceMemory) return Math.min(1024, pow2floor(navigator.deviceMemory * 128));
   else if (isAndroid()) return 64; // budget androids are easy to crash @ 128
   else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIOS()) return 32;
