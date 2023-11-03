@@ -253,7 +253,7 @@ final class StudyApi(
             parent.children.get(singleNode.id) so { node =>
               val newPosition = position.ref + node
               for
-                _ <- chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter)
+                _ <- chapterRepo.addSubTree(node, parent, position.path)(chapter)
                 _ <- relay so { chapterRepo.setRelay(chapter.id, _) }
                 _ <-
                   if opts.sticky
