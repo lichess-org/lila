@@ -30,24 +30,24 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
       },
     }),
     h('div', [
-      ctrl.streak
-        ? null
-        : h(
-            'p',
-            ctrl.trans.vdom(
-              'puzzleId',
-              h(
-                'a',
-                {
-                  attrs: {
-                    href: router.withLang(`/training/${puzzle.id}`),
-                    ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
-                  },
-                },
-                '#' + puzzle.id,
-              ),
-            ),
+      h(
+        'p',
+        ctrl.trans.vdom(
+          'puzzleId',
+          ctrl.vm.mode === 'play'
+          ? h('span.hidden', ctrl.trans.noarg('hidden'))
+          : h(
+            'a',
+            {
+              attrs: {
+                href: router.withLang(`/training/${puzzle.id}`),
+                ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
+              },
+            },
+            '#' + puzzle.id,
           ),
+        ),
+      ),
       ctrl.showRatings
         ? h(
             'p',
