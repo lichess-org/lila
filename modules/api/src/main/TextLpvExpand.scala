@@ -6,6 +6,7 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import chess.format.pgn.{ Pgn, PgnStr }
+import lila.common.LpvEmbed
 import lila.common.config.NetDomain
 
 final class TextLpvExpand(
@@ -50,7 +51,7 @@ final class TextLpvExpand(
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
-  def allPgnsFromText(text: String): Fu[Map[String, PgnStr]] =
+  def allPgnsFromText(text: String): Fu[Map[String, LpvEmbed]] =
     regex.blogPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
@@ -62,7 +63,7 @@ final class TextLpvExpand(
       .parallel
       .map:
         _.collect:
-          case (id, Some(LpvEmbed.PublicPgn(embed))) => id -> embed
+          case (id, Some(embed)) => id -> embed
         .toMap
 
   private val regex = LpvGameRegex(net.domain)
@@ -128,7 +129,3 @@ final class LpvGameRegex(domain: NetDomain):
   val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
   val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
   val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r
-
-enum LpvEmbed:
-  case PublicPgn(pgn: PgnStr)
-  case PrivateStudy

@@ -5,10 +5,9 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
-import lila.api.LpvEmbed
 import lila.analyse.Analysis
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ Bus, HTTPRequest, IpAddress }
+import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
 import lila.socket.Socket
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData

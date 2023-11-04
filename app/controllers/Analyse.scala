@@ -6,8 +6,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.api.LpvEmbed
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, LpvEmbed }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
 import lila.oauth.AccessToken
