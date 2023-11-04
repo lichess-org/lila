@@ -244,7 +244,7 @@ object MarkdownRender:
         color: Option[String],
         ply: Option[String]
     ) =
-      embed match {
+      embed match
         case LpvEmbed.PublicPgn(pgn) =>
           html
             .attr("data-pgn", pgn.value)
@@ -276,7 +276,6 @@ object MarkdownRender:
           context.renderChildren(node)
           html
             .tag("/a")
-      }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
