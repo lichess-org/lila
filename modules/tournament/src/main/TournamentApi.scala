@@ -88,7 +88,17 @@ final class TournamentApi(
         .copy(teamMember = old.conditions.teamMember), // can't change that
       startsAt = if old.isCreated then tour.startsAt else old.startsAt
     )
-    tournamentRepo.update(finalized) andDo cached.tourCache.clear(tour.id) inject finalized
+    for
+      _ <- tournamentRepo.update(finalized)
+      _ <- ejectPlayersNonLongerOnAllowList(old, finalized)
+      _ = cached.tourCache.clear(tour.id)
+    yield finalized
+
+  private def ejectPlayersNonLongerOnAllowList(old: Tournament, tour: Tournament): Funit =
+    tour.isCreated.so:
+      tour.conditions.removedFromAllowList(old.conditions).toList.traverse_ {
+        withdraw(tour.id, _, false, false)
+      }
 
   def teamBattleUpdate(
       tour: Tournament,
