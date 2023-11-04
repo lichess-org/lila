@@ -343,7 +343,7 @@ final class TournamentApi(
     game.tournamentId so { stallPause(_, player) }
 
   private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
-    Parallel(tourId, "withdraw")(cached.tourCache.enterable) {
+    Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) andDo {
           socket.reload(tour.id)
@@ -361,7 +361,6 @@ final class TournamentApi(
           socket.reload(tour.id)
           publish()
       case _ => funit
-    }
 
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {

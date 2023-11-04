@@ -14,11 +14,11 @@ import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo       = env.tournament.tournamentRepo
-  private def api        = env.tournament.api
-  private def jsonView   = env.tournament.jsonView
-  private def forms      = env.tournament.forms
-  private def cachedTour = env.tournament.cached.tourCache.byId
+  private def repo                   = env.tournament.tournamentRepo
+  private def api                    = env.tournament.api
+  private def jsonView               = env.tournament.jsonView
+  private def forms                  = env.tournament.forms
+  private def cachedTour(id: TourId) = env.tournament.cached.tourCache.byId(id)
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 
