@@ -29,7 +29,7 @@ final class MsgApi(
 
   def myThreads(using me: Me): Fu[List[MsgThread]] =
     colls.thread
-      .find($doc("users" -> me.userId, "del" $ne me.userId))
+      .find(selectMyThreads)
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
       .list(inboxSize)
@@ -45,12 +45,14 @@ final class MsgApi(
     else
       val receivedMultis = threads.filter(_.maskFor.exists(_ isnt me))
       colls.thread
-        .find($doc("users" -> me.userId, "del" $ne me.userId))
+        .find(selectMyThreads)
         .sort($sort desc "maskWith.date") // sorting on maskWith.date now
         .cursor[MsgThread]()
         .list(inboxSize)
         // last we filter receivedMultis and reinsert them according to their lastMsg.date
         .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
+
+  private def selectMyThreads(using me: Me) = $doc("users" -> me.userId) ++ selectNotDeleted
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match

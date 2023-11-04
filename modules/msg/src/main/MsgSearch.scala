@@ -15,7 +15,7 @@ final class MsgSearch(
     relationApi: lila.relation.RelationApi
 )(using Executor, Scheduler):
 
-  import BsonHandlers.given
+  import BsonHandlers.{ *, given }
 
   def apply(q: String)(using me: Me): Fu[MsgSearch.Result] =
     if me.kid then forKid(q)
@@ -49,7 +49,7 @@ final class MsgSearch(
             $eq(me.userId),
             "$regex" -> BSONRegex(s"^${java.util.regex.Pattern.quote(q)}", "")
           ),
-          "del" $ne me.userId
+          selectNotDeleted
         )
       )
       .sort($sort desc "lastMsg.date")
