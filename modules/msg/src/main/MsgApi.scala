@@ -239,12 +239,12 @@ final class MsgApi(
           ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
         }).parallel
 
-  def deleteAllBy(user: User): Funit =
-    colls.thread.list[MsgThread]($doc("users" -> user.id)) flatMap { threads =>
-      colls.thread.delete.one($doc("users" -> user.id)) >>
-        colls.msg.delete.one($doc("tid" $in threads.map(_.id))) >>
-        notifier.deleteAllBy(threads, user)
-    }
+  def deleteAllBy(user: User): Funit = for
+    threads <- colls.thread.list[MsgThread]($doc("users" -> user.id))
+    _       <- colls.thread.delete.one($doc("users" -> user.id))
+    _       <- colls.msg.delete.one($doc("tid" $in threads.map(_.id)))
+    _       <- notifier.deleteAllBy(threads, user)
+  yield ()
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false)
 
@@ -290,32 +290,27 @@ final class MsgApi(
         List(
           Match($doc("users" -> userId)),
           Project($id(true)),
-          PipelineOperator(
+          PipelineOperator:
             $lookup.pipelineFull(
               from = colls.msg.name,
               as = "msg",
               let = $doc("t" -> "$_id"),
-              pipe = List(
-                $doc(
+              pipe = List:
+                $doc:
                   "$match" ->
-                    $expr(
+                    $expr:
                       $and(
                         $doc("$eq" -> $arr("$user", userId)),
                         $doc("$eq" -> $arr("$tid", "$$t")),
-                        $doc(
-                          "$not" -> $doc(
+                        $doc:
+                          "$not" -> $doc:
                             "$regexMatch" -> $doc(
                               "input" -> "$text",
                               "regex" -> "You received this because you are (subscribed to messages|part) of the team"
                             )
-                          )
-                        )
                       )
-                    )
-                )
-              )
             )
-          ),
+          ,
           Unwind("msg"),
           Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
