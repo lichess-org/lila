@@ -361,15 +361,15 @@ object faq:
           p(
             enableAutoplayForSoundsA()
           ),
-          h3(Mozilla Firefox (", desktop(), "):"),
+          h3("Mozilla Firefox (", desktop(), "):"),
           p(
             browsersMozillaFirefox()
           ),
-          h3(Google Chrome (", desktop(), "):"),
+          h3("Google Chrome (", desktop(), "):"),
           p(
             browsersGoogleChrome
           ),
-          h3(Safari (", desktop(), "):"),
+          h3("Safari (", desktop(), "):"),
           p(
             browsersSafari()
           ),
