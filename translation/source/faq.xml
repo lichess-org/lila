@@ -148,23 +148,37 @@ Then select whether to allow or block notifications from Lichess.</string>
 The red mute icon appears when your browser prevents lichess.org from playing a sound. Usually this restriction is lifted once you click something. On some mobile browsers, touch dragging a piece does not count as a click. In that case you must tap the board to allow sound at the start of each game.
 
 We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
-  <string name="goToLichess">Go to lichess.org</string>
-  <string name="browsersMozillaFirefox">Mozilla Firefox (desktop):</string>
-  <string name="browsersMozillaFirefox1">Press Ctrl-i on linux/windows or cmd-i on macos</string>
-  <string name="browsersMozillaFirefox2">Click the Permissions tab</string>
-  <string name="browsersMozillaFirefox3">Allow Audio and Video on lichess.org</string>
-  <string name="browsersGoogleChrome">Google Chrome (desktop):</string>
-  <string name="browsersGoogleChrome1">Click the lock icon in the address bar</string>
-  <string name="browsersGoogleChrome2">Click Site Settings</string>
-  <string name="browsersGoogleChrome3">Allow Sound</string>
-  <string name="browsersSafari">Safari (desktop):</string>
-  <string name="browsersSafari1">Click Safari in the menu bar</string>
-  <string name="browsersSafari2">Click Settings for This Website</string>
-  <string name="browsersSafari3">Allow Auto-Play</string>
-  <string name="browsersMicrosoftEdge">Microsoft Edge (desktop):</string>
-  <string name="browsersMicrosoftEdge1">Click the three dots in the top right corner</string>
-  <string name="browsersMicrosoftEdge2">Click Settings</string>
-  <string name="browsersMicrosoftEdge3">Click Cookies and Site Permissions</string>
-  <string name="browsersMicrosoftEdge4">Scroll down and click Media autoplay</string>
-  <string name="browsersMicrosoftEdge5">Add lichess.org to Allow</string>
+  <string name="desktop">desktop</string>
+  <string name="browsersMozillaFirefox1">• Go to lichess.org
+
+• Press Ctrl-i on linux/windows or cmd-i on MacOS
+
+• Click the Permissions tab
+
+• Allow Audio and Video on lichess.org</string>
+  <string name="browsersGoogleChrome">• Go to lichess.org
+
+• Click the lock icon in the address bar
+
+• Click Site Settings
+
+• Allow Sound</string>
+  <string name="browsersSafari">• Go to lichess.org
+
+• Click Safari in the menu bar
+
+• Click Settings for This Website
+
+• Allow Auto-Play</string>
+  <string name="browsersMicersMicroso">• Go to lichess.org
+
+• Click the three dots in the top right corner
+
+• Click Settings
+
+• Click Cookies and Site Permissions
+
+• Scroll down and click Media autoplay
+
+• Add lichess.org to Allow</string>
 </resources>

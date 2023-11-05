@@ -127,7 +127,7 @@ object faq:
           ul(
             li(inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
             li(inferiorThanXsEqualYtimeControl(179, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(479, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(479, trans.blitz())),
             li(inferiorThanXsEqualYtimeControl(1499, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
@@ -361,34 +361,21 @@ object faq:
           p(
             enableAutoplayForSoundsA()
           ),
-          h3(browsersMozillaFirefox()),
-          ul(
-            li(goToLichess()),
-            li(browsersMozillaFirefox1()),
-            li(browsersMozillaFirefox2()),
-            li(browsersMozillaFirefox3())
+          h3(Mozilla Firefox (", desktop(), "):"),
+          p(
+            browsersMozillaFirefox()
           ),
-          h3(browsersGoogleChrome()),
-          ul(
-            li(goToLichess()),
-            li(browsersGoogleChrome1()),
-            li(browsersGoogleChrome2()),
-            li(browsersGoogleChrome3())
+          h3(Google Chrome (", desktop(), "):"),
+          p(
+            browsersGoogleChrome
           ),
-          h3(browsersSafari()),
-          ul(
-            li(goToLichess()),
-            li(browsersSafari1()),
-            li(browsersSafari2()),
-            li(browsersSafari3())
+          h3(Safari (", desktop(), "):"),
+          p(
+            browsersSafari()
           ),
-          h3(browsersMicrosoftEdge()),
-          ul(
-            li(browsersMicrosoftEdge1()),
-            li(browsersMicrosoftEdge2()),
-            li(browsersMicrosoftEdge3()),
-            li(browsersMicrosoftEdge4()),
-            li(browsersMicrosoftEdge5())
+          h3("Microsoft Edge (", desktop(), "):"),
+          p(
+            browsersMicrosoftEdge()
           )
         ),
         question(
