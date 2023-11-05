@@ -31,6 +31,7 @@ final class LoginContext(
   def isOAuth                        = isAuth && oauth.isDefined
   def isMobileOauth                  = oauth.exists(_.has(_.Web.Mobile))
   def scopes                         = oauth | TokenScopes(Nil)
+  def canPalantir                    = me.exists(!_.marks.troll && !isKidUser)
 
 object LoginContext:
   val anon = LoginContext(none, false, none, none)

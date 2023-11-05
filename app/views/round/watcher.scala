@@ -29,7 +29,7 @@ object watcher:
         withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.me.exists(_.canPalantir)
+        palantir = ctx.canPalantir
       )
 
     bits.layout(
