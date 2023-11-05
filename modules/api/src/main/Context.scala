@@ -3,7 +3,7 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, KidMode }
 import lila.pref.Pref
 import lila.user.{ Me, MyId, User }
 import lila.notify.Notification.UnreadCount
@@ -58,6 +58,7 @@ object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
   given (using ctx: Context): Option[Me]     = ctx.me
   given (using ctx: Context): Option[MyId]   = ctx.myId
+  given (using ctx: Context): KidMode        = KidMode(ctx.kid)
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 

@@ -89,3 +89,6 @@ case class Preload[A](value: Option[A]) extends AnyVal:
 object Preload:
   def apply[A](value: A): Preload[A] = Preload(value.some)
   def none[A]                        = Preload[A](None)
+
+opaque type KidMode = Boolean
+object KidMode extends YesNo[KidMode]
