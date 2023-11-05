@@ -25,8 +25,7 @@ final class LoginContext(
   def isBot                          = me.exists(_.isBot)
   def noBot                          = !isBot
   def troll                          = user.exists(_.marks.troll)
-  def kid                            = user.exists(_.kid)
-  def noKid                          = !kid
+  def isKidUser                      = user.exists(_.kid)
   def isAppealUser                   = me.exists(_.enabled.no)
   def isWebAuth                      = isAuth && oauth.isEmpty
   def isOAuth                        = isAuth && oauth.isDefined
@@ -49,6 +48,8 @@ class Context(
   def noBlind               = !blind
   lazy val mobileApiVersion = lila.security.Mobile.Api requestVersion req
   def isMobileApi           = mobileApiVersion.isDefined
+  def kid                   = HTTPRequest.isKid(req) || loginContext.isKidUser
+  def noKid                 = !kid
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
 
