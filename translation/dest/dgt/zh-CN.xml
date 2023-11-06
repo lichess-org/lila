@@ -26,7 +26,10 @@
   <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">点击以生成一个</string>
   <string name="textToSpeech">文字转语音</string>
   <string name="moveFormatDescription">SAN 是 Lichess 使用的标准，例如 Nf6。UCI 一般用于引擎，例如 g8f6。</string>
+  <string name="keywords">关键词</string>
   <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">调试</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">详细日志</string>
+  <string name="toSeeConsoleMessage">若要查看控制台消息，请使用快捷键 Command + Option + C (Mac) 或 Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">使用 DGT 棋盘进行对局</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">配置</string>
 </resources>
