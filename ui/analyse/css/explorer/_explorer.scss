@@ -107,6 +107,7 @@
   }
 
   .moves {
+    will-change: transform, opacity; /* Prevents flicker in Safari */
     th {
       @extend %roboto;
       font-size: 0.8rem;

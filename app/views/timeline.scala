@@ -31,7 +31,7 @@ object timeline:
     )
 
   private def filterEntries(entries: Vector[lila.timeline.Entry])(using ctx: Context) =
-    if ctx.noKid then entries
+    if ctx.kid.no then entries
     else entries.filter(_.okForKid)
 
   private def userLink(userId: UserId)(using ctx: Context) =

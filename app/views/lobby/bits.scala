@@ -89,7 +89,7 @@ object bits:
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
       lichess
-        .filter(_.forKids || ctx.noKid)
+        .filter(_.forKids || ctx.kid.no)
         .map: post =>
           val imgSize = UblogPost.thumbnail.Size.Small
           a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
@@ -105,7 +105,7 @@ object bits:
             )
           )
       ,
-      ctx.noKid option uposts.map:
+      ctx.kid.no option uposts.map:
         views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
     )
 

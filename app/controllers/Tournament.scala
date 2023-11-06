@@ -14,11 +14,11 @@ import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo       = env.tournament.tournamentRepo
-  private def api        = env.tournament.api
-  private def jsonView   = env.tournament.jsonView
-  private def forms      = env.tournament.forms
-  private def cachedTour = env.tournament.cached.tourCache.byId
+  private def repo                   = env.tournament.tournamentRepo
+  private def api                    = env.tournament.api
+  private def jsonView               = env.tournament.jsonView
+  private def forms                  = env.tournament.forms
+  private def cachedTour(id: TourId) = env.tournament.cached.tourCache.byId(id)
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 
@@ -51,7 +51,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
-    tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
+    tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||

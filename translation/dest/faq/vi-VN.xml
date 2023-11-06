@@ -122,7 +122,7 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
   <string name="ratingLeaderboards">thứ hạng trên bảng xếp hạng</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">đã chơi ít nhất 30 ván xếp hạng trong một xếp hạng nhất định,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">đã chơi một ván xếp hạng trong tuần trước cho xếp hạng này,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">có độ lệch xếp hạng thấp hơn %1$s, trong cờ vua tiêu chuẩn, và thấp hơn %2$s trong các biến thể,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">có độ lệch xếp hạng thấp hơn %1$s trong cờ vua tiêu chuẩn và thấp hơn %2$s trong các biến thể,</string>
   <string name="beInTopTen">nằm trong top 10 trong bảng xếp hạng này.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Yêu cầu thứ hai là những người chơi không còn sử dụng tài khoản của họ sẽ được ngừng đưa vào bảng xếp hạng.</string>
   <string name="whyAreRatingHigher">Tại sao hệ số Elo lại cao hơn so với các trang web và tổ chức khác như FIDE, USCF và ICC?</string>

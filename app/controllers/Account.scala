@@ -53,7 +53,7 @@ final class Account(
         }
   }
 
-  def info = Auth { _ ?=> me ?=>
+  def info = Auth { ctx ?=> me ?=>
     negotiateJson:
       for
         povs         <- env.round.proxyRepo urgentGames me
@@ -69,7 +69,7 @@ final class Account(
             "nbChallenges" -> nbChallenges,
             "online"       -> true
           )
-          .add("kid" -> me.kid)
+          .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
           .add("announce" -> AnnounceStore.get.map(_.json))
