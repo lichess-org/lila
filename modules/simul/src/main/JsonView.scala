@@ -76,9 +76,9 @@ final class JsonView(
       "host" -> lightHost.map { host =>
         Json
           .obj(
-            "id"     -> host.id,
-            "name"   -> host.name,
-            "rating" -> simul.hostRating,
+            "id"          -> host.id,
+            "name"        -> host.name,
+            "rating"      -> simul.hostRating,
             "provisional" -> simul.hostProvisional
           )
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))

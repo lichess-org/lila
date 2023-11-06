@@ -153,7 +153,7 @@ object Simul:
       estimatedStartAt: Option[Instant],
       featurable: Option[Boolean],
       conditions: SimulCondition.All
-  ): Simul = {
+  ): Simul =
     val hostPerf = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) })
     Simul(
       _id = SimulId(ThreadLocalRandom nextString 8),
@@ -178,4 +178,3 @@ object Simul:
       featurable = featurable,
       conditions = conditions
     )
-  }

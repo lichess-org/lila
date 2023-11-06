@@ -101,7 +101,7 @@ case class UserPerfs(
       .map(apply)
       .foldLeft(none[Perf]):
         case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
-        case (ro, _) => ro
+        case (ro, _)                                         => ro
       .getOrElse(Perf.default)
 
   def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
