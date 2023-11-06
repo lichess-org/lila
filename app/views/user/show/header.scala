@@ -64,13 +64,13 @@ object header:
           a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
             splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
           ),
-          ctx.noKid option a(
+          ctx.kid.no option a(
             cls  := "nm-item",
             href := routes.ForumPost.search("user:" + u.username, 1).url
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
           ),
-          ctx.noKid && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u)) option a(
+          ctx.kid.no && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u)) option a(
             cls  := "nm-item",
             href := routes.Ublog.index(u.username)
           )(
@@ -125,7 +125,7 @@ object header:
             titleOrText(trans.exportGames.txt()),
             dataIcon := licon.Download
           ),
-          (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
+          (ctx.isAuth && ctx.kid.no && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls      := "btn-rack__btn",
             href     := s"${reportRoutes.form}?username=${u.username}",
@@ -153,7 +153,7 @@ object header:
                     trans.thisAccountViolatedTos()
                   )
                 ),
-                ctx.noKid && !hideTroll && !u.kid option frag(
+                ctx.kid.no && !hideTroll && ctx.kid.no option frag(
                   profile.nonEmptyRealName map { name =>
                     strong(cls := "name")(name)
                   },
@@ -165,7 +165,7 @@ object header:
                   profile.officialRating.map { r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating))
                   },
-                  profile.nonEmptyLocation.ifTrue(ctx.noKid && !hideTroll).map { l =>
+                  profile.nonEmptyLocation.ifTrue(ctx.kid.no && !hideTroll).map { l =>
                     span(cls := "location")(l)
                   },
                   profile.countryInfo.map { c =>
@@ -223,7 +223,7 @@ object header:
             )
           )
       ,
-      (ctx.noKid && info.ublog.so(_.latests).nonEmpty) option div(cls := "user-show__blog ublog-post-cards")(
+      (ctx.kid.no && info.ublog.so(_.latests).nonEmpty) option div(cls := "user-show__blog ublog-post-cards")(
         info.ublog.so(_.latests) map { views.html.ublog.post.card(_) }
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(

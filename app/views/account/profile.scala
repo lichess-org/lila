@@ -31,7 +31,7 @@ object profile:
             },
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),
-          ctx.noKid option
+          ctx.kid.no option
             form3.group(form("bio"), trans.biography(), help = trans.biographyDescription().some) { f =>
               form3.textarea(f)(rows := 5)
             },
