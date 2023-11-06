@@ -31,7 +31,6 @@ final class LoginContext(
   def isOAuth                        = isAuth && oauth.isDefined
   def isMobileOauth                  = oauth.exists(_.has(_.Web.Mobile))
   def scopes                         = oauth | TokenScopes(Nil)
-  def canPalantir                    = me.exists(!_.marks.troll && !isKidUser)
 
 object LoginContext:
   val anon = LoginContext(none, false, none, none)
@@ -52,6 +51,7 @@ class Context(
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
+  def canPalantir                         = kid.no && me.exists(!_.marks.troll)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
