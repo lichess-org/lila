@@ -1,6 +1,7 @@
 package lila.hub
 package actorApi
 
+import lila.common.LpvEmbed
 import chess.format.{ Uci, Fen }
 import java.time.Duration
 import play.api.libs.json.*
@@ -98,7 +99,7 @@ package captcha:
   case class ValidCaptcha(id: GameId, solution: String)
 
 package lpv:
-  case class AllPgnsFromText(text: String, promise: Promise[Map[String, chess.format.pgn.PgnStr]])
+  case class AllPgnsFromText(text: String, promise: Promise[Map[String, LpvEmbed]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
 package simul:

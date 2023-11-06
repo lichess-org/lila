@@ -1,6 +1,7 @@
 package lila.common
 
 import chess.format.pgn.PgnStr
+import lila.common.LpvEmbed
 import lila.common.config.AssetDomain
 
 class MarkdownTest extends munit.FunSuite:
@@ -33,9 +34,10 @@ class MarkdownTest extends munit.FunSuite:
   val gameUrl    = s"http://l.org/$gameId"
   val chapterPgn = PgnStr("Nf3 Nf6 d4")
   val chapterUrl = s"http://l.org/study/$studyId/$chapterId"
-  val pgns       = Map(gameId.value -> gamePgn, chapterId.value -> chapterPgn)
-  val expander   = MarkdownRender.PgnSourceExpand(domain, pgns.get)
-  val mdRender   = MarkdownRender(pgnExpand = expander.some)("test") _
+  val pgns =
+    Map(gameId.value -> LpvEmbed.PublicPgn(gamePgn), chapterId.value -> LpvEmbed.PublicPgn(chapterPgn))
+  val expander = MarkdownRender.PgnSourceExpand(domain, pgns.get)
+  val mdRender = MarkdownRender(pgnExpand = expander.some)("test") _
 
   test("markdown game embeds full link") {
     val md = Markdown(s"foo [game]($gameUrl) bar")
