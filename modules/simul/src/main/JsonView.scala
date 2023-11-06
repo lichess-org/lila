@@ -78,7 +78,8 @@ final class JsonView(
           .obj(
             "id"     -> host.id,
             "name"   -> host.name,
-            "rating" -> simul.hostRating
+            "rating" -> simul.hostRating,
+            "provisional" -> simul.hostProvisional
           )
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)

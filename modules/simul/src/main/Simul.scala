@@ -22,6 +22,7 @@ case class Simul(
     estimatedStartAt: Option[Instant] = None,
     hostId: UserId,
     hostRating: IntRating,
+    hostProvisional: Option[RatingProvisional],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[Instant],
     finishedAt: Option[Instant],
@@ -158,11 +159,8 @@ object Simul:
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,
-    hostRating = host.perfs.bestRatingIn:
-      variants.map {
-        PerfType(_, Speed(clock.config.some))
-      } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-    ,
+    hostRating = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) }).intRating,
+    hostProvisional = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) }).provisional.some,
     hostGameId = none,
     createdAt = nowInstant,
     estimatedStartAt = estimatedStartAt,
