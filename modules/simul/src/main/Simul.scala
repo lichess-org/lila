@@ -153,26 +153,29 @@ object Simul:
       estimatedStartAt: Option[Instant],
       featurable: Option[Boolean],
       conditions: SimulCondition.All
-  ): Simul = Simul(
-    _id = SimulId(ThreadLocalRandom nextString 8),
-    name = name,
-    status = SimulStatus.Created,
-    clock = clock,
-    hostId = host.id,
-    hostRating = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) }).intRating,
-    hostProvisional = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) }).provisional.some,
-    hostGameId = none,
-    createdAt = nowInstant,
-    estimatedStartAt = estimatedStartAt,
-    variants = if position.isDefined then List(chess.variant.Standard) else variants,
-    position = position,
-    applicants = Nil,
-    pairings = Nil,
-    startedAt = none,
-    finishedAt = none,
-    hostSeenAt = nowInstant.some,
-    color = color.some,
-    text = text,
-    featurable = featurable,
-    conditions = conditions
-  )
+  ): Simul = {
+    val hostPerf = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) })
+    Simul(
+      _id = SimulId(ThreadLocalRandom nextString 8),
+      name = name,
+      status = SimulStatus.Created,
+      clock = clock,
+      hostId = host.id,
+      hostRating = hostPerf.intRating,
+      hostProvisional = hostPerf.provisional.some,
+      hostGameId = none,
+      createdAt = nowInstant,
+      estimatedStartAt = estimatedStartAt,
+      variants = if position.isDefined then List(chess.variant.Standard) else variants,
+      position = position,
+      applicants = Nil,
+      pairings = Nil,
+      startedAt = none,
+      finishedAt = none,
+      hostSeenAt = nowInstant.some,
+      color = color.some,
+      text = text,
+      featurable = featurable,
+      conditions = conditions
+    )
+  }
