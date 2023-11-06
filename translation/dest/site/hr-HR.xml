@@ -547,15 +547,15 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privatni opis</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst koji će vidjeti samo članovi tima. Ako je postavljen, zamjenjuje javni opis za članove tima.</string>
+  <string name="descPrivate">Privatni opis</string>
+  <string name="descPrivateHelp">Tekst koji će vidjeti samo članovi tima. Ako je postavljen, zamjenjuje javni opis za članove tima.</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
   <string name="createANewTopic">Kreiraj novu temu</string>
   <string name="topics">Teme</string>
   <string name="posts">Objave</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Zadnja objava</string>
+  <string name="lastPost">Zadnja objava</string>
   <string name="views">Pregleda</string>
   <string name="replies">Odgovora</string>
   <string name="replyToThisTopic">Odgovori na ovu temu</string>
@@ -916,7 +916,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="mentionedYouInX">te spomenuo u \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te je spomenuo u \"%2$s\".</string>
   <string name="invitedYouToX">te je pozvao u \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s te je pozvao u \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s te je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sad si član tima.</string>
   <string name="youHaveJoinedTeamX">Pridružio si se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nekome koga si prijavio je zabranjen pristup</string>

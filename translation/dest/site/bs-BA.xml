@@ -371,7 +371,7 @@
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simul</item>
     <item quantity="few">%s simula</item>
     <item quantity="other">%s simula</item>
@@ -562,15 +562,15 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Privatni opis</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst koji će vidjeti samo članovi tima. Ako se postavi, mijenja javni opis za članove tima.</string>
+  <string name="descPrivate">Privatni opis</string>
+  <string name="descPrivateHelp">Tekst koji će vidjeti samo članovi tima. Ako se postavi, mijenja javni opis za članove tima.</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
   <string name="createANewTopic">Kreirajte novu temu</string>
   <string name="topics">Teme</string>
   <string name="posts">Objave</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Zadnja objava</string>
+  <string name="lastPost">Zadnja objava</string>
   <string name="views">Pregleda</string>
   <string name="replies">Odgovora</string>
   <string name="replyToThisTopic">Odgovori na ovu temu</string>
@@ -828,7 +828,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="invalidFen">Neispiravan FEN</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Obavještenja: %1$s</string>
+  <string name="notificationsX">Obavještenja: %1$s</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -938,7 +938,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="mentionedYouInX">spomenuo Vas je u \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s vas je spomenuo u \"%2$s\".</string>
   <string name="invitedYouToX">vas je pozvao u \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s vas je pozvao u \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>

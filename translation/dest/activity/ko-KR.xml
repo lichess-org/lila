@@ -35,7 +35,7 @@
   <plurals name="hostedNbSimuls">
     <item quantity="other">%s 번의 동시대국을 주최함</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="other">%s 번의 동시대국에 참가함</item>
   </plurals>
   <plurals name="createdNbStudies">

@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.user.Me
-import lila.common.Bus
+import lila.common.{ KidMode, Bus }
 import lila.hub.actorApi.clas.ClasMatesAndTeachers
 
 final class MsgSearch(
@@ -15,10 +15,10 @@ final class MsgSearch(
     relationApi: lila.relation.RelationApi
 )(using Executor, Scheduler):
 
-  import BsonHandlers.given
+  import BsonHandlers.{ *, given }
 
-  def apply(q: String)(using me: Me): Fu[MsgSearch.Result] =
-    if me.kid then forKid(q)
+  def apply(q: String)(using me: Me, kid: KidMode): Fu[MsgSearch.Result] =
+    if kid.yes then forKid(q)
     else
       val search = UserSearch.read(q)
       searchThreads(q) zip search.so(searchFriends) zip search.so(searchUsers) map {
@@ -43,22 +43,20 @@ final class MsgSearch(
 
   private def searchThreads(q: String)(using me: Me): Fu[List[MsgThread]] =
     colls.thread
-      .find(
+      .find:
         $doc(
           "users" -> $doc(
             $eq(me.userId),
             "$regex" -> BSONRegex(s"^${java.util.regex.Pattern.quote(q)}", "")
           ),
-          "del" $ne me.userId
+          selectNotDeleted
         )
-      )
       .sort($sort desc "lastMsg.date")
-      .hint(
+      .hint:
         colls.thread hint $doc(
           "users"        -> 1,
           "lastMsg.date" -> -1
         )
-      )
       .cursor[MsgThread](ReadPref.sec)
       .list(5)
 

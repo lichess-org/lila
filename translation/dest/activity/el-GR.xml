@@ -46,7 +46,7 @@
     <item quantity="one">Φιλοξένησε %s σιμουλτανέ</item>
     <item quantity="other">Φιλοξένησε %s σιμουλτανέ</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Συμμετείχε σε %s σιμουλτανέ</item>
     <item quantity="other">Συμμετείχε σε %s σιμουλτανέ</item>
   </plurals>

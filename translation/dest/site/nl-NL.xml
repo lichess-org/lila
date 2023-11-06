@@ -348,7 +348,7 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studies</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultaan</item>
     <item quantity="other">%s simultaans</item>
   </plurals>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Interne beschrijving</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
+  <string name="descPrivate">Interne beschrijving</string>
+  <string name="descPrivateHelp">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
   <string name="createANewTopic">Maak een nieuw onderwerp</string>
   <string name="topics">Onderwerpen</string>
   <string name="posts">Berichten</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Laatste bericht</string>
+  <string name="lastPost">Laatste bericht</string>
   <string name="views">Weergaven</string>
   <string name="replies">Reacties</string>
   <string name="replyToThisTopic">Reageer op dit onderwerp</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">Ongeldige FEN</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Meldingen: %1$s</string>
+  <string name="notificationsX">Meldingen: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde om de eerste zet te spelen</item>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">heeft je genoemd in \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s heeft je genoemd in \"%2$s\".</string>
   <string name="invitedYouToX">heeft je uitgenodigd voor \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s heeft je uitgenodigd voor \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s heeft je uitgenodigd voor \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Je maakt nu deel uit van het team.</string>
   <string name="youHaveJoinedTeamX">Je bent nu lid van \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Iemand die je hebt gerapporteerd is geband</string>

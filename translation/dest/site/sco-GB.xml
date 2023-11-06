@@ -323,15 +323,15 @@
   <string name="tournamentWinners">Kemp winners</string>
   <string name="name">Nemm</string>
   <string name="description">Description</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Preevat description</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Screed that anely team members will see. If set, replaces the public description for team members.</string>
+  <string name="descPrivate">Preevat description</string>
+  <string name="descPrivateHelp">Screed that anely team members will see. If set, replaces the public description for team members.</string>
   <string name="no">Naw</string>
   <string name="yes">Aye</string>
   <string name="help">Help:</string>
   <string name="createANewTopic">Creaut a new topic</string>
   <string name="topics">Topics</string>
   <string name="posts">Posts</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Last post</string>
+  <string name="lastPost">Last post</string>
   <string name="replies">Replies</string>
   <string name="replyToThisTopic">Reply tae this topic</string>
   <string name="reply">Reply</string>

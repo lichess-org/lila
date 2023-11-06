@@ -489,15 +489,15 @@
   <string name="tournamentWinners">Победници турнира</string>
   <string name="name">Назив</string>
   <string name="description">Опис</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Приватни опис</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
+  <string name="descPrivate">Приватни опис</string>
+  <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="help">Помоћ</string>
   <string name="createANewTopic">Направиte нову тему</string>
   <string name="topics">Теме</string>
   <string name="posts">Објавe</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Последња објава</string>
+  <string name="lastPost">Последња објава</string>
   <string name="views">Прегледa</string>
   <string name="replies">Одговори</string>
   <string name="replyToThisTopic">Одговори на ову тему</string>

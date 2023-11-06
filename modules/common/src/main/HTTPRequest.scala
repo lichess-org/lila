@@ -4,6 +4,7 @@ import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
 import scala.util.matching.Regex
+import lila.common.Form.trueish
 
 object HTTPRequest:
 
@@ -145,3 +146,6 @@ object HTTPRequest:
   // this header is set by our nginx config, based on the nginx whitelist file.
   def nginxWhitelist(req: RequestHeader) =
     req.headers.get("X-Ip-Tier").flatMap(_.toIntOption).exists(_ > 1)
+
+  def isKid(req: RequestHeader) =
+    req.headers.get("X-Lichess-KidMode").exists(trueish)

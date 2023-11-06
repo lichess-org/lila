@@ -6,7 +6,7 @@ import play.api.mvc.RequestHeader
 import play.api.libs.ws.StandaloneWSClient
 import java.util.regex.{ Pattern, Matcher }
 
-import lila.common.Bus
+import lila.common.{ Bus, LpvEmbed }
 import lila.common.config.{ BaseUrl, MaxPerPage }
 import lila.common.paginator.*
 import lila.hub.actorApi.lpv.AllPgnsFromText
@@ -106,26 +106,26 @@ final class BlogApi(
   private def expandGames(html: String) = expandGameRegex.replaceAllIn(
     html,
     m =>
-      pgnCache
-        .getIfPresent(m.group(1))
-        .fold(m.matched): pgn =>
+      pgnCache.getIfPresent(m.group(1)) match
+        case Some(LpvEmbed.PublicPgn(pgn)) =>
           val esc = Matcher.quoteReplacement:
             lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
           val color = Option(m.group(2)).getOrElse("white")
           val ply   = Option(m.group(3)).getOrElse("last")
           s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
+        case _ => m.matched
   )
 
   private def expandChapters(html: String) = expandChapterRegex.replaceAllIn(
     html,
     m =>
-      pgnCache
-        .getIfPresent(m.group(1))
-        .fold(m.matched): pgn =>
+      pgnCache.getIfPresent(m.group(1)) match
+        case Some(LpvEmbed.PublicPgn(pgn)) =>
           val esc = Matcher.quoteReplacement:
             lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
           val ply = Option(m.group(2)).getOrElse("last")
           s"""<div class="lpv--autostart" data-pgn="$esc" data-ply="$ply"></div>"""
+        case _ => m.matched
   )
 
   // match the entire <a.../> tag with scheme & domain.  href value should be identical to inner text
@@ -138,7 +138,7 @@ final class BlogApi(
     val chapterUrlRegex = quotedBaseUrl + """/study/(?:embed/)?(?:\w{8})/(\w{8})(?:#(last|\d+))?"""
     ("<a href=\"" + chapterUrlRegex + "\">" + chapterUrlRegex + "</a>").r
 
-  private val pgnCache = cacheApi.notLoadingSync[String, PgnStr](256, "prisblog.markup.pgn"):
+  private val pgnCache = cacheApi.notLoadingSync[String, LpvEmbed](256, "prisblog.markup.pgn"):
     _.expireAfterWrite(10.seconds).build()
 
   private def resolveRef(api: Api)(ref: Option[String]) =

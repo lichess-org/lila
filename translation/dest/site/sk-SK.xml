@@ -394,7 +394,7 @@
     <item quantity="many">%s štúdií</item>
     <item quantity="other">%s štúdií</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultánka</item>
     <item quantity="few">%s simultánky</item>
     <item quantity="many">%s simultánok</item>
@@ -595,15 +595,15 @@
   <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>
   <string name="description">Popis</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Opis pre členov tímu</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Text, ktorý uvidia len členovia daného tímu. Ak je zadaný, tak nahrádza verejný opis členov tímu.</string>
+  <string name="descPrivate">Opis pre členov tímu</string>
+  <string name="descPrivateHelp">Text, ktorý uvidia len členovia daného tímu. Ak je zadaný, tak nahrádza verejný opis členov tímu.</string>
   <string name="no">Nie</string>
   <string name="yes">Áno</string>
   <string name="help">Pomoc:</string>
   <string name="createANewTopic">Vytvoriť novú tému</string>
   <string name="topics">Témy</string>
   <string name="posts">Príspevkov</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Posledné príspevky</string>
+  <string name="lastPost">Posledné príspevky</string>
   <string name="views">Videní</string>
   <string name="replies">Odpovedí</string>
   <string name="replyToThisTopic">Odpovedať na túto tému</string>
@@ -866,7 +866,7 @@
   <string name="invalidFen">Neplatný formát FEN</string>
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Upozornenia: %1$s</string>
+  <string name="notificationsX">Upozornenia: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na vykonanie prvého ťahu</item>
@@ -979,7 +979,7 @@
   <string name="mentionedYouInX">Vás spomenul(a) v \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s ťa spomenul v \"%2$s\".</string>
   <string name="invitedYouToX">Vás pozval(a) k \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s Vás pozval(a) k \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s Vás pozval(a) k \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
   <string name="youHaveJoinedTeamX">Pripojili ste sa k družstvu %1$s.</string>
   <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>

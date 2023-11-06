@@ -38,7 +38,7 @@
   <string name="lateJoinA">Ya, sampai lebih dari setengah putaran dimulai; misalnya dalam 11 ronde swiss, pemain dapat bergabung sebelum ronde 6 dimulai dan dalam 12 ronde, sebelum ronde 7 dimulai.
 Peserta yang terlambat mendapatkan satu \"bye\", bahkan jika mereka melewatkan beberapa ronde.</string>
   <string name="joinOrCreateTeam">Bergabung atau membuat sebuah tim</string>
-  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Sedang berlangsung</string>
+  <string name="nowPlaying">Sedang berlangsung</string>
   <string name="startingSoon">Segera dimulai</string>
   <string name="comparison">Perbandingan</string>
   <string name="tournDuration">Durasi turnamen</string>

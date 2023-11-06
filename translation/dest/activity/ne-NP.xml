@@ -46,7 +46,7 @@
     <item quantity="one">%s समकालिक प्रदर्शन आयोजन गर्नुभयो</item>
     <item quantity="other">%s समकालिक प्रदर्शनहरु आयोजन गर्नुभयो</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">%s समकालिक प्रदर्शनमा सहभागी हुनुभयो</item>
     <item quantity="other">%s समकालिक प्रदर्शनहरुमा सहभागी हुनुभयो</item>
   </plurals>

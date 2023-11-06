@@ -207,7 +207,7 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
-  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo despois, e calquera conta con nome de usuario inadecuado será cancelada!</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo máis tarde e calquera conta con nome de usuario inadecuado será pechada!</string>
   <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
@@ -348,7 +348,7 @@
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s simultánea</item>
     <item quantity="other">%s simultáneas</item>
   </plurals>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Descrición privada</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
+  <string name="descPrivate">Descrición privada</string>
+  <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
   <string name="createANewTopic">Crear novo tema</string>
   <string name="topics">Temas</string>
   <string name="posts">Entradas</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Última entrada</string>
+  <string name="lastPost">Última entrada</string>
   <string name="views">Visitas</string>
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
@@ -759,7 +759,7 @@
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
-  <string name="xLikesY">a %1$s gústalle %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">a %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">FEN non válido</string>
   <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Notificacións: %1$s</string>
+  <string name="notificationsX">Notificacións: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para facer o primeiro movemento</item>
@@ -895,7 +895,7 @@
   <string name="mentionedYouInX">mencionoute en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mencionoute en \"%2$s\".</string>
   <string name="invitedYouToX">invitoute a \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s invitoute a \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitoute a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Agora formas parte do equipo.</string>
   <string name="youHaveJoinedTeamX">Unícheste a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Alguén a quen denunciaches foi suspendido</string>

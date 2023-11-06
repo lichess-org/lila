@@ -68,7 +68,7 @@
     <item quantity="many">Usporiadanie a odohranie %s simultánok</item>
     <item quantity="other">Usporiadanie a odohranie %s simultánok</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Zúčastnil sa v %s simultánke</item>
     <item quantity="few">Zúčastnil sa v %s simultánkach</item>
     <item quantity="many">Zúčastnil sa v %s simultánkach</item>

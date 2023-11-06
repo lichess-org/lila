@@ -128,7 +128,7 @@ object activity:
   private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(using
       ctx: Context
   ) =
-    ctx.noKid option entryTag(
+    ctx.kid.no option entryTag(
       iconTag(licon.BubbleConvo),
       div(
         posts.toSeq.map: (topic, posts) =>
@@ -151,7 +151,7 @@ object activity:
   private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(using
       ctx: Context
   ) =
-    ctx.noKid option entryTag(
+    ctx.kid.no option entryTag(
       iconTag(licon.InkQuill),
       div(
         trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
@@ -274,7 +274,7 @@ object activity:
     )
 
   private def renderTeams(teams: Teams)(using ctx: Context) =
-    ctx.noKid option entryTag(
+    ctx.kid.no option entryTag(
       iconTag(licon.Group),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
@@ -332,7 +332,7 @@ object activity:
     )
 
   private def renderStream(u: User)(using ctx: Context) =
-    ctx.noKid option entryTag(
+    ctx.kid.no option entryTag(
       iconTag(licon.Mic),
       a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
     )
