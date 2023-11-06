@@ -6,10 +6,10 @@ import { onInsert, bind } from 'common/snabbdom';
 import { onClickAway } from 'common';
 
 const searchTicks: [number, string][] = [
-  [4000, '> 4s'],
-  [8000, '> 8s'],
-  [12000, '> 12s'],
-  [20000, '> 20s'],
+  [4000, '4s'],
+  [8000, '8s'],
+  [12000, '12s'],
+  [20000, '20s'],
   [Number.POSITIVE_INFINITY, '∞'],
 ];
 
@@ -116,7 +116,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                 'div.setting',
                 {
                   attrs: {
-                    title: 'Higher values improve performance, but can be unstable on mobile',
+                    title: 'Higher values improve performance',
                   },
                 },
                 [

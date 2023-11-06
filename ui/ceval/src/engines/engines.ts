@@ -26,7 +26,12 @@ export class Engines {
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
 
     this.selected = storedStringProp('ceval.engine', this.localEngines[0].id);
-    this.migrateSettings(); // TODO - delete this on or after 2024-01-01
+
+    if (this.selected() === 'lichess') {
+      // TODO - delete this settings migration block on or after 2024-01-01
+      this.selected(storedBooleanProp('ceval.enable-nnue', false)() ? '__sf16nnue7' : '__sf11hce');
+      if (storedBooleanProp('ceval.infinite', false)()) this.ctrl.searchMs(Number.POSITIVE_INFINITY);
+    }
 
     this.active = this.engineFor({ id: this.selected(), variant: this.ctrl.opts.variant.key });
   }
@@ -40,23 +45,6 @@ export class Engines {
 
     return new Map<string, WithMake>(
       [
-        {
-          info: {
-            id: '__sf14nnue',
-            name: 'Stockfish 14 NNUE',
-            short: 'SF 14',
-            version: 'b6939d',
-            class: 'NNUE',
-            requires: 'simd',
-            minMem: 2048,
-            assets: {
-              root: 'npm/stockfish-nnue.wasm',
-              js: 'stockfish.js',
-              wasm: 'stockfish.wasm',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
-        },
         {
           info: {
             id: '__sf16nnue7',
@@ -114,8 +102,8 @@ export class Engines {
         {
           info: {
             id: '__sf11mv',
-            name: 'Stockfish 11',
-            short: 'SF 11',
+            name: 'Stockfish 11 Multi-Variant',
+            short: 'SF 11 MV',
             tech: 'HCE',
             requires: 'sharedMem',
             variants: [
@@ -141,7 +129,7 @@ export class Engines {
         {
           info: {
             id: '__sf11hce',
-            name: 'Stockfish 11',
+            name: 'Stockfish 11 HCE',
             short: 'SF 11',
             tech: 'HCE',
             requires: 'sharedMem',
@@ -195,7 +183,6 @@ export class Engines {
   }
 
   supporting(variant: VariantKey): EngineInfo[] {
-    console.log(variant, this.externalEngines);
     return [
       ...this.localEngines.filter(e => e.variants?.includes(variant)),
       ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
@@ -208,8 +195,8 @@ export class Engines {
   }
 
   engineFor(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
-    const id = selector?.id ?? this.selected();
-    const variant = selector?.variant ?? 'standard';
+    const id = selector?.id || this.selected();
+    const variant = selector?.variant || 'standard';
     return (
       this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
       this.localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
@@ -225,15 +212,6 @@ export class Engines {
     return e.tech !== 'EXTERNAL'
       ? this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo)
       : new ExternalEngine(e as ExternalEngineInfo, this.ctrl.opts.redraw);
-  }
-
-  migrateSettings() {
-    // TODO - delete this on or after 2024-01-01
-    if (this.selected() === 'lichess') {
-      this.selected(this.localEngines[0].id);
-      if (storedBooleanProp('ceval.infinite', false)()) this.ctrl.searchMs(Number.POSITIVE_INFINITY);
-      if (!storedBooleanProp('ceval.enable-nnue', true)()) this.select('__sf11hce');
-    }
   }
 }
 
