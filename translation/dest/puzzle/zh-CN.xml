@@ -3,12 +3,12 @@
   <string name="puzzles">谜题</string>
   <string name="puzzleThemes">训练主题</string>
   <string name="recommended">我们推荐：</string>
-  <string name="phases">阶段</string>
-  <string name="motifs">主题</string>
+  <string name="phases">分阶段</string>
+  <string name="motifs">分主题</string>
   <string name="advanced">进阶</string>
-  <string name="lengths">长度</string>
-  <string name="mates">杀王</string>
-  <string name="goals">目标</string>
+  <string name="lengths">分长度</string>
+  <string name="mates">将死</string>
+  <string name="goals">分目标</string>
   <string name="origin">来源</string>
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
@@ -20,14 +20,14 @@
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">谜题编号：%s</string>
-  <string name="puzzleOfTheDay">每日一题</string>
+  <string name="puzzleOfTheDay">每日棋谜</string>
   <string name="dailyPuzzle">每日棋谜</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法！</string>
   <string name="keepGoing">请继续…</string>
   <string name="puzzleSuccess">解题成功!</string>
-  <string name="puzzleComplete">解题完成</string>
+  <string name="puzzleComplete">解题完成!</string>
   <string name="byOpenings">按开局分类</string>
   <string name="puzzlesByOpenings">按开局分类的谜题</string>
   <string name="openingsYouPlayedTheMost">你在排位赛中使用最多的开局</string>
@@ -65,7 +65,7 @@
   <string name="solved">已解答</string>
   <string name="failed">失败</string>
   <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时。一步错解，游戏就会结束！不过，每场游戏都可跳过一步棋。</string>
-  <string name="yourStreakX">你的连胜纪录: %s</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">你的连胜纪录: %s</string>
   <string name="streakSkipExplanation">跳过这一步来保持你的连胜纪录！每场游戏只能使用一次。</string>
   <string name="continueTheStreak">继续连胜纪录</string>
   <string name="newStreak">新连胜纪录</string>
