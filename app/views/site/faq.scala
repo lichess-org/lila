@@ -127,7 +127,7 @@ object faq:
           ul(
             li(inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
             li(inferiorThanXsEqualYtimeControl(179, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(479, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(479, trans.blitz())),
             li(inferiorThanXsEqualYtimeControl(1499, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
@@ -219,7 +219,7 @@ object faq:
           p(
             showYourTitle(
               a(href := routes.Main.verifyTitle)(verificationForm()),
-              a(href := "#lm")("Lichess master (LM)")
+              a(href := "#lm")("Lichess Master (LM)")
             )
           )
         ),
@@ -356,6 +356,40 @@ object faq:
           )
         ),
         question(
+          "autoplay",
+          enableAutoplayForSoundsQ.txt(),
+          p(enableAutoplayForSoundsA()),
+          h3("Mozilla Firefox (", desktop(), "):"),
+          ul(
+            li(goToLichess()),
+            li(browsersMozillaFirefox()),
+            li(browsersMozillaFirefox1()),
+            li(browsersMozillaFirefox2())
+          ),
+          h3("Google Chrome (", desktop(), "):"),
+          ul(
+            li(goToLichess()),
+            li(browsersGoogleChrome()),
+            li(browsersGoogleChrome1()),
+            li(browsersGoogleChrome2())
+          ),
+          h3("Safari (", desktop(), "):"),
+          ul(
+            li(goToLichess()),
+            li(browsersSafari()),
+            li(browsersSafari1()),
+            li(browsersSafari2())
+          ),
+          h3("Microsoft Edge (", desktop(), "):"),
+          ul(
+            li(browsersMicrosoftEdge())
+            li(browsersMicrosoftEdge1()),
+            li(browsersMicrosoftEdge2()),
+            li(browsersMicrosoftEdge3()),
+            li(browsersMicrosoftEdge4())
+          )
+        ),
+        question(
           "make-a-bot",
           "Make a Lichess bot?",
           p(
@@ -366,54 +400,6 @@ object faq:
               "this blog post"
             ),
             "."
-          )
-        ),
-        question(
-          "autoplay",
-          "Enable autoplay for sounds?",
-          p("""
-            Most browsers can prevent sound from playing on a freshly loaded page to protect users. 
-            Imagine if every website could immediately bombard you with audio ads.
-          """),
-          p("""
-            The red mute icon appears when your browser prevents lichess.org from playing a sound.
-            Usually this restriction is lifted once you click something. On some mobile browsers,
-            touch dragging a piece does not count as a click. In that case you must tap the board to
-            allow sound at the start of each game.
-          """),
-          p("""
-            We show the red icon to alert you when this happens. Often you can explicitly allow
-            lichess.org to play sounds. Here are instructions for doing so on recent versions of
-            some popular browsers.
-          """),
-          h3("Mozilla Firefox (desktop):"),
-          ul(
-            li("Go to lichess.org"),
-            li("Press ctrl-i on linux/windows or cmd-i on macos"),
-            li("Click the Permissions tab"),
-            li("Allow Audio and Video on lichess.org")
-          ),
-          h3("Google Chrome (desktop):"),
-          ul(
-            li("Go to lichess.org"),
-            li("Click the lock icon in the address bar"),
-            li("Click Site Settings"),
-            li("Allow Sound")
-          ),
-          h3("Safari (desktop):"),
-          ul(
-            li("Go to lichess.org"),
-            li("Click Safari in the menu bar"),
-            li("Click Settings for This Website"),
-            li("Allow Auto-Play")
-          ),
-          h3("Microsoft Edge (desktop):"),
-          ul(
-            li("Click the three dots in the top right corner"),
-            li("Click Settings"),
-            li("Click Cookies and Site Permissions"),
-            li("Scroll down and click Media autoplay"),
-            li("Add lichess.org to Allow")
           )
         )
       )
