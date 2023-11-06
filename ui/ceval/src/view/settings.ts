@@ -92,7 +92,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                       },
                     },
                     [
-                      h('label', { attrs: { for: id } }, noarg('cpus')),
+                      h('label', { attrs: { for: id } }, 'Threads'),
                       h('input#' + id, {
                         attrs: {
                           type: 'range',
