@@ -83,7 +83,7 @@ final class Team(
       ctx: Context
   ): Boolean =
     import info.*
-    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
+    team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       (isGrantedOpt(_.Shusher) && requestModView)
@@ -92,7 +92,7 @@ final class Team(
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
       ctx: Context
   ): Boolean =
-    team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
+    team.enabled && !team.isForumFor(_.NONE) && ctx.kid.no && {
       team.isForumFor(_.EVERYONE) ||
       (team.isForumFor(_.LEADERS) && member.exists(_.perms.nonEmpty)) ||
       (team.isForumFor(_.MEMBERS) && member.isDefined) ||

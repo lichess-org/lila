@@ -49,8 +49,7 @@ class Context(
   def noBlind               = !blind
   lazy val mobileApiVersion = lila.security.Mobile.Api requestVersion req
   def isMobileApi           = mobileApiVersion.isDefined
-  def kid                   = HTTPRequest.isKid(req) || loginContext.isKidUser
-  def noKid                 = !kid
+  def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
 
@@ -58,7 +57,7 @@ object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
   given (using ctx: Context): Option[Me]     = ctx.me
   given (using ctx: Context): Option[MyId]   = ctx.myId
-  given (using ctx: Context): KidMode        = KidMode(ctx.kid)
+  given (using ctx: Context): KidMode        = ctx.kid
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 
