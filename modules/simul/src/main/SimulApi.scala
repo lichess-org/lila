@@ -97,7 +97,7 @@ final class SimulApi(
             .filter(simul.variants.contains)
             .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
             .so: variant =>
-              val perfType = PerfType(variant, chess.Speed.Rapid)
+              val perfType = PerfType(variant, chess.Speed(simul.clock.config.some))
               perfsRepo
                 .withPerf(me.value, perfType)
                 .flatMap: user =>
