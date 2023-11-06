@@ -382,7 +382,7 @@ object faq:
           ),
           h3("Microsoft Edge (", desktop(), "):"),
           ul(
-            li(browsersMicrosoftEdge())
+            li(browsersMicrosoftEdge()),
             li(browsersMicrosoftEdge1()),
             li(browsersMicrosoftEdge2()),
             li(browsersMicrosoftEdge3()),
