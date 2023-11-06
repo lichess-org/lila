@@ -1,4 +1,4 @@
-import { BvbOpts } from './bvbInterfaces';
+import { BvbOpts, CgHost } from '../bvbInterfaces';
 import { makeFen } from 'chessops/fen';
 import { Chess, Role } from 'chessops';
 import * as Chops from 'chessops';
@@ -30,7 +30,7 @@ type GameResult = {
   moves: number | string[];
 };
 
-export class BvbStockfishWebCtrl {
+export class BvbStockfishWebCtrl implements CgHost {
   cg: CgApi;
   path = '';
   chess = Chess.default();
@@ -56,7 +56,7 @@ export class BvbStockfishWebCtrl {
       this.results = x;
       this.key = await this.results.count();
     });
-
+    this.totals ??= { gamesLeft: 1, white: 0, black: 0, draw: 0, error: 0 };
     this.bots = {
       white: this.engines.makeBot(this.ids.white),
       black: this.engines.makeBot(this.ids.black),
@@ -115,7 +115,6 @@ export class BvbStockfishWebCtrl {
       this.bots.black.load(),
     ]);
     this.key = nextKey;
-    this.totals ??= { gamesLeft: 1, white: 0, black: 0, draw: 0, error: 0 };
     if (numGames) this.totals.gamesLeft = numGames;
     this.fiftyMovePly = 0;
     this.threefoldFens.clear();
@@ -152,7 +151,7 @@ export class BvbStockfishWebCtrl {
   }
 
   async doGameOver(result: string, reason: string) {
-    this.results.put(`game ${this.key++}`, {
+    this.results.put(`game ${String(this.key++).padStart(4, '0')}`, {
       white: this.bots.white.info.name,
       black: this.bots.black.info.name,
       ...this.params,
@@ -199,13 +198,6 @@ export class BvbStockfishWebCtrl {
       );
       return;
     }
-    /*let castle = false;
-    if (this.chess.board.get(Chops.parseSquare(uci.slice(0, 2))!)?.role === 'king') {
-      const destPiece = this.chess.board.get(Chops.parseSquare(uci.slice(2, 4))!);
-      if (destPiece && destPiece.role === 'rook' && destPiece.color === this.chess.turn) {
-        castle = true;
-      }
-    }*/
     this.chess.play(move);
     this.fen = makeFen(this.chess.toSetup());
     this.fifty(move);
@@ -213,7 +205,7 @@ export class BvbStockfishWebCtrl {
     this.updateCgBoard(uci);
     const { end, result, reason } = this.checkGameOver();
     if (end) this.doGameOver(result!, reason!);
-    else this.getBotMove(/*castle*/);
+    else this.getBotMove();
   }
 
   cgUserMove = (orig: Key, dest: Key) => {

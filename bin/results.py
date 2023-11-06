@@ -2,72 +2,98 @@
 
 import json
 import sys
+import os
 
-# type Info = {
-#   name: string;
-#   id: string;
+# type GameResult = {
+#   result: 'white'|'black'|'draw'|'error';
+#   reason: string;
+#   white: string|{name: string};
+#   black: string|{name: string};
 #   movetime: number;
 #   threads: number;
 #   hash: number;
-# };
-
-# type GameResult = {
-#   result: string;
-#   reason: string;
-#   white: Info;
-#   black: Info;
-#   moves: number;
-#   //moves: string[];
+#   nfold?: number;
+#   startingFen?: string;
+#   moves: number | uci[];
 # };
 
 def main():
+    width = 16 # crosstable width (minus 1 padding)
+    engines = ['11hce','16hce','14nn12','16nn07','16nn12','16nn40','16nn60'] # preferred sort order
+    template = {'W': 0, 'D': 0, 'L': 0}
     draws = {}
-    byEngine = {}
+    xtable = {}
     results = []
     errors = []
-    template = {'W': 0, 'D': 0, 'L': 0}
 
     for x in range(1, len(sys.argv)):
-
-        with open(sys.argv[x], 'r') as f:
-            results.extend(json.load(f))
+        try:
+            with open(sys.argv[x], 'r') as f:
+                results.extend(json.load(f))
+            print('Loaded ' + sys.argv[x])
+        except IOError as e:
+            print(str(e) + ' while loading ' + sys.argv[x])
     
-    for result in results:
-        outcome = result['result']
-        reason = result['reason']
-        if outcome == 'draw':
-            if reason.startswith('Stockfish'):
-                errors.append(reason)
-            else:
-                byEngine.setdefault(get_name_compat(result, 'white'), template.copy())['D'] += 1
-                byEngine.setdefault(get_name_compat(result, 'black'), template.copy())['D'] += 1
-                draws[reason] = draws.get(reason, 0) + 1
-        elif outcome == 'error':
-            errors.append(reason)
+    for game in results:
+        outcome = game['result']
+        reason = game['reason']
+        w = short(game['white'])
+        b = short(game['black'])
+        if outcome == 'error' or outcome == 'draw' and reason.startswith('Stockfish'):
+            errors.append(reason) # tolerate errors in some earlier batches
+        elif outcome == 'draw':
+            xtable.setdefault(w, {}).setdefault(b, template.copy())['D'] += 1
+            xtable.setdefault(b, {}).setdefault(w, template.copy())['D'] += 1
+            draws[reason] = draws.get(reason, 0) + 1
         else:
-            try:
-                winner = result[outcome]['name']
-                loser = result['black' if outcome == 'white' else 'white']['name']
-            except TypeError as e:
-                winner = result[outcome]
-                loser = result['black' if outcome == 'white' else 'white']
-            byEngine.setdefault(loser, template.copy())['L'] += 1
-            byEngine.setdefault(winner, template.copy())['W'] += 1
+            winner = w if outcome == 'white' else b
+            loser = b if outcome == 'white' else w
+            xtable.setdefault(winner, {}).setdefault(loser, template.copy())['W'] += 1
+            xtable.setdefault(loser, {}).setdefault(winner, template.copy())['L'] += 1
 
-    print('Total games:', len(results))
+    print('Total games:', len(results) - len(errors))
     print('Draws by reason:')
     for reason, count in draws.items():
         print(f'  {reason}: {count}')
-    print('  error: ', len(errors))
-    print('Records by engine (W/D/L):')
-    for engine, record in byEngine.items():
-        print(f'  {engine}: {record["W"]}/{record["D"]}/{record["L"]}')
+    print('Crosstable:\n| ' + 'row vs col'.ljust(width), end='| ')
+    for e in engines:
+        print(f"W/D/L vs {e}".ljust(width), end='| ')
+    print()
+    for _ in range(len(engines)+1):
+        print('|'.ljust(width+2,'-'), end='')
+    print('|')
+    for e in engines:
+        print('| ' + e.ljust(width), end='| ')
+        for vsE in engines:
+            try:
+                print(wdl(xtable[e][vsE]).ljust(width), end='| ')
+            except KeyError:
+                print('       -'.ljust(width), end='| ')
+        print()
 
-def get_name_compat(result, color):
+def wdl(tally):
+    return f"{str(tally['W']).ljust(4)}/ {str(tally['D']).ljust(4)}/ {str(tally['L']).ljust(4)}"
+
+def short(engine): # don't want the full engine name
     try:
-        return result[color]['name']
+        engine = engine['name'][10:]
     except TypeError as e:
-        return result[color]
-    
+        engine = engine[10:] # compensate for a breaking change in the dataset format
+    if engine == '11':
+        return '11hce'
+    elif engine == '16 HCE':
+        return '16hce'
+    elif engine == '14 NNUE':
+        return '14nn12'
+    elif engine.endswith('7MB'):
+        return '16nn07'
+    elif engine.endswith('12MB'):
+        return '16nn12'
+    elif engine.endswith('40MB'):
+        return '16nn40'
+    elif engine.endswith('60MB'):
+        return '16nn60'
+    return 'unknown'
+
 if __name__ == '__main__':
     main()

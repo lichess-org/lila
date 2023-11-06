@@ -1,7 +1,7 @@
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'chessground/config';
 import * as Prefs from 'common/prefs';
-import { BvbCtrl } from './bvbCtrl';
+import { CgHost } from './bvbInterfaces';
 
 const pref = {
   coords: Prefs.Coords.Hidden,
@@ -13,8 +13,8 @@ const pref = {
   animation: 0,
 };
 
-export function makeBvbConfig(ctrl: BvbCtrl): CgConfig {
-  const opts = ctrl.cgOpts();
+export function makeBvbConfig(ctrl: CgHost): CgConfig {
+  const opts = ctrl.cgOpts(true);
   return {
     fen: opts.fen,
     orientation: opts.orientation,

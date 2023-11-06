@@ -97,6 +97,7 @@ export default class EditorCtrl {
       board,
       pockets: this.pockets,
       turn: this.turn,
+      //@ts-ignore
       unmovedRooks: this.unmovedRooks || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
       epSquare: this.epSquare,
       remainingChecks: this.remainingChecks,
@@ -176,6 +177,7 @@ export default class EditorCtrl {
         if (this.chessground) this.chessground.set({ fen });
         this.pockets = setup.pockets;
         this.turn = setup.turn;
+        //@ts-ignore
         this.unmovedRooks = setup.unmovedRooks;
         this.epSquare = setup.epSquare;
         this.remainingChecks = setup.remainingChecks;

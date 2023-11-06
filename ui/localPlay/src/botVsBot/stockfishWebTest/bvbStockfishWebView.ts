@@ -1,6 +1,6 @@
 import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
-import { makeBvbConfig as makeCgConfig } from './bvbStockfishWebChessground';
+import { makeBvbConfig as makeCgConfig } from '../bvbChessground';
 import * as Chops from 'chessops';
 import { onInsert, bind } from 'common/snabbdom';
 import { rangeConfig } from 'common/controls';

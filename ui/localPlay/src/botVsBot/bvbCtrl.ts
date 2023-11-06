@@ -1,4 +1,4 @@
-import { BvbOpts } from './bvbInterfaces';
+import { BvbOpts, CgHost } from './bvbInterfaces';
 import { PromotionCtrl } from 'chess/promotion';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { Chess, Role } from 'chessops';
@@ -11,7 +11,7 @@ import { Engines } from 'ceval';
 
 type Player = 'human' | 'zero' | 'fish';
 
-export class BvbCtrl {
+export class BvbCtrl implements CgHost {
   cg: CgApi;
   path = '';
   chess = Chess.default();

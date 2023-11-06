@@ -219,7 +219,7 @@ export class Engines {
             short: 'SF 11',
             tech: 'HCE',
             requires: 'sharedMem',
-            obsoletedBy: 'simd',
+            //obsoletedBy: 'simd',
             assets: {
               root: 'npm/stockfish.wasm',
               js: 'stockfish.js',
