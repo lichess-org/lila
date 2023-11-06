@@ -332,7 +332,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
   <string name="noDrawBeforeSwissLimit">Trong giải đấu hệ Thụy Sĩ, ván cờ dưới 30 nước đi không thể hòa.</string>
-  <string name="thematic">Theo chủ đề</string>
+  <string name="thematic">Theo thế cờ</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s ván xếp hạng</item>
   </plurals>
@@ -722,7 +722,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
-  <string name="xLikesY">%1$s thích %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>

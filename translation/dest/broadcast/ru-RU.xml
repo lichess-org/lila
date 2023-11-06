@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Трансляции</string>
+  <string name="myBroadcasts">Мои трансляции</string>
   <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s трансляция</item>
     <item quantity="few">%s трансляции</item>
