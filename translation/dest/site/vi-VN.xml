@@ -54,7 +54,7 @@
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
   <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
-  <string name="analysis">Bảng phân tích</string>
+  <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích bằng máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
