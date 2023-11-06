@@ -58,5 +58,9 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="allowChatHelp">Permiteți jucătorilor să discute într-o cameră de chat</string>
   <string name="arenaStreaks">Serie de victorii in arenă</string>
   <string name="arenaStreaksHelp">După 2 partide câştigate, câştigurile consecutive aduc 4 puncte în loc de 2.</string>
+  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Niciun Berserk permis</string>
+  <string name="noArenaStreaks">Nicio serie de victorii în arenă</string>
+  <string name="averagePerformance">Performanță medie</string>
+  <string name="averageScore">Scor mediu</string>
   <string name="myTournaments">Turneele mele</string>
 </resources>

@@ -115,6 +115,7 @@
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە شێووی تیر دیاری بکە</string>
+  <string name="showVariationArrows">تیرەکانی جۆرەکان پیشان بدە</string>
   <string name="evaluationGauge">پێوانەی هەڵسەنگاندن</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
   <string name="cpus">CPUs</string>
@@ -866,6 +867,7 @@
   <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">بڵیتز\"خێرا\"</string>
   <string name="rapid">خێرا</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">یارییە شێتانە خێراکان: کەمتر لە ٣٠ چرکە</string>

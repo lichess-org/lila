@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Будзе створаны тэма на форуме, каб людзі маглі каментаваць ваш допіс</string>
   <string name="publishOnYourBlog">Апублікаваць у блогу</string>
   <string name="publishHelp">Калі абрана, то допіс будзе адлюстроўвацца ў вашым блогу. Калі не, то застанецца прыватным у вашых чарнавіках</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Апублікаваць пост у блогу</item>
     <item quantity="few">Апублікаваць %s посты ў блогу</item>
     <item quantity="many">Апублікаваць %s постоў у блогу</item>
@@ -39,8 +39,8 @@
     <item quantity="other">Праглядзець усе %s допісаў</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Загрузіць малюнак да вашага допісу</string>
-  <string name="imageAlt">Тэкставае апісанне выявы</string>
-  <string name="imageCredit">Выява належыць</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Тэкставае апісанне выявы</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Выява належыць</string>
   <string name="deleteBlog">Выдаліць гэты допіс у блогу канчаткова</string>
   <string name="deleteImage">Выдаліць выяву</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Бяспечна выкарыстоўваць выявы з наступных сайтаў: </string>

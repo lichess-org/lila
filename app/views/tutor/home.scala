@@ -64,21 +64,7 @@ object home:
             " games"
           ),
           div(cls := "tutor-card__top__title__sub")(
-            p(
-              report percentTimeOf perfReport.perf map { percent =>
-                frag(
-                  bits.percentFrag(percent),
-                  " of your chess playing time.",
-                  br
-                )
-              },
-              frag(
-                "Average rating: ",
-                strong(perfReport.stats.rating),
-                ". Peers rating: ",
-                strong(perfReport.stats.peers.showRatingRange)
-              )
-            )
+            perf.timePercentAndRating(report, perfReport)
           )
         )
       ),

@@ -15,6 +15,7 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.relation.RelationApi,
+    shutup: lila.hub.actors.Shutup,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig

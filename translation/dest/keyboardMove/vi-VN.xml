@@ -6,7 +6,7 @@
   <string name="moveKnightToC3">Đưa Mã đến c3</string>
   <string name="kingsideCastle">Nhập thành cánh vua</string>
   <string name="queensideCastle">Nhập thành cánh hậu</string>
-  <string name="promoteC8ToQueen">Tốt c8 phong lên hậu</string>
+  <string name="promoteC8ToQueen">Tốt c8 phong cấp thành hậu</string>
   <string name="dropARookAtB4">Đặt xe ở b4 (chỉ có ở biến thể Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Đề nghị hoà hoặc chấp nhận hoà</string>
   <string name="readOutClocks">Thông báo thời gian</string>

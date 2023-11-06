@@ -21,7 +21,7 @@
   <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
-  <string name="whiteIsVictorious">Blanko venkas</string>
+  <string name="whiteIsVictorious">Blanko venkis</string>
   <string name="blackIsVictorious">Nigro venkis</string>
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
   <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapida</string>
   <string name="classical">Klasika</string>
   <string name="ultraBulletDesc">Freneze rapidaj ludoj: malpli ol 30 sekundoj</string>

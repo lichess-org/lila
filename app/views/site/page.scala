@@ -212,7 +212,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       val external             = frag(" ", i(dataIcon := licon.ExternalArrow))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
+        views.html.site.bits.pageMenuSubnav(
           a(activeCls("about"), href := "/about")(trans.aboutX("lichess.org")),
           a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Трансляції</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Мої трансляції</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s трансляція</item>
     <item quantity="few">%s трансляції</item>
     <item quantity="many">%s трансляцій</item>
@@ -35,5 +36,5 @@
   <string name="deleteAllGamesOfThisRound">Видалити всі ігри цього раунду. Джерело має бути активним для того, щоб повторно відтворити його.</string>
   <string name="editRoundStudy">Редагувати дослідження туру</string>
   <string name="deleteTournament">Видалити турнір</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
+  <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
 </resources>

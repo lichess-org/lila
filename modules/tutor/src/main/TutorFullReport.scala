@@ -16,9 +16,8 @@ case class TutorFullReport(
     perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
   def favouritePerfs: List[TutorPerfReport] = perfs.headOption so {
-    _ :: perfs.tailSafe.takeWhile { perf =>
+    _ :: perfs.tailSafe.takeWhile: perf =>
       perf.estimateTotalTime.exists(_ > totalTime * 0.25)
-    }
   }
 
   def percentTimeOf(perf: PerfType): Option[GoodPercent] =
@@ -33,11 +32,10 @@ case class TutorFullReport(
   // perfs with more games have more highlights
   def ponderedHighlights(compFilter: AnyComparison => Boolean)(nb: Int): List[(AnyComparison, PerfType)] =
     perfs
-      .flatMap { p =>
+      .flatMap: p =>
         TutorCompare.sortAndPreventRepetitions(
           p.relevantComparisons.filter(compFilter)
         )(Math.ceil(nb.toDouble * p.stats.totalNbGames / nbGames).toInt) map (_ -> p.perf)
-      }
       .sortBy(-_._1.grade.abs)
       .take(nb)
 

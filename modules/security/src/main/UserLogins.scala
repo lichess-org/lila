@@ -45,26 +45,23 @@ final class UserLoginsApi(
     store.chronoInfoByUser(user) flatMap { infos =>
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
-      val fpClients: Map[FingerHash, UserClient] = infos.view.flatMap { i =>
-        i.fp map { fp =>
-          fp -> UserClient(i.ua)
-        }
-      }.toMap
+      val fpClients: Map[FingerHash, UserClient] = infos.view
+        .flatMap: i =>
+          i.fp.map:
+            _ -> UserClient(i.ua)
+        .toMap
       val ipClients: Map[IpAddress, Set[UserClient]] =
-        infos.foldLeft(Map.empty[IpAddress, Set[UserClient]]) { (acc, info) =>
+        infos.foldLeft(Map.empty[IpAddress, Set[UserClient]]): (acc, info) =>
           acc.updated(info.ip, acc.get(info.ip).foldLeft(Set(UserClient(info.ua)))(_ ++ _))
-        }
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
         ip2proxy.keepProxies(ips.map(_.value).toList) map { (otherUsers, proxies) =>
           val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { (acc, other) =>
-            other.ips.foldLeft(acc) { (acc, ip) =>
+            other.ips.foldLeft(acc): (acc, ip) =>
               acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
-            }
           }
           val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { (acc, other) =>
-            other.fps.foldLeft(acc) { (acc, fp) =>
+            other.fps.foldLeft(acc): (acc, fp) =>
               acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
-            }
           }
           UserLogins(
             ips = ips.map { ip =>
@@ -134,13 +131,11 @@ final class UserLoginsApi(
           Sort(Descending("score")),
           Limit(max),
           PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from"         -> userRepo.coll.name,
-                "localField"   -> "_id",
-                "foreignField" -> "_id",
-                "as"           -> "user"
-              )
+            $lookup.simple(
+              from = userRepo.coll,
+              as = "user",
+              local = "_id",
+              foreign = "_id"
             )
           ),
           UnwindField("user")

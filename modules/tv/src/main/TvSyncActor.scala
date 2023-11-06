@@ -56,7 +56,7 @@ final private[tv] class TvSyncActor(
       if g.hasClock then
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
         channelActors collect {
-          case (chan, trouper) if chan filter candidate => trouper
+          case (chan, actor) if chan filter candidate => actor
         } foreach (_ addCandidate g)
 
     case s @ TvSyncActor.Select => channelActors.foreach(_._2 ! s)

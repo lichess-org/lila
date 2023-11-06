@@ -847,6 +847,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="agreementPolicy">Ma nõustun, et järgin kõiki Lichessi eeskirju.</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut vestlust</string>
   <string name="edit">Muuda</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Välkmale</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
   <string name="ultraBulletDesc">Ultrakiired mängud: vähem kui 30 sekundit</string>

@@ -19,39 +19,38 @@ object bits:
     a(href := routes.Team.show(team.id))(team.name)
 
   def menu(currentTab: Option[String])(using ctx: PageContext) =
-    ~currentTab pipe { tab =>
-      st.nav(cls := "page-menu__menu subnav")(
-        (ctx.teamNbRequests > 0) option
-          a(cls := tab.active("requests"), href := routes.Team.requests)(
-            xJoinRequests.pluralSame(ctx.teamNbRequests)
-          ),
-        ctx.isAuth option
-          a(cls := tab.active("mine"), href := routes.Team.mine)(
-            myTeams()
-          ),
-        ctx.isAuth option
-          a(cls := tab.active("leader"), href := routes.Team.leader)(
-            leaderTeams()
-          ),
-        a(cls := tab.active("all"), href := routes.Team.all())(
-          allTeams()
+    val tab = ~currentTab
+    st.nav(cls := "page-menu__menu subnav")(
+      (ctx.teamNbRequests > 0) option
+        a(cls := tab.active("requests"), href := routes.Team.requests)(
+          xJoinRequests.pluralSame(ctx.teamNbRequests)
         ),
-        ctx.isAuth option
-          a(cls := tab.active("form"), href := routes.Team.form)(
-            newTeam()
-          )
-      )
-    }
+      ctx.isAuth option
+        a(cls := tab.active("mine"), href := routes.Team.mine)(
+          myTeams()
+        ),
+      ctx.isAuth option
+        a(cls := tab.active("leader"), href := routes.Team.leader)(
+          leaderTeams()
+        ),
+      a(cls := tab.active("all"), href := routes.Team.all())(
+        allTeams()
+      ),
+      ctx.isAuth option
+        a(cls := tab.active("form"), href := routes.Team.form)(
+          newTeam()
+        )
+    )
 
   private[team] object markdown:
-    private val renderer = new MarkdownRender(header = true, list = true, table = true)
+    private val renderer = MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()
     def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
 
-  private[team] def teamTr(t: Team)(using ctx: PageContext) =
+  private[team] def teamTr(t: Team.WithMyLeadership)(using ctx: Context) =
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
@@ -64,7 +63,7 @@ object bits:
           href := routes.Team.show(t.id)
         )(
           t.name,
-          ctx.userId.exists(t.leaders.contains) option em("leader")
+          t.amLeader option em("leader")
         ),
         ~t.intro: String
       ),

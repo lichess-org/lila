@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Udsendelser</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Mine udsendelser</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s udsendelse</item>
     <item quantity="other">%s udsendelser</item>
   </plurals>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Slet alle partier i denne runde. Kilden skal være aktiv for at genskabe dem.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slet denne turnering</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Slet hele turneringen, alle dens runder og alle dens partier.</string>
+  <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
 </resources>

@@ -47,23 +47,24 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
-      part.contentType collect {
-        case "image/png"  => "png"
-        case "image/jpeg" => "jpg"
-      } match
-        case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
-        case Some(extension) =>
-          val image = PicfitImage(
-            _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom nextString 8}.$extension"),
-            user = userId,
-            rel = rel,
-            name = part.filename,
-            size = part.fileSize.toInt,
-            createdAt = nowInstant
-          )
-          picfitServer.store(image, part) >>
-            deleteByRel(image.rel) >>
-            coll.insert.one(image) inject image
+      part.contentType
+        .collect:
+          case "image/png"  => "png"
+          case "image/jpeg" => "jpg"
+        .match
+          case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
+          case Some(extension) =>
+            val image = PicfitImage(
+              _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom nextString 8}.$extension"),
+              user = userId,
+              rel = rel,
+              name = part.filename,
+              size = part.fileSize.toInt,
+              createdAt = nowInstant
+            )
+            picfitServer.store(image, part) >>
+              deleteByRel(image.rel) >>
+              coll.insert.one(image) inject image
 
   def deleteByRel(rel: String): Funit =
     coll
@@ -90,12 +91,11 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))(using
           WSBodyWritables.bodyWritable
         )
-        .flatMap {
+        .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String] take 200}")
           case _ =>
             lila.mon.picfit.uploadSize(image.user.value).record(image.size)
             funit
-        }
         .monSuccess(_.picfit.uploadTime(image.user.value))
 
     def delete(image: PicfitImage): Funit =

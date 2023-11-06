@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emanaldiak</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">Zuzeneko %s</item>
     <item quantity="other">%s zuzeneko</item>
   </plurals>
@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Ezabatu txanda honetako partida guztiak. Jatorria aktibo egon behar da berriz sortzeko.</string>
   <string name="editRoundStudy">Editatu txandako azterlana</string>
   <string name="deleteTournament">Ezabatu txapelketa hau</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
+  <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
 </resources>

@@ -1,5 +1,9 @@
 package lila.msg
 
+import lila.user.User
+import lila.hub.LightTeam
+import lila.common.config.BaseUrl
+
 case class MsgPreset(name: String, text: String)
 
 object MsgPreset:
@@ -60,3 +64,8 @@ Thank you for your understanding."""
 ----
 $forumPost
     """
+
+  def newPermissions(by: User, team: LightTeam, perms: Iterable[String], baseUrl: BaseUrl) =
+    s"""@${by.username} has changed your leader permissions in the team "${team.name}".
+Your new permissions are: ${perms.mkString(", ")}.
+$baseUrl/team/${team.id}"""

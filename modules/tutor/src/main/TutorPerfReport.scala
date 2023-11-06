@@ -7,6 +7,7 @@ import lila.common.LilaOpeningFamily
 import lila.insight.*
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.AnyComparison
+import lila.tutor.TutorCompare.Comparison
 
 // for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(
@@ -50,6 +51,18 @@ case class TutorPerfReport(
     List((perf, awareness))
   )
 
+  lazy val globalResourcefulnessCompare = TutorCompare[PerfType, GoodPercent](
+    InsightDimension.Perf,
+    TutorMetric.Resourcefulness,
+    List((perf, resourcefulness))
+  )
+
+  lazy val globalConversionCompare = TutorCompare[PerfType, GoodPercent](
+    InsightDimension.Perf,
+    TutorMetric.Conversion,
+    List((perf, conversion))
+  )
+
   lazy val globalPressureCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
     TutorMetric.GlobalClock,
@@ -68,16 +81,16 @@ case class TutorPerfReport(
   //   List((perf, flagging))
   // )
 
-  def skillCompares = List(globalAccuracyCompare, globalAwarenessCompare)
+  def skillCompares =
+    List(globalAccuracyCompare, globalAwarenessCompare, globalResourcefulnessCompare, globalConversionCompare)
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
-  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap { color =>
+  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap: color =>
     val op = openings(color)
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare).map(_ as color)
-  }
 
   lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
 
@@ -92,7 +105,9 @@ case class TutorPerfReport(
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
       phaseCompares.flatMap(_.peerComparisons) :::
-      clockCompares.flatMap(_.peerComparisons)
+      clockCompares.flatMap(_.peerComparisons) :::
+      skillCompares.flatMap(_.peerComparisons)
+  val relevantHighlights = TutorCompare.mixedBag(relevantComparisons)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     GoodPercent(fam.performance.mine.count, stats.nbGames(color))

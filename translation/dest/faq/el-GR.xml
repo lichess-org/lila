@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
   <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ναι. Το Lichess έχει πράγματι εμπνεύσει πολλούς άλλους ιστότοπους ανοιχτού κώδικα που χρησιμοποιούν τον %1$s, το %2$s ή τη %3$s.</string>
+  <string name="keyboardShortcuts">Υπάρχουν συντομεύσεις με το πληκτρολόγιο;</string>
+  <string name="keyboardShortcutsExplanation">Μερικές σελίδες του Lichess έχουν συντομεύσεις πληκτρολογίου που μπορείτε να χρησιμοποιήσετε. Δοκιμάστε να πατήσετε το πλήκτρο «?» σε μελέτη, ανάλυση, γρίφο, ή σελίδα παιχνιδιού, για να δείτε τα διαθέσιμα πλήκτρα.</string>
   <string name="fairPlay">Κανόνες Δικαίου Παιχνιδιού</string>
   <string name="whenAmIEligibleRatinRefund">Πότε μπορώ να πάρω πίσω τις μονάδες elo που έχασα παίζοντας με κλέφτες;</string>
   <string name="ratingRefundExplanation">Ένα λεπτό μετά την αναφορά ενός παίκτη, εξετάζονται τα 40 τελευταία βαθμολογημένα παιχνίδια του τις τελευταίες 3 ημέρες. Αν είστε αντίπαλος σε αυτά τα παιχνίδια, έχετε χάσει πόντους (ήττα ή ισοπαλία) και η βαθμολογία σας δεν ήταν προσωρινή, μπορείτε να πάρετε αυτούς τους πόντους πίσω. Η επιστροφή πόντων είναι προσαρμοσμένη με βάση την κορυφαία βαθμολογία σας και την πρόοδό της μετά το παιχνίδι.
@@ -63,6 +65,7 @@
 Δείτε την %3$s σε αυτή την κίνηση για να εξασκηθείτε.</string>
   <string name="goodIntroduction">καλή εισαγωγή</string>
   <string name="lichessTraining">εκπαίδευση του Lichess</string>
+  <string name="watchIMRosenCheckmate">Παρακολουθήστε τον Διεθνή Μετρ Eric Rosen να κάνει ματ %s.</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionExplanation">Αν μια θέση επαναληφθεί τρεις φορές, οι παίκτες μπορούν να ισχυριστούν ισοπαλία από τον κανόνα της %1$s. Το Lichess εφαρμόζει τους επίσημους κανόνες FIDE, όπως περιγράφονται στο άρθρο 9.2 του %2$s.</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>

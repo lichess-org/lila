@@ -15,6 +15,7 @@
   <string name="breakdownOfOurCosts">pecahan kos kami</string>
   <string name="fairPlay">Main Adil</string>
   <string name="fairPlayPage">main adil halaman</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s saat = %2$s</string>
   <string name="fideHandbookX">Buku panduan FIDE %s</string>
   <string name="accounts">Akaun</string>
   <string name="noUpperCaseDot">Tidak.</string>

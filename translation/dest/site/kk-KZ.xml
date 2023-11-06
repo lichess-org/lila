@@ -93,7 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
-  <string name="maxDepthReached">Тереңдіктің шегіне жетті!</string>
+  <string name="maxDepthReached">Іздеу шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
@@ -564,7 +564,7 @@
   <string name="noNoteYet">Жазба жоқ</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Сәйкестік-растау құлыпсөзі қате</string>
+  <string name="invalidAuthenticationCode">Өкіл-растама құлыпсөзі қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -693,7 +693,7 @@
   <string name="keyNextInaccuracy">Келесі ағаттық</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
-  <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Дайын жарысқа қосылу не жаңасын құрастыру – таңдау сізде. Буллит, Блитц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз!</string>
+  <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Личестің ресми жарыстарына қатысам десеңіз не жаңадан жарысты құрастыру – таңдау сізде. Буллит, Блиц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз.</string>
   <string name="tournamentNotFound">Жарыс табылмады</string>
   <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
   <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
@@ -748,7 +748,7 @@
   <string name="zeroAdvertisement">Еш жарнамасыз</string>
   <string name="fullFeatured">Толыққанды жабдықталған</string>
   <string name="phoneAndTablet">Телепон мен планшет</string>
-  <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
+  <string name="bulletBlitzClassical">Буллит, Блиц, Классикалық</string>
   <string name="correspondenceChess">Хат-хабарлы шахмат</string>
   <string name="onlineAndOfflinePlay">Онлайн мен оффлайн ойнау</string>
   <string name="viewTheSolution">Жауабты қарау</string>
@@ -868,6 +868,7 @@
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>

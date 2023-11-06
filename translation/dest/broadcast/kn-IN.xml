@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">ಪ್ರಸಾರಗಳು</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s ಪ್ರಸಾರ</item>
     <item quantity="other">%s ಪ್ರಸಾರಗಳು</item>
   </plurals>
@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">ಈ ಸುತ್ತಿನ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಅಳಿಸಿ. ಅವುಗಳನ್ನು ಮರು-ರಚಿಸಲು ಮೂಲವು ಸಕ್ರಿಯವಾಗಿರಬೇಕು.</string>
   <string name="editRoundStudy">ಸುತ್ತಿನ ಅಧ್ಯಯನವನ್ನು ಸಂಪಾದಿಸಿ</string>
   <string name="deleteTournament">ಈ ಪಂದ್ಯಾವಳಿಯನ್ನು ಅಳಿಸಿ</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">ಸಂಪೂರ್ಣ ಪಂದ್ಯಾವಳಿ, ಅದರ ಎಲ್ಲಾ ಸುತ್ತುಗಳು ಮತ್ತು ಅದರ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಿ.</string>
+  <string name="definitivelyDeleteTournament">ಸಂಪೂರ್ಣ ಪಂದ್ಯಾವಳಿ, ಅದರ ಎಲ್ಲಾ ಸುತ್ತುಗಳು ಮತ್ತು ಅದರ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಿ.</string>
 </resources>

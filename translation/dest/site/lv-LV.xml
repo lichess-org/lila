@@ -906,6 +906,7 @@
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ātrais</string>
   <string name="classical">Klasiskais</string>
   <string name="ultraBulletDesc">Neprātīgi ātras spēles—mazāk kā 30 sekundes</string>

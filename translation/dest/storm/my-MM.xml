@@ -2,11 +2,11 @@
 <resources>
   <string name="moveToStart">စတင်ရန် အရုပ် တစ်ရုပ်ကို ရွှေ့ပါ</string>
   <string name="puzzlesSolved">ဖြေပြီးသည့် ဉာဏ်စမ်းများ</string>
-  <string name="newDailyHighscore">နေ့အလိုက် အမြင့်ဆုံး ရမှတ် အသစ်</string>
-  <string name="newMonthlyHighscore">လအလိုက် အမြင့်ဆုံး ရမှတ် အသစ်</string>
-  <string name="newAllTimeHighscore">အမြင့်ဆုံး ရမှတ် အသစ်</string>
-  <string name="previousHighscoreWasX">ယခင် အမြင့်ဆုံး ရမှတ်မှ %s ဖြစ်ပါသည်</string>
+  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">နေ့အလိုက် အမြင့်ဆုံး ရမှတ် အသစ်</string>
+  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">လအလိုက် အမြင့်ဆုံး ရမှတ် အသစ်</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">အမြင့်ဆုံး ရမှတ် အသစ်</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">ယခင် အမြင့်ဆုံး ရမှတ်မှ %s ဖြစ်ပါသည်</string>
   <string name="playAgain">ဆက်ကစားမည်</string>
-  <string name="highscoreX">အမြင့်ဆုံး ရမှတ် %s</string>
-  <string name="highscores">အမြင့်ဆုံးရမှတ်များ</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">အမြင့်ဆုံး ရမှတ် %s</string>
+  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">အမြင့်ဆုံးရမှတ်များ</string>
 </resources>

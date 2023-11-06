@@ -125,7 +125,7 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag(licon.NodeBranching),
       }),
-      !ctrl.relay
+      !ctrl.relay && !ctrl.data.chapter.gamebook
         ? h('span.help', {
             attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
             hook: bind('click', ctrl.startTour),

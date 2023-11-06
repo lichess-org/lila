@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Vind die beste skuif vir wit.</string>
   <string name="findTheBestMoveForBlack">Vind die beste skuif vir swart.</string>
   <string name="toGetPersonalizedPuzzles">Om persoonlike raaisels te kry:</string>
-  <string name="puzzleId">Raaisels %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Raaisels %s</string>
   <string name="puzzleOfTheDay">Raaisels van die dag</string>
   <string name="dailyPuzzle">Daaglikse Raaisel</string>
   <string name="clickToSolve">Druk om op te los</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Vir openinge</string>
   <string name="puzzlesByOpenings">Raaisels vir openinge</string>
   <string name="openingsYouPlayedTheMost">Openinge wat jy die meeste in gradeerde spelle speel</string>
-  <string name="useFindInPage">Gebruik die \"Find in page\" in die blaaier se gids om jou gunsteling opening te vind!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Gebruik die \"Find in page\" in die blaaier se gids om jou gunsteling opening te vind!</string>
   <string name="useCtrlF">Gebruik Ctrl+f om jou gensteling opening te vind!</string>
   <string name="notTheMove">Dit is nie die skuif nie!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
-  <string name="ratingX">Gradering: %s</string>
-  <string name="hidden">verborge</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Gradering: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">verborge</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">%s keer gespeel</item>
     <item quantity="other">%s keer gespeel</item>
   </plurals>

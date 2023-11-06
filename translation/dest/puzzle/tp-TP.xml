@@ -18,7 +18,7 @@
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
-  <string name="puzzleId">musi lili # %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">musi lili # %s</string>
   <string name="puzzleOfTheDay">musi lili pi tenpo suno ni</string>
   <string name="dailyPuzzle">tenpo suno musi lili</string>
   <string name="clickToSolve">o pini e musi lili</string>
@@ -29,9 +29,9 @@
   <string name="puzzleComplete">musi lili li pini pona!</string>
   <string name="notTheMove">ni li tawa pona ala!</string>
   <string name="trySomethingElse">o pali e tawa ante.</string>
-  <string name="ratingX">nanpa wawa: %s</string>
-  <string name="hidden">sona len</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">nanpa wawa: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">sona len</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">jan li musi e ona lon tenpo %s</item>
     <item quantity="other">jan li musi e ona lon tenpo %s</item>
   </plurals>

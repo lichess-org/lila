@@ -115,6 +115,7 @@
   <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Engedélyezve</string>
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
+  <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>
@@ -866,6 +867,7 @@
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasszikus</string>
   <string name="ultraBulletDesc">Rendkívül gyors játszmák: kevesebb, mint 30 másodperc</string>

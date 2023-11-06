@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Overføringar</string>
-  <plurals name="nbBroadcasts">
-    <item quantity="one">%s kringkasting</item>
-    <item quantity="other">%s kringkastingar</item>
+  <string name="myBroadcasts">Mine sendingar</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+    <item quantity="one">%s sending</item>
+    <item quantity="other">%s sendingar</item>
   </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
   <string name="newBroadcast">Ny direktesending</string>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Fjern alle parti frå denne runden. Kjelda må vera aktiv om dei skal kunne rettast opp att.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringa</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Slett heile turneringa med alle rundene og alle partia.</string>
+  <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
 </resources>

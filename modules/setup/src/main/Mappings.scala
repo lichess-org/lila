@@ -4,6 +4,7 @@ import chess.format.Fen
 import chess.{ variant as V, Mode, Clock }
 import play.api.data.format.Formats.doubleFormat
 import play.api.data.Forms.*
+import play.api.data.Mapping
 
 import lila.common.Days
 import lila.common.Form.{ *, given }
@@ -29,7 +30,7 @@ private object Mappings:
   def rawMode(withRated: Boolean) =
     number
       .verifying(HookConfig.modes contains _)
-      .verifying(m => m == Mode.Casual.id || withRated)
+      .verifying(_ == Mode.Casual.id || withRated)
   val ratingRange = text.verifying(RatingRange valid _)
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
@@ -37,7 +38,7 @@ private object Mappings:
   val fenField = optional:
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
     mapping.transform[Fen.Epd](truncateMoveNumber, identity)
-  val gameRules = lila.common.Form.strings
+  val gameRules: Mapping[Set[GameRule]] = lila.common.Form.strings
     .separator(",")
     .verifying(_.forall(GameRule.byKey.contains))
     .transform[Set[GameRule]](rs => rs.flatMap(GameRule.byKey.get).toSet, _.map(_.key).toList)

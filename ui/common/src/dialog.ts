@@ -41,8 +41,8 @@ export interface DomDialogOpts extends DialogOpts {
 }
 
 export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: MaybeVNodes; // snabDialog auto-shows by default, but you must still call redraw
-  onInsert?: (dialog: Dialog) => void; // prevents showModal, caller must do so manually
+  vnodes?: MaybeVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
+  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 
 // Action can be any "clickable" client button, usually to dismiss the dialog
@@ -139,16 +139,17 @@ class DialogWrapper implements Dialog {
   ) {
     if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
 
+    const justThen = Date.now();
+    const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
+
     view.parentElement?.style.setProperty('--vh', `${window.innerHeight}px`); // sigh
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
     dialog.addEventListener('close', this.onClose);
-    dialog
-      .querySelector('.close-button-anchor > .close-button')
-      ?.addEventListener('click', () => this.close('cancel'));
+    dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
 
-    if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', () => this.close('cancel')), 0);
+    if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
 
     if (o.action)
       for (const a of Array.isArray(o.action) ? o.action : [o.action]) {

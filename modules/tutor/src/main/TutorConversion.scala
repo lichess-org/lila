@@ -33,7 +33,7 @@ object TutorConversion:
         percent = wins * 100d / size
       yield Cluster(perf, Insight.Single(Point(percent)), size, Nil)
     }
-    insightApi.coll { coll =>
+    insightApi.coll: coll =>
       import coll.AggregationFramework.*
       val groupByPerf = GroupField(F.perf)(
         "win" -> Sum(
@@ -54,4 +54,3 @@ object TutorConversion:
             groupByPerf
           )
       )
-    }

@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Bus sukurta tema forume, joje žmonės galės komentuoti po jūsų pranešimu</string>
   <string name="publishOnYourBlog">Skelbti savo tinklaraštyje</string>
   <string name="publishHelp">Jei pažymeta - įrašas patalpintas jūsų tinklaraštyje. Jei ne - įrašas privatus ir matomas tarp juodraščių</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Išleido tinklaraščio įrašą</item>
     <item quantity="few">Išleido %s tinklaraščio įrašus</item>
     <item quantity="many">Išleido %s tinklaraščio įrašo</item>
@@ -39,8 +39,8 @@
     <item quantity="other">Peržiūrėti %s pranešimų</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Įkelkite paveikslėlį savo įrašui</string>
-  <string name="imageAlt">Paveikslėlio alternatyvus tekstas</string>
-  <string name="imageCredit">Paveikslėlio autorius</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Paveikslėlio alternatyvus tekstas</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Paveikslėlio autorius</string>
   <string name="deleteBlog">Visiškai ištrinti šį tinklaraščio įrašą</string>
   <string name="deleteImage">Išrinti šį paveikslėlį</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Yra saugu naudoti paveikslėlius iš šių svetainių: </string>

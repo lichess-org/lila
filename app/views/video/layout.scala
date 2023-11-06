@@ -21,8 +21,8 @@ object layout:
     ) {
       main(cls := "video page-menu force-ltr")(
         st.aside(cls := "page-menu__menu")(
-          div(cls := "subnav")(
-            control.tags.map { t =>
+          views.html.site.bits.subnav(
+            control.tags.map: t =>
               val checked = control.filter.tags contains t.tag
               a(
                 cls := List(
@@ -35,7 +35,6 @@ object layout:
                 span(t.tag.capitalize),
                 (!checked && t.nb > 0) option em(t.nb)
               )
-            }
           ),
           div(cls := "under-tags")(
             if control.filter.tags.nonEmpty then

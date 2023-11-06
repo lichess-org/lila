@@ -910,6 +910,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
   <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
   <string name="edit">Uredite</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blic</string>
   <string name="rapid">Ubrzani šah</string>
   <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Ludo brze partije: manje od 30 sekundi</string>

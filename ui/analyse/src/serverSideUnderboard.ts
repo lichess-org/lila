@@ -115,7 +115,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
-        if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
+        if (confirm(ctrl.trans('youNeedAnAccountToDoThat')))
+          location.href = '/login?referrer=' + window.location.pathname;
         return false;
       }
       xhrTextRaw(this.action, { method: this.method }).then(res => {

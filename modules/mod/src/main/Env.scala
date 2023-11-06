@@ -61,7 +61,7 @@ final class Env(
 
   lazy val queueStats = wire[ModQueueStats]
 
-  lazy val search = wire[UserSearch]
+  lazy val search = wire[ModUserSearch]
 
   lazy val inquiryApi = wire[InquiryApi]
 

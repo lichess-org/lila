@@ -19,6 +19,7 @@ import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
 import { isIOS } from 'common/device';
+import { scrollToInnerSelector } from 'common';
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
@@ -43,6 +44,9 @@ lichess.load.then(() => {
     const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
     if (chatMembers) watchers(chatMembers);
 
+    $('.subnav__inner').each(function (this: HTMLElement) {
+      scrollToInnerSelector(this, '.active', true);
+    });
     $('#main-wrap')
       .on('click', '.autoselect', function (this: HTMLInputElement) {
         this.select();

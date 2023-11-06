@@ -7,16 +7,14 @@ import play.api.Mode
 final class CacheApi(mode: Mode)(using Executor, Scheduler):
 
   import CacheApi.*
-
-  def scaffeine: Builder = CacheApi.scaffeine
+  export CacheApi.scaffeine
 
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
       build: Builder => AsyncLoadingCache[K, V]
   ): AsyncLoadingCache[K, V] =
-    val cache = build {
+    val cache = build:
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
-    }
     monitor(name, cache)
     cache
 
@@ -43,18 +41,16 @@ final class CacheApi(mode: Mode)(using Executor, Scheduler):
   def notLoading[K, V](initialCapacity: Int, name: String)(
       build: Builder => AsyncCache[K, V]
   ): AsyncCache[K, V] =
-    val cache = build {
+    val cache = build:
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
-    }
     monitor(name, cache)
     cache
 
   def notLoadingSync[K, V](initialCapacity: Int, name: String)(
       build: Builder => Cache[K, V]
   ): Cache[K, V] =
-    val cache = build {
+    val cache = build:
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
-    }
     monitor(name, cache)
     cache
 
@@ -83,9 +79,10 @@ object CacheApi:
     def invalidateAll(): Unit    = cache.underlying.synchronous.invalidateAll()
 
     def update(key: K, f: V => V): Unit =
-      cache.getIfPresent(key) foreach { v =>
-        cache.put(key, v dmap f)
-      }
+      cache
+        .getIfPresent(key)
+        .foreach: v =>
+          cache.put(key, v dmap f)
 
   extension [V](cache: AsyncCache[Unit, V])
     def invalidateUnit(): Unit = cache.underlying.synchronous.invalidate {}

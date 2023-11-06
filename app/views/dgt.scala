@@ -212,7 +212,7 @@ object dgt:
       csp = defaultCsp.withAnyWs.some
     )(
       main(cls := "page-menu dgt")(
-        st.nav(cls := "page-menu__menu subnav")(
+        views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
             dgtBoard()
           ),

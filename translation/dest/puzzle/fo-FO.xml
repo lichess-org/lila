@@ -16,7 +16,7 @@
   <string name="findTheBestMoveForWhite">Finn besta leikin hjá hvítum.</string>
   <string name="findTheBestMoveForBlack">Finn besta leikin hjá svørtum.</string>
   <string name="toGetPersonalizedPuzzles">Fá uppgávur lagaðar til tín:</string>
-  <string name="puzzleId">Uppgáva %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Uppgáva %s</string>
   <string name="puzzleOfTheDay">Dagsins talvuppgáva</string>
   <string name="clickToSolve">Klikk á at loysa</string>
   <string name="goodMove">Góður leikur</string>
@@ -26,9 +26,9 @@
   <string name="puzzleComplete">Uppgávan er loyst!</string>
   <string name="notTheMove">Hatta er ikki rætti leikurin!</string>
   <string name="trySomethingElse">Royn okkurt annað.</string>
-  <string name="ratingX">Styrkital: %s</string>
-  <string name="hidden">fjalt</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Styrkital: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">fjalt</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Telvað %s ferð</item>
     <item quantity="other">Telvað %s ferðir</item>
   </plurals>

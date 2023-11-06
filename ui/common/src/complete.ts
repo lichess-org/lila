@@ -118,7 +118,4 @@ export default function <Result>(opts: Opts<Result>) {
     renderSelection();
     $container.removeClass('none');
   };
-
-  /* opts.input.value = 'chess'; */
-  /* $(opts.input).trigger('input'); */
 }

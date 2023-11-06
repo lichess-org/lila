@@ -220,7 +220,7 @@ object mon:
     private val userSegment  = timer("user.segment")
     def segment(seg: String) = userSegment.withTag("segment", seg)
     def leaderboardCompute   = future("user.leaderboard.compute")
-  object trouper:
+  object actor:
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
   object mod:
     object report:
@@ -314,6 +314,7 @@ object mon:
       def attempt(byEmail: Boolean, stuffing: String, result: Boolean) =
         counter("security.login.attempt").withTags:
           tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
+      def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:

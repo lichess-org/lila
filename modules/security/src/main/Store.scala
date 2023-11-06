@@ -11,9 +11,7 @@ import lila.user.User
 import lila.socket.Socket.Sri
 import lila.oauth.AccessToken
 
-final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
-    ec: Executor
-):
+final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import Store.*
   import FingerHash.given
@@ -36,9 +34,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
     coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)) map { ids =>
-      blocking {
+      blocking:
         ids foreach blockingUncache
-      }
     }
   // blocks loading values! https://github.com/ben-manes/caffeine/issues/148
   private def blockingUncache(sessionId: String) =

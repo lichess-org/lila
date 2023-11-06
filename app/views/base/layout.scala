@@ -121,13 +121,13 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
@@ -293,7 +293,7 @@ object layout:
               "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
-              "kid"                  -> ctx.kid,
+              "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
               "no-rating"            -> !pref.showRatings,
@@ -408,14 +408,14 @@ object layout:
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
           h1(cls := "site-title")(
-            if ctx.kid then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
+            if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
             a(href := langHref("/"))(siteNameFrag)
           ),
           ctx.blind option h2("Navigation"),
           !ctx.isAppealUser option frag(
             topnav(),
-            ctx.noKid && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
+            ctx.kid.no && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
               href := routes.Plan.index
             )(trans.patron.donate())
           )

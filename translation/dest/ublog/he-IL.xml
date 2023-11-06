@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">יווצר נושא בפורום כדי שאנשים יוכלו להגיב על הפוסט שלך</string>
   <string name="publishOnYourBlog">פרסם בבלוג שלך</string>
   <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">פרסם/ה פוסט</item>
     <item quantity="two">פרסם/ה %s פוסטים</item>
     <item quantity="many">פרסם/ה %s פוסטים</item>
@@ -39,8 +39,8 @@
     <item quantity="other">צפו בכל הפוסטים על %s</item>
   </plurals>
   <string name="uploadAnImageForYourPost">העלו תמונה לפוסט שלכם</string>
-  <string name="imageAlt">תיאור התמונה</string>
-  <string name="imageCredit">קרדיטים ליוצרי התמונה</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">תיאור התמונה</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">קרדיטים ליוצרי התמונה</string>
   <string name="deleteBlog">מחק/י את הפוסט הזה לצמיתות</string>
   <string name="deleteImage">מחיקת התמונה</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">מומלץ להשתמש בתמונות מהאתרים הבאים: </string>

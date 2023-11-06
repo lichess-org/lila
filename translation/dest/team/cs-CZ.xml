@@ -49,6 +49,7 @@ Můžete také použít k pozvání všech hráčů do turnaje, nebo týmové bi
 Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</string>
   <string name="teamsIlead">Mnou vedené týmy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možná budete chtít připojit jeden z těchto nadcházejících turnajů?</string>
+  <string name="onlyInviteLeadersTrust">Pozvěte pouze vedoucí, jimž plně věříte. Vedoucí týmu mohou vyhodit členy a další vedoucí z týmu.</string>
   <string name="usersWhoCanManageThisTeam">Uživatelé, kteří mohou spravovat tento tým</string>
   <string name="leadersChat">Chat vedoucích</string>
   <string name="closeTeam">Zavřít tým</string>

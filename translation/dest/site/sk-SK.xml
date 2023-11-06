@@ -951,6 +951,7 @@
   <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasický šach</string>
   <string name="ultraBulletDesc">Šialene rýchle partie: menej než 30 sekúnd</string>
