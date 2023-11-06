@@ -85,35 +85,22 @@ final class TextLpvExpand(
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
-    gameRepo gameWithInitialFen id flatMapz { g =>
-      analysisRepo.byId(Analysis.Id(id)) flatMap { analysis =>
-        pgnDump(g.game, g.fen, analysis, pgnFlags) map { pgn =>
+    gameRepo gameWithInitialFen id flatMapz: g =>
+      analysisRepo.byId(Analysis.Id(id)) flatMap: analysis =>
+        pgnDump(g.game, g.fen, analysis, pgnFlags) map: pgn =>
           LpvEmbed.PublicPgn(pgn.render).some
-        }
-      }
-    }
 
   private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byChapterId(id) flatMap {
-      case Some(sc) if sc.study.isPrivate => fuccess(LpvEmbed.PrivateStudy.some)
-      case Some(sc) =>
-        studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) map { pgn =>
-          LpvEmbed.PublicPgn(pgn).some
-        }
-      case None => fuccess(none)
-    }
+    studyApi.byChapterId(id) flatMapz: sc =>
+      if sc.study.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
+      else studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) map LpvEmbed.PublicPgn.apply map some
 
   private def studyIdToPgn(id: StudyId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byId(id) flatMap {
-      case Some(s) if s.isPrivate => fuccess(LpvEmbed.PrivateStudy.some)
-      case Some(s) =>
-        studyPgnDump.ofFirstChapter(s, flags) dmap { maybePgn =>
-          maybePgn.map(LpvEmbed.PublicPgn.apply)
-        }
-      case None => fuccess(none)
-    }
+    studyApi.byId(id) flatMapz: s =>
+      if s.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
+      else studyPgnDump.ofFirstChapter(s, flags) map2 LpvEmbed.PublicPgn.apply
 
 final class LpvGameRegex(domain: NetDomain):
 
