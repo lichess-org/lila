@@ -42,7 +42,7 @@ object show:
               .map(env.blog.api.expand)
               .map(rawHtml)
           ),
-          ctx.noKid option
+          ctx.kid.no option
             div(cls := "footer")(
               if prismic.maybeRef.isEmpty then
                 post.date

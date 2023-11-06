@@ -94,3 +94,6 @@ object Preload:
 enum LpvEmbed:
   case PublicPgn(pgn: PgnStr)
   case PrivateStudy
+
+opaque type KidMode = Boolean
+object KidMode extends YesNo[KidMode]
