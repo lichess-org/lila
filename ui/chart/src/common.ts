@@ -17,13 +17,16 @@ const lightTheme = currentTheme() == 'light';
 export const orangeAccent = '#d85000';
 export const whiteFill = lightTheme ? 'white' : '#676665';
 export const blackFill = lightTheme ? '#999999' : 'black';
-export const fontColor = '#A0A0A0';
+export const fontColor = lightTheme ? '#2F2F2F' : '#A0A0A0';
+export const gridcolor = '#404040';
+export const hoverBorderColor = lightTheme ? gridcolor : 'white';
+export const tooltipBgColor = lightTheme ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0,0,0,0.7)';
 
-export function fontFamily(title = false) {
+export function fontFamily(size?: number, weight?: string) {
   return {
     family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
-    size: title ? 13 : 12,
-    weight: 'bold',
+    size: size ?? 12,
+    weight: weight,
   };
 }
 
@@ -87,7 +90,6 @@ export function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: 
     if (chart.getActiveElements().length) chart.setActiveElements([]);
     chart.data.datasets[0].hoverBackgroundColor = orangeAccent;
     chart.data.datasets[0].borderColor = orangeAccent;
-    chart.options.animation;
     chart.update();
   });
 }

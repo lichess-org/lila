@@ -21,6 +21,7 @@ import {
   orangeAccent,
   plyLine,
   selectPly,
+  tooltipBgColor,
 } from './common';
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
@@ -147,11 +148,12 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
         borderWidth: 1,
       }))
     : lineBuilder(moveSeries, true);
-  const plyline = plyLine(0);
   const divisionLines = division(trans, data.game.division);
 
-  const datasets: ChartDataset[] = [...moveSeriesSet, plyline, ...divisionLines];
+  const datasets: ChartDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
+  datasets.push(plyLine(0), ...divisionLines);
+
   const config: Chart['config'] = {
     type: 'line',
     data: {
@@ -178,9 +180,10 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       },
       plugins: {
         tooltip: {
+          backgroundColor: tooltipBgColor,
           caretPadding: 10,
           titleColor: fontColor,
-          titleFont: fontFamily(true),
+          titleFont: fontFamily(13),
           displayColors: false,
           callbacks: {
             title: items => {

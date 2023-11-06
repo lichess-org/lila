@@ -1,3 +1,4 @@
+import { fontFamily, gridcolor, hoverBorderColor } from './common';
 import { DistributionData } from './interface';
 import {
   Chart,
@@ -19,36 +20,40 @@ export async function initModule(data: DistributionData) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
-    const cumul: [number, number][] = [];
-    for (let i = 0; i < data.freq.length; i++)
-      cumul.push([ratingAt(i), Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100)]);
+    const cumul: number[] = [];
+    const ratings: number[] = [];
+    for (let i = 0; i < data.freq.length; i++) {
+      ratings.push(ratingAt(i));
+      cumul.push(arraySum(data.freq.slice(0, i)) / sum);
+    }
     const gradient = this.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
     gradient?.addColorStop(0, 'rgba(119, 152, 191, 1)');
-    gradient?.addColorStop(1, 'rgba(119, 152, 191, 0.2)');
-    const seriesCommonData = (color: string) => ({
-      pointHoverRadius: 5,
-      pointHoverBorderColor: 'white',
+    gradient?.addColorStop(1, 'rgba(119, 152, 191, 0.3)');
+    const seriesCommonData = (color: string): Partial<ChartDataset<'line'>> => ({
+      pointHoverRadius: 6,
+      pointHoverBorderWidth: 2,
+      pointHoverBorderColor: hoverBorderColor,
       borderColor: color,
       pointBackgroundColor: color,
       pointHitRadius: 200,
     });
-    const gridcolor = '#404040';
 
     const datasets: ChartDataset<'line'>[] = [
       {
         ...seriesCommonData('#dddf0d'),
-        data: cumul.map(x => x[1]),
+        data: cumul,
         yAxisID: 'y2',
         label: data.i18n.cumulative,
         pointRadius: 0,
       },
       {
         ...seriesCommonData('#7798bf'),
-        data: data.freq.map((nb: number) => nb),
+        data: data.freq,
         backgroundColor: gradient,
         yAxisID: 'y',
         fill: true,
         label: data.i18n.players,
+        pointRadius: 4,
       },
     ];
     const pushLine = (color: string, rating: number, label: string) =>
@@ -57,7 +62,7 @@ export async function initModule(data: DistributionData) {
         yAxisID: 'y2',
         data: [
           { x: rating, y: 0 },
-          { x: rating, y: 100 },
+          { x: rating, y: Math.max(...cumul) },
         ],
         segment: {
           borderDash: [10],
@@ -68,7 +73,7 @@ export async function initModule(data: DistributionData) {
     if (data.myRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
     if (data.otherRating && data.otherPlayer) pushLine('#eeaaee', data.otherRating, data.otherPlayer);
     const chartData: ChartData<'line'> = {
-      labels: cumul.map(x => x[0]),
+      labels: ratings,
       datasets: datasets,
     };
 
@@ -79,12 +84,16 @@ export async function initModule(data: DistributionData) {
         scales: {
           x: {
             type: 'linear',
+            min: Math.min(...ratings),
+            max: Math.max(...ratings),
             grid: {
               color: gridcolor,
             },
             ticks: {
-              maxTicksLimit: 25,
-              callback: val => `${val}`, // remove thousands separator
+              stepSize: 100,
+              format: {
+                useGrouping: false,
+              },
             },
             title: {
               display: true,
@@ -98,7 +107,6 @@ export async function initModule(data: DistributionData) {
             },
             ticks: {
               padding: 10,
-              precision: 0,
             },
             title: {
               display: true,
@@ -111,7 +119,10 @@ export async function initModule(data: DistributionData) {
               display: false,
             },
             ticks: {
-              callback: val => `${val}%`,
+              format: {
+                style: 'percent',
+                maximumFractionDigits: 1,
+              },
             },
             title: {
               display: true,
@@ -119,29 +130,16 @@ export async function initModule(data: DistributionData) {
             },
           },
         },
+        locale: document.documentElement.lang,
         maintainAspectRatio: false,
         responsive: true,
         plugins: {
           tooltip: {
-            rtl: document.dir == 'rtl',
+            titleFont: fontFamily(),
+            bodyFont: fontFamily(),
             caretPadding: 8,
             callbacks: {
-              label: item => {
-                switch (item.datasetIndex) {
-                  case 0:
-                    return `${data.i18n.cumulative}: ${item.formattedValue}%`;
-                  case 1:
-                    return `${data.i18n.players}: ${item.formattedValue}`;
-                  //Annotation tooltip formatting hacks:
-                  case 2:
-                    return data.i18n.yourRating;
-                  case 3:
-                    return data.otherPlayer!;
-                  default:
-                    return item.formattedValue;
-                }
-              },
-              title: items => items[0].label.replace(/,|\./, ''),
+              label: item => (item.datasetIndex > 1 ? item.dataset.label : undefined),
             },
           },
         },

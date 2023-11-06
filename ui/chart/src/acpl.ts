@@ -22,6 +22,7 @@ import {
   plyLine,
   selectPly,
   toBlurArray,
+  tooltipBgColor,
   whiteFill,
 } from './common';
 import division from './division';
@@ -42,12 +43,10 @@ export default async function (
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
 
-  // TODO: reloadallthethings
-
   const makeDataset = (d: AnalyseData, mainline: Tree.Node[]) => {
     const pointBackgroundColors: (typeof orangeAccent | typeof blurBackgroundColor)[] = [];
     const adviceHoverColors: string[] = [];
-    const labels: string[] = [];
+    const moveLabels: string[] = [];
     const pointStyles: PointStyle[] = [];
     const pointSizes: number[] = [];
     const winChances: number[] = [];
@@ -76,7 +75,7 @@ export default async function (
       if (advice) annotation = ` [${trans(advice)}]`;
       const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
       if (isBlur) annotation = ' [blur]';
-      labels.push(label + annotation);
+      moveLabels.push(label + annotation);
       pointStyles.push(isBlur ? 'rect' : 'circle');
       pointSizes.push(isBlur ? 5 : 0);
       pointBackgroundColors.push(isBlur ? blurBackgroundColor : orangeAccent);
@@ -100,19 +99,19 @@ export default async function (
         hoverBackgroundColor: orangeAccent,
         order: 5,
       },
-      labels,
+      moveLabels,
       adviceHoverColors,
     };
   };
 
   const dataset = makeDataset(data, mainline);
   const acpl = dataset.acpl;
-  const labels = dataset.labels;
+  const moveLabels = dataset.moveLabels;
   let adviceHoverColors = dataset.adviceHoverColors;
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
-      labels: labels.map((_, index) => index),
+      labels: moveLabels.map((_, index) => index),
       datasets: [acpl, ply, ...divisionLines],
     },
     options: {
@@ -139,10 +138,13 @@ export default async function (
       responsive: true,
       plugins: {
         tooltip: {
+          borderColor: 'rgba(255,255,255,0.4)',
+          borderWidth: 1,
+          backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
           titleColor: fontColor,
-          titleFont: fontFamily(true),
-          bodyFont: fontFamily(),
+          titleFont: fontFamily(14, 'bold'),
+          bodyFont: fontFamily(13),
           caretPadding: 10,
           displayColors: false,
           callbacks: {
@@ -168,7 +170,7 @@ export default async function (
             title: items => {
               const data = items.find(serie => serie.datasetIndex == 0);
               if (!data) return '';
-              let title = labels[data.dataIndex];
+              let title = moveLabels[data.dataIndex];
               const division = items.find(serie => serie.datasetIndex > 1);
               if (division) title = `${division.dataset.label} \n` + title;
               return title;
