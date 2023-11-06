@@ -73,6 +73,7 @@ final class SimulApi(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
+      applicants = prev.applicants.filter(setup.actualVariants contains _.player.variant),
       position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
