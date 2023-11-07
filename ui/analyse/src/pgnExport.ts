@@ -89,7 +89,7 @@ export function renderVariationPgn(nodeList: Tree.Node[]): string {
   return variationPgn;
 }
 
- export function copyPgnToClipboard(pgn: string): Promise<void> {
+export function copyPgnToClipboard(pgn: string): Promise<void> {
   // Firefox does not support `ClipboardItem`
   if (typeof ClipboardItem === 'undefined') {
     return navigator.clipboard.writeText(pgn);

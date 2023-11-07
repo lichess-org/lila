@@ -97,10 +97,12 @@ function view(opts: Opts, coords: Coords): VNode {
           ? action(licon.InternalArrow, trans('forceVariation'), () => ctrl.forceVariation(opts.path, true))
           : null,
       ])
-      .concat([action(licon.Clipboard, trans('copyVariationPgn'), async () => {
-        const pgn = renderVariationPgn(opts.root.tree.getNodeList(opts.path));
-        await copyPgnToClipboard(pgn);
-      })]),
+      .concat([
+        action(licon.Clipboard, trans('copyVariationPgn'), async () => {
+          const pgn = renderVariationPgn(opts.root.tree.getNodeList(opts.path));
+          await copyPgnToClipboard(pgn);
+        }),
+      ]),
   );
 }
 
