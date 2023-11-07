@@ -292,12 +292,12 @@ importers:
       '@types/highcharts':
         specifier: '=4.2.57'
         version: 4.2.57
+      chart.js:
+        specifier: ^4.4.0
+        version: 4.4.0
       common:
         specifier: workspace:*
         version: link:../common
-      numeral:
-        specifier: ^2.0.6
-        version: 2.0.6
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -4297,10 +4297,6 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       path-key: 4.0.0
-    dev: false
-
-  /numeral@2.0.6:
-    resolution: {integrity: sha512-qaKRmtYPZ5qdw4jWJD6bxEf1FJEqllJrwxCLIm0sQU/A7v2/czigzOb+C2uSiFsa9lBUzeH7M1oK+Q+OLxL3kA==}
     dev: false
 
   /nwsapi@2.2.2:
