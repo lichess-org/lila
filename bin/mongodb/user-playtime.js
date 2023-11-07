@@ -29,6 +29,12 @@ db.user4
           },
         },
         {
+          $match: {
+            // ignore games over 4 hours (either correspondence or bad data)
+            duration: { $lte: NumberLong(4 * 60 * 60 * 1000) },
+          },
+        },
+        {
           $group: {
             _id: null,
             totalDuration: {
@@ -38,6 +44,11 @@ db.user4
         },
       ])
       .toArray();
+
+    if (result.length === 0) {
+      print(currentRecord++, user._id, 'skipping');
+      return;
+    }
 
     let duration = NumberInt(Math.floor(result[0].totalDuration / 1000));
 
