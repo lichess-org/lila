@@ -38,7 +38,7 @@ db.user4
       ])
       .toArray();
 
-    let duration = Math.floor(result[0].totalDuration / 1000);
+    let duration = NumberInt(Math.floor(result[0].totalDuration / 1000));
 
     db.user4.updateOne(
       { _id: user._id },
