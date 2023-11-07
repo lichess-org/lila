@@ -2,6 +2,7 @@ import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { initialFen, fixCrazySan } from 'chess';
 import { MaybeVNodes } from 'common/snabbdom';
+import { plyToTurn } from './util';
 
 interface PgnNode {
   ply: Ply;
@@ -63,4 +64,39 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
     tags.push(h('san', fixCrazySan(node.san!)));
   });
   return tags;
+}
+
+export function renderVariationPgn(nodeList: Tree.Node[]): string {
+  const filteredNodeList = nodeList.filter(node => node.san);
+  if (filteredNodeList.length === 0) {
+    return '';
+  }
+
+  let variationPgn = '';
+
+  const first = filteredNodeList[0];
+  variationPgn += `${plyPrefix(first)}${first.san} `;
+
+  for (let i = 1; i < filteredNodeList.length; i++) {
+    const node = filteredNodeList[i];
+    if (node.ply % 2 === 1) {
+      variationPgn += plyToTurn(node.ply) + '. ';
+    }
+
+    variationPgn += fixCrazySan(node.san!) + ' ';
+  }
+
+  return variationPgn;
+}
+
+ export function copyPgnToClipboard(pgn: string): Promise<void> {
+  // Firefox does not support `ClipboardItem`
+  if (typeof ClipboardItem === 'undefined') {
+    return navigator.clipboard.writeText(pgn);
+  } else {
+    const clipboardItem = new ClipboardItem({
+      'text/plain': new Blob([pgn], { type: 'text/plain' }),
+    });
+    return navigator.clipboard.write([clipboardItem]);
+  }
 }
