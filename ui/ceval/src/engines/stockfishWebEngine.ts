@@ -8,7 +8,6 @@ export class StockfishWebEngine implements CevalEngine {
   failed = false;
   protocol: Protocol;
   module: StockfishWeb;
-  wasmMemory: WebAssembly.Memory;
 
   constructor(
     readonly info: BrowserEngineInfo,
@@ -20,7 +19,6 @@ export class StockfishWebEngine implements CevalEngine {
       console.error(e);
       this.failed = true;
     });
-    this.wasmMemory = sharedWasmMemory(info.minMem!);
   }
 
   async boot() {
@@ -28,7 +26,7 @@ export class StockfishWebEngine implements CevalEngine {
     const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
 
     const module: StockfishWeb = await makeModule.default({
-      wasmMemory: this.wasmMemory,
+      wasmMemory: sharedWasmMemory(this.info.minMem!),
       locateFile: (name: string) =>
         lichess.assetUrl(`${root}/${name}`, {
           version,
