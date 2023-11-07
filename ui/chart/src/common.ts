@@ -1,6 +1,5 @@
 import { Chart, ChartDataset } from 'chart.js';
 import { currentTheme } from 'common/theme';
-import { Player } from './interface';
 
 export interface MovePoint {
   y: number;
@@ -33,10 +32,6 @@ export function maybeChart(el: HTMLCanvasElement): Chart | undefined {
   return undefined;
 }
 
-export function toBlurArray(player: Player) {
-  return player.blurs?.bits?.split('') ?? [];
-}
-
 export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
   return {
     xAxisID: 'x',
@@ -62,34 +57,6 @@ export function selectPly(this: Chart, ply: number, onMainline: boolean) {
   const line = plyLine(ply, onMainline);
   this.data.datasets[index] = line;
   this.update();
-}
-
-export function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: string[]) {
-  $('div.advice-summary').on('mouseenter', 'div.symbol', function (this: HTMLElement) {
-    const symbol = this.getAttribute('data-symbol');
-    const playerColorBit = this.getAttribute('data-color') == 'white' ? 1 : 0;
-    const acplDataset = chart.data.datasets[0];
-    if (symbol == '??' || symbol == '?!' || symbol == '?') {
-      acplDataset.hoverBackgroundColor = hoverColors;
-      acplDataset.borderColor = hoverColors;
-      const points = mainline
-        .map((node, i) =>
-          node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit
-            ? { datasetIndex: 0, index: i - 1 }
-            : { datasetIndex: 0, index: -1 },
-        )
-        .filter(i => i.index >= 0);
-      chart.setActiveElements(points);
-      chart.update();
-    }
-  });
-  $('div.advice-summary').on('mouseleave', 'div.symbol', function (this: HTMLElement) {
-    if (chart.getActiveElements().length) chart.setActiveElements([]);
-    chart.data.datasets[0].hoverBackgroundColor = orangeAccent;
-    chart.data.datasets[0].borderColor = orangeAccent;
-    chart.options.animation;
-    chart.update();
-  });
 }
 
 export async function loadHighcharts(tpe: string) {
