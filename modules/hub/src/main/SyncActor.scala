@@ -52,7 +52,7 @@ abstract class SyncActor(using Executor) extends lila.common.Tellable:
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
   private val fallback: Receive = { case msg =>
-    lila.log("trouper").warn(s"unhandled msg: $msg")
+    lila.log("actor").warn(s"unhandled msg: $msg")
   }
 
 object SyncActor:
@@ -70,5 +70,5 @@ object SyncActor:
   def stub(using Executor) =
     new SyncActor:
       val process: Receive = { case msg =>
-        lila.log("trouper").warn(s"stub trouper received: $msg")
+        lila.log("actor").warn(s"stub trouper received: $msg")
       }

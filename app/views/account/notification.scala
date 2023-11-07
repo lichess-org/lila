@@ -38,9 +38,13 @@ object notification:
                 ).map(makeRow(form))
               )
             ),
-            setting(
-              correspondenceEmailNotification(),
-              radios(form("correspondenceEmail"), translatedBooleanChoices)
+            div(
+              id := "correspondence-email-notif"
+            )( // id is set to allow direct unsubcribe link in correspondence emails
+              setting(
+                correspondenceEmailNotification(),
+                radios(form("correspondenceEmail"), translatedBooleanChoices)
+              )
             ),
             setting(
               bellNotificationSound(),

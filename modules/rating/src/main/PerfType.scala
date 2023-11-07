@@ -254,6 +254,7 @@ object PerfType:
     byVariant(variant).fold(licon.CrownElite)(_.icon)
 
   def trans(pt: PerfType)(using Lang): String = pt match
+    case Blitz          => I18nKeys.blitz.txt()
     case Rapid          => I18nKeys.rapid.txt()
     case Classical      => I18nKeys.classical.txt()
     case Correspondence => I18nKeys.correspondence.txt()

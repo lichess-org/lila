@@ -119,6 +119,7 @@
   <string name="openStudy">Atverti studiją</string>
   <string name="enable">Įjungti</string>
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
+  <string name="showVariationArrows">Rodyti variacijų rodykles</string>
   <string name="evaluationGauge">Vertinimo matuoklis</string>
   <string name="multipleLines">Keletas linijų</string>
   <string name="cpus">Procesoriai</string>
@@ -951,6 +952,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Greitieji</string>
   <string name="classical">Klasikiniai</string>
   <string name="ultraBulletDesc">Be proto greitos partijos: mažiau nei 30 sekundžių</string>

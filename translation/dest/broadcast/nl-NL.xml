@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Uitzendingen</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Mijn uitzendingen</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s uitzending</item>
     <item quantity="other">%s uitzendingen</item>
   </plurals>
@@ -12,7 +13,7 @@
   <string name="upcoming">Aankomend</string>
   <string name="completed">Voltooid</string>
   <string name="roundName">Naam ronde</string>
-  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Ronde</string>
+  <string name="roundNumber">Ronde</string>
   <string name="tournamentName">Naam toernooi</string>
   <string name="tournamentDescription">Korte toernooibeschrijving</string>
   <string name="fullDescription">Volledige beschrijving evenement</string>
@@ -23,15 +24,15 @@
   <string name="startDate">Aanvangsdatum in je eigen tijdzone</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
   <string name="credits">Bronvermelding</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">Uitzendingslink</string>
+  <string name="broadcastUrl">Uitzendingslink</string>
   <string name="currentRoundUrl">Huidige ronde-link</string>
   <string name="currentGameUrl">Huidige partij-link</string>
   <string name="downloadAllRounds">Alle rondes downloaden</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
   <string name="deleteRound">Deze ronde verwijderen</string>
-  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
-  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round (https://lichess.org/broadcast). &quot;Source&quot; refers to the broadcasting source. The source is usually a URL pointing to a PGN file, which is continuously updated by the tournament organisers and polled by Lichess to get new moves.&#10;&#10;This button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source, the next time it is polled by Lichess.">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
-  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies. Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Studieronde bewerken</string>
+  <string name="definitivelyDeleteRound">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
+  <string name="deleteAllGamesOfThisRound">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
+  <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
+  <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
 </resources>

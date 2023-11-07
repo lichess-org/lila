@@ -17,8 +17,31 @@
   <string name="otherWaysToHelp">วิธีอื่นที่จะช่วยได้</string>
   <string name="areThereWebsitesBasedOnLichess">มีเว็บไซต์อื่นที่ใช้ Lichess เป็นต้นแบบหรือไม่</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">มี Lichess ได้เปิดโอกาสให้เว็บไซต์โอเพนซอร์สอื่นใช้ %1$s %2$s หรือ %3$s ของพวกเรา</string>
+  <string name="keyboardShortcuts">มีทางลัดคีย์บอร์ดใดบ้าง</string>
+  <string name="keyboardShortcutsExplanation">บางหน้าของ Lichess ปีทางลัดคียบอร์ดที่คุณสามารถใช้ได้ ลองกดคีย์ \"?\" ในหน้า กรณีศึกษา, กระดานวิเคราะห์, ปริศนา หรือ หน้าเกม เพื่อดูทางลัดคีย์บอร์ดที่เป็นไปได้</string>
   <string name="fairPlay">การเล่นที่ยุติธรรม</string>
   <string name="whenAmIEligibleRatinRefund">ฉันจะสามารถได้รับระดับคะแนนหมากรุกคืนจากผู้เล่นโกงได้เมื่อไหร่?</string>
   <string name="ratingRefundExplanation">หนึ่งนาทีหลังจากมีผู้เล่นถูกจับได้ว่าโกง จะนับเกมคิดแต้ม 40 เกมใน 3 วันล่าสุดของผู้เล่นคนนั้น ถ้าคุณเป็นคู่ต่อสู้ของเขาในเกมเหล่านั้น และคุณเสียคะแนนเนึ่องจากการแพ้หรือเสมอ และคะแนนของคุณไม่ได้เป็นคะแนนชั่วคราว คุณจะได้คะแนนคืน คะแนนที่ได้คืนจะมีขีดจำกัดอยู่ระหว่างคะแนนสูงสุดของคุณและคะแนนหลังจากเกมที่เล่นกับผู้เล่นที่ถูกจับได้ว่าโกง (ถ้าคะแนนของคุณเพิ่มขึ้นอย่างมากเมี่อเทียบกับเกมที่เล่นกับผู้เล่นที่ถูกจับได้ว่าโกง คุณอาจจะได้คะแนนน้อยลง หรือไม่ได้เลยก็ได้) คะแนนคืนจะไม่เกิน 150 คะแนน</string>
+  <string name="preventLeavingGameWithoutResigning">ผู้เล่นที่ทิ้งเกมไปโดยไม่ยอมแพ้จะโดนอะไร?</string>
+  <string name="leavingGameWithoutResigningExplanation">ถ้าฝ่ายตรงข้ามของคุณทำการยกเลิกเกมหรือทิ้งเกมไปหลายๆครั้ง ผู้เล่นคนนั้นจะถูก \"play banned\" กล่าวคือ ผู้เล่นคนนั้นจะโดนแบนจากการเล่นเกมไปชั่วคราว ซึ่ง \"play banned\" จะไม่ปรากฏเป็นสาธารณะในโปรไฟล์ และถ้าหากการกระทำยังเหมือนเดิมผู้เล่นก็จะเพิ่มการแบนเพิ่มขึ้น หรือ อาจถูกปิดบัญชีเลยก็ได้</string>
+  <string name="howCanIBecomeModerator">ทำอย่างให้ฉันเป็นผู้ควบคุม</string>
+  <string name="youCannotApply">มันเป็นไปไม่ได้ที่คุณจะเป็นผู้ควบคุม ถ้าเราเห็นใครที่มีดีพอๆ กับผู้ควบคุม เราจะติดต่อหาเขาโดยตรง</string>
+  <string name="isCorrespondenceDifferent">เกมยาวนาน แตกต่างจากเกมหมากรุกธรรมดาหรือไม่</string>
+  <string name="pleaseReadFairPlayPage">เพื่อข้อมูลเพิ่มเติม โปรดอ่าน %s ของเรา</string>
+  <string name="fairPlayPage">หน้า fair play</string>
+  <string name="youCanUseOpeningBookNoEngine">บน Lichess, กฏสำคัญที่แตกต่างของเกมยาวนานกับเกมหมากรุกธรรมดาคือ หนังสือการเปิดเกมถูกอนุญาต แต่การใช้เครื่องจักรวิเคราะห์ยังเป็นสิ่งต้องห้ามและจะมีผลต่อเครื่องจักรวิเคราะห์ถ้าหากใช้ ถึงแม้ว่า ICCF อนุญาตให้ใช้เครื่องจักรวิเคราะห์ได้ Lichess จะไม่อนุญาต</string>
+  <string name="gameplay">การเล่นเกม</string>
+  <string name="howBulletBlitzEtcDecided">Bullet Blitz และการควบคุมเวลาอื่นๆ มีการตัดสินใจอย่างไร</string>
+  <string name="basedOnGameDuration">การควบคุมเวลาของ Lichess ขึ้นอยู่กับการคาดคะเนระยะเวลาของเกม = %1$s
+เช่น การคาดคะเนระยะเวลาของเกม 5 นาที + 3 วินาทีเสริม คือ 5 × 60 + 40 × 3 = 420 วินาที</string>
+  <string name="durationFormula">(เวลาเริ่มต้นของนาฬิกา) + 40 × (เวลาเสริมของนาฬิกา)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤%1$sวิ = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$sวิ= %2$s</string>
+  <string name="whatVariantsCanIplay">เราเล่นหมากรุกได้กี่รูปแบบใน Lichess</string>
+  <string name="lichessSupportChessAnd">หมากรุกทั่วไป และ %1$s</string>
+  <string name="eightVariants">หมากรุก 8 รูปแบบ</string>
+  <string name="whatIsACPL">\"การสูญเสียหนึ่งร้อยเปอร์เซ็นต์โดยเฉลี่ย\"คืออะไร</string>
+  <string name="insufficientMaterial">แพ้เพราะหมดเวลา, เสมอเพราะมีหมากไม่พอ</string>
+  <string name="threefoldRepetition">เดินซ้ำสามครั้ง</string>
   <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
 </resources>

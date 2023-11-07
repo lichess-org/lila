@@ -25,7 +25,7 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="doubleBishopMate">Läuferpaarmatt</string>
-  <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen einen - von eigenen Figuren behinderten - König matt.</string>
+  <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
   <string name="dovetailMate">Sternmatt</string>
   <string name="dovetailMateDescription">Eine Dame setzt den nebenstehenden König matt, dessen einzigen zwei Fluchtfelder durch eigene Figuren verstellt sind.</string>
   <string name="equality">Ausgleich</string>
@@ -93,7 +93,7 @@
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
   <string name="queenRookEndgame">Damen- und Turmendspiel</string>
   <string name="queenRookEndgameDescription">Ein Endspiel nur mit Damen, Türmen und Bauern.</string>
-  <string name="queensideAttack">Angriff auf den Damenflügel</string>
+  <string name="queensideAttack">Angriff am Damenflügel</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert hat.</string>
   <string name="quietMove">Stiller Zug</string>
   <string name="quietMoveDescription">Ein Zug, der weder Schach gibt noch schlägt noch unmittelbar zu schlagen droht, aber eine versteckte unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>

@@ -157,7 +157,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">%1$s-vahvuusluku %2$s pelistä</item>
-    <item quantity="other">%1$s arvosana %2$s peliä</item>
+    <item quantity="other">%1$s-vahvuusluku %2$s pelistä</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s oma kirjanmerkki</item>
@@ -692,7 +692,7 @@
   <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
   <string name="newTournament">Uusi turnaus</string>
   <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
-  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Blitz, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
+  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Pikapeli, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
   <string name="tournamentNotFound">Turnausta ei löydy</string>
   <string name="tournamentDoesNotExist">Tätä turnausta ei ole olemassa.</string>
   <string name="tournamentMayHaveBeenCanceled">Se on saatettua perua, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.</string>
@@ -747,7 +747,7 @@
   <string name="zeroAdvertisement">Ei mainoksia</string>
   <string name="fullFeatured">Kaikki ominaisuudet</string>
   <string name="phoneAndTablet">Puhelin ja tabletti</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassinen</string>
+  <string name="bulletBlitzClassical">Bullet, pikapeli, klassinen</string>
   <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Pikapeli</string>
   <string name="rapid">Nopea</string>
   <string name="classical">Klassinen</string>
   <string name="ultraBulletDesc">Järjettömän nopeat pelit: alle 30 sekuntia</string>

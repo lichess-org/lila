@@ -72,12 +72,12 @@ final class Cached(
   private[user] val botIds = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture(_ => userRepo.botIds)
 
-  private def userIdsLikeFetch(text: UserStr) =
+  private def userIdsLikeFetch(text: UserSearch) =
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
-  private val userIdsLikeCache = cacheApi[UserStr, List[UserId]](1024, "user.like"):
+  private val userIdsLikeCache = cacheApi[UserSearch, List[UserId]](1024, "user.like"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
 
-  def userIdsLike(text: UserStr): Fu[List[UserId]] =
+  def userIdsLike(text: UserSearch): Fu[List[UserId]] =
     if text.value.lengthIs < 5 then userIdsLikeCache get text
     else userIdsLikeFetch(text)

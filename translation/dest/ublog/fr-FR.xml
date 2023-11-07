@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Un sujet sera créé dans le forum pour permettre aux gens de commenter votre message.</string>
   <string name="publishOnYourBlog">Publier sur votre blogue</string>
   <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">A publié un article de blog</item>
     <item quantity="other">A publié %s articles de blog</item>
   </plurals>
@@ -33,8 +33,8 @@
     <item quantity="other">Voir les %s publications</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Téléverser une image pour votre publication</string>
-  <string name="imageAlt">Description de l\'image</string>
-  <string name="imageCredit">Source de l\'image</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Description de l\'image</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Source de l\'image</string>
   <string name="deleteBlog">Supprimer définitivement ce message</string>
   <string name="deleteImage">Supprimer l\'image</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Il est sécuritaire d\'utiliser des images des sites Web suivants : </string>

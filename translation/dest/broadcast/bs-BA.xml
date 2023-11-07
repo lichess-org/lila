@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emitovanja</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Moja emitiranja</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s emitovanje</item>
     <item quantity="few">%s emitovanja</item>
     <item quantity="other">%s emitovanja</item>
@@ -34,5 +35,5 @@
   <string name="deleteAllGamesOfThisRound">Izbrišite sve partije iz ovog kola. Izvor mora biti aktivan da biste ih mogli ponovo kreirati.</string>
   <string name="editRoundStudy">Podesite studiju kola</string>
   <string name="deleteTournament">Izbrišite ovaj turnir</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Definitivno izbrišite cijeli turnir, sva kola i sve partije.</string>
+  <string name="definitivelyDeleteTournament">Definitivno izbrišite cijeli turnir, sva kola i sve partije.</string>
 </resources>

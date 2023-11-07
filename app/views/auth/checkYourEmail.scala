@@ -47,9 +47,8 @@ email.addEventListener("input", function() {
 email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       });"""),
                 submitButton(cls := "button")("Change it"),
-                form.map { f =>
+                form.map: f =>
                   errMsg(f("email"))
-                }
               )
             )
           },

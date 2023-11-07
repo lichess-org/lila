@@ -39,7 +39,7 @@ object bits:
       moreJs = moreJs
     ) {
       main(cls := "page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
+        views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
             "Created"
           ),

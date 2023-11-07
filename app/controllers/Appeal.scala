@@ -45,7 +45,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   }
 
   def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
-    val filter = filterStr.map(AppealModel.Filter.byName)
+    val filter = env.appeal.api.modFilter.fromQuery(filterStr)
     for
       appeals                          <- env.appeal.api.myQueue(filter)
       inquiries                        <- env.report.api.inquiries.allBySuspect

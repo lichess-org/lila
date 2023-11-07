@@ -800,6 +800,7 @@
   <string name="agreementPolicy">Bütün Lichess qaydalarına riayət edəcəyimlə razıyam.</string>
   <string name="searchOrStartNewDiscussion">Axtarış edin və ya yeni söhbətə başlayın</string>
   <string name="edit">Redaktə et</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">İldırım</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
   <string name="ultraBulletDesc">İnanılmaz sürətli oyunlar: 30 saniyədən az</string>

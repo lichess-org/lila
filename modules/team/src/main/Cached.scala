@@ -8,8 +8,8 @@ import lila.hub.LightTeam.TeamName
 
 final class Cached(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -57,24 +57,21 @@ final class Cached(
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
-  def teamIdsList(userId: UserId): Fu[List[TeamId]] = teamIds(userId).dmap(_.toList)
-  def teamIdsSet(userId: UserId): Fu[Set[TeamId]]   = teamIds(userId).dmap(_.toSet)
+  def teamIdsList[U: UserIdOf](user: U): Fu[List[TeamId]]    = teamIds(user.id).dmap(_.toList)
+  def teamIdsSet[U: UserIdOf](user: UserId): Fu[Set[TeamId]] = teamIds(user.id).dmap(_.toSet)
 
-  val nbRequests = cacheApi[UserId, Int](32768, "team.nbRequests"):
+  val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
     _.expireAfterAccess(40 minutes)
-      .maximumSize(131072)
+      .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>
-        teamIds(userId).flatMap:
-          _.value.nonEmpty so teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
-
-  val leaders = cacheApi[TeamId, Set[UserId]](128, "team.leaders"):
-    _.expireAfterWrite(1 minute).buildAsyncFuture(teamRepo.leadersOf)
-
-  def isLeader(teamId: TeamId, userId: UserId): Fu[Boolean] =
-    leaders.get(teamId).dmap(_ contains userId)
+        for
+          myTeams     <- teamIds(userId)
+          leaderTeams <- myTeams.nonEmpty so memberRepo.teamsWhereIsGrantedRequest(userId)
+          nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
+        yield nbReqs
 
   val forumAccess = cacheApi[TeamId, Team.Access](1024, "team.forum.access"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):
-    _.expireAfterWrite(1 hour).buildAsyncFuture(id => memberRepo.countUnsub(id))
+    _.expireAfterWrite(1 hour).buildAsyncFuture(memberRepo.countUnsub)

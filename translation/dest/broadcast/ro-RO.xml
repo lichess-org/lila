@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmisiuni</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Transmisiile mele</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s transmisiune</item>
     <item quantity="few">%s transmisiuni</item>
     <item quantity="other">%s de transmisiuni</item>
@@ -13,7 +14,7 @@
   <string name="upcoming">Următoare</string>
   <string name="completed">Terminate</string>
   <string name="roundName">Numele rundei</string>
-  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Număr rotund</string>
+  <string name="roundNumber">Număr rotund</string>
   <string name="tournamentName">Numele turneului</string>
   <string name="tournamentDescription">O descriere scurtă a turneului</string>
   <string name="fullDescription">Întreaga descriere a evenimentului</string>
@@ -24,15 +25,15 @@
   <string name="startDate">Data de începere conform fusului tău orar</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
   <string name="credits">Creditează sursa</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">URL pentru difuzare</string>
+  <string name="broadcastUrl">URL pentru difuzare</string>
   <string name="currentRoundUrl">URL runda curenta</string>
   <string name="currentGameUrl">URL-ul partidei curente</string>
   <string name="downloadAllRounds">Descarcă toate rundele</string>
   <string name="resetRound">Resetează această rundă</string>
   <string name="deleteRound">Șterge această rundă</string>
-  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Șterge definitiv runda și jocurile sale.</string>
-  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round (https://lichess.org/broadcast). &quot;Source&quot; refers to the broadcasting source. The source is usually a URL pointing to a PGN file, which is continuously updated by the tournament organisers and polled by Lichess to get new moves.&#10;&#10;This button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source, the next time it is polled by Lichess.">Șterge toate jocurile din această rundă. Sursa va trebui să fie activă pentru a le recrea.</string>
-  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies. Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Editare rundă de studiu</string>
+  <string name="definitivelyDeleteRound">Șterge definitiv runda și jocurile sale.</string>
+  <string name="deleteAllGamesOfThisRound">Șterge toate jocurile din această rundă. Sursa va trebui să fie activă pentru a le recrea.</string>
+  <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
+  <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
 </resources>

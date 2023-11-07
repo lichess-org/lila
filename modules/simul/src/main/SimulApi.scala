@@ -13,7 +13,7 @@ import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
 import lila.user.{ User, Me, UserRepo, UserPerfsRepo, UserApi, UserPerfs }
 import lila.common.Json.given
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.rating.{ Perf, PerfType }
@@ -48,7 +48,7 @@ final class SimulApi(
     _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
       repo.allStarted dmap (_.view.map(_.hostId).toSet)
 
-  def create(setup: SimulForm.Setup, teams: Seq[LeaderTeam])(using me: Me): Fu[Simul] = for
+  def create(setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] = for
     host <- userApi.withPerfs(me.value)
     simul = Simul.make(
       name = setup.name,
@@ -68,11 +68,12 @@ final class SimulApi(
     timeline ! (Propagate(SimulCreate(me.userId, simul.id, simul.fullName)) toFollowersOf me.userId)
     simul
 
-  def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LeaderTeam])(using me: Me): Fu[Simul] =
+  def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =
     val simul = prev.copy(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
+      applicants = prev.applicants.filter(setup.actualVariants contains _.player.variant),
       position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
@@ -97,7 +98,7 @@ final class SimulApi(
             .filter(simul.variants.contains)
             .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
             .so: variant =>
-              val perfType = PerfType(variant, chess.Speed.Rapid)
+              val perfType = PerfType(variant, chess.Speed(simul.clock.config.some))
               perfsRepo
                 .withPerf(me.value, perfType)
                 .flatMap: user =>

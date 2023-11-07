@@ -702,6 +702,7 @@ object I18nKeys:
   val `agreementPolicy` = I18nKey("agreementPolicy")
   val `searchOrStartNewDiscussion` = I18nKey("searchOrStartNewDiscussion")
   val `edit` = I18nKey("edit")
+  val `blitz` = I18nKey("blitz")
   val `rapid` = I18nKey("rapid")
   val `classical` = I18nKey("classical")
   val `ultraBulletDesc` = I18nKey("ultraBulletDesc")
@@ -1555,6 +1556,7 @@ object I18nKeys:
 
   object broadcast:
     val `broadcasts` = I18nKey("broadcast:broadcasts")
+    val `myBroadcasts` = I18nKey("broadcast:myBroadcasts")
     val `liveBroadcasts` = I18nKey("broadcast:liveBroadcasts")
     val `newBroadcast` = I18nKey("broadcast:newBroadcast")
     val `addRound` = I18nKey("broadcast:addRound")

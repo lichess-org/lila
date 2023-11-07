@@ -5,7 +5,7 @@ import lila.socket.Socket.Sri
 import scala.collection.View
 
 // NOT thread safe.
-// control concurrency from LobbyTrouper
+// control concurrency from LobbySyncActor
 final private class HookRepo:
 
   type ID = String
@@ -49,6 +49,9 @@ final private class HookRepo:
 
   def remove(hook: Hook): Unit =
     hooks = hooks removed hook
+
+  def exists(hook: Hook): Boolean =
+    hooks.contains(hook.id)
 
   // returns removed hooks
   def cleanupOld: Set[Hook] =

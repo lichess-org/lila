@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Αναμεταδόσεις</string>
+  <string name="myBroadcasts">Η αναμεταδόσεις μου</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+    <item quantity="one">%s αναμετάδοση</item>
+    <item quantity="other">%s αναμεταδόσεις</item>
+  </plurals>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
   <string name="addRound">Προσθήκη γύρου</string>
@@ -8,7 +13,7 @@
   <string name="upcoming">Προσεχή</string>
   <string name="completed">Ολοκληρώθηκε</string>
   <string name="roundName">Όνομα γύρου</string>
-  <string name="roundNumber" comment="roundNumber&#10;&#10;The round of a tournament on https://lichess.org/broadcast. Used in the broadcast editor.">Αριθμός γύρου</string>
+  <string name="roundNumber">Αριθμός γύρου</string>
   <string name="tournamentName">Όνομα τουρνουά</string>
   <string name="tournamentDescription">Σύντομη περιγραφή τουρνουά</string>
   <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
@@ -19,15 +24,15 @@
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;Must be added when configuring a broadcast (https://lichess.org/broadcast). This URL is the source a broadcast comes from.">Διεύθυνση URL μετάδοσης</string>
+  <string name="broadcastUrl">Διεύθυνση URL μετάδοσης</string>
   <string name="currentRoundUrl">Διεύθυνση URL αυτού του γύρου</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
-  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Σίγουρα διαγράψτε τον γύρο και όλα τα παιχνίδια του.</string>
-  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round (https://lichess.org/broadcast). &quot;Source&quot; refers to the broadcasting source. The source is usually a URL pointing to a PGN file, which is continuously updated by the tournament organisers and polled by Lichess to get new moves.&#10;&#10;This button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source, the next time it is polled by Lichess.">Διαγράψτε όλα τα παιχνίδια αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
-  <string name="editRoundStudy" comment="Heading of the settings dialog of a (tournament) broadcast round on https://lichess.org/broadcast&#10;&#10;Broadcast rounds are essentially studies. Games inside broadcasts are study chapters, so this dialog is effectively the same as the settings dialog of a study.">Επεξεργασία μελέτης γύρου</string>
+  <string name="definitivelyDeleteRound">Σίγουρα διαγράψτε τον γύρο και όλα τα παιχνίδια του.</string>
+  <string name="deleteAllGamesOfThisRound">Διαγράψτε όλα τα παιχνίδια αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
+  <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή αυτού του πρωταθλήματος</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Σίγουρα διαγράψτε ολόκληρο το πρωτάθλημα, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
+  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο το πρωτάθλημα, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
 </resources>

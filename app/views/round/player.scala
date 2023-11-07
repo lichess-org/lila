@@ -30,7 +30,7 @@ object player:
           withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
           public = false,
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          palantir = ctx.me.exists(_.canPalantir)
+          palantir = ctx.canPalantir
         )
       case Right((c, res)) =>
         chat.json(
@@ -61,7 +61,7 @@ object player:
         )
       ),
       openGraph = povOpenGraph(pov).some,
-      playing = true,
+      playing = pov.game.playable,
       zenable = true
     ):
       main(cls := "round")(

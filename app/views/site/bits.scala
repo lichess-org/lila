@@ -60,3 +60,8 @@ object bits:
           p("Nothing to see here, move along.")
         )
       )
+
+  def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
+    st.nav(cls := "subnav__inner")(mods)
+
+  def pageMenuSubnav(mods: Modifier*) = subnav(cls := "page-menu__menu", mods)

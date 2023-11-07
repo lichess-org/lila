@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">다른 사람들이 댓글을 남길 수 있는 게시물이 생성됩니다.</string>
   <string name="publishOnYourBlog">블로그에 게시하기</string>
   <string name="publishHelp">선택시 게시물이 블로그에 게시됩니다. 미선택시 비공개로 초안에 보관됩니다.</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="other">님이 %s개의 블로그 게시물을 올렸습니다.</item>
   </plurals>
   <plurals name="nbViews">
@@ -30,8 +30,8 @@
     <item quantity="other">총 %s개 글 보기</item>
   </plurals>
   <string name="uploadAnImageForYourPost">글에 이미지를 업로드</string>
-  <string name="imageAlt">이미지 대체 텍스트</string>
-  <string name="imageCredit">이미지 저작권</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">이미지 대체 텍스트</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">이미지 저작권</string>
   <string name="deleteBlog">이 블로그 게시물 완전히 삭제하기</string>
   <string name="deleteImage">이미지를 삭제하기</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">다음 웹사이트의 이미지를 사용하는 것이 안전합니다: </string>

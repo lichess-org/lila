@@ -596,7 +596,7 @@
   <string name="tournamentWinners">Переможці турнірів</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. Writing a private description replaces the public description for team members.">Приватний опис</string>
+  <string name="descPrivate">Приватний опис</string>
   <string name="descPrivateHelp">Текст, який побачать лише учасники команди. Якщо встановити, замінить публічний опис для учасників команди.</string>
   <string name="no">Ні</string>
   <string name="yes">Так</string>
@@ -838,7 +838,7 @@
   <string name="gameAnalysis">Аналіз гри</string>
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes a study.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study they have liked (❤).">%1$s сподобалось %2$s</string>
+  <string name="xLikesY">%1$s сподобалось %2$s</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
@@ -952,6 +952,7 @@
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
   <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>

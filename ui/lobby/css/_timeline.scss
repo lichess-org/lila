@@ -1,8 +1,8 @@
-.timeline {
+.lobby__timeline {
   @extend %page-text;
-
   flex: 1 1 auto;
-  margin: 1em 0 0 $block-gap;
+  margin-top: 1em;
+  margin-#{$start-direction}: $block-gap;
 
   @include hoverflow;
 

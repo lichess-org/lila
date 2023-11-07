@@ -22,7 +22,7 @@ object Analyser:
   private val logger = lila log "security" branch "shutup"
 
   private def latinify(text: String): String =
-    text map {
+    text.map:
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'
@@ -32,7 +32,6 @@ object Analyser:
       case 'Н' => 'h'
       case 'о' => 'o'
       case c   => c
-    }
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
@@ -58,10 +57,16 @@ object Analyser:
       """\b"""
   }.r
 
+  // unicode compatible bounds
+  // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
+  object bounds:
+    val pre                 = """(?<=[\s,.:;"']|^)"""
+    val post                = """(?=[\s,.:;"']|$)"""
+    def wrap(regex: String) = pre + regex + post
+
   private val ruBigRegex = {
-    """(?iu)\b""" +
-      Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:") +
-      """\b"""
+    """(?iu)""" + bounds.wrap:
+      Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:")
   }.r
 
   private val criticalRegex = {

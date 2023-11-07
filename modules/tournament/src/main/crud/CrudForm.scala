@@ -22,6 +22,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       "homepageHours" -> number(min = 0, max = maxHomepageHours),
       "image"         -> stringIn(imageChoices),
       "headline"      -> text(minLength = 5, maxLength = 30),
+      "teamBattle"    -> boolean,
       "setup"         -> forms.create(Nil).mapping
     )(Data.apply)(unapply)
   ) fill Data(
@@ -29,6 +30,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
     homepageHours = 0,
     image = "",
     headline = "",
+    teamBattle = false,
     setup = forms.empty()
   )
 
@@ -38,6 +40,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.so(_.headline),
+      teamBattle = tour.isTeamBattle,
       setup = forms.fillFromTour(tour)
     )
 
@@ -56,38 +59,25 @@ object CrudForm:
       homepageHours: Int,
       image: String,
       headline: String,
+      teamBattle: Boolean,
       setup: TournamentSetup
   ):
 
     def toTour(using Me) =
-      withSchedule(
+      withCrud(
         Tournament
           .fromSetup(setup)
           .copy(
-            id = id,
-            spotlight = Spotlight(
-              headline = headline,
-              homepageHours = homepageHours.some.filterNot(0 ==),
-              iconFont = none,
-              iconImg = image.some.filter(_.nonEmpty)
-            ).some
+            id = id
           )
       )
     def update(old: Tournament) =
-      withSchedule(
+      withCrud(
         setup
           .updateAll(old)
-          .copy(spotlight =
-            Spotlight(
-              headline = headline,
-              homepageHours = homepageHours.some.filterNot(0 ==),
-              iconFont = none,
-              iconImg = image.some.filter(_.nonEmpty)
-            ).some
-          )
       )
 
-    private def withSchedule(tour: Tournament) =
+    private def withCrud(tour: Tournament) =
       tour.copy(
         schedule = Schedule(
           freq = Schedule.Freq.Unique,
@@ -95,5 +85,12 @@ object CrudForm:
           variant = tour.variant,
           position = tour.position,
           at = tour.startsAt.dateTime
-        ).some
+        ).some,
+        spotlight = Spotlight(
+          headline = headline,
+          homepageHours = homepageHours.some.filterNot(0 ==),
+          iconFont = none,
+          iconImg = image.some.filter(_.nonEmpty)
+        ).some,
+        teamBattle = teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
       )

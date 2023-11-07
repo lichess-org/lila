@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">Προκλήσεις: %1$s</string>
   <string name="challengeToPlay">Προκαλέστε σε παιχνίδι</string>
   <string name="challengeDeclined">Η πρόκληση απορρίφθηκε</string>
   <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">Δεν είμαι πρόθυμος να παίξω αυτήν την παραλλαγή αυτή τη στιγμή.</string>
   <string name="declineNoBot">Δεν δέχομαι προκλήσεις από bots.</string>
   <string name="declineOnlyBot">Δέχομαι προκλήσεις μόνο από bots.</string>
+  <string name="inviteLichessUser">Ή προσκαλέστε έναν χρήστη του Lichess:</string>
 </resources>

@@ -44,16 +44,19 @@ final private[puzzle] class DailyPuzzle(
       .sort($sort desc F.day)
       .one[Puzzle]
 
+  private val maxTries     = 10
+  private val minPlaysBase = 9000
   private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] =
-    def tryAgainMaybe = (tries < 7) so findNewBiased(tries + 1)
+    def tryAgainMaybe = (tries < maxTries) so findNewBiased(tries + 1)
     import PuzzleTheme.*
-    findNew.flatMap:
+    val minPlays = minPlaysBase * (maxTries - tries) / maxTries
+    findNew(minPlays).flatMap:
       case None => tryAgainMaybe
       case Some(p) if p.hasTheme(anastasiaMate, arabianMate) && !odds(3) =>
         tryAgainMaybe.dmap(_ orElse p.some)
       case p => fuccess(p)
 
-  private def findNew: Fu[Option[Puzzle]] =
+  private def findNew(minPlays: Int): Fu[Option[Puzzle]] =
     colls
       .path:
         _.aggregateOne(): framework =>
@@ -73,7 +76,7 @@ final private[puzzle] class DailyPuzzle(
                 pipe = List(
                   $doc(
                     "$match" -> $doc(
-                      Puzzle.BSONFields.plays $gt 9000,
+                      Puzzle.BSONFields.plays $gt minPlays,
                       Puzzle.BSONFields.day $exists false,
                       Puzzle.BSONFields.issue $exists false,
                       Puzzle.BSONFields.themes $nin forbiddenThemes.map(_.key)

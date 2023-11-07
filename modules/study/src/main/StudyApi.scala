@@ -147,20 +147,10 @@ final class StudyApi(
         indexStudy(sc.study) inject sc.some
     }
 
-  def cloneWithCheckAndChat(
-      me: User,
-      prev: Study,
-      update: Study => Study = identity
-  ): Fu[Option[Study]] =
-    Settings.UserSelection
-      .allows(prev.settings.cloneable, prev, me.id.some)
-      .so:
-        justCloneNoChecks(me, prev, update).flatMap: study =>
-          chatApi.userChat.system(
-            study.id into ChatId,
-            s"Cloned from lichess.org/study/${prev.id}",
-            _.Study
-          ) inject study.some
+  def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
+    study <- justCloneNoChecks(me, prev, update)
+    _ <- chatApi.userChat.system(study.id into ChatId, s"Cloned from lichess.org/study/${prev.id}", _.Study)
+  yield study.some
 
   def justCloneNoChecks(
       me: User,
@@ -253,7 +243,7 @@ final class StudyApi(
             parent.children.get(singleNode.id) so { node =>
               val newPosition = position.ref + node
               for
-                _ <- chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter)
+                _ <- chapterRepo.addSubTree(node, parent, position.path)(chapter)
                 _ <- relay so { chapterRepo.setRelay(chapter.id, _) }
                 _ <-
                   if opts.sticky

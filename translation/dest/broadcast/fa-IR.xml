@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">پخش می شود</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s پخش زنده‌</item>
     <item quantity="other">%s پخش زنده‌</item>
   </plurals>
@@ -32,5 +32,5 @@
   <string name="definitivelyDeleteRound">حذف کردن دور و بازی ها.</string>
   <string name="deleteAllGamesOfThisRound">حذف کردن تمام بازی های دور. منبع نیاز به فعال شدن برای ساخت مجدد آن ها دارد.</string>
   <string name="deleteTournament">این مسابقه را حذف کن</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">به طور قطعی کل مسابقه٬ به شمول تمام دورها و تمام بازی‌ها٬ را حذف کن.</string>
+  <string name="definitivelyDeleteTournament">به طور قطعی کل مسابقه٬ به شمول تمام دورها و تمام بازی‌ها٬ را حذف کن.</string>
 </resources>

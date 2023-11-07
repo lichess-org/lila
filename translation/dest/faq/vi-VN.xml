@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Câu hỏi thường gặp</string>
+  <string name="faqAbbreviation">Những câu hỏi thường gặp</string>
   <string name="frequentlyAskedQuestions">Những Câu Hỏi Thường Gặp</string>
   <string name="whyIsLichessCalledLichess">Tại sao Lichess lại có tên là Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess là một sự kết hợp của live/light/libre (trực tiếp/nhẹ/miễn phí) và chess (cờ vua). Nó được phát âm là %1$s.</string>
@@ -10,43 +10,43 @@
   <string name="whyIsLilaCalledLila">Tương tự, mã nguồn của Lichess, %1$s, là viết tắt của li[chess trong sca]la, vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
   <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
-  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s (hoặc %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
-  <string name="beingAPatron">trở thành một patron</string>
-  <string name="breakdownOfOurCosts">xem bảng chi tiết về chi phí của chúng tôi</string>
+  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s (hoặc xem %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
+  <string name="beingAPatron">trở thành một người bảo trợ</string>
+  <string name="breakdownOfOurCosts">bảng phân tích chi tiết chi phí của chúng tôi</string>
   <string name="otherWaysToHelp">những cách khác để giúp đỡ</string>
   <string name="areThereWebsitesBasedOnLichess">Có trang web nào dựa trên cấu trúc của Lichess không?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Đúng vậy, Lichess thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
   <string name="keyboardShortcuts">Có những phím tắt nào?</string>
-  <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, cờ thế hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
+  <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, câu đố hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
   <string name="fairPlay">Chơi Công Bằng</string>
   <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường xếp hạng tự động từ những kẻ gian lận?</string>
   <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu tính Elo mới nhất của họ trong vòng 3 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (do thua hoặc hòa) và Elo của bạn không phải là tạm thời, bạn sẽ được hoàn lại Elo. Điểm hoàn lại được giới hạn dựa trên Elo cao nhất của bạn và tiến độ Elo của bạn sau ván đấu. (Ví dụ: nếu Elo của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
-  <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những người chơi rời khỏi ván đấu thay vì đầu hàng?</string>
+  <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những người chơi rời khỏi ván đấu thay vì chịu thua?</string>
   <string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy/rời khỏi ván cờ, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, độ dài của thời gian cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
   <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một quản trị viên?</string>
   <string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một quản trị viên. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là một quản trị viên tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
   <string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với cờ vua bình thường?</string>
   <string name="pleaseReadFairPlayPage">Để biết thêm thông tin, vui lòng đọc %s</string>
-  <string name="fairPlayPage">chơi công bằng</string>
+  <string name="fairPlayPage">trang chơi công bằng</string>
   <string name="youCanUseOpeningBookNoEngine">Trên Lichess, sự khác biệt chính trong các quy tắc cho cờ qua thư là sách khai cuộc được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư nhưng Lichess thì không.</string>
   <string name="gameplay">Lối Chơi</string>
-  <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các loại cờ khác được quyết định như thế nào?</string>
+  <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các định giờ khác được quyết định thế nào?</string>
   <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính = %1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
   <string name="durationFormula">(thời gian ban đầu tính bằng giây) + 40 × (thời gian gia tăng)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s giây = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s giây = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
-  <string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên Lichess?</string>
+  <string name="whatVariantsCanIplay">Tôi có thể chơi những loại biến thể nào trên Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
   <string name="eightVariants">8 biến thể cờ vua khác</string>
-  <string name="whatIsACPL">Phần trăm tốt mất trung bình (ACPL) là gì?</string>
-  <string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các vị trí.
+  <string name="whatIsACPL">Phần trăm mất tốt trung bình (ACPL) là gì?</string>
+  <string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các thế cờ.
 
-Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để tốt thấp sẽ làm giảm vị trí, được đo bằng phần trăm tốt.
+Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để tốt thấp sẽ làm giảm lợi thế, được đo bằng phần trăm tốt.
 
-Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm tốt mất mỗi nước đi, càng có ưu thế.
+Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm mất tốt mỗi nước đi, càng có lợi thế.
 
-Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
+Máy tính phân tích trên Lichess do Stockfish và Fairy-Stockfish cung cấp.</string>
   <string name="insufficientMaterial">Thua do thời gian, hòa và không đủ quân chiếu hết</string>
   <string name="lichessFollowFIDErules">Trong trường hợp một người chơi hết thời gian, người chơi đó thường sẽ bị xử thua. Tuy nhiên, ván đấu sẽ được xử hòa nếu ở thế trận đó mà đối phương không thể chiếu hết vua của họ bằng bất kỳ chuỗi nước đi hợp lệ nào có thể xảy ra (%1$s).
 
@@ -96,7 +96,7 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="usernamesNotOffensive">Nói chung, tên người dùng không được: xúc phạm, mạo danh người khác hoặc quảng cáo. Bạn có thể đọc thêm về %1$s.</string>
   <string name="guidelines">hướng dẫn</string>
   <string name="canIChangeMyUsername">Tôi có thể đổi tên đăng nhập được không?</string>
-  <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ, và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
+  <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
   <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% các ván trong một %s.</string>
@@ -116,13 +116,13 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
   <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu được xếp hạng so với %1$s trong danh mục xếp hạng.</string>
   <string name="similarOpponents">đối thủ có năng lực tương đương</string>
   <string name="notPlayedRecently">Người chơi không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để xếp hạng của bạn trở lại tạm thời.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, xếp hạng càng ổn định.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, hệ số Elo càng ổn định.</string>
   <string name="howDoLeaderoardsWork">Thứ hạng và bảng thành tích hoạt động như thế nào?</string>
   <string name="inOrderToAppearsYouMust">Để nhận được %1$s, bạn phải:</string>
   <string name="ratingLeaderboards">thứ hạng trên bảng xếp hạng</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">đã chơi ít nhất 30 ván xếp hạng trong một xếp hạng nhất định,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">đã chơi một ván xếp hạng trong tuần trước cho xếp hạng này,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">có độ lệch xếp hạng thấp hơn %1$s, trong cờ vua tiêu chuẩn, và thấp hơn %2$s trong các biến thể,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">có độ lệch xếp hạng thấp hơn %1$s trong cờ vua tiêu chuẩn và thấp hơn %2$s trong các biến thể,</string>
   <string name="beInTopTen">nằm trong top 10 trong bảng xếp hạng này.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Yêu cầu thứ hai là những người chơi không còn sử dụng tài khoản của họ sẽ được ngừng đưa vào bảng xếp hạng.</string>
   <string name="whyAreRatingHigher">Tại sao hệ số Elo lại cao hơn so với các trang web và tổ chức khác như FIDE, USCF và ICC?</string>

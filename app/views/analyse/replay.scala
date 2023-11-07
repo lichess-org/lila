@@ -43,7 +43,7 @@ object replay:
         withNoteAge = ctx.isAuth option game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.me.exists(_.canPalantir)
+        palantir = ctx.canPalantir
       )
     }
     val imageLinks = frag(

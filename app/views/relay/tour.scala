@@ -96,11 +96,11 @@ object tour:
       )
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context) =
-    st.nav(cls := "page-menu__menu subnav")(
+    views.html.site.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_ is me).option("active")):
-          "My broadcasts"
+          trans.broadcast.myBroadcasts()
       ,
       by.filterNot(ctx.is)
         .map: user =>

@@ -115,6 +115,7 @@
   <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
+  <string name="showVariationArrows">Visa variationspilar</string>
   <string name="evaluationGauge">Utvärderingsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">Processorer</string>
@@ -866,6 +867,7 @@
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snabbschack</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Vansinnigt snabba partier: mindre än 30 sekunder</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">البثوث</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="zero">%s بث</item>
     <item quantity="one">%s بث</item>
     <item quantity="two">بثين</item>
@@ -37,5 +37,5 @@
   <string name="deleteAllGamesOfThisRound">احذف جميع ألعاب هذه الجولة. سوف يحتاج المصدر إلى أن يكون نشطا من أجل إعادة إنشائها.</string>
   <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه المسابقة</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">قم بحذف البطولة جميعها و جميع جولاتها و جميع ألعابها.</string>
+  <string name="definitivelyDeleteTournament">قم بحذف البطولة جميعها و جميع جولاتها و جميع ألعابها.</string>
 </resources>

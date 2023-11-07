@@ -104,7 +104,7 @@ object post:
           a(cls := "anchor", href := url)(s"#${post.number}")
         ),
         frag:
-          val postFrag = p(cls := s"forum-post__message expand-text")(
+          val postFrag = div(cls := s"forum-post__message expand-text")(
             if post.erased then "<Comment deleted by user>"
             else body
           )

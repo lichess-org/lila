@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Sändningar</string>
-  <plurals name="nbBroadcasts">
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s sändning</item>
     <item quantity="other">%s sändningar</item>
   </plurals>
@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Radera alla partier i denna runda. Källan kommer behöva vara aktiv för att återskapa dem.</string>
   <string name="editRoundStudy">Redigera studie för ronden</string>
   <string name="deleteTournament">Radera turnering</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Definitivt radera turnering.</string>
+  <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
 </resources>

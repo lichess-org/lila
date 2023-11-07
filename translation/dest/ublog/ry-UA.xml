@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Тема форума буде учинена обы коментовати публікацію</string>
   <string name="publishOnYourBlog">Укласти у вашому блоґови</string>
   <string name="publishHelp">Кідь одмічено, публікація буде укладена. Кідь ньит, лишит ся пріватнов у вашых зарисах</string>
-  <plurals name="publishedNbBlogPosts">
+  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
     <item quantity="one">Укладена публікація</item>
     <item quantity="few">Укладені %s публікацій</item>
     <item quantity="other">Укладено %s публікацій</item>
@@ -36,8 +36,8 @@
     <item quantity="other">Указати %s публікації</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Наладовати образчик для публікації</string>
-  <string name="imageAlt">Опис образчика</string>
-  <string name="imageCredit">Права на образчик</string>
+  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Опис образчика</string>
+  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Права на образчик</string>
   <string name="deleteBlog">Докус стерти сю публікацію</string>
   <string name="deleteImage">Стерти образчик</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Мож безопасно хосновати образчикы 

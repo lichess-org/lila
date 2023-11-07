@@ -175,12 +175,14 @@ final class PersonalDataExport(
           .throttle(heavyPerSecond, 1 second)
 
     val appeal = Source.futureSource:
-      appealApi.byId(user).map { opt =>
-        Source:
-          opt.so: appeal =>
-            List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
-              s"${textDate(msg.at)} by ${msg.by}\n${msg.text}$bigSep"
-      }
+      appealApi
+        .byId(user)
+        .map: opt =>
+          Source:
+            opt.so: appeal =>
+              List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
+                val author = if appeal.isAbout(msg.by) then "you" else "Lichess"
+                s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
 
     val outro = Source(List(textTitle("End of data export.")))
 

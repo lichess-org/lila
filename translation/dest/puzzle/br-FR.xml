@@ -5,7 +5,7 @@
   <string name="origin">Mammenn</string>
   <string name="didYouLikeThisPuzzle">Ha plijet oc\'h bet gant ar boelladenn-mañ?</string>
   <string name="voteToLoadNextOne">Votit evit kaout unan all!</string>
-  <string name="puzzleId">Poelladenn %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Poelladenn %s</string>
   <string name="puzzleOfTheDay">Poelladenn an deiz</string>
   <string name="dailyPuzzle">Poelladenn pemdeziek</string>
   <string name="clickToSolve">Klikit da ziskoulmañ</string>
@@ -16,9 +16,9 @@
   <string name="openingsYouPlayedTheMost">Digoradurioù ho peus c\'hoariet alies e krogadoù renket</string>
   <string name="useCtrlF">Grit gant Ctrl+f evit kavout ho tigoradurioù muiañ-karet!</string>
   <string name="trySomethingElse">Klaskit un doare all.</string>
-  <string name="ratingX">Renkadur: %s</string>
-  <string name="hidden">kuzhet</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Renkadur: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">kuzhet</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">C\'hoariet %s wech</item>
     <item quantity="two">C\'hoariet %s wech</item>
     <item quantity="few">C\'hoariet %s gwech</item>

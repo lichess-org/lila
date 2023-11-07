@@ -30,7 +30,7 @@ lichess.load.then(() => {
     });
   $('.forum-post__blocked button').on('click', e => {
     const el = (e.target as HTMLElement).parentElement!;
-    $(el).replaceWith($('p', el));
+    $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
@@ -130,7 +130,11 @@ lichess.load.then(() => {
                     // and there are no matches in the forum thread participants
                     xhr
                       .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)));
+                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                      .catch(error => {
+                        console.error('Autocomplete request failed:', error);
+                        callback([]);
+                      });
                   } else {
                     callback([]);
                   }

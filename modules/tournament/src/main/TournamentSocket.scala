@@ -25,20 +25,17 @@ final private class TournamentSocket(
   def reload(tourId: TourId): Unit =
     reloadThrottler ! LateMultiThrottler.work(
       id = tourId,
-      run = fuccess {
+      run = fuccess:
         send(RP.Out.tellRoom(tourId into RoomId, makeMessage("reload")))
-      },
+      ,
       delay = 1.seconds.some
     )
 
   def startGame(tourId: TourId, game: Game): Unit =
-    game.players foreach { player =>
-      player.userId foreach { userId =>
-        send(
+    game.players.foreach: player =>
+      player.userId.foreach: userId =>
+        send:
           RP.Out.tellRoomUser(tourId into RoomId, userId, makeMessage("redirect", game fullIdOf player.color))
-        )
-      }
-    }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
     send(Protocol.Out.getWaitingUsers(tour.id into RoomId, tour.name()(using lila.i18n.defaultLang)))
@@ -63,9 +60,8 @@ final private class TournamentSocket(
       logger,
       roomId => _.Tournament(roomId into TourId).some,
       chatBusChan = _.Tournament,
-      localTimeout = Some { (roomId, modId, _) =>
+      localTimeout = Some: (roomId, modId, _) =>
         repo.fetchCreatedBy(roomId into TourId).map(_ has modId)
-      }
     )
 
   private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>

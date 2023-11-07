@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mueve pa empecipiar</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Chugas con blancas en toz es problemas</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Chugas con negras en toz es problemas</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Chugas con blancas en toz es problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Chugas con negras en toz es problemas</string>
   <string name="puzzlesSolved">exercicios resueltos</string>
-  <string name="newDailyHighscore">Nuevo record diario!</string>
-  <string name="newWeeklyHighscore">Nuevo record semanal!</string>
-  <string name="newMonthlyHighscore">Nuevo record mensual!</string>
-  <string name="newAllTimeHighscore">Nuevo record de toz es tiempos!</string>
-  <string name="previousHighscoreWasX">Lo record anterior yera %s</string>
+  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">Nuevo record diario!</string>
+  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">Nuevo record semanal!</string>
+  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">Nuevo record mensual!</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">Nuevo record de toz es tiempos!</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">Lo record anterior yera %s</string>
   <string name="playAgain">Chugar atra vegada</string>
   <plurals name="xRuns">
     <item quantity="one">1 intento</item>
     <item quantity="other">%s intentos</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm">
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
     <item quantity="one">Ha chugau un intento de %2$s</item>
     <item quantity="other">Ha chugau %1$s intentos de %2$s</item>
   </plurals>
-  <string name="highscoreX">Record: %s</string>
-  <string name="score">Puntuación</string>
-  <string name="moves">Movimientos</string>
-  <string name="accuracy">Precisión</string>
-  <string name="combo">Combo</string>
-  <string name="time">Tiempo</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">Record: %s</string>
+  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">Puntuación</string>
+  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">Movimientos</string>
+  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">Precisión</string>
+  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">Combo</string>
+  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">Tiempo</string>
   <string name="timePerMove">Tiempo per movimiento</string>
   <string name="highestSolved">Exercicio mas dificil resuelto</string>
   <string name="puzzlesPlayed">Exercicios feitos</string>
   <string name="newRun">Nuevo intento (tecla: espacio)</string>
   <string name="endRun">Rematar intento (tecla: Enter)</string>
-  <string name="highscores">Puntuacions mas altas</string>
-  <string name="viewBestRuns">Veyer los millors intentos</string>
+  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">Puntuacions mas altas</string>
+  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Veyer los millors intentos</string>
   <string name="bestRunOfDay">Millor intento d\'o día</string>
-  <string name="runs">Intentos</string>
+  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Intentos</string>
   <string name="getReady">Apresta-te!</string>
   <string name="waitingForMorePlayers">Aguardando a que s\'unan mas chugadors...</string>
   <string name="raceComplete">Corrida rematada!</string>
@@ -47,12 +47,12 @@
   <string name="createNewGame">Crear una nueva partida</string>
   <string name="joinPublicRace">Une-te a una nueva corrida</string>
   <string name="raceYourFriends">Fe una corrida con os tuyos amigos</string>
-  <string name="skip">blincar</string>
+  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">blincar</string>
   <string name="skipHelp">Puez blincar un movimiento per corrida:</string>
   <string name="skipExplanation">Blinca este movimiento pa preservar lo tuyo combo! Nomás funcoina una vegada per corrida.</string>
-  <string name="failedPuzzles">Problemas fallaus</string>
-  <string name="slowPuzzles">Problemas lentos</string>
-  <string name="skippedPuzzle">Problemas omesos</string>
+  <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">Problemas fallaus</string>
+  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">Problemas lentos</string>
+  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Problemas omesos</string>
   <string name="thisWeek">Esta semana</string>
   <string name="thisMonth">Este mes</string>
   <string name="allTime">Dende siempre</string>

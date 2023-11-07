@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmissões</string>
-  <plurals name="nbBroadcasts">
+  <string name="myBroadcasts">Minhas transmissões</string>
+  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
     <item quantity="one">%s transmissão</item>
     <item quantity="other">%s transmissões</item>
   </plurals>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Deletar todas as partidas desta rodada. A fonte deverá estar ativa para criá-las novamente.</string>
   <string name="editRoundStudy">Editar estudo da rodada</string>
   <string name="deleteTournament">Excluir este torneio</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
+  <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
 </resources>
