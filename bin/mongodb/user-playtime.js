@@ -18,6 +18,7 @@ db.user4
         {
           $match: {
             us: user._id,
+            c: { $exists: true },
           },
         },
         {
