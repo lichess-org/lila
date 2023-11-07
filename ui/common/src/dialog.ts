@@ -183,12 +183,10 @@ class DialogWrapper implements Dialog {
     $(focusQuery, this.view)[1]?.focus();
     this.view.scrollTop = 0;
 
-    this.addModalListeners?.();
+    this.dialog.addEventListener('keydown', onModalKeydown);
     this.returnValue = '';
     this.dialog.showModal();
-    return new Promise(resolve => {
-      this.resolve = resolve;
-    });
+    return new Promise(resolve => (this.resolve = resolve));
   };
 
   close = (v?: string) => {
@@ -204,11 +202,6 @@ class DialogWrapper implements Dialog {
     this.restoreFocus = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
-  };
-
-  addModalListeners? = () => {
-    this.dialog.addEventListener('keydown', onModalKeydown);
-    this.addModalListeners = undefined; // only do this once per HTMLDialogElement
   };
 }
 
