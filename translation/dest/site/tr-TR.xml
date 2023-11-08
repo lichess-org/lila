@@ -70,6 +70,7 @@
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
+  <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
   <string name="variantWin">Varyant zaferi</string>
@@ -867,8 +868,8 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hızlı</string>
-  <string name="rapid">Rapid</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
+  <string name="rapid">Hızlı</string>
   <string name="classical">Klasik</string>
   <string name="ultraBulletDesc">Aşırı hızlı oyunlar: 30 saniyeden daha az</string>
   <string name="bulletDesc">Çok yüksek tempolu oyunlar: 3 dakikadan daha az</string>
