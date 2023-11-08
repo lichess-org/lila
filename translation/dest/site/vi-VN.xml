@@ -69,6 +69,7 @@
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
+  <string name="copyVariationPgn">Sao chép biến PGN</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Nước chiếu hết theo luật</string>
