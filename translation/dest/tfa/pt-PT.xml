@@ -15,5 +15,5 @@
 Se perdeste o acesso aos teus códigos de autenticação, também podes redefinir a palavra-passe por e-mail.</string>
   <string name="openTwoFactorApp">Abre a aplicação de autenticação de dois fatores no teu dispositivo para veres o código de autenticação e verificares a tua identidade.</string>
   <string name="setupReminder">Por favor, habilita a autenticação de dois fatores para proteger a tua conta em https://lichess.org/account/twofactor.
-Recebestes esta mensagem porque a tua conta tem responsabilidades especiais, como líder da equipa, treinador, professor ou streamer</string>
+Recebestes esta mensagem porque a tua conta tem responsabilidades especiais, como jogador titulado, líder da equipa, treinador, professor ou streamer.</string>
 </resources>
