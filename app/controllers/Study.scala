@@ -5,16 +5,16 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
+import lila.analyse.Analysis
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ Bus, HTTPRequest, IpAddress }
+import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
+import lila.socket.Socket
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Order, StudyForm, Study as StudyModel, Chapter, Settings }
+import lila.study.{ Chapter, Order, Settings, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
-import lila.analyse.Analysis
-import lila.socket.Socket
 
 final class Study(
     env: Env,
@@ -246,7 +246,7 @@ final class Study(
         Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
-    ctx.noKid && ctx.noBot &&                // no public chats for kids and bots
+    ctx.kid.no && ctx.noBot &&               // no public chats for kids and bots
     ctx.me.forall(env.chat.panic.allowed(_)) // anon can see public chats
   } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
@@ -358,14 +358,13 @@ final class Study(
         else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
       def notFound = NotFound(html.study.embed.notFound)
       studyFu
-        .map(_.filterNot(_.study.isPrivate))
         .flatMap:
           _.fold(notFound.toFuccess): sc =>
             env.api.textLpvExpand
               .getChapterPgn(sc.chapter.id)
               .map:
-                _.fold(notFound): pgn =>
-                  Ok(html.study.embed(sc.study, sc.chapter, pgn))
+                case Some(LpvEmbed.PublicPgn(pgn)) => Ok(html.study.embed(sc.study, sc.chapter, pgn))
+                case _                             => notFound
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>

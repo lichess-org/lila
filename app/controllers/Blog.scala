@@ -20,11 +20,11 @@ final class Blog(
   private def blogApi = env.blog.api
 
   private def pagerForMe(pager: Paginator[BlogPost])(using ctx: Context): Paginator[BlogPost] =
-    if ctx.kid
+    if ctx.kid.yes
     then pager.mapList(_.filter(_.forKids))
     else pager
   private def filterForMe(posts: List[MiniPost])(using ctx: Context): List[MiniPost] =
-    posts.filter(_.forKids || ctx.noKid)
+    posts.filter(_.forKids || ctx.kid.no)
 
   def index(page: Int) =
     WithPrismic { _ ?=> prismic ?=>
@@ -42,7 +42,7 @@ final class Blog(
           checkSlug(maybeDocument, slug):
             case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
             case Right(doc) =>
-              if !doc.forKids && ctx.kid
+              if !doc.forKids && ctx.kid.yes
               then notFound
               else Ok.page(views.html.blog.show(doc))
         .recoverWith:

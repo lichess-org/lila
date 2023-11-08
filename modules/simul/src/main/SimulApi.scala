@@ -73,6 +73,7 @@ final class SimulApi(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
+      applicants = prev.applicants.filter(setup.actualVariants contains _.player.variant),
       position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
@@ -97,7 +98,7 @@ final class SimulApi(
             .filter(simul.variants.contains)
             .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
             .so: variant =>
-              val perfType = PerfType(variant, chess.Speed.Rapid)
+              val perfType = PerfType(variant, chess.Speed(simul.clock.config.some))
               perfsRepo
                 .withPerf(me.value, perfType)
                 .flatMap: user =>

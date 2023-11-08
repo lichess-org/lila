@@ -80,6 +80,7 @@ final class JsonView(
             "name"   -> host.name,
             "rating" -> simul.hostRating
           )
+          .add("provisional" -> simul.hostProvisional)
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)
           .add("patron" -> host.isPatron)
