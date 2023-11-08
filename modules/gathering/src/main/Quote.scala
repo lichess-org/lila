@@ -37,10 +37,6 @@ object Quote:
     Quote("Strategy requires thought, tactics require observation.", "Max Euwe"),
     Quote("I don't believe in psychology. I believe in good moves.", "Bobby Fischer"),
     Quote(
-      "Modern chess is too much concerned with things like pawn structure. Forget it, checkmate ends the game.",
-      "Nigel Short"
-    ),
-    Quote(
       "Life is a kind of chess, with struggle, competition, good and ill events.",
       "Benjamin Franklin"
     ),
@@ -290,7 +286,6 @@ object Quote:
       "Though most people love to look at the games of the great attacking masters, some of the most successful players in history have been the quiet positional players. They slowly grind you down by taking away your space, tying up your pieces, and leaving you with virtually nothing to do!",
       "Yasser Seirawan"
     ),
-    Quote("Chess is ruthless; you've got to be prepared to kill people.", "Nigel Short"),
     Quote(
       "There must have been a time when men were demigods, or they could not have invented chess.",
       "Gustav Schenk"
@@ -366,10 +361,6 @@ object Quote:
     ),
     Quote("Chess is like life.", "Boris Spassky"),
     Quote(
-      "If your opponent offers you a draw, try to work out why he thinks he's worse off.",
-      "Nigel Short"
-    ),
-    Quote(
       "Chess teaches you to control the initial excitement you feel when you see something that looks good and it trains you to think objectively when you're in trouble.",
       "Stanley Kubrick"
     ),
@@ -424,10 +415,6 @@ object Quote:
     Quote(
       "I played chess with him and would have beaten him sometimes only he always took back his last move, and ran the game out differently.",
       "Mark Twain"
-    ),
-    Quote(
-      "The tactician knows what to do when there is something to do; whereas the strategian knows what to do when there is nothing to do.",
-      "Gerald Abrahams"
     ),
     Quote("In chess, just as in life, today's bliss may be tomorrow’s poison.", "Assiac"),
     Quote(
@@ -1217,10 +1204,6 @@ object Quote:
     ),
     Quote("Chess is, above all, a fight.", "Emanuel Lasker"),
     Quote(
-      "Chess is, in essence, a game for children. Computers have exacerbated the trends towards youth because they now have an immensely powerful tool at their disposal and can absorb vast amounts of information extremely quickly.",
-      "Nigel Short"
-    ),
-    Quote(
       "Chess masters as well as chess computers deserve less reverence than the public accords them.",
       "Eliot Hearst"
     ),
@@ -1474,10 +1457,6 @@ object Quote:
     ),
     Quote("I always urge players to study composed problems and endgames.", "Pal Benko"),
     Quote(
-      "I am acutely conscious, from vast experience in opens, that guys around, say 2100 or more can definitely play chess and that one often has to work very hard to beat them.",
-      "Nigel Short"
-    ),
-    Quote(
       "I am both sad and pleased that in his last tournament, Rashid Gibiatovich came to my home in Latvia. He did not take first place, but the prize for beauty, as always, he took with him. Players die, tournaments are forgotten, but the works of great artists are left behind them to live on forever. (on Nezhmetdinov)",
       "Mikhail Tal"
     ),
@@ -1500,10 +1479,6 @@ object Quote:
     Quote(
       "I believe that the best style is a universal one, tactical and positional at the same time...",
       "Susan Polgar"
-    ),
-    Quote(
-      "I cannot claim to thoroughly enjoy coaching, because it is very hard work if you are even moderately conscientious. Nevertheless it does provide a degree of satisfaction, not to mention a steady income, which is why I do it occasionally.",
-      "Nigel Short"
     ),
     Quote(
       "I cannot think that a player genuinely loving the game can get pleasure just from the number of points scored no matter how impressive the total. I will not speak of myself, but for the masters of the older generation, from whose games we learned, the aesthetic side was the most important.",
