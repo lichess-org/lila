@@ -4,7 +4,7 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
-import { renderVariationPgn, copyPgnToClipboard } from '../pgnExport';
+import { renderVariationPgn } from '../pgnExport';
 
 export interface Opts {
   path: Tree.Path;
@@ -98,10 +98,9 @@ function view(opts: Opts, coords: Coords): VNode {
           : null,
       ])
       .concat([
-        action(licon.Clipboard, trans('copyVariationPgn'), async () => {
-          const pgn = renderVariationPgn(opts.root.tree.getNodeList(opts.path));
-          await copyPgnToClipboard(pgn);
-        }),
+        action(licon.Clipboard, trans('copyVariationPgn'), () =>
+          navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
+        ),
       ]),
   );
 }

@@ -40,15 +40,7 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   const tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
   if (g.initialFen && g.initialFen !== initialFen) tags.push(['FEN', g.initialFen]);
-  if (tags.length)
-    txt =
-      tags
-        .map(function (t) {
-          return '[' + t[0] + ' "' + t[1] + '"]';
-        })
-        .join('\n') +
-      '\n\n' +
-      txt;
+  if (tags.length) txt = tags.map(t => '[' + t[0] + ' "' + t[1] + '"]').join('\n') + '\n\n' + txt;
   return txt;
 }
 
@@ -87,16 +79,4 @@ export function renderVariationPgn(nodeList: Tree.Node[]): string {
   }
 
   return variationPgn;
-}
-
-export function copyPgnToClipboard(pgn: string): Promise<void> {
-  // Firefox does not support `ClipboardItem`
-  if (typeof ClipboardItem === 'undefined') {
-    return navigator.clipboard.writeText(pgn);
-  } else {
-    const clipboardItem = new ClipboardItem({
-      'text/plain': new Blob([pgn], { type: 'text/plain' }),
-    });
-    return navigator.clipboard.write([clipboardItem]);
-  }
 }
