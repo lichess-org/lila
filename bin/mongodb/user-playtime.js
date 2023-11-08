@@ -31,7 +31,7 @@ db.user4
         {
           $match: {
             // ignore games over 4 hours (either correspondence or bad data)
-            duration: { $lte: NumberLong(4 * 60 * 60 * 1000) },
+            duration: { $lte: 4 * 60 * 60 * 1000 },
           },
         },
         {
