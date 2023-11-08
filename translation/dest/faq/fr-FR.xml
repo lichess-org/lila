@@ -14,9 +14,9 @@
   <string name="beingAPatron">être mécène</string>
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres façons d\'aider</string>
-  <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autres sites web basés sur Lichess?</string>
+  <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autres sites web basés sur Lichess ?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3$s.</string>
-  <string name="keyboardShortcuts">Quels raccourcis clavier y a-t-il?</string>
+  <string name="keyboardShortcuts">Quels raccourcis clavier y a-t-il ?</string>
   <string name="keyboardShortcutsExplanation">Certaines pages de Lichess ont des raccourcis clavier. Appuyez sur la touche « ? » dans une étude, une analyse, un problème ou une partie pour voir la liste des raccourcis.</string>
   <string name="fairPlay">Le fair-play</string>
   <string name="whenAmIEligibleRatinRefund">Quand puis-je bénéficier du remboursement automatique de points de classement perdus contre des tricheurs ?</string>
@@ -54,7 +54,7 @@ L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
-  <string name="fideHandbook">Manuel de la FIDE</string>
+  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Manuel de la FIDE</string>
   <string name="fideHandbookX">manuel de la FIDE %s</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (prise en passant)</string>
   <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"capture en passant\" ou \"prise en passant\". L\'article de Wikipedia donne un %1$s.
@@ -96,7 +96,7 @@ Ne demandez pas le titre de LM.</string>
   <string name="whatUsernameCanIchoose">Que peut être mon nom d\'utilisateur ?</string>
   <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurpant l\'identité de quelqu\'un d\'autre, ou publicitaires. Vous pouvez en savoir plus sur les %1$s.</string>
   <string name="guidelines">lignes directrices</string>
-  <string name="canIChangeMyUsername">Puis-je changer de nom d\'utilisateur?</string>
+  <string name="canIChangeMyUsername">Puis-je changer de nom d\'utilisateur ?</string>
   <string name="usernamesCannotBeChanged">Non, les noms d\'utilisateur ne peuvent pas être modifiés pour des raisons techniques et pratiques, entre autres parce qu\'ils sont à beaucoup d\'endroits : bases de données, exportations, logs et esprit des gens. Vous pouvez modifier les majuscules une fois.</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura jamais.</string>
