@@ -40,6 +40,9 @@ object config:
   opaque type AssetBaseUrl = String
   object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
 
+  opaque type AssetBaseUrlInternal = String
+  object AssetBaseUrlInternal extends OpaqueString[AssetBaseUrlInternal]
+
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
@@ -52,6 +55,7 @@ object config:
       @ConfigName("base_url") baseUrl: BaseUrl,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
       @ConfigName("asset.base_url") assetBaseUrl: AssetBaseUrl,
+      @ConfigName("asset.base_url_internal") assetBaseUrlInternal: AssetBaseUrlInternal,
       @ConfigName("asset.minified") minifiedAssets: Boolean,
       @ConfigName("stage.banner") stageBanner: Boolean,
       @ConfigName("site.name") siteName: String,
