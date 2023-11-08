@@ -459,13 +459,13 @@
   <string name="tournamentWinners">Уграчі турнірув</string>
   <string name="name">Имня</string>
   <string name="description">Опис</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Текст, котрый будут відїти лем участникы дружины. Кідь покладено, публічный опис помінят ся вшыткым участникам дружины.</string>
+  <string name="descPrivateHelp">Текст, котрый будут відїти лем участникы дружины. Кідь покладено, публічный опис помінят ся вшыткым участникам дружины.</string>
   <string name="no">Ньит</string>
   <string name="yes">Айно</string>
   <string name="help">Помоч:</string>
   <string name="topics">Темы</string>
   <string name="posts">Уповісткы</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Послїд. публікація</string>
+  <string name="lastPost">Послїд. публікація</string>
   <string name="views">Позирань</string>
   <string name="replies">Одвіты</string>
   <string name="reply">Одвітити</string>

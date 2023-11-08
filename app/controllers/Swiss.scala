@@ -59,7 +59,7 @@ final class Swiss(
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
-        json = swissOption.fold[Fu[Result]](notFoundJson("No such swiss tournament")): swiss =>
+        json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): swiss =>
           for
             isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             verdicts      <- env.swiss.api.verdicts(swiss)
@@ -271,7 +271,7 @@ final class Swiss(
       else fallback(swiss)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
-    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
+    (ctx.kid.no && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
       swiss.chatFor match
         case ChatFor.NONE                     => fuFalse
         case _ if isGrantedOpt(_.ChatTimeout) => fuTrue

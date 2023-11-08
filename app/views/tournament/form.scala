@@ -18,7 +18,7 @@ object form:
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
-    ) {
+    ):
       val fields = TourFields(form, none)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -43,7 +43,6 @@ object form:
         ),
         div(cls := "box box-pad tour__faq")(tournament.faq())
       )
-    }
 
   private[tournament] def setupCreate(form: Form[?], leaderTeams: List[LightTeam])(using
       PageContext,
@@ -79,17 +78,15 @@ object form:
       form3.split(
         if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
         else
-          form3.group(form.prefix("minutes"), trans.duration(), half = true)(
+          form3.group(form.prefix("minutes"), trans.duration(), half = true):
             form3.input(_)(tpe := "number")
-          )
       ),
       form3.split(fields.description(true), fields.startPosition),
       form3.globalError(form),
       form3.fieldset(trans.advancedSettings())(cls := "conditions")(
         fields.advancedSettings,
-        div(cls := "form")(
+        div(cls := "form"):
           conditionFields(form, fields, teams = myTeams, tour = tour.some)
-        )
       )
     )
 
@@ -98,7 +95,7 @@ object form:
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
-    ) {
+    ):
       val fields = TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -113,14 +110,11 @@ object form:
           hr,
           br,
           br,
-          postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
+          postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id)):
+            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm"):
               trans.cancelTournament()
-            )
-          )
         )
       )
-    }
 
   def conditionFields(
       form: Form[?],
@@ -247,28 +241,23 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using
       half = true,
       help =
         trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
-    )(
-      form3.input(_)(
+    ):
+      form3.input(_):
         tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
-      )
-    )
   def clock =
     form3.split(
-      form3.group(form.prefix("clockTime"), trans.clockInitialTime(), half = true)(
+      form3.group(form.prefix("clockTime"), trans.clockInitialTime(), half = true):
         form3.select(_, GatheringClock.timeChoices, disabled = disabledAfterStart)
-      ),
-      form3.group(form.prefix("clockIncrement"), trans.clockIncrement(), half = true)(
+      ,
+      form3.group(form.prefix("clockIncrement"), trans.clockIncrement(), half = true):
         form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
-      )
     )
   def minutes =
-    form3.group(form.prefix("minutes"), trans.duration(), half = true)(
-      form3.select(_, TournamentForm.minuteChoices)
-    )
+    form3.group(form.prefix("minutes"), trans.duration(), half = true):
+      form3.select(_, TournamentForm.minuteChoicesKeepingCustom(tour))
   def waitMinutes =
-    form3.group(form.prefix("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
+    form3.group(form.prefix("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true):
       form3.select(_, TournamentForm.waitMinuteChoices)
-    )
   def description(half: Boolean) =
     form3.group(
       form.prefix("description"),

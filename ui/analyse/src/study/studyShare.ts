@@ -93,6 +93,14 @@ async function writePgnClipboard(url: string): Promise<void> {
   }
 }
 
+const copyButton = (rel: string) =>
+  h('button.button.copy', {
+    attrs: {
+      'data-rel': rel,
+      ...dataIcon(licon.Clipboard),
+    },
+  });
+
 export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
@@ -234,18 +242,13 @@ export function view(ctrl: StudyShareCtrl): VNode {
               h('div.form-group', [
                 h('label.form-label', ctrl.trans.noarg(i18n)),
                 h('div.form-control-with-clipboard', [
-                  h(`input#study-share-${i18n}.form-control.copyable`, {
+                  h(`input#study-share-${i18n}.form-control.copyable.autoselect`, {
                     attrs: {
                       readonly: true,
                       value: `${baseUrl()}${path}`,
                     },
                   }),
-                  h('button.button.copy', {
-                    attrs: {
-                      'data-rel': `study-share-${i18n}`,
-                      ...dataIcon(licon.Clipboard),
-                    },
-                  }),
+                  copyButton(`study-share-${i18n}`),
                 ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
               ]),
@@ -254,19 +257,22 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'div.form-group',
               [
                 h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
-                h('input.form-control.autoselect', {
-                  attrs: {
-                    readonly: true,
-                    disabled: isPrivate,
-                    value: !isPrivate
-                      ? `<iframe ${
-                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
-                        } src="${baseUrl()}${addPly(
-                          `/study/embed/${studyId}/${chapter.id}`,
-                        )}" frameborder=0></iframe>`
-                      : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
-                  },
-                }),
+                h('div.form-control-with-clipboard', [
+                  h('input#study-share-embed.form-control.copyable.autoselect', {
+                    attrs: {
+                      readonly: true,
+                      disabled: isPrivate,
+                      value: !isPrivate
+                        ? `<iframe ${
+                            ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                          } src="${baseUrl()}${addPly(
+                            `/study/embed/${studyId}/${chapter.id}`,
+                          )}" frameborder=0></iframe>`
+                        : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
+                    },
+                  }),
+                  copyButton(`study-share-embed`),
+                ]),
               ].concat(
                 !isPrivate
                   ? [
@@ -289,12 +295,15 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ),
             h('div.form-group', [
               h('label.form-label', 'FEN'),
-              h('input.form-control.autoselect', {
-                attrs: {
-                  readonly: true,
-                  value: ctrl.currentNode().fen,
-                },
-              }),
+              h('div.form-control-with-clipboard', [
+                h('input#study-share-fen.form-control.copyable.autoselect', {
+                  attrs: {
+                    readonly: true,
+                    value: ctrl.currentNode().fen,
+                  },
+                }),
+                copyButton(`study-share-fen`),
+              ]),
             ]),
           ]),
         ]

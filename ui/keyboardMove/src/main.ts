@@ -5,6 +5,7 @@ import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabDialog } from 'common/dialog';
 import { propWithEffect, Prop } from 'common';
+import { Player } from 'game';
 import { load as loadKeyboardMove } from './plugins/keyboardMove';
 import KeyboardChecker from './plugins/keyboardChecker';
 
@@ -33,6 +34,7 @@ export interface KeyboardMove {
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
   checker?: KeyboardChecker;
+  opponent?: string;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -51,6 +53,7 @@ export interface RootData {
   crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
   game: { variant: { key: VariantKey } };
   player: { color: Color };
+  opponent?: Player;
 }
 export interface RootController {
   chessground: CgApi;
@@ -144,6 +147,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     helpModalOpen,
     isFocused,
     checker: root.clock ? new KeyboardChecker() : undefined,
+    opponent: root.data.opponent?.user?.username,
   };
 }
 

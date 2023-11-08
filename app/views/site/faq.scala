@@ -404,8 +404,8 @@ object faq:
           ul(
             li("Go to lichess.org"),
             li("Click Safari in the menu bar"),
-            li("Click Settings for This Website"),
-            li("Allow Auto-Play")
+            li("Click Settings for lichess.org..."),
+            li("Allow All Auto-Play")
           ),
           h3("Microsoft Edge (desktop):"),
           ul(

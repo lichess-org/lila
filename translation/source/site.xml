@@ -70,6 +70,7 @@
   <string name="makeMainLine">Make mainline</string>
   <string name="deleteFromHere">Delete from here</string>
   <string name="forceVariation">Force variation</string>
+  <string name="copyVariationPgn">Copy variation PGN</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
@@ -269,7 +270,7 @@
   <string name="accept">Accept</string>
   <string name="decline">Decline</string>
   <string name="playingRightNow">Playing right now</string>
-  <string name="eventInProgress">Playing right now</string>
+  <string name="eventInProgress">Playing now</string>
   <string name="finished">Finished</string>
   <string name="finishesX">finishes %s</string>
   <string name="abortGame">Abort game</string>

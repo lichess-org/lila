@@ -35,7 +35,7 @@
   <plurals name="hostedNbSimuls">
     <item quantity="other">主持了%s場車輪戰</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="other">加入了%s場車輪戰</item>
   </plurals>
   <plurals name="createdNbStudies">

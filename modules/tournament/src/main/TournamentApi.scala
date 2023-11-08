@@ -86,10 +86,19 @@ final class TournamentApi(
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
-      startsAt = if old.isCreated then tour.startsAt else old.startsAt,
-      mode = if tour.position.isDefined then chess.Mode.Casual else tour.mode
+      startsAt = if old.isCreated then tour.startsAt else old.startsAt
     )
-    tournamentRepo.update(finalized) andDo cached.tourCache.clear(tour.id) inject finalized
+    for
+      _ <- tournamentRepo.update(finalized)
+      _ <- ejectPlayersNonLongerOnAllowList(old, finalized)
+      _ = cached.tourCache.clear(tour.id)
+    yield finalized
+
+  private def ejectPlayersNonLongerOnAllowList(old: Tournament, tour: Tournament): Funit =
+    tour.isCreated.so:
+      tour.conditions.removedFromAllowList(old.conditions).toList.traverse_ {
+        withdraw(tour.id, _, false, false)
+      }
 
   def teamBattleUpdate(
       tour: Tournament,
@@ -344,7 +353,7 @@ final class TournamentApi(
     game.tournamentId so { stallPause(_, player) }
 
   private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
-    Parallel(tourId, "withdraw")(cached.tourCache.enterable) {
+    Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) andDo {
           socket.reload(tour.id)
@@ -362,7 +371,6 @@ final class TournamentApi(
           socket.reload(tour.id)
           publish()
       case _ => funit
-    }
 
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {

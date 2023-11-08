@@ -492,15 +492,15 @@
   <string name="tournamentWinners">क्रीडासत्रातील विजेते</string>
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">खाजगी वर्णन</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">मजकूर जो केवळ कार्यसंघ सदस्य पाहू शकतील. सेट केल्यास, कार्यसंघ सदस्यांसाठी सार्वजनिक वर्णन पुनर्स्थित करते.</string>
+  <string name="descPrivate">खाजगी वर्णन</string>
+  <string name="descPrivateHelp">मजकूर जो केवळ कार्यसंघ सदस्य पाहू शकतील. सेट केल्यास, कार्यसंघ सदस्यांसाठी सार्वजनिक वर्णन पुनर्स्थित करते.</string>
   <string name="no">नाही</string>
   <string name="yes">हो</string>
   <string name="help">मदत</string>
   <string name="createANewTopic">नवीन विषय तयार करा</string>
   <string name="topics">विषय</string>
   <string name="posts">लेख</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">मागील लेख</string>
+  <string name="lastPost">मागील लेख</string>
   <string name="views">दृश्ये</string>
   <string name="replies">प्रतिक्रिया</string>
   <string name="replyToThisTopic">या विषयावरील प्रतिक्रिया</string>
@@ -850,7 +850,7 @@
   <string name="mentionedYouInX">%1$s मध्ये तुमचा उल्लेख केला.</string>
   <string name="xMentionedYouInY">%1$s ने तुमचा उल्लेख %2$s मध्ये केला आहे.</string>
   <string name="invitedYouToX">%1$s मध्ये तुम्ही आमंत्रित आहात.</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
+  <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
   <string name="youAreNowPartOfTeam">तुम्ही संघात नाही.</string>
   <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
   <string name="someoneYouReportedWasBanned">आपण नोंदविलेल्या एखाद्यावर बंदी घातली आहे</string>

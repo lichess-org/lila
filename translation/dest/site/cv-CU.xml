@@ -304,7 +304,7 @@
   <string name="createANewTopic">Ҫӗнӗ темӑ пуҫлӑ</string>
   <string name="topics">Темӑсем</string>
   <string name="posts">Ҫыравсем</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Кайранхи ҫырав</string>
+  <string name="lastPost">Кайранхи ҫырав</string>
   <string name="views">Пӑхса тухни</string>
   <string name="replies">Хурав шучӗ</string>
   <string name="replyToThisTopic">Темине хуравлани</string>
@@ -483,7 +483,7 @@
   <string name="subscribe">Ҫырӑн</string>
   <string name="unsubscribe">Ҫырӑнма пӑрах</string>
   <string name="invitedYouToX">сана \"%1$s\" чӗннӗ.</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s сана \"%2$s\" чӗннӗ.</string>
+  <string name="xInvitedYouToY">%1$s сана \"%2$s\" чӗннӗ.</string>
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="welcome">Хапӑл тӑватпӑр!</string>

@@ -83,6 +83,7 @@ object userAnalysisI18n:
     trans.makeMainLine,
     trans.deleteFromHere,
     trans.forceVariation,
+    trans.copyVariationPgn,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
     trans.puzzle.goodMove,

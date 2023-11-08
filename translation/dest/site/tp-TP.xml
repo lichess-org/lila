@@ -152,6 +152,10 @@
     <item quantity="one">musi wan</item>
     <item quantity="other">musi %s</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">nanpa wawa pi nasin %1$s lon musi %2$s</item>
+    <item quantity="other">nanpa wawa pi nasin %1$s lon musi %2$s</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">ilo awen wan</item>
     <item quantity="other">ilo awen %s</item>
@@ -328,6 +332,10 @@
     <item quantity="one">lipu sona %s</item>
     <item quantity="other">lipu sona %s</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">musi %s pi tenpo sama</item>
+    <item quantity="other">musi %s pi tenpo sama</item>
+  </plurals>
   <string name="viewTournament">o lukin e musi pi musi mute</string>
   <string name="backToTournament">o tawa musi</string>
   <string name="thematic">nasin suli</string>
@@ -500,15 +508,15 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">sitelen sona pi jan kulupu</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">jan pi kulupu ni taso li ken lukin e sitelen ni. ona li lon la, ona li weka e sitelen sona pi jan ale.</string>
+  <string name="descPrivate">sitelen sona pi jan kulupu</string>
+  <string name="descPrivateHelp">jan pi kulupu ni taso li ken lukin e sitelen ni. ona li lon la, ona li weka e sitelen sona pi jan ale.</string>
   <string name="no">ala</string>
   <string name="yes">lon</string>
   <string name="help">o pona</string>
   <string name="createANewTopic">o pali e lipu toki sin</string>
   <string name="topics">lipu toki li</string>
   <string name="posts">toki li</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">toki sin li</string>
+  <string name="lastPost">toki sin li</string>
   <string name="views">oko li</string>
   <string name="replies">toki tawa ni</string>
   <string name="replyToThisTopic">o toki tawa lipu toki ni</string>
@@ -655,6 +663,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="keyGoToStartOrEnd">o tawa open/pini</string>
   <string name="keyShowOrHideComments">o pana (ala) lukin e toki anpa</string>
   <string name="keyEnterOrExitVariation">nasin open/pini</string>
+  <string name="keyNextLearnFromYourMistakes">tawa (o kama sona tan pakala sina)</string>
   <string name="newTournament">o open e musi pi musi mute</string>
   <string name="tournamentHomeTitle">utala musi pi musi pi lawa mije moli pi nasin ante pi nasin tenpo ante</string>
   <string name="tournamentHomeDescription">o musi e musi pi tenpo lili! musi mute li lon.</string>
@@ -751,6 +760,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="invalidFen">lipu FEN li ike</string>
   <string name="custom">nasin ante</string>
   <string name="notifications">toki kama</string>
+  <string name="notificationsX">mu: %1$s</string>
   <string name="perfRatingX">nanpa wawa: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">tenpo Sekunta %s li tenpo pi tawa #1</item>
@@ -856,7 +866,7 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="mentionedYouInX">li toki e sina lon toki \"%1$s\".</string>
   <string name="xMentionedYouInY">jan %1$s li toki e sina lon toki \"%2$s\".</string>
   <string name="invitedYouToX">li sin e sina tawa musi pi kama sona \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
+  <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
   <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. mi mute li weka wawa e ona</string>

@@ -79,8 +79,9 @@ final class TeamApi(
       forum = edit.forum,
       hideMembers = Some(edit.hideMembers)
     )
+    import reactivemongo.api.bson.*
     for
-      _        <- teamRepo.coll.update.one($id(team.id), team)
+      _        <- teamRepo.coll.update.one($id(team.id), $set(bsonWriteDoc(team)))
       isLeader <- hasPerm(team.id, me, _.Settings)
     yield
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)

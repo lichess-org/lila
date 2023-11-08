@@ -19,7 +19,7 @@ export default new (class implements SoundI {
   music?: SoundMove;
 
   constructor() {
-    $('body').on('mouseup touchend keydown', this.primer);
+    $('body').on('pointerdown pointerup mousedown touchend keydown', this.primer);
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
@@ -220,14 +220,14 @@ export default new (class implements SoundI {
   }
 
   primer = () => {
+    this.ctx?.resume();
+    if (this.ctx?.state === 'running') return;
     // some browsers fail audioContext.resume() on contexts created prior to user interaction
-    if (this.ctx?.state !== 'running') {
-      const ctx = makeAudioContext()!;
-      for (const s of this.sounds.values()) s.rewire(ctx);
-      this.ctx?.close();
-      this.ctx = ctx;
-    }
-    $('body').off('mouseup touchend keydown', this.primer);
+    const ctx = makeAudioContext()!;
+    for (const s of this.sounds.values()) s.rewire(ctx);
+    this.ctx?.close();
+    this.ctx = ctx;
+    $('body').off('pointerdown pointerup mousedown touchend keydown', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };
 })();

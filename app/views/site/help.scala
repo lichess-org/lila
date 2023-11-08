@@ -189,38 +189,47 @@ object help:
             td(cls := "tips")(
               ul(
                 li(
+                  a(target := "_blank", href := "https://youtu.be/Ibfk4TyDZpY")(
+                    "Watch the video tutorial"
+                  ),
+                  "."
+                ),
+                li(
                   "Use the ",
                   i(dataIcon := licon.Voice),
-                  " button to toggle voice recognition. Moves are sent to lichess.org "
-                    + "as plain text. Audio does not leave your device. Use the ",
+                  " button to toggle voice recognition, the ",
+                  i(dataIcon := licon.InfoCircle),
+                  " button to open this help dialog, and the ",
                   i(dataIcon := licon.Gear),
-                  " menu to configure all speech options."
+                  " menu to change speech settings."
                 ),
                 li(
-                  "We show arrows for multiple moves when we're not sure. Speak the color or number of a move "
-                    + "arrow to select it."
+                  "We show arrows for multiple moves when we're not sure. Speak the color or number of a move"
+                    + " arrow to select it."
                 ),
                 li(
-                  "If an arrow shows a sweeping arc, that move will be played when the arc becomes a full circle. "
-                    + "During this countdown, you may say \"",
+                  "If an arrow shows a sweeping radar, that move will be played when the circle is complete. "
+                    + "During this time, you may only say \"",
                   voice("yes"),
-                  "\" to play it immediately, \"",
+                  "\" to play the move immediately, \"",
                   voice("no"),
-                  "\" to cancel, or choose a different arrow. The timer can be adjusted or turned off."
-                ),
-                li(
-                  "An increased clarity setting reduces the number of moves shown when using a good microphone "
-                    + "in quiet surroundings. Decrease clarity to offer more choices if moves are often "
-                    + "misheard."
+                  "\" to cancel, or speak the color/number of a different arrow. This timer can be adjusted "
+                    + "or turned off in settings."
                 ),
                 li(
                   "Enable ",
                   strong("Push to Talk"),
-                  " in noisy surroundings. You must hold shift while speaking and lichess.org must be the frontmost tab and window."
+                  " in noisy surroundings. Hold shift while speaking commands when this is on."
                 ),
                 li(
                   "Use the phonetic alphabet to improve recognition of chessboard files. ",
                   phonetics
+                ),
+                li(
+                  a(target := "_blank", href := "/@/schlawg/blog/how-to-lichess-voice/nWrypoWI")(
+                    "This blog post"
+                  ),
+                  " explains the voice move settings in detail."
                 )
               )
             )

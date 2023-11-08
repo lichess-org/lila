@@ -472,15 +472,15 @@
   <string name="tournamentWinners">Kappingarvinnarar</string>
   <string name="name">Navn</string>
   <string name="description">Lýsing</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Innanhýsis lýsing</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Tekstur ið bert limir á liðnum fara síggja. Um hann er útfyltur, verður hann fyri limir brúktur í staðin fyri almennu lýsingina.</string>
+  <string name="descPrivate">Innanhýsis lýsing</string>
+  <string name="descPrivateHelp">Tekstur ið bert limir á liðnum fara síggja. Um hann er útfyltur, verður hann fyri limir brúktur í staðin fyri almennu lýsingina.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjálp:</string>
   <string name="createANewTopic">Stovna eitt nýtt evni</string>
   <string name="topics">Evni</string>
   <string name="posts">Uppsløg</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Seinasta uppslag</string>
+  <string name="lastPost">Seinasta uppslag</string>
   <string name="views">Áskoðanir</string>
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svara í sambandi við hetta evnið</string>
@@ -813,7 +813,7 @@
   <string name="unsubscribe">Melda teg úr</string>
   <string name="mentionedYouInX">nevndi teg í \"%1$s\".</string>
   <string name="invitedYouToX">bjóðaði tær til \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s bjóðaði tær til \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s bjóðaði tær til \"%2$s\".</string>
   <string name="congratsYouWon">Til lukku, tú vanst!</string>
   <string name="gameVsX">Talv móti %1$s</string>
   <string name="resVsX">%1$s móti %2$s</string>

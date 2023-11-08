@@ -73,7 +73,7 @@ final class Preload(
       userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot so dailyPuzzle()).mon(_.lobby segment "puzzle") zip
-      (ctx.noKid so liveStreamApi.all
+      (ctx.kid.no so liveStreamApi.all
         .dmap(_.homepage(streamerSpots, ctx.req, ctx.me.flatMap(_.lang)) withTitles lightUserApi)
         .mon(_.lobby segment "streams")) zip
       (ctx.userId so playbanApi.currentBan).mon(_.lobby segment "playban") zip

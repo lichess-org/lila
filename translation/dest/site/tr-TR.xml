@@ -348,7 +348,7 @@
     <item quantity="one">%s çalışma</item>
     <item quantity="other">%s çalışma</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s eş zamanlı oyun</item>
     <item quantity="other">%s eş zamanlı oyun</item>
   </plurals>
@@ -527,15 +527,15 @@
   <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Üyelere özel açıklama</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Sadece takım üyelerinin görebileceği metindir. Kullanılması halinde, takım üyeleri genel açıklama yerine bunu görür.</string>
+  <string name="descPrivate">Üyelere özel açıklama</string>
+  <string name="descPrivateHelp">Sadece takım üyelerinin görebileceği metindir. Kullanılması halinde, takım üyeleri genel açıklama yerine bunu görür.</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
   <string name="help">Yardım:</string>
   <string name="createANewTopic">Yeni bir bildiri oluştur.</string>
   <string name="topics">Konular</string>
   <string name="posts">Gönderiler</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Son gönderi</string>
+  <string name="lastPost">Son gönderi</string>
   <string name="views">Görüntülenme sayısı</string>
   <string name="replies">Cevaplar</string>
   <string name="replyToThisTopic">Bu konu hakkında cevap yaz</string>
@@ -759,7 +759,7 @@
   <string name="gameAnalysis">Oyun analizi</string>
   <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
-  <string name="xLikesY">%1$s beğendi: %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s beğendi: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>
@@ -788,7 +788,7 @@
   <string name="invalidFen">Geçersiz FEN</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Bildirimler: %1$s</string>
+  <string name="notificationsX">Bildirimler: %1$s</string>
   <string name="perfRatingX">Puan: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hızlı</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasik</string>
   <string name="ultraBulletDesc">Aşırı hızlı oyunlar: 30 saniyeden daha az</string>
@@ -894,7 +895,7 @@
   <string name="mentionedYouInX">\"%1$s\" adlı gönderide sizden bahsetti.</string>
   <string name="xMentionedYouInY">%1$s sizden bahsetti: \"%2$s\".</string>
   <string name="invitedYouToX">sizi \"%1$s\" adlı çalışmaya davet etti.</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
+  <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" adlı takıma katıldın.</string>
   <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>

@@ -46,7 +46,7 @@
     <item quantity="one">Hosted %s simultaneous exhibition</item>
     <item quantity="other">Hosted %s simultaneous exhibitions</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Participated in %s simultaneous exhibition</item>
     <item quantity="other">Participated in %s simultaneous exhibitions</item>
   </plurals>
@@ -63,8 +63,8 @@
     <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Competed in %s swiss tournament</item>
-    <item quantity="other">Competed in %s swiss tournaments</item>
+    <item quantity="one">Competed in %s Swiss tournament</item>
+    <item quantity="other">Competed in %s Swiss tournaments</item>
   </plurals>
   <string name="rankedInSwissTournament">Ranked #%1$s in %2$s</string>
   <string name="signedUp">Signed up to lichess.org</string>

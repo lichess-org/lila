@@ -79,7 +79,7 @@
   <string name="teamOnly">스위스 토너먼트는 팀 리더만 생성할 수 있고 팀 멤버만 참여할 수 있습니다.           
 스위스 토너먼트를 시작하기 위해서는 %1$s.</string>
   <string name="joinOrCreateTeam">팀에 가입하거나 새로 만드세요</string>
-  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">진행중</string>
+  <string name="nowPlaying">진행중</string>
   <string name="startingSoon">곧 시작됨</string>
   <string name="comparison">비교</string>
   <string name="tournDuration">토너먼트 기간</string>

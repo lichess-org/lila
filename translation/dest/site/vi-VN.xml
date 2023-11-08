@@ -54,7 +54,7 @@
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
   <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
-  <string name="analysis">Bảng phân tích</string>
+  <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích bằng máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
@@ -280,7 +280,7 @@
   <string name="chatRoom">Phòng trò chuyện</string>
   <string name="loginToChat">Đăng nhập để trò chuyện</string>
   <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
-  <string name="spectatorRoom">Phòng theo dõi</string>
+  <string name="spectatorRoom">Phòng khán giả</string>
   <string name="composeMessage">Soạn tin nhắn</string>
   <string name="subject">Chủ đề</string>
   <string name="send">Gửi</string>
@@ -325,14 +325,14 @@
   <plurals name="nbStudies">
     <item quantity="other">%s nghiên cứu</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="other">Chủ Trì %s
 Sự Kiện Cờ Đồng Loạt</item>
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
   <string name="noDrawBeforeSwissLimit">Trong giải đấu hệ Thụy Sĩ, ván cờ dưới 30 nước đi không thể hòa.</string>
-  <string name="thematic">Theo chủ đề</string>
+  <string name="thematic">Theo thế cờ</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s ván xếp hạng</item>
   </plurals>
@@ -495,15 +495,15 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Mô tả riêng tư</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
+  <string name="descPrivate">Mô tả riêng tư</string>
+  <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
   <string name="posts">Số bài viết</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Bài đăng gần đây nhất</string>
+  <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
   <string name="replies">Bình luận</string>
   <string name="replyToThisTopic">Bình luận chủ đề này</string>
@@ -722,7 +722,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
-  <string name="xLikesY">%1$s thích %2$s</string>
+  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
@@ -751,7 +751,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Thông báo: %1$s</string>
+  <string name="notificationsX">Thông báo: %1$s</string>
   <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">Còn %s giây để đi nước đầu tiên</item>
@@ -855,7 +855,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã nhắc đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s đã mời bạn tham gia \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s đã mời bạn tham gia \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Bây giờ bạn là một phần của đội.</string>
   <string name="youHaveJoinedTeamX">Bạn đã tham gia \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ai đó mà bạn báo cáo đã bị cấm</string>

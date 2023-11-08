@@ -90,7 +90,7 @@
     <item quantity="many">استضافة %s مباراة استعراضية في نفس الوقت</item>
     <item quantity="other">استضافة %s مباراة استعراضية في نفس الوقت</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="zero">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
     <item quantity="one">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
     <item quantity="two">المشاركة في %s مباراة استعراضية في نفس الوقت</item>

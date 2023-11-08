@@ -40,8 +40,6 @@ case class User(
 
   def realLang = lang flatMap Lang.get
 
-  def canPalantir = !kid && !marks.troll
-
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
   def profileOrDefault = profile | Profile.default
@@ -97,6 +95,8 @@ case class User(
   def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
   def isVerifiedOrAdmin = isVerified || isAdmin
 
+  def has2fa = totpSecret.isDefined
+
 object User:
 
   given UserIdOf[User] = _.id
@@ -125,16 +125,15 @@ object User:
     export user.{ id, createdAt, hasTitle, light }
 
   type CredentialCheck = ClearPassword => Boolean
-  case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):
+  case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean, must2fa: Boolean = false):
     import LoginCandidate.*
     def apply(p: PasswordAndToken): Result =
       val res =
-        if check(p.password) then
-          user.totpSecret.fold[Result](Result.Success(user)) { tp =>
-            p.token.fold[Result](Result.MissingTotpToken) { token =>
+        if !user.has2fa && must2fa then Result.Must2fa
+        else if check(p.password) then
+          user.totpSecret.fold[Result](Result.Success(user)): tp =>
+            p.token.fold[Result](Result.MissingTotpToken): token =>
               if tp verify token then Result.Success(user) else Result.InvalidTotpToken
-            }
-          }
         else if isBlanked then Result.BlankedPassword
         else Result.InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
@@ -145,6 +144,7 @@ object User:
       def success = toOption.isDefined
       case Success(user: User)       extends Result(user.some)
       case InvalidUsernameOrPassword extends Result(none)
+      case Must2fa                   extends Result(none)
       case BlankedPassword           extends Result(none)
       case WeakPassword              extends Result(none)
       case MissingTotpToken          extends Result(none)

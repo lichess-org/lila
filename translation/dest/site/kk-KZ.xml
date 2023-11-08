@@ -93,7 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
-  <string name="maxDepthReached">Тереңдіктің шегіне жетті!</string>
+  <string name="maxDepthReached">Іздеу шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
@@ -348,7 +348,7 @@
     <item quantity="one">%s зерттеу</item>
     <item quantity="other">%s зерттеу</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s көпшілікке қарсы ойын</item>
     <item quantity="other">%s көпшілікке қарсы ойын</item>
   </plurals>
@@ -528,15 +528,15 @@
   <string name="tournamentWinners">Жарыс женімпаздары</string>
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Құпия сипаттама</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
+  <string name="descPrivate">Құпия сипаттама</string>
+  <string name="descPrivateHelp">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
   <string name="no">Жоқ</string>
   <string name="yes">Иә</string>
   <string name="help">Көмек:</string>
   <string name="createANewTopic">Жаңа тақырып құру</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Кейінгі хабар</string>
+  <string name="lastPost">Кейінгі хабар</string>
   <string name="views">Қаралған</string>
   <string name="replies">Жауаптар</string>
   <string name="replyToThisTopic">Осы тақырыпта жауап беру</string>
@@ -789,7 +789,7 @@
   <string name="invalidFen">Қате FEN</string>
   <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Хабарламалар: %1$s</string>
+  <string name="notificationsX">Хабарламалар: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
@@ -896,7 +896,7 @@
   <string name="mentionedYouInX">%1$s біреу сіз туралы жазды.</string>
   <string name="xMentionedYouInY">%1$s сіз туралы %2$s жазды.</string>
   <string name="invitedYouToX">сізді %1$s шақырды.</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s сізді %2$s шақырды.</string>
+  <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
   <string name="someoneYouReportedWasBanned">Сіз шағым жіберегенсіз, ол ойыншы шектелді</string>
