@@ -43,4 +43,5 @@
   <string name="safeAndRespectfulContent">Paylaştığınız içeriklerin uygun ve orijinal olmasına lütfen dikkat edin. Başka bir kullanıcının içeriğini kopyalamayın.</string>
   <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
   <string name="blogTips">Harika blog gönderileri yazmanın püf noktaları</string>
+  <string name="discussThisBlogPostInTheForum">Bu blog gönderisini forumda tartış</string>
 </resources>
