@@ -1,16 +1,16 @@
+import { winningChances } from 'ceval';
 import {
   Chart,
   ChartConfiguration,
+  ChartDataset,
   Filler,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
-  Tooltip,
   PointStyle,
-  ChartDataset,
+  Tooltip,
 } from 'chart.js';
-import { winningChances } from 'ceval';
 import {
   animation,
   blackFill,
@@ -232,14 +232,13 @@ function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: string[
         )
         .filter(i => i.index >= 0);
       chart.setActiveElements(points);
-      chart.update();
+      chart.update('none');
     }
   });
   $('div.advice-summary').on('mouseleave', 'div.symbol', function (this: HTMLElement) {
     if (chart.getActiveElements().length) chart.setActiveElements([]);
     chart.data.datasets[0].hoverBackgroundColor = orangeAccent;
     chart.data.datasets[0].borderColor = orangeAccent;
-    chart.options.animation;
-    chart.update();
+    chart.update('none');
   });
 }
