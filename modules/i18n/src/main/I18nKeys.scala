@@ -69,6 +69,7 @@ object I18nKeys:
   val `makeMainLine` = I18nKey("makeMainLine")
   val `deleteFromHere` = I18nKey("deleteFromHere")
   val `forceVariation` = I18nKey("forceVariation")
+  val `copyVariationPgn` = I18nKey("copyVariationPgn")
   val `move` = I18nKey("move")
   val `variantLoss` = I18nKey("variantLoss")
   val `variantWin` = I18nKey("variantWin")
