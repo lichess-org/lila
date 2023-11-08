@@ -149,19 +149,34 @@ The red mute icon appears when your browser prevents lichess.org from playing a 
 
 We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
   <string name="desktop">desktop</string>
-  <string name="goToLichess">Go to lichess.org</string>
-  <string name="browsersMozillaFirefox">Press Ctrl-i on linux/windows or cmd-i on macos</string>
-  <string name="browsersMozillaFirefox1">Click the Permissions tab</string>
-  <string name="browsersMozillaFirefox2">Allow Audio and Video on lichess.org</string>
-  <string name="browsersGoogleChrome">Click the lock icon in the address bar</string>
-  <string name="browsersGoogleChrome1">Click Site Settings</string>
-  <string name="browsersGoogleChrome2">Allow Sound</string>
-  <string name="browsersSafari">Click Safari in the menu bar</string>
-  <string name="browsersSafari1">Click Settings for This Website</string>
-  <string name="browsersSafari2">Allow Auto-Play</string>
-  <string name="browsersMicrosoftEdge">Click the three dots in the top right corner</string>
-  <string name="browsersMicrosoftEdge1">Click Settings</string>
-  <string name="browsersMicrosoftEdge2">Click Cookies and Site Permissions</string>
-  <string name="browsersMicrosoftEdge3">Scroll down and click Media autoplay</string>
-  <string name="browsersMicrosoftEdge4">Add lichess.org to Allow</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Go to lichess.org
+
+2. Press Ctrl-i on Linux/Windows or cmd-i on MacOS
+
+3. Click the Permissions tab
+
+4. Allow Audio and Video on lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Go to lichess.org
+
+2. Click the lock icon in the address bar
+
+3. Click Site Settings
+
+4. Allow Sound</string>
+  <string name="enableAutoplayForSoundsSafari">1. Go to lichess.org
+
+2. Click Safari in the menu bar
+
+3. Click Settings for lichess.org ...
+
+4. Allow All Auto-Play</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Click the three dots in the top right corner
+
+2. Click Settings
+
+3. Click Cookies and Site Permissions
+
+4. Scroll down and click Media autoplay
+
+5. Add lichess.org to Allow</string>
 </resources>

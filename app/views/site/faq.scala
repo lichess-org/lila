@@ -5,6 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.String.html.nl2br
 
 object faq:
 
@@ -358,37 +359,16 @@ object faq:
         question(
           "autoplay",
           enableAutoplayForSoundsQ.txt(),
-          p(enableAutoplayForSoundsA()),
+          p(nl2br(enableAutoplayForSoundsA.txt())),
           h3("Mozilla Firefox (", desktop(), "):"),
-          ul(
-            li(goToLichess()),
-            li(browsersMozillaFirefox()),
-            li(browsersMozillaFirefox1()),
-            li(browsersMozillaFirefox2())
-          ),
+          p(nl2br(enableAutoplayForSoundsFirefox.txt())),
           h3("Google Chrome (", desktop(), "):"),
-          ul(
-            li(goToLichess()),
-            li(browsersGoogleChrome()),
-            li(browsersGoogleChrome1()),
-            li(browsersGoogleChrome2())
-          ),
+          p(nl2br(enableAutoplayForSoundsChrome.txt())),
           h3("Safari (", desktop(), "):"),
-          ul(
-            li(goToLichess()),
-            li(browsersSafari()),
-            li(browsersSafari1()),
-            li(browsersSafari2())
-          ),
+          p(nl2br(enableAutoplayForSoundsSafari.txt())),
           h3("Microsoft Edge (", desktop(), "):"),
-          ul(
-            li(browsersMicrosoftEdge()),
-            li(browsersMicrosoftEdge1()),
-            li(browsersMicrosoftEdge2()),
-            li(browsersMicrosoftEdge3()),
-            li(browsersMicrosoftEdge4())
-          )
-        ),
+          p(nl2br(enableAutoplayForSoundsMicrosoftEdge.txt()))
+		),
         question(
           "make-a-bot",
           "Make a Lichess bot?",
