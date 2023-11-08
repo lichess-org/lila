@@ -33,11 +33,11 @@
   <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Voir les meilleurs essais</string>
   <string name="bestRunOfDay">Meilleur essai du jour</string>
   <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Essais</string>
-  <string name="getReady">Soyez prêts&nbsp;!</string>
+  <string name="getReady">Soyez prêts !</string>
   <string name="waitingForMorePlayers">En attente d\'autres joueurs...</string>
-  <string name="raceComplete">Course terminée&nbsp;!</string>
+  <string name="raceComplete">Course terminée !</string>
   <string name="spectating">Observer</string>
-  <string name="joinTheRace">Participez&nbsp;!</string>
+  <string name="joinTheRace">Participez !</string>
   <string name="startTheRace">Débuter la course</string>
   <string name="yourRankX">Votre classement : %s</string>
   <string name="waitForRematch">Attendre une offre de revanche</string>
@@ -57,6 +57,6 @@
   <string name="thisMonth">Ce mois-ci</string>
   <string name="allTime">Depuis le début</string>
   <string name="clickToReload">Cliquez pour recharger</string>
-  <string name="thisRunHasExpired">Cette série d\'essais a expirée&nbsp;!</string>
-  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet&nbsp;!</string>
+  <string name="thisRunHasExpired">Cette série d\'essais a expirée !</string>
+  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet !</string>
 </resources>
