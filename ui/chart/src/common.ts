@@ -1,4 +1,4 @@
-import { Chart, ChartDataset } from 'chart.js';
+import { Chart, ChartDataset, ChartOptions } from 'chart.js';
 import { currentTheme } from 'common/theme';
 
 export interface MovePoint {
@@ -59,7 +59,30 @@ export function selectPly(this: Chart, ply: number, onMainline: boolean) {
   const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
   const line = plyLine(ply, onMainline);
   this.data.datasets[index] = line;
-  this.update();
+  this.update('none');
+}
+
+// Modified from https://www.chartjs.org/docs/master/samples/animations/progressive-line.html
+export function animation(duration: number): ChartOptions<'line'>['animations'] {
+  return {
+    x: {
+      type: 'number',
+      easing: 'easeOutQuad',
+      duration: duration,
+      from: NaN, // the point is initially skipped
+      delay: ctx => ctx.dataIndex * duration,
+    },
+    y: {
+      type: 'number',
+      easing: 'easeOutQuad',
+      duration: duration,
+      from: ctx =>
+        !ctx.dataIndex
+          ? ctx.chart.scales.y.getPixelForValue(100)
+          : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.dataIndex - 1].getProps(['y'], true).y,
+      delay: ctx => ctx.dataIndex * duration,
+    },
+  };
 }
 
 export async function loadHighcharts(tpe: string) {

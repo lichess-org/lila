@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import {
   MovePoint,
+  animation,
   chartYMax,
   chartYMin,
   fontColor,
@@ -126,6 +127,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       pointHitRadius: moveSeries && showTotal ? 0 : 200,
       pointHoverBorderColor: moveSeries && !showTotal ? orangeAccent : blueLineColor,
       pointRadius: moveSeries && !showTotal ? pointRadius[color] : 0,
+      pointHoverRadius: 5,
       pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
       fill: {
         target: 'origin',
@@ -163,6 +165,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
     options: {
       maintainAspectRatio: false,
       responsive: true,
+      animations: animation(800 / labels.length - 1),
       scales: {
         x: {
           min: 0,
@@ -180,8 +183,10 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       },
       plugins: {
         tooltip: {
+          borderColor: fontColor,
+          borderWidth: 1,
           backgroundColor: tooltipBgColor,
-          caretPadding: 10,
+          caretPadding: 15,
           titleColor: fontColor,
           titleFont: fontFamily(13),
           displayColors: false,

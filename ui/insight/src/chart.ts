@@ -81,83 +81,84 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
     chart.update();
   };
   return chart;
-
-  function datasetBuilder(d: InsightData) {
-    const color = (i: number, name: string) =>
-      d.valueYaxis.name == 'Game result'
-        ? resultColors[name as 'Victory' | 'Draw' | 'Defeat']
-        : theme[i % theme.length];
-    return [
-      ...d.series.map((serie, i) => barBuilder(serie, 'y1', color(i, serie.name), { stack: serie.stack })),
-      barBuilder(d.sizeSerie, 'y2', sizeColor),
-    ];
-  }
-  function barBuilder(
-    serie: InsightData['sizeSerie'],
-    id: string,
-    color: string,
-    opts?: { stack?: string },
-  ): ChartDataset<'bar'> {
-    return {
-      label: serie.name,
-      data: serie.data.map(nb => nb / (serie.dataType == 'percent' ? 100 : 1)),
-      borderWidth: 1.5,
-      yAxisID: id,
-      backgroundColor: color,
-      borderColor: '#4a4a4a',
-      stack: opts?.stack,
-    };
-  }
-  function labelBuilder(d: InsightData) {
-    return d.xAxis.categories.map(ts =>
-      d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
-    );
-  }
-
-  function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
-    const stacked = !!d.series[0].stack;
-    return {
-      x: {
-        type: 'category',
-        ticks: { color: tooltipFontColor },
-        grid: {
-          color: light ? '#cccccc' : '#404040',
-        },
-      },
-      y1: {
-        max: stacked ? 1 : undefined,
-        grid: {
-          color: light ? '#cccccc' : '#404040',
-        },
-        ticks: {
-          color: tooltipFontColor,
-          format: {
-            style: stacked || data.valueYaxis.dataType == 'percent' ? 'percent' : undefined,
-            maximumFractionDigits: 1,
-          },
-        },
-        title: {
-          color: tooltipFontColor,
-          display: true,
-          text: d.valueYaxis.name,
-        },
-        stacked: true,
-      },
-      y2: {
-        position: 'right',
-        ticks: { color: tooltipFontColor },
-        grid: { display: false },
-        title: {
-          color: tooltipFontColor,
-          display: true,
-          text: d.sizeSerie.name,
-        },
-        beginAtZero: true,
-      },
-    };
-  }
 }
 
+function datasetBuilder(d: InsightData) {
+  const color = (i: number, name: string) =>
+    d.valueYaxis.name == 'Game result'
+      ? resultColors[name as 'Victory' | 'Draw' | 'Defeat']
+      : theme[i % theme.length];
+  return [
+    ...d.series.map((serie, i) => barBuilder(serie, 'y1', color(i, serie.name), { stack: serie.stack })),
+    barBuilder(d.sizeSerie, 'y2', sizeColor),
+  ];
+}
+
+function barBuilder(
+  serie: InsightData['sizeSerie'],
+  id: string,
+  color: string,
+  opts?: { stack?: string },
+): ChartDataset<'bar'> {
+  return {
+    label: serie.name,
+    data: serie.data.map(nb => nb / (serie.dataType == 'percent' ? 100 : 1)),
+    borderWidth: 1.5,
+    yAxisID: id,
+    backgroundColor: color,
+    borderColor: '#4a4a4a',
+    stack: opts?.stack,
+  };
+}
+
+function labelBuilder(d: InsightData) {
+  return d.xAxis.categories.map(ts =>
+    d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
+  );
+}
+
+function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
+  const stacked = !!d.series[0].stack;
+  return {
+    x: {
+      type: 'category',
+      ticks: { color: tooltipFontColor },
+      grid: {
+        color: light ? '#cccccc' : '#404040',
+      },
+    },
+    y1: {
+      max: stacked ? 1 : undefined,
+      grid: {
+        color: light ? '#cccccc' : '#404040',
+      },
+      ticks: {
+        color: tooltipFontColor,
+        format: {
+          style: stacked || d.valueYaxis.dataType == 'percent' ? 'percent' : undefined,
+          maximumFractionDigits: 1,
+        },
+      },
+      title: {
+        color: tooltipFontColor,
+        display: true,
+        text: d.valueYaxis.name,
+      },
+      stacked: true,
+    },
+    y2: {
+      position: 'right',
+      ticks: { color: tooltipFontColor },
+      grid: { display: false },
+      title: {
+        color: tooltipFontColor,
+        display: true,
+        text: d.sizeSerie.name,
+      },
+      beginAtZero: true,
+    },
+  };
+}
 function empty(txt: string) {
   return h('div.chart.empty', [
     h('i', {
