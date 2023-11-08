@@ -1,12 +1,13 @@
 .voice-move-help {
+  max-width: 800px;
   td.tips li {
     list-style: disc;
     font-size: 1.1em;
     margin: 0.8em 10%;
-  }
 
-  a {
-    margin-#{$start-direction}: 0.25em;
+    i[data-icon]::before {
+      vertical-align: sub;
+    }
   }
 
   table {
