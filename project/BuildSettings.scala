@@ -8,9 +8,6 @@ object BuildSettings {
   val lilaVersion        = "4.0"
   val globalScalaVersion = "3.3.1"
 
-  val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
-  if (shadedMongo) println("--- shaded native reactivemongo ---")
-
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
       resolvers ++= Seq(lilaMaven, sonashots),
