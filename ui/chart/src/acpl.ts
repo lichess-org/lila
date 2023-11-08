@@ -8,9 +8,11 @@ import {
   PointElement,
   Tooltip,
   PointStyle,
+  ChartDataset,
 } from 'chart.js';
 import { winningChances } from 'ceval';
 import {
+  animation,
   blackFill,
   chartYMax,
   chartYMin,
@@ -41,7 +43,10 @@ export default async function (
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
 
-  const makeDataset = (d: AnalyseData, mainline: Tree.Node[]) => {
+  const makeDataset = (
+    d: AnalyseData,
+    mainline: Tree.Node[],
+  ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
     const pointBackgroundColors: (typeof orangeAccent | typeof blurBackgroundColor)[] = [];
     const adviceHoverColors: string[] = [];
     const moveLabels: string[] = [];
@@ -90,6 +95,7 @@ export default async function (
           above: whiteFill,
         },
         pointRadius: d.player.blurs ? pointSizes : 0,
+        pointHoverRadius: 5,
         pointHitRadius: 100,
         borderColor: orangeAccent,
         pointBackgroundColor: pointBackgroundColors,
@@ -97,8 +103,8 @@ export default async function (
         hoverBackgroundColor: orangeAccent,
         order: 5,
       },
-      moveLabels,
-      adviceHoverColors,
+      moveLabels: moveLabels,
+      adviceHoverColors: adviceHoverColors,
     };
   };
 
@@ -132,6 +138,7 @@ export default async function (
           display: false,
         },
       },
+      animations: animation(500 / (mainline.length - 1)),
       maintainAspectRatio: false,
       responsive: true,
       plugins: {
