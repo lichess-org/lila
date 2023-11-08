@@ -43,4 +43,5 @@
   <string name="safeAndRespectfulContent">Si us plau, compartiu només contingut segur i respectuós. No copieu el contingut d\'algú altre.</string>
   <string name="inappropriateContentAccountClosed">Qualsevol contingut inapropiat podria implicar el tancament del teu compte.</string>
   <string name="blogTips">Els nostres senzills consells per escriure bones entrades al blog</string>
+  <string name="discussThisBlogPostInTheForum">Discuteix aquesta publicació del blog en el fòrum</string>
 </resources>
