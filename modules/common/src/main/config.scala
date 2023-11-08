@@ -52,6 +52,7 @@ object config:
       @ConfigName("base_url") baseUrl: BaseUrl,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
       @ConfigName("asset.base_url") assetBaseUrl: AssetBaseUrl,
+      @ConfigName("asset.base_url_internal") assetBaseUrlInternal: String,
       @ConfigName("asset.minified") minifiedAssets: Boolean,
       @ConfigName("stage.banner") stageBanner: Boolean,
       @ConfigName("site.name") siteName: String,
