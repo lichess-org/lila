@@ -2,10 +2,6 @@ import { siteTrans } from './trans';
 
 type DateLike = Date | number | string;
 
-interface ElementWithDate extends Element {
-  lichessDate: Date;
-}
-
 // past, future, divisor, at least
 const units: [string, string, number, number][] = [
   ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
@@ -55,20 +51,20 @@ export const findAndRender = (parent?: HTMLElement) =>
     const now = Date.now();
     [].slice
       .call((parent || document).getElementsByClassName('timeago'), 0, 99)
-      .forEach((node: ElementWithDate) => {
+      .forEach((node: Element) => {
         const cl = node.classList,
           abs = cl.contains('abs'),
           set = cl.contains('set');
-        node.lichessDate = node.lichessDate || toDate(node.getAttribute('datetime')!);
+        const lichessDate = toDate(node.getAttribute('datetime')!);
         if (!set) {
-          const str = formatter()(node.lichessDate);
+          const str = formatter()(lichessDate);
           if (abs) node.textContent = str;
           else node.setAttribute('title', str);
           cl.add('set');
           if (abs || cl.contains('once')) cl.remove('timeago');
         }
         if (!abs) {
-          const diff = (now - node.lichessDate.getTime()) / 1000;
+          const diff = (now - lichessDate.getTime()) / 1000;
           node.textContent = formatDiff(diff);
           if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
         }
