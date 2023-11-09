@@ -368,7 +368,7 @@ object faq:
           p(nl2br(enableAutoplayForSoundsSafari.txt())),
           h3("Microsoft Edge (", desktop(), "):"),
           p(nl2br(enableAutoplayForSoundsMicrosoftEdge.txt()))
-		),
+	),
         question(
           "make-a-bot",
           "Make a Lichess bot?",
