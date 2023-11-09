@@ -96,11 +96,11 @@ final private class Rematcher(
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
       users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
-      board = Board(pieces, variant = pov.game.variant).updateHistory(
-        _.copy(
+      board = Board(pieces, variant = pov.game.variant).updateHistory: history =>
+        history.copy(
           lastMove = situation.flatMap(_.situation.board.history.lastMove),
-          castles = situation.fold(Castles.init)(_.situation.board.history.castles)
-        )
+          castles = situation.fold(Castles.init)(_.situation.board.history.castles),
+          unmovedRooks = situation.fold(history.unmovedRooks)(_.situation.board.unmovedRooks)
       )
       ply = situation.fold(Ply.initial)(_.ply)
       sloppy = Game.make(
