@@ -143,7 +143,7 @@ Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absol
 Cliquez sur l\'icône du cadenas à côté de l\'adresse lichess.org dans la barre URL de votre navigateur.
 
 Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de Lichess.</string>
-  <string name="enableAutoplayForSoundsQ">Activer la lecture automatique pour les sons ?</string>
+  <string name="enableAutoplayForSoundsQ">Activer la lecture automatique des sons?</string>
   <string name="enableAutoplayForSoundsA">La plupart des navigateurs peuvent empêcher la lecture de sons sur une page fraîchement chargée afin de protéger les utilisateurs. Imaginez si chaque site web pouvait vous bombarder immédiatement de publicités audio...
 
 L\'icône rouge de sourdine apparaît lorsque votre navigateur empêche lichess.org de jouer un son. En général, cette restriction est levée lorsque vous cliquez sur quelque chose. Sur certains navigateurs mobiles, le fait de faire glisser une pièce n\'est pas considéré comme un clic. Dans ce cas, vous devez toucher l\'échiquier pour autoriser le son au début de chaque partie.
