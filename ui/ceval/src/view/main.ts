@@ -275,7 +275,7 @@ export function renderCeval(ctrl: ParentCtrl): MaybeVNodes {
   const settingsGear: VNode | null = h('button.settings-gear', {
     attrs: { 'data-icon': licon.Gear, title: 'Engine settings' },
     class: { active: ceval.showEnginePrefs() },
-    hook: bind('click', ceval.showEnginePrefs.toggle, ceval.opts.redraw),
+    hook: bind('click', ceval.showEnginePrefs.toggle, ceval.opts.redraw, false),
   });
 
   return [

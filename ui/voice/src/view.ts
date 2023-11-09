@@ -23,7 +23,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       h('button#voice-settings-button', {
         attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
         class: { active: ctrl.showPrefs() },
-        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw),
+        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
     ]),
     ctrl.showPrefs()
