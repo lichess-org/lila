@@ -211,7 +211,7 @@ object index:
                     div(cls := "buttons")(
                       if ctx.isAuth then
                         frag(
-                          button(cls := "stripe button")(withCreditCard()),
+                          button(cls := "stripe button")(donate()),
                           div(cls := "paypal paypal--order"),
                           div(cls := "paypal paypal--subscription"),
                           button(cls := "button disabled paypal--disabled")("PAYPAL")
