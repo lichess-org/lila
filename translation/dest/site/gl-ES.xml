@@ -658,8 +658,10 @@
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Cor do anfitrión: %s</string>
+  <string name="yourPendingSimuls">As túas simultáneas pendentes</string>
   <string name="createdSimuls">Simultáneas creadas recentemente</string>
   <string name="hostANewSimul">Crear unha nova simultánea</string>
+  <string name="signUpToHostOrJoinASimul">Rexístrate para crear ou unirte a unhas simultáneas</string>
   <string name="noSimulFound">Simultánea non atopada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea non existe.</string>
   <string name="returnToSimulHomepage">Volver á paxina principal das simultáneas</string>

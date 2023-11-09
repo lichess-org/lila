@@ -53,7 +53,7 @@
 В редки случаи може да е трудно да се реши автоматично (форсирани линии, крепости). По подразбиране винаги сме на страната на играча, който не е изтекъл времето.
 
 Обърнете внимание, че може да е възможно да се чифтосвате с един кон или офицер, ако опонентът има фигура, която може да блокира краля.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Правилник на ФИДЕ</string>
+  <string name="fideHandbook">Правилник на ФИДЕ</string>
   <string name="fideHandbookX">Наръчник на FIDE %s</string>
   <string name="discoveringEnPassant">Защо една пешка може да улови друга пешка, когато вече е премината? (преминаване)</string>
   <string name="explainingEnPassant">Това е легален ход, известен като „преминаване“. Статията в Wikipedia дава %1$s.
