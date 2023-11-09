@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">将创建一个论坛主题，供人们对你的帖子发表评论</string>
   <string name="publishOnYourBlog">在博客上发布</string>
   <string name="publishHelp">如果选中，文章将列于你的博客上。如果未选择，它将是私密的，在你的草稿箱中</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="other">已发布 %s 博客文章</item>
   </plurals>
   <plurals name="nbViews">
@@ -30,14 +30,14 @@
     <item quantity="other">查看所有 %s 篇文章</item>
   </plurals>
   <string name="uploadAnImageForYourPost">上传一张图片</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">图片备选文字</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">图片引自</string>
+  <string name="imageAlt">图片备选文字</string>
+  <string name="imageCredit">图片引自</string>
   <string name="deleteBlog">确定删除该博客</string>
   <string name="deleteImage">删除图像</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">使用来自下列网站的图像是安全的： </string>
+  <string name="safeToUseImages">使用来自下列网站的图像是安全的： </string>
   <string name="selectPostTopics">选择帖子的主题</string>
   <string name="useImagesYouMadeYourself">你也可以使用你自己制作的图像，你拍摄的照片，Lichess 的屏幕截图... 任何不是他人版权所有的东西。</string>
   <string name="safeAndRespectfulContent">请发布安全和表示尊重的内容。不要复制他人的内容。</string>
   <string name="inappropriateContentAccountClosed">任何违规的内容都可能导致你的账户被封禁。</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">写出好博文的小提示</string>
+  <string name="blogTips">写出好博文的小提示</string>
 </resources>

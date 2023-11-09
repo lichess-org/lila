@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Жазбаңыз туралы пікір айтатындай форумда тақырып құралатын болады</string>
   <string name="publishOnYourBlog">Блогта жария ету</string>
   <string name="publishHelp">Егер белгіленсе, жазба блог тізімінде көрінетін болады, егер белгіленбесе, жасырын, уақытша жазбалар қатарында болады</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Блог-жазба жарияланды</item>
     <item quantity="other">%s блог-жазба жарияланды</item>
   </plurals>
@@ -33,14 +33,14 @@
     <item quantity="other">Барлық %s жазбаны қарау</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Жазбаңызға сурет жүктеп салу</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Суретті сипаттауыш мәтін</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Суреттің иесі</string>
+  <string name="imageAlt">Суретті сипаттауыш мәтін</string>
+  <string name="imageCredit">Суреттің иесі</string>
   <string name="deleteBlog">Бұл блог-жазбаны толығымен жою</string>
   <string name="deleteImage">Суретті жою</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Суреттерді келесі қауіпсіз сайттардан алуыңызға болады: </string>
+  <string name="safeToUseImages">Суреттерді келесі қауіпсіз сайттардан алуыңызға болады: </string>
   <string name="selectPostTopics">Жазбаңыздың тақырыбын таңдаңыз</string>
   <string name="useImagesYouMadeYourself">Сонымен қатар, ешбіреудің ауторлық құқығымен қорғалмаған суретті қолдануға еркінсіз. Мысалы, өзіңіз салған, түсірген суретіңіз не Личестің экран суреті.</string>
   <string name="safeAndRespectfulContent">Мазмұны қауіпсіз әрі басқаларға сыйласты жазбаны салыңыз. Біреудің жазбасын көшірмеңіз.</string>
   <string name="inappropriateContentAccountClosed">Әдепсіз, орынсыз нәрселер болса, тіркелгіңіз жабылады.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Керемет блог-жазбаны қалай жазу туралы кеңестер</string>
+  <string name="blogTips">Керемет блог-жазбаны қалай жазу туралы кеңестер</string>
 </resources>

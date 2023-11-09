@@ -33,6 +33,8 @@
   <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
   <string name="personalAccessTokens">Kişisel API erişim jetonları</string>
   <string name="apiAccessTokens">API erişim jetonları</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oluşturuldu: %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Son kullanım: %s</string>
   <string name="possibleToPrefill">Bu formu, URL\'nin sorgu parametrelerini değiştirerek önceden doldurmak mümkündür.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Örnek olarak: %s</string>
 </resources>

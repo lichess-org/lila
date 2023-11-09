@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Ֆորումի թեման կստեղծվի՝ այնտեղ մեկնաբանություններ թողնելու հնարավորությամբ</string>
   <string name="publishOnYourBlog">Հրապարակել ձեր բլոգում</string>
   <string name="publishHelp">Եթե այս նշումն առկա է, գրառումը կերևա ձեր բլոգում։ Հակառակ դեպքում այն կլինի անձնական` ձեր գրառումների սևագրերի մեջ</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Հրապարակել է հաղորդագրություն բլոգում</item>
     <item quantity="other">Հրապարակել է %s հաղորդագրություն բլոգում</item>
   </plurals>
@@ -33,14 +33,14 @@
     <item quantity="other">Դիտել բոլոր %s գրառումները</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Վերբեռնեք լուսանկար ձեր գրառման համար</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Պատկերի Նկարագրությունը</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Պատկերի իրավունքները</string>
+  <string name="imageAlt">Պատկերի Նկարագրությունը</string>
+  <string name="imageCredit">Պատկերի իրավունքները</string>
   <string name="deleteBlog">Բլոգի այս գրությունը հեռացնել վերջնականապես</string>
   <string name="deleteImage">Ջնջել պատկերը</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Անվտանգ է օգտագործել պատկերները հետևյալ կայքերից.</string>
+  <string name="safeToUseImages">Անվտանգ է օգտագործել պատկերները հետևյալ կայքերից.</string>
   <string name="selectPostTopics">Ընտրեք այն թեմաները, որոնց մասին է Ձեր գրառումը</string>
   <string name="useImagesYouMadeYourself">Կարող եք օգտագործել նաև Ձեր ստեղծած նկարները, ձեր արած լուսանկարները, Lichess-ի սքրինշոթները... այն ամենը, ինչը հեղինակային իրավունքով պաշտպանված չէ:</string>
   <string name="safeAndRespectfulContent">Խնդրում ենք հրապարակել միայն անվտանգ և հարգելի բովանդակություն։ Մի՛ պատճենեք ուրիշի բովանդակությունը։</string>
   <string name="inappropriateContentAccountClosed">Ցանկացած անպատշաճ գործողություն կարող է հանգեցնել  Ձեր հաշվի փակմանը:</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Բլոգում գերազանց հաղորդագրություններ գրելու մեր պարզ խորհուրդները</string>
+  <string name="blogTips">Բլոգում գերազանց հաղորդագրություններ գրելու մեր պարզ խորհուրդները</string>
 </resources>
