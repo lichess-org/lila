@@ -36,9 +36,6 @@
   <string name="variant">ตัวแปรกติกา</string>
   <string name="minimumGameLength">ความยาวเกมขั้นต่ำ</string>
   <string name="history">ประวัติการเล่นสังเวียน</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="other">ดูทีม</item>
-  </plurals>
   <string name="customStartDate">กำหนดเวลาแข่งเอง</string>
   <string name="allowBerserk">อนุญาตให้เบอร์เซิร์ก</string>
   <string name="allowBerserkHelp">ผู้เล่นจะสามารถลดเวลาเล่นของตัวเองครึ่งหนึ่งเพี่อที่จะได้คะแนนเพิ่ม 1 คะแนนถ้าชนะ</string>
