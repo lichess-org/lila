@@ -53,7 +53,7 @@
 Σε σπάνιες περιπτώσεις αυτό είναι δύσκολο να αποφασιστεί αυτόματα (αναγκαστικές γραμμές, φρούρια =). Συνήθως, είμαστε με τον παίκτη του οποίου ο χρόνος δεν έχει εξαντληθεί.
 
 Επίσης, μπορεί να είναι δυνατόν κάποιος παίκτης να κάνει ματ με έναν ίππο ή έναν αξιωματικό εάν ο αντίπαλος έχει ένα κομμάτι που αποκλείει τις κινήσεις του βασιλιά.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">βιβλίου κανονισμών της FIDE</string>
+  <string name="fideHandbook">βιβλίου κανονισμών της FIDE</string>
   <string name="fideHandbookX">βιβλίο κανονισμών της FIDE %s</string>
   <string name="discoveringEnPassant">Γιατί μπορεί ένα πιόνι να αιχμαλωτίσει ένα αντίπαλο που βρίσκεται δίπλα του (en passant);</string>
   <string name="explainingEnPassant">Αυτή είναι μια νόμιμη κίνηση γνωστή ως \"en passant\". Το άρθρο της Βικιπαίδειας δίνει μια %1$s.
