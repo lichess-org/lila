@@ -206,7 +206,7 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="error.weakPassword">Mật khẩu này quá phổ biến và quá dễ đoán.</string>
   <string name="error.namePassword">Vui lòng không sử dụng tên đăng nhập làm mật khẩu.</string>
-  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn bạn vì đã thông cảm.</string>
+  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn vì bạn đã thông cảm.</string>
   <string name="youAreLeavingLichess">Bạn đang thoát Lichess</string>
   <string name="neverTypeYourPassword">Không bao giờ nhập mật khẩu Lichess của bạn trên bất kì trang web nào khác!</string>
   <string name="proceedToX">Chuyển tới trang %s</string>
@@ -476,7 +476,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
   <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
-  <string name="thankYou">Cảm ơn!</string>
+  <string name="thankYou">Lời cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
