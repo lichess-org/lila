@@ -150,7 +150,7 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
-    this.persistence = opts.study || this.synthetic ? undefined : new Persistence(this);
+    this.persistence = opts.study ? undefined : new Persistence(this);
 
     this.instanciateCeval();
 
@@ -662,6 +662,10 @@ export default class AnalyseCtrl {
           ...engine,
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
+      onSelectEngine: () => {
+        this.persistence?.autosave();
+        lichess.reload();
+      },
     });
   }
 

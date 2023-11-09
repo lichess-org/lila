@@ -79,6 +79,7 @@ export interface CevalOpts {
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: Redraw;
+  onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfo[];
 }
 

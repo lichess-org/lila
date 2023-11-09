@@ -192,7 +192,6 @@ export class Engines {
   select(id: string) {
     this.active = this.engineFor({ id })!;
     this.selected(id);
-    lichess.reload();
   }
 
   engineFor(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {

@@ -193,14 +193,21 @@ export default class CevalCtrl {
 
   maxHash = () => this.engines.active?.maxHash ?? 16;
 
+  selectEngine = (id: string) => {
+    this.engines.select(id);
+    this.opts.onSelectEngine?.();
+  };
+
   setHovering = (fen: Fen, uci?: Uci) => {
     this.hovering(uci ? { fen, uci } : null);
     this.opts.setAutoShapes();
   };
+
   setPvBoard = (pvBoard: PvBoard | null) => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
   };
+
   toggle = () => {
     if (!this.possible || !this.allowed()) return;
     this.stop();

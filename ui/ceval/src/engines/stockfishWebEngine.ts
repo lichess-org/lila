@@ -28,16 +28,12 @@ export class StockfishWebEngine implements CevalEngine {
     const module: StockfishWeb = await makeModule.default({
       wasmMemory: sharedWasmMemory(this.info.minMem!),
       locateFile: (name: string) =>
-        lichess.assetUrl(`${root}/${name}`, {
-          version,
-          sameDomain: name.endsWith('.worker.js'),
-        }),
+        lichess.assetUrl(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
     });
 
     if (!this.info.id.endsWith('hce')) {
       const nnueStore = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
       const nnueFilename = module.getRecommendedNnue();
-      const nnueVersion = nnueFilename.slice(3, 9);
 
       module.onError = (msg: string) => {
         if (msg.startsWith('BAD_NNUE')) {
@@ -45,12 +41,12 @@ export class StockfishWebEngine implements CevalEngine {
           // this will happen before nnueStore.put completes so let that finish before deletion.
           // otherwise, the resulting object store will best be described as undefined
           setTimeout(() => {
-            console.warn(`Corrupt NNUE file, removing ${nnueVersion} from IDB`);
-            nnueStore?.remove(nnueVersion);
+            console.warn(`Corrupt NNUE file, removing ${nnueFilename} from IDB`);
+            nnueStore?.remove(nnueFilename);
           }, 2000);
         } else console.error(msg);
       };
-      let nnueBuffer = await nnueStore?.get(nnueVersion).catch(() => undefined);
+      let nnueBuffer = await nnueStore?.get(nnueFilename).catch(() => undefined);
 
       if (!nnueBuffer || nnueBuffer.byteLength < 1024 * 1024) {
         const req = new XMLHttpRequest();
@@ -66,7 +62,7 @@ export class StockfishWebEngine implements CevalEngine {
         });
 
         this.nnue?.();
-        nnueStore?.put(nnueVersion, nnueBuffer!).catch(() => console.warn('IDB store failed'));
+        nnueStore?.put(nnueFilename, nnueBuffer!).catch(() => console.warn('IDB store failed'));
       }
       module.setNnueBuffer(nnueBuffer!);
     }
