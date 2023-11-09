@@ -626,6 +626,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="yourPendingSimuls">Sự kiện đồng loạt đang chờ xử lý của bạn</string>
   <string name="createdSimuls">Sự kiện cờ đồng loạt mới tạo</string>
   <string name="hostANewSimul">Chủ trì một sự kiện cờ đồng loạt mới</string>
+  <string name="signUpToHostOrJoinASimul">Đăng kí để tham gia hoặc chủ trì một sự kiện đồng loạt</string>
   <string name="noSimulFound">Không tìm thấy sự kiện cờ đồng loạt nào</string>
   <string name="noSimulExplanation">Sự kiện cờ đồng loạt này không tồn tại.</string>
   <string name="returnToSimulHomepage">Trở về trang chủ cờ đồng loạt</string>
