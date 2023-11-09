@@ -143,4 +143,6 @@ Het is het beste om ratings te zien als \"relatieve\" getallen (in tegenstelling
 Klik op het slotje naast het lichess.org-adres in de adresbalk van uw browser.
 
 Selecteer vervolgens of u meldingen van Lichess wilt toestaan of blokkeren.</string>
+  <string name="enableAutoplayForSoundsQ">Automatisch afspelen inschakelen voor geluiden?</string>
+  <string name="desktop">bureaublad</string>
 </resources>
