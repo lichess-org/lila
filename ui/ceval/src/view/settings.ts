@@ -153,10 +153,7 @@ function engineSelection(ctrl: ParentCtrl) {
     h(
       'select.select-engine',
       {
-        hook: bind('change', e => {
-          ctrl.getCeval().engines.select((e.target as HTMLSelectElement).value);
-          lichess.reload();
-        }),
+        hook: bind('change', e => ctrl.getCeval().engines.select((e.target as HTMLSelectElement).value)),
       },
       [
         ...engines.map(engine =>
