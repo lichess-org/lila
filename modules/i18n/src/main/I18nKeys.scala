@@ -2415,11 +2415,10 @@ object I18nKeys:
     val `safeAndRespectfulContent` = I18nKey("ublog:safeAndRespectfulContent")
     val `inappropriateContentAccountClosed` = I18nKey("ublog:inappropriateContentAccountClosed")
     val `blogTips` = I18nKey("ublog:blogTips")
+    val `discussThisBlogPostInTheForum` = I18nKey("ublog:discussThisBlogPostInTheForum")
     val `publishedNbBlogPosts` = I18nKey("ublog:publishedNbBlogPosts")
     val `nbViews` = I18nKey("ublog:nbViews")
     val `viewAllNbPosts` = I18nKey("ublog:viewAllNbPosts")
-    val `discussThisBlogPostInTheForum` = I18nKey("ublog:discussThisBlogPostInTheForum")
-
 
   object insight:
     val `xChessInsights` = I18nKey("insight:xChessInsights")
