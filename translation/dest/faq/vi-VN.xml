@@ -142,5 +142,23 @@ Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (tr�
 Nhấp vào biểu tượng ổ khóa bên cạnh địa chỉ lichess.org trong thanh URL của trình duyệt của bạn.
 
 Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Bật tính năng tự động phát âm thanh?</string>
   <string name="desktop">máy tính để bàn</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
+2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
+3. Nhấn vào tab Quyền (Permissions)
+4. Cho phép Video và Âm Thanh (Audio)</string>
+  <string name="enableAutoplayForSoundsChrome">1. Truy cập vào lichess.org
+2. Nhấn hình ổ khoá trên thanh tìm kiếm
+3. Nhấn Cài đặt trang web
+4. Cho phép Âm thanh</string>
+  <string name="enableAutoplayForSoundsSafari">1. Truy cập vào lichess.org
+2. Nhấn hình Safari trong thanh menu
+3. Nhấn vào Cài đặt cho lichess.org ...
+4. Cho phép Tất cả Tự động Phát</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
+2. Nhấp vào Cài đặt
+3. Nhấn vào Cookie và Quyền của trang web
+4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)
+5. Thêm lichess.org vào Cho phép</string>
 </resources>
