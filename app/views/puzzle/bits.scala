@@ -88,7 +88,7 @@ object bits:
     trans.asBlack,
     trans.randomColor,
     trans.flipBoard
-  ) ::: views.html.board.userAnalysisI18n.cevalWidget.toList
+  ) ::: views.html.board.userAnalysisI18n.cevalTranslations.toList
 
   private val trainingI18nKeys = baseI18nKeys ::: List(
     trans.puzzle.example,
