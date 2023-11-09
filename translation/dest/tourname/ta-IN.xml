@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyXArena">மணிநேரம் %s அரங்கம்</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">மணிநேரம் %s</string>
+  <string name="dailyRapidArena">தினசரி விரைவு அரங்கம்</string>
+  <string name="yearlyClassicalArena">ஆண்டுதோறும் பாரம்பரிய அரங்கம்</string>
+  <string name="yearlyClassical">ஆண்டுதோறும் பாரம்பரியம்</string>
+  <string name="yearlyXArena">ஆண்டுதோறும் %s அரங்கம்</string>
+  <string name="yearlyX">ஆண்டுதோறும் %s</string>
+  <string name="rapidShieldArena">விரைவான கேடய அரங்கம்</string>
+  <string name="rapidShield">விரைவான கேடயம்</string>
+  <string name="classicalShieldArena">பாரம்பரிய கேடய அரங்கம்</string>
+  <string name="classicalShield">பாரம்பரிய கேடயம்</string>
+  <string name="xShieldArena">%s கேடய அரங்கம்</string>
+  <string name="xShield">%s கேடயம்</string>
+  <string name="xTeamBattle">%s அணி யுத்தம்</string>
+  <string name="eliteXArena">சிறந்தவர்கள் %s அரங்கம்</string>
+  <string name="eliteX">சிறந்தவர்கள் %s</string>
+  <string name="xArena">%s அரங்கம்</string>
+</resources>
