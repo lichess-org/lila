@@ -90,20 +90,8 @@ object bits:
     trans.asWhite,
     trans.asBlack,
     trans.randomColor,
-    // ceval
-    trans.depthX,
-    trans.usingServerAnalysis,
-    trans.loadingEngine,
-    trans.calculatingMoves,
-    trans.engineFailed,
-    trans.cloudAnalysis,
-    trans.goDeeper,
-    trans.showThreat,
-    trans.gameOver,
-    trans.inLocalBrowser,
-    trans.toggleLocalEvaluation,
     trans.flipBoard
-  )
+  ) ::: views.html.board.userAnalysisI18n.cevalWidget.toList
 
   private val trainingI18nKeys = baseI18nKeys ::: List(
     trans.puzzle.example,
