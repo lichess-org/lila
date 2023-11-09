@@ -5,7 +5,6 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.nl2br
 
 object faq:
 
@@ -359,16 +358,16 @@ object faq:
         question(
           "autoplay",
           enableAutoplayForSoundsQ.txt(),
-          p(nl2br(enableAutoplayForSoundsA.txt())),
+          p(enableAutoplayForSoundsA()),
           h3("Mozilla Firefox (", desktop(), "):"),
-          p(nl2br(enableAutoplayForSoundsFirefox.txt())),
+          p(enableAutoplayForSoundsFirefox()),
           h3("Google Chrome (", desktop(), "):"),
-          p(nl2br(enableAutoplayForSoundsChrome.txt())),
+          p(enableAutoplayForSoundsChrome()),
           h3("Safari (", desktop(), "):"),
-          p(nl2br(enableAutoplayForSoundsSafari.txt())),
+          p(enableAutoplayForSoundsSafari()),
           h3("Microsoft Edge (", desktop(), "):"),
-          p(nl2br(enableAutoplayForSoundsMicrosoftEdge.txt()))
-          ),
+          p(enableAutoplayForSoundsMicrosoftEdge())
+        ),
         question(
           "make-a-bot",
           "Make a Lichess bot?",
