@@ -145,7 +145,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) so {
       val path = parentPath + subTree.id
-      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) appended {
+      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) :+ {
         path.toDbField -> writeBranch(subTree)
       }
     }

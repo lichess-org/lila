@@ -47,6 +47,7 @@ object Helpers:
 
   extension (newTree: NewTree)
     def toBranch: Branch = newTree.value.toBranch(newTree.child)
+    def toRoot: Root = ??? //newTree.value.toBranch(newTree.child)
     def toBranches: Branches =
       val variations = newTree.variations.map(_.toNode.toBranch)
       Branches(newTree.value.toBranch(newTree.child) :: variations)

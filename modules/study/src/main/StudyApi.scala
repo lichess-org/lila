@@ -50,6 +50,7 @@ final class StudyApi(
   def isOwnerOrAdmin(id: StudyId, owner: User) = byIdAndOwnerOrAdmin(id, owner).map(_.isDefined)
 
   def byIdWithChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
+    println(s"byIdWithChapter study $id")
     byId(id).flatMapz: study =>
       chapterRepo byId study.position.chapterId flatMap {
         case None =>
@@ -64,6 +65,7 @@ final class StudyApi(
       }
 
   def byIdWithChapter(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    println(s"byIdWithChapter $chapterId")
     studyRepo.byIdWithChapter(chapterRepo.coll)(id, chapterId)
 
   def byIdWithChapterOrFallback(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
@@ -73,6 +75,7 @@ final class StudyApi(
     byIdWithChapterFinder(id, chapterRepo firstByStudy id)
 
   def byChapterId(chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    println(s"byChapterId $chapterId")
     chapterRepo.byId(chapterId).flatMapz { chapter =>
       studyRepo.byId(chapter.studyId).mapz { Study.WithChapter(_, chapter).some }
     }
@@ -227,6 +230,7 @@ final class StudyApi(
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Fu[Option[() => Funit]] =
+    println(s"doAddNode: ${position.path.debug} ${rawNode.id.toUci.uci}")
     val singleNode   = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if position.chapter.isOverweight then
@@ -301,6 +305,7 @@ final class StudyApi(
 
   // rewrites the whole chapter because of `forceVariation`. Very inefficient.
   def promote(studyId: StudyId, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
+    println(s"promote $studyId $position $toMainline")
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):

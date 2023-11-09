@@ -195,6 +195,7 @@ object BSONHandlers:
       )
     )
 
+  // shallow write, as not writing children
   private[study] def writeBranch(n: Branch) =
     import Node.{ BsonFields as F }
     val w = new Writer

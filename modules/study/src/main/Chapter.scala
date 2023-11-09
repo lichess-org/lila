@@ -32,6 +32,8 @@ case class Chapter(
     f(root).map: newRoot =>
       copy(root = newRoot)
 
+  // if path is empty we add node as child
+  // returns none if path is invalid
   def addNode(node: Branch, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
     updateRoot:
       _.withChildren(_.addNodeAt(node, path))

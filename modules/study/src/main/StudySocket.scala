@@ -257,6 +257,7 @@ final private class StudySocket(
   )
 
   private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(who: Who) =
+    println(s"moveOrDrop $m ${m.path.debug}")
     m.branch.foreach: branch =>
       if branch.ply < Node.MAX_PLIES then
         m.chapterId
@@ -287,6 +288,7 @@ final private class StudySocket(
     _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
+
   def addNode(
       pos: Position.Ref,
       node: Branch,
@@ -309,6 +311,7 @@ final private class StudySocket(
         )
         .add("relay", relay)
     )
+
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
     version(

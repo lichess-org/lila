@@ -12,7 +12,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
-//opaque type not working due to cyclic ref try again later
+// opaque type not working due to cyclic ref try again later
 // either we decide that branches strictly represent all the children from a node
 // with the first being the mainline, OR we just use it as an List with extra functionalities
 case class Branches(nodes: List[Branch]) extends AnyVal:
@@ -27,10 +27,10 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
   def hasNode(id: UciCharPair): Boolean    = nodes.exists(_.id == id)
 
-  def getNodeAndIndex(id: UciCharPair): Option[(Branch, Int)] =
-    nodes.zipWithIndex.collectFirst {
-      case pair if pair._1.id == id => pair
-    }
+  // def getNodeAndIndex(id: UciCharPair): Option[(Branch, Int)] =
+  //   nodes.zipWithIndex.collectFirst {
+  //     case pair if pair._1.id == id => pair
+  //   }
 
   def nodeAt(path: UciPath): Option[Branch] =
     path.split.flatMap { (head, rest) =>
@@ -56,9 +56,15 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
       case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
 
   // suboptimal due to using List instead of Vector
+  // Add node at the end of branches
+  // so if branches is empty node will be added as child
+  // else it will be added as the last variation
   def addNode(node: Branch): Branches =
+    // println(s"add node: ${node.id.toUci.uci} ${node.children.nodes.size} - ${nodes.size}")
     Branches(get(node.id).fold(nodes :+ node) { prev =>
-      nodes.filterNot(_.id == node.id) :+ prev.merge(node)
+      val index = nodes.indexWhere(_.id == node.id)
+      nodes.updated(index, prev.merge(node))
+      // nodes.filterNot(_.id == node.id) :+ prev.merge(node)
     })
 
   def deleteNodeAt(path: UciPath): Option[Branches] =
@@ -218,6 +224,7 @@ case class Root(
   def withoutChildren = copy(children = Branches.empty)
 
   def nodeAt(path: UciPath): Option[Node] =
+    // println(s"nodeAt: ${path.debug}")
     if path.isEmpty then this.some else children nodeAt path
 
   def pathExists(path: UciPath): Boolean = nodeAt(path).isDefined
@@ -287,7 +294,9 @@ case class Root(
     then copy(children = children.takeMainlineWhile(f))
     else this
 
-  def merge(n: Root): Root = copy(
+  def merge(n: Root): Root =
+    // println("merge root")
+    copy(
     shapes = shapes ++ n.shapes,
     comments = comments ++ n.comments,
     gamebook = n.gamebook orElse gamebook,

@@ -90,6 +90,7 @@ case class NewBranch(
     .focus(_.metas)
     .modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty, comments = Comments.empty))
   def setComp = copy(comp = true)
+
   def merge(n: NewBranch): Option[NewBranch] =
     if this.sameId(n) then
       copy(
@@ -149,7 +150,7 @@ object NewTree:
       fromNode(branch)
     )
 
-  def fromNode(node: Node) =
+  def fromNode(node: Node): Metas =
     Metas(
       node.ply,
       node.fen,
@@ -165,6 +166,13 @@ object NewTree:
       node.clock,
       node.crazyData
     )
+
+  // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
+  // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
+  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
+  // Optional for the first node with the given id
+  // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
+  def fromNodeToBranch(node: Node): NewBranch = ???
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
   import NewRoot.*
@@ -195,7 +203,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def pathExists(path: UciPath): Boolean =
     path.isEmpty || tree.exists(_.pathExists(path.ids))
 
-  def nodeAt(path: UciPath): Option[Tree[NewBranch]] = ???
+  def nodeAt(path: UciPath): Option[Tree[NewBranch]] =
+    if path.isEmpty then none
+    else tree.flatMap(_.find(path.ids))
 
   def deleteNodeAt(path: UciPath): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(tree = none).some

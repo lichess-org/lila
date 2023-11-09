@@ -80,6 +80,7 @@ final private class RelaySync(
     game.root.mainline.foldLeft(UciPath.root -> none[Branch]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode.id
+        // path is non empty
         chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
