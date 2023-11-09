@@ -70,6 +70,7 @@
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="forceVariation">Mostra come variante</string>
+  <string name="copyVariationPgn">Copia il PGN della variante</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Sconfitta per variante</string>
   <string name="variantWin">Vittoria per variante</string>

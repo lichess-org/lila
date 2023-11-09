@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternata imaginis inscriptio</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Imaginis auctoritas</string>
+  <string name="imageAlt">Alternata imaginis inscriptio</string>
+  <string name="imageCredit">Imaginis auctoritas</string>
 </resources>

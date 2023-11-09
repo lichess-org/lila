@@ -69,6 +69,7 @@
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
+  <string name="copyVariationPgn">Sao chép biến PGN</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Nước chiếu hết theo luật</string>
@@ -722,7 +723,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s thích %2$s</string>
+  <string name="xLikesY">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
