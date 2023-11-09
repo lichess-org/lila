@@ -70,6 +70,7 @@
   <string name="makeMainLine">Bëje variantin kryesor</string>
   <string name="deleteFromHere">Fshije nga këtu</string>
   <string name="forceVariation">Detyro variant</string>
+  <string name="copyVariationPgn">Kopjo PGN varianti</string>
   <string name="move">Lëvizje</string>
   <string name="variantLoss">Varianti humb</string>
   <string name="variantWin">Varianti fiton</string>
