@@ -237,7 +237,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">%s cấu đố</item>
   </plurals>
-  <string name="gamesPlayed">Ván đã chơi</string>
+  <string name="gamesPlayed">Số ván đã chơi</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
