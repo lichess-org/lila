@@ -70,6 +70,7 @@
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
+  <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
   <string name="variantWin">Varyant zaferi</string>
@@ -759,7 +760,7 @@
   <string name="gameAnalysis">Oyun analizi</string>
   <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s beğendi: %2$s</string>
+  <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>
@@ -867,8 +868,8 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hızlı</string>
-  <string name="rapid">Rapid</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
+  <string name="rapid">Hızlı</string>
   <string name="classical">Klasik</string>
   <string name="ultraBulletDesc">Aşırı hızlı oyunlar: 30 saniyeden daha az</string>
   <string name="bulletDesc">Çok yüksek tempolu oyunlar: 3 dakikadan daha az</string>

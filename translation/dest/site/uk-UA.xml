@@ -72,6 +72,7 @@
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
   <string name="forceVariation">Зробити варіантом</string>
+  <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>

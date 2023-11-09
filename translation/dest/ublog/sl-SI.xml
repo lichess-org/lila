@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Ustvarjena bo tema foruma, da bodo ljudje komentirali vašo objavo</string>
   <string name="publishOnYourBlog">Objava na svojem blogu</string>
   <string name="publishHelp">Če je označeno, bo objava navedena na vašem spletnem dnevniku. Če ne, bo v vaših osnutkih objav zaseben</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Objavil objavo v blogu</item>
     <item quantity="two">Objavljene objave v spletnem dnevniku %s</item>
     <item quantity="few">Objavljene objave v spletnem dnevniku %s</item>
@@ -39,4 +39,5 @@
     <item quantity="other">Ogled vseh %s objav</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Naložite sliko za svojo objavo</string>
+  <string name="discussThisBlogPostInTheForum">Razpravljajte o tej objavi v spletnem dnevniku na forumu</string>
 </resources>

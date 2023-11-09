@@ -17,13 +17,18 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
   music?: SoundMove;
+  primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
+  primer = () =>
+    this.ctx.resume().then(() => {
+      setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+      for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+    });
 
   constructor() {
-    $('body').on('pointerdown pointerup mousedown touchend keydown', this.primer);
+    this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
-    if (!this.ctx) return;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
@@ -34,9 +39,9 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx?.decodeAudioData.length === 1)
-        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
+      if (this.ctx.decodeAudioData.length === 1)
+        this.ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else this.ctx.decodeAudioData(arrayBuffer, resolve, reject);
     });
     const sound = new Sound(this.ctx, audioBuffer);
     this.sounds.set(path, sound);
@@ -56,7 +61,7 @@ export default new (class implements SoundI {
   async play(name: Name, volume = 1): Promise<void> {
     if (!this.enabled()) return;
     const sound = await this.load(name);
-    if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
+    if (sound && (await this.resumeWithTest())) await sound.play(this.getVolume() * volume);
   }
 
   throttled = throttle(100, (name: Name) => this.play(name));
@@ -142,7 +147,7 @@ export default new (class implements SoundI {
   publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
-    if (isIOS()) this.ctx?.resume();
+    if (isIOS()) this.ctx.resume();
     this.theme = s;
     this.publish();
   };
@@ -190,17 +195,17 @@ export default new (class implements SoundI {
     for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
   }
 
-  async resumeContext(): Promise<boolean> {
-    if (!this.ctx) return false;
+  async resumeWithTest(): Promise<boolean> {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
+      if (this.ctx.state !== 'closed') this.ctx.close();
       this.ctx = makeAudioContext();
       if (this.ctx) {
         for (const s of this.sounds.values()) s.rewire(this.ctx);
       }
     }
     // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
-    if (this.ctx?.state === 'suspended')
+    if (this.ctx.state === 'suspended')
       await new Promise<void>(resolve => {
         const resumeTimer = setTimeout(() => {
           $('#warn-no-autoplay').addClass('shown');
@@ -214,22 +219,10 @@ export default new (class implements SoundI {
           })
           .catch(resolve);
       });
-    if (this.ctx?.state !== 'running') return false;
+    if (this.ctx.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
     return true;
   }
-
-  primer = () => {
-    this.ctx?.resume();
-    if (this.ctx?.state === 'running') return;
-    // some browsers fail audioContext.resume() on contexts created prior to user interaction
-    const ctx = makeAudioContext()!;
-    for (const s of this.sounds.values()) s.rewire(ctx);
-    this.ctx?.close();
-    this.ctx = ctx;
-    $('body').off('pointerdown pointerup mousedown touchend keydown', this.primer);
-    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-  };
 })();
 
 class Sound {
@@ -264,10 +257,6 @@ class Sound {
   }
 }
 
-function makeAudioContext(): AudioContext | undefined {
-  return window.webkitAudioContext
-    ? new window.webkitAudioContext()
-    : typeof AudioContext !== 'undefined'
-    ? new AudioContext()
-    : undefined;
+function makeAudioContext(): AudioContext {
+  return window.webkitAudioContext ? new window.webkitAudioContext() : new AudioContext();
 }
