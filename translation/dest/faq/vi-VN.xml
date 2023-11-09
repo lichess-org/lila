@@ -7,7 +7,7 @@
   <string name="leechess">lee-chess (ly-chess/ly-chét)</string>
   <string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
   <string name="whyLiveLightLibre">Luôn trực tiếp vì bạn có thể chơi và xem mọi lúc trong thời gian thực 24/7; light và libre (nhẹ nhàng và miễn phí) vì Lichess có mã nguồn mở và không có các vấn đề độc quyền làm ảnh hướng đến các trang web khác.</string>
-  <string name="whyIsLilaCalledLila">Tương tự, mã nguồn của Lichess, %1$s, là viết tắt của li[chess trong sca]la, vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
+  <string name="whyIsLilaCalledLila">Tương tự, mã nguồn của Lichess: %1$s là viết tắt của li[chess trong sca]la, vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
   <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
   <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s (hoặc xem %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
@@ -53,7 +53,7 @@ Máy tính phân tích trên Lichess do Stockfish và Fairy-Stockfish cung cấp
 Trong một số trường hợp hiếm hoi, điều này có thể khó được quyết định một cách tự động (đường bắt buộc, pháo đài). Mặc định chúng tôi luôn sát cánh với người chơi không hết thời gian.
 
 Lưu ý rằng có thể chiếu hết với một quân mã hoặc một quân tượng nếu đối phương có quân cờ có thể chặn được vua.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Sổ tay FIDE</string>
+  <string name="fideHandbook">Sổ tay FIDE</string>
   <string name="fideHandbookX">Sổ tay FIDE %s</string>
   <string name="discoveringEnPassant">Tại sao một con tốt có thể bị bắt bởi một con tốt khác khi mà nó đã đi qua? (Bắt tốt qua đường)</string>
   <string name="explainingEnPassant">Đây là một nước đi hợp lệ được gọi là \"bắt tốt qua đường\". Bài viết trên Wikipedia cho một %1$s.
