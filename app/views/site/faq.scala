@@ -359,13 +359,13 @@ object faq:
           "autoplay",
           enableAutoplayForSoundsQ.txt(),
           p(enableAutoplayForSoundsA()),
-          h3("Mozilla Firefox (", desktop(), "):"),
+          h3("Mozilla Firefox (", desktop(), ")"),
           p(enableAutoplayForSoundsFirefox()),
-          h3("Google Chrome (", desktop(), "):"),
+          h3("Google Chrome (", desktop(), ")"),
           p(enableAutoplayForSoundsChrome()),
-          h3("Safari (", desktop(), "):"),
+          h3("Safari (", desktop(), ")"),
           p(enableAutoplayForSoundsSafari()),
-          h3("Microsoft Edge (", desktop(), "):"),
+          h3("Microsoft Edge (", desktop(), ")"),
           p(enableAutoplayForSoundsMicrosoftEdge())
         ),
         question(
