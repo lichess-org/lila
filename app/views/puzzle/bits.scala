@@ -18,10 +18,7 @@ object bits:
 
   def jsI18n(streak: Boolean)(using Lang) =
     if streak then i18nJsObject(streakI18nKeys)
-    else
-      i18nJsObject(trainingI18nKeys) + {
-        PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())
-      }
+    else i18nJsObject(trainingI18nKeys)
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }
