@@ -733,19 +733,17 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   };
 
-  cevalReset(): void {
+  restartCeval(): void {
     this.ceval.stop();
-    if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     this.redraw();
   }
 
-  cevalSetMultiPv = (v: number): void => {
-    this.ceval.multiPv(v);
+  clearCeval(): void {
     this.tree.removeCeval();
     this.evalCache.clear();
-    this.cevalReset();
-  };
+    this.restartCeval();
+  }
 
   showEvalGauge(): boolean {
     return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
