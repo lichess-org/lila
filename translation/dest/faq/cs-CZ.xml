@@ -54,7 +54,7 @@ Počítačová analýza na Lichessu využívá program Stockfish. Hráčovy tahy
 Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. \"fortressů\", česky \"pevností\"). Pokud si nejsme jistí, vždy upřednostňujeme výhru hráče, který na čas neprohrál.
 
 Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má figuru, která by mohla králi zatarasit únikovou cestu.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Příručka FIDE</string>
+  <string name="fideHandbook">Příručka FIDE</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
   <string name="explainingEnPassant">Tento tah je však platný a podle pravidel, a nazává se \"en passant\", neboli braní mimochodem. Můžete si přečíst tento článek na Wikipedii: %1$s.

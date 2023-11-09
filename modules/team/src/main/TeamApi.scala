@@ -81,7 +81,8 @@ final class TeamApi(
     )
     import reactivemongo.api.bson.*
     for
-      _        <- teamRepo.coll.update.one($id(team.id), $set(bsonWriteDoc(team)))
+      blocklist <- blocklist.get(old)
+      _        <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, me, _.Settings)
     yield
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)

@@ -127,7 +127,14 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for
       root <- makeRoot(game, data.pgn, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
+      tags <- pgnDump.tags(
+        game,
+        initialFen,
+        none,
+        withOpening = true,
+        withRating = withRatings,
+        withPatron = false
+      )
       name <-
         if data.isDefaultName then
           StudyChapterName from Namer.gameVsText(game, withRatings)(using lightUser.async)

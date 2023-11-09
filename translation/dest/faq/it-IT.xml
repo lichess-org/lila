@@ -143,4 +143,18 @@ Un altro aspetto di rilievo è che, allo scorrere del tempo senza aver giocate p
 Clicca sull\'icona a forma di lucchetto accanto a lichess.org nella barra degli indirizzi URL del tuo browser.
 
 Quindi seleziona se consentire o bloccare le notifiche da Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Attivare la riproduzione automatica dei suoni?</string>
+  <string name="desktop">desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Vai su lichess.org
+2. Premi Ctrl-i su Linux/Windows o cmd-i su MacOS
+3. Fare clic sulla scheda Autorizzazioni
+4. Consenti audio e video su lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Vai su lichess.org
+2. Fare clic sull\'icona del lucchetto nella barra degli indirizzi
+3. Fare clic su Impostazioni del sito
+4. Consenti suono</string>
+  <string name="enableAutoplayForSoundsSafari">1. Vai su lichess.org
+2. Fare clic su Safari nella barra dei menu
+3. Fare clic su Impostazioni per lichess.org ...
+4. Consenti tutto Auto-Play</string>
 </resources>
