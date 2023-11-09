@@ -486,6 +486,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="movesPlayed">Moves played</string>
   <string name="whiteWins">White wins</string>
   <string name="blackWins">Black wins</string>
+  <string name="drawRate">Draw rate</string>
   <string name="draws">Draws</string>
   <string name="nextXTournament">Next %s tournament:</string>
   <string name="averageOpponent">Average opponent</string>
