@@ -651,12 +651,6 @@ export default class AnalyseCtrl {
       },
       setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
-      ...(this.opts.study && this.opts.practice
-        ? {
-            storageKeyPrefix: 'practice',
-            multiPvDefault: 1,
-          }
-        : {}),
       externalEngines:
         this.data.externalEngines?.map(engine => ({
           ...engine,
