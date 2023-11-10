@@ -205,7 +205,6 @@ export default async function (
   return acplChart;
 }
 
-// the color prefixes below are mirrored in analyse/src/roundTraining.ts
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';
 const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } => {
   if (node.glyphs?.some(g => g.id == 4)) return { advice: 'blunder', color: '#db3031' };

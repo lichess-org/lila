@@ -5,6 +5,8 @@
   "description": "lichess.org chart",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "module": "dist/game.js",
   "types": "dist/game.d.ts",
   "dependencies": {
     "@types/highcharts": "=4.2.57",

@@ -17,9 +17,9 @@ export const orangeAccent = '#d85000';
 export const whiteFill = lightTheme ? 'white' : '#676665';
 export const blackFill = lightTheme ? '#999999' : 'black';
 export const fontColor = lightTheme ? '#2F2F2F' : '#A0A0A0';
-export const gridcolor = '#404040';
-export const hoverBorderColor = lightTheme ? gridcolor : 'white';
-export const tooltipBgColor = lightTheme ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0,0,0,0.7)';
+export const gridColor = '#404040';
+export const hoverBorderColor = lightTheme ? gridColor : 'white';
+export const tooltipBgColor = lightTheme ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0,0,0,0.7)';
 
 export function fontFamily(size?: number, weight?: string) {
   return {
@@ -35,6 +35,9 @@ export function maybeChart(el: HTMLCanvasElement): Chart | undefined {
   return undefined;
 }
 
+/**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annontation
+ *  @returns a vertical line from {ply,-1.05} to {ply,+1.05}.
+ * */
 export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
   return {
     xAxisID: 'x',

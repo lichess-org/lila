@@ -1,4 +1,4 @@
-import { animation, fontFamily, gridcolor, hoverBorderColor } from './common';
+import { animation, fontFamily, gridColor, hoverBorderColor } from './common';
 import { DistributionData } from './interface';
 import {
   Chart,
@@ -87,7 +87,7 @@ export async function initModule(data: DistributionData) {
             min: Math.min(...ratings),
             max: Math.max(...ratings),
             grid: {
-              color: gridcolor,
+              color: gridColor,
             },
             ticks: {
               stepSize: 100,
@@ -102,7 +102,7 @@ export async function initModule(data: DistributionData) {
           },
           y: {
             grid: {
-              color: gridcolor,
+              color: gridColor,
               tickLength: 0,
             },
             ticks: {

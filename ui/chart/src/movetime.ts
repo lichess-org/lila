@@ -157,7 +157,10 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
   datasets.push(plyLine(0), ...divisionLines);
 
   const config: Chart['config'] = {
-    type: 'line',
+    type: 'line' /* Needed for compat. with plyline and divisionlines.
+     * Makes the x-axis 'linear' instead of 'category'.
+     * Side effect: makes the chart smaller than the canvas area.
+     */,
     data: {
       labels: labels,
       datasets: datasets,

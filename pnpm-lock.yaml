@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -292,9 +292,15 @@ importers:
       '@types/highcharts':
         specifier: '=4.2.57'
         version: 4.2.57
+      chart:
+        specifier: workspace:^
+        version: link:../chart
       chart.js:
         specifier: ^4.4.0
         version: 4.4.0
+      chartjs-plugin-datalabels:
+        specifier: ^2.2.0
+        version: 2.2.0(chart.js@4.4.0)
       common:
         specifier: workspace:*
         version: link:../common
@@ -2507,6 +2513,14 @@ packages:
       chart.js: '>=2.8.0'
     dependencies:
       chart.js: 3.9.1
+    dev: false
+
+  /chartjs-plugin-datalabels@2.2.0(chart.js@4.4.0):
+    resolution: {integrity: sha512-14ZU30lH7n89oq+A4bWaJPnAG8a7ZTk7dKf48YAzMvJjQtjrgg5Dpk9f+LbjCF6bpx3RAGTeL13IXpKQYyRvlw==}
+    peerDependencies:
+      chart.js: '>=3.0.0'
+    dependencies:
+      chart.js: 4.4.0
     dev: false
 
   /chessground@4.4.2:

@@ -15,8 +15,11 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { currentTheme } from 'common/theme';
+import { gridColor, tooltipBgColor, fontFamily } from 'chart';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { formatNumber } from './table';
 
-Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 
 const light = currentTheme() == 'light';
 
@@ -39,7 +42,6 @@ const theme = [
   '#aaeeee',
 ];
 const sizeColor = light ? '#cccccc' : '#444444';
-const tooltipBgColor = light ? 'white' : '#262421';
 const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
 function insightChart(el: HTMLCanvasElement, data: InsightData) {
@@ -63,10 +65,11 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
           filter: tooltipItem => (tooltipItem.raw as number) != 0,
           itemSort: (a, b) => b.datasetIndex - a.datasetIndex,
           backgroundColor: tooltipBgColor,
-          borderColor: '#404040',
+          borderColor: gridColor,
           borderWidth: 1,
-          titleFont: { size: 13 },
+          titleFont: fontFamily(14, 'bold'),
           titleColor: tooltipFontColor,
+          bodyFont: fontFamily(13),
           bodyColor: tooltipFontColor,
         },
       },
@@ -108,6 +111,18 @@ function barBuilder(
     backgroundColor: color,
     borderColor: '#4a4a4a',
     stack: opts?.stack,
+    datalabels:
+      id == 'y2'
+        ? { display: false }
+        : {
+            color: tooltipFontColor,
+            textStrokeColor: tooltipBgColor,
+            textShadowBlur: 10,
+            textShadowColor: tooltipBgColor,
+            textStrokeWidth: 1.2,
+            formatter: value =>
+              value == 0 ? '' : formatNumber(serie.dataType, value * (serie.dataType == 'percent' ? 100 : 1)),
+          },
   };
 }
 
@@ -124,19 +139,19 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
       type: 'category',
       ticks: { color: tooltipFontColor },
       grid: {
-        color: light ? '#cccccc' : '#404040',
+        color: light ? '#cccccc' : gridColor,
       },
     },
     y1: {
       max: stacked ? 1 : undefined,
       grid: {
-        color: light ? '#cccccc' : '#404040',
+        color: light ? '#cccccc' : gridColor,
       },
       ticks: {
         color: tooltipFontColor,
         format: {
           style: stacked || d.valueYaxis.dataType == 'percent' ? 'percent' : undefined,
-          maximumFractionDigits: 1,
+          maximumFractionDigits: d.valueYaxis.dataType == 'percent' ? 1 : 2,
         },
       },
       title: {
