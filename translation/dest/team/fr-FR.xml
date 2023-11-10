@@ -22,7 +22,7 @@
   </plurals>
   <string name="teamRecentMembers">Membres récents de l\'équipe</string>
   <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
-  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe&nbsp;?</string>
+  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe ?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s demande d\'adhésion</item>
     <item quantity="other">%s demandes d\'adhésion</item>

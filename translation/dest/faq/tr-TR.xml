@@ -57,7 +57,7 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</strin
 Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman, süresi bitmeyen oyuncunun lehine karar veririz.
 
 Rakip şahın hareketini engelleyebilecek herhangi bir taş varsa tek at veya tek fil ile matın mümkün olduğunu unutmayın.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE el kitabı</string>
+  <string name="fideHandbook">FIDE el kitabı</string>
   <string name="fideHandbookX">FIDE satranç kuralları %s</string>
   <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi. Bu nasıl olur? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.

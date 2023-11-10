@@ -47,11 +47,8 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
   chess, compression, scalalib, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport
-) ++ {
-  if (shadedMongo) Seq(reactivemongo.shaded)
-  else Seq.empty // until reactivemongo includes aarch_64 kqueue versions
-} ++ tests.bundle
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
+) ++ tests.bundle
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,

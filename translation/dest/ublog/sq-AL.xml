@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Një temë do të krijohet në forum për të lejuar njerëzit të komentojnë postimin tuaj</string>
   <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
   <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Botoi një postim blogu</item>
     <item quantity="other">Botoi %s postime blogu</item>
   </plurals>
@@ -33,14 +33,15 @@
     <item quantity="other">Shihni krejt %s postimet</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Ngarkoni një figurë për postimin tuaj</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Tekst alternativ për figurën</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Kreditet e imazhit</string>
+  <string name="imageAlt">Tekst alternativ për figurën</string>
+  <string name="imageCredit">Kreditet e imazhit</string>
   <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
   <string name="deleteImage">Fshije figurën</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Është pa rrezik të përdoren figura nga sajtet vijues: </string>
+  <string name="safeToUseImages">Është pa rrezik të përdoren figura nga sajtet vijues: </string>
   <string name="selectPostTopics">Përzgjidhni subjektet që lidhen me postimin tuaj</string>
   <string name="useImagesYouMadeYourself">Mund të përdorni edhe figura që i keni krijuar vetë, foto që keni bërë, foto ekrani nga Lichess-i… çfarëdo që s’është në të drejta kopjimi të dikujt tjetër.</string>
   <string name="safeAndRespectfulContent">Ju lutemi, postoni vetëm lëndë të parrezik dhe të respektuar. Mos kopjoni lëndën e dikujt tjetër.</string>
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
+  <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskutojeni në forum këtë postim blogu</string>
 </resources>

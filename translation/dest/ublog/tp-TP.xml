@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">jan o ken toki lon lipu sina. tawa ni la toki pi ma toki li kama lon</string>
   <string name="publishOnYourBlog">o pana tawa jan ale</string>
   <string name="publishHelp">ni li kule la jan ale li ken lukin e lipu. ona li kule ala la jan ala li ken lukin</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">sina pana e lipu</item>
     <item quantity="other">sina pana e lipu %s</item>
   </plurals>
@@ -33,14 +33,14 @@
     <item quantity="other">o lukin e lipu ale pi jan %s</item>
   </plurals>
   <string name="uploadAnImageForYourPost">o pana e sitelen tawa lipu sina</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">ijo pi sitelen ni</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">tan sitelen</string>
+  <string name="imageAlt">ijo pi sitelen ni</string>
+  <string name="imageCredit">tan sitelen</string>
   <string name="deleteBlog">o weka e lipu ni lon tenpo ale</string>
   <string name="deleteImage">o weka e sitelen</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">sina ken kepeken sitelen ni: </string>
+  <string name="safeToUseImages">sina ken kepeken sitelen ni: </string>
   <string name="selectPostTopics">lipu sina li toki lon seme? o pana e nimi</string>
   <string name="useImagesYouMadeYourself">sina ken kepeken e sitelen pi pali sina e sitelen pi ilo Lichess. sina ken ala kepeken sitelen pi jo sina ala</string>
   <string name="safeAndRespectfulContent">o sitelen ala e ijo jaki e ijo ike. o lanpan ala e lipu pi jan ante</string>
   <string name="inappropriateContentAccountClosed">sina sitelen anu pana e ijo jaki la sina ken kama ken ala kepeken ilo Lichess</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">sona pona mi tawa pali lipu</string>
+  <string name="blogTips">sona pona mi tawa pali lipu</string>
 </resources>

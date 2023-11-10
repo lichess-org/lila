@@ -72,6 +72,7 @@
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
   <string name="forceVariation">Vsili varianto</string>
+  <string name="copyVariationPgn">Kopiraj različico PGN</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>

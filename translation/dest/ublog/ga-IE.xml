@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Cruthófar topaic fóraim chun go bhféadfaidh daoine trácht a dhéanamh ar do phostáil</string>
   <string name="publishOnYourBlog">Foilsigh ar do bhlag féin</string>
   <string name="publishHelp">Má dhéantar seiceáil air, liostálfar an postáil ar do bhlag. Mura bhfuil, beidh sé príobháideach, i do dhréachtphostáil</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Foilsíodh postáilbhlag</item>
     <item quantity="two">Foilsíodh %s phostáilbhlag</item>
     <item quantity="few">Foilsíodh %s bpostáilbhlag</item>
@@ -42,14 +42,14 @@
     <item quantity="other">Féach ar %s post</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Uaslódáil íomhá do do phost</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Íomhá téacs malartach</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Íomhá creidiúna</string>
+  <string name="imageAlt">Íomhá téacs malartach</string>
+  <string name="imageCredit">Íomhá creidiúna</string>
   <string name="deleteBlog">Scrios an blagphost seo go cinntitheach</string>
   <string name="deleteImage">Scrios an íomhá</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tá sé sábháilte íomhánna a úsáid ó na suíomhanna gréasáin seo a leanas: </string>
+  <string name="safeToUseImages">Tá sé sábháilte íomhánna a úsáid ó na suíomhanna gréasáin seo a leanas: </string>
   <string name="selectPostTopics">Roghnaigh na hábhair a bhaineann le do phostáil</string>
   <string name="useImagesYouMadeYourself">Is féidir leat freisin úsáid a bhaint as íomhánna a rinne tú féin, pictiúir a ghlac tú, scáilghraif de Lichess... rud ar bith nach bhfuil cóipcheart ag duine éigin eile.</string>
   <string name="safeAndRespectfulContent">Ná postáil ach ábhar atá sábháilte agus measúil. Ná cóipeáil ábhar duine eile.</string>
   <string name="inappropriateContentAccountClosed">D\'fhéadfadh aon rud míchuí do chuntas a dhúnadh.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ár leideanna simplí chun postálacha blag iontacha a scríobh</string>
+  <string name="blogTips">Ár leideanna simplí chun postálacha blag iontacha a scríobh</string>
 </resources>
