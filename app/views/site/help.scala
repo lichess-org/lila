@@ -73,7 +73,7 @@ object help:
           row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.keyNextBranch()),
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
           row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
-          row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd())
+          row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd()),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
