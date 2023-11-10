@@ -69,6 +69,7 @@
   <string name="makeMainLine">สร้างเส้นทางหลัก</string>
   <string name="deleteFromHere">ลบจากที่นี่</string>
   <string name="forceVariation">ทำให้เป็นการผันแปร</string>
+  <string name="copyVariationPgn">คัดลอก PGN การเดินอื่นๆ</string>
   <string name="move">ตาเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
@@ -97,6 +98,7 @@
   <string name="openingExplorer">ชมการเปิดเกม</string>
   <string name="openingEndgameExplorer">ตัวสำรวจการเปิดเกม/จบเกม</string>
   <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">เล่นการเปิดเกม/จบเกม-ค้นหาตาเดิน</string>
   <string name="winPreventedBy50MoveRule">พลาดชัยชนะเนื่องจากกฎการเดิน 50 รอบ</string>
   <string name="lossSavedBy50MoveRule">รอดจากการแพ้ด้วยกฎการเดิน 50 รอบ</string>
   <string name="allSet">พร้อมลุย!</string>
@@ -109,12 +111,14 @@
   <string name="openStudy">เปิดห้องเรียน</string>
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรตาเดินที่ดีที่สุด</string>
+  <string name="showVariationArrows">แสดงศรการเดินอื่นๆ</string>
   <string name="evaluationGauge">แถบประเมิน</string>
   <string name="multipleLines">จำนวนเส้นทางการเดิน</string>
   <string name="cpus">จำนวนซีพียูที่ใช้</string>
   <string name="memory">หน่วยความจำที่ใช้</string>
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">ไม่จำกัดความลึก อาจทำให้เครื่องร้อน</string>
+  <string name="engineManager">จัดการเครื่องจักร</string>
   <string name="blunder">พลาดมหันต์</string>
   <string name="mistake">พลาด</string>
   <string name="inaccuracy">ไม่แม่นยำ</string>
@@ -141,6 +145,9 @@
   <string name="currentGames">เกมในขณะนี้</string>
   <plurals name="nbGames">
     <item quantity="other">%s เกม</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%1$s คะแนน จากกว่า %2$s เกม</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s เกมที่หมายไว้</item>
@@ -213,6 +220,7 @@
   <string name="emailForSignupHelp">ถ้ายังไม่สามารถสมัครได้ ส่งอีเมลมาหาเราที่นี่:</string>
   <string name="copyTextToEmail">คัดลอกและวางข้อความข้างบน แล้วส่งไปที่ %s</string>
   <string name="waitForSignupHelp">เราจะติดต่อคุณอย่างรวดเร็วเพื่อช่วยคุณสมัครบัญชีให้สำเร็จ</string>
+  <string name="accountConfirmed">ผู้ใช้ %s ถูกยืนยันโดยสมบูรณ์</string>
   <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
   <string name="accountConfirmationEmailNotNeeded">คุณไม่จำเป็นต้องมีอีเมลยืนยัน</string>
   <string name="accountClosed">บัญชี %s ถูกปิดแล้ว</string>
@@ -314,6 +322,9 @@
   <plurals name="nbStudies">
     <item quantity="other">%s กรณีศึกษา</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s ไซมัล</item>
+  </plurals>
   <string name="viewTournament">ดูทัวร์นาเมนต์</string>
   <string name="backToTournament">กลับสู่ทัวร์นาเมนต์</string>
   <string name="noDrawBeforeSwissLimit">คุณไม่สามารถขอเสมอได้ก่อนตาเดินที่ 30 ในทัวร์นาเมนต์สวิส</string>
@@ -361,6 +372,7 @@
   <string name="toStudy">ทำเป็นกรณีศึกษา</string>
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
+  <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -457,10 +469,13 @@
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
   <string name="biography">ชีวประวัติ</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ทำแพ้</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
+  <string name="makeAStudy">เพื่อความปลอดภัยและการแบ่งปัน โปรดพิจารณาทำการศึกษา</string>
+  <string name="clearSavedMoves">ล้างตาเดิน</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
@@ -604,6 +619,7 @@
   <string name="hostColorX">สีโฮสต์: %s</string>
   <string name="createdSimuls">ไซมัลที่สร้างใหม่</string>
   <string name="hostANewSimul">เป็นโฮสต์ไซมัลใหม่</string>
+  <string name="signUpToHostOrJoinASimul">สร้างบัญชีเมื่อสร้างหรือเข้าร่วมไซมัล</string>
   <string name="noSimulFound">ไม่พบไซมัล</string>
   <string name="noSimulExplanation">ไม่มีมหกรรมไซมัลเทเนียสนี้</string>
   <string name="returnToSimulHomepage">กลับสู่หน้าหลักไซมัล</string>
@@ -618,6 +634,8 @@
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
   <string name="simulHostExtraTime">เวลานาฬิกาพิเศษโฮสต์</string>
+  <string name="simulAddExtraTimePerPlayer">เพิ่มเวลาเริ่มต้นลงในนาฬิกาของคุณสำหรับผู้เล่นแต่ละคนที่เข้าร่วมไซมัล</string>
+  <string name="simulHostExtraTimePerPlayer">โฮสต์เวลานาฬิกาเพิ่มเติมต่อผู้เล่น</string>
   <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
   <string name="tournamentFAQ">ถามตอบสนามทัวร์นาเมนต์</string>
   <string name="timeBeforeTournamentStarts">เวลาก่อนทัวร์นาเมนต์จะเริ่ม</string>
@@ -629,6 +647,7 @@
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
   <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
+  <string name="keyNextLearnFromYourMistakes">ต่อไป (เรียนรู้จากความผิดพลาดของคุณ)</string>
   <string name="keyNextBlunder">ตาเดินที่ผิดมหันต์ต่อไป</string>
   <string name="keyNextMistake">ตาเดินที่ผิดพลาดต่อไป</string>
   <string name="keyNextInaccuracy">ตาเดินที่ไม่แม่นยำต่อไป</string>
@@ -646,6 +665,7 @@
   <string name="yourPerfTypeRatingIsRating">ระดับคะแนน %1$s ของคุณคือ %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">คุณทำได้ดีกว่า %1$s ของผู้เล่น %2$s</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s เก่งกว่า %2$s ของผู้เล่น %3$s ทั้งหมด</string>
+  <string name="betterThanPercentPlayers">คุณดีกว่า %1$s ของผู้เล่น %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">คุณยังไม่มีระดับคะแนน %s ที่แท้จริง</string>
   <string name="yourRating">ระดับคะแนนของคุณ</string>
   <string name="cumulative">สะสม</string>
@@ -674,6 +694,7 @@
   <string name="kidMode">โหมดเด็ก</string>
   <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
   <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">บัญชีของคุณได้รับการจัดการ ถามครูหมากรุกของคุณเกี่ยวกับการยกระดับโหมดเด็ก</string>
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
@@ -726,6 +747,7 @@
   <string name="invalidFen">FEN ไม่ถูกต้อง</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
+  <string name="notificationsX">การแจ้งเตือน: %1$s</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -818,6 +840,8 @@
   <string name="useTheReportForm">ใช้แบบรายงาน</string>
   <string name="toRequestSupport">เพื่อร้องขอการสนับสนุน, %1$s</string>
   <string name="tryTheContactPage">ลงใช้หน้าการติดต่อ</string>
+  <string name="makeSureToRead">ให้แน่ใจว่าอ่าน %1$s</string>
+  <string name="theForumEtiquette">มารยาทในฟอรั่ม</string>
   <string name="thisTopicIsArchived">หัวข้อนี้ถูกจัดเก็บแล้ว และไม่สามารถตอบกลับได้อีกต่อไป</string>
   <string name="joinTheTeamXToPost">เข้าร่วม %1$s, เพื่อโพสต์ในห้องอภิปรายนี้</string>
   <string name="teamNamedX">ทีม %1$s</string>
@@ -858,7 +882,10 @@
   <string name="cancelSimul">ยกเลิกไซมัล</string>
   <string name="simulHostcolor">สีโฮสต์ในแต่ละเกม</string>
   <string name="estimatedStart">เวลาเริ่มโดยประมาณ</string>
+  <string name="simulFeatured">แสดงบน %s</string>
+  <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
+  <string name="markdownAvailable">%s พร้อมใช้งานสำหรับไวยากรณ์ขั้นสูงเพิ่มเติม</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>
   <string name="noChat">ไม่มีแชท</string>
@@ -866,6 +893,8 @@
   <string name="onlyTeamMembers">สมาชิกทีมเท่านั้น</string>
   <string name="navigateMoveTree">นำทางรายการการเดิน</string>
   <string name="mouseTricks">หน้าที่เมาส์</string>
+  <string name="toggleLocalAnalysis">ควบคุมการวิเคราะห์ค้วยคอมพิวเตอร์ในท้องถิ่น</string>
+  <string name="toggleAllAnalysis">ควบคุมการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="playComputerMove">เล่นการเดินคอมพิวเตอร์ที่ดีที่สุด</string>
   <string name="analysisOptions">ตัวเลือกการวิเคราะห์</string>
   <string name="focusChat">โฟกัสที่แชท</string>

@@ -70,6 +70,7 @@
   <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
   <string name="forceVariation">Forçar variante</string>
+  <string name="copyVariationPgn">Copiar variação PGN</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -658,8 +659,10 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="simultaneousExhibitions">Exibições simultâneas</string>
   <string name="host">Anfitrião</string>
   <string name="hostColorX">Cor do anfitrião: %s</string>
+  <string name="yourPendingSimuls">Suas simultâneas pendentes</string>
   <string name="createdSimuls">Simultâneas criadas recentemente</string>
   <string name="hostANewSimul">Iniciar uma simultânea</string>
+  <string name="signUpToHostOrJoinASimul">Registra-te para hospedar ou juntar a uma simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
   <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Voltar à página inicial da simultânea</string>

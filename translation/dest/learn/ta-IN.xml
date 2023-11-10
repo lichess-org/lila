@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்ளுங்கள்</string>
+  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்</string>
   <string name="byPlaying">விளையாடுவதன் மூலம்!</string>
   <string name="menu">பட்டியல்</string>
-  <string name="progressX">%s முன்னேறியுள்ளீர்கள்</string>
-  <string name="resetMyProgress">என் முன்னேற்றம் மீட்டமைக்க</string>
-  <string name="youWillLoseAllYourProgress">உங்களின் முன்னேற்றத்தை இழந்துவிடுவீர்கள்!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ஆடு!</string>
+  <string name="progressX">முன்னேற்றம்: %s</string>
+  <string name="resetMyProgress">எனது முன்னேற்றத்தை மீட்டமை</string>
+  <string name="youWillLoseAllYourProgress">உங்கள் முன்னேற்றம் அனைத்தையும் இழப்பீர்கள்!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">விளையாடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
   <string name="theRook">தி ரூக்</string>
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>

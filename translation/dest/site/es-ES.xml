@@ -70,6 +70,7 @@
   <string name="makeMainLine">Convertir en línea principal</string>
   <string name="deleteFromHere">Borrar a partir de aquí</string>
   <string name="forceVariation">Convertir en variante</string>
+  <string name="copyVariationPgn">Copiar PGN de la variante</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -657,8 +658,10 @@
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
+  <string name="yourPendingSimuls">Tus simultáneas pendientes</string>
   <string name="createdSimuls">Simultáneas nuevas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
+  <string name="signUpToHostOrJoinASimul">Regístrate para crear o unirte a una simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
   <string name="returnToSimulHomepage">Volver a la página de simultáneas</string>

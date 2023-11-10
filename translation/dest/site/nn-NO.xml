@@ -70,6 +70,7 @@
   <string name="makeMainLine">Gjer til hovudline</string>
   <string name="deleteFromHere">Slett herifrå</string>
   <string name="forceVariation">Tving fram varianten</string>
+  <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant vinn</string>
@@ -658,8 +659,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>
+  <string name="yourPendingSimuls">Dine ventande simultanar</string>
   <string name="createdSimuls">Nyleg laga simultanarrangement</string>
   <string name="hostANewSimul">Lag ei ny simultanframsyning</string>
+  <string name="signUpToHostOrJoinASimul">Registrer deg for å bli vert eller deltakar i ein simultan</string>
   <string name="noSimulFound">Finn ikkje simultanframsyning</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>

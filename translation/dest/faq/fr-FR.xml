@@ -54,7 +54,7 @@ L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">Manuel de la FIDE</string>
+  <string name="fideHandbook">Manuel de la FIDE</string>
   <string name="fideHandbookX">manuel de la FIDE %s</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (prise en passant)</string>
   <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"capture en passant\" ou \"prise en passant\". L\'article de Wikipedia donne un %1$s.
@@ -143,4 +143,28 @@ Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absol
 Cliquez sur l\'icône du cadenas à côté de l\'adresse lichess.org dans la barre URL de votre navigateur.
 
 Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Activer la lecture automatique des sons?</string>
+  <string name="enableAutoplayForSoundsA">La plupart des navigateurs peuvent empêcher la lecture de sons sur une page fraîchement chargée pour protéger les utilisateurs. Imaginez si chaque site Web pouvait vous bombarder immédiatement de publicités audio...
+
+L\'icône rouge de sourdine apparaît lorsque votre navigateur empêche lichess.org de jouer un son. En général, cette restriction est levée lorsque vous cliquez sur quelque chose. Sur certains navigateurs mobiles, faire glisser une pièce n\'est pas considéré comme un clic. Vous devez alors toucher l\'échiquier pour autoriser le son au début de chaque partie.
+
+Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souvent, vous pouvez autoriser lichess.org à jouer des sons. Voici des instructions pour le faire sur les versions récentes de certains navigateurs populaires.</string>
+  <string name="desktop">bureau</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Allez sur lichess.org
+2. Appuyez sur Ctrl-i sur Linux/Windows ou cmd-i sur MacOS
+3. Cliquez sur l\'onglet Autorisations
+4. Autorisez l\'audio et la vidéo sur lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Allez sur lichess.org
+2. Cliquez sur l\'icône de verrouillage dans la barre d\'adresse
+3. Cliquez sur Paramètres du site
+4. Autorisez le son</string>
+  <string name="enableAutoplayForSoundsSafari">1. Allez sur lichess.org
+2. Cliquez sur Safari dans la barre de menu
+3. Cliquez sur Paramètres pour lichess.org ...
+4. Autorisez la lecture automatique</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Cliquez sur les trois points dans le coin supérieur droit
+2. Cliquez sur Paramètres
+3. Cliquez sur Cookies et Autorisations du site
+4. Faites défiler la page vers le bas et cliquez sur Lecture automatique du support
+5. Ajoutez lichess.org pour autoriser</string>
 </resources>

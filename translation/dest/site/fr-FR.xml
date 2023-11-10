@@ -70,6 +70,7 @@
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="forceVariation">Forcer la variante</string>
+  <string name="copyVariationPgn">Copier la variante PGN</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
@@ -657,8 +658,10 @@
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
   <string name="hostColorX">Couleur de l’hôte : %s</string>
+  <string name="yourPendingSimuls">Vos simultanées en attente</string>
   <string name="createdSimuls">Nouvelles simultanées</string>
   <string name="hostANewSimul">Créer une nouvelle simultanée</string>
+  <string name="signUpToHostOrJoinASimul">Inscrivez-vous pour héberger ou rejoindre une simultanée</string>
   <string name="noSimulFound">Simultanée introuvable</string>
   <string name="noSimulExplanation">Cette simultanée n\'existe pas.</string>
   <string name="returnToSimulHomepage">Retour aux parties simultanées</string>
@@ -759,7 +762,7 @@
   <string name="gameAnalysis">Analyse de la partie</string>
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s aime %2$s</string>
+  <string name="xLikesY">%1$s aime %2$s</string>
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>

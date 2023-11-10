@@ -70,6 +70,7 @@
   <string name="makeMainLine">Transformar em linha principal</string>
   <string name="deleteFromHere">Excluir a partir daqui</string>
   <string name="forceVariation">Variante forçada</string>
+  <string name="copyVariationPgn">Copiar PGN da variante</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota da variante</string>
   <string name="variantWin">Vitória da variante</string>
@@ -657,6 +658,7 @@
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
   <string name="hostColorX">Cor do simultanista: %s</string>
+  <string name="yourPendingSimuls">Suas simultâneas pendentes</string>
   <string name="createdSimuls">Simultâneas criadas recentemente</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>

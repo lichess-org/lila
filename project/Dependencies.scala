@@ -2,7 +2,8 @@ import play.sbt.PlayImport._
 import sbt._, Keys._
 
 object Dependencies {
-  val arch = if (System.getProperty("os.arch").toLowerCase.startsWith("aarch")) "aarch_64" else "x86_64"
+  val arch     = if (System.getProperty("os.arch").toLowerCase.startsWith("aarch")) "aarch_64" else "x86_64"
+  val dashArch = arch.replace("_", "-")
   val (os, notifier) =
     if (System.getProperty("os.name").toLowerCase.startsWith("mac"))
       ("osx", "kqueue")
@@ -28,7 +29,7 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.6.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.100.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.101.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
@@ -58,9 +59,9 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"               % "1.1.0-RC9"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC11"
-    val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
+    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC11"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC11"
+    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC11"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }

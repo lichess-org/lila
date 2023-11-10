@@ -69,6 +69,7 @@
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
+  <string name="copyVariationPgn">Sao chép biến PGN</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Nước chiếu hết theo luật</string>
@@ -205,7 +206,7 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="error.weakPassword">Mật khẩu này quá phổ biến và quá dễ đoán.</string>
   <string name="error.namePassword">Vui lòng không sử dụng tên đăng nhập làm mật khẩu.</string>
-  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn bạn vì đã thông cảm.</string>
+  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn vì bạn đã thông cảm.</string>
   <string name="youAreLeavingLichess">Bạn đang thoát Lichess</string>
   <string name="neverTypeYourPassword">Không bao giờ nhập mật khẩu Lichess của bạn trên bất kì trang web nào khác!</string>
   <string name="proceedToX">Chuyển tới trang %s</string>
@@ -236,7 +237,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">%s cấu đố</item>
   </plurals>
-  <string name="gamesPlayed">Ván đã chơi</string>
+  <string name="gamesPlayed">Số ván đã chơi</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
@@ -475,7 +476,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
   <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
-  <string name="thankYou">Cảm ơn!</string>
+  <string name="thankYou">Lời cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
@@ -622,8 +623,10 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>
   <string name="hostColorX">Màu quân của người chủ trì: %s</string>
+  <string name="yourPendingSimuls">Sự kiện đồng loạt đang chờ xử lý của bạn</string>
   <string name="createdSimuls">Sự kiện cờ đồng loạt mới tạo</string>
   <string name="hostANewSimul">Chủ trì một sự kiện cờ đồng loạt mới</string>
+  <string name="signUpToHostOrJoinASimul">Đăng kí để tham gia hoặc chủ trì một sự kiện đồng loạt</string>
   <string name="noSimulFound">Không tìm thấy sự kiện cờ đồng loạt nào</string>
   <string name="noSimulExplanation">Sự kiện cờ đồng loạt này không tồn tại.</string>
   <string name="returnToSimulHomepage">Trở về trang chủ cờ đồng loạt</string>
@@ -722,7 +725,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">%1$s thích %2$s</string>
+  <string name="xLikesY">%1$s thích %2$s</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>

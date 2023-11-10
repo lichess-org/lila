@@ -72,6 +72,7 @@
   <string name="makeMainLine">קביעה כוריאנט הראשי</string>
   <string name="deleteFromHere">מחיקה מכאן והלאה</string>
   <string name="forceVariation">וריאנט יחיד</string>
+  <string name="copyVariationPgn">העתקת ה-PGN של הוריאנט</string>
   <string name="move">מסע</string>
   <string name="variantLoss">הפסד וריאנט</string>
   <string name="variantWin">ניצחון וריאנט</string>
@@ -731,8 +732,10 @@
   <string name="simultaneousExhibitions">משחקים סימולטניים</string>
   <string name="host">מארח/ת</string>
   <string name="hostColorX">צבע המארח/ת: %s</string>
+  <string name="yourPendingSimuls">המשחקים הסימולטניים העתידיים שלך</string>
   <string name="createdSimuls">משחקים סימולטניים חדשים</string>
   <string name="hostANewSimul">ארח/י משחק סימולטני חדש</string>
+  <string name="signUpToHostOrJoinASimul">הירשמו כדי לארח משחקים סימולטניים או להשתתף בהם</string>
   <string name="noSimulFound">המשחק הסימולטני לא נמצא</string>
   <string name="noSimulExplanation">המשחק הסימולטני אינו קיים.</string>
   <string name="returnToSimulHomepage">חזרה לדף הבית של המשחקים הסימולטניים</string>

@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
   <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
   <string name="publishHelp">ئەگەر پشکنین کرا، پۆستەکە لە بلۆگەکەتدا دەخرێتە لیستی پۆستەکەوە. ئەگەر نا، تایبەت دەبێت، لە ڕەشنووسی پۆستەکانتاندا</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">پەیامەکانی بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
     <item quantity="other">پەیامەکانی%s بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
   </plurals>
@@ -29,19 +29,19 @@
   <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
   <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">بینەری یەک بلاو کراوە 
-بینەری ھەموو %s بڵاوکراوەکانت</item>
+    <item quantity="one">بینەری یەک بلاو کراوە</item>
     <item quantity="other">نیشاندانی هەموو پەیامەکانی %s</item>
   </plurals>
   <string name="uploadAnImageForYourPost">بەرزکردنەوەی وێنەیەک بۆ پەیامەکەت</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">نوسینی جێگرەوە بۆ وێنە</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">دروستکەری وێنە</string>
+  <string name="imageAlt">نوسینی جێگرەوە بۆ وێنە</string>
+  <string name="imageCredit">دروستکەری وێنە</string>
   <string name="deleteBlog">سڕینەوەی ئەم پەیامە کەسییە بە دڵنیاییەوە</string>
   <string name="deleteImage">سڕینەوەی وێنە</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
+  <string name="safeToUseImages">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
   <string name="selectPostTopics">دیاریکردنی ناونیشانی پەیامەکەت، کە دەربارەی</string>
   <string name="useImagesYouMadeYourself">هەروەها دەتوانی ئەو وینانە بەکاربهێنی کە خۆت بەرهەمت هێناون، ئەو وێنانەی کە گرتووتن یان ئەو وێنە شاشەییانەی لە لیچێسەوە گرتووتن.. هەرشتێک کە خاوەندارێتی کەسیتری بەسەرەوە نەبێت.</string>
   <string name="safeAndRespectfulContent">تکایە تەنیا بابەتی پارێزراو وە وە لەسنوری ڕێزدا بکە بە پەیام، بابتی کەسی تر لەبەر مەگرەوە.</string>
   <string name="inappropriateContentAccountClosed">هەرشتێکی نەگوونجاو دەشێت ببێتە هۆی داخستنی هەژمارەکەت.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
+  <string name="blogTips">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">لە مەکۆدا باسی ئەم پۆستەی بلۆگەکە بکەن</string>
 </resources>

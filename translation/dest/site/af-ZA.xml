@@ -70,6 +70,7 @@
   <string name="makeMainLine">Maak hooflyn</string>
   <string name="deleteFromHere">Verwyder hiervandaan</string>
   <string name="forceVariation">Forseer variasie</string>
+  <string name="copyVariationPgn">Kopieer variasie-PGN</string>
   <string name="move">Skuif</string>
   <string name="variantLoss">Variant verloor</string>
   <string name="variantWin">Variant wen</string>

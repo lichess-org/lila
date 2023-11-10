@@ -72,6 +72,7 @@
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
   <string name="forceVariation">Vsili varianto</string>
+  <string name="copyVariationPgn">Kopiraj različico PGN</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -729,8 +730,10 @@
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Gostitelj</string>
   <string name="hostColorX">Gostiteljeva barva:%s</string>
+  <string name="yourPendingSimuls">Vaše čakajoče simultanke</string>
   <string name="createdSimuls">Novo ustvarjene simultanke</string>
   <string name="hostANewSimul">Gostuj novo simultanko</string>
+  <string name="signUpToHostOrJoinASimul">Prijavite se za gostovanje ali se pridružite simultanki</string>
   <string name="noSimulFound">Simultanka ni najdena</string>
   <string name="noSimulExplanation">Ta simultanka ne obstaja.</string>
   <string name="returnToSimulHomepage">Vrni se na domačo stran simultanke</string>

@@ -70,6 +70,7 @@
   <string name="makeMainLine">Gør til hovedlinjen</string>
   <string name="deleteFromHere">Slet herfra</string>
   <string name="forceVariation">Fremtving variant</string>
+  <string name="copyVariationPgn">Kopiér variation-PGN</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
   <string name="variantWin">Variant sejr</string>
@@ -657,8 +658,10 @@
   <string name="simultaneousExhibitions">Simultanskak</string>
   <string name="host">Bliv vært</string>
   <string name="hostColorX">Værtsfarve: %s</string>
+  <string name="yourPendingSimuls">Dine ventende simultaner</string>
   <string name="createdSimuls">Nyligt oprettede simultanspil</string>
   <string name="hostANewSimul">Bliv vært for nyt simultanspil</string>
+  <string name="signUpToHostOrJoinASimul">Tilmeld dig for at være vært eller deltage i en simultan</string>
   <string name="noSimulFound">Simultanspil ikke fundet</string>
   <string name="noSimulExplanation">Dette simultanspil eksisterer ikke.</string>
   <string name="returnToSimulHomepage">Vend tilbage til Simultan-forsiden</string>

@@ -71,6 +71,7 @@
   <string name="makeMainLine">Fă-o variația principală</string>
   <string name="deleteFromHere">Șterge de aici</string>
   <string name="forceVariation">Forțează variația</string>
+  <string name="copyVariationPgn">Copiază varianta PGN</string>
   <string name="move">Mutare</string>
   <string name="variantLoss">Variantă pierdere</string>
   <string name="variantWin">Variantă câștig</string>
@@ -694,8 +695,10 @@
   <string name="simultaneousExhibitions">Simultane de șah</string>
   <string name="host">Gazdă</string>
   <string name="hostColorX">Culoarea gazdei: %s</string>
+  <string name="yourPendingSimuls">Simultanele tale în așteptare</string>
   <string name="createdSimuls">Simultan nou creat</string>
   <string name="hostANewSimul">Găzduiește un nou simultan</string>
+  <string name="signUpToHostOrJoinASimul">Înregistrează-te pentru a găzdui sau pentru participarea la un simultan</string>
   <string name="noSimulFound">Simultanul nu a fost găsit</string>
   <string name="noSimulExplanation">Acest simultan nu există.</string>
   <string name="returnToSimulHomepage">Înapoi la pagina simultanului</string>
