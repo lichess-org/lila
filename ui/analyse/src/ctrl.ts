@@ -641,26 +641,27 @@ export default class AnalyseCtrl {
   };
 
   private instanciateCeval(): void {
-    if (this.ceval) this.ceval.destroy();
-    this.ceval = new CevalCtrl({
-      variant: this.data.game.variant,
-      initialFen: this.data.game.initialFen,
-      possible: this.synthetic || !game.playable(this.data),
-      emit: (ev: Tree.ClientEval, work: EvalMeta) => {
-        this.onNewCeval(ev, work.path, work.threatMode);
-      },
-      setAutoShapes: this.setAutoShapes,
-      redraw: this.redraw,
-      externalEngines:
-        this.data.externalEngines?.map(engine => ({
-          ...engine,
-          endpoint: this.opts.externalEngineEndpoint,
-        })) || [],
-      onSelectEngine: () => {
-        this.persistence?.autosave();
-        lichess.reload();
-      },
-    });
+    if (this.ceval) this.clearCeval();
+    else
+      this.ceval = new CevalCtrl({
+        variant: this.data.game.variant,
+        initialFen: this.data.game.initialFen,
+        possible: this.synthetic || !game.playable(this.data),
+        emit: (ev: Tree.ClientEval, work: EvalMeta) => {
+          this.onNewCeval(ev, work.path, work.threatMode);
+        },
+        setAutoShapes: this.setAutoShapes,
+        redraw: this.redraw,
+        externalEngines:
+          this.data.externalEngines?.map(engine => ({
+            ...engine,
+            endpoint: this.opts.externalEngineEndpoint,
+          })) || [],
+        onSelectEngine: () => {
+          this.persistence?.autosave();
+          lichess.reload();
+        },
+      });
   }
 
   getCeval = () => this.ceval;
