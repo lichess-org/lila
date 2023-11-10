@@ -57,7 +57,7 @@ object topnav:
             a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
           ),
           a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
-          ctx.noKid option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
+          ctx.kid.no option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
           canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )
       ),
@@ -68,7 +68,7 @@ object topnav:
           div(role := "group")(
             a(href := tvUrl)("Lichess TV"),
             a(href := routes.Tv.games)(trans.currentGames()),
-            (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
+            (ctx.kid.no && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
             a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
             ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
           )
@@ -79,9 +79,9 @@ object topnav:
         div(role := "group")(
           a(href := routes.User.list)(trans.players()),
           a(href := routes.Team.home())(trans.team.teams()),
-          ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
-          ctx.noKid option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
-          ctx.noKid && ctx.me.exists(_.isPatron) option
+          ctx.kid.no option a(href := routes.ForumCateg.index)(trans.forum()),
+          ctx.kid.no option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
+          ctx.kid.no && ctx.me.exists(_.isPatron) option
             a(cls := "community-patron", href := routes.Plan.index)(trans.patron.donate())
         )
       ),

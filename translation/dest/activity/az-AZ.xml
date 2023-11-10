@@ -46,7 +46,7 @@
     <item quantity="one">%s sinxron seansa ev sahibliyi etdi</item>
     <item quantity="other">%s sinxron seansa ev sahibliyi etdi</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">%s sinxron seansda iştirak etdi</item>
     <item quantity="other">%s sinxron seansda iştirak etdi</item>
   </plurals>

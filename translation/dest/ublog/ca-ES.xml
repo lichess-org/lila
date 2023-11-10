@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Es crearà una nova entrada al fòrum on els usuaris puguin comentar la vostra publicació</string>
   <string name="publishOnYourBlog">Publica al teu blog</string>
   <string name="publishHelp">Si marques la casella, es publicarà al teu blog. Si no, serà privada i només es mostrarà als teus esborranys</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Ha publicat una entrada nova</item>
     <item quantity="other">Ha publicat %s entrades noves</item>
   </plurals>
@@ -33,14 +33,15 @@
     <item quantity="other">Veure les %s publicacions</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Puja una imatge per la teva entrada</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Text alternatiu de la imatge</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Crèdits de la imatge</string>
+  <string name="imageAlt">Text alternatiu de la imatge</string>
+  <string name="imageCredit">Crèdits de la imatge</string>
   <string name="deleteBlog">Elimina aquesta entrada del blog definitivament</string>
   <string name="deleteImage">Elimina la imatge</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es segur utilitzar imatges dels següents llocs web: </string>
+  <string name="safeToUseImages">Es segur utilitzar imatges dels següents llocs web: </string>
   <string name="selectPostTopics">Seleccioneu els temes dels quals tracta la vostra entrada</string>
   <string name="useImagesYouMadeYourself">També podeu utilitzar imatges que heu fet vosaltres mateixos, fotos que heu fet, captures del lichess... Qualsevol cosa que no té drets de còpia d\'algú altre.</string>
   <string name="safeAndRespectfulContent">Si us plau, compartiu només contingut segur i respectuós. No copieu el contingut d\'algú altre.</string>
   <string name="inappropriateContentAccountClosed">Qualsevol contingut inapropiat podria implicar el tancament del teu compte.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Els nostres senzills consells per escriure bones entrades al blog</string>
+  <string name="blogTips">Els nostres senzills consells per escriure bones entrades al blog</string>
+  <string name="discussThisBlogPostInTheForum">Discuteix aquesta publicació del blog en el fòrum</string>
 </resources>

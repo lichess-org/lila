@@ -449,7 +449,7 @@
   <string name="createANewTopic">Шинэ сэдэв үүсгэх</string>
   <string name="topics">Сэдвүүд</string>
   <string name="posts">Бичлэгүүд</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Сүүлчийн бичлэг</string>
+  <string name="lastPost">Сүүлчийн бичлэг</string>
   <string name="views">Үзсэн тоо</string>
   <string name="replies">Хариулт</string>
   <string name="replyToThisTopic">Энэ сэдэвт хариулт бичих</string>

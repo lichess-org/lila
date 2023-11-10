@@ -22,6 +22,7 @@ case class Simul(
     estimatedStartAt: Option[Instant] = None,
     hostId: UserId,
     hostRating: IntRating,
+    hostProvisional: Option[RatingProvisional],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[Instant],
     finishedAt: Option[Instant],
@@ -152,29 +153,28 @@ object Simul:
       estimatedStartAt: Option[Instant],
       featurable: Option[Boolean],
       conditions: SimulCondition.All
-  ): Simul = Simul(
-    _id = SimulId(ThreadLocalRandom nextString 8),
-    name = name,
-    status = SimulStatus.Created,
-    clock = clock,
-    hostId = host.id,
-    hostRating = host.perfs.bestRatingIn:
-      variants.map {
-        PerfType(_, Speed(clock.config.some))
-      } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-    ,
-    hostGameId = none,
-    createdAt = nowInstant,
-    estimatedStartAt = estimatedStartAt,
-    variants = if position.isDefined then List(chess.variant.Standard) else variants,
-    position = position,
-    applicants = Nil,
-    pairings = Nil,
-    startedAt = none,
-    finishedAt = none,
-    hostSeenAt = nowInstant.some,
-    color = color.some,
-    text = text,
-    featurable = featurable,
-    conditions = conditions
-  )
+  ): Simul =
+    val hostPerf = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) })
+    Simul(
+      _id = SimulId(ThreadLocalRandom nextString 8),
+      name = name,
+      status = SimulStatus.Created,
+      clock = clock,
+      hostId = host.id,
+      hostRating = hostPerf.intRating,
+      hostProvisional = hostPerf.provisional.some,
+      hostGameId = none,
+      createdAt = nowInstant,
+      estimatedStartAt = estimatedStartAt,
+      variants = if position.isDefined then List(chess.variant.Standard) else variants,
+      position = position,
+      applicants = Nil,
+      pairings = Nil,
+      startedAt = none,
+      finishedAt = none,
+      hostSeenAt = nowInstant.some,
+      color = color.some,
+      text = text,
+      featurable = featurable,
+      conditions = conditions
+    )

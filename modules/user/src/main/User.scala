@@ -40,8 +40,6 @@ case class User(
 
   def realLang = lang flatMap Lang.get
 
-  def canPalantir = !kid && !marks.troll
-
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
   def profileOrDefault = profile | Profile.default

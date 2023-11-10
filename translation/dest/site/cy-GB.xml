@@ -393,15 +393,15 @@
   <string name="tournamentWinners">Ennillyddion cystadleuaethau</string>
   <string name="name">Enw</string>
   <string name="description">Disgrifiad</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Disgrifiad preifat</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Testun gellir ei gweld yn unig gan aelodau o\'r tîm. Os dewisir, mae\'n disodli\'r disgrifiad cyhoeddus i aelodau o\'r tîm.</string>
+  <string name="descPrivate">Disgrifiad preifat</string>
+  <string name="descPrivateHelp">Testun gellir ei gweld yn unig gan aelodau o\'r tîm. Os dewisir, mae\'n disodli\'r disgrifiad cyhoeddus i aelodau o\'r tîm.</string>
   <string name="no">Na</string>
   <string name="yes">Ie</string>
   <string name="help">Cymorth:</string>
   <string name="createANewTopic">Creu pwnc newydd</string>
   <string name="topics">Pynciau</string>
   <string name="posts">Postiau</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Post diwethaf</string>
+  <string name="lastPost">Post diwethaf</string>
   <string name="views">Golwg</string>
   <string name="replies">Atebau</string>
   <string name="replyToThisTopic">Ateb i\'r pwnc ma</string>

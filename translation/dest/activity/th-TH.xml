@@ -35,7 +35,7 @@
   <plurals name="hostedNbSimuls">
     <item quantity="other">ได้เป็นโฮสต์ %s มหกรรมไซมัลเทเนียส</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="other">ได้มีส่วนร่วมใน %s มหกรรมไซมัลเทเนียส</item>
   </plurals>
   <plurals name="createdNbStudies">
@@ -47,6 +47,10 @@
   <plurals name="rankedInTournament">
     <item quantity="other">อันดับ #%1$s (ท็อป %2$s%%) กับ %3$s เกมใน %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="other">เล่นเกม %s เสร็จในทวร์นาเมนต์สวิส</item>
+  </plurals>
+  <string name="rankedInSwissTournament">ลำดับ# %1$s ใน %2$s</string>
   <string name="signedUp">ได้ลงทะเบียนที่ lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">ได้เข้าร่วม %s ทีม</item>

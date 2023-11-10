@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Bude vytvořeno téma fóra, aby lidé mohli komentovat váš příspěvek</string>
   <string name="publishOnYourBlog">Publikovat na vašem blogu</string>
   <string name="publishHelp">Je-li zaškrtnuto, příspěvek bude zobrazen na vašem blogu. Pokud ne, bude soukromý, ve vašich konceptech</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Příspěvek byl publikován</item>
     <item quantity="few">Byly publikovány %s příspěvky</item>
     <item quantity="many">Bylo publikováno %s příspěvků</item>
@@ -39,14 +39,14 @@
     <item quantity="other">Zobrazit %s příspěvků</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Nahrát obrázek pro váš příspěvek</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternativní text obrázku</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Zdroj obrázku</string>
+  <string name="imageAlt">Alternativní text obrázku</string>
+  <string name="imageCredit">Zdroj obrázku</string>
   <string name="deleteBlog">Definitivně smazat tento blogový příspěvek</string>
   <string name="deleteImage">Smazat obrázek</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Je bezpečné používat obrázky z těchto stránek: </string>
+  <string name="safeToUseImages">Je bezpečné používat obrázky z těchto stránek: </string>
   <string name="selectPostTopics">Zvolte témata vašeho příspěvku</string>
   <string name="useImagesYouMadeYourself">Můžete také přidat obrázky, vytvořené vámi, screenshoty... cokoliv na co se nevztahují autorská práva.</string>
   <string name="safeAndRespectfulContent">Publikuje prosím jenom svůj vlastní a bezpečný obsah. Nekopírujte obsah někoho jiného.</string>
   <string name="inappropriateContentAccountClosed">Cokoliv nevhodného může způsobit smazání vašeho účtu.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Naše jednoduché rady, jak psát skvělé příspěvky do blogu</string>
+  <string name="blogTips">Naše jednoduché rady, jak psát skvělé příspěvky do blogu</string>
 </resources>

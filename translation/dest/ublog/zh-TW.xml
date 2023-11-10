@@ -12,7 +12,7 @@
   <string name="createBlogDiscussion">啟用留言</string>
   <string name="publishOnYourBlog">在網誌上發布</string>
   <string name="publishHelp">如果被選中，文章將列於您的網誌上。如果未選擇，它將是私密的，在您的草稿箱中</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="other">已發布 %s 網誌</item>
   </plurals>
   <plurals name="nbViews">
@@ -29,6 +29,6 @@
     <item quantity="other">查看所有 %s 篇文章</item>
   </plurals>
   <string name="uploadAnImageForYourPost">上傳一張圖片</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">圖片備選文字</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">圖片的來源</string>
+  <string name="imageAlt">圖片備選文字</string>
+  <string name="imageCredit">圖片的來源</string>
 </resources>

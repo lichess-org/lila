@@ -62,6 +62,5 @@ final class Racer(env: Env) extends LilaController(env):
       ctx.req.sid map { env.racer.api.playerId(_, ctx.me) } match
         case Some(id) => f(id)
         case None =>
-          env.lilaCookie.ensureAndGet(ctx.req) { sid =>
+          env.lilaCookie.ensureAndGet(ctx.req): sid =>
             f(env.racer.api.playerId(sid, none))
-          }

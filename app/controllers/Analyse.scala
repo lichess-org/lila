@@ -6,7 +6,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, LpvEmbed }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
 import lila.oauth.AccessToken
@@ -100,7 +100,7 @@ final class Analyse(
   def embedReplayGame(gameId: GameId, color: String) = Anon:
     InEmbedContext:
       env.api.textLpvExpand.getPgn(gameId) map {
-        case Some(pgn) =>
+        case Some(LpvEmbed.PublicPgn(pgn)) =>
           render:
             case AcceptsPgn() => Ok(pgn)
             case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true))

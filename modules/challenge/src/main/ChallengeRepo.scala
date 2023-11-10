@@ -61,15 +61,18 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       x ::: y
     }
 
-  private def sameOrigAndDest(c: Challenge) =
+  private def sameOrigAndDest(c: Challenge): Fu[Option[Challenge]] =
     ~(for
-      challengerId <- c.challengerUserId
-      destUserId   <- c.destUserId
+      challengerSelect <- c.challenger match
+        case Challenger.Registered(uid, _) => some("challenger.id" -> uid.value)
+        case Challenger.Anonymous(sid)     => some("challenger.s" -> sid)
+        case _                             => none
+      destUserId <- c.destUserId
       if c.active
     yield coll.one[Challenge](
       selectCreated ++ $doc(
-        "challenger.id" -> challengerId,
-        "destUser.id"   -> destUserId
+        challengerSelect,
+        "destUser.id" -> destUserId
       )
     ))
 

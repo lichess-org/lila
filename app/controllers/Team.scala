@@ -83,7 +83,7 @@ final class Team(
       ctx: Context
   ): Boolean =
     import info.*
-    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
+    team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       (isGrantedOpt(_.Shusher) && requestModView)
@@ -92,7 +92,7 @@ final class Team(
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
       ctx: Context
   ): Boolean =
-    team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
+    team.enabled && !team.isForumFor(_.NONE) && ctx.kid.no && {
       team.isForumFor(_.EVERYONE) ||
       (team.isForumFor(_.LEADERS) && member.exists(_.perms.nonEmpty)) ||
       (team.isForumFor(_.MEMBERS) && member.isDefined) ||
@@ -454,7 +454,7 @@ final class Team(
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs  <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.teamInfo.pmAllStatus(team.id)
+    limiter <- env.teamInfo.pmAll.status(team.id)
     page    <- renderPage(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
   yield Ok(page)
 
@@ -464,27 +464,29 @@ final class Team(
       forms.pmAll
         .bindFromRequest()
         .fold(
-          err => Left(err),
+          Left(_),
           msg =>
-            Right:
-              env.teamInfo.pmAllLimiter[Result](
-                team.id,
-                if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
-              ) {
-                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                val full = s"""$msg
+            if env.teamInfo.pmAll.dedup(team.id, msg) then
+              Right:
+                env.teamInfo.pmAll.limiter[Result](
+                  team.id,
+                  if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
+                ) {
+                  val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+                  val full = s"""$msg
   ---
   You received this because you are subscribed to messages of the team $url."""
-                env.msg.api
-                  .multiPost(
-                    env.team.memberStream.subscribedIds(team, config.MaxPerSecond(50)),
-                    full
-                  )
-                  .addEffect: nb =>
-                    lila.mon.msg.teamBulk(team.id).record(nb)
-                // we don't wait for the stream to complete, it would make lichess time out
-                fuccess(Result.Through)
-              }(Result.Limited)
+                  env.msg.api
+                    .multiPost(
+                      env.team.memberStream.subscribedIds(team, config.MaxPerSecond(50)),
+                      full
+                    )
+                    .addEffect: nb =>
+                      lila.mon.msg.teamBulk(team.id).record(nb)
+                  // we don't wait for the stream to complete, it would make lichess time out
+                  fuccess(Result.Through)
+                }(Result.Limited)
+            else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
         )
         .fold(
           err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),

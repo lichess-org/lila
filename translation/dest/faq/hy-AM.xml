@@ -26,7 +26,7 @@
   <string name="pleaseReadFairPlayPage">Ավելին իմանալու համար տես՝ %s</string>
   <string name="gameplay">Խաղ</string>
   <string name="howBulletBlitzEtcDecided">Ինչպե՞ս է որոշվում խաղի տեսակը՝ բուլիտ, կայծակնային և այլն, կախված խաղաժամանակից։</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">ՖԻԴԵ-ի ձեռնարկ</string>
+  <string name="fideHandbook">ՖԻԴԵ-ի ձեռնարկ</string>
   <string name="discoveringEnPassant">Ինչո՞ւ է կարելի վերցնել զինվորը, երբ այն արդեն անցել է հարվածի տակ գտնվող դաշտը (կողանցիկ հարված)</string>
   <string name="explainingEnPassant">Այս քայլը հայտնի է որպես «կողանցիկ հարված»։ Վիքիպեդիայի հոդվածը տալիս է %1$s։
 

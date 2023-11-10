@@ -56,8 +56,7 @@ export default function wikiTheory(): WikiTheory {
           if (res.ok) {
             const json = await res.json();
             const page = json.query.pages[0];
-            if (page.missing) saveAndShow('');
-            else if (page.extract === '') saveAndShow('');
+            if (page.missing || page.extract.length == 0) saveAndShow('');
             else if (page.invalid) show('invalid request: ' + page.invalidreason);
             else if (!page.extract)
               show('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');
