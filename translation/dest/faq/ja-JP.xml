@@ -125,4 +125,5 @@
   <string name="lichessCanOptionnalySendPopUps">Lichess では、たとえば自分の手番やメッセージが来たなどの通知をポップアップで表示するかどうかが選べます。 
  ブラウザの URL バーで錠のアイコンをクリックしてください。
  そして Lichess からの通知を認めるかブロックするかを選びます。</string>
+  <string name="enableAutoplayForSoundsQ">サウンドの自動再生を有効にしますか？</string>
 </resources>
