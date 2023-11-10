@@ -143,4 +143,28 @@ Het is het beste om ratings te zien als \"relatieve\" getallen (in tegenstelling
 Klik op het slotje naast het lichess.org-adres in de adresbalk van uw browser.
 
 Selecteer vervolgens of u meldingen van Lichess wilt toestaan of blokkeren.</string>
+  <string name="enableAutoplayForSoundsQ">Automatisch afspelen inschakelen voor geluiden?</string>
+  <string name="enableAutoplayForSoundsA">De meeste browsers kunnen voorkomen dat geluid wordt afgespeeld op een pas geladen pagina om gebruikers te beschermen. Stel je voor dat elke website je onmiddellijk kan bestoken met audio-advertenties.
+
+Het rode mute pictogram verschijnt wanneer jouw browser verhindert dat lichess.org een geluid afspeelt. Meestal wordt deze beperking opgeheven zodra je op iets klikt. Bij sommige mobiele browsers telt het slepen van een stuk niet als een klik. In dat geval moet je op het bord tikken om geluid aan het begin van elk spel toe te staan.
+
+Wij laten het rode icoon zien om je te waarschuwen wanneer dit gebeurt. Vaak kun je lichess.org expliciet toestaan om geluiden af te spelen. Hier zijn instructies om dit te doen op recente versies van sommige populaire browsers.</string>
+  <string name="desktop">bureaublad</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Ga naar lichess.org
+2. Druk op Ctrl-i op Linux/Windows of cmd-i op MacOS
+3. Klik op het tabblad Rechten
+4. Sta Audio en Video toe op lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Ga naar lichess.org
+2. Klik op het vergrendelingspictogram in de adresbalk
+3. Klik op Site-instellingen
+4. Sta geluid toe</string>
+  <string name="enableAutoplayForSoundsSafari">1. Ga naar lichess.org
+2. Klik op Safari in de menubalk
+3. Klik op Instellingen voor lichess.org ...
+4. Sta Alle Auto-Play toe</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klik op de drie stippen in de rechterbovenhoek
+2. Klik op Instellingen
+3. Klik op Cookies en Siterechten
+4. Scroll naar beneden en klik op Media autoplay
+5. Voeg lichess.org toe aan Toestaan</string>
 </resources>

@@ -152,8 +152,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       pgnInJson = getBool("pgnInJson"),
       delayMoves = delayMovesFromReq,
       lastFen = getBool("lastFen"),
-      accuracy = getBool("accuracy"),
-      patron = getBool("patron")
+      accuracy = getBool("accuracy")
     )
 
   private[controllers] def delayMovesFromReq(using RequestHeader) =

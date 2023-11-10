@@ -619,6 +619,7 @@
   <string name="hostColorX">สีโฮสต์: %s</string>
   <string name="createdSimuls">ไซมัลที่สร้างใหม่</string>
   <string name="hostANewSimul">เป็นโฮสต์ไซมัลใหม่</string>
+  <string name="signUpToHostOrJoinASimul">สร้างบัญชีเมื่อสร้างหรือเข้าร่วมไซมัล</string>
   <string name="noSimulFound">ไม่พบไซมัล</string>
   <string name="noSimulExplanation">ไม่มีมหกรรมไซมัลเทเนียสนี้</string>
   <string name="returnToSimulHomepage">กลับสู่หน้าหลักไซมัล</string>
@@ -892,6 +893,8 @@
   <string name="onlyTeamMembers">สมาชิกทีมเท่านั้น</string>
   <string name="navigateMoveTree">นำทางรายการการเดิน</string>
   <string name="mouseTricks">หน้าที่เมาส์</string>
+  <string name="toggleLocalAnalysis">ควบคุมการวิเคราะห์ค้วยคอมพิวเตอร์ในท้องถิ่น</string>
+  <string name="toggleAllAnalysis">ควบคุมการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="playComputerMove">เล่นการเดินคอมพิวเตอร์ที่ดีที่สุด</string>
   <string name="analysisOptions">ตัวเลือกการวิเคราะห์</string>
   <string name="focusChat">โฟกัสที่แชท</string>

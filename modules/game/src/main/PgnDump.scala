@@ -33,7 +33,6 @@ final class PgnDump(
           imported,
           withOpening = flags.opening,
           withRating = flags.rating,
-          withPatron = flags.patron,
           teams = teams
         )
       else fuccess(Tags(Nil))
@@ -85,7 +84,6 @@ final class PgnDump(
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,
-      withPatron: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] =
     gameLightUsers(game).map:
@@ -121,8 +119,6 @@ final class PgnDump(
             bu.flatMap(_.title).map { t =>
               Tag(_.BlackTitle, t)
             },
-            withPatron so wu.exists(_.isPatron) option Tag("WhitePatron", "1"),
-            withPatron so bu.exists(_.isPatron) option Tag("BlackPatron", "1"),
             teams.map { t => Tag("WhiteTeam", t.white) },
             teams.map { t => Tag("BlackTeam", t.black) },
             Tag(_.Variant, game.variant.name.capitalize).some,
@@ -180,8 +176,7 @@ object PgnDump:
       pgnInJson: Boolean = false,
       delayMoves: Boolean = false,
       lastFen: Boolean = false,
-      accuracy: Boolean = false,
-      patron: Boolean = false
+      accuracy: Boolean = false
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
       if !delayMoves then moves

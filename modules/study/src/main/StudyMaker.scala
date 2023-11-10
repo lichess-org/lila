@@ -57,14 +57,7 @@ final private class StudyMaker(
   ): Fu[Study.WithChapter] = {
     for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
-      tags <- pgnDump.tags(
-        pov.game,
-        initialFen,
-        none,
-        withOpening = true,
-        withRating = withRatings,
-        withPatron = false
-      )
+      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
       name <- StudyChapterName from Namer.gameVsText(pov.game, withRatings)(using lightUserApi.async)
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
       chapter = Chapter.make(

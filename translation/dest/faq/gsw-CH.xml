@@ -144,4 +144,28 @@ Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu 
 Klick uf s\'Schlosssymbol, näbe de lichess.org Adrässe, i de URL-Lischte vu dim Browser.
 
 Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert wärde sölled.</string>
+  <string name="enableAutoplayForSoundsQ">Autoplay für de Ton aktiviere?</string>
+  <string name="enableAutoplayForSoundsA">Die meischte Browser chönd - zum de Nutzer schütze - d\'Tonwidergab uf ere frisch gladene Site verhindere. Stell dir vor, jedi Website chönnt dich direkt mit Audio-Werbig stresse!
+
+Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass lichess.org Tön abschpillt. Normal wird die Ischränkig uf g\'hobe, sobald du öppis klicksch. Bi einige mobile Browser gilt s\'Figureziehe, dur Berüherig, nöd als Klick. Isch das so, dänn muesch du bim Beginn vu jedere Partie ufs Brett tippe und so de Ton aktiviere.
+
+Das roti Symbol macht dich druf ufmerksam, dass das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
+  <string name="desktop">Desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Gang zu Lichess.org
+2. Taschte Ctrl-i bi Linux / Windos oder cmd-i bi MacOS
+3. Klick de Tab \"Permissions\"
+4. Erlaub \"Audio and Video\" uf Lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Gang zu Lichess.org
+2. Klick i de Adrässzile ufs Schloss-Icon
+3. Klick d\'Site \"Settings\"
+4. Erlaub \"Sound\"</string>
+  <string name="enableAutoplayForSoundsSafari">1. Gang zu Lichess.org
+2. Klick ide Menuezile uf \"Safari\"
+3. Klick \"Settings für lichess.org\"...
+4. Erlaub \"All Autoplay\"</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klick uf die 3 Pünkt ganz obe, im rächte Egge
+2. Klick \"Settings\"
+3. Klick \"Cookies and Site Permissions\"
+4. Scroll abwärts und klick \"Media autoplay\"
+5. \"Lichess.org\" zum Erlaube bi-füege</string>
 </resources>
