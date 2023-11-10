@@ -485,7 +485,7 @@
   <string name="createANewTopic">Búa til nýja umræðu</string>
   <string name="topics">Umræður</string>
   <string name="posts">Innlegg</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Síðasta innlegg</string>
+  <string name="lastPost">Síðasta innlegg</string>
   <string name="views">Áhorf</string>
   <string name="replies">Svör</string>
   <string name="replyToThisTopic">Svar við skeyti</string>

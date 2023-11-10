@@ -52,12 +52,10 @@ export default class CevalCtrl {
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
-    this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
+    this.multiPv = storedIntProp('ceval.multipv', 1);
     this.searchMs = storedIntProp('ceval.search-ms', 8000);
     this.engines = new Engines(this);
   }
-
-  storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
 
   private lastEmitFen: string | null = null;
   private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
@@ -172,7 +170,7 @@ export default class CevalCtrl {
   }
 
   threads = () => {
-    const stored = lichess.storage.get(this.storageKey('ceval.threads'));
+    const stored = lichess.storage.get('ceval.threads');
     return Math.min(
       this.engines.active?.maxThreads ?? 96, // Can haz threadripper?
       stored ? parseInt(stored, 10) : Math.ceil(navigator.hardwareConcurrency / 4),
@@ -180,27 +178,34 @@ export default class CevalCtrl {
   };
 
   hashSize = () => {
-    const stored = lichess.storage.get(this.storageKey('ceval.hash-size'));
+    const stored = lichess.storage.get('ceval.hash-size');
     return Math.min(this.engines.active?.maxHash ?? 16, stored ? parseInt(stored, 10) : 16);
   };
 
-  setThreads = (threads: number) => lichess.storage.set(this.storageKey('ceval.threads'), threads.toString());
+  setThreads = (threads: number) => lichess.storage.set('ceval.threads', threads.toString());
 
-  setHashSize = (hash: number) => lichess.storage.set(this.storageKey('ceval.hash-size'), hash.toString());
+  setHashSize = (hash: number) => lichess.storage.set('ceval.hash-size', hash.toString());
 
   maxThreads = () =>
     this.engines.external?.maxThreads ?? (hasFeature('sharedMem') ? navigator.hardwareConcurrency : 1);
 
   maxHash = () => this.engines.active?.maxHash ?? 16;
 
+  selectEngine = (id: string) => {
+    this.engines.select(id);
+    this.opts.onSelectEngine?.();
+  };
+
   setHovering = (fen: Fen, uci?: Uci) => {
     this.hovering(uci ? { fen, uci } : null);
     this.opts.setAutoShapes();
   };
+
   setPvBoard = (pvBoard: PvBoard | null) => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
   };
+
   toggle = () => {
     if (!this.possible || !this.allowed()) return;
     this.stop();

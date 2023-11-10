@@ -94,9 +94,9 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    movedAt.toSeconds - createdAt.toSeconds match
-      case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
-      case seconds                           => seconds.toInt.some
+    val seconds = movedAt.toSeconds - createdAt.toSeconds
+    seconds < 60 * 60 * 12 option // no way it lasted more than 12 hours, come on.
+      seconds.toInt
 
   private def everyOther[A](l: List[A]): List[A] =
     l match

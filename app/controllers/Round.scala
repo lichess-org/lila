@@ -187,7 +187,7 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.has)) && ctx.me.fold(
+    ctx.kid.no && (ctx.noBot || ctx.userId.exists(game.userIds.has)) && ctx.me.fold(
       HTTPRequest isHuman ctx.req
     )(env.chat.panic.allowed(_)) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
@@ -201,7 +201,7 @@ final class Round(
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
       ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
-    ctx.noKid.so:
+    ctx.kid.no.so:
       def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
         Chat
           .GameOrEvent:

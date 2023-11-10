@@ -150,7 +150,7 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
-    this.persistence = opts.study || this.synthetic ? undefined : new Persistence(this);
+    this.persistence = opts.study ? undefined : new Persistence(this);
 
     this.instanciateCeval();
 
@@ -641,28 +641,27 @@ export default class AnalyseCtrl {
   };
 
   private instanciateCeval(): void {
-    if (this.ceval) this.ceval.destroy();
-    this.ceval = new CevalCtrl({
-      variant: this.data.game.variant,
-      initialFen: this.data.game.initialFen,
-      possible: this.synthetic || !game.playable(this.data),
-      emit: (ev: Tree.ClientEval, work: EvalMeta) => {
-        this.onNewCeval(ev, work.path, work.threatMode);
-      },
-      setAutoShapes: this.setAutoShapes,
-      redraw: this.redraw,
-      ...(this.opts.study && this.opts.practice
-        ? {
-            storageKeyPrefix: 'practice',
-            multiPvDefault: 1,
-          }
-        : {}),
-      externalEngines:
-        this.data.externalEngines?.map(engine => ({
-          ...engine,
-          endpoint: this.opts.externalEngineEndpoint,
-        })) || [],
-    });
+    if (this.ceval) this.clearCeval();
+    else
+      this.ceval = new CevalCtrl({
+        variant: this.data.game.variant,
+        initialFen: this.data.game.initialFen,
+        possible: this.synthetic || !game.playable(this.data),
+        emit: (ev: Tree.ClientEval, work: EvalMeta) => {
+          this.onNewCeval(ev, work.path, work.threatMode);
+        },
+        setAutoShapes: this.setAutoShapes,
+        redraw: this.redraw,
+        externalEngines:
+          this.data.externalEngines?.map(engine => ({
+            ...engine,
+            endpoint: this.opts.externalEngineEndpoint,
+          })) || [],
+        onSelectEngine: () => {
+          this.persistence?.autosave();
+          lichess.reload();
+        },
+      });
   }
 
   getCeval = () => this.ceval;
@@ -729,19 +728,17 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   };
 
-  cevalReset(): void {
+  restartCeval(): void {
     this.ceval.stop();
-    if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     this.redraw();
   }
 
-  cevalSetMultiPv = (v: number): void => {
-    this.ceval.multiPv(v);
+  clearCeval(): void {
     this.tree.removeCeval();
     this.evalCache.clear();
-    this.cevalReset();
-  };
+    this.restartCeval();
+  }
 
   showEvalGauge(): boolean {
     return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();

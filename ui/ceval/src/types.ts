@@ -72,14 +72,13 @@ export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
 export interface CevalOpts {
-  storageKeyPrefix?: string;
-  multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: Redraw;
+  onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfo[];
 }
 
@@ -117,8 +116,8 @@ export interface ParentCtrl {
   getNode(): Tree.Node;
   showComputer(): boolean;
   toggleComputer?: () => void;
-  cevalSetMultiPv?: (multiPv: number) => void;
-  cevalReset?: () => void;
+  clearCeval?: () => void;
+  restartCeval?: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   trans: Trans;

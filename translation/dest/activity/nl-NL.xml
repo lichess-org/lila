@@ -46,7 +46,7 @@
     <item quantity="one">Gaf %s simultaan</item>
     <item quantity="other">Gaf %s simultanen</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Nam deel in %s simultaan</item>
     <item quantity="other">Nam deel in %s simultanen</item>
   </plurals>

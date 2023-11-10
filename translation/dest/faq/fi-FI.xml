@@ -54,7 +54,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
  Harvoissa tapauksissa (pakotetut siirtosarjat, puolustuslinnakkeet) tämän määrittäminen automaattisesti voi olla vaikeaa. Oletusarvoisesti pidämme sen pelaajan puolta, jolta ei loppunut aika.
 
  Huomaa, että matinteko yhdellä ratsulla tai lähetillä voi olla mahdollista, jos vastapelaajalla on nappula, joka voisi viedä hänen kuninkaaltaan pakoruudun.</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDEn käsikirja</string>
+  <string name="fideHandbook">FIDEn käsikirja</string>
   <string name="fideHandbookX">FIDEn käsikirja %s</string>
   <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
   <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
@@ -143,4 +143,12 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
  Napsauta selaimesi osoitepalkissa lichess.org-osoitteen vieressä olevaa lukkokuvaketta.
 
  Valitse sitten, haluatko ottaa käyttöön vai poistaa käytöstä Lichessin ilmoitukset.</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
+2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
+3. Klikkaa käyttöoikeusvälilehteä
+4. Salli ääni ja video lichess.org:issa</string>
+  <string name="enableAutoplayForSoundsChrome">1. Mene osoitteeseen lichess.org
+2. Klikkaa lukituskuvaketta osoitepalkissa
+3. Valitse Sivuston asetukset
+4. Salli ääni</string>
 </resources>

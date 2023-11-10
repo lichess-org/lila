@@ -396,8 +396,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval) ceval.destroy();
     ceval = new CevalCtrl({
       redraw,
-      storageKeyPrefix: 'puzzle',
-      multiPvDefault: 3,
       variant: {
         short: 'Std',
         name: 'Standard',
@@ -457,6 +455,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     startCeval();
     if (!ceval.enabled()) threatMode(false);
     vm.autoScrollRequested = true;
+    redraw();
+  }
+
+  function restartCeval(): void {
+    ceval.stop();
+    startCeval();
     redraw();
   }
 
@@ -677,5 +681,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flipped: () => flipped,
     showRatings: opts.showRatings,
     menu,
+    restartCeval: restartCeval,
+    clearCeval: restartCeval,
   };
 }

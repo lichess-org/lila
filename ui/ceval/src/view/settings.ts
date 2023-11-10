@@ -8,9 +8,8 @@ import { onClickAway } from 'common';
 const searchTicks: [number, string][] = [
   [4000, '4s'],
   [8000, '8s'],
-  [30000, '30s'],
-  [300000, '5m'],
-  [3600000, '1hr'],
+  [12000, '12s'],
+  [20000, '20s'],
   [Number.POSITIVE_INFINITY, '∞'],
 ];
 
@@ -57,7 +56,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     attrs: { type: 'range', min: 0, max: searchTicks.length - 1, step: 1 },
                     hook: rangeConfig(searchTick, n => {
                       ceval.searchMs(searchTicks[n][0]);
-                      ctrl.cevalReset?.();
+                      ctrl.restartCeval?.();
                     }),
                   }),
                   h('div.range_value', searchTicks[searchTick()][1]),
@@ -77,7 +76,13 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   h('label', { attrs: { for: id } }, noarg('multipleLines')),
                   h('input#' + id, {
                     attrs: { type: 'range', min: 0, max, step: 1 },
-                    hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv ?? (() => {})),
+                    hook: rangeConfig(
+                      () => ceval!.multiPv(),
+                      (mpv: number) => {
+                        ceval.multiPv(mpv);
+                        ctrl.clearCeval?.();
+                      },
+                    ),
                   }),
                   h('div.range_value', ceval.multiPv() + ' / ' + max),
                 ],
@@ -93,7 +98,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                       },
                     },
                     [
-                      h('label', { attrs: { for: id } }, noarg('cpus')),
+                      h('label', { attrs: { for: id } }, 'Threads'),
                       h('input#' + id, {
                         attrs: {
                           type: 'range',
@@ -104,7 +109,10 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                         },
                         hook: rangeConfig(
                           () => ceval.threads(),
-                          x => (ceval.setThreads(x), ctrl.cevalReset?.()),
+                          x => {
+                            ceval.setThreads(x);
+                            ctrl.restartCeval?.();
+                          },
                         ),
                       }),
                       h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads()}`),
@@ -117,7 +125,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                 'div.setting',
                 {
                   attrs: {
-                    title: 'Higher values improve performance, but can be unstable on mobile',
+                    title: 'Higher values improve performance',
                   },
                 },
                 [
@@ -132,9 +140,13 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     },
                     hook: rangeConfig(
                       () => Math.floor(Math.log2(ceval.hashSize())),
-                      v => (ceval.setHashSize(Math.pow(2, v)), ctrl.cevalReset?.()),
+                      v => {
+                        ceval.setHashSize(Math.pow(2, v));
+                        ctrl.restartCeval?.();
+                      },
                     ),
                   }),
+
                   h('div.range_value', formatHashSize(ceval.hashSize())),
                 ],
               ))('analyse-memory'),
@@ -154,10 +166,7 @@ function engineSelection(ctrl: ParentCtrl) {
     h(
       'select.select-engine',
       {
-        hook: bind('change', e => {
-          ctrl.getCeval().engines.select((e.target as HTMLSelectElement).value);
-          lichess.reload();
-        }),
+        hook: bind('change', e => ceval.selectEngine((e.target as HTMLSelectElement).value)),
       },
       [
         ...engines.map(engine =>

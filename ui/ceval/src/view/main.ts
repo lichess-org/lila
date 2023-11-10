@@ -71,7 +71,7 @@ function localInfo(ctrl: ParentCtrl, ev?: Tree.ClientEval | false): EvalInfo {
 
   if (knps > 0) {
     info.npsText = `${
-      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' Kn/s'
+      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' kn/s'
     }`;
     info.knps = knps;
   }
@@ -275,7 +275,7 @@ export function renderCeval(ctrl: ParentCtrl): MaybeVNodes {
   const settingsGear: VNode | null = h('button.settings-gear', {
     attrs: { 'data-icon': licon.Gear, title: 'Engine settings' },
     class: { active: ceval.showEnginePrefs() },
-    hook: bind('click', ceval.showEnginePrefs.toggle, ceval.opts.redraw),
+    hook: bind('click', ceval.showEnginePrefs.toggle, ceval.opts.redraw, false),
   });
 
   return [

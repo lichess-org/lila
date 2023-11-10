@@ -68,7 +68,7 @@
     <item quantity="many">Organizavo %s simulų</item>
     <item quantity="other">Organizavo %s simulų</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Dalyvavo %s-me simule</item>
     <item quantity="few">Dalyvavo %s-se simuluose</item>
     <item quantity="many">Dalyvavo %s-yje simulų</item>

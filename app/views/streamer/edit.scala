@@ -94,7 +94,7 @@ object edit:
                     log.isEmpty option ": nothing to show."
                   ),
                   log.nonEmpty option ul(
-                    log.map { e =>
+                    log.map: e =>
                       li(
                         userIdLink(e.mod.userId.some, withTitle = false),
                         " ",
@@ -104,7 +104,6 @@ object edit:
                         " ",
                         momentFromNow(e.date)
                       )
-                    }
                   ),
                   br,
                   strong(cls := "text", dataIcon := licon.CautionTriangle)(
@@ -112,13 +111,12 @@ object edit:
                     notes.isEmpty option ": nothing to show."
                   ),
                   notes.nonEmpty option ul(
-                    notes.map { note =>
+                    notes.map: note =>
                       (isGranted(_.Admin) || !note.dox) option
                         li(
                           p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
-                          p(cls := "text")(richText(note.text))
+                          p(cls := "text")(richText(note.text, expandImg = false))
                         )
-                    }
                   ),
                   br,
                   strong(cls := "text", dataIcon := licon.CautionTriangle)(
@@ -126,7 +124,7 @@ object edit:
                     same.isEmpty option ": nothing to show."
                   ),
                   same.nonEmpty option table(cls := "slist")(
-                    same.map { s =>
+                    same.map: s =>
                       tr(
                         td(userIdLink(s.userId.some)),
                         td(s.name),
@@ -138,7 +136,6 @@ object edit:
                         ),
                         td(momentFromNow(s.createdAt))
                       )
-                    }
                   )
                 )
               },

@@ -46,7 +46,7 @@
     <item quantity="one">Has ofert %s exhibició simultània</item>
     <item quantity="other">Has ofert %s exhibicions simultànies</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Has participat en %s exhibició simultània</item>
     <item quantity="other">Has participat en %s exhibicions simultànies</item>
   </plurals>

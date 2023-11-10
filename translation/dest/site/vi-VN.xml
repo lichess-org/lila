@@ -54,7 +54,7 @@
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
   <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
-  <string name="analysis">Bảng phân tích</string>
+  <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích bằng máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
@@ -69,6 +69,7 @@
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
+  <string name="copyVariationPgn">Sao chép biến PGN</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Nước chiếu hết theo luật</string>
@@ -205,7 +206,7 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="error.weakPassword">Mật khẩu này quá phổ biến và quá dễ đoán.</string>
   <string name="error.namePassword">Vui lòng không sử dụng tên đăng nhập làm mật khẩu.</string>
-  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn bạn vì đã thông cảm.</string>
+  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn vì bạn đã thông cảm.</string>
   <string name="youAreLeavingLichess">Bạn đang thoát Lichess</string>
   <string name="neverTypeYourPassword">Không bao giờ nhập mật khẩu Lichess của bạn trên bất kì trang web nào khác!</string>
   <string name="proceedToX">Chuyển tới trang %s</string>
@@ -236,7 +237,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">%s cấu đố</item>
   </plurals>
-  <string name="gamesPlayed">Ván đã chơi</string>
+  <string name="gamesPlayed">Số ván đã chơi</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
@@ -325,14 +326,14 @@
   <plurals name="nbStudies">
     <item quantity="other">%s nghiên cứu</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="other">Chủ Trì %s
 Sự Kiện Cờ Đồng Loạt</item>
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
   <string name="noDrawBeforeSwissLimit">Trong giải đấu hệ Thụy Sĩ, ván cờ dưới 30 nước đi không thể hòa.</string>
-  <string name="thematic">Theo chủ đề</string>
+  <string name="thematic">Theo thế cờ</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s ván xếp hạng</item>
   </plurals>
@@ -475,7 +476,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
   <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
-  <string name="thankYou">Cảm ơn!</string>
+  <string name="thankYou">Lời cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
@@ -495,15 +496,15 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Mô tả riêng tư</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
+  <string name="descPrivate">Mô tả riêng tư</string>
+  <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
   <string name="posts">Số bài viết</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Bài đăng gần đây nhất</string>
+  <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
   <string name="replies">Bình luận</string>
   <string name="replyToThisTopic">Bình luận chủ đề này</string>
@@ -622,8 +623,10 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>
   <string name="hostColorX">Màu quân của người chủ trì: %s</string>
+  <string name="yourPendingSimuls">Sự kiện đồng loạt đang chờ xử lý của bạn</string>
   <string name="createdSimuls">Sự kiện cờ đồng loạt mới tạo</string>
   <string name="hostANewSimul">Chủ trì một sự kiện cờ đồng loạt mới</string>
+  <string name="signUpToHostOrJoinASimul">Đăng kí để tham gia hoặc chủ trì một sự kiện đồng loạt</string>
   <string name="noSimulFound">Không tìm thấy sự kiện cờ đồng loạt nào</string>
   <string name="noSimulExplanation">Sự kiện cờ đồng loạt này không tồn tại.</string>
   <string name="returnToSimulHomepage">Trở về trang chủ cờ đồng loạt</string>
@@ -751,7 +754,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Thông báo: %1$s</string>
+  <string name="notificationsX">Thông báo: %1$s</string>
   <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">Còn %s giây để đi nước đầu tiên</item>
@@ -855,7 +858,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã nhắc đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s đã mời bạn tham gia \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s đã mời bạn tham gia \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Bây giờ bạn là một phần của đội.</string>
   <string name="youHaveJoinedTeamX">Bạn đã tham gia \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ai đó mà bạn báo cáo đã bị cấm</string>

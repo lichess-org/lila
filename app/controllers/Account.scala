@@ -30,19 +30,28 @@ final class Account(
       html.account.username(me, env.user.forms usernameOf me)
   }
 
-  def profileApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.profile)(err => renderPage(html.account.profile(me, err))): profile =>
-      profile.bio
-        .exists(env.security.spam.detect)
-        .option("profile.bio" -> ~profile.bio)
-        .orElse:
-          profile.links
+  def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    env.user.forms.profile
+      .bindFromRequest()
+      .fold(
+        err =>
+          negotiate(
+            BadRequest.page(html.account.profile(me, err)),
+            jsonFormError(err)
+          ),
+        profile =>
+          profile.bio
             .exists(env.security.spam.detect)
-            .option("profile.links" -> ~profile.links)
-        .so { (resource, text) =>
-          env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-        } >> env.user.repo.setProfile(me, profile) >>
-        Redirect(routes.User show me.username).flashSuccess
+            .option("profile.bio" -> ~profile.bio)
+            .orElse:
+              profile.links
+                .exists(env.security.spam.detect)
+                .option("profile.links" -> ~profile.links)
+            .so { (resource, text) =>
+              env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+            } >> env.user.repo.setProfile(me, profile) >>
+            Redirect(routes.User show me.username).flashSuccess
+      )
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
@@ -53,7 +62,7 @@ final class Account(
         }
   }
 
-  def info = Auth { _ ?=> me ?=>
+  def info = Auth { ctx ?=> me ?=>
     negotiateJson:
       for
         povs         <- env.round.proxyRepo urgentGames me
@@ -69,7 +78,7 @@ final class Account(
             "nbChallenges" -> nbChallenges,
             "online"       -> true
           )
-          .add("kid" -> me.kid)
+          .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
           .add("announce" -> AnnounceStore.get.map(_.json))

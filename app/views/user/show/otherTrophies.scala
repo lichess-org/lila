@@ -63,7 +63,7 @@ object otherTrophies:
           cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
         )(licon.GraduateCap),
-      (info.isStreamer && ctx.noKid) option {
+      (info.isStreamer && ctx.kid.no) option {
         val streaming = isStreaming(info.user.id)
         views.html.streamer.bits.redirectLink(info.user.username, streaming.some)(
           cls := List(

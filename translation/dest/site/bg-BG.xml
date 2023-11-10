@@ -348,7 +348,7 @@
     <item quantity="one">%s казус</item>
     <item quantity="other">%s казуси</item>
   </plurals>
-  <plurals name="nbSimuls" comment="Appears on player profiles. Shows the number of simuls the player has hosted.">
+  <plurals name="nbSimuls">
     <item quantity="one">%s сеанс</item>
     <item quantity="other">%s сеанса</item>
   </plurals>
@@ -528,15 +528,15 @@
   <string name="tournamentWinners">Победители от състезанията</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Вътрешно описание</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
+  <string name="descPrivate">Вътрешно описание</string>
+  <string name="descPrivateHelp">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="help">Помощ:</string>
   <string name="createANewTopic">Създаване на нова тема</string>
   <string name="topics">Теми</string>
   <string name="posts">Публикации</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Последна публикация</string>
+  <string name="lastPost">Последна публикация</string>
   <string name="views">Преглеждания</string>
   <string name="replies">Отговори</string>
   <string name="replyToThisTopic">Отговори по този въпрос</string>
@@ -789,7 +789,7 @@
   <string name="invalidFen">Невалиден FEN</string>
   <string name="custom">По избор</string>
   <string name="notifications">Известия</string>
-  <string name="notificationsX" comment="%1$s is the number of notifications.&#10;&#10;Appears as hover text on the notification icon.">Известия: %1$s</string>
+  <string name="notificationsX">Известия: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за първия ход</item>
@@ -896,7 +896,7 @@
   <string name="mentionedYouInX">Ви спомена в \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s Ви спомена в \"%2$s\".</string>
   <string name="invitedYouToX">Ви покани на \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">%1$s Ви покани на \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s Ви покани на \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
   <string name="youHaveJoinedTeamX">Присъединихте се към \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Някого когото сте докладвали беше блокиран</string>

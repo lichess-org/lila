@@ -31,18 +31,22 @@ const formatDiff = (seconds: number): string => {
 
 let formatterInst: (date: Date) => string;
 
+const newFormatter = () => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+  // for many users, using the islamic calendar is not practical on the internet
+  // due to international context, so we make sure it's displayed using the gregorian calender
+  const lang = document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang;
+  return new Intl.DateTimeFormat(lang, options).format;
+};
+
 export const formatter = () =>
-  (formatterInst =
-    formatterInst ||
-    (window.Intl && Intl.DateTimeFormat
-      ? new Intl.DateTimeFormat(document.documentElement.lang, {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-        }).format
-      : d => d.toLocaleString()));
+  (formatterInst = formatterInst || (window.Intl ? newFormatter() : d => d.toLocaleString()));
 
 export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).getTime()) / 1000);
 

@@ -30,13 +30,13 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
       },
     }),
     h('div', [
-      ctrl.streak
-        ? null
-        : h(
-            'p',
-            ctrl.trans.vdom(
-              'puzzleId',
-              h(
+      h(
+        'p',
+        ctrl.trans.vdom(
+          'puzzleId',
+          ctrl.streak && ctrl.vm.mode === 'play'
+            ? h('span.hidden', ctrl.trans.noarg('hidden'))
+            : h(
                 'a',
                 {
                   attrs: {
@@ -46,8 +46,8 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
                 },
                 '#' + puzzle.id,
               ),
-            ),
-          ),
+        ),
+      ),
       ctrl.showRatings
         ? h(
             'p',

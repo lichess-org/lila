@@ -5,7 +5,7 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
-import { storedStringProp, StoredProp } from 'common/storage';
+import { storedStringProp, storedBooleanProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
 import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
@@ -28,7 +28,11 @@ export class Engines {
 
     this.selected = storedStringProp('ceval.engine', this.localEngines[0].id);
 
-    if (this.selected() === 'lichess') this.selected(this.localEngines[0].id); // delete this 2024-01-01
+    if (this.selected() === 'lichess') {
+      // TODO - delete this settings migration block on or after 2024-01-01
+      this.selected(storedBooleanProp('ceval.enable-nnue', false)() ? '__sf16nnue7' : '__sf11hce');
+      if (storedBooleanProp('ceval.infinite', false)()) this.ctrl?.searchMs(Number.POSITIVE_INFINITY);
+    }
 
     this.active = this.info({ id: this.selected(), variant: this.ctrl?.opts.variant.key ?? 'standard' });
   }
@@ -188,8 +192,8 @@ export class Engines {
         {
           info: {
             id: '__sf11mv',
-            name: 'Stockfish 11',
-            short: 'SF 11',
+            name: 'Stockfish 11 Multi-Variant',
+            short: 'SF 11 MV',
             tech: 'HCE',
             requires: 'sharedMem',
             variants: [
@@ -215,11 +219,10 @@ export class Engines {
         {
           info: {
             id: '__sf11hce',
-            name: 'Stockfish 11',
+            name: 'Stockfish 11 HCE',
             short: 'SF 11',
             tech: 'HCE',
             requires: 'sharedMem',
-            //obsoletedBy: 'simd',
             assets: {
               root: 'npm/stockfish.wasm',
               js: 'stockfish.js',

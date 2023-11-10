@@ -46,7 +46,7 @@
     <item quantity="one">Gastigis %s samtempan ekspozicion</item>
     <item quantity="other">Gastigis %s samtempajn ekspoziciojn</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">Partoprenita en %s samtempa ekspozicio</item>
     <item quantity="other">Partoprenita en %s samtempaj ekspozicioj</item>
   </plurals>

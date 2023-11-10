@@ -17,8 +17,7 @@
     "round": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*",
-    "zerofish": "^0.0.13",
-    "lila-stockfish-web": "^0.0.1"
+    "zerofish": "^0.0.14"
   },
   "scripts": {
     "compile": "tsc",

@@ -46,7 +46,7 @@
     <item quantity="one">%s bir vaqtdagi namoyish hostlandi</item>
     <item quantity="other">%s bir vaqtdagi namoyishlar hostlandi</item>
   </plurals>
-  <plurals name="joinedNbSimuls" comment="%s is the number of simultaneous exhibitions a player participated in.">
+  <plurals name="joinedNbSimuls">
     <item quantity="one">%s birvaqtdagi namoyishda ishtirok etildi</item>
     <item quantity="other">%s birvaqtdagi namoyishlarda ishtirok etildi</item>
   </plurals>

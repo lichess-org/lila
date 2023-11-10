@@ -48,7 +48,7 @@ object bots:
               u.perfs.bestAny3Perfs.map { showPerfRating(u.perfs, _) }
           ),
           u.profile
-            .ifTrue(ctx.noKid)
+            .ifTrue(ctx.kid.no)
             .ifTrue(!u.marks.troll || ctx.is(u))
             .flatMap(_.nonEmptyBio)
             .map { bio => td(shorten(bio, 400)) }

@@ -65,56 +65,52 @@ final class Setup(
           )
 
   def friend(userId: Option[UserStr]) =
-    OpenBody:
-      PostRateLimit(ctx.ip, rateLimited):
-        forms.friend
-          .bindFromRequest()
-          .fold(
-            doubleJsonFormError,
-            config =>
-              for
-                origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
-                destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
-                denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
-                result <- denied match
-                  case Some(denied) =>
-                    val message = lila.challenge.ChallengeDenied.translated(denied)
-                    negotiate(
-                      // 403 tells setupCtrl.ts to close the setup modal
-                      Forbidden(jsonError(message)), // TODO test
-                      BadRequest(jsonError(message))
-                    )
-                  case None =>
-                    import lila.challenge.Challenge.*
-                    val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
-                    val challenge = lila.challenge.Challenge.make(
-                      variant = config.variant,
-                      initialFen = config.fen,
-                      timeControl = timeControl,
-                      mode = config.mode,
-                      color = config.color.name,
-                      challenger = (origUser, ctx.req.sid) match
-                        case (Some(orig), _) => toRegistered(orig)
-                        case (_, Some(sid))  => Challenger.Anonymous(sid)
-                        case _               => Challenger.Open
-                      ,
-                      destUser = destUser,
-                      rematchOf = none
-                    )
-                    env.challenge.api create challenge flatMap {
-                      if _ then
-                        negotiate(
-                          Redirect(routes.Round.watcher(challenge.id, "white")),
-                          challengeC.showChallenge(challenge, justCreated = true)
-                        )
-                      else
-                        negotiate(
-                          Redirect(routes.Lobby.home),
-                          BadRequest(jsonError("Challenge not created"))
-                        )
-                    }
-              yield result
-          )
+    OpenBody: ctx ?=>
+      Found(ctx.req.sid): sessionId =>
+        PostRateLimit(ctx.ip, rateLimited):
+          forms.friend
+            .bindFromRequest()
+            .fold(
+              doubleJsonFormError,
+              config =>
+                for
+                  origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
+                  destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
+                  denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
+                  result <- denied match
+                    case Some(denied) =>
+                      val message = lila.challenge.ChallengeDenied.translated(denied)
+                      negotiate(
+                        // 403 tells setupCtrl.ts to close the setup modal
+                        Forbidden(jsonError(message)), // TODO test
+                        BadRequest(jsonError(message))
+                      )
+                    case None =>
+                      import lila.challenge.Challenge.*
+                      val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
+                      val challenge = lila.challenge.Challenge.make(
+                        variant = config.variant,
+                        initialFen = config.fen,
+                        timeControl = timeControl,
+                        mode = config.mode,
+                        color = config.color.name,
+                        challenger = origUser.fold(Challenger.Anonymous(sessionId))(toRegistered),
+                        destUser = destUser,
+                        rematchOf = none
+                      )
+                      env.challenge.api create challenge flatMap:
+                        if _ then
+                          negotiate(
+                            Redirect(routes.Round.watcher(challenge.id, "white")),
+                            challengeC.showChallenge(challenge, justCreated = true)
+                          )
+                        else
+                          negotiate(
+                            Redirect(routes.Lobby.home),
+                            BadRequest(jsonError("Challenge not created"))
+                          )
+                yield result
+            )
 
   private def hookResponse(res: HookResult) = res match
     case HookResult.Created(id) =>

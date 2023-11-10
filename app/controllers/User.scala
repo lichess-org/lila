@@ -577,9 +577,9 @@ final class User(
           else fuccess(Json toJson userIds)
         } map JsonOk
 
-  def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[UserStr] = None) = Open:
-    Found(lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has)): perfType =>
-      env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
+  def ratingDistribution(perfKey: Perf.Key, username: Option[UserStr] = None) = Open:
+    Found(PerfType(perfKey).filter(PerfType.isLeaderboardable)): perfType =>
+      env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap: data =>
         WithMyPerfs:
           username match
             case Some(name) =>
@@ -589,7 +589,6 @@ final class User(
                   .flatMap: u =>
                     Ok.page(html.stat.ratingDistribution(perfType, data, u.some))
             case _ => Ok.page(html.stat.ratingDistribution(perfType, data, none))
-      }
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

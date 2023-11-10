@@ -225,7 +225,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ]
       : [];
 
-  const notationConfig = [
+  const displayConfig = [
+    h('h2', 'Display'),
     ctrlToggle(
       {
         name: noarg('inlineNotation'),
@@ -267,7 +268,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   return h('div.action-menu', [
     ...tools,
-    ...notationConfig,
+    ...displayConfig,
     ...cevalConfig,
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
     canContinue

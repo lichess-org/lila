@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Ett forumämne kommer att skapas för personer att kommentera ditt inlägg</string>
   <string name="publishOnYourBlog">Publicera på din blogg</string>
   <string name="publishHelp">Om markerad, kommer inlägget att visas på din blogg. Om inte, kommer det att vara dolt, bland dina utkast</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicerade ett blogginlägg</item>
     <item quantity="other">Publicerade %s blogginlägg</item>
   </plurals>
@@ -33,14 +33,14 @@
     <item quantity="other">Visa alla %s inlägg</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Ladda upp en bild för ditt inlägg</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Bild beskriven som text</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Bildens upphovsmakare</string>
+  <string name="imageAlt">Bild beskriven som text</string>
+  <string name="imageCredit">Bildens upphovsmakare</string>
   <string name="deleteBlog">Ta bort detta blogginlägg definitivt</string>
   <string name="deleteImage">Radera bild</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Det är säkert att använda bilder från följande webbplatser: </string>
+  <string name="safeToUseImages">Det är säkert att använda bilder från följande webbplatser: </string>
   <string name="selectPostTopics">Välj de ämnen som ditt inlägg handlar om</string>
   <string name="useImagesYouMadeYourself">Du kan också använda bilder som du gjort själv, bilder du tagit, skärmdumpar från Lichess... allt som inte är upphovsrättsskyddat av någon annan.</string>
   <string name="safeAndRespectfulContent">Vänligen lägg bara upp säkert och respektfullt innehåll. Kopiera inte någon annans innehåll.</string>
   <string name="inappropriateContentAccountClosed">Olämpligt innehåll kan göra att ditt konto stängs.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Våra enkla tips för att skriva bra blogginlägg</string>
+  <string name="blogTips">Våra enkla tips för att skriva bra blogginlägg</string>
 </resources>

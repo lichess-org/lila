@@ -5,17 +5,16 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
+import lila.analyse.Analysis
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ Bus, HTTPRequest, IpAddress }
+import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
+import lila.socket.Socket
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Order, StudyForm, Study as StudyModel }
+import lila.study.{ Chapter, Order, Settings, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
-import lila.analyse.Analysis
-import lila.socket.Socket
-import lila.study.Chapter
 
 final class Study(
     env: Env,
@@ -247,7 +246,7 @@ final class Study(
         Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
-    ctx.noKid && ctx.noBot &&                // no public chats for kids and bots
+    ctx.kid.no && ctx.noBot &&               // no public chats for kids and bots
     ctx.me.forall(env.chat.panic.allowed(_)) // anon can see public chats
   } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
@@ -359,18 +358,17 @@ final class Study(
         else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
       def notFound = NotFound(html.study.embed.notFound)
       studyFu
-        .map(_.filterNot(_.study.isPrivate))
         .flatMap:
           _.fold(notFound.toFuccess): sc =>
             env.api.textLpvExpand
               .getChapterPgn(sc.chapter.id)
               .map:
-                _.fold(notFound): pgn =>
-                  Ok(html.study.embed(sc.study, sc.chapter, pgn))
+                case Some(LpvEmbed.PublicPgn(pgn)) => Ok(html.study.embed(sc.study, sc.chapter, pgn))
+                case _                             => notFound
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
-      CanView(study) {
+      CanView(study, study.settings.cloneable.some) {
         Ok.page(html.study.clone(study))
       }(privateUnauthorizedFu(study), privateForbiddenFu(study))
   }
@@ -392,8 +390,8 @@ final class Study(
     CloneLimitPerUser(me, rateLimited, cost = cost):
       CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
-          CanView(prev) {
-            env.study.api.cloneWithCheckAndChat(me, prev) map { study =>
+          CanView(prev, prev.settings.cloneable.some) {
+            env.study.api.cloneWithChat(me, prev) map { study =>
               Redirect(routes.Study.show((study | prev).id))
             }
           }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
@@ -410,17 +408,23 @@ final class Study(
     Found(env.study.api byId id): study =>
       HeadLastModifiedAt(study.updatedAt):
         PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
-          CanView(study)(doPgn(study))(privateUnauthorizedFu(study), privateForbiddenFu(study))
+          CanView(study, study.settings.shareable.some)(doPgn(study))(
+            privateUnauthorizedFu(study),
+            privateForbiddenFu(study)
+          )
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
         HeadLastModifiedAt(study.updatedAt):
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
-            CanView(study)(doPgn(study))(privateUnauthorizedText, privateForbiddenText)
+            CanView(study, study.settings.shareable.some)(doPgn(study))(
+              privateUnauthorizedText,
+              privateForbiddenText
+            )
     }
 
-  private def doPgn(study: StudyModel)(using RequestHeader) =
+  private def doPgn(study: StudyModel)(using RequestHeader)(using me: Option[Me]) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
@@ -559,13 +563,16 @@ final class Study(
   def studyNotFoundText = NotFound("Study or chapter not found")
   def studyNotFoundJson = NotFound(jsonError("Study or chapter not found"))
 
-  def CanView(study: StudyModel)(
+  def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
+    def withUserSelection =
+      if userSelection.fold(true)(Settings.UserSelection.allows(_, study, me.map(_.userId))) then f
+      else forbidden
     me match
-      case _ if !study.isPrivate                        => f
+      case _ if !study.isPrivate                        => withUserSelection
       case None                                         => unauthorized
-      case Some(me) if study.members.contains(me.value) => f
+      case Some(me) if study.members.contains(me.value) => withUserSelection
       case _                                            => forbidden
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
@@ -575,24 +582,20 @@ final class Study(
       _.refreshAfterWrite(15.seconds)
         .maximumSize(512)
         .buildAsyncFuture: studyId =>
-          env.study.studyRepo.membersById(studyId) flatMap {
-            _.map(_.members).filter(_.nonEmpty) so { members =>
+          env.study.studyRepo.membersById(studyId) flatMap:
+            _.map(_.members).filter(_.nonEmpty) so: members =>
               env.streamer.liveStreamApi.all.flatMap:
                 _.streams
                   .filter: s =>
                     members.exists(m => s is m._2.id)
                   .map: stream =>
-                    env.study.isConnected(studyId, stream.streamer.userId) map {
+                    env.study.isConnected(studyId, stream.streamer.userId) map:
                       _ option stream.streamer.userId
-                    }
                   .parallel
                   .dmap(_.flatten)
-            }
-          }
 
   def glyphs(lang: String) = Anon:
-    play.api.i18n.Lang.get(lang) so { lang =>
+    play.api.i18n.Lang.get(lang) so: lang =>
       JsonOk:
         lila.study.JsonView.glyphs(lang)
       .withHeaders(CACHE_CONTROL -> "max-age=3600")
-    }

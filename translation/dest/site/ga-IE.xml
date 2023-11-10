@@ -612,15 +612,15 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
-  <string name="descPrivate" comment="Text that only the team members will see. Writing a private description replaces the public description for team members.">Cur síos príobháideach</string>
-  <string name="descPrivateHelp" comment="Help text for the title 'Private description'.&#10;&#10;If you as a team leader write a private description, members of the team will see that description instead of the team description visible to the general public.">Téacs nach bhfuil le feiceáil ach le baill. Má tá sé socraithe, cuirtear an tuairisc phoiblí in ionad do baill na foirne.</string>
+  <string name="descPrivate">Cur síos príobháideach</string>
+  <string name="descPrivateHelp">Téacs nach bhfuil le feiceáil ach le baill. Má tá sé socraithe, cuirtear an tuairisc phoiblí in ionad do baill na foirne.</string>
   <string name="no">Ná lig</string>
   <string name="yes">Lig</string>
   <string name="help">Cabhair:</string>
   <string name="createANewTopic">Cruthaigh topaic nua</string>
   <string name="topics">Topaicí</string>
   <string name="posts">Postálacha</string>
-  <string name="lastPost" comment="Appears on the forum, in listings of post. This is a the header of a column showing the most recent post, when it was posted, and who it was posted by.">Postáil is déanaí</string>
+  <string name="lastPost">Postáil is déanaí</string>
   <string name="views">Amhairc</string>
   <string name="replies">Freagraí</string>
   <string name="replyToThisTopic">Tabhair freagra ar an topaic seo</string>
@@ -996,7 +996,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="mentionedYouInX">luadh tú i \"%1$s\".</string>
   <string name="xMentionedYouInY">luadh %1$s tú i \"%2$s\".</string>
   <string name="invitedYouToX">tugadh cuireadh duit \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="%1$s is the user that invited you.&#10;%2$s is the name of the study.&#10;&#10;This appears as a notification when you are invited to join a Lichess study (https://lichess.org/study). ">tugadh %1$s cuireadh duit \"%2$s\".</string>
+  <string name="xInvitedYouToY">tugadh %1$s cuireadh duit \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tá tú anois mar chuid den fhoireann.</string>
   <string name="youHaveJoinedTeamX">Tá tú tar éis dul isteach \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Cuireadh cosc ar dhuine a thuairiscigh tú</string>

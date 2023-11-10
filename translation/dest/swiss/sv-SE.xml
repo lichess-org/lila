@@ -84,7 +84,7 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="teamOnly">Schweizer-turneringar kan bara skapas av lagledare, och bara lagmedlemmar kan delta.           
 %1$s för att börja spela i schweizer-turneringar.</string>
   <string name="joinOrCreateTeam">Gå med eller skapa ett team</string>
-  <string name="nowPlaying" comment="Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Spelas nu</string>
+  <string name="nowPlaying">Spelas nu</string>
   <string name="startingSoon">Börjar snart</string>
   <string name="comparison">Jämförelse</string>
   <string name="tournDuration">Turneringens varaktighet</string>

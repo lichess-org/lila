@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Adamlar siziń xabarıńızǵa pikir bildiriw ushın forum teması jaratıladı</string>
   <string name="publishOnYourBlog">Blogıńızda járiyalaw</string>
   <string name="publishHelp">Eger belgilense, xabar blogıńızda kórsetiledi. Basqa jaǵdayda ol qaralama xabarlańızda jeke bolıp qaladı</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blog xabarı járiyalandı</item>
     <item quantity="other">%s blog xabarı járiyalandı</item>
   </plurals>
@@ -33,13 +33,13 @@
     <item quantity="other">Barlıq %s xabarlardı kóriw</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Xabarıńız ushın súwret júkleń</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Súwrettiń tekstli táriypi</string>
+  <string name="imageAlt">Súwrettiń tekstli táriypi</string>
   <string name="deleteBlog">Usı blog xabarın pútkilley óshiriw</string>
   <string name="deleteImage">Súwretti óshiriw</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
+  <string name="safeToUseImages">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
   <string name="selectPostTopics">Xabarlarıńız ushın temalar tańlań</string>
   <string name="useImagesYouMadeYourself">Sonıń menen birge siz avtorlıq huqıqı menen qorǵalmaǵan qálegen nárseni yaǵnıy ózińiz sızǵan súwretler, túsirgenler fotolar, Lichesstiń skrinshotların... qollanıwıńız múmkin.</string>
   <string name="safeAndRespectfulContent">Ótinish, tek ǵana mazmunı qáwipsiz hám basqalardı húrmet etip xabarlar jazıń. Basqalardıń kontentin nusqalamań.</string>
   <string name="inappropriateContentAccountClosed">Hár qanday orınsız nárse akkauntıńız jabılıwına alıp keliwi múmkin.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ájayıp blog xabarların jazıw ushın bizlerdiń ápiwayı máláhátlerimiz</string>
+  <string name="blogTips">Ájayıp blog xabarların jazıw ushın bizlerdiń ápiwayı máláhátlerimiz</string>
 </resources>

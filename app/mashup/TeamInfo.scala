@@ -60,15 +60,16 @@ final class TeamInfoApi(
 
   import TeamInfo.*
 
-  lazy val pmAllLimiter = mongoRateLimitApi[TeamId](
-    "team.pm.all",
-    credits = pmAllCredits * pmAllCost,
-    duration = pmAllDays.days
-  )
-  def pmAllStatus(id: TeamId): Fu[(Int, Instant)] =
-    pmAllLimiter.getSpent(id) map { entry =>
-      (pmAllCredits - entry.v / pmAllCost, entry.until)
-    }
+  object pmAll:
+    lazy val dedup = lila.memo.OnceEvery.hashCode[(TeamId, String)](10 minutes)
+    lazy val limiter = mongoRateLimitApi[TeamId](
+      "team.pm.all",
+      credits = pmAllCredits * pmAllCost,
+      duration = pmAllDays.days
+    )
+    def status(id: TeamId): Fu[(Int, Instant)] =
+      limiter.getSpent(id) map: entry =>
+        (pmAllCredits - entry.v / pmAllCost, entry.until)
 
   def apply(
       team: Team.WithLeaders,
