@@ -27,9 +27,8 @@ final class ChallengeApi(
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
-    isLimitedByMaxPlaying(c) flatMap {
+    isLimitedByMaxPlaying(c) flatMap:
       if _ then fuFalse else doCreate(c) inject true
-    }
 
   def createOpen(config: lila.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
     val c = Challenge.make(
