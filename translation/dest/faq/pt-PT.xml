@@ -146,4 +146,15 @@ Basicamente, o sistema tem 95% de certeza de que a tua pontuação está algures
 Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
 
 De seguida, seleciona se quereres permitir ou bloquear as notificações do Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Permitir a reprodução automática de sons?</string>
+  <string name="enableAutoplayForSoundsA">A maioria dos navegadores pode impedir a reprodução de som numa página acabada de carregar para proteger os utilizadores. Imagina se todos os sites pudessem bombardear-te imediatamente com anúncios de áudio.
+
+O ícone vermelho de silenciamento aparece quando o teu navegador impede que o lichess.org reproduza um som. Normalmente, esta restrição é levantada quando se clica em algo. Em alguns navegadores móveis, arrastar uma peça com o toque não conta como um clique. Nesse caso, tens de tocar no tabuleiro para permitir o som no início de cada jogo.
+
+Mostramos o ícone vermelho para o alertar quando isto acontece. Muitas vezes, podes autorizar explicitamente o lichess.org a reproduzir sons. Aqui estão as instruções para o fazer em versões recentes de alguns navegadores populares.</string>
+  <string name="desktop">computador</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Vai no lichess.org
+2. Pressiona Ctrl-i no Linux/Windows ou cmd-i no MacOS
+3. Clica na aba Permissões
+4. Permitir Áudio e Vídeo no lichess.org</string>
 </resources>

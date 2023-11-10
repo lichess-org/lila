@@ -659,8 +659,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>
+  <string name="yourPendingSimuls">Dine ventande simultanar</string>
   <string name="createdSimuls">Nyleg laga simultanarrangement</string>
   <string name="hostANewSimul">Lag ei ny simultanframsyning</string>
+  <string name="signUpToHostOrJoinASimul">Registrer deg for å bli vert eller deltakar i ein simultan</string>
   <string name="noSimulFound">Finn ikkje simultanframsyning</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>

@@ -36,7 +36,7 @@ trait CtrlErrors extends ControllerHelpers:
   /* This is what we want
    * { "error" -> { "key" -> "value" } }
    */
-  def jsonFormError(form: Form[?])(using Lang) =
+  def jsonFormError(form: Form[?])(using Lang): Result =
     BadRequest(jsonError(errorsAsJson(form)))
 
   /* For compat with old clients

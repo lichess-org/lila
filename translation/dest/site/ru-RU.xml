@@ -72,6 +72,7 @@
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
   <string name="forceVariation">Сделать вариантом</string>
+  <string name="copyVariationPgn">Скопировать вариант в формате PGN</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -731,8 +732,10 @@
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>
   <string name="hostColorX">Цвет сеансёра: %s</string>
+  <string name="yourPendingSimuls">Ваши предстоящие сеансы</string>
   <string name="createdSimuls">Недавно созданные сеансы</string>
   <string name="hostANewSimul">Создать новый сеанс</string>
+  <string name="signUpToHostOrJoinASimul">Зарегистрируйтесь, чтобы организовать сеанс или присоединиться к нему</string>
   <string name="noSimulFound">Сеанс не найден</string>
   <string name="noSimulExplanation">Этот сеанс одновременной игры не существует.</string>
   <string name="returnToSimulHomepage">Вернуться на страницу сеансов</string>
