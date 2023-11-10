@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">அரங்கப் போட்டிகள்</string>
-  <string name="isItRated">இது விலையா?</string>
+  <string name="isItRated">மதிப்பிடப்பட்டதா?</string>
 </resources>

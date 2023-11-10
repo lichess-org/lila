@@ -659,6 +659,7 @@
   <string name="hostColorX">رەنگی مێواندارەکە: %s</string>
   <string name="createdSimuls">نوێترینەکان</string>
   <string name="hostANewSimul">هاوکاتێکی نوێ دروستبکە</string>
+  <string name="signUpToHostOrJoinASimul">ناوت تۆمار بکە بۆ میوانداریکردن \"هۆست\" یان بەشداریکردن لە سیموڵ simuls</string>
   <string name="noSimulFound">لێکۆڵینەوەکە نەدۆزرایەوە</string>
   <string name="noSimulExplanation">پێشاندانی ئەو هاوتایانە ئامادەنین.</string>
   <string name="returnToSimulHomepage">گەڕانەوە بۆ لاپەڕەی سەرەکی هاوتاکان</string>

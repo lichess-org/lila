@@ -143,4 +143,13 @@ Este cel mai bine să te gândești la scoruri ca la niște cifre \"relative\" (
 Dă click pe iconița de lângă adresa lichess.org în bara URL a browser-ului tau.
 
 Apoi selecteaza daca dacă vrei să permiți sau să blochezi notificarile de la Lichess.</string>
+  <string name="enableAutoplayForSoundsA">Majoritatea browserelor pot împiedica sunetul să ruleze pe o pagină nou încărcată pentru a proteja utilizatorii. Imaginați-vă că fiecare site ar putea să vă bombardeze imediat cu anunțuri audio.
+
+Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedică lichess.org să ruleze un sunet. De obicei, această restricţie este ridicată odată ce faceţi clic pe ceva. Pe unele browsere mobile, atingerea sau glisarea unei piese nu contează ca un click. În acest caz trebuie să atingeți tabla pentru a permite sunetul la începutul fiecărui joc.
+
+Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Mergeți la lichess.org
+2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
+3. Faceți clic pe fila Permisiuni
+4. Permiteți audio și video pe lichess.org</string>
 </resources>

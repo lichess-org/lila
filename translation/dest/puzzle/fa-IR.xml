@@ -2,11 +2,7 @@
 <resources>
   <string name="puzzles">معماها</string>
   <string name="puzzleThemes">تم پازل ها</string>
-  <string name="recommended">توصیه شده
-
-عنوان های پازل ها در  https://lichess.org/training/themes قابل مشاهده است
-
-تنها موضوع تحت عنوان \"healthy mix\" است که تغییری نخواهد کرد.</string>
+  <string name="recommended">پیشنهادی</string>
   <string name="phases">فاز ها</string>
   <string name="motifs">موضوع</string>
   <string name="advanced">پیشرفته</string>
@@ -35,6 +31,8 @@
   <string name="byOpenings">به ترتیب شروع ها</string>
   <string name="puzzlesByOpenings">پازل ها به ترتیب شروع</string>
   <string name="openingsYouPlayedTheMost">شروع هایی در بیشترین بازی های رتبه ای بازی کردید</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
+  <string name="useCtrlF">با استفاده از Ctrl+F گشایش محبوب خود را پیدا کنید!</string>
   <string name="notTheMove">ابن حرکت صحیح نیست</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
   <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">امتیاز: %s</string>

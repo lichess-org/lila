@@ -70,6 +70,7 @@
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
+  <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>
@@ -657,6 +658,7 @@
   <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
+  <string name="yourPendingSimuls">Odottavat simultaanisi</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Pidä uusi simultaani</string>
   <string name="noSimulFound">Simultaania ei löydy</string>

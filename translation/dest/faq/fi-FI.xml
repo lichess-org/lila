@@ -143,4 +143,12 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
  Napsauta selaimesi osoitepalkissa lichess.org-osoitteen vieressä olevaa lukkokuvaketta.
 
  Valitse sitten, haluatko ottaa käyttöön vai poistaa käytöstä Lichessin ilmoitukset.</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
+2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
+3. Klikkaa käyttöoikeusvälilehteä
+4. Salli ääni ja video lichess.org:issa</string>
+  <string name="enableAutoplayForSoundsChrome">1. Mene osoitteeseen lichess.org
+2. Klikkaa lukituskuvaketta osoitepalkissa
+3. Valitse Sivuston asetukset
+4. Salli ääni</string>
 </resources>
