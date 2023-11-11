@@ -78,7 +78,12 @@ object ratingDistribution:
               )
             )
           ),
-          div(id := "rating_distribution_chart")(spinner)
+          div(id := "rating_distribution")(
+            canvas(
+              id := "rating_distribution_chart",
+              ariaTitle(trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
+            )(spinner)
+          )
         )
       )
     }
