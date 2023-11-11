@@ -117,8 +117,8 @@ $col2-panel-height: 240px;
   }
 }
 
-#acpl-chart,
-#movetimes-chart {
+#acpl-chart-container,
+#movetimes-chart-container {
   width: 100%;
   height: var(--panel-height);
   background: linear-gradient(
@@ -133,11 +133,11 @@ $col2-panel-height: 240px;
   cursor: pointer;
 }
 
-#acpl-chart {
+#acpl-chart-container {
   cursor: pointer;
 }
 
-#acpl-chart-loader {
+#acpl-chart-container-loader {
   font-size: 0.9em;
   position: absolute;
   top: 91px;

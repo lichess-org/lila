@@ -23,7 +23,6 @@ object insight:
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
-        highchartsLatestTag,
         iifeModule("javascripts/insight-refresh.js"),
         jsModuleInit(
           "insight",

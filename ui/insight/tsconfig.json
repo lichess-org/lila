@@ -1,9 +1,10 @@
 {
   "extends": "../tsconfig.base.json",
+  "include": ["src"],
   "compilerOptions": {
-    "paths": { "numeral": ["./@types/numeral"] },
     "types": ["lichess", "web", "cash"],
-    "noEmit": true
+    "noEmit": true,
+    "composite": true
   },
   "isolatedModules": true,
   "references": [{ "path": "../common/tsconfig.json" }]
