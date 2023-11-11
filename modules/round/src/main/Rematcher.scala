@@ -109,8 +109,7 @@ final private class Rematcher(
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
-      case None =>
-        lila.game.Player.make(color, users(!color))
+      case None     => lila.game.Player.make(color, users(!color))
 
   private def redirectEvents(game: Game): Events =
     val whiteId = game fullIdOf White
@@ -124,7 +123,8 @@ final private class Rematcher(
 
 object Rematcher:
   // returns a new chess game with the same Situation as the previous game
-  // except for Chess960, where if shouldRepeatChess960Position is true, the same position is returned otherwise a new random position is returned
+  // except for Chess960, where if shouldRepeatChess960Position is true,
+  // the same position is returned otherwise a new random position is returned
   def returnChessGame(
       variant: Variant,
       clock: Option[Clock],
@@ -140,8 +140,7 @@ object Rematcher:
     val color = prevSituation.fold[chess.Color](White)(_.situation.color)
     ChessGame(
       situation = newSituation.copy(color = color),
-      clock = clock.map: c =>
-        Clock(c.config),
+      clock = clock.map(c => Clock(c.config)),
       ply = ply,
       startedAtPly = ply
     )
