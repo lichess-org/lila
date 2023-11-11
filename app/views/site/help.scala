@@ -243,7 +243,7 @@ object help:
             header(trans.keyboardMove.performAMove()),
             row(voice("e,4"), moveToE4OrSelectE4Piece()),
             row(voice("B"), selectOrCaptureABishop()),
-            row(voice("N,c,3"), keyboardMove.moveKnightToC3()),
+            row(voice("N,c,3"), trans.keyboardMove.moveKnightToC3()),
             row(voice("Q,x,R"), takeRookWithQueen()),
             row(voice("c,8,=,Q"), trans.keyboardMove.promoteC8ToQueen()),
             row(voice("castle"), castle()),
