@@ -54,6 +54,7 @@ export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
     animation: false,
     segment: !mainline ? { borderDash: [5] } : undefined,
     order: 0,
+    datalabels: { display: false },
   };
 }
 

@@ -12,6 +12,7 @@
     "@types/highcharts": "=4.2.57",
     "ceval": "workspace:*",
     "chart.js": "4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*"
   },
   "scripts": {

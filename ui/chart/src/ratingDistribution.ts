@@ -1,3 +1,4 @@
+import { Point } from 'chart.js/dist/core/core.controller';
 import { animation, fontFamily, gridColor, hoverBorderColor } from './common';
 import { DistributionData } from './interface';
 import {
@@ -12,8 +13,9 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler);
+Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export async function initModule(data: DistributionData) {
   $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
@@ -45,6 +47,7 @@ export async function initModule(data: DistributionData) {
         yAxisID: 'y2',
         label: data.i18n.cumulative,
         pointRadius: 0,
+        datalabels: { display: false },
       },
       {
         ...seriesCommonData('#7798bf'),
@@ -54,6 +57,7 @@ export async function initModule(data: DistributionData) {
         fill: true,
         label: data.i18n.players,
         pointRadius: 4,
+        datalabels: { display: false },
       },
     ];
     const pushLine = (color: string, rating: number, label: string) =>
@@ -69,6 +73,11 @@ export async function initModule(data: DistributionData) {
         },
         label: label,
         pointRadius: 4,
+        datalabels: {
+          align: rating > 1800 ? 'left' : 'right',
+          formatter: (value: Point) => (value.y == 0 ? '' : label),
+          color: color,
+        },
       });
     if (data.myRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
     if (data.otherRating && data.otherPlayer) pushLine('#eeaaee', data.otherRating, data.otherPlayer);

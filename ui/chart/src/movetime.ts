@@ -135,6 +135,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
         below: moveSeries ? 'black' : 'rgba(0,0,0,0.3)',
       },
       order: moveSeries ? 2 : 1,
+      datalabels: { display: false },
     }));
 
   const moveSeriesSet: ChartDataset[] = showTotal
@@ -148,6 +149,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
         order: 2,
         borderColor: color == 'white' ? '#838383' : '#616161',
         borderWidth: 1,
+        datalabels: { display: false },
       }))
     : lineBuilder(moveSeries, true);
   const divisionLines = division(trans, data.game.division);

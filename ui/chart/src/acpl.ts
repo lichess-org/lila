@@ -27,8 +27,9 @@ import {
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler);
+Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export default async function (
   el: HTMLCanvasElement,
@@ -102,6 +103,7 @@ export default async function (
         pointStyle: pointStyles,
         hoverBackgroundColor: orangeAccent,
         order: 5,
+        datalabels: { display: false },
       },
       moveLabels: moveLabels,
       adviceHoverColors: adviceHoverColors,

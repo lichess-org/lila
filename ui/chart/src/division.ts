@@ -31,6 +31,12 @@ export default function (trans: Trans, div?: Division) {
     borderColor: annotationColor,
     pointRadius: 0,
     order: 1,
+    datalabels: {
+      offset: -5,
+      align: 45,
+      rotation: 90,
+      formatter: _ => line.div,
+    },
   }));
   return annotations;
 }
