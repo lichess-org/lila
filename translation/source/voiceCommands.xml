@@ -11,5 +11,4 @@
   <string name="sleep">Sleep (if wake word enabled)</string>
   <string name="turnOffVoiceRecognition">Turn off voice recognition</string>
   <string name="showPuzzleSolution">Show puzzle solution</string>
-  <string name="takeRookWithQueen">Take rook with queen</string>
 </resources>
