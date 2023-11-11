@@ -180,9 +180,9 @@ object help:
     )
 
   def voiceMove(using Lang) =
-    import trans.keyboardMove.*
+    import trans.voiceCommands.*
     frag(
-      h2(trans.voiceCommands.voiceCommands()),
+      h2(trans.voiceCommands()),
       table(
         tbody(
           tr(th(p(trans.instructions()))),
@@ -240,16 +240,16 @@ object help:
       div(cls := "commands")(
         table(
           tbody(
-            header(performAMove()),
-            row(voice("e,4"), trans.voiceCommands.moveToE4OrSelectE4Piece()),
-            row(voice("B"), trans.voiceCommands.selectOrCaptureABishop()),
-            row(voice("N,c,3"), moveKnightToC3()),
-            row(voice("Q,x,R"), trans.voiceCommands.takeRookWithQueen()),
-            row(voice("c,8,=,Q"), promoteC8ToQueen()),
-            row(voice("castle"), trans.voiceCommands.castle()),
-            row(voice("O-O-O"), queensideCastle()),
-            row(phonetic("a,7,g,1"), trans.voiceCommands.phoneticAlphabetIsBest()),
-            row(voice("draw"), offerOrAcceptDraw()),
+            header(trans.keyboardMove.performAMove()),
+            row(voice("e,4"), trans.moveToE4OrSelectE4Piece()),
+            row(voice("B"), trans.selectOrCaptureABishop()),
+            row(voice("N,c,3"), trans.keyboardMove.moveKnightToC3()),
+            row(voice("Q,x,R"), trans.takeRookWithQueen()),
+            row(voice("c,8,=,Q"), trans.keyboardMove.promoteC8ToQueen()),
+            row(voice("castle"), trans.castle()),
+            row(voice("O-O-O"), trans.keyboardMove.queensideCastle()),
+            row(phonetic("a,7,g,1"), trans.phoneticAlphabetIsBest()),
+            row(voice("draw"), trans.keyboardMove.offerOrAcceptDraw()),
             row(voice("resign"), trans.resignTheGame()),
             row(voice("takeback"), trans.proposeATakeback())
           )
@@ -257,13 +257,13 @@ object help:
         table(
           tbody(
             header(otherCommands()),
-            row(voice("no"), trans.voiceCommands.cancelTimerOrDenyARequest()),
-            row(voice("yes"), trans.voiceCommands.playPreferredMoveOrConfirmSomething()),
-            row(voice("stop"), trans.voiceCommands.sleep()),
-            row(voice("mic-off"), trans.voiceCommands.turnOffVoiceRecognition()),
+            row(voice("no"), trans.cancelTimerOrDenyARequest()),
+            row(voice("yes"), trans.playPreferredMoveOrConfirmSomething()),
+            row(voice("stop"), trans.sleep()),
+            row(voice("mic-off"), trans.turnOffVoiceRecognition()),
             row(voice("next"), trans.puzzle.nextPuzzle()),
             row(voice("upvote"), trans.puzzle.upVote()),
-            row(voice("solve"), trans.voiceCommands.showPuzzleSolution()),
+            row(voice("solve"), trans.showPuzzleSolution()),
             row(voice("help"), trans.showHelpDialog()),
             tr(
               td,

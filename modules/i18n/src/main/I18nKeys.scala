@@ -2590,5 +2590,4 @@ object I18nKeys:
     val `sleep` = I18nKey("voiceCommands:sleep")
     val `turnOffVoiceRecognition` = I18nKey("voiceCommands:turnOffVoiceRecognition")
     val `showPuzzleSolution` = I18nKey("voiceCommands:showPuzzleSolution")
-    val `takeRookWithQueen` = I18nKey("voiceCommands:takeRookWithQueen")
 
