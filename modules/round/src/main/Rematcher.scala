@@ -88,32 +88,10 @@ final private class Rematcher(
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
-      pieces = pov.game.variant match
-        case Chess960 =>
-          if chess960 get pov.gameId then Chess960.pieces
-          else situation.fold(Chess960.pieces)(_.situation.board.pieces)
-        case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
-        case variant      => variant.pieces
+      newGame = returnChessGame(pov.game, initialFen)
       users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
-      board = Board(pieces, variant = pov.game.variant).updateHistory: history =>
-        history.copy(
-          lastMove = situation.flatMap(_.situation.board.history.lastMove),
-          castles = situation.fold(Castles.init)(_.situation.board.history.castles),
-          unmovedRooks = situation.fold(history.unmovedRooks)(_.situation.board.unmovedRooks)
-        )
-      ply = situation.fold(Ply.initial)(_.ply)
       sloppy = Game.make(
-        chess = ChessGame(
-          situation = Situation(
-            board = board,
-            color = situation.fold[chess.Color](White)(_.situation.color)
-          ),
-          clock = pov.game.clock.map: c =>
-            Clock(c.config),
-          ply = ply,
-          startedAtPly = ply
-        ),
+        chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
@@ -122,6 +100,32 @@ final private class Rematcher(
       )
       game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
     yield game
+
+  private def returnChessGame(game: Game, initialFen: Option[Fen.Epd]): ChessGame =
+    val situation = initialFen.flatMap(Fen.readWithMoveNumber(game.variant, _))
+    val pieces = game.variant match
+      case Chess960 =>
+        if chess960 get game.id then Chess960.pieces
+        else situation.fold(Chess960.pieces)(_.situation.board.pieces)
+      case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
+      case variant      => variant.pieces
+    val board = Board(pieces, variant = game.variant).updateHistory: history =>
+      history.copy(
+        lastMove = situation.flatMap(_.situation.board.history.lastMove),
+        castles = situation.fold(Castles.init)(_.situation.board.history.castles),
+        unmovedRooks = situation.fold(history.unmovedRooks)(_.situation.board.unmovedRooks)
+      )
+    val ply = situation.fold(Ply.initial)(_.ply)
+    ChessGame(
+      situation = Situation(
+        board = board,
+        color = situation.fold[chess.Color](White)(_.situation.color)
+      ),
+      clock = game.clock.map: c =>
+        Clock(c.config),
+      ply = ply,
+      startedAtPly = ply
+    )
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
     game.opponent(color).aiLevel match
