@@ -809,6 +809,8 @@ object I18nKeys:
   val `switchSides` = I18nKey("switchSides")
   val `closingAccountWithdrawAppeal` = I18nKey("closingAccountWithdrawAppeal")
   val `ourEventTips` = I18nKey("ourEventTips")
+  val `instructions` = I18nKey("instructions")
+  val `showMeEverything` = I18nKey("showMeEverything")
   val `opponentLeftCounter` = I18nKey("opponentLeftCounter")
   val `mateInXHalfMoves` = I18nKey("mateInXHalfMoves")
   val `nbBlunders` = I18nKey("nbBlunders")
@@ -2575,4 +2577,18 @@ object I18nKeys:
     val `toSeeConsoleMessage` = I18nKey("dgt:toSeeConsoleMessage")
     val `playWithDgtBoard` = I18nKey("dgt:playWithDgtBoard")
     val `configure` = I18nKey("dgt:configure")
+
+  object voiceCommands:
+    val `voiceCommands` = I18nKey("voiceCommands:voiceCommands")
+    val `moveToE4OrSelectE4Piece` = I18nKey("voiceCommands:moveToE4OrSelectE4Piece")
+    val `selectOrCaptureABishop` = I18nKey("voiceCommands:selectOrCaptureABishop")
+    val `takeRookWithQueen` = I18nKey("voiceCommands:takeRookWithQueen")
+    val `castle` = I18nKey("voiceCommands:castle")
+    val `phoneticAlphabetIsBest` = I18nKey("voiceCommands:phoneticAlphabetIsBest")
+    val `cancelTimerOrDenyARequest` = I18nKey("voiceCommands:cancelTimerOrDenyARequest")
+    val `playPreferredMoveOrConfirmSomething` = I18nKey("voiceCommands:playPreferredMoveOrConfirmSomething")
+    val `sleep` = I18nKey("voiceCommands:sleep")
+    val `turnOffVoiceRecognition` = I18nKey("voiceCommands:turnOffVoiceRecognition")
+    val `showPuzzleSolution` = I18nKey("voiceCommands:showPuzzleSolution")
+    val `takeRookWithQueen` = I18nKey("voiceCommands:takeRookWithQueen")
 
