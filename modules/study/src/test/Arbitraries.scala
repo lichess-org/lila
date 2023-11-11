@@ -15,13 +15,13 @@ object StudyArbitraries:
 
   given Arbitrary[NewRoot] = Arbitrary(genRoot(Situation(chess.variant.Standard)))
   type RootWithPath = (NewRoot, UciPath)
-  given Arbitrary[RootWithPath] = Arbitrary(genRootWithPath(Situation(chess.variant.Standard)))
+  given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Situation(chess.variant.Standard)))
   given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Situation(chess.variant.Standard)))
 
   def genRoot(seed: Situation): Gen[NewRoot] =
     val ply = Ply.initial
     for
-      tree <- genTree(seed)
+      tree  <- genTree(seed)
       metas <- genMetas(seed, ply)
       pgn = NewRoot(metas, tree)
     yield pgn

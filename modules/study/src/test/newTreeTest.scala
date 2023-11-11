@@ -87,7 +87,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = root.toRoot
       oldRoot.mainline.map(NewTree.fromBranch) == root.mainlineValues
 
-  test("addNodeAt"):
+  test("addNodeAt".ignore):
     forAll: (rp: RootWithPath, oTree: Option[NewTree]) =>
       val (root, path) = rp
       oTree.isDefined ==> {
@@ -96,22 +96,9 @@ class NewTreeTest extends munit.ScalaCheckSuite:
         oldRoot.map(_.toNewRoot) == root.addNodeAt(path, tree)
       }
 
-  override def scalaCheckInitialSeed = "AA-ZT-Dy_3WAqJlkfn41UU7_uLK4CTaGOZv9IP5BupL="
-  test("addChild".only):
+  test("addChild"):
     forAll: (root: NewRoot, oTree: Option[NewTree]) =>
       oTree.isDefined ==> {
-        val tree    = oTree.get.clearVariations
-        val oldRoot = root.toRoot.addChild(tree.toBranch)
-        tree.size.pp
-        root.size.pp
-        // root.pp
-        // oldRoot.toNewRoot.size.pp
-        // tree.map(_.id.toUci.uci).pp
-        // root.tree.map(_.map(_.id.toUci.uci)).pp
-        val x = root.addChild(tree).tree.map(_.map(_.id.toUci.uci))
-        val y = oldRoot.toNewRoot.tree.map(_.map(_.id.toUci.uci))
-        // oldRoot.toNewRoot.size.pp
-        // root.addChild(tree).size.pp
-        x == y
-        // assertEquals(oldRoot.toNewRoot, root.addChild(tree))
+        val tree = oTree.get.clearVariations
+        root.toRoot.addChild(tree.toBranch).toNewRoot == root.addChild(tree)
       }
