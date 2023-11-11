@@ -1,5 +1,4 @@
-import { RoundOpts, RoundData } from 'round';
-import { Ctrl } from './ctrl';
+import { RoundData } from 'round';
 //import { Player, GameData } from 'game';
 
 /*interface RoundApi {
@@ -7,7 +6,7 @@ import { Ctrl } from './ctrl';
   moveOn: MoveOn;
 }*/
 
-const data: RoundData = {
+export const fakeData: RoundData = {
   game: {
     id: 'x7hgwoir',
     variant: { key: 'standard', name: 'Standard', short: 'Std' },
@@ -85,25 +84,3 @@ const data: RoundData = {
   takebackable: true,
   moretimeable: true,
 };
-
-export async function makeRounds(ctrl: Ctrl): Promise<SocketSend> {
-  const moves: string[] = [];
-  console.log(ctrl.dests);
-  for (const from in ctrl.dests) {
-    moves.push(from + ctrl.dests[from]);
-  }
-  const opts: RoundOpts = {
-    element: document.querySelector('.round__app') as HTMLElement,
-    data: { ...data, possibleMoves: moves.join(' ') },
-    socketSend: (t: string, d: any) => {
-      if (t === 'move') {
-        ctrl.userMove(d.u);
-      }
-    },
-    crosstableEl: document.querySelector('.cross-table') as HTMLElement,
-    i18n: {},
-    onChange: (d: RoundData) => console.log(d),
-    local: true,
-  };
-  return lichess.loadEsm('round', { init: opts });
-}

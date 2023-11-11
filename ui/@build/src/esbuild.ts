@@ -1,7 +1,7 @@
 import * as cps from 'node:child_process';
 import * as path from 'node:path';
 import * as es from 'esbuild';
-import { preModule, buildModules } from './build';
+import { buildModules } from './build';
 import { env, errorMark, colors as c } from './main';
 
 const typeBundles = new Map<string, Map<string, string>>();
@@ -19,7 +19,6 @@ export async function esbuild(): Promise<void> {
   };
 
   for (const mod of buildModules) {
-    preModule(mod);
     for (const tpe in mod.bundles) {
       if (!typeBundles.has(tpe)) typeBundles.set(tpe, new Map());
       for (const r of mod.bundles[tpe]) typeBundles.get(tpe)?.set(r.output, path.join(mod.root, r.input));

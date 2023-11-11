@@ -32,6 +32,7 @@ export async function build(mods: string[]) {
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
   sass();
+  for (const mod of buildModules) preModule(mod);
   await tsc();
   await copies();
   await esbuild();

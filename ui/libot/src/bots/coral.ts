@@ -1,13 +1,15 @@
 import { type Zerofish } from 'zerofish';
-import { Libot, botNetUrl, localBots } from '../main';
+import { Libot } from '../interfaces';
+import { registry } from '../ctrl';
 
 export class Coral implements Libot {
-  name = localBots.coral.name;
-  description = localBots.coral.description;
-  image = localBots.coral.image;
-  net = 'maia-1100';
+  name = 'Coral';
+  description = 'Coral is a bot that plays random moves.';
+  imageUrl = lichess.assetUrl('lifat/bots/images/coral.webp', { noVersion: true });
+  netName = 'maia-1100';
   ratings = new Map();
   zf: Zerofish;
+
   constructor(zf: Zerofish, opts?: any) {
     opts;
     this.zf = zf;
@@ -17,3 +19,5 @@ export class Coral implements Libot {
     return await this.zf.goZero(fen);
   }
 }
+
+registry.coral = Coral;

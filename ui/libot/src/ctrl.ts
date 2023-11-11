@@ -1,48 +1,42 @@
-import makeZerofish, { type Zerofish } from 'zerofish';
+import { type Zerofish } from 'zerofish';
 import { Libot } from './interfaces';
-import { Coral } from './bots/coral';
-import { BabyHoward } from './bots/babyHoward';
-import { ElsieZero } from './bots/elsieZero';
-import { Beatrice } from './bots/beatrice';
 
 export interface Ctrl {
   zf: Zerofish;
+  bots: { [id: string]: Libot };
   setBot(name: string): Promise<void>;
   move(fen: string): Promise<string>;
 }
 
-export async function makeCtrl(): Promise<Ctrl> {
-  const zf = await makeZerofish();
-  const nets = new Map<string, Uint8Array>();
-  const bots: { [k: string]: Libot } = {
-    coral: new Coral(zf),
-    babyHoward: new BabyHoward(zf),
-    elsieZero: new ElsieZero(zf),
-    beatrice: new Beatrice(zf),
-  };
+type Constructor<T> = new (...args: any[]) => T;
 
+export const registry: { [k: string]: Constructor<Libot> } = {};
+
+export async function makeCtrl(libots: { [id: string]: Libot }, zf: Zerofish): Promise<Ctrl> {
+  const nets = new Map<string, Uint8Array>();
+  let bot: Libot;
   return {
     zf,
-    async setBot(name: string) {
-      const net = bots[name]?.net;
-      if (!net) throw new Error(`unknown bot ${name} or no net`);
-      if (zf.netName !== bots[name].net) {
-        if (!nets.has(bots[name].net!)) {
-          nets.set(bots[name].net!, await fetchNet(bots[name].net!));
+    bots: libots,
+    async setBot(id: string) {
+      bot = libots[id];
+      if (!bot.netName) throw new Error(`unknown bot ${id} or no net`);
+      if (zf.netName !== bot.netName) {
+        if (!nets.has(bot.netName)) {
+          nets.set(bot.netName, await fetchNet(bot.netName));
         }
-        const net = nets.get(bots[name].net!);
-        zf.setNet(name, net!);
-        zf.netName = bots[name].net;
+        zf.setNet(id, nets.get(bot.netName)!);
+        zf.netName = bot.netName;
       }
     },
     move(fen: string) {
-      return zf.goZero(fen);
+      return bot.move(fen);
     },
   };
 }
 
-function fetchNet(netName: string): Promise<Uint8Array> {
-  return fetch(`/lifat/bots/weights/${netName}.pb`)
+async function fetchNet(netName: string): Promise<Uint8Array> {
+  return fetch(lichess.assetUrl(`lifat/bots/weights/${netName}.pb`, { noVersion: true }))
     .then(res => res.arrayBuffer())
     .then(buf => new Uint8Array(buf));
 }

@@ -4,8 +4,8 @@ import { SetupCtrl } from '../ctrl';
 import { fenInput } from './components/fenInput';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { colorButtons } from './components/colorButtons';
+import { type Libot } from 'libot';
 import { ratingView } from './components/ratingView';
-import { localBots, type BotInfo } from 'libot';
 
 let deck: BotDeck;
 
@@ -16,7 +16,7 @@ export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
     h('div#bot-view', {
       key: 'bot-view',
       hook: onInsert(el => {
-        deck = new BotDeck(el as HTMLDivElement);
+        deck = new BotDeck(el as HTMLDivElement, ctrl);
       }),
     }),
     fenInput(ctrl),
@@ -27,11 +27,14 @@ export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
 }
 
 class BotDeck {
-  constructor(readonly view: HTMLDivElement) {
-    this.botInfos.forEach(bot => this.createCard(bot));
+  constructor(
+    readonly view: HTMLDivElement,
+    readonly ctrl: SetupCtrl,
+  ) {
+    this.bots.forEach(bot => this.createCard(bot));
     this.animate();
   }
-  botInfos = Object.values(localBots);
+  bots = Object.values(this.ctrl.libot.bots);
   cards: HTMLDivElement[] = [];
   userMidX: number;
   userMidY: number;
@@ -40,11 +43,11 @@ class BotDeck {
   handRotation: number = 0;
   selectedCard: HTMLDivElement | null = null;
 
-  createCard(bot: BotInfo) {
+  createCard(bot: Libot) {
     const card = document.createElement('div');
     card.classList.add('card');
     const img = document.createElement('img');
-    img.src = bot.image;
+    img.src = bot.imageUrl;
     const label = document.createElement('label');
     label.innerText = bot.name;
     card.appendChild(label);

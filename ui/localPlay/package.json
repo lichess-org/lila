@@ -16,8 +16,7 @@
     "puz": "workspace:*",
     "round": "workspace:*",
     "snabbdom": "^3.5.1",
-    "tree": "workspace:*",
-    "zerofish": "^0.0.14"
+    "tree": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

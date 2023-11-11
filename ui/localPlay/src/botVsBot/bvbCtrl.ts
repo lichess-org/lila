@@ -3,13 +3,31 @@ import { PromotionCtrl } from 'chess/promotion';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { Chess, Role } from 'chessops';
 import * as Chops from 'chessops';
-import makeZerofish, { Zerofish, PV } from 'zerofish';
+//import makeZerofish, { Zerofish, PV } from 'zerofish';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import { Key } from 'chessground/types';
 import { Engines } from 'ceval';
 
 type Player = 'human' | 'zero' | 'fish';
+
+interface Zerofish {
+  goZero(fen: string): Promise<string>;
+  goFish(fen: string, opts: { pvs?: number; depth?: number }): Promise<PV[]>;
+  reset(): void;
+  setNet(name: string, weights: Uint8Array): void;
+}
+
+interface PV {
+  moves: string[];
+  score: number;
+}
+
+function makeZerofish() {
+  return new Promise<Zerofish>((resolve, reject) => {
+    resolve({} as Zerofish);
+  });
+}
 
 export class BvbCtrl implements CgHost {
   cg: CgApi;

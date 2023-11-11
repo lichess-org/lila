@@ -1,48 +1,63 @@
 #bot-view {
   display: flex;
   flex-flow: column nowrap;
+  overflow: hidden;
+  max-height: var(--cg-height);
 
   #bot-content {
     flex: 1 1 auto;
-    overflow: hidden;
+    overflow: auto;
   }
 }
 
 .fancy-bot {
   display: flex;
   align-items: center;
+  img {
+    width: 64px;
+    flex: 0 0 64px;
+  }
+}
 
+#bot-content .fancy-bot {
+  &:nth-child(odd) {
+    background: $c-bg-zebra2;
+  }
   &:nth-child(even) {
     background: $c-bg-zebra;
-    justify-content: space-between;
-    img.picture {
-      order: 3;
+    /*justify-content: space-between;
+    img {
+      order: 1;
     }
+    .overview {
+      order: 2;
+    }*/
   }
 
   &:hover {
     background: mix($c-link, $c-bg-box, 15%);
   }
 
-  img.picture {
-    flex: 0 0 128px;
+  img {
+    width: 128px;
+    //flex: 0 0 128px;
 
-    display: block;
+    //display: block;
   }
-  span {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    * {
-      margin-right: 6px;
-    }
+  h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: $c-font-clearer;
+  }
+  p {
+    margin-left: 1em;
   }
   .overview {
-    margin: 20px 10px 10px 2.5vw;
+    padding: 1em;
     display: flex;
+    justify-content: space-around;
+    align-self: stretch;
     flex: auto;
     flex-flow: column;
-    justify-content: space-between;
-    padding-bottom: 15px;
   }
 }

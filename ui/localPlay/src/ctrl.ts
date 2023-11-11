@@ -1,24 +1,27 @@
 import { LocalPlayOpts } from './interfaces';
-import { Coral } from 'libot/bots/coral';
-import { Ctrl as LibotCtrl } from 'libot';
-import { makeRounds } from './data';
+import { type Ctrl as LibotCtrl } from 'libot';
+//import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
 export class Ctrl {
-  //bot?: Libot = new Coral();
+  libot: LibotCtrl;
   chess = Chess.default();
   tellRound: SocketSend;
   fiftyMovePly = 0;
+  loaded: Promise<void>;
   threefoldFens: Map<string, number> = new Map();
 
   constructor(
     readonly opts: LocalPlayOpts,
     readonly redraw: () => void,
   ) {
-    makeRounds(this).then(sender => (this.tellRound = sender));
+    this.loaded = lichess.loadEsm<LibotCtrl>('libot').then(libot => {
+      this.libot = libot;
+      this.libot.setBot('coral');
+    });
   }
 
   reset(/*fen: string*/) {
@@ -71,7 +74,7 @@ export class Ctrl {
   }
 
   async botMove() {
-    //this.move(await this.bot!.move(this.fen));
+    this.move(await this.libot!.move(this.fen));
   }
 
   fifty(move?: Chops.Move) {

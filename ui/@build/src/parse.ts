@@ -91,7 +91,7 @@ function tokenizeArgs(argstr: string): string[] {
 // go through package json scripts and get what we need from 'compile', 'dev', and 'deps'
 // if some other script is necessary, add it to buildScriptKeys
 function parseScripts(module: LichessModule, pkgScripts: any) {
-  const buildScriptKeys = ['deps', 'compile', 'dev', 'post'].concat(env.prod ? ['prod'] : []);
+  const buildScriptKeys = ['pre', 'deps', 'compile', 'dev', 'post'].concat(env.prod ? ['prod'] : []);
 
   for (const script in pkgScripts) {
     if (!buildScriptKeys.includes(script)) continue;

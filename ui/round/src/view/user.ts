@@ -18,7 +18,8 @@ export function botHtml(ctrl: RoundController, player: Player, position: Positio
       },
     },
     [
-      h('span', [h('img', { attrs: { src: player.image!, width: 64, height: 64 } }), h('name', player.name)]),
+      h('i.line', [h('img', { attrs: { src: player.image! } })]),
+      h('a.text', h('name', player.name)),
       h('rating', player.rating),
       //h('rating', player.ratingDiff),
     ],

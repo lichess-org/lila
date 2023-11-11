@@ -1,11 +1,12 @@
 import { type Zerofish } from 'zerofish';
-import { Libot, botNetUrl, localBots } from '../main';
+import { Libot } from '../interfaces';
+import { registry } from '../ctrl';
 
 export class Beatrice implements Libot {
-  name = localBots.beatrice.name;
-  description = localBots.beatrice.description;
-  image = localBots.beatrice.image;
-  net = 'maia-1100';
+  name = 'Beatrice';
+  description = 'Beatrice is a bot that plays random moves.';
+  imageUrl = lichess.assetUrl('lifat/bots/images/beatrice.webp', { noVersion: true });
+  netName = 'maia-1100';
   ratings = new Map();
   zf: Zerofish;
 
@@ -18,3 +19,5 @@ export class Beatrice implements Libot {
     return await this.zf.goZero(fen);
   }
 }
+
+registry.beatrice = Beatrice;

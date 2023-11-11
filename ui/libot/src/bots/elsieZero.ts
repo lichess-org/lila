@@ -1,14 +1,15 @@
 import { type Zerofish } from 'zerofish';
-import { type Libot, botNetUrl, localBots } from '../main';
+import { Libot } from '../interfaces';
+import { registry } from '../ctrl';
 
 export class ElsieZero implements Libot {
-  name = localBots.elsieZero.name;
-  description = localBots.elsieZero.description;
-  image = localBots.elsieZero.image;
-  net = 'maia-1100';
+  name = 'Elsie Zero';
+  description = 'Elsie Zero is a bot that plays random moves.';
+  imageUrl = lichess.assetUrl('lifat/bots/images/baby-robot.webp', { noVersion: true });
+  netName = 'maia-1100';
   ratings = new Map();
-
   zf: Zerofish;
+
   constructor(zf: Zerofish, opts?: any) {
     opts;
     this.zf = zf;
@@ -18,3 +19,5 @@ export class ElsieZero implements Libot {
     return await this.zf.goZero(fen);
   }
 }
+
+registry.elsieZero = ElsieZero;

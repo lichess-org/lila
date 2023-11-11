@@ -4,34 +4,26 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "types": "dist/main.d.ts",
-  "typings": "main",
-  "exports": {
-    ".": "./dist/main.js",
-    "./*": "./dist/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
+  "typings": "dist/main.d.ts",
   "dependencies": {
     "chess": "workspace:*",
     "chessops": "^0.12.7",
     "common": "workspace:*",
     "tree": "workspace:*",
-    "zerofish": "^0.0.13"
+    "zerofish": "^0.0.14"
   },
   "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
+    "pre": "node @build/index.mjs"
   },
   "lichess": {
+    "modules": {
+      "esm": {
+        "src/main.ts": "libot"
+      }
+    },
     "copy": {
       "src": "node_modules/zerofish/dist/zerofishEngine.*",
-      "dest": "../../public/compiled"
+      "dest": "../../public/npm"
     }
   }
 }
