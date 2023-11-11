@@ -169,6 +169,9 @@ importers:
       stockfish-mv.wasm:
         specifier: ^0.6.1
         version: 0.6.1
+      stockfish-nnue.wasm:
+        specifier: 1.0.0-1946a675.smolnet
+        version: 1.0.0-1946a675.smolnet
       stockfish.js:
         specifier: ^10.0.2
         version: 10.0.2
@@ -4808,6 +4811,10 @@ packages:
 
   /stockfish-mv.wasm@0.6.1:
     resolution: {integrity: sha512-6QE1LeWbv9NNMABHCjDGyjgob+1CfMpIszxUKCUcCH0znreWPXz48G09rhKTUpRzC8YsOTHPQL/s74gDcqXJGw==}
+    dev: false
+
+  /stockfish-nnue.wasm@1.0.0-1946a675.smolnet:
+    resolution: {integrity: sha512-ofHHGb60dsMuz1SFurbkUBStMz6zmSLEculHUYdryX3782dys785hWgY9HJVgxMZQW+uhAARFcwPtPlyeW/nZg==}
     dev: false
 
   /stockfish.js@10.0.2:

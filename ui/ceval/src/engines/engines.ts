@@ -77,6 +77,23 @@ export class Engines {
         },
         {
           info: {
+            id: '__sf14nnue',
+            name: 'Stockfish 14 NNUE',
+            short: 'SF 14',
+            version: 'b6939d',
+            tech: 'NNUE',
+            requires: 'simd',
+            minMem: 2048,
+            assets: {
+              root: 'npm/stockfish-nnue.wasm',
+              js: 'stockfish.js',
+              wasm: 'stockfish.wasm',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
+        },
+        {
+          info: {
             id: '__fsfhce',
             name: 'Fairy Stockfish 16',
             short: 'FSF 16',
