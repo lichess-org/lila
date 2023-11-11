@@ -8,7 +8,7 @@ final class ExpireSetMemo[K](ttl: FiniteDuration):
     .expireAfterWrite(ttl)
     .build[K, Boolean]()
 
-  def get(key: K): Boolean = cache.underlying.getIfPresent(key) == true
+  def get(key: K): Boolean = cache.underlying.getIfPresent(key)
 
   def intersect(keys: Iterable[K]): Set[K] =
     keys.nonEmpty so {
@@ -36,7 +36,7 @@ final class HashCodeExpireSetMemo[A](ttl: FiniteDuration):
     .expireAfterWrite(ttl)
     .build[Int, Boolean]()
 
-  def get(key: A): Boolean = cache.underlying.getIfPresent(key.hashCode) == true
+  def get(key: A): Boolean = cache.underlying.getIfPresent(key.hashCode)
 
   def put(key: A) = cache.put(key.hashCode, true)
 
