@@ -34,7 +34,7 @@
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Wat ass den duerchschnëttlechen Honnertselbauerverloscht (ACPL)?</string>
   <string name="insufficientMaterial">Op Zäit verléieren, Remis an ongenügend Material</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE-Handbuch</string>
+  <string name="fideHandbook">FIDE-Handbuch</string>
   <string name="fideHandbookX">FIDE Handbuch %s</string>
   <string name="discoveringEnPassant">Firwat kann e Bauern een aneren Bauer schloen, wann hien laanscht gezunn huet? (en passant)</string>
   <string name="goodIntroduction">gutt Aféierung</string>

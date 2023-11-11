@@ -72,6 +72,7 @@
   <string name="makeMainLine">Povýšiť na hlavnú variantu</string>
   <string name="deleteFromHere">Vymazať odtiaľto</string>
   <string name="forceVariation">Povýšiť variant</string>
+  <string name="copyVariationPgn">Kopírovať PGN variantu</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>

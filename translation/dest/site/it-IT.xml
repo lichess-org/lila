@@ -70,6 +70,7 @@
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="forceVariation">Mostra come variante</string>
+  <string name="copyVariationPgn">Copia il PGN della variante</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Sconfitta per variante</string>
   <string name="variantWin">Vittoria per variante</string>
@@ -658,8 +659,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
+  <string name="yourPendingSimuls">Le tue simultanee in attesa</string>
   <string name="createdSimuls">Simultanee recenti</string>
   <string name="hostANewSimul">Crea una nuova simultanea</string>
+  <string name="signUpToHostOrJoinASimul">Registrati per organizzare, o unirti a, un\'esibizione simultanea</string>
   <string name="noSimulFound">Simultanea non trovata</string>
   <string name="noSimulExplanation">Questa esibizione simultanea non esiste.</string>
   <string name="returnToSimulHomepage">Ritorna alla pagina delle simultanee</string>

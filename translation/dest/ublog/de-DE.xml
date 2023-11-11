@@ -13,7 +13,7 @@
   <string name="createBlogDiscussionHelp">Ein Forenthema wird für Leute erstellt, die deinen Beitrag kommentieren möchten</string>
   <string name="publishOnYourBlog">Veröffentliche in deinem Blog</string>
   <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
-  <plurals name="publishedNbBlogPosts" comment="%s is the number of blog posts published.&#10;&#10;Appears in a player's activity feed after they write and publish a blog post. This notice is on the 'Activity' tab of the player who wrote the post.">
+  <plurals name="publishedNbBlogPosts">
     <item quantity="one">Hat einen Blog-Beitrag veröffentlicht</item>
     <item quantity="other">Hat %s Blog-Beiträge veröffentlicht</item>
   </plurals>
@@ -33,14 +33,15 @@
     <item quantity="other">Alle %s Beiträge anzeigen</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Ein Bild für deinen Beitrag hochladen</string>
-  <string name="imageAlt" comment="You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternativer Bildtext</string>
-  <string name="imageCredit" comment="A field in case the image is not yours, so you can note/give credit to the person who took the photo for example, or other forms of copyright.">Bildherkunft</string>
+  <string name="imageAlt">Alternativer Bildtext</string>
+  <string name="imageCredit">Bildherkunft</string>
   <string name="deleteBlog">Lösche diesen Blog-Beitrag unwiderruflich</string>
   <string name="deleteImage">Lösche dieses Bild</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es ist sicher Bilder von den folgenden Webseiten zu verwenden: </string>
+  <string name="safeToUseImages">Es ist sicher Bilder von den folgenden Webseiten zu verwenden: </string>
   <string name="selectPostTopics">Wähle die Themen deines Beitrags aus</string>
   <string name="useImagesYouMadeYourself">Du kannst auch Bilder verwenden, die du selbst erstellt oder geschossen hast, sowie Screenshots von Lichess... Alles, was nicht von jemand anderem urheberrechtlich geschützt ist.</string>
   <string name="safeAndRespectfulContent">Bitte poste nur sichere und respektvolle Inhalte. Kopiere nicht den Inhalt anderer Personen.</string>
   <string name="inappropriateContentAccountClosed">Jegliche unangemessenen Inhalte können zur Schließung deines Benutzerkontos führen.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Unsere einfachen Tipps, um tolle Blog-Beiträge zu schreiben</string>
+  <string name="blogTips">Unsere einfachen Tipps, um tolle Blog-Beiträge zu schreiben</string>
+  <string name="discussThisBlogPostInTheForum">Diesen Blog-Beitrag im Forum diskutieren</string>
 </resources>

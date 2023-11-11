@@ -70,6 +70,7 @@
   <string name="makeMainLine">Zur Hauptvariante mache</string>
   <string name="deleteFromHere">Ab da lösche</string>
   <string name="forceVariation">Variante erzwinge</string>
+  <string name="copyVariationPgn">PGN Variante kopiere</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variante verlore</string>
   <string name="variantWin">Variante gwunne</string>
@@ -659,8 +660,10 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="simultaneousExhibitions">Simultanschach Veraschtaltige</string>
   <string name="host">Simultanschpiller</string>
   <string name="hostColorX">Farb Simultanschpiller: %s</string>
+  <string name="yourPendingSimuls">Dini usstehende Simultanschachs</string>
   <string name="createdSimuls">Neu kreierts Simultanschach</string>
   <string name="hostANewSimul">Mach dir es Simultanschach</string>
+  <string name="signUpToHostOrJoinASimul">Mäld dich - als Gaschtgeber oder Teilnehmer - bime Simultanschach a</string>
   <string name="noSimulFound">Simultanschach nöd gfunde</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
   <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>

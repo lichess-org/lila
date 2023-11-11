@@ -72,6 +72,7 @@
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
   <string name="forceVariation">Зробити варіантом</string>
+  <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
@@ -732,8 +733,10 @@
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Організатор</string>
   <string name="hostColorX">Колір організатора: %s</string>
+  <string name="yourPendingSimuls">Ваші сеанси одночасної гри, що в режимі очікування</string>
   <string name="createdSimuls">Нещодавно створені сеанси</string>
   <string name="hostANewSimul">Організувати новий сеанс</string>
+  <string name="signUpToHostOrJoinASimul">Зареєструйтеся, щоб створити чи приєднатися до сеансу одночасної гри</string>
   <string name="noSimulFound">Сеанс не знайдено</string>
   <string name="noSimulExplanation">Цього сеансу одночасної гри не існує.</string>
   <string name="returnToSimulHomepage">Повернутися до сторінки \"Сеанси\"</string>

@@ -47,7 +47,7 @@ Tiu valoro povas esti uzata kiel indikilo de la kvalito de ludo. Ju malpli cento
 
 La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="insufficientMaterial">Perdi pro tempo, egaleco kaj nesufiĉa materialo</string>
-  <string name="fideHandbook" comment="fideHandbook&#10;&#10;Part of the string threefoldRepetitionExplanation in the FAQ (https://lichess.org/faq#threefold).">FIDE manlibro</string>
+  <string name="fideHandbook">FIDE manlibro</string>
   <string name="fideHandbookX">FIDE-a manlibro %s</string>
   <string name="discoveringEnPassant">Kial povas peonon kaptiĝi alian peonon kiam ĝi estas pasita? (pasante)</string>
   <string name="goodIntroduction">bona enkonduko</string>

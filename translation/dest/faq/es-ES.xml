@@ -143,4 +143,28 @@ Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de 
 Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de enlaces de tu navegador.
 
 Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">¿Habilitar la reproducción automática de sonidos?</string>
+  <string name="enableAutoplayForSoundsA">La mayoría de los navegadores pueden evitar que se reproduzca sonido en una página recién cargada para proteger a los usuarios. Imagínate si todos los sitios web pudieran bombardearte inmediatamente con anuncios de audio.
+
+El icono rojo de silencio aparece cuando tu navegador impide que lichess.org reproduzca un sonido. Por lo general, esta restricción se elimina una vez que haces clic en algo. En algunos navegadores móviles, tocar y arrastrar una pieza no cuenta como un clic. En ese caso debes tocar el tablero para permitir el sonido al inicio de cada juego.
+
+Mostramos el icono rojo para avisarte cuando esto suceda. A menudo, puedes permitir explícitamente que lichess.org reproduzca sonidos. Aquí encontrarás instrucciones para hacerlo en versiones recientes de algunos navegadores populares.</string>
+  <string name="desktop">escritorio</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Ve a lichess.org
+2. Pulsa Ctrl-i en Linux/Windows o cmd-i en MacOS
+3. Haz clic en la pestaña Permisos
+4. Permitir audio y video en lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Ve a lichess.org
+2. Haz clic en el icono de bloqueo de la barra de direcciones
+3. Haz clic en Configuración del sitio
+4. Habilitar sonido</string>
+  <string name="enableAutoplayForSoundsSafari">1. Ve a lichess.org
+2. Haz clic en Safari de la barra de menú
+3. Haz clic en Configuración de lichess.org ...
+4. Habilitar la reproducción automática</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Haz clic en los tres puntos de la esquina superior derecha
+2. Haz clic en Ajustes
+3. Haz clic en Cookies y permisos del sitio
+4. Desplázate hacia abajo y haz clic en Reproducción automática
+5. Añade a lichess.org en Habilitar</string>
 </resources>

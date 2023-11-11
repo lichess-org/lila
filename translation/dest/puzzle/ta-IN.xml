@@ -63,7 +63,13 @@
   <string name="history">புதிர்ச் சரித்திரம்</string>
   <string name="solved">தீர்க்கப்பட்டது</string>
   <string name="failed">தவறானது</string>
+  <string name="streakDescription">படிப்படியாகக் கடினமான புதிர்களைத் தீர்த்து வெற்றியைத் தொடருங்கள். கடிகாரம் இல்லை, எனவே உங்களுக்கான நேரத்தை எடுத்துக் கொள்ளுங்கள். ஒரு தவறான நகர்த்தலால் விளையாட்டு முடிந்துவிடும்! ஆனால் ஒரு அமர்வுக்கு ஒரு நகர்வை நீங்கள் தவிர்க்கலாம்.</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">உங்கள் தொடர்: %s</string>
+  <string name="streakSkipExplanation">உங்கள் தொடரைப் பாதுகாக்க இந்த நகர்த்தலைத் தவிர்க்கவும்! ஒரு ஓட்டத்திற்கு ஒரு முறை மட்டுமே வேலை செய்கிறது.</string>
+  <string name="continueTheStreak">தொடரைத் தொடரவும்</string>
+  <string name="newStreak">புதிய தொடர்</string>
   <string name="fromMyGames">எனது விளையாட்டுக்களிலிருந்து</string>
+  <string name="lookupOfPlayer">வீரர்களின் விளையாட்டுகளிலிருந்து புதிர்களைத் தேடுங்கள்</string>
   <string name="fromXGames">%s விளையாட்டுக்களிலிருந்தான புதிர்கள்</string>
   <string name="searchPuzzles">புதிர்களைத் தேட</string>
   <string name="fromMyGamesNone">தரவுத்தளத்தில் உங்களுக்குரிய புதிர்கள் ஏதுமில்லை, ஆனாலும் லீசெஸ் உங்களை மிகவும் விரும்புகின்றது!</string>

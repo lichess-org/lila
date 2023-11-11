@@ -113,7 +113,7 @@ object post:
               href     := routes.Ublog.discuss(post.id),
               cls      := "button text ublog-post__discuss",
               dataIcon := licon.BubbleConvo
-            )("Discuss this blog post in the forum"),
+            )(trans.ublog.discussThisBlogPostInTheForum()),
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),

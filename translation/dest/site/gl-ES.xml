@@ -70,6 +70,7 @@
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="forceVariation">Forzar variante</string>
+  <string name="copyVariationPgn">Copiar o PGN da variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -657,8 +658,10 @@
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Cor do anfitrión: %s</string>
+  <string name="yourPendingSimuls">As túas simultáneas pendentes</string>
   <string name="createdSimuls">Simultáneas creadas recentemente</string>
   <string name="hostANewSimul">Crear unha nova simultánea</string>
+  <string name="signUpToHostOrJoinASimul">Rexístrate para crear ou unirte a unhas simultáneas</string>
   <string name="noSimulFound">Simultánea non atopada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea non existe.</string>
   <string name="returnToSimulHomepage">Volver á paxina principal das simultáneas</string>
@@ -759,7 +762,7 @@
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
-  <string name="xLikesY" comment="Appears on the timeline (on the left of the homepage) when a player you follow likes EITHER a study or a blog post.&#10;&#10;%1$s is the name of the player.&#10;%2$s is the name of the study or blog post they have liked (❤).">a %1$s gústalle %2$s</string>
+  <string name="xLikesY">a %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>

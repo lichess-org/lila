@@ -72,6 +72,7 @@
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="forceVariation">Przedstaw jako wariant</string>
+  <string name="copyVariationPgn">Skopiuj wariant PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
@@ -731,8 +732,10 @@
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
   <string name="hostColorX">Kolor symultanisty: %s</string>
+  <string name="yourPendingSimuls">Twoje oczekujące symultany</string>
   <string name="createdSimuls">Nowe symultany</string>
   <string name="hostANewSimul">Nowa symultana</string>
+  <string name="signUpToHostOrJoinASimul">Dołącz do simultany</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do do strony głównej symultan</string>

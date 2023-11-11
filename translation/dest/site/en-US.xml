@@ -70,6 +70,7 @@
   <string name="makeMainLine">Make main line</string>
   <string name="deleteFromHere">Delete from here</string>
   <string name="forceVariation">Force variation</string>
+  <string name="copyVariationPgn">Copy variation PGN</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
@@ -658,8 +659,10 @@ computer analysis, game chat and shareable URL.</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host color: %s</string>
+  <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
+  <string name="signUpToHostOrJoinASimul">Sign up to join or host a simul</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>

@@ -70,6 +70,7 @@
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="forceVariation">Forçar variant</string>
+  <string name="copyVariationPgn">Copia el PGN de la variació</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -657,8 +658,10 @@
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
   <string name="hostColorX">Color d\'amfitrió: %s</string>
+  <string name="yourPendingSimuls">Les teves simultànies pendents</string>
   <string name="createdSimuls">Últimes simultànies creades</string>
   <string name="hostANewSimul">Organitza una simultània</string>
+  <string name="signUpToHostOrJoinASimul">Registra\'t per a organitzar o participar en una simultània</string>
   <string name="noSimulFound">Simultània no trobada</string>
   <string name="noSimulExplanation">Aquesta simultània no existeix.</string>
   <string name="returnToSimulHomepage">Torna a la pàgina principal de simultànies</string>

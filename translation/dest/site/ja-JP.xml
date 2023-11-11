@@ -69,6 +69,7 @@
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">これ以降を削除</string>
   <string name="forceVariation">変化として表示</string>
+  <string name="copyVariationPgn">手順の PGN をコピー</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -621,8 +622,10 @@
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
   <string name="hostColorX">ホストの色: %s</string>
+  <string name="yourPendingSimuls">保留中の同時対局</string>
   <string name="createdSimuls">新たな同時対局</string>
   <string name="hostANewSimul">新たな同時対局を作る</string>
+  <string name="signUpToHostOrJoinASimul">同時対局の主催・参加にはサインアップを</string>
   <string name="noSimulFound">同時対局が見つかりません</string>
   <string name="noSimulExplanation">この同時対局は存在しません</string>
   <string name="returnToSimulHomepage">同時対局トップに戻る</string>

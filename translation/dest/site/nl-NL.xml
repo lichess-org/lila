@@ -70,6 +70,7 @@
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
   <string name="forceVariation">Forceer variatie</string>
+  <string name="copyVariationPgn">Kopieer variatie PGN</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -657,8 +658,10 @@
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
+  <string name="yourPendingSimuls">Jouw wachtende simultaans</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
+  <string name="signUpToHostOrJoinASimul">Meld je aan om een simul te geven of eraan deel te nemen</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
   <string name="noSimulExplanation">Deze simultaan bestaat niet.</string>
   <string name="returnToSimulHomepage">Ga terug naar de Simultaan hoofdpagina</string>

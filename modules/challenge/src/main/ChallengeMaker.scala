@@ -13,19 +13,17 @@ final class ChallengeMaker(
 )(using Executor):
 
   def makeRematchFor(gameId: GameId, dest: User): Fu[Option[Challenge]] =
-    collectDataFor(gameId, dest) flatMapz { data =>
+    collectDataFor(gameId, dest) flatMapz: data =>
       makeRematch(Pov(data.game, data.challenger), data.orig, data.dest) dmap some
-    }
 
   def showCanceledRematchFor(gameId: GameId, dest: User, nextId: GameId): Fu[Option[Challenge]] =
-    collectDataFor(gameId, dest) flatMapz { data =>
+    collectDataFor(gameId, dest) flatMapz: data =>
       toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId) dmap some
-    }
 
   private case class Data(game: Game, challenger: Player, orig: GameUser, dest: User.WithPerf)
 
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[Data]] =
-    gameRepo.game(gameId) flatMapz { game =>
+    gameRepo.game(gameId) flatMapz: game =>
       game
         .opponentOf(dest)
         .so: challenger =>
@@ -33,7 +31,6 @@ final class ChallengeMaker(
             orig <- challenger.userId.so(userApi.withPerf(_, game.perfType))
             dest <- perfsRepo.withPerf(dest, game.perfType)
           yield Data(game, challenger, orig, dest).some
-    }
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov(game, challenger.id).so: pov =>

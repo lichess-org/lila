@@ -7,7 +7,7 @@
   <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">Nouveau record du jour !</string>
   <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">Nouveau record de la semaine !</string>
   <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">Nouveau record du mois !</string>
-  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">Nouveau record absolu!</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">Nouveau record absolu !</string>
   <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">Le record précédent était %s</string>
   <string name="playAgain">Rejouer</string>
   <plurals name="xRuns">
@@ -33,11 +33,11 @@
   <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Voir les meilleurs essais</string>
   <string name="bestRunOfDay">Meilleur essai du jour</string>
   <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Essais</string>
-  <string name="getReady">Soyez prêts!</string>
+  <string name="getReady">Soyez prêts !</string>
   <string name="waitingForMorePlayers">En attente d\'autres joueurs...</string>
-  <string name="raceComplete">Course terminée!</string>
+  <string name="raceComplete">Course terminée !</string>
   <string name="spectating">Observer</string>
-  <string name="joinTheRace">Participez!</string>
+  <string name="joinTheRace">Participez !</string>
   <string name="startTheRace">Débuter la course</string>
   <string name="yourRankX">Votre classement : %s</string>
   <string name="waitForRematch">Attendre une offre de revanche</string>
@@ -57,6 +57,6 @@
   <string name="thisMonth">Ce mois-ci</string>
   <string name="allTime">Depuis le début</string>
   <string name="clickToReload">Cliquez pour recharger</string>
-  <string name="thisRunHasExpired">Cette série d\'essais a expirée!</string>
-  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet!</string>
+  <string name="thisRunHasExpired">Cette série d\'essais a expirée !</string>
+  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet !</string>
 </resources>

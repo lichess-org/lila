@@ -9,16 +9,15 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
   private val cookieDomain = domain.value.split(":").head
 
-  val makeSessionId = (req: RequestHeader) ?=> session(LilaCookie.sessionId, generateSessionId())
+  def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId())
 
   def generateSessionId() = SecureRandom nextString 22
 
   def session(name: String, value: String, remember: Boolean = true)(using RequestHeader): Cookie =
-    withSession(remember) { s =>
-      s + (name -> value)
-    }
+    withSession(remember):
+      _ + (name -> value)
 
-  def newSession(using req: RequestHeader): Cookie =
+  def newSession(using RequestHeader): Cookie =
     withSession(remember = false)(_ => Session.emptyCookie)
 
   def withSession(remember: Boolean)(op: Session => Session)(using req: RequestHeader): Cookie =
