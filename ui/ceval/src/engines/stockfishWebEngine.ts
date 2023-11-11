@@ -55,16 +55,16 @@ export class StockfishWebEngine implements CevalEngine {
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.nnue?.({ bytes: e.loaded, total: e.total });
 
-        nnueBuffer = await new Promise(resolve => {
-          req.onerror = () => resolve(undefined);
-          req.onload = _ => resolve(new Uint8Array(req.response));
+        nnueBuffer = await new Promise((resolve, reject) => {
+          req.onerror = () => reject(new Error(`NNUE download failed: ${req.status}`));
+          req.onload = () => {
+            if (req.status / 100 === 2) resolve(new Uint8Array(req.response));
+            else reject(new Error(`NNUE download failed: ${req.status}`));
+          };
           req.send();
         });
         this.nnue?.();
-        if (!nnueBuffer) {
-          this.failed = true;
-          return;
-        } else nnueStore?.put(nnueFilename, nnueBuffer).catch(() => console.warn('IDB store failed'));
+        nnueStore?.put(nnueFilename, nnueBuffer!).catch(() => console.warn('IDB store failed'));
       }
       module.setNnueBuffer(nnueBuffer!);
     }
