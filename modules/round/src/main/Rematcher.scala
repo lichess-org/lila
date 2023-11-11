@@ -101,7 +101,7 @@ final private class Rematcher(
           lastMove = situation.flatMap(_.situation.board.history.lastMove),
           castles = situation.fold(Castles.init)(_.situation.board.history.castles),
           unmovedRooks = situation.fold(history.unmovedRooks)(_.situation.board.unmovedRooks)
-      )
+        )
       ply = situation.fold(Ply.initial)(_.ply)
       sloppy = Game.make(
         chess = ChessGame(
