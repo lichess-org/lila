@@ -103,24 +103,14 @@ final private class Rematcher(
 
   private def returnChessGame(game: Game, initialFen: Option[Fen.Epd]): ChessGame =
     val situation = initialFen.flatMap(Fen.readWithMoveNumber(game.variant, _))
-    val pieces = game.variant match
-      case Chess960 =>
-        if chess960 get game.id then Chess960.pieces
-        else situation.fold(Chess960.pieces)(_.situation.board.pieces)
-      case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
-      case variant      => variant.pieces
-    val board = Board(pieces, variant = game.variant).updateHistory: history =>
-      history.copy(
-        lastMove = situation.flatMap(_.situation.board.history.lastMove),
-        castles = situation.fold(Castles.init)(_.situation.board.history.castles),
-        unmovedRooks = situation.fold(history.unmovedRooks)(_.situation.board.unmovedRooks)
-      )
-    val ply = situation.fold(Ply.initial)(_.ply)
+    val newSituation = game.variant match
+      case Chess960 if !chess960.get(game.id) => situation.fold(Situation(Chess960))(_.situation)
+      case Chess960                           => Situation(Chess960)
+      case variant                            => situation.fold(Situation(variant))(_.situation)
+    val ply   = situation.fold(Ply.initial)(_.ply)
+    val color = situation.fold[chess.Color](White)(_.situation.color)
     ChessGame(
-      situation = Situation(
-        board = board,
-        color = situation.fold[chess.Color](White)(_.situation.color)
-      ),
+      situation = newSituation.copy(color = color),
       clock = game.clock.map: c =>
         Clock(c.config),
       ply = ply,
