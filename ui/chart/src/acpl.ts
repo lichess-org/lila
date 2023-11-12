@@ -205,7 +205,7 @@ export default async function (
     const acpl = dataset.acpl;
     acplChart.data.datasets[0].data = acpl.data;
     if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
-    acplChart.update();
+    acplChart.update('none');
   };
   lichess.pubsub.on('ply', acplChart.selectPly);
   lichess.pubsub.emit('ply.trigger');
