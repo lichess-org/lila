@@ -15,7 +15,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { currentTheme } from 'common/theme';
-import { gridColor, tooltipBgColor, fontFamily } from 'chart';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
 
@@ -54,6 +54,7 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: false,
       plugins: {
         legend: {
           labels: { color: tooltipFontColor },
@@ -189,8 +190,8 @@ function chartHook(vnode: VNode, ctrl: Ctrl) {
   if (ctrl.vm.loading || !ctrl.vm.answer) {
     $(el).html(lichess.spinnerHtml);
   } else {
-    if (!chart) chart = insightChart(el, ctrl.vm.answer);
-    else chart.updateData(ctrl.vm.answer);
+    if (!maybeChart(el)) chart = insightChart(el, ctrl.vm.answer);
+    else if (chart) chart.updateData(ctrl.vm.answer);
   }
 }
 
