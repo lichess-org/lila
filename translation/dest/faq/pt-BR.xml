@@ -144,4 +144,28 @@ Outro ponto importante é que, à medida que o tempo passa, o intervalo de confi
 Clique no ícone de cadeado ao lado do endereço do lichess.org na barra de endereço do seu navegador.
 
 Em seguida, selecione se deve permitir ou bloquear notificações de Lichhess.</string>
+  <string name="enableAutoplayForSoundsQ">Ativar reprodução automática de som?</string>
+  <string name="enableAutoplayForSoundsA">A maioria dos navegadores bloqueia o som de uma página recém aberta para proteger o usuário. Imagine se todo site pudesse imediatamente te bombardear com áudios de anúncios.
+
+O ícone vermelho de silêncio indica que seu navegador está bloqueando o som do lichess.org. Ao clicar em alguma coisa, geralmente isso se resolve. No mobile, arrastar uma peça às vezes não conta como um clique. Nesse caso, você precisa mover com um clique para ativar o som a cada partida nova.
+
+O ícone serve para você saber quando isso acontece. Você também pode alterar as permissões do lichess.org. Aqui estão as instruções para as versões atuais de alguns navegadores populares.</string>
+  <string name="desktop">desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Acesse o lichess.org
+2. Pressione Ctrl-i em Linux/Windows ou cmd-i em MacOS
+3. Clique na página Permissões
+4. Ative Áudio e Vídeo em lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Acesse o lichess.org
+2. Clique no ícone de cadeado na barra de Url
+3. Clique em Configurações do site
+4. Ative Som</string>
+  <string name="enableAutoplayForSoundsSafari">1. Acesse o lichess.org
+2. Clique em Safari no menu
+3. Clique em Configurações de lichess.org ...
+4. Ative Reprodução automática</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Clique nos três pontos no canto superior direito
+2. Clique em Configurações
+3. Clique em Cookies e permissões de site
+4. Clique em Reprodução automática
+5. Adicione lichess.org a Permitir</string>
 </resources>

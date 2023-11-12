@@ -661,6 +661,7 @@
   <string name="yourPendingSimuls">Suas simultâneas pendentes</string>
   <string name="createdSimuls">Simultâneas criadas recentemente</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
+  <string name="signUpToHostOrJoinASimul">Entre em uma ou crie uma conta para hospedar</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
   <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Retornar à página inicial da simultânea</string>

@@ -658,8 +658,10 @@
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
   <string name="hostColorX">Farbe des Ausrichters: %s</string>
+  <string name="yourPendingSimuls">Deine ausstehenden Simultan-Vorstellungen</string>
   <string name="createdSimuls">Neue Simultanspiele</string>
   <string name="hostANewSimul">Ein Simultan veranstalten</string>
+  <string name="signUpToHostOrJoinASimul">Melde dich an, um eine Simultan-Vorstellung zu geben, oder einer beizutreten</string>
   <string name="noSimulFound">Simultan nicht gefunden</string>
   <string name="noSimulExplanation">Dieses Simultan existiert nicht.</string>
   <string name="returnToSimulHomepage">Zurück zur Simultan Homepage</string>
