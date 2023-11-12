@@ -30,6 +30,10 @@ object help:
     row(kbd("space"), trans.playComputerMove()),
     row(kbd("x"), trans.showThreat())
   )
+  private def phonetics = "abcdefgh"
+    .map(_.toString)
+    .map: letter =>
+      frag(s"${letter.capitalize} ", is(), phonetic(letter), ". ")
 
   def round(using Lang) =
     frag(
@@ -191,90 +195,65 @@ object help:
               ul(
                 li(
                   a(target := "_blank", href := "https://youtu.be/Ibfk4TyDZpY")(
-                    "Watch the video tutorial"
-                  ),
-                  "."
+                    watchTheVideoTutorial()
+                  )
                 ),
                 li(
-                  "Use the ",
-                  i(dataIcon := licon.Voice),
-                  " button to toggle voice recognition, the ",
-                  i(dataIcon := licon.InfoCircle),
-                  " button to open this help dialog, and the ",
-                  i(dataIcon := licon.Gear),
-                  " menu to change speech settings."
+                  instructions1(
+                    i(dataIcon := licon.Voice),
+                    i(dataIcon := licon.InfoCircle),
+                    i(dataIcon := licon.Gear)
+                  )
                 ),
+                li(instructions2()),
+                li(instructions3(voice("yes"), voice("no"))),
+                li(instructions4(strong("Push to Talk"))),
+                li(instructions5(phonetics)),
                 li(
-                  "We show arrows for multiple moves when we're not sure. Speak the color or number of a move"
-                    + " arrow to select it."
-                ),
-                li(
-                  "If an arrow shows a sweeping radar, that move will be played when the circle is complete. "
-                    + "During this time, you may only say \"",
-                  voice("yes"),
-                  "\" to play the move immediately, \"",
-                  voice("no"),
-                  "\" to cancel, or speak the color/number of a different arrow. This timer can be adjusted "
-                    + "or turned off in settings."
-                ),
-                li(
-                  "Enable ",
-                  strong("Push to Talk"),
-                  " in noisy surroundings. Hold shift while speaking commands when this is on."
-                ),
-                li(
-                  "Use the phonetic alphabet to improve recognition of chessboard files. ",
-                  phonetics
-                ),
-                li(
-                  a(target := "_blank", href := "/@/schlawg/blog/how-to-lichess-voice/nWrypoWI")(
-                    "This blog post"
-                  ),
-                  " explains the voice move settings in detail."
+                  instructions6(
+                    a(target := "_blank", href := "/@/schlawg/blog/how-to-lichess-voice/nWrypoWI")(
+                      thisBlogPost()
+                    )
+                  )
                 )
               )
             )
           )
-        )
-      ),
-      div(cls := "commands")(
-        table(
-          tbody(
-            header(trans.keyboardMove.performAMove()),
-            row(voice("e,4"), moveToE4OrSelectE4Piece()),
-            row(voice("B"), selectOrCaptureABishop()),
-            row(voice("N,c,3"), trans.keyboardMove.moveKnightToC3()),
-            row(voice("Q,x,R"), takeRookWithQueen()),
-            row(voice("c,8,=,Q"), trans.keyboardMove.promoteC8ToQueen()),
-            row(voice("castle"), castle()),
-            row(voice("O-O-O"), trans.keyboardMove.queensideCastle()),
-            row(phonetic("a,7,g,1"), phoneticAlphabetIsBest()),
-            row(voice("draw"), trans.keyboardMove.offerOrAcceptDraw()),
-            row(voice("resign"), trans.resignTheGame()),
-            row(voice("takeback"), trans.proposeATakeback())
-          )
         ),
-        table(
-          tbody(
-            header(trans.keyboardMove.otherCommands()),
-            row(voice("no"), cancelTimerOrDenyARequest()),
-            row(voice("yes"), playPreferredMoveOrConfirmSomething()),
-            row(voice("stop"), sleep()),
-            row(voice("mic-off"), turnOffVoiceRecognition()),
-            row(voice("next"), trans.puzzle.nextPuzzle()),
-            row(voice("upvote"), trans.puzzle.upVote()),
-            row(voice("solve"), showPuzzleSolution()),
-            row(voice("help"), trans.showHelpDialog()),
-            tr(
-              td,
-              td(button(cls := "button", cls := "all-phrases-button")(trans.showMeEverything()))
+        div(cls := "commands")(
+          table(
+            tbody(
+              header(trans.keyboardMove.performAMove()),
+              row(voice("e,4"), moveToE4OrSelectE4Piece()),
+              row(voice("B"), selectOrCaptureABishop()),
+              row(voice("N,c,3"), trans.keyboardMove.moveKnightToC3()),
+              row(voice("Q,x,R"), takeRookWithQueen()),
+              row(voice("c,8,=,Q"), trans.keyboardMove.promoteC8ToQueen()),
+              row(voice("castle"), castle()),
+              row(voice("O-O-O"), trans.keyboardMove.queensideCastle()),
+              row(phonetic("a,7,g,1"), phoneticAlphabetIsBest()),
+              row(voice("draw"), trans.keyboardMove.offerOrAcceptDraw()),
+              row(voice("resign"), trans.resignTheGame()),
+              row(voice("takeback"), trans.proposeATakeback())
+            )
+          ),
+          table(
+            tbody(
+              header(trans.keyboardMove.otherCommands()),
+              row(voice("no"), cancelTimerOrDenyARequest()),
+              row(voice("yes"), playPreferredMoveOrConfirmSomething()),
+              row(voice("stop"), sleep()),
+              row(voice("mic-off"), turnOffVoiceRecognition()),
+              row(voice("next"), trans.puzzle.nextPuzzle()),
+              row(voice("upvote"), trans.puzzle.upVote()),
+              row(voice("solve"), showPuzzleSolution()),
+              row(voice("help"), trans.showHelpDialog()),
+              tr(
+                td,
+                td(button(cls := "button", cls := "all-phrases-button")(trans.showMeEverything()))
+              )
             )
           )
         )
       )
     )
-
-  private def phonetics = "abcdefgh"
-    .map(_.toString)
-    .map: letter =>
-      frag(s"${letter.capitalize} is ", phonetic(letter), ". ")

@@ -982,4 +982,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organising events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
+  <string name="is">is </string>
 </resources>

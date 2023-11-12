@@ -853,6 +853,7 @@ object I18nKeys:
   val `nbSecondsToPlayTheFirstMove` = I18nKey("nbSecondsToPlayTheFirstMove")
   val `nbSeconds` = I18nKey("nbSeconds")
   val `andSaveNbPremoveLines` = I18nKey("andSaveNbPremoveLines")
+  val `is` = = I18nKey("is")
 
   object arena:
     val `arenaTournaments` = I18nKey("arena:arenaTournaments")
@@ -2580,6 +2581,12 @@ object I18nKeys:
 
   object voiceCommands:
     val `voiceCommands` = I18nKey("voiceCommands:voiceCommands")
+    val `instructions` = I18nKey("voiceCommands:instructions")
+    val `instructions1` = I18nKey("voiceCommands:instructions1")
+    val `instructions2` = I18nKey("voiceCommands:instructions2")
+    val `instructions3` = I18nKey("voiceCommands:instructions3")
+    val `instructions4` = I18nKey("voiceCommands:instructions4")
+    val `instructions5` = I18nKey("voiceCommands:instructions5")
     val `moveToE4OrSelectE4Piece` = I18nKey("voiceCommands:moveToE4OrSelectE4Piece")
     val `selectOrCaptureABishop` = I18nKey("voiceCommands:selectOrCaptureABishop")
     val `takeRookWithQueen` = I18nKey("voiceCommands:takeRookWithQueen")
