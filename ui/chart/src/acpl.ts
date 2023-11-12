@@ -39,7 +39,8 @@ export default async function (
 ) {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
-  const blurBackgroundColor = '#343138';
+  const blurBackgroundColorWhite = 'white';
+  const blurBackgroundColorBlack = 'black';
   const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
@@ -48,7 +49,11 @@ export default async function (
     d: AnalyseData,
     mainline: Tree.Node[],
   ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
-    const pointBackgroundColors: (typeof orangeAccent | typeof blurBackgroundColor)[] = [];
+    const pointBackgroundColors: (
+      | typeof orangeAccent
+      | typeof blurBackgroundColorWhite
+      | typeof blurBackgroundColorBlack
+    )[] = [];
     const adviceHoverColors: string[] = [];
     const moveLabels: string[] = [];
     const pointStyles: PointStyle[] = [];
@@ -82,7 +87,9 @@ export default async function (
       moveLabels.push(label + annotation);
       pointStyles.push(isBlur ? 'rect' : 'circle');
       pointSizes.push(isBlur ? 5 : 0);
-      pointBackgroundColors.push(isBlur ? blurBackgroundColor : orangeAccent);
+      pointBackgroundColors.push(
+        isBlur ? (isWhite ? blurBackgroundColorWhite : blurBackgroundColorBlack) : orangeAccent,
+      );
       adviceHoverColors.push(glyphColor ?? orangeAccent);
     });
     return {
