@@ -853,7 +853,7 @@ object I18nKeys:
   val `nbSecondsToPlayTheFirstMove` = I18nKey("nbSecondsToPlayTheFirstMove")
   val `nbSeconds` = I18nKey("nbSeconds")
   val `andSaveNbPremoveLines` = I18nKey("andSaveNbPremoveLines")
-  val `is` = = I18nKey("is")
+  val `is` = I18nKey("is")
 
   object arena:
     val `arenaTournaments` = I18nKey("arena:arenaTournaments")
