@@ -47,18 +47,20 @@ export class Engines {
       [
         {
           info: {
-            id: '__sf16nnue7',
-            name: 'Stockfish 16 NNUE · 7MB',
-            short: 'SF 16 · 7MB',
+            id: '__sf14nnue',
+            name: 'Stockfish 14 NNUE',
+            short: 'SF 14',
+            version: 'b6939d',
             tech: 'NNUE',
             requires: 'simd',
-            minMem: 1536,
+            minMem: 2048,
             assets: {
-              root: 'npm/lila-stockfish-web',
-              js: 'linrock-nnue-7.js',
+              root: 'npm/stockfish-nnue.wasm',
+              js: 'stockfish.js',
+              wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
         },
         {
           info: {
@@ -77,20 +79,18 @@ export class Engines {
         },
         {
           info: {
-            id: '__sf14nnue',
-            name: 'Stockfish 14 NNUE',
-            short: 'SF 14',
-            version: 'b6939d',
+            id: '__sf16nnue7',
+            name: 'Stockfish 16 NNUE · 7MB',
+            short: 'SF 16 · 7MB',
             tech: 'NNUE',
             requires: 'simd',
-            minMem: 2048,
+            minMem: 1536,
             assets: {
-              root: 'npm/stockfish-nnue.wasm',
-              js: 'stockfish.js',
-              wasm: 'stockfish.wasm',
+              root: 'npm/lila-stockfish-web',
+              js: 'linrock-nnue-7.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
         },
         {
           info: {
