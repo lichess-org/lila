@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.format.pgn.{ Pgn, SanStr }
-import chess.format.{ Fen, OpeningFen, Uci }
+import chess.format.{ Fen, StandardFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 
 import lila.game.Game
@@ -44,7 +44,7 @@ case class ResultCounts(
 case class OpeningNext(
     san: SanStr,
     uci: Uci.Move,
-    fen: OpeningFen,
+    fen: StandardFen,
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
@@ -83,7 +83,7 @@ object OpeningPage:
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
                 fen     = Fen writeOpening move.situationAfter
-                opening = OpeningDb findByOpeningFen fen
+                opening = OpeningDb findByStandardFen fen
               yield OpeningNext(
                 m.san,
                 uci,
