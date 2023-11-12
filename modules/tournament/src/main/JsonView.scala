@@ -190,7 +190,7 @@ final class JsonView(
               .obj(
                 "id"     -> pov.gameId,
                 "color"  -> pov.color.name,
-                "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+                "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating, pov.opponent.berserk),
                 "win"    -> score.flatMap(_.isWin),
                 "status" -> pov.game.status.id,
                 "score"  -> score.map(_.value)
@@ -292,12 +292,13 @@ final class JsonView(
       .add("gameId", i.gameId)
       .add("pauseDelay", delay)
 
-  private def gameUserJson(userId: Option[UserId], rating: Option[IntRating]): JsObject =
+  private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Boolean): JsObject =
     val light = userId flatMap lightUserApi.sync
     Json
       .obj("rating" -> rating)
       .add("name" -> light.map(_.name))
       .add("title" -> light.flatMap(_.title))
+      .add("berserk" -> berserk)
 
   private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](32, "tournament.podiumJson") {
     _.expireAfterAccess(15 seconds)

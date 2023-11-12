@@ -174,6 +174,7 @@ export interface Pairing {
     rating: number;
     name: string;
     title?: string;
+    berserk?: boolean;
   };
   win: boolean;
   status: number;
