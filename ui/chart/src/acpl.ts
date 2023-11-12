@@ -44,6 +44,7 @@ export default async function (
   const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
+  const firstPly = mainline[0].ply;
 
   const makeDataset = (
     d: AnalyseData,
@@ -58,7 +59,7 @@ export default async function (
     const moveLabels: string[] = [];
     const pointStyles: PointStyle[] = [];
     const pointSizes: number[] = [];
-    const winChances: number[] = [];
+    const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
@@ -76,7 +77,7 @@ export default async function (
         mate: !node.san?.includes('#') ? node.eval?.mate : isWhite ? 1 : -1,
       });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
-      winChances.push(winchance);
+      winChances.push({ x: node.ply, y: winchance });
 
       const { advice, color: glyphColor } = glyphProperties(node);
       const label = turn + dots + ' ' + node.san;
@@ -135,8 +136,8 @@ export default async function (
       },
       scales: {
         x: {
-          min: 0,
-          max: mainline.length - 1,
+          min: firstPly + 1,
+          max: mainline.length + firstPly - 1,
           display: false,
           type: 'linear',
         },
@@ -161,25 +162,23 @@ export default async function (
           bodyFont: fontFamily(13),
           caretPadding: 10,
           displayColors: false,
+          filter: item => item.datasetIndex == 0,
           callbacks: {
             label: item => {
-              if (item.datasetIndex == 0) {
-                const ev = mainline[item.dataIndex + 1]?.eval;
-                if (!ev) return ''; // Pos is mate
-                let e = 0,
-                  mateSymbol = '',
-                  advantageSign = '';
-                if (ev.cp) {
-                  e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-                  if (ev.cp > 0) advantageSign = '+';
-                }
-                if (ev.mate) {
-                  e = ev.mate;
-                  mateSymbol = '#';
-                }
-                return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
+              const ev = mainline[item.dataIndex + 1]?.eval;
+              if (!ev) return ''; // Pos is mate
+              let e = 0,
+                mateSymbol = '',
+                advantageSign = '';
+              if (ev.cp) {
+                e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
+                if (ev.cp > 0) advantageSign = '+';
               }
-              return '';
+              if (ev.mate) {
+                e = ev.mate;
+                mateSymbol = '#';
+              }
+              return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
             },
             title: items => {
               const data = items.find(serie => serie.datasetIndex == 0);
@@ -194,7 +193,7 @@ export default async function (
       },
       onClick(_event, elements, _chart) {
         const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
-        lichess.pubsub.emit('analysis.chart.click', data.index);
+        if (data) lichess.pubsub.emit('analysis.chart.click', data.index);
       },
     },
   };

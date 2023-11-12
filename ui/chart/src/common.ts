@@ -59,7 +59,6 @@ export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
 }
 
 export function selectPly(this: Chart, ply: number, onMainline: boolean) {
-  ply = ply - 1;
   const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
   const line = plyLine(ply, onMainline);
   this.data.datasets[index] = line;
