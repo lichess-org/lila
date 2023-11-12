@@ -40,6 +40,7 @@ export default function (ctrl: TournamentController): VNode {
     avgOp = pairingsLen
       ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
       : undefined;
+  //console.log(data.pairings);
   return h(
     tag,
     {
@@ -105,7 +106,11 @@ export default function (ctrl: TournamentController): VNode {
                 h('td', playerName(p.op)),
                 ctrl.opts.showRatings ? h('td', p.op.rating) : null,
                 h('td.is.color-icon.' + p.color),
-                h('td', res),
+                h('td' + '.result.', res),
+                h('td.berserk', [
+                  p.berserk ? h('i', { attrs: {'data-icon': licon.Berserk}}): null,
+                  ]
+                ),
               ],
             );
           }),
