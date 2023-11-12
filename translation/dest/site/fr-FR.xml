@@ -661,7 +661,7 @@
   <string name="yourPendingSimuls">Vos simultanées en attente</string>
   <string name="createdSimuls">Nouvelles simultanées</string>
   <string name="hostANewSimul">Créer une nouvelle simultanée</string>
-  <string name="signUpToHostOrJoinASimul">Inscrivez-vous pour héberger ou rejoindre une simultanée</string>
+  <string name="signUpToHostOrJoinASimul">Inscrivez-vous pour organiser une simultanée ou y participer</string>
   <string name="noSimulFound">Simultanée introuvable</string>
   <string name="noSimulExplanation">Cette simultanée n\'existe pas.</string>
   <string name="returnToSimulHomepage">Retour aux parties simultanées</string>
