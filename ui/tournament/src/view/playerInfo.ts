@@ -40,7 +40,6 @@ export default function (ctrl: TournamentController): VNode {
     avgOp = pairingsLen
       ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
       : undefined;
-  //console.log(data.pairings);
   return h(
     tag,
     {
