@@ -63,11 +63,8 @@
 
     td.berserk {
       & i {
-        flex: 0 0 auto;
-
         &::before {
           color: $c-accent;
-          margin-#{$end-direction}: 5px;
         }
       }
     }
