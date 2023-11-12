@@ -103,7 +103,7 @@ export default function (ctrl: TournamentController): VNode {
               [
                 h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
                 h('td', playerName(p.op)),
-                
+
                 ctrl.opts.showRatings ? h('td', p.op.rating) : null,
                 h('td.berserk', [
                   p.op.berserk ? h('i', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }) : null,
