@@ -174,3 +174,7 @@ final class Main(
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
+
+  def emojisJson = Anon:
+    Ok(lila.user.UserFlair.db.pickerJson)
+    // .withHeaders(CACHE_CONTROL -> "max-age=600")
