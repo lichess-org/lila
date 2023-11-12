@@ -175,17 +175,17 @@ object help:
 
   def voiceCoords(using Lang) =
     frag(
-      h2("Voice commands"),
+      h2(trans.voiceCommands.voiceCommands()),
       "This space for rent"
     )
 
   def voiceMove(using Lang) =
-    import trans.keyboardMove.*
+    import trans.voiceCommands.*
     frag(
-      h2("Voice commands"),
+      h2(voiceCommands()),
       table(
         tbody(
-          tr(th(p("Instructions"))),
+          tr(th(p(instructions()))),
           tr(
             td(cls := "tips")(
               ul(
@@ -238,36 +238,36 @@ object help:
         )
       ),
       div(cls := "commands")(
-        table(
-          tbody(
-            header(performAMove()),
-            row(voice("e,4"), "Move to e4 or select e4 piece"),
-            row(voice("N"), "Select or capture a knight"),
-            row(voice("B,h,6"), "Move bishop to h6"),
-            row(voice("Q,x,R"), "Take rook with queen"),
-            row(voice("c,8,=,N"), "Pawn to c8 promote to knight"),
-            row(voice("castle"), "castle (either side)"),
-            row(voice("O-O-O"), "Queenside castle"),
-            row(phonetic("a,7,g,1"), "Phonetic alphabet is best"),
-            row(voice("draw"), offerOrAcceptDraw()),
-            row(voice("resign"), trans.resignTheGame()),
-            row(voice("takeback"), "Request a takeback")
-          )
-        ),
-        table(
-          tbody(
-            header(otherCommands()),
-            row(voice("no"), "Cancel timer or deny a request"),
-            row(voice("yes"), "Play preferred move or confirm something"),
-            row(voice("stop"), "Sleep (if wake word enabled)"),
-            row(voice("mic-off"), "Turn off voice recognition"),
-            row(voice("next"), trans.puzzle.nextPuzzle()),
-            row(voice("upvote"), trans.puzzle.upVote()),
-            row(voice("solve"), "Show puzzle solution"),
-            row(voice("help"), trans.showHelpDialog()),
-            tr(
-              td,
-              td(button(cls := "button", cls := "all-phrases-button")("Show me everything"))
+          table(
+            tbody(
+              header(trans.keyboardMove.performAMove()),
+              row(voice("e,4"), moveToE4OrSelectE4Piece()),
+              row(voice("B"), selectOrCaptureABishop()),
+              row(voice("N,c,3"), trans.keyboardMove.moveKnightToC3()),
+              row(voice("Q,x,R"), takeRookWithQueen()),
+              row(voice("c,8,=,Q"), trans.keyboardMove.promoteC8ToQueen()),
+              row(voice("castle"), castle()),
+              row(voice("O-O-O"), trans.keyboardMove.queensideCastle()),
+              row(phonetic("a,7,g,1"), phoneticAlphabetIsBest()),
+              row(voice("draw"), trans.keyboardMove.offerOrAcceptDraw()),
+              row(voice("resign"), trans.resignTheGame()),
+              row(voice("takeback"), trans.proposeATakeback())
+            )
+          ),
+          table(
+            tbody(
+              header(trans.keyboardMove.otherCommands()),
+              row(voice("no"), cancelTimerOrDenyARequest()),
+              row(voice("yes"), playPreferredMoveOrConfirmSomething()),
+              row(voice("stop"), sleep()),
+              row(voice("mic-off"), turnOffVoiceRecognition()),
+              row(voice("next"), trans.puzzle.nextPuzzle()),
+              row(voice("upvote"), trans.puzzle.upVote()),
+              row(voice("solve"), showPuzzleSolution()),
+              row(voice("help"), trans.showHelpDialog()),
+              tr(
+                td,
+                td(button(cls := "button", cls := "all-phrases-button")(trans.showMeEverything()))
             )
           )
         )

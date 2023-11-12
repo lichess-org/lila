@@ -2576,3 +2576,17 @@ object I18nKeys:
     val `playWithDgtBoard` = I18nKey("dgt:playWithDgtBoard")
     val `configure` = I18nKey("dgt:configure")
 
+  object voiceCommands:
+    val `voiceCommands` = I18nKey("voiceCommands:voiceCommands")
+    val `instructions` = I18nKey("voiceCommands:instructions")
+    val `moveToE4OrSelectE4Piece` = I18nKey("voiceCommands:moveToE4OrSelectE4Piece")
+    val `selectOrCaptureABishop` = I18nKey("voiceCommands:selectOrCaptureABishop")
+    val `takeRookWithQueen` = I18nKey("voiceCommands:takeRookWithQueen")
+    val `castle` = I18nKey("voiceCommands:castle")
+    val `phoneticAlphabetIsBest` = I18nKey("voiceCommands:phoneticAlphabetIsBest")
+    val `cancelTimerOrDenyARequest` = I18nKey("voiceCommands:cancelTimerOrDenyARequest")
+    val `playPreferredMoveOrConfirmSomething` = I18nKey("voiceCommands:playPreferredMoveOrConfirmSomething")
+    val `sleep` = I18nKey("voiceCommands:sleep")
+    val `turnOffVoiceRecognition` = I18nKey("voiceCommands:turnOffVoiceRecognition")
+    val `showPuzzleSolution` = I18nKey("voiceCommands:showPuzzleSolution")
+

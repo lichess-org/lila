@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="voiceCommands">Voice commands</string>
+  <string name="moveToE4OrSelectE4Piece">Move to e4 or select e4 piece</string>
+  <string name="selectOrCaptureABishop">Select or capture a bishop</string>
+  <string name="takeRookWithQueen">Take rook with queen</string>
+  <string name="castle">castle (either side)</string>
+  <string name="phoneticAlphabetIsBest">Phonetic alphabet is best</string>
+  <string name="cancelTimerOrDenyARequest">Cancel timer or deny a request</string>
+  <string name="playPreferredMoveOrConfirmSomething">Play preferred move or confirm something</string>
+  <string name="sleep">Sleep (if wake word enabled)</string>
+  <string name="turnOffVoiceRecognition">Turn off voice recognition</string>
+  <string name="showPuzzleSolution">Show puzzle solution</string>
+</resources>
