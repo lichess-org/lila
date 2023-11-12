@@ -47,7 +47,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
   const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
 
   const reloadAllTheThings = () => {
-    if ('Highcharts' in window) lichess.reload();
+    if ($('canvas').length || window.Highcharts) lichess.reload();
   };
 
   return {

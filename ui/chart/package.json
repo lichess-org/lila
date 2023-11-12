@@ -5,9 +5,14 @@
   "description": "lichess.org chart",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "module": "dist/game.js",
   "types": "dist/game.d.ts",
   "dependencies": {
     "@types/highcharts": "=4.2.57",
+    "ceval": "workspace:*",
+    "chart.js": "4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*"
   },
   "scripts": {
