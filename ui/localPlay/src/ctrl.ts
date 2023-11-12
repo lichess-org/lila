@@ -1,5 +1,5 @@
 import { LocalPlayOpts } from './interfaces';
-import { type Ctrl as LibotCtrl } from 'libot';
+import { type LibotCtrl } from 'libot';
 //import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
@@ -19,6 +19,7 @@ export class Ctrl {
     readonly redraw: () => void,
   ) {
     this.loaded = lichess.loadEsm<LibotCtrl>('libot').then(libot => {
+      console.log('libot loaded');
       this.libot = libot;
       this.libot.setBot('coral');
     });

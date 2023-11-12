@@ -1,4 +1,4 @@
-import { BvbOpts, CgHost } from '../bvbInterfaces';
+import { BvbOpts, CgHost } from '../interfaces';
 import { makeFen } from 'chessops/fen';
 import { Chess, Role } from 'chessops';
 import * as Chops from 'chessops';
@@ -30,7 +30,7 @@ type GameResult = {
   moves: number | string[];
 };
 
-export class BvbStockfishWebCtrl implements CgHost {
+export class StockfishWebCtrl implements CgHost {
   cg: CgApi;
   path = '';
   chess = Chess.default();

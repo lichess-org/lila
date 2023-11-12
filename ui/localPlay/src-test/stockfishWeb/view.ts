@@ -1,11 +1,11 @@
 import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
-import { makeBvbConfig as makeCgConfig } from '../bvbChessground';
+import { makeConfig } from '../chessground';
 import * as Chops from 'chessops';
 import { onInsert, bind } from 'common/snabbdom';
 import { rangeConfig } from 'common/controls';
 import { hasFeature } from 'common/device';
-import { BvbStockfishWebCtrl } from './bvbStockfishWebCtrl';
+import { StockfishWebCtrl } from './ctrl';
 
 const searchTicks: [number, string][] = [
   [100, '100ms'],
@@ -19,7 +19,7 @@ const searchTicks: [number, string][] = [
   [10000, '10s'],
 ];
 
-export default function render(ctrl: BvbStockfishWebCtrl): VNode {
+export default function render(ctrl: StockfishWebCtrl): VNode {
   return h('div#local-play', [
     h('div.puz-board.main-board', [chessground(ctrl)]),
     h('div.puz-side', [
@@ -36,7 +36,7 @@ export default function render(ctrl: BvbStockfishWebCtrl): VNode {
     ]),
   ]);
 }
-function startingFen(ctrl: BvbStockfishWebCtrl): VNode {
+function startingFen(ctrl: StockfishWebCtrl): VNode {
   return h('input.starting-fen', {
     attrs: { placeholder: Chops.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
     hook: bind('input', e => {
@@ -60,19 +60,19 @@ function startingFen(ctrl: BvbStockfishWebCtrl): VNode {
     },
   });
 }
-function chessground(ctrl: BvbStockfishWebCtrl): VNode {
+function chessground(ctrl: StockfishWebCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => (ctrl.cg = Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),
+      insert: vnode => (ctrl.cg = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
     },
   });
 }
 
-function bot(ctrl: BvbStockfishWebCtrl, color: Color): VNode {
+function bot(ctrl: StockfishWebCtrl, color: Color): VNode {
   return h(`div.${color}.puz-bot`, [engineSelection(ctrl, color), h('span.totals', ctrl.resultsText(color))]);
 }
 
-function controls(ctrl: BvbStockfishWebCtrl) {
+function controls(ctrl: StockfishWebCtrl) {
   return h('span', [
     h('input#num-games', {
       attrs: { type: 'number', min: '1', max: '1000', value: '1' },
@@ -89,7 +89,7 @@ function controls(ctrl: BvbStockfishWebCtrl) {
   ]);
 }
 
-function results(ctrl: BvbStockfishWebCtrl) {
+function results(ctrl: StockfishWebCtrl) {
   return h('span', [
     h(
       'button#results.button-link',
@@ -107,7 +107,7 @@ function results(ctrl: BvbStockfishWebCtrl) {
     ),
   ]);
 }
-async function downloadResults(ctrl: BvbStockfishWebCtrl) {
+async function downloadResults(ctrl: StockfishWebCtrl) {
   const results = [];
   for (const key of await ctrl.results.list()) {
     const result = await ctrl.results.get(key);
@@ -124,7 +124,7 @@ async function downloadResults(ctrl: BvbStockfishWebCtrl) {
   URL.revokeObjectURL(url);
 }
 
-function clearResults(ctrl: BvbStockfishWebCtrl) {
+function clearResults(ctrl: StockfishWebCtrl) {
   if (!confirm('Clear all results?')) return;
   ctrl.results.clear();
   ctrl.totals.white = ctrl.totals.black = ctrl.totals.draw = 0;
@@ -132,7 +132,7 @@ function clearResults(ctrl: BvbStockfishWebCtrl) {
 }
 const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
-function renderSettings(ctrl: BvbStockfishWebCtrl): VNode | null {
+function renderSettings(ctrl: StockfishWebCtrl): VNode | null {
   const noarg = (text: string) => text,
     engCtrl = ctrl.engines;
 
@@ -225,7 +225,7 @@ function renderSettings(ctrl: BvbStockfishWebCtrl): VNode | null {
   ]);
 }
 
-function engineSelection(ctrl: BvbStockfishWebCtrl, color: Color): VNode {
+function engineSelection(ctrl: StockfishWebCtrl, color: Color): VNode {
   const engines = ctrl.engines.supporting('standard');
   return h(
     'select.select-engine',

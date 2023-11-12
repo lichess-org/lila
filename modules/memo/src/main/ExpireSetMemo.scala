@@ -8,6 +8,7 @@ final class ExpireSetMemo[K](ttl: FiniteDuration):
     .expireAfterWrite(ttl)
     .build[K, Boolean]()
 
+  // we compare to `true` so that `null` is turned to `false`
   def get(key: K): Boolean = cache.underlying.getIfPresent(key) == true
 
   def intersect(keys: Iterable[K]): Set[K] =

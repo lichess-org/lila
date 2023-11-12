@@ -10,7 +10,7 @@
     "chessops": "^0.12.7",
     "common": "workspace:*",
     "tree": "workspace:*",
-    "zerofish": "^0.0.14"
+    "zerofish": "link:/home/gamblej/ws/lichess/zerofish"
   },
   "scripts": {
     "pre": "node @build/index.mjs"

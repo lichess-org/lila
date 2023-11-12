@@ -4,6 +4,8 @@ import { registry } from '../ctrl';
 
 export class Agatha implements Libot {
   name = 'Agatha';
+  uid = '#agatha';
+  ordinal = 14;
   description = 'Agatha is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/witch1.webp', { noVersion: true });
   netName = 'maia-1100';

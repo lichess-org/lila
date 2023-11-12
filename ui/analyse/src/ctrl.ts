@@ -819,7 +819,6 @@ export default class AnalyseCtrl {
       );
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
-    if (this.study) this.study.serverEval.onMergeAnalysisData();
     lichess.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }

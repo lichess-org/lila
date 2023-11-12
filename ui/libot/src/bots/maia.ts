@@ -4,6 +4,8 @@ import { registry } from '../ctrl';
 
 export class Maia implements Libot {
   name = 'Maia';
+  uid = '#maia';
+  ordinal = 18;
   description = 'Maia is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/maia.webp', { noVersion: true });
   netName = 'maia-1100';

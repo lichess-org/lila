@@ -4,6 +4,8 @@ import { registry } from '../ctrl';
 
 export class Terrence implements Libot {
   name = 'Terrence';
+  uid = '#terrence';
+  ordinal = 9;
   description = 'Terrence is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/terrence.webp', { noVersion: true });
   netName = 'maia-1100';

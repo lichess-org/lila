@@ -4,6 +4,8 @@ import { registry } from '../ctrl';
 
 export class Coral implements Libot {
   name = 'Coral';
+  uid = '#coral';
+  ordinal = 2;
   description = 'Coral is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/coral.webp', { noVersion: true });
   netName = 'maia-1100';

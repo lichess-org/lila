@@ -4,37 +4,29 @@ import { SetupCtrl } from '../ctrl';
 import { fenInput } from './components/fenInput';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { colorButtons } from './components/colorButtons';
-import { type Libot } from 'libot';
-import { ratingView } from './components/ratingView';
-
-let deck: BotDeck;
+import type { Libot, Libots } from 'libot';
+import { spinnerVdom } from 'common/spinner';
+//import { ratingView } from './components/ratingView';
 
 export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
   return [
     h('h2', 'Select Opponent'),
-    //h('div#bot-view', [
-    h('div#bot-view', {
-      key: 'bot-view',
-      hook: onInsert(el => {
-        deck = new BotDeck(el as HTMLDivElement, ctrl);
-      }),
-    }),
+    h(
+      'div#bot-view',
+      {
+        key: 'bot-view',
+        hook: onInsert(el => new BotDeck(el as HTMLDivElement)),
+      },
+      [spinnerVdom()],
+    ),
     fenInput(ctrl),
     timePickerAndSliders(ctrl, true),
     colorButtons(ctrl),
-    //]),
   ];
 }
 
 class BotDeck {
-  constructor(
-    readonly view: HTMLDivElement,
-    readonly ctrl: SetupCtrl,
-  ) {
-    this.bots.forEach(bot => this.createCard(bot));
-    this.animate();
-  }
-  bots = Object.values(this.ctrl.libot.bots);
+  bots: Libots;
   cards: HTMLDivElement[] = [];
   userMidX: number;
   userMidY: number;
@@ -42,6 +34,15 @@ class BotDeck {
   startMag = 0;
   handRotation: number = 0;
   selectedCard: HTMLDivElement | null = null;
+
+  constructor(readonly view: HTMLDivElement) {
+    lichess.loadEsm<Libots>('libot', { init: { stubs: true } }).then(bots => {
+      this.view.innerHTML = '';
+      this.bots = bots;
+      for (const bot in this.bots) this.createCard(this.bots[bot]);
+      this.animate();
+    });
+  }
 
   createCard(bot: Libot) {
     const card = document.createElement('div');
@@ -144,10 +145,6 @@ class BotDeck {
 
   animate() {
     requestAnimationFrame(() => this.animate());
-    this.placeCards();
+    this.placeCards(); // TODO - only do this if the cards have moved
   }
 }
-/*function botInfo(ctrl: SetupCtrl, bot: BotInfo) {
-  ctrl;
-  return h('div', [h('img', { attrs: { src: bot.image } }), h('div', [h('h2', bot.name), h('p', bot.description)])]);
-}*/

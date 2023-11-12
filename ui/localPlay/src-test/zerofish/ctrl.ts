@@ -1,4 +1,4 @@
-import { BvbOpts, CgHost } from './bvbInterfaces';
+import { BvbOpts, CgHost } from '../interfaces';
 import { PromotionCtrl } from 'chess/promotion';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { Chess, Role } from 'chessops';
@@ -29,7 +29,7 @@ function makeZerofish() {
   });
 }
 
-export class BvbCtrl implements CgHost {
+export class ZerofishCtrl implements CgHost {
   cg: CgApi;
   path = '';
   chess = Chess.default();

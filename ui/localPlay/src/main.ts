@@ -1,8 +1,8 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import { RoundOpts, RoundData } from 'round';
-import { Ctrl } from './ctrl';
+import { Ctrl as LocalPlayCtrl } from './ctrl';
 import view from './view';
-import initBvb from './botVsBot/bvbMain';
+import initBvb from '../src-test/main';
 import { LocalPlayOpts } from './interfaces';
 import { fakeData as data } from './data';
 
@@ -11,10 +11,10 @@ const patch = init([classModule, attributesModule]);
 export async function initModule(opts: LocalPlayOpts) {
   if (opts.mode === 'botVsBot') return initBvb(opts);
 
-  const ctrl = new Ctrl(opts, () => {});
+  const ctrl = new LocalPlayCtrl(opts, () => {});
   ctrl.tellRound = await makeRound(ctrl);
   await ctrl.loaded;
-  console.log(ctrl.libot, ctrl.libot.bots);
+  console.log('done', ctrl.libot, ctrl.libot.bots);
   const blueprint = view(ctrl);
   const element = document.querySelector('#bot-view') as HTMLElement;
   element.innerHTML = '';
@@ -26,7 +26,7 @@ export async function initModule(opts: LocalPlayOpts) {
   redraw();
 }
 
-export async function makeRound(ctrl: Ctrl): Promise<SocketSend> {
+export async function makeRound(ctrl: LocalPlayCtrl): Promise<SocketSend> {
   const moves: string[] = [];
   console.log(ctrl.dests);
   for (const from in ctrl.dests) {

@@ -1,10 +1,10 @@
 import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
-import { makeBvbConfig as makeCgConfig } from './bvbChessground';
+import { makeConfig } from '../chessground';
 import { onInsert } from 'common/snabbdom';
-import { BvbCtrl } from './bvbCtrl';
+import { ZerofishCtrl } from './ctrl';
 
-export default function render(ctrl: BvbCtrl): VNode {
+export default function render(ctrl: ZerofishCtrl): VNode {
   return h('div#local-play', [
     h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
     h('div.puz-side', [
@@ -15,22 +15,22 @@ export default function render(ctrl: BvbCtrl): VNode {
   ]);
 }
 
-function chessground(ctrl: BvbCtrl): VNode {
+function chessground(ctrl: ZerofishCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => (ctrl.cg = Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),
+      insert: vnode => (ctrl.cg = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
     },
   });
 }
 
-function bot(ctrl: BvbCtrl, color: Color): VNode {
+function bot(ctrl: ZerofishCtrl, color: Color): VNode {
   return h(`div#${color}.puz-bot`, { hook: onInsert(el => ctrl.dropHandler(color, el)) }, [
     h('p', 'Drop weights here (otherwise stockfish)'),
     h(`p#${color}-totals.totals`),
   ]);
 }
 
-function controls(ctrl: BvbCtrl) {
+function controls(ctrl: ZerofishCtrl) {
   return h('span', [
     h(
       'button#go.button.disabled',

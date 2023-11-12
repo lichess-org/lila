@@ -2,10 +2,12 @@ import { type Zerofish } from 'zerofish';
 import { Libot } from '../interfaces';
 import { registry } from '../ctrl';
 
-export class Sabine implements Libot {
-  name = 'Sabine';
-  description = 'Sabine is a bot that plays random moves.';
-  imageUrl = lichess.assetUrl('lifat/bots/images/witch2.webp', { noVersion: true });
+export class Spectre implements Libot {
+  name = 'Spectre';
+  uid = '#spectre';
+  ordinal = 21;
+  description = 'Spectre is a bot that plays random moves.';
+  imageUrl = lichess.assetUrl('lifat/bots/images/soldier-torso.webp', { noVersion: true });
   netName = 'maia-1100';
   ratings = new Map();
   zf: Zerofish;
@@ -20,4 +22,4 @@ export class Sabine implements Libot {
   }
 }
 
-registry.sabine = Sabine;
+registry.spectre = Spectre;

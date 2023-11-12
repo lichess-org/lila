@@ -59,7 +59,10 @@ export default class LobbyController implements ParentCtrl {
     this.sort = this.stores.sort.get();
     this.trans = opts.trans;
 
-    this.locationHashSetupModal();
+    const { gameType, forceOptions, friendUser } = this.parseUrlParams();
+    if (gameType) this.showSetupModal(gameType, forceOptions, friendUser);
+    history.replaceState(null, '', '/');
+
     this.poolInStorage = lichess.storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
       // when another tab joins a pool
@@ -278,13 +281,15 @@ export default class LobbyController implements ParentCtrl {
     if (!this.setupCtrl) this.setupCtrl = await lichess.loadEsm<SetupCtrl>('gameSetup', { init: this });
     this.leavePool();
     this.setupCtrl.openModal(gameType, opts, friendUser);
+    this.redraw();
   };
 
-  private locationHashSetupModal = () => {
+  private parseUrlParams = () => {
     const locationHash = location.hash.replace('#', '');
-    if (!['ai', 'friend', 'hook', 'local'].includes(locationHash)) return;
+    if (!['ai', 'friend', 'hook', 'local'].includes(locationHash)) return {};
 
-    let friendUser;
+    const gameType = locationHash as GameType;
+    let friendUser: string | undefined;
     const forceOptions: SetupConstraints = {};
     const urlParams = new URLSearchParams(location.search);
     if (locationHash === 'hook') {
@@ -301,8 +306,7 @@ export default class LobbyController implements ParentCtrl {
     } else {
       friendUser = urlParams.get('user')!;
     }
-    this.showSetupModal(locationHash as GameType, forceOptions, friendUser);
-    history.replaceState(null, '', '/');
+    return { gameType, forceOptions, friendUser };
   };
 
   // after click on round "new opponent" button

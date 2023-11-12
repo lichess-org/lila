@@ -4,6 +4,8 @@ import { registry } from '../ctrl';
 
 export class Listress implements Libot {
   name = 'Listress';
+  uid = '#listress';
+  ordinal = 22;
   description = 'Listress is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/listress.webp', { noVersion: true });
   netName = 'maia-1100';

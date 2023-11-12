@@ -67,7 +67,9 @@ export const mic = new (class implements Voice.Microphone {
   }
 
   async getMics() {
-    return navigator.mediaDevices.enumerateDevices().then(d => d.filter(d => d.kind == 'audioinput'));
+    return navigator.mediaDevices
+      .enumerateDevices()
+      .then(d => d.filter(d => d.kind == 'audioinput' && d.label));
   }
 
   get micId() {
@@ -139,7 +141,8 @@ export const mic = new (class implements Voice.Microphone {
       this.busy = false;
       this.broadcast(listen ? 'Listening...' : '', 'start');
     } catch (e: any) {
-      this.stop([e.toString(), 'error']);
+      if (e instanceof DOMException && e.name === 'NotAllowedError') this.stop(['No permission', 'error']);
+      else this.stop([e.toString(), 'error']);
       if (e !== '') throw e;
     }
   }

@@ -4,6 +4,8 @@ import { registry } from '../ctrl';
 
 export class Marco implements Libot {
   name = 'Marco';
+  uid = '#marco';
+  ordinal = 13;
   description = 'Marco is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/marco.webp', { noVersion: true });
   netName = 'maia-1100';

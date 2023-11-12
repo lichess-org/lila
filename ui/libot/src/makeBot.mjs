@@ -5,145 +5,132 @@ import { fileURLToPath } from 'node:url';
 const srcDir = path.join(path.dirname(fileURLToPath(import.meta.url)), 'bots');
 
 const localBots = {
-  coral: {
-    name: 'Coral',
-    description: 'Coral is a simple bot that plays random moves.',
-    image: 'coral.webp',
-  },
   babyHoward: {
     name: 'Baby Howard',
     description: 'Baby Howard is a bot that plays random moves.',
     image: 'baby-howard.webp',
-  },
-  elsieZero: {
-    name: 'Elsie Zero',
-    description: 'Elsie Zero is a bot that plays random moves.',
-    image: 'baby-robot.webp',
   },
   beatrice: {
     name: 'Beatrice',
     description: 'Beatrice is a bot that plays random moves.',
     image: 'beatrice.webp',
   },
-  benny: {
-    name: 'Benny',
-    description: '',
-    image: 'benny.webp',
-  },
-  danny: {
-    name: 'Danny',
-    description: '',
-    image: 'danny.webp',
-  },
-  dansby: {
-    name: 'Dansby',
-    description: '',
-    image: 'dansby.webp',
-  },
-  gary: {
-    name: 'Gary',
-    description: '',
-    image: 'gary.webp',
-  },
-  greta: {
-    name: 'Greta',
-    description: '',
-    image: 'greta.webp',
-  },
-  grunt: {
-    name: 'Grunt',
-    description: '',
-    image: 'grunt.webp',
-  },
-  helena: {
-    name: 'Helena',
-    description: '',
-    image: 'helena.webp',
-  },
-  henry: {
-    name: 'Henry',
-    description: '',
-    image: 'henry.webp',
-  },
-  larry: {
-    name: 'Larry',
-    description: '',
-    image: 'larry.webp',
-  },
-  listress: {
-    name: 'Listress',
-    description: '',
-    image: 'listress.webp',
+  coral: {
+    name: 'Coral',
+    description: 'Coral is a simple bot that plays random moves.',
+    image: 'coral.webp',
   },
   louise: {
     name: 'Louise',
     description: '',
     image: 'louise.webp',
   },
-  maia: {
-    name: 'Maia',
+  gary: {
+    name: 'Gary',
     description: '',
-    image: 'maia.webp',
+    image: 'gary.webp',
   },
-  marco: {
-    name: 'Marco',
-    description: '',
-    image: 'marco.webp',
+  elsieZero: {
+    name: 'Elsie Zero',
+    description: 'Elsie Zero is a bot that plays random moves.',
+    image: 'baby-robot.webp',
   },
-  mitsoko: {
-    name: 'Mitsoko',
+  henry: {
+    name: 'Henry',
     description: '',
-    image: 'mitsoko.webp',
-  },
-  nacho: {
-    name: 'Nacho',
-    description: '',
-    image: 'nacho.webp',
+    image: 'henry.webp',
   },
   owen: {
     name: 'Owen',
     description: '',
     image: 'owen.webp',
   },
-  shark: {
-    name: 'Shark',
+  nacho: {
+    name: 'Nacho',
     description: '',
-    image: 'shark.webp',
-  },
-  torso: {
-    name: 'Torso',
-    description: '',
-    image: 'soldier-torso.webp',
-  },
-  ghost: {
-    name: 'Ghost',
-    description: '',
-    image: 'specops-lady.webp',
+    image: 'nacho.webp',
   },
   terrence: {
     name: 'Terrence',
     description: '',
     image: 'terrence.webp',
   },
+  shark: {
+    name: 'Shark',
+    description: '',
+    image: 'shark.webp',
+  },
+  dansby: {
+    name: 'Dansby',
+    description: '',
+    image: 'dansby.webp',
+  },
+  larry: {
+    name: 'Larry',
+    description: '',
+    image: 'larry.webp',
+  },
+  marco: {
+    name: 'Marco',
+    description: '',
+    image: 'marco.webp',
+  },
   agatha: {
     name: 'Agatha',
     description: '',
     image: 'witch1.webp',
   },
-  sabine: {
-    name: 'Sabine',
+  greta: {
+    name: 'Greta',
     description: '',
-    image: 'witch2.webp',
+    image: 'greta.webp',
+  },
+  helena: {
+    name: 'Helena',
+    description: '',
+    image: 'helena.webp',
+  },
+  grunt: {
+    name: 'Grunt',
+    description: '',
+    image: 'grunt.webp',
+  },
+  maia: {
+    name: 'Maia',
+    description: '',
+    image: 'maia.webp',
+  },
+  mitsoko: {
+    name: 'Mitsoko',
+    description: '',
+    image: 'mitsoko.webp',
+  },
+  ghost: {
+    name: 'Ghost',
+    description: '',
+    image: 'specops-lady.webp',
+  },
+  spectre: {
+    name: 'Spectre',
+    description: '',
+    image: 'soldier-torso.webp',
+  },
+  listress: {
+    name: 'Listress',
+    description: '',
+    image: 'listress.webp',
   },
 };
 
+let ordinal = 0;
+
 for (const k in localBots) {
   const bot = localBots[k];
-  const ext = makeBot(k, bot);
+  const ext = makeBot(k, bot, ordinal++);
   fs.writeFileSync(path.join(srcDir, `${k}.ts`), ext);
 }
 
-function makeBot(k, bot) {
+function makeBot(k, bot, ordinal) {
   const clz = bot.name.replace(/ /g, '');
   return `import { type Zerofish } from 'zerofish';
 import { Libot } from '../interfaces';
@@ -151,6 +138,8 @@ import { registry } from '../ctrl';
 
 export class ${clz} implements Libot {
   name = '${bot.name}';
+  uid = '#${k}';
+  ordinal = ${ordinal};
   description = '${bot.name} is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/${bot.image}', { noVersion: true });
   netName = 'maia-1100';
