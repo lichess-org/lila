@@ -68,14 +68,11 @@ export default async function (
       let cp: number = 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
-      if (d.game.variant.key === 'antichess') cp = -cp;
+      if (d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = isWhite ? '.' : '...';
-      const winchance = winningChances.povChances('white', {
-        cp: cp,
-        mate: !node.san?.includes('#') ? node.eval?.mate : isWhite ? 1 : -1,
-      });
+      const winchance = winningChances.povChances('white', { cp: cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push({ x: node.ply, y: winchance });
 
