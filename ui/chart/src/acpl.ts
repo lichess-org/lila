@@ -153,7 +153,7 @@ export default async function (
       responsive: true,
       plugins: {
         tooltip: {
-          borderColor: 'rgba(255,255,255,0.4)',
+          borderColor: fontColor,
           borderWidth: 1,
           backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
