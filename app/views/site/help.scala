@@ -33,7 +33,7 @@ object help:
   private def phonetics = "abcdefgh"
     .map(_.toString)
     .map: letter =>
-      frag(s"${letter.capitalize} ", is(), phonetic(letter), ". ")
+      frag(s"${letter.capitalize} ", trans.is(), phonetic(letter), ". ")
 
   def round(using Lang) =
     frag(
