@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Dviejų lygių tapatumo nustatymas</string>
   <string name="twoFactorHelp">Dviejų lygių tapatumo nustatymas jūsų paskyrai suteikia papildomą saugumo sluoksnį.</string>
-  <string name="twoFactorApp">Dviejų lygių tapatumo nustatymui reikalinga programa, pvz., „Google Authenticator“, skirta „%1$s“ arba „%2$s“.</string>
+  <string name="twoFactorApp">Dviejų lygių tapatumo nustatymui reikalinga programa, pvz., „Google Authenticator“, skirta „%3$s“ arba „%2$s“.</string>
   <string name="scanTheCode">Nuskaitykite QR kodą su programa.</string>
   <string name="enterPassword">Įveskite slaptažodį ir programoje sugeneruota kodą, norėdami užbaigti sąranką. Tapatumo nustatymo kodas bus reikalingas kiekvieno prisijungimo metu.</string>
   <string name="ifYouCannotScanEnterX">Jei nepavyksta nuskenuoti kodo, įveskite paslaptį %s į savo programėlę.</string>
