@@ -36,6 +36,23 @@ export class Engines {
 
     return new Map<string, WithMake>(
       [
+        /*{
+          info: {
+            id: '__sf14nnue',
+            name: 'Stockfish 14 NNUE',
+            short: 'SF 14',
+            version: 'b6939d',
+            tech: 'NNUE',
+            requires: 'simd',
+            minMem: 2048,
+            assets: {
+              root: 'npm/stockfish-nnue.wasm',
+              js: 'stockfish.js',
+              wasm: 'stockfish.wasm',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
+        },*/
         {
           info: {
             id: '__sf16nnue7',
@@ -65,23 +82,6 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
-        },
-        {
-          info: {
-            id: '__sf14nnue',
-            name: 'Stockfish 14 NNUE',
-            short: 'SF 14',
-            version: 'b6939d',
-            tech: 'NNUE',
-            requires: 'simd',
-            minMem: 2048,
-            assets: {
-              root: 'npm/stockfish-nnue.wasm',
-              js: 'stockfish.js',
-              wasm: 'stockfish.wasm',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
         },
         {
           info: {
