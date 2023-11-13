@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Totrinsbekræftelse</string>
   <string name="twoFactorHelp">Totrinsbekræftelse tilføjer et ekstra sikkerhedslag til din konto.</string>
-  <string name="twoFactorApp">Skaf en app til totrinsbekræftelse, for eksempel Google Authenticator til %1$s eller %2$s.</string>
+  <string name="twoFactorApp">Skaf en app til totrinsbekræftelse, for eksempel Google Authenticator til %3$s eller %2$s.</string>
   <string name="scanTheCode">Skan QR-koden med appen.</string>
   <string name="enterPassword">Indtast din adgangskode og bekræftelseskoden genereret af appen for at færdiggøre opsætningen. Du vil få brug for en bekræftelseskode, hvor gang du logger ind.</string>
   <string name="ifYouCannotScanEnterX">Hvis du ikke kan scanne koden, skal du indtaste den hemmelige %s i din app.</string>
