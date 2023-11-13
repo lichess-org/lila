@@ -124,7 +124,7 @@ object userAnalysisI18n:
     trans.computerAnalysisDisabled
   )
 
-  private val cevalTranslations = cevalWidget ++ Vector(
+  val cevalTranslations = cevalWidget ++ Vector(
     // ceval menu
     trans.computerAnalysis,
     trans.enable,

@@ -158,11 +158,26 @@ importers:
         specifier: workspace:*
         version: link:../common
       idb-keyval:
-        specifier: ^6.2.0
-        version: 6.2.0
+        specifier: ^6.2.1
+        version: 6.2.1
+      lila-stockfish-web:
+        specifier: ^0.0.2
+        version: 0.0.2
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
+      stockfish-mv.wasm:
+        specifier: ^0.6.1
+        version: 0.6.1
+      stockfish-nnue.wasm:
+        specifier: 1.0.0-1946a675.smolnet
+        version: 1.0.0-1946a675.smolnet
+      stockfish.js:
+        specifier: ^10.0.2
+        version: 10.0.2
+      stockfish.wasm:
+        specifier: ^0.10.0
+        version: 0.10.0
 
   ui/challenge:
     dependencies:
@@ -628,18 +643,6 @@ importers:
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
-      stockfish-mv.wasm:
-        specifier: ^0.6.1
-        version: 0.6.1
-      stockfish-nnue.wasm:
-        specifier: 1.0.0-1946a675.smolnet
-        version: 1.0.0-1946a675.smolnet
-      stockfish.js:
-        specifier: ^10.0.2
-        version: 10.0.2
-      stockfish.wasm:
-        specifier: ^0.10.0
-        version: 0.10.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -3298,10 +3301,8 @@ packages:
       safer-buffer: 2.1.2
     dev: false
 
-  /idb-keyval@6.2.0:
-    resolution: {integrity: sha512-uw+MIyQn2jl3+hroD7hF8J7PUviBU7BPKWw4f/ISf32D4LoGu98yHjrzWWJDASu9QNrX10tCJqk9YY0ClWm8Ng==}
-    dependencies:
-      safari-14-idb-fix: 3.0.0
+  /idb-keyval@6.2.1:
+    resolution: {integrity: sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==}
     dev: false
 
   /ignore@5.2.4:
@@ -4143,6 +4144,10 @@ packages:
       snabbdom: 3.5.1
     dev: false
 
+  /lila-stockfish-web@0.0.2:
+    resolution: {integrity: sha512-P6EKiRHonxwRB7uPKnk4D3pD6/XwL/3H3bxVzYh1QvTa9DVDlXK/2zdVjLjvQ42cW2OaQc8Tk8PI6yf4mxs+Zw==}
+    dev: false
+
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -4720,10 +4725,6 @@ packages:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
       queue-microtask: 1.2.3
-    dev: false
-
-  /safari-14-idb-fix@3.0.0:
-    resolution: {integrity: sha512-eBNFLob4PMq8JA1dGyFn6G97q3/WzNtFK4RnzT1fnLq+9RyrGknzYiM/9B12MnKAxuj1IXr7UKYtTNtjyKMBog==}
     dev: false
 
   /safer-buffer@2.1.2:

@@ -28,6 +28,15 @@ export const prop = <A>(initialValue: A): Prop<A> => {
   };
 };
 
+export const readonlyProp = <A>(initialValue: A): Prop<A> => {
+  const value = initialValue;
+  return () => value;
+};
+
+// Checking that the prop doesn't take an argument
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
+export const isReadonlyProp = <A>(prop: Prop<A>) => prop.length === 0;
+
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;
   return (v?: A) => {

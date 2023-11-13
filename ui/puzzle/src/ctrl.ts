@@ -396,8 +396,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval) ceval.destroy();
     ceval = new CevalCtrl({
       redraw,
-      storageKeyPrefix: 'puzzle',
-      multiPvDefault: 3,
       variant: {
         short: 'Std',
         name: 'Standard',
@@ -409,10 +407,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
             const threat = ev as Tree.LocalEval;
-            if (!node.threat || node.threat.depth <= threat.depth || node.threat.maxDepth < threat.maxDepth)
-              node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth)
-            node.ceval = ev;
+            if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -459,6 +455,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     startCeval();
     if (!ceval.enabled()) threatMode(false);
     vm.autoScrollRequested = true;
+    redraw();
+  }
+
+  function restartCeval(): void {
+    ceval.stop();
+    startCeval();
     redraw();
   }
 
@@ -679,5 +681,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flipped: () => flipped,
     showRatings: opts.showRatings,
     menu,
+    restartCeval: restartCeval,
+    clearCeval: restartCeval,
   };
 }
