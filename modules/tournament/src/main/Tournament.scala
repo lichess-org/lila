@@ -19,7 +19,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: Option[Fen.Opening],
+    position: Option[Fen.Standard],
     mode: Mode,
     password: Option[String] = None,
     conditions: TournamentCondition.All,
