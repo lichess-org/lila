@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Autentikasi dua-langkah</string>
   <string name="twoFactorHelp">Autentikasi dua langkah menambahkan lapisan keamanan lain ke akun Anda.</string>
-  <string name="twoFactorApp">Dapatkan aplikasi untuk otentikasi dua-langkah, misalnya Otentikator Google untuk %1$s atau %2$s.</string>
+  <string name="twoFactorApp">Dapatkan aplikasi untuk otentikasi dua-langkah, misalnya Otentikator Google untuk %3$s atau %2$s.</string>
   <string name="scanTheCode">Pindai kode QR dengan aplikasi.</string>
   <string name="enterPassword">Masukkan kata sandi Anda dan kode otentikasi yang dihasilkan oleh aplikasi untuk menyelesaikan pengaturan. Anda akan memerlukan kode otentikasi setiap kali Anda masuk.</string>
   <string name="ifYouCannotScanEnterX">Jika anda tidak bisa scan kode, masukkan %s rahasia pada app.</string>
