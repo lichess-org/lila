@@ -14,8 +14,6 @@ import {
   MovePoint,
   animation,
   blackFill,
-  chartYMax,
-  chartYMin,
   fontColor,
   fontFamily,
   maybeChart,
@@ -24,6 +22,7 @@ import {
   selectPly,
   tooltipBgColor,
   whiteFill,
+  axisOpts,
 } from './common';
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
@@ -176,21 +175,12 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       maintainAspectRatio: false,
       responsive: true,
       animations: animation(800 / labels.length - 1),
-      scales: {
-        x: {
-          min: firstPly,
-          type: 'linear',
-          // Omit game-ending action to sync acpl and movetime charts
-          max: labels[labels.length - 1].includes('-') ? labels.length - 1 : labels.length,
-          display: false,
-        },
-        y: {
-          type: 'linear',
-          display: false,
-          min: chartYMin,
-          max: chartYMax,
-        },
-      },
+      scales: axisOpts(
+        firstPly + 1,
+        // Make totalseries slightly smaller than moveseries to fill more of the canvas
+        // Omit game-ending action to sync acpl and movetime charts
+        labels.length - (showTotal ? 2 : labels[labels.length - 1].includes('-') ? 1 : 0),
+      ),
       plugins: {
         tooltip: {
           borderColor: fontColor,

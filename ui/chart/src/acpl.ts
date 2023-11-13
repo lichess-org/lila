@@ -14,8 +14,6 @@ import {
 import {
   animation,
   blackFill,
-  chartYMax,
-  chartYMin,
   fontColor,
   fontFamily,
   maybeChart,
@@ -24,6 +22,7 @@ import {
   selectPly,
   tooltipBgColor,
   whiteFill,
+  axisOpts,
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
@@ -131,20 +130,7 @@ export default async function (
         axis: 'x',
         intersect: false,
       },
-      scales: {
-        x: {
-          min: firstPly,
-          max: mainline.length + firstPly,
-          display: false,
-          type: 'linear',
-        },
-        y: {
-          // Set max and min to center the graph at y=0.
-          min: chartYMin,
-          max: chartYMax,
-          display: false,
-        },
-      },
+      scales: axisOpts(firstPly + 1, mainline.length + firstPly),
       animations: animation(500 / (mainline.length - 1)),
       maintainAspectRatio: false,
       responsive: true,
