@@ -1,4 +1,4 @@
-import { winningChances, Eval } from 'ceval';
+import { winningChances, Eval, CevalCtrl } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
@@ -29,6 +29,7 @@ interface Hinting {
 
 export interface PracticeCtrl {
   onCeval(): void;
+  configureCeval(ceval: CevalCtrl): void;
   onJump(): void;
   isMyTurn(): boolean;
   comment: Prop<Comment | null>;
@@ -197,6 +198,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
 
   return {
     onCeval: checkCeval,
+    configureCeval(ceval: CevalCtrl) {
+      ceval.setSearch({ searchMs: 2000, multiPv: 1 });
+    },
     onJump() {
       played(false);
       hinting(null);

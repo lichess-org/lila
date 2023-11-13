@@ -665,7 +665,7 @@ export default class AnalyseCtrl {
         this.redraw();
       },
     });
-    if (this.practice) this.ceval.setSearch({ searchMs: 2000, multiPv: 1 });
+    this.practice?.configureCeval(this.ceval);
     this.ceval.showEnginePrefs(showingPrefs);
   }
 
@@ -934,7 +934,7 @@ export default class AnalyseCtrl {
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
       this.setAutoShapes();
-      this.ceval.setSearch({ searchMs: 2000, multiPv: 1 });
+      this.practice.configureCeval(this.ceval);
     }
   };
 
