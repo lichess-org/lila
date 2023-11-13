@@ -62,6 +62,7 @@
     }
 
     td.berserk {
+      width: 15%;
       & i {
         &::before {
           color: $c-accent;
