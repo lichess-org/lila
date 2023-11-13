@@ -5,7 +5,7 @@ import { registry } from '../ctrl';
 export class ElsieZero implements Libot {
   name = 'Elsie Zero';
   uid = '#elsieZero';
-  ordinal = 5;
+  ordinal = 6;
   description = 'Elsie Zero is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/baby-robot.webp', { noVersion: true });
   netName = 'maia-1100';

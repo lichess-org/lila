@@ -39,7 +39,7 @@ class BotDeck {
     lichess.loadEsm<Libots>('libot', { init: { stubs: true } }).then(bots => {
       this.view.innerHTML = '';
       this.bots = bots;
-      for (const bot in this.bots) this.createCard(this.bots[bot]);
+      for (const bot of this.bots.sort()) this.createCard(bot);
       this.animate();
     });
   }

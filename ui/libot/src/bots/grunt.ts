@@ -5,7 +5,7 @@ import { registry } from '../ctrl';
 export class Grunt implements Libot {
   name = 'Grunt';
   uid = '#grunt';
-  ordinal = 17;
+  ordinal = 16;
   description = 'Grunt is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/grunt.webp', { noVersion: true });
   netName = 'maia-1100';

@@ -15,7 +15,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[Fen.Opening],
+    position: Option[Fen.Standard],
     at: LocalDateTime,
     conditions: TournamentCondition.All = TournamentCondition.All.empty
 ):

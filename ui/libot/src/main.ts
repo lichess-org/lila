@@ -7,7 +7,7 @@ export * from './index.gen';
 
 export async function initModule(stubs = false) {
   const libots: Libots = {
-    sort: () => Object.values(libots).sort((a, b) => (a.ordinal < b.ordinal ? -1 : 1)),
+    sort: () => Object.values(libots.bots).sort((a, b) => (a.ordinal < b.ordinal ? -1 : 1)),
     bots: {},
   };
   const zf = !stubs ? await makeZerofish({ root: lichess.assetUrl('npm') }) : undefined;

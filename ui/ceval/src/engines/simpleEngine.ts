@@ -1,6 +1,6 @@
 import { Protocol } from '../protocol';
 import { LegacyBot } from './legacyBot';
-import { Redraw, Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
+import { Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
 
 export class SimpleEngine extends LegacyBot implements CevalEngine {
   private failed = false;
@@ -10,11 +10,15 @@ export class SimpleEngine extends LegacyBot implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    private redraw: Redraw,
+    readonly progress?: (download?: { bytes: number; total: number }) => void,
   ) {
     super(info);
     if (!info.isBot) this.protocol = new Protocol();
     this.url = `${info.assets.root}/${info.assets.js}`;
+  }
+
+  getInfo() {
+    return this.info;
   }
 
   getState() {
@@ -40,7 +44,7 @@ export class SimpleEngine extends LegacyBot implements CevalEngine {
         err => {
           console.error(err);
           this.failed = true;
-          this.redraw();
+          this.progress?.();
         },
         true,
       );
@@ -58,5 +62,6 @@ export class SimpleEngine extends LegacyBot implements CevalEngine {
 
   destroy() {
     this.worker?.terminate();
+    this.worker = undefined;
   }
 }

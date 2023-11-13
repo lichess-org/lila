@@ -5,7 +5,7 @@ import { registry } from '../ctrl';
 export class Nacho implements Libot {
   name = 'Nacho';
   uid = '#nacho';
-  ordinal = 8;
+  ordinal = 4;
   description = 'Nacho is a bot that plays random moves.';
   imageUrl = lichess.assetUrl('lifat/bots/images/nacho.webp', { noVersion: true });
   netName = 'maia-1100';

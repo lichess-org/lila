@@ -11,7 +11,7 @@ export default function (ctrl: Ctrl): VNode {
       'div#bot-content',
       h(
         'div#bot-list',
-        Object.values(ctrl.libot.bots).map(bot => botView(ctrl, bot)),
+        ctrl.libot.sort().map(bot => botView(ctrl, bot)),
       ),
     ),
   ]);

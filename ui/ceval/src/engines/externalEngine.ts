@@ -1,5 +1,5 @@
-import { Redraw, Work, ExternalEngineInfo, CevalEngine, CevalState } from '../types';
 import { LegacyBot } from './legacyBot';
+import { Work, ExternalEngineInfo, CevalEngine, CevalState } from '../types';
 import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
 
@@ -22,13 +22,17 @@ export class ExternalEngine extends LegacyBot implements CevalEngine {
 
   constructor(
     private opts: ExternalEngineInfo,
-    private redraw: Redraw,
+    private progress?: (download?: { bytes: number; total: number }) => void,
   ) {
     super(opts);
   }
 
   getState() {
     return this.state;
+  }
+
+  getInfo() {
+    return this.opts;
   }
 
   start(work: Work) {
@@ -88,7 +92,7 @@ export class ExternalEngine extends LegacyBot implements CevalEngine {
       }
     }
 
-    this.redraw();
+    this.progress?.();
   }
 
   stop() {

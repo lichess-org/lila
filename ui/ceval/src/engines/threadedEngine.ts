@@ -1,5 +1,5 @@
 import { Protocol } from '../protocol';
-import { Redraw, Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
+import { Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
 import { sharedWasmMemory } from '../util';
 import { Cache } from '../cache';
 import { LegacyBot } from './legacyBot';
@@ -32,10 +32,10 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   isLoaded = new Promise<void>(resolve => {
     this.loaded = resolve;
   });
-  moduleProxy: { postMessage: (msg: string) => void; listen: (cb: (msg: string) => void) => void };
+  moduleProxy?: { postMessage: (msg: string) => void; listen: (cb: (msg: string) => void) => void };
+
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly redraw: Redraw,
     readonly progress?: (download?: { bytes: number; total: number }) => void,
     readonly variantMap?: (v: string) => string,
   ) {
@@ -44,7 +44,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
     this.boot().catch(err => {
       console.error(err);
       this.failed = true;
-      this.redraw();
+      this.progress?.();
     });
   }
 
@@ -53,6 +53,10 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   }
   load(): Promise<void> {
     return this.isLoaded;
+  }
+
+  getInfo() {
+    return this.info;
   }
 
   getState() {
@@ -67,7 +71,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
       : CevalState.Idle;
   }
 
-  private async boot(): Promise<Stockfish> {
+  private async boot() {
     const [root, js, wasm, version] = [
         this.info.assets.root,
         this.info.assets.js,
@@ -134,6 +138,14 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   }
 
   async start(work: Work) {
+    if (!this.protocol) {
+      this.protocol = new Protocol(this.variantMap);
+      this.boot().catch(err => {
+        console.error(err);
+        this.failed = true;
+        this.progress?.();
+      });
+    }
     this.protocol.compute(work);
   }
 
@@ -142,9 +154,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   }
 
   destroy() {
-    // Terminated instances to not get freed reliably
-    // (https://github.com/lichess-org/lila/issues/7334). So instead of
-    // destroying, just stop instances and keep them around for reuse.
-    this.stop();
+    this.module?.postMessage('quit');
+    this.moduleProxy = undefined;
   }
 }

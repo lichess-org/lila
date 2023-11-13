@@ -10,45 +10,45 @@ const localBots = {
     description: 'Baby Howard is a bot that plays random moves.',
     image: 'baby-howard.webp',
   },
-  beatrice: {
-    name: 'Beatrice',
-    description: 'Beatrice is a bot that plays random moves.',
-    image: 'beatrice.webp',
-  },
   coral: {
     name: 'Coral',
     description: 'Coral is a simple bot that plays random moves.',
     image: 'coral.webp',
-  },
-  louise: {
-    name: 'Louise',
-    description: '',
-    image: 'louise.webp',
-  },
-  gary: {
-    name: 'Gary',
-    description: '',
-    image: 'gary.webp',
-  },
-  elsieZero: {
-    name: 'Elsie Zero',
-    description: 'Elsie Zero is a bot that plays random moves.',
-    image: 'baby-robot.webp',
-  },
-  henry: {
-    name: 'Henry',
-    description: '',
-    image: 'henry.webp',
   },
   owen: {
     name: 'Owen',
     description: '',
     image: 'owen.webp',
   },
+  beatrice: {
+    name: 'Beatrice',
+    description: 'Beatrice is a bot that plays random moves.',
+    image: 'beatrice.webp',
+  },
   nacho: {
     name: 'Nacho',
     description: '',
     image: 'nacho.webp',
+  },
+  louise: {
+    name: 'Louise',
+    description: '',
+    image: 'louise.webp',
+  },
+  elsieZero: {
+    name: 'Elsie Zero',
+    description: 'Elsie Zero is a bot that plays random moves.',
+    image: 'baby-robot.webp',
+  },
+  gary: {
+    name: 'Gary',
+    description: '',
+    image: 'gary.webp',
+  },
+  henry: {
+    name: 'Henry',
+    description: '',
+    image: 'henry.webp',
   },
   terrence: {
     name: 'Terrence',
@@ -85,35 +85,35 @@ const localBots = {
     description: '',
     image: 'greta.webp',
   },
-  helena: {
-    name: 'Helena',
-    description: '',
-    image: 'helena.webp',
-  },
   grunt: {
     name: 'Grunt',
     description: '',
     image: 'grunt.webp',
   },
-  maia: {
-    name: 'Maia',
+  helena: {
+    name: 'Helena',
     description: '',
-    image: 'maia.webp',
+    image: 'helena.webp',
   },
   mitsoko: {
     name: 'Mitsoko',
     description: '',
     image: 'mitsoko.webp',
   },
+  spectre: {
+    name: 'Spectre',
+    description: '',
+    image: 'soldier-torso.webp',
+  },
   ghost: {
     name: 'Ghost',
     description: '',
     image: 'specops-lady.webp',
   },
-  spectre: {
-    name: 'Spectre',
+  maia: {
+    name: 'Maia',
     description: '',
-    image: 'soldier-torso.webp',
+    image: 'maia.webp',
   },
   listress: {
     name: 'Listress',
