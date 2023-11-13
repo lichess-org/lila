@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="voiceCommands">Voice commands</string>
-  <string name="instructions">Instructions</string>
   <string name="watchTheVideoTutorial">Watch the video tutorial</string>
   <string name="instructions1">Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings.</string>
   <string name="instructions2">We show arrows for multiple moves when we are not sure. Speak the color or number of a move arrow to select it.</string>

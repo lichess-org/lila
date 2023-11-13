@@ -2581,7 +2581,6 @@ object I18nKeys:
 
   object voiceCommands:
     val `voiceCommands` = I18nKey("voiceCommands:voiceCommands")
-    val `instructions` = I18nKey("voiceCommands:instructions")
     val `watchTheVideoTutorial` = I18nKey("voiceCommands:watchTheVideoTutorial")
     val `instructions1` = I18nKey("voiceCommands:instructions1")
     val `instructions2` = I18nKey("voiceCommands:instructions2")
