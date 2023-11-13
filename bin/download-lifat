@@ -10,13 +10,14 @@ mkdir -p "$lifat_dir"
 
 if [ ! -d "$lifat_commit_dir" ]; then
 	git init "$lifat_commit_dir"
-	pushd "$lifat_commit_dir"
+	cd "$lifat_commit_dir"
 	git remote add origin https://github.com/lichess-org/lifat
-	git fetch --depth 1 --no-write-fetch-head origin "$commit"
+	git fetch --depth 1 origin "$commit"
 	git checkout --detach "$commit"
-	popd
+	git log -n 1 --pretty="oneline" > "commit.txt"
+	cd -
 fi
 
 ln -sfn "$lifat_commit_dir" "public/lifat"
 
-(cd "$lifat_commit_dir" && git log --oneline)
+cat "$lifat_commit_dir/commit.txt"

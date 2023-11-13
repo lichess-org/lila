@@ -156,7 +156,7 @@ export function initModule(ctrl: AnalyseController) {
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
-          cevalView.renderCeval(ctrl),
+          ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
@@ -322,9 +322,7 @@ function evalInfo(bestEv: Eval | undefined): string {
 function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
   if (!clientEv) return '';
   const depth = clientEv.depth || 0;
-  return isCloud
-    ? ctrl.trans('depthX', depth) + ' Cloud'
-    : ctrl.trans('depthX', depth + '/' + Math.max(depth, clientEv.maxDepth || depth));
+  return ctrl.trans('depthX', depth) + isCloud ? ' Cloud' : '';
 }
 
 function renderBestMove(ctrl: AnalyseController, style: Style): string {

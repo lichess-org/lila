@@ -84,6 +84,8 @@ export interface Controller extends KeyboardController {
 
   nvui?: NvuiPlugin;
   menu: Toggle;
+  restartCeval(): void;
+  clearCeval(): void;
 }
 
 export interface NvuiPlugin {

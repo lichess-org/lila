@@ -1,70 +1,86 @@
-import * as winningChances from './winningChances';
+import * as winningChances from '../winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import { defined, notNull } from 'common';
-import { Eval, ParentCtrl, NodeEvals } from './types';
+import { Eval, ParentCtrl, NodeEvals, CevalState } from '../types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen, makeBoardFen } from 'chessops/fen';
-import { renderEval } from './util';
+import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
-import { CevalState } from './worker';
-import CevalCtrl from './ctrl';
+import { renderCevalSettings } from './settings';
+import CevalCtrl from '../ctrl';
+
+type EvalInfo = { knps: number; npsText: string; depthText: string };
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
   h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
 );
 
-function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
+function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
     state = ceval.getState(),
     trans = ctrl.trans;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
     if (state == CevalState.Failed) return [trans.noarg('engineFailed')];
-    const mb = ceval.downloadProgress() / 1024 / 1024;
-    const localEvalText =
-      state == CevalState.Loading
-        ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
-        : trans.noarg('calculatingMoves');
+    const localEvalText = state == CevalState.Loading ? loadingText(ctrl) : trans.noarg('calculatingMoves');
     return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
-  const depth = evs.client.depth || 0;
-  const t: Array<VNode | string> = evs.client.cloud
-    ? [trans('depthX', depth), h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')]
-    : [trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth))];
-  if (ceval.infinite()) t.push(h('span.infinite', { attrs: { title: trans('infiniteAnalysis') } }, '∞'));
+  const t: Array<VNode | string> = [];
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
-        attrs: {
-          title: trans.noarg('goDeeper'),
-          'data-icon': licon.PlusButton,
-        },
+        attrs: { title: trans.noarg('goDeeper'), 'data-icon': licon.PlusButton },
         hook: bind('click', ceval.goDeeper),
       }),
     );
-  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
+  const { depthText, npsText } = localInfo(ctrl, evs.client);
+
+  t.push(depthText);
+  if (evs.client.cloud && !ceval.computing())
+    t.push(h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud'));
+  if (ceval.infinite()) t.push(h('span.infinite', { attrs: { title: trans('infiniteAnalysis') } }, '∞'));
+  if (npsText) t.push(' · ' + npsText);
   return t;
 }
 
 function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
-  if (!threat) return ctrl.trans.noarg('calculatingMoves');
-  let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
-  if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
-  return t;
+  const info = localInfo(ctrl, threat);
+  return info.depthText + (info.knps ? ' · ' + info.npsText : '');
+}
+
+function localInfo(ctrl: ParentCtrl, ev?: Tree.ClientEval | false): EvalInfo {
+  const info = { npsText: '', knps: 0, depthText: ctrl.trans.noarg('calculatingMoves') };
+
+  if (!ev) return info;
+
+  const ceval = ctrl.getCeval();
+  info.depthText = ctrl.trans('depthX', ev.depth || 0) + (ceval.isDeeper() || ceval.infinite() ? '/99' : '');
+
+  if (!ceval.computing()) return info;
+
+  const knps = ev.nodes / (ev?.millis ?? Number.POSITIVE_INFINITY);
+
+  if (knps > 0) {
+    info.npsText = `${
+      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' kn/s'
+    }`;
+    info.knps = knps;
+  }
+  return info;
 }
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
-  if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
-  return h('a.show-threat', {
+  if (ctrl.getCeval().download || (ctrl.disableThreatMode && ctrl.disableThreatMode())) return null;
+  return h('button.show-threat', {
     class: {
       active: ctrl.threatMode(),
       hidden: !!ctrl.getNode().check,
@@ -78,43 +94,38 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  return [
-    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.shortEngineName()),
-    ctrl.technology == 'external'
-      ? h(
-          'span.technology.good',
-          {
-            attrs: {
-              title: 'Engine running outside of the browser',
-            },
-          },
-          'EXTERNAL',
-        )
-      : ctrl.technology == 'nnue'
-      ? h(
-          'span.technology.good',
-          {
-            attrs: {
-              title:
-                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
-            },
-          },
-          'NNUE',
-        )
-      : ctrl.technology == 'hce'
-      ? h(
-          'span.technology.good',
-          { attrs: { title: 'Multi-threaded WebAssembly (classical hand crafted evaluation)' } },
-          'HCE',
-        )
-      : ctrl.technology == 'wasm'
-      ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly fallback (slow)' } }, 'WASM')
-      : h(
-          'span.technology',
-          { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } },
-          'ASMJS',
-        ),
-  ];
+  const engine = ctrl.engines.active,
+    engineTech = engine?.tech ?? 'EXTERNAL';
+  return engine
+    ? [
+        h('span', { attrs: { title: engine?.name || '' } }, engine.short ?? engine.name),
+        engineTech === 'EXTERNAL'
+          ? h(
+              'span.technology.good',
+              {
+                attrs: {
+                  title: 'Engine running outside of the browser',
+                },
+              },
+              engineTech,
+            )
+          : engine.requires === 'simd'
+          ? h(
+              'span.technology.good',
+              {
+                attrs: {
+                  title: 'Multi-threaded WebAssembly with SIMD',
+                },
+              },
+              engineTech,
+            )
+          : engine.requires === 'sharedMem'
+          ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
+          : engine.requires === 'wasm'
+          ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
+          : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
+      ]
+    : [];
 }
 
 const serverNodes = 4e6;
@@ -157,66 +168,68 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   );
 }
 
-export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
-  const instance = ctrl.getCeval(),
+export function renderCeval(ctrl: ParentCtrl): MaybeVNodes {
+  const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
-  if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
-  const enabled = instance.enabled(),
+  if (!ceval.allowed() || !ceval.possible) return [];
+  if (!ctrl.showComputer()) return [analysisDisabled(ctrl)];
+  const enabled = ceval.enabled(),
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
-    threat = threatMode && ctrl.getNode().threat,
-    bestEv = threat || getBestEval(evs);
-  let pearl: VNode | string, percent: number;
+    threat = threatMode ? ctrl.getNode().threat : undefined,
+    bestEv = threat || getBestEval(evs),
+    download = ceval.download;
+  let pearl: VNode | string,
+    percent = 0;
+
+  if (evs.client) {
+    if (evs.client.cloud && !threatMode) percent = 100;
+    else if (ceval.isDeeper() || ceval.infinite()) percent = Math.min(100, (100 * evs.client.depth) / 99);
+    else percent = Math.min(100, (100 * ((threat ?? evs.client)?.millis ?? 0)) / ceval.searchMs());
+  }
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
-    percent = evs.client
-      ? evs.client.cloud
-        ? 100
-        : Math.min(100, Math.round((100 * evs.client.depth) / evs.client.maxDepth))
-      : 0;
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
   } else {
     if (!enabled) pearl = h('i');
     else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (instance.getState() === CevalState.Failed)
+    else if (ceval.getState() === CevalState.Failed)
       pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else pearl = h('i.ddloader');
     percent = 0;
   }
-  if (threatMode) {
-    if (threat) percent = Math.min(100, Math.round((100 * threat.depth) / threat.maxDepth));
-    else percent = 0;
-  }
+  if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
 
-  const progressBar: VNode | null = enabled
-    ? h(
-        'div.bar',
-        h('span', {
-          class: { threat: threatMode },
-          attrs: { style: `width: ${percent}%` },
-          hook: {
-            postpatch: (old, vnode) => {
-              if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
-                const el = vnode.elm as HTMLElement;
-                const p = el.parentNode as HTMLElement;
-                p.removeChild(el);
-                p.appendChild(el);
-              }
-              vnode.data!.percent = percent;
-              vnode.data!.threatMode = threatMode;
+  const progressBar: VNode | null =
+    enabled || download
+      ? h(
+          'div.bar',
+          h('span', {
+            class: { threat: enabled && threatMode },
+            attrs: { style: `width: ${percent}%` },
+            hook: {
+              postpatch: (old, vnode) => {
+                if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
+                  const el = vnode.elm as HTMLElement;
+                  const p = el.parentNode as HTMLElement;
+                  p.removeChild(el);
+                  p.appendChild(el);
+                }
+                vnode.data!.percent = percent;
+                vnode.data!.threatMode = threatMode;
+              },
             },
-          },
-        }),
-      )
-    : null;
+          }),
+        )
+      : null;
 
   const body: Array<VNode | null> = enabled
     ? [
         h('pearl', [pearl]),
         h('div.engine', [
-          ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
+          ...(threatMode ? [trans.noarg('showThreat')] : engineName(ceval)),
           h(
             'span.info',
             ctrl.outcome()
@@ -225,16 +238,16 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               ? [trans.noarg('threefoldRepetition')]
               : threatMode
               ? [threatInfo(ctrl, threat)]
-              : localEvalInfo(ctrl, evs),
+              : localEvalNodes(ctrl, evs),
           ),
         ]),
       ]
     : [
         pearl ? h('pearl', [pearl]) : null,
         h('help', [
-          ...engineName(instance),
+          ...engineName(ceval),
           h('br'),
-          instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
+          ceval.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
         ]),
       ];
 
@@ -251,7 +264,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               attrs: {
                 type: 'checkbox',
                 checked: enabled,
-                disabled: !instance.analysable,
+                disabled: !ceval.analysable,
               },
               hook: bind('change', ctrl.toggleCeval),
             }),
@@ -259,15 +272,27 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
           ],
         );
 
-  return h(
-    'div.ceval' + (enabled ? '.enabled' : ''),
-    {
-      class: {
-        computing: percent < 100 && instance.getState() === CevalState.Computing,
+  const settingsGear: VNode | null = h('button.settings-gear', {
+    attrs: { 'data-icon': licon.Gear, title: 'Engine settings' },
+    class: { active: ctrl.getCeval().showEnginePrefs() }, // must use ctrl.getCeval() rather than ceval here
+    hook: bind(
+      'click',
+      () => ctrl.getCeval().showEnginePrefs.toggle(), // must use ctrl.getCeval() rather than ceval here
+      () => ctrl.getCeval().opts.redraw(), // must use ctrl.getCeval() rather than ceval here
+      false,
+    ),
+  });
+
+  return [
+    h(
+      'div.ceval' + (enabled ? '.enabled' : ''),
+      {
+        class: { computing: ceval.computing() },
       },
-    },
-    [progressBar, ...body, threatButton(ctrl), switchButton],
-  );
+      [switchButton, ...body, threatButton(ctrl), settingsGear, progressBar],
+    ),
+    renderCevalSettings(ctrl),
+  ];
 }
 
 function getElFen(el: HTMLElement): string {
@@ -302,17 +327,17 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
   return pvMoves;
 }
 
-function checkHover(el: HTMLElement, instance: CevalCtrl): void {
+function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
   lichess.requestIdleCallback(
-    () => instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
+    () => ceval.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
     500,
   );
 }
 
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
-  const instance = ctrl.getCeval();
-  if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  const multiPv = instance.multiPv(),
+  const ceval = ctrl.getCeval();
+  if (!ceval.allowed() || !ceval.possible || !ceval.enabled()) return;
+  const multiPv = ceval.multiPv(),
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
@@ -328,7 +353,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
+  const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 
   return h(
     'div.pv_box',
@@ -338,14 +363,14 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
-            const instance = ctrl.getCeval();
-            instance.setHovering(getElFen(el), getElUci(e));
+            const ceval = ctrl.getCeval();
+            ceval.setHovering(getElFen(el), getElUci(e));
             const pvBoard = (e.target as HTMLElement).dataset.board;
             if (pvBoard) {
               pvIndex = Number((e.target as HTMLElement).dataset.moveIndex);
               pvMoves = getElPvMoves(e);
               const [fen, uci] = pvBoard.split('|');
-              instance.setPvBoard({ fen, uci });
+              ceval.setPvBoard({ fen, uci });
             }
           });
           el.addEventListener(
@@ -377,9 +402,9 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             ctrl.getCeval().setPvBoard(null);
             pvIndex = null;
           });
-          checkHover(el, instance);
+          checkHover(el, ceval);
         },
-        postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance),
+        postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, ceval),
       },
     },
     [
@@ -465,8 +490,8 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
 }
 
 function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
-  const instance = ctrl.getCeval();
-  const pvBoard = instance.pvBoard();
+  const ceval = ctrl.getCeval();
+  const pvBoard = ceval.pvBoard();
   if (!pvBoard) {
     return;
   }
@@ -491,4 +516,24 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     },
   });
   return h('div.pv-board', h('div.pv-board-square', cgVNode));
+}
+
+const analysisDisabled = (ctrl: ParentCtrl): VNode | undefined =>
+  h('div.comp-off__hint', [
+    h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
+    h(
+      'button',
+      {
+        hook: bind('click', () => ctrl?.toggleComputer, ctrl.redraw),
+        attrs: { type: 'button' },
+      },
+      ctrl.trans.noarg('enable'),
+    ),
+  ]);
+
+function loadingText(ctrl: ParentCtrl): string {
+  const d = ctrl.getCeval().download;
+  if (d && d.total)
+    return `Downloaded ${Math.round((d.bytes * 100) / d.total)}% of ${Math.round(d.total / 1000 / 1000)}MB`;
+  else return ctrl.trans.noarg('loadingEngine');
 }
