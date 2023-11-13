@@ -14,6 +14,7 @@ import {
 import {
   MovePoint,
   animation,
+  blackFill,
   chartYMax,
   chartYMin,
   fontColor,
@@ -23,6 +24,7 @@ import {
   plyLine,
   selectPly,
   tooltipBgColor,
+  whiteFill,
 } from './common';
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
@@ -135,8 +137,8 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
       fill: {
         target: 'origin',
-        above: moveSeries ? (showTotal ? 'white' : '#696866') : 'rgba(153, 153, 153, .3)',
-        below: moveSeries ? 'black' : 'rgba(0,0,0,0.3)',
+        above: moveSeries ? whiteFill : 'rgba(153, 153, 153, .3)',
+        below: moveSeries ? blackFill : 'rgba(0,0,0,0.3)',
       },
       order: moveSeries ? 2 : 1,
       datalabels: { display: false },
