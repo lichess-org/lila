@@ -177,14 +177,7 @@ export default async function (
               }
               return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
             },
-            title: items => {
-              const data = items.find(serie => serie.datasetIndex == 0);
-              if (!data) return '';
-              let title = moveLabels[data.dataIndex];
-              const division = items.find(serie => serie.datasetIndex > 1);
-              if (division) title = `${division.dataset.label} \n` + title;
-              return title;
-            },
+            title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },
         },
       },

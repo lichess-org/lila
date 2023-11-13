@@ -9,7 +9,6 @@ import {
   PointElement,
   PointStyle,
   Tooltip,
-  Point,
 } from 'chart.js';
 import {
   MovePoint,
@@ -202,15 +201,8 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
           titleFont: fontFamily(13),
           displayColors: false,
           callbacks: {
-            title: items => {
-              const division = divisionLines.find(line => {
-                const first = line.data[0] as Point;
-                return first.x == items[0].parsed.x;
-              });
-              let title = division?.label ? division.label + '\n' : '';
-              title += labels[items[0].dataset.label == 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x];
-              return title;
-            },
+            title: items =>
+              labels[items[0].dataset.label == 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
             label: () => '',
           },
         },
