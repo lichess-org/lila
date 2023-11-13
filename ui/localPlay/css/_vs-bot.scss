@@ -25,13 +25,6 @@
   }
   &:nth-child(even) {
     background: $c-bg-zebra;
-    /*justify-content: space-between;
-    img {
-      order: 1;
-    }
-    .overview {
-      order: 2;
-    }*/
   }
 
   &:hover {
@@ -40,9 +33,6 @@
 
   img {
     width: 128px;
-    //flex: 0 0 128px;
-
-    //display: block;
   }
   h2 {
     font-size: 1.4em;
