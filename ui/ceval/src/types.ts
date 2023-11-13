@@ -56,6 +56,7 @@ export enum CevalState {
 }
 
 export interface CevalEngine {
+  getInfo(): EngineInfo;
   getState(): CevalState;
   start(work: Work): void;
   stop(): void;
@@ -77,6 +78,7 @@ export interface CevalOpts {
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: Redraw;
+  search?: { searchMs?: number; multiPv?: number };
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfo[];
 }

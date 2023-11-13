@@ -42,8 +42,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
             ),
           },
           [
-            engineSelection(ctrl),
-            h('hr'),
+            ...engineSelection(ctrl),
             isReadonlyProp(ceval.searchMs)
               ? null
               : (id => {
@@ -165,28 +164,31 @@ function engineSelection(ctrl: ParentCtrl) {
   const ceval = ctrl.getCeval(),
     active = ceval.engines.active,
     engines = ceval.engines.supporting(ceval.opts.variant.key);
-  if (!engines?.length || !ceval.possible || !ceval.allowed()) return null;
-  return h('div.setting', [
-    'Engine:',
-    h(
-      'select.select-engine',
-      {
-        hook: bind('change', e => ceval.selectEngine((e.target as HTMLSelectElement).value)),
-      },
-      [
-        ...engines.map(engine =>
-          h(
-            'option',
-            {
-              attrs: {
-                value: engine.id,
-                selected: active?.id == engine.id,
+  if (!engines?.length || !ceval.possible || !ceval.allowed() || isReadonlyProp(ceval.searchMs)) return [];
+  return [
+    h('div.setting', [
+      'Engine:',
+      h(
+        'select.select-engine',
+        {
+          hook: bind('change', e => ceval.selectEngine((e.target as HTMLSelectElement).value)),
+        },
+        [
+          ...engines.map(engine =>
+            h(
+              'option',
+              {
+                attrs: {
+                  value: engine.id,
+                  selected: active?.id == engine.id,
+                },
               },
-            },
-            engine.name,
+              engine.name,
+            ),
           ),
-        ),
-      ],
-    ),
-  ]);
+        ],
+      ),
+    ]),
+    h('br'),
+  ];
 }

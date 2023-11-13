@@ -9,50 +9,28 @@ import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
 import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
 
-const version = 'a022fa';
-const maxHash = maxHashMB();
-
 export class Engines {
   private localEngines: BrowserEngineInfo[];
   private localEngineMap: Map<string, WithMake>;
   private externalEngines: ExternalEngineInfo[];
   private selected: StoredProp<string>;
-  active?: EngineInfo;
+  private _active: EngineInfo | undefined = undefined;
 
-  constructor(readonly ctrl: CevalCtrl) {
+  constructor(private ctrl: CevalCtrl) {
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
     this.selected = storedStringProp('ceval.engine', this.localEngines[0].id);
-    this.active = this.engineFor({ id: this.selected(), variant: this.ctrl.opts.variant.key });
   }
 
   makeEngineMap() {
-    const redraw = this.ctrl.opts.redraw;
     const progress = (download?: { bytes: number; total: number }) => {
       if (this.ctrl.enabled()) this.ctrl.download = download;
-      redraw();
+      this.ctrl.opts.redraw();
     };
 
     return new Map<string, WithMake>(
       [
-        /*{
-          info: {
-            id: '__sf14nnue',
-            name: 'Stockfish 14 NNUE',
-            short: 'SF 14',
-            version: 'b6939d',
-            tech: 'NNUE',
-            requires: 'simd',
-            minMem: 2048,
-            assets: {
-              root: 'npm/stockfish-nnue.wasm',
-              js: 'stockfish.js',
-              wasm: 'stockfish.wasm',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw, progress),
-        },*/
         {
           info: {
             id: '__sf16nnue7',
@@ -62,6 +40,7 @@ export class Engines {
             requires: 'simd',
             minMem: 1536,
             assets: {
+              version: 'sfw002',
               root: 'npm/lila-stockfish-web',
               js: 'linrock-nnue-7.js',
             },
@@ -77,11 +56,29 @@ export class Engines {
             requires: 'simd',
             minMem: 2048,
             assets: {
+              version: 'sfw002',
               root: 'npm/lila-stockfish-web',
               js: 'sf-nnue-40.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
+        },
+        {
+          info: {
+            id: '__sf14nnue',
+            name: 'Stockfish 14 NNUE',
+            short: 'SF 14',
+            tech: 'NNUE',
+            requires: 'simd',
+            minMem: 2048,
+            assets: {
+              version: 'b6939d',
+              root: 'npm/stockfish-nnue.wasm',
+              js: 'stockfish.js',
+              wasm: 'stockfish.wasm',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, progress),
         },
         {
           info: {
@@ -100,6 +97,7 @@ export class Engines {
               'threeCheck',
             ],
             assets: {
+              version: 'sfw002',
               root: 'npm/lila-stockfish-web',
               js: 'fsf-hce.js',
             },
@@ -124,13 +122,14 @@ export class Engines {
               'threeCheck',
             ],
             assets: {
+              version: 'a022fa',
               root: 'npm/stockfish-mv.wasm',
               js: 'stockfish.js',
               wasm: 'stockfish.wasm',
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new ThreadedEngine(e, redraw, undefined, (v: VariantKey) =>
+            new ThreadedEngine(e, progress, (v: VariantKey) =>
               v === 'antichess' ? 'giveaway' : lichessRules(v),
             ),
         },
@@ -142,12 +141,13 @@ export class Engines {
             tech: 'HCE',
             requires: 'sharedMem',
             assets: {
+              version: 'a022fa',
               root: 'npm/stockfish.wasm',
               js: 'stockfish.js',
               wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, redraw),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, progress),
         },
         {
           info: {
@@ -159,11 +159,12 @@ export class Engines {
             requires: 'wasm',
             obsoletedBy: 'sharedMem',
             assets: {
+              version: 'a022fa',
               root: 'npm/stockfish.js',
               js: 'stockfish.wasm.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new SimpleEngine(e, redraw),
+          make: (e: BrowserEngineInfo) => new SimpleEngine(e, progress),
         },
         {
           info: {
@@ -174,11 +175,12 @@ export class Engines {
             maxThreads: 1,
             obsoletedBy: 'wasm',
             assets: {
+              version: 'a022fa',
               root: 'npm/stockfish.js',
               js: 'stockfish.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new SimpleEngine(e, redraw),
+          make: (e: BrowserEngineInfo) => new SimpleEngine(e, progress),
         },
       ]
         .filter(e => hasFeature(e.info.requires) && !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)))
@@ -186,8 +188,26 @@ export class Engines {
     );
   }
 
+  get active() {
+    if (!this._active) this.activate();
+    return this._active ?? this.activate();
+  }
+
+  activate() {
+    return (this._active = this.engineFor({ id: this.selected(), variant: this.ctrl.opts.variant.key }));
+  }
+
+  select(id: string) {
+    this.selected(id);
+    this.activate();
+  }
+
   get external() {
     return this.active instanceof ExternalEngine ? this.active : undefined;
+  }
+
+  updateCevalCtrl(ctrl: CevalCtrl) {
+    this.ctrl = ctrl;
   }
 
   supporting(variant: VariantKey): EngineInfo[] {
@@ -195,11 +215,6 @@ export class Engines {
       ...this.localEngines.filter(e => e.variants?.includes(variant)),
       ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
     ];
-  }
-
-  select(id: string) {
-    this.active = this.engineFor({ id })!;
-    this.selected(id);
   }
 
   engineFor(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
@@ -214,7 +229,7 @@ export class Engines {
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
-    const e = (this.active = this.engineFor(selector));
+    const e = (this._active = this.engineFor(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selected()}}`);
 
     return e.tech !== 'EXTERNAL'
@@ -230,6 +245,7 @@ function maxHashMB() {
   else if (isIOS()) return 32;
   return 256; // this is safe, mostly desktop firefox / mac safari users here
 }
+const maxHash = maxHashMB();
 
 function externalEngineSupports(e: EngineInfo, v: VariantKey) {
   const names = [v.toLowerCase()];
@@ -245,7 +261,6 @@ const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
   minMem: 1024,
   maxHash,
   ...engine,
-  assets: { version, ...engine.assets },
 });
 
 type WithMake = {

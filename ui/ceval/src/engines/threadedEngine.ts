@@ -1,5 +1,5 @@
 import { Protocol } from '../protocol';
-import { Redraw, Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
+import { Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
 import { sharedWasmMemory } from '../util';
 import { Cache } from '../cache';
 
@@ -30,10 +30,13 @@ export class ThreadedEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly redraw: Redraw,
     readonly progress?: (download?: { bytes: number; total: number }) => void,
     readonly variantMap?: (v: string) => string,
   ) {}
+
+  getInfo() {
+    return this.info;
+  }
 
   getState() {
     return !this.protocol
@@ -108,7 +111,7 @@ export class ThreadedEngine implements CevalEngine {
       this.boot().catch(err => {
         console.error(err);
         this.failed = true;
-        this.redraw();
+        this.progress?.();
       });
     }
     this.protocol.compute(work);
