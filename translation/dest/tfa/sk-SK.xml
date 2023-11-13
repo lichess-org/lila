@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Dvojstupňové overenie</string>
   <string name="twoFactorHelp">Dvojstupňové overenie pridá ďalšiu vrstvu bezpečnosti k vášmu účtu.</string>
-  <string name="twoFactorApp">Stiahnite is aplikáciu pre dvojstupňové overenie, napríklad Google Authenticator pre %1$s alebo %2$s.</string>
+  <string name="twoFactorApp">Stiahnite is aplikáciu pre dvojstupňové overenie, napríklad Google Authenticator pre %3$s alebo %2$s.</string>
   <string name="scanTheCode">Oskenujte QR kód s aplikáciou.</string>
   <string name="enterPassword">Zadajte vaše heslo a overovací kód vygenerovaný aplikáciou, na dokončenie nastavenia. Overovací kód budete potrebovať pre každé prihlásenie.</string>
   <string name="ifYouCannotScanEnterX">Ak nemôžete naskenovať kód, zadajte tajný %s do Vašej aplikácie.</string>
