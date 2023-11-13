@@ -6,10 +6,10 @@ import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Toggle, toggle } from 'common';
+import { prop, readonlyProp, Prop, Toggle, toggle } from 'common';
 import { hasFeature } from 'common/device';
 import { Result } from '@badrap/result';
-import { storedIntProp, StoredProp } from 'common/storage';
+import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
 
 const cevalDisabledSentinel = '1';
@@ -27,7 +27,7 @@ export default class CevalCtrl {
   cachable: boolean;
 
   engines: Engines;
-  multiPv: StoredProp<number>;
+  multiPv: Prop<number>;
   allowed = toggle(true);
   enabled: Toggle;
   download?: { bytes: number; total: number };
@@ -37,7 +37,7 @@ export default class CevalCtrl {
 
   curEval: Tree.LocalEval | null = null;
   lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
-  searchMs: StoredProp<number>;
+  searchMs: Prop<number>;
   showEnginePrefs = toggle(false);
 
   private worker: CevalEngine | undefined;
@@ -52,14 +52,14 @@ export default class CevalCtrl {
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
-    this.multiPv = storedIntProp('ceval.multipv', 1);
-    this.searchMs = storedIntProp('ceval.search-ms', 8000);
+    this.setSearch();
     this.engines = new Engines(this);
   }
 
-  private lastEmitFen: string | null = null;
-  private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
-    pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+  setSearch(s?: { searchMs?: number; multiPv?: number }) {
+    this.searchMs = s?.searchMs ? readonlyProp<number>(s.searchMs) : storedIntProp('ceval.search-ms', 8000);
+    this.multiPv = s?.multiPv ? readonlyProp<number>(s.multiPv) : storedIntProp('ceval.multipv', 1);
+  }
 
   onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
@@ -224,5 +224,12 @@ export default class CevalCtrl {
 
   infinite = () => this.searchMs() === Number.POSITIVE_INFINITY;
   computing = () => this.getState() === CevalState.Computing;
-  destroy = () => this.worker?.destroy();
+  destroy = () => {
+    this.worker?.destroy();
+    this.worker = undefined;
+  };
+
+  private lastEmitFen: string | null = null;
+  private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
+    pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 }

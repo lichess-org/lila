@@ -24,7 +24,7 @@
     "stockfish.wasm": "^0.10.0",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
-    "lila-stockfish-web": "^0.0.1"
+    "lila-stockfish-web": "^0.0.2"
   },
   "scripts": {
     "compile": "tsc",

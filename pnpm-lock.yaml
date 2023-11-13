@@ -161,8 +161,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       lila-stockfish-web:
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: link:/home/gamblej/ws/lichess/lila-stockfish-web
+        version: link:../../../lila-stockfish-web
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -4142,10 +4142,6 @@ packages:
       chessground: 9.0.2
       chessops: 0.12.7
       snabbdom: 3.5.1
-    dev: false
-
-  /lila-stockfish-web@0.0.1:
-    resolution: {integrity: sha512-F48Gy3U3IXPCUbFjCnh0FAi9mZsn9Addu/FUq3JLUeYe6ZxyQZjY+/S+gm7iGSf9xBv6GXQywPumfcJzl7PteA==}
     dev: false
 
   /lilconfig@2.1.0:

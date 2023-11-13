@@ -28,6 +28,13 @@ export const prop = <A>(initialValue: A): Prop<A> => {
   };
 };
 
+export const readonlyProp = <A>(initialValue: A): Prop<A> => {
+  const value = initialValue;
+  return () => value;
+};
+
+export const isReadonlyProp = <A>(prop: Prop<A>) => prop.length === 0;
+
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;
   return (v?: A) => {

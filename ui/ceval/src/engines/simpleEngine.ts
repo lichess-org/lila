@@ -55,5 +55,6 @@ export class SimpleEngine implements CevalEngine {
 
   destroy() {
     this.worker?.terminate();
+    this.worker = undefined;
   }
 }

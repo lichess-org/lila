@@ -3,7 +3,7 @@ import { ParentCtrl } from '../types';
 import { rangeConfig } from 'common/controls';
 import { hasFeature } from 'common/device';
 import { onInsert, bind } from 'common/snabbdom';
-import { onClickAway } from 'common';
+import { onClickAway, isReadonlyProp } from 'common';
 
 const searchTicks: [number, string][] = [
   [4000, '4s'],
@@ -44,50 +44,55 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
           [
             engineSelection(ctrl),
             h('hr'),
-            (id => {
-              return h(
-                'div.setting',
-                {
-                  attrs: { title: 'Set time to evaluate fresh positions' },
-                },
-                [
-                  h('label', 'Search time'),
-                  h('input#' + id, {
-                    attrs: { type: 'range', min: 0, max: searchTicks.length - 1, step: 1 },
-                    hook: rangeConfig(searchTick, n => {
-                      ceval.searchMs(searchTicks[n][0]);
-                      ctrl.restartCeval?.();
-                    }),
-                  }),
-                  h('div.range_value', searchTicks[searchTick()][1]),
-                ],
-              );
-            })('engine-search-ms'),
-            (id => {
-              const max = 5;
-              return h(
-                'div.setting',
-                {
-                  attrs: {
-                    title: 'Set number of lines atop the move list in addition to move arrows on the board',
-                  },
-                },
-                [
-                  h('label', { attrs: { for: id } }, noarg('multipleLines')),
-                  h('input#' + id, {
-                    attrs: { type: 'range', min: 0, max, step: 1 },
-                    hook: rangeConfig(
-                      () => ceval!.multiPv(),
-                      (mpv: number) => {
-                        ceval.multiPv(mpv);
-                        ctrl.clearCeval?.();
+            isReadonlyProp(ceval.searchMs)
+              ? null
+              : (id => {
+                  return h(
+                    'div.setting',
+                    {
+                      attrs: { title: 'Set time to evaluate fresh positions' },
+                    },
+                    [
+                      h('label', 'Search time'),
+                      h('input#' + id, {
+                        attrs: { type: 'range', min: 0, max: searchTicks.length - 1, step: 1 },
+                        hook: rangeConfig(searchTick, n => {
+                          ceval.searchMs(searchTicks[n][0]);
+                          ctrl.restartCeval?.();
+                        }),
+                      }),
+                      h('div.range_value', searchTicks[searchTick()][1]),
+                    ],
+                  );
+                })('engine-search-ms'),
+            isReadonlyProp(ceval.multiPv)
+              ? null
+              : (id => {
+                  const max = 5;
+                  return h(
+                    'div.setting',
+                    {
+                      attrs: {
+                        title:
+                          'Set number of lines atop the move list in addition to move arrows on the board',
                       },
-                    ),
-                  }),
-                  h('div.range_value', ceval.multiPv() + ' / ' + max),
-                ],
-              );
-            })('analyse-multipv'),
+                    },
+                    [
+                      h('label', { attrs: { for: id } }, noarg('multipleLines')),
+                      h('input#' + id, {
+                        attrs: { type: 'range', min: 0, max, step: 1 },
+                        hook: rangeConfig(
+                          () => ceval.multiPv(),
+                          (pvs: number) => {
+                            ceval.multiPv(pvs);
+                            ctrl.clearCeval?.();
+                          },
+                        ),
+                      }),
+                      h('div.range_value', `${ceval.multiPv()} / ${max}`),
+                    ],
+                  );
+                })('analyse-multipv'),
             hasFeature('sharedMem')
               ? (id => {
                   return h(

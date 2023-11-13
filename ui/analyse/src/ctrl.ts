@@ -166,6 +166,9 @@ export default class AnalyseCtrl {
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
+    this.instanciateCeval();
+    this.startCeval();
+
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
     else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle, 500);
@@ -175,7 +178,7 @@ export default class AnalyseCtrl {
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
       try {
-        this.getCeval().engines.select(urlEngine);
+        this.ceval.engines.select(urlEngine);
         this.ensureCevalRunning();
       } catch (e) {
         console.info(e);
@@ -379,7 +382,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.setPath(path, this.node);
       if (isForwardStep) lichess.sound.move(this.node);
       this.threatMode(false);
-      this.ceval.stop();
+      this.ceval?.stop();
       this.startCeval();
       lichess.sound.saySan(this.node.san, true);
     }
@@ -641,27 +644,29 @@ export default class AnalyseCtrl {
   };
 
   private instanciateCeval(): void {
-    if (this.ceval) this.clearCeval();
-    else
-      this.ceval = new CevalCtrl({
-        variant: this.data.game.variant,
-        initialFen: this.data.game.initialFen,
-        possible: this.synthetic || !game.playable(this.data),
-        emit: (ev: Tree.ClientEval, work: EvalMeta) => {
-          this.onNewCeval(ev, work.path, work.threatMode);
-        },
-        setAutoShapes: this.setAutoShapes,
-        redraw: this.redraw,
-        externalEngines:
-          this.data.externalEngines?.map(engine => ({
-            ...engine,
-            endpoint: this.opts.externalEngineEndpoint,
-          })) || [],
-        onSelectEngine: () => {
-          this.persistence?.autosave();
-          lichess.reload();
-        },
-      });
+    const showingPrefs = this.ceval?.showEnginePrefs() ?? false;
+    this.ceval?.destroy();
+    this.ceval = new CevalCtrl({
+      variant: this.data.game.variant,
+      initialFen: this.data.game.initialFen,
+      possible: this.synthetic || !game.playable(this.data),
+      emit: (ev: Tree.ClientEval, work: EvalMeta) => {
+        this.onNewCeval(ev, work.path, work.threatMode);
+      },
+      setAutoShapes: this.setAutoShapes,
+      redraw: this.redraw,
+      externalEngines:
+        this.data.externalEngines?.map(engine => ({
+          ...engine,
+          endpoint: this.opts.externalEngineEndpoint,
+        })) || [],
+      onSelectEngine: () => {
+        this.instanciateCeval();
+        this.redraw();
+      },
+    });
+    if (this.practice) this.ceval.setSearch({ searchMs: 2000, multiPv: 1 });
+    this.ceval.showEnginePrefs(showingPrefs);
   }
 
   getCeval = () => this.ceval;
@@ -683,7 +688,7 @@ export default class AnalyseCtrl {
   }
 
   startCeval = throttle(800, () => {
-    if (this.ceval.enabled()) {
+    if (this.ceval?.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode());
         this.evalCache.fetch(this.path, this.ceval.multiPv());
@@ -920,6 +925,7 @@ export default class AnalyseCtrl {
     if (this.practice || !this.ceval.possible) {
       this.practice = undefined;
       this.showGround();
+      this.ceval.setSearch();
     } else {
       this.closeTools();
       this.practice = makePractice(this, () => {
@@ -928,6 +934,7 @@ export default class AnalyseCtrl {
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
       this.setAutoShapes();
+      this.ceval.setSearch({ searchMs: 2000, multiPv: 1 });
     }
   };
 

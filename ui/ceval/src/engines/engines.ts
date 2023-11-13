@@ -4,7 +4,7 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
-import { storedStringProp, storedBooleanProp, StoredProp } from 'common/storage';
+import { storedStringProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
 import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
@@ -21,18 +21,9 @@ export class Engines {
 
   constructor(readonly ctrl: CevalCtrl) {
     this.localEngineMap = this.makeEngineMap();
-
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
-
     this.selected = storedStringProp('ceval.engine', this.localEngines[0].id);
-
-    if (this.selected() === 'lichess') {
-      // TODO - delete this settings migration block on or after 2024-01-01
-      this.selected(storedBooleanProp('ceval.enable-nnue', false)() ? '__sf16nnue7' : '__sf11hce');
-      if (storedBooleanProp('ceval.infinite', false)()) this.ctrl.searchMs(Number.POSITIVE_INFINITY);
-    }
-
     this.active = this.engineFor({ id: this.selected(), variant: this.ctrl.opts.variant.key });
   }
 

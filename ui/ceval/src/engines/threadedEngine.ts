@@ -26,6 +26,7 @@ declare global {
 export class ThreadedEngine implements CevalEngine {
   failed: boolean;
   protocol: Protocol;
+  module?: Stockfish;
 
   constructor(
     readonly info: BrowserEngineInfo,
@@ -46,7 +47,7 @@ export class ThreadedEngine implements CevalEngine {
       : CevalState.Idle;
   }
 
-  private async boot(): Promise<Stockfish> {
+  private async boot() {
     const [root, js, wasm, version] = [
         this.info.assets.root,
         this.info.assets.js,
@@ -98,7 +99,7 @@ export class ThreadedEngine implements CevalEngine {
 
     sf.addMessageListener(data => this.protocol.received(data));
     this.protocol.connected(msg => sf.postMessage(msg));
-    return sf;
+    this.module = sf;
   }
 
   async start(work: Work) {
@@ -118,9 +119,7 @@ export class ThreadedEngine implements CevalEngine {
   }
 
   destroy() {
-    // Terminated instances to not get freed reliably
-    // (https://github.com/lichess-org/lila/issues/7334). So instead of
-    // destroying, just stop instances and keep them around for reuse.
-    this.stop();
+    this.module?.postMessage('quit');
+    this.module = undefined;
   }
 }
