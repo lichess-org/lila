@@ -41,7 +41,7 @@ export const axisOpts = (xmin: number, xmax: number): ChartOptions<'line'>['scal
   },
 });
 
-export function fontFamily(size?: number, weight?: string) {
+export function fontFamily(size?: number, weight?: 'bold') {
   return {
     family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
     size: size ?? 12,
