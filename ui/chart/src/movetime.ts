@@ -50,6 +50,10 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
 
   const tree = data.treeParts;
+  const firstPly = tree[0].ply;
+  for (let i = 0; i <= firstPly; i++) {
+    labels.push('');
+  }
   let showTotal = !hunter;
 
   const logC = Math.pow(Math.log(3), 2);
@@ -72,7 +76,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
     const y = Math.pow(Math.log(0.005 * Math.min(centis, 12e4) + 3), 2) - logC;
     let label = turn + (color ? '. ' : '... ') + san;
     const movePoint: MovePoint = {
-      x,
+      x: node ? node.ply : tree[x].ply + 1,
       y: color ? y : -y,
     };
 
@@ -103,7 +107,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
     }
     if (clock)
       totalSeries[colorName].push({
-        x,
+        x: node ? node.ply : tree[x].ply + 1,
         y: color ? clock : -clock,
       });
     labels.push(label);
@@ -156,7 +160,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
 
   const datasets: ChartDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
-  datasets.push(plyLine(0), ...divisionLines);
+  datasets.push(plyLine(firstPly), ...divisionLines);
 
   const config: Chart['config'] = {
     type: 'line' /* Needed for compat. with plyline and divisionlines.
@@ -173,10 +177,10 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       animations: animation(800 / labels.length - 1),
       scales: {
         x: {
-          min: 0,
+          min: firstPly + 1,
           type: 'linear',
           // Omit game-ending action to sync acpl and movetime charts
-          max: labels[labels.length - 1].includes('-') ? labels.length - 1 : labels.length,
+          max: labels[labels.length - 1].includes('-') ? labels.length - 2 : labels.length - 1,
           display: false,
         },
         y: {
@@ -210,7 +214,8 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
         },
       },
       onClick(_event, elements, _chart) {
-        const blackOffset = elements[0].datasetIndex & 1;
+        let blackOffset = elements[0].datasetIndex & 1;
+        if ((firstPly & 1) != 0) blackOffset = blackOffset ^ 1;
         lichess.pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
       },
     },

@@ -535,7 +535,7 @@ object JsonView:
       "increment" -> clock.incrementSeconds
     )
 
-  private[tournament] def positionJson(fen: Fen.Opening): JsObject =
+  private[tournament] def positionJson(fen: Fen.Standard): JsObject =
     Thematic.byFen(fen) match
       case Some(pos) =>
         Json
