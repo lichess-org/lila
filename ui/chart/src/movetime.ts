@@ -179,10 +179,10 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       animations: animation(800 / labels.length - 1),
       scales: {
         x: {
-          min: firstPly + 1,
+          min: firstPly,
           type: 'linear',
           // Omit game-ending action to sync acpl and movetime charts
-          max: labels[labels.length - 1].includes('-') ? labels.length - 2 : labels.length - 1,
+          max: labels[labels.length - 1].includes('-') ? labels.length - 1 : labels.length,
           display: false,
         },
         y: {

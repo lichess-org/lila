@@ -133,8 +133,8 @@ export default async function (
       },
       scales: {
         x: {
-          min: firstPly + 1,
-          max: mainline.length + firstPly - 1,
+          min: firstPly,
+          max: mainline.length + firstPly,
           display: false,
           type: 'linear',
         },
