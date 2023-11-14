@@ -108,7 +108,7 @@ export default function (ctrl: TournamentController): VNode {
                   ? h('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } })
                   : h('td.berserk'),
                 h('td.is.color-icon.' + p.color),
-                h('td' + '.result.', res),
+                h('td.result', res),
                 p.berserk
                   ? h('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } })
                   : h('td.berserk'),
