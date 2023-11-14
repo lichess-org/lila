@@ -90,7 +90,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (!ctrl.persistence || ctrl.persistence.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.persistence?.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
