@@ -7,6 +7,7 @@ import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
+import { xhrHeader } from 'common/xhr';
 import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
 
@@ -14,14 +15,14 @@ export class Engines {
   private localEngines: BrowserEngineInfo[];
   private localEngineMap: Map<string, WithMake>;
   private externalEngines: ExternalEngineInfo[];
-  private selected: StoredProp<string>;
+  private selectProp: StoredProp<string>;
   private _active: EngineInfo | undefined = undefined;
 
   constructor(private ctrl?: CevalCtrl) {
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl?.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
-    this.selected = storedStringProp('ceval.engine', this.localEngines[0].id);
+    this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
   }
 
   makeEngineMap() {
@@ -99,8 +100,8 @@ export class Engines {
         {
           info: {
             id: '__fsfhce',
-            name: 'Fairy Stockfish 16',
-            short: 'FSF 16',
+            name: 'Fairy Stockfish 14+',
+            short: 'FSF 14+',
             tech: 'HCE',
             requires: 'simd',
             variants: [
@@ -222,21 +223,30 @@ export class Engines {
   }
 
   get active() {
-    if (!this._active) this.activate();
     return this._active ?? this.activate();
   }
 
   activate() {
-    return (this._active = this.info({ id: this.selected(), variant: this.ctrl?.opts.variant.key }));
+    this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl?.opts.variant.key });
+    return this._active;
   }
 
   select(id: string) {
-    this.selected(id);
+    this.selectProp(id);
     this.activate();
   }
 
   get external() {
-    return this.active instanceof ExternalEngine ? this.active : undefined;
+    return this.active && 'endpoint' in this.active ? this.active : undefined;
+  }
+
+  async deleteExternal(id: string) {
+    if (this.externalEngines.every(e => e.id !== id)) return false;
+    const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
+    if (!r.ok) return false;
+    this.externalEngines = this.externalEngines.filter(e => e.id !== id);
+    this.activate();
+    return true;
   }
 
   updateCevalCtrl(ctrl: CevalCtrl) {
@@ -250,8 +260,8 @@ export class Engines {
     ];
   }
 
-  info(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
-    const id = selector?.id || this.selected();
+  getEngine(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
+    const id = selector?.id || this.selectProp();
     const variant = selector?.variant || 'standard';
     return (
       this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
@@ -262,8 +272,8 @@ export class Engines {
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
-    const e = (this._active = this.info(selector));
-    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selected()}}`);
+    const e = (this._active = this.getEngine(selector));
+    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
     return e.tech !== 'EXTERNAL'
       ? (this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo) as CevalEngine)
@@ -271,7 +281,7 @@ export class Engines {
   }
 
   makeBot(id: string): LegacyBot {
-    const e = this.info({ id });
+    const e = this.getEngine({ id });
     if (!e) throw Error(`Engine not found ${id}`);
     e.isBot = true;
     return this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo) as LegacyBot;

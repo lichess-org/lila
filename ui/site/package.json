@@ -21,7 +21,7 @@
     "flatpickr": "^4.6.13",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
-    "lichess-pgn-viewer": "^2.0.0",
+    "lichess-pgn-viewer": "^2.0.1",
     "prop-types": "^15.8.1",
     "tablesort": "^5.3.0",
     "voice": "workspace:*",

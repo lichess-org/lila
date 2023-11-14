@@ -12,8 +12,11 @@
   gap: 1.5em;
   padding: 2em 1.5em;
 
-  > hr {
-    margin: 5px;
+  @media (max-width: $mq-width-small) {
+    gap: 1em;
+    br {
+      display: none;
+    }
   }
 
   .setting {
@@ -58,6 +61,25 @@
       direction: ltr;
       flex: 0 0 15%;
       text-align: left;
+    }
+
+    button.delete {
+      @extend %button-none;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: $c-bad;
+      color: $c-bg-page;
+      margin-#{$start-direction}: 1.5ch;
+
+      &:focus {
+        outline: 2px solid $c-primary;
+      }
+
+      &:hover {
+        color: #bbb;
+        outline: 2px solid #bbb;
+      }
     }
   }
 }
