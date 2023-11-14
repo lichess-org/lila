@@ -13,6 +13,7 @@ import lila.rating.Perf
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
+import lila.memo.RateLimit
 import views.*
 import play.api.mvc.Result
 
@@ -26,7 +27,7 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = lila.memo.RateLimit[IpAddress](
+  private[controllers] val PostRateLimit = RateLimit[IpAddress](
     5,
     1.minute,
     key = "setup.post",
@@ -34,7 +35,7 @@ final class Setup(
     log = false
   )
 
-  private[controllers] val AnonHookRateLimit = lila.memo.RateLimit.composite[IpAddress](
+  private[controllers] val AnonHookRateLimit = RateLimit.composite[IpAddress](
     key = "setup.hook.anon",
     enforce = env.net.rateLimit.value
   )(
@@ -42,11 +43,7 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = lila.memo.RateLimit[UserId](
-    50,
-    1.day,
-    key = "setup.post.bot.ai"
-  )
+  private[controllers] val BotAiRateLimit = RateLimit[UserId](50, 1.day, key = "setup.post.bot.ai")
 
   def ai = OpenBody:
     BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot) so 1):
@@ -85,6 +82,7 @@ final class Setup(
                       BadRequest(jsonError(message))
                     )
                   case None =>
+                    import lila.challenge.Challenge.*
                     (origUser, ctx.req.sid)
                       .match
                         case (Some(orig), _)                       => toRegistered(orig).some
@@ -92,7 +90,6 @@ final class Setup(
                         case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
                         case _                                     => none
                       .so: challenger =>
-                        import lila.challenge.Challenge.*
                         val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
                         val challenge = lila.challenge.Challenge.make(
                           variant = config.variant,
@@ -100,7 +97,7 @@ final class Setup(
                           timeControl = timeControl,
                           mode = config.mode,
                           color = config.color.name,
-                          challenger = origUser.fold(Challenger.Anonymous(sessionId))(toRegistered),
+                          challenger = challenger,
                           destUser = destUser,
                           rematchOf = none
                         )
