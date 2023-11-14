@@ -23,7 +23,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       h('button#voice-settings-button', {
         attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
         class: { active: ctrl.showPrefs() },
-        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw),
+        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
     ]),
     ctrl.showPrefs()
@@ -92,7 +92,15 @@ function langSetting(ctrl: VoiceCtrl) {
       ]);
 }
 
-let devices: MediaDeviceInfo[] | undefined;
+const nullMic: MediaDeviceInfo = {
+  deviceId: 'null',
+  label: 'None selected',
+  groupId: '',
+  kind: 'audioinput',
+  toJSON: () => '[]',
+};
+
+let devices: MediaDeviceInfo[] = [nullMic];
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),
@@ -103,12 +111,12 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
           el.addEventListener('change', () => ctrl.micId(el.value));
           if (devices === undefined)
             lichess.mic.getMics().then(ds => {
-              devices = ds;
+              devices = ds.length ? ds : [nullMic];
               redraw();
             });
         }),
       },
-      (devices || []).map(d =>
+      devices.map(d =>
         h(
           'option',
           {

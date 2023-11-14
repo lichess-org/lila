@@ -18,10 +18,7 @@ object bits:
 
   def jsI18n(streak: Boolean)(using Lang) =
     if streak then i18nJsObject(streakI18nKeys)
-    else
-      i18nJsObject(trainingI18nKeys) + {
-        PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())
-      }
+    else i18nJsObject(trainingI18nKeys)
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }
@@ -90,20 +87,8 @@ object bits:
     trans.asWhite,
     trans.asBlack,
     trans.randomColor,
-    // ceval
-    trans.depthX,
-    trans.usingServerAnalysis,
-    trans.loadingEngine,
-    trans.calculatingMoves,
-    trans.engineFailed,
-    trans.cloudAnalysis,
-    trans.goDeeper,
-    trans.showThreat,
-    trans.gameOver,
-    trans.inLocalBrowser,
-    trans.toggleLocalEvaluation,
     trans.flipBoard
-  )
+  ) ::: views.html.board.userAnalysisI18n.cevalTranslations.toList
 
   private val trainingI18nKeys = baseI18nKeys ::: List(
     trans.puzzle.example,

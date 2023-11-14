@@ -150,9 +150,9 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
-    this.persistence = opts.study || this.synthetic ? undefined : new Persistence(this);
+    this.persistence = opts.study ? undefined : new Persistence(this);
 
-    this.instanciateCeval();
+    this.configureCeval();
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -175,7 +175,7 @@ export default class AnalyseCtrl {
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
       try {
-        this.getCeval().selectedEngine(urlEngine);
+        this.ceval.engines.select(urlEngine);
         this.ensureCevalRunning();
       } catch (e) {
         console.info(e);
@@ -379,7 +379,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.setPath(path, this.node);
       if (isForwardStep) lichess.sound.move(this.node);
       this.threatMode(false);
-      this.ceval.stop();
+      this.ceval?.stop();
       this.startCeval();
       lichess.sound.saySan(this.node.san, true);
     }
@@ -437,7 +437,7 @@ export default class AnalyseCtrl {
     this.initialize(data, merge);
     this.redirecting = false;
     this.setPath(treePath.root);
-    this.instanciateCeval();
+    this.configureCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
   }
@@ -621,12 +621,10 @@ export default class AnalyseCtrl {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
-          node.threat = threat;
+        if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
       } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (!ev.cloud) {
         if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
-        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
       }
 
       if (path === this.path) {
@@ -636,16 +634,14 @@ export default class AnalyseCtrl {
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
           this.evalCache.onCeval();
-          if (ev.cloud && ev.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
         }
         this.redraw();
       }
     });
   };
 
-  private instanciateCeval(): void {
-    if (this.ceval) this.ceval.destroy();
-    this.ceval = new CevalCtrl({
+  private configureCeval(): void {
+    const opts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
       possible: this.synthetic || !game.playable(this.data),
@@ -654,18 +650,19 @@ export default class AnalyseCtrl {
       },
       setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
-      ...(this.opts.study && this.opts.practice
-        ? {
-            storageKeyPrefix: 'practice',
-            multiPvDefault: 1,
-          }
-        : {}),
       externalEngines:
         this.data.externalEngines?.map(engine => ({
           ...engine,
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
-    });
+      onSelectEngine: () => {
+        this.configureCeval();
+        this.redraw();
+      },
+      search: this.practice?.getSearch(),
+    };
+    if (this.ceval) this.ceval.configure(opts);
+    else this.ceval = new CevalCtrl(opts);
   }
 
   getCeval = () => this.ceval;
@@ -687,7 +684,7 @@ export default class AnalyseCtrl {
   }
 
   startCeval = throttle(800, () => {
-    if (this.ceval.enabled()) {
+    if (this.ceval?.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode());
         this.evalCache.fetch(this.path, this.ceval.multiPv());
@@ -732,34 +729,17 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   };
 
-  private cevalReset(): void {
+  restartCeval(): void {
     this.ceval.stop();
-    if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     this.redraw();
   }
 
-  cevalSetMultiPv = (v: number): void => {
-    this.ceval.multiPv(v);
+  clearCeval(): void {
     this.tree.removeCeval();
     this.evalCache.clear();
-    this.cevalReset();
-  };
-
-  cevalSetThreads = (v: number): void => {
-    this.ceval.setThreads(v);
-    this.cevalReset();
-  };
-
-  cevalSetHashSize = (v: number): void => {
-    this.ceval.setHashSize(v);
-    this.cevalReset();
-  };
-
-  cevalSetInfinite = (v: boolean): void => {
-    this.ceval.infinite(v);
-    this.cevalReset();
-  };
+    this.restartCeval();
+  }
 
   showEvalGauge(): boolean {
     return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
@@ -950,6 +930,7 @@ export default class AnalyseCtrl {
       });
       this.setAutoShapes();
     }
+    this.ceval?.setSearch(this.practice?.getSearch());
   };
 
   restartPractice() {

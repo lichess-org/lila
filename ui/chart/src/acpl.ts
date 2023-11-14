@@ -39,21 +39,27 @@ export default async function (
 ) {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
-  const blurBackgroundColor = '#343138';
+  const blurBackgroundColorWhite = 'white';
+  const blurBackgroundColorBlack = 'black';
   const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
+  const firstPly = mainline[0].ply;
 
   const makeDataset = (
     d: AnalyseData,
     mainline: Tree.Node[],
   ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
-    const pointBackgroundColors: (typeof orangeAccent | typeof blurBackgroundColor)[] = [];
+    const pointBackgroundColors: (
+      | typeof orangeAccent
+      | typeof blurBackgroundColorWhite
+      | typeof blurBackgroundColorBlack
+    )[] = [];
     const adviceHoverColors: string[] = [];
     const moveLabels: string[] = [];
     const pointStyles: PointStyle[] = [];
     const pointSizes: number[] = [];
-    const winChances: number[] = [];
+    const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
@@ -62,16 +68,13 @@ export default async function (
       let cp: number = 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
-      if (d.game.variant.key === 'antichess') cp = -cp;
+      if (d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = isWhite ? '.' : '...';
-      const winchance = winningChances.povChances('white', {
-        cp: cp,
-        mate: !node.san?.includes('#') ? node.eval?.mate : isWhite ? 1 : -1,
-      });
+      const winchance = winningChances.povChances('white', { cp: cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
-      winChances.push(winchance);
+      winChances.push({ x: node.ply, y: winchance });
 
       const { advice, color: glyphColor } = glyphProperties(node);
       const label = turn + dots + ' ' + node.san;
@@ -82,7 +85,9 @@ export default async function (
       moveLabels.push(label + annotation);
       pointStyles.push(isBlur ? 'rect' : 'circle');
       pointSizes.push(isBlur ? 5 : 0);
-      pointBackgroundColors.push(isBlur ? blurBackgroundColor : orangeAccent);
+      pointBackgroundColors.push(
+        isBlur ? (isWhite ? blurBackgroundColorWhite : blurBackgroundColorBlack) : orangeAccent,
+      );
       adviceHoverColors.push(glyphColor ?? orangeAccent);
     });
     return {
@@ -128,8 +133,8 @@ export default async function (
       },
       scales: {
         x: {
-          min: 0,
-          max: mainline.length - 1,
+          min: firstPly + 1,
+          max: mainline.length + firstPly - 1,
           display: false,
           type: 'linear',
         },
@@ -145,7 +150,7 @@ export default async function (
       responsive: true,
       plugins: {
         tooltip: {
-          borderColor: 'rgba(255,255,255,0.4)',
+          borderColor: fontColor,
           borderWidth: 1,
           backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
@@ -154,25 +159,23 @@ export default async function (
           bodyFont: fontFamily(13),
           caretPadding: 10,
           displayColors: false,
+          filter: item => item.datasetIndex == 0,
           callbacks: {
             label: item => {
-              if (item.datasetIndex == 0) {
-                const ev = mainline[item.dataIndex + 1]?.eval;
-                if (!ev) return ''; // Pos is mate
-                let e = 0,
-                  mateSymbol = '',
-                  advantageSign = '';
-                if (ev.cp) {
-                  e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-                  if (ev.cp > 0) advantageSign = '+';
-                }
-                if (ev.mate) {
-                  e = ev.mate;
-                  mateSymbol = '#';
-                }
-                return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
+              const ev = mainline[item.dataIndex + 1]?.eval;
+              if (!ev) return ''; // Pos is mate
+              let e = 0,
+                mateSymbol = '',
+                advantageSign = '';
+              if (ev.cp) {
+                e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
+                if (ev.cp > 0) advantageSign = '+';
               }
-              return '';
+              if (ev.mate) {
+                e = ev.mate;
+                mateSymbol = '#';
+              }
+              return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
             },
             title: items => {
               const data = items.find(serie => serie.datasetIndex == 0);
@@ -187,7 +190,7 @@ export default async function (
       },
       onClick(_event, elements, _chart) {
         const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
-        lichess.pubsub.emit('analysis.chart.click', data.index);
+        if (data) lichess.pubsub.emit('analysis.chart.click', data.index);
       },
     },
   };
@@ -199,7 +202,7 @@ export default async function (
     const acpl = dataset.acpl;
     acplChart.data.datasets[0].data = acpl.data;
     if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
-    acplChart.update();
+    acplChart.update('none');
   };
   lichess.pubsub.on('ply', acplChart.selectPly);
   lichess.pubsub.emit('ply.trigger');

@@ -14,8 +14,8 @@ export const chartYMin = -chartYMax;
 
 const lightTheme = currentTheme() == 'light';
 export const orangeAccent = '#d85000';
-export const whiteFill = lightTheme ? 'white' : '#676665';
-export const blackFill = lightTheme ? '#999999' : 'black';
+export const whiteFill = lightTheme ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)';
+export const blackFill = lightTheme ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)';
 export const fontColor = lightTheme ? '#2F2F2F' : '#A0A0A0';
 export const gridColor = '#404040';
 export const hoverBorderColor = lightTheme ? gridColor : 'white';
@@ -59,7 +59,6 @@ export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
 }
 
 export function selectPly(this: Chart, ply: number, onMainline: boolean) {
-  ply = ply - 1;
   const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
   const line = plyLine(ply, onMainline);
   this.data.datasets[index] = line;

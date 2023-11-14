@@ -5,7 +5,7 @@ import { ChartDataset } from 'chart.js';
 export default function (trans: Trans, div?: Division) {
   const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
-    if (div.middle > 1) lines.push({ div: trans('opening'), loc: 0 });
+    if (div.middle > 1) lines.push({ div: trans('opening'), loc: 1 });
     lines.push({ div: trans('middlegame'), loc: div.middle - 1 });
   }
   if (div?.end) {

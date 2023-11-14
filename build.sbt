@@ -235,7 +235,7 @@ lazy val analyse = module("analyse",
 
 lazy val round = module("round",
   Seq(history, room, fishnet, playban),
-  Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
+  Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val pool = module("pool",
