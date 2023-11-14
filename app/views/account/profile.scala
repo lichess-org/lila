@@ -27,7 +27,7 @@ object profile:
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
             div(cls := "form-group form-half")(
-              div(cls := "emoji-picker")
+              div(cls := "emoji-picker")(data("categories") := lila.user.UserFlair.categJsString)
             ),
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),

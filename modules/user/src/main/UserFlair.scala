@@ -3,7 +3,7 @@ package lila.user
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import lila.common.config.AssetBaseUrl
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.{ JsObject, JsArray, Json }
 
 opaque type UserFlair = String
 
@@ -23,6 +23,11 @@ object UserFlair extends OpaqueString[UserFlair]:
     FlairCateg("symbols", "Symbols"),
     FlairCateg("flags", "Flags")
   )
+
+  val categJsString = Json.stringify:
+    JsArray:
+      categList.map: c =>
+        Json.obj("id" -> c.key, "name" -> c.name)
 
   final class Db(val list: List[UserFlair], baseUrl: AssetBaseUrl):
     lazy val set: Set[UserFlair]                    = list.toSet

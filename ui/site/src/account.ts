@@ -1,57 +1,10 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import * as emojis from 'emoji-mart';
+import { emojiPicker } from './emojiPicker';
 
 lichess.load.then(() => {
-  const flairUrl = 'http://l1.org/assets/lifat/flair';
   $('.emoji-picker').each(function (this: HTMLElement) {
-    const parent = this;
-    const opts = {
-      onEmojiSelect: console.log,
-      data: async () => {
-        const res = await fetch(`${flairUrl}/list.txt`);
-        const text = await res.text();
-        const lines = text.split('\n').slice(0, -1);
-        const data = {
-          categories: [
-            'smileys',
-            'people',
-            'nature',
-            'food-drink',
-            'activity',
-            'travel-places',
-            'objects',
-            'symbols',
-            'flags',
-          ].map(categ => ({
-            id: categ,
-            emojis: lines.filter(line => line.startsWith(categ)),
-          })),
-          emojis: Object.fromEntries(
-            lines.map(key => {
-              const [categ, name] = key.split('.');
-              return [
-                key,
-                {
-                  id: key,
-                  name: name,
-                  keywords: [categ, ...name.split('-')],
-                  skins: [
-                    {
-                      src: `${flairUrl}/img/${key}.webp`,
-                    },
-                  ],
-                },
-              ];
-            }),
-          ),
-        };
-        console.log(data);
-        return {};
-      },
-    };
-    const picker = new emojis.Picker(opts);
-    parent.appendChild(picker as unknown as HTMLElement);
+    emojiPicker(this);
   });
 
   const localPrefs: [string, string, string, boolean][] = [
