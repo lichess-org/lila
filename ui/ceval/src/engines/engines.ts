@@ -84,8 +84,8 @@ export class Engines {
         {
           info: {
             id: '__fsfhce',
-            name: 'Fairy Stockfish 16',
-            short: 'FSF 16',
+            name: 'Fairy Stockfish 14+',
+            short: 'FSF 14+',
             tech: 'HCE',
             requires: 'simd',
             variants: [
