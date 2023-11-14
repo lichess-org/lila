@@ -242,8 +242,8 @@ importers:
         specifier: 0.5.6
         version: 0.5.6
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -458,8 +458,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ui/palantir:
     dependencies:
@@ -638,8 +638,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -743,8 +743,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ui/voice:
     dependencies:
@@ -2536,10 +2536,6 @@ packages:
       mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
     dev: false
 
-  /chessground@9.0.2:
-    resolution: {integrity: sha512-3YRrA052eN+LRqxsjZ6Jesk12PWnONll0Hkfqf68abwbi9JN168D2PXOWeEygy4mPEWcDfSajAmn5r/vYSE8pQ==}
-    dev: false
-
   /chessground@9.0.4:
     resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
     dev: false
@@ -4135,11 +4131,11 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer@2.0.0:
-    resolution: {integrity: sha512-vh50un9jHKwiwMs9EUKgGDJCwUYvjR2Td74eQm2kv7dRpX7Y1QJH32vtC25S1fMPPC1KIU65miKX0nwEa63fYA==}
+  /lichess-pgn-viewer@2.0.1:
+    resolution: {integrity: sha512-WISw0/08RKQiv2gdAmIcdXNP9mg3e8Ybp31ORu9dKkl9+tRz2Q9Gx6efo5V29Pr+o6hUDTmjB7UFI1H+l4s9Ag==}
     dependencies:
       '@types/node': 20.5.0
-      chessground: 9.0.2
+      chessground: 9.0.4
       chessops: 0.12.7
       snabbdom: 3.5.1
     dev: false
