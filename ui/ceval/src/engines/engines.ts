@@ -6,6 +6,7 @@ import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
+import { xhrHeader } from 'common/xhr';
 import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
 
@@ -203,7 +204,16 @@ export class Engines {
   }
 
   get external() {
-    return this.active instanceof ExternalEngine ? this.active : undefined;
+    return this.active && 'endpoint' in this.active ? this.active : undefined;
+  }
+
+  async deleteExternal(id: string) {
+    if (this.externalEngines.every(e => e.id !== id)) return false;
+    const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
+    if (!r.ok) return false;
+    this.externalEngines = this.externalEngines.filter(e => e.id !== id);
+    this.activate();
+    return true;
   }
 
   updateCevalCtrl(ctrl: CevalCtrl) {
