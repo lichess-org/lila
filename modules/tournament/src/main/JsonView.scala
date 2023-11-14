@@ -292,7 +292,7 @@ final class JsonView(
       .add("gameId", i.gameId)
       .add("pauseDelay", delay)
 
-  private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Option[Boolean]): JsObject =
+  private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Boolean): JsObject =
     val light = userId flatMap lightUserApi.sync
     Json
       .obj("rating" -> rating)
