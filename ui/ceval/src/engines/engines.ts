@@ -14,14 +14,14 @@ export class Engines {
   private localEngines: BrowserEngineInfo[];
   private localEngineMap: Map<string, WithMake>;
   private externalEngines: ExternalEngineInfo[];
-  private selected: StoredProp<string>;
+  private selectProp: StoredProp<string>;
   private _active: EngineInfo | undefined = undefined;
 
   constructor(private ctrl: CevalCtrl) {
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
-    this.selected = storedStringProp('ceval.engine', this.localEngines[0].id);
+    this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
   }
 
   makeEngineMap() {
@@ -190,16 +190,16 @@ export class Engines {
   }
 
   get active() {
-    if (!this._active) this.activate();
     return this._active ?? this.activate();
   }
 
   activate() {
-    return (this._active = this.engineFor({ id: this.selected(), variant: this.ctrl.opts.variant.key }));
+    this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
+    return this._active;
   }
 
   select(id: string) {
-    this.selected(id);
+    this.selectProp(id);
     this.activate();
   }
 
@@ -227,8 +227,8 @@ export class Engines {
     ];
   }
 
-  engineFor(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
-    const id = selector?.id || this.selected();
+  getEngine(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
+    const id = selector?.id || this.selectProp();
     const variant = selector?.variant || 'standard';
     return (
       this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
@@ -239,8 +239,8 @@ export class Engines {
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
-    const e = (this._active = this.engineFor(selector));
-    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selected()}}`);
+    const e = (this._active = this.getEngine(selector));
+    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
     return e.tech !== 'EXTERNAL'
       ? this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo)
