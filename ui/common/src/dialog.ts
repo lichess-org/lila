@@ -12,6 +12,14 @@ lichess.load.then(async () => {
     dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js'))).default;
 });
 
+export async function ready() {
+  // sometimes we launch dialogs before lichess.load
+  if (window.HTMLDialogElement) return true;
+  await lichess.load;
+  await import(lichess.assetUrl('npm/dialog-polyfill.esm.js'));
+  return dialogPolyfill !== undefined;
+}
+
 export interface Dialog {
   readonly open: boolean; // is visible?
   readonly view: HTMLElement; // your content div

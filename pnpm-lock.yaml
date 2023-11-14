@@ -158,11 +158,26 @@ importers:
         specifier: workspace:*
         version: link:../common
       idb-keyval:
-        specifier: ^6.2.0
-        version: 6.2.0
+        specifier: ^6.2.1
+        version: 6.2.1
+      lila-stockfish-web:
+        specifier: ^0.0.2
+        version: 0.0.2
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
+      stockfish-mv.wasm:
+        specifier: ^0.6.1
+        version: 0.6.1
+      stockfish-nnue.wasm:
+        specifier: 1.0.0-1946a675.smolnet
+        version: 1.0.0-1946a675.smolnet
+      stockfish.js:
+        specifier: ^10.0.2
+        version: 10.0.2
+      stockfish.wasm:
+        specifier: ^0.10.0
+        version: 0.10.0
 
   ui/challenge:
     dependencies:
@@ -227,8 +242,8 @@ importers:
         specifier: 0.5.6
         version: 0.5.6
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -443,8 +458,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ui/palantir:
     dependencies:
@@ -626,23 +641,11 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
-      stockfish-mv.wasm:
-        specifier: ^0.6.1
-        version: 0.6.1
-      stockfish-nnue.wasm:
-        specifier: 1.0.0-1946a675.smolnet
-        version: 1.0.0-1946a675.smolnet
-      stockfish.js:
-        specifier: ^10.0.2
-        version: 10.0.2
-      stockfish.wasm:
-        specifier: ^0.10.0
-        version: 0.10.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -743,8 +746,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ui/voice:
     dependencies:
@@ -2536,10 +2539,6 @@ packages:
       mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
     dev: false
 
-  /chessground@9.0.2:
-    resolution: {integrity: sha512-3YRrA052eN+LRqxsjZ6Jesk12PWnONll0Hkfqf68abwbi9JN168D2PXOWeEygy4mPEWcDfSajAmn5r/vYSE8pQ==}
-    dev: false
-
   /chessground@9.0.4:
     resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
     dev: false
@@ -3305,10 +3304,8 @@ packages:
       safer-buffer: 2.1.2
     dev: false
 
-  /idb-keyval@6.2.0:
-    resolution: {integrity: sha512-uw+MIyQn2jl3+hroD7hF8J7PUviBU7BPKWw4f/ISf32D4LoGu98yHjrzWWJDASu9QNrX10tCJqk9YY0ClWm8Ng==}
-    dependencies:
-      safari-14-idb-fix: 3.0.0
+  /idb-keyval@6.2.1:
+    resolution: {integrity: sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==}
     dev: false
 
   /ignore@5.2.4:
@@ -4141,13 +4138,17 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer@2.0.0:
-    resolution: {integrity: sha512-vh50un9jHKwiwMs9EUKgGDJCwUYvjR2Td74eQm2kv7dRpX7Y1QJH32vtC25S1fMPPC1KIU65miKX0nwEa63fYA==}
+  /lichess-pgn-viewer@2.0.1:
+    resolution: {integrity: sha512-WISw0/08RKQiv2gdAmIcdXNP9mg3e8Ybp31ORu9dKkl9+tRz2Q9Gx6efo5V29Pr+o6hUDTmjB7UFI1H+l4s9Ag==}
     dependencies:
       '@types/node': 20.5.0
-      chessground: 9.0.2
+      chessground: 9.0.4
       chessops: 0.12.7
       snabbdom: 3.5.1
+    dev: false
+
+  /lila-stockfish-web@0.0.2:
+    resolution: {integrity: sha512-P6EKiRHonxwRB7uPKnk4D3pD6/XwL/3H3bxVzYh1QvTa9DVDlXK/2zdVjLjvQ42cW2OaQc8Tk8PI6yf4mxs+Zw==}
     dev: false
 
   /lilconfig@2.1.0:
@@ -4727,10 +4728,6 @@ packages:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
       queue-microtask: 1.2.3
-    dev: false
-
-  /safari-14-idb-fix@3.0.0:
-    resolution: {integrity: sha512-eBNFLob4PMq8JA1dGyFn6G97q3/WzNtFK4RnzT1fnLq+9RyrGknzYiM/9B12MnKAxuj1IXr7UKYtTNtjyKMBog==}
     dev: false
 
   /safer-buffer@2.1.2:

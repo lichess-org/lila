@@ -180,6 +180,6 @@ final class Analyse(
         )
   }
 
-  def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me ?=>
+  def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id) elseNotFound jsonOkResult
   }
