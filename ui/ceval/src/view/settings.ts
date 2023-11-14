@@ -2,7 +2,8 @@ import { h, VNode } from 'snabbdom';
 import { ParentCtrl } from '../types';
 import { rangeConfig } from 'common/controls';
 import { hasFeature } from 'common/device';
-import { onInsert, bind } from 'common/snabbdom';
+import { onInsert, bind, dataIcon } from 'common/snabbdom';
+import * as Licon from 'common/licon';
 import { onClickAway, isReadonlyProp } from 'common';
 
 const searchTicks: [number, string][] = [
@@ -42,8 +43,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
             ),
           },
           [
-            engineSelection(ctrl),
-            h('hr'),
+            ...engineSelection(ctrl),
             isReadonlyProp(ceval.searchMs)
               ? null
               : (id => {
@@ -164,29 +164,43 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
 function engineSelection(ctrl: ParentCtrl) {
   const ceval = ctrl.getCeval(),
     active = ceval.engines.active,
-    engines = ceval.engines.supporting(ceval.opts.variant.key);
-  if (!engines?.length || !ceval.possible || !ceval.allowed()) return null;
-  return h('div.setting', [
-    'Engine:',
-    h(
-      'select.select-engine',
-      {
-        hook: bind('change', e => ceval.selectEngine((e.target as HTMLSelectElement).value)),
-      },
-      [
-        ...engines.map(engine =>
-          h(
-            'option',
-            {
-              attrs: {
-                value: engine.id,
-                selected: active?.id == engine.id,
+    engines = ceval.engines.supporting(ceval.opts.variant.key),
+    external = ceval.engines.external;
+  if (!engines?.length || !ceval.possible || !ceval.allowed() || isReadonlyProp(ceval.searchMs)) return [];
+  return [
+    h('div.setting', [
+      'Engine:',
+      h(
+        'select.select-engine',
+        {
+          hook: bind('change', e => ceval.selectEngine((e.target as HTMLSelectElement).value)),
+        },
+        [
+          ...engines.map(engine =>
+            h(
+              'option',
+              {
+                attrs: {
+                  value: engine.id,
+                  selected: active?.id == engine.id,
+                },
               },
-            },
-            engine.name,
+              engine.name,
+            ),
           ),
-        ),
-      ],
-    ),
-  ]);
+        ],
+      ),
+      external
+        ? h('button.delete', {
+            attrs: { ...dataIcon(Licon.X), title: 'Delete external engine' },
+            hook: bind('click', e => {
+              (e.currentTarget as HTMLElement).blur();
+              if (confirm('Remove external engine?'))
+                ceval.engines.deleteExternal(external.id).then(ok => ok && ctrl.redraw?.());
+            }),
+          })
+        : null,
+    ]),
+    h('br'),
+  ];
 }

@@ -152,7 +152,7 @@ export default class AnalyseCtrl {
 
     this.persistence = opts.study ? undefined : new Persistence(this);
 
-    this.instanciateCeval();
+    this.configureCeval();
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -165,9 +165,6 @@ export default class AnalyseCtrl {
       ? makeStudy?.(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
-
-    this.instanciateCeval();
-    this.startCeval();
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
@@ -440,7 +437,7 @@ export default class AnalyseCtrl {
     this.initialize(data, merge);
     this.redirecting = false;
     this.setPath(treePath.root);
-    this.instanciateCeval();
+    this.configureCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
   }
@@ -643,10 +640,8 @@ export default class AnalyseCtrl {
     });
   };
 
-  private instanciateCeval(): void {
-    const showingPrefs = this.ceval?.showEnginePrefs() ?? false;
-    this.ceval?.destroy();
-    this.ceval = new CevalCtrl({
+  private configureCeval(): void {
+    const opts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
       possible: this.synthetic || !game.playable(this.data),
@@ -661,12 +656,13 @@ export default class AnalyseCtrl {
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
       onSelectEngine: () => {
-        this.instanciateCeval();
+        this.configureCeval();
         this.redraw();
       },
-    });
-    this.practice?.configureCeval(this.ceval);
-    this.ceval.showEnginePrefs(showingPrefs);
+      search: this.practice?.getSearch(),
+    };
+    if (this.ceval) this.ceval.configure(opts);
+    else this.ceval = new CevalCtrl(opts);
   }
 
   getCeval = () => this.ceval;
@@ -925,7 +921,6 @@ export default class AnalyseCtrl {
     if (this.practice || !this.ceval.possible) {
       this.practice = undefined;
       this.showGround();
-      this.ceval.setSearch();
     } else {
       this.closeTools();
       this.practice = makePractice(this, () => {
@@ -934,8 +929,8 @@ export default class AnalyseCtrl {
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
       this.setAutoShapes();
-      this.practice.configureCeval(this.ceval);
     }
+    this.ceval?.setSearch(this.practice?.getSearch());
   };
 
   restartPractice() {

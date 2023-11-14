@@ -21,6 +21,10 @@ export class StockfishWebEngine implements CevalEngine {
     });
   }
 
+  getInfo() {
+    return this.info;
+  }
+
   async boot() {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
     const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));

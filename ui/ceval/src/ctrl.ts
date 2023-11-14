@@ -21,6 +21,7 @@ function enabledAfterDisable() {
 }
 
 export default class CevalCtrl {
+  opts: CevalOpts;
   rules: Rules;
   analysable: boolean;
   possible: boolean;
@@ -42,18 +43,25 @@ export default class CevalCtrl {
 
   private worker: CevalEngine | undefined;
 
-  constructor(readonly opts: CevalOpts) {
-    this.possible = this.opts.possible;
+  constructor(opts: CevalOpts) {
+    this.configure(opts);
+    this.engines = new Engines(this);
+  }
 
-    // check root position
+  configure(opts: CevalOpts) {
+    this.opts = opts;
+    this.possible = this.opts.possible;
     this.rules = lichessRules(this.opts.variant.key);
     const pos = this.opts.initialFen
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
-    this.setSearch();
-    this.engines = new Engines(this);
+    this.setSearch(this.opts.search);
+    if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
+      this.worker?.destroy();
+      this.worker = undefined;
+    }
   }
 
   setSearch(s?: { searchMs?: number; multiPv?: number }) {
