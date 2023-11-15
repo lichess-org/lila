@@ -20,6 +20,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
 
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
+Chart.defaults.font = fontFamily();
 
 const light = currentTheme() == 'light';
 
@@ -41,7 +42,7 @@ const theme = [
   '#7798BF',
   '#aaeeee',
 ];
-const sizeColor = light ? '#cccccc' : '#444444';
+const sizeColor = 'rgba(120,120,120,0.2)';
 const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
 function insightChart(el: HTMLCanvasElement, data: InsightData) {
@@ -88,12 +89,15 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
 }
 
 function datasetBuilder(d: InsightData) {
-  const color = (i: number, name: string) =>
-    d.valueYaxis.name == 'Game result'
-      ? resultColors[name as 'Victory' | 'Draw' | 'Defeat']
-      : theme[i % theme.length];
+  const color = (i: number, name: string, stack: boolean) => {
+    if (d.valueYaxis.name == 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
+    else if (!stack && light) return '#7cb5ec';
+    return theme[i % theme.length];
+  };
   return [
-    ...d.series.map((serie, i) => barBuilder(serie, 'y1', color(i, serie.name), { stack: serie.stack })),
+    ...d.series.map((serie, i) =>
+      barBuilder(serie, 'y1', color(i, serie.name, !!serie.stack), { stack: serie.stack }),
+    ),
     barBuilder(d.sizeSerie, 'y2', sizeColor),
   ];
 }
@@ -104,6 +108,7 @@ function barBuilder(
   color: string,
   opts?: { stack?: string },
 ): ChartDataset<'bar'> {
+  const percent = serie.dataType == 'percent';
   return {
     label: serie.name,
     data: serie.data.map(nb => nb / (serie.dataType == 'percent' ? 100 : 1)),
@@ -112,6 +117,7 @@ function barBuilder(
     backgroundColor: color,
     borderColor: '#4a4a4a',
     stack: opts?.stack,
+    minBarLength: !percent ? 5 : undefined,
     datalabels:
       id == 'y2'
         ? { display: false }
@@ -121,8 +127,9 @@ function barBuilder(
             textShadowBlur: 10,
             textShadowColor: tooltipBgColor,
             textStrokeWidth: 1.2,
-            formatter: value =>
-              value == 0 ? '' : formatNumber(serie.dataType, value * (serie.dataType == 'percent' ? 100 : 1)),
+            font: fontFamily(12, 'bold'),
+            formatter: val =>
+              val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
           },
   };
 }
@@ -135,6 +142,7 @@ function labelBuilder(d: InsightData) {
 
 function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   const stacked = !!d.series[0].stack;
+  const percent = stacked || d.valueYaxis.dataType == 'percent';
   return {
     x: {
       type: 'category',
@@ -144,15 +152,15 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
       },
     },
     y1: {
-      max: stacked ? 1 : undefined,
+      max: percent ? 1 : undefined,
       grid: {
         color: light ? '#cccccc' : gridColor,
       },
       ticks: {
         color: tooltipFontColor,
         format: {
-          style: stacked || d.valueYaxis.dataType == 'percent' ? 'percent' : undefined,
-          maximumFractionDigits: d.valueYaxis.dataType == 'percent' ? 1 : 2,
+          style: percent ? 'percent' : undefined,
+          maximumFractionDigits: percent ? 1 : 2,
         },
       },
       title: {
@@ -160,7 +168,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
         display: true,
         text: d.valueYaxis.name,
       },
-      stacked: true,
+      stacked: stacked,
     },
     y2: {
       position: 'right',

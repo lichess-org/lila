@@ -14,8 +14,6 @@ import {
 import {
   animation,
   blackFill,
-  chartYMax,
-  chartYMin,
   fontColor,
   fontFamily,
   maybeChart,
@@ -24,6 +22,7 @@ import {
   selectPly,
   tooltipBgColor,
   whiteFill,
+  axisOpts,
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
@@ -131,20 +130,7 @@ export default async function (
         axis: 'x',
         intersect: false,
       },
-      scales: {
-        x: {
-          min: firstPly + 1,
-          max: mainline.length + firstPly - 1,
-          display: false,
-          type: 'linear',
-        },
-        y: {
-          // Set max and min to center the graph at y=0.
-          min: chartYMin,
-          max: chartYMax,
-          display: false,
-        },
-      },
+      scales: axisOpts(firstPly + 1, mainline.length + firstPly),
       animations: animation(500 / (mainline.length - 1)),
       maintainAspectRatio: false,
       responsive: true,
@@ -177,14 +163,7 @@ export default async function (
               }
               return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
             },
-            title: items => {
-              const data = items.find(serie => serie.datasetIndex == 0);
-              if (!data) return '';
-              let title = moveLabels[data.dataIndex];
-              const division = items.find(serie => serie.datasetIndex > 1);
-              if (division) title = `${division.dataset.label} \n` + title;
-              return title;
-            },
+            title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },
         },
       },
