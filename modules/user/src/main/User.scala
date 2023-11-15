@@ -34,7 +34,8 @@ case class User(
   override def toString =
     s"User $username games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
 
-  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
+  def light =
+    LightUser(id = id, name = username, title = title, flair = profile.flatMap(_.flair), isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
@@ -247,6 +248,7 @@ object User:
     val enabled               = "enabled"
     val roles                 = "roles"
     val profile               = "profile"
+    val profileFlair          = "profile.flair"
     val toints                = "toints"
     val playTime              = "time"
     val playTimeTotal         = "time.total"

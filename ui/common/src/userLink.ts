@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 
-export default function userLink(u: string, title?: string, patron?: boolean): VNode {
+export default function userLink(u: string, title?: string, patron?: boolean, flair?: Flair): VNode {
   const line = patron
     ? h('line.line.patron', {
         attrs: {
@@ -8,6 +8,7 @@ export default function userLink(u: string, title?: string, patron?: boolean): V
         },
       })
     : undefined;
+  const flairImg = flair && userFlair(flair);
   return h(
     'a',
     {
@@ -17,9 +18,16 @@ export default function userLink(u: string, title?: string, patron?: boolean): V
         ulpt: true,
       },
       attrs: {
-        href: '/@/' + u,
+        href: `/@/{u}`,
       },
     },
-    title && title != 'BOT' ? [line, h('span.utitle', title), u] : [line, u],
+    title && title != 'BOT' ? [line, h('span.utitle', title), u, flairImg] : [line, u, flairImg],
   );
 }
+
+export const userFlair = (flair: Flair): VNode =>
+  h('img.uflair', {
+    attrs: {
+      src: lichess.assetUrl(`/lifat/flair/img/${flair}.webp`, { noVersion: true }),
+    },
+  });

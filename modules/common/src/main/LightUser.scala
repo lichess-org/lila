@@ -7,6 +7,7 @@ case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[UserTitle],
+    flair: Option[UserFlair],
     isPatron: Boolean
 ):
 
@@ -18,7 +19,7 @@ object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), none, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false)
 
   given UserIdOf[LightUser] = _.id
 
@@ -29,12 +30,14 @@ object LightUser:
     Json
       .obj("name" -> u.name)
       .add("title" -> u.title)
+      .add("flair" -> u.flair)
       .add("patron" -> u.isPatron)
 
   def fallback(name: UserName) = LightUser(
     id = name.id,
     name = name,
     title = None,
+    flair = None,
     isPatron = false
   )
 

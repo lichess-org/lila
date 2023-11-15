@@ -75,6 +75,8 @@ interface Lichess {
 type I18nDict = { [key: string]: string };
 type I18nKey = string;
 
+type Flair = string;
+
 type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;

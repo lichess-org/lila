@@ -44,28 +44,34 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
     compute = id =>
       if User isGhost id then fuccess(LightUser.ghost.some)
       else
-        repo.coll.find($id(id), projection).one[LightUser] recover {
+        repo.coll.find($id(id), projection).one[LightUser] recover:
           case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
-        }
     ,
-    default = id => LightUser(id, id into UserName, None, isPatron = false).some,
+    default = id => LightUser(id, id into UserName, None, None, isPatron = false).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfter.Write(20 minutes)
   )
 
   private given BSONDocumentReader[LightUser] with
     def readDocument(doc: BSONDocument) =
-      doc.getAsTry[UserName](F.username) map { name =>
+      println(lila.db.BSON debug doc)
+      doc.getAsTry[UserName](F.username) map: name =>
         LightUser(
           id = name.id,
           name = name,
           title = doc.getAsOpt[UserTitle](F.title),
+          flair = doc.getAsOpt[UserFlair](F.profileFlair),
           isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
         )
-      }
 
   private val projection =
-    $doc(F.id -> false, F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
+    $doc(
+      F.id                -> false,
+      F.username          -> true,
+      F.title             -> true,
+      s"${F.plan}.active" -> true,
+      F.profileFlair      -> true
+    ).some
 
 object LightUserApi:
 

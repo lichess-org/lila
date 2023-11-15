@@ -2,6 +2,7 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
+import { userFlair } from 'common/userLink';
 import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>
@@ -173,7 +174,8 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
       h('i.line' + (u.patron ? '.patron' : '')),
       h('name', [
         u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + (showRatings ? ' (' + rating + ') ' : ''),
+        u.name + (showRatings ? ' (' + rating + ')' : ''),
+        u.flair && userFlair(u.flair),
       ]),
       h(
         'signal',

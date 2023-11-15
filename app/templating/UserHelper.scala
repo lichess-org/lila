@@ -10,7 +10,7 @@ import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs, UserFlair }
+import lila.user.{ User, UserPerfs, UserFlairApi }
 
 trait UserHelper extends HasEnv:
   self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
@@ -228,7 +228,7 @@ trait UserHelper extends HasEnv:
     user.profile.flatMap(_.flair).flatMap(userFlair)
 
   private def userFlair(flair: UserFlair): Option[Frag] =
-    UserFlair.exists(flair) option img(
+    UserFlairApi.exists(flair) option img(
       cls := "uflair",
       src := staticAssetUrl(s"lifat/flair/img/$flair.webp")
     )

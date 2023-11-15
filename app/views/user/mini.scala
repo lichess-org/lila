@@ -20,19 +20,7 @@ object mini:
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
-          div(cls := "left")(
-            userLink(u, withPowerTip = false),
-            u.profileOrDefault.countryInfo map { c =>
-              val hasRoomForNameText = u.username.length + c.shortName.length < 20
-              span(
-                cls   := "upt__info__top__country",
-                title := (!hasRoomForNameText).option(c.name)
-              )(
-                img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
-                hasRoomForNameText option c.shortName
-              )
-            }
-          ),
+          div(cls := "left")(userLink(u, withPowerTip = false, withFlair = true)),
           ping map bits.signalBars
         ),
         if u.lame && !ctx.is(u) && !isGranted(_.UserModView)

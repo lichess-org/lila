@@ -5,9 +5,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import lila.common.config.AssetBaseUrl
 import play.api.libs.json.{ JsObject, JsArray, Json }
 
-opaque type UserFlair = String
-
-object UserFlair extends OpaqueString[UserFlair]:
+object UserFlairApi:
 
   type CategKey = String
   case class FlairCateg(key: CategKey, name: String)
@@ -31,7 +29,7 @@ object UserFlair extends OpaqueString[UserFlair]:
 
   final class Db(val list: List[UserFlair], baseUrl: AssetBaseUrl):
     lazy val set: Set[UserFlair]                    = list.toSet
-    lazy val categs: Map[CategKey, List[UserFlair]] = list.groupBy(_.takeWhile('.' != _))
+    lazy val categs: Map[CategKey, List[UserFlair]] = list.groupBy(_.value.takeWhile('.' != _))
 
   private var _db: Db = Db(Nil, AssetBaseUrl(""))
   private[user] def updateDb(lines: Iterator[String], baseUrl: AssetBaseUrl): Unit = _db =
@@ -48,9 +46,8 @@ final private class UserFlairApi(ws: StandaloneWSClient, assetBaseUrl: AssetBase
 
   private def refresh: Funit =
     ws.url(listUrl).get() map:
-      case res if res.status == 200 => UserFlair.updateDb(res.body[String].linesIterator, assetBaseUrl)
+      case res if res.status == 200 => UserFlairApi.updateDb(res.body[String].linesIterator, assetBaseUrl)
       case _                        => logger.error(s"Cannot fetch $listUrl")
 
-  // scheduler.scheduleWithFixedDelay(51 seconds, 7 minutes): () =>
-  scheduler.scheduleWithFixedDelay(1 seconds, 7 minutes): () =>
+  scheduler.scheduleWithFixedDelay(5 seconds, 7 minutes): () =>
     refresh

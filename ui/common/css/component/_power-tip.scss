@@ -38,10 +38,6 @@
         @extend %flex-center-nowrap;
       }
 
-      &__country {
-        margin-#{$start-direction}: 0.5em;
-      }
-
       .user-link {
         @extend %ellipsis;
 
@@ -49,16 +45,6 @@
 
         .line {
           vertical-align: middle;
-        }
-      }
-
-      &__country {
-        @extend %flex-center;
-
-        font-size: 0.9em;
-
-        img {
-          margin-#{$end-direction}: 0.3em;
         }
       }
     }
