@@ -64,10 +64,10 @@ export default async function (
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) == 1;
-      let cp: number = 0;
+      let cp: number | undefined = undefined;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
-      if (d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
+      if (cp && d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = isWhite ? '.' : '...';
