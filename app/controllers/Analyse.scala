@@ -17,7 +17,7 @@ final class Analyse(
     roundC: => Round
 ) extends LilaController(env):
 
-  def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
+  def requestAnalysis(id: GameId) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     Found(env.game.gameRepo game id): game =>
       env.fishnet
         .analyser(
