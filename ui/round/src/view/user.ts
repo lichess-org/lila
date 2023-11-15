@@ -3,6 +3,7 @@ import * as licon from 'common/licon';
 import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
+import { userFlair } from 'common/userLink';
 
 export const aiName = (ctrl: RoundController, level: number) =>
   ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
@@ -24,6 +25,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
+    const flair = userFlair(user.flair);
     return h(
       `div.ruser-${position}.ruser.user-link`,
       {
@@ -58,8 +60,9 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
                 h('span.utitle', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title),
                 ' ',
                 user.username,
+                flair,
               ]
-            : [user.username],
+            : [user.username, flair],
         ),
         rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
         rating ? ratingDiff : null,
@@ -70,7 +73,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
                 title: ctrl.noarg('thisAccountViolatedTos'),
               },
             })
-          : null,
+          : undefined,
       ],
     );
   }

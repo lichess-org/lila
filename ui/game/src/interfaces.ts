@@ -142,6 +142,7 @@ export interface PlayerUser {
   username: string;
   patron?: boolean;
   title?: string;
+  flair?: Flair;
   perfs: {
     [key: string]: Perf;
   };

@@ -104,6 +104,7 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
+      withFlair: Boolean = false,
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
@@ -115,7 +116,8 @@ trait UserHelper extends HasEnv:
           userId = user.id,
           username = user.name,
           isPatron = user.isPatron,
-          title = withTitle so user.title,
+          title = user.title ifTrue withTitle,
+          flair = user.flair ifTrue withFlair,
           cssClass = cssClass,
           withOnline = withOnline,
           truncate = truncate,
@@ -128,6 +130,7 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
+      withFlair: Boolean = false,
       truncate: Option[Int] = None,
       params: String = ""
   )(using Lang): Tag =
@@ -135,7 +138,8 @@ trait UserHelper extends HasEnv:
       userId = user.id,
       username = user.name,
       isPatron = user.isPatron,
-      title = withTitle so user.title,
+      title = user.title ifTrue withTitle,
+      flair = user.flair ifTrue withFlair,
       cssClass = cssClass,
       withOnline = withOnline,
       truncate = truncate,
@@ -157,6 +161,7 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean,
       truncate: Option[Int],
       title: Option[UserTitle],
+      flair: Option[UserFlair],
       params: String,
       modIcon: Boolean
   )(using Lang): Tag =
@@ -166,7 +171,8 @@ trait UserHelper extends HasEnv:
     )(
       withOnline so (if modIcon then moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
-      truncate.fold(username.value)(username.value.take)
+      truncate.fold(username.value)(username.value.take),
+      flair.map(userFlair)
     )
 
   def userLink(
@@ -224,10 +230,10 @@ trait UserHelper extends HasEnv:
       name
     )
 
-  def userFlair(user: User): Option[Frag] =
+  def userFlair(user: User): Option[Tag] =
     user.profile.flatMap(_.flair).flatMap(userFlair)
 
-  private def userFlair(flair: UserFlair): Option[Frag] =
+  def userFlair(flair: UserFlair): Option[Tag] =
     UserFlairApi.exists(flair) option img(
       cls := "uflair",
       src := staticAssetUrl(s"lifat/flair/img/$flair.webp")

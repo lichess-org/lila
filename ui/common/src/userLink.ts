@@ -25,9 +25,11 @@ export default function userLink(u: string, title?: string, patron?: boolean, fl
   );
 }
 
-export const userFlair = (flair: Flair): VNode =>
-  h('img.uflair', {
-    attrs: {
-      src: lichess.assetUrl(`/lifat/flair/img/${flair}.webp`, { noVersion: true }),
-    },
-  });
+export const userFlair = (flair?: Flair): VNode | undefined =>
+  flair
+    ? h('img.uflair', {
+        attrs: {
+          src: lichess.assetUrl(`/lifat/flair/img/${flair}.webp`, { noVersion: true }),
+        },
+      })
+    : undefined;

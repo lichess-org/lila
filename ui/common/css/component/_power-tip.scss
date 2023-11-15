@@ -40,9 +40,8 @@
 
       .user-link {
         @extend %ellipsis;
-
         display: block;
-
+        font-size: 1.1em;
         .line {
           vertical-align: middle;
         }

@@ -122,6 +122,7 @@ trait GameHelper:
       withDiff: Boolean = true,
       engine: Boolean = false,
       withBerserk: Boolean = false,
+      withFlair: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
@@ -150,10 +151,7 @@ trait GameHelper:
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
-            engine option span(
-              cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()
-            )
+            engineOrFlair(engine, user.flair ifTrue withFlair)
           ),
           statusIcon
         )
@@ -166,6 +164,7 @@ trait GameHelper:
       withDiff: Boolean = true,
       engine: Boolean = false,
       withBerserk: Boolean = false,
+      withFlair: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
@@ -190,13 +189,18 @@ trait GameHelper:
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
-            engine option span(
-              cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()
-            )
+            engineOrFlair(engine, user.flair ifTrue withFlair)
           ),
           statusIcon
         )
+
+  private def engineOrFlair(engine: Boolean, flair: Option[UserFlair])(using Lang): Option[Tag] =
+    if engine then
+      span(
+        cls   := "tos_violation",
+        title := trans.thisAccountViolatedTos.txt()
+      ).some
+    else flair.flatMap(userFlair)
 
   def gameEndStatus(game: Game)(using lang: Lang): String =
     game.status match
@@ -268,15 +272,13 @@ trait GameHelper:
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic so s" ${c.variant.name}"
-    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)) { reg =>
+    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)): reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings so s" (${reg.rating.show})"}"
-    }
     val players =
       if c.isOpen then "Open challenge"
       else
-        c.destUser.fold(s"Challenge from $challenger") { dest =>
+        c.destUser.fold(s"Challenge from $challenger"): dest =>
           s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings so s" (${dest.rating.show})"}"
-        }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
