@@ -32,47 +32,6 @@ object UserFlair extends OpaqueString[UserFlair]:
   final class Db(val list: List[UserFlair], baseUrl: AssetBaseUrl):
     lazy val set: Set[UserFlair]                    = list.toSet
     lazy val categs: Map[CategKey, List[UserFlair]] = list.groupBy(_.takeWhile('.' != _))
-    lazy val pickerJson: JsonStr = JsonStr:
-      Json.stringify:
-        Json.obj(
-          "categories" -> categList.map: categ =>
-            Json.obj(
-              "id" -> categ.key,
-              // "name"   -> categ.name,
-              "emojis" -> categs.get(categ.key).fold(Nil)(_.map(_.value))
-            ),
-          "emojis" -> JsObject:
-            list.map: flair =>
-              flair.value -> Json.obj(
-                "id"   -> flair.value,
-                "name" -> flair.value,
-                "skins" -> Json.arr:
-                  Json.obj:
-                    "src" -> s"$baseUrl/assets/lifat/flair/img/$flair.webp"
-              )
-        )
-// {
-//   "categories": [
-//     {
-//       "id": "people",
-//       "emojis": ["grinning", "joy", "smile"]
-//     }
-//   ],
-//   "emojis": {
-//     "100": {
-//       "id": "100",
-//       "name": "Hundred Points",
-//       "keywords": ["100", "score", "perfect", "numbers", "century", "exam", "quiz", "test", "pass"],
-//       "skins": [
-//         {
-//           "unified": "1f4af",
-//           "native": "💯",
-//           "x": 28,
-//           "y": 6
-//         }
-//       ],
-//       "version": 1
-//     },
 
   private var _db: Db = Db(Nil, AssetBaseUrl(""))
   private[user] def updateDb(lines: Iterator[String], baseUrl: AssetBaseUrl): Unit = _db =
