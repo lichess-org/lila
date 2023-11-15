@@ -52,7 +52,7 @@ export class StockfishWebEngine implements CevalEngine {
       };
       let nnueBuffer = await nnueStore?.get(nnueFilename).catch(() => undefined);
 
-      if (!nnueBuffer || nnueBuffer.byteLength < 1024 * 1024) {
+      if (!nnueBuffer || nnueBuffer.byteLength < 128 * 1024) {
         const req = new XMLHttpRequest();
 
         req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);

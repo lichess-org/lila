@@ -88,7 +88,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
                 h('td', userName(p.user)),
                 ctrl.opts.showRatings ? h('td', '' + p.rating) : null,
                 h('td.is.color-icon.' + (p.c ? 'white' : 'black')),
-                h('td', res),
+                h('td.result', res),
               ],
             );
           }),

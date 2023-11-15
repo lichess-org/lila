@@ -70,6 +70,7 @@
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
   <string name="forceVariation">Variant forcéieren</string>
+  <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
   <string name="variantLoss">Variant verluer</string>
   <string name="variantWin">Variant gewonn</string>
@@ -484,7 +485,7 @@
   <string name="movesPlayed">Zich gespillt</string>
   <string name="whiteWins">Wäiss Victoiren</string>
   <string name="blackWins">Schwaarz Victoiren</string>
-  <string name="draws">Remis</string>
+  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
   <string name="boardEditor">Briet Editor</string>
