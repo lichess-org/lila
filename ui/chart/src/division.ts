@@ -1,6 +1,6 @@
 import { chartYMax, chartYMin } from './common';
 import { Division } from './interface';
-import { ChartDataset } from 'chart.js';
+import { ChartDataset, Point } from 'chart.js';
 
 export default function (trans: Trans, div?: Division) {
   const lines: { div: string; loc: number }[] = [];
@@ -35,7 +35,7 @@ export default function (trans: Trans, div?: Division) {
       offset: -5,
       align: 45,
       rotation: 90,
-      formatter: _ => line.div,
+      formatter: (val: Point) => (val.y > 0 ? line.div : ''),
     },
   }));
   return annotations;
