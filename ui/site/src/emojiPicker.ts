@@ -1,6 +1,7 @@
 import * as emojis from 'emoji-mart';
 
 export function emojiPicker(element: HTMLElement) {
+  if (element.classList.contains('emoji-done')) return;
   const categories = $(element).data('categories') as any[];
   const parent = $(element).parent();
   const opts = {
@@ -26,10 +27,13 @@ export function emojiPicker(element: HTMLElement) {
       },
     },
     previewEmoji: 'people.backhand-index-pointing-up',
+    noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
   };
   const picker = new emojis.Picker(opts);
   element.appendChild(picker as unknown as HTMLElement);
+  element.classList.add('emoji-done');
+  $(element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
 }
 
 const makeEmojiData = (categories: any[]) => async () => {

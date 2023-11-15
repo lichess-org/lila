@@ -27,9 +27,12 @@ object profile:
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
             form3.group(form("flair"), "Flair", half = true): f =>
-              frag(
+              details(cls := "form-control emoji-details")(
+                summary(cls := "button button-metal button-no-upper")(
+                  "Set your flair: ",
+                  userSpan(u, withFlair = true, withPowerTip = false)
+                ),
                 form3.hidden(f),
-                userSpan(u, withFlair = true)(cls             := "form-control"),
                 div(cls := "emoji-picker")(data("categories") := lila.user.UserFlair.categJsString)
               ),
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))

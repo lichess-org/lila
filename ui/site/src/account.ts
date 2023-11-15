@@ -3,8 +3,17 @@ import * as xhr from 'common/xhr';
 import { emojiPicker } from './emojiPicker';
 
 lichess.load.then(() => {
-  $('.emoji-picker').each(function (this: HTMLElement) {
-    emojiPicker(this);
+  $('.emoji-details').on('toggle', function (this: HTMLDetailsElement) {
+    const details = this;
+    emojiPicker(details.querySelector('.emoji-picker')!);
+    setTimeout(() => {
+      const handler = (e: Event) => {
+        if (details.contains(e.target as HTMLElement)) return;
+        details.removeAttribute('open');
+        $('html').off('click', handler);
+      };
+      $('html').on('click', handler);
+    }, 100);
   });
 
   const localPrefs: [string, string, string, boolean][] = [
