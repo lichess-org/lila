@@ -2,7 +2,6 @@ import * as emojis from 'emoji-mart';
 
 export function emojiPicker(element: HTMLElement) {
   if (element.classList.contains('emoji-done')) return;
-  const categories = $(element).data('categories') as any[];
   const parent = $(element).parent();
   const opts = {
     onEmojiSelect: (i: any) => {
@@ -10,8 +9,8 @@ export function emojiPicker(element: HTMLElement) {
       parent.find('.user-link .uflair').remove();
       parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
     },
-    data: makeEmojiData(categories),
-    categories: categories.map(categ => categ.id),
+    data: makeEmojiData,
+    categories: categories.map(categ => categ[0]),
     categoryIcons,
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
@@ -23,15 +22,16 @@ export function emojiPicker(element: HTMLElement) {
   $(element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
 }
 
-const makeEmojiData = (categories: any[]) => async () => {
+const makeEmojiData = async () => {
   const flairUrl = 'http://l1.org/assets/lifat/flair';
   const res = await fetch(`${flairUrl}/list.txt`);
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);
   const data = {
-    categories: categories.map(categ => ({
-      ...categ,
-      emojis: lines.filter(line => line.startsWith(categ.id)),
+    categories: categories.map(([id, name]) => ({
+      id: id,
+      name: name,
+      emojis: lines.filter(line => line.startsWith(id)),
     })),
     emojis: Object.fromEntries(
       lines.map(key => {
@@ -54,6 +54,18 @@ const makeEmojiData = (categories: any[]) => async () => {
   };
   return data;
 };
+
+const categories: [string, string][] = [
+  ['smileys', 'Smileys'],
+  ['people', 'People'],
+  ['nature', 'Animals & Nature'],
+  ['food-drink', 'Food & Drink'],
+  ['activity', 'Activity'],
+  ['travel-places', 'Travel & Places'],
+  ['objects', 'Objects'],
+  ['symbols', 'Symbols'],
+  ['flags', 'Flags'],
+];
 
 const categoryIcons = {
   smileys: {

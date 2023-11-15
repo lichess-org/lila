@@ -33,7 +33,7 @@ object profile:
                   userSpan(u, withFlair = true, withPowerTip = false)
                 ),
                 form3.hidden(f),
-                div(cls := "emoji-picker")(data("categories") := lila.user.UserFlairApi.categJsString)
+                div(cls := "emoji-picker")
               ),
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),

@@ -7,29 +7,8 @@ import play.api.libs.json.{ JsObject, JsArray, Json }
 
 object UserFlairApi:
 
-  type CategKey = String
-  case class FlairCateg(key: CategKey, name: String)
-
-  val categList: List[FlairCateg] = List(
-    FlairCateg("smileys", "Smileys"),
-    FlairCateg("people", "People"),
-    FlairCateg("nature", "Animals & Nature"),
-    FlairCateg("food-drink", "Food & Drink"),
-    FlairCateg("activity", "Activity"),
-    FlairCateg("travel-places", "Travel & Places"),
-    FlairCateg("objects", "Objects"),
-    FlairCateg("symbols", "Symbols"),
-    FlairCateg("flags", "Flags")
-  )
-
-  val categJsString = Json.stringify:
-    JsArray:
-      categList.map: c =>
-        Json.obj("id" -> c.key, "name" -> c.name)
-
   final class Db(val list: List[UserFlair], baseUrl: AssetBaseUrl):
-    lazy val set: Set[UserFlair]                    = list.toSet
-    lazy val categs: Map[CategKey, List[UserFlair]] = list.groupBy(_.value.takeWhile('.' != _))
+    lazy val set: Set[UserFlair] = list.toSet
 
   private var _db: Db = Db(Nil, AssetBaseUrl(""))
   private[user] def updateDb(lines: Iterator[String], baseUrl: AssetBaseUrl): Unit = _db =
