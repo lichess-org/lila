@@ -64,7 +64,7 @@ export default async function (
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) == 1;
-      let cp: number | undefined = undefined;
+      let cp: number | undefined = node.eval && 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
       if (cp && d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
