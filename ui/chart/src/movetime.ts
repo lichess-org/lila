@@ -9,13 +9,11 @@ import {
   PointElement,
   PointStyle,
   Tooltip,
-  Point,
 } from 'chart.js';
 import {
   MovePoint,
   animation,
-  chartYMax,
-  chartYMin,
+  blackFill,
   fontColor,
   fontFamily,
   maybeChart,
@@ -23,6 +21,8 @@ import {
   plyLine,
   selectPly,
   tooltipBgColor,
+  whiteFill,
+  axisOpts,
 } from './common';
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
@@ -135,8 +135,8 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
       fill: {
         target: 'origin',
-        above: moveSeries ? (showTotal ? 'white' : '#696866') : 'rgba(153, 153, 153, .3)',
-        below: moveSeries ? 'black' : 'rgba(0,0,0,0.3)',
+        above: moveSeries ? whiteFill : 'rgba(153, 153, 153, .3)',
+        below: moveSeries ? blackFill : 'rgba(0,0,0,0.3)',
       },
       order: moveSeries ? 2 : 1,
       datalabels: { display: false },
@@ -175,21 +175,12 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       maintainAspectRatio: false,
       responsive: true,
       animations: animation(800 / labels.length - 1),
-      scales: {
-        x: {
-          min: firstPly + 1,
-          type: 'linear',
-          // Omit game-ending action to sync acpl and movetime charts
-          max: labels[labels.length - 1].includes('-') ? labels.length - 2 : labels.length - 1,
-          display: false,
-        },
-        y: {
-          type: 'linear',
-          display: false,
-          min: chartYMin,
-          max: chartYMax,
-        },
-      },
+      scales: axisOpts(
+        firstPly + 1,
+        // Make totalseries slightly smaller than moveseries to fill more of the canvas
+        // Omit game-ending action to sync acpl and movetime charts
+        labels.length - (showTotal ? 2 : labels[labels.length - 1].includes('-') ? 1 : 0),
+      ),
       plugins: {
         tooltip: {
           borderColor: fontColor,
@@ -200,15 +191,8 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
           titleFont: fontFamily(13),
           displayColors: false,
           callbacks: {
-            title: items => {
-              const division = divisionLines.find(line => {
-                const first = line.data[0] as Point;
-                return first.x == items[0].parsed.x;
-              });
-              let title = division?.label ? division.label + '\n' : '';
-              title += labels[items[0].dataset.label == 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x];
-              return title;
-            },
+            title: items =>
+              labels[items[0].dataset.label == 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
             label: () => '',
           },
         },

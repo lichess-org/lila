@@ -14,8 +14,6 @@ import {
 import {
   animation,
   blackFill,
-  chartYMax,
-  chartYMin,
   fontColor,
   fontFamily,
   maybeChart,
@@ -24,6 +22,7 @@ import {
   selectPly,
   tooltipBgColor,
   whiteFill,
+  axisOpts,
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
@@ -61,14 +60,14 @@ export default async function (
     const pointSizes: number[] = [];
     const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
+    const partial = isPartial(d);
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
-      const partial = isPartial(d);
       const isWhite = (node.ply & 1) == 1;
-      let cp: number = 0;
+      let cp: number | undefined = node.eval && 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
-      if (d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
+      if (cp && d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = isWhite ? '.' : '...';
@@ -131,20 +130,7 @@ export default async function (
         axis: 'x',
         intersect: false,
       },
-      scales: {
-        x: {
-          min: firstPly + 1,
-          max: mainline.length + firstPly - 1,
-          display: false,
-          type: 'linear',
-        },
-        y: {
-          // Set max and min to center the graph at y=0.
-          min: chartYMin,
-          max: chartYMax,
-          display: false,
-        },
-      },
+      scales: axisOpts(firstPly + 1, mainline.length + firstPly),
       animations: animation(500 / (mainline.length - 1)),
       maintainAspectRatio: false,
       responsive: true,
@@ -177,14 +163,7 @@ export default async function (
               }
               return trans('advantage') + ': ' + mateSymbol + advantageSign + e;
             },
-            title: items => {
-              const data = items.find(serie => serie.datasetIndex == 0);
-              if (!data) return '';
-              let title = moveLabels[data.dataIndex];
-              const division = items.find(serie => serie.datasetIndex > 1);
-              if (division) title = `${division.dataset.label} \n` + title;
-              return title;
-            },
+            title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },
         },
       },
