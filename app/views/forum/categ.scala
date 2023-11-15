@@ -58,7 +58,7 @@ object categ:
         ),
         td(cls := "right")(topic.nbReplies.localize),
         td(
-          topic.lastPost.map { post =>
+          topic.lastPost.map: post =>
             frag(
               a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
                 momentFromNow(post.createdAt)
@@ -66,7 +66,6 @@ object categ:
               br,
               trans.by(bits.authorLink(post))
             )
-          }
         )
       )
 
@@ -81,7 +80,7 @@ object categ:
           description = categ.desc
         )
         .some
-    ) {
+    ):
       main(cls := "forum forum-categ box")(
         boxTop(
           h1(
@@ -112,7 +111,6 @@ object categ:
           )
         )
       )
-    }
 
   private def showCategs(categs: List[lila.forum.CategView])(using PageContext) =
     table(cls := "categs slist slist-pad")(
@@ -125,7 +123,7 @@ object categ:
         )
       ),
       tbody(
-        categs.map { categ =>
+        categs.map: categ =>
           tr(
             td(cls := "subject")(
               h2(a(href := routes.ForumCateg.show(categ.slug))(categ.name)),
@@ -134,7 +132,7 @@ object categ:
             td(cls := "right")(categ.nbTopics.localize),
             td(cls := "right")(categ.nbPosts.localize),
             td(
-              categ.lastPost.map { case (topic, post, page) =>
+              categ.lastPost.map { (topic, post, page) =>
                 frag(
                   a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}")(
                     momentFromNow(post.createdAt)
@@ -145,6 +143,5 @@ object categ:
               }
             )
           )
-        }
       )
     )
