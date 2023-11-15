@@ -84,25 +84,31 @@ trait GameHelper:
 
   def modeNameNoCtx(mode: Mode): String = modeName(mode)(using defaultLang)
 
-  def playerUsername(player: LightPlayer, withRating: Boolean = true, withTitle: Boolean = true)(using
+  def playerUsername(
+      player: LightPlayer,
+      user: Option[LightUser],
+      withFlair: Boolean = true,
+      withRating: Boolean = true,
+      withTitle: Boolean = true
+  )(using
       Lang
   ): Frag =
     player.aiLevel.fold[Frag](
-      player.userId.flatMap(lightUser).fold[Frag](trans.anonymous.txt()) { (user: LightUser) =>
-        frag(
-          titleTag(user.title ifTrue withTitle),
-          user.name,
-          withRating option frag(
-            " (",
-            player.rating.fold(frag("?")) { rating =>
-              if player.provisional.yes then
-                abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
-              else rating
-            },
-            ")"
+      user
+        .fold[Frag](trans.anonymous.txt()): user =>
+          frag(
+            titleTag(user.title ifTrue withTitle),
+            user.name,
+            user.flair ifTrue withFlair flatMap userFlair,
+            withRating option frag(
+              " (",
+              player.rating.fold(frag("?")): rating =>
+                if player.provisional.yes then
+                  abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
+                else rating,
+              ")"
+            )
           )
-        )
-      }
     ): level =>
       frag(aiName(level))
 
@@ -147,7 +153,7 @@ trait GameHelper:
             (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player.light, withRating && ctx.pref.showRatings),
+            playerUsername(player.light, user.some, withRating && ctx.pref.showRatings),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
@@ -168,7 +174,6 @@ trait GameHelper:
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
-    given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
       case None =>
@@ -185,7 +190,7 @@ trait GameHelper:
             (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player, withRating && ctx.pref.showRatings),
+            playerUsername(player, user.some, withRating && ctx.pref.showRatings),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },

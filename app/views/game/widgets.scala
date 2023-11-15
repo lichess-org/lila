@@ -123,15 +123,14 @@ object widgets:
       player.playerUser
         .map: playerUser =>
           frag(
-            userIdLink(playerUser.id.some, withOnline = false),
+            userIdLink(playerUser.id.some, withOnline = false, withFlair = true),
             br,
             player.berserk option berserkIconSpan,
             ctx.pref.showRatings option frag(
               playerUser.rating,
               player.provisional.yes option "?",
-              playerUser.ratingDiff map { d =>
+              playerUser.ratingDiff.map: d =>
                 frag(" ", showRatingDiff(d))
-              }
             )
           )
         .getOrElse:

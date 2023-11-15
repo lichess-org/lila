@@ -60,7 +60,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
           id = name.id,
           name = name,
           title = doc.getAsOpt[UserTitle](F.title),
-          flair = doc.getAsOpt[UserFlair](F.profileFlair),
+          flair = UserFlair from doc.getAsOpt[Bdoc](F.profile).flatMap(_.string("flair")),
           isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
         )
 
