@@ -29,10 +29,8 @@ final class Analyse(
             system = false
           )
         )
-        .map: result =>
-          result.error match
-            case None        => NoContent
-            case Some(error) => BadRequest(error)
+        .map:
+          _.error.fold(NoContent)(BadRequest(_))
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
