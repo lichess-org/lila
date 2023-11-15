@@ -48,7 +48,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h(`div.content__text#challenge-text-${c.id}`, [
+          h(`div#challenge-text-${c.id}.content__text`, [
             h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
             h('span.desc', [
               h('span.is.color-icon.' + myColor),
