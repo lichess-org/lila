@@ -29,7 +29,7 @@ export const userFlair = (flair?: Flair): VNode | undefined =>
   flair
     ? h('img.uflair', {
         attrs: {
-          src: lichess.assetUrl(`/lifat/flair/img/${flair}.webp`, { noVersion: true }),
+          src: lichess.assetUrl(`lifat/flair/img/${flair}.webp`, { noVersion: true }),
         },
       })
     : undefined;

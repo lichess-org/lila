@@ -23,7 +23,7 @@ export function emojiPicker(element: HTMLElement) {
 }
 
 const makeEmojiData = async () => {
-  const flairUrl = 'http://l1.org/assets/lifat/flair';
+  const flairUrl = lichess.assetUrl('lifat/flair');
   const res = await fetch(`${flairUrl}/list.txt`);
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);
