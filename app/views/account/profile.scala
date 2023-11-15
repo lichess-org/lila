@@ -26,9 +26,12 @@ object profile:
         postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
-            div(cls := "form-group form-half")(
-              div(cls := "emoji-picker")(data("categories") := lila.user.UserFlair.categJsString)
-            ),
+            form3.group(form("flair"), "Flair", half = true): f =>
+              frag(
+                form3.hidden(f),
+                userSpan(u, withFlair = true)(cls             := "form-control"),
+                div(cls := "emoji-picker")(data("categories") := lila.user.UserFlair.categJsString)
+              ),
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),
           ctx.kid.no option

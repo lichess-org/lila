@@ -177,6 +177,7 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
+      withFlair: Boolean = false,
       params: String = ""
   )(using Lang): Tag =
     a(
@@ -186,6 +187,7 @@ trait UserHelper extends HasEnv:
       withOnline so lineIcon(user),
       withTitle option titleTag(user.title),
       name | user.username,
+      withFlair option userFlair(user),
       withPerfRating.map(userRating(user, _))
     )
 
@@ -198,7 +200,7 @@ trait UserHelper extends HasEnv:
       withPerfRating: Option[Perf | UserPerfs] = None,
       withFlair: Boolean = false,
       name: Option[Frag] = None
-  )(using Lang): Frag =
+  )(using Lang): Tag =
     span(
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)

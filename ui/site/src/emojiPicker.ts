@@ -2,9 +2,13 @@ import * as emojis from 'emoji-mart';
 
 export function emojiPicker(element: HTMLElement) {
   const categories = $(element).data('categories') as any[];
-  const parent = element;
+  const parent = $(element).parent();
   const opts = {
-    onEmojiSelect: console.log,
+    onEmojiSelect: (i: any) => {
+      parent.find('input[name="flair"]').val(i.id);
+      parent.find('.user-link .uflair').remove();
+      parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
+    },
     data: makeEmojiData(categories),
     categories: categories.map(categ => categ.id),
     categoryIcons: {
@@ -24,9 +28,8 @@ export function emojiPicker(element: HTMLElement) {
     previewEmoji: 'people.backhand-index-pointing-up',
     skinTonePosition: 'none',
   };
-  console.log(categories.map(categ => categ.id));
   const picker = new emojis.Picker(opts);
-  parent.appendChild(picker as unknown as HTMLElement);
+  element.appendChild(picker as unknown as HTMLElement);
 }
 
 const makeEmojiData = (categories: any[]) => async () => {
