@@ -60,9 +60,9 @@ export default async function (
     const pointSizes: number[] = [];
     const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
+    const partial = isPartial(d);
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
-      const partial = isPartial(d);
       const isWhite = (node.ply & 1) == 1;
       let cp: number = 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
