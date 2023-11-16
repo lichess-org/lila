@@ -74,6 +74,10 @@ object pref:
                   explainShowPlayerRatings()
                 )
               )
+            ),
+            setting(
+              "Show player flairs",
+              radios(form("flairs"), translatedBooleanChoices)
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(

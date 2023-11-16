@@ -297,6 +297,7 @@ object layout:
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
               "no-rating"            -> !pref.showRatings,
+              "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
               "zen-auto"             -> (zenable && pref.isZenAuto)
