@@ -12,7 +12,7 @@ object email:
     account.layout(
       title = trans.changeEmail.txt(),
       active = "email"
-    ) {
+    ):
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(trans.changeEmail()),
         standardFlash | flashMessage("warning")(trans.emailSuggestion()),
@@ -22,4 +22,3 @@ object email:
           form3.action(form3.submit(trans.apply()))
         )
       )
-    }

@@ -23,7 +23,7 @@ export default function (ctrl: DasherCtrl): VNode {
           h(
             'a.text',
             linkCfg(
-              '/account/preferences/display',
+              '/account/profile',
               licon.Gear,
               ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
             ),
