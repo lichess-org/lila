@@ -1,12 +1,10 @@
 #!/bin/sh -e
 
-commit="3865fbb96c5c539e95340dcf12236db394f0ffe9"
+commit=5b684ed8c7de938268200717b22ba48120715b40
 
 lifat_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$lifat_dir"
 lifat_commit_dir=$(realpath "$lifat_dir")/lifat-$commit
-
-echo "LIFAT $lifat_dir $commit to $lifat_commit_dir"
 
 mkdir -p "$lifat_dir"
 
@@ -16,7 +14,7 @@ if [ ! -d "$lifat_commit_dir" ]; then
 	git remote add origin https://github.com/lichess-org/lifat
 	git fetch --depth 1 origin "$commit"
 	git checkout --detach "$commit"
-	git log -n 1 --pretty="oneline" >"commit.txt"
+	git log -n 1 --pretty="oneline" > "commit.txt"
 	cd -
 fi
 
