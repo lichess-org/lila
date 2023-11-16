@@ -60,7 +60,9 @@ object side:
             markdownLinksOrRichText(d)
           ),
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
-        views.html.gathering.verdicts(verdicts, tour.perfType),
+        tour.isFinished option views.html.gathering.verdicts(verdicts, tour.perfType, false) orElse Some(
+          views.html.gathering.verdicts(verdicts, tour.perfType)
+        ),
         tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
