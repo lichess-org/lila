@@ -70,6 +70,7 @@
   <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera härifrån</string>
   <string name="forceVariation">Visa som variant</string>
+  <string name="copyVariationPgn">Kopiera variations-PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
