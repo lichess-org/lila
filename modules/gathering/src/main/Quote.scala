@@ -815,7 +815,6 @@ object Quote:
       "The scheme of a game is played on positional lines; the decision of it, as a rule, is effected by combinations.",
       "Richard Réti"
     ),
-    Quote("On the chessboard lies and hypocrisy do not last long.", "Emanuel Lasker"),
     Quote(
       "The single most important thing in life is to believe in yourself regardless of what everyone else says.",
       "Hikaru Nakamura"
@@ -1202,7 +1201,6 @@ object Quote:
       "Chess is thriving. There are ever less round robin tournaments and ever more World Champions.",
       "Robert Hübner"
     ),
-    Quote("Chess is, above all, a fight.", "Emanuel Lasker"),
     Quote(
       "Chess masters as well as chess computers deserve less reverence than the public accords them.",
       "Eliot Hearst"
