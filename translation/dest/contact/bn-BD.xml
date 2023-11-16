@@ -20,5 +20,11 @@
   <string name="wantReopen">আমি আমার অ্যাকাউন্ট পুনরায় চালু করতে চাই</string>
   <string name="reopenOnThisPage">আপনি এখানে আপনার অ্যাকাউন্ট পুনরায় চালু করতে পারেন। এটা শুধু একবারই কাজ করে</string>
   <string name="doNotAskByEmailToReopen">আমাদের ইমেইলে অ্যাকাউন্ট পুনরায় চালু করতে বলবেন না, আমরা তা করব না।</string>
+  <string name="wantChangeUsername">আমি কি আমার ইউজারনেম পরিবর্তন করতে পারবো?</string>
+  <string name="changeUsernameCase">আপনার ব্যবহারকারীর নামের ক্ষেত্রে পরিবর্তন করতে এই স্থানে যান।</string>
+  <string name="cantChangeMore">আমরা মামলার চেয়ে বেশি পরিবর্তন করতে পারি না। প্রযুক্তিগত কারণে, এটা একেবারে অসম্ভব.</string>
+  <string name="orCloseAccount">যাইহোক, আপনি আপনার বর্তমান অ্যাকাউন্ট বন্ধ করতে পারেন এবং একটি নতুন অ্যাকাউন্ট তৈরি করতে পারেন।</string>
+  <string name="wantClearHistory">আমি আমার ইতিহাস বা রেটিং পরিষ্কার করতে চাই</string>
+  <string name="cantClearHistory">আপনার গেমের ইতিহাস, ধাঁধার ইতিহাস বা রেটিংগুলি সাফ করা সম্ভব নয়৷.</string>
   <string name="sendEmailAt">আমাদেরকে %s এ ইমেইল পাঠান</string>
 </resources>

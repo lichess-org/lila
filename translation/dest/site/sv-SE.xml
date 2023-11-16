@@ -70,6 +70,7 @@
   <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera härifrån</string>
   <string name="forceVariation">Visa som variant</string>
+  <string name="copyVariationPgn">Kopiera variations-PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -484,7 +485,7 @@
   <string name="movesPlayed">Drag spelade</string>
   <string name="whiteWins">Vinster Vit</string>
   <string name="blackWins">Vinster Svart</string>
-  <string name="draws">Remier</string>
+  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Remier</string>
   <string name="nextXTournament">Nästa %s turnering:</string>
   <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="boardEditor">Brädeditor</string>
