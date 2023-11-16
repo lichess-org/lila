@@ -51,8 +51,8 @@ När en spelare inte kan lottas in under en rond, de får en frirond som är vä
 Lägg ihop poängen för varje motståndare som spelaren slår och hälften av poängen för varje motståndare som spelaren spelar remi mot.</string>
   <string name="pairingsQ">Hur görs lottningen?</string>
   <string name="dutchSystem">Holländsk lottning</string>
-  <string name="FIDEHandbook">FIDEs handbok</string>
-  <string name="pairingsA">Med %1$s implementeras %2$s, i enlighet med %3$s.</string>
+  <string name="FIDEHandbook">FIDE handbok</string>
+  <string name="pairingsA">Med %1$s, implementerat av %2$s, i enlighet med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Vad händer om turneringen har fler ronder än spelare?</string>
   <string name="moreRoundsThanPlayersA">När alla möjliga möten har spelats kommer turneringen att avslutas och en vinnare utses.</string>
   <string name="restrictedToTeamsQ">Varför gäller det enbart för lag?</string>
