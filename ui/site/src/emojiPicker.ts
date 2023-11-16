@@ -10,6 +10,7 @@ export function emojiPicker(element: HTMLElement, close: () => void) {
       parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
       close();
     },
+    onClickOutside: close,
     data: makeEmojiData,
     categories: categories.map(categ => categ[0]),
     categoryIcons,

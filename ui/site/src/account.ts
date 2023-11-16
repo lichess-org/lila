@@ -7,14 +7,6 @@ lichess.load.then(() => {
     const details = this;
     const close = () => details.removeAttribute('open');
     emojiPicker(details.querySelector('.emoji-picker')!, close);
-    setTimeout(() => {
-      const handler = (e: Event) => {
-        if (details.contains(e.target as HTMLElement)) return;
-        close();
-        $('html').off('click', handler);
-      };
-      $('html').on('click', handler);
-    }, 100);
   });
 
   const localPrefs: [string, string, string, boolean][] = [
