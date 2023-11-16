@@ -8,7 +8,7 @@ export default function userLink(u: string, title?: string, patron?: boolean, fl
         },
       })
     : undefined;
-  const flairImg = flair && userFlair(flair);
+  const flairImg = userFlair(flair);
   return h(
     'a',
     {
@@ -18,7 +18,7 @@ export default function userLink(u: string, title?: string, patron?: boolean, fl
         ulpt: true,
       },
       attrs: {
-        href: `/@/{u}`,
+        href: `/@/${u}`,
       },
     },
     title && title != 'BOT' ? [line, h('span.utitle', title), u, flairImg] : [line, u, flairImg],
