@@ -1,6 +1,6 @@
 import * as emojis from 'emoji-mart';
 
-export function emojiPicker(element: HTMLElement) {
+export function emojiPicker(element: HTMLElement, close: () => void) {
   if (element.classList.contains('emoji-done')) return;
   const parent = $(element).parent();
   const opts = {
@@ -8,6 +8,7 @@ export function emojiPicker(element: HTMLElement) {
       parent.find('input[name="flair"]').val(i.id);
       parent.find('.user-link .uflair').remove();
       parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
+      close();
     },
     data: makeEmojiData,
     categories: categories.map(categ => categ[0]),

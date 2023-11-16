@@ -5,11 +5,12 @@ import { emojiPicker } from './emojiPicker';
 lichess.load.then(() => {
   $('.emoji-details').on('toggle', function (this: HTMLDetailsElement) {
     const details = this;
-    emojiPicker(details.querySelector('.emoji-picker')!);
+    const close = () => details.removeAttribute('open');
+    emojiPicker(details.querySelector('.emoji-picker')!, close);
     setTimeout(() => {
       const handler = (e: Event) => {
         if (details.contains(e.target as HTMLElement)) return;
-        details.removeAttribute('open');
+        close();
         $('html').off('click', handler);
       };
       $('html').on('click', handler);
