@@ -73,19 +73,13 @@ final class JsonView(
   private def baseSimul(simul: Simul, lightHost: Option[LightUser]) =
     Json.obj(
       "id" -> simul.id,
-      "host" -> lightHost.map { host =>
-        Json
-          .obj(
-            "id"     -> host.id,
-            "name"   -> host.name,
-            "rating" -> simul.hostRating
-          )
-          .add("provisional" -> simul.hostProvisional)
-          .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
-          .add("title" -> host.title)
-          .add("patron" -> host.isPatron)
-          .add("online" -> isOnline(host.id))
-      },
+      "host" -> lightHost.map: host =>
+        Json.toJsObject(host) ++
+          Json
+            .obj("rating" -> simul.hostRating)
+            .add("provisional" -> simul.hostProvisional)
+            .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
+            .add("online" -> isOnline(host.id)),
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,
       "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),

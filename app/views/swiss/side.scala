@@ -57,7 +57,7 @@ object side:
           ),
         teamLink(s.teamId),
         views.html.gathering.verdicts(verdicts, s.perfType) | br,
-        small(trans.by(userIdLink(s.createdBy.some))),
+        small(trans.by(userIdLink(s.createdBy.some, withFlair = true))),
         br,
         absClientInstant(s.startsAt)
       ),

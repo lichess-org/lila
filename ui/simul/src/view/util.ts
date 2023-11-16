@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';
+import { userFlair } from 'common/userLink';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
@@ -22,11 +23,7 @@ export function player(p: Player, ctrl: SimulCtrl) {
   );
 }
 
-const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
+const userName = (u: LightUser) =>
+  u.title ? [h('span.utitle', u.title), ' ' + u.name, userFlair(u.flair)] : [u.name, userFlair(u.flair)];
 
-export const title = (ctrl: SimulCtrl) =>
-  h('h1', [
-    ctrl.data.fullName,
-    h('br'),
-    h('span.author', ctrl.trans.vdom('by', player(ctrl.data.host, ctrl))),
-  ]);
+export const title = (ctrl: SimulCtrl) => h('h1', ctrl.data.fullName);

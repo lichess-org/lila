@@ -1,8 +1,10 @@
 import { h } from 'snabbdom';
 import { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
+import { userFlair } from 'common/userLink';
 
-export const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
+export const userName = (u: LightUser) =>
+  u.title ? [h('span.utitle', u.title), ' ' + u.name, userFlair(u.flair)] : [u.name, userFlair(u.flair)];
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h(

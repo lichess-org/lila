@@ -344,6 +344,7 @@ interface Study {
 interface LightUserNoId {
   name: string;
   title?: string;
+  flair?: Flair;
   patron?: boolean;
 }
 

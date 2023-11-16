@@ -46,7 +46,8 @@ object side:
         ),
         tour.teamBattle map teamBattle(tour),
         variantTeamLinks.get(tour.variant.key) filter { (team, _) =>
-          tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
+          tour.createdBy.is(lila.user.User.lichessId) || tour.conditions.teamMember
+            .exists(_.teamId == team.id)
         } map { (team, link) =>
           st.section(
             if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
@@ -63,7 +64,7 @@ object side:
         views.html.gathering.verdicts(verdicts, tour.perfType),
         tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks()),
-        !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
+        !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some, withFlair = true))), br),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientInstant(
           tour.startsAt
         ),

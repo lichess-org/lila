@@ -2,12 +2,13 @@ import { h, VNode, VNodeChildren } from 'snabbdom';
 import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import { dataIcon } from 'common/snabbdom';
+import { userFlair } from 'common/userLink';
 import { SimplePlayer } from '../interfaces';
 
 export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
 
-export const playerName = (p: { title?: string; name: string }) =>
-  p.title ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
+export const playerName = (p: { title?: string; name: string; flair?: Flair }) =>
+  p.title ? [h('span.utitle', p.title), ' ' + p.name, userFlair(p.flair)] : [p.name, userFlair(p.flair)];
 
 export const player = (
   p: SimplePlayer,
