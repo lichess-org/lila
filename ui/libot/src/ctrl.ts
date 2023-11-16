@@ -9,10 +9,6 @@ export interface Ctrl {
   move(fen: string): Promise<string>;
 }
 
-type Constructor<T> = new (...args: any[]) => T;
-
-export const registry: { [k: string]: Constructor<Libot> } = {};
-
 export async function makeCtrl(libots: Libots, zf: Zerofish): Promise<Ctrl> {
   const nets = new Map<string, Uint8Array>();
   let bot: Libot;
@@ -38,7 +34,7 @@ export async function makeCtrl(libots: Libots, zf: Zerofish): Promise<Ctrl> {
 }
 
 async function fetchNet(netName: string): Promise<Uint8Array> {
-  return fetch(lichess.assetUrl(`lifat/bots/weights/${netName}.pb`, { noVersion: true }))
+  return fetch(lichess.assetUrl(`lifat/bots/weights/${netName}`, { noVersion: true }))
     .then(res => res.arrayBuffer())
     .then(buf => new Uint8Array(buf));
 }

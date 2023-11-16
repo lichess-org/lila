@@ -10,20 +10,24 @@
     "chessops": "^0.12.7",
     "common": "workspace:*",
     "tree": "workspace:*",
-    "zerofish": "link:/home/gamblej/ws/lichess/zerofish"
+    "zerofish": "^0.0.16"
   },
-  "scripts": {
-    "pre": "node @build/index.mjs"
-  },
+  "scripts": {},
   "lichess": {
     "modules": {
       "esm": {
         "src/main.ts": "libot"
       }
     },
-    "copy": {
-      "src": "node_modules/zerofish/dist/zerofishEngine.*",
-      "dest": "../../public/npm"
-    }
+    "copy": [
+      {
+        "src": "node_modules/zerofish/dist/zerofishEngine.*",
+        "dest": "../../public/npm"
+      },
+      {
+        "src": "defs/bots.json",
+        "dest": "../../public"
+      }
+    ]
   }
 }

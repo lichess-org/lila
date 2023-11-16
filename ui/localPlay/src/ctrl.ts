@@ -19,7 +19,6 @@ export class Ctrl {
     readonly redraw: () => void,
   ) {
     this.loaded = lichess.loadEsm<LibotCtrl>('libot').then(libot => {
-      console.log('libot loaded');
       this.libot = libot;
       this.libot.setBot('coral');
     });
@@ -58,6 +57,7 @@ export class Ctrl {
   }
 
   move(uci: Uci) {
+    console.log('move', uci);
     const move = Chops.parseUci(uci);
     if (!move || !this.chess.isLegal(move)) throw new Error(`illegal move ${uci}, ${this.fen}}`);
     const san = makeSanAndPlay(this.chess, move);
@@ -75,7 +75,10 @@ export class Ctrl {
   }
 
   async botMove() {
-    this.move(await this.libot!.move(this.fen));
+    console.log('bot move');
+    const uci = await this.libot!.move(this.fen);
+    console.log('got bot move', uci);
+    this.move(uci);
   }
 
   fifty(move?: Chops.Move) {

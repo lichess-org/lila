@@ -1,15 +1,17 @@
-export interface Libot {
+export interface BotInfo {
   readonly name: string;
   readonly uid: string;
-  readonly ordinal: number;
   readonly description: string;
-  readonly imageUrl: string;
+  readonly image: string;
   readonly netName?: string;
+}
+export interface Libot extends BotInfo {
+  readonly imageUrl: string;
   readonly ratings: Map<string, number>;
+  readonly ordinal: number;
 
   move: (fen: string) => Promise<Uci>;
 }
-
 export interface Libots {
   bots: { [id: string]: Libot };
   sort(): Libot[];

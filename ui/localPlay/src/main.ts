@@ -14,7 +14,6 @@ export async function initModule(opts: LocalPlayOpts) {
   const ctrl = new LocalPlayCtrl(opts, () => {});
   ctrl.tellRound = await makeRound(ctrl);
   await ctrl.loaded;
-  console.log('done', ctrl.libot, ctrl.libot.bots);
   const blueprint = view(ctrl);
   const element = document.querySelector('#bot-view') as HTMLElement;
   element.innerHTML = '';
@@ -28,7 +27,6 @@ export async function initModule(opts: LocalPlayOpts) {
 
 export async function makeRound(ctrl: LocalPlayCtrl): Promise<SocketSend> {
   const moves: string[] = [];
-  console.log(ctrl.dests);
   for (const from in ctrl.dests) {
     moves.push(from + ctrl.dests[from]);
   }
@@ -43,7 +41,7 @@ export async function makeRound(ctrl: LocalPlayCtrl): Promise<SocketSend> {
     },
     crosstableEl: document.querySelector('.cross-table') as HTMLElement,
     i18n: {},
-    onChange: (d: RoundData) => console.log(d),
+    onChange: (d: RoundData) => d, //console.log(d),
     local: true,
   };
   return lichess.loadEsm('round', { init: opts });

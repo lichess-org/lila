@@ -1,0 +1,156 @@
+[
+  {
+    "uid": "#babyhoward",
+    "name": "Baby Howard",
+    "description": "Baby Howard is a bot that plays random moves.",
+    "image": "baby-howard.webp",
+    "netName": "maia-1100.pb"
+  },
+  {
+    "uid": "#coral",
+    "name": "Coral",
+    "description": "Coral is a simple bot that plays random moves.",
+    "image": "coral.webp",
+    "netName": "maia-1100.pb"
+  },
+  {
+    "uid": "#owen",
+    "name": "Owen",
+    "description": "",
+    "image": "owen.webp",
+    "netName": "maia-1100.pb"
+  },
+  {
+    "uid": "#beatrice",
+    "name": "Beatrice",
+    "description": "Beatrice is a bot that plays random moves.",
+    "image": "beatrice.webp",
+    "netName": "maia-1200.pb"
+  },
+  {
+    "uid": "#nacho",
+    "name": "Nacho",
+    "description": "",
+    "image": "nacho.webp",
+    "netName": "maia-1200.pb"
+  },
+  {
+    "uid": "#louise",
+    "name": "Louise",
+    "description": "",
+    "image": "louise.webp",
+    "netName": "maia-1300.pb"
+  },
+  {
+    "uid": "#terrence",
+    "name": "Terrence",
+    "description": "",
+    "image": "terrence.webp",
+    "netName": "maia-1400.pb"
+  },
+  {
+    "uid": "#elsiezero",
+    "name": "Elsie Zero",
+    "description": "Elsie Zero is a bot that plays random moves.",
+    "image": "baby-robot.webp",
+    "netName": "maia-1300.pb"
+  },
+  {
+    "uid": "#henry",
+    "name": "Henry",
+    "description": "",
+    "image": "henry.webp",
+    "netName": "maia-1400.pb"
+  },
+  {
+    "uid": "#greta",
+    "name": "Greta",
+    "description": "",
+    "image": "greta.webp",
+    "netName": "maia-1700.pb"
+  },
+  {
+    "uid": "#ronald",
+    "name": "Ronald",
+    "description": "",
+    "image": "shark.webp",
+    "netName": "maia-1500.pb"
+  },
+  {
+    "uid": "#marco",
+    "name": "Marco",
+    "description": "",
+    "image": "marco.webp",
+    "netName": "maia-1600.pb"
+  },
+  {
+    "uid": "#ivanka",
+    "name": "Ivanka",
+    "description": "",
+    "image": "larry.webp",
+    "netName": "maia-1500.pb"
+  },
+  {
+    "uid": "#dansby",
+    "name": "Dansby",
+    "description": "",
+    "image": "dansby.webp",
+    "netName": "maia-1500.pb"
+  },
+  {
+    "uid": "#agatha",
+    "name": "Agatha",
+    "description": "",
+    "image": "witch1.webp",
+    "netName": "maia-1600.pb"
+  },
+  {
+    "uid": "#grunt",
+    "name": "Grunt",
+    "description": "",
+    "image": "grunt.webp",
+    "netName": "maia-1700.pb"
+  },
+  {
+    "uid": "#helena",
+    "name": "Helena",
+    "description": "",
+    "image": "helena.webp",
+    "netName": "maia-1700.pb"
+  },
+  {
+    "uid": "#ghost",
+    "name": "Ghost",
+    "description": "",
+    "image": "specops-lady.webp",
+    "netName": "maia-1900.pb"
+  },
+  {
+    "uid": "#mitsoko",
+    "name": "Mitsoko",
+    "description": "",
+    "image": "mitsoko.webp",
+    "netName": "maia-1800.pb"
+  },
+  {
+    "uid": "#maia",
+    "name": "Maia",
+    "description": "",
+    "image": "maia.webp",
+    "netName": "maia-1900.pb"
+  },
+  {
+    "uid": "#spectre",
+    "name": "Spectre",
+    "description": "",
+    "image": "soldier-torso.webp",
+    "netName": "maia-1800.pb"
+  },
+  {
+    "uid": "#listress",
+    "name": "Listress",
+    "description": "",
+    "image": "listress.webp",
+    "netName": "maia-1900.pb"
+  }
+]
