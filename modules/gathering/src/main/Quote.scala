@@ -168,7 +168,6 @@ object Quote:
       "One doesn't have to play well, it’s enough to play better than your opponent.",
       "Siegbert Tarrasch"
     ),
-    Quote("Chess is above all, a fight!", "Emanuel Lasker"),
     Quote("Discovered check is the dive bomber of the chessboard.", "Reuben Fine"),
     Quote(
       "I know people who have all the will in the world, but still can't play good chess.",
@@ -229,7 +228,6 @@ object Quote:
       "Chess is thirty to forty percent psychology. You don't have this when you play a computer. I can’t confuse it.",
       "Judit Polgar"
     ),
-    Quote("On the chessboard, lies and hypocrisy do not survive long.", "Emanuel Lasker"),
     Quote("Chess is war over the board. The object is to crush the opponents mind.", "Bobby Fischer"),
     Quote(
       "The passed pawn is a criminal, who should be kept under lock and key. Mild measures, such as police surveillance, are not sufficient.",
@@ -1287,10 +1285,6 @@ object Quote:
     Quote(
       "During a chess tournament a master must envisage himself as a cross between an ascetic monk and a beast of prey.",
       "Alexander Alekhine"
-    ),
-    Quote(
-      "During the late Victorian period the majority of chess magazines printed increasing numbers of humorous stories, poems and anecdotes about the agonies and idiocies of women chess players, presumably as an antidote to the alarmed reaction of men to the fact that women were encroaching on their 'territory'.",
-      "British Chess Magazine"
     ),
     Quote(
       "Emotional instability can be one of the factors giving rise to a failure by chess players in important duels. Under the influence of surging emotions (and not necessarily negative ones) we sometimes lose concentration and stop objectively evaluating the events that are taking place on the board.",
