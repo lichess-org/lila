@@ -121,14 +121,14 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
-      val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
+      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
       persistLine(chatId, line).andDo:
         cached.invalidate(chatId)
         publish(chatId, ChatLine(chatId, line), busChan)
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
-      val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
+      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
       publish(chatId, ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
@@ -187,7 +187,8 @@ final class ChatApi(
         val line = (isNew && c.hasRecentLine(user)) option UserLine(
           username = User.lichessName,
           title = None,
-          patron = user.isPatron,
+          patron = false,
+          flair = true,
           text = lineText,
           troll = false,
           deleted = false
@@ -243,7 +244,8 @@ final class ChatApi(
             allow option UserLine(
               user.username,
               user.title,
-              user.isPatron,
+              patron = user.isPatron,
+              flair = user.flair.isDefined,
               t2,
               troll = user.isTroll,
               deleted = false

@@ -17,6 +17,7 @@ case class UserLine(
     username: UserName,
     title: Option[UserTitle],
     patron: Boolean,
+    flair: Boolean,
     text: String,
     troll: Boolean,
     deleted: Boolean
@@ -47,7 +48,7 @@ object Line:
   import reactivemongo.api.bson.*
 
   private val invalidLine =
-    UserLine(UserName(""), None, false, "[invalid character]", troll = false, deleted = true)
+    UserLine(UserName(""), None, false, false, "[invalid character]", troll = false, deleted = true)
 
   private[chat] given BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
     v => strToUserLine(v) getOrElse invalidLine,
@@ -59,28 +60,30 @@ object Line:
     lineToStr
   )
 
-  private val trollChar   = "!"
-  private val deletedChar = "?"
-  private val patronChar  = "&"
+  private val trollChar       = "!"
+  private val deletedChar     = "?"
+  private val patronChar      = "&"
+  private val flairChar       = ":"
+  private val patronFlairChar = ";"
   private val UserLineRegex = {
-    """(?s)([\w-~]{2,}+)([ """ + s"$trollChar$deletedChar$patronChar" + """])(.++)"""
+    """(?s)([\w-~]{2,}+)([ """ + s"$trollChar$deletedChar$patronChar$flairChar$patronFlairChar" + """])(.++)"""
   }.r
-  private def strToUserLine(str: String): Option[UserLine] =
-    str match
-      case UserLineRegex(username, sep, text) =>
-        val troll   = sep == trollChar
-        val deleted = sep == deletedChar
-        val patron  = sep == patronChar
-        username split titleSep match
-          case Array(title, name) =>
-            UserLine(UserName(name), Title get title, patron, text, troll = troll, deleted = deleted).some
-          case _ => UserLine(UserName(username), None, patron, text, troll = troll, deleted = deleted).some
-      case _ => none
+  private def strToUserLine(str: String): Option[UserLine] = str match
+    case UserLineRegex(username, sep, text) =>
+      val troll   = sep == trollChar
+      val deleted = sep == deletedChar
+      val patron  = sep == patronChar || sep == patronFlairChar
+      val flair   = sep == flairChar || sep == patronFlairChar
+      val (title, name) = username split titleSep match
+        case Array(title, name) => (Title get title, UserName(name))
+        case _                  => (none, UserName(username))
+      UserLine(name, title, patron, flair, text, troll = troll, deleted = deleted).some
   def userLineToStr(x: UserLine): String =
     val sep =
       if x.troll then trollChar
       else if x.deleted then deletedChar
-      else if x.patron then patronChar
+      else if x.patron then if x.flair then patronFlairChar else patronChar
+      else if x.flair then flairChar
       else " "
     val tit = x.title.so(_.value + titleSep)
     s"$tit${x.username}$sep${x.text}"

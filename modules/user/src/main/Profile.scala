@@ -12,8 +12,7 @@ case class Profile(
     rcfRating: Option[Int] = None,
     cfcRating: Option[Int] = None,
     dsbRating: Option[Int] = None,
-    links: Option[String] = None,
-    flair: Option[UserFlair] = None
+    links: Option[String] = None
 ):
 
   def nonEmptyRealName =
@@ -33,8 +32,6 @@ case class Profile(
     100 * List(country, bio, firstName, lastName).count(_.isDefined) / 4
 
   def actualLinks: List[Link] = links so Links.make
-
-  def checkedFlair: Option[UserFlair] = flair.filter(UserFlairApi.exists)
 
   import Profile.OfficialRating
 

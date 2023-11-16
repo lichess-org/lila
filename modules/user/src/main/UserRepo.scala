@@ -484,6 +484,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     F.username -> true,
     F.title    -> true,
     F.plan     -> true,
+    F.flair    -> true,
     F.enabled  -> true,
     F.marks    -> true
   )

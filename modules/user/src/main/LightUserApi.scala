@@ -54,13 +54,12 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
 
   private given BSONDocumentReader[LightUser] with
     def readDocument(doc: BSONDocument) =
-      println(lila.db.BSON debug doc)
       doc.getAsTry[UserName](F.username) map: name =>
         LightUser(
           id = name.id,
           name = name,
           title = doc.getAsOpt[UserTitle](F.title),
-          flair = UserFlair from doc.getAsOpt[Bdoc](F.profile).flatMap(_.string("flair")),
+          flair = doc.getAsOpt[UserFlair](F.flair),
           isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
         )
 
@@ -70,7 +69,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
       F.username          -> true,
       F.title             -> true,
       s"${F.plan}.active" -> true,
-      F.profileFlair      -> true
+      F.flair             -> true
     ).some
 
 object LightUserApi:
