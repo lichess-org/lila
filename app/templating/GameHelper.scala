@@ -90,9 +90,7 @@ trait GameHelper:
       withFlair: Boolean = true,
       withRating: Boolean = true,
       withTitle: Boolean = true
-  )(using
-      Lang
-  ): Frag =
+  )(using Lang): Frag =
     player.aiLevel.fold[Frag](
       user
         .fold[Frag](trans.anonymous.txt()): user =>
@@ -112,7 +110,7 @@ trait GameHelper:
     ): level =>
       frag(aiName(level))
 
-  def playerText(player: Player, withRating: Boolean = false) =
+  def playerText(player: Player, withRating: Boolean = false): String =
     Namer.playerTextBlocking(player, withRating)(using lightUser)
 
   def gameVsText(game: Game, withRatings: Boolean = false): String =
@@ -153,11 +151,16 @@ trait GameHelper:
             (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player.light, user.some, withRating && ctx.pref.showRatings),
+            playerUsername(
+              player.light,
+              user.some,
+              withRating = withRating && ctx.pref.showRatings,
+              withFlair = withFlair && ctx.pref.flairs
+            ),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
-            engineOrFlair(engine, user.flair ifTrue withFlair)
+            tosMark(engine)
           ),
           statusIcon
         )
@@ -190,22 +193,22 @@ trait GameHelper:
             (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player, user.some, withRating && ctx.pref.showRatings),
+            playerUsername(
+              player,
+              user.some,
+              withRating = withRating && ctx.pref.showRatings,
+              withFlair = withFlair && ctx.pref.flairs
+            ),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
-            engineOrFlair(engine, user.flair ifTrue withFlair)
+            tosMark(engine)
           ),
           statusIcon
         )
 
-  private def engineOrFlair(engine: Boolean, flair: Option[UserFlair])(using Lang): Option[Tag] =
-    if engine then
-      span(
-        cls   := "tos_violation",
-        title := trans.thisAccountViolatedTos.txt()
-      ).some
-    else flair.flatMap(userFlair)
+  private def tosMark(mark: Boolean)(using Lang): Option[Tag] =
+    mark option span(cls := "tos_violation", title := trans.thisAccountViolatedTos.txt())
 
   def gameEndStatus(game: Game)(using lang: Lang): String =
     game.status match
