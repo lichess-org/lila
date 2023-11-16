@@ -11,13 +11,15 @@ export async function initModule(stubs = false) {
     bots: {},
   };
 
-  const zfPromise = !stubs ? makeZerofish({ root: lichess.assetUrl('npm') }) : Promise.resolve(undefined);
-  const botsPromise = fetch(lichess.assetUrl('bots.json')).then(x => x.json());
-  const [zf, bots] = await Promise.all([zfPromise, botsPromise]);
+  const zfAsync = !stubs ? makeZerofish({ root: lichess.assetUrl('npm') }) : Promise.resolve(undefined);
+
+  const botsAsync = fetch(lichess.assetUrl('bots.json')).then(x => x.json());
+
+  const [zf, bots] = await Promise.all([zfAsync, botsAsync]);
+
   for (const bot of bots) {
     if (zf) libots.bots[bot.uid.slice(1)] = new ZeroBot(bot, zf);
     else libots.bots[bot.uid.slice(1)] = bot;
   }
-  if (zf) return makeCtrl(libots, zf);
-  else return libots;
+  return zf ? makeCtrl(libots, zf) : libots;
 }
