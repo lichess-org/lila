@@ -14,7 +14,7 @@ object pref:
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
 
-  private def setting(name: Frag, body: Frag, settingid: String) = st.section(a(href := "#" + settingid)(h2(id := settingid)(name)), body)
+  private def setting(name: Frag, body: Frag, settingId: String) = st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
 
   def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
     account.layout(
@@ -123,7 +123,7 @@ object pref:
             setting(
               takebacksWithOpponentApproval(),
               radios(form("behavior.takeback"), translatedTakebackChoices),
-              "howDoYouMovePieces"
+              "takebacksWithOpponentApproval"
             ),
             setting(
               promoteToQueenAutomatically(),
