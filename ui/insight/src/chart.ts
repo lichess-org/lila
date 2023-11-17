@@ -118,12 +118,27 @@ function barBuilder(
     borderColor: '#4a4a4a',
     stack: opts?.stack,
     minBarLength: !percent ? 5 : undefined,
-    datalabels: { display: false },
+    datalabels:
+      id == 'y2'
+        ? { display: false }
+        : {
+            color: tooltipFontColor,
+            textStrokeColor: tooltipBgColor,
+            textShadowBlur: 10,
+            textShadowColor: tooltipBgColor,
+            textStrokeWidth: 1.2,
+            font: fontFamily(12, 'bold'),
+            formatter: val =>
+              val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
+          },
   };
 }
 
-const labelBuilder = (d: InsightData) =>
-  d.xAxis.categories.map(ts => (d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts));
+function labelBuilder(d: InsightData) {
+  return d.xAxis.categories.map(ts =>
+    d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
+  );
+}
 
 function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   const stacked = !!d.series[0].stack;
