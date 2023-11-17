@@ -39,11 +39,13 @@ final class UserForm:
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
       "cfcRating"  -> optional(number(min = 0, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
-      "links"      -> optional(cleanNonEmptyText(maxLength = 3000)),
-      "flair"      -> optional(text.into[UserFlair].verifying(UserFlairApi.db.set(_)))
+      "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
 
   def profileOf(user: User) = profile fill user.profileOrDefault
+
+  val flair = Form[Option[UserFlair]]:
+    single("flair" -> optional(text.into[UserFlair].verifying(UserFlairApi.db.set(_))))
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 

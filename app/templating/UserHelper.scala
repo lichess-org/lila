@@ -231,7 +231,7 @@ trait UserHelper extends HasEnv:
     )
 
   def userFlair(user: User): Option[Tag] =
-    user.profile.flatMap(_.flair).flatMap(userFlair)
+    user.flair.flatMap(userFlair)
 
   def userFlair(flair: UserFlair): Option[Tag] =
     UserFlairApi.exists(flair) option img(

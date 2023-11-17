@@ -307,6 +307,7 @@ object User:
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
+        flair = r.getO[UserFlair](flair),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
 
@@ -327,6 +328,7 @@ object User:
         title      -> o.title,
         plan       -> o.plan.nonEmpty,
         totpSecret -> o.totpSecret,
+        flair      -> o.flair,
         marks      -> o.marks.nonEmpty
       )
 
