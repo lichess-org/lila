@@ -56,7 +56,7 @@ object side:
             views.html.base.bits.fenAnalysisLink(fen)
           ),
         teamLink(s.teamId),
-        views.html.gathering.verdicts(verdicts, s.perfType) | br,
+        views.html.gathering.verdicts(verdicts, s.perfType, !s.isFinished) | br,
         small(trans.by(userIdLink(s.createdBy.some))),
         br,
         absClientInstant(s.startsAt)
