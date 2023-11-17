@@ -8,14 +8,10 @@ import lila.common.AssetVersion
 
 object UserFlairApi:
 
-  final class Db(val list: List[UserFlair]):
-    lazy val set: Set[UserFlair] = list.toSet
+  private var db: Set[UserFlair]                            = Set.empty
+  private[user] def updateDb(lines: Iterator[String]): Unit = db = UserFlair from lines.toSet
 
-  private var _db: Db                                       = Db(Nil)
-  private[user] def updateDb(lines: Iterator[String]): Unit = _db = Db(UserFlair from lines.toList)
-
-  def db                                = _db
-  def exists(flair: UserFlair): Boolean = db.list.isEmpty || db.set(flair)
+  def exists(flair: UserFlair): Boolean = db.isEmpty || db(flair)
 
 final private class UserFlairApi(
     ws: StandaloneWSClient,

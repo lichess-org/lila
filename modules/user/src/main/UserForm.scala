@@ -45,7 +45,7 @@ final class UserForm:
   def profileOf(user: User) = profile fill user.profileOrDefault
 
   val flair = Form[Option[UserFlair]]:
-    single("flair" -> optional(text.into[UserFlair].verifying(UserFlairApi.db.set(_))))
+    single("flair" -> optional(text.into[UserFlair].verifying(UserFlairApi.exists)))
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
