@@ -2,6 +2,7 @@ import { LegacyBot } from './legacyBot';
 import { Work, ExternalEngineInfo, CevalEngine, CevalState } from '../types';
 import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
+import throttle from 'common/throttle';
 
 interface ExternalEngineOutput {
   time: number;
@@ -38,10 +39,13 @@ export class ExternalEngine extends LegacyBot implements CevalEngine {
   start(work: Work) {
     this.stop();
     this.state = CevalState.Loading;
+    this.process(work);
+  }
 
+  process = throttle(700, work => {
     this.req = new AbortController();
     this.analyse(work, this.req.signal);
-  }
+  });
 
   private async analyse(work: Work, signal: AbortSignal): Promise<void> {
     try {
@@ -60,7 +64,7 @@ export class ExternalEngine extends LegacyBot implements CevalEngine {
             sessionId: this.sessionId,
             threads: work.threads,
             hash: work.hashSize || 16,
-            infinite: true, // TODO WTF
+            movetime: work.searchMs === Number.POSITIVE_INFINITY ? 24 * 3600 * 1000 : work.searchMs,
             multiPv: work.multiPv,
             variant: work.variant,
             initialFen: work.initialFen,
@@ -68,7 +72,6 @@ export class ExternalEngine extends LegacyBot implements CevalEngine {
           },
         }),
       });
-
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
         work.emit({
