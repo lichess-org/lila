@@ -27,7 +27,6 @@ export async function tsc(): Promise<void> {
       '-b',
       cfgPath,
       ...(env.watch ? ['-w', '--preserveWatchOutput'] : []),
-      ...(env.clean ? ['--force'] : []),
     ]);
 
     env.log(`Checking typescript`, { ctx: 'tsc' });
