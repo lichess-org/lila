@@ -34,7 +34,7 @@ final class Env(
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,
-    lila.user.UserFlairApi.GetterSync
+    lila.user.UserFlairApi.Getter
 ):
 
   lazy val forms = wire[TournamentForm]

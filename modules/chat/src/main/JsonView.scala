@@ -13,15 +13,21 @@ object JsonView:
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
   def asyncLines(chat: AnyChat)(using flairs: UserFlairApi)(using Executor): Fu[JsonChatLines] =
-    flairs.gettersFor(chat.userIds) map: flairs =>
+    flairs.flairsOf(chat.userIds) map: flairs =>
       syncLines(chat)(using flairs)
 
-  def syncLines(chat: AnyChat)(using UserFlairApi.GetterSync): JsonChatLines = JsonChatLines:
+  def syncLines(chat: AnyChat)(using UserFlairApi.FlairMap): JsonChatLines = JsonChatLines:
     chat match
       case c: MixedChat => JsArray(c.lines map lineWriter.writes)
       case c: UserChat  => JsArray(c.lines map userLineWriter.writes)
 
-  def apply(line: Line)(using UserFlairApi.GetterSync): JsObject = lineWriter writes line
+  def apply(line: Line)(using getFlair: UserFlairApi.Getter)(using Executor): Fu[JsObject] =
+    line.userIdMaybe.ifTrue(line.flair).so(getFlair) map: flair =>
+      given UserFlairApi.FlairMap = ~(for
+        userId <- line.userIdMaybe
+        flair  <- flair
+      yield Map(userId -> flair))
+      lineWriter.writes(line)
 
   def userModInfo(using LightUser.GetterSync)(u: UserModInfo) =
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
@@ -53,11 +59,11 @@ object JsonView:
           "date"   -> e.createdAt
         )
 
-    private[chat] def lineWriter(using getFlair: UserFlairApi.GetterSync): OWrites[Line] = OWrites:
+    private[chat] def lineWriter(using UserFlairApi.FlairMap): OWrites[Line] = OWrites:
       case l: UserLine   => userLineWriter writes l
       case l: PlayerLine => playerLineWriter writes l
 
-    def userLineWriter(using getFlair: UserFlairApi.GetterSync): OWrites[UserLine] = OWrites: l =>
+    def userLineWriter(using getFlair: UserFlairApi.FlairMap): OWrites[UserLine] = OWrites: l =>
       Json
         .obj(
           "u" -> l.username,
@@ -66,7 +72,7 @@ object JsonView:
         .add("r" -> l.troll)
         .add("d" -> l.deleted)
         .add("p" -> l.patron)
-        .add("f" -> l.flair.so(getFlair(l.userId)))
+        .add("f" -> l.flair.so(getFlair.get(l.userId)))
         .add("title" -> l.title)
 
     val playerLineWriter: OWrites[PlayerLine] = OWrites: l =>

@@ -17,9 +17,7 @@ object UserFlairApi:
   opaque type Getter <: GetterType = GetterType
   object Getter extends TotalWrapper[Getter, GetterType]
 
-  private type GetterSyncType              = UserId => Option[UserFlair]
-  opaque type GetterSync <: GetterSyncType = GetterSyncType
-  object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
+  type FlairMap = Map[UserId, UserFlair]
 
 final class UserFlairApi(
     ws: StandaloneWSClient,
@@ -32,18 +30,14 @@ final class UserFlairApi(
   val getter = Getter: id =>
     lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
-  val getterSync = GetterSync: id =>
-    lightUserApi.sync(id).flatMap(_.flair)
-
-  def gettersFor(ids: List[UserId]): Fu[GetterSync] =
+  def flairsOf(ids: List[UserId]): Fu[Map[UserId, UserFlair]] =
     lightUserApi.asyncMany(ids) map: users =>
       val pairs = for
         uOpt  <- users
         user  <- uOpt
         flair <- user.flair
       yield user.id -> flair
-      val flairMap = pairs.toMap
-      GetterSync(flairMap.get _)
+      pairs.toMap
 
   export lightUserApi.preloadMany
 

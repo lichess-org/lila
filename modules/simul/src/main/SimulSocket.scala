@@ -13,7 +13,7 @@ final private class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(using Executor, lila.user.UserFlairApi.GetterSync):
+)(using Executor, lila.user.UserFlairApi.Getter):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId into RoomId, NotifyVersion("hostGame", gameId.value))
@@ -33,9 +33,8 @@ final private class SimulSocket(
     }
 
   def startGame(simul: Simul, game: Game): Unit =
-    game.player(simul.hostId) foreach { opponent =>
+    game.player(simul.hostId) foreach: opponent =>
       redirectPlayer(simul, Pov(game, !opponent.color))
-    }
 
   def filterPresent(simul: Simul, userIds: Set[UserId]): Fu[Seq[UserId]] =
     lila.socket.SocketRequest[Seq[UserId]](

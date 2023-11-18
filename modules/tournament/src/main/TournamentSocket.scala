@@ -14,7 +14,7 @@ final private class TournamentSocket(
     waitingUsers: WaitingUsersApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(using Executor, ActorSystem, Scheduler, lila.user.UserFlairApi.GetterSync):
+)(using Executor, ActorSystem, Scheduler, lila.user.UserFlairApi.Getter):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 

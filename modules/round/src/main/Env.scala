@@ -82,8 +82,8 @@ final class Env(
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
-  private given lila.user.UserFlairApi.GetterSync = flairApi.getterSync
-  lazy val roundSocket: RoundSocket               = wire[RoundSocket]
+  private given lila.user.UserFlairApi.Getter = flairApi.getter
+  lazy val roundSocket: RoundSocket           = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
     gameRepo allPlaying userId foreach:
@@ -108,21 +108,20 @@ final class Env(
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
   lazy val onStart: OnStart = OnStart: gameId =>
-    proxyRepo game gameId foreach {
+    proxyRepo game gameId foreach:
       _.foreach: game =>
-        lightUserApi.preloadMany(game.userIds) andDo {
+        lightUserApi.preloadMany(game.userIds) andDo:
           val sg = lila.game.actorApi.StartGame(game)
           Bus.publish(sg, "startGame")
           game.userIds.foreach: userId =>
             Bus.publish(sg, s"userStartGame:$userId")
-        }
-    }
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 
-  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { (() => correspondenceEmail.tick()) }
+  scheduler.scheduleAtFixedRate(10 minute, 10 minute): () =>
+    correspondenceEmail.tick()
 
   import SettingStore.Regex.given
   val selfReportEndGame = settingStore[Regex](

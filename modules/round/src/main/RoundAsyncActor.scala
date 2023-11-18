@@ -26,7 +26,7 @@ final private[round] class RoundAsyncActor(
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using Executor, lila.user.UserFlairApi.GetterSync)(using proxy: GameProxy)
+)(using Executor, lila.user.UserFlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
 
   import RoundSocket.Protocol
@@ -148,8 +148,7 @@ final private[round] class RoundAsyncActor(
             (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
-      fuccess:
-        val json = lila.chat.JsonView(line)
+      lila.chat.JsonView(line) map: json =>
         publish(List(line match
           case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
           case l: lila.chat.PlayerLine => Event.PlayerMessage(json)

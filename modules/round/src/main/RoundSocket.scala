@@ -30,7 +30,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobileSocket,
     shutdown: CoordinatedShutdown
-)(using Executor, lila.user.UserFlairApi.GetterSync)(using scheduler: Scheduler):
+)(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
