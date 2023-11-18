@@ -11,10 +11,8 @@ final class RacerJson:
   import StormJson.given
 
   given OWrites[RacerPlayer] = OWrites: p =>
-    Json
-      .obj("name" -> p.name, "score" -> p.score)
-      .add("userId", p.user.map(_.id))
-      .add("title", p.user.flatMap(_.title))
+    p.user.so(lila.common.LightUser.write) ++
+      Json.obj("name" -> p.name, "score" -> p.score)
 
   // full race data
   def data(race: RacerRace, player: RacerPlayer, pref: Pref) =
