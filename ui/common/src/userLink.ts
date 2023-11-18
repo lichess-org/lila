@@ -9,10 +9,11 @@ export interface AnyUser {
 }
 
 export default function userLink(u: AnyUser): VNode {
-  const line = u.patron ? h('line.line.patron', { attrs: { title: 'Lichess Patron' } }) : undefined;
-  const titleSpan = u.title && u.title != 'BOT' ? h('span.utitle', u.title) : undefined;
+  const line = u.patron ? h('i.line.patron', { attrs: { title: 'Lichess Patron' } }) : undefined;
+  const titleSpan =
+    u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title);
   const flairImg = userFlair(u.flair);
-  const ratingText = u.rating ? ` (${u.rating})` : undefined;
+  const ratingText = u.rating && ` (${u.rating})`;
   return h(
     'a',
     {
