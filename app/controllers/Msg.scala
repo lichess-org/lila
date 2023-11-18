@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.{ given, * }
-import lila.common.LightUser.lightUserWrites
 
 final class Msg(env: Env) extends LilaController(env):
 
@@ -84,7 +83,7 @@ final class Msg(env: Env) extends LilaController(env):
   private def inboxJson(using me: Me) =
     env.msg.api.myThreads flatMap env.msg.json.threads map { threads =>
       Json.obj(
-        "me"       -> lightUserWrites.writes(me.light).add("bot" -> me.isBot),
+        "me"       -> lila.common.LightUser.write(me.light).add("bot" -> me.isBot),
         "contacts" -> threads
       )
     }

@@ -69,15 +69,14 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
   );
 }
 
-function podiumUsername(p: PodiumPlayer) {
-  return h(
+const podiumUsername = (p: PodiumPlayer) =>
+  h(
     'a.text.ulpt.user-link',
     {
       attrs: { href: '/@/' + p.name },
     },
     playerName(p),
   );
-}
 
 function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentController): VNode {
   const noarg = ctrl.trans.noarg,

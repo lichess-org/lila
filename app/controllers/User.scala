@@ -569,8 +569,8 @@ final class User(
               lightUserApi.asyncMany(userIds) map { users =>
                 Json.obj(
                   "result" -> JsArray(users collect { case Some(u) =>
-                    lila.common.LightUser.lightUserWrites
-                      .writes(u)
+                    lila.common.LightUser
+                      .write(u)
                       .add("online" -> env.socket.isOnline(u.id))
                   })
                 )

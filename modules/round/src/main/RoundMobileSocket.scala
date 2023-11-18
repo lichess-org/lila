@@ -9,7 +9,6 @@ import lila.common.{ Bus, Preload, ApiVersion }
 import lila.socket.Socket
 import lila.common.LightUser
 import lila.common.Json.given
-import LightUser.lightUserWrites
 import chess.{ Color, ByColor }
 import lila.pref.Pref
 import lila.chat.Chat

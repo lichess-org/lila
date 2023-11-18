@@ -115,7 +115,7 @@ final class MsgCompat(
   private case class ThreadData(user: UserStr, subject: String, text: String)
 
   private def renderUser(user: LightUser) =
-    LightUser.lightUserWrites.writes(user) ++ Json.obj(
+    LightUser.write(user) ++ Json.obj(
       "online"   -> isOnline(user.id),
       "username" -> user.name // for mobile app BC
     )

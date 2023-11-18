@@ -120,7 +120,7 @@ final class Account(
     negotiateJson(
       env.pref.api.get(me).map { prefs =>
         Ok:
-          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+          lila.common.LightUser.write(me.light) ++ Json.obj(
             "coach" -> isGranted(_.Coach),
             "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
           )

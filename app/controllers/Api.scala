@@ -70,8 +70,8 @@ final class Api(
     env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
       val streamingIds = env.streamer.liveStreamApi.userIds
       def toJson(u: LightUser) =
-        LightUser.lightUserWrites
-          .writes(u)
+        LightUser
+          .write(u)
           .add("online" -> env.socket.isOnline(u.id))
           .add("playing" -> env.round.playing(u.id))
           .add("streaming" -> streamingIds(u.id))
