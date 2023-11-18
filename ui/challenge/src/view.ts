@@ -49,16 +49,22 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h(`div#challenge-text-${c.id}.content__text`, [
-            h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
-            h('span.desc', [
-              h('span.is.color-icon.' + myColor),
-              ' • ',
-              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+          h(
+            'div.content__text',
+            {
+              attrs: { id: `challenge-text-${c.id}` },
+            },
+            [
+              h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
+              h('span.desc', [
+                h('span.is.color-icon.' + myColor),
                 ' • ',
-              ),
-            ]),
-          ]),
+                [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+                  ' • ',
+                ),
+              ]),
+            ],
+          ),
           h('i.perf', {
             attrs: { 'data-icon': c.perf.icon },
           }),
@@ -174,8 +180,8 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
       h('i.line' + (u.patron ? '.patron' : '')),
       h('name', [
         u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + (showRatings ? ' (' + rating + ')' : ''),
         u.flair && userFlair(u.flair),
+        u.name + (showRatings ? ' (' + rating + ')' : ''),
       ]),
       h(
         'signal',
