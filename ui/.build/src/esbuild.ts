@@ -5,6 +5,14 @@ import { preModule, buildModules } from './build';
 import { env, errorMark, colors as c } from './main';
 
 const typeBundles = new Map<string, Map<string, string>>();
+const esbuildCtx: es.BuildContext[] = [];
+
+export async function killEsbuild() {
+  const proof = Promise.allSettled(esbuildCtx.map(x => x.dispose()));
+  esbuildCtx.length = 0;
+  typeBundles.clear();
+  return proof;
+}
 
 export async function esbuild(): Promise<void> {
   if (!env.esbuild) return;
@@ -41,10 +49,12 @@ export async function esbuild(): Promise<void> {
       outExtension: { '.js': env.prod ? '.min.js' : '.js' },
       plugins: [onEndPlugin],
     });
-    if (env.watch) ctx.watch();
-    else {
+    if (env.watch) {
+      ctx.watch();
+      esbuildCtx.push(ctx);
+    } else {
       await ctx.rebuild();
-      ctx.dispose();
+      await ctx.dispose();
     }
   }
 }
