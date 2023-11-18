@@ -1,19 +1,25 @@
-import { h, VNode } from 'snabbdom';
+import { Attrs, h, VNode } from 'snabbdom';
 
 export interface AnyUser {
   name: string;
   title?: string;
   rating?: number;
+  provisional?: boolean;
   flair?: Flair;
-  patron?: boolean;
+  line?: boolean; // display i.line
+  patron?: boolean; // turn i.line into a patron wing
+  online?: boolean; // light up .line
+  attrs?: Attrs;
 }
 
 export default function userLink(u: AnyUser): VNode {
-  const line = u.patron ? h('i.line.patron', { attrs: { title: 'Lichess Patron' } }) : undefined;
+  const lineIcon = u.line
+    ? h('i.line', { class: { patron: !!u.patron }, attrs: u.patron ? { title: 'Lichess Patron' } : {} })
+    : undefined;
   const titleSpan =
-    u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title);
+    u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0']);
   const flairImg = userFlair(u.flair);
-  const ratingText = u.rating && ` (${u.rating})`;
+  const ratingText = u.rating && ` (${u.rating + (u.provisional ? '?' : '')})`;
   return h(
     'a',
     {
@@ -21,12 +27,14 @@ export default function userLink(u: AnyUser): VNode {
       class: {
         'user-link': true,
         ulpt: true,
+        online: !!u.online,
       },
       attrs: {
         href: `/@/${u.name}`,
+        ...u.attrs,
       },
     },
-    [line, titleSpan, u.name, flairImg, ratingText],
+    [lineIcon, titleSpan, u.name, flairImg, ratingText],
   );
 }
 
