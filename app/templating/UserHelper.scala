@@ -189,13 +189,7 @@ trait UserHelper extends HasEnv:
     a(
       cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
-    )(
-      withOnline so lineIcon(user),
-      withTitle option titleTag(user.title),
-      name | user.username,
-      withFlair option userFlair(user),
-      withPerfRating.map(userRating(user, _))
-    )
+    )(userLinkContent(user, withOnline, withTitle, withFlair, withPerfRating, name))
 
   def userSpan(
       user: User,
@@ -210,13 +204,22 @@ trait UserHelper extends HasEnv:
     span(
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
-    )(
-      withOnline so lineIcon(user),
-      withTitle option titleTag(user.title),
-      name | user.username,
-      withFlair option userFlair(user),
-      withPerfRating.map(userRating(user, _))
-    )
+    )(userLinkContent(user, withOnline, withTitle, withFlair, withPerfRating, name))
+
+  def userLinkContent(
+      user: User,
+      withOnline: Boolean = true,
+      withTitle: Boolean = true,
+      withFlair: Boolean = true,
+      withPerfRating: Option[Perf | UserPerfs] = None,
+      name: Option[Frag] = None
+  )(using Lang) = frag(
+    withOnline so lineIcon(user),
+    withTitle option titleTag(user.title),
+    name | user.username,
+    withFlair option userFlair(user),
+    withPerfRating.map(userRating(user, _))
+  )
 
   def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Lang): Tag =
     val user = lightUser(userId)

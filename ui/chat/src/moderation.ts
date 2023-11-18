@@ -191,7 +191,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         {
           attrs: { 'data-icon': licon.Agent },
         },
-        [userLink(data.username)],
+        [userLink({ name: data.username })],
       ),
       h('a', {
         attrs: { 'data-icon': licon.X },

@@ -56,13 +56,11 @@ object post:
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
             a(
-              href     := routes.Ublog.index(user.username),
               cls      := userClass(user.id, none, withOnline = true),
+              href     := routes.Ublog.index(user.username),
               dataHref := routes.User.show(user.username)
             )(
-              lineIcon(user),
-              titleTag(user.title),
-              user.username,
+              userLinkContent(user),
               !ctx.is(user) && isGranted(_.ModerateBlog) option
                 (if blog.tier <= UblogBlog.Tier.VISIBLE then badTag else goodTag) (
                   cls := "ublog-post__tier"

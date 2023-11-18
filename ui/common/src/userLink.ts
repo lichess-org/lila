@@ -1,14 +1,18 @@
 import { h, VNode } from 'snabbdom';
 
-export default function userLink(u: string, title?: string, patron?: boolean, flair?: Flair): VNode {
-  const line = patron
-    ? h('line.line.patron', {
-        attrs: {
-          title: 'Lichess Patron',
-        },
-      })
-    : undefined;
-  const flairImg = userFlair(flair);
+export interface AnyUser {
+  name: string;
+  title?: string;
+  rating?: number;
+  flair?: Flair;
+  patron?: boolean;
+}
+
+export default function userLink(u: AnyUser): VNode {
+  const line = u.patron ? h('line.line.patron', { attrs: { title: 'Lichess Patron' } }) : undefined;
+  const titleSpan = u.title && u.title != 'BOT' ? h('span.utitle', u.title) : undefined;
+  const flairImg = userFlair(u.flair);
+  const ratingText = u.rating ? ` (${u.rating})` : undefined;
   return h(
     'a',
     {
@@ -18,10 +22,10 @@ export default function userLink(u: string, title?: string, patron?: boolean, fl
         ulpt: true,
       },
       attrs: {
-        href: `/@/${u}`,
+        href: `/@/${u.name}`,
       },
     },
-    title && title != 'BOT' ? [line, h('span.utitle', title), u, flairImg] : [line, u, flairImg],
+    [line, titleSpan, u.name, flairImg, ratingText],
   );
 }
 
