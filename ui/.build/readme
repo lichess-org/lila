@@ -23,7 +23,8 @@ Options:
 Examples:
   ./build -c                 # clean build artifacts, exit without building
   ./build -d                 # build client sssets with lichess.debug = true
-  ./build -wn                # build, watch for changes, don't run no pnpm install
+  ./build -wn                # build, watch for changes, no pnpm install
+  ./build -r                 # build, watch, and rebuild on package.json change
   ./build -rd                # build, watch, rebuild on package.json change, lichess.debug = true
   ./build -cp                # clean, build minified
   ./build -rc                # clean, build, watch, and clean rebuild on package.json change
