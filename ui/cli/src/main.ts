@@ -9,7 +9,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
     onSelect: r => execute(r.name),
   });
   $(input).on('keydown', (e: KeyboardEvent) => {
-    if (e.code == 'Enter') {
+    if (e.key == 'Enter') {
       execute(input.value);
       input.blur();
     }

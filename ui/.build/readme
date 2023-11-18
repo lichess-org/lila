@@ -1,0 +1,30 @@
+ui/build was lovingly crafted from a single block of wood as a personal gift to you.
+
+one letter options can be consolidated after a single dash (e.g. -cdw)
+
+Options:
+-c, --clean clean build artifacts, build only if additional args provided
+-d, --debug build assets with lichess.debug = true
+-p, --prod build minified assets (prod builds)
+-w, --watch build, watch for changes, but terminate on package.json changes
+-r, --rebuild build, watch, and rebuild on package.json changes
+--no-install don't run pnpm install (--no-install is not compatible with --rebuild)
+--no-color don't use color in logs
+--no-time don't log the time
+--no-context don't log the context
+--tsc run tsc # specify any of [--tsc, --sass, --esbuild, --copies] to disable the others
+--sass run sass
+--esbuild run esbuild
+--copies run copies
+
+Usage examples:
+
+./build -c # clean build artifacts, exit without building
+./build -d # build client sssets with lichess.debug = true
+./build -wp # build minified, watch for changes, terminate if package.json changes
+./build -cdp # clean, build minified assets with lichess.debug = true
+./build -rc # clean, build, watch, and clean & rebuild again on package.json changes
+./build analyse site msg # build modules analyse, site, and msg (don't build everything)
+./build -w dasher chart # watch mode for modules dasher and chart
+./build --tsc -w # watch mode but type checking only
+./build --sass msg notify # build css only for msg and notify modules
