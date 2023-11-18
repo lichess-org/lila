@@ -18,6 +18,7 @@ object chat:
 
   def restrictedJson(
       chat: lila.chat.Chat.Restricted,
+      lines: lila.chat.JsonChatLines,
       name: String,
       timeout: Boolean,
       public: Boolean, // game players chat is not public
@@ -29,6 +30,7 @@ object chat:
   )(using Context) =
     json(
       chat.chat,
+      lines,
       name = name,
       timeout = timeout,
       withNoteAge = withNoteAge,
@@ -42,6 +44,7 @@ object chat:
 
   def json(
       chat: lila.chat.AnyChat,
+      lines: lila.chat.JsonChatLines,
       name: String,
       timeout: Boolean,
       public: Boolean, // game players chat is not public
@@ -59,10 +62,10 @@ object chat:
           .obj(
             "id"         -> chat.id,
             "name"       -> name,
-            "lines"      -> lila.chat.JsonView(chat),
-            "userId"     -> ctx.userId,
+            "lines"      -> lines,
             "resourceId" -> resourceId.value
           )
+          .add("userId" -> ctx.userId)
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
           .add("palantir" -> (palantir && ctx.isAuth)),

@@ -10,20 +10,16 @@ final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
     teamOf: SwissId => Fu[Option[TeamId]]
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.user.UserFlairApi.GetterSync):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 
   def reload(id: SwissId): Unit =
     reloadThrottler ! LateMultiThrottler.work(
       id = id,
-      run = fuccess {
+      run = fuccess:
         send(RP.Out.tellRoom(id into RoomId, makeMessage("reload")))
-      },
+      ,
       delay = 1.seconds.some
     )
 
@@ -38,9 +34,8 @@ final private class SwissSocket(
       logger,
       roomId => _.Swiss(SwissId(roomId.value)).some,
       localTimeout = Some: (roomId, modId, _) =>
-        teamOf(SwissId(roomId.value)) flatMapz { teamId =>
-          lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeaderWithCommPerm(teamId, modId, _) }
-        },
+        teamOf(SwissId(roomId.value)) flatMapz: teamId =>
+          lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeaderWithCommPerm(teamId, modId, _) },
       chatBusChan = _.Swiss
     )
 

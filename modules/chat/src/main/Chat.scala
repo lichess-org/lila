@@ -30,13 +30,12 @@ case class UserChat(
 
   def forUser(u: Option[User]): UserChat =
     if u.so(_.marks.troll) then this
-    else copy(lines = lines filterNot (_.troll))
+    else copy(lines = lines.filterNot(_.troll))
 
-  def markDeleted(u: User) =
-    copy(
-      lines = lines.map: l =>
-        if l.userId is u.id then l.delete else l
-    )
+  def markDeleted(u: User) = copy(
+    lines = lines.map: l =>
+      if l.userId is u.id then l.delete else l
+  )
 
   def hasLinesOf(u: User) = lines.exists(_.userId == u.id)
 
@@ -51,7 +50,7 @@ case class UserChat(
   def hasRecentLine(u: User): Boolean = lines.reverse.take(12).exists(_.userId == u.id)
 
 object UserChat:
-  case class Mine(chat: UserChat, timeout: Boolean, locked: Boolean = false):
+  case class Mine(chat: UserChat, lines: JsonChatLines, timeout: Boolean, locked: Boolean = false):
     def truncate(max: Int) = copy(chat = chat truncate max)
 
 case class MixedChat(
@@ -86,7 +85,7 @@ object Chat:
   def simulSetup(simulId: SimulId)    = Setup(simulId into ChatId, PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
-  case class Restricted(chat: MixedChat, restricted: Boolean)
+  case class Restricted(chat: MixedChat, lines: JsonChatLines, restricted: Boolean)
 
   // left: game chat
   // right: tournament/simul chat

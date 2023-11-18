@@ -24,7 +24,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer):
+)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.user.UserFlairApi.GetterSync):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
   lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))

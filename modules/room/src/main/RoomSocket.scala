@@ -10,7 +10,7 @@ import lila.socket.Socket.{ makeMessage }
 import lila.common.Json.given
 
 import play.api.libs.json.*
-import lila.user.Me
+import lila.user.{ Me, UserFlairApi }
 
 object RoomSocket:
 
@@ -64,8 +64,8 @@ object RoomSocket:
           )
 
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-        lila.chat.ChatTimeout.Reason(reason) foreach { r =>
-          localTimeout.so { _(roomId, modId, suspect) } foreach { local =>
+        lila.chat.ChatTimeout.Reason(reason) foreach: r =>
+          localTimeout.so { _(roomId, modId, suspect) } foreach: local =>
             val scope = if local then ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
               roomId into ChatId,
@@ -75,8 +75,6 @@ object RoomSocket:
               scope = scope,
               busChan = chatBusChan
             )(using modId)
-          }
-        }
     }: Handler) orElse minRoomHandler(rooms, logger)
 
   def minRoomHandler(rooms: RoomsMap, logger: Logger): Handler =
@@ -90,7 +88,7 @@ object RoomSocket:
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select) =
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using UserFlairApi.GetterSync) =
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan):
       case lila.chat.ChatLine(id, line: UserLine) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("message", lila.chat.JsonView(line), line.troll))

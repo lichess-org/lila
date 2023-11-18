@@ -35,6 +35,7 @@ object show:
           "chat" -> chatOption.map: c =>
             views.html.chat.json(
               c.chat,
+              c.lines,
               name = trans.chatRoom.txt(),
               timeout = c.timeout,
               public = true,

@@ -23,7 +23,7 @@ final private class RoundMobileSocket(
     takebacker: Takebacker,
     moretimer: Moretimer,
     chatApi: lila.chat.ChatApi
-)(using Executor):
+)(using Executor, lila.user.UserFlairApi):
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
 
@@ -37,6 +37,7 @@ final private class RoundMobileSocket(
     takebackable <- takebacker.isAllowedIn(game)
     moretimeable <- moretimer.isAllowedIn(game)
     chat         <- getPlayerChat(game, myPlayer.exists(_.hasUser))
+    chatLines    <- chat.map(_.chat) soFu lila.chat.JsonView.asyncLines
   yield
     def playerJson(color: Color) =
       val player = game player color
@@ -71,7 +72,7 @@ final private class RoundMobileSocket(
         "chat",
         chat.map: c =>
           Json
-            .obj("lines" -> lila.chat.JsonView(c.chat))
+            .obj("lines" -> chatLines)
             .add("restricted", c.restricted)
       )
 
@@ -87,6 +88,7 @@ final private class RoundMobileSocket(
 
   private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
     game.hasChat.so:
-      chatApi.playerChat.findIf(game.id into ChatId, !game.justCreated) map { chat =>
-        Chat.Restricted(chat, restricted = game.fromLobby && !isAuth).some
-      }
+      for
+        chat  <- chatApi.playerChat.findIf(game.id into ChatId, !game.justCreated)
+        lines <- lila.chat.JsonView.asyncLines(chat)
+      yield Chat.Restricted(chat, lines, restricted = game.fromLobby && !isAuth).some

@@ -24,6 +24,7 @@ object watcher:
     val chatJson = chatOption.map: c =>
       chat.json(
         c.chat,
+        c.lines,
         name = trans.spectatorRoom.txt(),
         timeout = c.timeout,
         withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,

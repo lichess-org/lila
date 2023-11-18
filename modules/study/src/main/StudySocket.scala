@@ -21,7 +21,7 @@ final private class StudySocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, lila.user.UserFlairApi.GetterSync):
 
   import StudySocket.{ *, given }
 

@@ -31,6 +31,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
+    flairApi: lila.user.UserFlairApi,
     timeline: lila.hub.actors.Timeline,
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
@@ -81,12 +82,12 @@ final class Env(
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
-  lazy val roundSocket: RoundSocket = wire[RoundSocket]
+  private given lila.user.UserFlairApi.GetterSync = flairApi.getterSync
+  lazy val roundSocket: RoundSocket               = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
-    gameRepo allPlaying userId foreach {
+    gameRepo allPlaying userId foreach:
       _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
-    }
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>

@@ -44,6 +44,7 @@ object show:
           .add("chat" -> chatOption.map: chat =>
             views.html.chat.json(
               chat.chat,
+              chat.lines,
               name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
               timeout = chat.timeout,
               public = true,

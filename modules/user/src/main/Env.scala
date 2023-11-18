@@ -74,6 +74,8 @@ final class Env(
 
   val flairApi = wire[UserFlairApi]
 
+  export flairApi.getterSync
+
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       rankingApi remove userId
