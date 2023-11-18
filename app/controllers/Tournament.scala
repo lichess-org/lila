@@ -66,11 +66,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     val page = getInt("page")
     cachedTour(id).flatMap: tourOption =>
       def loadChat(tour: Tour, json: JsObject): Fu[Option[lila.chat.UserChat.Mine]] =
-        canHaveChat(tour, json.some) so env.chat.api.userChat.cached
+        canHaveChat(tour, json.some) soFu env.chat.api.userChat.cached
           .findMine(ChatId(tour.id))
-          .flatMap: c =>
-            env.user.lightUserApi.preloadMany(c.chat.userIds) inject
-              c.copy(locked = !env.api.chatFreshness.of(tour)).some
+          .map:
+            _.copy(locked = !env.api.chatFreshness.of(tour))
       negotiate(
         html = tourOption
           .fold(tournamentNotFound): tour =>

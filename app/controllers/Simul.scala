@@ -48,10 +48,8 @@ final class Simul(env: Env) extends LilaController(env):
             version  <- env.simul.version(sim.id)
             json     <- env.simul.jsonView(sim, verdicts)
             chat     <- canHaveChat(sim) soFu env.chat.api.userChat.cached.findMine(sim.id into ChatId)
-            _ <- chat.so: c =>
-              env.user.lightUserApi.preloadMany(c.chat.userIds)
-            stream <- env.streamer.liveStreamApi one sim.hostId
-            page   <- renderPage(html.simul.show(sim, version, json, chat, stream, verdicts))
+            stream   <- env.streamer.liveStreamApi one sim.hostId
+            page     <- renderPage(html.simul.show(sim, version, json, chat, stream, verdicts))
           yield Ok(page).noCache
     }
 

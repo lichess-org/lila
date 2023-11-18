@@ -31,7 +31,7 @@ final class UserFlairApi(
     lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
   def flairsOf(ids: List[UserId]): Fu[Map[UserId, UserFlair]] =
-    lightUserApi.asyncMany(ids) map: users =>
+    lightUserApi.asyncMany(ids.distinct) map: users =>
       val pairs = for
         uOpt  <- users
         user  <- uOpt

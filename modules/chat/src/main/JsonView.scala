@@ -13,7 +13,7 @@ object JsonView:
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
   def asyncLines(chat: AnyChat)(using flairs: UserFlairApi)(using Executor): Fu[JsonChatLines] =
-    flairs.flairsOf(chat.userIds) map: flairs =>
+    flairs.flairsOf(chat.flairUserIds) map: flairs =>
       syncLines(chat)(using flairs)
 
   def syncLines(chat: AnyChat)(using UserFlairApi.FlairMap): JsonChatLines = JsonChatLines:
