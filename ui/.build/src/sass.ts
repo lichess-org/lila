@@ -6,11 +6,24 @@ import { env, colors as c, lines, errorMark } from './main';
 import { buildModules } from './build';
 import { globArray } from './parse';
 
-export async function sass(): Promise<void> {
-  if (!env.sass) return;
+const partialRe = /(.*)\/_(.*)\.scss$/;
+const importRe = /@import ['"](.*)['"]/g;
+const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+const sassWatch: fs.FSWatcher[] = [];
+const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
+let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
 
+export function killSass() {
+  sassPs?.kill();
+  sassPs = undefined;
+  for (const x of sassWatch) x.close();
+  sassWatch.length = 0;
   builder.clear();
   importMap.clear();
+}
+
+export async function sass(): Promise<void> {
+  if (!env.sass) return;
 
   await buildThemedScss();
 
@@ -23,30 +36,20 @@ export async function sass(): Promise<void> {
     allSources.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`))),
   );
 
-  for (const build of builder.sources) {
-    await parseImports(build);
-  }
+  await Promise.allSettled([...builder.sources].map(src => parseImports(src)));
 
   if (env.watch) {
     for (const dir of [...importMap.keys()].map(path.dirname)) {
       const watcher = fs.watch(dir);
       watcher.on('change', onChanges.bind(null, dir));
       watcher.on('error', (err: Error) => env.error(err, 'sass'));
-      watcher.on('close', () => {
-        env.error('Watcher closed unexpectedly. Exiting');
-        ps.exit(-1);
-      });
+      sassWatch.push(watcher);
     }
   }
   if (builder.sources.size) {
     compile([...builder.sources], false);
   } else env.done(0, 'sass');
 }
-
-const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
-const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
-const partialRe = /(.*)\/_(.*)\.scss$/;
-const importRe = /@import ['"](.*)['"]/g;
 const builder = new (class {
   fileSet = new Set<string>();
   timeout: NodeJS.Timeout | undefined;
@@ -116,7 +119,7 @@ function compile(sources: string[], tellTheWorld = true) {
   }
 
   const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
-  const proc = cps.spawn(
+  sassPs = cps.spawn(
     sassExec,
     sassArgs.concat(
       env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
@@ -130,12 +133,12 @@ function compile(sources: string[], tellTheWorld = true) {
     ),
   );
 
-  proc.stdout?.on('data', (buf: Buffer) => {
+  sassPs.stdout?.on('data', (buf: Buffer) => {
     const txts = lines(buf.toString('utf8'));
     for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
   });
-  proc.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-  proc.on('close', (code: number) => env.done(code, 'sass'));
+  sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+  sassPs.on('close', (code: number) => env.done(code, 'sass'));
 }
 
 function imports(srcFile: string, bset = new Set<string>()): Set<string> {
@@ -151,7 +154,7 @@ function onChanges(dir: string, eventType: string, srcFile: string): void {
   } else if (eventType === 'rename') {
     globArray('*.scss', { cwd: dir, abs: false }).then(files => {
       if (builder.add(files.map(f => path.join(dir, f)))) {
-        env.log(`Directory '${c.cyanBold(dir)}' changed`);
+        env.log(`Directory '${c.cyanBold(dir)}' changed`, { ctx: 'sass' });
       }
     });
   }

@@ -1,46 +1,68 @@
 import * as ps from 'node:process';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-
+import { clean } from './clean';
 import { build, postBuild } from './build';
 
+const shortArgs = 'hrwpsdc';
+const longArgs = [
+  '--tsc',
+  '--sass',
+  '--esbuild',
+  '--copies',
+  '--no-color',
+  '--no-time',
+  '--no-context',
+  '--help',
+  '--rebuild',
+  '--watch',
+  '--prod',
+  '--split',
+  '--debug',
+  '--clean',
+  '--update',
+  '--no-install',
+];
+
 export function main() {
-  const configPath = path.resolve(__dirname, '../build-config.json');
-  const config: BuildOpts = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : {};
-  const oneDashArgs = ps.argv.filter(x => /^-([hpdsw]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
+  const args = ps.argv.slice(2);
+  const oneDashArgs = args.filter(x => /^-([a-z]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
+  oneDashArgs.filter(x => !shortArgs.includes(x)).forEach(arg => env.exit(`Unknown flag '-${arg}'`));
+  args
+    .filter(x => x.startsWith('--') && !longArgs.includes(x))
+    .forEach(arg => env.exit(`Unknown argument '${arg}'`));
 
-  if (ps.argv.includes('--tsc') || ps.argv.includes('--sass') || ps.argv.includes('--esbuild')) {
-    // cli args override json, including any of these flags sets those not present to false
-    config.sass = ps.argv.includes('--sass');
-    config.tsc = ps.argv.includes('--tsc');
-    config.esbuild = ps.argv.includes('--esbuild');
+  if (['--tsc', '--sass', '--esbuild', '--copies'].filter(x => args.includes(x)).length) {
+    // including one or more of these disables the others
+    if (!args.includes('--sass')) env.exitCode.set('sass', false);
+    if (!args.includes('--tsc')) env.exitCode.set('tsc', false);
+    if (!args.includes('--esbuild')) env.exitCode.set('esbuild', false);
+    env.copies = args.includes('--copies');
   }
-  if (ps.argv.includes('--no-color')) config.color = false;
-  if (ps.argv.includes('--no-time')) config.time = false;
-  if (ps.argv.includes('--no-context')) config.ctx = false;
+  if (args.includes('--no-color')) env.color = undefined;
+  if (args.includes('--no-time')) env.logTime = false;
+  if (args.includes('--no-context')) env.logContext = false;
 
-  init(path.resolve(__dirname, '../../..'), config);
+  env.rebuild = args.includes('--rebuild') || oneDashArgs.includes('r');
+  env.watch = env.rebuild || args.includes('--watch') || oneDashArgs.includes('w');
+  env.prod = args.includes('--prod') || oneDashArgs.includes('p');
+  env.split = args.includes('--split') || oneDashArgs.includes('s');
+  env.debug = args.includes('--debug') || oneDashArgs.includes('d');
+  env.clean = args.includes('--clean') || oneDashArgs.includes('c');
+  env.install = !args.includes('--no-install');
 
-  if (ps.argv.includes('--help') || oneDashArgs.includes('h')) {
+  if (env.rebuild && !env.install) {
+    env.warn(`--rebuild incompatible with --no-install`);
+    env.rebuild = false;
+  }
+
+  if (args.length === 1 && (args[0] === '--help' || args[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
-    return;
+  } else if (args.length === 1 && (args[0] === '--clean' || args[0] === '-c')) {
+    clean();
+  } else {
+    build(args.filter(x => !x.startsWith('-')));
   }
-  env.watch = ps.argv.includes('--watch') || oneDashArgs.includes('w');
-  env.prod = ps.argv.includes('--prod') || oneDashArgs.includes('p');
-  env.split = ps.argv.includes('--split') || oneDashArgs.includes('s');
-  env.debug = ps.argv.includes('--debug') || oneDashArgs.includes('d');
-
-  build(ps.argv.slice(2).filter(x => !x.startsWith('-')));
-}
-
-export interface BuildOpts {
-  sass?: boolean; // compile scss, default = true
-  esbuild?: boolean; // bundle with esbuild, default = true
-  splitting?: boolean; // enable code splitting for esm modules, default = false
-  tsc?: boolean; // use tsc for type checking, default = true
-  time?: boolean; // show time in log statements, default = true
-  ctx?: boolean; // show context (tsc, rollup, etc), default = true
-  color?: any; // set false to disable colors, otherwise leave undefined
 }
 
 export interface LichessModule {
@@ -68,27 +90,11 @@ export interface LichessBundle {
   output: string; // abs path to bundle destination
 }
 
-export function init(root: string, opts: BuildOpts) {
-  env.rootDir = root;
-  env.opts = opts;
-  if (env.opts.color === undefined) {
-    env.opts.color = {
-      build: 'green',
-      sass: 'magenta',
-      tsc: 'yellow',
-      esbuild: 'blue',
-    };
-  }
-  if (env.opts.sass === false) env.exitCode.set('sass', false);
-  if (env.opts.tsc === false) env.exitCode.set('tsc', false);
-  if (env.opts.esbuild === false) env.exitCode.set('esbuild', false);
-}
-
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
 
 const colorLines = (text: string, code: string) =>
   lines(text)
-    .map(t => (env.opts?.color !== false ? escape(t, code) : t))
+    .map(t => (env.color ? escape(t, code) : t))
     .join('\n');
 
 export const colors = {
@@ -107,15 +113,27 @@ export const colors = {
 };
 
 class Env {
-  rootDir: string; // absolute path to lila project root
-  opts: BuildOpts; // configure logging mostly
+  rootDir = path.resolve(__dirname, '../../..'); // absolute path to lila project root
   watch = false;
+  rebuild = false;
+  clean = false;
   prod = false;
   split = false;
   debug = false;
+  install = true;
+  copies = true;
   exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
   startTime: number | undefined = Date.now();
+  logTime = true;
+  logContext = true;
+  color: any = {
+    build: 'green',
+    sass: 'magenta',
+    tsc: 'yellow',
+    esbuild: 'blue',
+  };
 
+  constructor() {}
   get sass(): boolean {
     return this.exitCode.get('sass') !== false;
   }
@@ -138,13 +156,17 @@ class Env {
     return path.join(this.outDir, 'compiled');
   }
   get buildDir(): string {
-    return path.join(this.uiDir, '@build');
+    return path.join(this.uiDir, '.build');
   }
   warn(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, warn: true });
   }
   error(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, error: true });
+  }
+  exit(d: any, ctx = 'build') {
+    this.log(d, { ctx: ctx, error: true });
+    process.exit(1);
   }
   good(ctx = 'build') {
     this.log(colors.good('No errors') + env.watch ? ` - ${colors.grey('Watching')}...` : '', { ctx: ctx });
@@ -159,13 +181,13 @@ class Env {
         ? d.join('\n')
         : JSON.stringify(d, undefined, 2);
 
-    const esc = this.opts.color !== false ? escape : (text: string, _: any) => text;
+    const esc = this.color ? escape : (text: string, _: any) => text;
 
-    if (this.opts.color === false) text = stripColorEscapes(text);
+    if (!this.color) text = stripColorEscapes(text);
 
     const prefix = (
-      (this.opts.time === false ? '' : prettyTime()) +
-      (!ctx || this.opts.ctx === false ? '' : `[${esc(ctx, colorForCtx(ctx, this.opts.color))}] `)
+      (this.logTime === false ? '' : prettyTime()) +
+      (!ctx || !this.logContext ? '' : `[${esc(ctx, colorForCtx(ctx, this.color))}] `)
     ).trim();
 
     lines(text).forEach(line =>
