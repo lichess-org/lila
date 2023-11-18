@@ -126,7 +126,7 @@ trait GameHelper:
       withDiff: Boolean = true,
       engine: Boolean = false,
       withBerserk: Boolean = false,
-      withFlair: Boolean = false,
+      withFlair: Boolean = true,
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
@@ -173,7 +173,7 @@ trait GameHelper:
       withDiff: Boolean = true,
       engine: Boolean = false,
       withBerserk: Boolean = false,
-      withFlair: Boolean = false,
+      withFlair: Boolean = true,
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =

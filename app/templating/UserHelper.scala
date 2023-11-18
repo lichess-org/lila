@@ -104,7 +104,7 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
-      withFlair: Boolean = false,
+      withFlair: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
@@ -130,7 +130,7 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
-      withFlair: Boolean = false,
+      withFlair: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
   )(using Lang): Tag =
@@ -183,7 +183,7 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
-      withFlair: Boolean = false,
+      withFlair: Boolean = true,
       params: String = ""
   )(using Lang): Tag =
     a(
@@ -204,7 +204,7 @@ trait UserHelper extends HasEnv:
       withPowerTip: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
-      withFlair: Boolean = false,
+      withFlair: Boolean = true,
       name: Option[Frag] = None
   )(using Lang): Tag =
     span(
