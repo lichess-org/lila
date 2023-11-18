@@ -148,9 +148,8 @@ trait UserHelper extends HasEnv:
     )
 
   def titleTag(title: Option[UserTitle]): Option[Frag] =
-    title map { t =>
+    title.map: t =>
       frag(userTitleTag(t), nbsp)
-    }
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
   private def userIdNameLink(
@@ -234,10 +233,10 @@ trait UserHelper extends HasEnv:
     )
 
   def userFlair(user: User): Option[Tag] =
-    user.flair.flatMap(userFlair)
+    user.flair.map(userFlair)
 
-  def userFlair(flair: UserFlair): Option[Tag] =
-    UserFlairApi.exists(flair) option img(
+  def userFlair(flair: UserFlair): Tag =
+    img(
       cls := "uflair",
       src := staticAssetUrl(s"lifat/flair/img/$flair.webp")
     )
@@ -302,7 +301,7 @@ trait UserHelper extends HasEnv:
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag                                 = i(cls := "line moderator", title := "Lichess Mod")
   private def lineIcon(patron: Boolean)(using Lang): Frag = if patron then patronIcon else lineIcon
-  private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.so(_.isPatron))
+  private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.exists(_.isPatron))
   def lineIcon(user: LightUser)(using Lang): Frag                 = lineIcon(user.isPatron)
   def lineIcon(user: User)(using Lang): Frag                      = lineIcon(user.isPatron)
   def lineIconChar(user: User): Frag = if user.isPatron then patronIconChar else lineIconChar

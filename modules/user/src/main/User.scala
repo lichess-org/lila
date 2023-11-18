@@ -307,7 +307,7 @@ object User:
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
-        flair = r.getO[UserFlair](flair),
+        flair = r.getO[UserFlair](flair).filter(UserFlairApi.exists),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
 

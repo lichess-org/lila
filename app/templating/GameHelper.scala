@@ -97,7 +97,7 @@ trait GameHelper:
           frag(
             titleTag(user.title ifTrue withTitle),
             user.name,
-            user.flair ifTrue withFlair flatMap userFlair,
+            user.flair ifTrue withFlair map userFlair,
             withRating option frag(
               " (",
               player.rating.fold(frag("?")): rating =>
