@@ -158,44 +158,42 @@ final class JsonView(
         case None       => playerRepo.computeRankOf(player)
     }
 
-  def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] =
-    for
-      ranking <- cached ranking tour
-      sheet   <- cached.sheet(tour, info.userId)
-      user    <- lightUserApi.asyncFallback(info.userId)
-    yield
-      import info.*
-      val isPlaying = recentPovs.headOption.so(_.game.playable)
-      val povScores: List[(LightPov, Option[arena.Sheet.Score])] = recentPovs.zip:
-        (isPlaying so List(none[arena.Sheet.Score])) ::: sheet.scores.map(some)
-      Json.obj(
-        "player" -> Json
+  def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] = for
+    ranking <- cached ranking tour
+    sheet   <- cached.sheet(tour, info.userId)
+    user    <- lightUserApi.asyncFallback(info.userId)
+  yield
+    import info.*
+    val isPlaying = recentPovs.headOption.so(_.game.playable)
+    val povScores: List[(LightPov, Option[arena.Sheet.Score])] = recentPovs.zip:
+      (isPlaying so List(none[arena.Sheet.Score])) ::: sheet.scores.map(some)
+    Json.obj(
+      "player" -> {
+        Json.toJsObject(user) ++ Json
           .obj(
-            "id"     -> user.id,
-            "name"   -> user.name,
             "rating" -> player.rating,
             "score"  -> player.score,
             "fire"   -> player.fire,
             "nb"     -> sheetNbs(sheet)
           )
-          .add("title" -> user.title)
           .add("performance" -> player.performanceOption)
           .add("rank" -> ranking.ranking.get(user.id).map(_ + 1))
           .add("provisional" -> player.provisional)
           .add("withdraw" -> player.withdraw)
-          .add("team" -> player.team),
-        "pairings" -> povScores.map: (pov, score) =>
-          Json
-            .obj(
-              "id"     -> pov.gameId,
-              "color"  -> pov.color.name,
-              "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating, pov.opponent.berserk),
-              "win"    -> score.flatMap(_.isWin),
-              "status" -> pov.game.status.id,
-              "score"  -> score.map(_.value)
-            )
-            .add("berserk" -> pov.player.berserk)
-      )
+          .add("team" -> player.team)
+      },
+      "pairings" -> povScores.map: (pov, score) =>
+        Json
+          .obj(
+            "id"     -> pov.gameId,
+            "color"  -> pov.color.name,
+            "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating, pov.opponent.berserk),
+            "win"    -> score.flatMap(_.isWin),
+            "status" -> pov.game.status.id,
+            "score"  -> score.map(_.value)
+          )
+          .add("berserk" -> pov.player.berserk)
+    )
 
   private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[GameId]] =
     if Uptime.startedSinceSeconds(60)
@@ -248,15 +246,13 @@ final class JsonView(
     val game = featured.game
     def ofPlayer(rp: RankedPlayer, p: lila.game.Player) =
       val light = lightUserApi syncFallback rp.player.userId
-      Json
-        .obj(
-          "rank"   -> rp.rank,
-          "name"   -> light.name,
-          "rating" -> rp.player.rating
-        )
-        .add("title" -> light.title)
-        .add("flair" -> light.title)
-        .add("berserk" -> p.berserk)
+      LightUser.writeNoId(light) ++
+        Json
+          .obj(
+            "rank"   -> rp.rank,
+            "rating" -> rp.player.rating
+          )
+          .add("berserk" -> p.berserk)
     Json
       .obj(
         "id"          -> game.id,
@@ -269,12 +265,13 @@ final class JsonView(
       )
       .add(
         // not named `clock` to avoid conflict with lichobile
-        "c" -> game.clock.ifTrue(game.isBeingPlayed).map { c =>
-          Json.obj(
-            "white" -> c.remainingTime(chess.White).roundSeconds,
-            "black" -> c.remainingTime(chess.Black).roundSeconds
-          )
-        }
+        "c" -> game.clock
+          .ifTrue(game.isBeingPlayed)
+          .map: c =>
+            Json.obj(
+              "white" -> c.remainingTime(chess.White).roundSeconds,
+              "black" -> c.remainingTime(chess.Black).roundSeconds
+            )
       )
       .add("winner" -> game.winnerColor.map(_.name))
 
@@ -286,12 +283,10 @@ final class JsonView(
       .add("pauseDelay", delay)
 
   private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Boolean): JsObject =
-    val light = userId flatMap lightUserApi.sync
-    Json
-      .obj("rating" -> rating)
-      .add("name" -> light.map(_.name))
-      .add("title" -> light.flatMap(_.title))
-      .add("berserk" -> berserk)
+    userId.flatMap(lightUserApi.sync).so(LightUser.writeNoId) ++
+      Json
+        .obj("rating" -> rating)
+        .add("berserk" -> berserk)
 
   private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](32, "tournament.podiumJson") {
     _.expireAfterAccess(15 seconds)
@@ -303,9 +298,8 @@ final class JsonView(
             .bestByTourWithRank(id, 3)
             .flatMap: top3 =>
               // check that the winner is still correctly denormalized
-              top3.headOption.map(_.player.userId).filter(w => tour.winnerId.forall(w !=)) foreach {
+              top3.headOption.map(_.player.userId).filter(w => tour.winnerId.forall(w !=)) foreach:
                 tournamentRepo.setWinnerId(tour.id, _)
-              }
               top3.traverse: rp =>
                 for
                   sheet <- cached.sheet(tour, rp.player.userId)
@@ -324,7 +318,7 @@ final class JsonView(
   }
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
-    lightUserApi.asyncFallback(p.name.id) map { u =>
+    lightUserApi.asyncFallback(p.name.id) map: u =>
       Json
         .obj(
           "n" -> u.name,
@@ -332,16 +326,14 @@ final class JsonView(
           "k" -> p.rank.value
         )
         .add("t" -> u.title)
-    }
 
-  private def duelJson(d: Duel): Fu[JsObject] =
-    for
-      u1 <- duelPlayerJson(d.p1)
-      u2 <- duelPlayerJson(d.p2)
-    yield Json.obj(
-      "id" -> d.gameId,
-      "p"  -> Json.arr(u1, u2)
-    )
+  private def duelJson(d: Duel): Fu[JsObject] = for
+    u1 <- duelPlayerJson(d.p1)
+    u2 <- duelPlayerJson(d.p2)
+  yield Json.obj(
+    "id" -> d.gameId,
+    "p"  -> Json.arr(u1, u2)
+  )
 
   def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
     tour.isTeamBattle.soFu(teamStandingJsonCache get tour.id)
@@ -361,9 +353,8 @@ final class JsonView(
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
 
   private[tournament] def fetchAndRenderTeamStandingJson(max: Int)(id: TourId) =
-    cached.battle.teamStanding.get(id) map { ranked =>
+    cached.battle.teamStanding.get(id) map: ranked =>
       JsArray(ranked take max map teamBattleRankedWrites.writes)
-    }
 
   private given teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites: rt =>
     Json.obj(
@@ -379,16 +370,15 @@ final class JsonView(
     )
 
   private def getMyRankedTeam(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.RankedTeam]] =
-    tour.teamBattle.exists(_.hasTooManyTeams) so
-      cached.battle.teamStanding.get(tour.id) map {
+    tour.teamBattle.exists(_.hasTooManyTeams) so:
+      cached.battle.teamStanding.get(tour.id) map:
         _.find(_.teamId == teamId)
-      }
 
   private val teamInfoCache = cacheApi[(TourId, TeamId), JsObject](16, "tournament.teamInfo.json"):
     _.expireAfterWrite(5 seconds)
       .maximumSize(32)
       .buildAsyncFuture: (tourId, teamId) =>
-        cached.teamInfo.get(tourId -> teamId) flatMap { info =>
+        cached.teamInfo.get(tourId -> teamId) flatMap: info =>
           lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
             .obj(
               "id"        -> teamId,
@@ -397,18 +387,15 @@ final class JsonView(
               "perf"      -> info.avgPerf,
               "score"     -> info.avgScore,
               "topPlayers" -> info.topPlayers.flatMap: p =>
-                lightUserApi.sync(p.userId) map { user =>
-                  Json
-                    .obj(
-                      "name"   -> user.name,
-                      "rating" -> p.rating,
-                      "score"  -> p.score
-                    )
-                    .add("fire" -> p.fire)
-                    .add("title" -> user.title)
-                }
+                lightUserApi.sync(p.userId) map: u =>
+                  LightUser.writeNoId(u) ++
+                    Json
+                      .obj(
+                        "rating" -> p.rating,
+                        "score"  -> p.score
+                      )
+                      .add("fire" -> p.fire)
             )
-        }
 
   def teamInfo(tour: Tournament, teamId: TeamId): Fu[Option[JsObject]] =
     tour.isTeamBattle soFu teamInfoCache.get(tour.id -> teamId)
@@ -468,6 +455,7 @@ object JsonView:
           "username" -> user.name
         )
         .add("title" -> user.title)
+        .add("flair" -> user.flair)
         .add("performance" -> player.performanceOption)
         .add("team" -> player.team)
         .add("sheet", sheet.map(sheetJson(streakFire = false, withScores = true)))
@@ -494,21 +482,18 @@ object JsonView:
       withScores: Boolean
   )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
-    lightUserApi asyncFallback p.userId map { light =>
-      Json
-        .obj(
-          "name"   -> light.name,
-          "rank"   -> rankedPlayer.rank,
-          "rating" -> p.rating,
-          "score"  -> p.score
-        )
-        .add("sheet", sheet.map(sheetJson(streakFire = streakable, withScores = withScores)))
-        .add("title" -> light.title)
-        .add("flair" -> light.flair)
-        .add("provisional" -> p.provisional)
-        .add("withdraw" -> p.withdraw)
-        .add("team" -> p.team)
-    }
+    lightUserApi asyncFallback p.userId map: light =>
+      LightUser.writeNoId(light) ++
+        Json
+          .obj(
+            "rank"   -> rankedPlayer.rank,
+            "rating" -> p.rating,
+            "score"  -> p.score
+          )
+          .add("sheet", sheet.map(sheetJson(streakFire = streakable, withScores = withScores)))
+          .add("provisional" -> p.provisional)
+          .add("withdraw" -> p.withdraw)
+          .add("team" -> p.team)
 
   private[tournament] def sheetJson(streakFire: Boolean, withScores: Boolean)(s: arena.Sheet) =
     Json

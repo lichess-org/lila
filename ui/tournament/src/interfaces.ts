@@ -121,6 +121,7 @@ export interface SimplePlayer {
   name: string;
   rating: number;
   title?: string;
+  flair?: string;
   provisional?: boolean;
 }
 
