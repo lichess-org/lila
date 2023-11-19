@@ -2,7 +2,7 @@ import { h, VNode, VNodeChildren } from 'snabbdom';
 import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import { dataIcon } from 'common/snabbdom';
-import { fullName } from 'common/userLink';
+import { fullName, userRating } from 'common/userLink';
 import { SimplePlayer } from '../interfaces';
 
 export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
@@ -28,7 +28,7 @@ export const player = (
         defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
         fullName(p),
       ),
-      withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
+      withRating ? h('span.rating', userRating(p)) : null,
     ],
   );
 

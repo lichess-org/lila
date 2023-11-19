@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { Attrs, h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { DasherCtrl, Mode } from './dasher';
 import { view as pingView } from './ping';
@@ -92,7 +92,7 @@ export default function (ctrl: DasherCtrl): VNode {
   ]);
 }
 
-const linkCfg = (href: string, icon: string, more?: Record<string, string>) => ({
+const linkCfg = (href: string, icon: string, more?: Attrs) => ({
   attrs: {
     href,
     'data-icon': icon,

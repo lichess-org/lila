@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
-import { fullName } from 'common/userLink';
+import { fullName, userRating } from 'common/userLink';
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h(
@@ -12,10 +12,7 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
-    [
-      h('span.name', fullName(p.user)),
-      withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
-    ],
+    [h('span.name', fullName(p.user)), withRating ? h('span.rating', userRating(p)) : null],
   );
 }
 

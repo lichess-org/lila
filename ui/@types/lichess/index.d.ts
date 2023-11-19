@@ -14,6 +14,7 @@ interface Lichess {
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
+  flairSrc(flair: Flair): string;
   loadCss(path: string): void;
   loadCssPath(path: string): Promise<void>;
   jsModule(name: string): string;

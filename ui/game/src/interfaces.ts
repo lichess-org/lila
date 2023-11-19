@@ -76,7 +76,7 @@ export interface Player {
   ratingDiff?: number;
   checks?: number;
   rating?: number;
-  provisional?: string;
+  provisional?: boolean;
   engine?: boolean;
   berserk?: boolean;
   version: number;

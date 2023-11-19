@@ -562,19 +562,16 @@ final class User(
                   case None => env.user.cached userIdsLike term
           } flatMap { userIds =>
             if getBool("names") then
-              lightUserApi.asyncMany(userIds) map { users =>
+              lightUserApi.asyncMany(userIds) map: users =>
                 Json toJson users.flatMap(_.map(_.name))
-              }
             else if getBool("object") then
-              lightUserApi.asyncMany(userIds) map { users =>
-                Json.obj(
+              lightUserApi.asyncMany(userIds) map: users =>
+                Json.obj:
                   "result" -> JsArray(users collect { case Some(u) =>
                     lila.common.LightUser
                       .write(u)
                       .add("online" -> env.socket.isOnline(u.id))
                   })
-                )
-              }
             else fuccess(Json toJson userIds)
           } map JsonOk
 
