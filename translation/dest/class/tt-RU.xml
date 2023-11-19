@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Сыйныфлар</string>
   <string name="features">Үзенчәлекләр</string>
   <string name="teachersX">Укытучылар: %s</string>
   <string name="reopen">Яңадан ачу</string>
@@ -14,4 +15,7 @@
   <string name="progress">Alğa kiteş</string>
   <string name="winrate">Җиңүләр</string>
   <string name="na">Юк</string>
+  <string name="news">Яңалыклар</string>
+  <string name="invite">Чакыру</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">яки</string>
 </resources>
