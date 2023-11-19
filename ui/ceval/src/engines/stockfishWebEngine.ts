@@ -5,19 +5,20 @@ import { sharedWasmMemory } from '../util';
 import type StockfishWeb from 'lila-stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
-  failed = false;
+  failed: Error;
   protocol: Protocol;
   module?: StockfishWeb;
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly progress?: (download?: { bytes: number; total: number }) => void,
+    readonly progress?: (download?: { bytes: number; total: number }, error?: string) => void,
     readonly variantMap?: (v: string) => string,
   ) {
     this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
       console.error(e);
-      this.failed = true;
+      this.failed = e;
+      progress?.(undefined, e.message);
     });
   }
 
@@ -29,12 +30,17 @@ export class StockfishWebEngine implements CevalEngine {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
     const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
 
-    const module: StockfishWeb = await makeModule.default({
-      wasmMemory: sharedWasmMemory(this.info.minMem!),
-      locateFile: (name: string) =>
-        lichess.assetUrl(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
+    const module: StockfishWeb = await new Promise((resolve, reject) => {
+      makeModule
+        .default({
+          wasmMemory: sharedWasmMemory(this.info.minMem!),
+          onError: (msg: string) => reject(new Error(msg)),
+          locateFile: (name: string) =>
+            lichess.assetUrl(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
+        })
+        .then(resolve)
+        .catch(reject);
     });
-
     if (!this.info.id.endsWith('hce')) {
       const nnueStore = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
       const nnueFilename = module.getRecommendedNnue();

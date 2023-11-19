@@ -11,6 +11,7 @@ import { hasFeature } from 'common/device';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
+import { domDialog } from 'common/dialog';
 
 const cevalDisabledSentinel = '1';
 
@@ -237,6 +238,14 @@ export default class CevalCtrl {
     this.worker = undefined;
   };
 
+  loadEngineFailed(msg: string) {
+    domDialog({
+      show: 'modal',
+      htmlText:
+        `<div><p>Failed to load engine:</p><code>${msg}</code><hr>` +
+        '<p>Try clearing your site settings or choose another.</p></div>',
+    });
+  }
   private lastEmitFen: string | null = null;
   private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));

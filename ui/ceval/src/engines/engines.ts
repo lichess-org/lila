@@ -25,8 +25,9 @@ export class Engines {
   }
 
   makeEngineMap() {
-    const progress = (download?: { bytes: number; total: number }) => {
+    const progress = (download?: { bytes: number; total: number }, error?: string) => {
       if (this.ctrl.enabled()) this.ctrl.download = download;
+      if (error) this.ctrl.loadEngineFailed(error);
       this.ctrl.opts.redraw();
     };
 
