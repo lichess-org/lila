@@ -20,7 +20,7 @@ object profile:
       title = s"${u.username} - ${trans.editProfile.txt()}",
       active = "editProfile"
     ):
-      div(cls := "account box box-pad")(
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.editProfile()),
         standardFlash,
         postForm(cls := "form3", action := routes.Account.profileApply)(

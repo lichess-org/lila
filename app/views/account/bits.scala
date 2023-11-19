@@ -12,14 +12,16 @@ object bits:
 
   def data(u: User)(using PageContext) =
     account.layout(title = s"${u.username} - personal data", active = "security"):
-      div(cls := "account security personal-data box box-pad")(
+      div(cls := "security personal-data box box-pad")(
         h1(cls := "box__top")("My personal data"),
         div(cls := "personal-data__header")(
           p("Here is all personal information Lichess has about ", userLink(u)),
           a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1", downloadAttr):
             trans.download()
+          )
         )
       )
+    }
 
   def categName(categ: PrefCateg)(using Lang): String = categ match
     case PrefCateg.Display      => trans.preferences.display.txt()

@@ -76,16 +76,16 @@ object index:
         div(cls := "body")(
           doc.getStructuredText("blog.body").map { body =>
             raw(lila.blog.BlogApi.extract(body))
-          },
-          p(cls := "more")(
-            a(
-              cls      := "button",
-              href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
-              dataIcon := licon.PlayTriangle
-            )(
-              " Continue reading this post"
-            )
-          )
+          }
+        )
+      ),
+      p(cls := "more")(
+        a(
+          cls      := "button",
+          href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
+          dataIcon := licon.PlayTriangle
+        )(
+          " Continue reading this post"
         )
       )
     )

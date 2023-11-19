@@ -13,7 +13,7 @@ object email:
       title = trans.changeEmail.txt(),
       active = "email"
     ):
-      div(cls := "account box box-pad")(
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.changeEmail()),
         standardFlash | flashMessage("warning")(trans.emailSuggestion()),
         postForm(cls := "form3", action := routes.Account.emailApply)(

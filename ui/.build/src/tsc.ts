@@ -23,10 +23,11 @@ export async function tsc(): Promise<void> {
       .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
     fs.writeFileSync(cfgPath, JSON.stringify(cfg));
 
-    tscPs = cps.spawn(
-      '.build/node_modules/.bin/tsc',
-      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']),
-    );
+    tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
+      '-b',
+      cfgPath,
+      ...(env.watch ? ['-w', '--preserveWatchOutput'] : []),
+    ]);
 
     env.log(`Checking typescript`, { ctx: 'tsc' });
 

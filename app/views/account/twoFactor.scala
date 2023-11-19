@@ -22,8 +22,8 @@ object twoFactor:
         iifeModule("javascripts/vendor/qrcode.min.js"),
         iifeModule("javascripts/twofactor.form.js")
       )
-    ) {
-      div(cls := "account twofactor box box-pad")(
+    ):
+      div(cls := "twofactor box box-pad")(
         h1(cls := "box__top")(twoFactorAuth()),
         standardFlash,
         postForm(cls := "form3", action := routes.Account.setupTwoFactor)(
@@ -31,18 +31,17 @@ object twoFactor:
           div(cls := "form-group")(
             twoFactorApp(
               a(
-                href := "https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp"
+                href := "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
               )("Android"),
               a(href := "https://itunes.apple.com/app/google-authenticator/id388497605?mt=8")("iOS")
             )
           ),
           div(cls := "form-group")(scanTheCode()),
           qrCode,
-          div(cls := "form-group")(
-            ifYouCannotScanEnterX(
+          div(cls := "form-group"):
+            ifYouCannotScanEnterX:
               span(style := "background:black;color:black;")(form("secret").value.orZero: String)
-            )
-          ),
+          ,
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
           form3.passwordModified(form("passwd"), trans.password())(
@@ -57,14 +56,13 @@ object twoFactor:
           form3.action(form3.submit(enableTwoFactor()))
         )
       )
-    }
 
   def disable(form: Form[?])(using PageContext)(using me: Me) =
     account.layout(
       title = s"${me.username} - ${twoFactorAuth.txt()}",
       active = "twofactor"
-    ) {
-      div(cls := "account twofactor box box-pad")(
+    ):
+      div(cls := "twofactor box box-pad")(
         boxTop(
           h1(
             i(cls := "is-green text", dataIcon := licon.Checkmark),
@@ -81,4 +79,3 @@ object twoFactor:
           form3.action(form3.submit(disableTwoFactor()))
         )
       )
-    }

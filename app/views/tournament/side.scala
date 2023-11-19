@@ -38,7 +38,7 @@ object side:
             if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             "Arena",
-            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && !tour.isFinished)) option frag(
+            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)) option frag(
               " ",
               a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(licon.Gear))
             )
@@ -61,7 +61,7 @@ object side:
             markdownLinksOrRichText(d)
           ),
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
-        views.html.gathering.verdicts(verdicts, tour.perfType),
+        views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
         tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some, withFlair = true))), br),

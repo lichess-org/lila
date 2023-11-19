@@ -17,7 +17,7 @@ object layout:
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),
       moreJs = frag(jsModule("account"), evenMoreJs)
-    ) {
+    ):
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
         ctx.me.exists(_.enabled.yes) option views.html.site.bits.pageMenuSubnav(
@@ -68,4 +68,3 @@ object layout:
         ),
         div(cls := "page-menu__content")(body)
       )
-    }

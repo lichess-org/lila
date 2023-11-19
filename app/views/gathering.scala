@@ -27,7 +27,7 @@ object gathering:
               "accepted"  -> (relevant && ctx.isAuth && v.verdict.accepted),
               "refused"   -> (relevant && ctx.isAuth && !v.verdict.accepted)
             ),
-            title := relevant option v.verdict.reason.map(_(ctx.lang))
+            title := v.verdict.reason.map(_(ctx.lang))
           ):
             v.condition match
               case Condition.TeamMember(teamId, teamName) =>
