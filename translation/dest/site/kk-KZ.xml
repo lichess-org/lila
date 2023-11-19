@@ -657,8 +657,8 @@
   <string name="termsOfService">Қызмет көрсету шарты</string>
   <string name="sourceCode">Түбір код</string>
   <string name="simultaneousExhibitions">Қалың ойындар</string>
-  <string name="host">Бас-ойыншы</string>
-  <string name="hostColorX">Бас-ойыншының түсі: %s</string>
+  <string name="host">Бас ойыншы</string>
+  <string name="hostColorX">Бас ойыншының түсі: %s</string>
   <string name="yourPendingSimuls">Кідірулі тұрған қалың ойындарыңыз</string>
   <string name="createdSimuls">Жаңа құрылған қалың ойындар</string>
   <string name="hostANewSimul">Қалың ойынды бастау</string>
@@ -676,7 +676,7 @@
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
-  <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
+  <string name="simulHostExtraTime">Бас ойыншының қосымша уақыты</string>
   <string name="simulAddExtraTimePerPlayer">Жаңа кірген әр ойыншы үшін өзіңіздің бастапқы уақытыңызды көбейту.</string>
   <string name="simulHostExtraTimePerPlayer">Әр ойыншы үшін бас ойыншыға берілетін қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
@@ -933,11 +933,11 @@
 Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында еңгізіңіз.
 Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
   <string name="cancelSimul">Қалың ойынды болдырмау</string>
-  <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>
-  <string name="estimatedStart">Болжаулы басталу уақыты</string>
+  <string name="simulHostcolor">Бас ойыншының әр ойындағы тас түсі</string>
+  <string name="estimatedStart">Басталудың болжаулы уақыты</string>
   <string name="simulFeatured">%s осында көрсету</string>
-  <string name="simulFeaturedHelp">Көпшілікке қарсы ойынды баршаға %s көрсету. Оңаша ойындарда өшірулі.</string>
-  <string name="simulDescription">Көпшілікке қарсы ойын сипаттамасы</string>
+  <string name="simulFeaturedHelp">Қалың ойынды %s-те баршаға көрсету. Оңаша ойындарда өшірулі.</string>
+  <string name="simulDescription">Қалың ойын сипаттамасы</string>
   <string name="simulDescriptionHelp">Қатысушыларға тағы айтар сөзіңіз бар ма?</string>
   <string name="markdownAvailable">Кеңейтілген синтаксис үшін %s.</string>
   <string name="embedsAvailable">Еңгізу үшін ойынның не зерттеу бөлімінің URL-ын қойыңыз.</string>
