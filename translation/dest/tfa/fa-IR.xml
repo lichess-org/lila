@@ -2,6 +2,7 @@
 <resources>
   <string name="twoFactorAuth">احراز هویت دومرحله‌ای</string>
   <string name="twoFactorHelp">احراز هویت دو مرحله ای یک لایه امنیتی دیگر به حساب شما اضافه میکند.</string>
+  <string name="twoFactorAppRecommend">اپلیکیشنی برای احراز هویت دو مرحله ای نصب کنید. ما برنامه های زیر را توصیه می کنیم:</string>
   <string name="scanTheCode">کد دو بعدی QR را با استفاده از اپلیکیشن اسکن نمایید.</string>
   <string name="enterPassword">گذرواژه خود و کد هویت‌سنجی که توسط اپلیکیشن تولید شده است را وارد نمایید تا تنظیمات کامل شود. شما برای هر بار که وارد می‌شوید نیاز به یک کد هویت‌سنجی خواهید داشت.</string>
   <string name="ifYouCannotScanEnterX">اگر نمی‌توانید کد را اسکن کنید، کد هویت‌سنجی %s را درون اپلیکیشن خود وارد نمایید.</string>
