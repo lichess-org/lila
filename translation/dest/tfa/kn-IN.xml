@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">ಎರಡು ಅಂಶದ ದೃಢೀಕರಣ</string>
   <string name="twoFactorHelp">ಎರಡು ಅಂಶಗಳ ದೃಢೀಕರಣವು ನಿಮ್ಮ ಖಾತೆಗೆ ಭದ್ರತೆಯ ಮತ್ತೊಂದು ಪದರವನ್ನು ಸೇರಿಸುತ್ತದೆ.</string>
-  <string name="twoFactorApp">ಎರಡು ಅಂಶಗಳ ದೃಢೀಕರಣಕ್ಕಾಗಿ ಅಪ್ಲಿಕೇಶನ್ ಪಡೆಯಿರಿ, ಉದಾಹರಣೆಗೆ ಮತ್ತು %1$s ಗಾಗಿ OTP ಅಥವಾ %2$s ಗಾಗಿ Google Authenticator.</string>
   <string name="scanTheCode">ಅಪ್ಲಿಕೇಶನ್‌ನೊಂದಿಗೆ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.</string>
   <string name="enterPassword">ಸೆಟಪ್ ಅನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್‌ನಿಂದ ರಚಿಸಲಾದ ದೃಢೀಕರಣ ಕೋಡ್ ಅನ್ನು ನಮೂದಿಸಿ. ನೀವು ಪ್ರತಿ ಬಾರಿ ಲಾಗ್ ಇನ್ ಮಾಡಿದಾಗ ನಿಮಗೆ ದೃಢೀಕರಣ ಕೋಡ್ ಅಗತ್ಯವಿರುತ್ತದೆ.</string>
   <string name="ifYouCannotScanEnterX">ನಿಮಗೆ ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗದಿದ್ದರೆ, ನಿಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ರಹಸ್ಯ ಕೀ %s ಅನ್ನು ನಮೂದಿಸಿ.</string>
