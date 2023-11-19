@@ -2,6 +2,7 @@
 <resources>
   <string name="twoFactorAuth">אימות דו־שלבי</string>
   <string name="twoFactorHelp">אימות דו-שלבי מוסיף עוד שכבה של אבטחה לחשבון שלך.</string>
+  <string name="twoFactorAppRecommend">התקינו אפליקציה לאימות דו־שלבי. אנו ממליצים על היישומים הבאים:</string>
   <string name="scanTheCode">סרקו את הברקוד עם האפליקציה.</string>
   <string name="enterPassword">הכניסו את הסיסמה ואת קוד האימות שנוצר על ידי האפליקציה כדי להשלים את הרישום. תזדקק/י לקוד אימות בכל התחברות מחדש.</string>
   <string name="ifYouCannotScanEnterX">אם אין ביכולתכם לסרוק את הקוד, הקישו את הרצף הסודי %s לאפליקציה שלכם.</string>
