@@ -21,7 +21,7 @@ function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | 
             lame: !!p.lame,
           },
         },
-        [h('div.trophy'), userLink({ ...p.user, line: false }), , podiumStats(p, ctrl)],
+        [h('div.trophy'), userLink({ ...p.user, line: false }), podiumStats(p, ctrl)],
       )
     : undefined;
 }
