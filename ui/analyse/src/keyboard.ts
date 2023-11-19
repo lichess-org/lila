@@ -2,7 +2,7 @@ import * as control from './control';
 import AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
-import { snabDialog, domDialog } from 'common/dialog';
+import { snabDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -140,13 +140,4 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ctrl.redraw();
     },
   });
-}
-
-export function maybeShowVariationArrowHelp(ctrl: AnalyseCtrl) {
-  if (ctrl.showVariationArrows() && lichess.once('help.analyse.variation-arrows-rtfm'))
-    domDialog({
-      class: 'help.variation-help',
-      htmlUrl: '/help/analyse/variation-arrow',
-      show: 'modal',
-    });
 }
