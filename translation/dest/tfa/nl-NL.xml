@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Tweestapsverificatie</string>
   <string name="twoFactorHelp">Tweestapsverificatie voegt een extra beveiligingslaag toe aan je account.</string>
-  <string name="twoFactorApp">Download een app voor tweestapsverificatie, bijvoorbeeld Google Authenticator voor %1$s of %2$s.</string>
+  <string name="twoFactorAppRecommend">Download een app voor tweestapsverificatie. Wij raden de volgende apps aan:</string>
   <string name="scanTheCode">Scan de QR-code met de app.</string>
   <string name="enterPassword">Voer je wachtwoord in en de verificatiecode die door de app wordt gegenereerd om de tweestapsverificatie te activeren. Je hebt elke keer dat je inlogt een verificatiecode nodig.</string>
   <string name="ifYouCannotScanEnterX">Als u de code niet kunt scannen, voer de geheime code %s in in uw app.</string>
