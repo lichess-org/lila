@@ -11,6 +11,7 @@ import { hasFeature } from 'common/device';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
+import { domDialog } from 'common/dialog';
 
 const cevalDisabledSentinel = '1';
 
@@ -237,6 +238,15 @@ export default class CevalCtrl {
     this.worker = undefined;
   };
 
+  engineFailed(msg: string) {
+    domDialog({
+      show: 'modal',
+      htmlText:
+        `<div><p>${this.engines.active?.name ?? 'Engine'} failed:</p><hr><code>${msg}</code><hr>` +
+        '<p>Things you can try:</p><p>Decrease memory slider in engine settings. Update your browser. ' +
+        'Clear site settings for lichess.org. Or select another engine</p></div>',
+    });
+  }
   private lastEmitFen: string | null = null;
   private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));

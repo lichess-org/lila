@@ -25,8 +25,9 @@ export class Engines {
   }
 
   makeEngineMap() {
-    const progress = (download?: { bytes: number; total: number }) => {
+    const progress = (download?: { bytes: number; total: number }, error?: string) => {
       if (this.ctrl.enabled()) this.ctrl.download = download;
+      if (error) this.ctrl.engineFailed(error);
       this.ctrl.opts.redraw();
     };
 
@@ -104,7 +105,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new StockfishWebEngine(e, undefined, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
+            new StockfishWebEngine(e, progress, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
         },
         {
           info: {
