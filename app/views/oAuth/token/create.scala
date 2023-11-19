@@ -13,8 +13,8 @@ object create:
 
     val title = ot.newAccessToken
 
-    views.html.account.layout(title = title.txt(), active = "oauth.token")(
-      div(cls := "account oauth box box-pad")(
+    views.html.account.layout(title = title.txt(), active = "oauth.token"):
+      div(cls := "oauth box box-pad")(
         h1(cls := "box__top")(title()),
         postForm(cls := "form3", action := routes.OAuthToken.create)(
           div(cls := "form-group")(
@@ -91,4 +91,3 @@ object create:
           }
         )
       )
-    )

@@ -7,7 +7,7 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
   const modules = new Map<string, LichessModule>();
   const moduleDeps = new Map<string, string[]>();
 
-  for (const dir of (await globArray('[^@]*/package.json')).map(pkg => path.dirname(pkg))) {
+  for (const dir of (await globArray('[^@.]*/package.json')).map(pkg => path.dirname(pkg))) {
     const mod = await parseModule(dir);
     modules.set(mod.name, mod);
   }
@@ -24,9 +24,13 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
   return [modules, moduleDeps];
 };
 
-export async function globArray(glob: string, { cwd = env.uiDir, abs = true } = {}): Promise<string[]> {
+export async function globArray(
+  glob: string,
+  { cwd = env.uiDir, abs = true, dirs = false } = {},
+): Promise<string[]> {
   const files: string[] = [];
-  for await (const file of fg.stream(glob, { cwd: cwd, absolute: abs })) files.push(file.toString('utf8'));
+  for await (const f of fg.stream(glob, { cwd, absolute: abs, onlyFiles: !dirs }))
+    files.push(f.toString('utf8'));
   return files;
 }
 

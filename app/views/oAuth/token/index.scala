@@ -9,8 +9,8 @@ import lila.i18n.I18nKeys.{ oauthScope as ot }
 object index:
 
   def apply(tokens: List[lila.oauth.AccessToken])(using PageContext) =
-    views.html.account.layout(title = ot.personalAccessTokens.txt(), active = "oauth.token")(
-      div(cls := "account oauth box")(
+    views.html.account.layout(title = ot.personalAccessTokens.txt(), active = "oauth.token"):
+      div(cls := "oauth box")(
         boxTop(
           h1(ot.personalAccessTokens()),
           st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
@@ -79,4 +79,3 @@ object index:
             )
         )
       )
-    )

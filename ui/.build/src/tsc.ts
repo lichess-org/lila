@@ -4,9 +4,18 @@ import * as path from 'node:path';
 import { buildModules } from './build';
 import { env, colors as c, errorMark, lines } from './main';
 
+let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
+
+export function killTsc() {
+  tscPs?.removeAllListeners();
+  tscPs?.kill();
+  tscPs = undefined;
+}
+
 export async function tsc(): Promise<void> {
   return new Promise(resolve => {
     if (!env.tsc) return resolve();
+
     const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
     const cfg: any = { files: [] };
     cfg.references = buildModules
@@ -14,14 +23,15 @@ export async function tsc(): Promise<void> {
       .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
     fs.writeFileSync(cfgPath, JSON.stringify(cfg));
 
-    const tsc = cps.spawn(
-      'tsc',
-      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']),
-    );
+    tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
+      '-b',
+      cfgPath,
+      ...(env.watch ? ['-w', '--preserveWatchOutput'] : []),
+    ]);
 
     env.log(`Checking typescript`, { ctx: 'tsc' });
 
-    tsc.stdout?.on('data', (buf: Buffer) => {
+    tscPs.stdout?.on('data', (buf: Buffer) => {
       // no way to magically get build events...
       const txts = lines(buf.toString('utf8'));
       for (const txt of txts) {
@@ -33,8 +43,8 @@ export async function tsc(): Promise<void> {
         }
       }
     });
-    tsc.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
-    tsc.addListener('close', code => {
+    tscPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
+    tscPs.addListener('close', code => {
       env.done(code || 0, 'tsc');
       if (code) {
         env.done(code, 'esbuild'); // fail both
