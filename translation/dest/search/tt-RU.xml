@@ -22,4 +22,5 @@
   <string name="sortBy">Тәртипләү</string>
   <string name="analysis">Тәхлил кылу</string>
   <string name="onlyAnalysed">Фәкать компьютер чишүе мәүҗүд булган уеннар</string>
+  <string name="color">Төс</string>
 </resources>
