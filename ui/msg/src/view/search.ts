@@ -2,9 +2,8 @@ import { h, VNode } from 'snabbdom';
 import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
-import renderContacts from './contact';
-import { userName } from './util';
-import userLink from 'common/userLink';
+import renderContacts, { userIcon } from './contact';
+import { fullName } from 'common/userLink';
 import { hookMobileMousedown } from 'common/device';
 
 export const renderInput = (ctrl: MsgCtrl): VNode =>
@@ -69,9 +68,9 @@ function renderUser(ctrl: MsgCtrl, user: User): VNode {
       hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
     },
     [
-      userLink(user),
+      userIcon(user, 'msg-app__side__contact__icon'),
       h('div.msg-app__side__contact__user', [
-        h('div.msg-app__side__contact__head', [h('div.msg-app__side__contact__name', userName(user))]),
+        h('div.msg-app__side__contact__head', [h('div.msg-app__side__contact__name', fullName(user))]),
       ]),
     ],
   );
