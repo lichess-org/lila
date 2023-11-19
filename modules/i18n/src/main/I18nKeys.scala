@@ -1641,7 +1641,7 @@ object I18nKeys:
   object tfa:
     val `twoFactorAuth` = I18nKey("tfa:twoFactorAuth")
     val `twoFactorHelp` = I18nKey("tfa:twoFactorHelp")
-    val `twoFactorApp` = I18nKey("tfa:twoFactorApp")
+    val `twoFactorAppRecommend` = I18nKey("tfa:twoFactorAppRecommend")
     val `scanTheCode` = I18nKey("tfa:scanTheCode")
     val `enterPassword` = I18nKey("tfa:enterPassword")
     val `ifYouCannotScanEnterX` = I18nKey("tfa:ifYouCannotScanEnterX")
