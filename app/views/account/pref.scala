@@ -22,7 +22,7 @@ object pref:
       active = categ.slug
     ):
       val booleanChoices = translatedBooleanIntChoices
-      div(cls := "account box box-pad")(
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
           categFieldset(PrefCateg.Display, categ)(

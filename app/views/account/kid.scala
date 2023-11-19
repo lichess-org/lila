@@ -12,8 +12,8 @@ object kid:
     account.layout(
       title = s"${u.username} - ${trans.kidMode.txt()}",
       active = "kid"
-    ) {
-      div(cls := "account box box-pad")(
+    ):
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.kidMode()),
         standardFlash,
         p(trans.kidModeExplanation()),
@@ -36,4 +36,3 @@ object kid:
         br,
         p(trans.inKidModeTheLichessLogoGetsIconX(span(cls := "kiddo", title := trans.kidMode.txt())(":)")))
       )
-    }

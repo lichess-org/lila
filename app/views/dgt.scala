@@ -75,116 +75,114 @@ object dgt:
 
   def config(token: Option[lila.oauth.AccessToken])(using PageContext) =
     layout("config")(
-      div(cls := "account")(
-        h1(cls := "box__top")(dgtConfigure()),
-        form(action := routes.DgtCtrl.generateToken, method := "post")(
-          st.section(
-            h2(lichessConnectivity()),
-            if token.isDefined then
-              p(cls := "text", dataIcon := licon.Checkmark)(
-                validDgtOauthToken(),
-                br,
-                br,
-                dgtPlayMenuEntryAdded(
-                  strong(dgtBoard())
-                )
-              )
-            else
-              frag(
-                p(noSuitableOauthToken()),
-                form3.submit(clickToGenerateOne())
-              )
-          )
-        ),
-        form(cls := "form3", id := "dgt-config")(
-          st.section(
-            h2(dgtBoardConnectivity()),
-            "dgt-livechess-url" pipe { name =>
-              div(cls := "form-group")(
-                st.label(`for` := name, cls := "form-label")(
-                  webSocketUrl(s"LiveChess $liveChessVersion")
-                ),
-                st.input(id := name, st.name := name, cls := "form-control", required := true),
-                st.small(cls := "form-help")(
-                  useWebSocketUrl(
-                    "ws://localhost:1982/api/v1.0",
-                    "LiveChess"
-                  )
-                )
-              )
-            }
-          ),
-          st.section(
-            h2(textToSpeech()),
-            div(cls := "form-group")(
-              p(configureVoiceNarration())
-            ),
-            div(cls := "form-group")(
-              st.label(cls := "form-label")(enableSpeechSynthesis()),
-              radios(
-                "dgt-speech-synthesis",
-                List((false, trans.no.txt()), (true, trans.yes.txt()))
-              )
-            ),
-            "dgt-speech-voice" pipe { name =>
-              div(cls := "form-group")(
-                st.label(`for` := name, cls := "form-label")(
-                  speechSynthesisVoice()
-                ),
-                st.select(id := name, st.name := name, cls := "form-control")
-              )
-            },
-            div(cls := "form-group")(
-              st.label(cls := "form-label")(announceAllMoves()),
-              radios(
-                "dgt-speech-announce-all-moves",
-                List((false, trans.no.txt()), (true, trans.yes.txt()))
-              ),
-              st.small(cls := "form-help")(
-                selectAnnouncePreference()
-              )
-            ),
-            div(cls := "form-group")(
-              st.label(cls := "form-label")(announceMoveFormat()),
-              radios(
-                "dgt-speech-announce-move-format",
-                List(("san", "SAN (Nf6)"), ("uci", "UCI (g8f6)"))
-              ),
-              st.small(cls := "form-help")(
-                moveFormatDescription()
-              )
-            ),
-            "dgt-speech-keywords" pipe { name =>
-              div(cls := "form-group")(
-                st.label(`for` := name, cls := "form-label")(keywords()),
-                st.textarea(
-                  id        := name,
-                  st.name   := name,
-                  cls       := "form-control",
-                  maxlength := 600,
-                  rows      := 10
-                ),
-                st.small(cls := "form-help")(
-                  keywordFormatDescription()
-                )
-              )
-            }
-          ),
-          st.section(
-            h2(debug()),
-            div(cls := "form-group")(
-              st.label(cls := "form-label")(verboseLogging()),
-              radios(
-                "dgt-verbose",
-                List((false, trans.no.txt()), (true, trans.yes.txt()))
-              ),
-              st.small(cls := "form-help")(
-                toSeeConsoleMessage()
+      h1(cls := "box__top")(dgtConfigure()),
+      form(action := routes.DgtCtrl.generateToken, method := "post")(
+        st.section(
+          h2(lichessConnectivity()),
+          if token.isDefined then
+            p(cls := "text", dataIcon := licon.Checkmark)(
+              validDgtOauthToken(),
+              br,
+              br,
+              dgtPlayMenuEntryAdded(
+                strong(dgtBoard())
               )
             )
-          ),
-          form3.submit(trans.save())
+          else
+            frag(
+              p(noSuitableOauthToken()),
+              form3.submit(clickToGenerateOne())
+            )
         )
+      ),
+      form(cls := "form3", id := "dgt-config")(
+        st.section(
+          h2(dgtBoardConnectivity()),
+          "dgt-livechess-url" pipe { name =>
+            div(cls := "form-group")(
+              st.label(`for` := name, cls := "form-label")(
+                webSocketUrl(s"LiveChess $liveChessVersion")
+              ),
+              st.input(id := name, st.name := name, cls := "form-control", required := true),
+              st.small(cls := "form-help")(
+                useWebSocketUrl(
+                  "ws://localhost:1982/api/v1.0",
+                  "LiveChess"
+                )
+              )
+            )
+          }
+        ),
+        st.section(
+          h2(textToSpeech()),
+          div(cls := "form-group")(
+            p(configureVoiceNarration())
+          ),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(enableSpeechSynthesis()),
+            radios(
+              "dgt-speech-synthesis",
+              List((false, trans.no.txt()), (true, trans.yes.txt()))
+            )
+          ),
+          "dgt-speech-voice" pipe { name =>
+            div(cls := "form-group")(
+              st.label(`for` := name, cls := "form-label")(
+                speechSynthesisVoice()
+              ),
+              st.select(id := name, st.name := name, cls := "form-control")
+            )
+          },
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(announceAllMoves()),
+            radios(
+              "dgt-speech-announce-all-moves",
+              List((false, trans.no.txt()), (true, trans.yes.txt()))
+            ),
+            st.small(cls := "form-help")(
+              selectAnnouncePreference()
+            )
+          ),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(announceMoveFormat()),
+            radios(
+              "dgt-speech-announce-move-format",
+              List(("san", "SAN (Nf6)"), ("uci", "UCI (g8f6)"))
+            ),
+            st.small(cls := "form-help")(
+              moveFormatDescription()
+            )
+          ),
+          "dgt-speech-keywords" pipe { name =>
+            div(cls := "form-group")(
+              st.label(`for` := name, cls := "form-label")(keywords()),
+              st.textarea(
+                id        := name,
+                st.name   := name,
+                cls       := "form-control",
+                maxlength := 600,
+                rows      := 10
+              ),
+              st.small(cls := "form-help")(
+                keywordFormatDescription()
+              )
+            )
+          }
+        ),
+        st.section(
+          h2(debug()),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(verboseLogging()),
+            radios(
+              "dgt-verbose",
+              List((false, trans.no.txt()), (true, trans.yes.txt()))
+            ),
+            st.small(cls := "form-help")(
+              toSeeConsoleMessage()
+            )
+          )
+        ),
+        form3.submit(trans.save())
       )
     )
 
@@ -211,7 +209,7 @@ object dgt:
       title = playWithDgtBoard.txt(),
       csp = defaultCsp.withAnyWs.some
     )(
-      main(cls := "page-menu dgt")(
+      main(cls := "account page-menu dgt")(
         views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
             dgtBoard()

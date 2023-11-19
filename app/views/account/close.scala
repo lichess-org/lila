@@ -14,8 +14,8 @@ object close:
     account.layout(
       title = s"${me.username} - ${closeAccount.txt()}",
       active = "close"
-    ) {
-      div(cls := "account box box-pad")(
+    ):
+      div(cls := "box box-pad")(
         boxTop(h1(cls := "text", dataIcon := licon.CautionCircle)(closeAccount())),
         if managed then p(managedAccountCannotBeClosed())
         else
@@ -35,4 +35,3 @@ object close:
             )
           )
       )
-    }
