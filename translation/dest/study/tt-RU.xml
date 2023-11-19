@@ -82,4 +82,8 @@
   <string name="contributors">Һиссадәрче</string>
   <string name="start">Башла</string>
   <string name="save">Сакла</string>
+  <string name="mistake">Хата</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Һөҗүм</string>
+  <string name="topics">Темалар</string>
+  <string name="back">Артка</string>
 </resources>
