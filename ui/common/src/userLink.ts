@@ -8,12 +8,13 @@ export interface AnyUser {
   flair?: Flair;
   line?: boolean; // display i.line
   patron?: boolean; // turn i.line into a patron wing
+  moderator?: boolean; // turn i.line into a mod icon
   online?: boolean; // light up .line
   attrs?: Attrs;
 }
 
-export default function userLink(u: AnyUser): VNode {
-  return h(
+export const userLink = (u: AnyUser): VNode =>
+  h(
     'a',
     {
       // can't be inlined because of thunks
@@ -29,7 +30,6 @@ export default function userLink(u: AnyUser): VNode {
     },
     [userLine(u), ...fullName(u), userRating(u)],
   );
-}
 
 export const userFlair = (u: AnyUser): VNode | undefined =>
   u.flair
@@ -42,7 +42,10 @@ export const userFlair = (u: AnyUser): VNode | undefined =>
 
 export const userLine = (u: AnyUser): VNode | undefined =>
   u.line !== false
-    ? h('i.line', { class: { patron: !!u.patron }, attrs: u.patron ? { title: 'Lichess Patron' } : {} })
+    ? h('i.line', {
+        class: { patron: !!u.patron, moderator: !!u.moderator },
+        attrs: u.patron ? { title: 'Lichess Patron' } : {},
+      })
     : undefined;
 
 export const userTitle = (u: AnyUser): VNode | undefined =>
