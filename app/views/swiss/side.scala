@@ -37,7 +37,7 @@ object side:
               ),
               separator,
               a(href := routes.Swiss.home)("Swiss"),
-              (isGranted(_.ManageTournament) || (ctx.is(s.createdBy) && !s.isFinished)) option frag(
+              (isGranted(_.ManageTournament) || (ctx.is(s.createdBy) && s.isEnterable)) option frag(
                 " ",
                 a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(licon.Gear))
               )
@@ -56,7 +56,7 @@ object side:
             views.html.base.bits.fenAnalysisLink(fen)
           ),
         teamLink(s.teamId),
-        views.html.gathering.verdicts(verdicts, s.perfType) | br,
+        views.html.gathering.verdicts(verdicts, s.perfType, s.isEnterable) | br,
         small(trans.by(userIdLink(s.createdBy.some))),
         br,
         absClientInstant(s.startsAt)
