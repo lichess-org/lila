@@ -46,6 +46,10 @@
           vertical-align: middle;
         }
       }
+      &__flag {
+        margin-#{$start-direction}: 0.5em;
+        font-size: 0.9em;
+      }
     }
 
     &__ratings {

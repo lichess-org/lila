@@ -283,14 +283,9 @@ object Flags:
     C("_adygea", "Adygea"),
     C("_belarus-wrw", "Belarus White-red-white"),
     C("_east-turkestan", "East Turkestan"),
-    C("_esperanto", "Esperanto"),
-    C("_lichess", "Lichess"),
-    C("_pirate", "Pirate"),
-    C("_rainbow", "Rainbow"),
     C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
-    C("_earth", "Earth"),
-    C("_transgender", "Transgender")
+    C("_earth", "Earth")
   )
 
   val allPairs = all.map: c =>
