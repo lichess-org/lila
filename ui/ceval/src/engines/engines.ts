@@ -105,7 +105,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new StockfishWebEngine(e, undefined, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
+            new StockfishWebEngine(e, progress, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
         },
         {
           info: {
