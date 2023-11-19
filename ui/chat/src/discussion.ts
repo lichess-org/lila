@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 import * as enhance from 'common/richText';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import * as spam from './spam';
 import { Ctrl, Line } from './interfaces';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';

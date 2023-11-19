@@ -5,7 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
 import * as router from 'common/router';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {

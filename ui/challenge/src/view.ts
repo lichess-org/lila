@@ -2,7 +2,7 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>

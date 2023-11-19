@@ -7,7 +7,7 @@ import { teamName } from './battle';
 import { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));

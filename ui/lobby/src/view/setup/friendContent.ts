@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { MaybeVNodes } from 'common/snabbdom';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
 import { fenInput } from './components/fenInput';

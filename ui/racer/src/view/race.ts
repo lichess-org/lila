@@ -2,7 +2,7 @@ import RacerCtrl from '../ctrl';
 import { h, VNodes } from 'snabbdom';
 import { PlayerWithScore as PlayerWithScore } from '../interfaces';
 import { Boost } from '../boost';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 
 // to [0,1]
 type RelativeScore = (score: number) => number;

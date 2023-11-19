@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { onInsert } from 'common/snabbdom';
 import { numberFormat } from 'common/number';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import { h } from 'snabbdom';
 import Ctrl from './ctrl';
 

@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
