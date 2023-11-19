@@ -13,7 +13,7 @@ export default function (ctrl: SimulCtrl) {
 const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
   const game = pairing.game,
     player = pairing.player,
-    flair = userFlair(player.flair);
+    flair = userFlair(player);
   return h(
     `span.mini-game.mini-game-${game.id}.mini-game--init.is2d`,
     {

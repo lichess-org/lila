@@ -13,13 +13,6 @@ export interface AnyUser {
 }
 
 export default function userLink(u: AnyUser): VNode {
-  const lineIcon = u.line
-    ? h('i.line', { class: { patron: !!u.patron }, attrs: u.patron ? { title: 'Lichess Patron' } : {} })
-    : undefined;
-  const titleSpan =
-    u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0']);
-  const flairImg = userFlair(u.flair);
-  const ratingText = u.rating && ` (${u.rating + (u.provisional ? '?' : '')})`;
   return h(
     'a',
     {
@@ -34,15 +27,30 @@ export default function userLink(u: AnyUser): VNode {
         ...u.attrs,
       },
     },
-    [lineIcon, titleSpan, u.name, flairImg, ratingText],
+    [userLine(u), ...fullName(u), userRating(u)],
   );
 }
 
-export const userFlair = (flair?: Flair): VNode | undefined =>
-  flair
+export const userFlair = (u: AnyUser): VNode | undefined =>
+  u.flair
     ? h('img.uflair', {
         attrs: {
-          src: lichess.assetUrl(`lifat/flair/img/${flair}.webp`, { noVersion: true }),
+          src: lichess.assetUrl(`lifat/flair/img/${u.flair}.webp`, { noVersion: true }),
         },
       })
     : undefined;
+
+export const userLine = (u: AnyUser): VNode | undefined =>
+  u.line !== false
+    ? h('i.line', { class: { patron: !!u.patron }, attrs: u.patron ? { title: 'Lichess Patron' } : {} })
+    : undefined;
+
+export const userTitle = (u: AnyUser): VNode | undefined =>
+  u.title
+    ? h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
+    : undefined;
+
+export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
+
+export const userRating = (u: AnyUser): string | undefined =>
+  u.rating ? ` (${u.rating + (u.provisional ? '?' : '')})` : undefined;

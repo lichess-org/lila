@@ -1,6 +1,6 @@
 import TournamentController from '../ctrl';
 import { bind, MaybeVNode } from 'common/snabbdom';
-import { playerName } from './util';
+import { fullName } from 'common/userLink';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam } from '../interfaces';
 import { snabDialog } from 'common/dialog';
@@ -127,7 +127,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
           },
         },
-        [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score],
+        [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), '' + p.score],
       ),
     );
   });

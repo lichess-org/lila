@@ -25,7 +25,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
-    const flair = userFlair(user.flair);
+    const flair = userFlair({ name: user.username, ...user });
     return h(
       `div.ruser-${position}.ruser.user-link`,
       {

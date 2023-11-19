@@ -1,10 +1,9 @@
 import { h, VNode } from 'snabbdom';
 import { Contact, LastMsg } from '../interfaces';
 import MsgCtrl from '../ctrl';
-import { userName } from './util';
+import { userName, userIcon } from './util';
 import * as licon from 'common/licon';
-import userLink from 'common/userLink';
-import { hookMobileMousedown } from 'common/device';
+import { hookMobileMousedown } from 'common/mobile';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,
@@ -18,7 +17,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
       hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
     },
     [
-      userLink(user),
+      userIcon(user, 'msg-app__side__contact__icon'),
       h('div.msg-app__side__contact__user', [
         h('div.msg-app__side__contact__head', [
           h('div.msg-app__side__contact__name', userName(user)),

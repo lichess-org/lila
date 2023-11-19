@@ -1,10 +1,7 @@
 import { h } from 'snabbdom';
 import { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
-import { userFlair } from 'common/userLink';
-
-export const userName = (u: LightUser) =>
-  u.title ? [h('span.utitle', u.title), ' ' + u.name, userFlair(u.flair)] : [u.name, userFlair(u.flair)];
+import { fullName } from 'common/userLink';
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h(
@@ -16,7 +13,7 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
       },
     },
     [
-      h('span.name', userName(p.user)),
+      h('span.name', fullName(p.user)),
       withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
     ],
   );

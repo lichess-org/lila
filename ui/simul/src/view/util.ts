@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';
-import { userFlair } from 'common/userLink';
+import { fullName } from 'common/userLink';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
@@ -17,13 +17,10 @@ export function player(p: Player, ctrl: SimulCtrl) {
     },
     [
       h(`i.line${p.patron ? '.patron' : ''}`),
-      h('span.name', userName(p)),
+      h('span.name', fullName(p)),
       ctrl.opts.showRatings ? h('em', ` ${p.rating}${p.provisional ? '?' : ''}`) : null,
     ],
   );
 }
-
-const userName = (u: LightUser) =>
-  u.title ? [h('span.utitle', u.title), ' ' + u.name, userFlair(u.flair)] : [u.name, userFlair(u.flair)];
 
 export const title = (ctrl: SimulCtrl) => h('h1', ctrl.data.fullName);
