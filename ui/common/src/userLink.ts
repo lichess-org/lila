@@ -26,13 +26,12 @@ export interface HasLine {
 export interface AnyUser extends HasRating, HasFlair, HasTitle, HasLine {
   name: string;
   online?: boolean; // light up .line
-  link?: boolean; // make a link, true by default. If false, makes a span with data-href
   attrs?: Attrs;
 }
 
 export const userLink = (u: AnyUser): VNode =>
   h(
-    u.link ? 'a' : 'span',
+    'a',
     {
       // can't be inlined because of thunks
       class: {
@@ -41,7 +40,7 @@ export const userLink = (u: AnyUser): VNode =>
         online: !!u.online,
       },
       attrs: {
-        [u.link ? 'href' : 'data-href']: `/@/${u.name}`,
+        href: `/@/${u.name}`,
         ...u.attrs,
       },
     },
