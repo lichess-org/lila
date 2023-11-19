@@ -659,8 +659,10 @@
   <string name="simultaneousExhibitions">Көпшілікке қарсы ойындар</string>
   <string name="host">Бас-ойыншы</string>
   <string name="hostColorX">Бас-ойыншының түсі: %s</string>
+  <string name="yourPendingSimuls">Көпшілікке қарсы кідірулі тұрған ойындар</string>
   <string name="createdSimuls">Жаңа құрылған көпшілікке қарсы ойындар</string>
   <string name="hostANewSimul">Көпшілікке қарсы ойынды бастау</string>
+  <string name="signUpToHostOrJoinASimul">Қалың ойынды бастау не қосылу үшін тіркеліңіз</string>
   <string name="noSimulFound">Көпшілікке қарсы ойын табылмады</string>
   <string name="noSimulExplanation">Бұл көпшілікке қарсы ойын жоқ.</string>
   <string name="returnToSimulHomepage">Көпшілікке қарсы ойынның бастапқы бетіне оралу</string>
