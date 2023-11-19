@@ -5,4 +5,5 @@
     <item quantity="other">Карарга барлык %s раундларны</item>
   </plurals>
   <string name="FIDEHandbook">FIDE кулланмасы</string>
+  <string name="pause">Тыныш</string>
 </resources>
