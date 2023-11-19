@@ -29,12 +29,19 @@ object twoFactor:
         postForm(cls := "form3", action := routes.Account.setupTwoFactor)(
           div(cls := "form-group")(twoFactorHelp()),
           div(cls := "form-group")(
-            twoFactorApp(
-              a(
-                href := "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
-              )("Android"),
-              a(href := "https://itunes.apple.com/app/google-authenticator/id388497605?mt=8")("iOS")
-            )
+            p(twoFactorAppRecommend()),
+            p(
+              strong("Android"),
+              " : ",
+              fragList(
+                List(
+                  a(href := "https://2fas.com/")("2FAS"),
+                  a(href := "https://authenticatorpro.jmh.me/")("Authenticator Pro"),
+                  a(href := "https://getaegis.app/")("Aegis Authenticator")
+                )
+              )
+            ),
+            p(strong("iOS"), " : ", a(href := "https://2fas.com/")("2FAS"))
           ),
           div(cls := "form-group")(scanTheCode()),
           qrCode,
