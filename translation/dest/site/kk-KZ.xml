@@ -70,6 +70,7 @@
   <string name="makeMainLine">Негізгі жол ету</string>
   <string name="deleteFromHere">Мына жерден жою</string>
   <string name="forceVariation">Тармақты дамыту</string>
+  <string name="copyVariationPgn">Тармақтың PGN көшіру</string>
   <string name="move">Жүріс</string>
   <string name="variantLoss">Ұтылу жолы</string>
   <string name="variantWin">Жеңу жолы</string>
@@ -485,7 +486,7 @@
   <string name="movesPlayed">Жүрістер саны</string>
   <string name="whiteWins">Ақтардың жеңісі</string>
   <string name="blackWins">Қаралардың жеңісі</string>
-  <string name="draws">Тепе-теңдік</string>
+  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Тепе-теңдік</string>
   <string name="nextXTournament">Келесі %s жарыс:</string>
   <string name="averageOpponent">Орташа қарсылас</string>
   <string name="boardEditor">Еркін тақта</string>
