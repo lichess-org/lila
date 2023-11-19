@@ -5,6 +5,10 @@ export interface HasRating {
   provisional?: boolean;
 }
 
+export interface HasRatingDiff {
+  ratingDiff?: number;
+}
+
 export interface HasFlair {
   flair?: Flair;
 }
@@ -13,18 +17,22 @@ export interface HasTitle {
   title?: string;
 }
 
-export interface AnyUser extends HasRating, HasFlair, HasTitle {
-  name: string;
+export interface HasLine {
   line?: boolean; // display i.line, true by default
   patron?: boolean; // turn i.line into a patron wing
   moderator?: boolean; // turn i.line into a mod icon
+}
+
+export interface AnyUser extends HasRating, HasFlair, HasTitle, HasLine {
+  name: string;
   online?: boolean; // light up .line
+  link?: boolean; // make a link, true by default. If false, makes a span with data-href
   attrs?: Attrs;
 }
 
 export const userLink = (u: AnyUser): VNode =>
   h(
-    'a',
+    u.link ? 'a' : 'span',
     {
       // can't be inlined because of thunks
       class: {
@@ -33,7 +41,7 @@ export const userLink = (u: AnyUser): VNode =>
         online: !!u.online,
       },
       attrs: {
-        href: `/@/${u.name}`,
+        [u.link ? 'href' : 'data-href']: `/@/${u.name}`,
         ...u.attrs,
       },
     },
@@ -49,7 +57,7 @@ export const userFlair = (u: HasFlair): VNode | undefined =>
       })
     : undefined;
 
-export const userLine = (u: AnyUser): VNode | undefined =>
+export const userLine = (u: HasLine): VNode | undefined =>
   u.line !== false
     ? h('i.line', {
         class: { patron: !!u.patron, moderator: !!u.moderator },
@@ -66,3 +74,12 @@ export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined =>
   u.rating ? ` (${u.rating + (u.provisional ? '?' : '')})` : undefined;
+
+export const ratingDiff = (u: HasRatingDiff): VNode | undefined =>
+  u.ratingDiff === 0
+    ? h('span', '±0')
+    : u.ratingDiff && u.ratingDiff > 0
+    ? h('good', '+' + u.ratingDiff)
+    : u.ratingDiff && u.ratingDiff < 0
+    ? h('bad', '−' + -u.ratingDiff)
+    : undefined;

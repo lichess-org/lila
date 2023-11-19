@@ -8,6 +8,7 @@ import { prop, Prop, scrollTo } from 'common';
 import { titleNameToId } from '../view/util';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'common/xhr';
+import { userLink } from 'common/userLink';
 
 export interface StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
@@ -172,17 +173,6 @@ export function view(ctrl: StudyCtrl): VNode {
   const members = ctrl.members,
     isOwner = members.isOwner();
 
-  function username(member: StudyMember) {
-    const u = member.user;
-    return h(
-      'span.user-link.ulpt',
-      {
-        attrs: { 'data-href': '/@/' + u.name },
-      },
-      (u.title ? u.title + ' ' : '') + u.name,
-    );
-  }
-
   function statusIcon(member: StudyMember) {
     const contrib = member.role === 'w';
     return h(
@@ -282,7 +272,10 @@ export function view(ctrl: StudyCtrl): VNode {
                 key: member.user.id,
                 class: { editing: !!confing },
               },
-              [h('div.left', [statusIcon(member), username(member)]), configButton(ctrl, member)],
+              [
+                h('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+                configButton(ctrl, member),
+              ],
             ),
             confing ? memberConfig(member) : null,
           ];

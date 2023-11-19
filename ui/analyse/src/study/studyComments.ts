@@ -8,7 +8,7 @@ import { StudyCtrl } from './interfaces';
 
 export type AuthorObj = {
   id: string;
-  name: string;
+  name: string; // contains the title
 };
 export type Author = AuthorObj | string;
 
