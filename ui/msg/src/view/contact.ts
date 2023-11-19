@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { Contact, LastMsg, User } from '../interfaces';
 import MsgCtrl from '../ctrl';
 import * as licon from 'common/licon';
-import { hookMobileMousedown } from 'common/mobile';
+import { hookMobileMousedown } from 'common/device';
 import { fullName, userLine } from 'common/userLink';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
