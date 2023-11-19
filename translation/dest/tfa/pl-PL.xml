@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Uwierzytelnienie dwuetapowe</string>
   <string name="twoFactorHelp">Uwierzytelnianie dwuetapowe dodaje kolejną warstwę zabezpieczeń do Twojego konta.</string>
-  <string name="twoFactorApp">Pobierz aplikację do uwierzytelniania dwuetapowego, na przykład Google Authenticator dla %1$s lub %2$s.</string>
   <string name="scanTheCode">Zeskanuj kod QR za pomocą aplikacji.</string>
   <string name="enterPassword">Wprowadź hasło i kod uwierzytelniający wygenerowany przez aplikację, aby zakończyć konfigurację. Będziesz potrzebował kodu uwierzytelniającego za każdym razem, gdy się zalogujesz.</string>
   <string name="ifYouCannotScanEnterX">Jeśli nie możesz zeskanować kodu, wpisz kod %s do swojej aplikacji.</string>
