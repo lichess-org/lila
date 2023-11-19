@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Autenticação de dois fatores</string>
   <string name="twoFactorHelp">A autenticação de dois fatores adiciona outra camada de segurança à sua conta.</string>
-  <string name="twoFactorApp">Obtenha um aplicativo para autenticação de dois fatores, por exemplo, o Google Authenticator para %1$s ou %2$s.</string>
   <string name="scanTheCode">Escaneie o código QR com o aplicativo.</string>
   <string name="enterPassword">Digite sua senha e o código de autenticação gerado pelo aplicativo para concluir a configuração. Você precisará de um código de autenticação toda vez que fizer login.</string>
   <string name="ifYouCannotScanEnterX">Se você não conseguir escanear o código, entre com a senha %s no seu aplicativo.</string>
