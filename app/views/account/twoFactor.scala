@@ -31,7 +31,7 @@ object twoFactor:
           div(cls := "form-group")(
             twoFactorApp(
               a(
-                href := "https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp"
+                href := "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
               )("Android"),
               a(href := "https://itunes.apple.com/app/google-authenticator/id388497605?mt=8")("iOS")
             )
