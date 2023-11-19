@@ -238,12 +238,13 @@ export default class CevalCtrl {
     this.worker = undefined;
   };
 
-  loadEngineFailed(msg: string) {
+  engineFailed(msg: string) {
     domDialog({
       show: 'modal',
       htmlText:
-        `<div><p>Failed to load engine:</p><code>${msg}</code><hr>` +
-        '<p>Try clearing your site settings or choose another.</p></div>',
+        `<div><p>${this.engines.active?.name ?? 'Engine'} failed:</p><hr><code>${msg}</code><hr>` +
+        '<p>Things you can try:</p><p>Decrease memory slider in engine settings. Update your browser. ' +
+        'Clear site settings for lichess.org. Or select another engine</p></div>',
     });
   }
   private lastEmitFen: string | null = null;

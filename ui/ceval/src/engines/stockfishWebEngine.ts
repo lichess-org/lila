@@ -54,7 +54,10 @@ export class StockfishWebEngine implements CevalEngine {
             console.warn(`Corrupt NNUE file, removing ${nnueFilename} from IDB`);
             nnueStore?.remove(nnueFilename);
           }, 2000);
-        } else console.error(msg);
+        } else {
+          console.error(msg);
+          this.progress?.(undefined, msg);
+        }
       };
       let nnueBuffer = await nnueStore?.get(nnueFilename).catch(() => undefined);
 
