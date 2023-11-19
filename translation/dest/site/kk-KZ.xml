@@ -350,8 +350,8 @@
     <item quantity="other">%s зерттеу</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s көпшілікке қарсы ойын</item>
-    <item quantity="other">%s көпшілікке қарсы ойын</item>
+    <item quantity="one">%s қалың ойын</item>
+    <item quantity="other">%s қалың ойын</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Жарысқа оралу</string>
@@ -656,28 +656,28 @@
   <string name="contribute">Үлес қосу</string>
   <string name="termsOfService">Қызмет көрсету шарты</string>
   <string name="sourceCode">Түбір код</string>
-  <string name="simultaneousExhibitions">Көпшілікке қарсы ойындар</string>
+  <string name="simultaneousExhibitions">Қалың ойындар</string>
   <string name="host">Бас-ойыншы</string>
   <string name="hostColorX">Бас-ойыншының түсі: %s</string>
-  <string name="yourPendingSimuls">Көпшілікке қарсы кідірулі тұрған ойындар</string>
-  <string name="createdSimuls">Жаңа құрылған көпшілікке қарсы ойындар</string>
-  <string name="hostANewSimul">Көпшілікке қарсы ойынды бастау</string>
+  <string name="yourPendingSimuls">Кідірулі тұрған қалың ойындарыңыз</string>
+  <string name="createdSimuls">Жаңа құрылған қалың ойындар</string>
+  <string name="hostANewSimul">Қалың ойынды бастау</string>
   <string name="signUpToHostOrJoinASimul">Қалың ойынды бастау не қосылу үшін тіркеліңіз</string>
-  <string name="noSimulFound">Көпшілікке қарсы ойын табылмады</string>
-  <string name="noSimulExplanation">Бұл көпшілікке қарсы ойын жоқ.</string>
-  <string name="returnToSimulHomepage">Көпшілікке қарсы ойынның бастапқы бетіне оралу</string>
-  <string name="aboutSimul">Көпшілікке қарсы ойында ойыншы бір мезгілде бірнешеуге қарсы ойнайды.</string>
+  <string name="noSimulFound">Қалың ойын табылмады</string>
+  <string name="noSimulExplanation">Бұндай қалың ойын жоқ.</string>
+  <string name="returnToSimulHomepage">Қалың ойынның бастапқы бетіне оралу</string>
+  <string name="aboutSimul">Қалың ойында ойыншы бір мезгілде бірнешеуге қарсы ойнайды.</string>
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
   <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы тақталарды аралап, бір-бірден жүріс жасап отырады.</string>
-  <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulRules">Қалың ойын басталысымен әр ойыншы бас ойыншымен бел ұстасады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
+  <string name="aboutSimulSettings">Қалың ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
-  <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
+  <string name="whenCreateSimul">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
-  <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
+  <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
-  <string name="simulAddExtraTimePerPlayer">Көпшіліктің әр ойыншысына бастапқы уақытты белгілеп қойыңыз.</string>
+  <string name="simulAddExtraTimePerPlayer">Жаңа кірген әр ойыншы үшін өзіңіздің бастапқы уақытыңызды көбейту.</string>
   <string name="simulHostExtraTimePerPlayer">Әр ойыншы үшін бас ойыншыға берілетін қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
   <string name="tournamentFAQ">Алаң жарысы туралы Жұрттан-сұрақ</string>
@@ -932,7 +932,7 @@
 Бұл тек классикалық ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
 Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында еңгізіңіз.
 Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
-  <string name="cancelSimul">Көпшілікке қарсы ойынды болдырмау</string>
+  <string name="cancelSimul">Қалың ойынды болдырмау</string>
   <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>
   <string name="estimatedStart">Болжаулы басталу уақыты</string>
   <string name="simulFeatured">%s осында көрсету</string>
