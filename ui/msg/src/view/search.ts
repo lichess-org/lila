@@ -3,11 +3,12 @@ import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
-import { userName, userIcon } from './util';
+import { userName } from './util';
+import userLink from 'common/userLink';
 import { hookMobileMousedown } from 'common/device';
 
-export function renderInput(ctrl: MsgCtrl): VNode {
-  return h('div.msg-app__side__search', [
+export const renderInput = (ctrl: MsgCtrl): VNode =>
+  h('div.msg-app__side__search', [
     h('input', {
       attrs: {
         value: '',
@@ -30,7 +31,6 @@ export function renderInput(ctrl: MsgCtrl): VNode {
       },
     }),
   ]);
-}
 
 export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
   return h('div.msg-app__search.msg-app__side__content', [
@@ -69,7 +69,7 @@ function renderUser(ctrl: MsgCtrl, user: User): VNode {
       hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
     },
     [
-      userIcon(user, 'msg-app__side__contact__icon'),
+      userLink(user),
       h('div.msg-app__side__contact__user', [
         h('div.msg-app__side__contact__head', [h('div.msg-app__side__contact__name', userName(user))]),
       ]),
