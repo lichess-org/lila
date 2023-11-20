@@ -310,6 +310,7 @@
   <string name="apply">Саклау</string>
   <string name="save">Саклау</string>
   <string name="leaderboard">Лидерлар тактасы</string>
+  <string name="gameAsGIF">GIF итеп саклау</string>
   <string name="pasteTheFenStringHere">FEN текстын монда кертегез</string>
   <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
   <string name="fromPosition">Позициядән</string>
@@ -335,6 +336,7 @@
   <string name="follow">Язылу</string>
   <string name="following">Язылгансыз</string>
   <string name="unfollow">Язылынмау</string>
+  <string name="unfollowX">%s язылынмау</string>
   <string name="block">Блоклау</string>
   <string name="blocked">Блокланган</string>
   <string name="unblock">Блоктан чыгару</string>
@@ -768,4 +770,6 @@
   <string name="timeAlmostUp">Вакыт тугады диярлек!</string>
   <string name="download">Йөкләп алу</string>
   <string name="welcome">Рәхим итегез!</string>
+  <string name="tournDescription">Ярыш тасвирламасы</string>
+  <string name="hangOn">Туктагыз!</string>
 </resources>
