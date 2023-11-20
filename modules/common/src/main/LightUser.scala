@@ -7,7 +7,7 @@ case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[UserTitle],
-    flair: Option[UserFlair],
+    flair: Option[lila.Lila.UserFlair],
     isPatron: Boolean
 ):
 
@@ -27,10 +27,10 @@ object LightUser:
 
   def write(u: LightUser): JsObject = writeNoId(u) + ("id" -> JsString(u.id.value))
   def writeNoId(u: LightUser): JsObject = Json
-    .obj("name" -> u.name)
-    .add("title" -> u.title)
-    .add("flair" -> u.flair)
-    .add("patron" -> u.isPatron)
+    .obj("name" -> u.name.value)
+    .add("title", u.title)
+    .add("flair", u.flair)
+    .add("patron", u.isPatron)
 
   def fallback(name: UserName) = LightUser(
     id = name.id,
