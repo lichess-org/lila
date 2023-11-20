@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-commit=3e7c037e05bf0b5d61e5c2bd95b1f5205c480685
+commit=487305c141d40af0e110d09bc2435af514e7bb71
 
 lifat_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$lifat_dir"
