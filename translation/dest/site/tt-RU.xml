@@ -392,7 +392,7 @@
   <string name="movesPlayed">Йөрешләр саны</string>
   <string name="whiteWins">Аклар җиңүләре</string>
   <string name="blackWins">Каралар җиңүләре</string>
-  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Тиңлекләр</string>
+  <string name="draws">Тиңлекләр</string>
   <string name="nextXTournament">Киләсе %s бәйгесе:</string>
   <string name="averageOpponent">Уртача ярышучы</string>
   <string name="boardEditor">Тактаны үзгәртү</string>
@@ -411,7 +411,6 @@
   <string name="firstName">Исем</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрак</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
   <string name="inlineNotation">Кертелгән билгеләнеш</string>
