@@ -70,7 +70,7 @@ object publicChat:
           )(
             userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
             " ",
-            communication.highlightBad(line.text)
+            lila.shutup.Analyser.highlightBad(line.text)
           )
         }
       )
