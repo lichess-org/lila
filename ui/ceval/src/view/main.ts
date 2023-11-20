@@ -524,7 +524,7 @@ const analysisDisabled = (ctrl: ParentCtrl): VNode | undefined =>
     h(
       'button',
       {
-        hook: bind('click', () => ctrl?.toggleComputer, ctrl.redraw),
+        hook: bind('click', () => ctrl.toggleComputer?.(), ctrl.redraw),
         attrs: { type: 'button' },
       },
       ctrl.trans.noarg('enable'),
