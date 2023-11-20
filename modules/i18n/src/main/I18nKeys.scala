@@ -1763,8 +1763,6 @@ object I18nKeys:
     val `messageAllMembersLongDescription` = I18nKey("team:messageAllMembersLongDescription")
     val `teamsIlead` = I18nKey("team:teamsIlead")
     val `youWayWantToLinkOneOfTheseTournaments` = I18nKey("team:youWayWantToLinkOneOfTheseTournaments")
-    val `onlyInviteLeadersTrust` = I18nKey("team:onlyInviteLeadersTrust")
-    val `usersWhoCanManageThisTeam` = I18nKey("team:usersWhoCanManageThisTeam")
     val `leadersChat` = I18nKey("team:leadersChat")
     val `closeTeam` = I18nKey("team:closeTeam")
     val `closeTeamDescription` = I18nKey("team:closeTeamDescription")
