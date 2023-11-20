@@ -27,7 +27,7 @@
     <item quantity="one">%s petición de ingreso</item>
     <item quantity="other">%s peticións de ingreso</item>
   </plurals>
-  <string name="willBeReviewed" comment="Please note that Lichess teams can have more than one team leader.&#10;This string used to say 'the' team leader, so please correct it if it only refers to one person.">Un líder do equipo revisará a túa solicitude de ingreso.</string>
+  <string name="willBeReviewed">Un líder do equipo revisará a túa solicitude de ingreso.</string>
   <string name="beingReviewed">O líder do equipo está a revisar a túa solicitude de ingreso.</string>
   <string name="requestDeclined">O líder do equipo rexeitou a túa solicitude de ingreso.</string>
   <string name="subToTeamMessages">Subscríbete ás mensaxes de equipo</string>
@@ -43,8 +43,6 @@ Deste xeito podes convocar ós xogadores para que se unan a un torneo ou batalla
 Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Queres vincular un destes próximos torneos?</string>
-  <string name="onlyInviteLeadersTrust">Convida só líderes nos que confíes plenamente. Os líderes de equipo poden expulsar ós membros e ós outros líderes.</string>
-  <string name="usersWhoCanManageThisTeam">Usuarios que poden administrar este equipo</string>
   <string name="leadersChat">Sala de conversa dos líderes</string>
   <string name="closeTeam">Pechar o equipo</string>
   <string name="closeTeamDescription">Pecha o equipo para sempre.</string>
