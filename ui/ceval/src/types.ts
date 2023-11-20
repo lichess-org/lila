@@ -33,7 +33,7 @@ export interface EngineInfo {
   variants?: VariantKey[];
   maxThreads?: number;
   maxHash?: number;
-  requires?: Feature;
+  requires?: Feature[];
 }
 
 export interface ExternalEngineInfo extends EngineInfo {

@@ -39,7 +39,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: 'simd',
+            requires: ['simd', 'webWorkerDynamicImport'],
             minMem: 1536,
             assets: {
               version: 'sfw002',
@@ -55,7 +55,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             tech: 'NNUE',
-            requires: 'simd',
+            requires: ['simd', 'webWorkerDynamicImport'],
             minMem: 2048,
             assets: {
               version: 'sfw002',
@@ -71,7 +71,7 @@ export class Engines {
             name: 'Stockfish 14 NNUE',
             short: 'SF 14',
             tech: 'NNUE',
-            requires: 'simd',
+            requires: ['simd'],
             minMem: 2048,
             assets: {
               version: 'b6939d',
@@ -88,7 +88,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: 'simd',
+            requires: ['simd', 'webWorkerDynamicImport'],
             variants: [
               'crazyhouse',
               'atomic',
@@ -113,7 +113,7 @@ export class Engines {
             name: 'Stockfish 11 Multi-Variant',
             short: 'SF 11 MV',
             tech: 'HCE',
-            requires: 'sharedMem',
+            requires: ['sharedMem'],
             variants: [
               'crazyhouse',
               'atomic',
@@ -141,7 +141,7 @@ export class Engines {
             name: 'Stockfish 11 HCE',
             short: 'SF 11',
             tech: 'HCE',
-            requires: 'sharedMem',
+            requires: ['sharedMem'],
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish.wasm',
@@ -158,7 +158,7 @@ export class Engines {
             short: 'Stockfish',
             tech: 'HCE',
             maxThreads: 1,
-            requires: 'wasm',
+            requires: ['wasm'],
             obsoletedBy: 'sharedMem',
             assets: {
               version: 'a022fa',
@@ -185,7 +185,11 @@ export class Engines {
           make: (e: BrowserEngineInfo) => new SimpleEngine(e, progress),
         },
       ]
-        .filter(e => hasFeature(e.info.requires) && !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)))
+        .filter(
+          e =>
+            e.info.requires?.map(req => hasFeature(req)).every(x => !!x) &&
+            !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)),
+        )
         .map(e => [e.info.id, { info: withDefaults(e.info as BrowserEngineInfo), make: e.make }]),
     );
   }

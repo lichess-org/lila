@@ -109,7 +109,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               },
               engineTech,
             )
-          : engine.requires === 'simd'
+          : engine.requires?.includes('simd')
           ? h(
               'span.technology.good',
               {
@@ -119,9 +119,9 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               },
               engineTech,
             )
-          : engine.requires === 'sharedMem'
+          : engine.requires?.includes('sharedMem')
           ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
-          : engine.requires === 'wasm'
+          : engine.requires?.includes('wasm')
           ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
           : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
       ]
