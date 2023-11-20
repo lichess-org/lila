@@ -70,6 +70,7 @@
   <string name="makeMainLine">பிரதான தொடர்ச்சி ஆக்கு</string>
   <string name="deleteFromHere">இங்கிருந்து நீக்கு</string>
   <string name="forceVariation">ஆராய்ச்சியை தனியாக காமி</string>
+  <string name="copyVariationPgn">மாறுபாடுகள் கொண்ட PGN ஐ நகலெடு</string>
   <string name="move">நகர்த்து</string>
   <string name="variantLoss">மாற்று வகை தோல்வி</string>
   <string name="variantWin">மாற்று வகை வெற்றி</string>
@@ -93,11 +94,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" ரவுண்டிங்குடன், அடுத்த பிடிப்பு அல்லது சிப்பாய் நகரும் வரை அரை நகர்வுகளின் எண்ணிக்கையின் அடிப்படையில்</string>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
+  <string name="maxDepthReached">அதிகபட்ச ஆழம் எட்டியது!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
   <string name="openings">தொடக்கம்</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
   <string name="openingEndgameExplorer">திறப்பு/எண்ட்கேம் எக்ஸ்ப்ளோரர்</string>
   <string name="xOpeningExplorer">%s விளையாட்டு திறப்பு ஆராய்ச்சி</string>
+  <string name="playFirstOpeningEndgameExplorerMove">தொடக்க/இறுதிகட்ட ஆய்வாளர் நகர்வை இயக்கவும்</string>
   <string name="winPreventedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் வெற்றி தடுப்புதல்</string>
   <string name="lossSavedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் தோல்வி தடுப்புதல்</string>
   <string name="winOr50MovesByPriorMistake">வெற்றி அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
@@ -113,12 +116,14 @@
   <string name="openStudy">வெளிப்படையான ஆய்வு</string>
   <string name="enable">இயக்கு</string>
   <string name="bestMoveArrow">சிறந்த நகர்த்தலுக்கான அம்புக்குறியீடு</string>
+  <string name="showVariationArrows">மாறுபாடு அம்புக் குறிகளைக் காட்டு</string>
   <string name="evaluationGauge">மதிப்பீட்டு அளவு</string>
   <string name="multipleLines">பல கோடுகள்</string>
   <string name="cpus">மைய செயலகம்</string>
   <string name="memory">நினைவகம்</string>
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
+  <string name="engineManager">இயந்திர மேலாளர்</string>
   <string name="blunder">பெரிய தவறு</string>
   <string name="mistake">தவறு</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
@@ -145,10 +150,15 @@
     <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
   <string name="drawByMutualAgreement">Rapid</string>
+  <string name="fiftyMovesWithoutProgress">முன்னேற்றம் இல்லாமல் ஐம்பது நகர்வுகள்</string>
   <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
   <plurals name="nbGames">
     <item quantity="one">%s ஆட்டங்கள்</item>
     <item quantity="other">%s ஆட்டங்கள்</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s விளையாட்டுக்கு மேல் %1$s மதிப்பீடு</item>
+    <item quantity="other">%2$s விளையாட்டுகளுக்கு மேல் %1$s மதிப்பீடு</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s நினைவுக்குறிகள்</item>
@@ -225,6 +235,12 @@
   <string name="checkSpamFolder">உங்களின் எரிதக் (spam) கோப்புறையைப் பார்க்கவும், உங்களின் மின்னஞ்சல் அங்கிருந்தால் அதை எரிதம் இல்லை என்று அடையாளப்படுத்தவும்.</string>
   <string name="emailForSignupHelp">ஒன்றும் சரிவரவில்லை எனின், எங்களுக்கு இந்த மின்னஞ்சலை அனுப்புங்கள்:</string>
   <string name="copyTextToEmail">மேலுள்ளவற்றை நகலெடுத்து ஒட்டி %s இற்கு அனுப்புங்கள்</string>
+  <string name="waitForSignupHelp">உங்கள் பதிவுசெய்தலை முடிக்க உங்களுக்கு உதவ நாங்கள் விரைவில் உங்களிடம் வருவோம்.</string>
+  <string name="accountConfirmed">பயனீட்டாளர்%s வெற்றிகரமாக உறுதிப்படுத்தப்பட்டுள்ளது.</string>
+  <string name="accountCanLogin">நீங்கள் இப்போது %s ஆக உள்நுழையலாம்.</string>
+  <string name="accountConfirmationEmailNotNeeded">உங்களுக்கு உறுதிப்படுத்தல் மின்னஞ்சல் தேவையில்லை.</string>
+  <string name="accountClosed">%s கணக்கு மூடப்பட்டுள்ளது.</string>
+  <string name="accountRegisteredWithoutEmail">%s கணக்கு மின்னஞ்சல் இல்லாமல் பதிவு செய்யப்பட்டது.</string>
   <string name="rank">வரிசை</string>
   <string name="rankX">மதிப்பீடு: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -333,6 +349,10 @@
     <item quantity="one">%s ஆராய்ச்சி கோல்</item>
     <item quantity="other">%s ஆராய்ச்சி கோல்கள்</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s ஒரே நேரத்தில்</item>
+    <item quantity="other">%s ஒரே நேரத்தில்</item>
+  </plurals>
   <string name="viewTournament">போட்டியைக் காண்க</string>
   <string name="backToTournament">போட்டிக்குத் திரும்பு</string>
   <string name="thematic">மாற்று ஆரம்பம்</string>
@@ -348,10 +368,14 @@
   <string name="yourPerfRatingIsTooHigh">உங்களின் %1$s வீத அறுதிப்பாடு (%2$s) அதிகமாக உள்ளது</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">உங்கள் சிறந்த வாராந்திர %1$s மதிப்பீடு (%2$s) மிக அதிகமாக உள்ளது</string>
   <string name="yourPerfRatingIsTooLow">உங்களின்%1$s வீத அறுதிப்பாடு(%2$s) குறைவாக உள்ளது</string>
+  <string name="mustBeInTeam">நீங்கள் அணியில் இருக்க வேண்டும் %s</string>
+  <string name="youAreNotInTeam">நீங்கள் அணியில் இல்லை %s</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
   <string name="xCreatedTeamY">%1$s என்பவர் %2$s  என்ற அணியைப் படைத்தார்</string>
+  <string name="startedStreaming">ஸ்ட்ரீமிங் தொடங்கிவிட்டது</string>
+  <string name="xStartedStreaming">%s ஸ்றமிங் தொடங்கிவிட்டது</string>
   <string name="averageElo">தோராய Elo</string>
   <string name="location">இடம்</string>
   <string name="filterGames">ஆட்டங்களைத் தேர்ந்தெடு</string>
