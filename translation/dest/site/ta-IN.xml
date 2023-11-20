@@ -238,6 +238,9 @@
   <string name="waitForSignupHelp">உங்கள் பதிவுசெய்தலை முடிக்க உங்களுக்கு உதவ நாங்கள் விரைவில் உங்களிடம் வருவோம்.</string>
   <string name="accountConfirmed">பயனீட்டாளர்%s வெற்றிகரமாக உறுதிப்படுத்தப்பட்டுள்ளது.</string>
   <string name="accountCanLogin">நீங்கள் இப்போது %s ஆக உள்நுழையலாம்.</string>
+  <string name="accountConfirmationEmailNotNeeded">உங்களுக்கு உறுதிப்படுத்தல் மின்னஞ்சல் தேவையில்லை.</string>
+  <string name="accountClosed">%s கணக்கு மூடப்பட்டுள்ளது.</string>
+  <string name="accountRegisteredWithoutEmail">%s கணக்கு மின்னஞ்சல் இல்லாமல் பதிவு செய்யப்பட்டது.</string>
   <string name="rank">வரிசை</string>
   <string name="rankX">மதிப்பீடு: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -345,6 +348,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s ஆராய்ச்சி கோல்</item>
     <item quantity="other">%s ஆராய்ச்சி கோல்கள்</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s ஒரே நேரத்தில்</item>
+    <item quantity="other">%s ஒரே நேரத்தில்</item>
   </plurals>
   <string name="viewTournament">போட்டியைக் காண்க</string>
   <string name="backToTournament">போட்டிக்குத் திரும்பு</string>
