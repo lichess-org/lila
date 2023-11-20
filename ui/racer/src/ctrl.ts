@@ -10,7 +10,6 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { makeSan } from 'chessops/san';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { defined, prop, Prop } from 'common';
@@ -183,9 +182,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.run.moves++;
       this.promotion.cancel();
       const pos = puzzle.position();
-      const move = parseUci(uci)!;
-      const san = makeSan(pos, move);
-      pos.play(move);
+      pos.play(parseUci(uci)!);
       if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
         puzzle.moveIndex++;
         this.localScore++;
@@ -202,7 +199,7 @@ export default class RacerCtrl implements PuzCtrl {
         } else {
           puzzle.moveIndex++;
         }
-        lichess.sound.move({ san, uci });
+        this.run.current.playSound(puzzle);
       } else {
         sound.wrong();
         this.run.errors++;

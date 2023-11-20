@@ -7,7 +7,6 @@ import { Clock } from 'puz/clock';
 import { Combo } from 'puz/combo';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
-import { makeSan } from 'chessops/san';
 import { parseUci } from 'chessops/util';
 import { PromotionCtrl } from 'chess/promotion';
 import { prop, Prop } from 'common';
@@ -72,7 +71,7 @@ export default class StormCtrl implements PuzCtrl {
       }
     });
     $('#zentog').on('click', this.toggleZen);
-    lichess.sound.move();
+    this.run.current.playSound();
   }
 
   end = (): void => {
@@ -109,9 +108,7 @@ export default class StormCtrl implements PuzCtrl {
       this.promotion.cancel();
       const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
       const pos = puzzle.position();
-      const move = parseUci(uci)!;
-      const san = makeSan(pos, move);
-      pos.play(move);
+      pos.play(parseUci(uci)!);
       const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
       if (correct) {
         puzzle.moveIndex++;
@@ -142,7 +139,7 @@ export default class StormCtrl implements PuzCtrl {
         if (this.run.clock.flag()) this.end();
         else if (!this.incPuzzle()) this.end();
       }
-      lichess.sound.move({ san, uci });
+      this.run.current.playSound(puzzle);
       this.redraw();
       this.redrawQuick();
       this.redrawSlow();
