@@ -31,11 +31,14 @@ final class PublicChat(
     tournamentApi.fetchVisibleTournaments.flatMap: visibleTournaments =>
       val ids = visibleTournaments.all.map(_.id into ChatId)
       chatApi.userChat.findAll(ids) map: chats =>
-        chats.flatMap: chat =>
-          visibleTournaments.all
-            .find(_.id.value == chat.id.value)
-            .map(_ -> chat.filterLines(!_.isLichess))
-            .map(sortTournamentsByRelevance)
+        sortTournamentsByRelevance:
+          chats
+            .map(_.filterLines(!_.isLichess))
+            .filter(_.nonEmpty)
+            .flatMap: chat =>
+              visibleTournaments.all
+                .find(_.id.value == chat.id.value)
+                .map(_ -> chat)
 
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
     swissFeature.get(Nil) flatMap: swisses =>
