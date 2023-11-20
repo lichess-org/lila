@@ -613,7 +613,6 @@ export default class AnalyseCtrl {
 
   setAutoShapes = (): void => {
     this.chessground?.setAutoShapes(computeAutoShapes(this));
-    keyboard.maybeShowVariationArrowHelp(this);
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
