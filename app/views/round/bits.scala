@@ -103,8 +103,7 @@ object bits:
                 pov.opponent.light,
                 pov.opponent.userId.flatMap(lightUser),
                 withRating = false,
-                withTitle = true,
-                withFlair = true
+                withTitle = true
               ),
               span(cls := "indicator")(
                 if pov.isMyTurn then

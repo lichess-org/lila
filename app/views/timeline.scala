@@ -32,7 +32,7 @@ object timeline:
 
   private def userLink(userId: UserId)(using ctx: Context) = ctx.me match
     case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
-    case _                         => userIdLink(userId.some, withOnline = true, withFlair = true)
+    case _                         => userIdLink(userId.some, withOnline = true)
 
   private def entry(e: lila.timeline.Entry)(using ctx: Context) =
     frag(
@@ -89,7 +89,7 @@ object timeline:
                 case Some(false) => trans.defeat()
                 case None        => trans.draw()
               ),
-              userIdLink(opponent, withFlair = true),
+              userIdLink(opponent),
               perf.trans
             )
           }

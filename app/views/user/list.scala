@@ -38,7 +38,7 @@ object list:
             ol(cls := "user-top"):
               online.map: u =>
                 li(
-                  userLink(u, withFlair = true),
+                  userLink(u),
                   ctx.pref.showRatings option showBestPerf(u.perfs)
                 )
           ),
@@ -73,7 +73,7 @@ object list:
       ),
       ol(winners take 10 map: w =>
         li(
-          userIdLink(w.userId.some, withFlair = true),
+          userIdLink(w.userId.some),
           a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
             scheduledTournamentNameShortHtml(w.tourName)
         ))
@@ -86,7 +86,7 @@ object list:
       ),
       ol(users.map: l =>
         li(
-          lightUserLink(l.user, withFlair = true),
+          lightUserLink(l.user),
           ctx.pref.showRatings option l.rating
         ))
     )
@@ -98,7 +98,7 @@ object list:
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users.map: u =>
         li(
-          lightUserLink(u.user, withFlair = true),
+          lightUserLink(u.user),
           span(title := trans.gamesPlayed.txt())(s"#${u.count.localize}")
         ))
     )

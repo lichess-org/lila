@@ -104,7 +104,6 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
-      withFlair: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
@@ -117,7 +116,7 @@ trait UserHelper extends HasEnv:
           username = user.name,
           isPatron = user.isPatron,
           title = user.title ifTrue withTitle,
-          flair = user.flair ifTrue withFlair,
+          flair = user.flair,
           cssClass = cssClass,
           withOnline = withOnline,
           truncate = truncate,
@@ -130,7 +129,6 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
-      withFlair: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
   )(using Lang): Tag =
@@ -139,7 +137,7 @@ trait UserHelper extends HasEnv:
       username = user.name,
       isPatron = user.isPatron,
       title = user.title ifTrue withTitle,
-      flair = user.flair ifTrue withFlair,
+      flair = user.flair,
       cssClass = cssClass,
       withOnline = withOnline,
       truncate = truncate,
@@ -182,13 +180,12 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
-      withFlair: Boolean = true,
       params: String = ""
   )(using Lang): Tag =
     a(
       cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
-    )(userLinkContent(user, withOnline, withTitle, withFlair, withPerfRating, name))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
 
   def userSpan(
       user: User,
@@ -197,26 +194,24 @@ trait UserHelper extends HasEnv:
       withPowerTip: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
-      withFlair: Boolean = true,
       name: Option[Frag] = None
   )(using Lang): Tag =
     span(
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
-    )(userLinkContent(user, withOnline, withTitle, withFlair, withPerfRating, name))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
 
   def userLinkContent(
       user: User,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
-      withFlair: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None
   )(using Lang) = frag(
     withOnline so lineIcon(user),
     withTitle option titleTag(user.title),
     name | user.username,
-    withFlair option userFlair(user),
+    userFlair(user),
     withPerfRating.map(userRating(user, _))
   )
 

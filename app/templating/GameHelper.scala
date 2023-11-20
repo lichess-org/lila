@@ -87,7 +87,6 @@ trait GameHelper:
   def playerUsername(
       player: LightPlayer,
       user: Option[LightUser],
-      withFlair: Boolean = true,
       withRating: Boolean = true,
       withTitle: Boolean = true
   )(using Lang): Frag =
@@ -97,7 +96,7 @@ trait GameHelper:
           frag(
             titleTag(user.title ifTrue withTitle),
             user.name,
-            user.flair ifTrue withFlair map userFlair,
+            user.flair map userFlair,
             withRating option frag(
               " (",
               player.rating.fold(frag("?")): rating =>
@@ -126,7 +125,6 @@ trait GameHelper:
       withDiff: Boolean = true,
       engine: Boolean = false,
       withBerserk: Boolean = false,
-      withFlair: Boolean = true,
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
@@ -154,8 +152,7 @@ trait GameHelper:
             playerUsername(
               player.light,
               user.some,
-              withRating = withRating && ctx.pref.showRatings,
-              withFlair = withFlair && ctx.pref.flairs
+              withRating = withRating && ctx.pref.showRatings
             ),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
@@ -173,7 +170,6 @@ trait GameHelper:
       withDiff: Boolean = true,
       engine: Boolean = false,
       withBerserk: Boolean = false,
-      withFlair: Boolean = true,
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
@@ -196,8 +192,7 @@ trait GameHelper:
             playerUsername(
               player,
               user.some,
-              withRating = withRating && ctx.pref.showRatings,
-              withFlair = withFlair && ctx.pref.flairs
+              withRating = withRating && ctx.pref.showRatings
             ),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))

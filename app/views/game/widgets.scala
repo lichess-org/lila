@@ -123,7 +123,7 @@ object widgets:
       player.playerUser
         .map: playerUser =>
           frag(
-            userIdLink(playerUser.id.some, withOnline = false, withFlair = true),
+            userIdLink(playerUser.id.some, withOnline = false),
             br,
             player.berserk option berserkIconSpan,
             ctx.pref.showRatings option frag(

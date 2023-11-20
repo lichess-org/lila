@@ -20,7 +20,7 @@ object mini:
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
-          userLink(u, withPowerTip = false, withFlair = true),
+          userLink(u, withPowerTip = false),
           u.profileOrDefault.flagInfo map: c =>
             span(cls := "upt__info__top__flag", attrData("flag") := c.code, title := c.longName):
               c.shortName | c.name

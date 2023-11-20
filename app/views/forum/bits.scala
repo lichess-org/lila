@@ -32,7 +32,6 @@ object bits:
         post.userId,
         cssClass = cssClass,
         withOnline = withOnline,
-        withFlair = true,
         modIcon = ~post.modIcon
       )
 

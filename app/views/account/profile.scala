@@ -35,7 +35,7 @@ object profile:
               details(cls := "form-control emoji-details")(
                 summary(cls := "button button-metal button-no-upper")(
                   "Set your flair: ",
-                  userSpan(u, withFlair = true, withPowerTip = false)
+                  userSpan(u, withPowerTip = false)
                 ),
                 form3.hidden(f, u.flair.map(_.value)),
                 div(cls := "emoji-picker")

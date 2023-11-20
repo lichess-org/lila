@@ -95,7 +95,7 @@ object show:
               }
             ),
             views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
-            trans.by(userIdLink(sim.hostId.some, withFlair = true)),
+            trans.by(userIdLink(sim.hostId.some)),
             sim.estimatedStartAt.map: d =>
               frag(br, absClientInstant(d))
           ),
