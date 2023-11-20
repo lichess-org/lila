@@ -358,8 +358,8 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không có quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s đã tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
-  <string name="startedStreaming">đã bắt đầu phát trực tuyến</string>
-  <string name="xStartedStreaming">%s đã bắt đầu phát trực tuyến</string>
+  <string name="startedStreaming">đã bắt đầu phát trực tiếp</string>
+  <string name="xStartedStreaming">%s đã bắt đầu phát trực tiếp</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
   <string name="location">Vị trí</string>
   <string name="filterGames">Lọc ván cờ</string>
@@ -475,6 +475,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
   <string name="thankYou">Lời cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
