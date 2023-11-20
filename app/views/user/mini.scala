@@ -20,11 +20,11 @@ object mini:
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
-          div(cls := "left")(
-            userLink(u, withPowerTip = false, withFlair = true),
-            u.profileOrDefault.flagInfo map: c =>
-              span(cls := "upt__info__top__flag", attrData("flag") := c.code)(c.shortName)
-          ),
+          userLink(u, withPowerTip = false, withFlair = true),
+          u.profileOrDefault.flagInfo map: c =>
+            span(cls := "upt__info__top__flag", attrData("flag") := c.code, title := c.longName):
+              c.shortName | c.name
+          ,
           ping map bits.signalBars
         ),
         if u.lame && !ctx.is(u) && !isGranted(_.UserModView)

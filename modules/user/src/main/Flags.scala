@@ -5,13 +5,14 @@ import scala.*
 final class Flag(
     val code: String,
     val name: String,
-    val shortName: String
-)
+    val shortName: Option[String]
+):
+  def longName = shortName.isDefined option name
 
 object Flags:
 
-  private inline def C(code: String, name: String)                    = new Flag(code, name, name)
-  private inline def C(code: String, name: String, shortName: String) = new Flag(code, name, shortName)
+  private inline def C(code: String, name: String)                    = new Flag(code, name, none)
+  private inline def C(code: String, name: String, shortName: String) = new Flag(code, name, shortName.some)
 
   val all = List(
     C("AD", "Andorra"),

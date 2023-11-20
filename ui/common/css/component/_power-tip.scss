@@ -3,7 +3,7 @@
 #miniBoard {
   @extend %box-radius-force, %popup-shadow;
 
-  width: 20rem;
+  width: 21rem;
   min-height: 3em;
   background: $c-bg-popup;
   display: none;
@@ -32,14 +32,11 @@
     overflow: hidden;
 
     &__top {
-      @extend %flex-between;
-
-      .left {
-        @extend %flex-center-nowrap;
-      }
+      @extend %flex-between-nowrap, %ellipsis;
+      gap: 0.6ch;
 
       .user-link {
-        @extend %ellipsis;
+        flex: 0 0 auto;
         display: block;
         font-size: 1.1em;
         .line {
@@ -47,8 +44,13 @@
         }
       }
       &__flag {
-        margin-#{$start-direction}: 0.5em;
+        flex: 1 1 auto;
+        overflow: hidden;
+        line-height: 1em;
         font-size: 0.9em;
+      }
+      signal {
+        flex: 0 0 auto;
       }
     }
 
