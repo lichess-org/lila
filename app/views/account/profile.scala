@@ -38,7 +38,13 @@ object profile:
                   userSpan(u, withPowerTip = false)
                 ),
                 form3.hidden(f, u.flair.map(_.value)),
-                div(cls := "emoji-picker")
+                div(cls := "emoji-picker"),
+                a(
+                  href     := s"${routes.Pref.form("display")}#showFlairs",
+                  cls      := "text",
+                  dataIcon := licon.InfoCircle
+                ):
+                  "There is a setting to hide all user flairs across the entire site."
               ),
           ),
           form3.split(
