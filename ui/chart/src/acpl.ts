@@ -99,7 +99,7 @@ export default async function (
           below: blackFill,
           above: whiteFill,
         },
-        pointRadius: d.player.blurs ? pointSizes : 0,
+        pointRadius: d.player.blurs || d.opponent.blurs ? pointSizes : 0,
         pointHoverRadius: 5,
         pointHitRadius: 100,
         borderColor: orangeAccent,
