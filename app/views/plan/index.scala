@@ -259,7 +259,7 @@ object index:
       )
     }
 
-  private def showCurrency(cur: Currency)(using ctx: PageContext) =
+  private def showCurrency(cur: Currency)(using ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
   private def faq(using Lang) =
