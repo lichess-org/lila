@@ -883,7 +883,7 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
-          this.ceval?.cachable &&
+          this.ceval?.cacheable() &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves
           (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))

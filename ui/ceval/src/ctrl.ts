@@ -26,7 +26,6 @@ export default class CevalCtrl {
   rules: Rules;
   analysable: boolean;
   possible: boolean;
-  cachable: boolean;
 
   engines: Engines;
   multiPv: Prop<number>;
@@ -247,6 +246,11 @@ export default class CevalCtrl {
         'Clear site settings for lichess.org. Or select another engine</p></div>',
     });
   }
+
+  cacheable() {
+    return this.engines.active?.tech === 'NNUE';
+  }
+
   private lastEmitFen: string | null = null;
   private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
