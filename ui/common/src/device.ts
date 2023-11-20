@@ -72,7 +72,7 @@ export const isTouchDevice = () => !hasMouse();
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
-export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'dynamicImport';
+export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'webWorkerDynamicImport';
 
 export const hasFeature = (feat?: string) => !feat || features().includes(feat as Feature);
 
@@ -92,7 +92,7 @@ export const features = memoize<readonly Feature[]>(() => {
     }
   }
   if (!getFirefoxMajorVersion() || getFirefoxMajorVersion() >= 114) {
-    features.push('dynamicImport');
+    features.push('webWorkerDynamicImport');
   }
   return Object.freeze(features);
 });

@@ -38,7 +38,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: ['simd', 'dynamicImport'],
+            requires: ['simd', 'webWorkerDynamicImport'],
             minMem: 1536,
             assets: {
               version: 'sfw002',
@@ -54,7 +54,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             tech: 'NNUE',
-            requires: ['simd', 'dynamicImport'],
+            requires: ['simd', 'webWorkerDynamicImport'],
             minMem: 2048,
             assets: {
               version: 'sfw002',
@@ -87,7 +87,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: ['simd'],
+            requires: ['simd', 'webWorkerDynamicImport'],
             variants: [
               'crazyhouse',
               'atomic',
