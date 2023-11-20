@@ -26,7 +26,8 @@ object Analyser:
     val words = Analyser(text).badWords
     if words.isEmpty then frag(text)
     else
-      val regex             = { """(?iu)""" + Analyser.bounds.wrap(words.mkString("(", "|", ")")) }.r
+      // val regex             = { """(?iu)""" + Analyser.bounds.wrap(words.mkString("(", "|", ")")) }.r
+      val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
@@ -71,8 +72,8 @@ object Analyser:
   // unicode compatible bounds
   // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
   object bounds:
-    val pre                 = """(?<=[\s,.:;"']|^)"""
-    val post                = """(?=[\s,.:;"']|$)"""
+    val pre                 = """(?<=[\s,.:;"'\?!]|^)"""
+    val post                = """(?=[\s,.:;"'\?!]|$)"""
     def wrap(regex: String) = pre + regex + post
 
   private val ruBigRegex = {
