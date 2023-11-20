@@ -505,7 +505,6 @@
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
   <string name="biography">ژیاننامە</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ئاڵا</string>
   <string name="thankYou">سوپاس!</string>
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
