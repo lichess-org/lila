@@ -66,7 +66,6 @@ const categories: [string, string][] = [
   ['travel-places', 'Travel & Places'],
   ['objects', 'Objects'],
   ['symbols', 'Symbols'],
-  ['flags', 'Flags'],
 ];
 
 const categoryIcons = {
