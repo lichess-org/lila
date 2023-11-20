@@ -37,7 +37,7 @@ object profile:
                   "Set your flair: ",
                   userSpan(u, withFlair = true, withPowerTip = false)
                 ),
-                form3.hidden(f),
+                form3.hidden(f, u.flair.map(_.value)),
                 div(cls := "emoji-picker")
               ),
           ),
