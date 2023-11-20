@@ -43,6 +43,8 @@ case class UserChat(
 
   def mapLines(f: UserLine => UserLine) = copy(lines = lines map f)
 
+  def filterLines(f: UserLine => Boolean) = copy(lines = lines filter f)
+
   def flairUserIds = lines.collect:
     case l if l.flair => l.userId
 
