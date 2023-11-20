@@ -13,8 +13,8 @@ object passwd:
       title = trans.changePassword.txt(),
       active = "password",
       evenMoreJs = jsModuleInit("passwordComplexity", "'form3-newPasswd1'")
-    ) {
-      div(cls := "account box box-pad")(
+    ):
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.changePassword()),
         standardFlash | flashMessage("warning")(trans.passwordSuggestion()),
         postForm(cls := "form3", action := routes.Account.passwdApply)(
@@ -31,4 +31,3 @@ object passwd:
           form3.action(form3.submit(trans.apply()))
         )
       )
-    }

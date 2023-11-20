@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Двофакторна автентикација</string>
   <string name="twoFactorHelp">Двофакторната автентикација додава уште еден слој на сигурност на вашата сметка.</string>
-  <string name="twoFactorApp">Инсталирајте апликација за двофакторна автентикација, на пример Google Authenticator за %1$s или %2$s.</string>
   <string name="scanTheCode">Скенирајте го QR кодот со апликацијата.</string>
   <string name="enterPassword">Внесете ја вашата лозинка и кодот за автентикација создаден од апликацијата, за да го завршите поставувањето. При секое најавување ќе ви треба код за автентикација.</string>
   <string name="ifYouCannotScanEnterX">Ако не можете да го скенирате кодот, внесете го тајниот %s во вашата апликација.</string>

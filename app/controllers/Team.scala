@@ -74,7 +74,7 @@ final class Team(
     hasChat = canHaveChat(info, asMod)
     chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
     _ <- env.user.lightUserApi.preloadMany:
-      info.publicLeaders.map(_.user) ::: info.userIds ::: chat.so(_.chat.userIds)
+      info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat soFu env.team.version(team.id)
     page    <- renderPage(html.team.show(team, members, info, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))

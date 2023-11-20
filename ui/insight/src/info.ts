@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { onInsert } from 'common/snabbdom';
 import { numberFormat } from 'common/number';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import { h } from 'snabbdom';
 import Ctrl from './ctrl';
 
@@ -10,7 +10,7 @@ const shareStates = ['nobody', 'friends only', 'everybody'];
 export default function (ctrl: Ctrl) {
   const shareText = 'Shared with ' + shareStates[ctrl.user.shareId] + '.';
   return h('div.info.box', [
-    h('div.top', userLink(ctrl.user.name, ctrl.user.title, ctrl.user.patron)),
+    h('div.top', userLink(ctrl.user)),
     h('div.content', [
       h('p', ['Insights over ', h('strong', numberFormat(ctrl.user.nbGames)), ' rated games.']),
       h(

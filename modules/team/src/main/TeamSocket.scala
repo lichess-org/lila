@@ -7,7 +7,7 @@ final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
     api: TeamApi
-)(using Executor):
+)(using Executor, lila.user.UserFlairApi.Getter):
 
   lazy val rooms = makeRoomMap(send)
 

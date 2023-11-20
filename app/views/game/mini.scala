@@ -57,7 +57,7 @@ object mini:
   private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
-        playerUsername(pov.player.light, withRating = false),
+        playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),
         withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if pov.game.finished then renderResult(pov)

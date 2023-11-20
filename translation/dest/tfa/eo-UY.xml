@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Dufaza aŭtentigo</string>
   <string name="twoFactorHelp">Dufaza aŭtentigo aldonas alian tavolon de sekura al via konto.</string>
-  <string name="twoFactorApp">Akiru apon por dufaza aŭtentigo, ekzample andOTP por %1$s aŭ Google Authenticator por %2$s.</string>
   <string name="scanTheCode">Skanu la QR-kodo per la app.</string>
   <string name="enterPassword">Entajpu vian pasvorton kaj la aŭtentigan kodon generis de la apo por fini la agordo. Vi bezonos aŭtentigan kodon ĉiam vi ensalutas.</string>
   <string name="ifYouCannotScanEnterX">Se vi ne povas skani la kodon, entajpu la sekretan ŝlosilon %s en vian apon.</string>

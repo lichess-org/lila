@@ -1,7 +1,14 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
+import { emojiPicker } from './emojiPicker';
 
 lichess.load.then(() => {
+  $('.emoji-details').on('toggle', function (this: HTMLDetailsElement) {
+    const details = this;
+    const close = () => details.removeAttribute('open');
+    emojiPicker(details.querySelector('.emoji-picker')!, close);
+  });
+
   const localPrefs: [string, string, string, boolean][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],

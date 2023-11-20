@@ -27,12 +27,13 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
 )(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator,
-    mode: play.api.Mode
+    Executor,
+    akka.actor.ActorSystem,
+    Scheduler,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode,
+    lila.user.UserFlairApi.Getter
 ):
 
   private val mongo = new SwissMongo(

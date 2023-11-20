@@ -4,6 +4,7 @@ import { findTag } from '../study/studyChapters';
 import * as game from 'game';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
+import { ratingDiff } from 'common/userLink';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -13,15 +14,6 @@ interface Advice {
   symbol: string;
 }
 
-const renderRatingDiff = (rd: number | undefined): VNode | undefined =>
-  rd === 0
-    ? h('span', '±0')
-    : rd && rd > 0
-    ? h('good', '+' + rd)
-    : rd && rd < 0
-    ? h('bad', '−' + -rd)
-    : undefined;
-
 const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
   const p = game.getPlayer(ctrl.data, color);
   if (p.user)
@@ -30,7 +22,7 @@ const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
       {
         attrs: { href: '/@/' + p.user.username },
       },
-      [p.user.username, ' ', renderRatingDiff(p.ratingDiff)],
+      [p.user.username, ' ', ratingDiff(p)],
     );
   return h(
     'span',

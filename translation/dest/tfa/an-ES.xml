@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Autentificación en dos pasos</string>
   <string name="twoFactorHelp">L\'autentificación en dos pasos anyade una capa de seguridat adicional a la tuya cuenta.</string>
-  <string name="twoFactorApp">Descarga-te una aplicación pa autentificación en dos pasos, per eixemplo Google Authenticator, pa %1$s u %2$s.</string>
   <string name="scanTheCode">Escaneya lo codigo QR con l\'aplicación.</string>
   <string name="enterPassword">Escribe la tuya clau y lo codigo d\'autentificación chenerau per l\'aplicación pa completar la configuración. Te caldrá un codigo d\'autentificación cada vegada que inicies sesión.</string>
   <string name="ifYouCannotScanEnterX">Si no puetz escaniar lo codigo, escribe la clau secreta %s en a tuya app.</string>

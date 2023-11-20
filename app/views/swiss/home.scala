@@ -42,11 +42,11 @@ object home:
       )
     }
 
-  private def renderList(name: String)(swisses: List[Swiss])(using PageContext) =
+  private def renderList(name: String)(swisses: List[Swiss])(using Context) =
     table(cls := "slist swisses")(
       thead(tr(th(colspan := 4)(name))),
-      tbody(
-        swisses map { s =>
+      tbody:
+        swisses.map: s =>
           tr(
             td(cls := "icon")(iconTag(s.perfType.icon)),
             td(cls := "header")(
@@ -75,8 +75,6 @@ object home:
               span(cls := "players text", dataIcon := licon.User)(s.nbPlayers.localize)
             )
           )
-        }
-      )
     )
 
   private def comparison(using Lang) = table(cls := "comparison slist")(

@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Zwee-Faktor-Authentifizéierung</string>
   <string name="twoFactorHelp">Zwee-Faktor-Authentifizéierung füügt dengem Account eng zousätzlech Schicht Sécherheet hin zou.</string>
-  <string name="twoFactorApp">Huel der eng App fir Zwee-Faktor-Authentifizéierung, zum Beispill andOTP fir %1$s oder Google Authenticator fir%2$s.</string>
   <string name="scanTheCode">Scan den QR Code mat der App.</string>
   <string name="enterPassword">Gëff däin Passwuert and den vun der App generéierten Authentifizéierungscode an fir den Setup ofzeschléissen. Du wäerts ëmmer een Authentifizéierungscode brauchen fir dech anzeloggen.</string>
   <string name="ifYouCannotScanEnterX">Falls du den Code net scannen kanns, gëff dësen geheimen %s op der App an.</string>

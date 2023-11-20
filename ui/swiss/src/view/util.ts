@@ -1,8 +1,7 @@
 import { h } from 'snabbdom';
 import { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
-
-export const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
+import { fullName, userRating } from 'common/userLink';
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h(
@@ -13,10 +12,7 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
-    [
-      h('span.name', userName(p.user)),
-      withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
-    ],
+    [h('span.name', fullName(p.user)), withRating ? h('span.rating', userRating(p)) : null],
   );
 }
 
@@ -30,10 +26,10 @@ export function numberRow(name: string, value: any, typ?: string) {
       typ === 'raw'
         ? value
         : typ === 'percent'
-        ? value[1] > 0
-          ? ratio2percent(value[0] / value[1])
-          : 0
-        : numberFormat(value),
+          ? value[1] > 0
+            ? ratio2percent(value[0] / value[1])
+            : 0
+          : numberFormat(value),
     ),
   ]);
 }

@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକିକରଣ</string>
   <string name="twoFactorHelp">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକରଣ ଆପଣଙ୍କ ଆକାଉଣ୍ଟରେ ସୁରକ୍ଷାର ଅନ୍ୟ ଏକ ସ୍ତର ଯୋଗ କରେ |</string>
-  <string name="twoFactorApp">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକିକରଣ ପାଇଁ ଏକ ଆପ୍ ପାଆନ୍ତୁ, ଉଦାହରଣ ସ୍ୱରୂପ% %1$s ଗୁଗୁଲ୍ ପ୍ରାମାଣିକିକରଣକାରୀ କିମ୍ବା  %2$s</string>
   <string name="scanTheCode">QR କୋଡ୍ରେ ଆପ୍ ରେ ସ୍କାନ୍ କରନ୍ତୁ</string>
   <string name="enterPassword">ସେଟଅପ୍ ସଂପୂର୍ଣ୍ଣ କରିବାକୁ ଆପ୍ ଦ୍ୱାରା ଉତ୍ପାଦିତ ପ୍ରାମାଣିକିକରଣ କୋଡ୍ ପ୍ରବେଶ କରନ୍ତୁ | ଆପଣ ପ୍ରତ୍ୟେକ ଥର ଲଗ୍ ଇନ୍ କରିବାବେଳେ ଆପଣଙ୍କୁ ଏକ ପ୍ରାମାଣିକିକରଣ କୋଡ୍ ଦରକାର</string>
   <string name="authenticationCode">ପ୍ରାମାଣିକିକରଣ କୋଡ୍</string>

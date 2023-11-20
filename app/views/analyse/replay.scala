@@ -35,9 +35,10 @@ object replay:
 
     import pov.*
 
-    val chatJson = chatOption map { c =>
+    val chatJson = chatOption.map: c =>
       views.html.chat.json(
         c.chat,
+        c.lines,
         name = trans.spectatorRoom.txt(),
         timeout = c.timeout,
         withNoteAge = ctx.isAuth option game.secondsSinceCreation,
@@ -45,7 +46,6 @@ object replay:
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.canPalantir
       )
-    }
     val imageLinks = frag(
       a(
         dataIcon := licon.NodeBranching,
@@ -97,17 +97,13 @@ object replay:
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
-      )(
-        trans.downloadAnnotated()
-      ),
+      )(trans.downloadAnnotated()),
       a(
         dataIcon := licon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
-      )(
-        trans.downloadRaw()
-      ),
+      )(trans.downloadRaw()),
       game.isPgnImport option a(
         dataIcon := licon.Download,
         cls      := "text",
@@ -139,7 +135,7 @@ object replay:
         )
       ),
       openGraph = povOpenGraph(pov).some
-    )(
+    ):
       frag(
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(
@@ -178,11 +174,9 @@ object replay:
                     postForm(
                       cls    := s"future-game-analysis${ctx.isAnon so " must-login"}",
                       action := routes.Analyse.requestAnalysis(gameId)
-                    )(
-                      submitButton(cls := "button text")(
+                    ):
+                      submitButton(cls := "button text"):
                         span(cls := "is3 text", dataIcon := licon.BarChart)(trans.requestAComputerAnalysis())
-                      )
-                    )
                 ),
                 div(cls := "move-times")(
                   game.ply > 1 option div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart"))
@@ -210,11 +204,9 @@ object replay:
                   ),
                   div(cls := "pgn")(pgn)
                 ),
-                cross.map { c =>
-                  div(cls := "ctable")(
+                cross.map: c =>
+                  div(cls := "ctable"):
                     views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-                  )
-                }
               )
             )
           )
@@ -222,9 +214,7 @@ object replay:
         ctx.blind option div(cls := "blind-content none")(
           h2("PGN downloads"),
           pgnLinks,
-          button(cls := "copy-pgn", attr("data-pgn") := pgn)(
+          button(cls := "copy-pgn", attr("data-pgn") := pgn):
             "Copy PGN to clipboard"
-          )
         )
       )
-    )

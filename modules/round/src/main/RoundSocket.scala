@@ -30,7 +30,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobileSocket,
     shutdown: CoordinatedShutdown
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -38,9 +38,8 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket"): () =>
     stopping = true
-    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
+    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map: nb =>
       Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
-    }
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
     rounds.getOrMake(gameId).getGame addEffect { g =>
@@ -69,13 +68,13 @@ final class RoundSocket(
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
-    val proxy = GameProxy(id, proxyDependencies, gameFu)
+    given proxy: GameProxy = GameProxy(id, proxyDependencies, gameFu)
     val roundActor = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
       version = version
-    )(using ec, proxy)
+    )
     terminationDelay schedule id
     gameFu.dforeach:
       _.foreach: game =>

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { MaybeVNodes } from 'common/snabbdom';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import { SetupCtrl } from '../ctrl';
 import { variantPicker } from './components/variantPicker';
 import { fenInput } from './components/fenInput';
@@ -13,7 +13,7 @@ export default function friendContent(ctrl: SetupCtrl): MaybeVNodes {
   return [
     h('h2', ctrl.root.trans('playWithAFriend')),
     h('div.setup-content', [
-      ctrl.friendUser ? userLink(ctrl.friendUser) : null,
+      ctrl.friendUser ? userLink({ name: ctrl.friendUser }) : null,
       variantPicker(ctrl),
       fenInput(ctrl),
       timePickerAndSliders(ctrl, true),

@@ -18,7 +18,7 @@ object side:
       streamers: List[UserId],
       shieldOwner: Option[UserId],
       chat: Boolean
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     frag(
       div(cls := "tour__meta")(
         st.section(dataIcon := tour.perfType.icon.toString)(
@@ -38,7 +38,7 @@ object side:
             if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             "Arena",
-            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && !tour.isFinished)) option frag(
+            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)) option frag(
               " ",
               a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(licon.Gear))
             )
@@ -46,7 +46,8 @@ object side:
         ),
         tour.teamBattle map teamBattle(tour),
         variantTeamLinks.get(tour.variant.key) filter { (team, _) =>
-          tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
+          tour.createdBy.is(lila.user.User.lichessId) || tour.conditions.teamMember
+            .exists(_.teamId == team.id)
         } map { (team, link) =>
           st.section(
             if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
@@ -60,7 +61,7 @@ object side:
             markdownLinksOrRichText(d)
           ),
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
-        views.html.gathering.verdicts(verdicts, tour.perfType),
+        views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
         tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
@@ -81,7 +82,7 @@ object side:
       chat option views.html.chat.frag
     )
 
-  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: PageContext) =
+  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := licon.Group)(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",

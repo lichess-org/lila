@@ -18,7 +18,7 @@ object created:
       title = s"${u.username} created tournaments",
       path = path,
       moreJs = infiniteScrollTag
-    ) {
+    ):
       if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
       else
         div(cls := "tournament-list")(
@@ -47,4 +47,3 @@ object created:
             )
           )
         )
-    }

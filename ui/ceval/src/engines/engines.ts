@@ -26,8 +26,9 @@ export class Engines {
   }
 
   makeEngineMap() {
-    const progress = (download?: { bytes: number; total: number }) => {
+    const progress = (download?: { bytes: number; total: number }, error?: string) => {
       if (this.ctrl?.enabled()) this.ctrl.download = download;
+      if (error) this.ctrl?.engineFailed(error);
       this.ctrl?.opts.redraw();
     };
 
@@ -39,7 +40,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: 'simd',
+            requires: ['simd', 'webWorkerDynamicImport'],
             minMem: 1536,
             assets: {
               version: 'sfw002',
@@ -51,26 +52,11 @@ export class Engines {
         },
         {
           info: {
-            id: '__sf16nnue12',
-            name: 'Stockfish 16 NNUE · 12MB',
-            short: 'SF 16 · 12MB',
-            tech: 'NNUE',
-            requires: 'simd',
-            minMem: 1536,
-            assets: {
-              root: 'npm/lila-stockfish-web',
-              js: 'linrock-nnue-12.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
-        },
-        {
-          info: {
             id: '__sf16nnue40',
             name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             tech: 'NNUE',
-            requires: 'simd',
+            requires: ['simd', 'webWorkerDynamicImport'],
             minMem: 2048,
             assets: {
               version: 'sfw002',
@@ -86,7 +72,7 @@ export class Engines {
             name: 'Stockfish 14 NNUE',
             short: 'SF 14',
             tech: 'NNUE',
-            requires: 'simd',
+            requires: ['simd'],
             minMem: 2048,
             assets: {
               version: 'b6939d',
@@ -103,7 +89,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: 'simd',
+            requires: ['simd', 'webWorkerDynamicImport'],
             variants: [
               'crazyhouse',
               'atomic',
@@ -120,7 +106,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new StockfishWebEngine(e, undefined, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
+            new StockfishWebEngine(e, progress, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
         },
         {
           info: {
@@ -128,7 +114,7 @@ export class Engines {
             name: 'Stockfish 11 Multi-Variant',
             short: 'SF 11 MV',
             tech: 'HCE',
-            requires: 'sharedMem',
+            requires: ['sharedMem'],
             variants: [
               'crazyhouse',
               'atomic',
@@ -156,7 +142,7 @@ export class Engines {
             name: 'Stockfish 11 HCE',
             short: 'SF 11',
             tech: 'HCE',
-            requires: 'sharedMem',
+            requires: ['sharedMem'],
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish.wasm',
@@ -173,7 +159,7 @@ export class Engines {
             short: 'SF 14',
             version: 'b6939d',
             class: 'NNUE',
-            requires: 'simd',
+            requires: ['simd'],
             minMem: 2048,
             assets: {
               root: 'npm/stockfish-nnue.wasm',
@@ -190,7 +176,7 @@ export class Engines {
             short: 'Stockfish',
             tech: 'HCE',
             maxThreads: 1,
-            requires: 'wasm',
+            requires: ['wasm'],
             obsoletedBy: 'sharedMem',
             assets: {
               version: 'a022fa',
@@ -217,7 +203,11 @@ export class Engines {
           make: (e: BrowserEngineInfo) => new SimpleEngine(e, progress),
         },
       ]
-        .filter(e => hasFeature(e.info.requires) && !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)))
+        .filter(
+          e =>
+            (e.info.requires ?? []).map(req => hasFeature(req)).every(x => !!x) &&
+            !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)),
+        )
         .map(e => [e.info.id, { info: withDefaults(e.info as BrowserEngineInfo), make: e.make }]),
     );
   }

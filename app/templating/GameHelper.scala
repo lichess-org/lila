@@ -84,29 +84,32 @@ trait GameHelper:
 
   def modeNameNoCtx(mode: Mode): String = modeName(mode)(using defaultLang)
 
-  def playerUsername(player: LightPlayer, withRating: Boolean = true, withTitle: Boolean = true)(using
-      Lang
-  ): Frag =
+  def playerUsername(
+      player: LightPlayer,
+      user: Option[LightUser],
+      withRating: Boolean = true,
+      withTitle: Boolean = true
+  )(using Lang): Frag =
     player.aiLevel.fold[Frag](
-      player.userId.flatMap(lightUser).fold[Frag](trans.anonymous.txt()) { (user: LightUser) =>
-        frag(
-          titleTag(user.title ifTrue withTitle),
-          user.name,
-          withRating option frag(
-            " (",
-            player.rating.fold(frag("?")) { rating =>
-              if player.provisional.yes then
-                abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
-              else rating
-            },
-            ")"
+      user
+        .fold[Frag](trans.anonymous.txt()): user =>
+          frag(
+            titleTag(user.title ifTrue withTitle),
+            user.name,
+            user.flair map userFlair,
+            withRating option frag(
+              " (",
+              player.rating.fold(frag("?")): rating =>
+                if player.provisional.yes then
+                  abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
+                else rating,
+              ")"
+            )
           )
-        )
-      }
     ): level =>
       frag(aiName(level))
 
-  def playerText(player: Player, withRating: Boolean = false) =
+  def playerText(player: Player, withRating: Boolean = false): String =
     Namer.playerTextBlocking(player, withRating)(using lightUser)
 
   def gameVsText(game: Game, withRatings: Boolean = false): String =
@@ -146,14 +149,15 @@ trait GameHelper:
             (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player.light, withRating && ctx.pref.showRatings),
+            playerUsername(
+              player.light,
+              user.some,
+              withRating = withRating && ctx.pref.showRatings
+            ),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
-            engine option span(
-              cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()
-            )
+            tosMark(engine)
           ),
           statusIcon
         )
@@ -169,7 +173,6 @@ trait GameHelper:
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
-    given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
       case None =>
@@ -186,17 +189,21 @@ trait GameHelper:
             (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player, withRating && ctx.pref.showRatings),
+            playerUsername(
+              player,
+              user.some,
+              withRating = withRating && ctx.pref.showRatings
+            ),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
-            engine option span(
-              cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()
-            )
+            tosMark(engine)
           ),
           statusIcon
         )
+
+  private def tosMark(mark: Boolean)(using Lang): Option[Tag] =
+    mark option span(cls := "tos_violation", title := trans.thisAccountViolatedTos.txt())
 
   def gameEndStatus(game: Game)(using lang: Lang): String =
     game.status match
@@ -268,15 +275,13 @@ trait GameHelper:
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic so s" ${c.variant.name}"
-    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)) { reg =>
+    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)): reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings so s" (${reg.rating.show})"}"
-    }
     val players =
       if c.isOpen then "Open challenge"
       else
-        c.destUser.fold(s"Challenge from $challenger") { dest =>
+        c.destUser.fold(s"Challenge from $challenger"): dest =>
           s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings so s" (${dest.rating.show})"}"
-        }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =

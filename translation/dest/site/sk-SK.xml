@@ -551,7 +551,7 @@
   <string name="movesPlayed">Odohraných ťahov</string>
   <string name="whiteWins">Výhry ako biely</string>
   <string name="blackWins">Výhry ako čierny</string>
-  <string name="draws">Remízy</string>
+  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="boardEditor">Editor šachovnice</string>
@@ -732,6 +732,7 @@
   <string name="simultaneousExhibitions">Simultánne exhibície</string>
   <string name="host">Hostiteľ</string>
   <string name="hostColorX">Farba simultánneho hráča: %s</string>
+  <string name="yourPendingSimuls">Vaše čakajúce simultánky</string>
   <string name="createdSimuls">Novovytvorené simultánky</string>
   <string name="hostANewSimul">Vytvoriť novú simultánku</string>
   <string name="noSimulFound">Simultánka nenájdená</string>

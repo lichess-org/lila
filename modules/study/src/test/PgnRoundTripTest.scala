@@ -23,7 +23,7 @@ class PgnRoundTripTest extends munit.FunSuite:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
 
-  val user = LightUser(UserId("lichess"), UserName("Annotator"), None, false)
+  val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
   def rootToPgn(root: Root) = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))

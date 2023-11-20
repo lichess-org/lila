@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">การรับรองความถูกต้องแบบสองชั้น</string>
   <string name="twoFactorHelp">การรับรองความถูกต้องแบบสองชั้น จะเพิ่มความปลอดภัยอีกชั้นให้กับบัญชีของคุณ</string>
-  <string name="twoFactorApp">จัดหาแอปที่มีการรับรองความถูกต้องแบบสองชั้น เช่น Google Authenticator สำหรับ %1$s หรือ %2$s</string>
   <string name="scanTheCode">สแกน QR code ด้วยแอป</string>
   <string name="enterPassword">ใส่รหัสผ่านของคุณและรหัสรับรองความถูกต้องที่สร้างโดยแอปเพื่อให้การติดตั้งเสร็จสมบูรณ์ คุณจำเป็นต้องมีรหัสรับรองฯทุกครั้งที่เข้าสู่ระบบ</string>
   <string name="authenticationCode">รหัสรับรองความถูกต้อง</string>

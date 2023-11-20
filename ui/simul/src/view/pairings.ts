@@ -4,6 +4,7 @@ import { renderClock } from 'common/mini-board';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
+import { userFlair } from 'common/userLink';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
@@ -11,7 +12,8 @@ export default function (ctrl: SimulCtrl) {
 
 const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
   const game = pairing.game,
-    player = pairing.player;
+    player = pairing.player,
+    flair = userFlair(player);
   return h(
     `span.mini-game.mini-game-${game.id}.mini-game--init.is2d`,
     {
@@ -34,7 +36,10 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
             },
           },
           [
-            h('span.name', player.title ? [h('span.utitle', player.title), ' ', player.name] : [player.name]),
+            h(
+              'span.name',
+              player.title ? [h('span.utitle', player.title), ' ', player.name, flair] : [player.name, flair],
+            ),
             ...(ctrl.opts.showRatings ? [' ', h('span.rating', player.rating)] : []),
           ],
         ),

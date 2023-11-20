@@ -21,6 +21,7 @@ case class User(
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
+    flair: Option[UserFlair] = None,
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty
 ):
@@ -34,7 +35,7 @@ case class User(
   override def toString =
     s"User $username games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
 
-  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
+  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
@@ -189,6 +190,7 @@ object User:
   case class Speaker(
       username: UserName,
       title: Option[UserTitle],
+      flair: Option[UserFlair],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
@@ -247,6 +249,7 @@ object User:
     val enabled               = "enabled"
     val roles                 = "roles"
     val profile               = "profile"
+    val flair                 = "flair"
     val toints                = "toints"
     val playTime              = "time"
     val playTimeTotal         = "time.total"
@@ -304,6 +307,7 @@ object User:
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
+        flair = r.getO[UserFlair](flair).filter(UserFlairApi.exists),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
 
@@ -324,6 +328,7 @@ object User:
         title      -> o.title,
         plan       -> o.plan.nonEmpty,
         totpSecret -> o.totpSecret,
+        flair      -> o.flair,
         marks      -> o.marks.nonEmpty
       )
 

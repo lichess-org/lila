@@ -121,6 +121,7 @@ export interface SimplePlayer {
   name: string;
   rating: number;
   title?: string;
+  flair?: string;
   provisional?: boolean;
 }
 
@@ -219,8 +220,7 @@ export interface DuelTeams {
   [userId: string]: string;
 }
 
-export interface PodiumPlayer {
-  name: string;
+export interface PodiumPlayer extends LightUser {
   performance?: number;
   nb: Nb;
 }

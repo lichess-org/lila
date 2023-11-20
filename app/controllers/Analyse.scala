@@ -17,7 +17,7 @@ final class Analyse(
     roundC: => Round
 ) extends LilaController(env):
 
-  def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
+  def requestAnalysis(id: GameId) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     Found(env.game.gameRepo game id): game =>
       env.fishnet
         .analyser(
@@ -29,10 +29,8 @@ final class Analyse(
             system = false
           )
         )
-        .map: result =>
-          result.error match
-            case None        => NoContent
-            case Some(error) => BadRequest(error)
+        .map:
+          _.error.fold(NoContent)(BadRequest(_))
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =

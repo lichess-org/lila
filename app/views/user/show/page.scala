@@ -93,12 +93,11 @@ object page:
     )
 
   def disabled(u: User)(using PageContext) =
-    views.html.base.layout(title = u.username, robots = false) {
+    views.html.base.layout(title = u.username, robots = false):
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
-    }
 
   private val i18nKeys = List(
     trans.youAreLeavingLichess,

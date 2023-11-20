@@ -10,10 +10,10 @@ import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs }
+import lila.user.{ User, UserPerfs, UserFlairApi }
 
 trait UserHelper extends HasEnv:
-  self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
+  self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
 
   given Conversion[User.WithPerfs, User] = _.user
 
@@ -115,7 +115,8 @@ trait UserHelper extends HasEnv:
           userId = user.id,
           username = user.name,
           isPatron = user.isPatron,
-          title = withTitle so user.title,
+          title = user.title ifTrue withTitle,
+          flair = user.flair,
           cssClass = cssClass,
           withOnline = withOnline,
           truncate = truncate,
@@ -135,7 +136,8 @@ trait UserHelper extends HasEnv:
       userId = user.id,
       username = user.name,
       isPatron = user.isPatron,
-      title = withTitle so user.title,
+      title = user.title ifTrue withTitle,
+      flair = user.flair,
       cssClass = cssClass,
       withOnline = withOnline,
       truncate = truncate,
@@ -144,9 +146,8 @@ trait UserHelper extends HasEnv:
     )
 
   def titleTag(title: Option[UserTitle]): Option[Frag] =
-    title map { t =>
+    title.map: t =>
       frag(userTitleTag(t), nbsp)
-    }
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
   private def userIdNameLink(
@@ -157,6 +158,7 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean,
       truncate: Option[Int],
       title: Option[UserTitle],
+      flair: Option[UserFlair],
       params: String,
       modIcon: Boolean
   )(using Lang): Tag =
@@ -166,7 +168,8 @@ trait UserHelper extends HasEnv:
     )(
       withOnline so (if modIcon then moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
-      truncate.fold(username.value)(username.value.take)
+      truncate.fold(username.value)(username.value.take),
+      flair.map(userFlair)
     )
 
   def userLink(
@@ -182,12 +185,7 @@ trait UserHelper extends HasEnv:
     a(
       cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
-    )(
-      withOnline so lineIcon(user),
-      withTitle option titleTag(user.title),
-      name | user.username,
-      withPerfRating.map(userRating(user, _))
-    )
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
 
   def userSpan(
       user: User,
@@ -197,16 +195,25 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None
-  )(using Lang): Frag =
+  )(using Lang): Tag =
     span(
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
-    )(
-      withOnline so lineIcon(user),
-      withTitle option titleTag(user.title),
-      name | user.username,
-      withPerfRating.map(userRating(user, _))
-    )
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
+
+  def userLinkContent(
+      user: User,
+      withOnline: Boolean = true,
+      withTitle: Boolean = true,
+      withPerfRating: Option[Perf | UserPerfs] = None,
+      name: Option[Frag] = None
+  )(using Lang) = frag(
+    withOnline so lineIcon(user),
+    withTitle option titleTag(user.title),
+    name | user.username,
+    userFlair(user),
+    withPerfRating.map(userRating(user, _))
+  )
 
   def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Lang): Tag =
     val user = lightUser(userId)
@@ -218,6 +225,15 @@ trait UserHelper extends HasEnv:
       withOnline so lineIcon(user),
       user.map(titleTag),
       name
+    )
+
+  def userFlair(user: User): Option[Tag] =
+    user.flair.map(userFlair)
+
+  def userFlair(flair: UserFlair): Tag =
+    img(
+      cls := "uflair",
+      src := staticAssetUrl(s"lifat/flair/img/$flair.webp")
     )
 
   private def renderRating(perf: Perf): Frag =
@@ -280,7 +296,7 @@ trait UserHelper extends HasEnv:
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag                                 = i(cls := "line moderator", title := "Lichess Mod")
   private def lineIcon(patron: Boolean)(using Lang): Frag = if patron then patronIcon else lineIcon
-  private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.so(_.isPatron))
+  private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.exists(_.isPatron))
   def lineIcon(user: LightUser)(using Lang): Frag                 = lineIcon(user.isPatron)
   def lineIcon(user: User)(using Lang): Frag                      = lineIcon(user.isPatron)
   def lineIconChar(user: User): Frag = if user.isPatron then patronIconChar else lineIconChar

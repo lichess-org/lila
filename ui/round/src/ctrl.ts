@@ -311,7 +311,7 @@ export default class RoundController {
 
   isLate = () => this.replaying() && status.playing(this.data);
 
-  playerAt = (position: Position) =>
+  playerAt = (position: Position): game.Player =>
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
   flipNow = () => {

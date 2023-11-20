@@ -329,10 +329,10 @@ export default class AnalyseCtrl {
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
-        ? this.bottomColor()
-        : (dests && dests.size > 0) || drops === null || drops.length
-        ? color
-        : undefined,
+          ? this.bottomColor()
+          : (dests && dests.size > 0) || drops === null || drops.length
+            ? color
+            : undefined,
       config: ChessgroundConfig = {
         fen: node.fen,
         turnColor: color,
@@ -613,7 +613,6 @@ export default class AnalyseCtrl {
 
   setAutoShapes = (): void => {
     this.chessground?.setAutoShapes(computeAutoShapes(this));
-    keyboard.maybeShowVariationArrowHelp(this);
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
@@ -884,7 +883,7 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
-          this.ceval?.cachable &&
+          this.ceval?.cacheable() &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves
           (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))

@@ -32,7 +32,7 @@ object inquiry:
       frag(
         link,
         " ",
-        if highlight then communication.highlightBad(text) else frag(text),
+        if highlight then lila.shutup.Analyser.highlightBad(text) else frag(text),
         " "
       )
     }

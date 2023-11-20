@@ -40,16 +40,18 @@ final class Account(
             jsonFormError(err)
           ),
         profile =>
-          profile.bio
-            .exists(env.security.spam.detect)
-            .option("profile.bio" -> ~profile.bio)
-            .orElse:
-              profile.links
-                .exists(env.security.spam.detect)
-                .option("profile.links" -> ~profile.links)
-            .so { (resource, text) =>
-              env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-            } >> env.user.repo.setProfile(me, profile) >>
+          for
+            _ <- profile.bio
+              .exists(env.security.spam.detect)
+              .option("profile.bio" -> ~profile.bio)
+              .orElse:
+                profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
+              .so: (resource, text) =>
+                env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+            _ <- env.user.repo.setProfile(me, profile)
+            _ <- env.user.forms.flair.bindFromRequest().fold(_ => funit, env.user.repo.setFlair(me, _))
+          yield
+            env.user.lightUserApi.invalidate(me)
             Redirect(routes.User show me.username).flashSuccess
       )
   }
@@ -118,7 +120,7 @@ final class Account(
     negotiateJson(
       env.pref.api.get(me).map { prefs =>
         Ok:
-          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+          lila.common.LightUser.write(me.light) ++ Json.obj(
             "coach" -> isGranted(_.Coach),
             "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
           )

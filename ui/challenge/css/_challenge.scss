@@ -127,10 +127,12 @@
       display: block;
       font-weight: bold;
       margin-bottom: 0.1em;
-    }
-
-    .head .user-link {
-      margin-#{$start-direction}: -5px;
+      .user-link {
+        margin-#{$start-direction}: -5px;
+      }
+      signal {
+        margin-#{$start-direction}: 5px;
+      }
     }
 
     .color-icon::before {

@@ -37,18 +37,16 @@ object widget:
             tr(
               th(location()),
               td(
-                profile.nonEmptyLocation.map { l =>
-                  span(cls := "location")(l)
-                },
-                profile.countryInfo.map { c =>
+                profile.nonEmptyLocation.map: l =>
+                  span(cls := "location")(l),
+                profile.flagInfo.map: c =>
                   frag(
-                    span(cls := "country")(
-                      img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
+                    span(cls := "flag")(
+                      img(src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
                     )
                   )
-                }
               )
             ),
             tr(cls := "languages")(

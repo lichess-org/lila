@@ -64,6 +64,7 @@ export function initModule(opts: Opts): void {
             '</span>&nbsp;'
           : '') +
         o.name +
+        (o.flair ? '<img class="uflair" src="' + lichess.flairSrc(o.flair) + '"/>' : '') +
         '</' +
         tag +
         '>'

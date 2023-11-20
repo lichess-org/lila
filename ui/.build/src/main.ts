@@ -4,7 +4,7 @@ import * as fs from 'node:fs';
 import { clean } from './clean';
 import { build, postBuild } from './build';
 
-const shortArgs = 'hrwpsdc';
+const shortArgs = 'hrwpsdcn';
 const longArgs = [
   '--tsc',
   '--sass',
@@ -49,7 +49,7 @@ export function main() {
   env.split = args.includes('--split') || oneDashArgs.includes('s');
   env.debug = args.includes('--debug') || oneDashArgs.includes('d');
   env.clean = args.includes('--clean') || oneDashArgs.includes('c');
-  env.install = !args.includes('--no-install');
+  env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
 
   if (env.rebuild && !env.install) {
     env.warn(`--rebuild incompatible with --no-install`);

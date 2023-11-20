@@ -25,6 +25,7 @@
 /ui/puz/**/*.d.ts
 
 *.min.js
+readme
 
 /.bloop/
 /.bsp/

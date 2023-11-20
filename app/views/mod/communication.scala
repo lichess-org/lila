@@ -35,7 +35,7 @@ object communication:
       ),
       moreJs = frag:
         isGranted(_.UserModView) option jsModule("mod.user")
-    ) {
+    ):
       main(id := "communication", cls := "box box-pad")(
         boxTop(
           h1(
@@ -116,7 +116,7 @@ object communication:
                   case PublicSource.Ublog(id)   => a(href := routes.Ublog.redirect(id))("User blog #", id)
                 ,
                 nbsp,
-                span(cls := "message")(highlightBad(line.text))
+                span(cls := "message")(Analyser.highlightBad(line.text))
               )
           )
         ,
@@ -147,7 +147,7 @@ object communication:
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      span(cls := "message")(highlightBad(line.text))
+                      span(cls := "message")(Analyser.highlightBad(line.text))
                     )
                 )
               )
@@ -174,7 +174,7 @@ object communication:
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowServer(msg.date)),
                         td(strong(if author then u.username else modConvo.contact.username)),
-                        td(cls := "message")(highlightBad(msg.text))
+                        td(cls := "message")(Analyser.highlightBad(msg.text))
                       )
                   )
                 )
@@ -182,16 +182,6 @@ object communication:
           )
         )
       )
-    }
-
-  // incompatible with richText
-  def highlightBad(text: String): Frag =
-    val words = Analyser(text).badWords
-    if words.isEmpty then frag(text)
-    else
-      val regex             = { """(?iu)""" + Analyser.bounds.wrap(words.mkString("(", "|", ")")) }.r
-      def tag(word: String) = s"<bad>$word</bad>"
-      raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
   private def showSbMark(u: User) =
     u.marks.troll option span(cls := "user_marks")(iconTag(licon.BubbleSpeech))

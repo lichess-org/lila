@@ -5,13 +5,14 @@ import scala.*
 final class Flag(
     val code: String,
     val name: String,
-    val shortName: String
-)
+    val shortName: Option[String]
+):
+  def longName = shortName.isDefined option name
 
 object Flags:
 
-  private inline def C(code: String, name: String)                    = new Flag(code, name, name)
-  private inline def C(code: String, name: String, shortName: String) = new Flag(code, name, shortName)
+  private inline def C(code: String, name: String)                    = new Flag(code, name, none)
+  private inline def C(code: String, name: String, shortName: String) = new Flag(code, name, shortName.some)
 
   val all = List(
     C("AD", "Andorra"),
@@ -283,14 +284,9 @@ object Flags:
     C("_adygea", "Adygea"),
     C("_belarus-wrw", "Belarus White-red-white"),
     C("_east-turkestan", "East Turkestan"),
-    C("_esperanto", "Esperanto"),
-    C("_lichess", "Lichess"),
-    C("_pirate", "Pirate"),
-    C("_rainbow", "Rainbow"),
     C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
-    C("_earth", "Earth"),
-    C("_transgender", "Transgender")
+    C("_earth", "Earth")
   )
 
   val allPairs = all.map: c =>

@@ -10,7 +10,7 @@ object dailyPuzzleSlackApp:
     views.html.base.layout(
       title = "Daily Chess Puzzle by Lichess (Slack App)",
       moreCss = cssTag("page")
-    ) {
+    ):
       main(cls := "page page-small box box-pad")(
         h1(cls := "box__top")("Daily Chess Puzzle by Lichess (Slack App)"),
         div(cls := "body")(
@@ -70,4 +70,3 @@ object dailyPuzzleSlackApp:
           )
         )
       )
-    }

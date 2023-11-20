@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">المصادقة الثنائية</string>
   <string name="twoFactorHelp">المصادقة الثنائية تضيف طبقة أمان أخرى الى حسابك.</string>
-  <string name="twoFactorApp">احصل على تطبيق للمصادقة الثنائية ، على سبيل المثال Google Authenticator لـ %1$s أو %2$s.</string>
   <string name="scanTheCode">أمسح رمز ال QR باستخدام التطبيق.</string>
   <string name="enterPassword">أدخل كلمة المرور الخاصة بك ورمز المصادقة الذي تم إنشاؤه بواسطة التطبيق لإكمال الإعداد. سوف تحتاج إلى رمز المصادقة في كل مرة تقوم بتسجيل الدخول.</string>
   <string name="ifYouCannotScanEnterX">إذا لم تتمكن من مسح الرمز ، قم بإدخال السر %s في التطبيق الخاص بك.</string>
