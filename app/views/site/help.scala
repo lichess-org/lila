@@ -30,10 +30,10 @@ object help:
     row(kbd("space"), trans.playComputerMove()),
     row(kbd("x"), trans.showThreat())
   )
-  private def phonetics(using Lang) = "abcdefgh"
+  private def phonetics = "abcdefgh"
     .map(_.toString)
     .map: letter =>
-      frag(s"${letter.capitalize} ", trans.is(), phonetic(letter), ". ")
+      frag(s"${letter.capitalize} = ", phonetic(letter), ". ")
 
   def round(using Lang) =
     frag(

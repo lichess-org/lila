@@ -811,7 +811,6 @@ object I18nKeys:
   val `ourEventTips` = I18nKey("ourEventTips")
   val `instructions` = I18nKey("instructions")
   val `showMeEverything` = I18nKey("showMeEverything")
-  val `is` = I18nKey("is")
   val `opponentLeftCounter` = I18nKey("opponentLeftCounter")
   val `mateInXHalfMoves` = I18nKey("mateInXHalfMoves")
   val `nbBlunders` = I18nKey("nbBlunders")
