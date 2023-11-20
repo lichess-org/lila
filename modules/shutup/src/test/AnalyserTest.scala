@@ -14,12 +14,19 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("fuck"), List("fuck"))
     assertEquals(find("well fuck me"), List("fuck"))
 
+  test("find one bad word with punctuation"):
+    assertEquals(find("fuck."), List("fuck"))
+    assertEquals(find("well fuck! me"), List("fuck"))
+
   test("find many bad words"):
     assertEquals(find("fucked that shit"), List("fucked", "shit"))
     assertEquals(
       find("Beat them cunting nigger faggots with a communist dick"),
       List("cunting", "nigger", "faggots", "dick")
     )
+
+  test("find many bad words with punctuation"):
+    assertEquals(find("fucked? that shit!"), List("fucked", "shit"))
 
   test("find no bad words"):
     assertEquals(find(""), Nil)
@@ -77,6 +84,9 @@ class AnalyserTest extends munit.FunSuite:
 
   test("russian"):
     assertEquals(find("сука пизда"), List("сука", "пизда"))
+
+  test("russian with punctuation"):
+    assertEquals(find("сука! ?пизда"), List("сука", "пизда"))
 
   test("with punctuation"):
     assertEquals(find("nigger?"), List("nigger"))
