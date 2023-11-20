@@ -176,7 +176,7 @@ final class EnvBoot(
   given Scheduler = system.scheduler
   given Mode      = environment.mode
   val netConfig   = config.get[NetConfig]("net")
-  export netConfig.{ domain, baseUrl, assetBaseUrl }
+  export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
 
   // eagerly load the Uptime object to fix a precise date
 

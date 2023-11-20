@@ -2,7 +2,7 @@ package lila.user
 
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
-import lila.common.config.AssetBaseUrl
+import lila.common.config.AssetBaseUrlInternal
 import play.api.libs.json.{ JsObject, JsArray, Json }
 import lila.common.AssetVersion
 
@@ -21,7 +21,7 @@ object UserFlairApi:
 
 final class UserFlairApi(
     ws: StandaloneWSClient,
-    assetBaseUrl: AssetBaseUrl,
+    assetBaseUrlInternal: AssetBaseUrlInternal,
     lightUserApi: LightUserApi
 )(using Executor)(using scheduler: akka.actor.Scheduler):
 
@@ -41,11 +41,16 @@ final class UserFlairApi(
 
   export lightUserApi.preloadMany
 
-  private val listUrl = s"$assetBaseUrl/assets/lifat/flair/list.txt?v=${nowSeconds}"
+  private val listUrl = s"$assetBaseUrlInternal/assets/lifat/flair/list.txt?v=${nowSeconds}"
   private def refresh: Funit =
-    ws.url(listUrl).get() map:
-      case res if res.status == 200 => UserFlairApi.updateDb(res.body[String].linesIterator)
-      case _                        => logger.error(s"Cannot fetch $listUrl")
+    ws.url(listUrl)
+      .get()
+      .map:
+        case res if res.status == 200 => UserFlairApi.updateDb(res.body[String].linesIterator)
+        case _                        => logger.error(s"Cannot fetch $listUrl")
+      .recover { case e =>
+        logger.error(s"Cannot fetch $listUrl", e)
+      }
 
   scheduler.scheduleWithFixedDelay(5 seconds, 7 minutes): () =>
     refresh

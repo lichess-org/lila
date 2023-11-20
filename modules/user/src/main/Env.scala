@@ -27,7 +27,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds,
-    assetBaseUrl: AssetBaseUrl
+    assetBaseUrlInternal: AssetBaseUrlInternal
 )(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
