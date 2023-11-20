@@ -208,7 +208,7 @@ object dgt:
       moreJs = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
       title = playWithDgtBoard.txt(),
       csp = defaultCsp.withAnyWs.some
-    )(
+    ):
       main(cls := "account page-menu dgt")(
         views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
@@ -223,4 +223,3 @@ object dgt:
         ),
         div(cls := s"page-menu__content box box-pad dgt__$path")(body)
       )
-    )

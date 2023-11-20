@@ -28,11 +28,10 @@ final class Syncache[K, V](
       .newBuilder()
       .asInstanceOf[Caffeine[K, Fu[V]]]
       .initialCapacity(initialCapacity)
-      .pipe { c =>
+      .pipe: c =>
         expireAfter match
           case ExpireAfter.Access(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
           case ExpireAfter.Write(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
-      }
       .recordStats
       .build[K, Fu[V]](
         new CacheLoader[K, Fu[V]]:
@@ -66,23 +65,22 @@ final class Syncache[K, V](
             else default(k)
 
   // maybe optimize later with cache batching
-  def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).parallel
+  def asyncMany(ks: List[K]): Fu[List[V]] = ks traverse async
 
   def invalidate(k: K): Unit = cache invalidate k
 
   def preloadOne(k: K): Funit = async(k).void
 
   // maybe optimize later with cache batching
-  def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).parallel.void
-  def preloadSet(ks: Set[K]): Funit  = ks.map(preloadOne).parallel.void
+  def preloadMany(ks: Seq[K]): Funit = ks.distinct.traverse_(preloadOne)
+  def preloadSet(ks: Set[K]): Funit  = ks.toSeq.traverse_(preloadOne)
 
   def set(k: K, v: V): Unit = cache.put(k, fuccess(v))
 
   private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V =
     try
-      lila.common.Chronometer.syncMon(_ => recWait) {
+      lila.common.Chronometer.syncMon(_ => recWait):
         fu.await(duration, s"syncache:$name")
-      }
     catch
       case _: java.util.concurrent.TimeoutException =>
         incTimeout()

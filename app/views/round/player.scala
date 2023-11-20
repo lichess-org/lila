@@ -21,26 +21,29 @@ object player:
       bookmarked: Boolean
   )(using ctx: PageContext) =
 
-    val chatJson = chatOption.map(_.either).map {
-      case Left(c) =>
-        chat.restrictedJson(
-          c,
-          name = trans.chatRoom.txt(),
-          timeout = false,
-          withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
-          public = false,
-          resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          palantir = ctx.canPalantir
-        )
-      case Right((c, res)) =>
-        chat.json(
-          c.chat,
-          name = trans.chatRoom.txt(),
-          timeout = c.timeout,
-          public = true,
-          resourceId = res
-        )
-    }
+    val chatJson = chatOption
+      .map(_.either)
+      .map:
+        case Left(c) =>
+          chat.restrictedJson(
+            c,
+            c.lines,
+            name = trans.chatRoom.txt(),
+            timeout = false,
+            withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
+            public = false,
+            resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+            palantir = ctx.canPalantir
+          )
+        case Right((c, res)) =>
+          chat.json(
+            c.chat,
+            c.lines,
+            name = trans.chatRoom.txt(),
+            timeout = c.timeout,
+            public = true,
+            resourceId = res
+          )
 
     bits.layout(
       variant = pov.game.variant,

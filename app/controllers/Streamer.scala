@@ -47,7 +47,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       users <- env.user.lightUserApi asyncManyFallback s.streams.map(_.streamer.userId)
     yield apiC.toApiResult:
       (s.streams zip users).map: (stream, user) =>
-        lila.common.LightUser.lightUserWrites.writes(user) ++
+        lila.common.LightUser.write(user) ++
           lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
 
   def show(username: UserStr) = Open:

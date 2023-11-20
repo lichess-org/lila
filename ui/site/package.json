@@ -25,7 +25,8 @@
     "prop-types": "^15.8.1",
     "tablesort": "^5.3.0",
     "voice": "workspace:*",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "emoji-mart": "^5.5.2"
   },
   "scripts": {
     "compile": "tsc",

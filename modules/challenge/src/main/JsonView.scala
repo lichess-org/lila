@@ -17,29 +17,28 @@ final class JsonView(
 
   import Challenge.*
 
-  private given OWrites[Challenger.Registered] = OWrites { r =>
+  private given OWrites[Challenger.Registered] = OWrites: r =>
     val light = getLightUser(r.id)
     Json
       .obj(
         "id"     -> r.id,
         "name"   -> light.fold(r.id into UserName)(_.name),
-        "title"  -> light.map(_.title),
         "rating" -> r.rating.int
       )
+      .add("title" -> light.map(_.title))
       .add("provisional" -> r.rating.provisional)
       .add("patron" -> light.so(_.isPatron))
+      .add("flair" -> light.flatMap(_.flair))
       .add("online" -> isOnline(r.id))
       .add("lag" -> UserLagCache.getLagRating(r.id))
-  }
 
   def apply(a: AllChallenges)(using lang: Lang): JsObject =
     Json.obj(
       "in"   -> a.in.map(apply(Direction.In.some)),
       "out"  -> a.out.map(apply(Direction.Out.some)),
       "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang),
-      "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map { r =>
-        r.key -> JsString(r.trans.txt())
-      })
+      "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
+        r.key -> JsString(r.trans.txt()))
     )
 
   def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using Lang) =

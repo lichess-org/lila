@@ -51,6 +51,7 @@ export interface Line {
   c?: string; // color
   r?: boolean; // troll
   p?: boolean; // patron
+  f?: Flair;
   title?: string;
 }
 

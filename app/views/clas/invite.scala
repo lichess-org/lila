@@ -8,14 +8,11 @@ import lila.clas.{ Clas, ClasInvite }
 
 object invite:
 
-  def show(
-      c: Clas,
-      invite: ClasInvite
-  )(using PageContext) =
+  def show(c: Clas, invite: ClasInvite)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("clas"),
       title = c.name
-    ) {
+    ):
       main(cls := "page-small box box-pad page clas-invitation")(
         h1(cls := "box__top")(c.name),
         p(c.desc),
@@ -45,4 +42,3 @@ object invite:
             )
           )
       )
-    }

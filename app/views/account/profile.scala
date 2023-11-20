@@ -26,27 +26,38 @@ object profile:
         postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
-            form3.group(form("flag"), trans.flag(), half = true) { f =>
-              form3.select(f, lila.user.Flags.allPairs, default = "".some)
-            },
+            ctx.kid.no option
+              form3
+                .group(form("bio"), trans.biography(), half = true, help = trans.biographyDescription().some):
+                  f => form3.textarea(f)(rows := 5)
+            ,
+            form3.group(form("flair"), "Flair", half = true): f =>
+              details(cls := "form-control emoji-details")(
+                summary(cls := "button button-metal button-no-upper")(
+                  "Set your flair: ",
+                  userSpan(u, withPowerTip = false)
+                ),
+                form3.hidden(f, u.flair.map(_.value)),
+                div(cls := "emoji-picker")
+              ),
+          ),
+          form3.split(
+            form3.group(form("flag"), trans.countryRegion(), half = true): f =>
+              form3.select(f, lila.user.Flags.allPairs, default = "".some),
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),
-          ctx.kid.no option
-            form3.group(form("bio"), trans.biography(), help = trans.biographyDescription().some): f =>
-              form3.textarea(f)(rows := 5),
           form3.split(
             form3.group(form("firstName"), trans.firstName(), half = true)(form3.input(_)),
             form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))
           ),
           form3.split(
-            List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map { rn =>
+            List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>
               form3.group(
                 form(s"${rn}Rating"),
                 trans.xRating(rn.toUpperCase),
                 help = trans.ifNoneLeaveEmpty().some,
                 klass = "form-third"
               )(form3.input(_, typ = "number"))
-            }
           ),
           form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp())): f =>
             form3.textarea(f)(rows := 5),

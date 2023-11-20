@@ -31,7 +31,7 @@ object insight:
             "initialQuestion" -> question,
             "i18n"            -> Json.obj(),
             "myUserId"        -> ctx.userId,
-            "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
+            "user" -> (lila.common.LightUser.write(u.light) ++ Json.obj(
               "nbGames" -> insightUser.count,
               "stale"   -> stale,
               "shareId" -> prefId

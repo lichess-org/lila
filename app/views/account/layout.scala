@@ -21,6 +21,10 @@ object layout:
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
         ctx.me.exists(_.enabled.yes) option views.html.site.bits.pageMenuSubnav(
+          a(activeCls("editProfile"), href := routes.Account.profile)(
+            trans.editProfile()
+          ),
+          div(cls := "sep"),
           lila.pref.PrefCateg.values.map: categ =>
             a(activeCls(categ.slug), href := routes.Pref.form(categ.slug))(
               bits.categName(categ)
@@ -32,16 +36,12 @@ object layout:
             trans.kidMode()
           ),
           div(cls := "sep"),
-          a(activeCls("editProfile"), href := routes.Account.profile)(
-            trans.editProfile()
-          ),
           a(activeCls("username"), href := routes.Account.username)(
             trans.changeUsername()
           ),
           isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)(
             trans.coach.lichessCoach()
           ),
-          div(cls := "sep"),
           a(activeCls("password"), href := routes.Account.passwd)(
             trans.changePassword()
           ),

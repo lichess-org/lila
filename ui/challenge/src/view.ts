@@ -2,6 +2,7 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
+import { userLink } from 'common/userLink';
 import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>
@@ -39,6 +40,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
     const fromPosition = c.variant.key == 'fromPosition';
     const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
     const myColor = dir == 'out' ? origColor : origColor == 'random' ? 'random' : opposite(origColor);
+    const opponent = dir === 'in' ? c.challenger : c.destUser;
     return h(
       `div.challenge.${dir}.c-${c.id}`,
       {
@@ -48,16 +50,22 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h(`div.content__text#challenge-text-${c.id}`, [
-            h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
-            h('span.desc', [
-              h('span.is.color-icon.' + myColor),
-              ' • ',
-              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+          h(
+            'div.content__text',
+            {
+              attrs: { id: `challenge-text-${c.id}` },
+            },
+            [
+              h('span.head', [renderUser(opponent, ctrl.showRatings), renderLag(opponent)]),
+              h('span.desc', [
+                h('span.is.color-icon.' + myColor),
                 ' • ',
-              ),
-            ]),
-          ]),
+                [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+                  ' • ',
+                ),
+              ]),
+            ],
+          ),
           h('i.perf', {
             attrs: { 'data-icon': c.perf.icon },
           }),
@@ -160,34 +168,23 @@ function timeControl(c: TimeControl): string {
   }
 }
 
-function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
-  if (!u) return h('span', 'Open challenge');
-  const rating = u.rating + (u.provisional ? '?' : '');
-  return h(
-    'a.ulpt.user-link',
-    {
-      attrs: { href: `/@/${u.name}`, 'data-pt-pos': 'w' },
-      class: { online: !!u.online },
-    },
-    [
-      h('i.line' + (u.patron ? '.patron' : '')),
-      h('name', [
-        u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + (showRatings ? ' (' + rating + ') ' : ''),
-      ]),
-      h(
-        'signal',
-        u.lag === undefined
-          ? []
-          : [1, 2, 3, 4].map(i =>
-              h('i', {
-                class: { off: u.lag! < i },
-              }),
-            ),
-      ),
-    ],
+const renderUser = (u: ChallengeUser | undefined, showRating: boolean): VNode =>
+  u
+    ? userLink({ ...u, line: true, rating: showRating ? u.rating : undefined, attrs: { 'data-pt-pos': 'w' } })
+    : h('span', 'Open challenge');
+
+const renderLag = (u?: ChallengeUser) =>
+  u &&
+  h(
+    'signal',
+    u.lag === undefined
+      ? []
+      : [1, 2, 3, 4].map(i =>
+          h('i', {
+            class: { off: u.lag! < i },
+          }),
+        ),
   );
-}
 
 const empty = (): VNode =>
   h(

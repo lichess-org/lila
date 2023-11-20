@@ -26,7 +26,7 @@ final private[round] class RoundAsyncActor(
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using ec: Executor, proxy: GameProxy)
+)(using Executor, lila.user.UserFlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
 
   import RoundSocket.Protocol
@@ -148,10 +148,10 @@ final private[round] class RoundAsyncActor(
             (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
-      fuccess:
+      lila.chat.JsonView(line) map: json =>
         publish(List(line match
-          case l: lila.chat.UserLine   => Event.UserMessage(l, watcher)
-          case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+          case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
         ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>

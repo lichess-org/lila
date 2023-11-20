@@ -90,6 +90,9 @@ trait LilaModel:
   opaque type UserTitle = String
   object UserTitle extends OpaqueString[UserTitle]
 
+  opaque type UserFlair = String
+  object UserFlair extends OpaqueString[UserFlair]
+
   opaque type TourId = String
   object TourId extends OpaqueString[TourId]
 

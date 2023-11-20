@@ -5,6 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
 import * as router from 'common/router';
+import { userLink } from 'common/userLink';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
@@ -85,19 +86,11 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
       h(
         'div.players',
         game.players.map(p => {
-          const name = ctrl.showRatings ? p.name : p.name.split(' ')[0];
-          return h(
-            'div.player.color-icon.is.text.' + p.color,
-            p.userId != 'anon'
-              ? h(
-                  'a.user-link.ulpt',
-                  {
-                    attrs: { href: '/@/' + p.userId },
-                  },
-                  p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + name] : name,
-                )
-              : name,
-          );
+          const user = {
+            ...p,
+            rating: ctrl.showRatings ? p.rating : undefined,
+          };
+          return h('div.player.color-icon.is.text.' + p.color, userLink(user));
         }),
       ),
     ]),

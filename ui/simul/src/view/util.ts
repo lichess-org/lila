@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';
+import { fullName, userLine, userRating } from 'common/userLink';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
@@ -9,24 +10,15 @@ export function player(p: Player, ctrl: SimulCtrl) {
     {
       attrs: { href: '/@/' + p.name },
       hook: {
-        destroy(vnode) {
-          $.powerTip.destroy(vnode.elm as HTMLElement);
-        },
+        destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
     [
-      h(`i.line${p.patron ? '.patron' : ''}`),
-      h('span.name', userName(p)),
-      ctrl.opts.showRatings ? h('em', ` ${p.rating}${p.provisional ? '?' : ''}`) : null,
+      userLine({ line: true, ...p }),
+      h('span.name', fullName(p)),
+      ctrl.opts.showRatings ? h('em', userRating(p)) : null,
     ],
   );
 }
 
-const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
-
-export const title = (ctrl: SimulCtrl) =>
-  h('h1', [
-    ctrl.data.fullName,
-    h('br'),
-    h('span.author', ctrl.trans.vdom('by', player(ctrl.data.host, ctrl))),
-  ]);
+export const title = (ctrl: SimulCtrl) => h('h1', ctrl.data.fullName);

@@ -7,6 +7,7 @@ import play.api.libs.json.*
 import lila.game.{ Game, GameRepo }
 import lila.i18n.defaultLang
 import lila.common.Json.given
+import lila.common.LightUser
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -68,16 +69,13 @@ final private class GameJson(
       "name" -> game.perfType.trans(using defaultLang)
     )
 
-  private def playersJson(game: Game) = JsArray(game.players.mapList { p =>
-    val user = p.userId.fold(lila.common.LightUser.ghost)(lightUserApi.syncFallback)
-    Json
-      .obj(
-        "userId" -> user.id,
-        "name"   -> s"${user.name}${p.rating.so(r => s" ($r)")}",
-        "color"  -> p.color.name
-      )
-      .add("title" -> user.title)
-  })
+  private def playersJson(game: Game) = JsArray(game.players.mapList: p =>
+    val user = p.userId.fold(LightUser.ghost)(lightUserApi.syncFallback)
+    LightUser.writeNoId(user) ++
+      Json
+        .obj("color" -> p.color.name)
+        .add("rating" -> p.rating)
+  )
 
   private def generateBc(game: Game, plies: Ply): JsObject =
     Json

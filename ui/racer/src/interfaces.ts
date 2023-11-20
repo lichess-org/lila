@@ -34,8 +34,9 @@ export interface Race {
 
 export interface Player {
   name: string;
-  userId?: string;
+  id?: string;
   title?: string;
+  flair?: Flair;
 }
 export interface PlayerWithScore extends Player {
   score: number;

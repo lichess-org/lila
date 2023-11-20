@@ -55,7 +55,8 @@ const showText = (ctrl: SimulCtrl) =>
     : undefined;
 
 const started = (ctrl: SimulCtrl) => [
-  h('div.box__top', [util.title(ctrl), showText(ctrl)]),
+  h('div.box__top', util.title(ctrl)),
+  showText(ctrl),
   results(ctrl),
   pairings(ctrl),
 ];

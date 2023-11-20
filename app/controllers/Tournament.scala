@@ -14,11 +14,12 @@ import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo                   = env.tournament.tournamentRepo
-  private def api                    = env.tournament.api
-  private def jsonView               = env.tournament.jsonView
-  private def forms                  = env.tournament.forms
-  private def cachedTour(id: TourId) = env.tournament.cached.tourCache.byId(id)
+  private def repo                     = env.tournament.tournamentRepo
+  private def api                      = env.tournament.api
+  private def jsonView                 = env.tournament.jsonView
+  private def forms                    = env.tournament.forms
+  private def cachedTour(id: TourId)   = env.tournament.cached.tourCache.byId(id)
+  private given lila.user.UserFlairApi = env.user.flairApi
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 
@@ -63,13 +64,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def show(id: TourId) = Open:
     val page = getInt("page")
-    cachedTour(id) flatMap { tourOption =>
-      def loadChat(tour: Tour, json: JsObject) =
-        canHaveChat(tour, json.some) so env.chat.api.userChat.cached
+    cachedTour(id).flatMap: tourOption =>
+      def loadChat(tour: Tour, json: JsObject): Fu[Option[lila.chat.UserChat.Mine]] =
+        canHaveChat(tour, json.some) soFu env.chat.api.userChat.cached
           .findMine(ChatId(tour.id))
-          .flatMap: c =>
-            env.user.lightUserApi.preloadMany(c.chat.userIds) inject
-              c.copy(locked = !env.api.chatFreshness.of(tour)).some
+          .map:
+            _.copy(locked = !env.api.chatFreshness.of(tour))
       negotiate(
         html = tourOption
           .fold(tournamentNotFound): tour =>
@@ -112,12 +112,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 partial = partial,
                 withScores = getBoolOpt("scores") | true
               )
-              chat <- !partial so loadChat(tour, json)
-            yield Ok(json.add("chat" -> chat.map: c =>
-              lila.chat.JsonView.mobile(chat = c.chat))).noCache
+              chatOpt <- !partial so loadChat(tour, json)
+              jsChat <- chatOpt.soFu: c =>
+                lila.chat.JsonView.mobile(c.chat)
+            yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
       )
-    }
 
   def standing(id: TourId, page: Int) = Open:
     Found(cachedTour(id)): tour =>

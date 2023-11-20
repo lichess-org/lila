@@ -6,6 +6,7 @@ import lila.app.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg
 import lila.user.User
 import controllers.routes
+import play.api.i18n.Lang
 
 object bits:
 
@@ -20,18 +21,17 @@ object bits:
         )
       )
 
-  def categName(categ: PrefCateg)(using Context): String =
-    categ match
-      case PrefCateg.Display      => trans.preferences.display.txt()
-      case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
-      case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
-      case PrefCateg.Privacy      => trans.preferences.privacy.txt()
+  def categName(categ: PrefCateg)(using Lang): String = categ match
+    case PrefCateg.Display      => trans.preferences.display.txt()
+    case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
+    case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
+    case PrefCateg.Privacy      => trans.preferences.privacy.txt()
 
   def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
   def radios[A](field: play.api.data.Field, options: Iterable[(A, String)]) =
-    st.group(cls := "radio")(
-      options.map { (key, value) =>
+    st.group(cls := "radio"):
+      options.toList map: (key, value) =>
         val id      = s"ir${field.id}_$key"
         val checked = field.value has key.toString
         div(
@@ -44,8 +44,6 @@ object bits:
           ),
           label(`for` := id)(value)
         )
-      }.toList
-    )
 
   def bitCheckboxes(field: play.api.data.Field, options: Iterable[(Int, String)]) =
     st.group(cls := "radio")(

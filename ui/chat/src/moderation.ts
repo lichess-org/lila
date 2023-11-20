@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
@@ -191,7 +191,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         {
           attrs: { 'data-icon': licon.Agent },
         },
-        [userLink(data.username)],
+        [userLink({ name: data.username })],
       ),
       h('a', {
         attrs: { 'data-icon': licon.X },

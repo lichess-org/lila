@@ -3,6 +3,7 @@ import * as licon from 'common/licon';
 import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
+import { ratingDiff, userLink } from 'common/userLink';
 
 export const aiName = (ctrl: RoundController, level: number) =>
   ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
@@ -11,16 +12,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
   const d = ctrl.data,
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
-    rating = player.rating || perf?.rating,
-    rd = player.ratingDiff,
-    ratingDiff =
-      rd === 0
-        ? h('span', '±0')
-        : rd && rd > 0
-        ? h('good', '+' + rd)
-        : rd && rd < 0
-        ? h('bad', '−' + -rd)
-        : undefined;
+    rating = player.rating || perf?.rating;
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
@@ -44,25 +36,15 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
               : 'Left the game',
           },
         }),
-        h(
-          `a.text${user.id == 'ghost' ? '' : '.ulpt'}`,
-          {
-            attrs: {
-              'data-pt-pos': 's',
-              href: '/@/' + user.username,
-              ...(ctrl.isPlaying() ? { target: '_blank', rel: 'noopener' } : {}),
-            },
-          },
-          user.title
-            ? [
-                h('span.utitle', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title),
-                ' ',
-                user.username,
-              ]
-            : [user.username],
-        ),
+        userLink({
+          name: user.username,
+          ...user,
+          attrs: { 'data-pt-pos': 's', ...(ctrl.isPlaying() ? { target: '_blank', rel: 'noopener' } : {}) },
+          online: false,
+          line: false,
+        }),
         rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
-        rating ? ratingDiff : null,
+        rating ? ratingDiff(player) : null,
         player.engine
           ? h('span', {
               attrs: {
@@ -70,7 +52,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
                 title: ctrl.noarg('thisAccountViolatedTos'),
               },
             })
-          : null,
+          : undefined,
       ],
     );
   }

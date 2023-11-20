@@ -14,7 +14,8 @@ object pref:
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
 
-  private def setting(name: Frag, body: Frag, settingId: String) = st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
+  private def setting(name: Frag, body: Frag, settingId: String) =
+    st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
 
   def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
     account.layout(
@@ -80,11 +81,14 @@ object pref:
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
-                  explainShowPlayerRatings()
-                )
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(explainShowPlayerRatings())
               ),
-              "showPlayerRatings"
+              "showRatings"
+            ),
+            setting(
+              "Show player flairs",
+              radios(form("flairs"), translatedBooleanChoices),
+              "showFlairs"
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(

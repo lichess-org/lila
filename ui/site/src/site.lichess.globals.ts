@@ -9,6 +9,7 @@ import powertip from './component/powertip';
 import clockWidget from './component/clock-widget';
 import {
   assetUrl,
+  flairSrc,
   loadCss,
   loadCssPath,
   jsModule,
@@ -46,6 +47,7 @@ export default () => {
   l.clockWidget = clockWidget;
   l.spinnerHtml = spinnerHtml;
   l.assetUrl = assetUrl;
+  l.flairSrc = flairSrc;
   l.loadCss = loadCss;
   l.loadCssPath = loadCssPath;
   l.jsModule = jsModule;
