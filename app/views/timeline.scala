@@ -36,7 +36,7 @@ object timeline:
 
   private def entry(e: lila.timeline.Entry)(using ctx: Context) =
     frag(
-      e.decode.map[Frag] {
+      e.decode.map[Frag]:
         case Follow(u1, u2) => trans.xStartedFollowingY(userLink(u1), userLink(u2))
         case TeamJoin(userId, teamId) =>
           trans.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
@@ -113,7 +113,7 @@ object timeline:
         case StreamStart(id, name) =>
           views.html.streamer.bits
             .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.xStartedStreaming(name))
-      },
+      ,
       " ",
       momentFromNowWithPreload(e.date)
     )
