@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Commandes vocales</string>
+  <string name="watchTheVideoTutorial">Visionner le tutoriel vidéo</string>
+  <string name="instructions1">Utilisez le bouton %1$s pour activer/désactiver la reconnaissance vocale, le bouton %2$s pour ouvrir cette fenêtre d\'aide et le menu %3$s pour modifier les paramètres vocaux.</string>
+  <string name="instructions2">Nous montrons des flèches pour plusieurs coups en cas d\'incertitude. Dites la couleur ou le numéro d\'une flèche pour la sélectionner.</string>
+</resources>
