@@ -6,7 +6,7 @@
   <string name="instructions2">Nous montrons des flèches pour plusieurs coups en cas d\'incertitude. Dites la couleur ou le numéro d\'une flèche pour la sélectionner.</string>
   <string name="instructions3">Si une flèche montre une radar actif, le coup sera joué lorsque le radar deviendra inactif. Durant ce temps, vous pouvez seulement dire %1$s pour jouer le coup immédiatement, %2$s pour l\'annuler, ou dire la couleur/le numéro d\'une flèche différente. Ce minuteur peut être réglé ou désactivé dans les paramètres.</string>
   <string name="instructions4">Activer %s dans un environnement bruyant. Maintenir la touche Maj enfoncée pour dire une commande pendant que cette fonction est activée.</string>
-  <string name="instructions5">Utilisez l\'alphabet phonétique pour améliorer la reconnaissance des fichiers d\'échiquier. </string>
+  <string name="instructions5">Utilisez l\'alphabet phonétique pour améliorer la reconnaissance des colonnes de l\'\'échiquier. </string>
   <string name="instructions6">%s explique en détail les paramètres des commandes de déplacement vocales.</string>
   <string name="thisBlogPost">Ce billet de blogue</string>
   <string name="moveToE4OrSelectE4Piece">Déplacer à e4 ou sélectionner une pièce à e4</string>
