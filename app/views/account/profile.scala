@@ -48,7 +48,7 @@ object profile:
                     cls      := "text",
                     dataIcon := licon.InfoCircle
                   ):
-                    "There is a setting to hide all user flairs across the entire site."
+                    trans.youCanHideFlair()
                 )
               )
           ),
