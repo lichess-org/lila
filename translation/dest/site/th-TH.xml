@@ -69,7 +69,7 @@
   <string name="makeMainLine">สร้างเส้นทางหลัก</string>
   <string name="deleteFromHere">ลบจากที่นี่</string>
   <string name="forceVariation">ทำให้เป็นการผันแปร</string>
-  <string name="copyVariationPgn">คัดลอก PGN การเดินอื่นๆ</string>
+  <string name="copyVariationPgn">คัดลอก PGN แขนงต่างๆ</string>
   <string name="move">ตาเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
@@ -617,6 +617,7 @@
   <string name="simultaneousExhibitions">มหกรรมไซมัลเทเนียส</string>
   <string name="host">โฮสต์</string>
   <string name="hostColorX">สีโฮสต์: %s</string>
+  <string name="yourPendingSimuls">ไซมัลในการพิจารณาของคุณ</string>
   <string name="createdSimuls">ไซมัลที่สร้างใหม่</string>
   <string name="hostANewSimul">เป็นโฮสต์ไซมัลใหม่</string>
   <string name="signUpToHostOrJoinASimul">สร้างบัญชีเมื่อสร้างหรือเข้าร่วมไซมัล</string>
@@ -891,9 +892,11 @@
   <string name="simulHostcolor">สีโฮสต์ในแต่ละเกม</string>
   <string name="estimatedStart">เวลาเริ่มโดยประมาณ</string>
   <string name="simulFeatured">แสดงบน %s</string>
+  <string name="simulFeaturedHelp">แสคงไซมัลให้ทุกคนบน %s ถูกปิดการใช้งานสำหรับไซมัลส่วนตัว</string>
   <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
   <string name="markdownAvailable">%s พร้อมใช้งานสำหรับไวยากรณ์ขั้นสูงเพิ่มเติม</string>
+  <string name="embedsAvailable">วาง URLของเกม หรือ ศึกษา URL ของบทที่จะตรึงไว้</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>
   <string name="noChat">ไม่มีแชท</string>
