@@ -15,7 +15,6 @@ const units: [string, string, number, number][] = [
   ['nbDaysAgo', 'inNbDays', 60 * 60 * 24, 2],
   ['nbHoursAgo', 'inNbHours', 60 * 60, 1],
   ['nbMinutesAgo', 'inNbMinutes', 60, 1],
-  ['nbSecondsAgo', 'inNbSeconds', 1, 9],
   ['rightNow', 'justNow', 1, 0],
 ];
 
