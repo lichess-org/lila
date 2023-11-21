@@ -7,4 +7,7 @@
   <string name="yesItWillBeFixedSoon">ใช่ มันจะถูกแก้ไขเร็วๆนี้!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">ตอนนี้ก็ได้เวลาตอบคำถามแบบยาวแล้ว! การค้างของเกม มีสาเหตุมาจากค่าสองค่าที่ไม่มีความสอดคล้องกัน (ยิ่งค่าต่ำ ยิ่งดี)</string>
   <string name="lichessServerLatency">ความล่าช้าของเซิร์ฟเวอร์ Lichess</string>
+  <string name="lichessServerLatencyExplanation">ระยะเวลาที่ใช้ดำเนินการตาเดินบนเซิร์ฟเวอร์ ของทุกคนจะเหมือนกัน และจะขึ้นอยู่กับการโหลดเซิร์ฟเวอร์ ถ้ามีผู้เล่นมากค่าก็จะมากตามไปด้วย แต่ผู้พัฒนาLichessทำสุดความสามารถในการทำให้ค่าเซิร์ฟเวอร์ต่ำที่สุด โดยมีโอกาสน้อยที่ค่าจะถึง 10ms</string>
+  <string name="networkBetweenLichessAndYou">เครือข่ายระหว่างคุณกับ Lichess</string>
+  <string name="lagCompensation">ค่าชดเชยจากความล้าช้า</string>
 </resources>
