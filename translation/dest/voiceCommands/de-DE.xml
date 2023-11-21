@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Sprachbefehle</string>
+  <string name="watchTheVideoTutorial">Video-Tutorial ansehen</string>
+  <string name="moveToE4OrSelectE4Piece">Ziehe nach e4 oder wähle die Figur auf e4 aus</string>
+  <string name="selectOrCaptureABishop">Wähle oder schlage einen Läufer</string>
+  <string name="takeRookWithQueen">Schlage den Turm mit der Dame</string>
+  <string name="castle">Rochiere (egal welche Seite)</string>
+  <string name="phoneticAlphabetIsBest">Das phonetische Alphabet ist am besten</string>
+</resources>
