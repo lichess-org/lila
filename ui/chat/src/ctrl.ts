@@ -36,7 +36,6 @@ export default class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
-    this.data.domVersion = 1; // increment to force redraw
     if (opts.noteId) this.allTabs.push('note');
     if (opts.plugin) this.allTabs.push(opts.plugin.tab.key);
     this.palantir = {
@@ -54,6 +53,7 @@ export default class ChatCtrl {
       autofocus: false,
       timeout: opts.timeout,
       writeable: opts.writeable,
+      domVersion: 1, // increment to force redraw
     };
 
     this.note = opts.noteId
@@ -116,7 +116,7 @@ export default class ChatCtrl {
     });
     if (userId == this.data.userId) this.vm.timeout = change = true;
     if (change) {
-      this.data.domVersion++;
+      this.vm.domVersion++;
       this.redraw();
     }
   };
@@ -133,7 +133,7 @@ export default class ChatCtrl {
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {
       this.data.lines.splice(0, nb - this.maxLines + this.maxLinesDrop);
-      this.data.domVersion++;
+      this.vm.domVersion++;
     }
     this.redraw();
   };
