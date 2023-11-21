@@ -1,4 +1,4 @@
-import { Work, ExternalEngineInfo, CevalEngine, CevalState } from '../types';
+import { Work, ExternalEngineInfo, CevalEngine, CevalState, EngineNotifier } from '../types';
 import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
 import throttle from 'common/throttle';
@@ -22,7 +22,7 @@ export class ExternalEngine implements CevalEngine {
 
   constructor(
     private opts: ExternalEngineInfo,
-    private progress?: (download?: { bytes: number; total: number }) => void,
+    private status?: EngineNotifier,
   ) {}
 
   getState() {
@@ -84,16 +84,16 @@ export class ExternalEngine implements CevalEngine {
       });
 
       this.state = CevalState.Initial;
+      this.status?.();
     } catch (err: unknown) {
       if ((err as Error).name !== 'AbortError') {
         console.error(err);
         this.state = CevalState.Failed;
+        this.status?.({ error: String(err) });
       } else {
         this.state = CevalState.Initial;
       }
     }
-
-    this.progress?.();
   }
 
   stop() {

@@ -1,7 +1,7 @@
 import throttle from 'common/throttle';
 import { Engines } from './engines/engines';
 import { CevalOpts, CevalState, CevalEngine, Work, Step, Hovering, PvBoard, Started } from './types';
-import { sanIrreversible } from './util';
+import { sanIrreversible, showEngineError } from './util';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
@@ -11,7 +11,6 @@ import { hasFeature } from 'common/device';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
-import { domDialog } from 'common/dialog';
 
 const cevalDisabledSentinel = '1';
 
@@ -238,13 +237,7 @@ export default class CevalCtrl {
   };
 
   engineFailed(msg: string) {
-    domDialog({
-      show: 'modal',
-      htmlText:
-        `<div><p>${this.engines.active?.name ?? 'Engine'} failed:</p><hr><code>${msg}</code><hr>` +
-        '<p>Things you can try:</p><p>Decrease memory slider in engine settings. Update your browser. ' +
-        'Clear site settings for lichess.org. Or select another engine</p></div>',
-    });
+    showEngineError(this.engines.active?.name ?? 'Engine', msg);
   }
 
   cacheable() {
