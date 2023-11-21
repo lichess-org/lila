@@ -1053,4 +1053,6 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
+  <string name="instructions">Inštrukcie</string>
+  <string name="showMeEverything">Ukázať všetko</string>
 </resources>
