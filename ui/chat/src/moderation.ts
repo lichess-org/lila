@@ -2,9 +2,10 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { userLink } from 'common/userLink';
-import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
+import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
+import ChatCtrl from './ctrl';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -61,7 +62,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function report(ctrl: Ctrl, line: HTMLElement) {
+export function report(ctrl: ChatCtrl, line: HTMLElement) {
   const userA = line.querySelector('a.user-link') as HTMLLinkElement;
   const text = (line.querySelector('t') as HTMLElement).innerText;
   if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
