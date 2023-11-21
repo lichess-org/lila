@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Polecenia głosowe</string>
+  <string name="watchTheVideoTutorial">Obejrzyj poradnik wideo</string>
+  <string name="thisBlogPost">Ten wpis na blogu</string>
+  <string name="moveToE4OrSelectE4Piece">Przesuń do e4 lub wybierz bierkę z e4</string>
+  <string name="selectOrCaptureABishop">Wybierz lub zbij gońca</string>
+  <string name="takeRookWithQueen">Zbij wieżę hetmanem</string>
+  <string name="castle">Roszada (krótka lub długa)</string>
+  <string name="playPreferredMoveOrConfirmSomething">Wykonaj preferowane posunięcie lub potwierdź</string>
+  <string name="turnOffVoiceRecognition">Wyłącz rozpoznawanie głosu</string>
+  <string name="showPuzzleSolution">Pokaż rozwiązanie zadania</string>
+</resources>
