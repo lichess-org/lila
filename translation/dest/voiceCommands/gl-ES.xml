@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Comandos de voz</string>
+  <string name="thisBlogPost">Este artigo do blog</string>
+  <string name="moveToE4OrSelectE4Piece">Mover a e4 ou seleccionar a peza de e4</string>
+  <string name="selectOrCaptureABishop">Seleccionar ou capturar un alfil</string>
+  <string name="takeRookWithQueen">Capturar a torre coa dama</string>
+  <string name="castle">Enrocar (en curto ou en longo)</string>
+  <string name="turnOffVoiceRecognition">Apagar o recoñecemento da fala</string>
+  <string name="showPuzzleSolution">Amosar a solución do crebacabezas</string>
+</resources>

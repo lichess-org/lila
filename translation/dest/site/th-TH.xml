@@ -469,6 +469,7 @@
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
   <string name="biography">ชีวประวัติ</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือภูมิภาค</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>
@@ -643,6 +644,7 @@
   <string name="keyboardShortcuts">ปุ่มลัดแป้นพิมพ์</string>
   <string name="keyMoveBackwardOrForward">เดินถอยหลัง/ไปหน้า</string>
   <string name="keyGoToStartOrEnd">ไปยังตอนเริ่ม/ตอนจบ</string>
+  <string name="keyCycleSelectedVariation">กู้คืน ตาเดินที่ถูกเลือก</string>
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
   <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
@@ -650,6 +652,13 @@
   <string name="keyNextBlunder">ตาเดินที่ผิดมหันต์ต่อไป</string>
   <string name="keyNextMistake">ตาเดินที่ผิดพลาดต่อไป</string>
   <string name="keyNextInaccuracy">ตาเดินที่ไม่แม่นยำต่อไป</string>
+  <string name="keyPreviousBranch">แขนงก่อนหน้า</string>
+  <string name="keyNextBranch">แขนงต่อไป</string>
+  <string name="toggleVariationArrows">ควบคุมศรตาเดินแขนงอื่น</string>
+  <string name="cyclePreviousOrNextVariation">กู้คืน ตาเดินแขนงก่อนหน้า หรือ แขนงถัดไป</string>
+  <string name="toggleGlyphAnnotations">สลับคำอธิบายประกอบสัญลักษณ์</string>
+  <string name="variationArrowsInfo">ตาเดินอื่นๆ ทำให้คุณนำร่องตาเดินได้โดยไม่ต้องให้ดูแผ่นตาเดิน</string>
+  <string name="playSelectedMove">เล่นตาเดินที่เลือก</string>
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
   <string name="tournamentHomeTitle">ทัวร์นาเมนต์หมากรุกซึ่งมีการควบคุมเวลาและตัวแปรกติกาต่างๆ</string>
   <string name="tournamentHomeDescription">เล่นทัวร์นาเมนต์หมากรุกได้ทันที! เข้าร่วมทัวร์นาเมนต์ที่กำหนดเวลาไว้อย่างเป็นทางการ หรือสร้างขึ้นด้วยตัวคุณเอง  มีทั้งบุลลิท, บลิทซ์, คลาสสิก, หมากรุก960, ราชันย์แห่งขุนเขา, สามรุก, และตัวเลือกที่มีให้อีกมากมายเพื่อความสนุกที่ไม่รู้จบของหมากรุก</string>
@@ -916,4 +925,6 @@
   <string name="switchSides">สลับด้าน</string>
   <string name="closingAccountWithdrawAppeal">การปิดบัญชีของคุณจะเป็นการถอนคำอุทธรณ์ของคุณ</string>
   <string name="ourEventTips">คำแนะนำในการจัดการอีเว้นท์นี้</string>
+  <string name="instructions">คำแนะนำ</string>
+  <string name="showMeEverything">แสดงให้ฉันทุกอย่าง</string>
 </resources>

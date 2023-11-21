@@ -693,6 +693,7 @@
   <string name="keyNextBlunder">Volgende blunder</string>
   <string name="keyNextMistake">Volgende fout</string>
   <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
+  <string name="playSelectedMove">speel geselecteerde zet</string>
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
   <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
@@ -971,4 +972,6 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
   <string name="ourEventTips">Onze tips voor het organiseren van evenementen</string>
+  <string name="instructions">Instructies</string>
+  <string name="showMeEverything">Alles tonen</string>
 </resources>
