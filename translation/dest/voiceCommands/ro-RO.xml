@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Comenzi vocale</string>
+  <string name="watchTheVideoTutorial">Urmărește tutorialul video</string>
+  <string name="moveToE4OrSelectE4Piece">Mută la e4 sau selectează piesa de la e4</string>
+  <string name="takeRookWithQueen">Capturează tura cu regina</string>
+  <string name="castle">Rocada (oricare dintre părți)</string>
+</resources>
