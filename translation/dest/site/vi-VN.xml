@@ -651,6 +651,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="keyboardShortcuts">Các phím tắt</string>
   <string name="keyMoveBackwardOrForward">tua lại/đi tới</string>
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
+  <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ lỗi sai của bạn</string>
@@ -658,8 +659,11 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="keyNextBlunder">Nước sai lầm nghiêm trọng tiếp theo</string>
   <string name="keyNextMistake">Nước đi sai lầm tiếp theo</string>
   <string name="keyNextInaccuracy">Nước đi không chính xác tiếp theo</string>
+  <string name="keyPreviousBranch">Nhánh trước</string>
+  <string name="keyNextBranch">Nhánh tiếp theo</string>
   <string name="toggleVariationArrows">Đổi mũi tên của từng biến</string>
   <string name="cyclePreviousOrNextVariation">Chu kì của biến trước/tiếp theo</string>
+  <string name="toggleGlyphAnnotations">Đổi chú thích bằng dấu</string>
   <string name="variationArrowsInfo">Mũi tên của biến cho phép bạn điều hướng mà không cần sử dụng danh sách nước đi.</string>
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
