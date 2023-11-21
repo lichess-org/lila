@@ -202,7 +202,7 @@ function renderText(t: string, parseMoves: boolean) {
 }
 
 const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair) =>
-  userLink({ name, title, patron, flair });
+  userLink({ name, title, patron, line: !!patron, flair });
 
 function renderLine(ctrl: Ctrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
@@ -234,7 +234,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
           myUserId && line.u && myUserId != line.u
-            ? h('i.flag', {
+            ? h('action.flag', {
                 attrs: {
                   'data-icon': licon.CautionTriangle,
                   title: 'Report',

@@ -32,20 +32,25 @@ object profile:
                   f => form3.textarea(f)(rows := 5)
             ,
             form3.group(form("flair"), "Flair", half = true): f =>
-              details(cls := "form-control emoji-details")(
-                summary(cls := "button button-metal button-no-upper")(
-                  trans.setFlair.txt(),
-                  userSpan(u, withPowerTip = false)
+              frag(
+                details(cls := "form-control emoji-details")(
+                  summary(cls := "button button-metal button-no-upper")(
+                    trans.setFlair.txt(),
+                    userSpan(u, withPowerTip = false)
+                  ),
+                  form3.hidden(f, u.flair.map(_.value)),
+                  div(cls := "emoji-picker")
                 ),
-                form3.hidden(f, u.flair.map(_.value)),
-                div(cls := "emoji-picker"),
-                a(
-                  href     := s"${routes.Pref.form("display")}#showFlairs",
-                  cls      := "text",
-                  dataIcon := licon.InfoCircle
-                ):
-                  "There is a setting to hide all user flairs across the entire site."
-              ),
+                p(cls := "form-help")(
+                  br,
+                  a(
+                    href     := s"${routes.Pref.form("display")}#showFlairs",
+                    cls      := "text",
+                    dataIcon := licon.InfoCircle
+                  ):
+                    "There is a setting to hide all user flairs across the entire site."
+                )
+              )
           ),
           form3.split(
             form3.group(form("flag"), trans.countryRegion(), half = true): f =>
