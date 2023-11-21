@@ -129,9 +129,7 @@ export interface ModerationCtrl {
   timeout(reason: ModerationReason, text: string): void;
 }
 
-export interface ModerationData {
-  id: string;
-  username: string;
+export interface ModerationData extends LightUser {
   text: string;
   games?: number;
   tos?: boolean;

@@ -24,7 +24,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     } else {
       data = {
         id: username.toLowerCase(),
-        username,
+        name: username,
         text,
       };
     }
@@ -89,7 +89,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               'a',
               {
                 attrs: {
-                  href: '/@/' + data.username + '?mod',
+                  href: '/@/' + data.name + '?mod',
                 },
               },
               'profile',
@@ -102,7 +102,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                     'a',
                     {
                       attrs: {
-                        href: '/mod/' + data.username + '/communication',
+                        href: '/mod/' + data.name + '/communication',
                       },
                     },
                     'coms',
@@ -144,7 +144,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               {
                 attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => {
-                  reportUserText(ctrl.opts.resourceId, data.username, data.text);
+                  reportUserText(ctrl.opts.resourceId, data.name, data.text);
                   ctrl.timeout(ctrl.opts.reasons[0], data.text);
                 }),
               },
@@ -191,7 +191,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         {
           attrs: { 'data-icon': licon.Agent },
         },
-        [userLink({ name: data.username })],
+        [userLink(data)],
       ),
       h('a', {
         attrs: { 'data-icon': licon.X },
