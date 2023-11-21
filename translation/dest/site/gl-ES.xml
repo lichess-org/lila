@@ -693,6 +693,10 @@
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
   <string name="keyNextInaccuracy">Seguinte imprecisión</string>
+  <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
+  <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
+  <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
+  <string name="playSelectedMove">facer a xogada seleccionada</string>
   <string name="newTournament">Novo torneo</string>
   <string name="tournamentHomeTitle">Torneos de xadrez con varios controis de tempo e variantes</string>
   <string name="tournamentHomeDescription">Xoga torneos de xadrez rápidos! Únete a un torneo oficial programado, ou crea un de teu. Bala, Lóstrego, Clásico, Xadrez960, Rei da Cuíña, Tres Xaques, e máis opcións dispoñibles para que non remate a diversión do xadrez.</string>
