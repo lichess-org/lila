@@ -11,7 +11,7 @@ import { hasFeature } from 'common/device';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
-import { domDialog } from 'common/dialog';
+import { type Dialog, domDialog } from 'common/dialog';
 
 const cevalDisabledSentinel = '1';
 
@@ -239,11 +239,22 @@ export default class CevalCtrl {
 
   engineFailed(msg: string) {
     domDialog({
-      show: 'modal',
+      class: 'engine-error',
       htmlText:
-        `<div><p>${this.engines.active?.name ?? 'Engine'} failed:</p><hr><code>${msg}</code><hr>` +
-        '<p>Things you can try:</p><p>Decrease memory slider in engine settings. Update your browser. ' +
-        'Clear site settings for lichess.org. Or select another engine</p></div>',
+        `<h2>${lichess.escapeHtml(this.engines.active?.name ?? 'Engine')} <bad>error</bad></h2>` +
+        `<pre tabindex="0" class="err">${lichess.escapeHtml(msg)}</pre><h2>Things to try</h2><ul>` +
+        '<li>Decrease memory slider in engine settings</li><li>Clear site settings for lichess.org</li>' +
+        '<li>Select another engine</li><li>Update your browser</li></ul>',
+    }).then((dlg: Dialog) => {
+      const select = () =>
+        setTimeout(() => {
+          const range = document.createRange();
+          range.selectNodeContents(dlg.view.querySelector('.err')!);
+          window.getSelection()?.removeAllRanges();
+          window.getSelection()?.addRange(range);
+        }, 0);
+      dlg.view.querySelector('.err')?.addEventListener('focus', select);
+      dlg.showModal();
     });
   }
 
