@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">การออกอากาศ</string>
+  <string name="myBroadcasts">บรอดคาสของฉัน</string>
   <string name="liveBroadcasts">การออกอากาศทัวร์นาเมนต์สด</string>
   <string name="newBroadcast">ออกอากาศสดใหม่</string>
   <string name="ongoing">ดำเนินอยู่</string>
