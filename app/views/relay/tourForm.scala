@@ -85,8 +85,8 @@ object tourForm:
     form3.split(
       form3.checkbox(
         form("autoLeaderboard"),
-        raw("Automatic leaderboard"),
-        help = raw("Compute and display a simple leaderboard based on game results").some,
+        automaticLeaderboard(),
+        help = automaticLeaderboardNote().some,
         half = true
       ),
       if isGranted(_.Relay) then
@@ -100,13 +100,7 @@ object tourForm:
     ),
     form3.group(
       form("players"),
-      "Optional: replace player names, ratings and titles",
-      help = frag(
-        "One line per player, formatted as such:",
-        pre("Original name; Replacement name; Optional replacement rating; Optional replacement title"),
-        "Example:",
-        pre("""DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM""")
-      ).some
+      optional(),
+      help = optionalHelp().some
     )(form3.textarea(_)(rows := 3))
   )

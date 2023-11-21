@@ -1572,6 +1572,8 @@ object I18nKeys:
     val `myBroadcasts` = I18nKey("broadcast:myBroadcasts")
     val `liveBroadcasts` = I18nKey("broadcast:liveBroadcasts")
     val `newBroadcast` = I18nKey("broadcast:newBroadcast")
+    val `aboutBroadcasts` = I18nKey("broadcast:aboutBroadcasts")
+    val `noRoundsYet` = I18nKey("broadcast:noRoundsYet")
     val `addRound` = I18nKey("broadcast:addRound")
     val `ongoing` = I18nKey("broadcast:ongoing")
     val `upcoming` = I18nKey("broadcast:upcoming")
@@ -1599,6 +1601,10 @@ object I18nKeys:
     val `editRoundStudy` = I18nKey("broadcast:editRoundStudy")
     val `deleteTournament` = I18nKey("broadcast:deleteTournament")
     val `definitivelyDeleteTournament` = I18nKey("broadcast:definitivelyDeleteTournament")
+    val `automaticLeaderboard` = I18nKey("broadcast:automaticLeaderboard")
+    val `automaticLeaderboardNote` = I18nKey("broadcast:automaticLeaderboardNote")
+    val `optional` = I18nKey("broadcast:optional")
+    val `optionalHelp` = I18nKey("broadcast:optionalHelp")
     val `nbBroadcasts` = I18nKey("broadcast:nbBroadcasts")
 
   object streamer:
