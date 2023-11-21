@@ -44,4 +44,5 @@
   <string name="insufficientMaterial">แพ้เพราะหมดเวลา, เสมอเพราะมีหมากไม่พอ</string>
   <string name="threefoldRepetition">เดินซ้ำสามครั้ง</string>
   <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
+  <string name="enableAutoplayForSoundsQ">เปิดใช้งานการเล่นอัตโนมัติสำหรับเสียงไหม</string>
 </resources>
