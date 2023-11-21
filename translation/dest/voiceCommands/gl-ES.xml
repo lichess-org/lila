@@ -6,5 +6,6 @@
   <string name="selectOrCaptureABishop">Seleccionar ou capturar un alfil</string>
   <string name="takeRookWithQueen">Capturar a torre coa dama</string>
   <string name="castle">Enrocar (en curto ou en longo)</string>
+  <string name="turnOffVoiceRecognition">Apagar o recoñecemento da fala</string>
   <string name="showPuzzleSolution">Amosar a solución do crebacabezas</string>
 </resources>
