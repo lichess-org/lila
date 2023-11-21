@@ -732,6 +732,9 @@
   <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
   <string name="keyPreviousBranch">Ramura precedentă</string>
   <string name="keyNextBranch">Ramura următoare</string>
+  <string name="toggleVariationArrows">Comută săgețile de variație</string>
+  <string name="toggleGlyphAnnotations">Comută adnotările gilfelor</string>
+  <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista de mutare.</string>
   <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
   <string name="tournamentHomeTitle">Turneu de șah cu control de timp și variante</string>
