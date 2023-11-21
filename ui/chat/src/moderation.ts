@@ -70,7 +70,7 @@ function reportUserText(resourceId: string, username: string, text: string) {
   if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = () => h('i.mod', { attrs: { 'data-icon': licon.Agent } });
+export const lineAction = () => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
