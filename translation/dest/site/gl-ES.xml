@@ -971,4 +971,6 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="switchSides">Cambiar de cor</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
+  <string name="instructions">Instrucións</string>
+  <string name="showMeEverything">Amósamo todo</string>
 </resources>
