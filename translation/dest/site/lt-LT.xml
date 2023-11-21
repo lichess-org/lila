@@ -72,6 +72,7 @@
   <string name="makeMainLine">Padaryti pagrindine linija</string>
   <string name="deleteFromHere">Ištrinti nuo čia</string>
   <string name="forceVariation">Rodyti kaip variaciją</string>
+  <string name="copyVariationPgn">Kopijuoti variacijos PGN</string>
   <string name="move">Ėjimas</string>
   <string name="variantLoss">Variantinis pralaimėjimas</string>
   <string name="variantWin">Variantinė pergalė</string>
@@ -572,6 +573,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="firstName">Vardas</string>
   <string name="lastName">Pavardė</string>
   <string name="biography">Aprašymas</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Šalis ar regionas</string>
   <string name="thankYou">Ačiū!</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
@@ -731,8 +733,10 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="simultaneousExhibitions">Simultanai</string>
   <string name="host">Šeimininkas</string>
   <string name="hostColorX">Šeimininko spalva: %s</string>
+  <string name="yourPendingSimuls">Jūsų laukiantys simulai</string>
   <string name="createdSimuls">Naujai sukurti simultanai</string>
   <string name="hostANewSimul">Kurti nauji simultaną</string>
+  <string name="signUpToHostOrJoinASimul">Prisijunkite norėdami sukurti ar prisijungti prie simulo</string>
   <string name="noSimulFound">Simultanas nerastas</string>
   <string name="noSimulExplanation">Šis simultanas neegzistuoja.</string>
   <string name="returnToSimulHomepage">Grįžti į simultanų pradžią</string>

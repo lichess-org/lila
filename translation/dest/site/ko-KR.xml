@@ -920,4 +920,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="switchSides">색 바꾸기</string>
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
+  <string name="instructions">설명</string>
 </resources>

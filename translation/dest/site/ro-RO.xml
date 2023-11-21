@@ -539,7 +539,7 @@
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Steag</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Țara sau regiunea</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
@@ -730,6 +730,12 @@
   <string name="keyNextBlunder">Următoarea greșeală gravă</string>
   <string name="keyNextMistake">Următoarea greșeală</string>
   <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
+  <string name="keyPreviousBranch">Ramura precedentă</string>
+  <string name="keyNextBranch">Ramura următoare</string>
+  <string name="toggleVariationArrows">Comută săgețile de variație</string>
+  <string name="toggleGlyphAnnotations">Comută adnotările gilfelor</string>
+  <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista de mutare.</string>
+  <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
   <string name="tournamentHomeTitle">Turneu de șah cu control de timp și variante</string>
   <string name="tournamentHomeDescription">Joacă turnee rapide de șah! Intră într-un turneu oficial planificat sau crează-ți-l tu. Bullet (Glonț),  Blitz (Fulger), Classical (Clasic), Chess960, Regele în centru, Trei șahuri și alte opțiuni sunt disponibile pentru o distracție continuă.</string>
@@ -1013,4 +1019,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="switchSides">Întoarce tabla</string>
   <string name="closingAccountWithdrawAppeal">Închiderea contului dvs. vă va retrage apelul</string>
   <string name="ourEventTips">Sfaturile noastre pentru organizarea evenimentelor</string>
+  <string name="instructions">Instrucțiuni</string>
+  <string name="showMeEverything">Afișează-mi tot</string>
 </resources>

@@ -971,4 +971,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="switchSides">Canviar de bandòl</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
+  <string name="instructions">Instruccions</string>
 </resources>
