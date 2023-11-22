@@ -423,7 +423,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="openTournaments">Những giải đấu mở</string>
   <string name="duration">Thời lượng</string>
   <string name="winner">Người chiến thắng</string>
-  <string name="standing">Bảng xếp hạng</string>
+  <string name="standing">Thứ hạng</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
