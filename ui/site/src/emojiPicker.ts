@@ -15,7 +15,6 @@ export function emojiPicker(
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
-    locale: document.documentElement.lang.slice(0, 2),
   };
   const picker = new emojis.Picker(opts);
   element.appendChild(picker as unknown as HTMLElement);
