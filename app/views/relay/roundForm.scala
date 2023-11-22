@@ -65,7 +65,7 @@ object roundForm:
       div(cls := "form-group")(
         bits.howToUse,
         create option p(dataIcon := licon.InfoCircle, cls := "text")(
-          "The new round will have the same members and contributors as the previous one."
+          theNewRoundHelp()
         )
       ),
       form3.globalError(form),
@@ -97,9 +97,9 @@ object roundForm:
         )(form3.flatpickr(_, minDate = None)),
         form3.checkbox(
           form("finished"),
-          raw("Completed"),
+          completed(),
           help = raw(
-            "Lichess detects round completion based on the source games. Use this toggle if there is no source."
+            completedHelp()
           ).some,
           half = true
         )
@@ -107,20 +107,18 @@ object roundForm:
       form3.split(
         form3.group(
           form("delay"),
-          raw("Delay in seconds"),
+          delayInSeconds(),
           help = frag(
-            "Optional, how long to delay moves coming from the source.",
-            br,
-            "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
+            delayInSecondsHelp()
           ).some,
           half = true
         )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
           form3.group(
             form("period"),
-            raw("Period in seconds"),
+            periodInSeconds(),
             help = raw(
-              "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
+              periodInSecondsHelp()
             ).some,
             half = true
           )(form3.input(_, typ = "number"))

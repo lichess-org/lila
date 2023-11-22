@@ -86,7 +86,7 @@ object tourForm:
       form3.checkbox(
         form("autoLeaderboard"),
         automaticLeaderboard(),
-        help = automaticLeaderboardNote().some,
+        help = automaticLeaderboardHelp().some,
         half = true
       ),
       if isGranted(_.Relay) then
@@ -100,7 +100,7 @@ object tourForm:
     ),
     form3.group(
       form("players"),
-      optional(),
-      help = optionalHelp().some
+      replace(),
+      help = replaceHelp().some
     )(form3.textarea(_)(rows := 3))
   )
