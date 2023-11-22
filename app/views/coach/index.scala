@@ -29,16 +29,14 @@ object index:
       moreCss = cssTag("coach"),
       moreJs = infiniteScrollTag,
       withHrefLangs = LangPath(routes.Coach.all(1)).some
-    ) {
+    ):
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
-        .map { l =>
+        .map: l =>
           l.code -> LangList.name(l)
-        }
       val countrySelections = ("all", "All countries") :: {
-        countryCodes map { c =>
-          c -> Flags.allPairs.toMap.apply(c)
-        }
+        countryCodes.flatMap: c =>
+          Flags.allPairsMap.get(c).map(c -> _)
       }.filter(el => !Flags.nonCountries.contains(el._1)).toList.sortBy(_._2)
 
       main(cls := "coach-list coach-full-page")(
@@ -104,4 +102,3 @@ object index:
           )
         )
       )
-    }

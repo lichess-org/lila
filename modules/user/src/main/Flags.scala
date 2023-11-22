@@ -289,8 +289,10 @@ object Flags:
     C("_earth", "Earth")
   )
 
-  val allPairs = all.map: c =>
+  val allPairs: List[(String, String)] = all.map: c =>
     c.code -> c.name
+
+  val allPairsMap: Map[String, String] = allPairs.toMap
 
   val map: Map[String, Flag] = all.mapBy(_.code)
 
@@ -302,13 +304,8 @@ object Flags:
   val codeSet = map.keySet
 
   val nonCountries = List(
-    "_lichess",
-    "_pirate",
-    "_rainbow",
     "_united-nations",
-    "_earth",
-    "_transgender",
-    "_esperanto"
+    "_earth"
   )
 
   def info(code: String): Option[Flag] = map get code
