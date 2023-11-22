@@ -70,7 +70,7 @@ Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 của %2$s.</string>
   <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>
   <string name="notRepeatedMoves">Chúng tôi không lặp lại các nước đi. Tại sao ván đấu vẫn bị xử hòa bởi luật lặp cờ?</string>
-  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xảy ra liên tiếp.</string>
+  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xẩy ra liên tiếp.</string>
   <string name="positions">những thế cờ</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
   <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s Lichess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
@@ -145,23 +145,23 @@ Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Bật tính năng tự động phát âm thanh?</string>
   <string name="enableAutoplayForSoundsA">Hầu hết các trình duyệt có thể ngăn âm thanh phát trên trang mới tải để bảo vệ người dùng. Hãy tưởng tượng nếu mọi trang web có thể ngay lập tức tấn công bạn bằng quảng cáo âm thanh sẽ như thế nào.
 
-Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cò để phát ra âm thanh khi bắt đầu mỗi ván cờ.
+Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cờ để phát ra âm thanh khi bắt đầu mỗi ván cờ.
 
-Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xảy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
+Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
   <string name="desktop">máy tính để bàn</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)
 4. Cho phép Video và Âm Thanh (Audio)</string>
-  <string name="enableAutoplayForSoundsChrome">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
 2. Nhấn hình ổ khoá trên thanh tìm kiếm
 3. Nhấn Cài đặt trang web
 4. Cho phép Âm thanh</string>
-  <string name="enableAutoplayForSoundsSafari">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
 2. Nhấn hình Safari trong thanh menu
 3. Nhấn vào Cài đặt cho lichess.org ...
 4. Cho phép Tất cả Tự động Phát</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
 2. Nhấp vào Cài đặt
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)

@@ -694,6 +694,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
   <string name="keyNextMistake">Neste mistak</string>
   <string name="keyNextInaccuracy">Neste upresise trekk</string>
+  <string name="keyPreviousBranch">Førre grein</string>
+  <string name="keyNextBranch">Neste grein</string>
+  <string name="toggleVariationArrows">Slå variantpilar på/av</string>
+  <string name="toggleGlyphAnnotations">Slå symbol-merknadar på/av</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
   <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, faste turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
