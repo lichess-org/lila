@@ -80,6 +80,7 @@ object Line:
         case Array(title, name) => (Title get title, UserName(name))
         case _                  => (none, UserName(username))
       UserLine(name, title, patron, flair, text, troll = troll, deleted = deleted).some
+    case _ => none
   def userLineToStr(x: UserLine): String =
     val sep =
       if x.troll then trollChar
