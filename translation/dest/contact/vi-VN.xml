@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Thực hiện đặt lại mật khẩu để xóa bỏ bảo mật 2 lớp</string>
   <string name="accountSupport">Tôi cần hỗ trợ tài khoản</string>
   <string name="wantTitle">Tôi muốn danh hiệu của mình hiển thị trên Lichess</string>
-  <string name="visitTitleConfirmation">Để hiện danh hiệu của bạn trên trang cá nhân Lichess của bạn, và tham dự các Titled Arena, hãy truy cập đến trang xác nhận danh hiệu</string>
+  <string name="visitTitleConfirmation">Để hiện danh hiệu của bạn trên trang cá nhân Lichess của bạn và tham dự các giải Titled Arena, hãy truy cập đến trang xác nhận danh hiệu</string>
   <string name="wantCloseAccount">Tôi muốn đóng tài khoản của mình</string>
   <string name="closeYourAccount">Bạn có thể đóng tài khoản của mình tại trang này</string>
   <string name="doNotAskByEmail">Xin vui lòng không yêu cầu chúng tôi đóng tài khoản của bạn qua email, chúng tôi sẽ không giải quyết.</string>
