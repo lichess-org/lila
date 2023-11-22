@@ -3,4 +3,12 @@
   <string name="voiceCommands">音声コマンド</string>
   <string name="watchTheVideoTutorial">チュートリアル動画を見る</string>
   <string name="instructions1">%1$s ボタンで音声認識の切り替え、 %2$s ボタンでこのヘルプダイアログの表示、 %3$s メニューで音声設定の変更ができます。</string>
+  <string name="instructions2">はっきりしない場合は複数の手が矢印で表示されます。矢印の色や数字を発声すると選択できます。</string>
+  <string name="instructions6">%s に音声入力設定の詳しい説明があります。</string>
+  <string name="thisBlogPost">このブログ投稿</string>
+  <string name="selectOrCaptureABishop">ビショップを選択する、または取る</string>
+  <string name="takeRookWithQueen">クイーンでルークを取る</string>
+  <string name="castle">キャスリング（どちら側でも）</string>
+  <string name="turnOffVoiceRecognition">音声認識をオフにする</string>
+  <string name="showPuzzleSolution">問題の解答を表示</string>
 </resources>
