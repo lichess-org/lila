@@ -83,7 +83,7 @@ final class TournamentLilaHttp(
       rankedPlayer: RankedPlayer
   )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
-    lightUserApi asyncFallback p.userId map { light =>
+    lightUserApi asyncFallback p.userId map: light =>
       Json
         .obj(
           "name"   -> light.name,
@@ -92,9 +92,9 @@ final class TournamentLilaHttp(
           "sheet"  -> sheet.scoresToString
         )
         .add("title" -> light.title)
+        .add("flair" -> light.flair)
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
         .add("fire" -> p.fire)
         .add("pause" -> p.withdraw.so(pause.remainingDelay(p.userId, tour)))
-    }
