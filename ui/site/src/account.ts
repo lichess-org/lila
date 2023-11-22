@@ -13,6 +13,11 @@ lichess.load.then(() => {
       if (i) parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
       close();
     };
+    if (parent.find('.user-link .uflair').length && !parent.find('.emoji-remove').length) {
+      $(
+        '<p><button class="emoji-remove text button button-red button-empty button-thin">delete</button></p>',
+      ).insertAfter(details);
+    }
     parent.find('.emoji-remove').on('click', e => {
       e.preventDefault();
       onEmojiSelect();
