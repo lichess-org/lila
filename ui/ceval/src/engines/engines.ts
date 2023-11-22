@@ -131,7 +131,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new ThreadedEngine(e, this.status, (v: VariantKey) =>
+            new ThreadedEngine(e, undefined, (v: VariantKey) =>
               v === 'antichess' ? 'giveaway' : lichessRules(v),
             ),
         },
@@ -149,7 +149,7 @@ export class Engines {
               wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, undefined),
         },
         {
           info: {
