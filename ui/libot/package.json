@@ -7,7 +7,7 @@
   "typings": "dist/main.d.ts",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.12.7",
+    "chessops": "^0.12.8",
     "common": "workspace:*",
     "tree": "workspace:*",
     "zerofish": "^0.0.16"
