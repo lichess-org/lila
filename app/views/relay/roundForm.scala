@@ -98,9 +98,7 @@ object roundForm:
         form3.checkbox(
           form("finished"),
           completed(),
-          help = raw(
-            completedHelp()
-          ).some,
+          help = completedHelp().some,
           half = true
         )
       ),
@@ -108,18 +106,14 @@ object roundForm:
         form3.group(
           form("delay"),
           delayInSeconds(),
-          help = frag(
-            delayInSecondsHelp()
-          ).some,
+          help = delayInSecondsHelp().some,
           half = true
         )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
           form3.group(
             form("period"),
             periodInSeconds(),
-            help = raw(
-              periodInSecondsHelp()
-            ).some,
+            help = periodInSecondsHelp().some,
             half = true
           )(form3.input(_, typ = "number"))
       ),
