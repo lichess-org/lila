@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Comandos de voz</string>
+  <string name="watchTheVideoTutorial">Ver o vídeo tutorial</string>
+  <string name="takeRookWithQueen">Pega a torre com a dama</string>
+  <string name="castle">Roque (qualquer lado)</string>
+</resources>
