@@ -1,15 +1,13 @@
 import * as emojis from 'emoji-mart';
 
-export function emojiPicker(element: HTMLElement, close: () => void) {
+export function emojiPicker(
+  element: HTMLElement,
+  close: () => void,
+  onEmojiSelect: (i?: { id: string; src: string }) => void,
+) {
   if (element.classList.contains('emoji-done')) return;
-  const parent = $(element).parent();
   const opts = {
-    onEmojiSelect: (i: any) => {
-      parent.find('input[name="flair"]').val(i.id);
-      parent.find('.user-link .uflair').remove();
-      parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
-      close();
-    },
+    onEmojiSelect,
     onClickOutside: close,
     data: makeEmojiData,
     categories: categories.map(categ => categ[0]),
@@ -17,6 +15,7 @@ export function emojiPicker(element: HTMLElement, close: () => void) {
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
+    locale: document.documentElement.lang.slice(0, 2),
   };
   const picker = new emojis.Picker(opts);
   element.appendChild(picker as unknown as HTMLElement);

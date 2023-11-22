@@ -41,8 +41,12 @@ object profile:
                   form3.hidden(f, u.flair.map(_.value)),
                   div(cls := "emoji-picker")
                 ),
+                u.flair.isDefined option p(
+                  button(
+                    cls := "button button-red button-thin button-empty text emoji-remove"
+                  )(trans.delete())
+                ),
                 p(cls := "form-help")(
-                  br,
                   a(
                     href     := s"${routes.Pref.form("display")}#showFlairs",
                     cls      := "text",

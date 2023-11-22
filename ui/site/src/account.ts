@@ -3,10 +3,22 @@ import * as xhr from 'common/xhr';
 import { emojiPicker } from './emojiPicker';
 
 lichess.load.then(() => {
-  $('.emoji-details').on('toggle', function (this: HTMLDetailsElement) {
+  $('.emoji-details').each(function (this: HTMLElement) {
     const details = this;
+    const parent = $(details).parent();
     const close = () => details.removeAttribute('open');
-    emojiPicker(details.querySelector('.emoji-picker')!, close);
+    const onEmojiSelect = (i?: { id: string; src: string }) => {
+      parent.find('input[name="flair"]').val(i?.id ?? '');
+      parent.find('.user-link .uflair').remove();
+      if (i) parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
+      close();
+    };
+    parent.find('.emoji-remove').on('click', e => {
+      e.preventDefault();
+      onEmojiSelect();
+      $(e.target).remove();
+    });
+    $(details).on('toggle', () => emojiPicker(details.querySelector('.emoji-picker')!, close, onEmojiSelect));
   });
 
   const localPrefs: [string, string, string, boolean][] = [
