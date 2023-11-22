@@ -237,6 +237,7 @@ export default class CevalCtrl {
   };
 
   engineFailed(msg: string) {
+    if (msg.includes('Blocking on the main thread')) return; // mostly harmless
     showEngineError(this.engines.active?.name ?? 'Engine', msg);
   }
 
