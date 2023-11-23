@@ -485,6 +485,7 @@
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
+  <string name="drawRate">Tasa de tablas</string>
   <string name="draws">Tablas</string>
   <string name="nextXTournament">Siguiente torneo %s:</string>
   <string name="averageOpponent">Oponente promedio</string>
