@@ -35,7 +35,7 @@ object profile:
               frag(
                 details(cls := "form-control emoji-details")(
                   summary(cls := "button button-metal button-no-upper")(
-                    trans.setFlair.txt(),
+                    trans.setFlair(),
                     userSpan(u, withPowerTip = false)
                   ),
                   form3.hidden(f, u.flair.map(_.value)),
