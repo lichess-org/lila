@@ -146,4 +146,15 @@ Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutl
 Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
 Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
+  <string name="enableAutoplayForSoundsQ">Sesler için otomatik oynatma etkinleştir?</string>
+  <string name="enableAutoplayForSoundsA">Birçok tarayıcı yeni açılmış sayfalarda sesin oynamasını kullanıcıları korumak için engelleyebilir. Bir websitesinin sizi anında sesli reklamlar ile bombardıman etmesini düşünün.
+
+Kırmızı sustur simgesi, tarayıcınız lichess.org\'un ses oynatmasını engelleyince çıkar. Genellikle bu kısıtlama birşeye tıkladığınızda kalkar. Bazı mobil tarayıcılarda, bir satranç taşını sürüklemek tıklamak olarak algılanmayabilir. O durumda her bir oyunun başlangıcında ses için tahtaya dokunmanız gerekir.
+
+Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlukla lichess.org\'un ses oynatmasına tarayıcınızın ayarlarında izin verebilirsiniz. Bazı popüler tarayıcıların son sürümleri için talimatlar burada.</string>
+  <string name="desktop">masaüstü</string>
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. lichess.org\'a git
+2. Linux/Windows\'da Ctrl-i ya da MacOS\'de cmd-i bas
+3. İzinler sekmesine tıkla
+4. lichess.org\'da Ses ve Video\'ya izin ver</string>
 </resources>
