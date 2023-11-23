@@ -55,12 +55,12 @@ Trong một số trường hợp hiếm hoi, điều này có thể khó đượ
 Lưu ý rằng có thể chiếu hết với một quân mã hoặc một quân tượng nếu đối phương có quân cờ có thể chặn được vua.</string>
   <string name="fideHandbook">Sổ tay FIDE</string>
   <string name="fideHandbookX">Sổ tay FIDE %s</string>
-  <string name="discoveringEnPassant">Tại sao một con tốt có thể bị bắt bởi một con tốt khác khi mà nó đã đi qua? (Bắt tốt qua đường)</string>
+  <string name="discoveringEnPassant">Tại sao một quân tốt có thể bị bắt bởi một quân tốt khác khi mà nó đã đi qua? (Bắt tốt qua đường)</string>
   <string name="explainingEnPassant">Đây là một nước đi hợp lệ được gọi là \"bắt tốt qua đường\". Bài viết trên Wikipedia cho một %1$s.
 
 Nó được mô tả trong phần 3.7.3.1 và 3.7.3.2 của %2$s:
 
-\"Một con tốt nằm trên ô cùng hàng và trên cột liền kề với một con tốt của đối thủ vừa đi hai nước so với ô ban đầu có thể bắt được con tốt này của đối thủ như thể con sau chỉ đi lên một ô. Nước đi này chỉ hợp lệ khi đi ngay sau nước tiến tốt của đối thủ và được gọi là \'bắt tốt qua đường\'.\"
+\"Một quân tốt nằm trên ô cùng hàng và trên cột liền kề với một quân tốt của đối thủ vừa đi hai nước so với ô ban đầu có thể bắt được quân tốt này của đối thủ như thể quân sau chỉ đi lên một ô. Nước đi này chỉ hợp lệ khi đi ngay sau nước tiến tốt của đối thủ và được gọi là \'bắt tốt qua đường\'.\"
 
 Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="goodIntroduction">thông tin hữu ích</string>
@@ -128,7 +128,7 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
   <string name="whyAreRatingHigher">Tại sao hệ số Elo lại cao hơn so với các trang web và tổ chức khác như FIDE, USCF và ICC?</string>
   <string name="whyAreRatingHigherExplanation">Tốt nhất là không nên coi xếp hạng là con số tuyệt đối hoặc so sánh chúng với các tổ chức khác. Các tổ chức khác nhau có các cấp độ người chơi khác nhau, các hệ thống xếp hạng khác nhau (Elo, Glicko, Glicko-2 hoặc một phiên bản sửa đổi đã nói ở trên). Những yếu tố này có thể ảnh hưởng mạnh đến con số tuyệt đối (xếp hạng).
 
-Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng / hòa / thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>
+Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng/hòa/thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>
   <string name="howToHideRatingWhilePlaying">Làm thế nào để ẩn xếp hạng trong lúc chơi?</string>
   <string name="enableZenMode">Bật chế độ Zen trong %1$s hoặc bằng cách nhấn %2$s trong khi chơi.</string>
   <string name="displayPreferences">tùy chọn hiển thị</string>

@@ -26,10 +26,10 @@
   <string name="leavingGameWithoutResigningExplanation">Dersom motspelaren din har som vane å bryte av/forsvinne frå partiet får vedkomande mellombels \"spelenekt\". Eit forbod av dette slaget vert ikkje kunngjort på spelarprofilen. Dersom spelaren held fram med denne framferda vert lengda på spelenekten lengre - og ei vedvarande åtferd av dette slaget kan føre til stenging av kontoen.</string>
   <string name="howCanIBecomeModerator">Korleis kan eg bli moderator?</string>
   <string name="youCannotApply">Det er ikkje mogleg å søke om å bli moderator. Ser vi nokon vi trur kan bli gode moderatorar kontaktar vi dei direkte.</string>
-  <string name="isCorrespondenceDifferent">Er korrespondansesjakk annleis enn vanleg sjakk?</string>
+  <string name="isCorrespondenceDifferent">Er fjernsjakk ulik vanleg sjakk?</string>
   <string name="pleaseReadFairPlayPage">Les vår %s for meir informasjon</string>
   <string name="fairPlayPage">side om fair play</string>
-  <string name="youCanUseOpeningBookNoEngine">På Lichess er bruk av opningsbok tillaten i korrespondansesjakk, men ikkje i vanleg sjakk. Bruk av maskinanalyse er derimot forboden og vil få konsekvensar i form av merknad for maskinfusk. Sjølv om ICCF tillèt maskinanalyse i korrespondansesjakk, gjeld ikke dette på Lichess.</string>
+  <string name="youCanUseOpeningBookNoEngine">På Lichess er det lov å bruka opningsbok i fjernsjakk, men ikkje i vanleg sjakk. Bruk av maskinanalyse er derimot forboden og vil få konsekvensar i form av merknad for maskinfusk. Sjølv om ICCF tillèt maskinanalyse i korrespondansesjakk, gjeld ikke dette på Lichess.</string>
   <string name="gameplay">Spelforløp</string>
   <string name="howBulletBlitzEtcDecided">Kor går skiljene mellom tidskontrollane for bullet, lyn, snøgg og klassisk sjakk?</string>
   <string name="basedOnGameDuration">Tidskontrollane på Lichess er basert på estimert total speletid = %1$s
@@ -150,19 +150,19 @@ Det røde mute-ikonet blir vist når weblesaren hindrar lichess.org i å spele a
 
 Vi viser det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du uttrykkjeleg tillata lichess.org å spele av lydar. Her er instrukjsjonar om korleis du gjer det i nyare versjonar av nokre mykje brukte weblesarar.</string>
   <string name="desktop">skrivebord</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gå til lichess.org
 2. Trykk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klikk på fanen Løyver
 4. Gje løyve til å spele av lyd og video på lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
 2. Klikk på låseikonet i adresselina
 3. Klikk nettstadinnstillingar
 4. Tillat lyd</string>
-  <string name="enableAutoplayForSoundsSafari">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
 2. Klikk på Safari i menylina
 3. Klikk på Innstillingar for lichess.org ...
 4. Tillat alle Auto-Play</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klikk på dei tre prikkane øverst i høgre hjørne
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klikk på dei tre prikkane øverst i høgre hjørne
 2. Klikk på Innstillingar
 3. Klikk informasjonskapslar og rettar
 4. Rull ned og klikk Media autospel

@@ -15,10 +15,10 @@
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
   <string name="showPlayerRatings">Vis ratingen til spelarane</string>
-  <string name="explainShowPlayerRatings">Dette gjer det mogleg å skjule all rating frå nettsida, for å hjelpa til med å halde fokuset på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
+  <string name="explainShowPlayerRatings">Denne innstillinga gjer det mogleg å gøyme alle ratingar frå nettsida. Dette for å hjelpa til med å fokusera på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Berre under eit parti</string>
+  <string name="inGameOnly" comment="Appears on the display preferences page: https://lichess.org/account/preferences/display&#10;&#10;This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Berre under eit parti</string>
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="chessClock">Sjakkur</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
@@ -58,10 +58,10 @@
   <string name="notifyInboxMsg">Ny melding i innboksen</string>
   <string name="notifyForumMention">Du er nemnd i ein forumkommentar</string>
   <string name="notifyInvitedStudy">Invitasjon til studie</string>
-  <string name="notifyGameEvent">Korrespondansepartioppdateringar</string>
+  <string name="notifyGameEvent">Oppdateringar for fjernsjakkparti</string>
   <string name="notifyChallenge">Utfordringar</string>
   <string name="notifyTournamentSoon">Turneringa startar snart</string>
-  <string name="notifyTimeAlarm">Korrespondanseklokka er i ferd med å løpa ut</string>
+  <string name="notifyTimeAlarm">Fjernsjakkuret er i ferd med å løpa ut</string>
   <string name="notifyBell">Klokkemelding i Lichess</string>
   <string name="notifyPush">Melding på eininga når du ikkje brukar Lichess</string>
   <string name="notifyWeb">Nettlesar</string>
