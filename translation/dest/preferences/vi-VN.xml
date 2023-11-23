@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Điều này cho phép ẩn toàn bộ hệ số Elo từ trang web, giúp tập trung vào ván cờ. Ván đấu vẫn có thể tính Elo, điều này chỉ là về những thứ bạn muốn nhìn thấy.</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Chỉ trong ván cờ</string>
+  <string name="inGameOnly">Chỉ trong ván cờ</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">Đồng hồ cờ vua</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
   <string name="castleByMovingOntoTheRook">Di chuyển vua vào xe</string>
   <string name="inputMovesWithTheKeyboard">Nhập các nước đi với bàn phím</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Đầu vào nước đi với giọng nói của bạn</string>
+  <string name="inputMovesWithVoice">Đầu vào nước đi với giọng nói của bạn</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào ô của nước đi hợp lệ</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (Ván cờ hay, chơi hay lắm) sau khi hòa hoặc thua</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
