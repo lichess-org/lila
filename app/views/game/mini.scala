@@ -11,10 +11,11 @@ import lila.i18n.defaultLang
 
 object mini:
 
-  private val dataLive  = attr("data-live")
-  private val dataState = attr("data-state")
-  private val dataTime  = attr("data-time")
-  val cgWrap            = span(cls := "cg-wrap")(cgWrapContent)
+  private val dataLive        = attr("data-live")
+  private val dataState       = attr("data-state")
+  private val dataTime        = attr("data-time")
+  private val dataTimeControl = attr("data-tc")
+  val cgWrap                  = span(cls := "cg-wrap")(cgWrapContent)
 
   def apply(
       pov: Pov,
@@ -41,9 +42,10 @@ object mini:
     val isLive = game.isBeingPlayed
     val tag    = if link.isDefined then a else span
     tag(
-      href     := link,
-      cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
-      dataLive := isLive.option(game.id),
+      href            := link,
+      cls             := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
+      dataLive        := isLive.option(game.id),
+      dataTimeControl := game.clock.map(_.config).fold("correspondence")(_.show),
       renderState(pov)
     )(
       renderPlayer(!pov, withRating = showRatings),
