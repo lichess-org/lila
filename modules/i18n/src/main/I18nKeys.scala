@@ -2469,7 +2469,6 @@ object I18nKeys:
     val `inNbWeeks` = I18nKey("timeago:inNbWeeks")
     val `inNbMonths` = I18nKey("timeago:inNbMonths")
     val `inNbYears` = I18nKey("timeago:inNbYears")
-    val `nbSecondsAgo` = I18nKey("timeago:nbSecondsAgo")
     val `nbMinutesAgo` = I18nKey("timeago:nbMinutesAgo")
     val `nbHoursAgo` = I18nKey("timeago:nbHoursAgo")
     val `nbDaysAgo` = I18nKey("timeago:nbDaysAgo")
