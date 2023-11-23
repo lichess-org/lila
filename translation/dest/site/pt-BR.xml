@@ -485,6 +485,7 @@
   <string name="movesPlayed">Movimentos realizados</string>
   <string name="whiteWins">Brancas venceram</string>
   <string name="blackWins">Pretas venceram</string>
+  <string name="drawRate">Taxa de empates</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio %s:</string>
   <string name="averageOpponent">Pontuação média adversários</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
   <string name="lastName">Sobrenome</string>
+  <string name="setFlair">Escolha seu emote:</string>
+  <string name="youCanHideFlair">Você pode esconder todos os emotes de usuário no site.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou região</string>
   <string name="thankYou">Obrigado!</string>
