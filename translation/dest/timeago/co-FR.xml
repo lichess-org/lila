@@ -30,10 +30,6 @@
     <item quantity="other">da quì à %s anni</item>
   </plurals>
   <string name="rightNow">avà</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s seconda fà</item>
-    <item quantity="other">%s seconde fà</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minutu fà</item>
     <item quantity="other">%s minuti fà</item>
