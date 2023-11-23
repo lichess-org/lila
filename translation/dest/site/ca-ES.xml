@@ -701,9 +701,9 @@
   <string name="keyNextBranch">Branca següent</string>
   <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>
   <string name="cyclePreviousOrNextVariation">Canvia la variació següent/anterior</string>
-  <string name="toggleGlyphAnnotations">Mostra/activa les anotacions glif</string>
+  <string name="toggleGlyphAnnotations">Mostra/amaga les anotacions glif</string>
   <string name="variationArrowsInfo">Les fletxes de variants et permeten navegar sense utilitzar la llista de moviments.</string>
-  <string name="playSelectedMove">juga el movimient seleccionat</string>
+  <string name="playSelectedMove">juga el moviment seleccionat</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
