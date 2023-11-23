@@ -30,10 +30,6 @@
     <item quantity="other">%s წელში</item>
   </plurals>
   <string name="rightNow">ახლავე</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s წამის წინ</item>
-    <item quantity="other">%s წამის წინ</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s წუთის წინ</item>
     <item quantity="other">%s წუთის წინ</item>
