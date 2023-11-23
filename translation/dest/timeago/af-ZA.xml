@@ -30,10 +30,6 @@
     <item quantity="other">in %s jare</item>
   </plurals>
   <string name="rightNow">nou</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekonde gelede</item>
-    <item quantity="other">%s sekondes gelede</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minuut gelede</item>
     <item quantity="other">%s minute gelede</item>
