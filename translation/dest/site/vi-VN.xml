@@ -454,6 +454,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="movesPlayed">Số nước đi</string>
   <string name="whiteWins">Tỉ lệ trắng thắng</string>
   <string name="blackWins">Tỉ lệ đen thắng</string>
+  <string name="drawRate">Tỉ lệ hòa</string>
   <string name="draws">Hoà</string>
   <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
   <string name="averageOpponent">Xếp hạng trung bình của đối thủ</string>
@@ -474,6 +475,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
+  <string name="setFlair">Đặt biểu tượng của bạn:</string>
+  <string name="youCanHideFlair">Có một cài đặt để ẩn tất cả biểu tượng của người dùng trên toàn bộ trang web.</string>
   <string name="biography">Tiểu sử</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
   <string name="thankYou">Lời cảm ơn!</string>
