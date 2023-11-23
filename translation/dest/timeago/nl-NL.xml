@@ -30,10 +30,6 @@
     <item quantity="other">over %s jaren</item>
   </plurals>
   <string name="rightNow">op dit moment</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s seconde geleden</item>
-    <item quantity="other">%s seconden geleden</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minuut geleden</item>
     <item quantity="other">%s minuten geleden</item>
