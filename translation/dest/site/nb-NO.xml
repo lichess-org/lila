@@ -485,6 +485,7 @@
   <string name="movesPlayed">Spilte trekk</string>
   <string name="whiteWins">Hvit vinner</string>
   <string name="blackWins">Svart vinner</string>
+  <string name="drawRate">Remisrate</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Neste %s turnering:</string>
   <string name="averageOpponent">Gjennomsnittlig motstand</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Etternavn</string>
+  <string name="setFlair">Velg flair:</string>
+  <string name="youCanHideFlair">Det finnes en innstilling for å skjule alle brukerflairer på hele nettstedet.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Takk!</string>
@@ -686,6 +689,7 @@
   <string name="keyboardShortcuts">Tastatursnarveier</string>
   <string name="keyMoveBackwardOrForward">Gå bakover/fremover</string>
   <string name="keyGoToStartOrEnd">Gå til start/slutt</string>
+  <string name="keyCycleSelectedVariation">Endre valgt variant</string>
   <string name="keyShowOrHideComments">Vis/skjul kommentarer</string>
   <string name="keyEnterOrExitVariation">Gå inn i/ut av variant</string>
   <string name="keyRequestComputerAnalysis">Be om maskinanalyse, lær av feilene dine</string>
@@ -693,6 +697,13 @@
   <string name="keyNextBlunder">Neste bukk</string>
   <string name="keyNextMistake">Neste feil</string>
   <string name="keyNextInaccuracy">Neste unøyaktighet</string>
+  <string name="keyPreviousBranch">Forrige gren</string>
+  <string name="keyNextBranch">Neste gren</string>
+  <string name="toggleVariationArrows">Skru variantpiler av eller på</string>
+  <string name="cyclePreviousOrNextVariation">Endre til forrige/neste variant</string>
+  <string name="toggleGlyphAnnotations">Skru symboler i kommentarer av eller på</string>
+  <string name="variationArrowsInfo">Variantpiler lar deg navigere uten å bruke notasjonslisten.</string>
+  <string name="playSelectedMove">spill valgt trekk</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturneringer med ulike tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spill fartsfylte sjakkturneringer! Delta i offisielle, faste turneringer eller lag din egen. Lynsjakk, hurtigsjakk, og andre varianter er tilgjengelig for endeløs sjakkunderholdning.</string>
@@ -971,4 +982,6 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
   <string name="ourEventTips">Tips for arrangementer</string>
+  <string name="instructions">Instruksjoner</string>
+  <string name="showMeEverything">Vis meg alt</string>
 </resources>
