@@ -30,10 +30,6 @@
     <item quantity="other">%s տարի հետո</item>
   </plurals>
   <string name="rightNow">հենց հիմա</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s վայրկյան առաջ</item>
-    <item quantity="other">%s վայրկյան առաջ</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s րոպե առաջ</item>
     <item quantity="other">%s րոպե առաջ</item>
