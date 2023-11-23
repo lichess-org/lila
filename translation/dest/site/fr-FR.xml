@@ -507,6 +507,7 @@
   <string name="firstName">Prénom</string>
   <string name="lastName">Nom</string>
   <string name="setFlair">Choisissez votre émoji :</string>
+  <string name="youCanHideFlair">Un paramètre permet de cacher les émojis d\'un utilisateur sur tout le site.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou région</string>
   <string name="thankYou">Merci !</string>
