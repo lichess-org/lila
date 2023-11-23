@@ -485,6 +485,7 @@
   <string name="movesPlayed">Gespielte Züge</string>
   <string name="whiteWins">Weiße Siege</string>
   <string name="blackWins">Schwarze Siege</string>
+  <string name="drawRate">Remisquote</string>
   <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
+  <string name="setFlair">Setze dein Flair:</string>
+  <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>
   <string name="biography">Profiltext</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Region</string>
   <string name="thankYou">Vielen Dank!</string>
