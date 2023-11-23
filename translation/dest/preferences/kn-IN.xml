@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
   <string name="displayBoardResizeHandle">ಬೋರ್ಡ್ ಮರುಗಾತ್ರದ ಹ್ಯಾಂಡಲ್ ಅನ್ನು ತೋರಿಸಿ</string>
   <string name="onlyOnInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಲ್ಲಿ ಮಾತ್ರ</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">ಆಟದಲ್ಲಿ ಮಾತ್ರ</string>
+  <string name="inGameOnly">ಆಟದಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="blindfoldChess">ಕಣ್ಣುಮುಚ್ಚಿ ಚೆಸ್ (ಅದೃಶ್ಯ ತುಣುಕುಗಳು)</string>
   <string name="chessClock">ಚೆಸ್ ಗಡಿಯಾರ</string>
   <string name="tenthsOfSeconds">ಹತ್ತನೇ ಸೆಕೆಂಡುಗಳು</string>
