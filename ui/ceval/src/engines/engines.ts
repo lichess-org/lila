@@ -149,7 +149,7 @@ export class Engines {
               wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, undefined),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e),
         },
         {
           info: {
@@ -166,7 +166,7 @@ export class Engines {
               js: 'stockfish.wasm.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new SimpleEngine(e, this.status),
+          make: (e: BrowserEngineInfo) => new SimpleEngine(e),
         },
         {
           info: {
@@ -182,7 +182,7 @@ export class Engines {
               js: 'stockfish.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new SimpleEngine(e, this.status),
+          make: (e: BrowserEngineInfo) => new SimpleEngine(e),
         },
       ]
         .filter(
