@@ -650,7 +650,11 @@
   <string name="keyRequestComputerAnalysis">संगणक विश्लेषणासाठी विनतंती करा, तुमच्या चुकांपासून शिका</string>
   <string name="keyNextLearnFromYourMistakes">पुढील (तुमच्या चुकांपासून शिका)</string>
   <string name="keyNextBlunder">पुढील घोडचूक</string>
+  <string name="keyNextMistake">पुढील चूक</string>
   <string name="keyNextInaccuracy">पुढील अयोग्य चाल</string>
+  <string name="keyPreviousBranch">मागील शाखा</string>
+  <string name="keyNextBranch">पुढील शाखा</string>
+  <string name="playSelectedMove">निवडलेली चाल खेळा</string>
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
   <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
@@ -666,6 +670,7 @@
   <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेळाडूंपेक्षा उत्तम आहे.</string>
+  <string name="betterThanPercentPlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे %s रेटिंग नाही.</string>
   <string name="yourRating">आपले गुणांकन</string>
   <string name="cumulative">एकत्रित</string>
@@ -747,6 +752,7 @@
   <string name="invalidFen">अवैध FEN</string>
   <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
+  <string name="notificationsX">%1$s सूचना</string>
   <string name="perfRatingX">गुणांकन: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>

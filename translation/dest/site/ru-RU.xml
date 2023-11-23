@@ -760,6 +760,7 @@
   <string name="keyboardShortcuts">Горячие клавиши</string>
   <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>
+  <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
   <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь на своих ошибках</string>
@@ -767,6 +768,13 @@
   <string name="keyNextBlunder">Следующий зевок</string>
   <string name="keyNextMistake">Следующая ошибка</string>
   <string name="keyNextInaccuracy">Следующая неточность</string>
+  <string name="keyPreviousBranch">Предыдущая ветка</string>
+  <string name="keyNextBranch">Следующая ветка</string>
+  <string name="toggleVariationArrows">Переключить стрелки вариантов</string>
+  <string name="cyclePreviousOrNextVariation">Прокручивать предыдущий/следующий вариант</string>
+  <string name="toggleGlyphAnnotations">Переключить значки аннотации</string>
+  <string name="variationArrowsInfo">Стрелки вариантов позволяют вам перемещаться без использования списка ходов.</string>
+  <string name="playSelectedMove">сыграть выбранный ход</string>
   <string name="newTournament">Новый турнир</string>
   <string name="tournamentHomeTitle">Шахматный турнир по различным вариантам шахмат и контролем времени</string>
   <string name="tournamentHomeDescription">Играйте в быстрые шахматы на турнире! Выбирайте любой из официальных турниров Lichess или создайте свой собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие варианты игры обеспечат вам бесконечное шахматное удовольствие!</string>
@@ -1055,4 +1063,6 @@
   <string name="switchSides">Сменить сторону</string>
   <string name="closingAccountWithdrawAppeal">Закрытие вашей учётной записи отменит ваше обращение</string>
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
+  <string name="instructions">Руководство</string>
+  <string name="showMeEverything">Показать всё</string>
 </resources>

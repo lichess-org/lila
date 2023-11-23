@@ -506,6 +506,7 @@
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
   <string name="biography">Biografi</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="oneUrlPerLine">En URL per rad.</string>
@@ -692,6 +693,8 @@
   <string name="keyNextBlunder">Nästa blunder</string>
   <string name="keyNextMistake">Nästa misstag</string>
   <string name="keyNextInaccuracy">Nästa felaktighet</string>
+  <string name="keyPreviousBranch">Föregående gren</string>
+  <string name="keyNextBranch">Nästa gren</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
   <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
@@ -970,4 +973,5 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="switchSides">Växla sida</string>
   <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
   <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
+  <string name="instructions">Instruktioner</string>
 </resources>

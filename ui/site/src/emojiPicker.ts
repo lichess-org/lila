@@ -1,15 +1,13 @@
 import * as emojis from 'emoji-mart';
 
-export function emojiPicker(element: HTMLElement, close: () => void) {
+export function emojiPicker(
+  element: HTMLElement,
+  close: () => void,
+  onEmojiSelect: (i?: { id: string; src: string }) => void,
+) {
   if (element.classList.contains('emoji-done')) return;
-  const parent = $(element).parent();
   const opts = {
-    onEmojiSelect: (i: any) => {
-      parent.find('input[name="flair"]').val(i.id);
-      parent.find('.user-link .uflair').remove();
-      parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
-      close();
-    },
+    onEmojiSelect,
     onClickOutside: close,
     data: makeEmojiData,
     categories: categories.map(categ => categ[0]),
@@ -25,7 +23,7 @@ export function emojiPicker(element: HTMLElement, close: () => void) {
 }
 
 const makeEmojiData = async () => {
-  const flairUrl = lichess.assetUrl('lifat/flair', { version: '_____1' }); // bump version if a flair is changed only (not added or removed)
+  const flairUrl = lichess.assetUrl('lifat/flair', { version: '_____2' }); // bump version if a flair is changed only (not added or removed)
   const res = await fetch(lichess.assetUrl('lifat/flair/list.txt'));
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);

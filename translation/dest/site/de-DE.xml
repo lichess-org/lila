@@ -971,4 +971,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
+  <string name="showMeEverything">Alles zeigen</string>
 </resources>

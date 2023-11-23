@@ -32,13 +32,17 @@
   <string name="forbiddenPairings">การจับคู่ต้องห้าม</string>
   <string name="newSwiss">ทัวร์นาเมนต์สวิสใหม่</string>
   <string name="swissVsArenaQ">เราควรใช้ทวร์นาเมนต์สวิสแทนสังเวียนตอนไหน</string>
+  <string name="pointsCalculationQ">แต้มถูกคำนวณอย่างไร</string>
   <string name="dutchSystem">ระบบดัตช์</string>
   <string name="lateJoinQ">ผู้เล่นเข้าที่หลังได้ไหม</string>
   <string name="joinOrCreateTeam">เข้าร่วมหรือสร้างทีม</string>
   <string name="nowPlaying">กำลังเล่น</string>
   <string name="startingSoon">กำลังจะเริ่มในเร็ว ๆ นี้</string>
+  <string name="comparison">เปรียบเทียบ</string>
   <string name="numberOfGames">จำนวนเกม</string>
   <string name="pairingSystem">ระบบจับคู่</string>
+  <string name="identicalForbidden">ต้องห้าม</string>
+  <string name="lateJoin">เข้าร่วมช้า</string>
   <string name="pause">การหยุดพัก</string>
   <string name="streaksAndBerserk">คะแนนเมื่อชนะต่อเนื่อง และการ Berserk</string>
   <string name="playYourGames">เล่นเกมของคุณ</string>

@@ -39,7 +39,6 @@ export interface ChatData {
   loginRequired: boolean;
   restricted: boolean;
   palantir: boolean;
-  domVersion: number;
   hostId?: string;
 }
 
@@ -77,6 +76,7 @@ export interface ViewModel {
   autofocus: boolean;
   timeout: boolean;
   writeable: boolean;
+  domVersion: number;
 }
 
 export interface NoteOpts {

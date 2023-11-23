@@ -25,7 +25,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
     hasMod = !!ctrl.moderation;
   const vnodes = [
     h(
-      `ol.mchat__messages.chat-v-${ctrl.data.domVersion}${hasMod ? '.as-mod' : ''}`,
+      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
       {
         attrs: {
           role: 'log',

@@ -70,6 +70,7 @@
   <string name="makeMainLine">Gjør til hovedvariant</string>
   <string name="deleteFromHere">Slett herfra</string>
   <string name="forceVariation">Vis som variant</string>
+  <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
