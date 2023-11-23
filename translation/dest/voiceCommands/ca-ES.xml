@@ -10,7 +10,7 @@
   <string name="instructions6">%s explica la configuració del moviment per veu en més detall.</string>
   <string name="thisBlogPost">Aquesta entrada del blog</string>
   <string name="moveToE4OrSelectE4Piece">Moure a e4 o seleccionar la peça d\'e4</string>
-  <string name="selectOrCaptureABishop">Seleccionar o capturar l\'alfil</string>
+  <string name="selectOrCaptureABishop">Seleccionar o capturar un alfil</string>
   <string name="takeRookWithQueen">Capturar una torre amb la dama</string>
   <string name="castle">Enrocar (a qualsevol flanc)</string>
   <string name="phoneticAlphabetIsBest">L\'alfabet fonètic és el millor</string>
