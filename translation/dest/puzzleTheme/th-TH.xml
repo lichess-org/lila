@@ -39,6 +39,7 @@
   <string name="deflection">การดึงดูด</string>
   <string name="discoveredAttack">เปิดเผยการโจมตี</string>
   <string name="doubleCheck">ดับเบิ้ลรุก</string>
+  <string name="doubleCheckDescription">รุกด้วยหมากสองตัวในคราเดียวกันทำให้เป็นการเปิดโจมตี โดยหมากตัวที่ถูกเดินในตานี้และหมากที่อยู่ข้างหลังหมากตัวที่เดินทำการรุกคิงพร้อมกัน</string>
   <string name="endgame">ท้ายเกม</string>
   <string name="exposedKing">คิงที่เปิดเผย</string>
   <string name="fork">การโจมตีสองทาง</string>

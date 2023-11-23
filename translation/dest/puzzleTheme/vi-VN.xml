@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">Chiếu bằng hai quân một lúc, là kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
-  <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một con tốt có thể ăn một con tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
+  <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một quân tốt có thể ăn một quân tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
   <string name="exposedKing">Vua bị hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
   <string name="fork">Tấn công đôi</string>

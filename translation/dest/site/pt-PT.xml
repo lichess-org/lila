@@ -700,6 +700,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="toggleVariationArrows">Ativar/desactivar seta da variante</string>
   <string name="cyclePreviousOrNextVariation">Ciclo anterior/próxima variante</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações com símbolos</string>
+  <string name="playSelectedMove">jogar o movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
   <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, Rápida, Clássica, Chess960, Rei da Colina, Três Xeques e mais opções disponíveis para uma diversão ilimitada.</string>
@@ -978,4 +979,6 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar a tua conta anula o teu apelo</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
+  <string name="instructions">Instruções</string>
+  <string name="showMeEverything">Mostra-me tudo</string>
 </resources>
