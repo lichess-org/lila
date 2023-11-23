@@ -486,6 +486,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="movesPlayed">Trekk spela</string>
   <string name="whiteWins">Kvit vinn</string>
   <string name="blackWins">Svart vinn</string>
+  <string name="drawRate">Remis-rate</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Neste %s turnering:</string>
   <string name="averageOpponent">Gjennomsnittleg motstand</string>
