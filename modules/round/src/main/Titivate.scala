@@ -15,7 +15,6 @@ import lila.round.actorApi.round.{ Abandon, QuietFlag }
 final private[round] class Titivate(
     tellRound: TellRound,
     gameRepo: GameRepo,
-    bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi
 )(using akka.stream.Materializer)
     extends Actor:
@@ -91,7 +90,7 @@ final private[round] class Titivate(
             tellRound(game.id, Abandon)
 
         case game if game.unplayed =>
-          bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+          lila.common.Bus.publish(lila.hub.actorApi.round.DeleteUnplayed(game.id), "roundUnplayed")
           chatApi.remove(game.id into ChatId)
           gameRepo remove game.id
 

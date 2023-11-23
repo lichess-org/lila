@@ -162,6 +162,9 @@ final class ChallengeApi(
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
 
+  def removeByGameId(gameId: GameId): Funit =
+    repo.byId(gameId into Id).flatMap(_ so remove)
+
   private def isLimitedByMaxPlaying(c: Challenge) =
     if c.hasClock then fuFalse
     else
