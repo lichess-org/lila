@@ -146,7 +146,7 @@
   <string name="draw">یەکسان</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s یاریزان</item>
-    <item quantity="other">%s یاریزانان</item>
+    <item quantity="other">%s یاریزان</item>
   </plurals>
   <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
   <string name="fiftyMovesWithoutProgress">پەنجا جوڵە بەبێ هیچ پێشکەوتنێک</string>
@@ -174,7 +174,7 @@
   <string name="forum">مەکۆ</string>
   <string name="xPostedInForumY">%1$s لەسەر بابەت پۆستێکی کرد %2$s</string>
   <string name="latestForumPosts">دواین پۆستەکانی مەکۆ</string>
-  <string name="players">یاریزانان</string>
+  <string name="players">یاریزانەکان</string>
   <string name="friends">هاوڕێکان</string>
   <string name="discussions">گفتوگۆکان</string>
   <string name="today">ئەمڕۆ</string>
@@ -513,7 +513,7 @@
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
   <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>
-  <string name="onlinePlayers">یاریزانەکانی سەرهێڵ</string>
+  <string name="onlinePlayers">یاریزانانی سەرهێڵ</string>
   <string name="activePlayers">یاریزانە چالاکەکان</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ئاگاداربن، یارییەکە هەڵسەنگاندنی بۆ کراوە بەڵام کاتێکی دیاریکراوی نییە!</string>
   <string name="success">سەرکەوتن</string>
@@ -748,7 +748,7 @@
   <string name="zeroAdvertisement">بەبێ بوونی رێکلام</string>
   <string name="fullFeatured">بە تەواوی تایبەتمەندی</string>
   <string name="phoneAndTablet">مۆبایل و تابلێت</string>
-  <string name="bulletBlitzClassical">بووڵێت، بلێتز، کلاسیک</string>
+  <string name="bulletBlitzClassical">بووڵێت، ئاگرین، کلاسیک</string>
   <string name="correspondenceChess">نامەناردن بە شەترەنج</string>
   <string name="onlineAndOfflinePlay">یاری ئۆنلاین و بێ ئینتەرنێت</string>
   <string name="viewTheSolution">سەیری شیکردنەوەکە بکە</string>
@@ -868,7 +868,7 @@
   <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">بڵیتز\"خێرا\"</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ئاگرین\"بڵیتز\"</string>
   <string name="rapid">خێرا</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">یارییە شێتانە خێراکان: کەمتر لە ٣٠ چرکە</string>

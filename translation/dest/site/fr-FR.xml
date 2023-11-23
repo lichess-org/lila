@@ -693,6 +693,13 @@
   <string name="keyNextBlunder">Gaffe suivante</string>
   <string name="keyNextMistake">Erreur suivante</string>
   <string name="keyNextInaccuracy">Imprécision suivante</string>
+  <string name="keyPreviousBranch">Branche précédente</string>
+  <string name="keyNextBranch">Branche suivante</string>
+  <string name="toggleVariationArrows">Activer/désactiver les flèches de variantes</string>
+  <string name="cyclePreviousOrNextVariation">Variante précédente/suivante</string>
+  <string name="toggleGlyphAnnotations">Activer/désactiver les annotations en symboles</string>
+  <string name="variationArrowsInfo">Les flèches de variantes vous permettent de naviguer sans utiliser la liste des coups.</string>
+  <string name="playSelectedMove">jouer le coup sélectionné</string>
   <string name="newTournament">Nouveau tournoi</string>
   <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
@@ -971,4 +978,6 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="switchSides">Changer de couleur</string>
   <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
   <string name="ourEventTips">Nos conseils pour l\'organisation d\'événements</string>
+  <string name="instructions">Instructions</string>
+  <string name="showMeEverything">Tout afficher</string>
 </resources>

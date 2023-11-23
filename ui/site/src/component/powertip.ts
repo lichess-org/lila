@@ -175,14 +175,14 @@ const defaults: Options = {
 };
 
 const smartPlacementLists: { [key: string]: string[] } = {
-  n: ['n', 'ne', 'nw', 's'],
-  e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
-  s: ['s', 'se', 'sw', 'n'],
-  w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
-  nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
-  ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
-  sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-  se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
+  n: ['n', 'ne', 'nw', 's', 'se', 'sw', 'e', 'w'],
+  e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's'],
+  s: ['s', 'se', 'sw', 'n', 'ne', 'nw', 'e', 'w'],
+  w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's'],
+  nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw', 'e'],
+  ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne', 'w'],
+  sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw', 'e'],
+  se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se', 'w'],
 };
 
 /**
@@ -704,7 +704,6 @@ function getViewportCollisions(coords: Coords, elementWidth: number, elementHeig
     viewportBottom = viewportTop + session.windowHeight,
     viewportRight = viewportLeft + session.windowWidth;
   let collisions = Collision.none;
-
   if (
     coords.top < viewportTop ||
     Math.abs(Number(coords.bottom) - session.windowHeight) - elementHeight < viewportTop
@@ -723,6 +722,5 @@ function getViewportCollisions(coords: Coords, elementWidth: number, elementHeig
   if (Number(coords.left) + elementWidth > viewportRight || coords.right < viewportLeft) {
     collisions |= Collision.right;
   }
-
   return collisions;
 }

@@ -2,15 +2,12 @@ import { Protocol } from '../protocol';
 import { Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
 
 export class SimpleEngine implements CevalEngine {
-  private failed = false;
+  private failed: Error;
   private protocol = new Protocol();
   private worker: Worker | undefined;
   url: string;
 
-  constructor(
-    readonly info: BrowserEngineInfo,
-    readonly progress?: (download?: { bytes: number; total: number }) => void,
-  ) {
+  constructor(readonly info: BrowserEngineInfo) {
     this.url = `${info.assets.root}/${info.assets.js}`;
   }
 
@@ -40,8 +37,7 @@ export class SimpleEngine implements CevalEngine {
         'error',
         err => {
           console.error(err);
-          this.failed = true;
-          this.progress?.();
+          this.failed = err.error;
         },
         true,
       );

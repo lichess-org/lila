@@ -695,6 +695,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="keyboardShortcuts">Diräkti Taschtebefehl</string>
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
+  <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
   <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
   <string name="keyRequestComputerAnalysis">Computeranalyse afordere, Lern us dine Fähler</string>

@@ -61,7 +61,7 @@ Không cần phong cấp đâu.</string>
 Nhưng không cần phải phong cấp đâu.</string>
   <string name="pawnComplete">Chúc mừng! Bạn đã nắm mọi bí mật của quân Tốt.</string>
   <string name="pawnPromotion">Phong cấp cho Tốt</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Con Tốt của bạn đã đến bên kia của bàn cờ rồi đấy!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Quân Tốt của bạn đã đến bên kia của bàn cờ rồi đấy!</string>
   <string name="itNowPromotesToAStrongerPiece">Bây giờ nó cần phải được phong cấp lên một quân mạnh hơn.</string>
   <string name="selectThePieceYouWant">Chọn quân mà bạn muốn!</string>
   <string name="fundamentals">Nguyên tắc cơ bản</string>
@@ -75,7 +75,7 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="protection">Phòng thủ</string>
   <string name="keepYourPiecesSafe">Giữ an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân đang bị đối thủ tấn công và phòng thủ cho chúng!</string>
-  <string name="protectionComplete">Chúc mừng! Quân cờ không bị mất là quân cờ giành chiến thắng!</string>
+  <string name="protectionComplete">Chúc mừng! Quân cờ của bạn không bị mất là quân cờ của bạn thắng!</string>
   <string name="escape">Bạn đang bị tấn công! 
 Hãy thoát khỏi mối đe dọa đó!</string>
   <string name="noEscape">Không có nước để chạy thoát, 
@@ -161,7 +161,7 @@ Hãy bắt tốt qua đường.</string>
   <string name="enPassantOnlyWorksImmediately">Bắt tốt qua đường chỉ xảy ra
 ngay lập tức sau khi đối thủ
 di chuyển quân tốt.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Bắt tốt qua đường chỉ xảy ra
+  <string name="enPassantOnlyWorksOnFifthRank">Bắt tốt qua đường chỉ xẩy ra
 nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="takeAllThePawnsEnPassant">Bắt tất các các quân tốt bằng bắt tốt qua đường!</string>
   <string name="enPassantComplete">Xin chúc mừng! Bây giờ bạn có thể bắt tốt qua đường.</string>

@@ -1,3 +1,5 @@
+import { type Dialog, domDialog } from 'common/dialog';
+
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 }
@@ -33,3 +35,24 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
     }
   }
 };
+
+export function showEngineError(engine: string, error: string) {
+  domDialog({
+    class: 'engine-error',
+    htmlText:
+      `<h2>${lichess.escapeHtml(engine)} <bad>error</bad></h2><pre tabindex="0" class="err">` +
+      `${lichess.escapeHtml(error)}</pre><h2>Things to try</h2><ul>` +
+      '<li>Decrease memory slider in engine settings</li><li>Clear site settings for lichess.org</li>' +
+      '<li>Select another engine</li><li>Update your browser</li></ul>',
+  }).then((dlg: Dialog) => {
+    const select = () =>
+      setTimeout(() => {
+        const range = document.createRange();
+        range.selectNodeContents(dlg.view.querySelector('.err')!);
+        window.getSelection()?.removeAllRanges();
+        window.getSelection()?.addRange(range);
+      }, 0);
+    dlg.view.querySelector('.err')?.addEventListener('focus', select);
+    dlg.showModal();
+  });
+}

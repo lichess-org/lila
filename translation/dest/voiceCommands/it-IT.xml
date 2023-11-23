@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="watchTheVideoTutorial">Guarda il video tutorial</string>
+  <string name="takeRookWithQueen">Prendi la torre con la regina</string>
+  <string name="castle">Arrocco (entrambi i lati)</string>
+  <string name="turnOffVoiceRecognition">Disattiva il riconoscimento vocale</string>
+  <string name="showPuzzleSolution">Mostra la soluzione del puzzle</string>
+</resources>

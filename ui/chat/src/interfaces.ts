@@ -1,5 +1,4 @@
 import { VNode } from 'snabbdom';
-import { PresetCtrl } from './preset';
 import { Prop } from 'common';
 
 import type { Palantir } from 'palantir';
@@ -40,7 +39,6 @@ export interface ChatData {
   loginRequired: boolean;
   restricted: boolean;
   palantir: boolean;
-  domVersion: number;
   hostId?: string;
 }
 
@@ -64,24 +62,6 @@ export interface Permissions {
 
 export type Tab = string;
 
-export interface Ctrl {
-  data: ChatData;
-  opts: ChatOpts;
-  vm: ViewModel;
-  allTabs: Tab[];
-  preset: PresetCtrl;
-  note?: NoteCtrl;
-  moderation(): ModerationCtrl | undefined;
-  post(text: string): boolean;
-  trans: Trans;
-  setTab(tab: Tab): void;
-  setEnabled(v: boolean): void;
-  plugin?: ChatPlugin;
-  palantir: ChatPalantir;
-  redraw: Redraw;
-  destroy(): void;
-}
-
 export interface ChatPalantir {
   instance?: Palantir;
   loaded: boolean;
@@ -96,6 +76,7 @@ export interface ViewModel {
   autofocus: boolean;
   timeout: boolean;
   writeable: boolean;
+  domVersion: number;
 }
 
 export interface NoteOpts {

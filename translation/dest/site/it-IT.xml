@@ -694,6 +694,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyNextBlunder">Prossimo grave errore</string>
   <string name="keyNextMistake">Prossimo errore</string>
   <string name="keyNextInaccuracy">Prossima imprecisione</string>
+  <string name="playSelectedMove">gioca la mossa selezionata</string>
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
   <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
@@ -972,4 +973,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="switchSides">Cambia colore</string>
   <string name="closingAccountWithdrawAppeal">Se cancelli il tuo account il tuo appello sarà ritirato</string>
   <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
+  <string name="instructions">Istruzioni</string>
+  <string name="showMeEverything">Mostra tutto</string>
 </resources>
