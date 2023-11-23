@@ -65,17 +65,14 @@ object mini:
     )
 
   private def renderResult(pov: Pov) =
-    span(cls := "mini-game__result")(
-      pov.game.winnerColor.fold("½") { c =>
+    span(cls := "mini-game__result"):
+      pov.game.winnerColor.fold("½"): c =>
         if c == pov.color then "1" else "0"
-      }
-    )
 
   private def renderClock(clock: chess.Clock, color: chess.Color) =
     val s = clock.remainingTime(color).roundSeconds
     span(
       cls      := s"mini-game__clock mini-game__clock--${color.name}",
       dataTime := s
-    )(
+    ):
       f"${s / 60}:${s % 60}%02d"
-    )
