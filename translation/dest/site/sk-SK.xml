@@ -551,6 +551,7 @@
   <string name="movesPlayed">Odohraných ťahov</string>
   <string name="whiteWins">Výhry ako biely</string>
   <string name="blackWins">Výhry ako čierny</string>
+  <string name="drawRate">Pomer remíz</string>
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
@@ -571,6 +572,8 @@
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
   <string name="lastName">Priezvisko</string>
+  <string name="setFlair">Nastavte si svoju ikonku štýlu:</string>
+  <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
   <string name="biography">Životopis</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Krajina alebo región</string>
   <string name="thankYou">Ďakujeme!</string>
