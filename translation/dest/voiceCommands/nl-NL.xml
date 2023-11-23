@@ -2,5 +2,13 @@
 <resources>
   <string name="voiceCommands">Spraakopdrachten</string>
   <string name="watchTheVideoTutorial">Bekijk de videohandleiding</string>
-  <string name="instructions1">Gebruik de knop %1$s om spraakherkenning aan/uit te zetten, de knop %2$s om dit hulp-scherm te openen en het %3$s menu om spraak-instellingen te wijzigen.</string>
+  <string name="instructions1">Gebruik knop %1$s om spraakherkenning aan/uit te zetten, knop %2$s om dit hulpscherm te openen en menu %3$s om spraakinstellingen te wijzigen.</string>
+  <string name="moveToE4OrSelectE4Piece">Zet naar e4 of selecteer stuk op e4</string>
+  <string name="selectOrCaptureABishop">Selecteer of sla een loper</string>
+  <string name="takeRookWithQueen">Sla de toren met dame</string>
+  <string name="castle">Rokeren (kort of lang)</string>
+  <string name="cancelTimerOrDenyARequest">Timer annuleren of een verzoek weigeren</string>
+  <string name="playPreferredMoveOrConfirmSomething">Speel voorkeurszet of bevestig iets</string>
+  <string name="turnOffVoiceRecognition">Spraakherkenning uitzetten</string>
+  <string name="showPuzzleSolution">Toon puzzeloplossing</string>
 </resources>
