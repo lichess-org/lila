@@ -71,6 +71,12 @@ export class ZeroBot implements Libot {
   }
 }
 
+const dimensions = {
+  aggression: 0,
+  zeroFit: 1,
+  survival: 2,
+  threshhold: 3,
+};
 const defaultCfg: ZeroBotConfig = {
   fishMix: 0, // [0 zero, 1 fish]
   cpBias: 0,
@@ -80,7 +86,7 @@ const defaultCfg: ZeroBotConfig = {
   aggression: 0.5, // [0 passive, 1 aggressive]
 };
 
-const prices: { [r: Chops.Role]: number } = {
+const prices: { [role in Chops.Role]?: number } = {
   pawn: 1,
   knight: 2.8,
   bishop: 3,
