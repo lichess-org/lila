@@ -66,7 +66,7 @@ object tourForm:
       case None => main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data])(using PageContext) = frag(
+  private def inner(form: Form[Data])(using Context) = frag(
     div(cls := "form-group")(bits.howToUse),
     form3.globalError(form),
     form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),
