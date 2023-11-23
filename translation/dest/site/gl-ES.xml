@@ -485,6 +485,7 @@
   <string name="movesPlayed">Movementos xogados</string>
   <string name="whiteWins">Vitorias das brancas</string>
   <string name="blackWins">Vitorias das negras</string>
+  <string name="drawRate">Taxa de táboas</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
+  <string name="setFlair">Escolle a túa habelencia:</string>
+  <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
   <string name="thankYou">Grazas!</string>
