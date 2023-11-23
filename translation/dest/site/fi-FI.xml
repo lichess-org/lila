@@ -485,6 +485,7 @@
   <string name="movesPlayed">Siirtoja</string>
   <string name="whiteWins">Valkean voittoja</string>
   <string name="blackWins">Mustan voittoja</string>
+  <string name="drawRate">Tasapelien osuus</string>
   <string name="draws">Tasapelejä</string>
   <string name="nextXTournament">Seuraava %s-turnaus:</string>
   <string name="averageOpponent">Keskimääräinen vastustaja</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
+  <string name="setFlair">Valitse tyylisi:</string>
+  <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
   <string name="biography">Kuvaus</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai alue</string>
   <string name="thankYou">Kiitos!</string>
@@ -685,6 +688,7 @@
   <string name="keyboardShortcuts">Pikanäppäimet</string>
   <string name="keyMoveBackwardOrForward">siirry eteenpäin/taaksepäin</string>
   <string name="keyGoToStartOrEnd">siirry alkuun/loppuun</string>
+  <string name="keyCycleSelectedVariation">Vaihda valittu muunnelma</string>
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
   <string name="keyRequestComputerAnalysis">Pyydä tietokoneanalyysiä, opi virheistäsi</string>
@@ -692,7 +696,10 @@
   <string name="keyNextBlunder">Seuraava vakava virhe</string>
   <string name="keyNextMistake">Seuraava virhe</string>
   <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
+  <string name="keyPreviousBranch">Edellinen haara</string>
+  <string name="keyNextBranch">Seuraava haara</string>
   <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
+  <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
   <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
   <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
   <string name="playSelectedMove">tee valittu siirto</string>
