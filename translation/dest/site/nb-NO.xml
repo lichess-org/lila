@@ -658,8 +658,10 @@
   <string name="simultaneousExhibitions">Simultanoppvisninger</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>
+  <string name="yourPendingSimuls">Dine ventende simultaner</string>
   <string name="createdSimuls">Nylig opprettede simultaner</string>
   <string name="hostANewSimul">Opprett en simultan</string>
+  <string name="signUpToHostOrJoinASimul">Registrer deg for å være vert for eller deltaker i en simultan</string>
   <string name="noSimulFound">Simultan ikke funnet</string>
   <string name="noSimulExplanation">Denne simultanoppvisningen eksisterer ikke.</string>
   <string name="returnToSimulHomepage">Returner til simultanhjemmesiden</string>
