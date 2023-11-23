@@ -2,7 +2,9 @@
 <resources>
   <string name="voiceCommands">Ordres de veu</string>
   <string name="watchTheVideoTutorial">Veure el videotutorial</string>
+  <string name="instructions1">Utilitza el botó %1$s per activar/desactivar el reconeixement per veu, el botó %2$s per obrir aquesta ajuda, i el botó %3$s per canviar la configuració de la veu.</string>
   <string name="instructions2">Mostrem fletxes de múltiples moviments quan no estem segurs. Digues el color o el número de la fletxa d\'un moviment per seleccionar-lo.</string>
+  <string name="instructions3">Si una fletxa mostra un radar escombra, aquest moviment es jugarà quan el cercle es completi. Durant aquest temps, podeu dir %1$s per moure immediatament, %2$s per cancel·lar o digueu el color/número d\'una altra fletxa. Aquest temporitzador es pot ajustar o desactivar des de la configuració.</string>
   <string name="instructions4">Activeu %s en entorns sorollosos. Mantingueu polsada la tecla shift mentre parleu quan això està activat.</string>
   <string name="instructions5">Utilitzeu l\'alfabet fonètic per millorar el reconeixement de fitxers de taulers d\'escacs. </string>
   <string name="instructions6">%s explica la configuració del moviment per veu en més detall.</string>
