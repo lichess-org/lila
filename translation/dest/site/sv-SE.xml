@@ -688,6 +688,7 @@
   <string name="keyboardShortcuts">Snabbkommandon</string>
   <string name="keyMoveBackwardOrForward">bakåtdrag/framåtdrag</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
+  <string name="keyCycleSelectedVariation">Cykla vald variant</string>
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
   <string name="keyRequestComputerAnalysis">Begär datoranalys, lär av dina misstag</string>
@@ -698,6 +699,7 @@
   <string name="keyPreviousBranch">Föregående gren</string>
   <string name="keyNextBranch">Nästa gren</string>
   <string name="toggleVariationArrows">Växla variationspilar</string>
+  <string name="cyclePreviousOrNextVariation">Cykla föregående/nästa variant</string>
   <string name="playSelectedMove">spela markerat drag</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
