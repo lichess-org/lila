@@ -689,6 +689,7 @@
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
+  <string name="keyCycleSelectedVariation">Durch die ausgewählte Variation schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
   <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
@@ -696,6 +697,13 @@
   <string name="keyNextBlunder">Der nächste grobe Patzer</string>
   <string name="keyNextMistake">Der nächste Fehler</string>
   <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
+  <string name="keyPreviousBranch">Vorherige Verzweigung</string>
+  <string name="keyNextBranch">Nächste Verzweigung</string>
+  <string name="toggleVariationArrows">Variationspfeile an/auschalten</string>
+  <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
+  <string name="toggleGlyphAnnotations">Glyph-Anmerkungen umschalten</string>
+  <string name="variationArrowsInfo">Mit Variationspfeilen navigierst du durch die Zugliste.</string>
+  <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
@@ -974,5 +982,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
+  <string name="instructions">Anweisungen</string>
   <string name="showMeEverything">Alles zeigen</string>
 </resources>
