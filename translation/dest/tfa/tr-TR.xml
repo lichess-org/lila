@@ -2,6 +2,7 @@
 <resources>
   <string name="twoFactorAuth">İki faktörlü kimlik doğrulama</string>
   <string name="twoFactorHelp">İki faktörlü kimlik doğrulama, hesabınıza başka bir güvenlik katmanı ekler.</string>
+  <string name="twoFactorAppRecommend">İki aşamalı doğrulama için bir uygulama indir. Biz bu uygulamaları öneriyoruz:</string>
   <string name="scanTheCode">QR kodunu uygulama ile tarayın.</string>
   <string name="enterPassword">Kurulumu tamamlamak için şifrenizi ve uygulama tarafından oluşturulan kimlik doğrulama kodunu girin. Her oturum açtığınızda bir kimlik doğrulama koduna ihtiyacınız olacak.</string>
   <string name="ifYouCannotScanEnterX">Kodu taratmanız mümkün değilse, uygulamanıza süper gizli %s kodunu girin.</string>
