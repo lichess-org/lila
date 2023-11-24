@@ -21,11 +21,12 @@
   "devDependencies": {
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
-    "typescript": "^4"
+    "typescript": "^5"
   },
   "dependencies": {
+    "@badrap/result": "^0.2",
     "common": "2.0.0",
-    "shogiops": "^0.14.4",
+    "shogiops": "^0.15.0",
     "snabbdom": "^3.5.1",
     "idb-keyval": "^6.1.0"
   }

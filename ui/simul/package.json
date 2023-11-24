@@ -14,7 +14,7 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "rollup": "^2",
-    "typescript": "^4"
+    "typescript": "^5"
   },
   "dependencies": {
     "chat": "2.0.0",

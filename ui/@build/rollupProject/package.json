@@ -12,6 +12,6 @@
     "rollup": "^2",
     "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.4.0",
-    "typescript": "^4"
+    "typescript": "^5"
   }
 }

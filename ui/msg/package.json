@@ -10,7 +10,7 @@
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
     "rollup": "^2",
-    "typescript": "^4"
+    "typescript": "^5"
   },
   "dependencies": {
     "common": "2.0.0",

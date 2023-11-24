@@ -16,13 +16,13 @@
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
     "rollup": "^2",
-    "typescript": "^4"
+    "typescript": "^5"
   },
   "dependencies": {
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
-    "shogiground": "^0.7.1",
+    "shogiground": "^0.8.3",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

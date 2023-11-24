@@ -22,15 +22,15 @@
     "yarn": "^1"
   },
   "dependencies": {
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.5",
-    "@typescript-eslint/parser": "^5.30.5",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
     "eslint": "^8",
-    "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2",
-    "typescript": "^4"
+    "eslint-config-prettier": "^9",
+    "prettier": "^3",
+    "typescript": "^5"
   },
   "workspaces": [
     "ui",
