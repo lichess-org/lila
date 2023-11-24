@@ -39,9 +39,9 @@
   <string name="reportMobileIssue">Ως πρόβλημα της εφαρμογής για κινητά στο GitHub</string>
   <string name="reportBugInDiscord">Στον διακομιστή Discord του Lichess</string>
   <string name="howToReportBug">Περιγράψτε το σφάλμα, τι περιμένατε να συμβεί κανονικά, και τα βήματα για αναπαραγωγή του σφάλματος.</string>
-  <string name="illegalPawnCapture">Μη νόμιμο κόψιμο πιονιού</string>
-  <string name="calledEnPassant">Ονομάζεται \"en passant\" και είναι ένας από τους κανόνες του σκακιού.</string>
-  <string name="tryEnPassant">Δοκιμάστε αυτό το μικρό διαδραστικό μάθημα για να μάθετε περισσότερα για το \"en passant\".</string>
+  <string name="illegalPawnCapture">Μη νόμιμη αιχμαλώτιση πιονιού</string>
+  <string name="calledEnPassant">Ονομάζεται «en passant» και είναι ένας από τους κανόνες του σκακιού.</string>
+  <string name="tryEnPassant">Δοκιμάστε αυτό το μικρό διαδραστικό μάθημα για να μάθετε περισσότερα για το «en passantͺ».</string>
   <string name="illegalCastling">Μη νόμιμο ή αδύνατο ροκέ</string>
   <string name="castlingPrevented">Το ροκέ δεν επιτρέπεται αν ο βασιλιάς διέρχεται από τετράγωνο που καλύπτει αντίπαλο κομμάτι.</string>
   <string name="castlingRules">Βεβαιωθείτε ότι καταλαβαίνετε τους κανόνες του ροκέ</string>
