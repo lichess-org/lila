@@ -485,7 +485,7 @@
   <string name="movesPlayed">Gespeelde zetten</string>
   <string name="whiteWins">Overwinningen met wit</string>
   <string name="blackWins">Overwinningen met zwart</string>
-  <string name="drawRate">Percentage gelijkspel</string>
+  <string name="drawRate">Remisepercentage</string>
   <string name="draws">Remises</string>
   <string name="nextXTournament">Volgend %s-toernooi:</string>
   <string name="averageOpponent">Gemiddelde tegenstander</string>
@@ -506,6 +506,8 @@
   <string name="editProfile">Pas profiel aan</string>
   <string name="firstName">Voornaam</string>
   <string name="lastName">Achternaam</string>
+  <string name="setFlair">Stel je flair in:</string>
+  <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of regio</string>
   <string name="thankYou">Bedankt!</string>
@@ -699,6 +701,7 @@
   <string name="keyNextBranch">Volgende vertakking</string>
   <string name="toggleVariationArrows">Schakel variatiepijlen in/uit</string>
   <string name="cyclePreviousOrNextVariation">Bekijk vorige/volgende variant</string>
+  <string name="toggleGlyphAnnotations">Zet glyph-aantekeningen aan of uit</string>
   <string name="variationArrowsInfo">Met de variantpijlen kunt u navigeren zonder de zettenlijst te gebruiken.</string>
   <string name="playSelectedMove">speel geselecteerde zet</string>
   <string name="newTournament">Nieuw toernooi</string>
