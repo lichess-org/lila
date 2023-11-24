@@ -43,7 +43,7 @@ export class StockfishWebEngine implements CevalEngine {
     });
     if (!this.info.id.endsWith('hce')) {
       const nnueStore = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
-      const nnueFilename = module.getRecommendedNnue();
+      const nnueFilename = this.info.assets.nnue ?? module.getRecommendedNnue();
 
       module.onError = (msg: string) => {
         if (msg.startsWith('BAD_NNUE')) {
