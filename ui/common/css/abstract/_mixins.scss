@@ -58,3 +58,25 @@
     flex: 1 1 auto;
   }
 }
+
+@mixin board-width($prop: width) {
+  #{$prop}: calc((100% - #{$hands-gap}) / 11 * 9);
+  .variant-minishogi &,
+  .variant-kyotoshogi & {
+    #{$prop}: calc((100% - #{$hands-gap}) / 7 * 5);
+  }
+  .variant-chushogi & {
+    #{$prop}: calc((100% - #{$hands-gap}) / 11 * 9);
+  }
+}
+
+@mixin hand-width($prop: width) {
+  #{$prop}: calc((100% - #{$hands-gap}) / 11 + #{$hand-gap});
+  .variant-minishogi &,
+  .variant-kyotoshogi & {
+    #{$prop}: calc((100% - #{$hands-gap}) / 7 + #{$hand-gap});
+  }
+  .variant-chushogi & {
+    #{$prop}: calc((100% - #{$hands-gap}) / 11 + #{$hand-gap});
+  }
+}

@@ -40,9 +40,7 @@ export function main(ctrl: RoundController): VNode {
             },
             shogiground.renderBoard(ctrl)
           ),
-          ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'top'),
           ...renderTable(ctrl),
-          ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'bottom'),
           ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
         ]
       );

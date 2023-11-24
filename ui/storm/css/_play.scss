@@ -1,23 +1,16 @@
-.hand {
-  &-top {
-    grid-area: hand-top;
-  }
-  &-bottom {
-    grid-area: hand-bot;
-  }
-}
-
 .storm {
   &--play {
     display: grid;
 
     grid-row-gap: $block-gap;
-    grid-template-areas: 'hand-top' 'board' 'hand-bot' 'side';
+    grid-column-gap: $block-gap;
+    grid-template-areas: 'board' 'side';
 
     @include breakpoint($mq-col2) {
       grid-template-rows: min-content 1fr min-content;
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-      grid-template-areas: 'hand-top . board . hand-bot . side';
+      grid-template-columns: $col2-uniboard-main $gauge-gap $col2-uniboard-table;
+      grid-template-areas: 'board . side';
+      grid-column-gap: 0;
     }
   }
 }

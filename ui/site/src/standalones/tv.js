@@ -142,28 +142,36 @@ function parseSfen($elem) {
       color = $this.data('color'),
       variant = $this.data('variant'),
       ground = $this.data('shogiground'),
-      config = {
-        coordinates: { enabled: false },
-        drawable: { enabled: false, visible: false },
-        viewOnly: true,
-        sfen: { board: sfen, hands: hands },
-        hands: { inlined: true },
-        lastDests: dropOrMove,
-        forsyth: {
-          fromForsyth:
-            variant === 'chushogi'
-              ? chushogiForsythToRole
-              : variant === 'kytotoshogi'
-              ? kyotoshogiForsythToRole
-              : undefined,
-        },
-      };
+      handRoles =
+        variant === 'chushogi'
+          ? []
+          : variant === 'minishogi'
+          ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
+          : variant === 'kyotoshogi'
+          ? ['tokin', 'gold', 'silver', 'pawn']
+          : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
+    config = {
+      coordinates: { enabled: false },
+      drawable: { enabled: false, visible: false },
+      viewOnly: true,
+      sfen: { board: sfen, hands: hands },
+      hands: { handRoles: handRoles, inlined: variant !== 'chushogi' },
+      lastDests: dropOrMove,
+      forsyth: {
+        fromForsyth:
+          variant === 'chushogi'
+            ? chushogiForsythToRole
+            : variant === 'kytotoshogi'
+            ? kyotoshogiForsythToRole
+            : undefined,
+      },
+    };
     if (variant === 'chushogi') loadChushogiPieceSprite();
     else if (variant === 'kyotoshogi') loadKyotoshogiPieceSprite();
     if (color) config.orientation = color;
     if (ground) ground.set(config);
     else {
-      this.innerHTML = '<div class="sg-wrap mini-board"></div>';
+      this.innerHTML = '<div class="sg-wrap"></div>';
       $this.data('shogiground', Shogiground(config, { board: this.firstChild }));
     }
   });

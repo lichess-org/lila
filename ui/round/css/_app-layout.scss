@@ -32,21 +32,17 @@
   @include breakpoint($mq-col1) {
     grid-template-rows:
       auto
-      auto
       $col1-player-clock-height
-      auto
       auto
       auto
       auto;
 
     grid-template-areas:
       'moves'
-      'hand-top'
       'user-top'
       'board'
       'expi-bot'
       'user-bot'
-      'hand-bot'
       'kb-move'
       'controls';
 
@@ -56,10 +52,10 @@
     // This is required to display the overflowable horizontal move list,
     // so that it can be contain within the grid parent.
     .rclock-top {
-      grid-area: 3 / 1 / 3 / 2;
+      grid-area: 2 / 1 / 2 / 2;
     }
     .rclock-bottom {
-      grid-area: 6 / 1 / 6 / 2;
+      grid-area: 5 / 1 / 5 / 2;
     }
 
     sg-board {
@@ -79,12 +75,10 @@
       // replace move list with move confirmation
       grid-template-areas:
         'controls'
-        'hand-top'
         'user-top'
         'board'
         'expi-bot'
         'user-bot'
-        'hand-bot'
         'kb-move';
       .rmoves {
         display: none;
@@ -94,19 +88,19 @@
 
   @include breakpoint($mq-col2) {
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+    grid-template-columns: $col2-uniboard-main $gauge-gap $col3-uniboard-table;
     grid-template-areas:
-      'hand-top  . board    . hand-bot  . clock-top'
-      'hand-top  . board    . hand-bot  . expi-top'
-      'hand-top  . board    . hand-bot  . user-top'
-      'hand-top  . board    . hand-bot  . moves'
-      'hand-top  . board    . hand-bot  . controls'
-      'hand-top  . board    . hand-bot  . user-bot'
-      'hand-top  . board    . hand-bot  . expi-bot'
-      'hand-top  . board    . hand-bot  . clock-bot'
-      '.         . kb-move  . .         . .';
+      'board    . clock-top'
+      'board    . expi-top'
+      'board    . user-top'
+      'board    . moves'
+      'board    . controls'
+      'board    . user-bot'
+      'board    . expi-bot'
+      'board    . clock-bot'
+      'kb-move  . .';
     .round__app__table {
-      grid-area: 2 / 7 / 8 / 8;
+      grid-area: 2 / 3 / 8 / 4;
     }
     .expiration-top {
       display: flex;
@@ -138,19 +132,19 @@
       }
     }
     @include breakpoint($mq-col2-uniboard-squeeze-1) {
-      grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
+      grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
     }
 
     .compact-layout & {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+      grid-template-columns: $col3-uniboard-main $gauge-gap $col3-uniboard-table;
       grid-template-areas:
-        '.         . user-top . .         . expi-top'
-        'hand-top  . board    . hand-bot  . moves'
-        'hand-top  . board    . hand-bot  . moves'
-        'hand-top  . board    . hand-bot  . controls'
-        '.         . user-bot . .         . expi-bot'
-        '.         . kb-move  . .         . .';
+        'user-top . expi-top'
+        'board    . moves'
+        'board    . moves'
+        'board    . controls'
+        'user-bot . expi-bot'
+        'kb-move  . .';
       margin-top: -25px;
       grid-column-gap: 0;
       .rclock-turn {
@@ -159,14 +153,14 @@
       }
       .rclock-top,
       .empty__clock-top {
-        grid-area: 1 / 3 / 2 / 4;
+        grid-area: 1 / 1 / 2 / 2;
       }
       .rclock-bottom,
       .empty__clock-bottom {
-        grid-area: 5 / 3 / 6 / 4;
+        grid-area: 5 / 1 / 6 / 2;
       }
       .round__app__table {
-        grid-area: 2 / 7 / 5 / 8;
+        grid-area: 2 / 3 / 5 / 4;
       }
       .rclock {
         /* that weird shit is required so the clock goes above the player since they share the same grid cell */
@@ -225,7 +219,7 @@
         height: 25px;
       }
       @include breakpoint($mq-col2-uniboard-squeeze-1) {
-        grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
+        grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
       }
     }
 
@@ -234,11 +228,6 @@
         display: flex;
       }
     }
-  }
-
-  @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
-    grid-column-gap: #{$block-gap * 3/2};
   }
 
   &__board {

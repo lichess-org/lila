@@ -525,3 +525,11 @@ sg-squares {
     }
   }
 }
+
+body:not(.hands-background) {
+  .sg-wrap sg-hand {
+    background-image: none;
+    background-color: transparent;
+    border: none;
+  }
+}

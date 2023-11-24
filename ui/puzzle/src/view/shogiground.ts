@@ -18,21 +18,6 @@ export function renderBoard(ctrl: Controller): VNode {
   });
 }
 
-export function renderHand(ctrl: Controller, pos: 'top' | 'bottom'): VNode {
-  return h(`div.sg-hand-wrap.hand-${pos}`, {
-    hook: {
-      insert: vnode => {
-        ctrl.shogiground.attach({
-          hands: {
-            top: pos === 'top' ? (vnode.elm as HTMLElement) : undefined,
-            bottom: pos === 'bottom' ? (vnode.elm as HTMLElement) : undefined,
-          },
-        });
-      },
-    },
-  });
-}
-
 function makeConfig(ctrl: Controller): SgConfig {
   const opts = ctrl.makeSgOpts();
   return {
@@ -105,6 +90,9 @@ function makeConfig(ctrl: Controller): SgConfig {
     animation: {
       enabled: true,
       duration: ctrl.pref.animation.duration,
+    },
+    hands: {
+      inlined: true,
     },
     disableContextMenu: true,
   };

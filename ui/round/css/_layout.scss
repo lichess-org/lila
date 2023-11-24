@@ -22,8 +22,8 @@
     @extend %zen;
     grid-area: under;
     @include breakpoint($mq-col3) {
-      margin-left: calc(#{$square-9} + #{$hand-gap});
-      width: $col3-uniboard-width;
+      @include hand-width(margin-left);
+      @include board-width(width);
     }
   }
   &__underchat {
@@ -53,7 +53,7 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $hand-gap auto;
+    grid-template-columns: $col3-uniboard-side $gauge-gap auto;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'side  . app   app'

@@ -113,7 +113,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
               key: round.puzzle.id,
             },
             [
-              h('a.storm--end__history__round__puzzle.mini-board.sg-wrap', {
+              h('a.storm--end__history__round__puzzle.mini-board', {
                 attrs: {
                   href: `/training/${round.puzzle.id}`,
                   target: '_blank',

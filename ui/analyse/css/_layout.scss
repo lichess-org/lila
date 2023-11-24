@@ -1,7 +1,3 @@
-body {
-  /* prevents scroll bar flicker on page height changes */
-  overflow-y: scroll;
-}
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
@@ -60,7 +56,8 @@ body {
     'uchat';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width $gauge-gap $col2-uniboard-table;
+    grid-template-columns: $col2-uniboard-main $gauge-gap $col2-uniboard-table;
+    
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board      gauge tools'
@@ -71,10 +68,6 @@ body {
       'uchat      .     side';
     grid-row-gap: 0;
 
-    .analyse.variant-chushogi {
-      grid-template-columns: $col2-uniboard-width $gauge-gap $col3-uniboard-table-no-hands;
-    }
-
     &__side,
     .chat__members,
     .mchat {
@@ -83,6 +76,10 @@ body {
 
     &__underboard {
       margin-top: #{$block-gap + 1};
+      .analyse__underboard__panels, .analyse__underboard__menu {
+        @include board-width(width);
+        margin: auto;
+      }
     }
 
     .eval-gauge {
@@ -91,12 +88,13 @@ body {
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $col2-uniboard-squeeze-width $gauge-gap $col2-uniboard-squeeze-table;
+    grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
+
   }
 
   @include breakpoint($mq-col3) {
     grid-template-columns:
-      $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-gap
+      $col3-uniboard-side $block-gap $col3-uniboard-main $gauge-gap
       $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height 2.5em auto;
     grid-template-areas:
@@ -104,12 +102,6 @@ body {
       'chat    . board gauge tools'
       'uchat   . under .     controls'
       'uchat   . under .     acpl';
-
-    .analyse.variant-chushogi {
-      grid-template-columns:
-        $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-gap
-        $col3-uniboard-table-no-hands;
-    }
 
     &__side {
       margin-top: 0;
@@ -119,33 +111,5 @@ body {
     }
 
     @include crosstable-large;
-  }
-}
-
-.analyse.variant-chushogi {
-  @include breakpoint($mq-col2) {
-    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-    grid-template-areas:
-      '. . board . .   gauge tools'
-      '. . under . .   .     controls'
-      '. . under . .   .     acpl'
-      '. . under . .   .     side'
-      '. . chat  . .   .     side'
-      '. . uchat . .   .     side';
-  }
-
-  @include breakpoint($mq-col2-uniboard-squeeze-1) {
-    grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
-  }
-
-  @include breakpoint($mq-col3) {
-    grid-template-columns:
-      $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap
-      $col3-uniboard-table-no-hands;
-    grid-template-areas:
-      'side    . . . board . . gauge tools'
-      'chat    . . . board . . gauge tools'
-      'uchat   . . . under . . .     controls'
-      'uchat   . . . under . . .     acpl';
   }
 }

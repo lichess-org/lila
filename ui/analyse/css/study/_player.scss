@@ -24,6 +24,10 @@ $player-height: 1.6rem;
   font-weight: bold;
   height: $player-height;
   white-space: nowrap;
+  @include breakpoint($mq-col2) {
+    @include hand-width(left);
+    @include board-width(width);
+  }
   &-top {
     @extend %box-radius-top;
     top: #{-$player-height};

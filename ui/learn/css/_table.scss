@@ -1,9 +1,12 @@
 .learn__table {
+  display: flex;
+  align-items: center;
   .wrap {
     @extend %box-neat, %box-radius-force;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    width: 100%;
+    min-height: 55%;
     background: $c-bg-box;
   }
 
@@ -34,11 +37,10 @@
     flex: 1;
     border: $border;
     border-top: none;
-    padding: $block-gap;
+    padding: 3rem $block-gap;
     text-align: center;
     justify-content: center;
     white-space: pre-line;
-    min-height: 5rem;
     font-size: 1.1em;
   }
   .result {
@@ -51,7 +53,6 @@
     text-align: center;
     cursor: pointer;
     @include transition();
-    min-height: 5rem;
     padding: 0;
     font-size: 1.7em;
 

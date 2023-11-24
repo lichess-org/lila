@@ -9,7 +9,7 @@
     .action {
       @extend %box-radius-bottom;
       position: absolute;
-      right: 0;
+      @include hand-width(right);
       top: 100%;
       text-align: right;
       opacity: 0;
@@ -20,13 +20,13 @@
     }
   }
   .name {
-    flex: 0 0 5ch;
+    @include hand-width(width);
     font-weight: bold;
+    text-align: center;
     color: $c-font-dim;
-    margin-right: 0.5rem;
   }
   .copyable {
-    flex: 1 1 auto;
+    @include board-width(width);
   }
   .kif,
   .csa {

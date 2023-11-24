@@ -151,20 +151,6 @@ export default function (ctrl: LearnCtrl): VNode {
         shogigroundBoard(ctrl),
         renderInfo(ctrl),
       ]),
-      h('div.sg-hand-wrap', {
-        hook: {
-          insert: (vnode: VNode) => {
-            ctrl.shogiground.attach({ hands: { top: vnode.elm as HTMLElement } });
-          },
-          destroy: () => {
-            ctrl.shogiground.detach({
-              hands: {
-                top: true,
-              },
-            });
-          },
-        },
-      }),
       h('div.learn__table', [
         h('div.wrap', [
           h('div.title', [
@@ -179,20 +165,6 @@ export default function (ctrl: LearnCtrl): VNode {
           progress(ctrl),
         ]),
       ]),
-      h('div.sg-hand-wrap', {
-        hook: {
-          insert: (vnode: VNode) => {
-            ctrl.shogiground.attach({ hands: { bottom: vnode.elm as HTMLElement } });
-          },
-          destroy: () => {
-            ctrl.shogiground.detach({
-              hands: {
-                bottom: true,
-              },
-            });
-          },
-        },
-      }),
     ]
   );
 }

@@ -252,7 +252,7 @@ function controls(ctrl: AnalyseCtrl) {
       }),
     },
     [
-      ctrl.embed
+      ctrl.embed || ctrl.forecast
         ? null
         : h(
             'div.features' + (!ctrl.synthetic ? '.from-game' : ''),
@@ -403,7 +403,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
           ]
         ),
       gaugeOn && !intro ? cevalView.renderGauge(ctrl) : null,
-      intro || ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'top'),
       gamebookPlayView ||
         (intro
           ? null
@@ -418,7 +417,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-      intro || ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'bottom'),
       gamebookPlayView || intro ? null : controls(ctrl),
       ctrl.embed || intro
         ? null

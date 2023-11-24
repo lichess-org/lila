@@ -46,4 +46,7 @@ $clock-height: 20px;
   tenths {
     font-size: 80%;
   }
+  @include breakpoint($mq-col2) {
+    @include hand-width(right);
+  }
 }

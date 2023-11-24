@@ -33,37 +33,40 @@ export default function (ctrl: LobbyController) {
           attrs: { href: '/' + pov.fullId },
         },
         [
-          h('div.mini-board.sg-wrap', {
-            hook: {
-              insert(vnode) {
-                const lm = pov.lastMove,
-                  variant = pov.variant.key,
-                  splitSfen = pov.sfen.split(' ');
-                Shogiground(
-                  {
-                    coordinates: { enabled: false },
-                    drawable: { enabled: false, visible: false },
-                    viewOnly: true,
-                    orientation: pov.color,
-                    disableContextMenu: false,
-                    sfen: {
-                      board: splitSfen[0],
-                      hands: splitSfen[2],
+          h(
+            'div.mini-board',
+            h('div.sg-wrap', {
+              hook: {
+                insert(vnode) {
+                  const lm = pov.lastMove,
+                    variant = pov.variant.key,
+                    splitSfen = pov.sfen.split(' ');
+                  Shogiground(
+                    {
+                      coordinates: { enabled: false },
+                      drawable: { enabled: false, visible: false },
+                      viewOnly: true,
+                      orientation: pov.color,
+                      disableContextMenu: false,
+                      sfen: {
+                        board: splitSfen[0],
+                        hands: splitSfen[2],
+                      },
+                      hands: {
+                        inlined: variant !== 'chushogi',
+                        roles: handRoles(variant),
+                      },
+                      lastDests: lm ? usiToSquareNames(lm) : undefined,
+                      forsyth: {
+                        fromForsyth: forsythToRole(variant),
+                      },
                     },
-                    hands: {
-                      inlined: true,
-                      roles: handRoles(variant),
-                    },
-                    lastDests: lm ? usiToSquareNames(lm) : undefined,
-                    forsyth: {
-                      fromForsyth: forsythToRole(variant),
-                    },
-                  },
-                  { board: vnode.elm as HTMLElement }
-                );
+                    { board: vnode.elm as HTMLElement }
+                  );
+                },
               },
-            },
-          }),
+            })
+          ),
           h('span.meta', [
             pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Engine', pov.opponent.ai) : pov.opponent.username,
             h(

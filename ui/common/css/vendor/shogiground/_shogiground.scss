@@ -1,9 +1,8 @@
 @import 'board-theme';
-@import 'hands';
 @import 'shapes';
 
 sg-board {
-  @extend %abs-100;
+  @extend %rel-100;
   display: block;
   background-size: cover;
   top: 0;
@@ -89,12 +88,12 @@ piece {
   width: calc(200% / 9);
   height: calc(200% / 9);
   margin: calc(-50% / 11 * 12 / 9) calc(-50% / 9);
-  .d-5x5 & {
+  .d-5x5 sg-board & {
     width: calc(200% / 5);
     height: calc(200% / 5);
     margin: calc(-50% / 11 * 12 / 5) calc(-50% / 5);
   }
-  .d-12x12 & {
+  .d-12x12 sg-board & {
     width: calc(200% / 12);
     height: calc(200% / 12);
     margin: calc(-50% / 11) calc(-50% / 12);
@@ -116,7 +115,8 @@ piece {
     opacity: 0.3;
   }
   &.dragging {
-    cursor: move;
+    cursor: pointer;
+    // pointer-events: auto; // interferes, but cursor has no effect without it
     z-index: z('sg__piece.dragging') !important;
     &.touch {
       top: -50px;
@@ -220,5 +220,108 @@ sg-free-pieces piece {
   }
   to {
     background-color: rgba(20, 85, 30, 0.5);
+  }
+}
+
+sg-hand-wrap {
+  position: relative;
+  sg-hand {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    &.promotion {
+      opacity: 0.6;
+      .hands-background & {
+        opacity: 1;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: #0000003f;
+          z-index: 2;
+        }
+      }
+    }
+
+    sg-hp-wrap {
+      position: relative;
+      flex: 1 0 14%;
+      height: 100%;
+      &.selected {
+        opacity: 1;
+        background-color: rgba(20, 85, 30, 0.5);
+      }
+      &.preselected {
+        opacity: 1;
+        background-color: rgba(20, 30, 85, 0.5);
+      }
+
+      &.current-pre {
+        background-color: rgba(20, 30, 85, 0.5);
+      }
+
+      &[data-nb='0']:not(.drawing),
+      &:not([data-nb]) {
+        opacity: 0.1;
+        .clear-hands & {
+          opacity: 0;
+        }
+      }
+      &:after {
+        @extend %box-radius;
+        content: attr(data-nb);
+        position: absolute;
+        bottom: 2px;
+        right: 1px;
+        line-height: 0.85em;
+        padding: 3px 0.3em;
+        font-weight: bold;
+        font-size: 1.3em;
+        border: 1px solid $c-font;
+        background-color: $c-bg-high;
+        color: $c-font-clearer;
+        cursor: pointer;
+        z-index: 2;
+      }
+      &[data-nb='0']:not(.selected):not(.drawing)::after,
+      &:not([data-nb])::after {
+        content: none;
+      }
+      &.drawing:before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 0;
+        width: 12%;
+        height: 12%;
+        background-color: $c-font-dimmer;
+        border-radius: 50%;
+      }
+
+      piece {
+        cursor: pointer;
+        height: 200%;
+        width: 200%;
+        margin: calc(-50% / 11 * 12) -50%;
+        transform: scale(0.5);
+        pointer-events: auto;
+        z-index: z('sg__hand-piece');
+      }
+    }
+  }
+  &.hand-top sg-hand {
+    background-position: top left;
+  }
+  &.hand-bottom sg-hand {
+    background-position: bottom right;
   }
 }

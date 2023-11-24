@@ -160,46 +160,49 @@ function usiToLastMove(lm?: string): Key[] | undefined {
 
 function makeSg(preview: ChapterPreview): VNode {
   const variant = preview.variant.key;
-  return h(`div.mini-board.sg-wrap.variant-${variant}`, {
-    hook: {
-      insert(vnode) {
-        const sg = Shogiground(
-          {
-            coordinates: { enabled: false },
-            drawable: { enabled: false, visible: false },
-            viewOnly: true,
-            orientation: preview.orientation,
-            sfen: {
-              board: preview.sfen,
-              hands: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
+  return h(
+    'div.mini-board',
+    h(`div.sg-wrap.variant-${variant}`, {
+      hook: {
+        insert(vnode) {
+          const sg = Shogiground(
+            {
+              coordinates: { enabled: false },
+              drawable: { enabled: false, visible: false },
+              viewOnly: true,
+              orientation: preview.orientation,
+              sfen: {
+                board: preview.sfen,
+                hands: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
+              },
+              hands: {
+                inlined: variant !== 'chushogi',
+                roles: handRoles(variant),
+              },
+              lastDests: usiToLastMove(preview.lastMove),
+              forsyth: {
+                fromForsyth: forsythToRole(variant),
+                toForsyth: roleToForsyth(variant),
+              },
             },
-            hands: {
-              inlined: true,
-              roles: handRoles(variant),
-            },
-            lastDests: usiToLastMove(preview.lastMove),
-            forsyth: {
-              fromForsyth: forsythToRole(variant),
-              toForsyth: roleToForsyth(variant),
-            },
-          },
-          { board: vnode.elm as HTMLElement }
-        );
-        vnode.data!.cp = { sg, sfen: preview.sfen };
+            { board: vnode.elm as HTMLElement }
+          );
+          vnode.data!.cp = { sg, sfen: preview.sfen };
+        },
+        postpatch(old, vnode) {
+          if (old.data!.cp.sfen !== preview.sfen) {
+            old.data!.cp.sg.set({
+              sfen: {
+                board: preview.sfen,
+                hands: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
+              },
+              lastDests: usiToLastMove(preview.lastMove),
+            });
+            old.data!.cp.sfen = preview.sfen;
+          }
+          vnode.data!.cp = old.data!.cp;
+        },
       },
-      postpatch(old, vnode) {
-        if (old.data!.cp.sfen !== preview.sfen) {
-          old.data!.cp.sg.set({
-            sfen: {
-              board: preview.sfen,
-              hands: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
-            },
-            lastDests: usiToLastMove(preview.lastMove),
-          });
-          old.data!.cp.sfen = preview.sfen;
-        }
-        vnode.data!.cp = old.data!.cp;
-      },
-    },
-  });
+    })
+  );
 }

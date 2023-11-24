@@ -12,15 +12,18 @@ $mq-col2-uniboard-squeeze-1: $mq-not-medium $mq-landscape;
 $col3-uniboard-side: minmax(220px, 320px);
 $col3-uniboard-controls: 3rem;
 
-$col3-uniboard-width: calc(
+
+$hand-gap: 2vmin;
+$hands-gap: #{2 * $hand-gap};
+
+$col3-uniboard-main: calc(
+  (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 11 + #{$hands-gap}
+);
+$col3-uniboard-main-nohands: calc(
   (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11
 );
 
-$col3-uniboard-table-max: calc(
-  (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 7
-);
-$col3-uniboard-table: minmax(240px, $col3-uniboard-table-max);
-$col3-uniboard-table-no-hands: $col3-uniboard-side;
+$col3-uniboard-table: $col3-uniboard-side;
 
 $col3-uniboard-default-scale: 0.9; // zoom: 85%
 $col3-uniboard-default-min-width: 500px;
@@ -33,23 +36,14 @@ $col3-uniboard-default-table: minmax(240px, 400px);
 $col2-uniboard-table: $col3-uniboard-table;
 
 $col2-uniboard-controls: $col3-uniboard-controls;
-$col2-uniboard-width: $col3-uniboard-width;
+$col2-uniboard-main: $col3-uniboard-main;
+
 $col2-uniboard-default-width: $col3-uniboard-default-width;
 $col2-uniboard-default-table: $col3-uniboard-default-table;
 
-$col2-uniboard-squeeze-table: minmax(160px, $col3-uniboard-table-max);
-$col2-uniboard-squeeze-width: minmax(
-  calc(50vmin),
-  calc((100vh - #{$site-header-outer-height} - #{$block-gap}) / 12 * 11)
-);
-
 $col1-uniboard-controls: $col2-uniboard-controls;
 
-$square-9: calc((100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9);
+$board-squeeze: minmax(50vmin, $col3-uniboard-main);
+$table-squeeze: minmax(100px, 320px);
 
-$board-squeeze: minmax(50vmin, $col3-uniboard-width);
-$square-9-squeeze: minmax(calc(50vmin / 9), $square-9);
-$col3-uniboard-table-no-hands-squeeze: minmax(100px, 320px);
-
-$hand-gap: 2vmin;
 $gauge-gap: 2vmin;

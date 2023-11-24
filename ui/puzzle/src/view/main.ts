@@ -105,7 +105,6 @@ export default function (ctrl: Controller): VNode {
         },
         shogiground.renderBoard(ctrl)
       ),
-      shogiground.renderHand(ctrl, 'top'),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
         // we need the wrapping div here
@@ -120,7 +119,6 @@ export default function (ctrl: Controller): VNode {
         renderAnalyse(ctrl),
         feedbackView(ctrl),
       ]),
-      shogiground.renderHand(ctrl, 'bottom'),
       controls(ctrl),
       session(ctrl),
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,

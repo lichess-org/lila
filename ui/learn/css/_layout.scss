@@ -21,20 +21,10 @@ $mq-col3: $mq-col3-uniboard;
   &__table {
     grid-area: table;
   }
-  .hand {
-    &-top {
-      grid-area: hand-top;
-    }
-    &-bottom {
-      grid-area: hand-bot;
-    }
-  }
 
   &--run {
     grid-template-areas:
-      'hand-top'
       'main'
-      'hand-bot'
       'table'
       'side';
   }
@@ -43,14 +33,19 @@ $mq-col3: $mq-col3-uniboard;
       'side'
       'main';
   }
+  grid-gap: 3vmin;
+  .board-layout-1 &--run {
+    grid-gap: 0;
+    row-gap: 2vmin;
+  }
 
   @include breakpoint($mq-col2) {
     &--run {
       grid-template-rows: fit-content(0);
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $hand-gap $col3-uniboard-table-no-hands;
+      grid-template-columns: $col2-uniboard-main $gauge-gap $col3-uniboard-table;
       grid-template-areas:
-        'hand-top  .    main .  hand-bot . table'
-        'side      side side .  .        . .';
+        'main . table'
+        'side . .';
     }
     &--map {
       grid-template-areas: 'side main';
@@ -64,10 +59,10 @@ $mq-col3: $mq-col3-uniboard;
   @include breakpoint($mq-col3) {
     &--run {
       grid-template-rows: fit-content(0);
-      grid-template-columns: $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+      grid-template-columns: $col3-uniboard-side $gauge-gap $col2-uniboard-main $gauge-gap $col3-uniboard-table;
       grid-template-areas:
-        'side . hand-top . main . hand-bot . table'
-        'side . .        . .    . .        . .';
+        'side . main . table'
+        'side . .    . .';
     }
   }
 }

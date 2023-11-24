@@ -238,14 +238,11 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       ];
 
   const switchButton: VNode | null =
-    ctrl.mandatoryCeval && ctrl.mandatoryCeval()
+    (ctrl.mandatoryCeval && ctrl.mandatoryCeval()) || !instance.analysable
       ? null
       : h(
           'div.switch',
           {
-            class: {
-              disabled: !instance.analysable,
-            },
             attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' },
           },
           [
@@ -477,7 +474,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     },
     hands: {
       roles: handRoles(instance.variant.key),
-      inlined: true,
+      inlined: instance.variant.key !== 'chushogi',
     },
     forsyth: {
       fromForsyth: forsythToRole(instance.variant.key),
@@ -492,12 +489,15 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
       visible: false,
     },
   };
-  const sgVNode = h('div.mini-board.sg-wrap', {
-    hook: {
-      insert: (vnode: any) => (vnode.elm._sg = window.Shogiground(sgConfig, { board: vnode.elm })),
-      update: (vnode: any) => vnode.elm._sg.set(sgConfig),
-      destroy: (vnode: any) => vnode.elm._sg.destroy(),
-    },
-  });
+  const sgVNode = h(
+    'div.mini-board',
+    h('div.sg-wrap', {
+      hook: {
+        insert: (vnode: any) => (vnode.elm._sg = window.Shogiground(sgConfig, { board: vnode.elm })),
+        update: (vnode: any) => vnode.elm._sg.set(sgConfig),
+        destroy: (vnode: any) => vnode.elm._sg.destroy(),
+      },
+    })
+  );
   return h('div.pv-board', sgVNode);
 }

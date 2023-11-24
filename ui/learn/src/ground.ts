@@ -1,4 +1,5 @@
 import { notationFiles, notationRanks } from 'common/notation';
+import resizeHandle from 'common/resize';
 import { Config } from 'shogiground/config';
 import { Drawable, SquareHighlight } from 'shogiground/draw';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
@@ -59,6 +60,9 @@ export function initConfig(ctrl: LearnCtrl): Config {
     events: {
       move: ctrl.onMove.bind(ctrl),
       drop: ctrl.onDrop.bind(ctrl),
+      insert(boardEls) {
+        if (boardEls) resizeHandle(boardEls, ctrl.pref.resizeHandle, ctrl.vm?.usiCList.length || 0);
+      },
     },
     draggable: {
       enabled: ctrl.pref.moveEvent > 0,
@@ -71,6 +75,9 @@ export function initConfig(ctrl: LearnCtrl): Config {
     highlight: {
       check: ctrl.pref.highlightCheck,
       lastDests: ctrl.pref.highlightLastDests,
+    },
+    hands: {
+      inlined: true,
     },
   };
 }

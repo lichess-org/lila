@@ -31,21 +31,6 @@ export function renderBoard(ctrl: AnalyseCtrl): VNode {
   });
 }
 
-export function renderHand(ctrl: AnalyseCtrl, pos: 'top' | 'bottom'): VNode {
-  return h(`div.sg-hand-wrap.hand-${pos}`, {
-    hook: {
-      insert: vnode => {
-        ctrl.shogiground.attach({
-          hands: {
-            top: pos === 'top' ? (vnode.elm as HTMLElement) : undefined,
-            bottom: pos === 'bottom' ? (vnode.elm as HTMLElement) : undefined,
-          },
-        });
-      },
-    },
-  });
-}
-
 export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
   const d = ctrl.data,
     variant = d.game.variant.key,
@@ -64,6 +49,7 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     viewOnly: !!ctrl.embed,
     hands: {
       roles: handRoles(variant),
+      inlined: variant !== 'chushogi',
     },
     movable: {
       free: false,

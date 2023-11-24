@@ -1,12 +1,4 @@
 .analyse {
-  .hand {
-    &-top {
-      grid-area: hand-top;
-    }
-    &-bottom {
-      grid-area: hand-bot;
-    }
-  }
 
   .practice__side {
     grid-area: side;
@@ -19,29 +11,23 @@
 
   grid-template-rows: auto;
   grid-template-areas:
-    'hand-top'
     'board'
-    'hand-bot'
     'controls'
     'under'
     'tools'
     'side';
 
   @include breakpoint($mq-col2) {
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: min-content;
     grid-template-areas:
-      'board gauge hand-top'
       'board gauge tools'
-      'board gauge hand-bot'
       'under .     controls'
       'side  .     .';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-      'side    . board gauge hand-top'
       'side    . board gauge tools'
-      'side    . board gauge hand-bot'
       '.       . under .     controls';
     .practice__side {
       margin-top: 0;

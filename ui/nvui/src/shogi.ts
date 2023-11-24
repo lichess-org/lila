@@ -13,7 +13,7 @@ import { toMove } from 'keyboardMove/dist/plugins/util'; // todo better later
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna' | 'japanese';
 
-const supportedVariants: VariantKey[] = ['standard', 'minishogi', 'annanshogi', 'kyotoshogi'];
+const supportedVariants: VariantKey[] = ['standard', 'minishogi', 'annanshogi', 'kyotoshogi', 'checkshogi'];
 
 export function supportedVariant(key: VariantKey) {
   return supportedVariants.includes(key);

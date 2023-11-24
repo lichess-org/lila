@@ -71,9 +71,9 @@
     max-width: 240px;
     right: 8px; // so moves are still visible
     margin-top: 8px;
+    background: $c-bg-zebra;
     z-index: 3;
     sg-hand-wrap {
-      background: $c-bg-zebra;
       .hand-top {
         @extend %box-radius-top;
       }
