@@ -13,6 +13,7 @@
   <string name="howToUseLichessBroadcasts">How to use Lichess Broadcasts.</string>
   <string name="theNewRoundHelp">The new round will have the same members and contributors as the previous one.</string>
   <string name="addRound">Add a round</string>
+  <string name="editXInY" comment="%1$s is the name of the round. %2$s is the name of the broadcast.">Edit %1$s in %2$s</string>
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="completed">Completed</string>
@@ -48,10 +49,6 @@ Original name; Replacement name; Optional replacement rating; Optional replaceme
 Example:
 DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
-  <string name="delayInSeconds"></string>
-  <string name="delayInSecondsHelp">Optional, how long to delay moves coming from the source.
-
-Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15.</string>
   <string name="periodInSeconds">Period in seconds</string>
   <string name="periodInSecondsHelp">Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers.</string>
 </resources>

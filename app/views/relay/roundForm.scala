@@ -24,10 +24,9 @@ object roundForm:
     layout(rt.fullName)(
       boxTop(
         h1(
-          "Edit ",
-          a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
-          " > ",
-          a(href := rt.path)(rt.round.name)
+          editXInY(
+          a(href := rt.path)(rt.round.name),
+          a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name))
         )
       ),
       inner(form, routes.RelayRound.update(rt.round.id), rt.tour, create = false),
@@ -105,8 +104,12 @@ object roundForm:
       form3.split(
         form3.group(
           form("delay"),
-          delayInSeconds(),
-          help = delayInSecondsHelp().some,
+          raw("Delay in seconds"),
+          help = frag(
+            "Optional, how long to delay moves coming from the source.",
+            br,
+            "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
+          ).some,
           half = true
         )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
