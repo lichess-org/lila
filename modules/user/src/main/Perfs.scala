@@ -12,6 +12,7 @@ case class Perfs(
     chushogi: Perf,
     annanshogi: Perf,
     kyotoshogi: Perf,
+    checkshogi: Perf,
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -29,6 +30,7 @@ case class Perfs(
       "chushogi"       -> chushogi,
       "annanshogi"     -> annanshogi,
       "kyotoshogi"     -> kyotoshogi,
+      "checkshogi"     -> checkshogi,
       "ultraBullet"    -> ultraBullet,
       "bullet"         -> bullet,
       "blitz"          -> blitz,
@@ -100,6 +102,7 @@ case class Perfs(
     "chushogi"       -> chushogi,
     "annanshogi"     -> annanshogi,
     "kyotoshogi"     -> kyotoshogi,
+    "checkshogi"     -> checkshogi,
     "ultraBullet"    -> ultraBullet,
     "bullet"         -> bullet,
     "blitz"          -> blitz,
@@ -122,6 +125,7 @@ case class Perfs(
       case PerfType.Chushogi       => chushogi
       case PerfType.Annanshogi     => annanshogi
       case PerfType.Kyotoshogi     => kyotoshogi
+      case PerfType.Checkshogi     => checkshogi
       case PerfType.UltraBullet    => ultraBullet
       case PerfType.Bullet         => bullet
       case PerfType.Blitz          => blitz
@@ -169,7 +173,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, Perf.Storm.default)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, Perf.Storm.default)
   }
 
   val defaultManaged = {
@@ -193,6 +197,7 @@ case object Perfs {
       case shogi.variant.Chushogi   => Some(_.chushogi)
       case shogi.variant.Annanshogi => Some(_.annanshogi)
       case shogi.variant.Kyotoshogi => Some(_.kyotoshogi)
+      case shogi.variant.Checkshogi => Some(_.checkshogi)
       case _                        => none
     }
 
@@ -218,6 +223,7 @@ case object Perfs {
         chushogi = perf("chushogi"),
         annanshogi = perf("annanshogi"),
         kyotoshogi = perf("kyotoshogi"),
+        checkshogi = perf("checkshogi"),
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -238,6 +244,7 @@ case object Perfs {
         "chushogi"       -> notNew(o.chushogi),
         "annanshogi"     -> notNew(o.annanshogi),
         "kyotoshogi"     -> notNew(o.kyotoshogi),
+        "checkshogi"     -> notNew(o.checkshogi),
         "ultraBullet"    -> notNew(o.ultraBullet),
         "bullet"         -> notNew(o.bullet),
         "blitz"          -> notNew(o.blitz),
@@ -259,8 +266,9 @@ case object Perfs {
       minishogi: List[User.LightPerf],
       chushogi: List[User.LightPerf],
       annanshogi: List[User.LightPerf],
-      kyotoshogi: List[User.LightPerf]
+      kyotoshogi: List[User.LightPerf],
+      checkshogi: List[User.LightPerf]
   )
 
-  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
 }

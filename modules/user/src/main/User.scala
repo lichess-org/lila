@@ -321,6 +321,7 @@ object User {
     PerfType.Minishogi,
     PerfType.Chushogi,
     PerfType.Annanshogi,
-    PerfType.Kyotoshogi
+    PerfType.Kyotoshogi,
+    PerfType.Checkshogi
   )
 }

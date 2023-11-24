@@ -137,6 +137,7 @@ object jsI18n {
       trans.chushogi,
       trans.annanshogi,
       trans.kyotoshogi,
+      trans.checkshogi,
       manageTopics,
       startTag,
       endTag,

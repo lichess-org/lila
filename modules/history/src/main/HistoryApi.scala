@@ -36,6 +36,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
       game.variant.chushogi.option("chushogi"                               -> perfs.chushogi),
       game.variant.annanshogi.option("annanshogi"                           -> perfs.annanshogi),
       game.variant.kyotoshogi.option("kyotoshogi"                           -> perfs.kyotoshogi),
+      game.variant.checkshogi.option("checkshogi"                           -> perfs.checkshogi),
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet"       -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet"                 -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz"                   -> perfs.blitz),

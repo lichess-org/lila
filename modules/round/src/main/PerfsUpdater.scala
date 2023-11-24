@@ -28,6 +28,8 @@ final class PerfsUpdater(
             val ratingsB = mkRatings(gote.perfs)
             val result   = resultOf(game)
             game.variant match {
+              case shogi.variant.Checkshogi =>
+                updateRatings(ratingsW.checkshogi, ratingsB.checkshogi, result)
               case shogi.variant.Kyotoshogi =>
                 updateRatings(ratingsW.kyotoshogi, ratingsB.kyotoshogi, result)
               case shogi.variant.Annanshogi =>
@@ -76,6 +78,7 @@ final class PerfsUpdater(
       chushogi: Rating,
       annanshogi: Rating,
       kyotoshogi: Rating,
+      checkshogi: Rating,
       ultraBullet: Rating,
       bullet: Rating,
       blitz: Rating,
@@ -90,6 +93,7 @@ final class PerfsUpdater(
       chushogi = perfs.chushogi.toRating,
       annanshogi = perfs.annanshogi.toRating,
       kyotoshogi = perfs.kyotoshogi.toRating,
+      checkshogi = perfs.checkshogi.toRating,
       ultraBullet = perfs.ultraBullet.toRating,
       bullet = perfs.bullet.toRating,
       blitz = perfs.blitz.toRating,
@@ -137,6 +141,7 @@ final class PerfsUpdater(
           chushogi = addRatingIf(game.variant.chushogi, perfs.chushogi, ratings.chushogi),
           annanshogi = addRatingIf(game.variant.annanshogi, perfs.annanshogi, ratings.annanshogi),
           kyotoshogi = addRatingIf(game.variant.kyotoshogi, perfs.kyotoshogi, ratings.kyotoshogi),
+          checkshogi = addRatingIf(game.variant.checkshogi, perfs.checkshogi, ratings.checkshogi),
           ultraBullet =
             addRatingIf(isStd && speed == Speed.UltraBullet, perfs.ultraBullet, ratings.ultraBullet),
           bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),
@@ -152,6 +157,7 @@ final class PerfsUpdater(
           chushogi = r(PT.Chushogi, perfs.chushogi, perfs1.chushogi),
           annanshogi = r(PT.Annanshogi, perfs.annanshogi, perfs1.annanshogi),
           kyotoshogi = r(PT.Kyotoshogi, perfs.kyotoshogi, perfs1.kyotoshogi),
+          checkshogi = r(PT.Checkshogi, perfs.checkshogi, perfs1.checkshogi),
           bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
           blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
           rapid = r(PT.Rapid, perfs.rapid, perfs1.rapid),

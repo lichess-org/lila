@@ -75,6 +75,7 @@ object bits {
     trans.minishogi,
     trans.chushogi,
     trans.annanshogi,
-    trans.kyotoshogi
+    trans.kyotoshogi,
+    trans.checkshogi
   ).map(_.key)
 }

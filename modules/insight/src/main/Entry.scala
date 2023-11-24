@@ -67,18 +67,19 @@ case class Move(
 
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination {
-  case object ClockFlag      extends Termination(1, "Clock flag")
-  case object Disconnect     extends Termination(2, "Disconnect")
-  case object Resignation    extends Termination(3, "Resignation")
-  case object Draw           extends Termination(4, "Draw")
-  case object Stalemate      extends Termination(5, "Stalemate")
-  case object Checkmate      extends Termination(6, "Checkmate")
-  case object TryRule        extends Termination(7, "Try rule")
-  case object PerpetualCheck extends Termination(8, "Perpetual Check")
-  case object Impasse27      extends Termination(9, "Impasse")
-  case object RoyalsLost     extends Termination(10, "Royals lost")
-  case object BareKing       extends Termination(11, "Bare king")
-  case object Repetition     extends Termination(12, "Repetition")
+  case object ClockFlag         extends Termination(1, "Clock flag")
+  case object Disconnect        extends Termination(2, "Disconnect")
+  case object Resignation       extends Termination(3, "Resignation")
+  case object Draw              extends Termination(4, "Draw")
+  case object Stalemate         extends Termination(5, "Stalemate")
+  case object Checkmate         extends Termination(6, "Checkmate")
+  case object TryRule           extends Termination(7, "Try rule")
+  case object PerpetualCheck    extends Termination(8, "Perpetual Check")
+  case object Impasse27         extends Termination(9, "Impasse")
+  case object RoyalsLost        extends Termination(10, "Royals lost")
+  case object BareKing          extends Termination(11, "Bare king")
+  case object Repetition        extends Termination(12, "Repetition")
+  case object SpecialVariantEnd extends Termination(13, "Special variant end")
 
   val all =
     List(
@@ -93,7 +94,8 @@ object Termination {
       Impasse27,
       RoyalsLost,
       BareKing,
-      Repetition
+      Repetition,
+      SpecialVariantEnd
     )
   val byId = all map { p =>
     (p.id, p)
@@ -103,19 +105,20 @@ object Termination {
 
   def fromStatus(s: shogi.Status) =
     s match {
-      case S.Timeout        => Disconnect
-      case S.Outoftime      => ClockFlag
-      case S.Resign         => Resignation
-      case S.Draw           => Draw
-      case S.Stalemate      => Stalemate
-      case S.Mate           => Checkmate
-      case S.TryRule        => TryRule
-      case S.RoyalsLost     => RoyalsLost
-      case S.BareKing       => BareKing
-      case S.Impasse27      => Impasse27
-      case S.PerpetualCheck => PerpetualCheck
-      case S.Repetition     => Repetition
-      case S.Cheat          => Resignation
+      case S.Timeout           => Disconnect
+      case S.Outoftime         => ClockFlag
+      case S.Resign            => Resignation
+      case S.Draw              => Draw
+      case S.Stalemate         => Stalemate
+      case S.Mate              => Checkmate
+      case S.TryRule           => TryRule
+      case S.RoyalsLost        => RoyalsLost
+      case S.BareKing          => BareKing
+      case S.Impasse27         => Impasse27
+      case S.PerpetualCheck    => PerpetualCheck
+      case S.Repetition        => Repetition
+      case S.SpecialVariantEnd => SpecialVariantEnd
+      case S.Cheat             => Resignation
       case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
         logger.error(s"Unfinished game in the insight indexer: $s")
         Resignation

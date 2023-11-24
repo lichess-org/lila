@@ -87,6 +87,7 @@ trait GameHelper {
       case shogi.variant.Chushogi   => trans.chushogi.txt()
       case shogi.variant.Annanshogi => trans.annanshogi.txt()
       case shogi.variant.Kyotoshogi => trans.kyotoshogi.txt()
+      case shogi.variant.Checkshogi => trans.checkshogi.txt()
       case _                        => trans.standard.txt()
     }
 
@@ -96,6 +97,7 @@ trait GameHelper {
       case shogi.variant.Chushogi   => trans.chushogiDescription.txt()
       case shogi.variant.Annanshogi => trans.annanshogiDescription.txt()
       case shogi.variant.Kyotoshogi => trans.kyotoshogiDescription.txt()
+      case shogi.variant.Checkshogi => trans.checkshogiDescription.txt()
       case _                        => trans.standardDescription.txt()
     }
 
@@ -105,6 +107,7 @@ trait GameHelper {
       case shogi.variant.Chushogi   => "("
       case shogi.variant.Annanshogi => ""
       case shogi.variant.Kyotoshogi => ""
+      case shogi.variant.Checkshogi => ">"
       case _                        => "C"
     }
 
@@ -188,13 +191,14 @@ trait GameHelper {
         game.loserColor
           .map(l => transWithColorName(trans.xResigned, l, game.isHandicap))
           .getOrElse(trans.finished.txt())
-      case S.UnknownFinish  => trans.finished.txt()
-      case S.Stalemate      => trans.stalemate.txt()
-      case S.TryRule        => "Try Rule" // games before July 2021 might still have this status
-      case S.Impasse27      => trans.impasse.txt()
-      case S.PerpetualCheck => trans.perpetualCheck.txt()
-      case S.RoyalsLost     => trans.royalsLost.txt()
-      case S.BareKing       => trans.bareKing.txt()
+      case S.UnknownFinish     => trans.finished.txt()
+      case S.Stalemate         => trans.stalemate.txt()
+      case S.TryRule           => "Try Rule" // games before July 2021 might still have this status
+      case S.Impasse27         => trans.impasse.txt()
+      case S.PerpetualCheck    => trans.perpetualCheck.txt()
+      case S.RoyalsLost        => trans.royalsLost.txt()
+      case S.BareKing          => trans.bareKing.txt()
+      case S.SpecialVariantEnd => trans.check.txt()
       case S.Timeout =>
         game.loserColor
           .map(l => transWithColorName(trans.xLeftTheGame, l, game.isHandicap))
@@ -246,22 +250,21 @@ trait GameHelper {
       withLink: Boolean = true,
       withLive: Boolean = true
   )(implicit ctx: Context): Frag = {
-    val game     = pov.game
-    val isLive   = withLive && game.isBeingPlayed
-    val cssClass = isLive ?? ("live mini-board-" + game.id)
-    val variant  = game.variant
-    val tag      = if (withLink) a else span
+    val game    = pov.game
+    val isLive  = withLive && game.isBeingPlayed
+    val variant = game.variant
+    val tag     = if (withLink) a else span
     tag(
       href  := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
       cls :=
-        s"mini-board mini-board-${game.id} sg-wrap parse-sfen $cssClass d-${variant.numberOfFiles}x${variant.numberOfRanks}",
+        s"mini-board mini-board-${game.id} parse-sfen ${isLive ?? "live"}",
       dataLive     := isLive.option(game.id),
       dataColor    := pov.color.name,
       dataSfen     := game.situation.toSfen.value,
       dataLastmove := ~game.lastMoveKeys,
       dataVariant  := game.variant.key
-    )(sgWrapContent)
+    )(shogigroundEmpty(variant, pov.color))
   }
 
   def gameSfenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
@@ -271,8 +274,8 @@ trait GameHelper {
       href  := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color)(defaultLang),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} sg-wrap parse-sfen d-${variant.numberOfFiles}x${variant.numberOfRanks}" -> true,
-        s"live mini-board-${pov.gameId}" -> isLive
+        s"mini-board mini-board-${pov.gameId} parse-sfen" -> true,
+        s"live mini-board-${pov.gameId}"                  -> isLive
       ),
       dataLive     := isLive.option(pov.gameId),
       dataColor    := pov.color.name,
@@ -280,7 +283,7 @@ trait GameHelper {
       dataLastmove := ~pov.game.lastMoveKeys,
       dataVariant  := pov.game.variant.key,
       target       := blank.option("_blank")
-    )(sgWrapContent)
+    )(shogigroundEmpty(variant, pov.color))
   }
 
   // Casual Rapid Shogi (10|0) - Challenge from Wanderer (1500)

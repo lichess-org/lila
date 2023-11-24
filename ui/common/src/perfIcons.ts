@@ -15,5 +15,6 @@ const perfIcons: Record<string, string> = {
   chushogi: '(',
   annanshogi: '',
   kyotoshogi: '',
+  checkshogi: '>',
   correspondence: ';',
 };

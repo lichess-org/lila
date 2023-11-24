@@ -15,7 +15,10 @@ export default class Setup {
 
   ratingRange = () => this.stores.hook.get()?.ratingRange;
 
-  constructor(makeStorage: (name: string) => LishogiStorage, readonly root: LobbyController) {
+  constructor(
+    makeStorage: (name: string) => LishogiStorage,
+    readonly root: LobbyController
+  ) {
     this.stores = {
       hook: makeStore(makeStorage('lobby.setup.hook')),
       friend: makeStore(makeStorage('lobby.setup.friend')),
@@ -141,6 +144,8 @@ export default class Setup {
         return 'annanshogi';
       case '5':
         return 'kyotoshogi';
+      case '6':
+        return 'checkshogi';
       default:
         if (realTime) {
           if (timeSum < 60) return 'ultraBullet';
@@ -162,6 +167,8 @@ export default class Setup {
         return 'annanshogi';
       case 5:
         return 'kyotoshogi';
+      case 6:
+        return 'checkshogi';
       default:
         return 'standard';
     }

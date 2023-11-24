@@ -75,7 +75,8 @@ trait BaseConfig {
     shogi.variant.Minishogi.id,
     shogi.variant.Chushogi.id,
     shogi.variant.Annanshogi.id,
-    shogi.variant.Kyotoshogi.id
+    shogi.variant.Kyotoshogi.id,
+    shogi.variant.Checkshogi.id
   )
   val aiVariants =
     List(shogi.variant.Standard.id, shogi.variant.Minishogi.id, shogi.variant.Kyotoshogi.id)

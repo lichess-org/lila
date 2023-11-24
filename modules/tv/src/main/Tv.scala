@@ -105,6 +105,12 @@ object Tv {
           icon = P.Kyotoshogi.iconChar.toString,
           filters = Seq(variant(V.Kyotoshogi), someHuman)
         )
+    case object Checkshogi
+        extends Channel(
+          key = V.Checkshogi.key,
+          icon = P.Checkshogi.iconChar.toString,
+          filters = Seq(variant(V.Checkshogi), someHuman)
+        )
     case object Computer
         extends Channel(
           key = "computer",
@@ -118,6 +124,7 @@ object Tv {
       Chushogi,
       Annanshogi,
       Kyotoshogi,
+      Checkshogi,
       Computer
     )
     val byKey = all.map { c =>

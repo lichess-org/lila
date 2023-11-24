@@ -95,8 +95,8 @@ body {
     &:nth-child(odd) {
       border-right: $border;
     }
-    &:nth-child(n + 3) {
-      border-top: $border;
+    &:nth-child(n + 1):not(:nth-last-child(-n + 1)) {
+      border-bottom: $border;
     }
   }
 }

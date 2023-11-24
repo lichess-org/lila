@@ -27,7 +27,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Minishogi,
     PerfType.Chushogi,
     PerfType.Annanshogi,
-    PerfType.Kyotoshogi
+    PerfType.Kyotoshogi,
+    PerfType.Checkshogi
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit

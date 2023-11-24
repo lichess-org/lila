@@ -18,6 +18,7 @@ export type I18nKey =
 'resign'|
 'checkmate'|
 'stalemate'|
+'check'|
 'impasse'|
 'repetition'|
 'perpetualCheck'|
@@ -188,11 +189,13 @@ export type I18nKey =
 'chushogi'|
 'annanshogi'|
 'kyotoshogi'|
+'checkshogi'|
 'standardDescription'|
 'minishogiDescription'|
 'chushogiDescription'|
 'kyotoshogiDescription'|
 'annanshogiDescription'|
+'checkshogiDescription'|
 'unlimited'|
 'mode'|
 'casual'|

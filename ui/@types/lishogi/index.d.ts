@@ -201,7 +201,7 @@ interface Navigator {
   deviceMemory: number;
 }
 
-declare type VariantKey = 'standard' | 'minishogi' | 'chushogi' | 'annanshogi' | 'kyotoshogi';
+declare type VariantKey = 'standard' | 'minishogi' | 'chushogi' | 'annanshogi' | 'kyotoshogi' | 'checkshogi';
 
 declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence' | 'unlimited';
 
@@ -215,7 +215,8 @@ declare type Perf =
   | 'minishogi'
   | 'chushogi'
   | 'annanshogi'
-  | 'kyotoshogi';
+  | 'kyotoshogi'
+  | 'checkshogi';
 
 declare type Color = 'sente' | 'gote';
 

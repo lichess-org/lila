@@ -97,6 +97,7 @@ final class RankingApi(
       chushogi       <- topPerf(PerfType.Chushogi.id, nb)
       annanshogi     <- topPerf(PerfType.Annanshogi.id, nb)
       kyotoshogi     <- topPerf(PerfType.Kyotoshogi.id, nb)
+      checkshogi     <- topPerf(PerfType.Checkshogi.id, nb)
     } yield Perfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
@@ -107,7 +108,8 @@ final class RankingApi(
       minishogi = minishogi,
       chushogi = chushogi,
       annanshogi = annanshogi,
-      kyotoshogi = kyotoshogi
+      kyotoshogi = kyotoshogi,
+      checkshogi = checkshogi
     )
 
   object weeklyStableRanking {

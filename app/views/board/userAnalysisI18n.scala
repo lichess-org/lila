@@ -41,6 +41,7 @@ object userAnalysisI18n {
     trans.stalemate,
     trans.royalsLost,
     trans.bareKing,
+    trans.check,
     trans.repetition,
     trans.perpetualCheck,
     trans.xLeftTheGame,
@@ -112,7 +113,8 @@ object userAnalysisI18n {
     trans.minishogi,
     trans.chushogi,
     trans.annanshogi,
-    trans.kyotoshogi
+    trans.kyotoshogi,
+    trans.checkshogi
   ).map(_.key)
 
   private val cevalTranslations: Vector[MessageKey] = Vector(

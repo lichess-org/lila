@@ -139,7 +139,8 @@ trait SetupHelper { self: I18nHelper =>
         shogi.variant.Minishogi,
         shogi.variant.Chushogi,
         shogi.variant.Annanshogi,
-        shogi.variant.Kyotoshogi
+        shogi.variant.Kyotoshogi,
+        shogi.variant.Checkshogi
       ).map(variantTuple(encodeId))
 
   def translatedVariantChoices(
@@ -149,7 +150,8 @@ trait SetupHelper { self: I18nHelper =>
       shogi.variant.Minishogi,
       shogi.variant.Chushogi,
       shogi.variant.Annanshogi,
-      shogi.variant.Kyotoshogi
+      shogi.variant.Kyotoshogi,
+      shogi.variant.Checkshogi
     ).map(variantTuple(encode))
 
   def translatedAiChoices(implicit lang: Lang) =

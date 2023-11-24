@@ -640,7 +640,8 @@ object Game {
     shogi.variant.Standard,
     shogi.variant.Minishogi,
     shogi.variant.Annanshogi,
-    shogi.variant.Kyotoshogi
+    shogi.variant.Kyotoshogi,
+    shogi.variant.Checkshogi
   )
 
   def allowRated(initialSfen: Option[Sfen], clock: Option[Clock.Config], variant: Variant) =

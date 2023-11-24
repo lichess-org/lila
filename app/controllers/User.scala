@@ -272,7 +272,8 @@ final class User(
                   "minishogi"      -> leaderboards.minishogi,
                   "chushogi"       -> leaderboards.chushogi,
                   "annanshogi"     -> leaderboards.annanshogi,
-                  "kyotoshogi"     -> leaderboards.kyotoshogi
+                  "kyotoshogi"     -> leaderboards.kyotoshogi,
+                  "checkshogi"     -> leaderboards.checkshogi
                 )
               )
             }

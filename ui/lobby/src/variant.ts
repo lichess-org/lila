@@ -4,6 +4,7 @@ const variantConfirms = {
   chushogi: 'This is chushogi, the most popular large board shogi variant.',
   annanshogi: 'This is annan shogi, pieces move like the friendly piece behind them.',
   kyotoshogi: 'This is kyoto shogi, small board and promotions on every turn.',
+  checkshogi: 'This is checkshogi, first to check your opponent wins.',
 };
 
 function storageKey(key) {

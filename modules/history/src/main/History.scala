@@ -10,6 +10,7 @@ case class History(
     chushogi: RatingsMap,
     annanshogi: RatingsMap,
     kyotoshogi: RatingsMap,
+    checkshogi: RatingsMap,
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
@@ -33,6 +34,7 @@ case class History(
       case PerfType.Chushogi       => chushogi
       case PerfType.Annanshogi     => annanshogi
       case PerfType.Kyotoshogi     => kyotoshogi
+      case PerfType.Checkshogi     => checkshogi
       case x                       => sys error s"No history for perf $x"
     }
 }
@@ -64,6 +66,7 @@ object History {
           chushogi = ratingsMap("chushogi"),
           annanshogi = ratingsMap("annanshogi"),
           kyotoshogi = ratingsMap("kyotoshogi"),
+          checkshogi = ratingsMap("checkshogi"),
           ultraBullet = ratingsMap("ultraBullet"),
           bullet = ratingsMap("bullet"),
           blitz = ratingsMap("blitz"),

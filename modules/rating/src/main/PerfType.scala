@@ -122,6 +122,15 @@ object PerfType {
         iconChar = ''
       )
 
+  case object Checkshogi
+      extends PerfType(
+        16,
+        key = "checkshogi",
+        name = shogi.variant.Checkshogi.name,
+        title = shogi.variant.Checkshogi.title,
+        iconChar = '>'
+      )
+
   case object Puzzle
       extends PerfType(
         20,
@@ -143,6 +152,7 @@ object PerfType {
     Chushogi,
     Annanshogi,
     Kyotoshogi,
+    Checkshogi,
     Puzzle
   )
   val byKey = all map { p =>
@@ -173,7 +183,8 @@ object PerfType {
     Minishogi,
     Chushogi,
     Annanshogi,
-    Kyotoshogi
+    Kyotoshogi,
+    Checkshogi
   )
   val leaderboardable: List[PerfType] = List(
     Bullet,
@@ -185,7 +196,8 @@ object PerfType {
     Minishogi,
     Chushogi,
     Annanshogi,
-    Kyotoshogi
+    Kyotoshogi,
+    Checkshogi
   )
   val variants: List[PerfType] = List(Minishogi, Chushogi, Annanshogi, Kyotoshogi)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
@@ -194,6 +206,7 @@ object PerfType {
     pt match {
       case Kyotoshogi => shogi.variant.Kyotoshogi
       case Annanshogi => shogi.variant.Annanshogi
+      case Checkshogi => shogi.variant.Checkshogi
       case Chushogi   => shogi.variant.Chushogi
       case Minishogi  => shogi.variant.Minishogi
       case _          => shogi.variant.Standard
@@ -203,6 +216,7 @@ object PerfType {
     variant match {
       case shogi.variant.Kyotoshogi => Kyotoshogi.some
       case shogi.variant.Annanshogi => Annanshogi.some
+      case shogi.variant.Checkshogi => Checkshogi.some
       case shogi.variant.Chushogi   => Chushogi.some
       case shogi.variant.Minishogi  => Minishogi.some
       case _                        => none
@@ -236,11 +250,12 @@ object PerfType {
       case Chushogi       => I18nKeys.chushogi.txt()
       case Annanshogi     => I18nKeys.annanshogi.txt()
       case Kyotoshogi     => I18nKeys.kyotoshogi.txt()
+      case Checkshogi     => I18nKeys.checkshogi.txt()
       case pt             => pt.name
     }
 
   val translated: Set[PerfType] =
-    Set(Rapid, Classical, Correspondence, Puzzle, Minishogi, Chushogi, Annanshogi, Kyotoshogi)
+    Set(Rapid, Classical, Correspondence, Puzzle, Minishogi, Chushogi, Annanshogi, Kyotoshogi, Checkshogi)
 
   def desc(pt: PerfType)(implicit lang: Lang): String =
     pt match {

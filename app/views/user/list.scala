@@ -58,7 +58,8 @@ object list {
               userTopPerf(leaderboards.minishogi, PerfType.Minishogi),
               userTopPerf(leaderboards.chushogi, PerfType.Chushogi),
               userTopPerf(leaderboards.annanshogi, PerfType.Annanshogi),
-              userTopPerf(leaderboards.kyotoshogi, PerfType.Kyotoshogi)
+              userTopPerf(leaderboards.kyotoshogi, PerfType.Kyotoshogi),
+              userTopPerf(leaderboards.checkshogi, PerfType.Checkshogi)
             )
           )
         )

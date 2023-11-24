@@ -23,6 +23,7 @@ private object jsI18n {
     trans.stalemate,
     trans.royalsLost,
     trans.bareKing,
+    trans.check,
     trans.repetition,
     trans.perpetualCheck,
     trans.xLeftTheGame,

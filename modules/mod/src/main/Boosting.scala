@@ -22,7 +22,8 @@ final class BoostingApi(
     variant.Minishogi,
     variant.Chushogi,
     variant.Annanshogi,
-    variant.Kyotoshogi
+    variant.Kyotoshogi,
+    variant.Checkshogi
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =
