@@ -448,6 +448,7 @@
   <string name="movesPlayed">การเดินที่ทำ</string>
   <string name="whiteWins">ขาวชนะ</string>
   <string name="blackWins">ดำชนะ</string>
+  <string name="drawRate">อัตราเสมอ</string>
   <string name="draws">เสมอ</string>
   <string name="nextXTournament">ทัวร์นาเมนต์ %s ถัดไป:</string>
   <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
@@ -468,6 +469,7 @@
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
+  <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
   <string name="biography">ชีวประวัติ</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือภูมิภาค</string>
   <string name="thankYou">ขอบคุณ!</string>
