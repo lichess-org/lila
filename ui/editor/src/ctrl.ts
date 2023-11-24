@@ -38,10 +38,14 @@ export default class EditorCtrl {
   rules: Rules;
   moveNumber: number;
 
+  backStack: string[] = [];
+  currentBeforeStack: string;
+  forwardStack: string[] = [];
+
   constructor(data: EditorData, redraw: Redraw) {
     this.data = data;
     this.rules = data.variant;
-    this.options = data.options || {};
+    this.options = data.options;
 
     this.trans = window.lishogi.trans(this.data.i18n);
 
@@ -66,15 +70,66 @@ export default class EditorCtrl {
     this.redraw = redraw;
   }
 
-  onChange(): void {
+  onChange(history = false): void {
     const sfen = this.getSfen();
     this.data.sfen = sfen;
+
+    if (!history) {
+      if (this.currentBeforeStack) {
+        this.forwardStack = [];
+        this.backStack.push(this.currentBeforeStack);
+      }
+      this.currentBeforeStack = sfen;
+    }
+
     if (!this.data.embed) window.history.replaceState('', '', this.makeEditorUrl(sfen));
     const cur = this.selected();
     if (typeof cur !== 'string' && this.shogiground)
-      this.shogiground.selectPiece({ color: cur[0], role: cur[1] }, true);
+      this.shogiground.selectPiece({ color: cur[0], role: cur[1] }, true, true);
     this.options.onChange?.(sfen, this.rules);
     this.redraw();
+  }
+
+  forward(): void {
+    if (this.forwardStack.length) {
+      const sfen = this.forwardStack.pop()!;
+      this.backStack.push(this.currentBeforeStack);
+      this.currentBeforeStack = sfen;
+      this.setSfen(sfen, true);
+    }
+  }
+
+  backward(): void {
+    if (this.backStack.length) {
+      const sfen = this.backStack.pop()!;
+      this.forwardStack.push(this.currentBeforeStack);
+      this.currentBeforeStack = sfen;
+      this.setSfen(sfen, true);
+    }
+  }
+
+  last(): void {
+    if (this.forwardStack.length) {
+      this.forwardStack.reverse();
+      const sfen = this.forwardStack.pop()!;
+      this.backStack.push(this.currentBeforeStack);
+      this.backStack = this.backStack.concat(this.forwardStack);
+      this.forwardStack = [];
+      this.currentBeforeStack = sfen;
+      this.setSfen(sfen, true);
+    }
+  }
+
+  first(): void {
+    if (this.backStack.length) {
+      this.backStack.reverse();
+      const sfen = this.backStack.pop()!;
+      this.forwardStack.push(this.currentBeforeStack);
+      this.forwardStack = this.forwardStack.concat(this.backStack);
+      this.backStack = [];
+      this.currentBeforeStack = sfen;
+      this.setSfen(sfen, true);
+    }
   }
 
   private getSetup(): Setup {
@@ -184,7 +239,7 @@ export default class EditorCtrl {
     );
   }
 
-  setSfen(sfen: string): boolean {
+  setSfen(sfen: string, history: boolean = false): boolean {
     return parseSfen(this.rules, sfen, false).unwrap(
       pos => {
         const splitSfen = sfen.split(' ');
@@ -192,7 +247,7 @@ export default class EditorCtrl {
         this.turn = pos.turn;
         this.moveNumber = pos.moveNumber;
 
-        this.onChange();
+        this.onChange(history);
         return true;
       },
       err => {
@@ -285,8 +340,9 @@ export default class EditorCtrl {
 
   setRules(rules: Rules): void {
     this.rules = rules;
-    const sfen = initialSfen(rules);
-    const splitSfen = sfen.split(' ');
+    this.turn = 'sente';
+    const sfen = initialSfen(rules),
+      splitSfen = sfen.split(' ');
     this.shogiground.set(
       {
         sfen: {
@@ -295,6 +351,7 @@ export default class EditorCtrl {
         },
         hands: {
           roles: handRoles(rules),
+          inlined: rules !== 'chushogi',
         },
         forsyth: {
           fromForsyth: forsythToRole(rules),

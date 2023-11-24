@@ -1,14 +1,17 @@
 import { standardColorName, transWithColorName } from 'common/colorName';
+import { getPerfIcon } from 'common/perfIcons';
+import { bindMobileMousedown } from 'common/mobile';
+import { onInsert } from 'common/snabbdom';
 import { dragNewPiece } from 'shogiground/drag';
-import { colors, MouchEvent } from 'shogiground/types';
+import { MouchEvent, colors } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 import { roleToKanji } from 'shogiops/notation/util';
 import { initialSfen, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { Handicap, Piece, Role, RULES, Rules } from 'shogiops/types';
+import { Handicap, Piece, RULES, Role, Rules } from 'shogiops/types';
 import { allRoles, handRoles, promote } from 'shogiops/variant/util';
 import { defaultPosition } from 'shogiops/variant/variant';
-import { VNode, h } from 'snabbdom';
+import { VNode, VNodes, h } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import { EditorState, Selected } from './interfaces';
 import * as ground from './shogiground';
@@ -200,18 +203,83 @@ function metadata(ctrl: EditorCtrl): VNode {
   return h('div.metadata', [variants(ctrl), color(ctrl)]);
 }
 
-function additionControls(ctrl: EditorCtrl, state: EditorState): VNode {
-  return h('div.additional-controls', [positions(ctrl, state), pieceCounter(ctrl)]);
+function mselect(id: string, current: VNode, items: VNodes) {
+  return h('div.mselect', [
+    h('input.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox', id: 'mselect-' + id } }),
+    h('label.mselect__label', { attrs: { for: 'mselect-' + id } }, current),
+    h('label.fullscreen-mask', { attrs: { for: 'mselect-' + id } }),
+    h('nav.mselect__list', items),
+  ]);
 }
 
-function controls(ctrl: EditorCtrl, state: EditorState): VNode {
+function colorChoice(ctrl: EditorCtrl, state: EditorState, color: Color, position: 'top' | 'bottom'): VNode {
+  const handicap = isHandicap({ rules: ctrl.data.variant, sfen: state.sfen });
+  return h(
+    'div.color-choice.' + color + '.color-choice-' + position,
+    {
+      on: {
+        click: () => {
+          ctrl.setTurn(color);
+          ctrl.redraw();
+        },
+      },
+      attrs: { title: transWithColorName(ctrl.trans, 'xPlays', color, handicap) },
+      class: {
+        selected: ctrl.turn === color,
+      },
+    },
+    h('span', transWithColorName(ctrl.trans, 'xPlays', color, handicap))
+  );
+}
+
+function validation(state: EditorState): VNode {
+  return h('div.position-validation', {
+    class: {
+      valid: !!state.legalSfen && state.playable,
+      invalid: !!state.legalSfen && !state.playable,
+      illegal: !state.legalSfen,
+    },
+  });
+}
+
+function side(ctrl: EditorCtrl, state: EditorState): VNode {
+  return h('div.board-editor__side', [
+    h(
+      'div.msel-' + ctrl.rules,
+      mselect(
+        'board-editor-variant',
+        h('span.text', { attrs: { 'data-icon': getPerfIcon(ctrl.rules) } }, ctrl.trans.noarg(ctrl.rules)),
+        RULES.map(rules =>
+          h(
+            'a',
+            {
+              attrs: { 'data-icon': getPerfIcon(rules) },
+              class: { current: rules === ctrl.rules },
+              on: {
+                click() {
+                  ctrl.setRules(rules);
+                },
+              },
+            },
+            ctrl.trans.noarg(rules)
+          )
+        )
+      )
+    ),
+    validation(state),
+    h('div.positions-wrap', [positions(ctrl, state), pieceCounter(ctrl)]),
+  ]);
+}
+
+function tools(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.board-editor__tools', [
-    metadata(ctrl),
+    // metadata(ctrl),
+    h('div.ceval'),
     ...(ctrl.data.embed
       ? [
           h('div.actions', [
             h(
-              'a.button.button-empty',
+              'button.button.button-empty',
               {
                 class: {
                   disabled: state.sfen === initialSfen(ctrl.rules),
@@ -225,7 +293,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               ctrl.trans.noarg('startPosition')
             ),
             h(
-              'a.button.button-empty',
+              'button.button.button-empty',
               {
                 class: {
                   disabled: /^[0-9\/]+$/.test(state.sfen.split(' ')[0]),
@@ -241,7 +309,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             ctrl.rules === 'chushogi'
               ? null
               : h(
-                  'a.button.button-empty',
+                  'button.button.button-empty',
                   {
                     class: {
                       disabled: !ctrl.canFillGoteHand(),
@@ -288,12 +356,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
               ctrl.trans.noarg('clearBoard')
             ),
-            ctrl.rules === 'chushogi'
+            handRoles(ctrl.rules).length === 0
               ? null
               : h(
-                  'a.button.button-empty.text',
+                  'a.button.button-empty.text.gote.color-icon',
                   {
-                    attrs: { 'data-icon': 'N' },
+                    attrs: { 'data-icon': '' },
                     class: {
                       disabled: !ctrl.canFillGoteHand(),
                     },
@@ -353,7 +421,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
               [h('span.text', { attrs: { 'data-icon': 'U' } }, ctrl.trans.noarg('continueFromHere'))]
             ),
-            studyButton(ctrl, state),
+            h('div', studyButton(ctrl, state)),
           ]),
           h('div.continue-with.none', [
             h(
@@ -519,20 +587,27 @@ function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'bottom')
   // Assumes correct css flex-basis
   const baseRoles: (Role | 'skip')[] = [],
     promotedRoles: (Role | 'skip')[] = [];
-  allRoles(ctrl.rules).forEach(r => {
+
+  // initial pieces first
+  const roles: Role[] =
+    ctrl.rules === 'kyotoshogi' ? ['pawn', 'gold', 'king', 'silver', 'tokin'] : allRoles(ctrl.rules);
+
+  roles.forEach(r => {
     if (!promotedRoles.includes(r)) {
       baseRoles.push(r);
       const promoted = promote(ctrl.rules)(r);
       if (promoted) {
         promotedRoles.push(promoted);
-      } else promotedRoles.push('skip');
+      } else if (r !== 'king') promotedRoles.push('skip');
     }
   });
-
+  if (position === 'bottom') {
+    baseRoles.reverse();
+    promotedRoles.reverse();
+  }
   const spares =
-    position === 'top'
-      ? [...promotedRoles, 'trash', ...baseRoles, 'pointer']
-      : [...baseRoles, 'pointer', ...promotedRoles, 'trash'];
+    position === 'top' ? [...baseRoles, ...promotedRoles, 'trash'] : [...baseRoles, 'pointer', ...promotedRoles];
+  // const spares = [...baseRoles, ...promotedRoles, position === 'bottom' ? 'pointer' : 'trash'];
 
   return h(
     'div',
@@ -563,21 +638,30 @@ function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'bottom')
             trash: sel === 'trash',
             'selected-square': selectedClass === className,
           },
-          on: {
-            mousedown: selectSPStart(ctrl, sel),
-            mouseup: selectSPEnd(ctrl, sel),
-            touchstart: selectSPStart(ctrl, sel),
-            touchend: selectSPEnd(ctrl, sel),
-          },
         },
-        [h('div', [h('piece', { attrs })])]
+        [
+          h(
+            'div',
+            {
+              on: {
+                mousedown: selectSPStart(ctrl, sel),
+                mouseup: selectSPEnd(ctrl, sel),
+                touchstart: selectSPStart(ctrl, sel),
+                touchend: selectSPEnd(ctrl, sel),
+              },
+            },
+            [h('piece', { attrs })]
+          ),
+        ]
       );
     })
   );
 }
 
+let initSpareEvent: Selected | undefined = undefined;
 function selectSPStart(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
   return function (e: MouchEvent): void {
+    initSpareEvent = s;
     e.preventDefault();
     ctrl.shogiground.selectPiece(null);
     ctrl.initTouchMovePos = ctrl.lastTouchMovePos = undefined;
@@ -594,6 +678,8 @@ function selectSPStart(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
 
 function selectSPEnd(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
   return function (e: MouchEvent): void {
+    if (!initSpareEvent) return;
+
     e.preventDefault();
     const cur = ctrl.selected(),
       pos = eventPosition(e) || ctrl.lastTouchMovePos;
@@ -614,11 +700,12 @@ function selectSPEnd(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
       ctrl.selected(s);
       ctrl.shogiground.state.selectable.deleteOnTouch = s === 'trash' ? true : false;
     }
+    initSpareEvent = undefined;
     ctrl.redraw();
   };
 }
 
-function createHandHelpers(ctrl: EditorCtrl, position: 'top' | 'bottom'): [VNode, VNode] {
+function createHandHelpers(ctrl: EditorCtrl, position: 'top' | 'bottom'): VNode {
   function getPiece(e: Event): Piece | undefined {
     const role: Role | undefined = ((e.target as HTMLElement).dataset.role as Role) || undefined;
     if (role) {
@@ -646,34 +733,75 @@ function createHandHelpers(ctrl: EditorCtrl, position: 'top' | 'bottom'): [VNode
   const pluses: VNode[] = [];
   const minuses: VNode[] = [];
 
-  const reversedRoles = handRoles(ctrl.rules).reverse();
-  for (const r of reversedRoles) {
+  const hRoles = handRoles(ctrl.rules);
+  if (position === 'bottom') hRoles.reverse();
+
+  for (const r of hRoles) {
     pluses.push(h('div.plus', { attrs: { 'data-role': r, 'data-pos': position } }));
     minuses.push(h('div.minus', { attrs: { 'data-role': r, 'data-pos': position } }));
   }
-  return [
+  return h('div.hand-spare.hand-spare-' + position, [
     h('div.pluses', { on: { click: addPiece } }, pluses),
     h('div.minuses', { on: { click: removePiece } }, minuses),
-  ];
+  ]);
 }
 
-function createHandWrap(ctrl: EditorCtrl, position: 'top' | 'bottom'): VNode {
-  const helpers = createHandHelpers(ctrl, position);
-  return h(`div.editor-hand.pos-${position}`, [helpers[0], ground.renderHand(ctrl, position), helpers[1]]);
+function dataAct(e: Event): string | null {
+  const target = e.target as HTMLElement;
+  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+}
+
+function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
+  return h('button.fbt', {
+    class: { disabled: !enabled },
+    attrs: { 'data-act': effect, 'data-icon': icon },
+  });
+}
+
+function controls(ctrl: EditorCtrl): VNode {
+  return h(
+    'div.editor-controls',
+    {
+      hook: onInsert(el => {
+        bindMobileMousedown(
+          el,
+          e => {
+            const action = dataAct(e);
+            if (action === 'prev') ctrl.backward();
+            if (action === 'next') ctrl.forward();
+            else if (action === 'first') ctrl.first();
+            else if (action === 'last') ctrl.last();
+          },
+          ctrl.redraw
+        );
+      }),
+    },
+    h('div.jumps', [
+      jumpButton('W', 'first', ctrl.backStack.length > 0),
+      jumpButton('Y', 'prev', ctrl.backStack.length > 0),
+      jumpButton('X', 'next', ctrl.forwardStack.length > 0),
+      jumpButton('V', 'last', ctrl.forwardStack.length > 0),
+    ])
+  );
 }
 
 export default function (ctrl: EditorCtrl): VNode {
-  const state = ctrl.getState();
-  const color = ctrl.bottomColor();
+  const state = ctrl.getState(),
+    color = ctrl.bottomColor();
 
   return h(`div.board-editor.variant-${ctrl.rules}`, [
-    sparePieces(ctrl, opposite(color), 'top'),
-    ctrl.rules === 'chushogi' ? null : createHandWrap(ctrl, 'top'),
-    h('div.main-board', [ground.renderBoard(ctrl)]),
-    ctrl.rules === 'chushogi' ? null : createHandWrap(ctrl, 'bottom'),
-    sparePieces(ctrl, color, 'bottom'),
-    controls(ctrl, state),
-    ctrl.data.embed ? null : additionControls(ctrl, state),
+    h('div.main-board', [
+      colorChoice(ctrl, state, opposite(color), 'top'),
+      sparePieces(ctrl, opposite(color), 'top'),
+      createHandHelpers(ctrl, 'top'),
+      ground.renderBoard(ctrl),
+      colorChoice(ctrl, state, color, 'bottom'),
+      sparePieces(ctrl, color, 'bottom'),
+      createHandHelpers(ctrl, 'bottom'),
+    ]),
+    tools(ctrl, state),
+    controls(ctrl),
+    ctrl.data.embed ? metadata(ctrl) : side(ctrl, state),
     inputs(ctrl, state.sfen),
   ]);
 }

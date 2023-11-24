@@ -13,7 +13,7 @@ export default function LishogiEditor(element: HTMLElement, data: EditorData) {
   const redraw = () => {
     vnode = patch(vnode, view(ctrl));
   };
-
+  data.options = data.options || {};
   ctrl = new EditorCtrl(data, redraw);
   element.innerHTML = '';
   const inner = document.createElement('div');

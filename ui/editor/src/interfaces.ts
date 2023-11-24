@@ -4,7 +4,7 @@ export interface EditorData {
   baseUrl: string;
   sfen: string;
   variant: Rules;
-  options?: EditorOptions;
+  options: EditorOptions;
   pref: any;
   embed: boolean;
   i18n: any;

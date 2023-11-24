@@ -13,21 +13,8 @@ export function renderBoard(ctrl: EditorCtrl): VNode {
       insert: vnode => {
         ctrl.shogiground.attach({ board: vnode.elm as HTMLElement });
       },
-    },
-  });
-}
-
-export function renderHand(ctrl: EditorCtrl, pos: 'top' | 'bottom'): VNode {
-  // inlined because we don't want to apply board-layout css
-  return h(`div.sg-hand-wrap.hand-${pos}.inlined`, {
-    hook: {
-      insert: vnode => {
-        ctrl.shogiground.attach({
-          hands: {
-            top: pos === 'top' ? (vnode.elm as HTMLElement) : undefined,
-            bottom: pos === 'bottom' ? (vnode.elm as HTMLElement) : undefined,
-          },
-        });
+      destroy: () => {
+        ctrl.shogiground.detach({ board: true });
       },
     },
   });
@@ -46,6 +33,7 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     },
     hands: {
       roles: handRoles(ctrl.data.variant),
+      inlined: ctrl.data.variant !== 'chushogi',
     },
     movable: {
       free: true,

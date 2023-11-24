@@ -2,17 +2,18 @@
 @import 'spare';
 @import 'tools';
 @import 'hands';
+@import 'color';
 
 .board-editor {
   user-select: none;
 
   .main-board {
-    grid-area: board;
+    grid-area: editor;
   }
 
   .copyables {
     grid-area: copyables;
-    margin: 2rem 0 0 1rem;
+    margin-top: $block-gap;
     p {
       display: flex;
       align-items: center;

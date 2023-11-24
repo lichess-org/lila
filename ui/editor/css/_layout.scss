@@ -10,39 +10,101 @@
 
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
-    'spare-top'
-    'hand-top'
-    'board'
-    'hand-bot'
-    'spare-bottom'
+    'editor'
     'tools'
-    'copyables'
-    'add-controls';
+    'controls'
+    'side'
+    'copyables';
 
   @include breakpoint($mq-x-small) {
     grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, $side-width);
     grid-template-areas:
-      'spare-top    . hand-top'
-      'spare-top    . tools'
-      '.            . tools'
-      'board        . tools'
-      '.            . tools'
-      'spare-bottom . tools'
-      'spare-bottom . hand-bot'
-      '.            . .    '
-      'copyables    . add-controls';
+      'editor       . tools'
+      'copyables    . controls'
+      'copyables    . side'
+      'copyables    . .';
+  }
+}
 
-    &.variant-chushogi {
-      grid-template-areas:
-        'spare-top    spare-top spare-top'
-        'spare-top    spare-top spare-top'
-        '.            . tools'
-        'board        . tools'
-        '.            . tools'
-        'spare-bottom spare-bottom spare-bottom'
-        'spare-bottom spare-bottom spare-bottom'
-        '.            . .     '
-        'copyables    . add-controls';
+$small-hand-spare: 6rem;
+$small-spare-padding: 3rem;
+$col1-color: 3rem;
+
+.board-editor {
+  @include breakpoint($mq-col1-uniboard) {
+    .main-board {
+      padding-bottom: calc(100% / 11 * 12 / 9 * 15 + #{$hands-gap} + #{$small-hand-spare} + #{$small-spare-padding} + #{$col1-color});
+      margin-bottom: 1rem;
+      .sg-wrap {
+        height: calc(calc(100% - #{$small-hand-spare}  - #{$small-spare-padding} - #{$hands-gap} - #{$col1-color}) / 15 * 11 + #{$hands-gap});
+        margin-top: calc(100% / 9 * 2.2 + #{$small-hand-spare / 2} + #{$small-spare-padding / 2});
+      }
     }
+    &.variant-minishogi .main-board,
+    &.variant-kyotoshogi .main-board {
+      padding-bottom: calc(100% / 11 * 12 / 5 * 11 + #{$hands-gap} + #{$small-hand-spare} + #{$col1-color});
+      margin-bottom: 1rem;
+      .sg-wrap {
+        height: calc(calc(100% - #{$small-hand-spare} - #{$hands-gap} - #{$col1-color}) / 11 * 7 + #{$hands-gap});
+        margin-top: calc(100% / 5 * 2.2 + #{$small-hand-spare / 2});
+      }
+    }
+    &.variant-chushogi .main-board {
+      padding-bottom: calc(100% / 11 * 12 / 15 * 20 + #{$small-spare-padding} + #{$col1-color});
+      margin-bottom: 1rem;
+      .sg-wrap {
+        height: calc(calc(100% - #{$small-spare-padding} - #{$col1-color}) / 16 * 12);
+        margin-top: calc(100% / 15 * 2.7 + #{$small-spare-padding / 2});
+      }
+    }
+    .mselect, .copyables {
+      margin-top: 1rem;
+    }
+  }
+  @include breakpoint($mq-col2-uniboard, $mq-col2-uniboard-squeeze) {
+    $editor-rows: 16;
+    grid-template-rows: fit-content(0) 36px;
+    grid-template-columns: $col2-uniboard-main $gauge-gap $col3-uniboard-table;
+    grid-template-areas:
+      'editor    . tools'
+      'copyables . controls'
+      'copyables . side';
+    @include breakpoint($mq-col2-uniboard-squeeze-1) {
+      grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
+    }
+    .main-board {
+      .sg-wrap {
+        width: calc((100% - #{$hands-gap}) / #{$editor-rows} * 11 + #{$hands-gap});
+        height: calc(100% / #{$editor-rows} * 11);
+        left: calc((100% - #{$hands-gap}) / #{$editor-rows} * #{($editor-rows - 11) / 2});
+      }
+    }
+
+    &.variant-minishogi .main-board,
+    &.variant-kyotoshogi .main-board {
+      padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
+      .sg-wrap {
+        height: calc(100% / 9 * 5 / 7 * 11 / 16 * 11);
+      }
+      .colors {
+        top: calc(100% / 9 * 5 / 7 * 11 / 16 * 11);
+        width: calc((100% - 4vmin) / 16 * 11 / 7 * 5);
+      }
+    }
+    &.variant-chushogi .main-board .sg-wrap {
+      width: calc((100% - #{$hands-gap}) / 16 * 9);
+      top: calc((100% - #{$hands-gap}) / 16 * 2.75);
+      left: calc((100% - #{$hands-gap}) / 21 * 5);
+    }
+  }
+
+  @include breakpoint($mq-col3-uniboard) {
+    grid-template-rows: fit-content(0);
+    grid-template-columns:
+      $col3-uniboard-side $block-gap $col3-uniboard-main $gauge-gap
+      $col3-uniboard-table;
+    grid-template-areas:
+      'side .  editor    . tools'
+      '.    .  copyables . controls';
   }
 }
