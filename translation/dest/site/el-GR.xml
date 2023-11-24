@@ -75,7 +75,7 @@
   <string name="variantWin">Νίκη εκδοχής</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό</string>
   <string name="pawnMove">Κίνηση πιονιού</string>
-  <string name="capture">Πιάσιμο</string>
+  <string name="capture">Αιχμαλώτιση</string>
   <string name="close">Κλείσιμο</string>
   <string name="winning">Κερδίζει</string>
   <string name="losing">Χάνει</string>
@@ -282,12 +282,12 @@
   <string name="ratedTournament">Βαθμολογημένo</string>
   <string name="thisGameIsRated">Το παιχνίδι βαθμολογείται</string>
   <string name="rematch">Ξαναπαίξτε</string>
-  <string name="rematchOfferSent">Πρόταση επανάληψης εστάλη</string>
-  <string name="rematchOfferAccepted">Πρόταση επανάληψης αποδεκτή</string>
-  <string name="rematchOfferCanceled">Πρόταση επανάληψης ακυρώθηκε</string>
-  <string name="rematchOfferDeclined">Πρόταση επανάληψης απερρίφθη</string>
-  <string name="cancelRematchOffer">Ακύρωση προσφοράς επανάληψης</string>
-  <string name="viewRematch">Δείτε την επανάληψη</string>
+  <string name="rematchOfferSent">Πρόταση ρεβάνς εστάλη</string>
+  <string name="rematchOfferAccepted">Η πρόταση ρεβάνς έγινε αποδεκτή</string>
+  <string name="rematchOfferCanceled">Η πρόταση ρεβάνς ακυρώθηκε</string>
+  <string name="rematchOfferDeclined">Η πρόταση ρεβάνς απορρίφθηκε</string>
+  <string name="cancelRematchOffer">Ακύρωση πρότασης ρεβάνς</string>
+  <string name="viewRematch">Δείτε την παρτίδα ρεβάνς</string>
   <string name="confirmMove">Επιβεβαίωση κίνησης</string>
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
