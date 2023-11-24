@@ -63,7 +63,7 @@ object coordinate {
         div(cls   := "coord-trainer__board main-board")(
           div(cls := "next_coord", id := "next_coord0"),
           div(cls := "next_coord", id := "next_coord1"),
-          shogigroundBoard(shogi.variant.Standard)
+          shogigroundEmpty(shogi.variant.Standard, shogi.Color.fromSente(ctx.pref.coordColor != Color.GOTE))
         ),
         div(cls := "coord-trainer__table")(
           div(cls := "explanation")(

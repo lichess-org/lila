@@ -97,7 +97,8 @@ $('#asset-version-message').text(lishogi.info.message);"""
     )(
       frag(
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 533px;" allowtransparency="true" frameborder="0""""
+          val args =
+            """style="width: 400px; height: calc(400px / 9 * 11 / 11 * 12 + 2vmin);" allowtransparency="true" frameborder="0""""
           frag(
             h1(id := "embed-tv")("Embed Lishogi TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=wood" $args></iframe>""")),
@@ -115,7 +116,8 @@ $('#asset-version-message').text(lishogi.info.message);"""
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 533px;" allowtransparency="true" frameborder="0""""
+          val args =
+            """style="width: 400px; height: calc(400px / 9 * 11 / 11 * 12 + 2vmin);" allowtransparency="true" frameborder="0""""
           frag(
             h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=wood" $args></iframe>""")),

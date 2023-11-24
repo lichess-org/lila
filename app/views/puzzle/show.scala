@@ -70,10 +70,10 @@ object show {
         st.aside(cls := "puzzle__side")(
           div(cls    := "puzzle__side__metas")
         ),
-        div(cls := "puzzle__board main-board")(shogigroundBoard(shogi.variant.Standard, puzzle.color.some)),
-        sgHandTop,
+        div(cls := "puzzle__board main-board")(
+          shogigroundEmpty(shogi.variant.Standard, puzzle.color)
+        ),
         div(cls := "puzzle__tools"),
-        sgHandBottom,
         div(cls := "puzzle__controls")
       )
     }

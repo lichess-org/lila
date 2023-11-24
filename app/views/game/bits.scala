@@ -31,11 +31,11 @@ object bits {
       variant: shogi.variant.Variant = shogi.variant.Standard
   ): Frag =
     div(
-      cls         := s"mini-board parse-sfen sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}",
+      cls         := s"mini-board parse-sfen",
       dataColor   := color.name,
       dataSfen    := sfen.value,
       dataVariant := variant.key
-    )(sgWrapContent)
+    )(shogigroundEmpty(variant, color))
 
   def gameIcon(game: Game): Char =
     game.perfType match {

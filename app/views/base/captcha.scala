@@ -33,7 +33,7 @@ object captcha {
         )(
           div(cls := "challenge")(
             div(
-              cls          := "mini-board sg-wrap parse-sfen",
+              cls          := "mini-board parse-sfen",
               dataPlayable := "1",
               dataX        := encodeSfen(safeJsonValue(Json.toJson(captcha.moves))),
               dataY := encodeSfen(if (captcha.sente) {
@@ -42,7 +42,7 @@ object captcha {
                 "gote"
               }),
               dataZ := encodeSfen(captcha.sfenBoard)
-            )(sgWrapContent)
+            )(div("sg-wrap"))
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(

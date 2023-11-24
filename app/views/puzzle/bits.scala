@@ -18,11 +18,11 @@ object bits {
       tag: Tag
   ): Tag =
     tag(
-      cls          := "mini-board parse-sfen sg-wrap d-9x9",
+      cls          := "mini-board parse-sfen",
       dataColor    := color.name,
       dataSfen     := sfen.value,
       dataLastmove := lastMove
-    )(sgWrapContent)
+    )(div(cls      := s"sg-wrap d-9x9 orientation-${color.name}"))
 
   def daily(p: lila.puzzle.Puzzle, sfen: shogi.format.forsyth.Sfen, lastMove: String) =
     miniTag(sfen, p.color, lastMove)(span)

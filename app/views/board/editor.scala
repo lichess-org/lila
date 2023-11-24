@@ -42,9 +42,9 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     )(
       main(id := "board-editor")(
         div(cls   := s"board-editor variant-${sit.variant.key}")(
-          div(cls := "spare"),
-          div(cls := "main-board")(shogigroundBoard(sit.variant, shogi.Sente.some)),
-          div(cls := "spare")
+          div(cls := "board-editor__tools"),
+          div(cls := "main-board")(shogigroundEmpty(sit.variant, shogi.Sente)),
+          div(cls := "board-editor__side")
         )
       )
     )
@@ -96,6 +96,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     trans.minishogi,
     trans.chushogi,
     trans.annanshogi,
-    trans.kyotoshogi
+    trans.kyotoshogi,
+    trans.checkshogi
   ).map(_.key)
 }

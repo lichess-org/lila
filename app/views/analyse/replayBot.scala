@@ -23,10 +23,10 @@ object replayBot {
         st.aside(cls := "analyse__side")(
           views.html.game.side(pov, none, simul = simul, bookmarked = false)
         ),
-        div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
-        (!pov.game.variant.chushogi) option sgHandTop,
+        div(cls := "analyse__board main-board")(
+          shogigroundEmpty(pov.game.variant, pov.color)
+        ),
         div(cls := "analyse__tools")(div(cls := "ceval")),
-        (!pov.game.variant.chushogi) option sgHandBottom,
         div(cls := "analyse__controls"),
         div(cls := "analyse__underboard")(
           div(cls := "analyse__underboard__panels")(

@@ -83,9 +83,7 @@ LishogiRound.boot(${safeJsonValue(
               div(cls := "kif")(kif.render)
             )
           ),
-          (!pov.game.variant.chushogi) option sgHandTop,
-          div(cls := "round__board main-board")(shogiground(pov)),
-          (!pov.game.variant.chushogi) option sgHandBottom
+          div(cls := "round__board main-board")(shogiground(pov))
         )
       )
     )

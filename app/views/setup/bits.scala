@@ -59,12 +59,12 @@ private object bits {
             span(cls := "preview")(
               validSfen.map { vf =>
                 div(
-                  cls           := "mini-board sg-wrap parse-sfen",
+                  cls           := "mini-board parse-sfen",
                   dataColor     := vf.color.name,
                   dataSfen      := vf.sfen.value,
                   dataVariant   := vf.situation.variant.key,
                   dataResizable := "1"
-                )(sgWrapContent)
+                )(div(cls       := "sg-wrap"))
               }
             )
           )
