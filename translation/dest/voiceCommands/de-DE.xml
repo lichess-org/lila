@@ -7,4 +7,5 @@
   <string name="takeRookWithQueen">Schlage den Turm mit der Dame</string>
   <string name="castle">Rochiere (egal welche Seite)</string>
   <string name="phoneticAlphabetIsBest">Das phonetische Alphabet ist am besten</string>
+  <string name="showPuzzleSolution">Aufgaben-Lösung anzeigen</string>
 </resources>
