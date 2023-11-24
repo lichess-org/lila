@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.10"
+  val globalScalaVersion = "2.13.12"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -83,6 +83,7 @@ object BuildSettings {
     "-Xlint:private-shadow",
     "-Xlint:stars-align",
     "-Xlint:type-parameter-shadow",
+    "-Wconf:cat=other-implicit-type:s",
     "-Wdead-code",
     "-Wextra-implicit",
     // "-Wnumeric-widen",
