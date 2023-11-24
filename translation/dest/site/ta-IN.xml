@@ -383,6 +383,7 @@
   <string name="apply">புழங்கு</string>
   <string name="save">சேமி</string>
   <string name="leaderboard">முன்னிலைக் காட்சி</string>
+  <string name="gameAsGIF">ஜெஃப் ஆக விளையாட்டு</string>
   <string name="pasteTheFenStringHere">FEN தொடரை இங்கே ஒட்டு</string>
   <string name="pasteThePgnStringHere">PGN தொடரை இங்கே ஒட்டு</string>
   <string name="fromPosition">தொடக்கநிலை</string>
@@ -452,11 +453,19 @@
   <string name="losses">தோல்விகள்</string>
   <string name="createdBy">படைத்தவர்</string>
   <string name="tournamentIsStarting">போட்டி தொடங்குகின்றது</string>
+  <string name="pause">இடைநிறுத்தம்</string>
+  <string name="resume">தொடரவும்</string>
+  <string name="youArePlaying">நீங்கள் விளையாடுகிறீர்கள்!</string>
+  <string name="winRate">வெற்றி விகிதம்</string>
+  <string name="berserkRate">வெறித்தனம் விகிதம்</string>
   <string name="performance">செயல்திறன்</string>
+  <string name="tournamentComplete">போட்டி முடிந்தது</string>
   <string name="movesPlayed">ஆடின ஆட்டங்கள்</string>
   <string name="whiteWins">வெள்ளை வெற்றிபெற்றது</string>
   <string name="blackWins">கருப்பு வெற்றிபெற்றது</string>
   <string name="draws">சமநிலை</string>
+  <string name="nextXTournament">அடுத்த %s போட்டி:</string>
+  <string name="averageOpponent">சராசரி எதிரி</string>
   <string name="boardEditor">பலகை அமைப்பாளி</string>
   <string name="startPosition">தொடக்க நிலை</string>
   <string name="clearBoard">பலகையை ஒழி</string>
