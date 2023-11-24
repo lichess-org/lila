@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' गोलाई के साथ, अगले कब्ज़ा या प्यादा की चाल तक आधे-चालों की संख्या के आधार पर</string>
   <string name="noGameFound">कोई गेम नहीं मिला</string>
+  <string name="maxDepthReached">अधिकतम गहराई तक पहुँच गया!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openings">शुरूआत</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
   <string name="openingEndgameExplorer">प्रारम्भिक खेल/समाप्ति खेल अन्वेषक</string>
   <string name="xOpeningExplorer">%s ओपनिंग एक्सप्लोरर</string>
+  <string name="playFirstOpeningEndgameExplorerMove">पहली ओपनिंग/एंडगेम-एक्सप्लोरर चाल खेलें</string>
   <string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
   <string name="winOr50MovesByPriorMistake">जीत अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
@@ -113,6 +115,7 @@
   <string name="openStudy">अध्ययन खोलो</string>
   <string name="enable">सक्षम करें</string>
   <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
+  <string name="showVariationArrows">विविधता वाले तीर दिखाएँ</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
   <string name="cpus">केंद्रीय संसाधन एकक (CPUs)</string>
@@ -223,9 +226,13 @@
   <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
   <string name="emailCanTakeSomeTime">इसे आने में कुछ समय लग सकता है।</string>
   <string name="refreshInboxAfterFiveMinutes">5 मिनट प्रतीक्षा करें और अपना ईमेल इनबॉक्स रिफ्रेश करें।</string>
+  <string name="emailForSignupHelp">यदि बाकी सब विफल हो जाए तो हमें यह ईमेल भेजें</string>
+  <string name="copyTextToEmail">उपरोक्त टेक्स्ट को कॉपी और पेस्ट करें और %s पर भेजें</string>
+  <string name="waitForSignupHelp">आपका साइनअप पूरा करने में मदद करने के लिए हम जल्द ही आपके पास वापस आएंगे।</string>
   <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
   <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
   <string name="accountClosed">%s खाता बंद है.</string>
+  <string name="accountRegisteredWithoutEmail">खाता %s बिना किसी ईमेल के पंजीकृत किया गया था.</string>
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="rankX">रैंक: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -334,6 +341,10 @@
     <item quantity="one">%s अध्ययन</item>
     <item quantity="other">%s अध्ययन</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s सिमुल</item>
+    <item quantity="other">%s सिमुल्स</item>
+  </plurals>
   <string name="viewTournament">प्रतियोगिता देखें</string>
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
   <string name="noDrawBeforeSwissLimit">स्विस टूर्नामेंट में 30 चालें खेले जाने से पहले आप ड्रॉ नहीं कर सकते।</string>
@@ -366,7 +377,8 @@
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
   <string name="xCreatedTeamY">%1$s ने  %2$s समूह बनाया</string>
-  <string name="xStartedStreaming">%s ने चलचित्र का संचार शुरू किया</string>
+  <string name="startedStreaming">ने स्ट्रीमिंग शुरू किया</string>
+  <string name="xStartedStreaming">%s ने स्ट्रीमिंग शुरू किया</string>
   <string name="averageElo">औसत अंक</string>
   <string name="location">स्थान</string>
   <string name="filterGames">खेलों को छानें (फ़िल्टर करें)</string>
@@ -485,7 +497,6 @@
   <string name="firstName">प्रथम नाम</string>
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">झंडे</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>

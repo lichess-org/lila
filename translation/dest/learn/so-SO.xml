@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Halxiraalaha</string>
+  <string name="awesome">Cajiib!</string>
+  <string name="excellent">Wanaag!</string>
+  <string name="greatJob">Shaqo wanaagsan!</string>
+  <string name="perfect">Kaamil ah!</string>
+  <string name="outstanding">Wacan!</string>
+  <string name="wayToGo">Jidka loo maro!</string>
+</resources>

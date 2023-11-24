@@ -506,7 +506,7 @@
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandera</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o regió</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes socials</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
@@ -971,4 +971,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="switchSides">Canviar de bandòl</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
+  <string name="instructions">Instruccions</string>
 </resources>

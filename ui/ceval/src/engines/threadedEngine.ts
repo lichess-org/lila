@@ -1,5 +1,5 @@
 import { Protocol } from '../protocol';
-import { Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
+import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from '../types';
 import { sharedWasmMemory } from '../util';
 import { Cache } from '../cache';
 import { LegacyBot } from './legacyBot';
@@ -9,6 +9,8 @@ interface WasmModule {
     wasmBinary?: ArrayBuffer;
     locateFile(path: string): string;
     wasmMemory: WebAssembly.Memory;
+    printErr(msg: string): void;
+    onError(err: Error): void;
   }): Promise<Stockfish>;
 }
 
@@ -26,7 +28,7 @@ declare global {
 }
 
 export class ThreadedEngine extends LegacyBot implements CevalEngine {
-  failed: boolean;
+  failed: Error;
   protocol: Protocol;
   loaded = () => {};
   isLoaded = new Promise<void>(resolve => {
@@ -36,15 +38,15 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly progress?: (download?: { bytes: number; total: number }) => void,
+    readonly status?: EngineNotifier,
     readonly variantMap?: (v: string) => string,
   ) {
     super(info);
     if (!this.info.isBot) this.protocol = new Protocol(this.variantMap);
     this.boot().catch(err => {
       console.error(err);
-      this.failed = true;
-      this.progress?.();
+      this.failed = err;
+      this.status?.({ error: String(err) });
     });
   }
 
@@ -55,6 +57,12 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
     return this.isLoaded;
   }
 
+  onError = (err: Error) => {
+    console.error(err);
+    this.failed = err;
+    this.status?.({ error: String(err) });
+  };
+
   getInfo() {
     return this.info;
   }
@@ -63,12 +71,12 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
     return !this.protocol
       ? CevalState.Initial
       : this.failed
-      ? CevalState.Failed
-      : !this.protocol.engineName
-      ? CevalState.Loading
-      : this.protocol.isComputing()
-      ? CevalState.Computing
-      : CevalState.Idle;
+        ? CevalState.Failed
+        : !this.protocol.engineName
+          ? CevalState.Loading
+          : this.protocol.isComputing()
+            ? CevalState.Computing
+            : CevalState.Idle;
   }
 
   private async boot() {
@@ -97,9 +105,9 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
           req.open('GET', lichess.assetUrl(wasmPath, { version }), true);
           req.responseType = 'arraybuffer';
           req.onerror = event => reject(event);
-          req.onprogress = event => this.progress?.({ bytes: event.loaded, total: event.total });
+          req.onprogress = event => this.status?.({ download: { bytes: event.loaded, total: event.total } });
           req.onload = _ => {
-            this.progress?.();
+            this.status?.();
             resolve(req.response);
           };
           req.send();
@@ -116,6 +124,8 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
     await lichess.loadIife(`${root}/${js}`, { version });
     const sf = await window[this.info.id === '__sf11mv' ? 'StockfishMv' : 'Stockfish']!({
       wasmBinary,
+      printErr: (msg: string) => this.onError(new Error(msg)),
+      onError: this.onError,
       locateFile: (path: string) =>
         lichess.assetUrl(`${root}/${path}`, { version, sameDomain: path.endsWith('.worker.js') }),
       wasmMemory: sharedWasmMemory(this.info.minMem!),
@@ -140,11 +150,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   async start(work: Work) {
     if (!this.protocol) {
       this.protocol = new Protocol(this.variantMap);
-      this.boot().catch(err => {
-        console.error(err);
-        this.failed = true;
-        this.progress?.();
-      });
+      this.boot().catch(this.onError);
     }
     this.protocol.compute(work);
   }

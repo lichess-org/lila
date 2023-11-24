@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Spraakopdrachten</string>
+  <string name="watchTheVideoTutorial">Bekijk de videohandleiding</string>
+  <string name="instructions1">Gebruik de knop %1$s om spraakherkenning aan/uit te zetten, de knop %2$s om dit hulp-scherm te openen en het %3$s menu om spraak-instellingen te wijzigen.</string>
+</resources>

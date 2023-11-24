@@ -506,7 +506,6 @@
   <string name="firstName">Име</string>
   <string name="lastName">Презиме</string>
   <string name="biography">Животопис</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Знаме</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>

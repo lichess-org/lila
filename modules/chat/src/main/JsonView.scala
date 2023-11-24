@@ -30,9 +30,8 @@ object JsonView:
       lineWriter.writes(line)
 
   def userModInfo(using LightUser.GetterSync)(u: UserModInfo) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
+    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj:
       "history" -> u.history
-    )
 
   def mobile(chat: AnyChat, writeable: Boolean = true)(using UserFlairApi, Executor): Fu[JsObject] =
     asyncLines(chat).map: lines =>

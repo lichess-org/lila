@@ -27,7 +27,7 @@
     <item quantity="one">%s சேர கோரிக்கை</item>
     <item quantity="other">%s சேர கோரிக்கைகள்</item>
   </plurals>
-  <string name="willBeReviewed" comment="Please note that Lichess teams can have more than one team leader.&#10;This string used to say 'the' team leader, so please correct it if it only refers to one person.">உங்கள் சேர்வதற்கான கோரிக்கை குழுத் தலைவரால் மதிப்பாய்வு செய்யப்படும்.</string>
+  <string name="willBeReviewed">உங்கள் சேர்வதற்கான கோரிக்கை குழுத் தலைவரால் மதிப்பாய்வு செய்யப்படும்.</string>
   <string name="beingReviewed">உங்கள் சேர்வதற்கான கோரிக்கை குழுத் தலைவரால் மதிப்பாய்வு செய்யப்படுகிறது.</string>
   <string name="requestDeclined">குழுத் தலைவரால் நீங்கள் சேருவதற்கான கோரிக்கை நிராகரிக்கப்பட்டது.</string>
 </resources>

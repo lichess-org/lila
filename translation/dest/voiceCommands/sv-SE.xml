@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Röstkommandon</string>
+  <string name="watchTheVideoTutorial">Titta på videoinstruktionen</string>
+  <string name="thisBlogPost">Det här blogginlägget</string>
+</resources>

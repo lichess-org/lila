@@ -248,6 +248,7 @@ package round:
   case class Abort(playerId: GamePlayerId)
   case class Resign(playerId: GamePlayerId)
   case class Mlat(millis: Int)
+  case class DeleteUnplayed(gameId: GameId)
 
 package evaluation:
   case class AutoCheck(userId: UserId)
@@ -255,7 +256,6 @@ package evaluation:
 
 package bookmark:
   case class Toggle(gameId: GameId, userId: UserId)
-  case class Remove(gameId: GameId)
 
 package relation:
   case class Block(u1: UserId, u2: UserId)

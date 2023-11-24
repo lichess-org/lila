@@ -25,13 +25,13 @@ export class Engines {
     this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
   }
 
-  makeEngineMap() {
-    const progress = (download?: { bytes: number; total: number }, error?: string) => {
-      if (this.ctrl?.enabled()) this.ctrl.download = download;
-      if (error) this.ctrl?.engineFailed(error);
-      this.ctrl?.opts.redraw();
-    };
+  status = (status: { download?: { bytes: number; total: number }; error?: string } = {}) => {
+    if (this.ctrl?.enabled()) this.ctrl.download = status.download;
+    if (status.error) this.ctrl?.engineFailed(status.error);
+    this.ctrl?.opts.redraw();
+  };
 
+  makeEngineMap() {
     return new Map<string, WithMake>(
       [
         {
@@ -48,7 +48,7 @@ export class Engines {
               js: 'linrock-nnue-7.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
         },
         {
           info: {
@@ -64,7 +64,7 @@ export class Engines {
               js: 'sf-nnue-40.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
         },
         {
           info: {
@@ -81,7 +81,7 @@ export class Engines {
               wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
         },
         {
           info: {
@@ -106,7 +106,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new StockfishWebEngine(e, progress, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
+            new StockfishWebEngine(e, this.status, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
         },
         {
           info: {
@@ -132,7 +132,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) =>
-            new ThreadedEngine(e, progress, (v: VariantKey) =>
+            new ThreadedEngine(e, undefined, (v: VariantKey) =>
               v === 'antichess' ? 'giveaway' : lichessRules(v),
             ),
         },
@@ -150,7 +150,7 @@ export class Engines {
               wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e),
         },
         {
           info: {
@@ -167,7 +167,7 @@ export class Engines {
               wasm: 'stockfish.wasm',
             },
           },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
         },
         {
           info: {
@@ -184,7 +184,7 @@ export class Engines {
               js: 'stockfish.wasm.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new SimpleEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new SimpleEngine(e),
         },
         {
           info: {
@@ -200,7 +200,7 @@ export class Engines {
               js: 'stockfish.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new SimpleEngine(e, progress),
+          make: (e: BrowserEngineInfo) => new SimpleEngine(e),
         },
       ]
         .filter(
@@ -267,7 +267,7 @@ export class Engines {
 
     return e.tech !== 'EXTERNAL'
       ? (this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo) as CevalEngine)
-      : new ExternalEngine(e as ExternalEngineInfo, this.ctrl?.opts.redraw);
+      : new ExternalEngine(e as ExternalEngineInfo, this.status);
   }
 
   makeBot(id: string): LegacyBot {
