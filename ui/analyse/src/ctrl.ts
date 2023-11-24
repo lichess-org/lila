@@ -745,7 +745,7 @@ export default class AnalyseCtrl {
   });
 
   toggleCeval = () => {
-    if (!this.showComputer()) return;
+    if (!this.showComputer() || this.ceval.technology === 'none') return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
