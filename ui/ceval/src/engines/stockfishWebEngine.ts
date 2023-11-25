@@ -1,4 +1,4 @@
-import { Work, CevalEngine, CevalState, BrowserEngineInfo } from '../types';
+import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from '../types';
 import { Protocol } from '../protocol';
 import { objectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
@@ -16,7 +16,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly progress?: (download?: { bytes: number; total: number }, error?: string) => void,
+    readonly status?: EngineNotifier,
     readonly variantMap?: (v: string) => string,
   ) {
     super(info);
@@ -24,7 +24,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
     this.boot().catch(e => {
       console.error(e);
       this.failed = e;
-      progress?.(undefined, e.message);
+      this.status?.({ error: String(e) });
     });
   }
   get module() {
@@ -73,7 +73,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
           }, 2000);
         } else {
           console.error(msg);
-          this.progress?.(undefined, msg);
+          this.status?.({ error: msg });
         }
       };
       let nnueBuffer = await nnueStore?.get(nnueFilename).catch(() => undefined);
@@ -83,7 +83,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
 
         req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
         req.responseType = 'arraybuffer';
-        req.onprogress = e => this.progress?.({ bytes: e.loaded, total: e.total });
+        req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 
         nnueBuffer = await new Promise((resolve, reject) => {
           req.onerror = () => reject(new Error(`NNUE download failed: ${req.status}`));
@@ -93,7 +93,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
           };
           req.send();
         });
-        this.progress?.();
+        this.status?.();
         nnueStore?.put(nnueFilename, nnueBuffer!).catch(() => console.warn('IDB store failed'));
       }
       module.setNnueBuffer(nnueBuffer!);
@@ -108,10 +108,10 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
     return this.failed
       ? CevalState.Failed
       : !this.module
-        ? CevalState.Loading
-        : this.protocol.isComputing()
-          ? CevalState.Computing
-          : CevalState.Idle;
+      ? CevalState.Loading
+      : this.protocol.isComputing()
+      ? CevalState.Computing
+      : CevalState.Idle;
   }
 
   start = (work?: Work) => this.protocol.compute(work);

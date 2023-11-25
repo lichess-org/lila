@@ -506,7 +506,7 @@
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
   <string name="biography">Kuvaus</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lippu</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai alue</string>
   <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="oneUrlPerLine">Yksi URL per rivi.</string>
@@ -692,6 +692,10 @@
   <string name="keyNextBlunder">Seuraava vakava virhe</string>
   <string name="keyNextMistake">Seuraava virhe</string>
   <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
+  <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
+  <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
+  <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
+  <string name="playSelectedMove">tee valittu siirto</string>
   <string name="newTournament">Uusi turnaus</string>
   <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
   <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Pikapeli, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
@@ -970,4 +974,6 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="switchSides">Vaihda puolta</string>
   <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
   <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
+  <string name="instructions">Ohjeet</string>
+  <string name="showMeEverything">Näytä kaikki</string>
 </resources>

@@ -48,6 +48,11 @@ export interface BrowserEngineInfo extends EngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string };
 }
 
+export type EngineNotifier = (status?: {
+  download?: { bytes: number; total: number };
+  error?: string;
+}) => void;
+
 export enum CevalState {
   Initial,
   Loading,

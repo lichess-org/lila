@@ -19,11 +19,12 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>
     Found(env.game.gameRepo game gameId): game =>
       if game.pgnImport.flatMap(_.user).exists(me.is(_)) then
-        env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-        (env.game.gameRepo remove game.id) >>
-          (env.analyse.analysisRepo remove game.id) >>
-          env.game.cached.clearNbImportedByCache(me) inject
-          Redirect(routes.User.show(me.username))
+        for
+          _ <- env.bookmark.api.removeByGameId(game.id)
+          _ <- env.game.gameRepo remove game.id
+          _ <- env.analyse.analysisRepo remove game.id
+          _ <- env.game.cached.clearNbImportedByCache(me)
+        yield Redirect(routes.User.show(me.username))
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
   }
 

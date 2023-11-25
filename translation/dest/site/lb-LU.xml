@@ -485,7 +485,7 @@
   <string name="movesPlayed">Zich gespillt</string>
   <string name="whiteWins">Wäiss Victoiren</string>
   <string name="blackWins">Schwaarz Victoiren</string>
-  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Remis</string>
+  <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
   <string name="boardEditor">Briet Editor</string>
@@ -506,7 +506,6 @@
   <string name="firstName">Virnumm</string>
   <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Fändel</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="oneUrlPerLine">Eng URL pro Zeil.</string>

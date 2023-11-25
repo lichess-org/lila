@@ -72,7 +72,7 @@ export default new (class implements SoundI {
       else {
         if (o?.san?.includes('x')) this.throttled('capture');
         else this.throttled('move');
-        if (o?.san?.endsWith('#') || o?.san?.endsWith('+')) this.throttled('check');
+        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check');
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;

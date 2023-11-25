@@ -51,18 +51,17 @@
 
     .color,
     .user-link {
+      display: inline-block;
       font-weight: bold;
       padding: 0;
       color: $c-font-dim;
       letter-spacing: -1px;
       padding-#{$end-direction}: 0.4em;
-      max-width: 110px;
       text-overflow: ellipsis;
-      display: inline-block;
       vertical-align: bottom;
     }
 
-    line.patron {
+    .patron {
       font-size: 1.1em;
       width: 1.2em;
       text-align: left;
@@ -77,7 +76,7 @@
       @extend %roboto;
     }
 
-    i {
+    action {
       display: none;
       position: absolute;
       top: 5px;
@@ -93,7 +92,7 @@
       }
     }
 
-    li:hover i {
+    li:hover action {
       display: block;
       text-shadow:
         0 0 2px $c-bg-box,
@@ -101,7 +100,7 @@
         0 0 10px $c-bg-box;
     }
 
-    li.me i {
+    li.me action {
       display: none !important;
     }
 

@@ -485,7 +485,7 @@
   <string name="movesPlayed">Oynanılan gediş</string>
   <string name="whiteWins">Ağların qələbəsi</string>
   <string name="blackWins">Qaraların qələbəsi</string>
-  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Heç-heçələr</string>
+  <string name="draws">Heç-heçələr</string>
   <string name="nextXTournament">Növbəti %s turniri:</string>
   <string name="averageOpponent">Ortalama rəqib</string>
   <string name="boardEditor">Lövhə redaktoru</string>
@@ -506,7 +506,6 @@
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Özü haqqında</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bayraq</string>
   <string name="thankYou">Təşəkkürlər!</string>
   <string name="socialMediaLinks">Sosial media linkləri</string>
   <string name="oneUrlPerLine">Hər sətirə bir URL.</string>

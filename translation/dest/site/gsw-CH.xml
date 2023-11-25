@@ -508,7 +508,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
   <string name="biography">Biografie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Landesflagge</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land, Region oder Kanton</string>
   <string name="thankYou">Ich danke dir!</string>
   <string name="socialMediaLinks">Social Media Links</string>
   <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
@@ -695,6 +695,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="keyboardShortcuts">Diräkti Taschtebefehl</string>
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
+  <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
   <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
   <string name="keyRequestComputerAnalysis">Computeranalyse afordere, Lern us dine Fähler</string>

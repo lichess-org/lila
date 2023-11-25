@@ -84,7 +84,7 @@
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
   <string name="averageRatingX">Xếp loại bình quân: %s</string>
-  <string name="recentGames">Ván gần đây</string>
+  <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván cờ hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
@@ -102,7 +102,7 @@
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn cản bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
   <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
-  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước</string>
+  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần nước đi do nhầm lẫn trước đó</string>
   <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng tàn cuộc được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong sách tàn cuộc Syzygy.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
@@ -138,7 +138,7 @@
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
   <string name="claimADraw">Nhận hòa</string>
-  <string name="offerDraw">Xin hoà</string>
+  <string name="offerDraw">Đề nghị hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">
     <item quantity="other">%s người chơi</item>
@@ -358,8 +358,8 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không có quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s đã tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
-  <string name="startedStreaming">đã bắt đầu phát trực tuyến</string>
-  <string name="xStartedStreaming">%s đã bắt đầu phát trực tuyến</string>
+  <string name="startedStreaming">đã bắt đầu phát trực tiếp</string>
+  <string name="xStartedStreaming">%s đã bắt đầu phát trực tiếp</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
   <string name="location">Vị trí</string>
   <string name="filterGames">Lọc ván cờ</string>
@@ -423,7 +423,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="openTournaments">Những giải đấu mở</string>
   <string name="duration">Thời lượng</string>
   <string name="winner">Người chiến thắng</string>
-  <string name="standing">Bảng xếp hạng</string>
+  <string name="standing">Thứ hạng</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
@@ -454,7 +454,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="movesPlayed">Số nước đi</string>
   <string name="whiteWins">Tỉ lệ trắng thắng</string>
   <string name="blackWins">Tỉ lệ đen thắng</string>
-  <string name="draws" comment="draws&#10;&#10;Noun. Part of the statistics of a tournament or simul, after it's finished.">Hoà</string>
+  <string name="draws">Hoà</string>
   <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
   <string name="averageOpponent">Xếp hạng trung bình của đối thủ</string>
   <string name="boardEditor">Chỉnh sửa bàn cờ</string>
@@ -475,7 +475,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
   <string name="thankYou">Lời cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
@@ -651,6 +651,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="keyboardShortcuts">Các phím tắt</string>
   <string name="keyMoveBackwardOrForward">tua lại/đi tới</string>
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
+  <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ lỗi sai của bạn</string>
@@ -658,6 +659,13 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="keyNextBlunder">Nước sai lầm nghiêm trọng tiếp theo</string>
   <string name="keyNextMistake">Nước đi sai lầm tiếp theo</string>
   <string name="keyNextInaccuracy">Nước đi không chính xác tiếp theo</string>
+  <string name="keyPreviousBranch">Nhánh trước</string>
+  <string name="keyNextBranch">Nhánh tiếp theo</string>
+  <string name="toggleVariationArrows">Đổi mũi tên của từng biến</string>
+  <string name="cyclePreviousOrNextVariation">Chu kì của biến trước/tiếp theo</string>
+  <string name="toggleGlyphAnnotations">Đổi chú thích bằng dấu</string>
+  <string name="variationArrowsInfo">Mũi tên của biến cho phép bạn điều hướng mà không cần sử dụng danh sách nước đi.</string>
+  <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
   <string name="tournamentHomeTitle">Giải đấu cờ vua với nhiều thiết lập thời gian và biến thể phong phú</string>
   <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua nhịp độ nhanh! Tham gia một giải đấu chính thức hoặc tự tạo giải đấu của bạn. Cờ Siêu Chớp, cờ Chớp, cờ Nhanh, cờ Chậm, Chess960, King of the Hill, Threecheck và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
@@ -699,7 +707,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="withFriends">Với bạn bè</string>
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
-  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên internet.</string>
+  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng Lichess có một biểu tượng %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
   <string name="enableKidMode">Kích hoạt chế độ Trẻ em</string>
@@ -930,4 +938,6 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="switchSides">Đổi bên</string>
   <string name="closingAccountWithdrawAppeal">Việc đóng tài khoản sẽ rút lại kháng cáo của bạn</string>
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
+  <string name="instructions">Hướng dẫn</string>
+  <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
 </resources>

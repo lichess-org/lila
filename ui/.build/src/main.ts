@@ -176,10 +176,10 @@ class Env {
       typeof d === 'string'
         ? d
         : d instanceof Buffer
-          ? d.toString('utf8')
-          : Array.isArray(d)
-            ? d.join('\n')
-            : JSON.stringify(d, undefined, 2);
+        ? d.toString('utf8')
+        : Array.isArray(d)
+        ? d.join('\n')
+        : JSON.stringify(d, undefined, 2);
 
     const esc = this.color ? escape : (text: string, _: any) => text;
 

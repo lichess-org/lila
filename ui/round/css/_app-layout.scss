@@ -79,7 +79,6 @@
   @include breakpoint($mq-col2) {
     grid-template-areas: 'board voice' 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'kb-move .';
     grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
-    grid-template-rows: 0; // prevent voice from pushing the table off center
     grid-column-gap: $block-gap;
 
     &__table {

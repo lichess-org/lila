@@ -572,7 +572,7 @@
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
   <string name="biography">O mnie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flaga</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub region</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
@@ -760,6 +760,7 @@
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
+  <string name="keyCycleSelectedVariation">Powtarzaj wybrany wariant</string>
   <string name="keyShowOrHideComments">pokaż/ukryj komentarze</string>
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
   <string name="keyRequestComputerAnalysis">Poproś o analizę komputerową, ucz się na swoich błędach</string>
@@ -767,6 +768,12 @@
   <string name="keyNextBlunder">Następny błąd</string>
   <string name="keyNextMistake">Następna pomyłka</string>
   <string name="keyNextInaccuracy">Następna niedokładność</string>
+  <string name="keyPreviousBranch">Poprzedni wariant</string>
+  <string name="keyNextBranch">Następny wariant</string>
+  <string name="toggleVariationArrows">Pokaż strzałki wariantów</string>
+  <string name="cyclePreviousOrNextVariation">Powtarzaj poprzedni/następny wariant</string>
+  <string name="variationArrowsInfo">Strzałki wariantów pozwalają nawigować bez użycia listy posunięć.</string>
+  <string name="playSelectedMove">wykonaj wybrane posunięcie</string>
   <string name="newTournament">Nowy turniej</string>
   <string name="tournamentHomeTitle">Turnieje szachowe z możliwością rozgrywki w różnym tempie i odmianach szachów</string>
   <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Błyskawiczne, szybkie, klasyczne, Fishera, król w centrum, trzy szachy i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
@@ -1055,4 +1062,6 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="switchSides">Zmień kolor</string>
   <string name="closingAccountWithdrawAppeal">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
   <string name="ourEventTips">Nasze wskazówki dotyczące organizacji wydarzeń</string>
+  <string name="instructions">Instrukcje</string>
+  <string name="showMeEverything">Pokaż mi wszystko</string>
 </resources>

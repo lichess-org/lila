@@ -451,7 +451,6 @@ object layout:
       trans.timeago.inNbMonths,
       trans.timeago.inNbYears,
       trans.timeago.rightNow,
-      trans.timeago.nbSecondsAgo,
       trans.timeago.nbMinutesAgo,
       trans.timeago.nbHoursAgo,
       trans.timeago.nbDaysAgo,

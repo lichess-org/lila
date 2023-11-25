@@ -13,8 +13,8 @@
   <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Seksjon for konfigurering</string>
   <string name="keepPlayPageOpen">Avspelingssida må heile tida vera open i nettlesaren. Den treng ikkje å vera synleg, det vil seie at du kan minimera den eller setje den ved sida av Lichess-spelsida. Men ikkje steng den, for då sluttar brettet å fungera.</string>
   <string name="boardWillAutoConnect">Brettet vil automatisk verte kopla til eit spel som er i gang eller som vert starta. Om ei tid vert det mogleg å velje spel.</string>
-  <string name="timeControlsForCasualGames">Tidskontrollar for uformelle parti: klassisk sjakk, korrespondansesjakk og nokre snøggsjakkformat som 15+10 og 20+0.</string>
-  <string name="timeControlsForRatedGames">Tidskontrollar for rata parti: klassisk sjakk, korrespondansesjakk og nokre snøggsjakkformat som 15+10 og 20+0</string>
+  <string name="timeControlsForCasualGames">Tidskontrollar for uformelle parti: klassisk sjakk, fjernsjakk og nokre snøggsjakkformat som 15+10 og 20+0.</string>
+  <string name="timeControlsForRatedGames">Tidskontrollar for rata parti: klassisk sjakk, fjernsjakk og nokre snøggsjakkformat som 15+10 og 20+0</string>
   <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Sett opp brettet og klikk %s når du er klar.</string>
   <string name="ifMoveNotDetected">Om eit trekk ikkje blir oppdaga</string>
   <string name="checkYouHaveMadeOpponentsMove">Sjekk først at du har gjort trekket til motspelaren på DGT-brettet. Ta trekket attende og utfør så trekket på nytt.</string>

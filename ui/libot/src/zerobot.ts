@@ -77,6 +77,7 @@ const dimensions = {
   survival: 2,
   threshhold: 3,
 };
+
 const defaultCfg: ZeroBotConfig = {
   fishMix: 0, // [0 zero, 1 fish]
   cpBias: 0,
