@@ -67,7 +67,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
   let lastSelect = performance.now();
   const sgState = root.shogiground.state;
   const select = (key: Key, prom?: boolean): void => {
-    if (sgState.selected === key) root.shogiground.cancelMove();
+    if (sgState.selected === key) root.shogiground.cancelMoveOrDrop();
     else {
       root.shogiground.selectSquare(key, prom, true);
       lastSelect = performance.now();
@@ -77,12 +77,12 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
   return {
     move(orig, dest, prom) {
       usedMove = true;
-      root.shogiground.cancelMove();
+      root.shogiground.cancelMoveOrDrop();
       anim(state => userMove(state, orig, dest, prom), root.shogiground.state);
     },
     drop(key, role) {
       const color = root.data.player.color;
-      root.shogiground.cancelMove();
+      root.shogiground.cancelMoveOrDrop();
       anim(state => userDrop(state, { role, color }, key), root.shogiground.state);
     },
     sg: root.shogiground,

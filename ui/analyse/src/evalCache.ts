@@ -15,6 +15,7 @@ const evalPutMaxMoves = 12;
 function qualityCheck(ev): boolean {
   // below 500k nodes, the eval might come from an imminent fourfold repetition
   // and should therefore be ignored
+  // todo - review the numbers for yaneuraou
   return ev.nodes > 500000 && (ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes);
 }
 

@@ -45,7 +45,7 @@ window.lishogi.keyboardMove = function (opts: Opts) {
 
     if (v === '' && submitOpts.submitCommand) {
       if (canPlay) opts.ctrl.confirmMove();
-      else opts.ctrl.sg.cancelMove();
+      else opts.ctrl.sg.cancelMoveOrDrop();
       return;
     }
 

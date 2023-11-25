@@ -164,8 +164,8 @@ function studyButton(ctrl: RoundController): VNode | null {
   const title = withAnonOrAnon
     ? ctrl.trans.noarg('postGameStudy')
     : !!ctrl.data.player.spectator
-    ? ctrl.trans.noarg('studyOfPlayers')
-    : ctrl.trans.noarg('studyWithOpponent');
+      ? ctrl.trans.noarg('studyOfPlayers')
+      : ctrl.trans.noarg('studyWithOpponent');
   return game.replayable(d)
     ? h('div.post-game-study', [
         ctrl.postGameStudyOffer && !loadingStudy
@@ -341,7 +341,7 @@ export function impasse(ctrl: RoundController): MaybeVNode {
     {
       attrs: {
         title: ctrl.noarg('impasse'),
-        disabled: !['standard', 'annanshogi'].includes(ctrl.data.game.variant.key),
+        disabled: !['standard', 'annanshogi', 'checkshogi'].includes(ctrl.data.game.variant.key),
       },
       class: { active: ctrl.impasseHelp },
       hook: util.bind('click', _ => {
@@ -374,8 +374,8 @@ export function opponentGone(ctrl: RoundController) {
         ),
       ])
     : gone
-    ? h('div.suggestion', [h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))])
-    : null;
+      ? h('div.suggestion', [h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))])
+      : null;
 }
 
 function actConfirm(
@@ -680,8 +680,8 @@ export function followUp(ctrl: RoundController): VNode {
           ),
         ]
       : rematchable || d.game.rematch
-      ? rematchButtons(ctrl)
-      : [];
+        ? rematchButtons(ctrl)
+        : [];
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament

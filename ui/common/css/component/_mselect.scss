@@ -66,7 +66,7 @@ $c-mselect: $c-primary;
     }
     .mselect__toggle:checked ~ & {
       transform: scale(1, 1);
-      @include breakpoint($mq-not-small) {
+      @include breakpoint($mq-col1-uniboard) {
         position: fixed;
         top: 50%;
         transform: translateY(-50%) scale(1, 1);
