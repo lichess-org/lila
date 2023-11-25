@@ -12,7 +12,7 @@ object Dependencies {
     val commons = Seq(lilaMaven) ++ sonatype ++ sonatypeS
   }
 
-  val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "8.0.3"
+  val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "10.0.0"
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.12.5"
@@ -20,14 +20,14 @@ object Dependencies {
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.16.1"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.20.0"
   val galimatias  = "io.mola.galimatias"    % "galimatias"                      % "0.2.1"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.2.4.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.92.Final" classifier "linux-x86_64"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.3.0.RELEASE"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.101.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
-  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.11" % Test
-  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.14.0"
+  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.17" % Test
+  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.16.0"
 
   object flexmark {
     val version = "0.50.50"
@@ -39,7 +39,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.5.8"
+    val version = "2.5.9"
     val macros = "com.softwaremill.macwire" %% "macros" % version % "provided"
     val util   = "com.softwaremill.macwire" %% "util"   % version % "provided"
   }
@@ -54,9 +54,9 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.19"
+    val version = "2.9.0"
     val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.9.4"
+    val json    = "com.typesafe.play" %% "play-json" % "2.10.3"
   }
   object kamon {
     val version    = "2.2.3"
@@ -66,7 +66,7 @@ object Dependencies {
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.20"
+    val version    = "2.6.21"
     val akka       = "com.typesafe.akka" %% "akka-actor"       % version
     val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
