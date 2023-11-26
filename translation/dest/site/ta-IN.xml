@@ -41,9 +41,9 @@
     <item quantity="other">உங்கள் எதிரி ஆட்டத்தை விட்டு தொலைந்தனர். இன்னும் %s வினாடிகளில் நீங்கள் வெற்றிக் கொள்ளலாம்.</item>
   </plurals>
   <string name="opponentLeftChoices">எதிராளி ஆட்டத்தை விட்டுவிட்டார். அவரை விலக வற்புறுத்தலாம் அல்லது காத்திருக்கலாம்</string>
-  <string name="forceResignation">வலுக்கட்டாயமாக விலகவை</string>
+  <string name="forceResignation">வெற்றியைப் பெற்றுக்கொள்</string>
   <string name="forceDraw">சமன் செய்ய கோரு</string>
-  <string name="talkInChat">உரையாடலில் உரையாடு</string>
+  <string name="talkInChat">உரையாடலில் மென்மையாக உரையாடு!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">இந்த்ச் சுட்டியில் வந்தடையும் முதலாள் நும்மோடு விளையாடுவார்</string>
   <string name="whiteResigned">வெள்ளை விலகிற்று</string>
   <string name="blackResigned">கருப்பு விலகிற்று</string>
@@ -57,12 +57,12 @@
   <string name="computerAnalysisDisabled">கணினி பகுப்பாய்வு முடக்கப்பட்டுள்ளது</string>
   <string name="analysis">பகுப்பாய்வு</string>
   <string name="depthX">ஆழம் %s</string>
-  <string name="usingServerAnalysis">லீசெசின் கணினியின் ஆராய்ச்சி</string>
+  <string name="usingServerAnalysis">சேவையக பகுப்பாய்வைப் பயன்படுத்துதல்</string>
   <string name="loadingEngine">சற்று நேரம் பொறுங்கள்...</string>
-  <string name="calculatingMoves">கணிக்கிறது நகர்கிறது...</string>
-  <string name="engineFailed">படத்தை ஏற்றுவதில் இயந்திரம்</string>
-  <string name="cloudAnalysis">மேகம் பகுப்பாய்வு</string>
-  <string name="goDeeper">இன்னும் ஆராய்ந்துக்கொள்ளுங்கள்</string>
+  <string name="calculatingMoves">நகர்வுகளைக் கணக்கிடுகிறது...</string>
+  <string name="engineFailed">இயந்திரத்தை ஏற்றுவதில் பிழை</string>
+  <string name="cloudAnalysis">மேகப்பகுப்பாய்வு</string>
+  <string name="goDeeper">ஆழமாக செல்லுங்கள்</string>
   <string name="showThreat">அச்சுறுத்தல்களைக் காண்பி</string>
   <string name="inLocalBrowser">உங்கள் இணைய உலாவியில்</string>
   <string name="toggleLocalEvaluation">கணினி ஆராய்ச்சி</string>
@@ -142,14 +142,14 @@
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
-  <string name="claimADraw">இழுபறியென்று அறிவிக்க</string>
+  <string name="claimADraw">சமநிலை பெறு</string>
   <string name="offerDraw">இழுபறி அளித்திடுக</string>
-  <string name="draw">இழுபறி</string>
+  <string name="draw">சமநிலை</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s விளையாடிகள்</item>
+    <item quantity="one">%s விளையாடி</item>
     <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
-  <string name="drawByMutualAgreement">Rapid</string>
+  <string name="drawByMutualAgreement">இருதரப்பு ஒத்துழைப்புடன் சமநிலை</string>
   <string name="fiftyMovesWithoutProgress">முன்னேற்றம் இல்லாமல் ஐம்பது நகர்வுகள்</string>
   <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
   <plurals name="nbGames">
@@ -161,8 +161,8 @@
     <item quantity="other">%2$s விளையாட்டுகளுக்கு மேல் %1$s மதிப்பீடு</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s நினைவுக்குறிகள்</item>
-    <item quantity="other">%s நினைவுக்குறிகள்</item>
+    <item quantity="one">%s புத்தககுறி</item>
+    <item quantity="other">%s புத்தககுறிகள்</item>
   </plurals>
   <string name="viewInFullSize">முழு அளவில் காண்க</string>
   <string name="logOut">வெளியேறு</string>
@@ -178,14 +178,14 @@
   <string name="players">சதுரங்க விளையாடிகள்</string>
   <string name="friends">நண்பர்கள்</string>
   <string name="discussions">உரையாடல்கள்</string>
-  <string name="today">இன்னிக்கு</string>
-  <string name="yesterday">நாளைக்கு</string>
+  <string name="today">இன்று</string>
+  <string name="yesterday">நேற்று</string>
   <string name="minutesPerSide">ஒவ்வொரு கட்சிக்குமான நிமிடங்கள்</string>
   <string name="variant">ஆட்ட வகை</string>
   <string name="variants">வகைகள்</string>
   <string name="timeControl">நேர வரம்பு</string>
   <string name="realTime">உண்மை நேரம்</string>
-  <string name="correspondence">நீண்டநாள் ஆட்டம்</string>
+  <string name="correspondence">ஒத்திசைவு</string>
   <string name="daysPerTurn">ஒரு முறைக்கு எத்தனை நாட்கள்</string>
   <string name="oneDay">ஒரு நாள்</string>
   <plurals name="nbDays">
@@ -203,8 +203,8 @@
   <string name="time">நேரம்</string>
   <string name="rating">மதிப்பீடு</string>
   <string name="ratingStats">மதிப்பீடு புள்ளிவிவரங்கள்</string>
-  <string name="username">பயனாளர் பெயர்</string>
-  <string name="usernameOrEmail">பயனர்பெயர்</string>
+  <string name="username">பயனர்பெயர்</string>
+  <string name="usernameOrEmail">பயனர்பெயர் அல்லது மின்னஞ்சல்</string>
   <string name="changeUsername">பேர் மாற்றுதல்</string>
   <string name="changeUsernameNotSame">எழுத்துக்களின் உயரம் மட்டும்தான் மாறலாம். உதாரணமாக: \"johndoe\" இலிருந்து \"JohnDoe\".</string>
   <string name="changeUsernameDescription">உங்கள் பேரை மாற்றுங்கள். எழுத்துக்களின் உயரம் மட்டும்தான் மாறலாம்.</string>
@@ -256,12 +256,12 @@
     <item quantity="one">%s ஆட்டங்கள் நும்மோடு</item>
     <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
   </plurals>
-  <string name="cancel">கழி</string>
+  <string name="cancel">இரத்து செய்</string>
   <string name="whiteTimeOut">வெள்ளை நேரம் முடிந்தது</string>
   <string name="blackTimeOut">கருப்பு நேரம் முடிந்தது</string>
-  <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
-  <string name="drawOfferAccepted">இழுபறி முன்வரவு எற்பு</string>
-  <string name="drawOfferCanceled">இழுபறி முன்வரவு கழிப்பு</string>
+  <string name="drawOfferSent">சமநிலை முன்வரவு தெரிவிப்பு</string>
+  <string name="drawOfferAccepted">சமநிலை முன்வரவு ஏற்கப்பட்டது</string>
+  <string name="drawOfferCanceled">சமநிலை முன்வரவு நிராகரிக்கப்பட்டது</string>
   <string name="whiteOffersDraw">வெள்ளை சமநிலை வாய்ப்பளிக்கிறது</string>
   <string name="blackOffersDraw">கருப்பு சமநிலை வாய்ப்பளிக்கிறது</string>
   <string name="whiteDeclinesDraw">வெள்ளை சமநிலை வாய்ப்பை ஏற்கவில்லை</string>
@@ -291,7 +291,7 @@
   <string name="cancelRematchOffer">மறுவாட்ட அளிப்பைக் கழி</string>
   <string name="viewRematch">மறுவாட்டங்களைக் காண்</string>
   <string name="confirmMove">சரியான ஆட்டமா?</string>
-  <string name="play">ஆடு</string>
+  <string name="play">விளையாடு</string>
   <string name="inbox">உள்வரத்து</string>
   <string name="chatRoom">உரையாடலறை</string>
   <string name="loginToChat">உரையாடுவதற்காக லீசஸ்ஸில் சேருங்கள்</string>
@@ -377,17 +377,17 @@
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
   <string name="xCreatedTeamY">%1$s என்பவர் %2$s  என்ற அணியைப் படைத்தார்</string>
-  <string name="startedStreaming">ஸ்ட்ரீமிங் தொடங்கிவிட்டது</string>
-  <string name="xStartedStreaming">%s ஸ்றமிங் தொடங்கிவிட்டது</string>
-  <string name="averageElo">தோராய Elo</string>
+  <string name="startedStreaming">இணைய ஒளிபரப்பு தொடங்கிவிட்டது</string>
+  <string name="xStartedStreaming">%s இணைய ஒளிபரப்பு தொடங்கிவிட்டது</string>
+  <string name="averageElo">சராசரி மதிப்பீடு</string>
   <string name="location">இடம்</string>
   <string name="filterGames">ஆட்டங்களைத் தேர்ந்தெடு</string>
-  <string name="reset">அழி</string>
-  <string name="apply">புழங்கு</string>
+  <string name="reset">மீட்டமை</string>
+  <string name="apply">சமர்ப்பி</string>
   <string name="save">சேமி</string>
   <string name="leaderboard">முன்னிலைக் காட்சி</string>
   <string name="screenshotCurrentPosition">தற்போதைய நிலையைத் திரைப்புகைப்படமாக்கு</string>
-  <string name="gameAsGIF">ஜெஃப் ஆக விளையாட்டு</string>
+  <string name="gameAsGIF">GIF ஆக விளையாட்டு</string>
   <string name="pasteTheFenStringHere">FEN தொடரை இங்கே ஒட்டு</string>
   <string name="pasteThePgnStringHere">PGN தொடரை இங்கே ஒட்டு</string>
   <string name="orUploadPgnFile">அல்லது PGN கோப்புவை பதிவேற்று</string>
