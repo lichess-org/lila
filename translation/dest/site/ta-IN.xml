@@ -14,7 +14,7 @@
   <string name="chat">உரையாடு</string>
   <string name="resign">விலகு</string>
   <string name="checkmate">முழுத்தடை</string>
-  <string name="stalemate">இழுபறி</string>
+  <string name="stalemate">நகர்த்த வாய்ப்பின்மை</string>
   <string name="white">வெள்ளை</string>
   <string name="black">கருப்பு</string>
   <string name="asWhite">வெள்ளைக் காய்களுடன்</string>
@@ -27,8 +27,8 @@
   <string name="youPlayTheBlackPieces">நீங்கள் கருப்பு நிறத்திலுள்ள காய்களுடன் ஆடுகிறீர்கள்</string>
   <string name="itsYourTurn">நீங்கள் விளையாடனும்!</string>
   <string name="cheatDetected">மோசடி கண்டுபிடிக்கப்பட்டது</string>
-  <string name="kingInTheCenter">மையத்தில் கிங்</string>
-  <string name="threeChecks">மூன்று காசோலைகளை</string>
+  <string name="kingInTheCenter">மையத்தில் அரசன்</string>
+  <string name="threeChecks">மூன்று இடையூறுகள்</string>
   <string name="raceFinished">ரேஸ் முடிந்ததும்</string>
   <string name="variantEnding">மாற்று முடிவுக்கு</string>
   <string name="newOpponent">புது எதிராளி</string>
@@ -692,7 +692,24 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s வீரர்களில் %1$sஐ விட நீங்கள் சிறந்தவர்.</string>
   <string name="yourRating">உங்கள் மதிப்பீடு</string>
   <string name="glicko2Rating">க்ளிக்க்கோ-2 மதிப்பீடு</string>
+  <string name="revokeAllSessions">அனைத்து அமர்வுகளையும் திரும்பப் பெறவும்</string>
   <string name="playChessEverywhere">எல்லா இடங்களிலும் சதுரங்கம் விளையாடுங்கள்</string>
+  <string name="asFreeAsLichess">லிசெஸ் போல இலவசம்</string>
+  <string name="builtForTheLoveOfChessNotMoney">சதுரங்கத்தின் மீதுள்ள அன்பிற்காக அன்பிற்காகக் கட்டப்பட்டது, பணத்திற்காக அல்ல</string>
+  <string name="everybodyGetsAllFeaturesForFree">அனைவரும் அனைத்து அம்சங்களையும் இலவசமாகப் பெறுகிறார்கள்</string>
+  <string name="zeroAdvertisement">சுழிய விளம்பரம்</string>
+  <string name="fullFeatured">முழுமையாக இடம்பெற்றுள்ளது</string>
+  <string name="phoneAndTablet">தொலைபேசி மற்றும் கைக்கணினி</string>
+  <string name="bulletBlitzClassical">தோட்டா, அதிரடி, மரபு</string>
+  <string name="correspondenceChess">கடித சதுரங்கம்</string>
+  <string name="onlineAndOfflinePlay">நிகழ்நிலை மற்றும் அகல்நிலை விளையாடுதல்</string>
+  <string name="viewTheSolution">தீர்வைப் பார்க்கவும்</string>
+  <string name="followAndChallengeFriends">நண்பர்களைப் பின்தொடர்ந்து சவால் விடுங்கள்</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s மொழியில் கிடைக்கிறது!</item>
+    <item quantity="other">%s மொழிகளில் கிடைக்கிறது!</item>
+  </plurals>
+  <string name="gameAnalysis">விளையாட்டு பகுப்பாய்வு</string>
   <string name="xLikesY">%1$s %2$s ஐ விரும்புகிறார்</string>
   <string name="quickPairing">விரைவான இணைத்தல்</string>
   <string name="lobby">கூடம்</string>
@@ -769,4 +786,50 @@
   <string name="opening">திறப்பு</string>
   <string name="middlegame">நடு ஆட்டம்</string>
   <string name="endgame">இறுதி ஆட்டம்</string>
+  <string name="conditionalPremoves">நிபந்தனை முன்னோட்டங்கள்</string>
+  <string name="addCurrentVariation">தற்போதைய மாறுபட்டவரியைச் சேர்க்கவும்</string>
+  <string name="playVariationToCreateConditionalPremoves">நிபந்தனை முன்னோட்டங்களை உருவாக்க மாறுபட்டவரியை இயக்கவும்</string>
+  <string name="noConditionalPremoves">நிபந்தனை முன்வைப்புகள் இல்லை</string>
+  <string name="playX">%sஐ விளையாடு</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">மற்றும் %s முன்னோட்ட வரியைச் சேமிக்கவும்</item>
+    <item quantity="other">மற்றும் %s முன்னோட்ட வரிகளை சேமிக்கவும்</item>
+  </plurals>
+  <string name="sorry">மன்னிக்கவும் :(</string>
+  <string name="weHadToTimeYouOutForAWhile">நாங்கள் உங்களை சிறிது நேரம் வெளியேற்ற வேண்டியிருந்தது.</string>
+  <string name="timeoutExpires">நேரம் முடிந்தது %s.</string>
+  <string name="why">ஏன்?</string>
+  <string name="pleasantChessExperience">அனைவருக்கும் இனிமையான சதுரங்க அனுபவத்தை வழங்குவதை நோக்கமாகக் கொண்டுள்ளோம்.</string>
+  <string name="goodPractice">அந்த வகையில், அனைத்து வீரர்களும் நல்ல பயிற்சியைப் பின்பற்றுவதை உறுதி செய்ய வேண்டும்.</string>
+  <string name="potentialProblem">சாத்தியமான சிக்கல் கண்டறியப்பட்டால், இந்தச் செய்தியைக் காட்டுவோம்.</string>
+  <string name="howToAvoidThis">இதை எப்படி தவிர்ப்பது?</string>
+  <string name="playEveryGame">நீங்கள் தொடங்கும் ஒவ்வொரு விளையாட்டையும் விளையாடுங்கள்.</string>
+  <string name="tryToWin">நீங்கள் விளையாடும் ஒவ்வொரு ஆட்டத்திலும் வெற்றி பெற (அல்லது குறைந்தபட்சம் சமநிலை படுத்த) முயலவும்.</string>
+  <string name="resignLostGames">இழந்த ஆட்டங்களைக் கைதுறந்து ஒப்படையுங்கள் (கடிகாரத்தை இயக்க விடாதீர்கள்).</string>
+  <string name="temporaryInconvenience">தற்காலிக சிரமத்திற்கு வருந்துகிறோம்,</string>
+  <string name="wishYouGreatGames">மற்றும் lichess.org இல் நீங்கள் சிறந்த ஆட்டங்களை ஆட விரும்புகிறோம்.</string>
+  <string name="thankYouForReading">படித்ததற்கு நன்றி!</string>
+  <string name="lifetimeScore">வாழ்நாள் மதிப்பெண்</string>
+  <string name="currentMatchScore">தற்போதைய போட்டி மதிப்பெண்</string>
+  <string name="agreementAssistance">எனது விளையாட்டுகளின்போது (சதுரங்க கணினி, புத்தகம், தரவுத்தளம் அல்லது வேறு ஒருவரிடமிருந்து) எந்த நேரத்திலும் உதவியைப் பெறமாட்டேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
+  <string name="agreementNice">மற்ற வீரர்களிடம் நான் எப்போதும் மரியாதையுடன் இருப்பேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">நான் பல கணக்குகளை உருவாக்க மாட்டேன் என்பதை ஒப்புக்கொள்கிறேன் (%s இல் கூறப்பட்டுள்ள காரணங்களைத் தவிர).</string>
+  <string name="agreementPolicy">நான் அனைத்து லிசெஸ் கொள்கைகளையும் பின்பற்றுவேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
+  <string name="searchOrStartNewDiscussion">தேடவும் அல்லது புதிய உரையாடலைத் தொடங்கவும்</string>
+  <string name="edit">திருத்துதல்</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">அதிரடி</string>
+  <string name="rapid">துரிதம்</string>
+  <string name="classical">மரபு</string>
+  <string name="ultraBulletDesc">அதிவேகமான ஆட்டங்கள்: 30 வினாடிகளுக்கும் குறைவானது</string>
+  <string name="bulletDesc">வேகமான ஆட்டங்கள்: 3 நிமிடங்களுக்கும் குறைவானது</string>
+  <string name="blitzDesc">வேகமான விளையாட்டுகள்: 3 முதல் 8 நிமிடங்கள்</string>
+  <string name="rapidDesc">துரிதமான விளையாட்டுகள்: 8 முதல் 25 நிமிடங்கள்</string>
+  <string name="classicalDesc">மரபு விளையாட்டுகள்: 25 நிமிடங்கள் மற்றும் அதற்கு மேல்</string>
+  <string name="correspondenceDesc">கடித விளையாட்டுகள்: ஒரு நகர்வுக்கு ஒன்று அல்லது பல நாட்கள்</string>
+  <string name="puzzleDesc">சதுரங்க யுக்தி பயிற்சியாளர்</string>
+  <string name="important">முக்கியமானவை</string>
+  <string name="yourQuestionMayHaveBeenAnswered">உங்கள் கேள்விக்கு ஏற்கனவே %1$s பதில் இருக்கலாம்</string>
+  <string name="inTheFAQ">அடிக்கடி கேட்கப்படும் கேள்விகளில்</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">ஏமாற்றுதல் அல்லது மோசமான நடத்தைக்காக ஒரு பயனரைப் புகாரளிக்க, %1$s</string>
+  <string name="useTheReportForm">அறிக்கை படிவத்தைப் பயன்படுத்தவும்</string>
 </resources>
