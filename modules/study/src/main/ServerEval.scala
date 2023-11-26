@@ -1,5 +1,6 @@
 package lila.study
 
+import chess.{ Node as ChessNode }
 import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
@@ -11,6 +12,9 @@ import lila.user.{ User, UserRepo }
 import lila.tree.{ Node, Root, Branch }
 import lila.tree.Node.Comment
 import lila.db.dsl.bsonWriteOpt
+import lila.tree.NewBranch
+import lila.tree.Metas
+import lila.tree.NewTree
 
 object ServerEval:
 
@@ -123,8 +127,7 @@ object ServerEval:
               )
             )
 
-      saveAnalysisLine()
-        >> saveInfoAdvice().inject(nextPath)
+      saveAnalysisLine() >> saveInfoAdvice().inject(nextPath)
 
     end saveAnalysis
 
@@ -141,6 +144,15 @@ object ServerEval:
                 makeBranch(g, m).addChild(node)
             .some
 
+    def buildReverse[A, B](s: Seq[A], f: A => B): Option[ChessNode[B]] =
+      s.foldLeft(none)((acc, a) => ChessNode(f(a), acc).some)
+
+    private def makeNewSubTree(root: Node, variant: chess.variant.Variant, info: Info): Option[NewTree] =
+      val (_, reversedGames, error) =
+        chess.Replay.gameMoveWhileValidReverse(info.variation take 20, root.fen, variant)
+      error.foreach(e => logger.info(e.value))
+      buildReverse(reversedGames, makeNewBranch)
+
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Branch(
         id = UciCharPair(m.uci),
@@ -151,6 +163,21 @@ object ServerEval:
         crazyData = g.situation.board.crazyData,
         clock = none,
         forceVariation = false
+      )
+
+    private def makeNewBranch(g: chess.Game, m: Uci.WithSan): NewBranch =
+      NewBranch(
+        id = UciCharPair(m.uci),
+        path = UciPath.root,
+        move = m,
+        forceVariation = false,
+        metas = Metas(
+          ply = g.ply,
+          fen = Fen write g,
+          check = g.situation.check,
+          crazyData = g.situation.board.crazyData,
+          clock = none
+        )
       )
 
     private def sendProgress(

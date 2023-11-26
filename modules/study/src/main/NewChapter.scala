@@ -99,6 +99,7 @@ case class NewChapter(
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.size >= Chapter.maxNodes
+
 object NewChapter:
 
   def makeId = StudyChapterId(ThreadLocalRandom nextString 8)

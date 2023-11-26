@@ -1,5 +1,8 @@
 package lila.study
 
+import StudyArbitraries.{ *, given }
+import chess.CoreArbitraries.given
+import org.scalacheck.Prop.{ forAll, propBoolean }
 import monocle.syntax.all.*
 import chess.{ Centis, ErrorStr, Node as ChessNode }
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
@@ -19,7 +22,7 @@ import lila.db.BSON.Reader
 import lila.db.dsl.Bdoc
 
 // in lila.study to have access to PgnImport
-class BsonHandlersTest extends munit.FunSuite:
+class BsonHandlersTest extends munit.ScalaCheckSuite:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
@@ -59,3 +62,9 @@ class BsonHandlersTest extends munit.FunSuite:
       val y       = treeBson.reads(bdoc)
       val oldRoot = y.toNewRoot
       assertEquals(oldRoot.cleanup, x.cleanup)
+
+  test("NewTree.writes.Tree.reads == identity"):
+    forAll: (x: NewRoot) =>
+      val bdoc    = newTreeBson.writes(w, x)
+      val y       = treeBson.reads(bdoc).toNewRoot
+      assertEquals(y, x)

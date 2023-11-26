@@ -9,6 +9,7 @@ import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import chess.format.UciCharPair
 import lila.tree.NewTree.*
 import chess.Variation
+import reactivemongo.api.bson.BSONDocument
 
 private object StudyFlatTree:
 
@@ -77,13 +78,12 @@ private object StudyFlatTree:
 
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
-        root.tree so {
+        root.tree.so:
           _.foldLeft(List.empty)((acc, branch) => acc :+ writeBranch_(branch))
-        }
 
-    private def writeBranch_(branch: NewBranch) =
-      val order = branch.path.computeIds.size > 1 option
-        branch.path.computeIds.toList
+    // TODO: order should be a list of ids of the children & variations
+    private def writeBranch_(branch: NewBranch): (String, BSONDocument) =
+      val order = (branch.path.computeIds.size > 1).option(branch.path.computeIds.toList)
       UciPathDb.encodeDbKey(branch.path) -> writeNewBranch(branch, order)
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
