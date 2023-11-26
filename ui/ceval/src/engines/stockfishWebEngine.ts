@@ -41,7 +41,7 @@ export class StockfishWebEngine implements CevalEngine {
         .then(resolve)
         .catch(reject);
     });
-    if (!this.info.id.endsWith('hce')) {
+    if (this.info.tech === 'NNUE') {
       const nnueStore = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
       const nnueFilename = this.info.assets.nnue ?? module.getRecommendedNnue();
 
@@ -78,6 +78,12 @@ export class StockfishWebEngine implements CevalEngine {
         });
         this.status?.();
         nnueStore?.put(nnueFilename, nnueBuffer!).catch(() => console.warn('IDB store failed'));
+      }
+      if (this.info.variants?.length === 1) {
+        const variant = this.info.variants[0].toLowerCase();
+        module.postMessage(
+          `setoption name UCI_Variant value ${variant === 'threecheck' ? '3check' : variant}`,
+        );
       }
       module.setNnueBuffer(nnueBuffer!);
     }
