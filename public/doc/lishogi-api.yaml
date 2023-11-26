@@ -260,6 +260,7 @@ paths:
               - chushogi
               - annanshogi
               - kyotoshogi
+              - checkshogi
           required: true
       responses:
         "200":
@@ -3623,6 +3624,7 @@ components:
         - chushogi
         - annanshogi
         - kyotoshogi
+        - checkshogi
       example: standard
       default: standard
 
@@ -3659,6 +3661,7 @@ components:
         - chushogi
         - annanshogi
         - kyotoshogi
+        - checkshogi
 
     Clock:
       type: object
@@ -4826,7 +4829,8 @@ components:
         "minishogi": [],
         "chushogi": [],
         "annanshogi": [],
-        "kyotoshogi": []
+        "kyotoshogi": [],
+        "checkshogi": []
       }
 
     Leaderboard:
