@@ -73,7 +73,7 @@
   .technology {
     margin-left: 5px;
     &.bad {
-      &:not(.chushogi) {
+      &:not(.chushogi):not(.annanshogi):not(.checkshogi) {
         color: $c-bad;
       }
       margin-left: 0;
