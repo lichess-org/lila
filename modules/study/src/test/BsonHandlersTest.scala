@@ -63,8 +63,34 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
       val oldRoot = y.toNewRoot
       assertEquals(oldRoot.cleanup, x.cleanup)
 
+  test("Tree.writes.Tree.reads == identity"):
+    forAll: (x: NewRoot) =>
+      val root = x.toRoot
+      val bdoc = treeBson.writes(w, root)
+      val y    = treeBson.reads(bdoc)
+      assertEquals(y, root)
+
   test("NewTree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>
-      val bdoc    = newTreeBson.writes(w, x)
-      val y       = treeBson.reads(bdoc).toNewRoot
-      assertEquals(y, x)
+      val bdoc = newTreeBson.writes(w, x)
+      val y    = treeBson.reads(bdoc).pp.toNewRoot
+      assertEquals(y.pp, x)
+
+  test("Tree.writes.NewTree.reads == identity"):
+    forAll: (x: NewRoot) =>
+      val bdoc = treeBson.writes(w, x.toRoot)
+      val y    = newTreeBson.reads(bdoc).pp
+      assertEquals(y.pp, x)
+
+  test("NewTree.writes.NewTree.reads == identity"):
+    forAll: (x: NewRoot) =>
+      val bdoc = newTreeBson.writes(w, x)
+      val y    = newTreeBson.reads(bdoc).pp
+      assertEquals(y.pp, x)
+
+  test("Tree.writes.Tree.reads == identity"):
+    forAll: (x: NewRoot) =>
+      val root = x.toRoot
+      val bdoc = treeBson.writes(w, root)
+      val y    = treeBson.reads(bdoc)
+      assertEquals(y, root)
