@@ -69,6 +69,7 @@
   <string name="makeMainLine">Buat jalur utama</string>
   <string name="deleteFromHere">Hapus dari sini</string>
   <string name="forceVariation">Paksakan variasi</string>
+  <string name="copyVariationPgn">Salin Variasi dalam PGN</string>
   <string name="move">Langkah</string>
   <string name="variantLoss">Kekalahan variasi</string>
   <string name="variantWin">Kemenangan variasi</string>
@@ -460,7 +461,7 @@
   <string name="firstName">Nama depan</string>
   <string name="lastName">Nama Belakang</string>
   <string name="biography">Biografi</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bendera</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau wilayah</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>

@@ -30,6 +30,7 @@ export interface ChallengeUser {
   online?: boolean;
   patron?: boolean;
   lag?: number;
+  flair?: Flair;
 }
 
 export interface TimeControl {

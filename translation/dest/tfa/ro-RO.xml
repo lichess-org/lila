@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Autentificare în doi pași</string>
   <string name="twoFactorHelp">Autentificarea în doi pași adaugă un alt strat de protecție pentru contul dvs.</string>
-  <string name="twoFactorApp">Obține o aplicație pentru autentificarea în doi pași, de exemplu Google Authenticator pentru %1$s sau %2$s.</string>
   <string name="scanTheCode">Scanează codul QR cu aplicația.</string>
   <string name="enterPassword">Introdu parola și codul de autentificare generat de aplicație pentru a completa configurarea. Vei avea nevoie de un cod de autentificare de fiecare dată când te conectezi.</string>
   <string name="ifYouCannotScanEnterX">Dacă nu puteți scana codul, introduceți codul secret %s în aplicația dvs.</string>

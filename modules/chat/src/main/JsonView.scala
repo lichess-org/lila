@@ -4,6 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.LightUser
 import lila.common.Json.given
+import lila.user.UserFlairApi
 
 object JsonView:
 
@@ -11,26 +12,37 @@ object JsonView:
 
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
-  def apply(chat: AnyChat): JsValue = chat match
-    case c: MixedChat => mixedChatWriter writes c
-    case c: UserChat  => userChatWriter writes c
+  def asyncLines(chat: AnyChat)(using flairs: UserFlairApi)(using Executor): Fu[JsonChatLines] =
+    flairs.flairsOf(chat.flairUserIds) map: flairs =>
+      syncLines(chat)(using flairs)
 
-  def apply(line: Line): JsObject = lineWriter writes line
+  def syncLines(chat: AnyChat)(using UserFlairApi.FlairMap): JsonChatLines = JsonChatLines:
+    chat match
+      case c: MixedChat => JsArray(c.lines map lineWriter.writes)
+      case c: UserChat  => JsArray(c.lines map userLineWriter.writes)
+
+  def apply(line: Line)(using getFlair: UserFlairApi.Getter)(using Executor): Fu[JsObject] =
+    line.userIdMaybe.ifTrue(line.flair).so(getFlair) map: flair =>
+      given UserFlairApi.FlairMap = ~(for
+        userId <- line.userIdMaybe
+        flair  <- flair
+      yield Map(userId -> flair))
+      lineWriter.writes(line)
 
   def userModInfo(using LightUser.GetterSync)(u: UserModInfo) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
+    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj:
       "history" -> u.history
-    )
 
-  def mobile(chat: AnyChat, writeable: Boolean = true) =
-    Json.obj(
-      "lines"     -> apply(chat),
-      "writeable" -> writeable
-    )
+  def mobile(chat: AnyChat, writeable: Boolean = true)(using UserFlairApi, Executor): Fu[JsObject] =
+    asyncLines(chat).map: lines =>
+      Json.obj(
+        "lines"     -> lines,
+        "writeable" -> writeable
+      )
 
   def boardApi(chat: UserChat) = JsArray:
     chat.lines.collect:
-      case UserLine(name, _, _, text, troll, del) if !troll && !del =>
+      case UserLine(name, _, _, _, text, troll, del) if !troll && !del =>
         Json.obj("text" -> text, "user" -> name)
 
   object writers:
@@ -46,17 +58,11 @@ object JsonView:
           "date"   -> e.createdAt
         )
 
-    given mixedChatWriter: Writes[MixedChat] = Writes: c =>
-      JsArray(c.lines map lineWriter.writes)
-
-    given userChatWriter: Writes[UserChat] = Writes: c =>
-      JsArray(c.lines map userLineWriter.writes)
-
-    private[chat] val lineWriter: OWrites[Line] = OWrites:
+    private[chat] def lineWriter(using UserFlairApi.FlairMap): OWrites[Line] = OWrites:
       case l: UserLine   => userLineWriter writes l
       case l: PlayerLine => playerLineWriter writes l
 
-    val userLineWriter: OWrites[UserLine] = OWrites: l =>
+    def userLineWriter(using getFlair: UserFlairApi.FlairMap): OWrites[UserLine] = OWrites: l =>
       Json
         .obj(
           "u" -> l.username,
@@ -65,6 +71,7 @@ object JsonView:
         .add("r" -> l.troll)
         .add("d" -> l.deleted)
         .add("p" -> l.patron)
+        .add("f" -> l.flair.so(getFlair.get(l.userId)))
         .add("title" -> l.title)
 
     val playerLineWriter: OWrites[PlayerLine] = OWrites: l =>

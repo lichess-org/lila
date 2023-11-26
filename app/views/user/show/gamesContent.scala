@@ -26,9 +26,9 @@ object gamesContent:
             href := routes.User.games(u.username, f.name)
           )(userGameFilterTitle(u, nbs, f))
       ),
-      nbs.crosstable.ifTrue(filters.current.name == "me").map {
+      nbs.crosstable.ifTrue(filters.current.name == "me") map:
         views.html.game.crosstable(_, none)
-      },
+      ,
       div(cls := "search__result")(
         if filterName == "search" then
           if pager.nbResults > 0 then
@@ -50,9 +50,8 @@ object gamesContent:
             )
           )(
             if filterName == "playing" && pager.nbResults > 2 then
-              pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
+              pager.currentPageResults.flatMap { Pov(_, u) } map: pov =>
                 views.html.game.mini(pov)(cls := "paginated")
-              }
             else
               views.html.game
                 .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u)

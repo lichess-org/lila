@@ -42,7 +42,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using PageContext): Frag =
+  def meta(pov: lila.game.Pov)(using Context): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(

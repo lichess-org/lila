@@ -84,6 +84,8 @@ export interface Controller extends KeyboardController {
 
   nvui?: NvuiPlugin;
   menu: Toggle;
+  restartCeval(): void;
+  clearCeval(): void;
 }
 
 export interface NvuiPlugin {
@@ -189,9 +191,10 @@ export interface PuzzleGame {
 }
 
 export interface PuzzlePlayer {
-  userId: string;
   name: string;
+  rating?: number;
   title?: string;
+  flair?: string;
   color: Color;
 }
 

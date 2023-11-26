@@ -33,7 +33,7 @@
     <item quantity="many">%s запросов на вступление</item>
     <item quantity="other">%s запросов на вступление</item>
   </plurals>
-  <string name="willBeReviewed" comment="Please note that Lichess teams can have more than one team leader.&#10;This string used to say 'the' team leader, so please correct it if it only refers to one person.">Ваш запрос на вступление будет рассмотрен лидером клуба.</string>
+  <string name="willBeReviewed">Ваш запрос на вступление будет рассмотрен лидером клуба.</string>
   <string name="beingReviewed">Ваш запрос на рассмотрении у руководителя клуба.</string>
   <string name="requestDeclined">Организатор клуба отклонил ваш запрос на вступление.</string>
   <string name="subToTeamMessages">Получать командные сообщения</string>
@@ -49,8 +49,6 @@
 Игроки, которым не нравится получать ваши сообщения, могут покинуть клуб.</string>
   <string name="teamsIlead">Клубы под моим руководством</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
-  <string name="onlyInviteLeadersTrust">Приглашайте только тех лидеров, которым вы полностью доверяете. Лидеры клуба могут выгонять из клуба других членов и даже других лидеров.</string>
-  <string name="usersWhoCanManageThisTeam">Пользователи, которые могут управлять этим клубом</string>
   <string name="leadersChat">Чат руководителей</string>
   <string name="closeTeam">Расформировать клуб</string>
   <string name="closeTeamDescription">Закрывает клуб навсегда.</string>

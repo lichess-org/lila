@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">2 mərhələli təsdiqləmə</string>
   <string name="twoFactorHelp">2 mərhələli təsdiqləmə, hesabınıza daha bir təhlükəsizlik qatı əlavə edir.</string>
-  <string name="twoFactorApp">2 mərhələli təsdiqləmə üçün bir tətbiq endirin. Məsələn %1$s üçün andOTP və ya %2$s üçün Google Authenticator.</string>
   <string name="scanTheCode">Tətbiq ilə QR kodu skan edin.</string>
   <string name="enterPassword">Quraşdırmanı tamamlamaq üçün şifrəni və tətbiq tərəfindən yaradılmış kimlik təsdiqləmə kodunu daxil edin. Hər giriş edəndə təsdiqləmə kodunu daxil etməli olacaqsınız.</string>
   <string name="ifYouCannotScanEnterX">Kodu skan edə bilmirsinizsə, tətbiqinizə gizli %s kodunu daxil edin.</string>

@@ -37,7 +37,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham gia: %s</string>
-  <string name="drawStreakStandard">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ có ván hòa đầu tiên mới được tính điểm, hoặc các ván tiêu chuẩn hòa mà có nhiều hơn %s nước đi. Chuỗi hòa chỉ có thể bị phá vỡ bởi một ván thắng chứ không phải một ván thua hay hòa khác.</string>
+  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ có ván hòa đầu tiên mới được tính điểm hoặc các ván tiêu chuẩn hòa mà có nhiều hơn %s nước đi. Chuỗi hòa chỉ có thể bị phá vỡ bởi một ván thắng chứ không phải một ván thua hay hòa khác.</string>
   <string name="drawStreakVariants">Độ dài ván đấu tối thiểu cho các ván hòa để vẫn có điểm là khác nhau theo từng biến thể. Bảng dưới đây liệt kê ngưỡng cho từng biến thể.</string>
   <string name="variant">Biến thể</string>
   <string name="minimumGameLength">Độ dài ván đấu tối thiểu</string>

@@ -24,22 +24,22 @@ final class Study(
     prismicC: Prismic
 ) extends LilaController(env):
 
+  private given lila.user.UserFlairApi = env.user.flairApi
+
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
       if text.trim.isEmpty then
-        env.study.pager.all(Order.default, page) flatMap { pag =>
+        env.study.pager.all(Order.default, page) flatMap: pag =>
           preloadMembers(pag) >> negotiate(
             Ok.page(html.study.list.all(pag, Order.default)),
             apiStudies(pag)
           )
-        }
       else
-        env.studySearch(ctx.me)(text, page) flatMap { pag =>
+        env.studySearch(ctx.me)(text, page) flatMap: pag =>
           negotiate(
             Ok.page(html.study.list.search(pag, text)),
             apiStudies(pag)
           )
-        }
 
   def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.Hot, 1))
 
@@ -54,82 +54,72 @@ final class Study(
         case order if !Order.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
         case order =>
-          env.study.pager.all(order, page) flatMap { pag =>
+          env.study.pager.all(order, page) flatMap: pag =>
             preloadMembers(pag) >> negotiate(
               Ok.page(html.study.list.all(pag, order)),
               apiStudies(pag)
             )
-          }
 
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
 
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
     Found(env.user.repo.byId(username)): owner =>
-      env.study.pager
-        .byOwner(owner, order, page)
-        .flatMap: pag =>
-          preloadMembers(pag) >> negotiate(
-            Ok.page(html.study.list.byOwner(pag, order, owner)),
-            apiStudies(pag)
-          )
+      env.study.pager.byOwner(owner, order, page) flatMap: pag =>
+        preloadMembers(pag) >> negotiate(
+          Ok.page(html.study.list.byOwner(pag, order, owner)),
+          apiStudies(pag)
+        )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.mine(order, page) flatMap { pag =>
+    env.study.pager.mine(order, page) flatMap: pag =>
       preloadMembers(pag) >> negotiate(
         env.study.topicApi.userTopics(me) flatMap { topics =>
           Ok.page(html.study.list.mine(pag, order, topics))
         },
         apiStudies(pag)
       )
-    }
   }
 
   def minePublic(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.minePublic(order, page) flatMap { pag =>
+    env.study.pager.minePublic(order, page) flatMap: pag =>
       preloadMembers(pag) >> negotiate(
         Ok.page(html.study.list.minePublic(pag, order)),
         apiStudies(pag)
       )
-    }
   }
 
   def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.minePrivate(order, page) flatMap { pag =>
+    env.study.pager.minePrivate(order, page) flatMap: pag =>
       preloadMembers(pag) >> negotiate(
         Ok.page(html.study.list.minePrivate(pag, order)),
         apiStudies(pag)
       )
-    }
   }
 
   def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.mineMember(order, page) flatMap { pag =>
+    env.study.pager.mineMember(order, page) flatMap: pag =>
       preloadMembers(pag) >> negotiate(
         Ok.pageAsync:
-          env.study.topicApi.userTopics(me) map {
+          env.study.topicApi.userTopics(me) map:
             html.study.list.mineMember(pag, order, _)
-          }
         ,
         apiStudies(pag)
       )
-    }
   }
 
   def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.mineLikes(order, page) flatMap { pag =>
+    env.study.pager.mineLikes(order, page) flatMap: pag =>
       preloadMembers(pag) >> negotiate(
         Ok.page(html.study.list.mineLikes(pag, order)),
         apiStudies(pag)
       )
-    }
   }
 
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic fromStr name): topic =>
       env.study.pager.byTopic(topic, order, page) zip
-        ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (pag, topics) =>
+        ctx.userId.soFu(env.study.topicApi.userTopics) flatMap: (pag, topics) =>
           preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
-        }
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
@@ -149,10 +139,9 @@ final class Study(
   )(using ctx: Context): Fu[Result] =
     if HTTPRequest isRedirectable ctx.req
     then
-      env.relay.api.getOngoing(id into RelayRoundId) flatMap {
+      env.relay.api.getOngoing(id into RelayRoundId) flatMap:
         _.fold(f): rt =>
           Redirect(chapterId.fold(rt.path)(rt.path))
-      }
     else f
 
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
@@ -170,17 +159,15 @@ final class Study(
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enableSharedArrayBuffer,
-            json = chatOf(sc.study).map: chatOpt =>
-              Ok:
-                Json.obj(
-                  "study" -> data.study.add("chat" -> chatOpt.map { c =>
-                    lila.chat.JsonView.mobile(
-                      chat = c.chat,
-                      writeable = ctx.userId.so(sc.study.canChat)
-                    )
-                  }),
-                  "analysis" -> data.analysis
-                )
+            json = for
+              chatOpt <- chatOf(sc.study)
+              jsChat <- chatOpt.soFu: c =>
+                lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+            yield Ok:
+              Json.obj(
+                "study"    -> data.study.add("chat" -> jsChat),
+                "analysis" -> data.analysis
+              )
           )
         yield res
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
@@ -193,9 +180,8 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-      analysis <- chapter.serverEval.exists(_.done) so env.analyse.analyser.byId(
-        Analysis.Id(study.id, chapter.id)
-      )
+      analysis <- chapter.serverEval.exists(_.done) so
+        env.analyse.analyser.byId(Analysis.Id(study.id, chapter.id))
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData <- env.api.roundApi.withExternalEngines(
         ctx.me,
@@ -286,11 +272,11 @@ final class Study(
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
-        case None       => Redirect(routes.Study.mine("hot"))
-        case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
-      }
-
+      env.study.api.delete(study) >> env.relay.api
+        .deleteRound(id into RelayRoundId)
+        .map:
+          case None       => Redirect(routes.Study.mine("hot"))
+          case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -391,9 +377,8 @@ final class Study(
       CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
           CanView(prev, prev.settings.cloneable.some) {
-            env.study.api.cloneWithChat(me, prev) map { study =>
+            env.study.api.cloneWithChat(me, prev) map: study =>
               Redirect(routes.Study.show((study | prev).id))
-            }
           }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
         }
   }

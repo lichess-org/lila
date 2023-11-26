@@ -1,3 +1,0 @@
-These binaries are checked into git because npm/pnpm installs the slower javascript versions.
-
-They were downloaded from https://github.com/sass/dart-sass/releases

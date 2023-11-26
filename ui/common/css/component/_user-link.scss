@@ -59,3 +59,15 @@ a.user-link:hover {
     color: $c-bot;
   }
 }
+
+.uflair {
+  height: 1.1em;
+  vertical-align: middle;
+  margin-left: 0.5ch;
+  transform: translateY(-0.1em);
+  // keeps the username easily selectable
+  user-select: none;
+  body.no-flair & {
+    display: none;
+  }
+}

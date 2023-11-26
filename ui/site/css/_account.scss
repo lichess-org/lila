@@ -150,6 +150,11 @@
     margin-bottom: 4rem;
   }
 
+  form section a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   h2 {
     margin-bottom: 1.3rem;
     font-size: 1.3em;
@@ -268,4 +273,11 @@
 
 .page-menu__content {
   overflow: hidden; // prevents pre overflow (personal-data)
+}
+
+.emoji-details {
+  position: relative;
+  // ensure the emoji picker is above the text and its licon
+  z-index: 1;
+  margin-bottom: 1em;
 }

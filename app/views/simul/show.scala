@@ -32,16 +32,16 @@ object show:
           "i18n"          -> bits.jsI18n(),
           "socketVersion" -> socketVersion,
           "userId"        -> ctx.userId,
-          "chat" -> chatOption.map { c =>
+          "chat" -> chatOption.map: c =>
             views.html.chat.json(
               c.chat,
+              c.lines,
               name = trans.chatRoom.txt(),
               timeout = c.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
               localMod = userIsHost
-            )
-          },
+            ),
           "showRatings" -> ctx.pref.showRatings
         )
       )
@@ -69,7 +69,7 @@ object show:
               ": ",
               pluralize("minute", sim.clock.hostExtraMinutes.value),
               br,
-              sim.clock.hostExtraTimePerPlayerForDisplay.map { time =>
+              sim.clock.hostExtraTimePerPlayerForDisplay.map: time =>
                 frag(
                   trans.simulHostExtraTimePerPlayer(),
                   ": ",
@@ -78,8 +78,7 @@ object show:
                     case Right(seconds) => pluralize("second", seconds.value)
                   ,
                   br
-                )
-              },
+                ),
               trans.hostColorX(sim.color match
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()
@@ -100,9 +99,8 @@ object show:
             sim.estimatedStartAt.map: d =>
               frag(br, absClientInstant(d))
           ),
-          stream.map { s =>
-            views.html.streamer.bits.contextual(s.streamer.userId)
-          },
+          stream.map: s =>
+            views.html.streamer.bits.contextual(s.streamer.userId),
           chatOption.isDefined option views.html.chat.frag
         ),
         div(cls := "simul__main box")(spinner)

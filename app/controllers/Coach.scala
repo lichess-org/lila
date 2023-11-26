@@ -24,10 +24,10 @@ final class Coach(env: Env) extends LilaController(env):
     val lang    = (l != "all") so play.api.i18n.Lang.get(l)
     val country = (c != "all") so Flags.info(c)
     for
-      langCodes    <- env.coach.api.allLanguages
-      countryCodes <- env.coach.api.allCountries
-      pager        <- env.coach.pager(lang, order, country, page)
-      page         <- renderPage(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
+      langCodes <- env.coach.api.allLanguages
+      countries <- env.coach.api.countrySelection
+      pager     <- env.coach.pager(lang, order, country, page)
+      page      <- renderPage(html.coach.index(pager, lang, order, langCodes, countries, country))
     yield Ok(page)
 
   def show(username: UserStr) = Open:

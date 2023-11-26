@@ -506,7 +506,7 @@
   <string name="firstName">Primeiro nome</string>
   <string name="lastName">Sobrenome</string>
   <string name="biography">Biografia</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandeira</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou região</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links de mídia social</string>
   <string name="oneUrlPerLine">Uma URL por linha.</string>
@@ -970,4 +970,6 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar sua conta anulará seu apelo</string>
   <string name="ourEventTips">Nossas dicas para organização de eventos</string>
+  <string name="instructions">Instruções</string>
+  <string name="showMeEverything">Mostrar tudo</string>
 </resources>

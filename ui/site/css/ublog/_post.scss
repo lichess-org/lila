@@ -64,7 +64,7 @@
     font-weight: bold;
     cursor: pointer;
     &::before {
-      margin-#{$end-direction}: 0.4em;
+      margin: 0 0.4em;
       content: $licon-HeartOutline;
     }
     &.ublog-post__like--liked::before {

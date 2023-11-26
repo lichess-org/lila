@@ -21,7 +21,27 @@ export const gridColor = '#404040';
 export const hoverBorderColor = lightTheme ? gridColor : 'white';
 export const tooltipBgColor = lightTheme ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0,0,0,0.7)';
 
-export function fontFamily(size?: number, weight?: string) {
+const zeroLineColor = lightTheme ? '#959595' : '#676664';
+export const axisOpts = (xmin: number, xmax: number): ChartOptions<'line'>['scales'] => ({
+  x: {
+    display: false,
+    type: 'linear',
+    min: xmin,
+    max: xmax,
+  },
+  y: {
+    // Set equidistant max and min to center the graph at y=0.
+    min: chartYMin,
+    max: chartYMax,
+    border: { display: false },
+    ticks: { display: false },
+    grid: {
+      color: ctx => (ctx.tick.value == 0 ? zeroLineColor : undefined),
+    },
+  },
+});
+
+export function fontFamily(size?: number, weight?: 'bold') {
   return {
     family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
     size: size ?? 12,

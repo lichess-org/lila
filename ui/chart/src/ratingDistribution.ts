@@ -37,8 +37,8 @@ export async function initModule(data: DistributionData) {
       pointHoverBorderColor: hoverBorderColor,
       borderColor: color,
       pointBackgroundColor: color,
-      pointHitRadius: 200,
     });
+    const maxRating = Math.max(...ratings);
 
     const datasets: ChartDataset<'line'>[] = [
       {
@@ -48,6 +48,7 @@ export async function initModule(data: DistributionData) {
         label: data.i18n.cumulative,
         pointRadius: 0,
         datalabels: { display: false },
+        pointHitRadius: 200,
       },
       {
         ...seriesCommonData('#7798bf'),
@@ -58,6 +59,7 @@ export async function initModule(data: DistributionData) {
         label: data.i18n.players,
         pointRadius: 4,
         datalabels: { display: false },
+        pointHitRadius: 200,
       },
     ];
     const pushLine = (color: string, rating: number, label: string) =>
@@ -74,13 +76,16 @@ export async function initModule(data: DistributionData) {
         label: label,
         pointRadius: 4,
         datalabels: {
-          align: rating > 1800 ? 'left' : 'right',
+          align: 'top',
+          offset: 0,
+          display: 'auto',
           formatter: (value: Point) => (value.y == 0 ? '' : label),
           color: color,
         },
       });
-    if (data.myRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
-    if (data.otherRating && data.otherPlayer) pushLine('#eeaaee', data.otherRating, data.otherPlayer);
+    if (data.myRating && data.myRating <= maxRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
+    if (data.otherRating && data.otherPlayer && data.otherRating <= maxRating)
+      pushLine('#eeaaee', data.otherRating, data.otherPlayer);
     const chartData: ChartData<'line'> = {
       labels: ratings,
       datasets: datasets,
@@ -94,7 +99,7 @@ export async function initModule(data: DistributionData) {
           x: {
             type: 'linear',
             min: Math.min(...ratings),
-            max: Math.max(...ratings),
+            max: maxRating,
             grid: {
               color: gridColor,
             },

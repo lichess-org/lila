@@ -30,7 +30,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobileSocket,
     shutdown: CoordinatedShutdown
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -38,14 +38,13 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket"): () =>
     stopping = true
-    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
+    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map: nb =>
       Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
-    }
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
-    rounds.getOrMake(gameId).getGame addEffect { g =>
+    rounds.getOrMake(gameId).getGame addEffect: g =>
       if g.isEmpty then finishRound(gameId)
-    }
+
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
     gameIds
       .map: id =>
@@ -69,13 +68,13 @@ final class RoundSocket(
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
-    val proxy = GameProxy(id, proxyDependencies, gameFu)
+    given proxy: GameProxy = GameProxy(id, proxyDependencies, gameFu)
     val roundActor = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
       version = version
-    )(using ec, proxy)
+    )
     terminationDelay schedule id
     gameFu.dforeach:
       _.foreach: game =>
@@ -160,7 +159,7 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) andDo send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame"):
+  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame", "roundUnplayed"):
     case TvSelect(gameId, speed, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
@@ -174,13 +173,12 @@ final class RoundSocket(
     case Exists(gameId, promise)    => promise success rounds.exists(GameId(gameId))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
-      }
     case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
-      }
+    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>

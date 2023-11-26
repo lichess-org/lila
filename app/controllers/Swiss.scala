@@ -50,11 +50,10 @@ final class Swiss(
             )
             canChat <- canHaveChat(swiss.roundInfo)
             chat <-
-              canChat so env.chat.api.userChat.cached
+              canChat soFu env.chat.api.userChat.cached
                 .findMine(swiss.id into ChatId)
-                .flatMap: c =>
-                  env.user.lightUserApi.preloadMany(c.chat.userIds) inject
-                    c.copy(locked = !env.api.chatFreshness.of(swiss)).some
+                .map:
+                  _.copy(locked = !env.api.chatFreshness.of(swiss))
             streamers  <- streamerCache get swiss.id
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))

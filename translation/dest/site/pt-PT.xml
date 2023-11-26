@@ -507,7 +507,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="firstName">Nome próprio</string>
   <string name="lastName">Apelido</string>
   <string name="biography">Biografia</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandeira</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou região</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
@@ -687,6 +687,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyboardShortcuts">Atalhos do teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar jogada</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
+  <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
   <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
@@ -694,6 +695,12 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyNextBlunder">Próxima gafe</string>
   <string name="keyNextMistake">Próximo erro</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
+  <string name="keyPreviousBranch">Ramo anterior</string>
+  <string name="keyNextBranch">Próximo ramo</string>
+  <string name="toggleVariationArrows">Ativar/desactivar seta da variante</string>
+  <string name="cyclePreviousOrNextVariation">Ciclo anterior/próxima variante</string>
+  <string name="toggleGlyphAnnotations">Ativar/desativar anotações com símbolos</string>
+  <string name="playSelectedMove">jogar o movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
   <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, Rápida, Clássica, Chess960, Rei da Colina, Três Xeques e mais opções disponíveis para uma diversão ilimitada.</string>
@@ -972,4 +979,6 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar a tua conta anula o teu apelo</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
+  <string name="instructions">Instruções</string>
+  <string name="showMeEverything">Mostra-me tudo</string>
 </resources>

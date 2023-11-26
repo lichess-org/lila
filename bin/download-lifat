@@ -1,6 +1,8 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
-commit=5af46110737b086738f6278de37b6573372ba93a
+# that's how I like to update the commit:
+# sed -i -r "s/^commit=.+$/commit=$(cat ~/lifat/.git/refs/heads/master)/" ~/lila/bin/download-lifat && git add bin/download-lifat && git commit -m "bump lifat"
+commit=116bbf16461919d8de32dd06fa229bb055922649
 
 lifat_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$lifat_dir"
@@ -10,13 +12,14 @@ mkdir -p "$lifat_dir"
 
 if [ ! -d "$lifat_commit_dir" ]; then
 	git init "$lifat_commit_dir"
-	pushd "$lifat_commit_dir"
+	cd "$lifat_commit_dir"
 	git remote add origin https://github.com/lichess-org/lifat
-	git fetch --depth 1 --no-write-fetch-head origin "$commit"
+	git fetch --depth 1 origin "$commit"
 	git checkout --detach "$commit"
-	popd
+	git log -n 1 --pretty="oneline" >"commit.txt"
+	cd -
 fi
 
 ln -sfn "$lifat_commit_dir" "public/lifat"
 
-(cd "$lifat_commit_dir" && git log --oneline)
+cat "$lifat_commit_dir/commit.txt"

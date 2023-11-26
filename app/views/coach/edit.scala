@@ -36,8 +36,8 @@ object edit:
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
       evenMoreJs = jsModule("coach.form"),
       active = "coach"
-    )(
-      div(cls := "account coach-edit box")(
+    ):
+      div(cls := "coach-edit box")(
         div(cls := "top")(
           div(cls := "picture_wrap")(
             if c.coach.hasPicture then
@@ -162,4 +162,3 @@ object edit:
           div(cls := "status text", dataIcon := licon.Checkmark)("Your changes have been saved.")
         )
       )
-    )

@@ -1,10 +1,11 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import userLink from 'common/userLink';
-import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
+import { userLink } from 'common/userLink';
+import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
+import ChatCtrl from './ctrl';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -24,7 +25,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     } else {
       data = {
         id: username.toLowerCase(),
-        username,
+        name: username,
         text,
       };
     }
@@ -61,7 +62,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function report(ctrl: Ctrl, line: HTMLElement) {
+export function report(ctrl: ChatCtrl, line: HTMLElement) {
   const userA = line.querySelector('a.user-link') as HTMLLinkElement;
   const text = (line.querySelector('t') as HTMLElement).innerText;
   if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
@@ -70,7 +71,7 @@ function reportUserText(resourceId: string, username: string, text: string) {
   if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = () => h('i.mod', { attrs: { 'data-icon': licon.Agent } });
+export const lineAction = () => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -89,7 +90,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               'a',
               {
                 attrs: {
-                  href: '/@/' + data.username + '?mod',
+                  href: '/@/' + data.name + '?mod',
                 },
               },
               'profile',
@@ -102,7 +103,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                     'a',
                     {
                       attrs: {
-                        href: '/mod/' + data.username + '/communication',
+                        href: '/mod/' + data.name + '/communication',
                       },
                     },
                     'coms',
@@ -144,7 +145,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               {
                 attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => {
-                  reportUserText(ctrl.opts.resourceId, data.username, data.text);
+                  reportUserText(ctrl.opts.resourceId, data.name, data.text);
                   ctrl.timeout(ctrl.opts.reasons[0], data.text);
                 }),
               },
@@ -191,7 +192,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         {
           attrs: { 'data-icon': licon.Agent },
         },
-        [userLink(data.username)],
+        [userLink(data)],
       ),
       h('a', {
         attrs: { 'data-icon': licon.X },

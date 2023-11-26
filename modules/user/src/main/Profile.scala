@@ -1,7 +1,9 @@
 package lila.user
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
 case class Profile(
-    country: Option[String] = None,
+    @Key("country") flag: Option[String] = None,
     location: Option[String] = None,
     bio: Option[String] = None,
     firstName: Option[String] = None,
@@ -20,7 +22,7 @@ case class Profile(
       case Nil   => none
       case names => (names mkString " ").some
 
-  def countryInfo = country flatMap Flags.info
+  def flagInfo = flag flatMap Flags.info
 
   def nonEmptyLocation = ne(location)
 
@@ -29,7 +31,7 @@ case class Profile(
   def isEmpty = completionPercent == 0
 
   def completionPercent: Int =
-    100 * List(country, bio, firstName, lastName).count(_.isDefined) / 4
+    100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
 
   def actualLinks: List[Link] = links so Links.make
 
@@ -60,4 +62,5 @@ object Profile:
   val default = Profile()
 
   import reactivemongo.api.bson.*
+  import lila.db.dsl.given
   private[user] given BSONDocumentHandler[Profile] = Macros.handler[Profile]

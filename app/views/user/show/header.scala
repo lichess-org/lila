@@ -14,7 +14,7 @@ object header:
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
 
-  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: PageContext) =
+  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
@@ -168,13 +168,12 @@ object header:
                   profile.nonEmptyLocation.ifTrue(ctx.kid.no && !hideTroll).map { l =>
                     span(cls := "location")(l)
                   },
-                  profile.countryInfo.map { c =>
-                    span(cls := "country")(
-                      img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
+                  profile.flagInfo.map: c =>
+                    span(cls := "flag")(
+                      img(src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
-                    )
-                  },
+                    ),
                   p(cls := "thin")(trans.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map { seen =>
                     p(cls := "thin")(trans.lastSeenActive(momentFromNow(seen)))
@@ -191,35 +190,31 @@ object header:
                     br,
                     a(href := s"${routes.User.opponents}?u=${u.username}")(trans.favoriteOpponents())
                   ),
-                  u.playTime.map { playTime =>
+                  u.playTime.map: playTime =>
                     frag(
                       p(trans.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
                       playTime.nonEmptyTvDuration.map { tvDuration =>
                         p(trans.tpTimeSpentOnTV(showDuration(tvDuration)))
                       }
-                    )
-                  },
+                    ),
                   !hideTroll option div(cls := "social_links col2")(
                     profile.actualLinks.nonEmpty option strong(trans.socialMediaLinks()),
-                    profile.actualLinks.map { link =>
+                    profile.actualLinks.map: link =>
                       a(href := link.url, targetBlank, noFollow)(link.site.name)
-                    }
                   ),
                   div(cls := "teams col2")(
                     info.teamIds.nonEmpty option strong(trans.team.teams()),
-                    info.teamIds.sorted(stringOrdering).map { t =>
+                    info.teamIds.sorted(stringOrdering) map: t =>
                       teamLink(t, withIcon = false)
-                    }
                   )
                 )
               ),
               info.insightVisible option
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target)(
+                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target):
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
-                )
             )
           )
       ,
@@ -253,7 +248,7 @@ object header:
       )
     )
 
-  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: PageContext) = div(cls := "note-zone")(
+  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: Context) = div(cls := "note-zone")(
     postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
@@ -274,11 +269,9 @@ object header:
         p(cls := "note__text")(richText(note.text, expandImg = false)),
         (note.mod && isGranted(_.Admin)) option postForm(
           action := routes.User.setDoxNote(note._id, !note.dox)
-        )(
-          submitButton(
-            cls := "button-empty confirm button text"
-          )("Toggle Dox")
-        ),
+        ):
+          submitButton(cls := "button-empty confirm button text")("Toggle Dox")
+        ,
         p(cls := "note__meta")(
           userIdLink(note.from.some),
           br,

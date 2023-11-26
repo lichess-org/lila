@@ -9,7 +9,7 @@ import controllers.routes
 
 object importGame:
 
-  private def analyseHelp(using ctx: PageContext) =
+  private def analyseHelp(using ctx: Context) =
     ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
 
   def apply(form: play.api.data.Form[?])(using ctx: PageContext) =

@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Kaheastmeline autentimine</string>
   <string name="twoFactorHelp">Kaheastmeline autentimine lisab veel ühe turvakihi sinu kontole.</string>
-  <string name="twoFactorApp">Hangi äpp kaheastmeliseks autentimiseks, näiteks andOTP %1$s jaoks või Google Authenticator %2$s jaoks.</string>
   <string name="scanTheCode">Skanni QR-kood oma kaamerarakendusega.</string>
   <string name="enterPassword">Sisesta oma parool ja äpi loodud kood, et lõpetada seadistamine. Sa vajad autentimiskoodi iga kord kui sisse logid.</string>
   <string name="authenticationCode">Autentimise kood</string>

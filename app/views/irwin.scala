@@ -18,7 +18,7 @@ object irwin:
     views.html.base.layout(
       title = "Irwin dashboard",
       moreCss = cssTag("mod.misc")
-    ) {
+    ):
       main(cls := "page-menu")(
         mod.menu("irwin"),
         div(cls := "irwin page-menu__content box")(
@@ -69,9 +69,8 @@ object irwin:
           )
         )
       )
-    }
 
-  def report(report: lila.irwin.IrwinReport.WithPovs)(using PageContext): Frag =
+  def report(report: lila.irwin.IrwinReport.WithPovs)(using Context): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
       header(
         a(cls := "title", href := routes.Irwin.dashboard)(

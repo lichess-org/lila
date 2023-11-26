@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import SwissCtrl from '../ctrl';
 import { PodiumPlayer } from '../interfaces';
-import { userName } from './util';
+import { userLink } from 'common/userLink';
 
 const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
   h('table.stats', [
@@ -21,17 +21,7 @@ function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | 
             lame: !!p.lame,
           },
         },
-        [
-          h('div.trophy'),
-          h(
-            'a.text.ulpt.user-link',
-            {
-              attrs: { href: '/@/' + p.user.name },
-            },
-            userName(p.user),
-          ),
-          podiumStats(p, ctrl),
-        ],
+        [h('div.trophy'), userLink({ ...p.user, line: false }), podiumStats(p, ctrl)],
       )
     : undefined;
 }

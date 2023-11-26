@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Divfaktoru autentifikācija</string>
   <string name="twoFactorHelp">Divfaktoru autentifikācija pievieno papildu drošības slāni jūsu kontam.</string>
-  <string name="twoFactorApp">Iegūstiet lietojumprogrammu divfaktoru autentifikācijai, piemēram Google Autentifikatoru platformai %1$s vai %2$s.</string>
   <string name="scanTheCode">Skenējiet QR kodu ar lietojumprogrammu.</string>
   <string name="enterPassword">Ievadiet savu paroli un autentifikācijas lietojumprogrammas radīto kodu lai pabeigtu uzstādīšanu. Jums vajadzēs autentifikācijas kodu katru reizi, kad ierakstīsieties.</string>
   <string name="ifYouCannotScanEnterX">Ja nevarat ieskenēt kodu, ievadiet slepeno kodu %s aplikācijā.</string>

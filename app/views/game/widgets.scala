@@ -129,9 +129,8 @@ object widgets:
             ctx.pref.showRatings option frag(
               playerUser.rating,
               player.provisional.yes option "?",
-              playerUser.ratingDiff map { d =>
+              playerUser.ratingDiff.map: d =>
                 frag(" ", showRatingDiff(d))
-              }
             )
           )
         .getOrElse:

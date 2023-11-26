@@ -25,7 +25,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "dialog-polyfill": "0.5.6",
-    "lichess-pgn-viewer": "^2.0.0",
+    "lichess-pgn-viewer": "^2.0.1",
     "snabbdom": "^3.5.1",
     "tablesort": "^5.3.0"
   },

@@ -74,13 +74,21 @@ final class CoachApi(
 
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
-  private val countriesCache = cacheApi.unit[Set[String]]:
+  private val countriesCache = cacheApi.unit[CountrySelection]:
     _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      import lila.user.{ Flag, Flags }
       userRepo.coll.secondaryPreferred
-        .distinctEasy[String, Set](
+        .distinctEasy[Flag.Code, Set](
           "profile.country",
           $doc("roles" -> lila.security.Permission.Coach.dbKey, "enabled" -> true)
         )
-  def allCountries: Fu[Set[String]] = countriesCache.get {}
+        .map: codes =>
+          ("all", "All countries") :: Flags.all
+            .collect:
+              case f if codes.contains(f.code) && !Flags.nonCountries.contains(f.code) => f.code -> f.name
+            .sortBy(_._2)
+        .map(CountrySelection(_))
+
+  def countrySelection: Fu[CountrySelection] = countriesCache.get {}
 
   private def withUser(user: User.WithPerfs)(coach: Coach) = Coach.WithUser(coach, user)

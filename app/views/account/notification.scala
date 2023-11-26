@@ -13,8 +13,8 @@ object notification:
     account.layout(
       title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
       active = "notification"
-    ) {
-      div(cls := "account box box-pad")(
+    ):
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.preferences.notifications()),
         postForm(cls := "autosubmit", action := routes.Pref.notifyFormApply)(
           div(
@@ -54,12 +54,11 @@ object notification:
           p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )
-    }
 
   private def makeRow(form: play.api.data.Form[?])(transFrag: Frag, filterName: String) =
     tr(
       td(transFrag),
-      Seq("bell", "push") map { allow =>
+      Seq("bell", "push").map: allow =>
         val name    = s"$filterName.$allow"
         val checked = form.data(name).contains("true")
         td(
@@ -76,7 +75,6 @@ object notification:
                 case _                => emptyFrag
             )
         )
-      }
     )
 
   private val hiddenFields = Set(

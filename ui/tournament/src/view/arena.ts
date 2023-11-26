@@ -2,11 +2,12 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, playerName } from './util';
+import { player as renderPlayer, ratio2percent } from './util';
 import { teamName } from './battle';
 import { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
+import { userLink } from 'common/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -69,16 +70,6 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
   );
 }
 
-function podiumUsername(p: PodiumPlayer) {
-  return h(
-    'a.text.ulpt.user-link',
-    {
-      attrs: { href: '/@/' + p.name },
-    },
-    playerName(p),
-  );
-}
-
 function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentController): VNode {
   const noarg = ctrl.trans.noarg,
     nb = p.nb;
@@ -98,24 +89,22 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
   ]);
 }
 
-function podiumPosition(
-  p: PodiumPlayer,
-  pos: string,
-  berserkable: boolean,
-  ctrl: TournamentController,
-): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, berserkable, ctrl)]);
-  return undefined;
-}
-
 let lastBody: MaybeVNodes | undefined;
 
 export function podium(ctrl: TournamentController) {
   const p = ctrl.data.podium || [];
+  const podiumPosition = (p: PodiumPlayer, pos: string): VNode | undefined =>
+    p
+      ? h('div.' + pos, [
+          h('div.trophy'),
+          userLink({ ...p, line: false, rating: undefined }),
+          podiumStats(p, ctrl.data.berserkable, ctrl),
+        ])
+      : undefined;
   return h('div.podium', [
-    podiumPosition(p[1], 'second', ctrl.data.berserkable, ctrl),
-    podiumPosition(p[0], 'first', ctrl.data.berserkable, ctrl),
-    podiumPosition(p[2], 'third', ctrl.data.berserkable, ctrl),
+    podiumPosition(p[1], 'second'),
+    podiumPosition(p[0], 'first'),
+    podiumPosition(p[2], 'third'),
   ]);
 }
 

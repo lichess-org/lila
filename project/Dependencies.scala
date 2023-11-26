@@ -27,16 +27,18 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.20.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.6.RELEASE"
-  val testKit     = "org.lichess"                  %% "scalachess-test-kit" % "15.6.11"   % Test
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.0.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.101.Final" classifier s"$os-$arch"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
-  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
-  val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
-  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.1.0"
+  val munit       = "org.scalameta"              %% "munit"               % "1.0.0-M10" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"           % "0.16.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"        % "1.11.0"
+  val apacheMath  = "org.apache.commons"          % "commons-math3"       % "3.6.1"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"        % "0.13.1_lila-1"
+  val kittens     = "org.typelevel"              %% "kittens"             % "3.1.0"
+  val testKit     = "org.lichess"                %% "scalachess-test-kit" % "15.6.11"   % Test
+  val scalacheck  = "org.scalacheck"             %% "scalacheck"          % "1.17.0"    % Test
+  val munitCheck  = "org.scalameta"              %% "munit-scalacheck"    % "1.0.0-M8"  % Test
 
   object tests {
     val bundle = Seq(munit, scalacheck, munitCheck, testKit)

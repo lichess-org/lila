@@ -55,12 +55,12 @@ Trong một số trường hợp hiếm hoi, điều này có thể khó đượ
 Lưu ý rằng có thể chiếu hết với một quân mã hoặc một quân tượng nếu đối phương có quân cờ có thể chặn được vua.</string>
   <string name="fideHandbook">Sổ tay FIDE</string>
   <string name="fideHandbookX">Sổ tay FIDE %s</string>
-  <string name="discoveringEnPassant">Tại sao một con tốt có thể bị bắt bởi một con tốt khác khi mà nó đã đi qua? (Bắt tốt qua đường)</string>
+  <string name="discoveringEnPassant">Tại sao một quân tốt có thể bị bắt bởi một quân tốt khác khi mà nó đã đi qua? (Bắt tốt qua đường)</string>
   <string name="explainingEnPassant">Đây là một nước đi hợp lệ được gọi là \"bắt tốt qua đường\". Bài viết trên Wikipedia cho một %1$s.
 
 Nó được mô tả trong phần 3.7.3.1 và 3.7.3.2 của %2$s:
 
-\"Một con tốt nằm trên ô cùng hàng và trên cột liền kề với một con tốt của đối thủ vừa đi hai nước so với ô ban đầu có thể bắt được con tốt này của đối thủ như thể con sau chỉ đi lên một ô. Nước đi này chỉ hợp lệ khi đi ngay sau nước tiến tốt của đối thủ và được gọi là \'bắt tốt qua đường\'.\"
+\"Một quân tốt nằm trên ô cùng hàng và trên cột liền kề với một quân tốt của đối thủ vừa đi hai nước so với ô ban đầu có thể bắt được quân tốt này của đối thủ như thể quân sau chỉ đi lên một ô. Nước đi này chỉ hợp lệ khi đi ngay sau nước tiến tốt của đối thủ và được gọi là \'bắt tốt qua đường\'.\"
 
 Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="goodIntroduction">thông tin hữu ích</string>
@@ -70,7 +70,7 @@ Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 của %2$s.</string>
   <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>
   <string name="notRepeatedMoves">Chúng tôi không lặp lại các nước đi. Tại sao ván đấu vẫn bị xử hòa bởi luật lặp cờ?</string>
-  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xảy ra liên tiếp.</string>
+  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xẩy ra liên tiếp.</string>
   <string name="positions">những thế cờ</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
   <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s Lichess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
@@ -128,7 +128,7 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
   <string name="whyAreRatingHigher">Tại sao hệ số Elo lại cao hơn so với các trang web và tổ chức khác như FIDE, USCF và ICC?</string>
   <string name="whyAreRatingHigherExplanation">Tốt nhất là không nên coi xếp hạng là con số tuyệt đối hoặc so sánh chúng với các tổ chức khác. Các tổ chức khác nhau có các cấp độ người chơi khác nhau, các hệ thống xếp hạng khác nhau (Elo, Glicko, Glicko-2 hoặc một phiên bản sửa đổi đã nói ở trên). Những yếu tố này có thể ảnh hưởng mạnh đến con số tuyệt đối (xếp hạng).
 
-Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng / hòa / thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>
+Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng/hòa/thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>
   <string name="howToHideRatingWhilePlaying">Làm thế nào để ẩn xếp hạng trong lúc chơi?</string>
   <string name="enableZenMode">Bật chế độ Zen trong %1$s hoặc bằng cách nhấn %2$s trong khi chơi.</string>
   <string name="displayPreferences">tùy chọn hiển thị</string>
@@ -145,23 +145,23 @@ Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Bật tính năng tự động phát âm thanh?</string>
   <string name="enableAutoplayForSoundsA">Hầu hết các trình duyệt có thể ngăn âm thanh phát trên trang mới tải để bảo vệ người dùng. Hãy tưởng tượng nếu mọi trang web có thể ngay lập tức tấn công bạn bằng quảng cáo âm thanh sẽ như thế nào.
 
-Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cò để phát ra âm thanh khi bắt đầu mỗi ván cờ.
+Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cờ để phát ra âm thanh khi bắt đầu mỗi ván cờ.
 
-Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xảy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
+Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
   <string name="desktop">máy tính để bàn</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)
 4. Cho phép Video và Âm Thanh (Audio)</string>
-  <string name="enableAutoplayForSoundsChrome">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
 2. Nhấn hình ổ khoá trên thanh tìm kiếm
 3. Nhấn Cài đặt trang web
 4. Cho phép Âm thanh</string>
-  <string name="enableAutoplayForSoundsSafari">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
 2. Nhấn hình Safari trong thanh menu
 3. Nhấn vào Cài đặt cho lichess.org ...
 4. Cho phép Tất cả Tự động Phát</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
 2. Nhấp vào Cài đặt
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)

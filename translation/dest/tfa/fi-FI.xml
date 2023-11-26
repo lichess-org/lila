@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Kaksivaiheinen tunnistautuminen</string>
   <string name="twoFactorHelp">Kaksivaiheinen tunnistautuminen lisää tunnukseesi uuden tietoturvatason.</string>
-  <string name="twoFactorApp">Lataa sovellus kaksivaiheiseen tunnistautumiseen, esimerkiksi Google Authenticator %1$s tai %2$s -laitteeseen.</string>
   <string name="scanTheCode">Skannaa sovelluksella tämä QR-koodi.</string>
   <string name="enterPassword">Saata asennus loppuun kirjoittamalla tähän salasanasi ja sovelluksen tuottaman tunnistautumiskoodin. Tämän jälkeen tarvitset kirjautumiseen joka kerralla tunnistautumiskoodin.</string>
   <string name="ifYouCannotScanEnterX">Jos et voi skannata koodia, syötä sovellukseesi salainen %s.</string>

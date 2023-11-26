@@ -584,7 +584,6 @@
   <string name="firstName">Anv</string>
   <string name="lastName">Anv familh</string>
   <string name="biography">Diwar ho penn</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Banniel</string>
   <string name="thankYou">Trugarez!</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>
   <string name="oneUrlPerLine">Un URL dre linenn.</string>

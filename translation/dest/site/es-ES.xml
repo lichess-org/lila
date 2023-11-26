@@ -506,7 +506,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandera</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o región</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
@@ -686,6 +686,7 @@
   <string name="keyboardShortcuts">Atajos del teclado</string>
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
   <string name="keyGoToStartOrEnd">ir al inicio/fin</string>
+  <string name="keyCycleSelectedVariation">Alterna la variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, Aprende de tus errores</string>
@@ -693,6 +694,13 @@
   <string name="keyNextBlunder">Siguiente error grave</string>
   <string name="keyNextMistake">Siguiente error</string>
   <string name="keyNextInaccuracy">Siguiente imprecisión</string>
+  <string name="keyPreviousBranch">Rama anterior</string>
+  <string name="keyNextBranch">Rama siguiente</string>
+  <string name="toggleVariationArrows">Activar/Desactivar flechas de variantes</string>
+  <string name="cyclePreviousOrNextVariation">Alterna entre la variante siguiente y la anterior</string>
+  <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
+  <string name="variationArrowsInfo">Las flechas de variantes te permiten navegar sin usar la lista de movimientos.</string>
+  <string name="playSelectedMove">hacer movimiento seleccionado</string>
   <string name="newTournament">Nuevo torneo</string>
   <string name="tournamentHomeTitle">Torneos de ajedrez con diferentes variantes y controles de tiempo</string>
   <string name="tournamentHomeDescription">¡Juega torneos de ajedrez rápido! Únete a un torneo oficial programado o crea el tuyo propio. Bala, Relámpago, Clásico, Ajedrez960, Rey de la Colina, Tres jaques y más opciones disponibles para una diversión sin fin en ajedrez.</string>
@@ -971,4 +979,6 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="switchSides">Cambiar color</string>
   <string name="closingAccountWithdrawAppeal">Cerrar tu cuenta retirará tu apelación</string>
   <string name="ourEventTips">Nuestros consejos para organizar eventos</string>
+  <string name="instructions">Instrucciones</string>
+  <string name="showMeEverything">Mostrarme todo</string>
 </resources>

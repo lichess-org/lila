@@ -70,6 +70,7 @@
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
   <string name="forceVariation">Variant forcéieren</string>
+  <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
   <string name="variantLoss">Variant verluer</string>
   <string name="variantWin">Variant gewonn</string>
@@ -505,7 +506,6 @@
   <string name="firstName">Virnumm</string>
   <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Fändel</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="oneUrlPerLine">Eng URL pro Zeil.</string>

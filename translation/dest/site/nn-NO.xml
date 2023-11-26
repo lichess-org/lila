@@ -507,7 +507,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
   <string name="biography">Biografi</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flagg</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="oneUrlPerLine">Ein URL per line.</string>
@@ -687,6 +687,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyboardShortcuts">Snarvegar på tastaturet</string>
   <string name="keyMoveBackwardOrForward">flytt att og fram</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
+  <string name="keyCycleSelectedVariation">Gå gjennom den valde varianten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
@@ -694,6 +695,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
   <string name="keyNextMistake">Neste mistak</string>
   <string name="keyNextInaccuracy">Neste upresise trekk</string>
+  <string name="keyPreviousBranch">Førre grein</string>
+  <string name="keyNextBranch">Neste grein</string>
+  <string name="toggleVariationArrows">Slå variantpilar på/av</string>
+  <string name="cyclePreviousOrNextVariation">Gå gjennom førre/neste variant</string>
+  <string name="toggleGlyphAnnotations">Slå symbol-merknadar på/av</string>
+  <string name="variationArrowsInfo">Med hjelp av variantpiler kan du navigere utan å bruka trekklista.</string>
+  <string name="playSelectedMove">spel valde trekk</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
   <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, faste turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
@@ -879,7 +887,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blitzDesc">Snøgge parti: 3 til 8 minutt</string>
   <string name="rapidDesc">Snøggsjakk: 8 til 25 minutt</string>
   <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
-  <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>
+  <string name="correspondenceDesc">Fjernsjakkparti: eit til fleire døger per trekk</string>
   <string name="puzzleDesc">Sjakktaktikk-trenar</string>
   <string name="important">Viktig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt kan allereie ha fått eit svar %1$s</string>
@@ -972,4 +980,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="switchSides">Byt side</string>
   <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
   <string name="ourEventTips">Tips for å organisere arrangement</string>
+  <string name="instructions">Instruksjonar</string>
+  <string name="showMeEverything">Vis alt</string>
 </resources>

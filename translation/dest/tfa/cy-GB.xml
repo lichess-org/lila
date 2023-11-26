@@ -2,7 +2,6 @@
 <resources>
   <string name="twoFactorAuth">Dilysu dau gam</string>
   <string name="twoFactorHelp">Mae dilysu dau gam yn ychwanegu haen arall o ddiogelwch i\'ch cyfrif.</string>
-  <string name="twoFactorApp">Cewch ap am ddilysu dau gam, er enghraifft andOTP am %1$s neu Google Authenticator am %2$s.</string>
   <string name="scanTheCode">Sganiwch y côd QR yn yr ap.</string>
   <string name="enterPassword">Mewnbynnwch eich cyfrinair ac yr côd ddilysu sydd wedi cael ei gynhyrchu gan yr ap i gwblhau yr gosodiad. Bydd rhaid cael cod ddilysu pob tro rydych yn mewngofnodi.</string>
   <string name="ifYouCannotScanEnterX">Os nad ydych yn gallu sganio côd, rhowch eich %s cudd i mewn i\'ch ap.</string>

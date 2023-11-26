@@ -14,6 +14,7 @@ interface Lichess {
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
+  flairSrc(flair: Flair): string;
   loadCss(path: string): void;
   loadCssPath(path: string): Promise<void>;
   jsModule(name: string): string;
@@ -74,6 +75,8 @@ interface Lichess {
 
 type I18nDict = { [key: string]: string };
 type I18nKey = string;
+
+type Flair = string;
 
 type RedirectTo = string | { url: string; cookie: Cookie };
 
@@ -342,6 +345,7 @@ interface Study {
 interface LightUserNoId {
   name: string;
   title?: string;
+  flair?: Flair;
   patron?: boolean;
 }
 
@@ -428,13 +432,10 @@ declare namespace Tree {
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
-    maxDepth?: undefined;
     millis?: undefined;
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;
-    maxDepth: number;
-    knps: number;
     millis: number;
   }
   export type ClientEval = CloudEval | LocalEval;
