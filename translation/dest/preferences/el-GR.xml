@@ -60,7 +60,7 @@
   <string name="notifyInvitedStudy">Πρόσκληση μελέτης</string>
   <string name="notifyGameEvent">Ενημερώσεις σε παιχνίδια αλληλογραφίας</string>
   <string name="notifyChallenge">Προκλήσεις</string>
-  <string name="notifyTournamentSoon">Το πρωτάθλημα ξεκινά σύντομα</string>
+  <string name="notifyTournamentSoon">Το τουρνουά ξεκινά σύντομα</string>
   <string name="notifyTimeAlarm">Το ρολόι εξαντλείται στο παιχνίδι αλληλογραφίας</string>
   <string name="notifyBell">Ειδοποίηση με καμπανάκι εντός του Lichess</string>
   <string name="notifyPush">Ειδοποίηση συσκευής όταν δεν είστε στο Lichess</string>
