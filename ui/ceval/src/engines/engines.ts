@@ -165,7 +165,7 @@ export class Engines {
               js: 'fsf.js',
             },
           },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, v => v.toLowerCase()),
         },
         {
           info: {
@@ -184,6 +184,23 @@ export class Engines {
           },
           make: (e: BrowserEngineInfo) =>
             new StockfishWebEngine(e, this.status, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
+        },
+        {
+          info: {
+            id: '__fsfnnue-racingkings',
+            name: 'Fairy Stockfish 14+ NNUE',
+            short: 'FSF 14+',
+            tech: 'NNUE',
+            requires: ['simd', 'webWorkerDynamicImport'],
+            variants: ['racingKings'],
+            assets: {
+              version: 'sfw003',
+              root: 'npm/lila-stockfish-web',
+              nnue: 'racingkings-636b95f085e3.nnue',
+              js: 'fsf.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, v => v.toLowerCase()),
         },
         {
           info: {
