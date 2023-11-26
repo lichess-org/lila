@@ -85,13 +85,13 @@ const fairy = () =>
     })
     .pipe(gulp.dest('../../public/vendor/fairy/'));
 
-const yaneuraou = () =>
+const shogiground = () =>
   gulp
-    .src(['lib/yaneuraou.k-p.js', 'lib/yaneuraou.k-p.wasm', 'lib/yaneuraou.k-p.worker.js'], {
-      cwd: path.dirname(require.resolve('@mizarjp/yaneuraou.k-p/package.json')),
+    .src(['dist/shogiground.min.js'], {
+      cwd: path.dirname(require.resolve('shogiground/package.json')),
       cwdbase: true,
     })
-    .pipe(gulp.dest('../../public/vendor/yaneuraou.k-p/'));
+    .pipe(gulp.dest('../../public/vendor/javascripts/vendor/'));
 
 const prodSource = () =>
   browserify(browserifyOpts('src/index.ts', false))
@@ -207,7 +207,7 @@ const tasks = [
   highcharts,
   spectrum,
   fairy,
-  yaneuraou,
+  shogiground,
 ];
 
 const dev = gulp.series(tasks.concat([devSource]));
