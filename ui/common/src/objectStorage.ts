@@ -12,9 +12,10 @@ export interface DbInfo {
 }
 
 export interface ObjectStorage<V> {
+  list(): Promise<string[]>;
   get(key: string): Promise<V>;
   put(key: string, value: V): Promise<string>; // returns key
-  count(key: string): Promise<number>;
+  count(key?: string): Promise<number>;
   remove(key: string): Promise<void>;
   clear(): Promise<void>; // remove all
   txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
@@ -36,13 +37,16 @@ export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>
   }
 
   return {
+    list() {
+      return actionPromise<string[]>(() => objectStore('readonly').getAllKeys());
+    },
     get(key: string) {
       return actionPromise<V>(() => objectStore('readonly').get(key));
     },
     put(key: string, value: V) {
       return actionPromise<string>(() => objectStore('readwrite').put(value, key));
     },
-    count(key: string) {
+    count(key?: string) {
       return actionPromise<number>(() => objectStore('readonly').count(key));
     },
     remove(key: string) {
