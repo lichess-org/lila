@@ -79,7 +79,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h(
           'div.list',
           fctrl.list().map(function (nodes, i) {
-            const par = parentNode(ctrl, nodes[0].ply),
+            const par = parentNode(ctrl, nodes[0].ply - ctrl.plyOffset()),
               notations = makeNotationLine(
                 par.sfen,
                 ctrl.data.game.variant.key,
