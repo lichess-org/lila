@@ -9,11 +9,12 @@ lichess.log.clear();                         // clear idb store
 */
 
 export function makeLog() {
-  const keep = 1000; // recent log statements to keep (roughly), trimmed on startup
-
   let store: ObjectStorage<string>;
-  let lastKey = Date.now();
   let resolveReady: () => void;
+  let lastKey = Date.now();
+  let drift = 0.01;
+
+  const keep = 1000; // recent log statements to keep (roughly), trimmed on startup
   const ready = new Promise<void>(resolve => (resolveReady = resolve));
 
   objectStorage<string>({ store: 'log' })
@@ -40,7 +41,6 @@ export function makeLog() {
     return !val || typeof val === 'string' ? String(val) : JSON.stringify(val);
   }
 
-  let drift = 0.01;
   const log: any = async (...args: any[]) => {
     console.log(...args);
     await ready;
@@ -72,13 +72,11 @@ export function makeLog() {
   };
 
   window.addEventListener('error', e => {
-    lichess.log(
-      `${e.message} (${e.filename}:${e.lineno}:${e.colno}) ${e.error?.stack ? `\n${e.error.stack}` : ''}`,
-    );
+    lichess.log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
   });
 
   window.addEventListener('unhandledrejection', e => {
-    lichess.log(`${e.reason} ${e.reason.stack ? `${e.reason.stack}` : ''}`);
+    lichess.log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
   });
 
   return log;
