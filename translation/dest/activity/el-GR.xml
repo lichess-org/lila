@@ -55,16 +55,16 @@
     <item quantity="other">Δημιούργησε %s νέες μελέτες</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Αγωνίστηκε σε %s πρωτάθλημα</item>
-    <item quantity="other">Αγωνίστηκε σε %s πρωταθλήματα</item>
+    <item quantity="one">Αγωνίστηκε σε %s τουρνουά</item>
+    <item quantity="other">Αγωνίστηκε σε %s τουρνουά</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδι σε %4$s</item>
     <item quantity="other">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδια σε %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Αγωνίστηκε σε %s ελβετικό πρωτάθλημα</item>
-    <item quantity="other">Αγωνίστηκε σε %s ελβετικά πρωτάθληματα</item>
+    <item quantity="one">Αγωνίστηκε σε %s ελβετικό τουρνουά</item>
+    <item quantity="other">Αγωνίστηκε σε %s ελβετικά τουρνουά</item>
   </plurals>
   <string name="rankedInSwissTournament">Κατατάχθηκε #%1$s στο %2$s</string>
   <string name="signedUp">Έκανε εγγραφή στο lichess.org</string>
