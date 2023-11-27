@@ -72,7 +72,7 @@ export const userTitle = (u: HasTitle): VNode | undefined =>
 export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined =>
-  u.rating ? ` (${u.rating + (u.provisional ? '?' : '')})` : undefined;
+  u.rating ? ` ${u.rating + (u.provisional ? '?' : '')}` : undefined;
 
 export const ratingDiff = (u: HasRatingDiff): VNode | undefined =>
   u.ratingDiff === 0
