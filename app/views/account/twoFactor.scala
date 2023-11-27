@@ -59,7 +59,9 @@ object twoFactor:
             form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
           ),
           form3.globalError(form),
-          div(cls := "form-group")(ifYouLoseAccess()),
+          div(cls := "form-group")(
+            ifYouLoseAccessTwoFactor(a(href := routes.Auth.passwordReset)(trans.passwordReset()))
+          ),
           form3.action(form3.submit(enableTwoFactor()))
         )
       )
@@ -78,7 +80,8 @@ object twoFactor:
         ),
         standardFlash,
         postForm(cls := "form3", action := routes.Account.disableTwoFactor)(
-          p(twoFactorDisable()),
+          p(twoFactorToDisable()),
+          ifYouLoseAccessTwoFactor(a(href := routes.Auth.passwordReset)(trans.passwordReset())),
           form3.passwordModified(form("passwd"), trans.password())(autocomplete := "current-password"),
           form3.group(form("token"), authenticationCode())(
             form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
