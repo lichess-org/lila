@@ -201,6 +201,8 @@ export class Protocol {
           ? this.toFairyKyotoFormat(this.work.initialSfen, this.work.moves)
           : ['position sfen', this.work.initialSfen, 'moves', ...this.work.moves].join(' ');
       this.send(command);
+      console.debug(command);
+
       this.send(
         this.work.maxDepth >= 99
           ? `go depth ${maxSearchPlies}` // 'go infinite' would not finish even if entire tree search completed
