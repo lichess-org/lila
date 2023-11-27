@@ -23,7 +23,7 @@
     grid-area: under;
     @include breakpoint($mq-col3) {
       @include hand-width(margin-left);
-      @include board-width(width);
+      width: calc((100% - 4vmin) / 11 * 9 - 2vmin);
     }
   }
   &__underchat {
@@ -38,7 +38,7 @@
     'uchat';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr $col2-uniboard-table;
     grid-template-rows: auto fit-content(0) fit-content(0);
     grid-template-areas:
       'app   app'
@@ -53,7 +53,7 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $gauge-gap auto;
+    grid-template-columns: $col3-uniboard-side $gauge-gap 1fr $col3-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'side  . app   app'
