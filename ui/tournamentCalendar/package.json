@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.30",
     "snabbdom": "^3.5.1"
   },
   "scripts": {
