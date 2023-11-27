@@ -48,6 +48,8 @@ export default function status(trans: Trans, status: Status, winner: Color | und
       return noarg('royalsLost');
     case 'bareKing':
       return noarg('bareKing');
+    case 'specialVariantEnd':
+      return noarg('check'); // enough for now
     default:
       return status.name;
   }

@@ -50,6 +50,7 @@ export type StatusName =
   | 'repetition'
   | 'royalsLost'
   | 'bareKing'
+  | 'specialVariantEnd'
   | 'timeout'
   | 'draw'
   | 'outoftime'
