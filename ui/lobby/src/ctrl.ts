@@ -33,7 +33,10 @@ export default class LobbyController {
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
-  constructor(readonly opts: LobbyOpts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: LobbyOpts,
+    readonly redraw: () => void
+  ) {
     this.data = opts.data;
     this.data.hooks = [];
     this.pools = opts.pools;
@@ -135,13 +138,15 @@ export default class LobbyController {
   clickHook = (id: string) => {
     const hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.stepping || this.redirecting) return;
-    if (hook.action === 'cancel' || variantConfirm(hook.variant)) this.socket.send(hook.action, hook.id);
+    if (hook.action === 'cancel' || variantConfirm(hook.variant, this.trans.noarg))
+      this.socket.send(hook.action, hook.id);
   };
 
   clickSeek = (id: string) => {
     const seek = seekRepo.find(this, id);
     if (!seek || this.redirecting) return;
-    if (seek.action === 'cancelSeek' || variantConfirm(seek.variant)) this.socket.send(seek.action, seek.id);
+    if (seek.action === 'cancelSeek' || variantConfirm(seek.variant, this.trans.noarg))
+      this.socket.send(seek.action, seek.id);
   };
 
   setSeeks = (seeks: Seek[]) => {

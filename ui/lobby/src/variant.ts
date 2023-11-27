@@ -1,23 +1,13 @@
-// todo - make these translatable
-const variantConfirms = {
-  minishogi: 'This is minishogi, same rules but smaller board.',
-  chushogi: 'This is chushogi, the most popular large board shogi variant.',
-  annanshogi: 'This is annan shogi, pieces move like the friendly piece behind them.',
-  kyotoshogi: 'This is kyoto shogi, small board and promotions on every turn.',
-  checkshogi: 'This is checkshogi, first to check your opponent wins.',
-};
 
 function storageKey(key) {
   return 'lobby.variant.' + key;
 }
 
-export default function (variant: VariantKey) {
-  return Object.keys(variantConfirms).every(function (key) {
-    const v = variantConfirms[key];
-    if (variant === key && !window.lishogi.storage.get(storageKey(key))) {
-      const c = confirm(v);
-      if (c) window.lishogi.storage.set(storageKey(key), '1');
-      return c;
-    } else return true;
-  });
+export default function (variant: VariantKey, trans: TransNoArg) {
+  if (!window.lishogi.storage.get(storageKey(variant))) {
+    const v = trans(variant),
+      c = confirm(v);
+    if (c) window.lishogi.storage.set(storageKey(variant), '1');
+    return c;
+  } else return true;
 }
