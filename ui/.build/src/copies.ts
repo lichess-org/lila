@@ -8,7 +8,7 @@ const globRe = /[*?!{}[\]()]|\*\*|\[[^[\]]*\]/;
 const copyWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;
 
-export function killCopies() {
+export function stopCopies() {
   clearTimeout(watchTimeout);
   watchTimeout = undefined;
   for (const watcher of copyWatch) watcher.close();

@@ -158,6 +158,9 @@ class Env {
   get buildDir(): string {
     return path.join(this.uiDir, '.build');
   }
+  get typesDir(): string {
+    return path.join(this.uiDir, '@types');
+  }
   warn(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, warn: true });
   }
@@ -173,13 +176,11 @@ class Env {
   }
   log(d: any, { ctx = 'build', error = false, warn = false } = {}) {
     let text: string =
-      typeof d === 'string'
-        ? d
-        : d instanceof Buffer
-          ? d.toString('utf8')
-          : Array.isArray(d)
-            ? d.join('\n')
-            : JSON.stringify(d, undefined, 2);
+      typeof !d || d === 'string' || d instanceof Buffer
+        ? String(d)
+        : Array.isArray(d)
+          ? d.join('\n')
+          : JSON.stringify(d);
 
     const esc = this.color ? escape : (text: string, _: any) => text;
 
