@@ -78,7 +78,10 @@
     animation: none;
   }
   &.marathonTopFifty {
-    text-shadow: 0 0 5px #ffae34, 0 0 6.25px #ec760c, 0 0 7.5px #cd4606;
+    text-shadow:
+      0 0 5px #ffae34,
+      0 0 6.25px #ec760c,
+      0 0 7.5px #cd4606;
   }
   &.marathonTopHundred {
     text-shadow: none;

@@ -18,8 +18,8 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
         title: hook.disabled
           ? ''
           : hook.action === 'join'
-          ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hook.perf || hook.variant) as I18nKey))
-          : noarg('cancel'),
+            ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hook.perf || hook.variant) as I18nKey))
+            : noarg('cancel'),
         'data-id': hook.id,
       },
     },

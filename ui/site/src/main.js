@@ -372,10 +372,10 @@
         variant === 'chushogi'
           ? []
           : variant === 'minishogi'
-          ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
-          : variant === 'kyotoshogi'
-          ? ['tokin', 'gold', 'silver', 'pawn']
-          : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
+            ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
+            : variant === 'kyotoshogi'
+              ? ['tokin', 'gold', 'silver', 'pawn']
+              : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
       var config = {
         coordinates: false,
         viewOnly: !playable,
@@ -392,8 +392,8 @@
             variant === 'chushogi'
               ? chushogiForsythToRole
               : variant === 'kyotoshogi'
-              ? kyotoshogiForsythToRole
-              : undefined,
+                ? kyotoshogiForsythToRole
+                : undefined,
         },
       };
       sgWrap.classList.remove('preload');

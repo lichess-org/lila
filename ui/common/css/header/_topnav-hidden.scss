@@ -46,14 +46,18 @@
         @include breakpoint($mq-site-header-tall) {
           top: -9px;
         }
-        transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+        transition:
+          top 0.1s 0.25s ease-in,
+          opacity 0.1s ease-in;
       }
       &::after {
         bottom: -7px;
         @include breakpoint($mq-site-header-tall) {
           bottom: -10px;
         }
-        transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        transition:
+          bottom 0.1s 0.25s ease-in,
+          transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
       }
     }
     .topnav-toggle:checked ~ & {
@@ -66,12 +70,16 @@
         &::before {
           top: 0;
           opacity: 0;
-          transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+          transition:
+            top 0.1s ease-out,
+            opacity 0.1s 0.12s ease-out;
         }
         &::after {
           bottom: 0;
           transform: rotate(-90deg);
-          transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition:
+            bottom 0.1s ease-out,
+            transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
       }
     }

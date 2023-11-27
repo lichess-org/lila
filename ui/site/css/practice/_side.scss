@@ -57,7 +57,9 @@
     background: mix($c-font-clearer, $c-primary, 25%);
     background-image: img-url('grain.png');
     transform: translateX(-100px);
-    animation: animatedBackground 50s linear infinite, animatedBar 1s forwards;
+    animation:
+      animatedBackground 50s linear infinite,
+      animatedBar 1s forwards;
   }
   .progress .text {
     @extend %abs-100;

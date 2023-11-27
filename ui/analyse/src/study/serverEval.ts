@@ -104,24 +104,24 @@ function requestButton(ctrl: ServerEvalCtrl) {
     root.mainline.length < 5
       ? h('p', root.trans.noarg('theChapterIsTooShortToBeAnalysed'))
       : !root.study!.members.canContribute()
-      ? [root.trans.noarg('onlyContributorsCanRequestAnalysis')]
-      : [
-          h('p', [
-            root.trans.noarg('getAFullComputerAnalysis'),
-            h('br'),
-            root.trans.noarg('makeSureTheChapterIsComplete'),
-          ]),
-          h(
-            'a.button.text',
-            {
-              attrs: {
-                'data-icon': '',
-                disabled: root.mainline.length < 5,
+        ? [root.trans.noarg('onlyContributorsCanRequestAnalysis')]
+        : [
+            h('p', [
+              root.trans.noarg('getAFullComputerAnalysis'),
+              h('br'),
+              root.trans.noarg('makeSureTheChapterIsComplete'),
+            ]),
+            h(
+              'a.button.text',
+              {
+                attrs: {
+                  'data-icon': '',
+                  disabled: root.mainline.length < 5,
+                },
+                hook: bind('click', ctrl.request, root.redraw),
               },
-              hook: bind('click', ctrl.request, root.redraw),
-            },
-            root.trans.noarg('requestAComputerAnalysis')
-          ),
-        ]
+              root.trans.noarg('requestAComputerAnalysis')
+            ),
+          ]
   );
 }

@@ -35,7 +35,10 @@ export default class LearnCtrl {
   trans: Trans;
   pref: any;
 
-  constructor(private opts: LearnOpts, readonly redraw: Redraw) {
+  constructor(
+    private opts: LearnOpts,
+    readonly redraw: Redraw
+  ) {
     this.trans = li.trans(this.opts.i18n);
     this.pref = opts.pref;
 
@@ -184,10 +187,10 @@ export default class LearnCtrl {
             this.vm.level.showFailureMove === 'capture'
               ? findCapture(pos)
               : this.vm.level.showFailureMove === 'unprotected'
-              ? findUnprotectedCapture(pos)
-              : this.vm.level.showFailureMove === 'random'
-              ? findRandomMove(pos)
-              : this.vm.level.showFailureMove(this.vm.level, this.vm.usiCList),
+                ? findUnprotectedCapture(pos)
+                : this.vm.level.showFailureMove === 'random'
+                  ? findRandomMove(pos)
+                  : this.vm.level.showFailureMove(this.vm.level, this.vm.usiCList),
           parsedUsi = usi && parseUsi(usi);
 
         if (parsedUsi && pos.board.getRole(parsedUsi.to) !== 'king') {

@@ -17,7 +17,11 @@ export default class MsgCtrl {
   typing?: Typing;
   textStore?: LishogiStorage;
 
-  constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
+  constructor(
+    data: MsgData,
+    readonly trans: Trans,
+    readonly redraw: Redraw
+  ) {
     this.data = data;
     this.pane = data.convo ? 'convo' : 'side';
     this.connected = network.websocketHandler(this);

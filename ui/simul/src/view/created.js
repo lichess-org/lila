@@ -60,35 +60,35 @@ module.exports = function (ctrl) {
           ? simul.createdByMe(ctrl)
             ? [startOrCancel(ctrl, accepted), randomButton(ctrl, candidates)]
             : simul.containsMe(ctrl)
-            ? m(
-                'a.button',
-                {
-                  onclick: function () {
-                    xhr.withdraw(ctrl);
+              ? m(
+                  'a.button',
+                  {
+                    onclick: function () {
+                      xhr.withdraw(ctrl);
+                    },
                   },
-                },
-                ctrl.trans('withdraw')
-              )
-            : m(
-                'a.button.text' + (ctrl.teamBlock ? '.disabled' : ''),
-                {
-                  disabled: ctrl.teamBlock,
-                  'data-icon': 'G',
-                  onclick: ctrl.teamBlock
-                    ? undefined
-                    : () => {
-                        if (ctrl.data.variants.length === 1) xhr.join(ctrl, ctrl.data.variants[0].key);
-                        else {
-                          $.modal($('.simul .continue-with'));
-                          $('#modal-wrap .continue-with a').click(function () {
-                            $.modal.close();
-                            xhr.join(ctrl, $(this).data('variant'));
-                          });
-                        }
-                      },
-                },
-                ctrl.teamBlock ? ctrl.trans('mustBeInTeam', ctrl.data.team.name) : ctrl.trans('join')
-              )
+                  ctrl.trans('withdraw')
+                )
+              : m(
+                  'a.button.text' + (ctrl.teamBlock ? '.disabled' : ''),
+                  {
+                    disabled: ctrl.teamBlock,
+                    'data-icon': 'G',
+                    onclick: ctrl.teamBlock
+                      ? undefined
+                      : () => {
+                          if (ctrl.data.variants.length === 1) xhr.join(ctrl, ctrl.data.variants[0].key);
+                          else {
+                            $.modal($('.simul .continue-with'));
+                            $('#modal-wrap .continue-with a').click(function () {
+                              $.modal.close();
+                              xhr.join(ctrl, $(this).data('variant'));
+                            });
+                          }
+                        },
+                  },
+                  ctrl.teamBlock ? ctrl.trans('mustBeInTeam', ctrl.data.team.name) : ctrl.trans('join')
+                )
           : m(
               'a.button.text',
               {
@@ -103,8 +103,8 @@ module.exports = function (ctrl) {
     simul.acceptedContainsMe(ctrl)
       ? m('p.instructions', 'You have been selected! Hold still, the simul is about to begin.')
       : simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6
-      ? m('p.instructions', 'Share this page URL to let people enter the simul!')
-      : null,
+        ? m('p.instructions', 'Share this page URL to let people enter the simul!')
+        : null,
     m(
       'div.halves',
       m(

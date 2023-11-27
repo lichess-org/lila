@@ -11,8 +11,8 @@ function miniPairing(ctrl) {
         ? pairing.winnerColor === 'sente'
           ? '1-0'
           : pairing.winnerColor === 'gote'
-          ? '0-1'
-          : '½/½'
+            ? '0-1'
+            : '½/½'
         : '*';
     return m(
       'a',

@@ -41,11 +41,12 @@
       }
       & > div {
         padding: 0;
-        form, form button {
+        form,
+        form button {
           color: $c-font;
           width: 100%;
           height: 100%;
-          text-align: left
+          text-align: left;
         }
       }
     }

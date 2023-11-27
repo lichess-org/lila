@@ -233,8 +233,8 @@ export default function (
       nextPath = sameChapter
         ? prevPath
         : data.chapter.relay
-        ? data.chapter.relay!.path
-        : chapters.localPaths[vm.chapterId] || treePath.root;
+          ? data.chapter.relay!.path
+          : chapters.localPaths[vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible

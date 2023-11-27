@@ -87,7 +87,8 @@
       $c-fix: mix($c-good, $c-darken, 50%);
       $c-fail: mix($c-bad, $c-darken, 80%);
 
-      background: #{$glow-gradient},
+      background:
+        #{$glow-gradient},
         linear-gradient(
           to right,
           $c-first 0%,

@@ -11,7 +11,10 @@ export default class CurrentPuzzle {
   pov: Color;
   ambPromotions: number[];
 
-  constructor(readonly index: number, readonly puzzle: Puzzle) {
+  constructor(
+    readonly index: number,
+    readonly puzzle: Puzzle
+  ) {
     this.line = puzzle.line.split(' ');
     this.pov = parseSfen('standard', puzzle.sfen).unwrap().turn;
     this.startAt = getNow();

@@ -146,10 +146,10 @@ function parseSfen($elem) {
         variant === 'chushogi'
           ? []
           : variant === 'minishogi'
-          ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
-          : variant === 'kyotoshogi'
-          ? ['tokin', 'gold', 'silver', 'pawn']
-          : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
+            ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
+            : variant === 'kyotoshogi'
+              ? ['tokin', 'gold', 'silver', 'pawn']
+              : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
     config = {
       coordinates: { enabled: false },
       drawable: { enabled: false, visible: false },
@@ -162,8 +162,8 @@ function parseSfen($elem) {
           variant === 'chushogi'
             ? chushogiForsythToRole
             : variant === 'kytotoshogi'
-            ? kyotoshogiForsythToRole
-            : undefined,
+              ? kyotoshogiForsythToRole
+              : undefined,
       },
     };
     if (variant === 'chushogi') loadChushogiPieceSprite();

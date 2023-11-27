@@ -48,19 +48,19 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
     ctrl.vm.mode === 'play'
       ? h('span.hidden', ctrl.trans.noarg('hidden'))
       : game.author && game.author.startsWith('http')
-      ? h(
-          'a',
-          {
-            attrs: {
-              href: `${game.author}`,
-              target: '_blank',
+        ? h(
+            'a',
+            {
+              attrs: {
+                href: `${game.author}`,
+                target: '_blank',
+              },
             },
-          },
-          game.author.replace(/(^\w+:|^)\/\//, '')
-        )
-      : game.author
-      ? h('span', game.author)
-      : h('span', 'Unknown author');
+            game.author.replace(/(^\w+:|^)\/\//, '')
+          )
+        : game.author
+          ? h('span', game.author)
+          : h('span', 'Unknown author');
   return h(
     'div.infos',
     {
@@ -109,16 +109,16 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
               p.ai
                 ? 'Engine level ' + p.ai
                 : p.userId === 'anon'
-                ? 'Anonymous'
-                : p.userId
-                ? h(
-                    'a.user-link.ulpt',
-                    {
-                      attrs: { href: '/@/' + p.userId },
-                    },
-                    playerName(p)
-                  )
-                : p.name
+                  ? 'Anonymous'
+                  : p.userId
+                    ? h(
+                        'a.user-link.ulpt',
+                        {
+                          attrs: { href: '/@/' + p.userId },
+                        },
+                        playerName(p)
+                      )
+                    : p.name
             )
           )
         ),

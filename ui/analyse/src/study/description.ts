@@ -8,7 +8,11 @@ export type Save = (string) => void;
 export class DescriptionCtrl {
   edit: boolean = false;
 
-  constructor(public text: string | undefined, readonly doSave: Save, readonly redraw: () => void) {}
+  constructor(
+    public text: string | undefined,
+    readonly doSave: Save,
+    readonly redraw: () => void
+  ) {}
 
   save(t: string) {
     this.text = t;

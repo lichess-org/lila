@@ -6,7 +6,10 @@ import * as xhr from './xhr';
 export default class MoveOn {
   private storage = window.lishogi.storage.makeBoolean(this.key);
 
-  constructor(private ctrl: RoundController, private key: string) {}
+  constructor(
+    private ctrl: RoundController,
+    private key: string
+  ) {}
 
   toggle = () => {
     this.storage.toggle();

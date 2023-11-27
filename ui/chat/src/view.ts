@@ -62,8 +62,8 @@ function normalView(ctrl: Ctrl) {
       active === 'note' && ctrl.note
         ? [noteView(ctrl.note)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
-        ? [ctrl.plugin.view()]
-        : discussionView(ctrl)
+          ? [ctrl.plugin.view()]
+          : discussionView(ctrl)
     ),
   ];
 }

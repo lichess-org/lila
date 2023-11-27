@@ -15,7 +15,11 @@ export class MultiBoardCtrl {
   pager?: Paginator<ChapterPreview>;
   playing: boolean = false;
 
-  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
+  constructor(
+    readonly studyId: string,
+    readonly redraw: () => void,
+    readonly trans: Trans
+  ) {}
 
   addNode(pos: Position, node: Tree.Node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);

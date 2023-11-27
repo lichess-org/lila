@@ -126,7 +126,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
             : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]
         )
       : running
-      ? h('div.comment')
-      : null,
+        ? h('div.comment')
+        : null,
   ]);
 }

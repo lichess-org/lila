@@ -47,8 +47,8 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
         ? defined(ev.cp)
           ? [renderEval(normalizeEval(ev.cp))]
           : defined(ev.mate)
-          ? [renderEval('#' + ev.mate)]
-          : []
+            ? [renderEval('#' + ev.mate)]
+            : []
         : []
     )
     .concat(defined(moveTime) ? [h('movetime', renderTime(moveTime, false))] : []);

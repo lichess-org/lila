@@ -432,38 +432,38 @@ export default function (ctrl: AnalyseCtrl): VNode {
       ctrl.embed
         ? null
         : ctrl.studyPractice
-        ? studyPracticeView.side(study!)
-        : h(
-            'aside.analyse__side',
-            {
-              hook: onInsert(elm => {
-                ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-                $(elm).append($('.streamers').clone().removeClass('none'));
-              }),
-            },
-            ctrl.studyPractice
-              ? [studyPracticeView.side(study!)]
-              : study
-              ? [studyView.side(study)]
-              : [
-                  ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-                  !ctrl.synthetic && playable(ctrl.data)
-                    ? h(
-                        'div.back-to-game',
-                        h(
-                          'a.button.button-empty.text',
-                          {
-                            attrs: {
-                              href: router.game(ctrl.data, ctrl.data.player.color),
-                              'data-icon': 'i',
-                            },
-                          },
-                          ctrl.trans.noarg('backToGame')
-                        )
-                      )
-                    : null,
-                ]
-          ),
+          ? studyPracticeView.side(study!)
+          : h(
+              'aside.analyse__side',
+              {
+                hook: onInsert(elm => {
+                  ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+                  $(elm).append($('.streamers').clone().removeClass('none'));
+                }),
+              },
+              ctrl.studyPractice
+                ? [studyPracticeView.side(study!)]
+                : study
+                  ? [studyView.side(study)]
+                  : [
+                      ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+                      !ctrl.synthetic && playable(ctrl.data)
+                        ? h(
+                            'div.back-to-game',
+                            h(
+                              'a.button.button-empty.text',
+                              {
+                                attrs: {
+                                  href: router.game(ctrl.data, ctrl.data.player.color),
+                                  'data-icon': 'i',
+                                },
+                              },
+                              ctrl.trans.noarg('backToGame')
+                            )
+                          )
+                        : null,
+                    ]
+            ),
       study && study.relay && relayManager(study.relay),
       ctrl.opts.chat &&
         h('section.mchat', {

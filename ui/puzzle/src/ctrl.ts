@@ -244,10 +244,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
-      setTimeout(() => {
-        const pos = parseSfen('standard', progress.sfen, false).unwrap() as Shogi;
-        sendMoveAt(progress.path, pos, progress.move);
-      }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
+      setTimeout(
+        () => {
+          const pos = parseSfen('standard', progress.sfen, false).unwrap() as Shogi;
+          sendMoveAt(progress.path, pos, progress.move);
+        },
+        opts.pref.animation.duration * (autoNext() ? 1 : 1.5)
+      );
     }
   }
 
@@ -327,7 +330,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
             const threat = ev as Tree.LocalEval;
             if (!node.threat || node.threat.depth <= threat.depth || node.threat.maxDepth < threat.maxDepth)
               node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth! < ev.maxDepth!) node.ceval = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth! < ev.maxDepth!)
+            node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();

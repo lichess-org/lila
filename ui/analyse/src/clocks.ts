@@ -90,10 +90,10 @@ function playerName(player: game.Player | undefined, showSeparator: boolean): st
     (player.user
       ? player.user.username
       : player.ai
-      ? 'Engine'
-      : player.name && player.name !== '?'
-      ? player.name
-      : 'Anonymous') + (showSeparator ? sep : '')
+        ? 'Engine'
+        : player.name && player.name !== '?'
+          ? player.name
+          : 'Anonymous') + (showSeparator ? sep : '')
   );
 }
 

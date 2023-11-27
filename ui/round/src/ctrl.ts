@@ -89,7 +89,10 @@ export default class RoundController {
 
   private music?: any;
 
-  constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
+  constructor(
+    readonly opts: RoundOpts,
+    readonly redraw: Redraw
+  ) {
     round.massage(opts.data);
 
     const d = (this.data = opts.data);

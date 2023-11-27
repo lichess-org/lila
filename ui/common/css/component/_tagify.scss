@@ -191,7 +191,9 @@
         vertical-align: top;
         min-width: var(--tag--min-width);
         max-width: var(--tag--max-width);
-        transition: 0.8s ease, 0.1s color;
+        transition:
+          0.8s ease,
+          0.1s color;
 
         &[contenteditable] {
           outline: none;

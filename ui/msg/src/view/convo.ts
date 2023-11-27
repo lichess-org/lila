@@ -46,14 +46,14 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
               'This conversation is blocked.'
             )
           : convo.postable
-          ? renderInteract(ctrl, user)
-          : h(
-              'div.msg-app__convo__reply__block.text',
-              {
-                attrs: { 'data-icon': 'k' },
-              },
-              `${user.name} doesn't accept new messages.`
-            ),
+            ? renderInteract(ctrl, user)
+            : h(
+                'div.msg-app__convo__reply__block.text',
+                {
+                  attrs: { 'data-icon': 'k' },
+                },
+                `${user.name} doesn't accept new messages.`
+              ),
       ]),
     ]
   );

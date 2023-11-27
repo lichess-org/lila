@@ -118,7 +118,10 @@ export default class AnalyseCtrl {
 
   pvUsiQueue: Usi[] = [];
 
-  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
+  constructor(
+    readonly opts: AnalyseOpts,
+    readonly redraw: Redraw
+  ) {
     this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
@@ -308,8 +311,8 @@ export default class AnalyseCtrl {
         this.practice || this.gamebookPlay()
           ? this.bottomColor()
           : !this.embed && (dests.size > 0 || drops.size > 0)
-          ? color
-          : undefined,
+            ? color
+            : undefined,
       splitSfen = node.sfen.split(' '),
       config: ShogigroundConfig = {
         sfen: {

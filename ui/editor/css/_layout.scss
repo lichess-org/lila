@@ -33,10 +33,14 @@ $col1-color: 3rem;
 .board-editor {
   @include breakpoint($mq-col1-uniboard) {
     .main-board {
-      padding-bottom: calc(100% / 11 * 12 / 9 * 15 + #{$hands-gap} + #{$small-hand-spare} + #{$small-spare-padding} + #{$col1-color});
+      padding-bottom: calc(
+        100% / 11 * 12 / 9 * 15 + #{$hands-gap} + #{$small-hand-spare} + #{$small-spare-padding} + #{$col1-color}
+      );
       margin-bottom: 1rem;
       .sg-wrap {
-        height: calc(calc(100% - #{$small-hand-spare}  - #{$small-spare-padding} - #{$hands-gap} - #{$col1-color}) / 15 * 11 + #{$hands-gap});
+        height: calc(
+          calc(100% - #{$small-hand-spare} - #{$small-spare-padding} - #{$hands-gap} - #{$col1-color}) / 15 * 11 + #{$hands-gap}
+        );
         margin-top: calc(100% / 9 * 2.2 + #{$small-hand-spare / 2} + #{$small-spare-padding / 2});
       }
     }
@@ -57,7 +61,8 @@ $col1-color: 3rem;
         margin-top: calc(100% / 15 * 2.7 + #{$small-spare-padding / 2});
       }
     }
-    .mselect, .copyables {
+    .mselect,
+    .copyables {
       margin-top: 1rem;
     }
   }

@@ -78,7 +78,8 @@
     right: unset;
     bottom: unset;
     left: unset;
-    .minuses, .pluses {
+    .minuses,
+    .pluses {
       flex-direction: row;
     }
     &-top {
@@ -111,5 +112,4 @@
       }
     }
   }
-
 }

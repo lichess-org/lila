@@ -52,8 +52,8 @@ window.fipr = (function () {
       return 32 === (t %= 64)
         ? [e[1], e[0]]
         : t < 32
-        ? [(e[0] << t) | (e[1] >>> (32 - t)), (e[1] << t) | (e[0] >>> (32 - t))]
-        : ((t -= 32), [(e[1] << t) | (e[0] >>> (32 - t)), (e[0] << t) | (e[1] >>> (32 - t))]);
+          ? [(e[0] << t) | (e[1] >>> (32 - t)), (e[1] << t) | (e[0] >>> (32 - t))]
+          : ((t -= 32), [(e[1] << t) | (e[0] >>> (32 - t)), (e[0] << t) | (e[1] >>> (32 - t))]);
     },
     h = function (e, t) {
       return 0 === (t %= 64) ? e : t < 32 ? [(e[0] << t) | (e[1] >>> (32 - t)), e[1] << t] : [e[1] << (t - 32), 0];
@@ -89,11 +89,11 @@ window.fipr = (function () {
       return null == e
         ? a
         : Array.prototype.map && e.map === Array.prototype.map
-        ? e.map(r)
-        : (d(e, function (e, t, n) {
-            a.push(r(e, t, n));
-          }),
-          a);
+          ? e.map(r)
+          : (d(e, function (e, t, n) {
+              a.push(r(e, t, n));
+            }),
+            a);
     },
     n = function (e) {
       var t = [window.screen.width, window.screen.height];
@@ -421,27 +421,27 @@ window.fipr = (function () {
           0 <= e.indexOf('windows phone')
             ? 'Windows Phone'
             : 0 <= e.indexOf('windows') ||
-              0 <= e.indexOf('win16') ||
-              0 <= e.indexOf('win32') ||
-              0 <= e.indexOf('win64') ||
-              0 <= e.indexOf('win95') ||
-              0 <= e.indexOf('win98') ||
-              0 <= e.indexOf('winnt') ||
-              0 <= e.indexOf('wow64')
-            ? 'Windows'
-            : 0 <= e.indexOf('android')
-            ? 'Android'
-            : 0 <= e.indexOf('linux') || 0 <= e.indexOf('cros') || 0 <= e.indexOf('x11')
-            ? 'Linux'
-            : 0 <= e.indexOf('iphone') ||
-              0 <= e.indexOf('ipad') ||
-              0 <= e.indexOf('ipod') ||
-              0 <= e.indexOf('crios') ||
-              0 <= e.indexOf('fxios')
-            ? 'iOS'
-            : 0 <= e.indexOf('macintosh') || 0 <= e.indexOf('mac_powerpc)')
-            ? 'Mac'
-            : 'Other';
+                0 <= e.indexOf('win16') ||
+                0 <= e.indexOf('win32') ||
+                0 <= e.indexOf('win64') ||
+                0 <= e.indexOf('win95') ||
+                0 <= e.indexOf('win98') ||
+                0 <= e.indexOf('winnt') ||
+                0 <= e.indexOf('wow64')
+              ? 'Windows'
+              : 0 <= e.indexOf('android')
+                ? 'Android'
+                : 0 <= e.indexOf('linux') || 0 <= e.indexOf('cros') || 0 <= e.indexOf('x11')
+                  ? 'Linux'
+                  : 0 <= e.indexOf('iphone') ||
+                      0 <= e.indexOf('ipad') ||
+                      0 <= e.indexOf('ipod') ||
+                      0 <= e.indexOf('crios') ||
+                      0 <= e.indexOf('fxios')
+                    ? 'iOS'
+                    : 0 <= e.indexOf('macintosh') || 0 <= e.indexOf('mac_powerpc)')
+                      ? 'Mac'
+                      : 'Other';
       if (
         ('ontouchstart' in window || 0 < navigator.maxTouchPoints || 0 < navigator.msMaxTouchPoints) &&
         'Windows' !== r &&
@@ -491,19 +491,19 @@ window.fipr = (function () {
             0 <= t.indexOf('firefox/')
               ? 'Firefox'
               : 0 <= t.indexOf('opera/') || 0 <= t.indexOf(' opr/')
-              ? 'Opera'
-              : 0 <= t.indexOf('chrome/')
-              ? 'Chrome'
-              : 0 <= t.indexOf('safari/')
-              ? 0 <= t.indexOf('android 1.') ||
-                0 <= t.indexOf('android 2.') ||
-                0 <= t.indexOf('android 3.') ||
-                0 <= t.indexOf('android 4.')
-                ? 'AOSP'
-                : 'Safari'
-              : 0 <= t.indexOf('trident/')
-              ? 'Internet Explorer'
-              : 'Other') ||
+                ? 'Opera'
+                : 0 <= t.indexOf('chrome/')
+                  ? 'Chrome'
+                  : 0 <= t.indexOf('safari/')
+                    ? 0 <= t.indexOf('android 1.') ||
+                      0 <= t.indexOf('android 2.') ||
+                      0 <= t.indexOf('android 3.') ||
+                      0 <= t.indexOf('android 4.')
+                      ? 'AOSP'
+                      : 'Safari'
+                    : 0 <= t.indexOf('trident/')
+                      ? 'Internet Explorer'
+                      : 'Other') ||
           'Safari' === e ||
           'Opera' === e) &&
         '20030107' !== n

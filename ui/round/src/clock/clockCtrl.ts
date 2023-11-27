@@ -92,7 +92,10 @@ export class ClockController {
 
   private tickCallback?: number;
 
-  constructor(d: RoundData, readonly opts: ClockOpts) {
+  constructor(
+    d: RoundData,
+    readonly opts: ClockOpts
+  ) {
     const cdata = d.clock!;
 
     if (cdata.showTenths === 0) this.showTenths = () => false;

@@ -58,7 +58,10 @@
     }
     li:hover i {
       display: block;
-      text-shadow: 0 0 2px $c-bg-box, 0 0 5px $c-bg-box, 0 0 10px $c-bg-box;
+      text-shadow:
+        0 0 2px $c-bg-box,
+        0 0 5px $c-bg-box,
+        0 0 10px $c-bg-box;
     }
   }
   &__say {

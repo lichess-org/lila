@@ -72,13 +72,17 @@
       .puz-mod-malus-slow & {
         transition-property: width;
         background: $c-bad;
-        box-shadow: 0 0 10px $c-bad, 0 0 20px $c-bad;
+        box-shadow:
+          0 0 10px $c-bad,
+          0 0 20px $c-bad;
       }
     }
 
     &__in-full {
       background: $c-primary;
-      box-shadow: 0 0 10px $c-primary, 0 0 20px $c-primary;
+      box-shadow:
+        0 0 10px $c-primary,
+        0 0 20px $c-primary;
       width: 100%;
       display: none;
       opacity: 0;
@@ -129,7 +133,9 @@
     @keyframes level-fade-in {
       from {
         background: white;
-        box-shadow: 0 0 15px white, 0 0 25px white;
+        box-shadow:
+          0 0 15px white,
+          0 0 25px white;
       }
 
       to {

@@ -141,8 +141,8 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
       return ctrl.data.postGameStudy?.players.sente.userId === userId
         ? 'sente'
         : ctrl.data.postGameStudy?.players.gote.userId === userId
-        ? 'gote'
-        : undefined;
+          ? 'gote'
+          : undefined;
     };
     const userId = document.body.dataset.user,
       myColor = userId ? usersGameColor(userId) : undefined,
@@ -176,8 +176,8 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
               title: offering
                 ? ctrl.trans.noarg('cancel')
                 : myOpponent.userId
-                ? `${ctrl.trans.noarg('rematch')} ${myOpponent.userId}`
-                : 'Cannot rematch anonymous player in study',
+                  ? `${ctrl.trans.noarg('rematch')} ${myOpponent.userId}`
+                  : 'Cannot rematch anonymous player in study',
             },
             hook: bind('click', () => {
               ctrl.rematch(!ctrl.data.postGameStudy?.rematches[myColor]);

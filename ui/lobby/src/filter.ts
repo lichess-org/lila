@@ -17,7 +17,10 @@ export default class Filter {
   data: FilterData | null;
   open: boolean = false;
 
-  constructor(storage: LishogiStorage, readonly root: LobbyController) {
+  constructor(
+    storage: LishogiStorage,
+    readonly root: LobbyController
+  ) {
     this.store = makeStore(storage);
     this.set(this.store.get());
   }
