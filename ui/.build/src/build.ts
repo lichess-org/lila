@@ -31,11 +31,11 @@ export async function build(mods: string[]) {
   if (mods.length) env.log(`Building ${c.grey(buildModules.map(x => x.name).join(', '))}`);
 
   await Promise.allSettled([fs.promises.mkdir(env.jsDir), fs.promises.mkdir(env.cssDir)]);
-  startTickling(mods);
   sass();
   await tsc();
   await copies();
   await esbuild();
+  startTickling(mods);
 }
 
 export async function stop() {
