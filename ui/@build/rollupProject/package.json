@@ -6,12 +6,12 @@
   "license": "AGPL-3.0-or-later",
   "main": "index.js",
   "dependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.3",
+    "@rollup/plugin-commonjs": "^25",
+    "@rollup/plugin-node-resolve": "^15",
+    "@rollup/plugin-typescript": "^11",
+    "@rollup/plugin-terser": "^0.4",
     "rollup": "^2",
-    "rollup-plugin-terser": "^7.0.2",
-    "tslib": "^2.4.0",
+    "tslib": "^2.6",
     "typescript": "^5"
   }
 }

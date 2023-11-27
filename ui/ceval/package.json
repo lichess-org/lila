@@ -28,6 +28,6 @@
     "common": "2.0.0",
     "shogiops": "^0.15.0",
     "snabbdom": "^3.5.1",
-    "idb-keyval": "^6.1.0"
+    "idb-keyval": "^6.2"
   }
 }
