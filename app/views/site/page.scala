@@ -48,25 +48,21 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       contentCls = "page force-ltr",
       moreJs = embedJsUnsafeLoadThen(
         """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 12));
+$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 7));
 $('#asset-version-message').text(lichess.info.message);"""
       )
     ):
       frag(
-        st.section(cls := "box box-pad body")(
-          h1(cls := "box__top")(title),
-          raw(~doc.getHtml("doc.content", resolver))
-        ),
-        br,
         st.section(cls := "box")(
-          h1(id := "version", cls := "box__top")("lila version"),
+          h1(cls := "box__top")(title),
+          h2(id := "version", cls := "box__top")("Current lila version"),
           table(cls := "slist slist-pad")(
             env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
               case ((date, commit), message) =>
                 tr(
                   td("Server"),
                   td(date),
-                  td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(12)))),
+                  td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(7)))),
                   td(message)
                 )
             },
@@ -81,6 +77,9 @@ $('#asset-version-message').text(lichess.info.message);"""
               td(colspan := 3)(momentFromNow(lila.common.Uptime.startedAt))
             )
           )
+        ),
+        st.section(cls := "box box-pad body")(
+          raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
         st.section(cls := "box")(freeJs())
