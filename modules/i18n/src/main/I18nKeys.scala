@@ -1659,11 +1659,11 @@ object I18nKeys:
     val `enterPassword` = I18nKey("tfa:enterPassword")
     val `ifYouCannotScanEnterX` = I18nKey("tfa:ifYouCannotScanEnterX")
     val `authenticationCode` = I18nKey("tfa:authenticationCode")
-    val `ifYouLoseAccess` = I18nKey("tfa:ifYouLoseAccess")
+    val `ifYouLoseAccessTwoFactor` = I18nKey("tfa:ifYouLoseAccessTwoFactor")
     val `enableTwoFactor` = I18nKey("tfa:enableTwoFactor")
     val `disableTwoFactor` = I18nKey("tfa:disableTwoFactor")
     val `twoFactorEnabled` = I18nKey("tfa:twoFactorEnabled")
-    val `twoFactorDisable` = I18nKey("tfa:twoFactorDisable")
+    val `twoFactorToDisable` = I18nKey("tfa:twoFactorToDisable")
     val `openTwoFactorApp` = I18nKey("tfa:openTwoFactorApp")
     val `setupReminder` = I18nKey("tfa:setupReminder")
 
