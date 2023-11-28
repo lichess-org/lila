@@ -273,7 +273,7 @@ function side(ctrl: EditorCtrl, state: EditorState): VNode {
 
 function tools(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.board-editor__tools', [
-    // metadata(ctrl),
+    // might add ceval someday
     h('div.ceval'),
     ...(ctrl.data.embed
       ? [
