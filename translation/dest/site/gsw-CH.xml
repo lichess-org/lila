@@ -706,8 +706,13 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="keyNextBlunder">Nächschte Patzer</string>
   <string name="keyNextMistake">Nächschte Fähler</string>
   <string name="keyNextInaccuracy">Nächschti Ungnauigkeit</string>
+  <string name="keyPreviousBranch">Vorherige \"Branch\" ( ...das branch müend ihr sälber übersetze! )</string>
+  <string name="keyNextBranch">Nächschte Branch ( ...weiss immer nonnig, was die meined? )</string>
   <string name="toggleVariationArrows">Variatione-Pfil umschalte</string>
+  <string name="cyclePreviousOrNextVariation">Zyklus vorherigi/nächschti Variante</string>
   <string name="toggleGlyphAnnotations">Glyph-Amerkige ischalte und usschalte (...was immer das glyph isch?!)</string>
+  <string name="variationArrowsInfo">Mit de Variationspfil chasch ohni d\'Zugslischte navigiere.</string>
+  <string name="playSelectedMove">spill de gwählti zug</string>
   <string name="newTournament">Neus Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedene Zitkontrolle und Variante</string>
   <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und witeri Variante sind vorhande - für ändlose Schach-Spass.</string>
@@ -885,6 +890,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui a</string>
   <string name="edit">Bearbeite</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Schnällschach</string>
   <string name="classical">Klassisch</string>
   <string name="ultraBulletDesc">Wahnsinnig schnälli Schpiel: weniger als 30 Sekunde</string>
@@ -986,4 +992,6 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="switchSides">Farb wächsle</string>
   <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
   <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
+  <string name="instructions">Awisige</string>
+  <string name="showMeEverything">Zeig mer alles</string>
 </resources>
