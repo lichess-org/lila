@@ -132,11 +132,9 @@ final class Auth(
                             )
                           case Some(u) =>
                             lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
-                            env.user.repo.email(u.id) foreach: emailOpt =>
-                              emailOpt match
-                                case None        => env.msg.emailReminder(u.id)
-                                case Some(email) => garbageCollect(u)(email)
-
+                            env.user.repo.email(u.id) foreach:
+                              case None        => env.msg.emailReminder(u.id)
+                              case Some(email) => garbageCollect(u)(email)
                             val remember = api.rememberForm.bindFromRequest().value | true
                             authenticateUser(u, remember, Some(redirectTo))
                     )

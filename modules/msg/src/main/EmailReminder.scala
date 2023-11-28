@@ -26,6 +26,5 @@ You can visit $baseUrl/account/email to set your personal email address. That wa
           userRepo
             .withoutEmail(userId)
             .flatMap:
-              case Some(user) =>
+              _.fold(fuccess(true)): user =>
                 api.systemPost(userId, emailReminderMsg) inject false
-              case _ => fuccess(true)
