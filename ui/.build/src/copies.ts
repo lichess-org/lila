@@ -8,7 +8,7 @@ const globRe = /[*?!{}[\]()]|\*\*|\[[^[\]]*\]/;
 const copyWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;
 
-export function killCopies() {
+export function stopCopies() {
   clearTimeout(watchTimeout);
   watchTimeout = undefined;
   for (const watcher of copyWatch) watcher.close();
@@ -59,7 +59,7 @@ async function globCopy(cp: Copy): Promise<Set<string>> {
   const srcs = await globArray(cp.src, { cwd: cp.mod.root, abs: false });
 
   watchDirs.add(path.join(cp.mod.root, globRoot));
-  env.log(`[${c.grey(cp.mod.name)}] - Copy '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);
+  env.log(`[${c.grey(cp.mod.name)}] - Sync '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);
   const fileCopies = [];
 
   for (const src of srcs) {
