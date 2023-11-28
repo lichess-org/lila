@@ -4,16 +4,6 @@ import { isTouchDevice } from './device';
 import * as xhr from './xhr';
 import * as licon from './licon';
 
-let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
-
-export const ready = lichess.load.then(async () => {
-  window.addEventListener('resize', onResize);
-  if (window.HTMLDialogElement) return true;
-  dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js')).catch(() => undefined))
-    ?.default;
-  return dialogPolyfill !== undefined;
-});
-
 export interface Dialog {
   readonly open: boolean; // is visible?
   readonly view: HTMLElement; // your content div
@@ -24,8 +14,8 @@ export interface Dialog {
   close(): void;
 }
 
-interface DialogOpts {
-  class?: string; // zero or more classes (period separated) for your view div
+export interface DialogOpts {
+  class?: string; // zero or more classes which are appended to your view div
   cssPath?: string; // for themed css craplets
   cash?: Cash; // content, will be cloned and any 'none' class removed
   htmlUrl?: string; // content, url will be xhr'd
@@ -33,7 +23,7 @@ interface DialogOpts {
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   action?: Action | Action[]; // if present, add handlers to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
-  noCloseButton?: boolean; // if true, no upper right corener close button
+  noCloseButton?: boolean; // if true, no upper right corner close button
   noClickAway?: boolean; // if true, no click-away-to-close
 }
 
@@ -44,17 +34,26 @@ export interface DomDialogOpts extends DialogOpts {
 
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: MaybeVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
-  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
+  onInsert?: (dialog: Dialog) => void; // if onInsert supplied, call show()/showModal() manually
 }
 
 // Action can be any "clickable" client button, usually to dismiss the dialog
-interface Action {
+export interface Action {
   selector: string; // selector, click handler will be installed
   action?: string | ((dialog: Dialog, action: Action) => void);
   // if action not provided, just close
   // if string, given value will set dialog.returnValue and dialog is closed on click
   // if function, it will be called on click and YOU must close the dialog
 }
+
+// await this promise before showing a dialog on page load (for old browsers)
+export const ready = lichess.load.then(async () => {
+  window.addEventListener('resize', onResize);
+  if (window.HTMLDialogElement) return true;
+  dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+    ?.default;
+  return dialogPolyfill !== undefined;
+});
 
 // if no 'show' in opts, you must call show or showModal on the resolved promise
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
@@ -72,7 +71,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   }
 
   const view = $as<HTMLElement>('<div class="dialog-content">');
-  if (o.class) view.classList.add(...o.class.split('.'));
+  if (o.class) view.classList.add(...o.class.split(/[ .]/));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
@@ -110,7 +109,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       h(
         'div.scrollable',
         h(
-          'div.dialog-content' + (o.class ? `.${o.class}` : ''),
+          'div.dialog-content' + (o.class ? `.${o.class.split(/[ .]/).join('.')}` : ''),
           {
             attrs: o.attrs?.view,
             hook: onInsert(async view => {
@@ -241,3 +240,5 @@ const focusQuery = ['button', 'input', 'select', 'textarea']
   .map(sel => `${sel}:not(:disabled)`)
   .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
   .join(',');
+
+let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };

@@ -10,7 +10,7 @@
     "chessops": "^0.12.7",
     "common": "workspace:*",
     "tree": "workspace:*",
-    "zerofish": "^0.0.16"
+    "zerofish": "^0.0.17"
   },
   "scripts": {},
   "lichess": {

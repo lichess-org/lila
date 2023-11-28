@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -380,8 +380,8 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: ^0.0.16
-        version: 0.0.16
+        specifier: ^0.0.17
+        version: 0.0.17
 
   ui/lobby:
     dependencies:
@@ -4832,8 +4832,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /zerofish@0.0.16:
-    resolution: {integrity: sha512-4Xgbic2zijBYIeCapuyBeSmahG4wb4Bv4gJEa2B9qjdczx/1gjm5aOGu8yLSs8Q2R9wmBs9MJ6cPSLGSwDbTCA==}
+  /zerofish@0.0.17:
+    resolution: {integrity: sha512-r9u4dOJVI8Yxq16zxiFjKz7xZ/Tv5V2jPA5W3sbMQhc0fauCvWz4g8fNswbYY0sybIbbC90JtHXomwRzBm/MRw==}
     dependencies:
       '@types/emscripten': 1.39.10
       '@types/node': 20.9.1
