@@ -1,10 +1,8 @@
 <configuration>
 
-  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel"/>
-
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
-    <encoder><pattern>%coloredLevel %logger{25} - %message%n%xException{10}</pattern></encoder>
+    <encoder><pattern>%highlight(%-5level) %logger{25} - %message%n%xException{10}</pattern></encoder>
   </appender>
 
   <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
