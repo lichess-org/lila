@@ -41,14 +41,12 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           flags = requestPgnFlags(extended = true),
           playerFile = get("players")
         )
-        env.api.gameApiV2.exportOne(game, config) flatMap { content =>
-          env.api.gameApiV2.filename(game, config.format) map { filename =>
+        env.api.gameApiV2.exportOne(game, config) flatMap: content =>
+          env.api.gameApiV2.filename(game, config.format) map: filename =>
             Ok(content)
               .pipe(asAttachment(filename))
               .withHeaders(headersForApiOrApp*)
               .as(gameContentType(config))
-          }
-        }
     }
 
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))

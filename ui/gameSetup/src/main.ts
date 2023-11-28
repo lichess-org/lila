@@ -3,6 +3,6 @@ import { ParentCtrl } from './interfaces';
 import { ready as loadDialogPolyfill } from 'common/dialog';
 
 export async function initModule(root: ParentCtrl) {
-  await loadDialogPolyfill();
+  await loadDialogPolyfill;
   return new SetupCtrl(root);
 }

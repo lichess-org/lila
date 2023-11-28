@@ -9,7 +9,6 @@ import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember, Lo
 import { ParentCtrl, SetupConstraints, GameType, GameSetup, SetupCtrl } from 'gameSetup';
 import LobbySocket from './socket';
 import Filter from './filter';
-//import SetupController from './setupCtrl';
 import disableDarkBoard from './disableDarkBoard';
 
 export default class LobbyController implements ParentCtrl {
