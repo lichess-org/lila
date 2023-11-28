@@ -1,4 +1,3 @@
-
 function storageKey(key) {
   return 'lobby.variant.' + key;
 }
