@@ -49,6 +49,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       moreJs = embedJsUnsafeLoadThen(
         """$('#asset-version-date').text(lichess.info.date);
 $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 7));
+$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + lichess.info.commit + '...master').find('pre').text('...');
 $('#asset-version-message').text(lichess.info.message);"""
       )
     ):
@@ -63,18 +64,20 @@ $('#asset-version-message').text(lichess.info.message);"""
                   td("Server"),
                   td(date),
                   td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(7)))),
-                  td(message)
+                  td(message),
+                  td(a(href := s"https://github.com/lichess-org/lila/compare/$commit...master")(pre("...")))
                 )
             },
             tr(
               td("Assets"),
               td(id := "asset-version-date"),
               td(a(id := "asset-version-commit")(pre)),
-              td(id := "asset-version-message")
+              td(id := "asset-version-message"),
+              td(a(id := "asset-version-upcoming")(pre("...")))
             ),
             tr(
               td("Boot"),
-              td(colspan := 3)(momentFromNow(lila.common.Uptime.startedAt))
+              td(colspan := 4)(momentFromNow(lila.common.Uptime.startedAt))
             )
           )
         ),
