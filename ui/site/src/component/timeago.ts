@@ -8,13 +8,14 @@ interface ElementWithDate extends Element {
 }
 
 // past, future, divisor, at least
-const units: [string, string, number, number][] = [
+const units: [string | undefined, string, number, number][] = [
   ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
   ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
   ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],
   ['nbDaysAgo', 'inNbDays', 60 * 60 * 24, 2],
   ['nbHoursAgo', 'inNbHours', 60 * 60, 1],
   ['nbMinutesAgo', 'inNbMinutes', 60, 1],
+  [undefined, 'inNbSeconds', 1, 9],
   ['rightNow', 'justNow', 1, 0],
 ];
 
@@ -25,8 +26,9 @@ const toDate = (input: DateLike): Date =>
 // format the diff second to *** time ago
 const formatDiff = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
-  const unit = units.find(unit => absSeconds >= unit[2] * unit[3])!;
-  return siteTrans.pluralSame(unit[seconds < 0 ? 1 : 0], Math.floor(absSeconds / unit[2]));
+  const strIndex = seconds < 0 ? 1 : 0;
+  const unit = units.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
+  return siteTrans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
 };
 
 export const formatter = memoize(() =>

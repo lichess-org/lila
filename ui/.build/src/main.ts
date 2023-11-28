@@ -158,6 +158,9 @@ class Env {
   get buildDir(): string {
     return path.join(this.uiDir, '.build');
   }
+  get typesDir(): string {
+    return path.join(this.uiDir, '@types');
+  }
   warn(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, warn: true });
   }
@@ -179,7 +182,7 @@ class Env {
         ? d.toString('utf8')
         : Array.isArray(d)
         ? d.join('\n')
-        : JSON.stringify(d, undefined, 2);
+        : JSON.stringify(d);
 
     const esc = this.color ? escape : (text: string, _: any) => text;
 

@@ -89,6 +89,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
           const user = {
             ...p,
             rating: ctrl.showRatings ? p.rating : undefined,
+            line: false,
           };
           return h('div.player.color-icon.is.text.' + p.color, userLink(user));
         }),

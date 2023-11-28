@@ -102,7 +102,7 @@
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn cản bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
   <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
-  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước</string>
+  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần nước đi do nhầm lẫn trước đó</string>
   <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng tàn cuộc được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong sách tàn cuộc Syzygy.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
@@ -423,7 +423,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="openTournaments">Những giải đấu mở</string>
   <string name="duration">Thời lượng</string>
   <string name="winner">Người chiến thắng</string>
-  <string name="standing">Bảng xếp hạng</string>
+  <string name="standing">Thứ hạng</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
@@ -707,7 +707,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="withFriends">Với bạn bè</string>
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
-  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên internet.</string>
+  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng Lichess có một biểu tượng %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
   <string name="enableKidMode">Kích hoạt chế độ Trẻ em</string>

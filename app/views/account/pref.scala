@@ -86,7 +86,7 @@ object pref:
               "showRatings"
             ),
             setting(
-              "Show player flairs",
+              showFlairs(),
               radios(form("flairs"), translatedBooleanChoices),
               "showFlairs"
             )

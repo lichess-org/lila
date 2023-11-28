@@ -13,7 +13,7 @@ const sassWatch: fs.FSWatcher[] = [];
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
 let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
 
-export function killSass() {
+export function stopSass() {
   sassPs?.kill();
   sassPs = undefined;
   for (const x of sassWatch) x.close();
