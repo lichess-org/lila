@@ -47,8 +47,8 @@ Hoặc bạn có thể %s.</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
   <string name="onlyDonationFromAbove">Xin lưu ý rằng chỉ có hình thức ủng hộ ở trên mới được cấp trạng thái người bảo trợ.</string>
   <string name="patronFeatures">Có tính năng nào được dành riêng cho người Bảo Trợ không?</string>
-  <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
-Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
+  <string name="noPatronFeatures">Không, bởi vì Lichess hoàn toàn miễn phí, mãi mãi và dành cho tất cả mọi người. Đó là lời hứa của chúng tôi.
+Tuy nhiên, Patron được quyền khoe khoang với những cánh Người bảo trợ mới thú vị hiển thị trên hồ sơ của bạn.</string>
   <string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
   <plurals name="patronForMonths">
     <item quantity="other">Bảo Trợ Lichess trong %s tháng</item>
@@ -69,7 +69,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
   <string name="stopPaymentsPayPal">Huỷ đăng ký qua PayPal và dừng thanh toán:</string>
   <string name="noLongerSupport">Không ủng hộ Lichess nữa</string>
-  <string name="viewOthers">Xem các người Bảo Trợ Lichess khác</string>
+  <string name="viewOthers">Xem những Người bảo trợ Lichess khác</string>
   <string name="date">Ngày</string>
   <string name="amount">Số tiền</string>
   <string name="transactionCompleted">Giao dịch của bạn đã hoàn thành và một hóa đơn cho quyên góp của bạn đã được gửi qua email tới bạn.</string>
