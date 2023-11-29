@@ -28,7 +28,7 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
-    mobileSocket: RoundMobileSocket,
+    mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
 )(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
 

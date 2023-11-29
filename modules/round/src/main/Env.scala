@@ -177,7 +177,7 @@ final class Env(
 
   lazy val noteApi = NoteApi(db(config.noteColl))
 
-  lazy val mobileSocket = wire[RoundMobileSocket]
+  lazy val mobile = wire[RoundMobile]
 
   MoveLatMonitor.start(scheduler)
 

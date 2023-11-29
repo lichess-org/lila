@@ -12,7 +12,7 @@ import chess.{ Color, ByColor }
 import lila.pref.Pref
 import lila.chat.Chat
 
-final private class RoundMobileSocket(
+final private class RoundMobile(
     lightUserGet: LightUser.Getter,
     gameRepo: GameRepo,
     jsonView: lila.game.JsonView,

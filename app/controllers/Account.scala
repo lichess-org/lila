@@ -119,7 +119,7 @@ final class Account(
         if ctx.isMobileOauth then
           povs.traverse: pov =>
             env.round.roundSocket.statusIfPresent(pov.gameId) flatMap:
-              env.round.mobileSocket.json(pov.game, pov.fullId.anyId, _)
+              env.round.mobile.json(pov.game, pov.fullId.anyId, _)
         else
           fuccess:
             povs.filterNot(_.game.isTournament) map env.api.lobbyApi.nowPlaying
