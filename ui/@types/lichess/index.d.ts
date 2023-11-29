@@ -71,10 +71,11 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
-  log: ((...args: any[]) => Promise<void>) & LogMethods;
+  log: AsyncLog;
 }
 
-interface LogMethods {
+interface AsyncLog {
+  (...args: any[]): Promise<void>;
   clear(): Promise<void>;
   get(): Promise<string>;
 }

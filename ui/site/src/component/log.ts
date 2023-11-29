@@ -8,7 +8,7 @@ lichess.log.clear();                         // clear idb store
 
 */
 
-export function makeLog() {
+export function makeLog(): AsyncLog {
   let store: ObjectStorage<string>;
   let resolveReady: () => void;
   let lastKey = Date.now();
