@@ -74,4 +74,5 @@ export default () => {
   l.blindMode = document.body.classList.contains('blind-mode');
   l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
   l.makeChessground = Chessground;
+  l.log = () => lichess.loadEsm<AsyncLog>('log');
 };

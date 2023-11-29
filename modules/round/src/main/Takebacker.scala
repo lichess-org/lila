@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.Color
-import lila.common.Bus
+import chess.{ Color, ByColor }
+import lila.common.{ Bus, Preload }
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
@@ -19,7 +19,7 @@ final private class Takebacker(
   def yes(
       situation: TakebackSituation
   )(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
-    IfAllowed(pov.game) {
+    IfAllowed(pov.game, Preload.none):
       pov match
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
           {
@@ -43,7 +43,6 @@ final private class Takebacker(
               List(Event.TakebackOffers(color.white, color.black))
           } dmap (_ -> situation)
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
-    }
 
   def no(situation: TakebackSituation)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     pov match
@@ -65,47 +64,42 @@ final private class Takebacker(
           List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
 
-  def isAllowedIn(game: Game): Fu[Boolean] =
-    game.canTakebackOrAddTime so isAllowedByPrefs(game)
+  def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
+    game.canTakebackOrAddTime so isAllowedByPrefs(game, prefs)
 
-  private def isAllowedByPrefs(game: Game): Fu[Boolean] =
+  private def isAllowedByPrefs(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
     if game.hasAi then fuTrue
     else
-      game.userIds.map {
-        prefApi.get(_, (p: Pref) => p.takeback)
-      }.parallel dmap {
-        _.forall { p =>
-          p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
-        }
-      }
+      prefs
+        .orLoad:
+          prefApi byId game.userIdPair
+        .dmap:
+          _.forall: p =>
+            p.takeback == Pref.Takeback.ALWAYS || (p.takeback == Pref.Takeback.CASUAL && game.casual)
 
-  private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
+  private def IfAllowed[A](game: Game, prefs: Preload[ByColor[Pref]])(f: => Fu[A]): Fu[A] =
     if !game.playable then fufail(ClientError("[takebacker] game is over " + game.id))
     else if !game.canTakebackOrAddTime then fufail(ClientError("[takebacker] game disallows it " + game.id))
     else
-      isAllowedByPrefs(game) flatMap {
+      isAllowedByPrefs(game, prefs) flatMap:
         if _ then f
         else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
-      }
 
-  private def single(game: Game)(using GameProxy): Fu[Events] =
-    for
-      fen      <- gameRepo initialFen game
-      progress <- Rewind(game, fen).toFuture
-      _        <- fuccess { uciMemo.drop(game, 1) }
-      events   <- saveAndNotify(progress)
-    yield events
+  private def single(game: Game)(using GameProxy): Fu[Events] = for
+    fen      <- gameRepo initialFen game
+    progress <- Rewind(game, fen).toFuture
+    _        <- fuccess { uciMemo.drop(game, 1) }
+    events   <- saveAndNotify(progress)
+  yield events
 
-  private def double(game: Game)(using GameProxy): Fu[Events] =
-    for
-      fen   <- gameRepo initialFen game
-      prog1 <- Rewind(game, fen).toFuture
-      prog2 <- Rewind(prog1.game, fen).toFuture dmap { progress =>
-        prog1 withGame progress.game
-      }
-      _      <- fuccess { uciMemo.drop(game, 2) }
-      events <- saveAndNotify(prog2)
-    yield events
+  private def double(game: Game)(using GameProxy): Fu[Events] = for
+    fen   <- gameRepo initialFen game
+    prog1 <- Rewind(game, fen).toFuture
+    prog2 <- Rewind(prog1.game, fen).toFuture dmap: progress =>
+      prog1 withGame progress.game
+    _      <- fuccess { uciMemo.drop(game, 2) }
+    events <- saveAndNotify(prog2)
+  yield events
 
   private def saveAndNotify(p1: Progress)(using proxy: GameProxy): Fu[Events] =
     val p2 = p1 + Event.Reload

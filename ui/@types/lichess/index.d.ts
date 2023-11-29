@@ -71,6 +71,14 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
+  log: () => Promise<AsyncLog>;
+}
+
+interface AsyncLog {
+  (...args: any[]): Promise<void>;
+  clear(): Promise<void>;
+  get(): Promise<string>;
+  diagnostic(): Promise<void>;
 }
 
 type I18nDict = { [key: string]: string };
