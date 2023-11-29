@@ -22,7 +22,7 @@ export class DescriptionCtrl {
   }
 
   set(t: string | undefined) {
-    this.text = t ? t : undefined;
+    this.text = t;
   }
 }
 
