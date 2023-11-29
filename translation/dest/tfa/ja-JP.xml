@@ -10,6 +10,7 @@
   <string name="enableTwoFactor">2 要素認証を有効にする</string>
   <string name="disableTwoFactor">2 要素認証を無効にする</string>
   <string name="twoFactorEnabled">2 要素認証を有効にしました。</string>
+  <string name="twoFactorToDisable">2 要素認証を無効にするには、認証アプリのパスワードと認証コードが必要です。</string>
   <string name="openTwoFactorApp">デバイスで 2 要素認証アプリを開き、認証コードを表示して確認してださい。</string>
   <string name="setupReminder">https://lichess.org/account/twofactorで 2 要素認証を有効にして、アカウントを保護してください。
 あなたのアカウントにはチームリーダー、コーチ、講師、配信者など特別な責任があるので、このメッセージをお送りしています。</string>
