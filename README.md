@@ -22,7 +22,7 @@ and a [shared analysis board](https://lishogi.org/study).
 
 Lishogi is [Lichess](https://lichess.org) rewritten for shogi.
 Lishogi is written in [Scala 2.13](https://www.scala-lang.org/),
-and relies on the [Play 2.8](https://www.playframework.com/) framework.
+and relies on the [Play](https://www.playframework.com/) framework.
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
 Pure shogi logic is contained in the [shogi](modules/shogi) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](http://akka.io).
@@ -44,12 +44,12 @@ This code exists because of [ornicar](https://github.com/ornicar), and the whole
 | Name              | Version | Notes                                       |
 | ----------------- | ------- | ------------------------------------------- |
 | Chromium / Chrome | last 10 | Full support, fastest local analysis        |
-| Firefox           | 63+     | Full support, second fastest local analysis |
+| Firefox           | 67+     | Full support, second fastest local analysis |
 | Edge              | 91+     | Full support (reasonable support for 17+) support                          |
 | Opera             | 55+     | Reasonable support                          |
 | Safari            | 11.1+   | Reasonable support                          |
 
-Older browsers (including any version of Internet Explorer) will not work.
+Older browsers (including any version of Internet Explorer) will probably not work.
 For your own sake, please upgrade. Security and performance, think about it!
 
 ## License
