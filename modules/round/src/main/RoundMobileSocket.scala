@@ -5,9 +5,8 @@ import lila.game.{ Game, Pov, GameRepo }
 import lila.game.JsonView.given
 import lila.round.actorApi.SocketStatus
 import play.api.libs.json.{ Json, JsObject }
-import lila.common.{ Bus, Preload, ApiVersion }
+import lila.common.{ Bus, Preload, ApiVersion, LightUser }
 import lila.socket.Socket
-import lila.common.LightUser
 import lila.common.Json.given
 import chess.{ Color, ByColor }
 import lila.pref.Pref
@@ -32,9 +31,9 @@ final private class RoundMobileSocket(
     blackUser  <- game.blackPlayer.userId.so(lightUserGet)
     users    = ByColor(whiteUser, blackUser)
     myPlayer = id.playerId.flatMap(game.player(_))
-    prefs        <- myPlayer.flatMap(_.userId).so(prefApi.getPrefById)
-    takebackable <- takebacker.isAllowedIn(game)
-    moretimeable <- moretimer.isAllowedIn(game)
+    prefs        <- prefApi.byId(game.userIdPair)
+    takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
+    moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
     chat         <- getPlayerChat(game, myPlayer.exists(_.hasUser))
     chatLines    <- chat.map(_.chat) soFu lila.chat.JsonView.asyncLines
   yield
@@ -66,7 +65,7 @@ final private class RoundMobileSocket(
       .add("takebackable" -> takebackable)
       .add("moretimeable" -> moretimeable)
       .add("youAre", myPlayer.map(_.color))
-      .add("prefs", prefs.map(prefsJson(game, _)))
+      .add("prefs", myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _)))
       .add(
         "chat",
         chat.map: c =>
