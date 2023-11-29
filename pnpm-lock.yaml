@@ -39,8 +39,8 @@ importers:
         specifier: ^15.1.0
         version: 15.1.0
       prettier:
-        specifier: ^3.0.2
-        version: 3.1.0
+        specifier: 3.0.2
+        version: 3.0.2
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -371,7 +371,7 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.7
+        specifier: ^0.12.8
         version: 0.12.8
       common:
         specifier: workspace:*
@@ -380,8 +380,8 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: ^0.0.17
-        version: 0.0.17
+        specifier: link:/home/gamblej/ws/lichess/zerofish
+        version: link:../../../zerofish
 
   ui/lobby:
     dependencies:
@@ -1614,10 +1614,6 @@ packages:
 
   /@types/dragscroll@0.0.0:
     resolution: {integrity: sha512-rWr/ryzOUi9r/zUA2GK2qLWGBIBmDeIojBQXuvR76pulHUoEGMJ2A7NWShUaA5AE90ha+l9tlsyGz2UioQE9cg==}
-    dev: false
-
-  /@types/emscripten@1.39.10:
-    resolution: {integrity: sha512-TB/6hBkYQJxsZHSqyeuO1Jt0AB/bW6G7rHt9g7lML7SOF6lbgcHvw/Lr+69iqN0qxgXLhWKScAon73JNnptuDw==}
     dev: false
 
   /@types/fnando__sparkline@0.3.7:
@@ -4049,8 +4045,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: false
 
-  /prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+  /prettier@3.0.2:
+    resolution: {integrity: sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: false
@@ -4830,16 +4826,6 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: false
-
-  /zerofish@0.0.17:
-    resolution: {integrity: sha512-r9u4dOJVI8Yxq16zxiFjKz7xZ/Tv5V2jPA5W3sbMQhc0fauCvWz4g8fNswbYY0sybIbbC90JtHXomwRzBm/MRw==}
-    dependencies:
-      '@types/emscripten': 1.39.10
-      '@types/node': 20.9.1
-      '@types/web': 0.0.119
-      prettier: 3.1.0
-      typescript: 5.2.2
     dev: false
 
   /zxcvbn@4.4.2:

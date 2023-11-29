@@ -18,7 +18,7 @@ import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
-import { isIOS } from 'common/device';
+import { isIOS, showDiagnostic } from 'common/device';
 import { scrollToInnerSelector } from 'common';
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
@@ -134,6 +134,8 @@ lichess.load.then(() => {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
+
+    if (location.hash === '#debug') showDiagnostic();
 
     if (location.hash === '#blind' && !lichess.blindMode)
       xhr

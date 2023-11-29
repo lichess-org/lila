@@ -110,20 +110,20 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               engineTech,
             )
           : engine.requires?.includes('simd')
-            ? h(
-                'span.technology.good',
-                {
-                  attrs: {
-                    title: 'Multi-threaded WebAssembly with SIMD',
-                  },
+          ? h(
+              'span.technology.good',
+              {
+                attrs: {
+                  title: 'Multi-threaded WebAssembly with SIMD',
                 },
-                engineTech,
-              )
-            : engine.requires?.includes('sharedMem')
-              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
-              : engine.requires?.includes('wasm')
-                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
-                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
+              },
+              engineTech,
+            )
+          : engine.requires?.includes('sharedMem')
+          ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
+          : engine.requires?.includes('wasm')
+          ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
+          : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
       ]
     : [];
 }
@@ -235,10 +235,10 @@ export function renderCeval(ctrl: ParentCtrl): MaybeVNodes {
             ctrl.outcome()
               ? [trans.noarg('gameOver')]
               : ctrl.getNode().threefold
-                ? [trans.noarg('threefoldRepetition')]
-                : threatMode
-                  ? [threatInfo(ctrl, threat)]
-                  : localEvalNodes(ctrl, evs),
+              ? [trans.noarg('threefoldRepetition')]
+              : threatMode
+              ? [threatInfo(ctrl, threat)]
+              : localEvalNodes(ctrl, evs),
           ),
         ]),
       ]

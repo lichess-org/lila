@@ -43,11 +43,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   ) {
     super(info);
     if (!this.info.isBot) this.protocol = new Protocol(this.variantMap);
-    this.boot().catch(err => {
-      console.error(err);
-      this.failed = err;
-      this.status?.({ error: String(err) });
-    });
+    this.boot().catch(this.onError);
   }
 
   get module() {
@@ -71,12 +67,12 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
     return !this.protocol
       ? CevalState.Initial
       : this.failed
-        ? CevalState.Failed
-        : !this.protocol.engineName
-          ? CevalState.Loading
-          : this.protocol.isComputing()
-            ? CevalState.Computing
-            : CevalState.Idle;
+      ? CevalState.Failed
+      : !this.protocol.engineName
+      ? CevalState.Loading
+      : this.protocol.isComputing()
+      ? CevalState.Computing
+      : CevalState.Idle;
   }
 
   private async boot() {
@@ -89,7 +85,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
       wasmPath = `${root}/${wasm}`;
 
     let wasmBinary: ArrayBuffer | undefined;
-    if (this.info.id === '__sf14nnue') {
+    if (wasm) {
       const cache = window.indexedDB && new Cache('ceval-wasm-cache');
       try {
         if (cache) {
@@ -148,10 +144,6 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   }
 
   async start(work: Work) {
-    if (!this.protocol) {
-      this.protocol = new Protocol(this.variantMap);
-      this.boot().catch(this.onError);
-    }
     this.protocol.compute(work);
   }
 

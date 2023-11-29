@@ -108,10 +108,10 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
     return this.failed
       ? CevalState.Failed
       : !this.module
-        ? CevalState.Loading
-        : this.protocol.isComputing()
-          ? CevalState.Computing
-          : CevalState.Idle;
+      ? CevalState.Loading
+      : this.protocol.isComputing()
+      ? CevalState.Computing
+      : CevalState.Idle;
   }
 
   start = (work?: Work) => this.protocol.compute(work);
