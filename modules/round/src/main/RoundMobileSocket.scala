@@ -25,12 +25,10 @@ final private class RoundMobileSocket(
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
 
-  def json(game: Game, socket: SocketStatus, id: GameAnyId): Fu[JsObject] = for
+  def json(game: Game, id: GameAnyId, socket: Option[SocketStatus]): Fu[JsObject] = for
     initialFen <- gameRepo.initialFen(game)
-    whiteUser  <- game.whitePlayer.userId.so(lightUserGet)
-    blackUser  <- game.blackPlayer.userId.so(lightUserGet)
-    users    = ByColor(whiteUser, blackUser)
     myPlayer = id.playerId.flatMap(game.player(_))
+    users        <- game.userIdPair.traverse(_ so lightUserGet)
     prefs        <- prefApi.byId(game.userIdPair)
     takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
     moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
@@ -41,8 +39,8 @@ final private class RoundMobileSocket(
       val player = game player color
       jsonView
         .player(player, users(color))
-        .add("isGone" -> (game.forceDrawable && socket.isGone(player.color)))
-        .add("onGame" -> (player.isAi || socket.onGame(player.color)))
+        .add("isGone" -> (game.forceDrawable && socket.exists(_.isGone(player.color))))
+        .add("onGame" -> (player.isAi || socket.exists(_.onGame(player.color))))
     Json
       .obj(
         "game" -> {
@@ -52,7 +50,7 @@ final private class RoundMobileSocket(
         },
         "white"  -> playerJson(Color.White),
         "black"  -> playerJson(Color.Black),
-        "socket" -> socket.version
+        "socket" -> socket.so(_.version).value
       )
       .add("expiration" -> game.expirable.option:
         Json.obj(
