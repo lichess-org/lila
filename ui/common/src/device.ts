@@ -122,8 +122,8 @@ export async function showDiagnostic() {
       window.getSelection()?.removeAllRanges();
       window.getSelection()?.addRange(range);
     }, 0);
-  dlg.view.querySelector('.err')?.addEventListener('focus', select);
-  dlg.view.querySelector('.clear')?.addEventListener('click', () => lichess.log.clear().then(lichess.reload));
+  $('.err', dlg.view).on('focus', select);
+  $('.clear', dlg.view).on('click', () => lichess.log.clear().then(lichess.reload));
   dlg.showModal();
 }
 
