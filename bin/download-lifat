@@ -2,7 +2,7 @@
 
 # that's how I like to update the commit:
 # sed -i -r "s/^commit=.+$/commit=$(cat ~/lifat/.git/refs/heads/master)/" ~/lila/bin/download-lifat && git add bin/download-lifat && git commit -m "bump lifat"
-commit=3b76a9632ff3897c2ac6402b3f1d2ae792092e86
+commit=7ba045ed5f27f9a0c5bb4bf941fedc8ff63b79af
 
 lifat_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$lifat_dir"
