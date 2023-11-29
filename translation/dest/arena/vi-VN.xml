@@ -45,7 +45,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Xem tất cả %s đội</item>
   </plurals>
-  <string name="newTeamBattle">Giải Đấu Đội Mới</string>
+  <string name="newTeamBattle">Giải đấu đa Đội mới</string>
   <string name="customStartDate">Chọn thời gian bắt đầu</string>
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Berserk</string>
@@ -57,5 +57,5 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="noArenaStreaks">Không có chuỗi Đấu trường</string>
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>
-  <string name="myTournaments">Giải đấu của tôi</string>
+  <string name="myTournaments" comment="Links to a page with a list of tournaments you have created.">Giải đấu của tôi</string>
 </resources>
