@@ -47,7 +47,9 @@ object HTTPRequest {
 
   private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)
   def isChrome(req: RequestHeader)                        = uaContains(req, "Chrome/")
-  val isChrome96OrMore                                    = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+
+  // chrome 96+, firefox 119+
+  val supportsCredentialless = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])|Firefox/(?:119|1[2-9]\d|[2-9]\d\d)""")
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
