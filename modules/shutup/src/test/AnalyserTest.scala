@@ -11,6 +11,7 @@ class AnalyserTest extends Specification {
   "detector" should {
     "find one bad word" in {
       find("fuck") must_== List("fuck")
+      find("fuck!") must_== List("fuck")
       find("well fuck me") must_== List("fuck")
     }
     "find many bad words" in {
@@ -74,6 +75,9 @@ class AnalyserTest extends Specification {
     }
     "japanese" in {
       find("ばか") must_== List("ばか")
+      find("ばーか") must_== List("ばーか")
+      find("ばか?") must_== List("ばか")
+      find("ばか？") must_== List("ばか")
     }
   }
   "dirty" should {
@@ -81,6 +85,18 @@ class AnalyserTest extends Specification {
       dirty(
         """Hello fucking arab. It's morning here I am getting ready to fuck your smelly mom and sister together today. Just wanna inform you ;)"""
       ) must beTrue
+      dirty("fuck") must beTrue
+    }
+    "russian" in {
+      dirty("""сука""") must beTrue
+      dirty("""Привет""") must beFalse
+    }
+    "japanese" in {
+      dirty("""ばか""") must beTrue
+      dirty("""名ばかり""") must beFalse
+      dirty("""ばかり""") must beFalse
+      dirty("""四月ばか""") must beFalse
+      dirty("""ちんちんちん""") must beFalse
     }
   }
 }

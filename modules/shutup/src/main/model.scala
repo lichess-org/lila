@@ -27,7 +27,7 @@ case class TextAnalysis(
     badWords: List[String]
 ) {
 
-  lazy val nbWords = text.split("""\W+""").size
+  lazy val nbWords = text.split("""\s+""").size
 
   def nbBadWords = badWords.size
 

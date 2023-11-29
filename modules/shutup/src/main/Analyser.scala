@@ -10,7 +10,7 @@ object Analyser {
       lower,
       (
         latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
-          ruBigRegex.findAllMatchIn(lower).toList
+          nonLatinBigRegex.findAllMatchIn(lower).toList
       ).map(_.toString)
     )
   }
@@ -37,7 +37,6 @@ object Analyser {
       Dictionary.de ++
       Dictionary.tr ++
       Dictionary.it ++
-      Dictionary.ja ++
       bannedYoutubeIds
 
   private val latinBigRegex = {
@@ -46,9 +45,18 @@ object Analyser {
       """\b"""
   }.r
 
-  private val ruBigRegex = {
-    """(?i)\b""" +
-      Dictionary.ru.mkString("(", "|", ")") +
-      """\b"""
+  // unicode compatible bounds
+  // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
+  private object bounds {
+    val pre                 = """(?<=[\s,.:;"'\?!、。＋：；？！]|^)"""
+    val post                = """(?=[\s,.:;"'\?!、。＋：；？！]|$)"""
+    def wrap(regex: String) = pre + regex + post
+  }
+
+  private val nonLatinBigRegex = {
+    """(?iu)""" + bounds.wrap(
+      (Dictionary.ru ++ Dictionary.ja).mkString("(", "|", ")").replace("(", "(?:")
+    )
   }.r
+
 }

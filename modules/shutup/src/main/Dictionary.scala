@@ -281,21 +281,23 @@ yarra[gğ][iı] yediniz
 """)
 
   def ja = dict("""
-ばか
-バカ
+ばー?か
+バー?カ
+馬鹿
 うざい
-わるがき
-奴
 ちくしょう
 ばかやろう
 しんじまえ
-ちくしょう
-ふざけるな
-だまれこのやろう
 やりまん
 ヤリマン
 くたばれ
 死ね
+まんこ
+マンコ
+ちんちん
+チンチン
+ちんぽ
+チンポ
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
