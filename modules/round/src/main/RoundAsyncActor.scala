@@ -384,7 +384,7 @@ final private[round] class RoundAsyncActor(
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def getSocketStatus: Future[SocketStatus] =
-    whitePlayer.isLongGone zip blackPlayer.isLongGone map { (whiteIsGone, blackIsGone) =>
+    whitePlayer.isLongGone zip blackPlayer.isLongGone map: (whiteIsGone, blackIsGone) =>
       SocketStatus(
         version = version,
         whiteOnGame = whitePlayer.isOnline,
@@ -392,7 +392,6 @@ final private[round] class RoundAsyncActor(
         blackOnGame = blackPlayer.isOnline,
         blackIsGone = blackIsGone
       )
-    }
 
   private def recordLag(pov: Pov): Unit =
     if (pov.game.playedTurns.value & 30) == 10 then
