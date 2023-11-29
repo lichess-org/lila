@@ -75,12 +75,4 @@ export default () => {
   l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
   l.makeChessground = Chessground;
   l.log = () => lichess.loadEsm<AsyncLog>('log');
-  window.addEventListener('error', async e => {
-    const log = await l.log();
-    log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
-  });
-  window.addEventListener('unhandledrejection', async e => {
-    const log = await l.log();
-    log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
-  });
 };
