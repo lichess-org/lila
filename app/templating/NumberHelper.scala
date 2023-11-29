@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import java.text.NumberFormat
-import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
 
@@ -13,7 +12,7 @@ trait NumberHelper { self: I18nHelper =>
   private def formatter(implicit lang: Lang): NumberFormat =
     formatters.computeIfAbsent(
       lang.language,
-      _ => NumberFormat getInstance new Locale(lang.language)
+      _ => NumberFormat.getInstance(lang.toLocale)
     )
 
   def showMillis(millis: Int)(implicit lang: Lang) = formatter.format((millis / 100).toDouble / 10)
