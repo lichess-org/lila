@@ -4,34 +4,34 @@
   <string name="donateAsX">Ủng hộ bằng tài khoản %s</string>
   <string name="lichessPatron">Bảo trợ Lichess</string>
   <string name="freeAccount">Tài khoản miễn phí</string>
-  <string name="becomePatron">Trở thành một người Bảo Trợ Lichess</string>
-  <string name="xBecamePatron">%s đã trở thành một người Bảo Trợ Lichess</string>
+  <string name="becomePatron">Trở thành một Người bảo trợ Lichess</string>
+  <string name="xBecamePatron">%s đã trở thành một Người bảo trợ Lichess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="other">%1$s là người Bảo Trợ Lichess trong %2$s tháng</item>
+    <item quantity="other">%1$s là Người bảo trợ Lichess trong %2$s tháng</item>
   </plurals>
-  <string name="newPatrons">Những người bảo trợ mới</string>
+  <string name="newPatrons">Những Người bảo trợ mới</string>
   <string name="freeChess">Cờ Vua Miễn Phí Cho Mọi Người!
 Mãi Mãi!</string>
   <string name="noAdsNoSubs">Không có quảng cáo, không cần đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
   <string name="thankYou">Cảm ơn sự ủng hộ của bạn!</string>
-  <string name="youHaveLifetime">Bạn có một tài khoản nguòi bảo trợ trọn đời. Khá là tuyệt vời đấy!</string>
+  <string name="youHaveLifetime">Bạn có một tài khoản Người bảo trợ trọn đời. Khá tuyệt vời đấy!</string>
   <string name="patronUntil">Bạn có tài khoản người Bảo Trợ cho đến %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Nếu không gia hạn, tài khoản của bạn sẽ trở về tài khoản bình thường.</string>
   <string name="weAreNonProfit">Chúng tôi là một hiệp hội phi lợi nhuận bởi vì chúng tôi tin rằng tất cả mọi người đều có thể có truy cập tới một nền tảng cờ vua miễn phí, đẳng cấp thế giới.</string>
-  <string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lichess, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một người bảo trợ!</string>
+  <string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lichess, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Người bảo trợ!</string>
   <string name="lifetime">Trọn đời</string>
-  <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành một người Bảo Trợ Lichess trọn đời!</string>
-  <string name="lifetimePatron">Người Bảo Trợ Lichess trọn đời</string>
+  <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành một Người bảo trợ Lichess trọn đời!</string>
+  <string name="lifetimePatron">Người bảo trợ Lichess trọn đời</string>
   <string name="monthly">Hàng tháng</string>
-  <string name="recurringBilling">Trả tiền định kỳ, gia hạn đôi cánh người Bảo Trợ của bạn mỗi tháng.</string>
+  <string name="recurringBilling">Trả tiền định kỳ, gia hạn đôi cánh Người bảo trợ của bạn mỗi tháng.</string>
   <string name="onetime">Một lần</string>
-  <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh người Bảo Trợ trong vòng một tháng.</string>
+  <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Người bảo trợ trong một tháng.</string>
   <string name="otherAmount">Khác</string>
   <string name="pleaseEnterAmountInX">Vui lòng nhập số tiền bằng %s</string>
   <string name="withCreditCard">Thẻ tín dụng</string>
   <string name="logInToDonate">Đăng nhập để ủng hộ</string>
   <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
-  <string name="celebratedPatrons">Những người Bảo Trợ nổi tiếng biến Lichess thành hiện thực</string>
+  <string name="celebratedPatrons">Những Người bảo trợ nổi tiếng biến Lichess thành hiện thực</string>
   <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
   <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
 Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, người sáng lập Lichess.</string>
@@ -45,13 +45,13 @@ Hoặc bạn có thể %s.</string>
   <string name="otherMethods">Phương thức quyên góp khác?</string>
   <string name="lichessIsRegisteredWith">Lichess được đăng ký với %s.</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
-  <string name="onlyDonationFromAbove">Xin lưu ý rằng chỉ có hình thức ủng hộ ở trên mới được cấp trạng thái người bảo trợ.</string>
-  <string name="patronFeatures">Có tính năng nào được dành riêng cho người Bảo Trợ không?</string>
+  <string name="onlyDonationFromAbove">Xin lưu ý rằng chỉ có hình thức ủng hộ ở trên mới được cấp trạng thái Người bảo trợ.</string>
+  <string name="patronFeatures">Có tính năng nào được dành riêng cho những Người bảo trợ không?</string>
   <string name="noPatronFeatures">Không, bởi vì Lichess hoàn toàn miễn phí, mãi mãi và dành cho tất cả mọi người. Đó là lời hứa của chúng tôi.
 Tuy nhiên, Patron được quyền khoe khoang với những cánh Người bảo trợ mới thú vị hiển thị trên hồ sơ của bạn.</string>
   <string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
   <plurals name="patronForMonths">
-    <item quantity="other">Bảo Trợ Lichess trong %s tháng</item>
+    <item quantity="other">Bảo trợ Lichess trong %s tháng</item>
   </plurals>
   <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
   <string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
@@ -59,8 +59,8 @@ Tuy nhiên, Patron được quyền khoe khoang với những cánh Người b�
   <string name="nextPayment">Lần thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Ủng hộ thêm ngay bây giờ</string>
-  <string name="giftPatronWingsShort">Tặng cánh người Bảo Trợ</string>
-  <string name="giftPatronWings">Tặng cánh người Bảo Trợ cho kỳ thủ</string>
+  <string name="giftPatronWingsShort">Tặng cánh Người bảo trợ</string>
+  <string name="giftPatronWings">Tặng cánh Người bảo trợ cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi số tiền hàng tháng (%s)</string>
   <string name="cancelSupport">Hủy sự ủng hộ của bạn</string>
@@ -73,10 +73,10 @@ Tuy nhiên, Patron được quyền khoe khoang với những cánh Người b�
   <string name="date">Ngày</string>
   <string name="amount">Số tiền</string>
   <string name="transactionCompleted">Giao dịch của bạn đã hoàn thành và một hóa đơn cho quyên góp của bạn đã được gửi qua email tới bạn.</string>
-  <string name="permanentPatron">Giờ bạn đã có một tài khoản người Bảo Trợ trọn đời.</string>
+  <string name="permanentPatron">Giờ bạn đã có một tài khoản Người bảo trợ trọn đời.</string>
   <string name="checkOutProfile">Hãy xem trang cá nhân của bạn!</string>
-  <string name="nowLifetime">Giờ bạn đã trở thành người Bảo Trợ Lichess trọn đời!</string>
-  <string name="nowOneMonth">Giờ bạn đã trở thành người Bảo Trợ Lichess trong một tháng!</string>
+  <string name="nowLifetime">Giờ bạn đã trở thành Người bảo trợ Lichess vĩnh viễn!</string>
+  <string name="nowOneMonth">Giờ bạn đã trở thành Người bảo trợ Lichess trong một tháng!</string>
   <string name="downgradeNextMonth">Sau một tháng, bạn sẽ KHÔNG phải trả tiền lại nữa và tài khoản Lichess của bạn sẽ quay trở lại tài khoản thường.</string>
   <string name="changeCurrency">Thay đổi đơn vị tiền tệ</string>
 </resources>
