@@ -71,7 +71,7 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
-  log: AsyncLog;
+  log: () => Promise<AsyncLog>;
 }
 
 interface AsyncLog {

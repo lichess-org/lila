@@ -100,7 +100,8 @@ export const features = memoize<readonly Feature[]>(() => {
 
 export async function showDiagnostic() {
   lichess.loadCssPath('diagnostic');
-  const logs = await lichess.log.get();
+  const log = await lichess.log();
+  const logs = await log.get();
   const text =
     `User Agent: ${navigator.userAgent}\n` +
     `Cores: ${navigator.hardwareConcurrency}\n` +
@@ -124,7 +125,7 @@ export async function showDiagnostic() {
       window.getSelection()?.addRange(range);
     }, 0);
   $('.err', dlg.view).on('focus', select);
-  $('.clear', dlg.view).on('click', () => lichess.log.clear().then(lichess.reload));
+  $('.clear', dlg.view).on('click', () => log.clear().then(lichess.reload));
   dlg.showModal();
 }
 

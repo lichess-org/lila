@@ -18,7 +18,6 @@ import {
   userComplete,
   loadEsm,
 } from './component/assets';
-import { makeLog } from './component/log';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
 import { unload, redirect, reload } from './component/reload';
@@ -75,5 +74,13 @@ export default () => {
   l.blindMode = document.body.classList.contains('blind-mode');
   l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
   l.makeChessground = Chessground;
-  l.log = makeLog();
+  l.log = () => lichess.loadEsm<AsyncLog>('log');
+  window.addEventListener('error', async e => {
+    const log = await l.log();
+    log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
+  });
+  window.addEventListener('unhandledrejection', async e => {
+    const log = await l.log();
+    log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
+  });
 };

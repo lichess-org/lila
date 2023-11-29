@@ -8,7 +8,7 @@ lichess.log.clear();                         // clear idb store
 
 */
 
-export function makeLog(): AsyncLog {
+export default function makeLog(): AsyncLog {
   let store: ObjectStorage<string>;
   let resolveReady: () => void;
   let lastKey = Date.now();
@@ -70,14 +70,6 @@ export function makeLog(): AsyncLog {
     }
     return logs.join('\n');
   };
-
-  window.addEventListener('error', e => {
-    lichess.log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
-  });
-
-  window.addEventListener('unhandledrejection', e => {
-    lichess.log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
-  });
 
   return log;
 }
