@@ -99,6 +99,7 @@ export const features = memoize<readonly Feature[]>(() => {
 });
 
 export async function showDiagnostic() {
+  lichess.loadCssPath('diagnostic');
   const logs = await lichess.log.get();
   const text =
     `User Agent: ${navigator.userAgent}\n` +
