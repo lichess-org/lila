@@ -36,15 +36,6 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 11
+          java-version: 17
           cache: sbt
-      - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
       - run: ./lila -Depoll=true "test;stage"
-      - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
-      - run: cd target/universal/stage && tar -cvpJf ../../../lila-3.0.tar.xz . && cd -
-        env:
-          XZ_OPT: "-0"
-      - uses: actions/upload-artifact@v3
-        with:
-          name: lila-server
-          path: lila-3.0.tar.xz
