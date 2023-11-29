@@ -14,13 +14,6 @@
     "netName": "maia-1100.pb"
   },
   {
-    "uid": "#owen",
-    "name": "Owen",
-    "description": "",
-    "image": "owen.webp",
-    "netName": "maia-1100.pb"
-  },
-  {
     "uid": "#beatrice",
     "name": "Beatrice",
     "description": "Beatrice is a bot that plays random moves.",

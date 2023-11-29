@@ -1,7 +1,7 @@
 import { type Zerofish, type Score } from 'zerofish';
 import * as Chops from 'chessops';
 import { Libot, BotInfo, ZeroBotConfig } from './interfaces';
-
+import { deepScores, byDestruction, shallowScores, scores } from './behavior';
 let ordinal = 0;
 
 export class ZeroBot implements Libot {
@@ -27,14 +27,6 @@ export class ZeroBot implements Libot {
     this.ordinal = ordinal++;
   }
 
-  weigh(material: Chops.Material) {
-    let score = 0;
-    for (const [role, price] of Object.entries(prices) as [Chops.Role, number][]) {
-      score += price * material.count(role);
-    }
-    return score;
-  }
-
   async move(fen: string) {
     const zeroMove = this.zfcfg.fishMix < 1 ? this.zf.goZero(fen) : Promise.resolve(undefined);
     const fishMove =
@@ -45,32 +37,12 @@ export class ZeroBot implements Libot {
             pvs: this.zfcfg.searchWidth,
           })
         : Promise.resolve([]);
-    const [zero, fishMoves] = await Promise.all([zeroMove, fishMove]);
-    const deepScores = fishMoves.map(fish => fish[fish.length - 1]);
-    console.log(zero);
-    console.log(fishMoves);
-    console.log(deepScores);
-    const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
-    const aggression: [number, Score][] = [];
-    //const before = this.weigh(Chops.Material.fromBoard(chess.board));
-    for (const pv of deepScores) {
-      const pvChess = chess.clone();
-      for (const move of pv.moves) pvChess.play(Chops.parseUci(move)!);
-      const after = this.weigh(Chops.Material.fromBoard(pvChess.board));
-      aggression.push([after, pv]);
-    }
-    /*const [low, high] = bestScores.reduce(
-      ([low, high], pv) => {
-        const score = pv.score;
-        if (score < low) low = score;
-        if (score > high) high = score;
-        return [low, high];
-      },
-      [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER],
-    );*/
+    const [zero, fishResult] = await Promise.all([zeroMove, fishMove]);
+    const aggression = byDestruction(fishResult, fen);
     aggression.sort((a, b) => b[0] - a[0]);
     const zeroIndex = aggression.findIndex(([_, pv]) => pv.moves[0] === zero);
-    const zeroScore = zeroIndex >= 0 ? aggression[zeroIndex]?.[0] : -0.1;
+    const zeroDestruction = zeroIndex >= 0 ? aggression[zeroIndex]?.[0] : -0.1;
+    console.log(zeroDestruction, aggression, deepScores(fishResult, zero));
     return zero ?? '';
   }
 }
@@ -83,20 +55,12 @@ const dimensions = {
 };
 
 const defaultCfg: ZeroBotConfig = {
-  fishMix: 0, // [0 zero, 1 fish]
+  fishMix: 0.5, // [0 zero, 1 fish]
   cpBias: 0,
   cpThreshold: 0.4,
   searchMs: 800,
   searchWidth: 8, // multiPV
   aggression: 0.5, // [0 passive, 1 aggressive]
-};
-
-const prices: { [role in Chops.Role]?: number } = {
-  pawn: 1,
-  knight: 2.8,
-  bishop: 3,
-  rook: 5,
-  queen: 9,
 };
 
 function sq2key(sq: number): Key {
