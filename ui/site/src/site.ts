@@ -94,14 +94,6 @@ lichess.load.then(() => {
     topBar();
 
     window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
-    window.addEventListener('error', async e => {
-      const log = await lichess.log();
-      log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
-    });
-    window.addEventListener('unhandledrejection', async e => {
-      const log = await lichess.log();
-      log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
-    });
 
     $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;
@@ -143,7 +135,7 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    if (location.hash === '#debug') lichess.log().then(log => log.diagnostic());
+    if (location.hash === '#debug') lichess.log.diagnostic();
 
     if (location.hash === '#blind' && !lichess.blindMode)
       xhr

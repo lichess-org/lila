@@ -68,8 +68,7 @@
         "src/ublog.ts": "ublog",
         "src/ublogForm.ts": "ublogForm",
         "src/streamer.ts": "streamer",
-        "src/soundMove.ts": "soundMove",
-        "src/log.ts": "log"
+        "src/soundMove.ts": "soundMove"
       }
     },
     "copy": [
