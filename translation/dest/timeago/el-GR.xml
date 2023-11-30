@@ -30,10 +30,6 @@
     <item quantity="other">%s έτη</item>
   </plurals>
   <string name="rightNow">αυτή την στιγμή</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s δευτερόλεπτο πριν</item>
-    <item quantity="other">%s δευτερόλεπτα πριν</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s λεπτό πριν</item>
     <item quantity="other">%s λεπτά πριν</item>

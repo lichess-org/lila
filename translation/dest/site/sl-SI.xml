@@ -550,6 +550,7 @@
   <string name="movesPlayed">Odigranih potez</string>
   <string name="whiteWins">Belih zmag</string>
   <string name="blackWins">Črnih zmag</string>
+  <string name="drawRate">Stopnja remija</string>
   <string name="draws">Odstotek remijev</string>
   <string name="nextXTournament">Naslednji %s turnir:</string>
   <string name="averageOpponent">Povprečen nasprotnik</string>
@@ -570,6 +571,8 @@
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
+  <string name="setFlair">Določite svoj okus:</string>
+  <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
   <string name="biography">Biografija</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali regija</string>
   <string name="thankYou">Hvala!</string>

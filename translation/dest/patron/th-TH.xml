@@ -24,7 +24,7 @@
   <plurals name="patronForMonths">
     <item quantity="other">เป็นผู้อุปถัมภ์ Lichess%s เดือน</item>
   </plurals>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;The word 'gift' is used as a verb here. This function allows players to donate in another player's name, and have that player receive patron wings.">ให้ปีกอุปถัมภ์</string>
+  <string name="giftPatronWingsShort">ให้ปีกอุปถัมภ์</string>
   <string name="giftPatronWings">ให้ปีกอุปถัมภ์แก่ผู้เล่น</string>
   <string name="cancelSupport">ยกเลิกการสนับสนุน</string>
 </resources>

@@ -23,9 +23,6 @@
     <item quantity="other">%s နှစ်အတွင်း</item>
   </plurals>
   <string name="rightNow">ယခု</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">လွန်ခဲ့သော %s စက္ကန့်က</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">လွန်ခဲ့သော %s မိနစ်က</item>
   </plurals>

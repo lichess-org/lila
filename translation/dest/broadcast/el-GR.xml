@@ -33,6 +33,6 @@
   <string name="definitivelyDeleteRound">Σίγουρα διαγράψτε τον γύρο και όλα τα παιχνίδια του.</string>
   <string name="deleteAllGamesOfThisRound">Διαγράψτε όλα τα παιχνίδια αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
-  <string name="deleteTournament">Διαγραφή αυτού του πρωταθλήματος</string>
-  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο το πρωτάθλημα, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
+  <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
+  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
 </resources>

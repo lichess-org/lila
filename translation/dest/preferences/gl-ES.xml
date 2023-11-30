@@ -15,10 +15,11 @@
   <string name="pgnLetter">Inicial (en inglés) da peza (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo zen</string>
   <string name="showPlayerRatings">Amosar a puntuación dos xogadores</string>
+  <string name="showFlairs">Amosar as habelencias dos xogadores</string>
   <string name="explainShowPlayerRatings">Isto permite ocultar todas as puntuacións do sitio, para axudar a centrarse no xadrez. As partidas poden ser puntuadas, isto só afecta ó que podes ver.</string>
   <string name="displayBoardResizeHandle">Mostrar o control de redimensionamento do taboleiro</string>
   <string name="onlyOnInitialPosition">Só na posición inicial</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Só durante a partida</string>
+  <string name="inGameOnly">Só durante a partida</string>
   <string name="blindfoldChess">Xadrez a cegas (pezas invisibles)</string>
   <string name="chessClock">Reloxo de xadrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
@@ -48,7 +49,7 @@
   <string name="castleByMovingTwoSquares">Movendo o rei dúas casas</string>
   <string name="castleByMovingOntoTheRook">Movendo rei ata a torre</string>
   <string name="inputMovesWithTheKeyboard">Introdución de movementos co teclado</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Introdución de xogadas coa voz</string>
+  <string name="inputMovesWithVoice">Introdución de xogadas coa voz</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Adherir frechas a movementos válidos</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dicir \"Good game, well played\" (Boa partida, ben xogada) ao perder ou empatar</string>
   <string name="yourPreferencesHaveBeenSaved">As túas preferencias foron gardadas.</string>

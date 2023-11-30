@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Omogućuje sakrivanje svih rejtinga sa sajta da bi fokus bio na šahu. Partije i dalje mogu biti bodovane; postavka utječe samo na prikaz.</string>
   <string name="displayBoardResizeHandle">Prikažite ručicu za promjenu veličine ploče</string>
   <string name="onlyOnInitialPosition">Samo na početku partije</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Samo unutar igre</string>
+  <string name="inGameOnly">Samo unutar igre</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="chessClock">Sat</string>
   <string name="tenthsOfSeconds">Desetinke sekundi</string>

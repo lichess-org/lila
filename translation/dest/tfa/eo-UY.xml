@@ -6,12 +6,9 @@
   <string name="enterPassword">Entajpu vian pasvorton kaj la aŭtentigan kodon generis de la apo por fini la agordo. Vi bezonos aŭtentigan kodon ĉiam vi ensalutas.</string>
   <string name="ifYouCannotScanEnterX">Se vi ne povas skani la kodon, entajpu la sekretan ŝlosilon %s en vian apon.</string>
   <string name="authenticationCode">Aŭtentiga kodo</string>
-  <string name="ifYouLoseAccess">Noto: Se vi perdos aliron al via dufazajn aŭtentigajn kodojn, vi povas restarigi per retpoŝto.</string>
   <string name="enableTwoFactor">Ebligi dufazan aŭtentigon</string>
   <string name="disableTwoFactor">Malebligi dufazan aŭtentigon</string>
   <string name="twoFactorEnabled">Dufaza aŭtentigo ebligita</string>
-  <string name="twoFactorDisable">Vi bezonas vian pasvorton kaj aŭtentigan kodon el via aŭtentiga apo por malŝalti dufazan aŭtentigon.
-Se vi perdis aliron al vi aŭtentigaj kodoj, vi povas ankaŭ faros pasvortan restarigon per retpoŝto.</string>
   <string name="openTwoFactorApp">Malfermu la dufazan aŭtentigan apon en via aparato por vidi vian aŭtentigan kodon kaj kontrolu vian identecon.</string>
   <string name="setupReminder">Bonvolu ŝalti duafazan aŭtentigon por sekuri vian konton ĉe https://lichess.org/account/twofactor.
 Vi ricevis ĉi tiun mesaĝon, ĉar via konto havas specialajn responsojn, kiel teamestro, trejnisto, instruisto, aŭ filmprezentisto</string>

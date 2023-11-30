@@ -51,7 +51,7 @@ Mật khẩu: %3$s</string>
   <string name="generateANewUsername">Tạo một tài khoản mới</string>
   <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
 Đây là đường link để tham gia lớp học.</string>
-  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách học viên.</string>
+  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách là một học viên.</string>
   <string name="clickToViewInvitation">Nhấn vào đường link để xem lời mời:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s lời mời đang chờ</item>

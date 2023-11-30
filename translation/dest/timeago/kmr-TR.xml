@@ -30,10 +30,6 @@
     <item quantity="other">di %s salê de</item>
   </plurals>
   <string name="rightNow">hema vêga</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">berî %s saniyeyê</item>
-    <item quantity="other">berî %s saniyeyan</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">berî %s deqeyê</item>
     <item quantity="other">berî %s deqeyan</item>

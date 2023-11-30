@@ -237,7 +237,7 @@
   <string name="copyTextToEmail">Kopiere den obigen Text, füge ihn hier ein und sende alles an %s</string>
   <string name="waitForSignupHelp">Wir werden uns bald mit dir in Verbindung setzen, um deine Registrierung abzuschließen.</string>
   <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
-  <string name="accountCanLogin">Du kannst dich ab sofort als %s einloggen.</string>
+  <string name="accountCanLogin">Du kannst dich als %s einloggen.</string>
   <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
   <string name="accountClosed">Das Benutzerkonto %s ist geschlossen.</string>
   <string name="accountRegisteredWithoutEmail">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse registriert.</string>
@@ -461,7 +461,7 @@
   <string name="advancedSettings">Erweiterte Einstellungen</string>
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
   <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
-  <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
+  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
   <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
   <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
   <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
@@ -485,6 +485,7 @@
   <string name="movesPlayed">Gespielte Züge</string>
   <string name="whiteWins">Weiße Siege</string>
   <string name="blackWins">Schwarze Siege</string>
+  <string name="drawRate">Remisquote</string>
   <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
+  <string name="setFlair">Setze deine Dekoration:</string>
+  <string name="youCanHideFlair">Es gibt eine Einstellung, um alle persönlichen Stilelemente der Benutzer auf der gesamten Website zu verbergen.</string>
   <string name="biography">Profiltext</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Region</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -525,7 +528,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="tournamentWinners">Turniersieger</string>
+  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
   <string name="descPrivate">Interne Beschreibung</string>
@@ -686,6 +689,7 @@
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
+  <string name="keyCycleSelectedVariation">Durch die ausgewählte Variation schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
   <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
@@ -693,6 +697,13 @@
   <string name="keyNextBlunder">Der nächste grobe Patzer</string>
   <string name="keyNextMistake">Der nächste Fehler</string>
   <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
+  <string name="keyPreviousBranch">Vorherige Verzweigung</string>
+  <string name="keyNextBranch">Nächste Verzweigung</string>
+  <string name="toggleVariationArrows">Variationspfeile an/auschalten</string>
+  <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
+  <string name="toggleGlyphAnnotations">Glyph-Anmerkungen umschalten</string>
+  <string name="variationArrowsInfo">Mit Variationspfeilen navigierst du durch die Zugliste.</string>
+  <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
@@ -971,5 +982,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
+  <string name="instructions">Anweisungen</string>
   <string name="showMeEverything">Alles zeigen</string>
 </resources>

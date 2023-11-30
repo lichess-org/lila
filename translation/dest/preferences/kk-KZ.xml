@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Шахматқа назарды күшейту үшін бұл бүкіл сайттағы рейтингтерді жасырады. Бағалау тәртібіне еш әсері жоқ, жай сыртқы көрінісі басқаша болады.</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Ойында ғана</string>
+  <string name="inGameOnly">Ойында ғана</string>
   <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Патшаны екі шаршы жүру</string>
   <string name="castleByMovingOntoTheRook">Патшаны тура тасына қою</string>
   <string name="inputMovesWithTheKeyboard">Пернетақта арқылы жүру</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Қадамды дауыспен жасау</string>
+  <string name="inputMovesWithVoice">Қадамды дауыспен жасау</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Нұсқағыш тек заңды жүрістерге ғана жабысады</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Жеңіліс не тепе-теңдіктен кейін \"Жақсы ойын, қызық болды\" деп айту</string>
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
