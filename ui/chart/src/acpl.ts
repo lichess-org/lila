@@ -40,10 +40,10 @@ export default async function (
   if (possibleChart) return possibleChart as AcplChart;
   const blurBackgroundColorWhite = 'white';
   const blurBackgroundColorBlack = 'black';
-  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
   const firstPly = mainline[0].ply;
+  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
 
   const makeDataset = (
     d: AnalyseData,
@@ -60,7 +60,6 @@ export default async function (
     const pointSizes: number[] = [];
     const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
-    const partial = isPartial(d);
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) == 1;
@@ -79,7 +78,8 @@ export default async function (
       const label = turn + dots + ' ' + node.san;
       let annotation = '';
       if (advice) annotation = ` [${trans(advice)}]`;
-      const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
+      const isBlur =
+        blurs[isWhite ? 1 : 0][Math.floor((node.ply - (d.game.startedAtTurn || 0) - 1) / 2)] === '1';
       if (isBlur) annotation = ' [blur]';
       moveLabels.push(label + annotation);
       pointStyles.push(isBlur ? 'rect' : 'circle');
