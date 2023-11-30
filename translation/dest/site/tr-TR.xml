@@ -405,6 +405,7 @@
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
   <string name="importGameCaveat">Varyasyonlar silinecek. Varyasyonları saklamak için bir çalışma aracılığıyla PGN\'yi içe aktarın.</string>
+  <string name="importGameCaveat2">Bu PGN herkes tarafından erişilebilir. Bir oyunu özel olarak içe aktarmak isterseniz bir çalışma kullanın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
@@ -685,6 +686,7 @@
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
   <string name="keyGoToStartOrEnd">başa/sona git</string>
+  <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
@@ -695,6 +697,8 @@
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
   <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>
+  <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
+  <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
   <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
