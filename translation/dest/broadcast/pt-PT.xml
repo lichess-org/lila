@@ -8,10 +8,15 @@
   </plurals>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
+  <string name="aboutBroadcasts">Sobre Transmissões</string>
+  <string name="noRoundsYet">Sem rondas ainda.</string>
+  <string name="howToUseLichessBroadcasts">Como usar as Transmissões do Lichess.</string>
+  <string name="theNewRoundHelp">A nova ronda terá os mesmos membros e contribuidores que a anterior.</string>
   <string name="addRound">Adicionar uma ronda</string>
   <string name="ongoing">A decorrer</string>
   <string name="upcoming">Brevemente</string>
   <string name="completed">Concluído</string>
+  <string name="completedHelp">Lichess deteta a conclusão da ronda baseada nos jogos da fonte. Use essa opção se não houver fonte.</string>
   <string name="roundName">Nome da ronda</string>
   <string name="roundNumber">Número da ronda</string>
   <string name="tournamentName">Nome do torneio</string>
