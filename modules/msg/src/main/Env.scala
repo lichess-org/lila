@@ -9,6 +9,7 @@ import lila.hub.actorApi.socket.remote.TellUserIn
 
 @Module
 final class Env(
+    baseUrl: BaseUrl,
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,
     getBotUserIds: lila.user.GetBotIds,
@@ -40,6 +41,8 @@ final class Env(
   lazy val compat = wire[MsgCompat]
 
   lazy val twoFactorReminder = wire[TwoFactorReminder]
+
+  lazy val emailReminder = wire[EmailReminder]
 
   def cli: lila.common.Cli = new:
     def process =

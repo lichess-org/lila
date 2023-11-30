@@ -30,10 +30,6 @@
     <item quantity="other">om %s år</item>
   </plurals>
   <string name="rightNow">nett no</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekund sidan</item>
-    <item quantity="other">%s sekund sidan</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minutt sidan</item>
     <item quantity="other">%s minutt sidan</item>

@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Ĉi tio permesas kaŝi ĉiujn rangojn el la retejo, por helpi koncentriĝas pri la ŝako. Ludoj povas daŭre esti range, ĉi tiu temas nur pri tio, kion vi vidas.</string>
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
-  <string name="inGameOnly" comment="Appears on the display preferences page: https://lichess.org/account/preferences/display&#10;&#10;This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Nur en ludo</string>
+  <string name="inGameOnly">Nur en ludo</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
   <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Movi reĝon je du kvadratoj</string>
   <string name="castleByMovingOntoTheRook">Movi reĝon al la turo</string>
   <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Enigi movojn per via voĉo</string>
+  <string name="inputMovesWithVoice">Enigi movojn per via voĉo</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Montri per sagoj nur validajn movojn</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Skribi \"Good game, well played\" post malvenko aŭ egalvenko</string>
   <string name="yourPreferencesHaveBeenSaved">Viaj preferoj estis konservitaj.</string>

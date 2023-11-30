@@ -30,10 +30,6 @@
     <item quantity="other">in %s Jahren</item>
   </plurals>
   <string name="rightNow">gerade jetzt</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">vor %s Sekunde</item>
-    <item quantity="other">vor %s Sekunden</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">vor %s Minute</item>
     <item quantity="other">vor %s Minuten</item>

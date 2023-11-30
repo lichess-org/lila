@@ -149,15 +149,15 @@
   <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
 ροκέ στην πλευρά της βασίλισσας!</string>
   <string name="castlingComplete">Συγχαρητήρια! Προτείνεται να κάνετε ροκέ σε κάθε παρτίδα.</string>
-  <string name="enPassant">Εν διελεύσει</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
-  <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινηθεί δύο τετράγωνα, μπορείτε να το πάρετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Τα μαύρα μόλις μετακίνησαν το πιόνι ανά δύο τετράγωνα!
-Πάρτε το εν διελεύσει.</string>
-  <string name="enPassantOnlyWorksImmediately">Μπορείτε να αιχμαλωτίσετε ένα πιόνι εν διελεύσει μόνο αμέσως μετά την κίνησή του από τον αντίπαλο.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Το εν διελεύσει λειτουργεί μόνο αν το πιόνι σας βρίσκεται στην 5η βαθμίδα.</string>
-  <string name="takeAllThePawnsEnPassant">Πάρτε όλα τα πιόνια εν διελεύσει!</string>
-  <string name="enPassantComplete">Συγχαρητήρια! Μπορείτε να πάρετε τώρα εν διελεύσει.</string>
+  <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινηθεί δύο τετράγωνα, μπορείτε να το αιχμαλωτίσετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Τα μαύρα μόλις μετακίνησαν το πιόνι δύο τετράγωνα!
+Αιχμαλωτίστε το en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">Μπορείτε να αιχμαλωτίσετε ένα πιόνι en passant μόνο αμέσως μετά την κίνησή του από τον αντίπαλο.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Μπορείτε να αιχμαλωτίσετε ένα άλλο πιόνι en passant μόνο αν το δικό σας βρίσκεται στην 5η γραμμή.</string>
+  <string name="takeAllThePawnsEnPassant">Αιχμαλωτίστε όλα τα πιόνια en passant!</string>
+  <string name="enPassantComplete">Συγχαρητήρια! Τώρα ξέρετε πότε μπορείτε να αιχμαλωτίσετε en passant.</string>
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
   <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν μπορεί να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δε χάνει.</string>

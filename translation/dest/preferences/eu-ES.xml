@@ -15,10 +15,11 @@
   <string name="pgnLetter">Hizkiak (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen modua</string>
   <string name="showPlayerRatings">Erakutsi jokalarien puntuazioak</string>
+  <string name="showFlairs">Ikusi jokalarien iruditxoak</string>
   <string name="explainShowPlayerRatings">Horri esker, gunearen puntuazio guztiak ezkutatu daitezke, xakean arreta jartzen laguntzeko. Partidak puntuka izan daitezke oraindik, hau da zuk ikus dezakezuna.</string>
   <string name="displayBoardResizeHandle">Xake-taularen tamaina aldatzeko aukera erakutsi</string>
   <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Partidan zehar bakarrik</string>
+  <string name="inGameOnly">Partidan zehar bakarrik</string>
   <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
   <string name="chessClock">Xake-erlojua</string>
   <string name="tenthsOfSeconds">Segundo-hamarrenak erakutsi</string>
@@ -48,7 +49,7 @@
   <string name="castleByMovingTwoSquares">Erregea bi lauki mugitu</string>
   <string name="castleByMovingOntoTheRook">Erregea gazteluaren gainera mugitu</string>
   <string name="inputMovesWithTheKeyboard">Jokaldiak teklatuarekin sartu</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Egin jokaldiak zure ahotsarekin</string>
+  <string name="inputMovesWithVoice">Egin jokaldiak zure ahotsarekin</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Marraztutako geziak legezko jokaldietara mugatu</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Txateam \"Good game, well played\" esan partida galdu edo berdintzean</string>
   <string name="yourPreferencesHaveBeenSaved">Zure hobespenak ondo gorde dira.</string>

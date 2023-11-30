@@ -2,6 +2,8 @@
 <resources>
   <string name="voiceCommands">Comandos de voz</string>
   <string name="watchTheVideoTutorial">Ver o vídeo tutorial</string>
+  <string name="thisBlogPost">Este post no blog</string>
+  <string name="selectOrCaptureABishop">Seleciona ou captura um bispo</string>
   <string name="takeRookWithQueen">Pega a torre com a dama</string>
   <string name="castle">Roque (qualquer lado)</string>
 </resources>

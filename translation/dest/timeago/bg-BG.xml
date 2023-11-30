@@ -30,10 +30,6 @@
     <item quantity="other">след %s години</item>
   </plurals>
   <string name="rightNow">точно сега</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">преди %s секунда</item>
-    <item quantity="other">преди %s секунди</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">преди %s минута</item>
     <item quantity="other">преди %s минути</item>

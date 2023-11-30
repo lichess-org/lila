@@ -22,7 +22,7 @@
   <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">تنها در بازی</string>
+  <string name="inGameOnly">تنها در بازی</string>
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
@@ -52,7 +52,7 @@
   <string name="castleByMovingTwoSquares">به وسیله ی دو خانه حرکت دادن شاه</string>
   <string name="castleByMovingOntoTheRook">به وسیله ی حرکت دادن شاه روی خانه رخ</string>
   <string name="inputMovesWithTheKeyboard">ورود حرکات با استفاده از صفحه کلید</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">حرکات را با صدای خود وارد کنید</string>
+  <string name="inputMovesWithVoice">حرکات را با صدای خود وارد کنید</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">چسبیدن پیکان‌ها به حرکت‌های ممکن</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">گفتن \"بازی خوبی بود، خوب بازی کردی\" در هنگام باخت یا تساوی</string>
   <string name="yourPreferencesHaveBeenSaved">تغییرات شما ذخیره شده است</string>

@@ -28,7 +28,7 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
-    mobileSocket: RoundMobileSocket,
+    mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
 )(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
 
@@ -46,10 +46,8 @@ final class RoundSocket(
       if g.isEmpty then finishRound(gameId)
 
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
-    gameIds
-      .map: id =>
-        rounds.getOrMake(id).getGame dmap { id -> _ }
-      .parallel
+    gameIds.traverse: id =>
+      rounds.getOrMake(id).getGame dmap { id -> _ }
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
@@ -60,6 +58,9 @@ final class RoundSocket(
   // update the proxied game
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId).so(_ updateGame f)
+
+  def statusIfPresent(gameId: GameId): Fu[Option[SocketStatus]] =
+    rounds.askIfPresent[SocketStatus](gameId)(GetSocketStatus.apply)
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
@@ -136,7 +137,7 @@ final class RoundSocket(
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.json(game.game, game.socket, anyId)
+        data <- mobileSocket.json(game.game, anyId, game.socket.some)
       yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)

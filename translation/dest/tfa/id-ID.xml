@@ -6,11 +6,9 @@
   <string name="enterPassword">Masukkan kata sandi Anda dan kode otentikasi yang dihasilkan oleh aplikasi untuk menyelesaikan pengaturan. Anda akan memerlukan kode otentikasi setiap kali Anda masuk.</string>
   <string name="ifYouCannotScanEnterX">Jika anda tidak bisa scan kode, masukkan %s rahasia pada app.</string>
   <string name="authenticationCode">Kode otentikasi</string>
-  <string name="ifYouLoseAccess">Catatan: Jika Anda kehilangan akses ke kode otentikasi dua-langkah, Anda dapat melakukan pengaturan ulang kata sandi melalui email.</string>
   <string name="enableTwoFactor">Aktifkan otentikasi dua-langkah</string>
   <string name="disableTwoFactor">Non-aktifkan otentikasi dua-langkah</string>
   <string name="twoFactorEnabled">Otentikasi dua-langkah telah diaktifkan</string>
-  <string name="twoFactorDisable">Anda memerlukan kata sandi dan kode otentikasi dari aplikasi otentikator untuk menonaktifkan otentikasi dua-langkah. Jika Anda kehilangan akses ke kode otentikasi Anda, Anda juga dapat melakukan reset kata sandi melalui email.</string>
   <string name="openTwoFactorApp">Buka aplikasi otentikasi dua faktor di perangkat anda untuk melihat kode otentikasi dan verifikasi identitas anda.</string>
   <string name="setupReminder">Mohon aktifkan autentikasi dua faktor untuk mengamankan akun anda pada https://lichess.org/account/twofactor. Anda menerima pesan ini dikarenakan akun anda memiliki tanggung jawab khusus seperti pemimpin tim, pelatih, guru, atau penyiar</string>
 </resources>

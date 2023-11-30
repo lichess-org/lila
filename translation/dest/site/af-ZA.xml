@@ -477,6 +477,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="movesPlayed">Skuiwe gespeel</string>
   <string name="whiteWins">Gewen deur wit</string>
   <string name="blackWins">Gewen deur swart</string>
+  <string name="drawRate">Gelykopwaarskynlikheid</string>
   <string name="draws">Gelykop gespeel</string>
   <string name="nextXTournament">Volgende %s toernooi:</string>
   <string name="averageOpponent">Gemmidelde opponent</string>

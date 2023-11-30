@@ -51,13 +51,6 @@
     <item quantity="other">i gceann %s bliain</item>
   </plurals>
   <string name="rightNow">anois</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">soicind amháin ó shin</item>
-    <item quantity="two">%s soicind ó shin</item>
-    <item quantity="few">%s soicind ó shin</item>
-    <item quantity="many">%s soicind ó shin</item>
-    <item quantity="other">%s soicind ó shin</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">nóiméad amháin ó shin</item>
     <item quantity="two">%s nóiméad ó shin</item>

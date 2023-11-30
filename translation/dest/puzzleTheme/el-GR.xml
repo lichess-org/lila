@@ -110,7 +110,7 @@
   <string name="superGM">Παιχνίδια Super GM</string>
   <string name="superGMDescription">Γρίφοι από παρτίδες που παίχθηκαν από κορυφαίους παίκτες του κόσμου.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
-  <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
+  <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει την αιχμαλώτιση, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
   <string name="underPromotionDescription">Προώθηση σε ιππότη, αξιωματικό ή πύργο.</string>
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>

@@ -462,7 +462,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="advancedSettings">Rregullime të thelluara</string>
   <string name="safeTournamentName">Zgjidhni një emër shumë të sigurt për turneun.</string>
   <string name="inappropriateNameWarning">Çfarëdo gjëje qoftë edhe pakëz e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
-  <string name="emptyTournamentName">Për ta emërtuar turneun me emrin e një lojtari të njohur shahu, lëreni të zbrazët.</string>
+  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Për ta emërtuar turneun me emrin e një lojtari të njohur shahu, lëreni të zbrazët.</string>
   <string name="recommendNotTouching">Rekomandojmë të mos i prekni këto.</string>
   <string name="fewerPlayers">Nëse ujdisni domosdoshmëri pjesëmarrjeje, turneu juaj do të ketë më pak lojtarë.</string>
   <string name="showAdvancedSettings">Shfaq rregullimet të thelluara</string>
@@ -526,7 +526,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Kalo automatikisht në lojën tjetër pas lëvizjes</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
-  <string name="tournamentWinners">Fitues të turneve</string>
+  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Fitues të turneve</string>
   <string name="name">Emër</string>
   <string name="description">Përshkrim</string>
   <string name="descPrivate">Përshkrim privat</string>
@@ -692,6 +692,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyNextBlunder">Gafa pasuese</string>
   <string name="keyNextMistake">Gabimi pasues</string>
   <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
+  <string name="keyPreviousBranch">Dega e mëparshme</string>
+  <string name="keyNextBranch">Dega pasuese</string>
+  <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
+  <string name="playSelectedMove">luaj lëvizjen e përzgjedhur</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
   <string name="tournamentHomeDescription">Luani turne shahu me ritëm të shpejtë! Merrni pjesë në një turne zyrtar të planifikuar, ose krijoni tuajin. Plumb, Blic, Klasik, Shah960, Mbreti i Kodrës, Treshah dhe më tepër mundësi të gatshme, për argëtim të pafund në shah.</string>
@@ -969,4 +973,6 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
   <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
+  <string name="instructions">Udhëzime</string>
+  <string name="showMeEverything">Shfaqmë gjithçka</string>
 </resources>

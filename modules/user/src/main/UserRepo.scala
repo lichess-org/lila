@@ -306,6 +306,8 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret $exists false))
 
+  def withoutEmail(id: UserId) = coll.one[User]($id(id) ++ $doc(F.email $exists false))
+
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: UserId, totp: TotpSecret): Funit =
@@ -410,8 +412,6 @@ final class UserRepo(val coll: Coll)(using Executor):
           id    <- doc.getAsOpt[UserId](F.id)
         yield id -> email
       .dmap(_.toMap)
-
-  def hasEmail(id: UserId): Fu[Boolean] = email(id).dmap(_.isDefined)
 
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
