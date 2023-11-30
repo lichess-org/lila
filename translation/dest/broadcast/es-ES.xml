@@ -8,6 +8,9 @@
   </plurals>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
+  <string name="aboutBroadcasts">Sobre las retransmisiones</string>
+  <string name="noRoundsYet">Aún no hay rondas.</string>
+  <string name="howToUseLichessBroadcasts">Como utilizar las retransmisiones de Lichess.</string>
   <string name="addRound">Añadir una ronda</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Próximamente</string>
@@ -35,4 +38,7 @@
   <string name="editRoundStudy">Editar estudio de ronda</string>
   <string name="deleteTournament">Elimina este torneo</string>
   <string name="definitivelyDeleteTournament">Elimina definitivamente todo el torneo, rondas y partidas incluidas.</string>
+  <string name="replace">Opcional: reemplazar nombres de jugadores, puntuaciones y títulos</string>
+  <string name="periodInSeconds">Período en segundos</string>
+  <string name="periodInSecondsHelp">Opcional, cuánto tiempo esperar entre peticiones. Mín. 2s, máx. 60s. Por defecto es automático basado en el número de espectadores.</string>
 </resources>
