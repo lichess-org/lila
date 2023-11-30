@@ -19,7 +19,7 @@
   "homepage": "https://lichess.org",
   "engines": {
     "node": ">=14",
-    "pnpm": "^8.6"
+    "pnpm": "^8.7"
   },
   "lint-staged": {
     "*.{js,ts,md,json,scss}": "prettier --write"
@@ -35,7 +35,7 @@
     "chessground": "^9.0.4",
     "eslint": "^8.54.0",
     "lint-staged": "^15.1.0",
-    "prettier": "^3.0.2",
+    "prettier": "3.0.2",
     "typescript": "^5.2.2"
   },
   "scripts": {

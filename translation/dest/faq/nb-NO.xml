@@ -143,4 +143,28 @@ Det beste er å se på ratinger som \"relative\" tall (i motsetning til \"absolu
 Klikk på hengelåsikonet ved siden av lichess.org-adressen i nettleserens URL-felt.
 
 Avgjør så om du vil tillate eller blokkere varsler fra Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Godtar du autoavspilling av lyder?</string>
+  <string name="enableAutoplayForSoundsA">De fleste nettleserne kan hindre lyd fra å spille av på en nylig lastet side for å beskytte brukerne. Tenk deg hvis hver nettside umiddelbart kunne bombardere deg med lydreklamer.
+
+Det røde mute-ikonet vises når nettleseren din forhindrer lichess.org fra å spille av en lyd. Vanligvis oppheves denne begrensningen når du klikker på noe. På enkelte mobile nettlesere teller ikke å dra en brikke som et klikk. I så fall må du trykke på brettet for å tillate lyd ved starten av hvert spill.
+
+Vi viser det røde ikonet for å varsle deg når dette skjer. Ofte kan du eksplisitt tillate lichess.org å spille av lyder. Her er instruksjoner for å gjøre dette på nyere versjoner av noen populære nettlesere.</string>
+  <string name="desktop">skrivebord</string>
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gå til lichess.org
+2. Trykk Ctrl-i på Linux/Windows eller cmd-i på MacOS
+3. Klikk på fanen for tillatelser
+4. Tillat lyd og video for lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
+2. Klikk på hengelåsikonet i adresselinjen
+3. Klikk på nettstedsinnstillinger
+4. Tillat lyd</string>
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
+2. Klikk på Safari i menylinjen
+3. Klikk på Innstillinger for lichess.org ...
+4. Tillat all automatisk avspilling</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klikk på de tre prikkene i øverste høyre hjørne
+2. Klikk på Innstillinger
+3. Klikk på Informasjonskapsler og nettstedstillatelser
+4. Rull ned og klikk på Automatisk avspilling av medier
+5. Legg til lichess.org under Tillat</string>
 </resources>

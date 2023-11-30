@@ -11,16 +11,20 @@ export interface DbInfo {
   upgrade?: (e: IDBVersionChangeEvent, store?: IDBObjectStore) => void;
 }
 
-export interface ObjectStorage<V> {
-  get(key: string): Promise<V>;
-  put(key: string, value: V): Promise<string>; // returns key
-  count(key: string): Promise<number>;
-  remove(key: string): Promise<void>;
+export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
+  list(): Promise<K[]>;
+  get(key: K): Promise<V>;
+  getMany(keys?: IDBKeyRange): Promise<V[]>;
+  put(key: K, value: V): Promise<K>; // returns key
+  count(key?: K | IDBKeyRange): Promise<number>;
+  remove(key: K | IDBKeyRange): Promise<void>;
   clear(): Promise<void>; // remove all
   txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
 }
 
-export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>> {
+export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
+  dbInfo: DbInfo,
+): Promise<ObjectStorage<V, K>> {
   const db = await dbConnect(dbInfo);
 
   function objectStore(mode: IDBTransactionMode) {
@@ -36,24 +40,14 @@ export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>
   }
 
   return {
-    get(key: string) {
-      return actionPromise<V>(() => objectStore('readonly').get(key));
-    },
-    put(key: string, value: V) {
-      return actionPromise<string>(() => objectStore('readwrite').put(value, key));
-    },
-    count(key: string) {
-      return actionPromise<number>(() => objectStore('readonly').count(key));
-    },
-    remove(key: string) {
-      return actionPromise<void>(() => objectStore('readwrite').delete(key));
-    },
-    clear() {
-      return actionPromise<void>(() => objectStore('readwrite').clear());
-    },
-    txn(mode: IDBTransactionMode) {
-      return db.transaction(dbInfo.store, mode);
-    },
+    list: () => actionPromise<K[]>(() => objectStore('readonly').getAllKeys()),
+    get: (key: K) => actionPromise<V>(() => objectStore('readonly').get(key)),
+    getMany: (keys?: IDBKeyRange) => actionPromise<V[]>(() => objectStore('readonly').getAll(keys)),
+    put: (key: K, value: V) => actionPromise<K>(() => objectStore('readwrite').put(value, key)),
+    count: (key?: K | IDBKeyRange) => actionPromise<number>(() => objectStore('readonly').count(key)),
+    remove: (key: K | IDBKeyRange) => actionPromise<void>(() => objectStore('readwrite').delete(key)),
+    clear: () => actionPromise<void>(() => objectStore('readwrite').clear()),
+    txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
   };
 }
 

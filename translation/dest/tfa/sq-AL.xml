@@ -7,12 +7,11 @@
   <string name="enterPassword">Që të plotësohet ujdisja, jepni fjalëkalimin tuaj dhe kodin e mirëfilltësimit të prodhuar nga aplikacioni. Do t’ju duhet një kod mirëfilltësimi sa herë që bëni hyrjen në Lichess.</string>
   <string name="ifYouCannotScanEnterX">Nëse nuk skanoni dot kodin, jepni të fshehtën %s në aplikacionin tuaj.</string>
   <string name="authenticationCode">Kod mirëfilltësimi</string>
-  <string name="ifYouLoseAccess">Shënim: Nëse humbni hyrje te kodet tuaj të mirëfilltësimit dyfaktorësh, mund të kryeni një ricaktim fjalëkalimi përmes email-i.</string>
+  <string name="ifYouLoseAccessTwoFactor">Shënim: Nëse humbni mundësinë e përdorimit të kodeve tuaj të mirëfilltësimit dyfaktorësh, mund të bën një %s përmes email-i.</string>
   <string name="enableTwoFactor">Aktivizo mirëfilltësim dyfaktorësh</string>
   <string name="disableTwoFactor">Çaktivizo mirëfilltësim dyfaktorësh</string>
   <string name="twoFactorEnabled">Mirëfilltësimi dyfaktorësh u aktivizua</string>
-  <string name="twoFactorDisable">Që të çaktivizoni mirëfilltësim dyfaktorësh, ju duhet fjalëkalimi juaj dhe një kod mirëfilltësimi.
-Nëse humbët hyrjen te kodet tuaj të mirëfilltësimit, mundeni edhe të kryeni një ricaktim fjalëkalimi përmes email-i.</string>
+  <string name="twoFactorToDisable">Që të çaktivizoni mirëfilltësim dyfaktorësh, ju duhet fjalëkalimi juaj dhe një kod mirëfilltësimi nga aplikacioni juaj për mirëfilltësime.</string>
   <string name="openTwoFactorApp">Që të shihni kodin tuaj të mirëfilltësimit dhe të verifikoni identitetin tuaj, hapni aplikacionin për mirëfilltësim dyfaktorësh në pajisjen tuaj.</string>
   <string name="setupReminder">Ju lutemi, aktivizioni mirëfilltësimin dyfaktorësh që ta bëni të siguruar llogarinë tuaj, te https://lichess.org/account/twofactor.
 Këtë mesazh e morët sepse llogaria juaj ka përgjegjësi të veçanta, bie fjala, drejtues ekipi, trajner, mësues ose transmetues</string>

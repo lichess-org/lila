@@ -37,7 +37,7 @@ export default class CurrentPuzzle {
     let prevSan = '';
     if (prev) {
       const index = prev !== this ? prev.line.length - 1 : this.moveIndex - 1;
-      prevSan = san.makeSan(prev.position(index), parseUci(prev.line[index])!);
+      if (index > -1) prevSan = san.makeSan(prev.position(index), parseUci(prev.line[index])!);
     }
     const currSan = san.makeSan(
       this.position(this.moveIndex),

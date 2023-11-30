@@ -453,6 +453,7 @@
   <string name="movesPlayed">総手数</string>
   <string name="whiteWins">白勝ち</string>
   <string name="blackWins">黒勝ち</string>
+  <string name="drawRate">ドロー率</string>
   <string name="draws">ドロー</string>
   <string name="nextXTournament">次の %s トーナメント:</string>
   <string name="averageOpponent">対局相手の平均</string>
@@ -473,6 +474,8 @@
   <string name="editProfile">プロフィールの編集</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
+  <string name="setFlair">フレアを設定：</string>
+  <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
   <string name="biography">自己紹介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域</string>
   <string name="thankYou">ありがとう！</string>

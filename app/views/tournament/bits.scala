@@ -81,7 +81,7 @@ object bits:
     trans.movesPlayed,
     trans.whiteWins,
     trans.blackWins,
-    trans.draws,
+    trans.drawRate,
     trans.nextXTournament,
     trans.averageOpponent,
     trans.tournamentEntryCode

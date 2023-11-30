@@ -28,7 +28,7 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
-    mobileSocket: RoundMobileSocket,
+    mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
 )(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
 
@@ -42,14 +42,12 @@ final class RoundSocket(
       Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
-    rounds.getOrMake(gameId).getGame addEffect { g =>
+    rounds.getOrMake(gameId).getGame addEffect: g =>
       if g.isEmpty then finishRound(gameId)
-    }
+
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
-    gameIds
-      .map: id =>
-        rounds.getOrMake(id).getGame dmap { id -> _ }
-      .parallel
+    gameIds.traverse: id =>
+      rounds.getOrMake(id).getGame dmap { id -> _ }
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
@@ -60,6 +58,9 @@ final class RoundSocket(
   // update the proxied game
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId).so(_ updateGame f)
+
+  def statusIfPresent(gameId: GameId): Fu[Option[SocketStatus]] =
+    rounds.askIfPresent[SocketStatus](gameId)(GetSocketStatus.apply)
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
@@ -136,7 +137,7 @@ final class RoundSocket(
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.json(game.game, game.socket, anyId)
+        data <- mobileSocket.json(game.game, anyId, game.socket.some)
       yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
@@ -159,7 +160,7 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) andDo send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame"):
+  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame", "roundUnplayed"):
     case TvSelect(gameId, speed, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
@@ -173,13 +174,12 @@ final class RoundSocket(
     case Exists(gameId, promise)    => promise success rounds.exists(GameId(gameId))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
-      }
     case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
-      }
+    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>

@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">यह शतरंज पर ध्यान केंद्रित करने में मदद करने के लिए वेबसाइट से सभी रेटिंग छिपाने की अनुमति देता है। खेलों को अभी भी रेट किया जा सकता है, यह केवल इस बारे में है कि आपको क्या देखने को मिलता है।</string>
   <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
   <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">केवल खेल में</string>
+  <string name="inGameOnly">केवल खेल में</string>
   <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
   <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>

@@ -485,6 +485,7 @@
   <string name="movesPlayed">Drag spelade</string>
   <string name="whiteWins">Vinster Vit</string>
   <string name="blackWins">Vinster Svart</string>
+  <string name="drawRate">Gräns för remi</string>
   <string name="draws">Remier</string>
   <string name="nextXTournament">Nästa %s turnering:</string>
   <string name="averageOpponent">Genomsnittlig motståndare</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
+  <string name="setFlair">Ställ in din ikon:</string>
+  <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarikoner över hela webbplatsen.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tack!</string>
@@ -686,6 +689,7 @@
   <string name="keyboardShortcuts">Snabbkommandon</string>
   <string name="keyMoveBackwardOrForward">bakåtdrag/framåtdrag</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
+  <string name="keyCycleSelectedVariation">Cykla vald variant</string>
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
   <string name="keyRequestComputerAnalysis">Begär datoranalys, lär av dina misstag</string>
@@ -695,6 +699,11 @@
   <string name="keyNextInaccuracy">Nästa felaktighet</string>
   <string name="keyPreviousBranch">Föregående gren</string>
   <string name="keyNextBranch">Nästa gren</string>
+  <string name="toggleVariationArrows">Växla variationspilar</string>
+  <string name="cyclePreviousOrNextVariation">Cykla föregående/nästa variant</string>
+  <string name="toggleGlyphAnnotations">Växla glyph-anteckningar</string>
+  <string name="variationArrowsInfo">Variationspilar låter dig navigera utan att använda draglistan.</string>
+  <string name="playSelectedMove">spela markerat drag</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
   <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
@@ -974,4 +983,5 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
   <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
   <string name="instructions">Instruktioner</string>
+  <string name="showMeEverything">Visa mig allt</string>
 </resources>

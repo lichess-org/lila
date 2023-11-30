@@ -30,10 +30,6 @@
     <item quantity="other">%s vuoden kuluttua</item>
   </plurals>
   <string name="rightNow">juuri nyt</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekunti sitten</item>
-    <item quantity="other">%s sekuntia sitten</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minuutti sitten</item>
     <item quantity="other">%s minuuttia sitten</item>

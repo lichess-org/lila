@@ -37,11 +37,6 @@
     <item quantity="other">pēc %s gadiem</item>
   </plurals>
   <string name="rightNow">tieši tagad</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="zero">pirms %s sekundēm</item>
-    <item quantity="one">pirms %s sekundes</item>
-    <item quantity="other">pirms %s sekundēm</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="zero">pirms %s minūtēm</item>
     <item quantity="one">pirms %s minūtes</item>

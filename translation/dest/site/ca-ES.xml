@@ -485,6 +485,7 @@
   <string name="movesPlayed">Moviments jugats</string>
   <string name="whiteWins">Victòries blanques</string>
   <string name="blackWins">Victòries negres</string>
+  <string name="drawRate">Percentatge de taules</string>
   <string name="draws">Entaulades</string>
   <string name="nextXTournament">Proper torneig de %s:</string>
   <string name="averageOpponent">Oponent mitjà</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
+  <string name="setFlair">Defineix el teu estil:</string>
+  <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o regió</string>
   <string name="thankYou">Gràcies!</string>
@@ -686,6 +689,7 @@
   <string name="keyboardShortcuts">Dreceres del teclat</string>
   <string name="keyMoveBackwardOrForward">moure enrere/davant</string>
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
+  <string name="keyCycleSelectedVariation">Canvia la variació seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
   <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
@@ -693,6 +697,13 @@
   <string name="keyNextBlunder">Següent errada</string>
   <string name="keyNextMistake">Següent errada greu</string>
   <string name="keyNextInaccuracy">Següent imprecisió</string>
+  <string name="keyPreviousBranch">Branca anterior</string>
+  <string name="keyNextBranch">Branca següent</string>
+  <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>
+  <string name="cyclePreviousOrNextVariation">Canvia la variació següent/anterior</string>
+  <string name="toggleGlyphAnnotations">Mostra/amaga les anotacions glif</string>
+  <string name="variationArrowsInfo">Les fletxes de variants et permeten navegar sense utilitzar la llista de moviments.</string>
+  <string name="playSelectedMove">juga el moviment seleccionat</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
@@ -972,4 +983,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
   <string name="instructions">Instruccions</string>
+  <string name="showMeEverything">Mostrar tot</string>
 </resources>

@@ -55,7 +55,7 @@
   <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Atlanan bulmaca</string>
   <string name="thisWeek">Bu hafta</string>
   <string name="thisMonth">Bu ay</string>
-  <string name="allTime">Hep</string>
+  <string name="allTime">Rekor</string>
   <string name="clickToReload">Tekrar yüklemek için tıkla</string>
   <string name="thisRunHasExpired">Bu çalışmanın süresi doldu!</string>
   <string name="thisRunWasOpenedInAnotherTab">Bu çalışma başka sekmede açılmış!</string>

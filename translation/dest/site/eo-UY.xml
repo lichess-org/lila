@@ -484,6 +484,7 @@
   <string name="movesPlayed">Moviĝoj luditaj</string>
   <string name="whiteWins">Blankaj venkoj</string>
   <string name="blackWins">Nigraj venkoj</string>
+  <string name="drawRate">Procento de egalvenkoj</string>
   <string name="draws">Egalvenkoj</string>
   <string name="nextXTournament">Proksima %s turniro:</string>
   <string name="averageOpponent">Mezuma kontraŭulo</string>

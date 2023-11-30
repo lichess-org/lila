@@ -51,14 +51,13 @@
 
     .color,
     .user-link {
+      display: inline-block;
       font-weight: bold;
       padding: 0;
       color: $c-font-dim;
       letter-spacing: -1px;
       padding-#{$end-direction}: 0.4em;
-      max-width: 120px;
       text-overflow: ellipsis;
-      display: inline-block;
       vertical-align: bottom;
     }
 

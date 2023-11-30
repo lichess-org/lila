@@ -461,7 +461,7 @@
   <string name="advancedSettings">Axustes avanzados</string>
   <string name="safeTournamentName">Escolle un nome seguro para o torneo.</string>
   <string name="inappropriateNameWarning">Calquera comportamento minimamente inadecuado podería levar ao peche da túa conta.</string>
-  <string name="emptyTournamentName">Deixar en branco para poñerlle ó torneo o nome dun Grande Mestre notable.</string>
+  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Deixar en branco para poñerlle ó torneo o nome dun Grande Mestre notable.</string>
   <string name="recommendNotTouching">Non recomendamos cambiar estes axustes.</string>
   <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
   <string name="showAdvancedSettings">Amosar axustes avanzados</string>
@@ -485,6 +485,7 @@
   <string name="movesPlayed">Movementos xogados</string>
   <string name="whiteWins">Vitorias das brancas</string>
   <string name="blackWins">Vitorias das negras</string>
+  <string name="drawRate">Taxa de táboas</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
+  <string name="setFlair">Escolle a túa habelencia:</string>
+  <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
   <string name="thankYou">Grazas!</string>
@@ -525,7 +528,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticamente á seguinte partida despois de mover</string>
   <string name="autoSwitch">Auto-cambio</string>
   <string name="puzzles">Problemas</string>
-  <string name="tournamentWinners">Gañadores do torneo</string>
+  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate">Descrición privada</string>
@@ -604,7 +607,7 @@
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s xogador bloqueado</item>
-    <item quantity="other">%s bloqueos</item>
+    <item quantity="other">%s xogadores bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Listar os xogadores que bloqueaches</string>
   <string name="human">Humano</string>

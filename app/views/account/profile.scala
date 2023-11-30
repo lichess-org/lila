@@ -35,7 +35,7 @@ object profile:
               frag(
                 details(cls := "form-control emoji-details")(
                   summary(cls := "button button-metal button-no-upper")(
-                    "Set your flair: ",
+                    trans.setFlair(),
                     userSpan(u, withPowerTip = false)
                   ),
                   form3.hidden(f, u.flair.map(_.value)),
@@ -52,7 +52,7 @@ object profile:
                     cls      := "text",
                     dataIcon := licon.InfoCircle
                   ):
-                    "There is a setting to hide all user flairs across the entire site."
+                    trans.youCanHideFlair()
                 )
               )
           ),

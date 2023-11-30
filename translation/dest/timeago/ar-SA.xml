@@ -58,14 +58,6 @@
     <item quantity="other">خلال %s سنة</item>
   </plurals>
   <string name="rightNow">حاليا</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="zero">منذ %s ثوان مضت</item>
-    <item quantity="one">منذ %s ثوان مضت</item>
-    <item quantity="two">منذ %s ثوان مضت</item>
-    <item quantity="few">منذ %s ثوان مضت</item>
-    <item quantity="many">منذ %s ثوان مضت</item>
-    <item quantity="other">منذ %s ثوان مضت</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="zero">منذ %s دقيقة/دقائق مضت</item>
     <item quantity="one">منذ %s دقيقة/دقائق مضت</item>
