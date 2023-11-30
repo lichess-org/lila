@@ -17,7 +17,19 @@
   <string name="mostPopular">மிகவும் பிரபலமானவை</string>
   <string name="alphabetical">அகரவரிசைப்படி</string>
   <string name="addNewChapter">புதிய அத்தியாயத்தைச் சேர்க்க</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s அத்தியாயம்</item>
+    <item quantity="other">%s அத்தியாயங்கள்</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s விளையாட்டு</item>
+    <item quantity="other">%s விளையாட்டுக்கள்</item>
+  </plurals>
   <string name="addMembers">உறுப்பினர்களை இணைக்க</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s உறுப்பினர்</item>
+    <item quantity="other">%s உறுப்பினர்கள்</item>
+  </plurals>
   <string name="inviteToTheStudy">கற்கைக்கான அழைப்பு</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">உங்களுக்குத் தெரிந்த, இந்தக் கற்கையை ஊக்கத்துடன் கற்க விரும்புபவர்களை மட்டுமே அழையுங்கள்.</string>
   <string name="searchByUsername">பயனர்பெயரில் தேட</string>
@@ -36,6 +48,7 @@
   <string name="annotateWithGlyphs">காய்களின் குறியீட்டுடன் சிறுகுறிப்புக்கள்</string>
   <string name="theChapterIsTooShortToBeAnalysed">நகர்வுகள் குறைவாக உள்ளதால் இந்த அத்தியாயத்தைப் பகுப்பாய்வு செய்ய இயலாதுள்ளது.</string>
   <string name="onlyContributorsCanRequestAnalysis">இந்தக் கற்கையில் பங்களிப்பவர் மட்டுமே கணினிப் பகுப்பாய்வைக் கோரலாம்.</string>
+  <string name="getAFullComputerAnalysis">முதன்மை வரியின் முழு கணினி பகுப்பாய்வைச் சேவை வழங்கியிடமிருந்து பெறலாம்.</string>
   <string name="makeSureTheChapterIsComplete">இந்த அத்தியாயம் முடிவடைந்ததும், நீங்கள் பகுப்பாய்வை ஒருமுறை கோரலாம்.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">அனைத்து SYNC உறுப்பினர்களும் ஒரே நிலையில் உள்ளனர்</string>
   <string name="shareChanges">பார்வையாளர்களுடன் மாற்றங்களைப் பகிர்ந்து அவற்றைச் சேவையகத்தில் சேமிக்கவும்</string>
@@ -89,6 +102,12 @@
   <string name="loadAPositionFromFen">FEN இலிருந்து ஒரு நிலையை ஏற்றவும்</string>
   <string name="loadAGameFromPgn">PGN இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="automatic">தானியங்கி</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">%s ஆட்டம்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
+    <item quantity="other">%s ஆட்டங்கள்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
+  </plurals>
+  <string name="urlOfTheGame">ஆட்டங்களின் URL, ஒரு வரிக்கு ஒன்று</string>
+  <string name="loadAGameFromXOrY">%1$s அல்லது %2$s இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="createChapter">அத்தியாயத்தை உருவாக்கவும்</string>
   <string name="createStudy">படிப்பை உருவாக்குங்கள்</string>
   <string name="editStudy">படிப்பைத் திருத்தவும்</string>
@@ -144,5 +163,8 @@
   <string name="myTopics">எனது தலைப்புகள்</string>
   <string name="popularTopics">பிரபலமான தலைப்புகள்</string>
   <string name="manageTopics">தலைப்புகளை நிர்வகிக்கவும்</string>
+  <string name="back">பின்செல்</string>
   <string name="playAgain">மீண்டும் விளையாட</string>
+  <string name="whatWouldYouPlay">இந்த நிலையில் நீங்கள் என்ன விளையாடுவீர்கள்?</string>
+  <string name="youCompletedThisLesson">வாழ்த்துகள்! இந்தப் பாடத்தை முடித்துவிட்டீர்கள்.</string>
 </resources>
