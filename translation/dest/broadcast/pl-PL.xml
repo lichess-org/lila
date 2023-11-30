@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Transmisje</string>
   <string name="myBroadcasts">Moje transmisje</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s transmisja</item>
     <item quantity="few">%s transmisje</item>
     <item quantity="many">%s transmisji</item>
