@@ -17,7 +17,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status?: EngineNotifier,
-    readonly variantMap?: (v: string) => string,
+    readonly variantMap?: (v: VariantKey) => string,
   ) {
     super(info);
     this.protocol = new Protocol(variantMap);
@@ -58,9 +58,9 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
         .then(resolve)
         .catch(reject);
     });
-    if (!this.info.id.endsWith('hce')) {
+    if (this.info.tech === 'NNUE') {
       const nnueStore = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
-      const nnueFilename = module.getRecommendedNnue();
+      const nnueFilename = this.info.assets.nnue ?? module.getRecommendedNnue();
 
       module.onError = (msg: string) => {
         if (msg.startsWith('BAD_NNUE')) {
@@ -95,6 +95,12 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
         });
         this.status?.();
         nnueStore?.put(nnueFilename, nnueBuffer!).catch(() => console.warn('IDB store failed'));
+      }
+      if (this.info.variants?.length === 1) {
+        const variant = this.info.variants[0].toLowerCase();
+        module.postMessage(
+          `setoption name UCI_Variant value ${variant === 'threecheck' ? '3check' : variant}`,
+        );
       }
       module.setNnueBuffer(nnueBuffer!);
     }

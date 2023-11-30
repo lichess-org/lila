@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Това позволява скриването на всички рейтинги от уебсайта за да можете да се фокусирате само на шахмата. Игрите все още може да са с рейтинг; тази настройка променя само това което виждате.</string>
   <string name="displayBoardResizeHandle">Показване на инструмента за промяна на размера на дъската</string>
   <string name="onlyOnInitialPosition">Само в началната позиция</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Само по време на игра</string>
+  <string name="inGameOnly">Само по време на игра</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
   <string name="chessClock">Шахматен часовник</string>
   <string name="tenthsOfSeconds">Десети от секундата</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Преместване на царя с две полета</string>
   <string name="castleByMovingOntoTheRook">Преместване на царя върху топа</string>
   <string name="inputMovesWithTheKeyboard">Въвеждане на ходове с клавиатурата</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Избирайте ходове с гласа си</string>
+  <string name="inputMovesWithVoice">Избирайте ходове с гласа си</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Ограничи стрелките да показват само допустими ходове</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Изпратете в чата \"Good game, well played\" след загуба или реми</string>
   <string name="yourPreferencesHaveBeenSaved">Вашите предпочитания бяха записани.</string>

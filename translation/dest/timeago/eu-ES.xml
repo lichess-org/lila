@@ -30,10 +30,6 @@
     <item quantity="other">%s urtetan</item>
   </plurals>
   <string name="rightNow">orain</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">orain dela segundo %s</item>
-    <item quantity="other">orain dela %s segundo</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">orain dela minutu %s</item>
     <item quantity="other">orain dela %s minutu</item>

@@ -135,7 +135,7 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    if (location.hash === '#debug') lichess.log.diagnostic();
+    if (location.hash === '#debug') lichess.loadEsm('diagnostic');
 
     if (location.hash === '#blind' && !lichess.blindMode)
       xhr

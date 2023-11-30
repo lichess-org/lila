@@ -30,10 +30,6 @@
     <item quantity="other">%s aasta pärast</item>
   </plurals>
   <string name="rightNow">praegu</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekund tagasi</item>
-    <item quantity="other">%s sekundit tagasi</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minut tagasi</item>
     <item quantity="other">%s minutit tagasi</item>

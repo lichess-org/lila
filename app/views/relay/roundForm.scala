@@ -23,10 +23,9 @@ object roundForm:
   def edit(rt: RelayRound.WithTour, form: Form[Data])(using PageContext) =
     layout(rt.fullName)(
       boxTop(
-        h1(
-          "Edit ",
+        h1(dataIcon := licon.Pencil, cls := "text")(
           a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
-          " > ",
+          " • ",
           a(href := rt.path)(rt.round.name)
         )
       ),
@@ -53,9 +52,8 @@ object roundForm:
       title = title,
       moreCss = cssTag("relay.form"),
       moreJs = jsModule("flatpickr")
-    )(
+    ):
       main(cls := "page-small box box-pad")(body)
-    )
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
       ctx: PageContext
@@ -65,7 +63,7 @@ object roundForm:
       div(cls := "form-group")(
         bits.howToUse,
         create option p(dataIcon := licon.InfoCircle, cls := "text")(
-          "The new round will have the same members and contributors as the previous one."
+          theNewRoundHelp()
         )
       ),
       form3.globalError(form),
@@ -97,10 +95,8 @@ object roundForm:
         )(form3.flatpickr(_, minDate = None)),
         form3.checkbox(
           form("finished"),
-          raw("Completed"),
-          help = raw(
-            "Lichess detects round completion based on the source games. Use this toggle if there is no source."
-          ).some,
+          completed(),
+          help = completedHelp().some,
           half = true
         )
       ),
@@ -118,10 +114,8 @@ object roundForm:
         isGranted(_.Relay) option
           form3.group(
             form("period"),
-            raw("Period in seconds"),
-            help = raw(
-              "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
-            ).some,
+            periodInSeconds(),
+            help = periodInSecondsHelp().some,
             half = true
           )(form3.input(_, typ = "number"))
       ),

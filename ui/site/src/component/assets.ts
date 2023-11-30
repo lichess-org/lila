@@ -8,8 +8,7 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 
-export const flairSrc = (flair: Flair) =>
-  lichess.assetUrl(`lifat/flair/img/${flair}.webp`, { noVersion: true });
+export const flairSrc = (flair: Flair) => lichess.assetUrl(`flair/img/${flair}.webp`, { noVersion: true });
 
 const loadedCss = new Map<string, Promise<void>>();
 export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> => {

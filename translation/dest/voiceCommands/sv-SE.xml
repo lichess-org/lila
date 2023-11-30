@@ -2,5 +2,17 @@
 <resources>
   <string name="voiceCommands">Röstkommandon</string>
   <string name="watchTheVideoTutorial">Titta på videoinstruktionen</string>
+  <string name="instructions4">Aktivera %s i bullriga omgivningar. Håll shift medan du talar kommandon när detta är på.</string>
+  <string name="instructions5">Använd det fonetiska alfabetet för att förbättra igenkänningen av schackfiler. </string>
+  <string name="instructions6">%s förklarar inställningarna för röstflyttning i detalj.</string>
   <string name="thisBlogPost">Det här blogginlägget</string>
+  <string name="moveToE4OrSelectE4Piece">Flytta till e4 eller välj e4 bit</string>
+  <string name="selectOrCaptureABishop">Välj eller fånga en löpare</string>
+  <string name="takeRookWithQueen">Ta torn med drottning</string>
+  <string name="castle">Rockad (oavsett sida)</string>
+  <string name="phoneticAlphabetIsBest">Fonetiskt alfabet är bäst</string>
+  <string name="cancelTimerOrDenyARequest">Avbryt timer eller neka en begäran</string>
+  <string name="playPreferredMoveOrConfirmSomething">Spela föredraget drag eller bekräfta något</string>
+  <string name="turnOffVoiceRecognition">Stäng av röstigenkänning</string>
+  <string name="showPuzzleSolution">Visa pussellösning</string>
 </resources>

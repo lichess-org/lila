@@ -23,9 +23,6 @@
     <item quantity="other">ใน %s ปี</item>
   </plurals>
   <string name="rightNow">ตอนนี้</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">%s วินาทีที่แล้ว</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">%s นาทีที่แล้ว</item>
   </plurals>

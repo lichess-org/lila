@@ -56,7 +56,7 @@ object topnav:
             a(href := routes.Practice.index)(trans.practice()),
             a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
           ),
-          a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
+          a(href := langHref(routes.Study.allDefault()))(trans.studyMenu()),
           ctx.kid.no option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
           canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )

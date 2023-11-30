@@ -44,12 +44,6 @@
     <item quantity="other">за %s років</item>
   </plurals>
   <string name="rightNow">зараз</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s секунду тому</item>
-    <item quantity="few">%s секунди тому</item>
-    <item quantity="many">%s секунд тому</item>
-    <item quantity="other">%s секунд тому</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s хвилину тому</item>
     <item quantity="few">%s хвилини тому</item>

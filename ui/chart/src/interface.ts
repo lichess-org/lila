@@ -33,6 +33,7 @@ export interface AnalyseData {
     status: {
       name: string;
     };
+    startedAtTurn?: number;
   };
   analysis?: {
     partial: boolean;

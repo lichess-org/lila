@@ -44,12 +44,6 @@
     <item quantity="other">čez %s let</item>
   </plurals>
   <string name="rightNow">ta trenutek</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekundo nazaj</item>
-    <item quantity="two">pred %s sekundama</item>
-    <item quantity="few">pred %s sekundami</item>
-    <item quantity="other">pred %s sekundami</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">Pred %s minuto</item>
     <item quantity="two">Pred %s minutama</item>

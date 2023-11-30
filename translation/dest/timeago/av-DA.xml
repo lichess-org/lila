@@ -30,10 +30,6 @@
     <item quantity="other">%s соналдаса</item>
   </plurals>
   <string name="rightNow">гьабсагӀат</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s секундалъ цебе</item>
-    <item quantity="other">%s секундалъ цебе</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s минуталъ цебе</item>
     <item quantity="other">%s минуталъ цебе</item>

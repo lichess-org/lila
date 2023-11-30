@@ -41,7 +41,7 @@ object newPlayer:
         li(a(href := routes.Tournament.home)("Play in tournaments")),
         li(
           "Learn from ",
-          a(href := routes.Study.allDefault(1))("studies"),
+          a(href := routes.Study.allDefault())("studies"),
           " and ",
           a(href := routes.Video.index)("videos")
         ),

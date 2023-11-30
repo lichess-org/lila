@@ -177,9 +177,8 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       animations: animation(800 / labels.length - 1),
       scales: axisOpts(
         firstPly + 1,
-        // Make totalseries slightly smaller than moveseries to fill more of the canvas
         // Omit game-ending action to sync acpl and movetime charts
-        labels.length - (showTotal ? 2 : labels[labels.length - 1].includes('-') ? 1 : 0),
+        labels.length - (labels[labels.length - 1].includes('-') ? 1 : 0),
       ),
       plugins: {
         tooltip: {

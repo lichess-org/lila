@@ -70,6 +70,7 @@
   <string name="makeMainLine">Linea nagusi bihurtu</string>
   <string name="deleteFromHere">Ezabatu hemendik aurrera</string>
   <string name="forceVariation">Aldaera derrigortu</string>
+  <string name="copyVariationPgn">Kopiatu ingurabidearen PGNa</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -460,7 +461,7 @@
   <string name="advancedSettings">Ezarpen aurreratuak</string>
   <string name="safeTournamentName">Adeitasunezko izena hauta ezazu.</string>
   <string name="inappropriateNameWarning">Errespetua galduz gero, zure kontua itxiko dugu.</string>
-  <string name="emptyTournamentName">Ez baduzu betetzen, txapelketak Maisu Handi baten izena hartuko du, ausaz.</string>
+  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Ez baduzu betetzen, txapelketak Maisu Handi baten izena hartuko du, ausaz.</string>
   <string name="recommendNotTouching">Hobe ez ukitu hau.</string>
   <string name="fewerPlayers">Parte hartzeko baldintzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
   <string name="showAdvancedSettings">Ezarpen aurreratuak</string>
@@ -484,6 +485,7 @@
   <string name="movesPlayed">Egindako jokaldiak</string>
   <string name="whiteWins">Zurien irabaziak</string>
   <string name="blackWins">Beltzen irabaziak</string>
+  <string name="drawRate">Berdinketa-tasa</string>
   <string name="draws">Berdinketak</string>
   <string name="nextXTournament">Hurrengo %s txapelketa:</string>
   <string name="averageOpponent">Aurkarien batazbestekoa</string>
@@ -504,7 +506,10 @@
   <string name="editProfile">Nire profila editatu</string>
   <string name="firstName">Izena</string>
   <string name="lastName">Abizena</string>
+  <string name="setFlair">Ezarri zure iruditxoa:</string>
+  <string name="youCanHideFlair">Webgune guztian zehar erabiltzaile guztien iruditxoak ezkutatzeko ezarpen bat dago.</string>
   <string name="biography">Biografia</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Herrialdea</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>
@@ -523,7 +528,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Mugitu ondoren, hurrengo partidara joan</string>
   <string name="autoSwitch">Hurrengo partidara</string>
   <string name="puzzles">Ariketak</string>
-  <string name="tournamentWinners">Txapelketaren irabazleak</string>
+  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Txapelketaren irabazleak</string>
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
   <string name="descPrivate">Deskribapen pribatua</string>
@@ -656,8 +661,10 @@
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
   <string name="host">Sortzailea</string>
   <string name="hostColorX">Emango duenaren kolorea: %s</string>
+  <string name="yourPendingSimuls">Zain dituzun aldi bereko partidak</string>
   <string name="createdSimuls">Aldibereko partida sortuberriak</string>
   <string name="hostANewSimul">Aldibereko partida sortu</string>
+  <string name="signUpToHostOrJoinASimul">Eman izena aldibereko partida bat antolatu edo jokatzeko</string>
   <string name="noSimulFound">Aldibereko partida ez da aurkitu</string>
   <string name="noSimulExplanation">Aldibereko partida ez da existitzen</string>
   <string name="returnToSimulHomepage">Aldibereko partiden orrialdera itzuli</string>
@@ -682,6 +689,7 @@
   <string name="keyboardShortcuts">Tekla laguntzaileak</string>
   <string name="keyMoveBackwardOrForward">Aurrerantz edo atzerantz mugitu</string>
   <string name="keyGoToStartOrEnd">Hasierara edo azkenea joan</string>
+  <string name="keyCycleSelectedVariation">Aldatu aukeratutako ingurabideetan</string>
   <string name="keyShowOrHideComments">Iruzkinak erakutsi/ezkutatu</string>
   <string name="keyEnterOrExitVariation">Aldaerara sartu/atera</string>
   <string name="keyRequestComputerAnalysis">Ordenagailuaren analisia eskatu. Ikasi zure akatsak aztertuz</string>
@@ -689,6 +697,13 @@
   <string name="keyNextBlunder">Hurrengo hanka-sartzea</string>
   <string name="keyNextMistake">Hurrengo akatsa</string>
   <string name="keyNextInaccuracy">Hurrengo akats arina</string>
+  <string name="keyPreviousBranch">Aurreko adarra</string>
+  <string name="keyNextBranch">Hurrengo adarra</string>
+  <string name="toggleVariationArrows">Aktibatu/desaktibatu ingurabidearen geziak</string>
+  <string name="cyclePreviousOrNextVariation">Aldatu aurreko/hurrengo ingurabidean</string>
+  <string name="toggleGlyphAnnotations">Aktibatu/Desaktibatu ikur bidezko oharrak</string>
+  <string name="variationArrowsInfo">Ingurabidearen geziek jokaldi zerrenda erabili gabe nabigatzen uzten dute.</string>
+  <string name="playSelectedMove">jokatu aukeratutako jokaldia</string>
   <string name="newTournament">Txapelketa berria</string>
   <string name="tournamentHomeTitle">Xake-txapelketak, aldaera eta denbora-kontrol batzuekin.</string>
   <string name="tournamentHomeDescription">Txapelketa azkarrak jokatu! Txapelketa batetara sartu, edo zeurea sortu.  Bullet, Blitz, Klasikoa, Xake960, Erregeatontorrean, Hiruxake eta aukera  gehiago, xake dibertsio amaigabea lortzeko.</string>
@@ -966,4 +981,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="switchSides">Aldatu kolorea</string>
   <string name="closingAccountWithdrawAppeal">Kontua ixten baduzu, zure kexa bertan behera geldituko da</string>
   <string name="ourEventTips">Txapelketak antolatzeko gure aholkuak</string>
+  <string name="instructions">Jarraibideak</string>
+  <string name="showMeEverything">Erakutsi guztia</string>
 </resources>

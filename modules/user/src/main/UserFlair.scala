@@ -41,7 +41,7 @@ final class UserFlairApi(
 
   export lightUserApi.preloadMany
 
-  private def listUrl = s"$assetBaseUrlInternal/assets/lifat/flair/list.txt?v=${nowSeconds}"
+  private def listUrl = s"$assetBaseUrlInternal/assets/flair/list.txt?v=${nowSeconds}"
   private def refresh: Funit =
     ws.url(listUrl)
       .get()

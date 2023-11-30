@@ -66,6 +66,7 @@
   <string name="makeMainLine">దీనినే ప్రధాన శాఖగా మార్చండి</string>
   <string name="deleteFromHere">ఇక్కడినుంచి తీసివెయ్యండి</string>
   <string name="forceVariation">మీ శాఖను ప్రచారం చెయ్యండి</string>
+  <string name="copyVariationPgn">PGNని కాపీ చేయండి</string>
   <string name="move">జరుపు లేదా ఎత్తు వెయ్యండి</string>
   <string name="variantLoss">శాఖ ఓటమి</string>
   <string name="variantWin">శాఖ గెలుపు</string>
@@ -89,10 +90,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' రౌండింగ్‌తో, తదుపరి క్యాప్చర్ లేదా పాన్ మూవ్ వరకు సగం కదలికల సంఖ్య ఆధారంగా</string>
   <string name="noGameFound">ఆట దొరకలేదు</string>
+  <string name="maxDepthReached">గరిష్ట లోతు చేరుకుంది!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ఇష్టాయిష్టాల పట్టిక నుంచి మరిన్ని ఆటలను కలుపుకోవచ్చునేమో?</string>
+  <string name="openings">ఓపెనింగ్స్</string>
   <string name="openingExplorer">మొదటి ఎత్తుగడల పరిశీలన</string>
   <string name="openingEndgameExplorer">ఓపెనింగ్/ఎండ్ గేమ్ ఎక్స్‌ప్లోరర్</string>
   <string name="xOpeningExplorer">%s రకపు మొదటి ఎత్తుగడల పరిశీలన</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ప్లే ఫస్ట్ ఓపెనింగ్ / ఎండ్‌గేమ్ ఎక్స్‌ప్లోరర్ మూవ్</string>
   <string name="winPreventedBy50MoveRule">50 ఎత్తుగడల నియమం చేత గెలుపు భంగం</string>
   <string name="lossSavedBy50MoveRule">50 ఎత్తుగడల నియమం చేత ఓటమి నుంచి రక్షణ</string>
   <string name="winOr50MovesByPriorMistake">ముందుగా పొరపాటున విన్ లేదా 50 ఎత్తుగడలు</string>
@@ -108,12 +112,14 @@
   <string name="openStudy">అధ్యయనం లోకి వెళదాం</string>
   <string name="enable">కావాలి</string>
   <string name="bestMoveArrow">మంచి ఎత్తుగడకు దారి</string>
+  <string name="showVariationArrows">వైవిధ్య బాణాలను చూపు</string>
   <string name="evaluationGauge">అంచనా సూచిక</string>
   <string name="multipleLines">పలు శాఖలు</string>
   <string name="cpus">కేంద్రగణకయంత్రాలు</string>
   <string name="memory">జ్ఞాపకనిధి</string>
   <string name="infiniteAnalysis">అనంతమైన విశ్లేషణ</string>
   <string name="removesTheDepthLimit">లోతు నియతిని తీసివేసి, కంప్యూటర్ ను వెచ్చగా ఉంచుతుంది</string>
+  <string name="engineManager">ఇంజిన్ మేనేజర్</string>
   <string name="blunder">మహా తప్పు</string>
   <string name="mistake">తప్పు</string>
   <string name="inaccuracy">సరికాదు</string>
@@ -145,6 +151,7 @@
   <string name="viewInFullSize">పూర్తి పరిమాణంలో చూడండి</string>
   <string name="logOut">నిష్క్రమించండి</string>
   <string name="signIn">ప్రవేశించండి</string>
+  <string name="rememberMe">నన్ను లాగిన్ చేసి ఉంచు</string>
   <string name="youNeedAnAccountToDoThat">అది చెయ్యడానికి ఒక ఖాతా అవసరం</string>
   <string name="signUp">దరఖాస్తు</string>
   <string name="computersAreNotAllowedToPlay">కంప్యూటర్ గానీ కంప్యూటర్ ఆధారిత ఆటగాళలను కానీ మేము అనుమతించం. దయచేసి చేస్ ఎంజన్ల, డేటా బేసుల లేక ఇతర ఆటగాళల సహకారం పొందకండి. ఒకటి కంటె ఎక్కువ అకౌంట్లు వాడటం నిషేదం. ఎక్కువ అకౌంట్లు సృష్టించడం లేక వాడటం వంటి మరియు పైనా చెప్పిన పనులు చేస్తే తమ అకౌంట్ నిషేదించబడగలదని గమనించవలసిందిగా కోరుతున్నాం.</string>

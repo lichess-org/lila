@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">這允許隱藏本網站上的所有等級分，以輔助專心下棋。每局遊戲仍可以計算及改變等級分，這個設定只會影響到你是否看得到此分數。</string>
   <string name="displayBoardResizeHandle">顯示盤面大小調整區塊</string>
   <string name="onlyOnInitialPosition">只在起始局面</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">只在遊戲中</string>
+  <string name="inGameOnly">只在遊戲中</string>
   <string name="blindfoldChess">蒙眼象棋 (看不見棋子)</string>
   <string name="chessClock">棋鐘</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">移動國王兩格</string>
   <string name="castleByMovingOntoTheRook">移動國王到城堡上</string>
   <string name="inputMovesWithTheKeyboard">使用鍵盤輸入著法</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">用語音輸入著法</string>
+  <string name="inputMovesWithVoice">用語音輸入著法</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">將右鍵標示箭頭鎖定到合法棋步</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">輸棋或和棋後自動發送 \"Good game, well played\"。</string>
   <string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>

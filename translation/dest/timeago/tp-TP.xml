@@ -30,10 +30,6 @@
     <item quantity="other">lon tenpo sike kama %s</item>
   </plurals>
   <string name="rightNow">lon tenpo ni</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">lon tenpo Sekunta pini %s</item>
-    <item quantity="other">lon tenpo Sekunta pini %s</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">lon tenpo Minuta pini %s</item>
     <item quantity="other">lon tenpo Minuta pini %s</item>

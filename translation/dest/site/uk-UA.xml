@@ -552,6 +552,7 @@
   <string name="movesPlayed">Ходів зіграно</string>
   <string name="whiteWins">Перемог білими</string>
   <string name="blackWins">Перемог чорними</string>
+  <string name="drawRate">Шанс нічиєї</string>
   <string name="draws">Нічиїх</string>
   <string name="nextXTournament">Наступний турнір з %s:</string>
   <string name="averageOpponent">Середній рейтинг суперника</string>
@@ -572,6 +573,8 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
+  <string name="setFlair">Оберіть свій тотем:</string>
+  <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна чи область</string>
   <string name="thankYou">Дякуємо!</string>
@@ -768,6 +771,9 @@
   <string name="keyNextBlunder">Наступна груба помилка</string>
   <string name="keyNextMistake">Наступна помилка</string>
   <string name="keyNextInaccuracy">Наступна неточність</string>
+  <string name="keyPreviousBranch">Попередній варіант</string>
+  <string name="keyNextBranch">Наступний варіант</string>
+  <string name="toggleVariationArrows">Показати стрілки варіантів</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
   <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>

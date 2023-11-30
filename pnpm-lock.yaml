@@ -152,8 +152,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       lila-stockfish-web:
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: 0.0.3
+        version: 0.0.3
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -3693,8 +3693,8 @@ packages:
       snabbdom: 3.5.1
     dev: false
 
-  /lila-stockfish-web@0.0.2:
-    resolution: {integrity: sha512-P6EKiRHonxwRB7uPKnk4D3pD6/XwL/3H3bxVzYh1QvTa9DVDlXK/2zdVjLjvQ42cW2OaQc8Tk8PI6yf4mxs+Zw==}
+  /lila-stockfish-web@0.0.3:
+    resolution: {integrity: sha512-HyoLNUhA8wEFw4fJLhhz3FupPtntylz8e7ERmzOHEM0mJ4cznBaKHWjdA7QB/vY/egwRB4bvbTCKpVo9M+drUg==}
     dev: false
 
   /lilconfig@2.1.0:

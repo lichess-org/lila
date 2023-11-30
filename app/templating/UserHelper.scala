@@ -233,7 +233,7 @@ trait UserHelper extends HasEnv:
   def userFlair(flair: UserFlair): Tag =
     img(
       cls := "uflair",
-      src := staticAssetUrl(s"lifat/flair/img/$flair.webp")
+      src := staticAssetUrl(s"flair/img/$flair.webp")
     )
 
   private def renderRating(perf: Perf): Frag =
