@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Übertragungen</string>
   <string name="myBroadcasts">Meine Übertragungen</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s Übertragung</item>
     <item quantity="other">%s Übertragungen</item>
   </plurals>
