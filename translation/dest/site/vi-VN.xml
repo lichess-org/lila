@@ -430,7 +430,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="advancedSettings">Thiết lập nâng cao</string>
   <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
   <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
-  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Hãy để trống để lấy tên theo tên một người chơi đáng chú ý.</string>
+  <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một người chơi đáng chú ý.</string>
   <string name="recommendNotTouching">Chúng tôi khuyên bạn không nên thay đổi.</string>
   <string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
   <string name="showAdvancedSettings">Hiện thiết lập nâng cao</string>
@@ -496,7 +496,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
-  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Các nhà vô địch giải</string>
+  <string name="tournamentWinners">Các nhà vô địch giải</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
   <string name="descPrivate">Mô tả riêng tư</string>
