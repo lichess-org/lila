@@ -45,6 +45,7 @@ export interface ExternalEngineInfo extends EngineInfo {
 export interface BrowserEngineInfo extends EngineInfo {
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string };
+  obsoletedBy?: 'sharedMem' | 'wasm';
 }
 
 export type EngineNotifier = (status?: {
