@@ -78,7 +78,6 @@ interface LichessLog {
   (...args: any[]): Promise<void>;
   clear(): Promise<void>;
   get(): Promise<string>;
-  diagnostic(): Promise<void>;
 }
 
 type I18nDict = { [key: string]: string };
