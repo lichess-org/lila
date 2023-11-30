@@ -13,7 +13,6 @@
   <string name="howToUseLichessBroadcasts">How to use Lichess Broadcasts.</string>
   <string name="theNewRoundHelp">The new round will have the same members and contributors as the previous one.</string>
   <string name="addRound">Add a round</string>
-  <string name="editXInY" comment="%1$s is the name of the round. %2$s is the name of the broadcast.">Edit %1$s in %2$s</string>
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="completed">Completed</string>

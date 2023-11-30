@@ -1581,7 +1581,6 @@ object I18nKeys:
     val `howToUseLichessBroadcasts` = I18nKey("broadcast:howToUseLichessBroadcasts")
     val `theNewRoundHelp` = I18nKey("broadcast:theNewRoundHelp")
     val `addRound` = I18nKey("broadcast:addRound")
-    val `editXInY` = I18nKey("broadcast:editXInY")
     val `ongoing` = I18nKey("broadcast:ongoing")
     val `upcoming` = I18nKey("broadcast:upcoming")
     val `completed` = I18nKey("broadcast:completed")

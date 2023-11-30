@@ -27,10 +27,8 @@ object tourForm:
   def edit(t: RelayTour, form: Form[Data])(using PageContext) =
     layout(t.name, menu = none)(
       boxTop:
-        bits.broadcastH1(
-          "Edit ",
+        h1(dataIcon := licon.Pencil, cls := "text"):
           a(href := routes.RelayTour.show(t.slug, t.id))(t.name)
-        )
       ,
       postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
         inner(form),

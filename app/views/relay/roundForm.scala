@@ -23,10 +23,10 @@ object roundForm:
   def edit(rt: RelayRound.WithTour, form: Form[Data])(using PageContext) =
     layout(rt.fullName)(
       boxTop(
-        h1(
-          editXInY(
-          a(href := rt.path)(rt.round.name),
-          a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name))
+        h1(dataIcon := licon.Pencil, cls := "text")(
+          a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
+          " • ",
+          a(href := rt.path)(rt.round.name)
         )
       ),
       inner(form, routes.RelayRound.update(rt.round.id), rt.tour, create = false),
@@ -52,9 +52,8 @@ object roundForm:
       title = title,
       moreCss = cssTag("relay.form"),
       moreJs = jsModule("flatpickr")
-    )(
+    ):
       main(cls := "page-small box box-pad")(body)
-    )
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
       ctx: PageContext
