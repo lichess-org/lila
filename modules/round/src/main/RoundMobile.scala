@@ -5,15 +5,14 @@ import lila.game.{ Game, Pov, GameRepo }
 import lila.game.JsonView.given
 import lila.round.actorApi.SocketStatus
 import play.api.libs.json.{ Json, JsObject }
-import lila.common.{ Bus, Preload, ApiVersion }
+import lila.common.{ Bus, Preload, ApiVersion, LightUser }
 import lila.socket.Socket
-import lila.common.LightUser
 import lila.common.Json.given
 import chess.{ Color, ByColor }
 import lila.pref.Pref
 import lila.chat.Chat
 
-final private class RoundMobileSocket(
+final private class RoundMobile(
     lightUserGet: LightUser.Getter,
     gameRepo: GameRepo,
     jsonView: lila.game.JsonView,
@@ -26,15 +25,13 @@ final private class RoundMobileSocket(
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
 
-  def json(game: Game, socket: SocketStatus, id: GameAnyId): Fu[JsObject] = for
+  def json(game: Game, id: GameAnyId, socket: Option[SocketStatus]): Fu[JsObject] = for
     initialFen <- gameRepo.initialFen(game)
-    whiteUser  <- game.whitePlayer.userId.so(lightUserGet)
-    blackUser  <- game.blackPlayer.userId.so(lightUserGet)
-    users    = ByColor(whiteUser, blackUser)
     myPlayer = id.playerId.flatMap(game.player(_))
-    prefs        <- myPlayer.flatMap(_.userId).so(prefApi.getPrefById)
-    takebackable <- takebacker.isAllowedIn(game)
-    moretimeable <- moretimer.isAllowedIn(game)
+    users        <- game.userIdPair.traverse(_ so lightUserGet)
+    prefs        <- prefApi.byId(game.userIdPair)
+    takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
+    moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
     chat         <- getPlayerChat(game, myPlayer.exists(_.hasUser))
     chatLines    <- chat.map(_.chat) soFu lila.chat.JsonView.asyncLines
   yield
@@ -42,8 +39,8 @@ final private class RoundMobileSocket(
       val player = game player color
       jsonView
         .player(player, users(color))
-        .add("isGone" -> (game.forceDrawable && socket.isGone(player.color)))
-        .add("onGame" -> (player.isAi || socket.onGame(player.color)))
+        .add("isGone" -> (game.forceDrawable && socket.exists(_.isGone(player.color))))
+        .add("onGame" -> (player.isAi || socket.exists(_.onGame(player.color))))
     Json
       .obj(
         "game" -> {
@@ -53,7 +50,7 @@ final private class RoundMobileSocket(
         },
         "white"  -> playerJson(Color.White),
         "black"  -> playerJson(Color.Black),
-        "socket" -> socket.version
+        "socket" -> socket.so(_.version).value
       )
       .add("expiration" -> game.expirable.option:
         Json.obj(
@@ -66,7 +63,7 @@ final private class RoundMobileSocket(
       .add("takebackable" -> takebackable)
       .add("moretimeable" -> moretimeable)
       .add("youAre", myPlayer.map(_.color))
-      .add("prefs", prefs.map(prefsJson(game, _)))
+      .add("prefs", myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _)))
       .add(
         "chat",
         chat.map: c =>

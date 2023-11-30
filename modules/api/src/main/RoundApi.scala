@@ -34,6 +34,7 @@ final private[api] class RoundApi(
     externalEngineApi: lila.analyse.ExternalEngineApi,
     getTeamName: lila.team.GetTeamNameSync,
     userApi: lila.user.UserApi,
+    prefApi: lila.pref.PrefApi,
     getLightUser: lila.common.LightUser.GetterSync
 )(using Executor):
 
@@ -45,9 +46,10 @@ final private[api] class RoundApi(
     for
       initialFen <- gameRepo.initialFen(pov.game)
       users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
+      prefs      <- prefApi.get(users.map(_.map(_.user)))
       given Lang = ctx.lang
       (((((json, simul), swiss), note), forecast), bookmarked) <-
-        jsonView.playerJson(pov, ctx.pref.some, users, initialFen, ctxFlags) zip
+        jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
           (ctx.myId.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _))) zip

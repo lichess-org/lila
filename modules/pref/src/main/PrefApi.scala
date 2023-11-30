@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi.*
 import lila.user.User
+import chess.ByColor
 
 final class PrefApi(
     val coll: Coll,
@@ -36,9 +37,8 @@ final class PrefApi(
         .void andDo { cache invalidate user.id }
   } andDo { cache invalidate user.id }
 
-  def get(user: User): Fu[Pref] = cache get user.id dmap {
-    _ getOrElse Pref.create(user)
-  }
+  def get(user: User): Fu[Pref] = cache get user.id dmap:
+    _ | Pref.create(user)
 
   def get[A](user: User, pref: Pref => A): Fu[A] = get(user) dmap pref
 
@@ -52,8 +52,17 @@ final class PrefApi(
     case Some(u) => get(u) dmap RequestPref.queryParamOverride(req)
     case None    => fuccess(RequestPref.fromRequest(req))
 
+  def byId(userId: UserId): Fu[Pref] = cache get userId dmap:
+    _ | Pref.create(userId)
+
+  def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
+    both.traverse(_.fold(fuccess(Pref.default))(byId))
+
+  def get(both: ByColor[Option[User]]): Fu[ByColor[Pref]] =
+    both.traverse(_.fold(fuccess(Pref.default))(get))
+
   def followable(userId: UserId): Fu[Boolean] =
-    coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
+    coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
 
   private def unfollowableIds(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.secondaryPreferred.distinctEasy[UserId, Set](
@@ -65,9 +74,8 @@ final class PrefApi(
     unfollowableIds(userIds) map userIds.toSet.diff
 
   def followables(userIds: List[UserId]): Fu[List[Boolean]] =
-    followableIds(userIds) map { followables =>
+    followableIds(userIds).map: followables =>
       userIds map followables.contains
-    }
 
   private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     coll.secondaryPreferred.distinctEasy[UserId, Set](

@@ -1,14 +1,14 @@
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
+import { isTouchDevice } from 'common/device';
+import { domDialog } from 'common/dialog';
 
 /*
-
 lichess.log('hello', {foo: 'bar'}, 52);     // log stuff
 const everything = await lichess.log.get();  // get all log statements
 lichess.log.clear();                         // clear idb store
-
 */
 
-export function makeLog() {
+export default function makeLog(): AsyncLog {
   let store: ObjectStorage<string>;
   let resolveReady: () => void;
   let lastKey = Date.now();
@@ -71,13 +71,38 @@ export function makeLog() {
     return logs.join('\n');
   };
 
-  window.addEventListener('error', e => {
-    lichess.log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
-  });
-
-  window.addEventListener('unhandledrejection', e => {
-    lichess.log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
-  });
+  log.diagnostic = showDiagnostic;
 
   return log;
+}
+
+async function showDiagnostic() {
+  await lichess.loadCssPath('diagnostic');
+  const log = await lichess.log();
+  const logs = await log.get();
+  const text =
+    `User Agent: ${navigator.userAgent}\n` +
+    `Cores: ${navigator.hardwareConcurrency}\n` +
+    `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}\n` +
+    `Screen: ${window.screen.width}x${window.screen.height}\n` +
+    `Device Pixel Ratio: ${window.devicePixelRatio}\n` +
+    `Language: ${navigator.language}` +
+    (logs ? `\n\n${logs}` : '');
+
+  const dlg = await domDialog({
+    class: 'diagnostic',
+    htmlText:
+      `<h2>Diagnostics</h2><pre tabindex="0" class="err">${lichess.escapeHtml(text)}</pre>` +
+      (logs ? `<button class="clear button">Clear Logs</button>` : ''),
+  });
+  const select = () =>
+    setTimeout(() => {
+      const range = document.createRange();
+      range.selectNodeContents(dlg.view.querySelector('.err')!);
+      window.getSelection()?.removeAllRanges();
+      window.getSelection()?.addRange(range);
+    }, 0);
+  $('.err', dlg.view).on('focus', select);
+  $('.clear', dlg.view).on('click', () => log.clear().then(lichess.reload));
+  dlg.showModal();
 }

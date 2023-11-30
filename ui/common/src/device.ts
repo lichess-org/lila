@@ -1,6 +1,5 @@
 import { memoize } from './common';
 import { bind } from './snabbdom';
-import { domDialog } from './dialog';
 
 const longPressDuration = 610;
 
@@ -97,35 +96,6 @@ export const features = memoize<readonly Feature[]>(() => {
   }
   return Object.freeze(features);
 });
-
-export async function showDiagnostic() {
-  const logs = await lichess.log.get();
-  const text =
-    `User Agent: ${navigator.userAgent}\n` +
-    `Cores: ${navigator.hardwareConcurrency}\n` +
-    `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}\n` +
-    `Screen: ${window.screen.width}x${window.screen.height}\n` +
-    `Device Pixel Ratio: ${window.devicePixelRatio}\n` +
-    `Language: ${navigator.language}` +
-    (logs ? `\n\n${logs}` : '');
-
-  const dlg = await domDialog({
-    class: 'diagnostic',
-    htmlText:
-      `<h2>Diagnostics</h2><pre tabindex="0" class="err">${lichess.escapeHtml(text)}</pre>` +
-      (logs ? `<button class="clear button">Clear Logs</button>` : ''),
-  });
-  const select = () =>
-    setTimeout(() => {
-      const range = document.createRange();
-      range.selectNodeContents(dlg.view.querySelector('.err')!);
-      window.getSelection()?.removeAllRanges();
-      window.getSelection()?.addRange(range);
-    }, 0);
-  dlg.view.querySelector('.err')?.addEventListener('focus', select);
-  dlg.view.querySelector('.clear')?.addEventListener('click', () => lichess.log.clear().then(lichess.reload));
-  dlg.showModal();
-}
 
 const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
 
