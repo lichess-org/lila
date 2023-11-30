@@ -50,4 +50,5 @@
 DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Період у секундах</string>
+  <string name="periodInSecondsHelp">Опціонально: час очікування між запитами. Мінімально 2 с, максимально 60 с. За замовчуванням - автоматично, виходячи з кількості запитів глядачів.</string>
 </resources>
