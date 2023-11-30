@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Prenosi</string>
   <string name="myBroadcasts">Moje oddajanja</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s oddaja</item>
     <item quantity="two">%s oddaji</item>
     <item quantity="few">%s oddaje</item>
