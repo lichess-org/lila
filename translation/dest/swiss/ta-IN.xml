@@ -5,4 +5,51 @@
     <item quantity="one">இந்த சுற்றைக் காண்க</item>
     <item quantity="other">எல்லா சுற்றுகளையும் %s காண்க</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s சுற்று</item>
+    <item quantity="other">%s சுற்றுகள்</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s சுற்று சுவிஸ்</item>
+    <item quantity="other">%s சுற்றுகள் சுவிஸ்</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">ஒரு நாளைக்கு ஒரு சுற்று</item>
+    <item quantity="other">ஒவ்வொரு %s நாட்களுக்கும் ஒரு சுற்று</item>
+  </plurals>
+  <string name="roundsAreStartedManually">சுற்றுகள் கைமுறையாகத் தொடங்கப்படுகின்றன</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">சுற்றுகளுக்கு இடையே %s வினாடி</item>
+    <item quantity="other">சுற்றுகளுக்கு இடையே %s வினாடிகள்</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">சுற்றுகளுக்கு இடையே %s நிமிடம்</item>
+    <item quantity="other">சுற்றுகளுக்கு இடையே %s நிமிடங்கள்</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">இல் தொடங்குகிறது</string>
+  <string name="nextRound">அடுத்த சுற்று</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">நடந்துகொண்டிருக்கும் விளையாட்டு</item>
+    <item quantity="other">நடந்துகொண்டிருக்கும் விளையாட்டுகள்</item>
+  </plurals>
+  <string name="tournStartDate">போட்டி தொடங்கும் தேதி</string>
+  <string name="numberOfRounds">சுற்றுகளின் எண்ணிக்கை</string>
+  <string name="numberOfRoundsHelp">ஒற்றைப்படை எண்ணிக்கையிலான சுற்றுகள் உகந்த வண்ண சமநிலையை அனுமதிக்கிறது.</string>
+  <string name="roundInterval">சுற்றுகளுக்கு இடையிலான இடைவெளி</string>
+  <string name="forbiddenPairings">தடைசெய்யப்பட்ட இணைத்தல்</string>
+  <string name="forbiddenPairingsHelp">ஒன்றாக விளையாடக் கூடாத வீரர்களின் பயனர் பெயர்கள் (உதாரணமாக, உடன்பிறந்தவர்கள்). ஒரு வரிக்கு இரண்டு பயனர் பெயர்கள், இடைவெளியால் பிரிக்கப்பட்டிருக்கும்.</string>
+  <string name="newSwiss">புதிய சுவிஸ் போட்டி</string>
+  <string name="swissVsArenaQ">களங்களுக்குப் பதிலாகச் சுவிஸ் போட்டிகளை எப்போது பயன்படுத்த வேண்டும்?</string>
+  <string name="swissVsArenaA">சுவிஸ் போட்டியில், அனைத்து பங்கேற்பாளர்களும் ஒரே எண்ணிக்கையிலான ஆட்டங்களை விளையாடுகிறார்கள், மேலும் ஒருவருக்கொருவர் ஒருமுறை மட்டுமே விளையாட முடியும்.
+சங்கங்கள் மற்றும் அதிகாரப்பூர்வ போட்டிகளுக்கு இது ஒரு நல்ல தேர்வாக இருக்கும்.</string>
+  <string name="pointsCalculationQ">புள்ளிகள் எவ்வாறு கணக்கிடப்படுகின்றன?</string>
+  <string name="pointsCalculationA">ஒரு வெற்றி ஒரு புள்ளி மதிப்புடையது, ஒரு சமநிலை ஒரு அரை புள்ளி, மற்றும் தோல்வி பூச்சியம் புள்ளிகள்.
+ஒரு சுற்றின்போது ஒரு வீரரை ஜோடி சேர்க்க முடியாதபோது, அவர்கள் ஒரு புள்ளி மதிப்புடன் அடுத்த சுற்றில் இடம் பெறுவார்கள்.</string>
+  <string name="tiebreaksCalculationQ">போட்டி சமநிலை தடை எவ்வாறு கணக்கிடப்படுகின்றன?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger மதிப்பெண்</string>
+  <string name="tiebreaksCalculationA">%s உடன்.
+வீரர் வெற்றி கொள்ளும் ஒவ்வொரு எதிராளியின் மதிப்பெண்ணையும் மற்றும் சமன் செய்த ஒவ்வொரு எதிராளியின் மதிப்பெண்ணில் பாதியையும் சேர்க்கவும்.</string>
+  <string name="pairingsQ">எவ்வாறு இணைத்தல் செயல்படுகிறது?</string>
+  <string name="dutchSystem">டச்சு அமைப்பு</string>
+  <string name="FIDEHandbook">FIDE கையேடு</string>
 </resources>
