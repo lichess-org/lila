@@ -1,6 +1,10 @@
 .tour__team-info {
   .players {
     width: 100%;
+    .name {
+      @extend %nowrap-ellipsis;
+      padding-#{$end-direction}: 5px;
+    }
 
     tr {
       cursor: pointer;
