@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Phát sóng</string>
   <string name="myBroadcasts">Các buổi phát sóng của tôi</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
   <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
