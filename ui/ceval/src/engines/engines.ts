@@ -31,9 +31,12 @@ export class Engines {
   };
 
   makeEngineMap() {
-    const makeVariant = (key: VariantKey, nnue: string, id?: string): WithMake => ({
+    type Hash = string;
+    type Variant = [VariantKey, Hash];
+    const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
+    const makeVariant = ([key, nnue]: Variant): WithMake => ({
       info: {
-        id: `__fsfnnue-${id || key}`,
+        id: `__fsfnnue-${key == 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
         tech: 'NNUE',
@@ -42,20 +45,20 @@ export class Engines {
         assets: {
           version: 'sfw003',
           root: 'npm/lila-stockfish-web',
-          nnue: `${nnue}.nnue`,
+          nnue: `${variantMap(key)}-${nnue}.nnue`,
           js: 'fsf.js',
         },
       },
-      make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+      make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
     });
-    const variants: [VariantKey, string, string?][] = [
-      ['antichess', 'antichess-689c016df8e0'],
-      ['atomic', 'atomic-2cf13ff256cc'],
-      ['crazyhouse', 'crazyhouse-8ebf84784ad2'],
-      ['horde', 'horde-28173ddccabe'],
-      ['kingOfTheHill', 'kingofthehill-978b86d0e6a4', 'koth'],
-      ['threeCheck', '3check-313cc226a173', '3check'],
-      ['racingKings', 'racingkings-636b95f085e3', 'racingkings'],
+    const variants: Variant[] = [
+      ['antichess', '689c016df8e0'],
+      ['atomic', '2cf13ff256cc'],
+      ['crazyhouse', '8ebf84784ad2'],
+      ['horde', '28173ddccabe'],
+      ['kingOfTheHill', '978b86d0e6a4'],
+      ['threeCheck', '313cc226a173'],
+      ['racingKings', '636b95f085e3'],
     ];
     return new Map<string, WithMake>(
       [
@@ -108,7 +111,7 @@ export class Engines {
           },
           make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
         },
-        ...variants.map(([k, h]) => makeVariant(k, h)),
+        ...variants.map(makeVariant),
         {
           info: {
             id: '__fsfhce',

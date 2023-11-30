@@ -12,7 +12,7 @@ export class StockfishWebEngine implements CevalEngine {
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status?: EngineNotifier,
-    readonly variantMap?: (v: string) => string,
+    readonly variantMap?: (v: VariantKey) => string,
   ) {
     this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
