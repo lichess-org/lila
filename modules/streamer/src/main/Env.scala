@@ -18,7 +18,8 @@ private class StreamerConfig(
 private class TwitchConfig(
     @ConfigName("client_id") val clientId: String,
     val secret: Secret,
-    @ConfigName("game_id") val gameId: String
+    @ConfigName("game_id") val gameId: String,
+    @ConfigName("game_id2") val gameId2: String
 )
 
 @Module
