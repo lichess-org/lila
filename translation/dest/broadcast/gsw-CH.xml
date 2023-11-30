@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Überträgige</string>
   <string name="myBroadcasts">Mini Überträgige</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s Überträgige</item>
     <item quantity="other">%s Überträgige</item>
   </plurals>
