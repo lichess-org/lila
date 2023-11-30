@@ -28,6 +28,7 @@ export const axisOpts = (xmin: number, xmax: number): ChartOptions<'line'>['scal
     type: 'linear',
     min: xmin,
     max: xmax,
+    offset: false,
   },
   y: {
     // Set equidistant max and min to center the graph at y=0.
