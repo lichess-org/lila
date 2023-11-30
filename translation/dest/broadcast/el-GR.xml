@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Αναμεταδόσεις</string>
   <string name="myBroadcasts">Η αναμεταδόσεις μου</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s αναμετάδοση</item>
     <item quantity="other">%s αναμεταδόσεις</item>
   </plurals>
