@@ -108,4 +108,10 @@
   <string name="lateJoinUntil">ஆம் பாதிக்கு மேல் சுற்றுகள் தொடங்கும் வரை</string>
   <string name="pause">Pause</string>
   <string name="pauseSwiss">ஆம் ஆனால் சுற்றுகளின் எண்ணிக்கையைக் குறைக்கலாம்</string>
+  <string name="streaksAndBerserk">தொடர் மற்றும் மூர்க்கம்</string>
+  <string name="similarToOTB">OTB போட்டிகளைப் போன்றது</string>
+  <string name="unlimitedAndFree">வரம்பற்ற மற்றும் இலவசம்</string>
+  <string name="predefinedUsers">முன் வரையறுக்கப்பட்ட பயனர்களை மட்டுமே சேர அனுமதிக்கவும்</string>
+  <string name="forbiddedUsers">இந்தப் பட்டியல் காலியாக இல்லை என்றால், இந்தப் பட்டியலில் இல்லாத பயனர்கள் சேர தடை விதிக்கப்படும். ஒரு வரிக்கு ஒரு பயனர் பெயர்.</string>
+  <string name="playYourGames">உங்கள் ஆட்டங்களை விளையாடுங்கள்</string>
 </resources>
