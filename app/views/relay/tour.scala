@@ -111,7 +111,7 @@ object tour:
           ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
-      a(href := routes.RelayTour.help, cls := menu.activeO("help"))("About broadcasts")
+      a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts())
     )
 
   private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
@@ -142,7 +142,7 @@ object tour:
       h2(t.name),
       div(cls := "relay-widget__info")(
         p(t.description),
-        p(cls := "relay-widget__info__meta")("No rounds yet.")
+        p(cls := "relay-widget__info__meta")(trans.broadcast.noRoundsYet())
       )
     )
   )

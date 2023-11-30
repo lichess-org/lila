@@ -5,12 +5,13 @@ import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTour
+import play.api.i18n.Lang
 
 object bits:
 
   def broadcastH1 = h1(dataIcon := licon.RadioTower, cls := "text")
 
-  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using PageContext) =
+  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Lang) =
     a(
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
@@ -28,12 +29,12 @@ object bits:
       )
     )
 
-  def howToUse =
+  def howToUse(using Lang) =
     a(dataIcon := licon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
-      "How to use Lichess Broadcasts"
+      trans.broadcast.howToUseLichessBroadcasts()
     )
 
-  def jsI18n(using PageContext) =
+  def jsI18n(using Lang) =
     views.html.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 
