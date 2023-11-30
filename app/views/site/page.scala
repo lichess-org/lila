@@ -174,7 +174,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
-              a(href := routes.Study.allDefault(1))("a study"),
+              a(href := routes.Study.allDefault())("a study"),
               ", then click the share button to get the HTML code for the current chapter."
             ),
             parameters,

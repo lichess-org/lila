@@ -49,12 +49,12 @@ object message:
   def blacklistedMessage(using ctx: Context) =
     s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
-  def blacklistedFrag(using PageContext) = frag(blacklistedMessage)
+  def blacklistedFrag(using Context) = frag(blacklistedMessage)
 
   def privateStudy(study: lila.study.Study)(using PageContext) =
     apply(
       title = s"${titleNameOrId(study.ownerId)}'s study",
-      back = routes.Study.allDefault(1).url.some
+      back = routes.Study.allDefault().url.some
     )(
       "Sorry! This study is private, you cannot access it.",
       isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id))(
