@@ -463,7 +463,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="advancedSettings">Erwiterti Ischtellige</string>
   <string name="safeTournamentName">Wähl en möglichscht sichere Name fürs Turnier.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
-  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Frei la zum s\'Turnier nach eme namhafte Schachschpiller z\'benänne.</string>
+  <string name="emptyTournamentName">Frei la zum s\'Turnier nach eme namhafte Schachschpiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
   <string name="showAdvancedSettings">Zeig die erwiterete Ischtellige</string>
@@ -530,7 +530,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Turnier Sieger</string>
+  <string name="tournamentWinners">Turnier Sieger</string>
   <string name="name">Name</string>
   <string name="description">Beschribig</string>
   <string name="descPrivate">Privati Beschribig</string>
