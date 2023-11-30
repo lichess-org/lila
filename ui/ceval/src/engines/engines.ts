@@ -31,6 +31,32 @@ export class Engines {
   };
 
   makeEngineMap() {
+    const makeVariant = (key: VariantKey, nnue: string, id?: string): WithMake => ({
+      info: {
+        id: `__fsfnnue-${id || key}`,
+        name: 'Fairy Stockfish 14+ NNUE',
+        short: 'FSF 14+',
+        tech: 'NNUE',
+        requires: ['simd', 'webWorkerDynamicImport'],
+        variants: [key],
+        assets: {
+          version: 'sfw003',
+          root: 'npm/lila-stockfish-web',
+          nnue: `${nnue}.nnue`,
+          js: 'fsf.js',
+        },
+      },
+      make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+    });
+    const variants: [VariantKey, string, string?][] = [
+      ['antichess', 'antichess-689c016df8e0'],
+      ['atomic', 'atomic-2cf13ff256cc'],
+      ['crazyhouse', 'crazyhouse-8ebf84784ad2'],
+      ['horde', 'horde-28173ddccabe'],
+      ['kingOfTheHill', 'kingofthehill-978b86d0e6a4', 'koth'],
+      ['threeCheck', '3check-313cc226a173', '3check'],
+      ['racingKings', 'racingkings-636b95f085e3', 'racingkings'],
+    ];
     return new Map<string, WithMake>(
       [
         {
@@ -82,126 +108,7 @@ export class Engines {
           },
           make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
         },
-        {
-          info: {
-            id: '__fsfnnue-antichess',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['antichess'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: 'antichess-689c016df8e0.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-        },
-        {
-          info: {
-            id: '__fsfnnue-atomic',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['atomic'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: 'atomic-2cf13ff256cc.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-        },
-        {
-          info: {
-            id: '__fsfnnue-crazyhouse',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['crazyhouse'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: 'crazyhouse-8ebf84784ad2.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-        },
-        {
-          info: {
-            id: '__fsfnnue-horde',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['horde'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: 'horde-28173ddccabe.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-        },
-        {
-          info: {
-            id: '__fsfnnue-koth',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['kingOfTheHill'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: 'kingofthehill-978b86d0e6a4.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, v => v.toLowerCase()),
-        },
-        {
-          info: {
-            id: '__fsfnnue-3check',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['threeCheck'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: '3check-313cc226a173.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) =>
-            new StockfishWebEngine(e, this.status, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
-        },
-        {
-          info: {
-            id: '__fsfnnue-racingkings',
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: ['racingKings'],
-            assets: {
-              version: 'sfw003',
-              root: 'npm/lila-stockfish-web',
-              nnue: 'racingkings-636b95f085e3.nnue',
-              js: 'fsf.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, v => v.toLowerCase()),
-        },
+        ...variants.map(([k, h]) => makeVariant(k, h)),
         {
           info: {
             id: '__fsfhce',
@@ -209,15 +116,7 @@ export class Engines {
             short: 'FSF 14+',
             tech: 'HCE',
             requires: ['simd', 'webWorkerDynamicImport'],
-            variants: [
-              'crazyhouse',
-              'atomic',
-              'horde',
-              'kingOfTheHill',
-              'racingKings',
-              'antichess',
-              'threeCheck',
-            ],
+            variants: variants.map(v => v[0]),
             assets: {
               version: 'sfw003',
               root: 'npm/lila-stockfish-web',
@@ -234,15 +133,7 @@ export class Engines {
             short: 'SF 11 MV',
             tech: 'HCE',
             requires: ['sharedMem'],
-            variants: [
-              'crazyhouse',
-              'atomic',
-              'horde',
-              'kingOfTheHill',
-              'racingKings',
-              'antichess',
-              'threeCheck',
-            ],
+            variants: variants.map(v => v[0]),
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish-mv.wasm',
