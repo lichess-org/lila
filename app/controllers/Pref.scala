@@ -84,7 +84,7 @@ final class Pref(env: Env) extends LilaController(env):
           change.form
             .bindFromRequest()
             .fold(
-              form => fuccess(BadRequest(form.errors mkString "\n")),
+              form => fuccess(BadRequest(form.errors.flatMap(_.messages) mkString "\n")),
               v =>
                 ctx.me
                   .so(api.setPref(_, change.update(v)))
