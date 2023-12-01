@@ -32,7 +32,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
     numberRow(noarg('movesPlayed'), data.stats.moves),
     numberRow(noarg('whiteWins'), [data.stats.whiteWins, data.stats.games], 'percent'),
     numberRow(noarg('blackWins'), [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(noarg('drawRate'), [data.stats.drawRate, data.stats.games], 'percent'),
+    numberRow(noarg('drawRate'), [data.stats.draws, data.stats.games], 'percent'),
   ];
 
   if (data.berserkable) {

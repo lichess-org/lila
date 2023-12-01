@@ -240,7 +240,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
           numberRow(noarg('gamesPlayed'), s.games),
           numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
           numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),
-          numberRow(noarg('drawRate'), [s.drawRate, slots], 'percent'),
+          numberRow(noarg('drawRate'), [s.draws, slots], 'percent'),
           numberRow('Byes', [s.byes, slots], 'percent'),
           numberRow('Absences', [s.absences, slots], 'percent'),
         ]),

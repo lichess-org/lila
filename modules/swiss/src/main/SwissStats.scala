@@ -9,7 +9,7 @@ case class SwissStats(
     games: Int = 0,
     whiteWins: Int = 0,
     blackWins: Int = 0,
-    drawRate: Int = 0,
+    draws: Int = 0,
     byes: Int = 0,
     absences: Int = 0,
     averageRating: IntRating = IntRating(0)
@@ -40,14 +40,14 @@ final class SwissStatsApi(
         sheetApi
           .source(swiss, sort = $empty)
           .toMat(Sink.fold(SwissStats()) { case (stats, (player, pairings, sheet)) =>
-            val (games, whiteWins, blackWins, drawRate) =
+            val (games, whiteWins, blackWins, draws) =
               pairings.values.foldLeft((0, 0, 0, 0)):
-                case ((games, whiteWins, blackWins, drawRate), pairing) =>
+                case ((games, whiteWins, blackWins, draws), pairing) =>
                   (
                     games + 1,
                     whiteWins + pairing.whiteWins.so(1),
                     blackWins + pairing.blackWins.so(1),
-                    drawRate + pairing.isDraw.so(1)
+                    draws + pairing.isDraw.so(1)
                   )
             val (byes, absences) = sheet.outcomes.foldLeft((0, 0)):
               case ((byes, absences), outcome) =>
@@ -59,7 +59,7 @@ final class SwissStatsApi(
               games = stats.games + games,
               whiteWins = stats.whiteWins + whiteWins,
               blackWins = stats.blackWins + blackWins,
-              drawRate = stats.drawRate + drawRate,
+              draws = stats.draws + draws,
               byes = stats.byes + byes,
               absences = stats.absences + absences,
               averageRating = stats.averageRating + player.rating

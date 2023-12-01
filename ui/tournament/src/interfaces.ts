@@ -87,7 +87,7 @@ export interface TournamentData {
     moves: number;
     whiteWins: number;
     blackWins: number;
-    drawRate: number;
+    draws: number;
     berserks: number;
     averageRating: number;
   };

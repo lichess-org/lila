@@ -34,7 +34,7 @@ case class TournamentStats(
     moves: Int,
     whiteWins: Int,
     blackWins: Int,
-    drawRate: Int,
+    draws: Int,
     berserks: Int,
     averageRating: Int
 )
@@ -59,7 +59,7 @@ private object TournamentStats:
       moves = colorStats.foldLeft(0)(_ + _._2.moves),
       whiteWins = colorStats.get(Color.White.some).so(_.games),
       blackWins = colorStats.get(Color.Black.some).so(_.games),
-      drawRate = colorStats.get(none).so(_.games),
+      draws = colorStats.get(none).so(_.games),
       berserks = colorStats.foldLeft(0)(_ + _._2.berserks),
       averageRating = rating
     )
