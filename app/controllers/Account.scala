@@ -115,14 +115,8 @@ final class Account(
       .urgentGames(me)
       .map:
         _.take((getInt("nb") | 9) atMost 50)
-      .flatMap: povs =>
-        if ctx.isMobileOauth then
-          povs.traverse: pov =>
-            env.round.roundSocket.statusIfPresent(pov.gameId) flatMap:
-              env.round.mobile.json(pov.game, pov.fullId.anyId, _)
-        else
-          fuccess:
-            povs.filterNot(_.game.isTournament) map env.api.lobbyApi.nowPlaying
+      .map:
+        _.filterNot(_.game.isTournament) map env.api.lobbyApi.nowPlaying
       .map: povs =>
         Ok(Json.obj("nowPlaying" -> JsArray(povs)))
 
