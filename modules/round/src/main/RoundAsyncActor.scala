@@ -459,7 +459,7 @@ final private[round] class RoundAsyncActor(
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
-      logger.info(s"Round client error $name: ${e.getMessage}")
+      logger.debug(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client.increment()
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
