@@ -697,6 +697,8 @@
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
   <string name="keyNextInaccuracy">Seguinte imprecisión</string>
+  <string name="keyPreviousBranch">Rama anterior</string>
+  <string name="keyNextBranch">Rama seguinte</string>
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
