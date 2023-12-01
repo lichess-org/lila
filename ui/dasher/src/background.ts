@@ -44,7 +44,8 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'transp', name: 'Picture' },
   ];
 
-  const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
+  const announceFail = (err: string) =>
+    lichess.announce({ msg: `Failed to save background preference: ${err}` });
 
   const reloadAllTheThings = () => {
     if ($('canvas').length || window.Highcharts) lichess.reload();
@@ -72,11 +73,12 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     setImage(i: string) {
       data.image = i;
       xhr
-        .text('/pref/bgImg', {
+        .textRaw('/pref/bgImg', {
           body: xhr.form({ bgImg: i }),
           method: 'post',
         })
-        .then(reloadAllTheThings, announceFail);
+        .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
+        .then(reloadAllTheThings, err => err.then(announceFail));
       applyBackground(data, list);
       redraw();
     },
