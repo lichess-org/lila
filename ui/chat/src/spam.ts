@@ -41,6 +41,8 @@ const spamRegex = new RegExp(
     'trasderk.blogspot.com',
     't.ly/',
     'shorturl.at/'
+
+    
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|'),
