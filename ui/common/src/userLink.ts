@@ -52,7 +52,7 @@ export const userFlair = (u: HasFlair): VNode | undefined =>
   u.flair
     ? h('img.uflair', {
         attrs: {
-          src: lichess.flairSrc(u.flair),
+          src: lichess.asset.flairSrc(u.flair),
         },
       })
     : undefined;
@@ -74,7 +74,7 @@ export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined => {
   if (u.rating) {
-    const rating = `${u.rating}${u.provisional ? '?' : ''} `;
+    const rating = `${u.rating}${u.provisional ? '?' : ''}`;
     return u.brackets !== false ? `(${rating})` : rating;
   }
   return undefined;

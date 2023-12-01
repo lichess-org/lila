@@ -239,7 +239,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                           orientation: currentChapter.setup.orientation,
                           onChange: ctrl.vm.editorFen,
                         };
-                        ctrl.vm.editor = await lichess.loadEsm<LichessEditor>('editor', { init: data });
+                        ctrl.vm.editor = await lichess.asset.loadEsm<LichessEditor>('editor', { init: data });
                         ctrl.vm.editorFen(ctrl.vm.editor.getFen());
                       });
                     },

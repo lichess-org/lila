@@ -222,7 +222,7 @@ function confetti(data: SwissData): VNode | undefined {
   return data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id)
     ? h('canvas#confetti', {
         hook: {
-          insert: _ => lichess.loadIife('javascripts/confetti.js'),
+          insert: _ => lichess.asset.loadIife('javascripts/confetti.js'),
         },
       })
     : undefined;

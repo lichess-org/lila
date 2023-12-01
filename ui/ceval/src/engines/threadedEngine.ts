@@ -81,7 +81,7 @@ export class ThreadedEngine implements CevalEngine {
       if (!wasmBinary) {
         wasmBinary = await new Promise((resolve, reject) => {
           const req = new XMLHttpRequest();
-          req.open('GET', lichess.assetUrl(wasmPath, { version }), true);
+          req.open('GET', lichess.asset.url(wasmPath, { version }), true);
           req.responseType = 'arraybuffer';
           req.onerror = event => reject(event);
           req.onprogress = event => this.status?.({ download: { bytes: event.loaded, total: event.total } });
@@ -100,13 +100,13 @@ export class ThreadedEngine implements CevalEngine {
     }
 
     // Load Emscripten module.
-    await lichess.loadIife(`${root}/${js}`, { version });
+    await lichess.asset.loadIife(`${root}/${js}`, { version });
     const sf = await window[this.info.id === '__sf11mv' ? 'StockfishMv' : 'Stockfish']!({
       wasmBinary,
       printErr: (msg: string) => this.onError(new Error(msg)),
       onError: this.onError,
       locateFile: (path: string) =>
-        lichess.assetUrl(`${root}/${path}`, { version, sameDomain: path.endsWith('.worker.js') }),
+        lichess.asset.url(`${root}/${path}`, { version, sameDomain: path.endsWith('.worker.js') }),
       wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
 

@@ -10,7 +10,7 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
     ? h(
         'div.relay-admin',
         {
-          hook: onInsert(_ => lichess.loadCssPath('analyse.relay-admin')),
+          hook: onInsert(_ => lichess.asset.loadCssPath('analyse.relay-admin')),
         },
         [
           h('h2', [

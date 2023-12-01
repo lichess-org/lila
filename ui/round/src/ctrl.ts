@@ -594,7 +594,7 @@ export default class RoundController {
     lichess.pubsub.emit('challenge-app.open');
     if (lichess.once('rematch-challenge'))
       setTimeout(() => {
-        lichess.hopscotch(function () {
+        lichess.asset.hopscotch(function () {
           window.hopscotch
             .configure({
               i18n: { doneBtn: 'OK, got it' },

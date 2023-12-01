@@ -7,17 +7,7 @@ import sri from './component/sri';
 import { storage, tempStorage } from './component/storage';
 import powertip from './component/powertip';
 import clockWidget from './component/clock-widget';
-import {
-  assetUrl,
-  flairSrc,
-  loadCss,
-  loadCssPath,
-  jsModule,
-  loadIife,
-  hopscotch,
-  userComplete,
-  loadEsm,
-} from './component/assets';
+import * as assets from './component/assets';
 import makeLog from './component/log';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
@@ -47,15 +37,7 @@ export default () => {
   l.powertip = powertip;
   l.clockWidget = clockWidget;
   l.spinnerHtml = spinnerHtml;
-  l.assetUrl = assetUrl;
-  l.flairSrc = flairSrc;
-  l.loadCss = loadCss;
-  l.loadCssPath = loadCssPath;
-  l.jsModule = jsModule;
-  l.loadIife = loadIife;
-  l.loadEsm = loadEsm;
-  l.hopscotch = hopscotch;
-  l.userComplete = userComplete;
+  l.asset = assets;
   l.idleTimer = idleTimer;
   l.pubsub = pubsub;
   l.unload = unload;
@@ -73,7 +55,8 @@ export default () => {
   l.dateFormat = dateFormat;
   l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
   l.blindMode = document.body.classList.contains('blind-mode');
-  l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
+  l.makeChat = data =>
+    lichess.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
   l.makeChessground = Chessground;
   l.log = makeLog();
 };

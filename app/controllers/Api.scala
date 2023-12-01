@@ -106,14 +106,6 @@ final class Api(
     key = "user_games.api.global"
   )
 
-  private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) =
-    val ip      = req.ipAddress
-    def limited = fuccess(ApiResult.Limited)
-    UserGamesRateLimitPerIP(ip, limited, cost = cost):
-      UserGamesRateLimitPerUA(HTTPRequest.userAgent(req), limited, cost = cost, msg = ip.value):
-        UserGamesRateLimitGlobal("-", limited, cost = cost, msg = ip.value):
-          run
-
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(
       analysis = getBool("with_analysis"),
@@ -123,25 +115,6 @@ final class Api(
       moveTimes = getBool("with_movetimes"),
       token = get("token")
     )
-
-  // for mobile app
-  def userGames(name: UserStr) = MobileApiRequest:
-    val page = (getInt("page") | 1) atLeast 1 atMost 200
-    val nb   = MaxPerPage((getInt("nb") | 10) atLeast 1 atMost 100)
-    val cost = page * nb.value + 10
-    UserGamesRateLimit(cost, req):
-      lila.mon.api.userGames.increment(cost.toLong)
-      env.user.repo byId name flatMapz { user =>
-        gameApi.byUser(
-          user = user,
-          rated = getBoolOpt("rated"),
-          playing = getBoolOpt("playing"),
-          analysed = getBoolOpt("analysed"),
-          withFlags = gameFlagsFromRequest,
-          nb = nb,
-          page = page
-        ) map some
-      } map toApiResult
 
   def game(id: GameId) = ApiRequest:
     gameApi.one(id, gameFlagsFromRequest) map toApiResult
@@ -372,17 +345,17 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
-    env.perfStat.api.data(username, perfKey) map {
+    env.perfStat.api.data(username, perfKey) map:
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
-    }
+
+  def mobileGames = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+    val ids = get("ids").so(_.split(',').take(50).toList) map GameId.take
+    ids.nonEmpty.so:
+      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.json).map(JsonOk)
+  }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js map toHttp
-
-  def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
-    if lila.security.Mobile.Api.requested(req)
-    then js map toHttp
-    else NotFound
 
   def toApiResult(json: Option[JsValue]): ApiResult =
     json.fold[ApiResult](ApiResult.NoData)(ApiResult.Data.apply)

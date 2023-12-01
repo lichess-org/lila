@@ -142,7 +142,9 @@ export default class AnalyseCtrl {
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
     if (lichess.blindMode)
-      lichess.loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this }).then(nvui => (this.nvui = nvui));
+      lichess.asset
+        .loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this })
+        .then(nvui => (this.nvui = nvui));
 
     this.instanciateEvalCache();
 

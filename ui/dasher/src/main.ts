@@ -7,7 +7,7 @@ import { init as initSnabbdom, VNode, classModule, attributesModule } from 'snab
 const patch = initSnabbdom([classModule, attributesModule]);
 
 export function load() {
-  return lichess.loadEsm<DasherCtrl>('dasher');
+  return lichess.asset.loadEsm<DasherCtrl>('dasher');
 }
 
 export async function initModule() {

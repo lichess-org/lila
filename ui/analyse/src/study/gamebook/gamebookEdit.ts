@@ -126,7 +126,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
   return h(
     'div.gamebook-edit',
     {
-      hook: { insert: _ => lichess.loadCssPath('analyse.gamebook.edit') },
+      hook: { insert: _ => lichess.asset.loadCssPath('analyse.gamebook.edit') },
     },
     content,
   );

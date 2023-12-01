@@ -462,7 +462,7 @@ function makeCursor(selected: Selected): string {
   if (selected === 'pointer') return 'pointer';
 
   const name = selected === 'trash' ? 'trash' : selected.join('-');
-  const url = lichess.assetUrl('cursors/' + name + '.cur');
+  const url = lichess.asset.url('cursors/' + name + '.cur');
 
   return `url('${url}'), default !important`;
 }
