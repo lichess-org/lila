@@ -62,6 +62,8 @@ function similiarFollowMsg(message: string) {
   //if message is the same, return true
   if(followmemsg == message) return true;
 
+  if(message.length != followmemsg.length) return false;
+  
   //Variable for counting differing letters
   let differingLetters : number = 0;
   for (let i = 0; i < followmemsg.length; i++) {
