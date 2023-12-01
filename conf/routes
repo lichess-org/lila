@@ -731,9 +731,6 @@ GET   /api/external-engine/:id         controllers.Analyse.externalEngineShow(id
 PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id)
 DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id)
 
-# Mobile API only
-GET   /api/user/:name/games            controllers.Api.userGames(name)
-
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id)
 POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id, uci, offeringDraw: Option[Boolean] ?= None)
