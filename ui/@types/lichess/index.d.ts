@@ -13,6 +13,7 @@ interface Lichess {
   powertip: LichessPowertip;
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
+  assetBaseUrl(): string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   flairSrc(flair: Flair): string;
   loadCss(path: string): void;

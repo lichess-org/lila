@@ -8,6 +8,7 @@ import { storage, tempStorage } from './component/storage';
 import powertip from './component/powertip';
 import clockWidget from './component/clock-widget';
 import {
+  assetBaseUrl,
   assetUrl,
   flairSrc,
   loadCss,
@@ -47,6 +48,7 @@ export default () => {
   l.powertip = powertip;
   l.clockWidget = clockWidget;
   l.spinnerHtml = spinnerHtml;
+  l.assetBaseUrl = assetBaseUrl;
   l.assetUrl = assetUrl;
   l.flairSrc = flairSrc;
   l.loadCss = loadCss;

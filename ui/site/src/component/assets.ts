@@ -1,10 +1,15 @@
 import * as xhr from 'common/xhr';
 import { supportsSystemTheme } from 'common/theme';
+import { memoize } from 'common';
+
+export const assetBaseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
+
+const assetVersion = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
-  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
-    version = opts.version || document.body.getAttribute('data-asset-version');
+  const baseUrl = opts.sameDomain ? '' : assetBaseUrl(),
+    version = opts.version || assetVersion();
   return `${baseUrl}/assets${opts.noVersion ? '' : '/_' + version}/${path}`;
 };
 
