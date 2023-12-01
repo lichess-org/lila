@@ -52,7 +52,7 @@ export const userFlair = (u: HasFlair): VNode | undefined =>
   u.flair
     ? h('img.uflair', {
         attrs: {
-          src: lichess.flairSrc(u.flair),
+          src: lichess.asset.flairSrc(u.flair),
         },
       })
     : undefined;

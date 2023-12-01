@@ -199,7 +199,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               {
                 attrs: {
                   ...dataIcon(licon.Download),
-                  href: xhrUrl(lichess.assetBaseUrl() + '/export/fen.gif', {
+                  href: xhrUrl(lichess.asset.baseUrl() + '/export/fen.gif', {
                     fen: ctrl.currentNode().fen,
                     color: ctrl.bottomColor(),
                     lastMove: ctrl.currentNode().uci,

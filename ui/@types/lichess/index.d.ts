@@ -13,15 +13,17 @@ interface Lichess {
   powertip: LichessPowertip;
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
-  assetBaseUrl(): string;
-  assetUrl(url: string, opts?: AssetUrlOpts): string;
-  flairSrc(flair: Flair): string;
-  loadCss(path: string): void;
-  loadCssPath(path: string): Promise<void>;
-  jsModule(name: string): string;
-  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-  hopscotch: any;
+  asset: {
+    baseUrl(): string;
+    url(url: string, opts?: AssetUrlOpts): string;
+    flairSrc(flair: Flair): string;
+    loadCss(path: string): void;
+    loadCssPath(path: string): Promise<void>;
+    jsModule(name: string): string;
+    loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+    loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    hopscotch: any;
+  };
   userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;

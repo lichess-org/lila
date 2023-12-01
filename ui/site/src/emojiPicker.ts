@@ -23,7 +23,7 @@ export function emojiPicker(
 }
 
 const makeEmojiData = async () => {
-  const res = await fetch(lichess.assetUrl('flair/list.txt'));
+  const res = await fetch(lichess.asset.url('flair/list.txt'));
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);
   const data = {
@@ -43,7 +43,7 @@ const makeEmojiData = async () => {
             keywords: [categ, ...name.split('-')],
             skins: [
               {
-                src: lichess.flairSrc(key),
+                src: lichess.asset.flairSrc(key),
               },
             ],
           },

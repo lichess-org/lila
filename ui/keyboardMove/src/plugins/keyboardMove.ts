@@ -24,7 +24,7 @@ interface Opts {
 }
 
 export function load(opts: Opts): Promise<KeyboardMoveHandler> {
-  return lichess.loadEsm('keyboardMove', { init: opts });
+  return lichess.asset.loadEsm('keyboardMove', { init: opts });
 }
 
 export function initModule(opts: Opts) {

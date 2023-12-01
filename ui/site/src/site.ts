@@ -138,7 +138,7 @@ lichess.load.then(() => {
 
     if (setBlind && !lichess.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
-    if (showDebug) lichess.loadEsm('diagnostic');
+    if (showDebug) lichess.asset.loadEsm('diagnostic');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));

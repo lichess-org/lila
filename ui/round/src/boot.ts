@@ -72,7 +72,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
 
   const round: RoundApi = roundMain(
     opts,
-    lichess.blindMode ? await lichess.loadEsm<NvuiPlugin>('round.nvui') : undefined,
+    lichess.blindMode ? await lichess.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined,
   );
   const chatOpts = opts.chat;
   if (chatOpts) {

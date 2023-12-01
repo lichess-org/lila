@@ -167,7 +167,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       const grammar =
         ctrl.moduleId === 'coords'
           ? []
-          : await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+          : await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(

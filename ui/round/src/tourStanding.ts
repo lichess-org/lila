@@ -24,7 +24,7 @@ export const tourStandingCtrl = (
     return h(
       'div',
       {
-        hook: onInsert(_ => lichess.loadCssPath('round.tour-standing')),
+        hook: onInsert(_ => lichess.asset.loadCssPath('round.tour-standing')),
       },
       [
         team
