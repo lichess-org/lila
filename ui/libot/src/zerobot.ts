@@ -28,6 +28,7 @@ export class ZeroBot implements Libot {
   }
 
   async move(fen: string) {
+    lichess.log("It's the spinner.gif. The spinner.gif is crashing chrome, ok?");
     const zeroMove = this.zfcfg.fishMix < 1 ? this.zf.goZero(fen) : Promise.resolve(undefined);
     const fishMove =
       this.zfcfg.fishMix > 0
@@ -43,7 +44,7 @@ export class ZeroBot implements Libot {
     const zeroIndex = aggression.findIndex(([_, pv]) => pv.moves[0] === zero);
     const zeroDestruction = zeroIndex >= 0 ? aggression[zeroIndex]?.[0] : -0.1;
     console.log(zeroDestruction, aggression, deepScores(fishResult, zero));
-    return zero ?? '';
+    return aggression[0]?.[1]?.moves[0] ?? zero;
   }
 }
 

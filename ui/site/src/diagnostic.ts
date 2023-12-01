@@ -1,8 +1,9 @@
 import { isTouchDevice } from 'common/device';
-import { domDialog } from 'common/dialog';
+import { domDialog, ready } from 'common/dialog';
 
 export default async function initModule() {
-  const logs = await lichess.log.get();
+  console.log('here we is');
+  const [logs] = await Promise.all([lichess.log.get(), ready]);
   const text =
     `Browser: ${navigator.userAgent}\n` +
     `Cores: ${navigator.hardwareConcurrency}\n` +

@@ -57,16 +57,24 @@ export function shallowScores(lines: Score[][], move?: string) {
   return matches;
 }
 
-export function byDestruction(lines: Score[][], fen: string) {
+export function byDestruction(lines: Score[][], fen: string, mutual = false) {
   const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
-  const before = weigh(Chops.Material.fromBoard(chess.board));
+  const beforeMaterial = Chops.Material.fromBoard(chess.board);
+  const opponent = Chops.opposite(chess.turn);
+  const before = weigh(mutual ? beforeMaterial : beforeMaterial[opponent]);
   const aggression: [number, Score][] = [];
   for (const history of lines) {
     for (const pv of history) {
-      const pvChess = chess.clone();
-      for (const move of pv.moves) pvChess.play(Chops.parseUci(move)!);
-      const destruction = (before - weigh(Chops.Material.fromBoard(pvChess.board))) / pv.moves.length;
-      if (destruction > 0) aggression.push([destruction, pv]);
+      try {
+        const pvChess = chess.clone();
+        for (const move of pv.moves) pvChess.play(Chops.parseUci(move)!);
+        const afterMaterial = Chops.Material.fromBoard(pvChess.board);
+        const destruction =
+          (before - weigh(mutual ? afterMaterial : afterMaterial[opponent])) / pv.moves.length;
+        if (destruction > 0) aggression.push([destruction, pv]);
+      } catch (e) {
+        console.error(e, pv.moves);
+      }
     }
   }
   return aggression;
@@ -80,10 +88,10 @@ const prices: { [role in Chops.Role]?: number } = {
   queen: 9,
 };
 
-function weigh(material: Chops.Material) {
+function weigh(material: Chops.Material | Chops.MaterialSide) {
   let score = 0;
   for (const [role, price] of Object.entries(prices) as [Chops.Role, number][]) {
-    score += price * material.count(role);
+    score += price * ('white' in material ? material.count(role) : material[role]);
   }
   return score;
 }
