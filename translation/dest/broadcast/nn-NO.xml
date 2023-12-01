@@ -8,10 +8,15 @@
   </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
   <string name="newBroadcast">Ny direktesending</string>
+  <string name="aboutBroadcasts">Om sending</string>
+  <string name="noRoundsYet">Så langt ingen rundar.</string>
+  <string name="howToUseLichessBroadcasts">Korleis bruke Lichess-sendingar.</string>
+  <string name="theNewRoundHelp">Den nye runden vil ha same medlemar og bidragsytarar som den førre.</string>
   <string name="addRound">Legg til ein runde</string>
   <string name="ongoing">Pågåande</string>
   <string name="upcoming">Kommande</string>
   <string name="completed">Fullførde</string>
+  <string name="completedHelp">Lichess detekterer ferdigspela rundar basert på kjeldeparita. Bruk denne innstillinga om det ikkje finst ei kjelde.</string>
   <string name="roundName">Rundenamn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnamn</string>
@@ -35,4 +40,7 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringa</string>
   <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
+  <string name="automaticLeaderboard">Automatisk rangliste</string>
+  <string name="automaticLeaderboardHelp">Berekne og vise ei enkel rangliste baseret på resultatar frå partia</string>
+  <string name="replace">Valfritt: erstatt spelaramn, rangeringar og titlar</string>
 </resources>
