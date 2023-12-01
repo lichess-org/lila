@@ -74,7 +74,7 @@ export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined => {
   if (u.rating) {
-    const rating = `${u.rating}${u.provisional ? '?' : ''} `;
+    const rating = `${u.rating}${u.provisional ? '?' : ''}`;
     return u.brackets !== false ? `(${rating})` : rating;
   }
   return undefined;
