@@ -18,7 +18,7 @@
     <item quantity="one">%2$s ஒரு ஓட்டம் ஓடினார்</item>
     <item quantity="other">%2$s இல் %1$s ஓட்டங்கள் ஓடினார்</item>
   </plurals>
-  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">உயர் மதிப்பெண்கள்</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">உயர் மதிப்பெண்கள்: %s</string>
   <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">மதிப்பெண்கள்</string>
   <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">நகர்த்தல்கள்</string>
   <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">துல்லியம்</string>
