@@ -5,10 +5,11 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
     version = opts.version || document.body.getAttribute('data-asset-version');
-  return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
+  return `${baseUrl}/assets${opts.noVersion ? '' : '/_' + version}/${path}`;
 };
 
-export const flairSrc = (flair: Flair) => lichess.assetUrl(`flair/img/${flair}.webp`, { noVersion: true });
+// bump flairs version if a flair is changed only (not added or removed)
+export const flairSrc = (flair: Flair) => lichess.assetUrl(`flair/img/${flair}.webp`, { version: '_____2' });
 
 const loadedCss = new Map<string, Promise<void>>();
 export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> => {

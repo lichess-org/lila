@@ -23,7 +23,6 @@ export function emojiPicker(
 }
 
 const makeEmojiData = async () => {
-  const flairUrl = lichess.assetUrl('flair', { version: '_____2' }); // bump version if a flair is changed only (not added or removed)
   const res = await fetch(lichess.assetUrl('flair/list.txt'));
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);
@@ -44,7 +43,7 @@ const makeEmojiData = async () => {
             keywords: [categ, ...name.split('-')],
             skins: [
               {
-                src: `${flairUrl}/img/${key}.webp`,
+                src: lichess.flairSrc(key),
               },
             ],
           },
