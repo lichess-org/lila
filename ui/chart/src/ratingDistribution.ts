@@ -1,5 +1,5 @@
 import { Point } from 'chart.js/dist/core/core.controller';
-import { animation, fontFamily, gridColor, hoverBorderColor } from './common';
+import { animation, fontFamily, gridColor, hoverBorderColor, resizePolyfill } from './common';
 import { DistributionData } from './interface';
 import {
   Chart,
@@ -15,6 +15,7 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export async function initModule(data: DistributionData) {
