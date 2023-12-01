@@ -4,6 +4,7 @@
   <string name="myBroadcasts">My uitsendings</string>
   <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
   <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
+  <string name="noRoundsYet">Nog geen ronde nie.</string>
   <string name="addRound">Voeg \'n ronde by</string>
   <string name="ongoing">Deurlopend</string>
   <string name="upcoming">Opkomend</string>
@@ -30,4 +31,5 @@
   <string name="deleteAllGamesOfThisRound">Skrap alle spelle van hierdie rondte. Die bron sal aktief moet wees om hulle te kan herskep.</string>
   <string name="deleteTournament">Vee hierdie toernooi uit</string>
   <string name="definitivelyDeleteTournament">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
+  <string name="periodInSeconds">Periode in sekondes</string>
 </resources>
