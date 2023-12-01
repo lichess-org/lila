@@ -7,11 +7,15 @@
   </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
   <string name="newBroadcast">新しいライブ中継</string>
+  <string name="aboutBroadcasts">中継について</string>
   <string name="noRoundsYet">まだラウンドはありません。</string>
+  <string name="howToUseLichessBroadcasts">Lichess 中継の使い方。</string>
+  <string name="theNewRoundHelp">新ラウンドには前回と同じメンバーと投稿者が参加します。</string>
   <string name="addRound">ラウンドを追加</string>
   <string name="ongoing">配信中</string>
   <string name="upcoming">予定</string>
   <string name="completed">終了</string>
+  <string name="completedHelp">Lichess は元になる対局に基づいてラウンド終了を検出します。元になる対局がない時はこのトグルを使ってください。</string>
   <string name="roundName">ラウンド名</string>
   <string name="roundNumber">ラウンド</string>
   <string name="tournamentName">大会名</string>
@@ -43,4 +47,6 @@
 例：
 DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">待機時間（秒）</string>
+  <string name="periodInSecondsHelp">オプション、次のリクエストまでの待機時間を指定。最小 2 秒、最大 60 秒。デフォルト値は視聴者数から自動的に決まります。</string>
 </resources>
