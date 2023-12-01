@@ -195,6 +195,15 @@ object faq:
             )
           )
         ),
+        question(
+          "chessAddiction",
+          chessAddiction.txt(),
+          p(
+            chessAddictionExplanation(
+              a(href := "https://www.reddit.com/r/StopGaming/comments/3nmedk/faq_answers_to_popular_questions/")(chessAddictionLowerCase()),
+            )
+          ),
+        ),
         h2(accounts()),
         question(
           "titles",
