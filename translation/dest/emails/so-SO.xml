@@ -10,5 +10,13 @@
   <string name="emailChange_intro">Waxaad codsatay beddelidda cinwaankaaga.</string>
   <string name="emailChange_click">Si aad u caddeysid in aad cinwaankan leedahay, fadlan riix laynkan hoose:</string>
   <string name="welcome_subject">Ku soo dhawow lichess.org, %s</string>
+  <string name="welcome_text">Waxaad si guul leh bog uga samaysatay https://lichess.org.
+
+Waakan boggaagii kuu gaarka ahaa: %1$s. Halkan ka qurxiso %2$s.
+
+Ciyaar, oo boqorka colka baallaha ka yaac!</string>
+  <string name="logInToLichess">Gal lichess.org, %s</string>
+  <string name="common_orPaste">(Lama riixi karo? Ku day in ad laynka toos ugu qortid internetka!)</string>
+  <string name="common_note">Kani waa cinwaan adeeg oo la xididha isticmaalkaaga %s.</string>
   <string name="common_contact">Si aad noolasoo xidhiidhid, fadlan isticmaal %s.</string>
 </resources>
