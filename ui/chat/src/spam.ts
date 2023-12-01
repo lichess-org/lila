@@ -39,6 +39,8 @@ const spamRegex = new RegExp(
     'qps.ru',
     'tiny.cc/',
     'trasderk.blogspot.com',
+    't.ly/',
+    'shorturl.at/',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|'),
