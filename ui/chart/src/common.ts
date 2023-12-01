@@ -109,8 +109,8 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
   };
 }
 
-export async function resizePolyfill() {
-  if ('ResizeObserver' in window === false) lichess.loadEsm('chart.resizePolyfill');
+export function resizePolyfill() {
+  if ('ResizeObserver' in window === false) lichess.asset.loadEsm('chart.resizePolyfill');
 }
 
 export async function loadHighcharts(tpe: string) {
