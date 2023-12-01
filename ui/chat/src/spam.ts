@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 
-export const skip = (txt: string) => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
+export const skip = (txt: string) => suspLink(txt) || (followMe(txt)) && !isKnownSpammer() || similiarFollowMsg(txt);
 
 export const selfReport = (txt: string) => {
   if (isKnownSpammer()) return;
@@ -53,3 +53,26 @@ const followMe = (txt: string) => !!txt.match(followMeRegex);
 
 const teamUrlRegex = /lichess\.org\/team\//i;
 export const hasTeamUrl = (txt: string) => !!txt.match(teamUrlRegex);
+
+function similiarFollowMsg(message: string) {
+
+  let followmemsg : string = "follow me";
+  message = message.toLowerCase();
+
+  //if message is the same, return true
+  if(followmemsg == message) return true;
+
+  //Variable for counting differing letters
+  let differingLetters : number = 0;
+  for (let i = 0; i < followmemsg.length; i++) {
+    
+    //If letters are not the same, increase differingLetters by 1
+    if(followmemsg[i] != message[i]) differingLetters++;
+  }
+
+  //if message differs by 1 letter, return true
+  if(differingLetters < 2) return true;
+
+  //Otherwise, return false
+  return false;
+}
