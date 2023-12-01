@@ -70,6 +70,9 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
+  <string name="chessAddiction">Addiction aux echecs</string>
+  <string name="chessAddictionExplanation">Le jeux d'echecs, comme les autres jeux , peut etre addictif. Regardez ce lien au sujet de %s.</string>
+  <string name="chessAddictionLowerCase"> l'addiction aux jeux </string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
   <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s et non les coups. La répétition ne doit donc pas nécessairement se faire de manière consécutive.</string>
   <string name="positions">positions</string>
