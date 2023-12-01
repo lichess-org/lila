@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
   <string name="newBroadcast">Uusi livelähetys</string>
+  <string name="aboutBroadcasts">Lähetyksistä</string>
   <string name="noRoundsYet">Ei vielä kierroksia.</string>
   <string name="howToUseLichessBroadcasts">Kuinka Lichess-lähetyksiä käytetään.</string>
   <string name="theNewRoundHelp">Uudella kierroksella on samat jäsenet ja osallistujat kuin edellisellä.</string>
@@ -15,6 +16,7 @@
   <string name="ongoing">Käynnissä</string>
   <string name="upcoming">Tulossa</string>
   <string name="completed">Päättyneet</string>
+  <string name="completedHelp">Lichess tunnistaa lähteenä olevista peleistä, milloin kierros on viety päätökseen. Lähteen puuttuessa voit käyttää tätä asetusta.</string>
   <string name="roundName">Kierroksen nimi</string>
   <string name="roundNumber">Kierroksen numero</string>
   <string name="tournamentName">Turnauksen nimi</string>
@@ -47,4 +49,5 @@ Esimerkki:
 DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Jakso sekunteina</string>
+  <string name="periodInSecondsHelp">Tarvittaessa pyyntöjen välinen odotusaika: vähintään 2 s, enintään 60 s. Oletuksena on katsojien määrään perustuva automaattinen arvo.</string>
 </resources>
