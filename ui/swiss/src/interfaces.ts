@@ -150,7 +150,7 @@ export interface Stats {
   games: number;
   whiteWins: number;
   blackWins: number;
-  draws: number;
+  drawRate: number;
   byes: number;
   absences: number;
   averageRating: number;
