@@ -345,9 +345,14 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
-    env.perfStat.api.data(username, perfKey) map {
+    env.perfStat.api.data(username, perfKey) map:
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
-    }
+
+  def mobileGames = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+    val ids = get("ids").so(_.split(',').take(50).toList) map GameId.take
+    ids.nonEmpty.so:
+      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.json).map(JsonOk)
+  }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js map toHttp

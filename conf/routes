@@ -724,6 +724,9 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username)
 GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username)
 
+# Lichess Mobile
+GET   /api/mobile/my-games             controllers.Api.mobileGames
+
 # External engine
 GET   /api/external-engine             controllers.Analyse.externalEngineList
 POST  /api/external-engine             controllers.Analyse.externalEngineCreate
