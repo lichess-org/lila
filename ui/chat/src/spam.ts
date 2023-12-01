@@ -40,9 +40,7 @@ const spamRegex = new RegExp(
     'tiny.cc/',
     'trasderk.blogspot.com',
     't.ly/',
-    'shorturl.at/'
-
-    
+    'shorturl.at/',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|'),
