@@ -52,9 +52,9 @@ object importGame:
             help = Some(analyseHelp),
             disabled = ctx.isAnon
           ),
-                   a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault()):
+          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault()):
             trans.importGameCaveat()
-        ,
+          ,
           form3.action(form3.submit(trans.importGame(), licon.UploadCloud.some))
         )
       )

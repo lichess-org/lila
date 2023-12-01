@@ -23,13 +23,14 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  resizePolyfill,
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
-
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,

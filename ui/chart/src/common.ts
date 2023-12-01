@@ -94,7 +94,7 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
       easing: 'easeOutQuad',
       duration: duration,
       from: NaN, // the point is initially skipped
-      delay: ctx => ctx.dataIndex * duration,
+      delay: ctx => (ctx.mode == 'resize' ? 0 : ctx.dataIndex * duration),
     },
     y: {
       type: 'number',
@@ -104,9 +104,13 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
         !ctx.dataIndex
           ? ctx.chart.scales.y.getPixelForValue(100)
           : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.dataIndex - 1].getProps(['y'], true).y,
-      delay: ctx => ctx.dataIndex * duration,
+      delay: ctx => (ctx.mode == 'resize' ? 0 : ctx.dataIndex * duration),
     },
   };
+}
+
+export function resizePolyfill() {
+  if ('ResizeObserver' in window === false) lichess.asset.loadEsm('chart.resizePolyfill');
 }
 
 export async function loadHighcharts(tpe: string) {
