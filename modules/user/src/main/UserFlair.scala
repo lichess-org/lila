@@ -39,18 +39,20 @@ final class UserFlairApi(
       yield user.id -> flair
       pairs.toMap
 
-  export lightUserApi.preloadMany
-
-  private def listUrl = s"$assetBaseUrlInternal/assets/flair/list.txt?v=${nowSeconds}"
-  private def refresh: Funit =
+  private def refresh(): Funit =
+    val listUrl = s"$assetBaseUrlInternal/assets/flair/list.txt?v=${nowSeconds}"
     ws.url(listUrl)
       .get()
       .map:
-        case res if res.status == 200 => UserFlairApi.updateDb(res.body[String].linesIterator)
-        case _                        => logger.error(s"Cannot fetch $listUrl")
+        case res if res.status == 200 =>
+          UserFlairApi.updateDb(res.body[String].linesIterator)
+          logger.info(s"Updated flair db with ${db.size} flairs")
+        case _ => logger.error(s"Cannot fetch $listUrl")
       .recover { case e =>
         logger.error(s"Cannot fetch $listUrl", e)
       }
 
-  scheduler.scheduleWithFixedDelay(5 seconds, 7 minutes): () =>
-    refresh
+  scheduler.scheduleOnce(11 seconds)(refresh())
+
+  lila.common.Bus.subscribeFun("assetVersion"):
+    case lila.common.AssetVersion.Changed(_) => refresh()
