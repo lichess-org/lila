@@ -35,4 +35,5 @@
   <string name="editRoundStudy">Rundenstudie bearbeiten</string>
   <string name="deleteTournament">Dieses Turnier löschen</string>
   <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partien.</string>
+  <string name="periodInSeconds">Dauer in Sekunden</string>
 </resources>
