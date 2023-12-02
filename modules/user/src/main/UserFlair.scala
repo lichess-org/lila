@@ -32,14 +32,15 @@ final class UserFlairApi(
       yield user.id -> flair
       pairs.toMap
 
-  export lightUserApi.preloadMany
-
-  private def refresh: Unit =
+  private def refresh(): Unit =
     val source = Source.fromFile("public/flair/list.txt", "UTF-8")
     try
       db = UserFlair from source.getLines.toSet
+      logger.info(s"Updated flair db with ${db.size} flairs")
     finally
       source.close()
 
-  scheduler.scheduleWithFixedDelay(5 seconds, 7 minutes): () =>
-    refresh
+  scheduler.scheduleOnce(11 seconds)(refresh())
+
+  lila.common.Bus.subscribeFun("assetVersion"):
+    case lila.common.AssetVersion.Changed(_) => refresh()
