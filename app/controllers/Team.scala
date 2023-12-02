@@ -26,15 +26,13 @@ final class Team(
   def all(page: Int) = Open:
     Reasonable(page):
       Ok.pageAsync:
-        paginator popularTeams page map {
+        paginator popularTeams page map:
           html.team.list.all(_)
-        }
 
   def home(page: Int) = Open:
-    ctx.me.so(api.hasTeams(_)) map {
+    ctx.me.so(api.hasTeams(_)) map:
       if _ then Redirect(routes.Team.mine)
       else Redirect(routes.Team.all(page))
-    }
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
@@ -44,17 +42,15 @@ final class Team(
     Reasonable(page, config.Max(50)):
       Found(api teamEnabled id): team =>
         val canSee =
-          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so {
+          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
             api.belongsTo(team.id, _)
-          }
-        canSee flatMap {
+        canSee.flatMap:
           if _ then
             Ok.pageAsync:
               paginator.teamMembersWithDate(team, page) map {
                 html.team.members(team, _)
               }
           else authorizationFailed
-        }
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
@@ -62,9 +58,8 @@ final class Team(
         if text.trim.isEmpty
         then paginator popularTeams page map { html.team.list.all(_) }
         else
-          env.teamSearch(text, page).flatMap(_.mapFutureList(env.team.memberRepo.addMyLeadership)) map {
+          env.teamSearch(text, page).flatMap(_.mapFutureList(env.team.memberRepo.addMyLeadership)) map:
             html.team.list.search(text, _)
-          }
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team    <- api.withLeaders(team)
@@ -116,9 +111,8 @@ final class Team(
 
   def tournaments(teamId: TeamId) = Open:
     FoundPage(api teamEnabled teamId): team =>
-      env.teamInfo.tournaments(team, 30, 30) map {
+      env.teamInfo.tournaments(team, 30, 30) map:
         html.team.tournaments.page(team, _)
-      }
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: PageContext) = for
     member <- env.team.memberRepo.get(team.id, me)
