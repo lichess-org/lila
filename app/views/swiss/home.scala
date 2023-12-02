@@ -14,7 +14,7 @@ object home:
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
       withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
-    ) {
+    ):
       main(cls := "page-small box box-pad page swiss-home")(
         h1(cls := "box__top")(trans.swiss.swissTournaments()),
         renderList(trans.swiss.nowPlaying.txt())(featured.started),
@@ -22,25 +22,20 @@ object home:
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
             iconTag(licon.InfoCircle),
-            p(
-              trans.swiss.swissDescription(
+            p:
+              trans.swiss.swissDescription:
                 a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
-              )
-            )
           ),
           div(cls := "team")(
             iconTag(licon.Group),
-            p(
-              trans.swiss.teamOnly(
+            p:
+              trans.swiss.teamOnly:
                 a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
-              )
-            )
           ),
           comparison,
           div(id := "faq")(faq)
         )
       )
-    }
 
   private def renderList(name: String)(swisses: List[Swiss])(using Context) =
     table(cls := "slist swisses")(

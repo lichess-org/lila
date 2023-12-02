@@ -125,16 +125,14 @@ object topic:
           else if formWithCaptcha.isDefined then h2(id := "reply")(trans.replyToThisTopic())
           else if topic.closed then p(trans.thisTopicIsNowClosed())
           else
-            teamOnly.map { teamId =>
-              p(
-                trans.joinTheTeamXToPost(
-                  a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
-                )
-              )
-            } orElse {
-              if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
-              else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
-            }
+            teamOnly
+              .map: teamId =>
+                p:
+                  trans.joinTheTeamXToPost:
+                    a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
+              .orElse:
+                if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
+                else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
           ,
           div(
             unsub.map { uns =>

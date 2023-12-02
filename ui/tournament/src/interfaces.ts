@@ -130,9 +130,13 @@ interface FeaturedPlayer extends SimplePlayer {
   berserk?: boolean;
 }
 
+type TeamName = string;
+type TeamFlair = string;
+type LightTeam = [TeamName, TeamFlair?];
+
 export interface TeamBattle {
   teams: {
-    [id: string]: string;
+    [id: string]: LightTeam;
   };
   joinWith: string[];
   hasMoreThanTenTeams?: boolean;

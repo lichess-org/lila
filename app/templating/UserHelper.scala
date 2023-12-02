@@ -230,9 +230,8 @@ trait UserHelper extends HasEnv:
   def userFlair(user: User): Option[Tag] =
     user.flair.map(userFlair)
 
-  // bump flairs version if a flair is changed only (not added or removed)
   def userFlair(flair: Flair): Tag =
-    img(cls := "uflair", src := staticAssetUrl(s"______2/flair/img/$flair.webp"))
+    img(cls := "uflair", src := staticAssetUrl(s"$flairVersion/flair/img/$flair.webp"))
 
   private def renderRating(perf: Perf): Frag =
     frag(" (", perf.intRating, perf.provisional.yes option "?", ")")

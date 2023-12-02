@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
+import play.api.i18n.Lang
 
 object form:
 
@@ -44,11 +45,12 @@ object form:
           boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
           standardFlash,
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
+            flairField(form, t),
             entryFields(form, t.some),
             textFields(form),
             accessFields(form),
             form3.actions(
-              a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
+              a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.apply())
             )
           ),
@@ -84,6 +86,22 @@ object form:
     }
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
+
+  private def flairField(form: Form[?], team: Team)(using Lang) =
+    form3.group(form("flair"), "Flair"): f =>
+      frag(
+        details(cls := "form-control emoji-details")(
+          summary(cls := "button button-metal button-no-upper")(
+            trans.setFlair(),
+            nbsp,
+            span(cls := "flair-container".some)(team.name, team.flair map bits.teamFlair)
+          ),
+          form3.hidden(f, team.flair.map(_.value)),
+          div(cls := "flair-picker")
+        ),
+        team.flair.isDefined option p:
+          button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+      )
 
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(

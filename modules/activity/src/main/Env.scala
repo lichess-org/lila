@@ -17,14 +17,11 @@ final class Env(
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamNameSync,
+    getTeamName: lila.hub.LightTeam.GetNameSync,
     teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi,
     lightUserApi: lila.user.LightUserApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()
 

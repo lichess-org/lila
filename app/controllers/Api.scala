@@ -148,12 +148,11 @@ final class Api(
       env.tournament.jsonView(
         tour = tour,
         page = page.some,
-        getTeamName = env.team.getTeamName.apply,
         playerInfoExt = none,
         socketVersion = none,
         partial = false,
         withScores = true
-      ) map some
+      )(using env.team.getTeamName) map some
     } map toApiResult
 
   def tournamentGames(id: TourId) =

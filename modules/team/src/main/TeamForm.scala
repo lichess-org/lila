@@ -44,6 +44,7 @@ final private[team] class TeamForm(
     val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
+    val flair       = "flair"       -> lila.user.FlairApi.formField
 
   val create = Form:
     mapping(
@@ -53,6 +54,7 @@ final private[team] class TeamForm(
       Fields.description,
       Fields.descPrivate,
       Fields.request,
+      Fields flair,
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
@@ -68,7 +70,8 @@ final private[team] class TeamForm(
       Fields.request,
       Fields.chat,
       Fields.forum,
-      Fields.hideMembers
+      Fields.hideMembers,
+      Fields flair
     )(TeamEdit.apply)(unapply)
   ) fill TeamEdit(
     password = team.password,
@@ -78,7 +81,8 @@ final private[team] class TeamForm(
     request = !team.open,
     chat = team.chat,
     forum = team.forum,
-    hideMembers = team.hideMembers.has(true)
+    hideMembers = team.hideMembers.has(true),
+    flair = team.flair
   )
 
   def request(team: Team) = Form(
@@ -134,6 +138,7 @@ private[team] case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
+    flair: Option[Flair],
     gameId: GameId,
     move: String
 ):
@@ -147,7 +152,8 @@ private[team] case class TeamEdit(
     request: Boolean,
     chat: Team.Access,
     forum: Team.Access,
-    hideMembers: Boolean
+    hideMembers: Boolean,
+    flair: Option[Flair]
 ):
 
   def isOpen = !request

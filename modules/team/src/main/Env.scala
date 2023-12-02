@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.LightTeam
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -46,7 +47,8 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  val getTeamName = GetTeamNameSync(cached.blockingTeamName)
+  val getLightTeam                = LightTeam.GetSync(cached.blockingLight)
+  val getTeamNameDontUseThisIdiot = LightTeam.GetNameSync(id => cached.blockingLight(id).map(_.name))
 
   lazy val security = wire[TeamSecurity]
 

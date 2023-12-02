@@ -77,7 +77,8 @@ final class TeamApi(
       open = edit.isOpen,
       chat = edit.chat,
       forum = edit.forum,
-      hideMembers = Some(edit.hideMembers)
+      hideMembers = Some(edit.hideMembers),
+      flair = edit.flair
     )
     import reactivemongo.api.bson.*
     for

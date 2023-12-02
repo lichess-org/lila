@@ -20,7 +20,7 @@ lichess.load.then(() => {
     $(details).on('toggle', () =>
       lichess.asset.loadEsm('flairPicker', {
         init: {
-          element: details.querySelector('.emoji-picker')!,
+          element: details.querySelector('.flair-picker')!,
           close,
           onEmojiSelect,
         },

@@ -3,9 +3,15 @@ package lila.hub
 trait TellMap[Id]:
   def tell(id: Id, msg: Matchable): Unit
 
+case class LightTeam(_id: TeamId, name: LightTeam.TeamName, flair: Option[Flair]):
+  inline def id = _id
+  def pair      = id -> name
+
 object LightTeam:
   type TeamName = String
 
-case class LightTeam(_id: TeamId, name: LightTeam.TeamName):
-  inline def id = _id
-  def pair      = id -> name
+  opaque type GetNameSync = TeamId => Option[LightTeam.TeamName]
+  object GetNameSync extends FunctionWrapper[GetNameSync, TeamId => Option[LightTeam.TeamName]]
+
+  opaque type GetSync = TeamId => Option[LightTeam]
+  object GetSync extends FunctionWrapper[GetSync, TeamId => Option[LightTeam]]

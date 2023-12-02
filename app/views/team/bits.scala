@@ -16,7 +16,10 @@ object bits:
     a(href := routes.Team.show(teamId))(teamIdToName(teamId))
 
   def link(team: Team): Frag =
-    a(href := routes.Team.show(team.id))(team.name)
+    a(href := routes.Team.show(team.id))(team.name, team.flair map teamFlair)
+
+  def teamFlair(flair: Flair): Tag =
+    img(cls := "uflair", src := staticAssetUrl(s"$flairVersion/flair/img/$flair.webp"))
 
   def menu(currentTab: Option[String])(using ctx: PageContext) =
     val tab = ~currentTab
@@ -63,6 +66,7 @@ object bits:
           href := routes.Team.show(t.id)
         )(
           t.name,
+          t.flair map teamFlair,
           t.amLeader option em("leader")
         ),
         ~t.intro: String

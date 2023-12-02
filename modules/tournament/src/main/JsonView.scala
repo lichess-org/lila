@@ -40,13 +40,15 @@ final class JsonView(
   def apply(
       tour: Tournament,
       page: Option[Int],
-      getTeamName: TeamId => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
       partial: Boolean,
       withScores: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(using me: Option[Me])(using getMyTeamIds: Condition.GetMyTeamIds)(using Lang): Fu[JsObject] =
+  )(using me: Option[Me])(using
+      getMyTeamIds: Condition.GetMyTeamIds,
+      getLightTeam: TeamId => Option[lila.hub.LightTeam]
+  )(using Lang): Fu[JsObject] =
     for
       data   <- cachableData get tour.id
       myInfo <- myInfo.orLoad(me so { fetchMyInfo(tour, _) })
@@ -118,7 +120,7 @@ final class JsonView(
             Json
               .obj(
                 "teams" -> JsObject(battle.sortedTeamIds.map { id =>
-                  id.value -> JsString(getTeamName(id).getOrElse(id.value))
+                  id.value -> getLightTeam(id).fold(Json.arr(id.value))(t => Json.arr(t.name, t.flair))
                 }),
                 "nbLeaders" -> battle.nbLeaders
               )
