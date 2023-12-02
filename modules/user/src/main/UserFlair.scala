@@ -37,8 +37,7 @@ final class UserFlairApi(
     try
       db = UserFlair from source.getLines.toSet
       logger.info(s"Updated flair db with ${db.size} flairs")
-    finally
-      source.close()
+    finally source.close()
 
   scheduler.scheduleOnce(11 seconds)(refresh())
 
