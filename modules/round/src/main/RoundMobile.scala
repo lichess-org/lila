@@ -21,7 +21,7 @@ final private class RoundMobile(
     takebacker: Takebacker,
     moretimer: Moretimer,
     chatApi: lila.chat.ChatApi
-)(using Executor, lila.user.UserFlairApi):
+)(using Executor, lila.user.FlairApi):
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
 

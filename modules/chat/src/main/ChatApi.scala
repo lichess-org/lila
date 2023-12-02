@@ -9,7 +9,7 @@ import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicText }
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserRepo, UserFlairApi }
+import lila.user.{ Me, User, UserRepo, FlairApi }
 
 final class ChatApi(
     coll: Coll,
@@ -20,7 +20,7 @@ final class ChatApi(
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, Scheduler, UserFlairApi):
+)(using Executor, Scheduler, FlairApi):
 
   import Chat.given
 

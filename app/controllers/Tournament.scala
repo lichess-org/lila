@@ -19,7 +19,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def jsonView                 = env.tournament.jsonView
   private def forms                    = env.tournament.forms
   private def cachedTour(id: TourId)   = env.tournament.cached.tourCache.byId(id)
-  private given lila.user.UserFlairApi = env.user.flairApi
+  private given lila.user.FlairApi = env.user.flairApi
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 

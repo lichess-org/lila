@@ -21,7 +21,7 @@ case class User(
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
-    flair: Option[UserFlair] = None,
+    flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty
 ):
@@ -190,7 +190,7 @@ object User:
   case class Speaker(
       username: UserName,
       title: Option[UserTitle],
-      flair: Option[UserFlair],
+      flair: Option[Flair],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
@@ -307,7 +307,7 @@ object User:
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
-        flair = r.getO[UserFlair](flair).filter(UserFlairApi.exists),
+        flair = r.getO[Flair](flair).filter(FlairApi.exists),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
 

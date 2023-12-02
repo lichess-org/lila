@@ -480,7 +480,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         (res.nModified == 1) so email(id)
     }
 
-  def setFlair(user: User, flair: Option[UserFlair]): Funit =
+  def setFlair(user: User, flair: Option[Flair]): Funit =
     coll.updateOrUnsetField($id(user.id), F.flair, flair).void
 
   private val speakerProjection = $doc(
