@@ -186,6 +186,13 @@ const feedback = {
                 ),
           ),
           h('div.choices.end', [
+            h(
+              'a',
+              {
+                hook: bind('click', ctrl.flip),
+              },
+              ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'),
+            ),
             nothing
               ? null
               : h(
@@ -195,13 +202,6 @@ const feedback = {
                   },
                   ctrl.noarg('doItAgain'),
                 ),
-            h(
-              'a',
-              {
-                hook: bind('click', ctrl.flip),
-              },
-              ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'),
-            ),
           ]),
         ]),
       ]),
