@@ -1,15 +1,10 @@
 package lila.user
 
-import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.ws.DefaultBodyReadables.*
-import lila.common.config.AssetBaseUrlInternal
-import play.api.libs.json.{ JsObject, JsArray, Json }
-import lila.common.AssetVersion
+import scala.io.Source
 
 object UserFlairApi:
 
-  private var db: Set[UserFlair]                            = Set.empty
-  private[user] def updateDb(lines: Iterator[String]): Unit = db = UserFlair from lines.toSet
+  private var db: Set[UserFlair] = Set.empty
 
   def exists(flair: UserFlair): Boolean = db.isEmpty || db(flair)
 
@@ -20,8 +15,6 @@ object UserFlairApi:
   type FlairMap = Map[UserId, UserFlair]
 
 final class UserFlairApi(
-    ws: StandaloneWSClient,
-    assetBaseUrlInternal: AssetBaseUrlInternal,
     lightUserApi: LightUserApi
 )(using Executor)(using scheduler: akka.actor.Scheduler):
 
@@ -39,18 +32,13 @@ final class UserFlairApi(
       yield user.id -> flair
       pairs.toMap
 
-  private def refresh(): Funit =
-    val listUrl = s"$assetBaseUrlInternal/assets/flair/list.txt?v=${nowSeconds}"
-    ws.url(listUrl)
-      .get()
-      .map:
-        case res if res.status == 200 =>
-          UserFlairApi.updateDb(res.body[String].linesIterator)
-          logger.info(s"Updated flair db with ${db.size} flairs")
-        case _ => logger.error(s"Cannot fetch $listUrl")
-      .recover { case e =>
-        logger.error(s"Cannot fetch $listUrl", e)
-      }
+  private def refresh(): Unit =
+    val source = Source.fromFile("public/flair/list.txt", "UTF-8")
+    try
+      db = UserFlair from source.getLines.toSet
+      logger.info(s"Updated flair db with ${db.size} flairs")
+    finally
+      source.close()
 
   scheduler.scheduleOnce(11 seconds)(refresh())
 
