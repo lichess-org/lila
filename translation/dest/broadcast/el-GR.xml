@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Αναμεταδόσεις</string>
-  <string name="myBroadcasts">Η αναμεταδόσεις μου</string>
+  <string name="myBroadcasts">Οι αναμεταδόσεις μου</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s αναμετάδοση</item>
     <item quantity="other">%s αναμεταδόσεις</item>
