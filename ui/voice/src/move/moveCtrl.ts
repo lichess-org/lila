@@ -16,7 +16,9 @@ export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {
   let move: VoiceMove;
   const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
 
-  lichess.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } }).then(x => (move = x));
+  lichess.asset
+    .loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } })
+    .then(x => (move = x));
   return {
     ui,
     initGrammar: () => move?.initGrammar(),
@@ -94,7 +96,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   }
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/move-${ui.lang()}.json`));
+    const g = await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();

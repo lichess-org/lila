@@ -15,7 +15,7 @@ function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
       hook: {
-        insert: _ => lichess.loadIife('javascripts/confetti.js'),
+        insert: _ => lichess.asset.loadIife('javascripts/confetti.js'),
       },
     });
   return undefined;
@@ -32,7 +32,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
     numberRow(noarg('movesPlayed'), data.stats.moves),
     numberRow(noarg('whiteWins'), [data.stats.whiteWins, data.stats.games], 'percent'),
     numberRow(noarg('blackWins'), [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(noarg('draws'), [data.stats.draws, data.stats.games], 'percent'),
+    numberRow(noarg('drawRate'), [data.stats.draws, data.stats.games], 'percent'),
   ];
 
   if (data.berserkable) {

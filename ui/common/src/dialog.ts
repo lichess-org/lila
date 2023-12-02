@@ -9,7 +9,7 @@ let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 export const ready = lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
-  dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+  dialogPolyfill = (await import(lichess.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
     ?.default;
   return dialogPolyfill !== undefined;
 });
@@ -214,7 +214,7 @@ function assets(o: DialogOpts) {
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve(),
+    o.cssPath ? lichess.asset.loadCssPath(o.cssPath) : Promise.resolve(),
   ]);
 }
 

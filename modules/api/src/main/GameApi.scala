@@ -27,56 +27,9 @@ final private[api] class GameApi(
 
   import GameApi.WithFlags
 
-  def byUser(
-      user: User,
-      rated: Option[Boolean],
-      playing: Option[Boolean],
-      analysed: Option[Boolean],
-      withFlags: WithFlags,
-      nb: MaxPerPage,
-      page: Int
-  ): Fu[JsObject] =
-    Paginator(
-      adapter = Adapter[Game](
-        collection = gameRepo.coll,
-        selector = {
-          if ~playing then lila.game.Query.nowPlaying(user.id)
-          else
-            $doc(
-              G.playerUids -> user.id,
-              G.status $gte chess.Status.Mate.id,
-              G.analysed -> analysed.map[BSONValue] {
-                if _ then BSONBoolean(true)
-                else $doc("$exists" -> false)
-              }
-            )
-        } ++ $doc(
-          G.rated -> rated.map[BSONValue] {
-            if _ then BSONBoolean(true)
-            else $doc("$exists" -> false)
-          }
-        ),
-        projection = none,
-        sort = $doc(G.createdAt -> -1),
-        _.sec
-      ).withNbResults(
-        if ~playing then gameCache.nbPlaying(user.id)
-        else
-          fuccess:
-            rated.fold(user.count.game):
-              if _ then user.count.rated
-              else user.count.casual
-      ),
-      currentPage = page,
-      maxPerPage = nb
-    ).flatMap: pag =>
-      gamesJson(withFlags = withFlags)(pag.currentPageResults).map: games =>
-        PaginatorJson(pag withCurrentPageResults games)
-
   def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
-    gameRepo game id flatMapz { g =>
+    gameRepo game id flatMapz: g =>
       gamesJson(withFlags)(List(g)) map (_.headOption)
-    }
 
   def byUsersVs(
       users: (User, User),

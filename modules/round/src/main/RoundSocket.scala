@@ -49,6 +49,14 @@ final class RoundSocket(
     gameIds.traverse: id =>
       rounds.getOrMake(id).getGame dmap { id -> _ }
 
+  def getMany(gameIds: List[GameId]): Fu[List[GameAndSocketStatus]] =
+    gameIds
+      .traverse: id =>
+        gameAndStatusIfPresent(id).orElse:
+          roundDependencies.gameRepo game id map2: g =>
+            GameAndSocketStatus(g, SocketStatus.default)
+      .map(_.flatten)
+
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
   // get the proxied version of the game
@@ -59,8 +67,8 @@ final class RoundSocket(
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId).so(_ updateGame f)
 
-  def statusIfPresent(gameId: GameId): Fu[Option[SocketStatus]] =
-    rounds.askIfPresent[SocketStatus](gameId)(GetSocketStatus.apply)
+  def gameAndStatusIfPresent(gameId: GameId): Fu[Option[GameAndSocketStatus]] =
+    rounds.askIfPresent[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =

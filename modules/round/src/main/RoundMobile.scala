@@ -1,10 +1,10 @@
 package lila.round
 
-import lila.user.UserRepo
+import lila.user.{ UserRepo, Me }
 import lila.game.{ Game, Pov, GameRepo }
 import lila.game.JsonView.given
-import lila.round.actorApi.SocketStatus
-import play.api.libs.json.{ Json, JsObject }
+import lila.round.actorApi.{ SocketStatus, GameAndSocketStatus }
+import play.api.libs.json.{ Json, JsObject, JsArray }
 import lila.common.{ Bus, Preload, ApiVersion, LightUser }
 import lila.socket.Socket
 import lila.common.Json.given
@@ -24,6 +24,14 @@ final private class RoundMobile(
 )(using Executor, lila.user.UserFlairApi):
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
+
+  def json(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
+    gameSockets
+      .flatMap: gs =>
+        Pov(gs.game, me).map(_ -> gs.socket)
+      .traverse: (pov, socket) =>
+        json(pov.game, pov.fullId.anyId, socket.some)
+      .map(JsArray(_))
 
   def json(game: Game, id: GameAnyId, socket: Option[SocketStatus]): Fu[JsObject] = for
     initialFen <- gameRepo.initialFen(game)

@@ -13,14 +13,17 @@ interface Lichess {
   powertip: LichessPowertip;
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
-  assetUrl(url: string, opts?: AssetUrlOpts): string;
-  flairSrc(flair: Flair): string;
-  loadCss(path: string): void;
-  loadCssPath(path: string): Promise<void>;
-  jsModule(name: string): string;
-  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-  hopscotch: any;
+  asset: {
+    baseUrl(): string;
+    url(url: string, opts?: AssetUrlOpts): string;
+    flairSrc(flair: Flair): string;
+    loadCss(path: string): void;
+    loadCssPath(path: string): Promise<void>;
+    jsModule(name: string): string;
+    loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+    loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    hopscotch: any;
+  };
   userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
@@ -78,7 +81,6 @@ interface LichessLog {
   (...args: any[]): Promise<void>;
   clear(): Promise<void>;
   get(): Promise<string>;
-  diagnostic(): Promise<void>;
 }
 
 type I18nDict = { [key: string]: string };

@@ -181,6 +181,9 @@ importers:
 
   ui/chart:
     dependencies:
+      '@juggle/resize-observer':
+        specifier: ^3.4.0
+        version: 3.4.0
       '@types/highcharts':
         specifier: '=4.2.57'
         version: 4.2.57
@@ -1591,6 +1594,10 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: false
+
+  /@juggle/resize-observer@3.4.0:
+    resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
     dev: false
 
   /@kurkle/color@0.3.2:

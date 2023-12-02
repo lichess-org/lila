@@ -44,7 +44,8 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'transp', name: 'Picture' },
   ];
 
-  const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
+  const announceFail = (err: string) =>
+    lichess.announce({ msg: `Failed to save background preference: ${err}` });
 
   const reloadAllTheThings = () => {
     if ($('canvas').length || window.Highcharts) lichess.reload();
@@ -72,11 +73,12 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     setImage(i: string) {
       data.image = i;
       xhr
-        .text('/pref/bgImg', {
+        .textRaw('/pref/bgImg', {
           body: xhr.form({ bgImg: i }),
           method: 'post',
         })
-        .then(reloadAllTheThings, announceFail);
+        .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
+        .then(reloadAllTheThings, err => err.then(announceFail));
       applyBackground(data, list);
       redraw();
     },
@@ -199,7 +201,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
 
   const gallery = ctrl.data.gallery!;
   const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
-  const montageUrl = lichess.assetUrl(gallery[`montage${cols}`], { noVersion: true });
+  const montageUrl = lichess.asset.url(gallery[`montage${cols}`], { noVersion: true });
   // our layout is static due to the single image gallery optimization. set width here
   // and allow for the possibility of non-overlaid scrollbars
   const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidth() : 0);
@@ -211,7 +213,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
         'div#images-grid',
         { attrs: { style: `background-image: url(${montageUrl});` } },
         gallery.images.map(img => {
-          const assetUrl = lichess.assetUrl(img, { noVersion: true });
+          const assetUrl = lichess.asset.url(img, { noVersion: true });
           const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
           return h(`div#${urlId(assetUrl)}${divClass}`, {
             hook: bind('click', () => setImg(assetUrl)),

@@ -16,9 +16,13 @@ object ApiVersion extends OpaqueInt[ApiVersion]:
 
 opaque type AssetVersion = String
 object AssetVersion extends OpaqueString[AssetVersion]:
-  var current        = random
-  def change()       = current = random
+  private var stored = random
+  def current        = stored
+  def change() =
+    stored = random
+    Bus.publish(Changed(current), "assetVersion")
   private def random = AssetVersion(SecureRandom nextString 6)
+  case class Changed(version: AssetVersion)
 
 opaque type Bearer = String
 object Bearer extends OpaqueString[Bearer]:
