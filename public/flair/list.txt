@@ -3211,7 +3211,6 @@ symbols.play-button
 symbols.play-or-pause-button
 symbols.plus
 symbols.potable-water
-symbols.prohibited
 symbols.purple-heart
 symbols.puzzle-storm
 symbols.question-mark

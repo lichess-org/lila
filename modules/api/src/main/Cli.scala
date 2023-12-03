@@ -44,9 +44,8 @@ final private[api] class Cli(
           Bus.publish(announce, "announce")
           fuccess(announce.json.toString)
         case None =>
-          fuccess(
+          fuccess:
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
-          )
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
       puzzle.opening.recomputeAll
       fuccess("started in background")
