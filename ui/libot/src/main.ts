@@ -1,7 +1,7 @@
 import { Libots } from './interfaces';
 import makeZerofish from 'zerofish';
 import { makeCtrl } from './ctrl';
-import { ZeroBot } from './zerobot';
+import { ZfBot } from './zfbot';
 export { type Ctrl as LibotCtrl } from './ctrl';
 export * from './interfaces';
 
@@ -18,7 +18,7 @@ export async function initModule(stubs = false) {
   const [zf, bots] = await Promise.all([zfAsync, botsAsync]);
 
   for (const bot of bots) {
-    if (zf) libots.bots[bot.uid.slice(1)] = new ZeroBot(bot, zf);
+    if (zf) libots.bots[bot.uid.slice(1)] = new ZfBot(bot, zf);
     else libots.bots[bot.uid.slice(1)] = bot;
   }
   return zf ? makeCtrl(libots, zf) : libots;
