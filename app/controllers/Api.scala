@@ -22,12 +22,13 @@ final class Api(
   import Api.*
   import env.api.{ userApi, gameApi }
 
-  private lazy val apiStatusJson = Json.obj(
+  private lazy val apiStatusJson = Json.obj:
     "api" -> Json.obj(
       "current" -> Mobile.Api.currentVersion.value,
       "olds"    -> Json.arr()
     )
-  )
+
+  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")
@@ -148,7 +149,6 @@ final class Api(
       env.tournament.jsonView(
         tour = tour,
         page = page.some,
-        getTeamName = env.team.getTeamName.apply,
         playerInfoExt = none,
         socketVersion = none,
         partial = false,

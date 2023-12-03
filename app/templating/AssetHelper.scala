@@ -24,6 +24,9 @@ trait AssetHelper extends HasEnv:
 
   def assetVersion = AssetVersion.current
 
+  // bump flairs version if a flair is changed only (not added or removed)
+  val flairVersion = "______2"
+
   def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
   def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 

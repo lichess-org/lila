@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.LightUser
 import lila.common.Json.given
-import lila.user.UserFlairApi
+import lila.user.FlairApi
 
 object JsonView:
 
@@ -12,18 +12,18 @@ object JsonView:
 
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
-  def asyncLines(chat: AnyChat)(using flairs: UserFlairApi)(using Executor): Fu[JsonChatLines] =
+  def asyncLines(chat: AnyChat)(using flairs: FlairApi)(using Executor): Fu[JsonChatLines] =
     flairs.flairsOf(chat.flairUserIds) map: flairs =>
       syncLines(chat)(using flairs)
 
-  def syncLines(chat: AnyChat)(using UserFlairApi.FlairMap): JsonChatLines = JsonChatLines:
+  def syncLines(chat: AnyChat)(using FlairApi.FlairMap): JsonChatLines = JsonChatLines:
     chat match
       case c: MixedChat => JsArray(c.lines map lineWriter.writes)
       case c: UserChat  => JsArray(c.lines map userLineWriter.writes)
 
-  def apply(line: Line)(using getFlair: UserFlairApi.Getter)(using Executor): Fu[JsObject] =
+  def apply(line: Line)(using getFlair: FlairApi.Getter)(using Executor): Fu[JsObject] =
     line.userIdMaybe.ifTrue(line.flair).so(getFlair) map: flair =>
-      given UserFlairApi.FlairMap = ~(for
+      given FlairApi.FlairMap = ~(for
         userId <- line.userIdMaybe
         flair  <- flair
       yield Map(userId -> flair))
@@ -33,7 +33,7 @@ object JsonView:
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj:
       "history" -> u.history
 
-  def mobile(chat: AnyChat, writeable: Boolean = true)(using UserFlairApi, Executor): Fu[JsObject] =
+  def mobile(chat: AnyChat, writeable: Boolean = true)(using FlairApi, Executor): Fu[JsObject] =
     asyncLines(chat).map: lines =>
       Json.obj(
         "lines"     -> lines,
@@ -58,11 +58,11 @@ object JsonView:
           "date"   -> e.createdAt
         )
 
-    private[chat] def lineWriter(using UserFlairApi.FlairMap): OWrites[Line] = OWrites:
+    private[chat] def lineWriter(using FlairApi.FlairMap): OWrites[Line] = OWrites:
       case l: UserLine   => userLineWriter writes l
       case l: PlayerLine => playerLineWriter writes l
 
-    def userLineWriter(using getFlair: UserFlairApi.FlairMap): OWrites[UserLine] = OWrites: l =>
+    def userLineWriter(using getFlair: FlairApi.FlairMap): OWrites[UserLine] = OWrites: l =>
       Json
         .obj(
           "u" -> l.username,

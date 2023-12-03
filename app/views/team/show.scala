@@ -60,7 +60,7 @@ object show:
           data("socket-version") := v
       )(
         boxTop(
-          h1(cls := "text", dataIcon := licon.Group)(t.name),
+          h1(cls := "text", dataIcon := licon.Group)(t.name, teamFlair(t.team)),
           div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else

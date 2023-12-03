@@ -13,7 +13,7 @@ final private class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(using Executor, lila.user.UserFlairApi.Getter):
+)(using Executor, lila.user.FlairApi.Getter):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId into RoomId, NotifyVersion("hostGame", gameId.value))

@@ -31,7 +31,7 @@ object gathering:
           ):
             v.condition match
               case Condition.TeamMember(teamId, teamName) =>
-                trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
+                trans.mustBeInTeam(teamLink(teamId, withIcon = false))
               case condition =>
                 v.verdict match
                   case Condition.RefusedUntil(until) =>

@@ -1,8 +1,8 @@
 import TournamentController from '../ctrl';
 import { bind, MaybeVNode } from 'common/snabbdom';
-import { fullName } from 'common/userLink';
+import { fullName, userFlair } from 'common/userLink';
 import { h, VNode } from 'snabbdom';
-import { TeamBattle, RankedTeam } from '../interfaces';
+import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 import { snabDialog } from 'common/dialog';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
@@ -36,7 +36,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
                       'data-id': id,
                     },
                   },
-                  tb.teams[id],
+                  renderTeamArray(tb.teams[id]),
                 ),
               ),
             ]
@@ -44,15 +44,15 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               h('p', 'You must join one of these teams to participate!'),
               h(
                 'ul',
-                shuffleArray(Object.keys(tb.teams)).map((t: string) =>
+                shuffleArray(Object.keys(tb.teams)).map((id: string) =>
                   h(
                     'li',
                     h(
                       'a',
                       {
-                        attrs: { href: '/team/' + t },
+                        attrs: { href: '/team/' + id },
                       },
-                      tb.teams[t],
+                      renderTeamArray(tb.teams[id]),
                     ),
                   ),
                 ),
@@ -62,6 +62,8 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ],
   });
 }
+
+const renderTeamArray = (team: LightTeam) => [team[0], userFlair({ flair: team[1] })];
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle,
@@ -106,7 +108,7 @@ function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
 export function teamName(battle: TeamBattle, teamId: string): VNode {
   return h(
     battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
-    battle.teams[teamId],
+    renderTeamArray(battle.teams[teamId]),
   );
 }
 

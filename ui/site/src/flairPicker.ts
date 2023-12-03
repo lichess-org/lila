@@ -1,14 +1,16 @@
 import * as emojis from 'emoji-mart';
 
-export function emojiPicker(
-  element: HTMLElement,
-  close: () => void,
-  onEmojiSelect: (i?: { id: string; src: string }) => void,
-) {
-  if (element.classList.contains('emoji-done')) return;
+type Config = {
+  element: HTMLElement;
+  close: () => void;
+  onEmojiSelect: (i?: { id: string; src: string }) => void;
+};
+
+export function initModule(cfg: Config) {
+  if (cfg.element.classList.contains('emoji-done')) return;
   const opts = {
-    onEmojiSelect,
-    onClickOutside: close,
+    onEmojiSelect: cfg.onEmojiSelect,
+    onClickOutside: cfg.close,
     data: makeEmojiData,
     categories: categories.map(categ => categ[0]),
     categoryIcons,
@@ -17,9 +19,9 @@ export function emojiPicker(
     skinTonePosition: 'none',
   };
   const picker = new emojis.Picker(opts);
-  element.appendChild(picker as unknown as HTMLElement);
-  element.classList.add('emoji-done');
-  $(element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
+  cfg.element.appendChild(picker as unknown as HTMLElement);
+  cfg.element.classList.add('emoji-done');
+  $(cfg.element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
 }
 
 const makeEmojiData = async () => {

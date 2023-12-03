@@ -10,7 +10,7 @@ import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs, UserFlairApi }
+import lila.user.{ User, UserPerfs, FlairApi }
 
 trait UserHelper extends HasEnv:
   self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
@@ -158,7 +158,7 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean,
       truncate: Option[Int],
       title: Option[UserTitle],
-      flair: Option[UserFlair],
+      flair: Option[Flair],
       params: String,
       modIcon: Boolean
   )(using Lang): Tag =
@@ -230,9 +230,8 @@ trait UserHelper extends HasEnv:
   def userFlair(user: User): Option[Tag] =
     user.flair.map(userFlair)
 
-  // bump flairs version if a flair is changed only (not added or removed)
-  def userFlair(flair: UserFlair): Tag =
-    img(cls := "uflair", src := staticAssetUrl(s"______2/flair/img/$flair.webp"))
+  def userFlair(flair: Flair): Tag =
+    img(cls := "uflair", src := staticAssetUrl(s"$flairVersion/flair/img/$flair.webp"))
 
   private def renderRating(perf: Perf): Frag =
     frag(" (", perf.intRating, perf.provisional.yes option "?", ")")
