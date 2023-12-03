@@ -47,8 +47,7 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  val getLightTeam                = LightTeam.GetSync(cached.blockingLight)
-  val getTeamNameDontUseThisIdiot = LightTeam.GetNameSync(id => cached.blockingLight(id).map(_.name))
+  val getLightTeam = LightTeam.GetSync(cached.blockingLight)
 
   lazy val security = wire[TeamSecurity]
 

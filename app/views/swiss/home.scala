@@ -47,7 +47,7 @@ object home:
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
-                trans.by(span(cls := "team")(teamIdToName(s.teamId)))
+                trans.by(span(cls := "team")(teamLink(s.teamId, false)))
               )
             ),
             td(cls := "infos")(

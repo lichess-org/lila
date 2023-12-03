@@ -54,38 +54,38 @@ object teamBattle:
 
   private val scoreTag = tag("score")
 
-  def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using PageContext) =
+  def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using
+      PageContext
+  ) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.show.team-battle")
-    )(
+    ):
       main(cls := "box")(
         h1(cls := "box__top")(a(href := routes.Tournament.show(tour.id))(tour.name())),
         table(cls := "slist slist-pad tour__team-standing tour__team-standing--full")(
           tbody(
-            standing.map { t =>
+            standing.map: t =>
+              val team = teamIdToLight(t.teamId)
               tr(
                 td(cls := "rank")(t.rank),
-                td(cls := "team")(
-                  a(href := routes.Tournament.teamInfo(tour.id, t.teamId))(teamIdToName(t.teamId))
-                ),
+                td(cls := "team"):
+                  a(href := routes.Tournament.teamInfo(tour.id, team.id))(team.name, teamFlair(team))
+                ,
                 td(cls := "players")(
                   fragList(
-                    t.leaders.map { l =>
-                      scoreTag(dataHref := routes.User.show(l.userId), cls := "user-link ulpt")(l.score)
-                    },
+                    t.leaders.map: l =>
+                      scoreTag(dataHref := routes.User.show(l.userId), cls := "user-link ulpt")(l.score),
                     "+"
                   )
                 ),
                 td(cls := "total")(t.score)
               )
-            }
           )
         )
       )
-    )
 
-  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(using
+  def teamInfo(tour: Tournament, team: lila.hub.LightTeam, info: TeamBattle.TeamInfo)(using
       ctx: PageContext
   ) =
     views.html.base.layout(

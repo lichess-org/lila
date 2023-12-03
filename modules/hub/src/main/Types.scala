@@ -10,8 +10,5 @@ case class LightTeam(_id: TeamId, name: LightTeam.TeamName, flair: Option[Flair]
 object LightTeam:
   type TeamName = String
 
-  opaque type GetNameSync = TeamId => Option[LightTeam.TeamName]
-  object GetNameSync extends FunctionWrapper[GetNameSync, TeamId => Option[LightTeam.TeamName]]
-
   opaque type GetSync = TeamId => Option[LightTeam]
   object GetSync extends FunctionWrapper[GetSync, TeamId => Option[LightTeam]]

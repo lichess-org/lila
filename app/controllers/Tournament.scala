@@ -137,7 +137,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def teamInfo(tourId: TourId, teamId: TeamId) = Open:
     Found(cachedTour(tourId)): tour =>
-      Found(env.team.teamRepo mini teamId): team =>
+      Found(env.team getLightTeam teamId): team =>
         negotiate(
           FoundPage(api.teamBattleTeamInfo(tour, teamId)):
             views.html.tournament.teamBattle.teamInfo(tour, team, _)
@@ -439,11 +439,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:
-      _.filter(_.isTeamBattle) so { tour =>
-        env.tournament.cached.battle.teamStanding.get(tour.id) flatMap { standing =>
-          Ok.page(views.html.tournament.teamBattle.standing(tour, standing))
-        }
-      }
+      _.filter(_.isTeamBattle) so: tour =>
+        env.tournament.cached.battle.teamStanding.get(tour.id) flatMap: standing =>
+          env.team.cached.preloadMany(standing.map(_.teamId)) >>
+            Ok.page(views.html.tournament.teamBattle.standing(tour, standing))
 
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
@@ -457,14 +456,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture: tourId =>
-        repo.isUnfinished(tourId) flatMapz {
-          env.streamer.liveStreamApi.all.flatMap {
+        repo.isUnfinished(tourId) flatMapz:
+          env.streamer.liveStreamApi.all.flatMap:
             _.streams
-              .map: stream =>
+              .traverse: stream =>
                 env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
-              .parallel
               .dmap(_.flatten)
-          }
-        }
 
   private given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)

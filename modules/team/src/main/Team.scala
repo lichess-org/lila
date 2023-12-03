@@ -45,8 +45,6 @@ case class Team(
 
 object Team:
 
-  case class Mini(id: TeamId, name: String)
-
   case class WithLeaders(team: Team, leaders: List[TeamMember]):
     export team.*
     def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.hasPerm(_.Admin))
@@ -60,10 +58,10 @@ object Team:
   case class WithPublicLeaderIds(team: Team, publicLeaders: List[UserId])
 
   import chess.variant.Variant
-  val variants: Map[Variant.LilaKey, Mini] = Variant.list.all.view.collect {
+  val variants: Map[Variant.LilaKey, LightTeam] = Variant.list.all.view.collect {
     case v if v.exotic =>
       val name = s"Lichess ${v.name}"
-      v.key -> Mini(nameToId(name), name)
+      v.key -> LightTeam(nameToId(name), name, none)
   }.toMap
 
   val maxLeaders     = 10

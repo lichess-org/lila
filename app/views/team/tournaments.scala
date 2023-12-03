@@ -22,16 +22,12 @@ object tournaments:
         .some,
       moreCss = cssTag("team"),
       wrapClass = "full-screen-force"
-    ) {
+    ):
       main(
         div(cls := "box")(
-          boxTop(
-            h1(
-              views.html.team.bits.link(t),
-              " • ",
-              trans.tournaments()
-            )
-          ),
+          boxTop:
+            h1(teamLink(t, true), " • ", trans.tournaments())
+          ,
           div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
               h2(trans.team.upcomingTourns()),
@@ -48,11 +44,10 @@ object tournaments:
           )
         )
       )
-    }
 
   def renderList(tours: List[TeamInfo.AnyTour])(using PageContext) =
-    tbody(
-      tours map { any =>
+    tbody:
+      tours.map: any =>
         tr(
           cls := List(
             "enterable" -> any.isEnterable,
@@ -110,8 +105,6 @@ object tournaments:
           ),
           td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
         )
-      }
-    )
 
   private def renderStartsAt(any: TeamInfo.AnyTour)(using Lang): Frag =
     if any.isEnterable && any.startsAt.isBeforeNow then trans.playingRightNow()

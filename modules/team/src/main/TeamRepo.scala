@@ -37,12 +37,6 @@ final class TeamRepo(val coll: Coll)(using Executor):
       .cursor[Team](ReadPref.sec)
       .list(100)
 
-  def name(id: TeamId): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(id), "name")
-
-  def mini(id: TeamId): Fu[Option[Team.Mini]] =
-    name(id) map2 { Team.Mini(id, _) }
-
   private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel:
       $doc(

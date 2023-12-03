@@ -108,7 +108,7 @@ object communication:
                 line.from.map:
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
-                  case PublicSource.Team(id)       => views.html.team.bits.link(id)
+                  case PublicSource.Team(id)       => teamLink(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Swiss(id)   => views.html.swiss.bits.link(SwissId(id))

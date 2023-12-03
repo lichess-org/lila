@@ -22,7 +22,7 @@ final class Cached(
     expireAfter = Syncache.ExpireAfter.Access(10 minutes)
   )
 
-  export lightCache.{ preloadSet, sync as blockingLight }
+  export lightCache.{ preloadSet, preloadMany, sync as blockingLight, async as light }
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",

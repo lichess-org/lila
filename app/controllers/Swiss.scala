@@ -10,6 +10,7 @@ import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
+import lila.hub.LightTeam
 
 final class Swiss(
     env: Env,
@@ -88,14 +89,17 @@ final class Swiss(
   private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserId) =
     env.team.cached.teamIds(user).dmap(_ contains teamId)
 
+  private def cachedSwissAndTeam(id: SwissId): Fu[Option[(SwissModel, LightTeam)]] =
+    env.swiss.cache.swissCache.byId(id) flatMap:
+      _.so: swiss =>
+        env.team.cached.light(swiss.teamId).map2(swiss -> _)
+
   def round(id: SwissId, round: Int) = Open:
-    Found(env.swiss.cache.swissCache byId id): swiss =>
-      (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) so { r =>
+    Found(cachedSwissAndTeam(id)): (swiss, team) =>
+      (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) so: r =>
         val page = getInt("page").filter(0.<)
-        env.swiss.roundPager(swiss, r, page | 0) flatMap { pager =>
-          Ok.page(html.swiss.show.round(swiss, r, pager))
-        }
-      }
+        env.swiss.roundPager(swiss, r, page | 0) flatMap: pager =>
+          Ok.page(html.swiss.show.round(swiss, r, team, pager))
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me so { env.team.api.isGranted(teamId, _, _.Tour) } elseNotFound f

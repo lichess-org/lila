@@ -22,12 +22,13 @@ final class Api(
   import Api.*
   import env.api.{ userApi, gameApi }
 
-  private lazy val apiStatusJson = Json.obj(
+  private lazy val apiStatusJson = Json.obj:
     "api" -> Json.obj(
       "current" -> Mobile.Api.currentVersion.value,
       "olds"    -> Json.arr()
     )
-  )
+
+  private given lila.hub.LightTeam.GetSync = env.team.getLightTeam
 
   val status = Anon:
     val appVersion  = get("v")
@@ -152,7 +153,7 @@ final class Api(
         socketVersion = none,
         partial = false,
         withScores = true
-      )(using env.team.getTeamName) map some
+      ) map some
     } map toApiResult
 
   def tournamentGames(id: TourId) =

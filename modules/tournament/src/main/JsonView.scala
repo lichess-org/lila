@@ -47,7 +47,7 @@ final class JsonView(
       myInfo: Preload[Option[MyInfo]] = Preload.none
   )(using me: Option[Me])(using
       getMyTeamIds: Condition.GetMyTeamIds,
-      getLightTeam: TeamId => Option[lila.hub.LightTeam]
+      getLightTeam: lila.hub.LightTeam.GetSync
   )(using Lang): Fu[JsObject] =
     for
       data   <- cachableData get tour.id

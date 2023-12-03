@@ -20,7 +20,7 @@ object categ:
           description = "Chess discussions and feedback about Lichess development"
         )
         .some
-    ) {
+    ):
       main(cls := "forum index box")(
         boxTop(
           h1(dataIcon := licon.BubbleConvo, cls := "text")("Lichess Forum"),
@@ -34,7 +34,6 @@ object categ:
           showCategs(categs.filter(_.categ.isTeam))
         )
       )
-    }
 
   def show(
       categ: lila.forum.ForumCateg,
@@ -89,11 +88,10 @@ object categ:
               dataIcon := licon.LessThan,
               cls      := "text"
             ),
-            categ.team.fold(frag(categ.name))(teamIdToName)
+            categ.team.fold(frag(categ.name))(teamLink(_, true))
           ),
-          div(cls := "box__top__actions")(
+          div(cls := "box__top__actions"):
             newTopicButton
-          )
         ),
         table(cls := "topics slist slist-pad")(
           thead(
@@ -103,8 +101,7 @@ object categ:
               th(trans.lastPost())
             )
           ),
-          tbody(
-            cls := "infinite-scroll",
+          tbody(cls := "infinite-scroll")(
             stickyPosts map showTopic(sticky = true),
             topics.currentPageResults map showTopic(sticky = false),
             pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
@@ -122,7 +119,7 @@ object categ:
           th(trans.lastPost())
         )
       ),
-      tbody(
+      tbody:
         categs.map: categ =>
           tr(
             td(cls := "subject")(
@@ -132,7 +129,7 @@ object categ:
             td(cls := "right")(categ.nbTopics.localize),
             td(cls := "right")(categ.nbPosts.localize),
             td(
-              categ.lastPost.map { (topic, post, page) =>
+              categ.lastPost.map: (topic, post, page) =>
                 frag(
                   a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}")(
                     momentFromNow(post.createdAt)
@@ -140,8 +137,6 @@ object categ:
                   br,
                   trans.by(bits.authorLink(post))
                 )
-              }
             )
           )
-      )
     )

@@ -94,7 +94,7 @@ object form:
           summary(cls := "button button-metal button-no-upper")(
             trans.setFlair(),
             nbsp,
-            span(cls := "flair-container".some)(team.name, team.flair map bits.teamFlair)
+            span(cls := "flair-container".some)(team.name, teamFlair(team))
           ),
           form3.hidden(f, team.flair.map(_.value)),
           div(cls := "flair-picker")
