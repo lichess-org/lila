@@ -4,13 +4,12 @@ $user-list-width: 35ch;
 .tournament-shields {
   @extend %box-radius;
 
-  border: $border;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
 
   &__item {
     background: $c-bg-box;
-    border-#{$end-direction}: $border;
+    border: $border;
   }
 
   h2 {

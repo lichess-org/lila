@@ -50,10 +50,9 @@ $user-list-width: 30ch;
 
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
-      border: 1px solid $c-lead;
 
       .user-top {
-        border-#{$end-direction}: 2px solid fade-out($c-lead, 0.5);
+        border: 1px solid fade-out($c-lead, 0.5);
       }
 
       h2 {
