@@ -54,7 +54,7 @@ final private[team] class TeamForm(
       Fields.description,
       Fields.descPrivate,
       Fields.request,
-      Fields flair,
+      Fields.flair,
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
@@ -71,7 +71,7 @@ final private[team] class TeamForm(
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      Fields flair
+      Fields.flair
     )(TeamEdit.apply)(unapply)
   ) fill TeamEdit(
     password = team.password,

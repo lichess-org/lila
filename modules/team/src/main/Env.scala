@@ -47,7 +47,9 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  val getLightTeam = LightTeam.GetSync(cached.blockingLight)
+  export cached.{ lightApi as lightTeamApi }
+
+  export cached.{ async as lightTeam, sync as lightTeamSync }
 
   lazy val security = wire[TeamSecurity]
 

@@ -19,7 +19,7 @@ object teamBattle:
         iifeModule("vendor/textcomplete.min.js"),
         jsModule("teamBattleForm")
       )
-    )(
+    ):
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")(tour.name()),
@@ -50,7 +50,6 @@ object teamBattle:
           )
         )
       )
-    )
 
   private val scoreTag = tag("score")
 
@@ -91,13 +90,13 @@ object teamBattle:
     views.html.base.layout(
       title = s"${tour.name()} • ${team.name}",
       moreCss = cssTag("tournament.show.team-battle")
-    )(
+    ):
       main(cls := "box")(
         boxTop(
           h1(
             a(href := routes.Tournament.battleTeams(tour.id))(tour.name()),
-            " • ",
-            a(href := routes.Team.show(team.id))(team.name)
+            hr,
+            teamLink(team, true)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -133,4 +132,3 @@ object teamBattle:
           )
         )
       )
-    )

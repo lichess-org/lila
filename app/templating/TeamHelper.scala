@@ -16,7 +16,7 @@ trait TeamHelper:
     ctx.userId.exists { env.team.api.syncBelongsTo(teamId, _) }
 
   def teamIdToLight(id: TeamId): LightTeam =
-    env.team.getLightTeam(id).getOrElse(LightTeam(id, id.value, none))
+    env.team.lightTeamSync(id).getOrElse(LightTeam(id, id.value, none))
 
   def teamLink(id: TeamId, withIcon: Boolean = true): Tag =
     teamLink(teamIdToLight(id), withIcon)

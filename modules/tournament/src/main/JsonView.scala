@@ -47,7 +47,7 @@ final class JsonView(
       myInfo: Preload[Option[MyInfo]] = Preload.none
   )(using me: Option[Me])(using
       getMyTeamIds: Condition.GetMyTeamIds,
-      getLightTeam: lila.hub.LightTeam.GetSync
+      lightTeamApi: lila.hub.LightTeam.Api
   )(using Lang): Fu[JsObject] =
     for
       data   <- cachableData get tour.id
@@ -79,11 +79,11 @@ final class JsonView(
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi currentOwner tour }
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
-      yield getMyTeamIds(u) map { teams =>
-        battle.teams.intersect(teams.toSet).toList
-      }))
+      yield getMyTeamIds(u).map: teams =>
+        battle.teams.intersect(teams.toSet).toList))
       teamStanding <- getTeamStanding(tour)
       myTeam       <- myInfo.flatMap(_.teamId) so { getMyRankedTeam(tour, _) }
+      _            <- tour.teamBattle.so(battle => lightTeamApi.preload(battle.teams))
     yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
       .obj("standing" -> stand)
       .add("me" -> myInfo.map(myInfoJson(pauseDelay)))
@@ -120,7 +120,7 @@ final class JsonView(
             Json
               .obj(
                 "teams" -> JsObject(battle.sortedTeamIds.map { id =>
-                  id.value -> getLightTeam(id).fold(Json.arr(id.value))(t => Json.arr(t.name, t.flair))
+                  id.value -> lightTeamApi.sync(id).fold(Json.arr(id.value))(t => Json.arr(t.name, t.flair))
                 }),
                 "nbLeaders" -> battle.nbLeaders
               )

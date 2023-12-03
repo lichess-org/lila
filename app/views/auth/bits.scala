@@ -19,12 +19,11 @@ object bits:
         username,
         if register then trans.username() else trans.usernameOrEmail(),
         help = register option trans.signupUsernameHint()
-      ) { f =>
+      ): f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
           register option p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
-        )
-      },
+        ),
       form3.passwordModified(password, trans.password())(
         autocomplete := (if register then "new-password" else "current-password")
       ),
@@ -42,7 +41,7 @@ object bits:
       moreCss = cssTag("auth"),
       moreJs = views.html.base.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
-    ) {
+    ):
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
@@ -58,18 +57,16 @@ object bits:
           form3.action(form3.submit(trans.emailMeALink()))
         )
       )
-    }
 
   def passwordResetSent(email: String)(using PageContext) =
     views.html.base.layout(
       title = trans.passwordReset.txt()
-    ) {
+    ):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailTo(email)),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
-    }
 
   def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using PageContext)(using
       me: Me
@@ -78,7 +75,7 @@ object bits:
       title = s"${me.username} - ${trans.changePassword.txt()}",
       moreCss = cssTag("form3"),
       moreJs = jsModuleInit("passwordComplexity", "'form3-newPasswd1'")
-    ) {
+    ):
       main(cls := "page-small box box-pad")(
         boxTop(
           (ok match
@@ -105,7 +102,6 @@ object bits:
           form3.action(form3.submit(trans.changePassword()))
         )
       )
-    }
 
   def magicLink(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
     views.html.base.layout(
@@ -113,7 +109,7 @@ object bits:
       moreCss = cssTag("auth"),
       moreJs = views.html.base.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
-    ) {
+    ):
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
@@ -130,24 +126,22 @@ object bits:
           form3.action(form3.submit(trans.emailMeALink()))
         )
       )
-    }
 
   def magicLinkSent(using PageContext) =
     views.html.base.layout(
       title = "Log in by email"
-    ) {
+    ):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
-    }
 
   def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using PageContext) =
     views.html.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
-    ) {
+    ):
       main(cls := "page-small box box-pad")(
         boxTop(h1("Log in as ", userLink(user))),
         postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
@@ -157,7 +151,6 @@ object bits:
           )
         )
       )
-    }
 
   def checkYourEmailBanner(userEmail: lila.security.EmailConfirm.UserEmail) =
     frag(
@@ -193,24 +186,18 @@ body { margin-top: 45px; }
     )
 
   def tor()(using PageContext) =
-    views.html.base.layout(
-      title = "Tor exit node"
-    ) {
+    views.html.base.layout(title = "Tor exit node"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
         p("Sorry, you can't signup to Lichess through Tor!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
-    }
 
   def logout()(using PageContext) =
-    views.html.base.layout(
-      title = trans.logOut.txt()
-    ) {
+    views.html.base.layout(title = trans.logOut.txt()):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.logOut()),
         form(action := routes.Auth.logout, method := "post")(
           button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
         )
       )
-    }

@@ -28,7 +28,7 @@ final class Api(
       "olds"    -> Json.arr()
     )
 
-  private given lila.hub.LightTeam.GetSync = env.team.getLightTeam
+  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")

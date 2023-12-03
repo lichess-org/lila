@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
+import lila.hub.LightTeam
 
 object home:
 
@@ -42,12 +43,13 @@ object home:
       thead(tr(th(colspan := 4)(name))),
       tbody:
         swisses.map: s =>
+          val team = teamIdToLight(s.teamId)
           tr(
             td(cls := "icon")(iconTag(s.perfType.icon)),
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
-                trans.by(span(cls := "team")(teamLink(s.teamId, false)))
+                trans.by(span(cls := "team")(team.name, teamFlair(team)))
               )
             ),
             td(cls := "infos")(

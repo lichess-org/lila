@@ -28,14 +28,15 @@ final class Swiss(
     for
       teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       swiss   <- env.swiss.feature.get(teamIds)
+      _       <- env.team.lightTeamApi.preload(swiss.teamIds)
       page    <- renderPage(html.swiss.home(swiss))
     yield Ok(page)
 
   def show(id: SwissId) = Open:
-    env.swiss.cache.swissCache.byId(id) flatMap { swissOption =>
+    cachedSwissAndTeam(id).flatMap: swissOption =>
       val page = getInt("page").filter(0.<)
       negotiate(
-        html = swissOption.fold(swissNotFound): swiss =>
+        html = swissOption.fold(swissNotFound): (swiss, team) =>
           for
             verdicts <- env.swiss.api.verdicts(swiss)
             version  <- env.swiss.version(swiss.id)
@@ -57,16 +58,15 @@ final class Swiss(
                   _.copy(locked = !env.api.chatFreshness.of(swiss))
             streamers  <- streamerCache get swiss.id
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
-            page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
+            page <- renderPage(html.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
-        json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): swiss =>
+        json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, team) =>
           for
             isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             verdicts      <- env.swiss.api.verdicts(swiss)
             socketVersion <- getBool("socketVersion").soFu(env.swiss version swiss.id)
             playerInfo <- getUserStr("playerInfo").so: u =>
               env.swiss.api.playerInfo(swiss, u.id)
-            page = getInt("page").filter(0.<)
             json <- env.swiss.json(
               swiss = swiss,
               me = ctx.me,
@@ -78,13 +78,11 @@ final class Swiss(
             )
           yield JsonOk(json)
       )
-    }
 
   def apiShow(id: SwissId) = Anon:
-    env.swiss.cache.swissCache byId id flatMap {
+    env.swiss.cache.swissCache byId id flatMap:
       case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
       case _           => notFoundJson()
-    }
 
   private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserId) =
     env.team.cached.teamIds(user).dmap(_ contains teamId)
@@ -92,7 +90,7 @@ final class Swiss(
   private def cachedSwissAndTeam(id: SwissId): Fu[Option[(SwissModel, LightTeam)]] =
     env.swiss.cache.swissCache.byId(id) flatMap:
       _.so: swiss =>
-        env.team.cached.light(swiss.teamId).map2(swiss -> _)
+        env.team.lightTeam(swiss.teamId).map2(swiss -> _)
 
   def round(id: SwissId, round: Int) = Open:
     Found(cachedSwissAndTeam(id)): (swiss, team) =>

@@ -38,7 +38,7 @@ object profile:
                     trans.setFlair(),
                     userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
                   ),
-                  form3.hidden(f, u.flair.map(_.value)),
+                  form3.hidden(f, form("flair").value),
                   div(cls := "flair-picker")
                 ),
                 u.flair.isDefined option p(

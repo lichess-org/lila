@@ -132,7 +132,7 @@ interface FeaturedPlayer extends SimplePlayer {
 
 type TeamName = string;
 type TeamFlair = string;
-type LightTeam = [TeamName, TeamFlair?];
+export type LightTeam = [TeamName, TeamFlair?];
 
 export interface TeamBattle {
   teams: {

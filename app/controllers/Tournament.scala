@@ -14,13 +14,13 @@ import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo                         = env.tournament.tournamentRepo
-  private def api                          = env.tournament.api
-  private def jsonView                     = env.tournament.jsonView
-  private def forms                        = env.tournament.forms
-  private def cachedTour(id: TourId)       = env.tournament.cached.tourCache.byId(id)
-  private given lila.user.FlairApi         = env.user.flairApi
-  private given lila.hub.LightTeam.GetSync = env.team.getLightTeam
+  private def repo                     = env.tournament.tournamentRepo
+  private def api                      = env.tournament.api
+  private def jsonView                 = env.tournament.jsonView
+  private def forms                    = env.tournament.forms
+  private def cachedTour(id: TourId)   = env.tournament.cached.tourCache.byId(id)
+  private given lila.user.FlairApi     = env.user.flairApi
+  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 
@@ -137,7 +137,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def teamInfo(tourId: TourId, teamId: TeamId) = Open:
     Found(cachedTour(tourId)): tour =>
-      Found(env.team getLightTeam teamId): team =>
+      Found(env.team lightTeam teamId): team =>
         negotiate(
           FoundPage(api.teamBattleTeamInfo(tour, teamId)):
             views.html.tournament.teamBattle.teamInfo(tour, team, _)

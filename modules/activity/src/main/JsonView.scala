@@ -16,7 +16,7 @@ import model.*
 
 final class JsonView(
     getTourName: lila.tournament.GetTourName,
-    getLightTeam: lila.hub.LightTeam.GetSync
+    getLightTeam: lila.hub.LightTeam.GetterSync
 ):
 
   private object Writers:

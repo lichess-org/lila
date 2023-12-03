@@ -17,7 +17,7 @@ object form:
       title = newTeam.txt(),
       moreCss = cssTag("team"),
       moreJs = captchaTag
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
@@ -35,10 +35,9 @@ object form:
           )
         )
       )
-    }
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
+    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -83,7 +82,6 @@ object form:
             )
         )
       )
-    }
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
@@ -96,7 +94,7 @@ object form:
             nbsp,
             span(cls := "flair-container".some)(team.name, teamFlair(team))
           ),
-          form3.hidden(f, team.flair.map(_.value)),
+          form3.hidden(f, form("flair").value),
           div(cls := "flair-picker")
         ),
         team.flair.isDefined option p:
