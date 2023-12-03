@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX" comment="%1$s is the number of challenges. Appears as hover text for challenge notifications.">Desafíos: %1$s</string>
   <string name="challengeToPlay">Desafiar a una partida</string>
   <string name="challengeDeclined">Desafío refusau</string>
   <string name="challengeAccepted">Desafío acceptau!</string>
@@ -11,15 +12,15 @@
   <string name="cannotChallengeDueToProvisionalXRating">No puez ninviar desafíos perque la tuya puntuación de %s ye provisional.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nomás accepta desafíos d\'os suyos amigos.</string>
   <string name="declineGeneric">No accepto desafíos en este momento.</string>
-  <string name="declineLater">No me viene bien agora, torna-me-lo a demandar mas enta debant.</string>
-  <string name="declineTooFast">Este control de tiempos ye masiau rapido pa yo, per favor, desafía-me a una partida mas lenta.</string>
-  <string name="declineTooSlow">Este control de tiempos ye masiau lento pa yo, per favor, desafiame a una partida mas rapida.</string>
-  <string name="declineTimeControl">No accepto desafíos con este control de tiempos.</string>
-  <string name="declineRated">Per favor, desafía-me a una partida puntuable.</string>
-  <string name="declineCasual">Per favor, desafía-me a una partida amistosa.</string>
-  <string name="declineStandard">No accepto desafía chugar variants en este momento.</string>
-  <string name="declineVariant">No quiero chugar esta variant en este momento.</string>
+  <string name="declineLater" comment="One of the standard replies which players can use to decline challenges.">No me viene bien agora, torna-me-lo a demandar mas enta debant.</string>
+  <string name="declineTooFast" comment="One of the standard replies which players can use to decline challenges.">Este control de tiempos ye masiau rapido pa yo, per favor, desafía-me a una partida mas lenta.</string>
+  <string name="declineTooSlow" comment="One of the standard replies which players can use to decline challenges.">Este control de tiempos ye masiau lento pa yo, per favor, desafiame a una partida mas rapida.</string>
+  <string name="declineTimeControl" comment="One of the standard replies which players can use to decline challenges.">No accepto desafíos con este control de tiempos.</string>
+  <string name="declineRated" comment="One of the standard replies which players can use to decline challenges.">Per favor, desafía-me a una partida puntuable.</string>
+  <string name="declineCasual" comment="One of the standard replies which players can use to decline challenges.">Per favor, desafía-me a una partida amistosa.</string>
+  <string name="declineStandard" comment="One of the standard replies which players can use to decline challenges.">No accepto desafía chugar variants en este momento.</string>
+  <string name="declineVariant" comment="One of the standard replies which players can use to decline challenges.">No quiero chugar esta variant en este momento.</string>
   <string name="declineNoBot">No accepto desafíos de bots.</string>
   <string name="declineOnlyBot">Nomás accepto desafíos de bots.</string>
-  <string name="inviteLichessUser">U convida a un usuario de Lichess:</string>
+  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">U convida a un usuario de Lichess:</string>
 </resources>
