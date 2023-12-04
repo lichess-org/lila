@@ -5,6 +5,7 @@ import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
+import { parseSquare, makeSquare } from 'chessops/util';
 import { domDialog } from 'common/dialog';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
@@ -163,6 +164,35 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', 'O-O-O', true),
         ]),
+      ]),
+      h('div.enpassant', [
+        h('strong', 'En passant'),
+        h(
+          'select',
+          {
+            on: {
+              change(e) {
+                let val: string = (e.target as HTMLSelectElement).value;
+                ctrl.setEnPassant(val ? parseSquare(val) : undefined);
+              },
+            },
+            props: {
+              value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
+            },
+          },
+          [''].concat(state.enPassantOptions).map(function (key) {
+            return h(
+              'option',
+              {
+                attrs: {
+                  value: key ? key : '',
+                  selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
+                },
+              },
+              ctrl.trans(key),
+            );
+          }),
+        ),
       ]),
     ]),
     ...(ctrl.cfg.embed || !ctrl.cfg.positions || !ctrl.cfg.endgamePositions
@@ -483,7 +513,7 @@ export default function (ctrl: EditorCtrl): VNode {
       h('div.main-board', [chessground(ctrl)]),
       sparePieces(ctrl, color, color, 'bottom'),
       controls(ctrl, state),
-      inputs(ctrl, state.fen),
+      inputs(ctrl, state.legalFen || state.fen),
     ],
   );
 }
