@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Трансляции</string>
   <string name="myBroadcasts">Мои трансляции</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s трансляция</item>
     <item quantity="few">%s трансляции</item>
     <item quantity="many">%s трансляций</item>
@@ -10,10 +10,15 @@
   </plurals>
   <string name="liveBroadcasts">Прямые трансляции турнира</string>
   <string name="newBroadcast">Новая прямая трансляция</string>
+  <string name="aboutBroadcasts">О трансляции</string>
+  <string name="noRoundsYet">Пока нет туров.</string>
+  <string name="howToUseLichessBroadcasts">Как пользоваться трансляциями Lichess.</string>
+  <string name="theNewRoundHelp">В новом туре примут участие те же участники и редакторы, что и в предыдущем туре.</string>
   <string name="addRound">Добавить тур</string>
   <string name="ongoing">Текущие</string>
   <string name="upcoming">Предстоящие</string>
   <string name="completed">Завершённые</string>
+  <string name="completedHelp">Lichess определяет завершение тура на основе источника партий. Используйте этот переключатель, если нет источника.</string>
   <string name="roundName">Название тура</string>
   <string name="roundNumber">Номер тура</string>
   <string name="tournamentName">Название турнира</string>
@@ -37,4 +42,14 @@
   <string name="editRoundStudy">Редактировать студию тура</string>
   <string name="deleteTournament">Удалить этот турнир</string>
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
+  <string name="automaticLeaderboard">Автоматическая таблица лидеров</string>
+  <string name="automaticLeaderboardHelp">Вычислять и отображать простую таблицу лидеров на основе результатов партий</string>
+  <string name="replace">Необязательно: заменять имена игроков, рейтинги и звания</string>
+  <string name="replaceHelp">По одной строке на каждого игрока, форматирование по образцу:
+Имя в системе; Имя для замены; Рейтинг для замены (необязательно); Звание для замены (необязательно)
+Например:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Период в секундах</string>
+  <string name="periodInSecondsHelp">Необязательно: сколько времени ждать между запросами. Минимум 2 сек, максимум 60 сек. По умолчанию устанавливается автоматически, в зависимости от количества зрителей.</string>
 </resources>

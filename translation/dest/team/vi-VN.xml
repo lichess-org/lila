@@ -24,9 +24,9 @@
   <plurals name="xJoinRequests">
     <item quantity="other">%s yêu cầu tham gia</item>
   </plurals>
-  <string name="willBeReviewed">Yêu cầu tham gia của bạn sẽ được xem xét bởi trưởng nhóm.</string>
-  <string name="beingReviewed">Yêu cầu tham gia của bạn đang được xem xét bởi trưởng nhóm.</string>
-  <string name="requestDeclined">Yêu cầu tham gia của bạn bị từ chối bởi trưởng nhóm.</string>
+  <string name="willBeReviewed">Yêu cầu tham gia của bạn sẽ được xem xét bởi đội trưởng.</string>
+  <string name="beingReviewed">Yêu cầu tham gia của bạn đang được xem xét bởi đội trưởng.</string>
+  <string name="requestDeclined">Yêu cầu tham gia của bạn bị từ chối bởi đội trưởng.</string>
   <string name="subToTeamMessages">Đăng kí nhận tin nhắn của đội</string>
   <string name="teamBattle">Giải đấu đa đội</string>
   <string name="teamBattleOverview">Một trận đấu giữa nhiều đội, mỗi người chơi ghi điểm cho đội của họ</string>

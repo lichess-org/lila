@@ -118,14 +118,14 @@ Noget andet, som er værd at bemærke, er, at som tiden går vil konfidensinterv
   <string name="similarOpponents">modstandere af tilsvarende styrke</string>
   <string name="notPlayedRecently">Spilleren har ikke spillet nok partier fornylig. Afhængigt af antallet af partier du har spillet, kan det tage omkring et års inaktivitet for din rating at blive provisorisk igen.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret betyder det, at Glicko-2 afvigelsen er større end 110. Afvigelsen er et udtryk for den tiltro, som systemet har til ratingen. Desto lavere afvigelse, desto mere stabil er en rating.</string>
-  <string name="howDoLeaderoardsWork">Hvordan fungerer rangering og klassementerne?</string>
+  <string name="howDoLeaderoardsWork">Hvordan fungerer rangering og ranglister?</string>
   <string name="inOrderToAppearsYouMust">For at blive opført i %1$s skal du:</string>
-  <string name="ratingLeaderboards">rating-klassementer:</string>
+  <string name="ratingLeaderboards">rating-rangliste</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">have spillet mindst 30 ratede partier med en given rating,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">have spillet et ratet parti inden for den seneste uge ved denne rating,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">have en rating-afvigelse mindre end %1$s, i standardskak, og mindre end %2$s i varianter,</string>
   <string name="beInTopTen">være i top 10 for denne rating.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andet krav sikrer at spillere, som ikke længere benytter deres konto, ikke fylder i klassementer.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andet krav sikrer at spillere, som ikke længere benytter deres konto, ikke fylder op i ranglister.</string>
   <string name="whyAreRatingHigher">Hvorfor er ratings højere sammenlignet med andre websteder og organisationer som FIDE, USCF og ICC?</string>
   <string name="whyAreRatingHigherExplanation">Det er bedst ikke at tænke på ratings som absolutte tal eller at sammenligne dem med andre organisationers. Forskellige organisationer har forskellige niveauer af spillere, forskellige ratingsystemer (Elo, Glicko, Glicko-2 eller en modificeret udgave af de førnævnte). Disse faktorer kan drastisk påvirke de absolutte tal (ratings).
 
@@ -150,19 +150,19 @@ Det røde mute-ikon vises, når din browser forhindrer lichess.org i at afspille
 
 Vi viser det røde ikon for at advare dig, når dette sker. Ofte kan du udtrykkeligt tillade lichess.org at afspille lyde. Her er instruktioner til, hvordan du gør det i nyere versioner af nogle populære browsere.</string>
   <string name="desktop">desktop</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gå til lichess.org
 2. Tryk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klik på fanen Tilladelser
 4. Tillad lyd og video på lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
 2. Klik på låseikonet i adresselinjen
 3. Klik på Webstedsindstillinger
 4. Tillad lyd</string>
-  <string name="enableAutoplayForSoundsSafari">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
 2. Klik på Safari i menulinjen
 3. Klik på Indstillinger for lichess.org ...
 4. Tillad alle Auto-Play</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klik på de tre prikker i øverste højre hjørne
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klik på de tre prikker i øverste højre hjørne
 2. Klik på Indstillinger
 3. Klik på Cookies og Website-tilladelser
 4. Rul ned og klik på Media autoplay

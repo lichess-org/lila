@@ -2,16 +2,21 @@
 <resources>
   <string name="broadcasts">Transmissões</string>
   <string name="myBroadcasts">As minhas transmissões</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s transmissão</item>
     <item quantity="other">%s transmissões</item>
   </plurals>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
+  <string name="aboutBroadcasts">Sobre Transmissões</string>
+  <string name="noRoundsYet">Sem rondas ainda.</string>
+  <string name="howToUseLichessBroadcasts">Como usar as Transmissões do Lichess.</string>
+  <string name="theNewRoundHelp">A nova ronda terá os mesmos membros e contribuidores que a anterior.</string>
   <string name="addRound">Adicionar uma ronda</string>
   <string name="ongoing">A decorrer</string>
   <string name="upcoming">Brevemente</string>
   <string name="completed">Concluído</string>
+  <string name="completedHelp">Lichess deteta a conclusão da ronda baseada nos jogos da fonte. Use essa opção se não houver fonte.</string>
   <string name="roundName">Nome da ronda</string>
   <string name="roundNumber">Número da ronda</string>
   <string name="tournamentName">Nome do torneio</string>
@@ -35,4 +40,14 @@
   <string name="editRoundStudy">Editar estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
+  <string name="automaticLeaderboard">Tabela de classificação automática</string>
+  <string name="automaticLeaderboardHelp">Calcula e exibe uma tabela de classificação simples baseada nos resultados dos jogos</string>
+  <string name="replace">Opcional: substituir nomes de jogadores, ratings e títulos</string>
+  <string name="replaceHelp">Uma linha por jogador, formatada da seguinte forma:
+Nome original; Nome substituto; Opcional: Ranting de substituição; Opcional: Título de substituição
+Exemplo:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Período em segundos</string>
+  <string name="periodInSecondsHelp">Opcional, quanto tempo de espera entre as requisições. Mínimo 2s, máximo de 60s. O padrão é automático com base no número de espetadores.</string>
 </resources>

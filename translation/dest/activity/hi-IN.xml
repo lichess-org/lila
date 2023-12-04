@@ -11,8 +11,8 @@
     <item quantity="other">%2$s पर %1$s स्थितियों का अभ्यास किया</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s सामरिक पहेली को हल किया</item>
-    <item quantity="other">%s सामरिक पहेलियाँ को हल किया</item>
+    <item quantity="one">%s प्रशिक्षण पहेली को हल किया</item>
+    <item quantity="other">%s प्रशिक्षण पहेलियों को हल किया</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s %2$s का खेल खेला</item>
@@ -55,8 +55,8 @@
     <item quantity="other">%s नए अध्ययनों का निर्माण किया</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">%s टूर्नामेंट में भाग लिया</item>
-    <item quantity="other">%s टूर्नामेंट में भाग लिया</item>
+    <item quantity="one">%s arena टूर्नामेंट में भाग लिया</item>
+    <item quantity="other">%s arena टूर्नामेटों में भाग लिया</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
@@ -67,7 +67,7 @@
     <item quantity="other">%s स्विस टुर्नामेंटों में भाग लिया</item>
   </plurals>
   <string name="rankedInSwissTournament">#%1$s स्थान %2$s मे</string>
-  <string name="signedUp">lichess.org पर साइन किया गया</string>
+  <string name="signedUp">lichess.org पर साइन अप किया गया</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s टीम में शामिल हुए</item>
     <item quantity="other">%s टीमों में शामिल हुए</item>

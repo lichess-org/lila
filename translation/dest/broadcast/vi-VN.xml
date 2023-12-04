@@ -2,15 +2,20 @@
 <resources>
   <string name="broadcasts">Phát sóng</string>
   <string name="myBroadcasts">Các buổi phát sóng của tôi</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
   <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
+  <string name="aboutBroadcasts">Giới thiệu phát sóng</string>
+  <string name="noRoundsYet">Chưa có vòng nào.</string>
+  <string name="howToUseLichessBroadcasts">Cách sử dụng Phát sóng Lichess.</string>
+  <string name="theNewRoundHelp">Vòng mới sẽ có các thành viên và cộng tác viên giống như vòng trước.</string>
   <string name="addRound">Thêm một vòng</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
   <string name="completed">Đã hoàn thành</string>
+  <string name="completedHelp">Lichess phát hiện việc hoàn thành vòng chơi dựa trên ván đấu nguồn. Sử dụng nút chuyển đổi này nếu không có nguồn.</string>
   <string name="roundName">Tên vòng</string>
   <string name="roundNumber">Vòng đấu số</string>
   <string name="tournamentName">Tên giải đấu</string>
@@ -34,4 +39,14 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
+  <string name="automaticLeaderboard">Bảng xếp hạng tự động</string>
+  <string name="automaticLeaderboardHelp">Tính toán và hiển thị bảng xếp hạng đơn giản dựa trên kết quả ván đấu</string>
+  <string name="replace">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
+  <string name="replaceHelp">Một dòng cho mỗi người chơi, được định dạng như sau:
+Tên khai sinh; Tên thay thế; Hệ số Elo thay thế tùy chọn; Danh hiệu thay thế tùy chọn
+Ví dụ:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Khoảng thời gian tính bằng giây</string>
+  <string name="periodInSecondsHelp">Tùy chọn, thời gian chờ đợi giữa các yêu cầu. Tối thiểu 2 giây, tối đa 60 giây. Mặc định là tự động dựa trên số lượng người xem.</string>
 </resources>
