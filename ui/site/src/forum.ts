@@ -33,7 +33,7 @@ lichess.load.then(() => {
     $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
-    if (this.innerText.match(/(^|\n)>/)) {
+    if (this.innerText.match(/(^|\n|:)>/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
@@ -49,7 +49,7 @@ lichess.load.then(() => {
       }
       if (quote.length > 0) result += `<blockquote>${quote.join('<br>')}</blockquote>`;
       this.innerHTML = result;
-    }
+    }    
   });
 
   $('.edit.button')
