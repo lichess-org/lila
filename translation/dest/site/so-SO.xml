@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Chess</string>
   <string name="chat">Sheekaysi</string>
   <string name="resign">Is casil</string>
-  <string name="checkmate">Jiqq-damm</string>
+  <string name="checkmate">Jiq-dam</string>
   <string name="stalemate">Ismarinwaa</string>
   <string name="white">Cadaan</string>
   <string name="black">Madoow</string>
@@ -23,12 +23,12 @@
   <string name="createAGame">Abuur ciyaar cusub</string>
   <string name="whiteIsVictorious">Cadaankaa badiyey</string>
   <string name="blackIsVictorious">Madoowbaa badiyey</string>
-  <string name="youPlayTheWhitePieces">Waxaad ku ciyaaraysaa kuwa cadaanka</string>
-  <string name="youPlayTheBlackPieces">Waxaad ku ciyaraysaa kuwa madoowga</string>
+  <string name="youPlayTheWhitePieces">Waxaad tahay kooxda cad</string>
+  <string name="youPlayTheBlackPieces">Waxaad tahay kooxda madow</string>
   <string name="itsYourTurn">Waa markaagii!</string>
-  <string name="cheatDetected">Tuhun khiyaano</string>
+  <string name="cheatDetected">Dareen khiyaamo</string>
   <string name="kingInTheCenter">Dhexdu boqran</string>
-  <string name="threeChecks">Saddex jiqq</string>
+  <string name="threeChecks">Sadex jiq</string>
   <string name="raceFinished">Tartankii waa dhamaaday</string>
   <string name="variantEnding">Dhamaadka noocan</string>
   <string name="newOpponent">Horjeede cusub</string>
@@ -42,10 +42,10 @@
   </plurals>
   <string name="opponentLeftChoices">Horjeedahaagi wuu ka baxay ciyaarta. Waxad kala dooran kartaa badis, baraaje ama sug.</string>
   <string name="forceResignation">Guusha qaado</string>
-  <string name="forceDraw">Bareejo dalbo</string>
-  <string name="talkInChat">Fadlan si wanaagsan u isticmal luqa!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Qofka ugu horreeya ee laynkan soo galaa kula ciyaaraya.</string>
-  <string name="whiteResigned">caadaan wuu iscasilay</string>
+  <string name="forceDraw">Baraaje dalbo</string>
+  <string name="talkInChat">Fadlan si wanaagsan u isticmal luuqa!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Qofka ugu horreeya ee laynkan soo raacaa kula ciyaaraya.</string>
+  <string name="whiteResigned">Caddaanki wuu isdhiibay</string>
   <string name="blackResigned">Madow wa iscasilay</string>
   <string name="whiteLeftTheGame">Cadaan wuu ka baxay ciyaarta</string>
   <string name="blackLeftTheGame">Madow wuu ka baxay ciyaarta</string>
@@ -56,6 +56,7 @@
   <string name="computerAnalysisAvailable">falanqaynta computerka wa diyaar</string>
   <string name="computerAnalysisDisabled">falanqayn computerka maleh</string>
   <string name="analysis">Looxa falanqaynta</string>
+  <string name="depthX">Mug %s</string>
   <string name="goDeeper">Gudaha usii gal</string>
   <string name="showThreat">Tus khatarta</string>
   <string name="move">Dhaqaaq</string>
@@ -129,8 +130,8 @@
   <string name="solution">Xalka</string>
   <string name="sorry">Waan ka xumahay :(</string>
   <string name="timeoutExpires">Ganaaxaaga waxa ka hadhay: %s.</string>
-  <string name="why">Maxaa sababay?</string>
+  <string name="why">Waayo?</string>
   <string name="lifetimeScore">Dhibcaha abid</string>
-  <string name="gameVsX">Ciyaarta %1$s</string>
-  <string name="gameInProgress">Waxa kuu socota ciyaarta loollame %s.</string>
+  <string name="gameVsX">Ciyaarta &gt;&lt; %1$s</string>
+  <string name="gameInProgress">Waxaad la ciyaaraysaa hadda %s.</string>
 </resources>
