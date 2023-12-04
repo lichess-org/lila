@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">转播</string>
   <string name="myBroadcasts">我的直播</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="other">%s 直播</item>
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ciyaar!</string>
   <string name="puzzles">Halxiraalaha</string>
   <string name="awesome">Cajiib!</string>
   <string name="excellent">Wanaag!</string>

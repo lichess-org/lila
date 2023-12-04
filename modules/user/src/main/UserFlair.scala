@@ -1,29 +1,30 @@
 package lila.user
 
-import scala.io.Source
+object FlairApi:
 
-object UserFlairApi:
+  private var db: Set[Flair] = Set.empty
 
-  private var db: Set[UserFlair] = Set.empty
+  def exists(flair: Flair): Boolean = db.isEmpty || db(flair)
 
-  def exists(flair: UserFlair): Boolean = db.isEmpty || db(flair)
-
-  private type GetterType          = UserId => Fu[Option[UserFlair]]
+  private type GetterType          = UserId => Fu[Option[Flair]]
   opaque type Getter <: GetterType = GetterType
   object Getter extends TotalWrapper[Getter, GetterType]
 
-  type FlairMap = Map[UserId, UserFlair]
+  type FlairMap = Map[UserId, Flair]
 
-final class UserFlairApi(
-    lightUserApi: LightUserApi
-)(using Executor)(using scheduler: akka.actor.Scheduler):
+  def formField: play.api.data.Mapping[Option[Flair]] =
+    import play.api.data.Forms.*
+    import lila.common.Form.into
+    optional(text.into[Flair].verifying(exists))
 
-  import UserFlairApi.*
+final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: akka.actor.Scheduler):
+
+  import FlairApi.*
 
   val getter = Getter: id =>
     lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
-  def flairsOf(ids: List[UserId]): Fu[Map[UserId, UserFlair]] =
+  def flairsOf(ids: List[UserId]): Fu[Map[UserId, Flair]] =
     lightUserApi.asyncMany(ids.distinct) map: users =>
       val pairs = for
         uOpt  <- users
@@ -33,9 +34,9 @@ final class UserFlairApi(
       pairs.toMap
 
   private def refresh(): Unit =
-    val source = Source.fromFile("public/flair/list.txt", "UTF-8")
+    val source = scala.io.Source.fromFile("public/flair/list.txt", "UTF-8")
     try
-      db = UserFlair from source.getLines.toSet
+      db = Flair from source.getLines.toSet
       logger.info(s"Updated flair db with ${db.size} flairs")
     finally source.close()
 

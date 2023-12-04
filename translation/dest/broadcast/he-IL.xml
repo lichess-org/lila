@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">הקרנות</string>
   <string name="myBroadcasts">ההקרנות שלי</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">הקרנה %s</item>
     <item quantity="two">%s הקרנות</item>
     <item quantity="many">%s הקרנות</item>

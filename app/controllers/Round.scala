@@ -10,7 +10,7 @@ import lila.common.{ Preload, HTTPRequest }
 import lila.common.Json.given
 import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.{ Tournament as Tour }
-import lila.user.{ User as UserModel, UserFlairApi }
+import lila.user.{ User as UserModel, FlairApi }
 
 final class Round(
     env: Env,
@@ -23,7 +23,7 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private given UserFlairApi = env.user.flairApi
+  private given FlairApi = env.user.flairApi
 
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     pov.game.playableByAi so env.fishnet.player(pov.game)

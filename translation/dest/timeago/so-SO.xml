@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">hadda</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s ilbidhiqsi
+ gudihii</item>
+    <item quantity="other">%s ilbidhiqsi gudohood</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s daqiiqo gudaheed</item>
+    <item quantity="other">%s daqiiqadood gudohood</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s maalin gudeheed</item>
+    <item quantity="other">%s maalmood gudohood</item>
+  </plurals>
+  <string name="rightNow">immika</string>
+</resources>

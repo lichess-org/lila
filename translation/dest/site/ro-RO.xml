@@ -433,6 +433,7 @@
   <string name="importGame">Importați partida</string>
   <string name="importGameExplanation">Copiați o partidă în format PGN pentru a putea apoi sa o rejucati, sa cereti o analiză a computerului, sa folositi functia de chat și sa obtineti un URL pentru distribuire.</string>
   <string name="importGameCaveat">Variațiile vor fi șterse. Pentru a le păstra, importați PGN-ul printr-un studiu.</string>
+  <string name="importGameCaveat2">Acest PGN poate fi accesat public. Pentru a importa un joc în mod privat, folosește un studiu.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
@@ -494,7 +495,7 @@
   <string name="advancedSettings">Setări avansate</string>
   <string name="safeTournamentName">Alege un nume foarte sigur pentru turneu.</string>
   <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului tău.</string>
-  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Lăsați necompletat pentru a numi turneul după un jucător bun de șah.</string>
+  <string name="emptyTournamentName">Lăsați necompletat pentru a numi turneul după un jucător bun de șah.</string>
   <string name="recommendNotTouching">Iți recomandăm să nu modifici aceste setări.</string>
   <string name="fewerPlayers">Dacă stabilești condiții de intrare, turneul tău va avea mai puțini jucători.</string>
   <string name="showAdvancedSettings">Afișează setările avansate</string>
@@ -560,7 +561,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
   <string name="puzzles">Probleme de șah</string>
-  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Câștigători de turnee</string>
+  <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
   <string name="descPrivate">Descriere privată</string>

@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
+import play.api.i18n.Lang
 
 object form:
 
@@ -16,7 +17,7 @@ object form:
       title = newTeam.txt(),
       moreCss = cssTag("team"),
       moreJs = captchaTag
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
@@ -34,21 +35,21 @@ object form:
           )
         )
       )
-    }
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
+    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
           standardFlash,
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
+            flairField(form, t),
             entryFields(form, t.some),
             textFields(form),
             accessFields(form),
             form3.actions(
-              a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
+              a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.apply())
             )
           ),
@@ -81,9 +82,24 @@ object form:
             )
         )
       )
-    }
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
+
+  private def flairField(form: Form[?], team: Team)(using Lang) =
+    form3.group(form("flair"), "Flair"): f =>
+      frag(
+        details(cls := "form-control emoji-details")(
+          summary(cls := "button button-metal button-no-upper")(
+            trans.setFlair(),
+            nbsp,
+            span(cls := "flair-container".some)(team.name, teamFlair(team))
+          ),
+          form3.hidden(f, form("flair").value),
+          div(cls := "flair-picker")
+        ),
+        team.flair.isDefined option p:
+          button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+      )
 
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(

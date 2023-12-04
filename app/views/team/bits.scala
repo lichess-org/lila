@@ -12,12 +12,6 @@ object bits:
 
   import trans.team.*
 
-  def link(teamId: TeamId): Frag =
-    a(href := routes.Team.show(teamId))(teamIdToName(teamId))
-
-  def link(team: Team): Frag =
-    a(href := routes.Team.show(team.id))(team.name)
-
   def menu(currentTab: Option[String])(using ctx: PageContext) =
     val tab = ~currentTab
     st.nav(cls := "page-menu__menu subnav")(
@@ -63,6 +57,7 @@ object bits:
           href := routes.Team.show(t.id)
         )(
           t.name,
+          t.flair map teamFlair,
           t.amLeader option em("leader")
         ),
         ~t.intro: String

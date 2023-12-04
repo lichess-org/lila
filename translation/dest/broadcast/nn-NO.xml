@@ -2,16 +2,21 @@
 <resources>
   <string name="broadcasts">Overføringar</string>
   <string name="myBroadcasts">Mine sendingar</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s sending</item>
     <item quantity="other">%s sendingar</item>
   </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
   <string name="newBroadcast">Ny direktesending</string>
+  <string name="aboutBroadcasts">Om sending</string>
+  <string name="noRoundsYet">Så langt ingen rundar.</string>
+  <string name="howToUseLichessBroadcasts">Korleis bruke Lichess-sendingar.</string>
+  <string name="theNewRoundHelp">Den nye runden vil ha same medlemar og bidragsytarar som den førre.</string>
   <string name="addRound">Legg til ein runde</string>
   <string name="ongoing">Pågåande</string>
   <string name="upcoming">Kommande</string>
   <string name="completed">Fullførde</string>
+  <string name="completedHelp">Lichess detekterer ferdigspela rundar basert på kjeldeparita. Bruk denne innstillinga om det ikkje finst ei kjelde.</string>
   <string name="roundName">Rundenamn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnamn</string>
@@ -35,4 +40,14 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringa</string>
   <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
+  <string name="automaticLeaderboard">Automatisk rangliste</string>
+  <string name="automaticLeaderboardHelp">Berekne og vise ei enkel rangliste baseret på resultatar frå partia</string>
+  <string name="replace">Valfritt: erstatt spelaramn, rangeringar og titlar</string>
+  <string name="replaceHelp">Ei linje per spelar, formattert slik:
+Opphavleg namn; valfritt alternativt namn; valfri alternativ rating; valfri alternativ tittel
+Døme:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Periode i sekund</string>
+  <string name="periodInSecondsHelp">Ventetida mellom førespurnadene er valfri frå 2 til 60 sekund. Default tid er basert på sjåartalet.</string>
 </resources>

@@ -19,7 +19,7 @@ final class Env(
     appConfig: Configuration,
     netDomain: NetDomain,
     userRepo: lila.user.UserRepo,
-    flairApi: lila.user.UserFlairApi,
+    flairApi: lila.user.FlairApi,
     db: lila.db.Db,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
