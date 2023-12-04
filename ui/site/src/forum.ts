@@ -49,7 +49,7 @@ lichess.load.then(() => {
       }
       if (quote.length > 0) result += `<blockquote>${quote.join('<br>')}</blockquote>`;
       this.innerHTML = result;
-    }    
+    }
   });
 
   $('.edit.button')
