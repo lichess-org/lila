@@ -10,7 +10,7 @@ lichess.load.then(() => {
     initTagify(this, 100);
   });
   $('form.team-add-leader input[name="name"]').each(function (this: HTMLInputElement) {
-    lichess.userComplete({
+    lichess.asset.userComplete({
       input: this,
       team: this.dataset.teamId,
       tag: 'span',

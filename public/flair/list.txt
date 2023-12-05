@@ -1,5 +1,6 @@
 activity.1st-place-medal
 activity.2nd-place-medal
+activity.2024
 activity.3rd-place-medal
 activity.admission-tickets
 activity.american-football
