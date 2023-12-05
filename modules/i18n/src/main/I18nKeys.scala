@@ -1968,7 +1968,6 @@ object I18nKeys:
     val `threefoldRepetitionLowerCase` = I18nKey("faq:threefoldRepetitionLowerCase")
     val `chessAddiction` = I18nKey("faq:chessAddiction")
     val `chessAddictionExplanation` = I18nKey("faq:chessAddictionExplanation")
-    val `chessAddictionLowerCase` = I18nKey("faq:chessAddictionLowerCase")
     val `notRepeatedMoves` = I18nKey("faq:notRepeatedMoves")
     val `repeatedPositionsThatMatters` = I18nKey("faq:repeatedPositionsThatMatters")
     val `positions` = I18nKey("faq:positions")

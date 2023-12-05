@@ -199,10 +199,15 @@ object faq:
           "chessAddiction",
           chessAddiction.txt(),
           p(
-            chessAddictionExplanation(
-              a(href := "https://www.reddit.com/r/StopGaming/comments/3nmedk/faq_answers_to_popular_questions/")(chessAddictionLowerCase()),
-            )
+            chessAddictionExplanation()
           ),
+          ul(
+            li(a(href := "https://www.youtube.com/watch?v=_4q649mZfr0")("What if I find everything else boring?")),
+            li(a(href := "https://www.youtube.com/watch?v=RoQJ1RfPQko")("What about my gamer friends?")),
+            li(a(href := "https://www.youtube.com/watch?v=-kGccq4pSDk")("Is it ok to play games in moderation?")),
+            li(a(href := "https://www.youtube.com/watch?v=PjLmwn_0GWM")("How do I deal with cravings?")),
+            li(a(href := "https://www.youtube.com/watch?v=RTeV0yIpMig")("What if I relapse?"))
+          )
         ),
         h2(accounts()),
         question(
