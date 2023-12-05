@@ -112,10 +112,10 @@ object bits:
   def showUnreadLichessMessage =
     nopeInfo(
       cls := "unread-lichess-message",
-      p("You have received a private message from Lichess."),
+      p(trans.showUnreadLichessMessage()),
       p(
         a(cls := "button button-big", href := routes.Msg.convo(lila.user.User.lichessId))(
-          "Click here to read it"
+          trans.clickHereToReadIt()
         )
       )
     )
