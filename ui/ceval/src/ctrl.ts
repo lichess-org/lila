@@ -184,15 +184,17 @@ export default class CevalCtrl {
   };
 
   recommendedThreads = () =>
+    this.engines.external?.maxThreads ??
     constrain(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
       min: this.engines.active?.minThreads ?? 1,
       max: this.maxThreads(),
     });
 
   maxThreads = () =>
-    fewerCores()
+    this.engines.external?.maxThreads ??
+    (fewerCores()
       ? Math.min(this.engines.active?.maxThreads ?? 32, navigator.hardwareConcurrency)
-      : this.engines.active?.maxThreads ?? 32;
+      : this.engines.active?.maxThreads ?? 32);
 
   setHashSize = (hash: number) => lichess.storage.set('ceval.hash-size', hash.toString());
 

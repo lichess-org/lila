@@ -108,15 +108,16 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     ],
                   );
                 })('analyse-multipv'),
-            hasFeature('sharedMem')
+            hasFeature('sharedMem') || ceval.engines.external
               ? (id => {
                   return h(
                     'div.setting',
                     {
                       attrs: {
-                        title: fewerCores()
-                          ? 'More threads will use more battery for better analysis'
-                          : "Set this below your CPU's thread count\nThe ticks mark a good safe choice",
+                        title:
+                          fewerCores() && !ceval.engines.external
+                            ? 'More threads will use more battery for better analysis'
+                            : "Set this below your CPU's thread count\nThe ticks mark a good safe choice",
                       },
                     },
                     [
@@ -145,7 +146,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                               destroy: () => observer?.disconnect(),
                             },
                           },
-                          [threadsTick('up'), threadsTick('down')],
+                          ceval.engines.external ? null : [threadsTick('up'), threadsTick('down')],
                         ),
                       ]),
                       h('div.range_value', `${ceval.threads()} / ${maxThreads}`),
@@ -158,7 +159,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                 'div.setting',
                 {
                   attrs: {
-                    title: 'Higher values may improve performance slightly',
+                    title: 'Higher values may improve performance',
                   },
                 },
                 [
