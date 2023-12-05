@@ -81,7 +81,7 @@ object mine:
                           cls         := "friend-autocomplete",
                           placeholder := trans.search.search.txt()
                         ),
-                        error.map { badTag(_) }
+                        error.map { p(cls := "error")(_) }
                       )
                     )
                   )

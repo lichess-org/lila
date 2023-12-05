@@ -38,7 +38,7 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   </plurals>
   <string name="thisIsPrivate">Este ye un torneyo privau</string>
   <string name="shareUrl">Comparte este vinclo pa que atras personas s\'unan: %s</string>
-  <string name="drawStreakStandard">Tongada de taulas: Quan un chugador fa taulas en quantas partidas consecutivas en un torneyo, nomás conceden un punto la primera d\'ellas y las que haigan durau %s movimientos u mas en partidas estándard. Una tongada de taulas nomás puede trencar-se per medio d\'una victoria, no sirven ni una redota ni unas taulas.</string>
+  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">Tongada de taulas: Quan un chugador fa taulas en quantas partidas consecutivas en un torneyo, nomás conceden un punto la primera d\'ellas y las que haigan durau %s movimientos u mas en partidas estándard. Una tongada de taulas nomás puede trencar-se per medio d\'una victoria, no sirven ni una redota ni unas taulas.</string>
   <string name="drawStreakVariants">Lo numero minimo de chugadas pa que una partida empazada sume puntos ye diferent per cada variant. La taula siguient amuestra lo limite pa cada variant.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Numero minimo de chugadas</string>
@@ -55,8 +55,9 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   <string name="allowChatHelp">Permite que los chugadors se comuniquen en una sala de chat</string>
   <string name="arenaStreaks">Rachas de torneyo</string>
   <string name="arenaStreaksHelp">Dimpués de 2 vicotiras consecutivas, atorga 4 puntos en cuenta de 2.</string>
-  <string name="noBerserkAllowed">No se permite lo Berkserk</string>
+  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">No se permite lo Berkserk</string>
   <string name="noArenaStreaks">Sin rachas de torneyo</string>
   <string name="averagePerformance">Rendimiento meyo</string>
   <string name="averageScore">Puntuación meya</string>
+  <string name="myTournaments" comment="Links to a page with a list of tournaments you have created.">Los míos torneyos</string>
 </resources>

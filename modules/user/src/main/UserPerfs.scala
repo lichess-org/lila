@@ -61,7 +61,7 @@ case class UserPerfs(
   def hasEstablishedRating(pt: PerfType) = apply(pt).established
 
   def bestRatedPerf: Option[Perf.Typed] =
-    val ps    = perfs.filter(_._1 != PerfType.Puzzle)
+    val ps    = perfs.filter(p => p._1 != PerfType.Puzzle && p._1 != PerfType.Standard)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
     ps
       .foldLeft(none[(PerfType, Perf)]):

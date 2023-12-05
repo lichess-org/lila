@@ -2,7 +2,7 @@ import { domDialog } from 'common/dialog';
 import { load as loadDasher } from 'dasher';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
-  lichess.userComplete({
+  lichess.asset.userComplete({
     input,
     friend: true,
     focus: true,

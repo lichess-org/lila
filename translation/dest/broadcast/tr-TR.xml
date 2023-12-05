@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Canlı Turnuvalar</string>
   <string name="myBroadcasts">Canlı Turnuvalarım</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s canlı turnuva</item>
     <item quantity="other">%s canlı turnuva</item>
   </plurals>
