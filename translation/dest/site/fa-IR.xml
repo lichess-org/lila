@@ -115,6 +115,7 @@
   <string name="openStudy">مطالعه را شروع نمایید</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
+  <string name="showVariationArrows">نمایش پیکان‌های شاخه اصلی</string>
   <string name="evaluationGauge">درجه ی نشان دهنده برتری</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
@@ -505,6 +506,8 @@
   <string name="editProfile">ویرایش پروفایل</string>
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
+  <string name="setFlair">تعیین کردن شکلک:</string>
+  <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
   <string name="biography">زندگی نامه</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
   <string name="thankYou">ممنون!</string>
