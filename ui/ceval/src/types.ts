@@ -31,9 +31,10 @@ export interface EngineInfo {
   tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
   short?: string;
   variants?: VariantKey[];
+  minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
-  requires?: Feature[];
+  requires?: Requires[];
 }
 
 export interface ExternalEngineInfo extends EngineInfo {
@@ -45,8 +46,10 @@ export interface ExternalEngineInfo extends EngineInfo {
 export interface BrowserEngineInfo extends EngineInfo {
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string };
-  obsoletedBy?: 'sharedMem' | 'wasm';
+  obsoletedBy?: Feature;
 }
+
+export type Requires = Feature | 'recentFirefoxOrNotBrave';
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };
