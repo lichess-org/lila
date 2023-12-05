@@ -56,13 +56,9 @@ export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
 
 export const isFirefox = (): boolean => /Firefox/.test(navigator.userAgent);
 
-export const getFirefoxMajorVersion = (): number => {
-  if (!isFirefox()) {
-    return 0;
-  }
+export const getFirefoxMajorVersion = (): number | undefined => {
   const match = /Firefox\/(\d*)/.exec(navigator.userAgent);
-  if (!match || match.length < 2) return 0;
-  return parseInt(match[1]);
+  return match && match.length > 1 ? parseInt(match[1]) : undefined;
 };
 
 export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
@@ -72,7 +68,7 @@ export const isTouchDevice = () => !hasMouse();
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
-export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'webWorkerDynamicImport';
+export type Feature = 'wasm' | 'sharedMem' | 'simd';
 
 export const hasFeature = (feat?: string) => !feat || features().includes(feat as Feature);
 
@@ -90,9 +86,6 @@ export const features = memoize<readonly Feature[]>(() => {
       const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1, 11]); // prettier-ignore
       if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
     }
-  }
-  if (!getFirefoxMajorVersion() || getFirefoxMajorVersion() >= 114) {
-    features.push('webWorkerDynamicImport');
   }
   return Object.freeze(features);
 });
