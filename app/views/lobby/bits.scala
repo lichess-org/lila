@@ -109,7 +109,7 @@ object bits:
         views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
     )
 
-  def showUnreadLichessMessage =
+  def showUnreadLichessMessage(using Context) =
     nopeInfo(
       cls := "unread-lichess-message",
       p(trans.showUnreadLichessMessage()),
