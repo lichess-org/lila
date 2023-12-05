@@ -45,7 +45,7 @@ export function initModule(opts: ChallengeOpts) {
       .find('input.friend-autocomplete')
       .each(function (this: HTMLInputElement) {
         const input = this;
-        lichess.userComplete({
+        lichess.asset.userComplete({
           input: input,
           friend: true,
           tag: 'span',

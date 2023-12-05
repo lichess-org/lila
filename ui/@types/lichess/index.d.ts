@@ -23,8 +23,8 @@ interface Lichess {
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
     hopscotch: any;
+    userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
-  userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
