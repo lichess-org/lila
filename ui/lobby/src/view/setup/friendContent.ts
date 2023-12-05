@@ -14,7 +14,7 @@ export default function friendContent(ctrl: LobbyController): MaybeVNodes {
   return [
     h('h2', trans('playWithAFriend')),
     h('div.setup-content', [
-      ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser }) : null,
+      ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
       variantPicker(ctrl),
       fenInput(ctrl),
       timePickerAndSliders(ctrl, true),
