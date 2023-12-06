@@ -85,21 +85,10 @@ object form:
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
-  private def flairField(form: Form[?], team: Team)(using Lang) =
-    form3.group(form("flair"), "Flair"): f =>
-      frag(
-        details(cls := "form-control emoji-details")(
-          summary(cls := "button button-metal button-no-upper")(
-            trans.setFlair(),
-            nbsp,
-            span(cls := "flair-container".some)(team.name, teamFlair(team))
-          ),
-          form3.hidden(f, form("flair").value),
-          div(cls := "flair-picker")
-        ),
-        team.flair.isDefined option p:
-          button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
-      )
+  private def flairField(form: Form[?], team: Team)(using Context) =
+    form3.flairPicker(form("flair"), team.flair.isDefined)(
+      span(cls := "flair-container".some)(team.name, teamFlair(team))
+    )
 
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(

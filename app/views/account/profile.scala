@@ -31,30 +31,16 @@ object profile:
                 .group(form("bio"), trans.biography(), half = true, help = trans.biographyDescription().some):
                   f => form3.textarea(f)(rows := 5)
             ,
-            form3.group(form("flair"), "Flair", half = true): f =>
-              frag(
-                details(cls := "form-control emoji-details")(
-                  summary(cls := "button button-metal button-no-upper")(
-                    trans.setFlair(),
-                    userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
-                  ),
-                  form3.hidden(f, form("flair").value),
-                  div(cls := "flair-picker")
-                ),
-                u.flair.isDefined option p(
-                  button(
-                    cls := "button button-red button-thin button-empty text emoji-remove"
-                  )(trans.delete())
-                ),
-                p(cls := "form-help")(
-                  a(
-                    href     := s"${routes.Pref.form("display")}#showFlairs",
-                    cls      := "text",
-                    dataIcon := licon.InfoCircle
-                  ):
-                    trans.youCanHideFlair()
-                )
-              )
+            form3.flairPicker(form("flair"), u.flair.isDefined)(
+              userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
+            ):
+              p(cls := "form-help"):
+                a(
+                  href     := s"${routes.Pref.form("display")}#showFlairs",
+                  cls      := "text",
+                  dataIcon := licon.InfoCircle
+                ):
+                  trans.youCanHideFlair()
           ),
           form3.split(
             form3.group(form("flag"), trans.countryRegion(), half = true): f =>

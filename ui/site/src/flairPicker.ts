@@ -9,7 +9,7 @@ type Config = {
 export function initModule(cfg: Config) {
   if (cfg.element.classList.contains('emoji-done')) return;
   const opts = {
-    onEmojiSelect: cfg.onEmojiSelect,
+    ...cfg,
     onClickOutside: cfg.close,
     data: makeEmojiData,
     categories: categories.map(categ => categ[0]),
@@ -17,6 +17,7 @@ export function initModule(cfg: Config) {
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
+    exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
   const picker = new emojis.Picker(opts);
   cfg.element.appendChild(picker as unknown as HTMLElement);
