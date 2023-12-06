@@ -769,7 +769,7 @@ export default class AnalyseCtrl {
       !this.study?.gamebookPlay() &&
       !this.retro &&
       this.variationArrowsProp() &&
-      this.node.children.filter(x => this.showComputer() || !x.comp).length > 1
+      this.node.children.filter(x => !x.comp || this.showComputer()).length > 1
     );
   }
 
