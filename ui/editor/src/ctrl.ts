@@ -149,6 +149,8 @@ export default class EditorCtrl {
     );
   }
 
+  // hopefully moved to chessops soon
+  // https://github.com/niklasf/chessops/issues/154
   private getEnPassantOptions(fen: string): string[] {
     const unpackRank = (packedRank: string) =>
       [...packedRank].reduce((accumulator, current) => {
@@ -161,7 +163,7 @@ export default class EditorCtrl {
         filesEnPassant.add(match.index + offset);
       }
     };
-    const filesEnPassant: Set<any> = new Set();
+    const filesEnPassant: Set<number> = new Set();
     const [positions, turn] = fen.split(' ');
     const ranks = positions.split('/');
     const unpackedRank = unpackRank(ranks[turn === 'w' ? 3 : 4]);
