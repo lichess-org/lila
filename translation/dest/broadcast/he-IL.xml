@@ -10,10 +10,15 @@
   </plurals>
   <string name="liveBroadcasts">צפייה ישירה בטורנירים</string>
   <string name="newBroadcast">הקרנה ישירה חדשה</string>
+  <string name="aboutBroadcasts">הסבר על הקרנות</string>
+  <string name="noRoundsYet">טרם נוצרו סבבים.</string>
+  <string name="howToUseLichessBroadcasts">איך להשתמש בהקרנות ב-Lichess.</string>
+  <string name="theNewRoundHelp">הסבב החדש יכלול את אותם התורמים והחברים כמו בסבב הקודם.</string>
   <string name="addRound">הוספת סבב</string>
   <string name="ongoing">כרגע</string>
   <string name="upcoming">בקרוב</string>
   <string name="completed">שהושלמו</string>
+  <string name="completedHelp">ליצ׳ס מאתר מתי הושלם הסבב על פי המשחקים שבקישור למהלכים בשידור חי (המקור). הפעילו את האפשרות הזאת אם אין מקור שממנו נשאבים המשחקים.</string>
   <string name="roundName">שם סבב</string>
   <string name="roundNumber">מספר סבב</string>
   <string name="tournamentName">שם הטורניר</string>
@@ -37,4 +42,7 @@
   <string name="editRoundStudy">עריכת לוח הלמידה של הסבב</string>
   <string name="deleteTournament">מחיקת הטורניר הזה</string>
   <string name="definitivelyDeleteTournament">מחיקה לצמיתות של הטורניר הזה, על כל סבביו והמשחקים שבו.</string>
+  <string name="automaticLeaderboard">טבלה אוטומטית</string>
+  <string name="automaticLeaderboardHelp">הצגת טבלה פשוטה שמתבססת על תוצאות המשחקים</string>
+  <string name="replace">אופציונאלי: החלפת השמות, הדירוגים והתארים של השחקנים</string>
 </resources>
