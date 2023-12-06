@@ -726,6 +726,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="withFriends">Met vriende</string>
   <string name="withEverybody">Met almal</string>
   <string name="kidMode">Kinder mode</string>
+  <string name="kidModeIsEnabled">Kindermodus is geaktiveer.</string>
   <string name="kidModeExplanation">Hierdie gaan oor veiligheid. In kindermodus, alle webwerf kommunikasie word afgeskakel. Skakel dit aan vir jou kinders en skoliere, om hulle te beskerm teen ander internet gebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindermodus kry die Lichess handelsmerk \'n %s ikoon, sodat jy weet jou kinders is veilig.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Jou rekening word bestuur deur jou skaak onderwyser. Vra hulle om kinder modus af te skakel.</string>
