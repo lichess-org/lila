@@ -921,9 +921,6 @@
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
   <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tätä]</string>
   <string name="download">Lataa</string>
-  <string name="welcome">Tervetuloa!</string>
-  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
-Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>
   <string name="cancelTournament">Peruuta turnaus</string>
@@ -984,4 +981,6 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
   <string name="instructions">Ohjeet</string>
   <string name="showMeEverything">Näytä kaikki</string>
+  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
+Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
 </resources>
