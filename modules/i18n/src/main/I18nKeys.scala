@@ -2617,8 +2617,6 @@ object I18nKeys:
     val `welcome` = I18nKey("onboarding:welcome")
     val `welcomeToLichess` = I18nKey("onboarding:welcomeToLichess")
     val `thisIsYourProfilePage` = I18nKey("onboarding:thisIsYourProfilePage")
-    val `wouldYouLikeToX` = I18nKey("onboarding:wouldYouLikeToX")
-    val `improveIt` = I18nKey("onboarding:improveIt")
     val `enabledKidModeSuggestion` = I18nKey("onboarding:enabledKidModeSuggestion")
     val `whatNowSuggestions` = I18nKey("onboarding:whatNowSuggestions")
     val `learnChessRules` = I18nKey("onboarding:learnChessRules")

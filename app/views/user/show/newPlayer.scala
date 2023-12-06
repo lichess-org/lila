@@ -14,15 +14,7 @@ object newPlayer:
   def apply(u: User)(using Lang) =
     div(cls := "new-player")(
       h2(welcomeToLichess()),
-      p(
-        thisIsYourProfilePage(),
-        u.profile.isEmpty option frag(
-          br,
-          wouldYouLikeToX(
-            a(href := routes.Account.profile)(improveIt())
-          )
-        )
-      ),
+      p(thisIsYourProfilePage()),
       p(
         if u.kid then trans.kidModeIsEnabled()
         else
