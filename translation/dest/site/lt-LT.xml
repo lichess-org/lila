@@ -995,9 +995,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
   <string name="clickToRevealEmailAddress">[spustelėkite norėdami pamatyti el. pašto adresą]</string>
   <string name="download">Atsisiųsti</string>
-  <string name="welcome">Sveiki atvykę!</string>
-  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
-Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="coachManager">Trenerių valdymas</string>
   <string name="streamerManager">Transliuotojų valdymas</string>
   <string name="cancelTournament">Atšaukti turnyrą</string>
@@ -1056,4 +1053,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="switchSides">Pakeisti puses</string>
   <string name="closingAccountWithdrawAppeal">paskyras</string>
   <string name="ourEventTips">Mūsų patarimai organizuojant renginius</string>
+  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
+Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
 </resources>
