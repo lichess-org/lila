@@ -748,6 +748,7 @@
   <string name="withFriends">Con mis amigos</string>
   <string name="withEverybody">Con todo el mundo</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">El modo infantil está activado.</string>
   <string name="kidModeExplanation">Por seguridad, en el modo infantil se desactivan todas las comunicaciones con otros usuarios. Activa esto para proteger a los menores de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tu cuenta está administrada. Pídele a tu profesor de ajedrez que desactive el modo para niños.</string>
