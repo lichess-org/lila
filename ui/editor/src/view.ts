@@ -172,26 +172,25 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           {
             on: {
               change(e) {
-                const val: string = (e.target as HTMLSelectElement).value;
-                ctrl.setEnPassant(val ? parseSquare(val) : undefined);
+                ctrl.setEnPassant(parseSquare((e.target as HTMLSelectElement).value));
               },
             },
             props: {
               value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
             },
           },
-          [''].concat(state.enPassantOptions).map(function (key) {
-            return h(
+          ['', ...state.enPassantOptions].map(key =>
+            h(
               'option',
               {
                 attrs: {
-                  value: key ? key : '',
+                  value: key || '',
                   selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
                 },
               },
               ctrl.trans(key),
-            );
-          }),
+            ),
+          ),
         ),
       ]),
     ]),
