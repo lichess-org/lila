@@ -859,9 +859,6 @@
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
   <string name="clickToRevealEmailAddress">[이메일 주소를 보려면 클릭]</string>
   <string name="download">다운로드</string>
-  <string name="welcome">환영합니다!</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
-모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="coachManager">코치 설정</string>
   <string name="streamerManager">스트리머 설정</string>
   <string name="cancelTournament">토너먼트 취소</string>
@@ -921,4 +918,6 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
+모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
 </resources>
