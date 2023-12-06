@@ -660,8 +660,10 @@
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
+  <string name="yourPendingSimuls">Bekleyen simultane oyunlarınız</string>
   <string name="createdSimuls">Yeni oluşturulan eş zamanlı gösteriler</string>
   <string name="hostANewSimul">Eş zamanlı gösteri düzenle</string>
+  <string name="signUpToHostOrJoinASimul">Bir simultane oyuna katılmak veya ev sahipliği yapmak için kayıt olun</string>
   <string name="noSimulFound">Eş zamanlı gösteri bulunamadı</string>
   <string name="noSimulExplanation">Eş zamanlı gösteri yok.</string>
   <string name="returnToSimulHomepage">Eş zamanlı gösteri sayfasına geri dön</string>
@@ -742,6 +744,7 @@
   <string name="withFriends">Yalnızca arkadaşlarımla</string>
   <string name="withEverybody">Herkes ile</string>
   <string name="kidMode">Çocuk modu</string>
+  <string name="kidModeIsEnabled">Çocuk modu etkin.</string>
   <string name="kidModeExplanation">Bu mod çocuğunuzun güvenliği ile ilgilidir. Tüm site bağlantıları devre dışı bırakılır. Eğer çocuklarınızı veya okul öğrencilerinizi diğer internet kullanıcılarına karşı korumak istiyorsanız, bu modu etkinleştirin.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess.org logosu yerine %s belirir, bilin ki çocuğunuz güvendedir :)</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Hesabınız kısıtlandı. Çocuk modunu kaldırmak için satranç öğretmeninize danışın.</string>
