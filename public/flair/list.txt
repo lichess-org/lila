@@ -1,6 +1,6 @@
 activity.1st-place-medal
-activity.2nd-place-medal
 activity.2024
+activity.2nd-place-medal
 activity.3rd-place-medal
 activity.admission-tickets
 activity.american-football
@@ -53,6 +53,7 @@ activity.lichess-variant-horde
 activity.lichess-variant-king-of-the-hill
 activity.lichess-variant-racing-kings
 activity.lichess-variant-three-check
+activity.lichess
 activity.magic-wand
 activity.mahjong-red-dragon
 activity.martial-arts-uniform
