@@ -15,7 +15,7 @@ import {
 } from './common';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children,
+  const cs = node.children.filter(x => ctx.showComputer || !x.comp),
     main = cs[0];
   if (!main) return;
   if (opts.isMainline) {
