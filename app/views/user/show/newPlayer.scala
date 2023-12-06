@@ -20,7 +20,6 @@ object newPlayer:
         else
           enabledKidModeSuggestion:
             a(href := routes.Account.kid)(trans.kidMode())
-          )
       ),
       p(whatNowSuggestions()),
       ul(
