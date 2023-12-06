@@ -57,10 +57,14 @@ export default function makeLog(): LichessLog {
   };
 
   window.addEventListener('error', async e => {
-    log(`${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${e.error?.stack ?? ''}`.trim());
+    log(
+      `${window.location.href} - ${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${
+        e.error?.stack ?? ''
+      }`.trim(),
+    );
   });
   window.addEventListener('unhandledrejection', async e => {
-    log(`${e.reason}\n${e.reason.stack ?? ''}`.trim());
+    log(`${window.location.href} - ${e.reason}\n${e.reason.stack ?? ''}`.trim());
   });
 
   return log;
