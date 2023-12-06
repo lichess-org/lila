@@ -477,6 +477,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="setFlair">Đặt biểu tượng của bạn:</string>
+  <string name="flair">Biểu tượng</string>
   <string name="youCanHideFlair">Có một cài đặt để ẩn tất cả biểu tượng của người dùng trên toàn bộ trang web.</string>
   <string name="biography">Tiểu sử</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
@@ -882,9 +883,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải xuống</string>
-  <string name="welcome">Chào mừng!</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
-Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
@@ -944,4 +942,6 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
+Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
 </resources>
