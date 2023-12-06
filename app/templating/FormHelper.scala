@@ -263,7 +263,7 @@ trait FormHelper:
       )
 
     private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
-    def flairPicker(field: Field, withDelete: Boolean)(view: Frag)(using ctx: Context) =
+    def flairPicker(field: Field, current: Option[Flair])(view: Frag)(using ctx: Context) =
       form3.group(field, trans.flair(), half = true): f =>
         frag(
           details(cls := "form-control emoji-details")(
@@ -272,13 +272,13 @@ trait FormHelper:
               nbsp,
               view
             ),
-            hidden(f),
+            hidden(f, current.map(_.value)),
             div(
               cls := "flair-picker",
               (!ctx.me.exists(_.isAdmin)).option(exceptEmojis)
             )
           ),
-          withDelete option p:
+          current.isDefined option p:
             button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
         )
 

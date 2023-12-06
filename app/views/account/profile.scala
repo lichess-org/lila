@@ -23,7 +23,7 @@ object profile:
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.editProfile()),
         standardFlash,
-        postForm(cls := "form3", action := routes.Account.profileApply)(
+        postForm(cls := "form3 dirty-alert", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
             ctx.kid.no option
@@ -31,7 +31,7 @@ object profile:
                 .group(form("bio"), trans.biography(), half = true, help = trans.biographyDescription().some):
                   f => form3.textarea(f)(rows := 5)
             ,
-            form3.flairPicker(form("flair"), u.flair.isDefined)(
+            form3.flairPicker(form("flair"), u.flair)(
               userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
             ):
               p(cls := "form-help"):
