@@ -749,7 +749,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>
   <string name="kidMode">Kid mode</string>
-  <string name="kidModeIsEnabled">Kid mode is enabled.</string>
+  <string name="kidModeIsEnabled">Child-mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
