@@ -9,31 +9,31 @@
   <string name="lengths">تعداد حرکات</string>
   <string name="mates">مات‌ها</string>
   <string name="goals">اهداف</string>
-  <string name="origin">منشا</string>
-  <string name="specialMoves">حرکات مخصوص</string>
-  <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
-  <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
-  <string name="upVote">پازل خوبی بود</string>
-  <string name="downVote">پازل بدی بود</string>
-  <string name="yourPuzzleRatingWillNotChange">ریتینگ پازل شما تغییری نخواهد کرد. توجه کنید که پازل ها یک مسابقه نیستند. ریتینگ پازل شما به انتخاب پازل مناسب در سطح خودتان کمک می کند.</string>
+  <string name="origin">خاستگاه</string>
+  <string name="specialMoves">حرکات ویژه</string>
+  <string name="didYouLikeThisPuzzle">این معما را دوست داشتید؟</string>
+  <string name="voteToLoadNextOne">موافقت برای بارگذاری معمای بعدی!</string>
+  <string name="upVote">معمای خوبی بود</string>
+  <string name="downVote">معمای بدی بود</string>
+  <string name="yourPuzzleRatingWillNotChange">امتیازبندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. امتیازبندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
-  <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
-  <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
+  <string name="findTheBestMoveForBlack">بهترین حرکت برای سیاه را پیدا کنید.</string>
+  <string name="toGetPersonalizedPuzzles">دریافت معماهای شخصی‌سازی‌شده:</string>
   <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">معمای %s</string>
-  <string name="puzzleOfTheDay">مسئله روز</string>
-  <string name="dailyPuzzle">پازل روزانه</string>
-  <string name="clickToSolve">برای جل کردن کلیک کنید</string>
-  <string name="goodMove">حرکتی خوب</string>
+  <string name="puzzleOfTheDay">معمای روز</string>
+  <string name="dailyPuzzle">معمای روزانه</string>
+  <string name="clickToSolve">برای جل کردن بزتیذ</string>
+  <string name="goodMove">حرکتِ خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
-  <string name="puzzleSuccess">موفقیت!</string>
-  <string name="puzzleComplete">پازل تمام شد!</string>
-  <string name="byOpenings">به ترتیب شروع ها</string>
-  <string name="puzzlesByOpenings">پازل ها به ترتیب شروع</string>
-  <string name="openingsYouPlayedTheMost">شروع هایی در بیشترین بازی های رتبه ای بازی کردید</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
-  <string name="useCtrlF">با استفاده از Ctrl+F گشایش محبوب خود را پیدا کنید!</string>
-  <string name="notTheMove">ابن حرکت صحیح نیست</string>
+  <string name="puzzleSuccess">موفق شدید!</string>
+  <string name="puzzleComplete">معما تکمیل شد!</string>
+  <string name="byOpenings">بر اساس گشایش‌ها</string>
+  <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
+  <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">از گزینه «پیدا کردن در صفحه» مرورگر استفاده کنید تا گشایش مورد علاقه خود را پیدا کنید!</string>
+  <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
+  <string name="notTheMove">ابن حرکت نیست!</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
   <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">امتیاز: %s</string>
   <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">پنهان</string>
