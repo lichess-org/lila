@@ -997,8 +997,6 @@
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
-  <string name="welcome">Vitajte!</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
@@ -1059,4 +1057,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
 </resources>
