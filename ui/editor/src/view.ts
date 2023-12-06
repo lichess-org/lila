@@ -166,9 +166,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ]),
       ]),
       h('div.enpassant', [
-        h('strong', 'En passant'),
+        h('label', { attrs: { for: 'enpassant-select' } }, 'En passant'),
         h(
-          'select',
+          'select#enpassant-select',
           {
             on: {
               change(e) {
