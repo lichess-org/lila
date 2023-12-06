@@ -1006,9 +1006,6 @@
   <string name="timeAlmostUp">Время почти истекло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
   <string name="download">Загрузить</string>
-  <string name="welcome">Добро пожаловать!</string>
-  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
-Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
@@ -1069,4 +1066,6 @@
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>
+  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
+Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
 </resources>
