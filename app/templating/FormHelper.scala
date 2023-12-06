@@ -262,6 +262,26 @@ trait FormHelper:
           case d              => d
       )
 
+    private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
+    def flairPicker(field: Field, withDelete: Boolean)(view: Frag)(using ctx: Context) =
+      form3.group(field, "Flair", half = true): f =>
+        frag(
+          details(cls := "form-control emoji-details")(
+            summary(cls := "button button-metal button-no-upper")(
+              trans.setFlair(),
+              nbsp,
+              view
+            ),
+            hidden(f),
+            div(
+              cls := "flair-picker",
+              (!ctx.me.exists(_.isAdmin)).option(exceptEmojis)
+            )
+          ),
+          withDelete option p:
+            button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+        )
+
     object file:
       def image(name: String): Frag =
         st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")

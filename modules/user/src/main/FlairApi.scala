@@ -12,10 +12,18 @@ object FlairApi:
 
   type FlairMap = Map[UserId, Flair]
 
-  def formField: play.api.data.Mapping[Option[Flair]] =
+  def formField(using by: Me): play.api.data.Mapping[Option[Flair]] =
     import play.api.data.Forms.*
     import lila.common.Form.into
-    optional(text.into[Flair].verifying(exists))
+    optional:
+      text
+        .into[Flair]
+        .verifying(exists)
+        .verifying(f => !adminFlairs(f) || by.isAdmin)
+
+  def formPair(using by: Me) = "flair" -> formField
+
+  val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
 final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: akka.actor.Scheduler):
 
