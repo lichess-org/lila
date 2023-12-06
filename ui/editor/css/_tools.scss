@@ -44,12 +44,13 @@
       }
 
       .enpassant {
-        display: flex;
-        align-items: center;
-        margin-top: 3px;
+        @extend %flex-between;
+        margin-top: 1em;
+        label {
+          font-weight: bold;
+        }
         select {
-          width: 5em;
-          margin-left: auto;
+          width: 8ch;
         }
       }
     }
