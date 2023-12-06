@@ -14,13 +14,13 @@ object dev:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("mod.misc")
-    )(
+    ):
       main(cls := "page-menu")(
         mod.menu("setting"),
         div(id := "settings", cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(title),
           p("Tread lightly."),
-          settings.map { s =>
+          settings.map: s =>
             postForm(action := routes.Dev.settingsPost(s.id))(
               p(s.text | s.id),
               s.form.value match
@@ -29,10 +29,8 @@ object dev:
               ,
               submitButton(cls := "button button-empty", dataIcon := licon.Checkmark)
             )
-          }
         )
       )
-    )
 
   def cli(form: Form[?], res: Option[String])(using PageContext) =
     val title = "Command Line Interface"
