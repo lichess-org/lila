@@ -264,7 +264,7 @@ trait FormHelper:
 
     private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
     def flairPicker(field: Field, withDelete: Boolean)(view: Frag)(using ctx: Context) =
-      form3.group(field, "Flair", half = true): f =>
+      form3.group(field, trans.flair(), half = true): f =>
         frag(
           details(cls := "form-control emoji-details")(
             summary(cls := "button button-metal button-no-upper")(
