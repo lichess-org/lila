@@ -906,9 +906,6 @@
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
   <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
   <string name="download">Letöltés</string>
-  <string name="welcome">Üdvözlünk!</string>
-  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
-Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="coachManager">Edzői vezérlőpult</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
   <string name="cancelTournament">Versenykiírás törlése</string>
@@ -967,4 +964,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="switchSides">Oldal megfordítása</string>
   <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
   <string name="ourEventTips">Tippjeink események szervezéséhez</string>
+  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
+Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
 </resources>
