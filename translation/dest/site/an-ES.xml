@@ -922,9 +922,6 @@
   <string name="timeAlmostUp">Cuasi ha rematau lo tiempo!</string>
   <string name="clickToRevealEmailAddress">[Fe clic pa veyer l\'adreza de correu-e]</string>
   <string name="download">Descargar</string>
-  <string name="welcome">Bienveniu/da!</string>
-  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
-Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
   <string name="coachManager">Configuración pa entrenadors</string>
   <string name="streamerManager">Configuración pa streamers</string>
   <string name="cancelTournament">Cancelar lo torneyo</string>
@@ -981,4 +978,6 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="ourEventTips">Los nuestros consellos pa organizar eventos</string>
   <string name="instructions">Instruccions</string>
   <string name="showMeEverything">Amuestra-me-lo tot</string>
+  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
+Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
 </resources>
