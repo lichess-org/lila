@@ -919,9 +919,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>
   <string name="clickToRevealEmailAddress">[Clicca per mostrare l\'indirizzo email]</string>
   <string name="download">Download</string>
-  <string name="welcome">Benvenuto!</string>
-  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
-Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="coachManager">Gestore allenatore</string>
   <string name="streamerManager">Gestore streamer</string>
   <string name="cancelTournament">Annulla il torneo</string>
@@ -982,4 +979,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
   <string name="instructions">Istruzioni</string>
   <string name="showMeEverything">Mostra tutto</string>
+  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
+Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
 </resources>
