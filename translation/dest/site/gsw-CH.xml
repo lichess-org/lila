@@ -931,9 +931,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe azeige]</string>
   <string name="download">Abelade</string>
-  <string name="welcome">Willkomme!</string>
-  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
-Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
@@ -995,4 +992,6 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
   <string name="instructions">Awisige</string>
   <string name="showMeEverything">Zeig mer alles</string>
+  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
+Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
 </resources>
