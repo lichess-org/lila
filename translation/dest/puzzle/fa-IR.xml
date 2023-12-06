@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">موضوع معماها</string>
+  <string name="puzzleThemes">موضوعات معما</string>
   <string name="recommended">توصیه</string>
   <string name="phases">مرحله‌ها</string>
   <string name="motifs">بُن‌مایه‌ها</string>
@@ -39,26 +39,26 @@
   <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">پنهان</string>
   <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">%s بار بازی شده است</item>
-    <item quantity="other">این جدول%s بار بازی شده است</item>
+    <item quantity="other">%s بار بازی شده</item>
   </plurals>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
   <string name="normal">معمولی</string>
-  <string name="easier">اسان تر</string>
+  <string name="easier">آسان‌تر</string>
   <string name="easiest">آسان‌ترین</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز پایین‌تر از امتیازبندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز پایین‌تر از امتیازبندی معمایی‌تان</item>
   </plurals>
-  <string name="harder">سخت تر</string>
+  <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">یک امتیاز بالاتر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز بالاتر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز بالاتر از امتیازبندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز بالاتر از امتیازبندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
-  <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
+  <string name="addAnotherTheme">افزودن موضوع دیگری</string>
   <string name="nextPuzzle">پازل بعدی</string>
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
 با فعال کردن این تنظیمات ، صفحه به محض تکمیل پازلی که مشاهده می کنید به یک معمای جدید منتقل می شود.</string>
