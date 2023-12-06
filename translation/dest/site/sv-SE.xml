@@ -922,9 +922,6 @@
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
-  <string name="welcome">Välkommen!</string>
-  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
-Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="coachManager">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
@@ -985,4 +982,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Visa mig allt</string>
+  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
+Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
 </resources>
