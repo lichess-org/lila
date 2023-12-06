@@ -170,7 +170,7 @@ export default class EditorCtrl {
     const [rank1, rank2] =
       filesEnPassant.size >= 1
         ? [unpackRank(ranks[turn === 'w' ? 1 : 6]), unpackRank(ranks[turn === 'w' ? 2 : 5])]
-        : [null,null];
+        : [null, null];
     return Array.from(filesEnPassant)
       .filter(e => rank1![e] === 'x' && rank2![e] === 'x')
       .map(e => String.fromCharCode('a'.charCodeAt(0) + e) + (turn === 'w' ? '6' : '3'))
