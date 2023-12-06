@@ -188,7 +188,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
                 },
               },
-              ctrl.trans(key),
+              key,
             ),
           ),
         ),
