@@ -813,6 +813,7 @@
   <string name="withFriends">S prijatelji</string>
   <string name="withEverybody">Z vsemi</string>
   <string name="kidMode">Način za otroke</string>
+  <string name="kidModeIsEnabled">Otroški način je omogočen.</string>
   <string name="kidModeExplanation">To je o varnosti. V načinu za otroke so vsi pogovori onemogočeni. Omogočite ta način, da otroke in šolarje zaščitite pred drugimi uporabniki na internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Vprašajte svojega učitelja šaha o dvigovalnem otroškem načinu.</string>
