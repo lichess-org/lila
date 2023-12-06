@@ -850,9 +850,6 @@
   <string name="timeAlmostUp">Waktu hampir habis!</string>
   <string name="clickToRevealEmailAddress">[Klik untuk memunculkan alamat email]</string>
   <string name="download">Unduh</string>
-  <string name="welcome">Wilujeng sumping!</string>
-  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
-Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
   <string name="coachManager">Manajer pelatih</string>
   <string name="streamerManager">Manajer stream</string>
   <string name="cancelTournament">Batalkan turnamen</string>
@@ -910,4 +907,6 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
   <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
+  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
+Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
 </resources>
