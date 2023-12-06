@@ -879,9 +879,6 @@
   <string name="timeAlmostUp">残り時間わずか！</string>
   <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
   <string name="download">ダウンロード</string>
-  <string name="welcome">ようこそ！</string>
-  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
-運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="coachManager">コーチ用設定</string>
   <string name="streamerManager">配信者用設定</string>
   <string name="cancelTournament">トーナメントをキャンセル</string>
@@ -942,4 +939,6 @@
   <string name="ourEventTips">チェスイベント開催のアドバイス</string>
   <string name="instructions">使用法</string>
   <string name="showMeEverything">すべてを表示</string>
+  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
+運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
 </resources>
