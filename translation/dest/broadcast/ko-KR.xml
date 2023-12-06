@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">방송</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="other">%s 방송</item>
   </plurals>
   <string name="liveBroadcasts">실시간 대회 방송</string>

@@ -132,6 +132,7 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay();
 
   for (const [i, node] of ctrl.node.children.entries()) {
+    if (node.comp && !ctrl.showComputer()) continue;
     const userShape = findShape(node.uci, ctrl.node.shapes);
 
     if (userShape && i === ctrl.fork.selected()) autoShapes.push({ ...userShape }); // so we can hilite it

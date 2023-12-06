@@ -1,6 +1,5 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import { emojiPicker } from './emojiPicker';
 
 lichess.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
@@ -18,7 +17,15 @@ lichess.load.then(() => {
       onEmojiSelect();
       $(e.target).remove();
     });
-    $(details).on('toggle', () => emojiPicker(details.querySelector('.emoji-picker')!, close, onEmojiSelect));
+    $(details).on('toggle', () =>
+      lichess.asset.loadEsm('flairPicker', {
+        init: {
+          element: details.querySelector('.flair-picker')!,
+          close,
+          onEmojiSelect,
+        },
+      }),
+    );
   });
 
   const localPrefs: [string, string, string, boolean][] = [

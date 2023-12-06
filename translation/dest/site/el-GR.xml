@@ -460,7 +460,7 @@
   <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
   <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
   <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
-  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Αφήστε το κενό για να πάρει το όνομά του τυχαία από κάποιον γνωστό σκακιστή.</string>
+  <string name="emptyTournamentName">Αφήστε το κενό για να πάρει το όνομά του τυχαία από κάποιον γνωστό σκακιστή.</string>
   <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
   <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
   <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
@@ -524,7 +524,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση</string>
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
-  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Νικητές πρωταθλημάτων</string>
+  <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
   <string name="descPrivate">Ιδιωτική περιγραφή</string>

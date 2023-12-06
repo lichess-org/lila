@@ -379,6 +379,7 @@ object I18nKeys:
   val `firstName` = I18nKey("firstName")
   val `lastName` = I18nKey("lastName")
   val `setFlair` = I18nKey("setFlair")
+  val `flair` = I18nKey("flair")
   val `youCanHideFlair` = I18nKey("youCanHideFlair")
   val `biography` = I18nKey("biography")
   val `countryRegion` = I18nKey("countryRegion")

@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Übertragungen</string>
   <string name="myBroadcasts">Meine Übertragungen</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s Übertragung</item>
     <item quantity="other">%s Übertragungen</item>
   </plurals>
@@ -35,4 +35,5 @@
   <string name="editRoundStudy">Rundenstudie bearbeiten</string>
   <string name="deleteTournament">Dieses Turnier löschen</string>
   <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partien.</string>
+  <string name="periodInSeconds">Dauer in Sekunden</string>
 </resources>

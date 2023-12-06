@@ -1,4 +1,6 @@
 import { type Dialog, domDialog } from 'common/dialog';
+import { isMobile } from 'common/device';
+import { memoize } from 'common/common';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
@@ -17,11 +19,12 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   return variant === 'threeCheck' && san.includes('+');
 }
 
-export const pow2floor = (n: number) => {
-  let pow2 = 1;
-  while (pow2 * 2 <= n) pow2 *= 2;
-  return pow2;
-};
+export function constrain(n: number, constraints: { min?: number; max?: number }): number {
+  const min = constraints.min ?? n;
+  const max = constraints.max ?? n;
+  return Math.max(min, Math.min(max, n));
+}
+export const fewerCores = memoize<boolean>(() => isMobile() || navigator.userAgent.includes('CrOS'));
 
 export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {
   let shrink = 4; // 32767 -> 24576 -> 16384 -> 12288 -> 8192 -> 6144 -> etc

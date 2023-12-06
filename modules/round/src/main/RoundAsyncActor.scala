@@ -26,7 +26,7 @@ final private[round] class RoundAsyncActor(
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using Executor, lila.user.UserFlairApi.Getter)(using proxy: GameProxy)
+)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
 
   import RoundSocket.Protocol

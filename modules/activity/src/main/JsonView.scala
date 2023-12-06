@@ -16,7 +16,7 @@ import model.*
 
 final class JsonView(
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamNameSync
+    getLightTeam: lila.hub.LightTeam.GetterSync
 ):
 
   private object Writers:
@@ -28,7 +28,7 @@ final class JsonView(
     given Writes[Score]      = Json.writes
     given OWrites[Games] = OWrites { games =>
       JsObject {
-        games.value.toList.sortBy(-_._2.size).map { case (pt, score) =>
+        games.value.toList.sortBy(-_._2.size).map { (pt, score) =>
           pt.key.value -> Json.toJson(score)
         }
       }
@@ -85,11 +85,10 @@ final class JsonView(
     }
     given Writes[FollowList] = Json.writes
     given Writes[Follows]    = Json.writes
-    given Writes[Teams] = Writes { s =>
-      JsArray(s.value.map { id =>
-        Json.obj("url" -> s"/team/$id", "name" -> getTeamName(id))
+    given Writes[Teams] = Writes: s =>
+      JsArray(s.value.flatMap(getLightTeam(_)).map { team =>
+        Json.obj("url" -> s"/team/${team.id}", "name" -> team.name).add("flair" -> team.flair)
       })
-    }
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
 
@@ -105,7 +104,7 @@ final class JsonView(
         .add("tournaments", a.tours)
         .add(
           "practice",
-          a.practice.map(_.toList.sortBy(-_._2) map { case (study, nb) =>
+          a.practice.map(_.toList.sortBy(-_._2) map { (study, nb) =>
             Json.obj(
               "url"         -> s"/practice/-/${study.slug}/${study.id}",
               "name"        -> study.name,
@@ -116,20 +115,18 @@ final class JsonView(
         .add("simuls", a.simuls.map(_ map simulWrites(user).writes))
         .add(
           "correspondenceMoves",
-          a.corresMoves.map { case (nb, povs) =>
+          a.corresMoves.map: (nb, povs) =>
             Json.obj("nb" -> nb, "games" -> povs)
-          }
         )
         .add(
           "correspondenceEnds",
-          a.corresEnds.map { case (score, povs) =>
+          a.corresEnds.map: (score, povs) =>
             Json.obj("score" -> score, "games" -> povs)
-          }
         )
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)
         .add("teams" -> a.teams)
-        .add("posts" -> a.forumPosts.map(_ map { case (topic, posts) =>
+        .add("posts" -> a.forumPosts.map(_ map { (topic, posts) =>
           Json.obj(
             "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,

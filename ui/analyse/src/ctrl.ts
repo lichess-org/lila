@@ -769,7 +769,7 @@ export default class AnalyseCtrl {
       !this.study?.gamebookPlay() &&
       !this.retro &&
       this.variationArrowsProp() &&
-      this.node.children.length > 1
+      this.node.children.filter(x => !x.comp || this.showComputer()).length > 1
     );
   }
 
@@ -794,7 +794,6 @@ export default class AnalyseCtrl {
 
   private onToggleComputer() {
     if (!this.showComputer()) {
-      this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
     }
     this.resetAutoShapes();
@@ -812,7 +811,6 @@ export default class AnalyseCtrl {
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
-    if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
     if (data.analysis)
       data.analysis.partial = !!treeOps.findInMainline(

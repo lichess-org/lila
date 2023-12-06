@@ -191,6 +191,7 @@ const feedback = {
               : h(
                   'a',
                   {
+                    key: 'reset',
                     hook: bind('click', ctrl.reset),
                   },
                   ctrl.noarg('doItAgain'),
@@ -198,6 +199,7 @@ const feedback = {
             h(
               'a',
               {
+                key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
               ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'),

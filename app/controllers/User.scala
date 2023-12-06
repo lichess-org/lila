@@ -122,11 +122,10 @@ final class User(
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
                     info   <- env.userInfo(u, nbs, withUblog = false)
-                    _      <- env.team.cached.nameCache preloadMany info.teamIds
+                    _      <- env.team.cached.lightCache preloadMany info.teamIds
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search) option
-                      GameFilterMenu
-                        .searchForm(userGameSearch, filters.current)
+                      GameFilterMenu.searchForm(userGameSearch, filters.current)
                     page <- renderPage:
                       html.user.show.page.games(info, pag, filters, searchForm, social, notes)
                   yield Ok(page)

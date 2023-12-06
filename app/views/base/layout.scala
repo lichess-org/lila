@@ -105,7 +105,7 @@ object layout:
     s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="${licon.Checkmark}"" id="zentog" class="text fbt active">${trans.preferences.zenMode
+  <a data-icon="${licon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
 
@@ -121,13 +121,13 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
@@ -137,7 +137,7 @@ object layout:
     spaceless:
       s"""<div class="dasher">
   <button class="toggle link anon">
-    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></span>
+    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}"></span>
   </button>
   <div id="dasher_app" class="dropdown"></div>
 </div>

@@ -33,7 +33,7 @@ final class Env(
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,
-    lila.user.UserFlairApi.Getter
+    lila.user.FlairApi.Getter
 ):
 
   private val mongo = new SwissMongo(

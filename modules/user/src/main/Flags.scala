@@ -93,6 +93,8 @@ object Flags:
     C("ER", "Eritrea"),
     C("ES", "Spain"),
     C("ES-AN", "Andalusia"),
+    C("ES-AR", "Aragon"),
+    C("ES-AS", "Asturia"),
     C("ES-CT", "Catalonia"),
     C("ES-EU", "Basque Country"),
     C("ES-GA", "Galicia"),

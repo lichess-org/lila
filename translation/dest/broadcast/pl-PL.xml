@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Transmisje</string>
   <string name="myBroadcasts">Moje transmisje</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s transmisja</item>
     <item quantity="few">%s transmisje</item>
     <item quantity="many">%s transmisji</item>
@@ -10,10 +10,15 @@
   </plurals>
   <string name="liveBroadcasts">Transmisje turniejów na żywo</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
+  <string name="aboutBroadcasts">O transmisji</string>
+  <string name="noRoundsYet">Nie ma jeszcze rund.</string>
+  <string name="howToUseLichessBroadcasts">Jak korzystać z transmisji na Lichess.</string>
+  <string name="theNewRoundHelp">Nowa runda będzie miała tych samych uczestników co poprzednia.</string>
   <string name="addRound">Dodaj rundę</string>
   <string name="ongoing">Trwające</string>
   <string name="upcoming">Nadchodzące</string>
   <string name="completed">Zakończone</string>
+  <string name="completedHelp">Lichess wykrywa ukończenie rundy w oparciu o śledzone partie. Użyj tego przełącznika, jeśli nie ma takich partii.</string>
   <string name="roundName">Nazwa rundy</string>
   <string name="roundNumber">Numer rundy</string>
   <string name="tournamentName">Nazwa turnieju</string>
@@ -37,4 +42,14 @@
   <string name="editRoundStudy">Edytuj opracowanie rundy</string>
   <string name="deleteTournament">Usuń ten turniej</string>
   <string name="definitivelyDeleteTournament">Ostatecznie usuń cały turniej, jego wszystkie rundy i partie.</string>
+  <string name="automaticLeaderboard">Automatyczna tablica wyników</string>
+  <string name="automaticLeaderboardHelp">Oblicz i wyświetl prostą tablicę wyników w oparciu o wyniki partii</string>
+  <string name="replace">Opcjonalnie: zastąp nazwy, rankingi i tytuły graczy</string>
+  <string name="replaceHelp">Jeden wiersz na gracza, w następującym formacie:
+oryginalna nazwa; nowa nazwa; nowy ranking (opcjonalnie); nowy tytuł (opcjonalnie)
+Przykład:
+DrNykterstein; Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Przedział czasu w sekundach</string>
+  <string name="periodInSecondsHelp">Opcjonalnie, jak długo czekać pomiędzy odpytaniami. Min 2s, max 60s. Domyślnie jest to ustawiane automatycznie na podstawie liczby widzów.</string>
 </resources>

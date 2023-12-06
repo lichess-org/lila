@@ -21,16 +21,16 @@ object members:
           description = t.intro so { shorten(_, 152) }
         )
         .some
-    ) {
+    ):
       main(cls := "page-small box")(
         boxTop(
           h1(
-            views.html.team.bits.link(t),
+            teamLink(t, true),
             " • ",
             nbMembers.plural(t.nbMembers, t.nbMembers.localize)
           )
         ),
-        table(cls := "team-members slist slist-pad")(
+        table(cls := "team-members slist slist-pad"):
           tbody(cls := "infinite-scroll")(
             pager.currentPageResults.map { case TeamMember.UserAndDate(u, date) =>
               tr(cls := "paginated")(
@@ -40,6 +40,4 @@ object members:
             },
             pagerNextTable(pager, np => routes.Team.members(t.slug, np).url)
           )
-        )
       )
-    }

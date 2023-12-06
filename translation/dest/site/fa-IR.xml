@@ -29,7 +29,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
-  <string name="raceFinished">رقابت به اتمام رسید</string>
+  <string name="raceFinished">مسابقه تمام شد</string>
   <string name="variantEnding">اتمام بازی</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
@@ -48,7 +48,7 @@
   <string name="whiteResigned">بازیکن سفید تسلیم شد</string>
   <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">بازیکن سفید بازی را ترک کرد</string>
-  <string name="blackLeftTheGame">بازیکن سیاه بازی را ترک کرد</string>
+  <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید تکان نخورد</string>
   <string name="blackDidntMove">مشکی تکان نخورد</string>
   <string name="requestAComputerAnalysis">یک تحلیل رایانه‌ای درخواست بدهید</string>
@@ -66,7 +66,7 @@
   <string name="showThreat">تهدید را نمایش بدهید</string>
   <string name="inLocalBrowser">در مرورگر محلی</string>
   <string name="toggleLocalEvaluation">ارزیابی به صورت محلی انتخاب شود</string>
-  <string name="promoteVariation">تنوع را یک سطح بالاتر ببرید</string>
+  <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">مطالعه را شروع نمایید</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
+  <string name="showVariationArrows">نمایش پیکان‌های شاخه اصلی</string>
   <string name="evaluationGauge">درجه ی نشان دهنده برتری</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
@@ -230,7 +231,7 @@
   <string name="emailSent">ما یک ایمیل به آدرس %s ارسال کرده ایم.</string>
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
-  <string name="checkSpamFolder">پوشه اسپم خود را نیز بررسی کنید، ممکن است ایمیل را آنجا بیابید. اگر چنین است، آن را به عنوان غیر اسپم (امن) علامت گذاری کنید.</string>
+  <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
   <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
   <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
   <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
@@ -403,6 +404,7 @@
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
+  <string name="importGameCaveat2">این PGN برای عموم در دسترس است، برای وارد کردن خصوصی یک بازی، یک مطالعه ایجاد کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگزاری شده</item>
     <item quantity="other">%s بارگزاری شده</item>
@@ -504,6 +506,8 @@
   <string name="editProfile">ویرایش پروفایل</string>
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
+  <string name="setFlair">تعیین کردن شکلک:</string>
+  <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
   <string name="biography">زندگی نامه</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
   <string name="thankYou">ممنون!</string>
@@ -684,6 +688,7 @@
   <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
+  <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
   <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
   <string name="keyRequestComputerAnalysis">یک تحلیل کامپیوتری درخواست کنید، از اشتباهات خود درس بگیرید</string>
@@ -693,6 +698,10 @@
   <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
   <string name="keyPreviousBranch">شاخه قبلی</string>
   <string name="keyNextBranch">شاخه بعدی</string>
+  <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
+  <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
+  <string name="toggleGlyphAnnotations">کلید نماد حاشیه‌نویسی</string>
+  <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
   <string name="tournamentHomeTitle">مسابقات شطرنج با ویژگی های مختلف مثل کنترل زمان و غیره</string>

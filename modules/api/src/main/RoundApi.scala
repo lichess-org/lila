@@ -32,7 +32,7 @@ final private[api] class RoundApi(
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
     externalEngineApi: lila.analyse.ExternalEngineApi,
-    getTeamName: lila.team.GetTeamNameSync,
+    getLightTeam: lila.hub.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.common.LightUser.GetterSync
@@ -268,9 +268,12 @@ final private[api] class RoundApi(
         )
         .add(
           "team",
-          v.teamVs.map(_.teams(pov.color)) map { id =>
-            Json.obj("name" -> getTeamName(id))
-          }
+          v.teamVs.map(_.teams(pov.color)) map: id =>
+            getLightTeam(id).fold(Json.obj("name" -> id)): team =>
+              Json.obj(
+                "name"  -> team.name,
+                "flair" -> team.flair
+              )
         )
     })
 

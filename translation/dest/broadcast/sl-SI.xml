@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Prenosi</string>
   <string name="myBroadcasts">Moje oddajanja</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s oddaja</item>
     <item quantity="two">%s oddaji</item>
     <item quantity="few">%s oddaje</item>
@@ -10,10 +10,15 @@
   </plurals>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
   <string name="newBroadcast">Nov prenos v živo</string>
+  <string name="aboutBroadcasts">O oddaji</string>
+  <string name="noRoundsYet">Ni še krogov.</string>
+  <string name="howToUseLichessBroadcasts">Kako uporabljati Lichess Broadcasts.</string>
+  <string name="theNewRoundHelp">Novi krog bo imel iste člane in sodelavce kot prejšnji.</string>
   <string name="addRound">Dodajte krog</string>
   <string name="ongoing">V teku</string>
   <string name="upcoming">Prihajajoči</string>
   <string name="completed">Zaključeno</string>
+  <string name="completedHelp">Lichess zazna zaključek kroga na podlagi izvornih iger. Uporabite ta preklop, če ni vira.</string>
   <string name="roundName">Ime kroga</string>
   <string name="roundNumber">Številka kroga</string>
   <string name="tournamentName">Turnirsko ime</string>
@@ -37,4 +42,14 @@
   <string name="editRoundStudy">Uredi krog študije</string>
   <string name="deleteTournament">Zbrišite ta turnir</string>
   <string name="definitivelyDeleteTournament">Dokončno izbrišite celoten turnir, vse njegove kroge in vse njegove igre.</string>
+  <string name="automaticLeaderboard">Samodejna lestvica najboljših</string>
+  <string name="automaticLeaderboardHelp">Izračunajte in prikažite preprosto lestvico najboljših na podlagi rezultatov igre</string>
+  <string name="replace">Izbirno: zamenjajte imena igralcev, rejtinge in nazive</string>
+  <string name="replaceHelp">Ena vrstica na igralca, oblikovana tako:
+izvirno ime; Nadomestno ime; Izbirno rejting zamenjave; Izbirno nadomestni naslov
+primer:
+dr.Nykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Obdobje v sekundah</string>
+  <string name="periodInSecondsHelp">Izbirno, koliko časa je treba čakati med zahtevami. Najmanj 2 s, največ 60 s. Privzeto je samodejno glede na število gledalcev.</string>
 </resources>

@@ -30,7 +30,7 @@ final class Env(
     mongo: lila.db.Env,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.user.UserFlairApi.Getter):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.user.FlairApi.Getter):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 

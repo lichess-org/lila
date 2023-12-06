@@ -38,14 +38,12 @@ final class SwissFeature(
   private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).parallel.dmap(_.flatten) flatMap { ids =>
       mongo.swiss.byIds[Swiss, SwissId](ids, _.sec)
-    } map {
-      _.filter(_.isNotFinished).partition(_.isCreated) match
-        case (created, started) =>
-          FeaturedSwisses(
-            created = Heapsort.topN(created, 10)(using startsAtOrdering.reverse),
-            started = Heapsort.topN(started, 10)(using startsAtOrdering)
-          )
-    }
+    } map: tours =>
+      val (created, started) = tours.filter(_.isNotFinished).partition(_.isCreated)
+      FeaturedSwisses(
+        created = Heapsort.topN(created, 10)(using startsAtOrdering.reverse),
+        started = Heapsort.topN(started, 10)(using startsAtOrdering)
+      )
 
   private val cache = cacheApi.unit[FeaturedSwisses]:
     _.refreshAfterWrite(10 seconds)

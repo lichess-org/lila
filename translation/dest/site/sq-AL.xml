@@ -462,7 +462,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="advancedSettings">Rregullime të thelluara</string>
   <string name="safeTournamentName">Zgjidhni një emër shumë të sigurt për turneun.</string>
   <string name="inappropriateNameWarning">Çfarëdo gjëje qoftë edhe pakëz e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
-  <string name="emptyTournamentName" comment="Please note this used to say 'random grand master'.  We now have a longer list of chess players at many levels, some of whom were not chess masters in any official capacity.&#10;&#10;Appears when you enter a name for a tournament you want to create. If the box is left empty, the tournament will be named after a random chess personality e.g. &quot;Carlsen Arena&quot;.">Për ta emërtuar turneun me emrin e një lojtari të njohur shahu, lëreni të zbrazët.</string>
+  <string name="emptyTournamentName">Për ta emërtuar turneun me emrin e një lojtari të njohur shahu, lëreni të zbrazët.</string>
   <string name="recommendNotTouching">Rekomandojmë të mos i prekni këto.</string>
   <string name="fewerPlayers">Nëse ujdisni domosdoshmëri pjesëmarrjeje, turneu juaj do të ketë më pak lojtarë.</string>
   <string name="showAdvancedSettings">Shfaq rregullimet të thelluara</string>
@@ -526,7 +526,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Kalo automatikisht në lojën tjetër pas lëvizjes</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
-  <string name="tournamentWinners" comment="Page title on https://lichess.org/tournament/leaderboard and also on the home page. Lists Yearly and other large, competitive Lichess tournaments.">Fitues të turneve</string>
+  <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emër</string>
   <string name="description">Përshkrim</string>
   <string name="descPrivate">Përshkrim privat</string>

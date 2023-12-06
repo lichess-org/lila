@@ -24,7 +24,7 @@ final class Study(
     prismicC: Prismic
 ) extends LilaController(env):
 
-  private given lila.user.UserFlairApi = env.user.flairApi
+  private given lila.user.FlairApi = env.user.flairApi
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
