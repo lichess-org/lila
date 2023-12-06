@@ -889,9 +889,6 @@
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
   <string name="clickToRevealEmailAddress">[ईमेल देखने के लिए क्लिक करें]</string>
   <string name="download">डाउनलोड करें</string>
-  <string name="welcome">आपका स्वागत है!</string>
-  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
-सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
   <string name="coachManager">कोच मनेजर</string>
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
@@ -949,4 +946,6 @@
   <string name="switchSides">पार्श्व बदलना</string>
   <string name="closingAccountWithdrawAppeal">आपका खाता बंद करने से आपकी अपील वापस ले ली जाएगी</string>
   <string name="ourEventTips">कार्यक्रम आयोजित करने कि सलाह</string>
+  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
+सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
 </resources>
