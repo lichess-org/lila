@@ -309,7 +309,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   },
                 }),
                 h(
-                  'a.button.button-empty',
+                  'button.button.button-empty.import-from__chapter',
                   {
                     hook: bind('click', () => {
                       xhr

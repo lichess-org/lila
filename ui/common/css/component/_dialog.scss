@@ -2,6 +2,7 @@ dialog {
   @extend %box-radius, %popup-shadow;
   position: fixed;
   max-height: 100%;
+  max-width: 100%;
   top: 50%;
   #{$start-direction}: 50%;
   transform: translate($transform-direction * -50%, -50%);
