@@ -884,9 +884,6 @@
   <string name="timeAlmostUp">Заман лъугӀизехъин буго!</string>
   <string name="clickToRevealEmailAddress">[Электронияб почалъул адресс ричӀизе, тӀадецуй]</string>
   <string name="download">РещтӀинабизе</string>
-  <string name="welcome">ЛъикӀ щварав!</string>
-  <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
-Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
   <string name="coachManager">Мударибзабазе</string>
   <string name="streamerManager">Стрим менежер</string>
   <string name="cancelTournament">Турнир гьабичӀого тезе</string>
@@ -943,4 +940,6 @@
   <string name="switchSides">Рахъ хизисе</string>
   <string name="closingAccountWithdrawAppeal">Дур аккаунт къаялъ дур хитӀаб нахъе ахӀула</string>
   <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
+  <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
+Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
 </resources>
