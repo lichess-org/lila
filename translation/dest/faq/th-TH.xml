@@ -56,6 +56,24 @@
   <string name="lichessTraining">การฝึกฝนใน Lichess</string>
   <string name="watchIMRosenCheckmate">ดู อินเตอร์เนชั่นแนลมาสเตอร์ เอริค โรเซน รุกจน %s</string>
   <string name="threefoldRepetition">เดินซ้ำสามครั้ง</string>
+  <string name="threefoldRepetitionLowerCase">การเดินซ้ำสามรอบ</string>
+  <string name="notRepeatedMoves">พวกเราไม่ได้เดินซ้ำ ทำไมเกมถึงยังเสมอโดยการเดินซ้ำ</string>
+  <string name="positions">ตำแหน่ง</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">พวกเราเดินซ้ำกันสามครั้งทำไมเกมถึงไม่เสมอ</string>
+  <string name="threeFoldHasToBeClaimed">การเดินซ้ำจะต้องได้รับการอ้างสิทธิ์โดยผู้เล่นคนใดคนหนึ่ง คุณสามารถทำได้โดยการกดปุ่มที่แสดงอยู่ หรือโดยเสนอเสมอก่อนการตาเดินซ้ำครั้งสุดท้ายของคุณ โดยไม่สำคัญว่าคู่ต่อสู้ของคุณจะปฏิเสธข้อเสนอเสมอหรือไม่ก็ตาม ยังไงก็ตามการเสมอโดยการเดินซ้ำสามรอบจะถูกรับ คุณยังสามารถ %1$s Lichess เพื่อขอรับสิทธิ์การเดินซ้ำให้คุณได้โดยอัตโนมัติ นอกจากนี้ การเดินซ้ำห้าครั้งจะทำให้จบเกมในทันที</string>
+  <string name="configure">กำหนดค่า</string>
+  <string name="accounts">บัญชี</string>
+  <string name="titlesAvailableOnLichess">มีตำแหน่งหมากรุกใดบ้างใน Lichess</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess จดจำชื่อ FIDE ทั้งหมดที่ได้รับจากการเล่น OTB (บนกระดาน) รวมถึง %1$s นี่คือรายชื่อชื่อตำแหน่งหมากรุกของ FIDE:</string>
+  <string name="showYourTitle">หากคุณมีตำแหน่งใน OTB คุณสามารถสมัครเพื่อให้แสดงสิ่งนี้ในบัญชีของคุณโดยกรอก %1$s รวมถึงถ่ายภาพที่ชัดเจนของเอกสารหรือบัตรระบุตัวตน และภาพเซลฟี่ของคุณกำลังถือเอกสารหรือบัตร
+
+การยืนยันในฐานะผู้เล่นที่มีชื่อบน Lichess ทำให้สามารถเข้าถึงการเล่นในกิจกรรม Titled Arena
+
+ในที่สุดก็มีตำแหน่งกิตติมศักดิ์ %2$s แล้ว</string>
+  <string name="asWellAsManyNMtitles">ตำแหน่งระดับปรมาจารย์ระดับชาติมากมาย</string>
+  <string name="verificationForm">ยืนยันจาก</string>
+  <string name="canIbecomeLM">ฉันสามารถได้ตำแหน่ง Lichess Master (LM) ได้หรือไม่</string>
+  <string name="noUpperCaseDot">ไม่</string>
   <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
   <string name="enableAutoplayForSoundsQ">เปิดใช้งานการเล่นอัตโนมัติสำหรับเสียงไหม</string>
 </resources>
