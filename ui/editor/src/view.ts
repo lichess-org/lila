@@ -172,7 +172,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           {
             on: {
               change(e) {
-                let val: string = (e.target as HTMLSelectElement).value;
+                const val: string = (e.target as HTMLSelectElement).value;
                 ctrl.setEnPassant(val ? parseSquare(val) : undefined);
               },
             },

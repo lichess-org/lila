@@ -152,7 +152,7 @@ export default class EditorCtrl {
   private getEnPassantOptions(fen: string): string[] {
     const unpackRank = (packedRank: string) =>
       [...packedRank].reduce((accumulator, current) => {
-        let parsedInt = parseInt(current);
+        const parsedInt = parseInt(current);
         return accumulator + (parsedInt >= 1 ? 'x'.repeat(parsedInt) : current);
       }, '');
     const checkRank = (rank: string, regex: RegExp, offset: number, filesEnPassant: Set<number>) => {
@@ -170,7 +170,7 @@ export default class EditorCtrl {
     const [rank1, rank2] =
       filesEnPassant.size >= 1
         ? [unpackRank(ranks[turn === 'w' ? 1 : 6]), unpackRank(ranks[turn === 'w' ? 2 : 5])]
-        : [,];
+        : [null,null];
     return Array.from(filesEnPassant)
       .filter(e => rank1![e] === 'x' && rank2![e] === 'x')
       .map(e => String.fromCharCode('a'.charCodeAt(0) + e) + (turn === 'w' ? '6' : '3'))
