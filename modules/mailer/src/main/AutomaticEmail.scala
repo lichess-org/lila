@@ -44,7 +44,7 @@ The Lichess team"""
     alsoSendAsPrivateMessage(user): lang =>
       given Lang = lang
       import lila.i18n.I18nKeys.*
-      s"""${welcome.txt()}\n${lichessPatronInfo.txt()}"""
+      s"""${onboarding.welcome.txt()}\n${lichessPatronInfo.txt()}"""
 
   def onTitleSet(username: UserStr): Funit = {
     for
