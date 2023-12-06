@@ -9,38 +9,42 @@ import controllers.routes
 
 object newPlayer:
 
+  import trans.onboarding.*
+
   def apply(u: User)(using Lang) =
     div(cls := "new-player")(
-      h2(trans.welcomeToLichess()),
+      h2(welcomeToLichess()),
       p(
-        trans.thisIsYourProfilePage(),
+        thisIsYourProfilePage(),
         u.profile.isEmpty option frag(
           br,
-          trans.wouldYouLikeToX(
-            a(href := routes.Account.profile)(trans.improveIt())
+          wouldYouLikeToX(
+            a(href := routes.Account.profile)(improveIt())
           )
         )
       ),
       p(
         if u.kid then trans.kidModeIsEnabled()
         else
-          trans.enabledKidModeSuggestion(
-          a(href := routes.Account.kid)(trans.kidMode())
-        )
+          enabledKidModeSuggestion(
+            a(href := routes.Account.kid)(trans.kidMode())
+          )
       ),
-      p(trans.whatNowSuggestions()),
+      p(whatNowSuggestions()),
       ul(
-        li(a(href := routes.Learn.index)(trans.learnChessRules())),
-        li(a(href := routes.Puzzle.home)(trans.improveWithChessTacticsPuzzles())),
-        li(a(href := s"${routes.Lobby.home}#ai")(trans.playTheArtificialIntelligence())),
-        li(a(href := s"${routes.Lobby.home}#hook")(trans.playOpponentsFromAroundTheWorld())),
-        li(a(href := routes.User.list)(trans.followYourFriendsOnLichess())),
-        li(a(href := routes.Tournament.home)(trans.playInTournaments())),
-        li(trans.learnFromXAndY(
-          a(href := routes.Study.allDefault())(trans.toStudy()),
-          a(href := routes.Video.index)(trans.learn.videos()))
+        li(a(href := routes.Learn.index)(learnChessRules())),
+        li(a(href := routes.Puzzle.home)(improveWithChessTacticsPuzzles())),
+        li(a(href := s"${routes.Lobby.home}#ai")(playTheArtificialIntelligence())),
+        li(a(href := s"${routes.Lobby.home}#hook")(playOpponentsFromAroundTheWorld())),
+        li(a(href := routes.User.list)(followYourFriendsOnLichess())),
+        li(a(href := routes.Tournament.home)(playInTournaments())),
+        li(
+          learnFromXAndY(
+            a(href := routes.Study.allDefault())(trans.toStudy()),
+            a(href := routes.Video.index)(trans.learn.videos())
+          )
         ),
-        li(a(href := routes.Pref.form("game-display"))(trans.configureLichess())),
-        li(trans.exploreTheSiteAndHaveFun())
+        li(a(href := routes.Pref.form("game-display"))(configureLichess())),
+        li(exploreTheSiteAndHaveFun())
       )
     )
