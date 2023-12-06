@@ -923,9 +923,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
   <string name="download">Last ned</string>
-  <string name="welcome">Velkomen!</string>
-  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
-Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
   <string name="cancelTournament">Avlys turneringa</string>
@@ -986,4 +983,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="ourEventTips">Tips for å organisere arrangement</string>
   <string name="instructions">Instruksjonar</string>
   <string name="showMeEverything">Vis alt</string>
+  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
+Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
 </resources>
