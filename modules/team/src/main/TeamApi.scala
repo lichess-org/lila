@@ -81,7 +81,6 @@ final class TeamApi(
         hideMembers = Some(edit.hideMembers),
         flair = edit.flair
       )
-      .pp(old)
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(old)

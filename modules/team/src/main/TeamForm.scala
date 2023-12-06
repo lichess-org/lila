@@ -44,9 +44,8 @@ final private[team] class TeamForm(
     val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
-    val flair       = "flair"       -> lila.user.FlairApi.formField
 
-  val create = Form:
+  def create(using lila.user.Me) = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -54,14 +53,14 @@ final private[team] class TeamForm(
       Fields.description,
       Fields.descPrivate,
       Fields.request,
-      Fields.flair,
+      lila.user.FlairApi.formPair,
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha)
 
-  def edit(team: Team) = Form(
+  def edit(team: Team)(using lila.user.Me) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -71,7 +70,7 @@ final private[team] class TeamForm(
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      Fields.flair
+      lila.user.FlairApi.formPair
     )(TeamEdit.apply)(unapply)
   ) fill TeamEdit(
     password = team.password,
@@ -111,7 +110,7 @@ final private[team] class TeamForm(
     single:
       "userId" -> lila.user.UserForm.historicalUsernameField
 
-  def createWithCaptcha = withCaptcha(create)
+  def createWithCaptcha(using lila.user.Me) = withCaptcha(create)
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints minLength 3, Constraints maxLength 9000))
