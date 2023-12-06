@@ -912,9 +912,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>
   <string name="clickToRevealEmailAddress">[Klikoni që të zbulohet adresa email]</string>
   <string name="download">Shkarkoje</string>
-  <string name="welcome">Mirë se vini!</string>
-  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
-Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="coachManager">Trajner</string>
   <string name="streamerManager">Përgjegjës transmetimesh</string>
   <string name="cancelTournament">Anulojeni turneun</string>
@@ -975,4 +972,6 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
   <string name="instructions">Udhëzime</string>
   <string name="showMeEverything">Shfaqmë gjithçka</string>
+  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
+Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
 </resources>
