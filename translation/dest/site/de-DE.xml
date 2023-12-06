@@ -748,6 +748,7 @@
   <string name="withFriends">Mit deinen Freunden</string>
   <string name="withEverybody">Mit jedem</string>
   <string name="kidMode">Kindermodus</string>
+  <string name="kidModeIsEnabled">Kindermodus ist aktiviert.</string>
   <string name="kidModeExplanation">Dies ist eine Sicherheitseinstellung. Im Kindermodus sind alle Kommunikationsmöglichkeiten deaktiviert. Aktiviere diese Option, um Kinder und Schüler vor anderen Internetbenutzern zu schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Kindermodus erhält das Lichess-Logo ein %s-Icon, an dem erkennen kannst, dass deine Kinder geschützt sind.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Dein Konto wird verwaltet. Bitte deinen Schachlehrer den Kindermodus aufzuheben.</string>
