@@ -15,7 +15,7 @@
   <string name="pgnLetter">Буква фигуры (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Дзен</string>
   <string name="showPlayerRatings">Показывать рейтинг игрока</string>
-  <string name="showFlairs">Показывать флаеры игроков</string>
+  <string name="showFlairs">Показывать эмодзи игроков</string>
   <string name="explainShowPlayerRatings">Позволяет скрыть все рейтинги на сайте, чтобы помочь сосредоточиться на игре. Сами партии останутся рейтинговыми, просто вы не будете это видеть.</string>
   <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
   <string name="onlyOnInitialPosition">Только в начальном положении</string>
