@@ -994,9 +994,6 @@
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ/י כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
-  <string name="welcome">ברוכים הבאים!</string>
-  <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
-כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
   <string name="coachManager">הגדרות עבור מאמנים</string>
   <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">ביטול הטורניר</string>
@@ -1056,4 +1053,6 @@
   <string name="switchSides">הפוך צד</string>
   <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
   <string name="ourEventTips">הטיפים שלנו לארגון אירועים</string>
+  <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
+כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
 </resources>
