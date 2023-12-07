@@ -508,6 +508,7 @@
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
   <string name="setFlair">Defineix el teu estil:</string>
+  <string name="flair">Icona</string>
   <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o regió</string>
