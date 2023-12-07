@@ -572,6 +572,7 @@
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
   <string name="setFlair">Določite svoj okus:</string>
+  <string name="flair">Simbol</string>
   <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
   <string name="biography">Biografija</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali regija</string>
