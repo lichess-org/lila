@@ -8,6 +8,9 @@
   </plurals>
   <string name="liveBroadcasts">Direkteoverføringer av turneringer</string>
   <string name="newBroadcast">Ny direkteoverføring</string>
+  <string name="aboutBroadcasts">Om overføringer</string>
+  <string name="noRoundsYet">Ingen runder ennå.</string>
+  <string name="howToUseLichessBroadcasts">Hvordan bruke overføringer hos Lichess.</string>
   <string name="addRound">Legg til runde</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommende</string>
@@ -35,4 +38,7 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringen</string>
   <string name="definitivelyDeleteTournament">Slett hele turneringen for godt, sammen med alle rundene og alle partiene.</string>
+  <string name="automaticLeaderboard">Automatisk ledertabell</string>
+  <string name="automaticLeaderboardHelp">Beregn og vis en enkel ledertabell basert på resultatene av partiene</string>
+  <string name="periodInSeconds">Tidsrom i sekunder</string>
 </resources>
