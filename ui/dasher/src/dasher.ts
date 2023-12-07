@@ -2,9 +2,9 @@ import { PingCtrl } from './ping';
 import { LangsCtrl, LangsData } from './langs';
 import { SoundCtrl } from './sound';
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
-import { BoardCtrl, BoardData, ctrl as boardCtrl } from './board';
+import { BoardCtrl, BoardData } from './board';
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
-import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece';
+import { PieceCtrl, PieceData } from './piece';
 import { Redraw, Prop, prop } from './util';
 
 export interface DasherData {
@@ -69,9 +69,9 @@ export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
     langs: new LangsCtrl(data.lang, trans, close),
     sound: new SoundCtrl(data.sound.list, trans, redraw, close),
     background: backgroundCtrl(data.background, trans, redraw, close),
-    board: boardCtrl(data.board, trans, redraw, close),
+    board: new BoardCtrl(data.board, trans, redraw, close),
     theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
-    piece: pieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
+    piece: new PieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
   };
 
   lichess.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));

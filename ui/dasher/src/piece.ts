@@ -15,45 +15,34 @@ export interface PieceData {
   d3: PieceDimData;
 }
 
-export interface PieceCtrl {
-  dimension: () => keyof PieceData;
-  data: () => PieceDimData;
-  trans: Trans;
-  set(t: Piece): void;
-  close: Close;
-}
-
-export function ctrl(
-  data: PieceData,
-  trans: Trans,
-  dimension: () => keyof PieceData,
-  redraw: Redraw,
-  close: Close,
-): PieceCtrl {
-  const dimensionData = () => data[dimension()];
-  return {
-    dimension,
-    trans,
-    data: dimensionData,
-    set(t: Piece) {
-      const d = dimensionData();
-      d.current = t;
-      applyPiece(t, d.list, dimension() === 'd3');
-      const field = `pieceSet${dimension() === 'd3' ? '3d' : ''}`;
-      xhr
-        .text(`/pref/${field}`, {
-          body: xhr.form({ [field]: t }),
-          method: 'post',
-        })
-        .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
-      redraw();
-    },
-    close: close,
+export class PieceCtrl {
+  dimensionData: () => PieceDimData;
+  constructor(
+    readonly data: PieceData,
+    readonly trans: Trans,
+    readonly dimension: () => keyof PieceData,
+    readonly redraw: Redraw,
+    readonly close: Close,
+  ) {
+    this.dimensionData = () => data[dimension()];
+  }
+  set = (t: Piece) => {
+    const d = this.dimensionData();
+    d.current = t;
+    applyPiece(t, d.list, this.dimension() === 'd3');
+    const field = `pieceSet${this.dimension() === 'd3' ? '3d' : ''}`;
+    xhr
+      .text(`/pref/${field}`, {
+        body: xhr.form({ [field]: t }),
+        method: 'post',
+      })
+      .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
+    this.redraw();
   };
 }
 
 export function view(ctrl: PieceCtrl): VNode {
-  const d = ctrl.data();
+  const d = ctrl.dimensionData();
 
   return h('div.sub.piece.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.close()),
@@ -69,22 +58,20 @@ function pieceImage(t: Piece, is3d: boolean) {
   return `piece/${t}/wN.svg`;
 }
 
-function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
-  return (t: Piece) =>
-    h(
-      'button.no-square',
-      {
-        attrs: { title: t, type: 'button' },
-        hook: bind('click', () => set(t)),
-        class: { active: current === t },
-      },
-      [
-        h('piece', {
-          attrs: { style: `background-image:url(${lichess.asset.url(pieceImage(t, is3d))})` },
-        }),
-      ],
-    );
-}
+const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t: Piece) =>
+  h(
+    'button.no-square',
+    {
+      attrs: { title: t, type: 'button' },
+      hook: bind('click', () => set(t)),
+      class: { active: current === t },
+    },
+    [
+      h('piece', {
+        attrs: { style: `background-image:url(${lichess.asset.url(pieceImage(t, is3d))})` },
+      }),
+    ],
+  );
 
 function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
   if (is3d) {
