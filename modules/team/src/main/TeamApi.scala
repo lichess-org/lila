@@ -89,6 +89,7 @@ final class TeamApi(
     yield
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
+      cached.lightCache.invalidate(team.id)
       indexer ! InsertTeam(team)
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =

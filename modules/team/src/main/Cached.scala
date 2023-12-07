@@ -19,7 +19,7 @@ final class Cached(
     compute = teamRepo.light,
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Access(10 minutes)
+    expireAfter = Syncache.ExpireAfter.Write(10 minutes)
   )
 
   val async = LightTeam.Getter(lightCache.async)

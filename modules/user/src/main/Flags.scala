@@ -5,9 +5,9 @@ import scala.*
 final class Flag(
     val code: Flag.Code,
     val name: Flag.Name,
-    val shortName: Option[String]
+    val abrev: Option[String]
 ):
-  def longName = shortName.isDefined option name
+  def shortName = abrev | name
 
 object Flag:
   type Code = String

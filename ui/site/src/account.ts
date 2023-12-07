@@ -84,6 +84,24 @@ lichess.load.then(() => {
       return !isDanger || confirm(this.title);
     });
   });
+
+  $('form.dirty-alert').each(function (this: HTMLFormElement) {
+    const form = this;
+    const serialize = () => {
+      const data = new FormData(form);
+      return Array.from(data.keys())
+        .map(k => `${k}=${data.get(k)}`)
+        .join('&');
+    };
+    let clean = serialize();
+    $(form).on('submit', () => {
+      clean = serialize();
+    });
+    window.addEventListener('beforeunload', e => {
+      if (clean != serialize() && !confirm('You have unsaved changes. Are you sure you want to leave?'))
+        e.preventDefault();
+    });
+  });
 });
 
 function computeBitChoices($form: Cash, name: string) {
