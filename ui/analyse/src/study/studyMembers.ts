@@ -38,7 +38,7 @@ export class StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
   confing = prop<string | null>(null);
   inviteForm: StudyInviteFormCtrl;
-  readonly active: { [id: string]: () => void } = {}; // TODO should be Map
+  readonly active: Map<string, () => void> = new Map();
   online: { [id: string]: boolean } = {};
   spectatorIds: string[] = [];
   max = 30;
@@ -70,12 +70,16 @@ export class StudyMemberCtrl {
 
   setActive = (id: string) => {
     if (this.opts.tab() !== 'members') return;
-    if (this.active[id]) this.active[id]();
+    const active = this.active.get(id);
+    if (active) active();
     else
-      this.active[id] = memberActivity(() => {
-        delete this.active[id];
-        this.opts.redraw();
-      });
+      this.active.set(
+        id,
+        memberActivity(() => {
+          this.active.delete(id);
+          this.opts.redraw();
+        }),
+      );
     this.opts.redraw();
   };
 
@@ -107,13 +111,9 @@ export class StudyMemberCtrl {
       });
     this.updateOnline();
   };
-  isActive = (id: string) => !!this.active[id];
-  setRole = (id: string, role: string) => {
-    this.setActive(id);
-    this.opts.send('setRole', {
-      userId: id,
-      role,
-    });
+  setRole = (userId: string, role: string) => {
+    this.setActive(userId);
+    this.opts.send('setRole', { userId, role });
     this.confing(null);
   };
   kick = (id: string) => {
@@ -147,7 +147,7 @@ export function view(ctrl: StudyCtrl): VNode {
       {
         class: {
           contrib,
-          active: members.isActive(member.user.id),
+          active: members.active.has(member.user.id),
           online: members.isOnline(member.user.id),
         },
         attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
