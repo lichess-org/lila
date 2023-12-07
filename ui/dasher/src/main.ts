@@ -1,5 +1,5 @@
 import { Redraw } from './util';
-import { DasherCtrl, makeCtrl } from './dasher';
+import DasherCtrl from './dasher';
 import { loading, loaded } from './view';
 import * as xhr from 'common/xhr';
 import { init as initSnabbdom, VNode, classModule, attributesModule } from 'snabbdom';
@@ -25,7 +25,7 @@ export async function initModule() {
   redraw();
 
   const data = await xhr.json('/dasher');
-  ctrl = makeCtrl(data, redraw);
+  ctrl = new DasherCtrl(data, redraw);
   redraw();
 
   new MutationObserver(_ => lichess.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(

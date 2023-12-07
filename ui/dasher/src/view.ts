@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 
-import { DasherCtrl } from './dasher';
+import DasherCtrl from './dasher';
 import links from './links';
 import { view as langsView } from './langs';
 import { view as soundView } from './sound';

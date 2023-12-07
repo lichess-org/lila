@@ -26,10 +26,12 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
 
 const defaultMode = 'links';
 
-export interface DasherCtrl {
-  mode: Prop<Mode>;
-  setMode(m: Mode): void;
-  data: DasherData;
+export interface DasherOpts {
+  playing: boolean;
+  zenable: boolean;
+}
+
+export default class DasherCtrl {
   trans: Trans;
   ping: PingCtrl;
   subs: {
@@ -40,49 +42,45 @@ export interface DasherCtrl {
     theme: ThemeCtrl;
     piece: PieceCtrl;
   };
-  opts: DasherOpts;
-}
-
-export interface DasherOpts {
-  playing: boolean;
-  zenable: boolean;
-}
-
-export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
-  const trans = lichess.trans(data.i18n);
-  const opts = {
+  opts = {
     playing: $('body').hasClass('playing'),
     zenable: $('body').hasClass('zenable'),
   };
 
-  const mode: Prop<Mode> = prop(defaultMode as Mode);
+  constructor(
+    readonly data: DasherData,
+    readonly redraw: Redraw,
+  ) {
+    this.trans = lichess.trans(data.i18n);
+    lichess.pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
+    this.ping = new PingCtrl(this.trans, this.redraw);
+    this.subs = {
+      langs: new LangsCtrl(this.data.lang, this.trans, this.close),
+      sound: new SoundCtrl(this.data.sound.list, this.trans, this.redraw, this.close),
+      background: new BackgroundCtrl(this.data.background, this.trans, this.redraw, this.close),
+      board: new BoardCtrl(this.data.board, this.trans, this.redraw, this.close),
+      theme: new ThemeCtrl(
+        this.data.theme,
+        this.trans,
+        () => (this.data.board.is3d ? 'd3' : 'd2'),
+        this.redraw,
+        this.close,
+      ),
+      piece: new PieceCtrl(
+        this.data.piece,
+        this.trans,
+        () => (this.data.board.is3d ? 'd3' : 'd2'),
+        this.redraw,
+        this.close,
+      ),
+    };
+  }
 
-  const setMode = (m: Mode) => {
-    mode(m);
-    redraw();
+  mode: Prop<Mode> = prop(defaultMode as Mode);
+
+  setMode = (m: Mode) => {
+    this.mode(m);
+    this.redraw();
   };
-  const close = () => setMode(defaultMode);
-
-  const ping = new PingCtrl(trans, redraw);
-
-  const subs = {
-    langs: new LangsCtrl(data.lang, trans, close),
-    sound: new SoundCtrl(data.sound.list, trans, redraw, close),
-    background: new BackgroundCtrl(data.background, trans, redraw, close),
-    board: new BoardCtrl(data.board, trans, redraw, close),
-    theme: new ThemeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
-    piece: new PieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
-  };
-
-  lichess.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));
-
-  return {
-    mode,
-    setMode,
-    data,
-    trans,
-    ping,
-    subs,
-    opts,
-  };
+  close = () => this.setMode(defaultMode);
 }
