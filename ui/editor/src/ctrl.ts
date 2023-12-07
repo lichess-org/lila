@@ -99,10 +99,6 @@ export default class EditorCtrl {
     }
     this.options.onChange?.(fen);
     this.redraw();
-
-    //Fix En passant select bug where an option being removed breaks the select
-    const epSelect = $('.enpassant select')[0] as HTMLSelectElement;
-    if (epSelect) epSelect.value = fen.split(' ')[3];
   }
 
   private castlingToggleFen(): string {

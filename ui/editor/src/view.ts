@@ -179,13 +179,33 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
             },
           },
-          ['', ...state.enPassantOptions].map(key =>
+          [
+            '',
+            'a3',
+            'b3',
+            'c3',
+            'd3',
+            'e3',
+            'f3',
+            'g3',
+            'h3',
+            'a6',
+            'b6',
+            'c6',
+            'd6',
+            'e6',
+            'f6',
+            'g6',
+            'h6',
+          ].map(key =>
             h(
               'option',
               {
                 attrs: {
-                  value: key || '',
+                  value: key,
                   selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
+                  hidden: Boolean(key && !state.enPassantOptions.includes(key)),
+                  disabled: Boolean(key && !state.enPassantOptions.includes(key)) /*Safari*/,
                 },
               },
               key,
