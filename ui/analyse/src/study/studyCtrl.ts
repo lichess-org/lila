@@ -9,7 +9,7 @@ import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { CommentForm } from './commentForm';
 import { GlyphForm } from './studyGlyph';
-import { ctrl as studyFormCtrl } from './studyForm';
+import { StudyForm } from './studyForm';
 import TopicsCtrl from './topics';
 import { NotifCtrl } from './notif';
 import { StudyShare } from './studyShare';
@@ -155,7 +155,7 @@ export default function (
     ? new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter)
     : undefined;
 
-  const form = studyFormCtrl(
+  const form = new StudyForm(
     (d, isNew) => {
       send('editStudy', d);
       if (

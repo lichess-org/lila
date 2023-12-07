@@ -1,23 +1,12 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
-import { prop, Prop } from 'common';
+import { prop } from 'common';
 import { bindSubmit, bindNonPassive } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';
 import { Redraw } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
-
-export interface StudyFormCtrl {
-  open: Prop<boolean>;
-  openIfNew(): void;
-  save(data: FormData, isNew: boolean): void;
-  getData(): StudyData;
-  isNew(): boolean;
-  trans: Trans;
-  redraw: Redraw;
-  relay?: RelayCtrl;
-}
 
 export interface FormData {
   name: string;
@@ -38,6 +27,32 @@ interface Select {
   selected: string;
 }
 type Choice = [string, string];
+
+export class StudyForm {
+  initAt = Date.now();
+  open = prop(false);
+
+  constructor(
+    private readonly doSave: (data: FormData, isNew: boolean) => void,
+    readonly getData: () => StudyData,
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+    readonly relay?: RelayCtrl,
+  ) {}
+
+  isNew = (): boolean => {
+    const d = this.getData();
+    return d.from === 'scratch' && !!d.isNew && Date.now() - this.initAt < 9000;
+  };
+
+  openIfNew = () => {
+    if (this.isNew()) this.open(true);
+  };
+  save = (data: FormData, isNew: boolean) => {
+    this.doSave(data, isNew);
+    this.open(false);
+  };
+}
 
 const select = (s: Select): VNode =>
   h('div.form-group.form-half', [
@@ -65,40 +80,7 @@ const select = (s: Select): VNode =>
     ),
   ]);
 
-export function ctrl(
-  save: (data: FormData, isNew: boolean) => void,
-  getData: () => StudyData,
-  trans: Trans,
-  redraw: Redraw,
-  relay?: RelayCtrl,
-): StudyFormCtrl {
-  const initAt = Date.now();
-
-  function isNew(): boolean {
-    const d = getData();
-    return d.from === 'scratch' && !!d.isNew && Date.now() - initAt < 9000;
-  }
-
-  const open = prop(false);
-
-  return {
-    open,
-    openIfNew() {
-      if (isNew()) open(true);
-    },
-    save(data: FormData, isNew: boolean) {
-      save(data, isNew);
-      open(false);
-    },
-    getData,
-    isNew,
-    trans,
-    redraw,
-    relay,
-  };
-}
-
-export function view(ctrl: StudyFormCtrl): VNode {
+export function view(ctrl: StudyForm): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const updateName = (vnode: VNode, isUpdate: boolean) => {

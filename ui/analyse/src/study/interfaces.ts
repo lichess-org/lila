@@ -16,7 +16,7 @@ import ServerEval from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
-import { StudyFormCtrl } from './studyForm';
+import { StudyForm } from './studyForm';
 import { StudyMemberCtrl } from './studyMembers';
 import { Opening } from '../explorer/interfaces';
 import { StudySocketSendParams } from '../socket';
@@ -30,7 +30,7 @@ export interface StudyCtrl {
   setTab(tab: Tab): void;
   relay?: RelayCtrl;
   multiBoard: MultiBoardCtrl;
-  form: StudyFormCtrl;
+  form: StudyForm;
   members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
   notif: NotifCtrl;

@@ -70,7 +70,7 @@ export class StudyChapterNewForm {
     };
     if (!dd.pgn) this.send('addChapter', dd);
     else importPgn(study.data.id, dd);
-    close();
+    this.open(false);
     this.setTab();
   };
   startTour = () =>
@@ -85,8 +85,8 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const trans = ctrl.root.trans,
     study = ctrl.root.study!;
   const activeTab = ctrl.tab();
-  const makeTab = function (key: string, name: string, title: string) {
-    return h(
+  const makeTab = (key: string, name: string, title: string) =>
+    h(
       'span.' + key,
       {
         class: { active: activeTab === key },
@@ -105,7 +105,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       },
       name,
     );
-  };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
   const currentChapter = study.data.chapter;
   const mode = currentChapter.practice

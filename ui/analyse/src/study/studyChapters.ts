@@ -4,7 +4,7 @@ import { bind, dataIcon, iconTag } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
-import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
+import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
 import {
   LocalPaths,
@@ -17,7 +17,7 @@ import {
 
 export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
-  editForm: StudyChapterEditFormCtrl;
+  editForm: StudyChapterEditForm;
   list: Prop<StudyChapterMeta[]>;
   localPaths: LocalPaths = {};
 
@@ -30,7 +30,7 @@ export default class StudyChaptersCtrl {
   ) {
     this.list = prop(initChapters);
     this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = chapterEditForm(send, chapterConfig, root.trans, root.redraw);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
   }
 
   get = (id: string) => this.list().find(c => c.id === id);
