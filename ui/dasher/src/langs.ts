@@ -13,36 +13,27 @@ export interface LangsData {
   list: Lang[];
 }
 
-export interface LangsCtrl {
-  list(): Lang[];
-  current: Code;
+export class LangsCtrl {
   accepted: Set<Code>;
-  trans: Trans;
-  close: Close;
+  constructor(
+    readonly data: LangsData,
+    readonly trans: Trans,
+    readonly close: Close,
+  ) {
+    this.accepted = new Set(data.accepted);
+  }
+  list = () => [...this.data.list.filter(lang => this.accepted.has(lang[0])), ...this.data.list];
 }
 
-export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
-  const accepted = new Set(data.accepted);
-  return {
-    list() {
-      return [...data.list.filter(lang => accepted.has(lang[0])), ...data.list];
-    },
-    current: data.current,
-    accepted,
-    trans,
-    close,
-  };
-}
-
-export function view(ctrl: LangsCtrl): VNode {
-  return h('div.sub.langs', [
+export const view = (ctrl: LangsCtrl): VNode =>
+  h('div.sub.langs', [
     header(ctrl.trans.noarg('language'), ctrl.close),
     h(
       'form',
       {
         attrs: { method: 'post', action: '/translation/select' },
       },
-      ctrl.list().map(langView(ctrl.current, ctrl.accepted)),
+      ctrl.list().map(langView(ctrl.data.current, ctrl.accepted)),
     ),
     h(
       'a.help.text',
@@ -55,7 +46,6 @@ export function view(ctrl: LangsCtrl): VNode {
       'Help translate Lichess',
     ),
   ]);
-}
 
 const langView =
   (current: Code, accepted: Set<Code>) =>
