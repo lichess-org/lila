@@ -46,7 +46,7 @@ export class StudyChapterNewForm {
       this.loadVariants();
       this.initial(false);
     });
-    lichess.pubsub.on('analyse.close-all', close);
+    lichess.pubsub.on('analyse.close-all', this.open.toggle);
   }
 
   loadVariants = () => {
