@@ -47,9 +47,9 @@ object categ:
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
         dataIcon := licon.Pencil
-      )(
+      ):
         trans.createANewTopic()
-      )
+
     def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) =
       tr(cls := List("sticky" -> sticky))(
         td(cls := "subject")(

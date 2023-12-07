@@ -123,6 +123,14 @@ GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
+GET   /feed                            controllers.DailyFeed.index
+GET   /feed/new                        controllers.DailyFeed.createForm
+POST  /feed/new                        controllers.DailyFeed.create
+GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
+GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
+POST  /feed/:day/edit                  controllers.DailyFeed.update(day)
+POST  /feed/:day/delete                controllers.DailyFeed.delete(day)
+
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
 POST  /opening/wiki/:key/:moves        controllers.Opening.wikiWrite(key, moves)

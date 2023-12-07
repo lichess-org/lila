@@ -100,6 +100,7 @@ final class LilaComponents(
   lazy val appealC: appeal.Appeal         = wire[appeal.Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
+  lazy val dailyFeed: DailyFeed           = wire[DailyFeed]
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]

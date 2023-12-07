@@ -1,0 +1,40 @@
+$c-contours: mix($c-brag, $c-shade, 80%);
+
+.daily-feed {
+  &__updates {
+    margin: 3em 3em 0 3em;
+    border-#{$start-direction}: 3px solid $c-contours;
+  }
+
+  &__update {
+    padding-#{$start-direction}: 45px;
+    margin-bottom: 4em;
+
+    > i {
+      font-size: 24px;
+      float: $start-direction;
+      width: 50px;
+      height: 50px;
+      margin-top: -12px;
+      margin-#{$start-direction}: -72px;
+      line-height: 39px;
+      text-align: center;
+      background-color: $c-contours;
+      border: 3px solid $c-bg-box;
+      border-radius: 50%;
+      color: #fff;
+    }
+    &__day {
+      time {
+        font-weight: bold;
+        font-size: 1.3em;
+        color: $c-contours;
+      }
+      margin-bottom: 1em;
+    }
+  }
+
+  &__delete {
+    text-align: $end-direction;
+  }
+}

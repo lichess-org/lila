@@ -32,13 +32,12 @@ trait FormHelper:
   val postForm     = form(method := "post")
   val submitButton = button(tpe := "submit")
 
-  def markdownAvailable(using Lang) =
-    trans.markdownAvailable(
+  def markdownAvailable(using Lang): Frag =
+    trans.markdownAvailable:
       a(
         href := "https://guides.github.com/features/mastering-markdown/",
         targetBlank
       )("Markdown")
-    )
 
   def checkboxes[V](
       field: play.api.data.Field,
@@ -252,11 +251,13 @@ trait FormHelper:
         field: Field,
         withTime: Boolean = true,
         utc: Boolean = false,
-        minDate: Option[String] = Some("today")
+        minDate: Option[String] = Some("today"),
+        dateFormat: Option[String] = None
     ): Tag =
       input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         dataTime24h    := withTime,
+        dateFormat.map(df => data("date-format") := df),
         dataMinDate := minDate.map:
           case "today" if utc => "yesterday"
           case d              => d
