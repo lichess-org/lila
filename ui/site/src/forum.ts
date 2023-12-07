@@ -33,9 +33,7 @@ lichess.load.then(() => {
     $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
-    const isBlocked = $(this).is('.forum-post__blocked *');
-    const isMatching = isBlocked ? this.innerHTML.match(/(^|<br>)&gt;/) : this.innerText.match(/(^|\n)>/);
-    if (isMatching) {
+    if (this.innerHTML.match(/(^|<br>)&gt;/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
