@@ -30,10 +30,7 @@ export function ctrl(
   redraw: Redraw,
   close: Close,
 ): PieceCtrl {
-  function dimensionData() {
-    return data[dimension()];
-  }
-
+  const dimensionData = () => data[dimension()];
   return {
     dimension,
     trans,
