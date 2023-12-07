@@ -8,17 +8,6 @@ import { elementScrollBarWidth } from 'common/scroll';
 import { throttlePromiseDelay } from 'common/throttle';
 import { supportsSystemTheme } from 'common/theme';
 
-export interface BackgroundCtrl {
-  list: Background[];
-  set(k: string): void;
-  get(): string;
-  getImage(): string;
-  setImage(i: string): void;
-  trans: Trans;
-  close: Close;
-  data: BackgroundData;
-}
-
 export interface BackgroundData {
   current: string;
   image: string;
@@ -35,55 +24,58 @@ interface Background {
   title?: string;
 }
 
-export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
-  const list: Background[] = [
-    { key: 'system', name: trans.noarg('deviceTheme') },
-    { key: 'light', name: trans.noarg('light') },
-    { key: 'dark', name: trans.noarg('dark') },
-    { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
-    { key: 'transp', name: 'Picture' },
-  ];
+export class BackgroundCtrl {
+  list: Background[];
 
-  const announceFail = (err: string) =>
+  constructor(
+    readonly data: BackgroundData,
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+    readonly close: Close,
+  ) {
+    this.list = [
+      { key: 'system', name: trans.noarg('deviceTheme') },
+      { key: 'light', name: trans.noarg('light') },
+      { key: 'dark', name: trans.noarg('dark') },
+      { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
+      { key: 'transp', name: 'Picture' },
+    ];
+  }
+
+  private announceFail = (err: string) =>
     lichess.announce({ msg: `Failed to save background preference: ${err}` });
 
-  const reloadAllTheThings = () => {
+  private reloadAllTheThings = () => {
     if ($('canvas').length || window.Highcharts) lichess.reload();
   };
 
-  return {
-    list,
-    trans,
-    get: () => data.current,
-    set: throttlePromiseDelay(
-      () => 700,
-      (c: string) => {
-        data.current = c;
-        applyBackground(data, list);
-        redraw();
-        return xhr
-          .text('/pref/bg', {
-            body: xhr.form({ bg: c }),
-            method: 'post',
-          })
-          .then(reloadAllTheThings, announceFail);
-      },
-    ),
-    getImage: () => data.image,
-    setImage(i: string) {
-      data.image = i;
-      xhr
-        .textRaw('/pref/bgImg', {
-          body: xhr.form({ bgImg: i }),
+  get = () => this.data.current;
+  set = throttlePromiseDelay(
+    () => 700,
+    (c: string) => {
+      this.data.current = c;
+      applyBackground(this.data, this.list);
+      this.redraw();
+      return xhr
+        .text('/pref/bg', {
+          body: xhr.form({ bg: c }),
           method: 'post',
         })
-        .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
-        .then(reloadAllTheThings, err => err.then(announceFail));
-      applyBackground(data, list);
-      redraw();
+        .then(this.reloadAllTheThings, this.announceFail);
     },
-    close,
-    data,
+  );
+  getImage = () => this.data.image;
+  setImage = (i: string) => {
+    this.data.image = i;
+    xhr
+      .textRaw('/pref/bgImg', {
+        body: xhr.form({ bgImg: i }),
+        method: 'post',
+      })
+      .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
+      .then(this.reloadAllTheThings, err => err.then(this.announceFail));
+    applyBackground(this.data, this.list);
+    this.redraw();
   };
 }
 
