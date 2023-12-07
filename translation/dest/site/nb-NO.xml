@@ -507,6 +507,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Etternavn</string>
   <string name="setFlair">Velg flair:</string>
+  <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finnes en innstilling for å skjule alle brukerflairer på hele nettstedet.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
@@ -746,6 +747,7 @@
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Barnemodus</string>
+  <string name="kidModeIsEnabled">Barnemodus er aktivert.</string>
   <string name="kidModeExplanation">Dette handler om sikkerhet. I barnemodus blir all kommunikasjon skrudd av. Bruk dette for å skjerme barn og skole-elever mot brukere på Internett.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen et %s symbol, så du vet at barna dine er trygge.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Kontoen din er forvaltet. Be sjakklæreren din fjerne barnemodus.</string>
