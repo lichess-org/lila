@@ -5,7 +5,7 @@ import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
-import practiceCtrl from './practice/studyPracticeCtrl';
+import StudyPractice from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { CommentForm } from './commentForm';
 import { GlyphForm } from './studyGlyph';
@@ -151,9 +151,7 @@ export default function (
 
   const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
-  const relay = relayData
-    ? new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter)
-    : undefined;
+  const relay = relayData && new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter);
 
   const form = new StudyForm(
     (d, isNew) => {
@@ -348,7 +346,7 @@ export default function (
     ctrl.trans,
   );
 
-  const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
+  const practice: StudyPracticeCtrl | undefined = practiceData && new StudyPractice(ctrl, data, practiceData);
 
   let gamebookPlay: GamebookPlayCtrl | undefined;
 
