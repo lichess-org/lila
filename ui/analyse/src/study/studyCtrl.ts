@@ -82,7 +82,7 @@ export default class StudyCtrl {
   relayRecProp = storedBooleanProp('analyse.relay.rec', true);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
-  vm: StudyVm; // TODO flatten?
+  vm: StudyVm;
   notif: NotifCtrl;
   members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
@@ -104,8 +104,8 @@ export default class StudyCtrl {
   constructor(
     readonly data: StudyData,
     readonly ctrl: AnalyseCtrl,
-    readonly tagTypes: TagTypes,
-    readonly practiceData?: StudyPracticeData,
+    tagTypes: TagTypes,
+    practiceData?: StudyPracticeData,
     private readonly relayData?: RelayData,
   ) {
     this.notif = new NotifCtrl(ctrl.redraw);
@@ -171,7 +171,7 @@ export default class StudyCtrl {
     );
     this.commentForm = new CommentForm(ctrl);
     this.glyphForm = new GlyphForm(ctrl);
-    this.tags = new TagsForm(ctrl, () => data.chapter, tagTypes);
+    this.tags = new TagsForm(this, tagTypes);
     this.studyDesc = new DescriptionCtrl(
       data.description,
       debounce(t => {

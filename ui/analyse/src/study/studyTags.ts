@@ -5,28 +5,26 @@ import { option } from '../view/util';
 import { StudyChapter } from './interfaces';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'common';
-import AnalyseCtrl from '../ctrl';
 import StudyCtrl from './studyCtrl';
 
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);
   constructor(
-    private readonly analyseCtrl: AnalyseCtrl, // TODO should be root: StudyCtrl
-    readonly getChapter: () => StudyChapter,
+    private readonly root: StudyCtrl, // TODO should be root: StudyCtrl
     readonly types: string[],
   ) {}
 
-  root = () => this.analyseCtrl.study!;
+  getChapter = () => this.root.data.chapter;
 
   private makeChange = throttle(500, (name: string, value: string) => {
-    this.root().makeChange('setTag', {
+    this.root.makeChange('setTag', {
       chapterId: this.getChapter().id,
       name,
       value: value.slice(0, 140),
     });
   });
 
-  editable = () => this.root().vm.mode.write;
+  editable = () => this.root.vm.mode.write;
 
   submit = (name: string) => (value: string) => this.editable() && this.makeChange(name, value);
 }
