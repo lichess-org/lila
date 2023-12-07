@@ -179,25 +179,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
             },
           },
-          [
-            '',
-            'a3',
-            'b3',
-            'c3',
-            'd3',
-            'e3',
-            'f3',
-            'g3',
-            'h3',
-            'a6',
-            'b6',
-            'c6',
-            'd6',
-            'e6',
-            'f6',
-            'g6',
-            'h6',
-          ].map(key =>
+          ['', ...[3, 6].flatMap(r => 'abcdefgh'.split('').map(f => f + r))].map(key =>
             h(
               'option',
               {
