@@ -5,7 +5,7 @@ import { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 
 const prefixInteger = (num: number, length: number): string =>
-  (num / Math.pow(10, length)).toFixed(length).substr(2);
+  (num / Math.pow(10, length)).toFixed(length).slice(2);
 
 const bold = (x: string) => `<b>${x}</b>`;
 
