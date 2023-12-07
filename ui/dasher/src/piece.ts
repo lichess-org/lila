@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-
 import * as xhr from 'common/xhr';
 import { Redraw, bind, header, Close } from './util';
 
@@ -16,16 +15,14 @@ export interface PieceData {
 }
 
 export class PieceCtrl {
-  dimensionData: () => PieceDimData;
   constructor(
-    readonly data: PieceData,
+    private readonly data: PieceData,
     readonly trans: Trans,
     readonly dimension: () => keyof PieceData,
     readonly redraw: Redraw,
     readonly close: Close,
-  ) {
-    this.dimensionData = () => data[dimension()];
-  }
+  ) {}
+  dimensionData = () => this.data[this.dimension()];
   set = (t: Piece) => {
     const d = this.dimensionData();
     d.current = t;

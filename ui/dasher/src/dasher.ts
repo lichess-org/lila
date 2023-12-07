@@ -3,7 +3,7 @@ import { LangsCtrl, LangsData } from './langs';
 import { SoundCtrl } from './sound';
 import { BackgroundCtrl, BackgroundData } from './background';
 import { BoardCtrl, BoardData } from './board';
-import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
+import { ThemeCtrl, ThemeData } from './theme';
 import { PieceCtrl, PieceData } from './piece';
 import { Redraw, Prop, prop } from './util';
 
@@ -70,7 +70,7 @@ export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
     sound: new SoundCtrl(data.sound.list, trans, redraw, close),
     background: new BackgroundCtrl(data.background, trans, redraw, close),
     board: new BoardCtrl(data.board, trans, redraw, close),
-    theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
+    theme: new ThemeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
     piece: new PieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
   };
 
