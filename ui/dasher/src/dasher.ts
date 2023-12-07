@@ -1,6 +1,6 @@
 import { PingCtrl } from './ping';
 import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
-import { SoundCtrl, ctrl as soundCtrl } from './sound';
+import { SoundCtrl } from './sound';
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
 import { BoardCtrl, BoardData, ctrl as boardCtrl } from './board';
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
@@ -67,7 +67,7 @@ export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
 
   const subs = {
     langs: langsCtrl(data.lang, trans, close),
-    sound: soundCtrl(data.sound.list, trans, redraw, close),
+    sound: new SoundCtrl(data.sound.list, trans, redraw, close),
     background: backgroundCtrl(data.background, trans, redraw, close),
     board: boardCtrl(data.board, trans, redraw, close),
     theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
