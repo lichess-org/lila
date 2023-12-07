@@ -508,6 +508,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="setFlair">Define lo tuyo estilo:</string>
+  <string name="flair">Estilo</string>
   <string name="youCanHideFlair">I hai un achuste pa amagar toz es estilos d\'usuario en tot lo puesto web.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País u rechión</string>
@@ -747,6 +748,7 @@
   <string name="withFriends">Con os míos amigos</string>
   <string name="withEverybody">Con toz</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">Modo infantil activau.</string>
   <string name="kidModeExplanation">Per seguridat, en o modo infantil se desactivan totas las comunicacions con atros usuarios. Activa esto pa protecher a los menors d\'atros usuarios d\'Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En o modo infantil, lo logo de lichess tiene un icono de %s, indicando que los ninos son seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">La tuya cuenta ye administrada. Demanda-le a lo tuyo mayestro abandonar lo modo pa ninos.</string>
