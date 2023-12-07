@@ -268,7 +268,7 @@ export const overboard = (ctrl: StudyCtrl) =>
     : ctrl.members.inviteForm.open()
     ? inviteFormView(ctrl.members.inviteForm)
     : ctrl.topics.open()
-    ? topicsFormView(ctrl.topics, ctrl.members.myId)
+    ? topicsFormView(ctrl.topics, ctrl.members.opts.myId)
     : ctrl.form.open()
     ? studyFormView(ctrl.form)
     : ctrl.search.open()

@@ -4,14 +4,14 @@ import { prop, defined } from 'common';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
-import { ctrl as memberCtrl } from './studyMembers';
+import { StudyMemberCtrl } from './studyMembers';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { CommentForm } from './commentForm';
 import { GlyphForm } from './studyGlyph';
 import { ctrl as studyFormCtrl } from './studyForm';
 import TopicsCtrl from './topics';
-import { ctrl as notifCtrl } from './notif';
+import { NotifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
@@ -113,7 +113,7 @@ export default function (
     };
   })();
 
-  const notif = notifCtrl(redraw);
+  const notif = new NotifCtrl(redraw);
 
   const startTour = () => tours.study(ctrl);
 
@@ -123,7 +123,7 @@ export default function (
     redraw();
   };
 
-  const members = memberCtrl({
+  const members = new StudyMemberCtrl({
     initDict: data.members,
     myId: practiceData ? undefined : ctrl.opts.userId,
     ownerId: data.ownerId,
@@ -131,9 +131,7 @@ export default function (
     tab: vm.tab,
     startTour,
     notif,
-    onBecomingContributor() {
-      vm.mode.write = !relayData || relayRecProp();
-    },
+    onBecomingContributor: () => (vm.mode.write = !relayData || relayRecProp()),
     admin: data.admin,
     redraw,
     trans: ctrl.trans,
