@@ -24,7 +24,7 @@ import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
-import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
+import { TreeView } from './treeView/treeView';
 import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
@@ -132,7 +132,7 @@ export default class AnalyseCtrl {
     this.data = opts.data;
     this.element = opts.element;
     this.trans = opts.trans;
-    this.treeView = treeViewCtrl('column');
+    this.treeView = new TreeView('column');
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),

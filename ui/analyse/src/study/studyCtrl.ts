@@ -7,13 +7,13 @@ import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
-import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
-import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
+import { CommentForm } from './commentForm';
+import { GlyphForm } from './studyGlyph';
 import { ctrl as studyFormCtrl } from './studyForm';
 import TopicsCtrl from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
-import { ctrl as tagsCtrl } from './studyTags';
+import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
@@ -185,9 +185,9 @@ export default function (
     return (vm.mode.sticky = false);
   }
 
-  const commentForm: CommentForm = commentFormCtrl(ctrl);
-  const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
-  const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
+  const commentForm = new CommentForm(ctrl);
+  const glyphForm = new GlyphForm(ctrl);
+  const tags = new TagsForm(ctrl, () => data.chapter, tagTypes);
   const studyDesc = new DescriptionCtrl(
     data.description,
     debounce(t => {

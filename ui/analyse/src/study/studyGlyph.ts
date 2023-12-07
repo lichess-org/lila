@@ -1,4 +1,4 @@
-import { prop, Prop } from 'common';
+import { prop } from 'common';
 import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { spinnerVdom as spinner } from 'common/spinner';
@@ -12,57 +12,41 @@ interface AllGlyphs {
   position: Tree.Glyph[];
 }
 
-export interface GlyphCtrl {
-  root: AnalyseCtrl;
-  all: Prop<AllGlyphs | null>;
-  loadGlyphs(): void;
-  toggleGlyph(id: Tree.GlyphId): void;
-}
-
-function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
-  return (glyph: Tree.Glyph) =>
-    h(
-      'button',
-      {
-        hook: bind('click', () => ctrl.toggleGlyph(glyph.id)),
-        attrs: { 'data-symbol': glyph.symbol, type: 'button' },
-        class: {
-          active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
-        },
+const renderGlyph = (ctrl: GlyphForm, node: Tree.Node) => (glyph: Tree.Glyph) =>
+  h(
+    'button',
+    {
+      hook: bind('click', () => ctrl.toggleGlyph(glyph.id)),
+      attrs: { 'data-symbol': glyph.symbol, type: 'button' },
+      class: {
+        active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
       },
-      [glyph.name],
-    );
-}
+    },
+    [glyph.name],
+  );
 
-export function ctrl(root: AnalyseCtrl): GlyphCtrl {
-  const all = prop<AllGlyphs | null>(null);
+export class GlyphForm {
+  all = prop<AllGlyphs | null>(null);
 
-  function loadGlyphs() {
-    if (!all())
+  constructor(readonly root: AnalyseCtrl) {}
+
+  loadGlyphs = () => {
+    if (!this.all())
       xhr.glyphs().then(gs => {
-        all(gs);
-        root.redraw();
+        this.all(gs);
+        this.root.redraw();
       });
-  }
+  };
 
-  const toggleGlyph = throttle(500, (id: Tree.GlyphId) => {
-    root.study!.makeChange(
-      'toggleGlyph',
-      root.study!.withPosition({
-        id,
-      }),
-    );
-    root.redraw();
+  toggleGlyph = throttle(500, (id: Tree.GlyphId) => {
+    this.root.study!.makeChange('toggleGlyph', this.root.study!.withPosition({ id }));
+    this.root.redraw();
   });
-
-  return { root, all, loadGlyphs, toggleGlyph };
 }
 
-export function viewDisabled(why: string): VNode {
-  return h('div.study__glyphs', [h('div.study__message', why)]);
-}
+export const viewDisabled = (why: string): VNode => h('div.study__glyphs', [h('div.study__message', why)]);
 
-export function view(ctrl: GlyphCtrl): VNode {
+export function view(ctrl: GlyphForm): VNode {
   const all = ctrl.all(),
     node = ctrl.root.node;
 

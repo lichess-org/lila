@@ -6,29 +6,57 @@ import { option } from '../view/util';
 import { StudyChapter, StudyCtrl } from './interfaces';
 import { looksLikeLichessGame } from './studyChapters';
 
-export interface TagsCtrl {
-  submit(type: string): (tag: string) => void;
-  getChapter(): StudyChapter;
-  types: string[];
+export class TagsForm {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly getChapter: () => StudyChapter,
+    readonly types: string[],
+  ) {}
+
+  private makeChange = throttle(500, (name: string, value: string) => {
+    this.root.study!.makeChange('setTag', {
+      chapterId: this.getChapter().id,
+      name,
+      value: value.slice(0, 140),
+    });
+  });
+
+  submit = (name: string) => (value: string) => this.makeChange(name, value);
 }
 
-function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
-  return h('input', {
+export function view(root: StudyCtrl): VNode {
+  const chapter = root.tags.getChapter() as StudyChapter,
+    tagKey = chapter.tags.map(t => t[1]).join(','),
+    key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
+  return thunk('div.' + chapter.id, doRender, [root, key]);
+}
+
+const doRender = (root: StudyCtrl): VNode =>
+  h(
+    'div',
+    renderPgnTags(
+      root.tags.getChapter(),
+      root.vm.mode.write && root.tags.submit,
+      root.tags.types,
+      root.trans,
+      root.data.hideRatings,
+    ),
+  );
+
+const editable = (value: string, submit: (v: string, el: HTMLInputElement) => void): VNode =>
+  h('input', {
     key: value, // force to redraw on change, to visibly update the input value
     attrs: {
       spellcheck: 'false',
       value,
     },
     hook: onInsert<HTMLInputElement>(el => {
-      el.onblur = function () {
-        submit(el.value, el);
-      };
-      el.onkeydown = function (e) {
+      el.onblur = () => submit(el.value, el);
+      el.onkeydown = e => {
         if (e.key === 'Enter') el.blur();
       };
     }),
   });
-}
 
 const fixed = (text: string) => h('span', text);
 
@@ -110,41 +138,4 @@ function renderPgnTags(
       }),
     ),
   );
-}
-
-export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: string[]): TagsCtrl {
-  const submit = throttle(500, function (name: string, value: string) {
-    root.study!.makeChange('setTag', {
-      chapterId: getChapter().id,
-      name,
-      value: value.slice(0, 140),
-    });
-  });
-
-  return {
-    submit(name: string) {
-      return (value: string) => submit(name, value);
-    },
-    getChapter,
-    types,
-  };
-}
-function doRender(root: StudyCtrl): VNode {
-  return h(
-    'div',
-    renderPgnTags(
-      root.tags.getChapter(),
-      root.vm.mode.write && root.tags.submit,
-      root.tags.types,
-      root.trans,
-      root.data.hideRatings,
-    ),
-  );
-}
-
-export function view(root: StudyCtrl): VNode {
-  const chapter = root.tags.getChapter() as StudyChapter,
-    tagKey = chapter.tags.map(t => t[1]).join(','),
-    key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
-  return thunk('div.' + chapter.id, doRender, [root, key]);
 }
