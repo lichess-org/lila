@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Witaj!</string>
+  <string name="welcomeToLichess">Witaj na lichess.org!</string>
+  <string name="thisIsYourProfilePage">To jest Twoja strona profilowa.</string>
+  <string name="learnChessRules">Naucz się zasad gry</string>
+  <string name="playTheArtificialIntelligence">Zagraj przeciwko sztucznej inteligencji.</string>
+  <string name="followYourFriendsOnLichess">Obserwuj swoich znajomych na Lichess.</string>
+  <string name="playInTournaments">Graj w turniejach.</string>
+</resources>
