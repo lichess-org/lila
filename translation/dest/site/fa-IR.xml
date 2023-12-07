@@ -745,6 +745,7 @@
   <string name="withFriends">با دوستان</string>
   <string name="withEverybody">با همه</string>
   <string name="kidMode">حالت کودکان</string>
+  <string name="kidModeIsEnabled">حالت کودک فعال است.</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">اکانت شما مدیریت شده است. برای برداشتن حالت کودک از معلم شطرنج خود درخواست کنید.</string>
@@ -920,8 +921,6 @@
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
   <string name="download">دانلود</string>
-  <string name="welcome">خوش آمدید!</string>
-  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت پخش</string>
   <string name="cancelTournament">لغو مسابقه</string>
@@ -981,4 +980,5 @@
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
   <string name="instructions">راهنما</string>
   <string name="showMeEverything">همه چیز را به من نشان بده</string>
+  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
 </resources>

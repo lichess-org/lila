@@ -508,6 +508,7 @@
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
   <string name="setFlair">Escolle a túa habelencia:</string>
+  <string name="flair">Habelencia</string>
   <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
@@ -745,6 +746,7 @@
   <string name="withFriends">Cos teus amigos</string>
   <string name="withEverybody">Con todo o mundo</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">O modo infantil está activado.</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de Lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pídelle ó teu mestre que desactive o modo infantil.</string>
@@ -920,9 +922,6 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="welcome">Benvid@!</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
-Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="coachManager">Administrador de adestradores</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
@@ -983,4 +982,6 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
   <string name="instructions">Instrucións</string>
   <string name="showMeEverything">Amósamo todo</string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
+Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
 </resources>

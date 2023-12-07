@@ -15,7 +15,7 @@
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zentilstand</string>
   <string name="showPlayerRatings">Vis spilleres ratings</string>
-  <string name="showFlairs">Vis spilleres flairs</string>
+  <string name="showFlairs">Vis spilleres ikoner</string>
   <string name="explainShowPlayerRatings">Dette gør det muligt at skjule alle ratings på hjemmesiden, så du kan fokusere på skakspillet. Partier kan stadig være ratede, det handler kun om, hvad du får at se.</string>
   <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>

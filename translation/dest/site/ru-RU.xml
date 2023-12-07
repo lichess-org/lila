@@ -573,8 +573,9 @@
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
   <string name="lastName">Фамилия</string>
-  <string name="setFlair">Задайте свой флаер:</string>
-  <string name="youCanHideFlair">Эта настройка скрывает все флаеры пользователей на всём сайте.</string>
+  <string name="setFlair">Задайте свой эмодзи:</string>
+  <string name="flair">Эмодзи</string>
+  <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
   <string name="biography">О себе</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Страна или регион</string>
   <string name="thankYou">Спасибо!</string>
@@ -823,6 +824,7 @@
   <string name="withFriends">С друзьями</string>
   <string name="withEverybody">Со всеми</string>
   <string name="kidMode">Детский режим</string>
+  <string name="kidModeIsEnabled">Детский режим включён.</string>
   <string name="kidModeExplanation">Это для безопасности. В детском режиме отключены все коммуникации на сайте. Включите его для ваших детей и учеников, чтобы защитить их от других пользователей интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детском режиме к логотипу lichess добавляется значок в виде %s, чтобы вы знали, что ваши дети находятся в безопасности.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ваш аккаунт находится под управлением. Спросите своего учителя по шахматам об удалении детского режима.</string>
@@ -1006,9 +1008,6 @@
   <string name="timeAlmostUp">Время почти истекло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
   <string name="download">Загрузить</string>
-  <string name="welcome">Добро пожаловать!</string>
-  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
-Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
@@ -1069,4 +1068,6 @@
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>
+  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
+Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
 </resources>

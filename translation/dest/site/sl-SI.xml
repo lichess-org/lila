@@ -572,6 +572,7 @@
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
   <string name="setFlair">Določite svoj okus:</string>
+  <string name="flair">Simbol</string>
   <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
   <string name="biography">Biografija</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali regija</string>
@@ -813,6 +814,7 @@
   <string name="withFriends">S prijatelji</string>
   <string name="withEverybody">Z vsemi</string>
   <string name="kidMode">Način za otroke</string>
+  <string name="kidModeIsEnabled">Otroški način je omogočen.</string>
   <string name="kidModeExplanation">To je o varnosti. V načinu za otroke so vsi pogovori onemogočeni. Omogočite ta način, da otroke in šolarje zaščitite pred drugimi uporabniki na internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Vprašajte svojega učitelja šaha o dvigovalnem otroškem načinu.</string>
@@ -996,9 +998,6 @@
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
   <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
   <string name="download">Prenos</string>
-  <string name="welcome">Dobrodošli!</string>
-  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
-Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="coachManager">Nastavitve za trenerja</string>
   <string name="streamerManager">Nastavitve upravitelja pretočnega predvajanja</string>
   <string name="cancelTournament">Prekini turnir</string>
@@ -1057,4 +1056,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
+  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
+Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
 </resources>

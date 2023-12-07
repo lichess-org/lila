@@ -921,9 +921,6 @@
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
   <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse courriel]</string>
   <string name="download">Télécharger</string>
-  <string name="welcome">Bienvenue !</string>
-  <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
-Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
   <string name="coachManager">Configuration des paramètres Coach</string>
   <string name="streamerManager">Configuration des paramètres Streamer</string>
   <string name="cancelTournament">Annuler le tournoi</string>
@@ -984,4 +981,6 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="ourEventTips">Nos conseils pour l\'organisation d\'événements</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Tout afficher</string>
+  <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
+Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
 </resources>

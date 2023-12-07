@@ -509,6 +509,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
   <string name="setFlair">Vel ikonet ditt:</string>
+  <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Det finst ei innstilling for å skjule alle brukarikonar på heile nettstaden.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
@@ -748,6 +749,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="withFriends">Med vener</string>
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Barnemodus</string>
+  <string name="kidModeIsEnabled">Barnemodus er aktivert.</string>
   <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus er all kommunikasjon avskrudd. Bruk dette for å verne barn og skoleelevar mot andre Internett-brukarar.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Kontoen din er under administrasjon. Spør sjakklæraren din om det er mogleg å få oppheva barnemodusen.</string>
@@ -923,9 +925,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
   <string name="download">Last ned</string>
-  <string name="welcome">Velkomen!</string>
-  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
-Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
   <string name="cancelTournament">Avlys turneringa</string>
@@ -986,4 +985,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="ourEventTips">Tips for å organisere arrangement</string>
   <string name="instructions">Instruksjonar</string>
   <string name="showMeEverything">Vis alt</string>
+  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
+Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
 </resources>

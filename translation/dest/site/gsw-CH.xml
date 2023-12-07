@@ -510,6 +510,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
   <string name="setFlair">Wähl dis Emoji:</string>
+  <string name="flair">Emoji</string>
   <string name="youCanHideFlair">Alli Benutzer-Emojis chönnd - uf de ganze Site - usbländet werde.</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land, Region oder Kanton</string>
@@ -756,6 +757,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="withFriends">Mit Fründe</string>
   <string name="withEverybody">Mit allne</string>
   <string name="kidMode">Chinder-Modus</string>
+  <string name="kidModeIsEnabled">De Chindermodus isch aktiviert.</string>
   <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz dini Chind vor andere Internetbenutzer.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Dis Konto wird verwaltet, frög din Schachlehrer für d\'Ufhebig vum Chindermodus.</string>
@@ -931,9 +933,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe azeige]</string>
   <string name="download">Abelade</string>
-  <string name="welcome">Willkomme!</string>
-  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
-Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
@@ -995,4 +994,6 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
   <string name="instructions">Awisige</string>
   <string name="showMeEverything">Zeig mer alles</string>
+  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
+Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
 </resources>

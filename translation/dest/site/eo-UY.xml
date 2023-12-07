@@ -907,9 +907,6 @@
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
   <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>
-  <string name="welcome">Bonvenon!</string>
-  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
-Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="coachManager">Trejnista administranto</string>
   <string name="streamerManager">Filmprezentista administranto</string>
   <string name="cancelTournament">Nuligi la turniron</string>
@@ -968,4 +965,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="switchSides">Ŝanĝi flankojn</string>
   <string name="closingAccountWithdrawAppeal">Fermata de via konto estos eltiri vian apelacion</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
+  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
+Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
 </resources>

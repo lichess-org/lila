@@ -922,9 +922,6 @@
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
   <string name="clickToRevealEmailAddress">[Egin klik eposta helbidea erakusteko]</string>
   <string name="download">Deskargatu</string>
-  <string name="welcome">Ongi etorri!</string>
-  <string name="lichessPatronInfo">Lichess software librea da.
-Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="coachManager">Entrenatzaileen kudeatzailea</string>
   <string name="streamerManager">Zuzenekoen kudeatzailea</string>
   <string name="cancelTournament">Bertan behera utzi txapelketa</string>
@@ -984,4 +981,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="ourEventTips">Txapelketak antolatzeko gure aholkuak</string>
   <string name="instructions">Jarraibideak</string>
   <string name="showMeEverything">Erakutsi guztia</string>
+  <string name="lichessPatronInfo">Lichess software librea da.
+Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
 </resources>

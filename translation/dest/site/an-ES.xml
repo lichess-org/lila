@@ -508,6 +508,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="setFlair">Define lo tuyo estilo:</string>
+  <string name="flair">Estilo</string>
   <string name="youCanHideFlair">I hai un achuste pa amagar toz es estilos d\'usuario en tot lo puesto web.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País u rechión</string>
@@ -747,6 +748,7 @@
   <string name="withFriends">Con os míos amigos</string>
   <string name="withEverybody">Con toz</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">Modo infantil activau.</string>
   <string name="kidModeExplanation">Per seguridat, en o modo infantil se desactivan totas las comunicacions con atros usuarios. Activa esto pa protecher a los menors d\'atros usuarios d\'Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En o modo infantil, lo logo de lichess tiene un icono de %s, indicando que los ninos son seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">La tuya cuenta ye administrada. Demanda-le a lo tuyo mayestro abandonar lo modo pa ninos.</string>
@@ -922,9 +924,6 @@
   <string name="timeAlmostUp">Cuasi ha rematau lo tiempo!</string>
   <string name="clickToRevealEmailAddress">[Fe clic pa veyer l\'adreza de correu-e]</string>
   <string name="download">Descargar</string>
-  <string name="welcome">Bienveniu/da!</string>
-  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
-Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
   <string name="coachManager">Configuración pa entrenadors</string>
   <string name="streamerManager">Configuración pa streamers</string>
   <string name="cancelTournament">Cancelar lo torneyo</string>
@@ -981,4 +980,6 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="ourEventTips">Los nuestros consellos pa organizar eventos</string>
   <string name="instructions">Instruccions</string>
   <string name="showMeEverything">Amuestra-me-lo tot</string>
+  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
+Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
 </resources>

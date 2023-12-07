@@ -477,6 +477,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="setFlair">Đặt biểu tượng của bạn:</string>
+  <string name="flair">Biểu tượng</string>
   <string name="youCanHideFlair">Có một cài đặt để ẩn tất cả biểu tượng của người dùng trên toàn bộ trang web.</string>
   <string name="biography">Tiểu sử</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
@@ -568,7 +569,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="drawVsYInZ">%1$s %2$s trong %3$s</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="starting">Bắt đầu đấu:</string>
-  <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều được công khai và không bắt buộc.</string>
+  <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều công khai và không bắt buộc.</string>
   <string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, bạn thích gì ở cờ, khai cuộc yêu thích, ván cờ yêu thích, thần tượng, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Tối đa: %s kí tự.</item>
@@ -711,6 +712,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="withFriends">Với bạn bè</string>
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
+  <string name="kidModeIsEnabled">Chế độ trẻ em đã được bật.</string>
   <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng Lichess có một biểu tượng %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
@@ -882,9 +884,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải xuống</string>
-  <string name="welcome">Chào mừng!</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
-Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
@@ -944,4 +943,6 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
+Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
 </resources>

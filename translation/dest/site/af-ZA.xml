@@ -98,8 +98,9 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openings">Openinge</string>
   <string name="openingExplorer">Opening ontdekker</string>
-  <string name="openingEndgameExplorer">Opening/eindspel ontdekker</string>
+  <string name="openingEndgameExplorer">Opening/eindspel-verkenner</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Speel eerste opening/eindspel-verkenner skuif</string>
   <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
   <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
   <string name="winOr50MovesByPriorMistake">Wen of 50 skuiwe deur vorige fout</string>
@@ -154,6 +155,10 @@
   <plurals name="nbGames">
     <item quantity="one">Sien al %s spelle</item>
     <item quantity="other">Sien al %s spelle</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s gradering oor %2$s spel</item>
+    <item quantity="other">%1$s gradering oor %2$s spelle</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s boekmerk</item>
@@ -324,7 +329,7 @@
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
   <string name="thisAccountViolatedTos">Hierdie rekening oortree die diensvoorwaardes van Lichess</string>
-  <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
+  <string name="openingExplorerAndTablebase">Openings-verkenner &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>
   <string name="proposeATakeback">Stel terug-vat voor</string>
   <string name="takebackPropositionSent">Terug-vat aanbod gestuur</string>
@@ -678,12 +683,21 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="keyboardShortcuts">Sleutelbord kortpaaie</string>
   <string name="keyMoveBackwardOrForward">skuif terug/vorentoe</string>
   <string name="keyGoToStartOrEnd">gaan na begin/einde</string>
+  <string name="keyCycleSelectedVariation">Wissel geselekteerde variasie</string>
   <string name="keyShowOrHideComments">vertoon/versteek kommentaar</string>
   <string name="keyEnterOrExitVariation">betree/verlaat variasie</string>
   <string name="keyRequestComputerAnalysis">Vra rekenaaranalise aan, Leer uit jou foute</string>
   <string name="keyNextLearnFromYourMistakes">Volgende (Leer uit jou foute)</string>
+  <string name="keyNextBlunder">Volgende flater</string>
   <string name="keyNextMistake">Volgende fout</string>
   <string name="keyNextInaccuracy">Volgende onakkuraatheid</string>
+  <string name="keyPreviousBranch">Vorige tak</string>
+  <string name="keyNextBranch">Volgende tak</string>
+  <string name="toggleVariationArrows">Wissel variasie pyle</string>
+  <string name="cyclePreviousOrNextVariation">Wissel vorige/volgende variasie</string>
+  <string name="toggleGlyphAnnotations">Wissel glyf-annotasies</string>
+  <string name="variationArrowsInfo">Variasie pyle laat jou toe om te vaar sonder die skuif lys.</string>
+  <string name="playSelectedMove">speel geselekteerde skuif</string>
   <string name="newTournament">Nuwe toernooi</string>
   <string name="tournamentHomeTitle">Skaaktoernooie met verskeie tydkontroles en variante</string>
   <string name="tournamentHomeDescription">Speel hoë-tempo skaak toernooie! Sluit aan by \'n amptelik geskeduleerde toernooi, of skep jou eie. Bullet, Blitz, klassiek, Skaak960, Heuwel Heerser, Trippelskaak, en meer beskikbare opsies vir oneindige skaak pret.</string>
@@ -726,6 +740,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="withFriends">Met vriende</string>
   <string name="withEverybody">Met almal</string>
   <string name="kidMode">Kinder mode</string>
+  <string name="kidModeIsEnabled">Kindermodus is geaktiveer.</string>
   <string name="kidModeExplanation">Hierdie gaan oor veiligheid. In kindermodus, alle webwerf kommunikasie word afgeskakel. Skakel dit aan vir jou kinders en skoliere, om hulle te beskerm teen ander internet gebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindermodus kry die Lichess handelsmerk \'n %s ikoon, sodat jy weet jou kinders is veilig.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Jou rekening word bestuur deur jou skaak onderwyser. Vra hulle om kinder modus af te skakel.</string>
@@ -878,6 +893,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="useTheReportForm">gebruik die meldingsformulier</string>
   <string name="toRequestSupport">Om hulp te vra, %1$s</string>
   <string name="tryTheContactPage">probeer die kontak bladsy</string>
+  <string name="makeSureToRead">Maak seker om %1$s te lees</string>
+  <string name="theForumEtiquette">die forum etiket</string>
   <string name="thisTopicIsArchived">Hierdie onderwerp is geargiveer en kan nie meer beantwoord word nie.</string>
   <string name="joinTheTeamXToPost">Sluit aan by die %1$s om in hierdie forum te plaas</string>
   <string name="teamNamedX">%1$s span</string>
@@ -899,9 +916,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="timeAlmostUp">Tyd is byna op!</string>
   <string name="clickToRevealEmailAddress">[Klik om e-posadres te beskou]</string>
   <string name="download">Laai af</string>
-  <string name="welcome">Welkom!</string>
-  <string name="lichessPatronInfo">Lichess is \'n liefdadigheidsorganisasie en heeltemal gratis/libre oopbron sagteware.
-Alle bestuurskostes, ontwikkeling en inhoud word heeltemal gefinansier deur lede bydraes.</string>
   <string name="coachManager">Afrigter bestuurder</string>
   <string name="streamerManager">Uitsender bestuurder</string>
   <string name="cancelTournament">Kanseleer die toernooi</string>
@@ -960,4 +974,8 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="switchSides">Ruil kante</string>
   <string name="closingAccountWithdrawAppeal">Sluiting van jou rekening beteken terugtrekking van jou appèl</string>
   <string name="ourEventTips">Ons wenke om gebeurtenisse te organiseer</string>
+  <string name="instructions">Instruksies</string>
+  <string name="showMeEverything">Wys vir my alles</string>
+  <string name="lichessPatronInfo">Lichess is \'n liefdadigheidsorganisasie en heeltemal gratis/libre oopbron sagteware.
+Alle bestuurskostes, ontwikkeling en inhoud word heeltemal gefinansier deur lede bydraes.</string>
 </resources>

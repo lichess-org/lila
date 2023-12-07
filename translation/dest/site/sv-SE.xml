@@ -507,8 +507,9 @@
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
-  <string name="setFlair">Ställ in din ikon:</string>
-  <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarikoner över hela webbplatsen.</string>
+  <string name="setFlair">Ställ in din flair:</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tack!</string>
@@ -747,6 +748,7 @@
   <string name="withFriends">Med vänner</string>
   <string name="withEverybody">Med alla</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="kidModeIsEnabled">Barnsäkert läge är aktiverat.</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ditt konto hanteras. Fråga din schacklärare om att ta bort barnläget.</string>
@@ -922,9 +924,6 @@
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
-  <string name="welcome">Välkommen!</string>
-  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
-Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="coachManager">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
@@ -985,4 +984,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Visa mig allt</string>
+  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
+Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
 </resources>

@@ -508,6 +508,7 @@
   <string name="firstName">Primeiro nome</string>
   <string name="lastName">Sobrenome</string>
   <string name="setFlair">Escolha seu emote:</string>
+  <string name="flair">Estilo</string>
   <string name="youCanHideFlair">Você pode esconder todos os emotes de usuário no site.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou região</string>
@@ -743,6 +744,7 @@
   <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">O modo infantil está ativado.</string>
   <string name="kidModeExplanation">Isto diz respeito à segurança. No modo infantil, todas as comunicações do site são desabilitadas. Habilite isso para seus filhos e alunos, para protegê-los de outros usuários da Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">No modo infantil, a logo do lichess tem um ícone %s, para que você saiba que suas crianças estão seguras.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Sua conta é gerenciada. Para desativar o modo infantil, peça ao seu professor.</string>
@@ -918,8 +920,6 @@
   <string name="timeAlmostUp">O tempo está quase acabando!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
   <string name="download">Baixar</string>
-  <string name="welcome">Bem-vindo!</string>
-  <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="coachManager">Configurações para professores</string>
   <string name="streamerManager">Configurações para streamers</string>
   <string name="cancelTournament">Cancelar o torneio</string>
@@ -980,4 +980,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="ourEventTips">Nossas dicas para organização de eventos</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostrar tudo</string>
+  <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
 </resources>

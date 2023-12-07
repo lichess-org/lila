@@ -507,8 +507,9 @@
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
-  <string name="setFlair">Indstil din flair:</string>
-  <string name="youCanHideFlair">Der er en indstilling til at skjule alle brugers flairs på tværs af hele webstedet.</string>
+  <string name="setFlair">Indstil dit ikon:</string>
+  <string name="flair">Ikon</string>
+  <string name="youCanHideFlair">Der er en indstilling til at skjule alle brugerikoner på tværs af hele webstedet.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tak!</string>
@@ -747,6 +748,7 @@
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Børnetilstand</string>
+  <string name="kidModeIsEnabled">Børnetilstand er aktiveret.</string>
   <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér dette for dine børn eller skoleelever for at beskytte dem mod andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Din konto er under administration. Spørg din skaklærer om at ophæve børnetilstanden.</string>
@@ -922,9 +924,6 @@
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
   <string name="clickToRevealEmailAddress">[Klik for at vise e-mailadresse]</string>
   <string name="download">Download</string>
-  <string name="welcome">Velkommen!</string>
-  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
-Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="coachManager">Træner-administration</string>
   <string name="streamerManager">Streamer-administration</string>
   <string name="cancelTournament">Aflys turneringen</string>
@@ -985,4 +984,6 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="ourEventTips">Tips til organisering af begivenheder</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Vis mig alt</string>
+  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
+Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
 </resources>

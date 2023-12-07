@@ -904,9 +904,6 @@
   <string name="timeAlmostUp">Vaqt deyarli yakunlandi!</string>
   <string name="clickToRevealEmailAddress">[Email manzilni ochiqlash uchun bosing]</string>
   <string name="download">Yuklab oling</string>
-  <string name="welcome">Хуш келибсиз!</string>
-  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
-Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
   <string name="coachManager">Murabbiylarga</string>
   <string name="streamerManager">Strimmerlarga</string>
   <string name="cancelTournament">Turnirni yakunlash</string>
@@ -965,4 +962,6 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="switchSides">Tomonlarni almashtirish</string>
   <string name="closingAccountWithdrawAppeal">Akkountingizni yopishingiz sizni murojaatlaringizni bekor qiladi</string>
   <string name="ourEventTips">Tadbirlar o‘tkazish yuzasidan bizning maslahatlarimiz</string>
+  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
+Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
 </resources>

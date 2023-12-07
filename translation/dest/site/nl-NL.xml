@@ -508,6 +508,7 @@
   <string name="firstName">Voornaam</string>
   <string name="lastName">Achternaam</string>
   <string name="setFlair">Stel je flair in:</string>
+  <string name="flair">Symbool</string>
   <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of regio</string>
@@ -747,6 +748,7 @@
   <string name="withFriends">Met vrienden</string>
   <string name="withEverybody">Met iedereen</string>
   <string name="kidMode">Kindvriendelijke modus</string>
+  <string name="kidModeIsEnabled">Kindvriendelijke modus is ingeschakeld.</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Je account wordt beheerd. Vraag je schaakdocent om de kindermodus uit te zetten.</string>
@@ -922,9 +924,6 @@
   <string name="timeAlmostUp">De tijd is bijna om!</string>
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
   <string name="download">Downloaden</string>
-  <string name="welcome">Welkom!</string>
-  <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
-Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Toernooi annuleren</string>
@@ -985,4 +984,6 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="ourEventTips">Onze tips voor het organiseren van evenementen</string>
   <string name="instructions">Instructies</string>
   <string name="showMeEverything">Alles tonen</string>
+  <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
+Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
 </resources>

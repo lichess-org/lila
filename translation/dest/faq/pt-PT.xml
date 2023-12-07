@@ -161,4 +161,9 @@ Mostramos o ícone vermelho para o alertar quando isto acontece. Muitas vezes, p
 2. Clique no ícone do cadeado na barra de endereços
 3. Clique em Configurações do Site
 4. Permitir Som</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Clique nos três pontos no canto superior direito
+2. Clique em Configurações
+3. Clique em Cookies e Permissões de Site
+4. Vá para baixo e clique Reprodução automática de mídia
+5. Adicione lichess.org para permitir</string>
 </resources>

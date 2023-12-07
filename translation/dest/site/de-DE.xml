@@ -508,6 +508,7 @@
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
   <string name="setFlair">Setze deine Dekoration:</string>
+  <string name="flair">Flair</string>
   <string name="youCanHideFlair">Es gibt eine Einstellung, um alle persönlichen Stilelemente der Benutzer auf der gesamten Website zu verbergen.</string>
   <string name="biography">Profiltext</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Region</string>
@@ -747,6 +748,7 @@
   <string name="withFriends">Mit deinen Freunden</string>
   <string name="withEverybody">Mit jedem</string>
   <string name="kidMode">Kindermodus</string>
+  <string name="kidModeIsEnabled">Kindermodus ist aktiviert.</string>
   <string name="kidModeExplanation">Dies ist eine Sicherheitseinstellung. Im Kindermodus sind alle Kommunikationsmöglichkeiten deaktiviert. Aktiviere diese Option, um Kinder und Schüler vor anderen Internetbenutzern zu schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Kindermodus erhält das Lichess-Logo ein %s-Icon, an dem erkennen kannst, dass deine Kinder geschützt sind.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Dein Konto wird verwaltet. Bitte deinen Schachlehrer den Kindermodus aufzuheben.</string>
@@ -922,9 +924,6 @@
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
   <string name="download">Herunterladen</string>
-  <string name="welcome">Herzlich Willkommen!</string>
-  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
-Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="coachManager">Trainerverwaltung</string>
   <string name="streamerManager">Streamerverwaltung</string>
   <string name="cancelTournament">Turnier abbrechen</string>
@@ -985,4 +984,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
   <string name="instructions">Anweisungen</string>
   <string name="showMeEverything">Alles zeigen</string>
+  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
+Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
 </resources>

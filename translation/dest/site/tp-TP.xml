@@ -877,9 +877,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="timeAlmostUp">tenpo lili li lon a!</string>
   <string name="clickToRevealEmailAddress">[pilin la sina ken lukin e ma pi lipu kon]</string>
   <string name="download">o pana e musi tawa ilo sona mi</string>
-  <string name="welcome">o kama pona!</string>
-  <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
-ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="coachManager">lipu pi jan pi pana sona</string>
   <string name="streamerManager">nasin pali pi sitelen tawa</string>
   <string name="cancelTournament">o moli e musi</string>
@@ -936,4 +933,6 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="until">poki pini tenpo</string>
   <string name="lichessDbExplanation">musi ale pi nanpa wawa tan jan musi ale pi ilo \"Lichess\"</string>
   <string name="switchSides">o lukin tan poka ante</string>
+  <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
+ona li wile e mani la jan li wile pana e mani tawa ona.</string>
 </resources>

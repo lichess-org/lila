@@ -508,6 +508,7 @@
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
   <string name="setFlair">توانای خۆت دابنێ:</string>
+  <string name="flair">بەهرە</string>
   <string name="youCanHideFlair">ڕێکخستنێک هەیە بۆ شاردنەوەی هەموو تواناکانی بەکارهێنەر لە سەرانسەری ماڵپەڕەکەدا.</string>
   <string name="biography">ژیاننامە</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">وڵات یان هەرێم</string>
@@ -913,9 +914,6 @@
   <string name="timeAlmostUp">خەریکە کاتت تەواودەبێت!</string>
   <string name="clickToRevealEmailAddress">[بۆ بینینی ناونیشانی ئیمەیڵ کلیک بکە]</string>
   <string name="download">داگرتن</string>
-  <string name="welcome">بەخێربێیت!</string>
-  <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
-هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
   <string name="coachManager">بەڕێوەبەری ڕاهێنەر</string>
   <string name="streamerManager">بەڕێوەبەری ستریمەر</string>
   <string name="cancelTournament">هەڵوەشاندنەوەی پاڵەوانییەتی</string>
@@ -974,4 +972,6 @@
   <string name="switchSides">لای یاریکردن بگۆڕە</string>
   <string name="closingAccountWithdrawAppeal">داخستنی ئەکاونتەکەت تانەکەت دەکێشێتەوە</string>
   <string name="ourEventTips">پێشنیارەکانمان بۆ ڕێکخستنی ئیڤێنت</string>
+  <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
+هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
 </resources>

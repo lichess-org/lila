@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="welcome">خوش آمدید!</string>
+  <string name="welcomeToLichess">به لیچس خوش آمدید!</string>
+  <string name="thisIsYourProfilePage">این صفحه پروفایل شماست.</string>
+  <string name="enabledKidModeSuggestion">آیا یک کودک قرار است از این حساب استفاده کند؟ شاید بخواهید %s را فعال کنید.</string>
+  <string name="whatNowSuggestions">حالا چی؟ این‌ها پیشنهاد ماست:</string>
+  <string name="learnChessRules">قوانین شطرنج را یاد بگیرید</string>
+  <string name="improveWithChessTacticsPuzzles">با پازل‌های تاکتیکی بازی خود را بهتر کنید.</string>
+  <string name="playTheArtificialIntelligence">با هوش مصنوعی بازی کنید.</string>
+  <string name="playOpponentsFromAroundTheWorld">با حریف‌هایی از سراسر دنیا بازی کنید.</string>
+  <string name="followYourFriendsOnLichess">دوستان خود را روی لیچس دنبال کنید.</string>
+  <string name="playInTournaments">در تورنمنت‌ها بازی کنید.</string>
+  <string name="learnFromXAndY">از %1$s و %2$s یادبگیرید.</string>
+  <string name="configureLichess">لیچس را طبق سلیقه خود تنظیم کنید.</string>
+  <string name="exploreTheSiteAndHaveFun">سایت رو بگردید و لذت ببرید :)</string>
+</resources>

@@ -749,6 +749,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">Modo infantil está ativado.</string>
   <string name="kidModeExplanation">Iso é sobre segurança. No modo infantil, todas as comunicações do site ficam desactivadas. Activa esta opção para os teus filhos ou alunos, para protegê-los de outros utilizadores da internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">No modo criança, o logótipo do Lichess fica com um ícone %s para que saibas que as tuas crianças estão seguras.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">A sua conta é gerida. Peça ao seu professor de xadrez para retirar o modo infantil.</string>
@@ -924,9 +925,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
   <string name="download">Transferir</string>
-  <string name="welcome">Bem-vindo(a)!</string>
-  <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
-Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="coachManager">Gestor de treinadores</string>
   <string name="streamerManager">Gestor do streamer</string>
   <string name="cancelTournament">Cancelar o torneio</string>
@@ -987,4 +985,6 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostra-me tudo</string>
+  <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
+Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
 </resources>

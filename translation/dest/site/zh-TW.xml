@@ -861,9 +861,6 @@
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
   <string name="download">下載</string>
-  <string name="welcome">歡迎！</string>
-  <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
-一切營運成本、開發和內容皆來自用戶之捐贈。</string>
   <string name="coachManager">教練管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消錦標賽</string>
@@ -922,4 +919,6 @@
   <string name="switchSides">更換所持顏色</string>
   <string name="closingAccountWithdrawAppeal">關閉帳戶將會收回你的上訴</string>
   <string name="ourEventTips">舉辦賽事的小建議</string>
+  <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
+一切營運成本、開發和內容皆來自用戶之捐贈。</string>
 </resources>
