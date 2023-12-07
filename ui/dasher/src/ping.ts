@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 
-import { Redraw, defined } from './util';
+import { defined } from './util';
+import { Redraw } from 'common/snabbdom';
 
 export class PingCtrl {
   ping: number | undefined;

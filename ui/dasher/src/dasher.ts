@@ -5,7 +5,8 @@ import { BackgroundCtrl, BackgroundData } from './background';
 import { BoardCtrl, BoardData } from './board';
 import { ThemeCtrl, ThemeData } from './theme';
 import { PieceCtrl, PieceData } from './piece';
-import { Redraw, Prop, prop } from './util';
+import { Prop, prop } from './util';
+import { Redraw } from 'common/snabbdom';
 
 export interface DasherData {
   user?: LightUser;
@@ -34,14 +35,12 @@ export interface DasherOpts {
 export default class DasherCtrl {
   trans: Trans;
   ping: PingCtrl;
-  subs: {
-    langs: LangsCtrl;
-    sound: SoundCtrl;
-    background: BackgroundCtrl;
-    board: BoardCtrl;
-    theme: ThemeCtrl;
-    piece: PieceCtrl;
-  };
+  langs: LangsCtrl;
+  sound: SoundCtrl;
+  background: BackgroundCtrl;
+  board: BoardCtrl;
+  theme: ThemeCtrl;
+  piece: PieceCtrl;
   opts = {
     playing: $('body').hasClass('playing'),
     zenable: $('body').hasClass('zenable'),
@@ -52,28 +51,15 @@ export default class DasherCtrl {
     readonly redraw: Redraw,
   ) {
     this.trans = lichess.trans(data.i18n);
-    lichess.pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
     this.ping = new PingCtrl(this.trans, this.redraw);
-    this.subs = {
-      langs: new LangsCtrl(this.data.lang, this.trans, this.close),
-      sound: new SoundCtrl(this.data.sound.list, this.trans, this.redraw, this.close),
-      background: new BackgroundCtrl(this.data.background, this.trans, this.redraw, this.close),
-      board: new BoardCtrl(this.data.board, this.trans, this.redraw, this.close),
-      theme: new ThemeCtrl(
-        this.data.theme,
-        this.trans,
-        () => (this.data.board.is3d ? 'd3' : 'd2'),
-        this.redraw,
-        this.close,
-      ),
-      piece: new PieceCtrl(
-        this.data.piece,
-        this.trans,
-        () => (this.data.board.is3d ? 'd3' : 'd2'),
-        this.redraw,
-        this.close,
-      ),
-    };
+    const dimension = () => (this.data.board.is3d ? 'd3' : 'd2');
+    this.langs = new LangsCtrl(this.data.lang, this.trans, this.close);
+    this.sound = new SoundCtrl(this.data.sound.list, this.trans, this.redraw, this.close);
+    this.background = new BackgroundCtrl(this.data.background, this.trans, this.redraw, this.close);
+    this.board = new BoardCtrl(this.data.board, this.trans, this.redraw, this.close);
+    this.theme = new ThemeCtrl(this.data.theme, this.trans, dimension, this.redraw, this.close);
+    this.piece = new PieceCtrl(this.data.piece, this.trans, dimension, this.redraw, this.close);
+    lichess.pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
   }
 
   mode: Prop<Mode> = prop(defaultMode as Mode);

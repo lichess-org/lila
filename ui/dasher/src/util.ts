@@ -1,9 +1,10 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
+import { Redraw } from 'common/snabbdom';
 
-export type Redraw = () => void;
 export type Close = () => void;
 
+// TODO nope
 export interface Prop<T> {
   (): T;
   (v: T): T;
@@ -14,6 +15,7 @@ export function defined<A>(v: A | undefined): v is A {
 }
 
 // like mithril prop but with type safety
+// TODO nope
 export function prop<A>(initialValue: A): Prop<A> {
   let value = initialValue;
   const fun = function (v: A | undefined) {

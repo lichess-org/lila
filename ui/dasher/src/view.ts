@@ -16,22 +16,22 @@ export function loaded(ctrl: DasherCtrl): VNode {
   let content: VNode | undefined;
   switch (ctrl.mode()) {
     case 'langs':
-      content = langsView(ctrl.subs.langs);
+      content = langsView(ctrl.langs);
       break;
     case 'sound':
-      content = soundView(ctrl.subs.sound);
+      content = soundView(ctrl.sound);
       break;
     case 'background':
-      content = backgroundView(ctrl.subs.background);
+      content = backgroundView(ctrl.background);
       break;
     case 'board':
-      content = boardView(ctrl.subs.board);
+      content = boardView(ctrl.board);
       break;
     case 'theme':
-      content = themeView(ctrl.subs.theme);
+      content = themeView(ctrl.theme);
       break;
     case 'piece':
-      content = pieceView(ctrl.subs.piece);
+      content = pieceView(ctrl.piece);
       break;
     default:
       content = links(ctrl);

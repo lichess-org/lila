@@ -36,7 +36,7 @@ function command(q: string) {
   if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
   else if (is('tv')) location.href = '/tv';
   else if (is('play challenge match') && parts[1]) location.href = '/?user=' + parts[1] + '#friend';
-  else if (is('light dark transp system')) loadDasher().then(m => m.subs.background.set(exec));
+  else if (is('light dark transp system')) loadDasher().then(m => m.background.set(exec));
   else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
   else if (is('help')) help();
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);

@@ -1,8 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { Redraw, Close, bind, header } from './util';
+import { Close, bind, header } from './util';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
+import { Redraw } from 'common/snabbdom';
 
 export interface BoardData {
   is3d: boolean;

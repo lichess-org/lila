@@ -1,4 +1,4 @@
-import { Redraw } from './util';
+import { Redraw } from 'common/snabbdom';
 import DasherCtrl from './dasher';
 import { loading, loaded } from './view';
 import * as xhr from 'common/xhr';
