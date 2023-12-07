@@ -44,12 +44,12 @@ export default class StudyPractice {
   };
 
   checkSuccess = (): void => {
-    const gamebook = this.root.study!.gamebookPlay();
+    const gamebook = this.root.study?.gamebookPlay;
     if (gamebook) {
       if (gamebook.state.feedback === 'end') this.onVictory();
       return;
     }
-    if (!this.root.study!.data.chapter.practice) {
+    if (!this.root.study?.data.chapter.practice) {
       return this.saveNbMoves();
     }
     if (this.success() !== null) return;

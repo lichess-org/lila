@@ -6,9 +6,10 @@ import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
 import { prop, Prop, scrollTo } from 'common';
 import { titleNameToId } from '../view/util';
-import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'common/xhr';
 import { userLink } from 'common/userLink';
+import StudyCtrl from './studyCtrl';
 
 interface Opts {
   initDict: StudyMemberMap;

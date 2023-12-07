@@ -7,7 +7,7 @@ import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { rounds as relayTourRounds } from './relay/relayTourView';
-import { StudyCtrl, Tab, ToolTab } from './interfaces';
+import { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
 import { view as chapterView } from './studyChapters';
@@ -22,6 +22,7 @@ import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
+import StudyCtrl from './studyCtrl';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -246,7 +247,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
           {
             hook: bind('click', () => {
               ctrl.vm.toolTab('glyphs');
-              ctrl.userJump(path);
+              ctrl.ctrl.userJump(path);
             }),
           },
           ctrl.trans.noarg('annotateWithGlyphs'),
@@ -274,7 +275,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
-  if (study.gamebookPlay())
+  if (study.gamebookPlay)
     return [gbPlayButtons(ctrl), descView(study, true), descView(study, false), metadata(study)];
   let panel;
   switch (toolTab) {

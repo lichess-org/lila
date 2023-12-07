@@ -6,14 +6,8 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import {
-  LocalPaths,
-  StudyChapter,
-  StudyChapterConfig,
-  StudyChapterMeta,
-  StudyCtrl,
-  TagArray,
-} from './interfaces';
+import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, TagArray } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;

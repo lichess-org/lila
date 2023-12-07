@@ -6,7 +6,7 @@ import * as util from './util';
 import { plural } from './view/util';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import type makeStudyCtrl from './study/studyCtrl';
+import StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';
 import throttle from 'common/throttle';
 import {
@@ -41,7 +41,7 @@ import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
-import { AnaMove, StudyCtrl } from './study/interfaces';
+import { AnaMove } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
@@ -127,7 +127,7 @@ export default class AnalyseCtrl {
   constructor(
     readonly opts: AnalyseOpts,
     readonly redraw: Redraw,
-    makeStudy?: typeof makeStudyCtrl,
+    makeStudy?: typeof StudyCtrl,
   ) {
     this.data = opts.data;
     this.element = opts.element;
@@ -163,9 +163,10 @@ export default class AnalyseCtrl {
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
-    this.study = opts.study
-      ? makeStudy?.(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
-      : undefined;
+    this.study =
+      opts.study && makeStudy
+        ? new makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
+        : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
@@ -766,7 +767,7 @@ export default class AnalyseCtrl {
       !isTouchDevice() &&
       !chap?.practice &&
       chap?.conceal === undefined &&
-      !this.study?.gamebookPlay() &&
+      !this.study?.gamebookPlay &&
       !this.retro &&
       this.variationArrowsProp() &&
       this.node.children.filter(x => !x.comp || this.showComputer()).length > 1
@@ -937,7 +938,7 @@ export default class AnalyseCtrl {
     this.togglePractice();
   }
 
-  gamebookPlay = (): GamebookPlayCtrl | undefined => this.study && this.study.gamebookPlay();
+  gamebookPlay = (): GamebookPlayCtrl | undefined => this.study?.gamebookPlay;
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 

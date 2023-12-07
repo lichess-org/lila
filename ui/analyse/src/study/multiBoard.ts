@@ -7,7 +7,8 @@ import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export class MultiBoardCtrl {
   loading = false;

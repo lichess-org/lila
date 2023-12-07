@@ -5,7 +5,8 @@ import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { StudyCtrl, Topic } from './interfaces';
+import { Topic } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export default class TopicsCtrl {
   open = prop(false);

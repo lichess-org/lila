@@ -5,9 +5,10 @@ import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayRound } from './interfaces';
-import { RelayTab, StudyCtrl } from '../interfaces';
+import { RelayTab } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { scrollToInnerSelector } from 'common';
+import StudyCtrl from '../studyCtrl';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
