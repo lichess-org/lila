@@ -162,13 +162,14 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
-    tourShow = ctrl.relay?.tourShow;
+    tourShow = ctrl.relay?.tourShow,
+    tourShown = !!tourShow && tourShow();
 
   const makeTab = (key: Tab, name: string) =>
     h(
       `span.${key}`,
       {
-        class: { active: !tourShow?.active && activeTab === key },
+        class: { active: !tourShown && activeTab === key },
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => ctrl.setTab(key)),
       },
@@ -180,14 +181,8 @@ export function side(ctrl: StudyCtrl): VNode {
     h(
       'span.relay-tour.text',
       {
-        class: { active: tourShow.active },
-        hook: bind(
-          'mousedown',
-          () => {
-            tourShow.active = true;
-          },
-          ctrl.redraw,
-        ),
+        class: { active: tourShown },
+        hook: bind('mousedown', () => tourShow(true), ctrl.redraw),
         attrs: {
           ...dataIcon(licon.RadioTower),
           role: 'tab',
@@ -225,7 +220,7 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
   ]);
 
-  const content = tourShow?.active
+  const content = tourShown
     ? relayTourRounds(ctrl)
     : (activeTab === 'members' ? memberView : chapterView)(ctrl);
 

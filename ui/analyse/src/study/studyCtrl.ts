@@ -118,7 +118,7 @@ export default function (
   const startTour = () => tours.study(ctrl);
 
   const setTab = (tab: Tab) => {
-    relay?.tourShow.disable();
+    relay?.tourShow(false);
     vm.tab(tab);
     redraw();
   };
@@ -399,8 +399,8 @@ export default function (
 
   function setChapter(id: string, force?: boolean) {
     const alreadySet = id === vm.chapterId && !force;
-    if (relay?.tourShow.active) {
-      relay.tourShow.disable();
+    if (relay?.tourShow()) {
+      relay.tourShow(false);
       if (alreadySet) redraw();
     }
     if (alreadySet) return;
@@ -449,7 +449,7 @@ export default function (
         who = d.w,
         sticky = d.s;
       setMemberActive(who);
-      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addNode(d.p, d.n);
+      if (vm.toolTab() == 'multiBoard' || relay?.tourShow()) multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
@@ -545,7 +545,7 @@ export default function (
     },
     chapters(d) {
       chapters.list(d);
-      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addResult(d);
+      if (vm.toolTab() == 'multiBoard' || relay?.tourShow()) multiBoard.addResult(d);
       if (!currentChapter()) {
         vm.chapterId = d[0].id;
         if (!vm.mode.sticky) xhrReload();

@@ -173,8 +173,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
         'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
       },
       class: {
-        active:
-          !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
+        active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow(),
       },
       hook: {
         insert(vnode) {

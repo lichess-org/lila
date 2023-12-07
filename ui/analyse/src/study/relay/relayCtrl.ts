@@ -1,15 +1,15 @@
-import { RelayData, LogEvent, RelayTourShow, RelaySync, RelayRound } from './interfaces';
+import { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
 import { RelayTab, StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { prop } from 'common';
+import { Toggle, prop, toggle } from 'common';
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
   clockInterval?: number;
-  tourShow: RelayTourShow;
+  tourShow: Toggle;
   tab = prop<RelayTab>('overview');
 
   constructor(
@@ -21,12 +21,7 @@ export default class RelayCtrl {
     chapter: StudyChapter,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
-    this.tourShow = {
-      active: (location.pathname.match(/\//g) || []).length < 5,
-      disable: () => {
-        this.tourShow.active = false;
-      },
-    };
+    this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
   }
 
   setSync = (v: boolean) => {

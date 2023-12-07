@@ -12,7 +12,7 @@ import { scrollToInnerSelector } from 'common';
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
   const relay = study?.relay;
-  if (!study || !relay?.tourShow.active) return undefined;
+  if (!study || !relay?.tourShow()) return undefined;
 
   const makeTab = (key: RelayTab, name: string) =>
     h(
