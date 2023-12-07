@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { bind, header, Close } from './util';
-import { Redraw } from 'common/snabbdom';
+import { header, Close } from './util';
+import { bind, Redraw } from 'common/snabbdom';
 
 type Theme = string;
 
@@ -56,7 +56,7 @@ const themeView = (current: Theme, set: (t: Theme) => void) => (t: Theme) =>
       attrs: { title: t, type: 'button' },
       class: { active: current === t },
     },
-    [h('span.' + t)],
+    h('span.' + t),
   );
 
 function applyTheme(t: Theme, list: Theme[], is3d: boolean) {

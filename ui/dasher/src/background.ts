@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
-import { Close, bind, header } from './util';
+import { Close, header } from './util';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
-import { onInsert, Redraw } from 'common/snabbdom';
+import { bind, onInsert, Redraw } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { elementScrollBarWidth } from 'common/scroll';
 import { throttlePromiseDelay } from 'common/throttle';

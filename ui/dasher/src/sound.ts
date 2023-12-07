@@ -2,8 +2,8 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import { h, VNode } from 'snabbdom';
-import { Close, bind, header } from './util';
-import { Redraw } from 'common/snabbdom';
+import { Close, header } from './util';
+import { bind, Redraw } from 'common/snabbdom';
 
 type Key = string;
 

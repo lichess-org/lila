@@ -3,7 +3,7 @@ import * as licon from 'common/licon';
 import DasherCtrl from './dasher';
 import { Mode } from './dasher';
 import { view as pingView } from './ping';
-import { bind } from './util';
+import { bind } from 'common/snabbdom';
 
 export default function (ctrl: DasherCtrl): VNode {
   const d = ctrl.data,

@@ -5,8 +5,8 @@ import { BackgroundCtrl, BackgroundData } from './background';
 import { BoardCtrl, BoardData } from './board';
 import { ThemeCtrl, ThemeData } from './theme';
 import { PieceCtrl, PieceData } from './piece';
-import { Prop, prop } from './util';
 import { Redraw } from 'common/snabbdom';
+import { Prop, prop } from 'common';
 
 export interface DasherData {
   user?: LightUser;

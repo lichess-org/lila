@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { bind, header, Close } from './util';
-import { Redraw } from 'common/snabbdom';
+import { header, Close } from './util';
+import { bind, Redraw } from 'common/snabbdom';
 
 type Piece = string;
 
