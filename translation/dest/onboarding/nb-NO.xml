@@ -11,4 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Spill mot motstandere fra hele verden.</string>
   <string name="followYourFriendsOnLichess">Følg vennene dine på Lichess.</string>
   <string name="playInTournaments">Spill i turneringer.</string>
+  <string name="learnFromXAndY">Lær av %1$s og %2$s.</string>
+  <string name="configureLichess">Konfigurer Lichess etter din smak.</string>
+  <string name="exploreTheSiteAndHaveFun">Utforsk nettstedet og ha det gøy :)</string>
 </resources>
