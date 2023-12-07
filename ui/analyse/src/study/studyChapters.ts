@@ -5,7 +5,7 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
-import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
+import { StudyChapterNewForm } from './chapterNewForm';
 import {
   LocalPaths,
   StudyChapter,
@@ -16,7 +16,7 @@ import {
 } from './interfaces';
 
 export default class StudyChaptersCtrl {
-  newForm: StudyChapterNewFormCtrl;
+  newForm: StudyChapterNewForm;
   editForm: StudyChapterEditFormCtrl;
   list: Prop<StudyChapterMeta[]>;
   localPaths: LocalPaths = {};
@@ -29,7 +29,7 @@ export default class StudyChaptersCtrl {
     root: AnalyseCtrl,
   ) {
     this.list = prop(initChapters);
-    this.newForm = chapterNewForm(send, this.list, setTab, root);
+    this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
     this.editForm = chapterEditForm(send, chapterConfig, root.trans, root.redraw);
   }
 
@@ -37,7 +37,7 @@ export default class StudyChaptersCtrl {
   sort = (ids: string[]) => this.send('sortChapters', ids);
   firstChapterId = () => this.list()[0].id;
   toggleNewForm = () => {
-    if (this.newForm.vm.open || this.list().length < 64) this.newForm.toggle();
+    if (this.newForm.open() || this.list().length < 64) this.newForm.open.toggle();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
 }

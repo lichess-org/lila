@@ -12,7 +12,7 @@ import { GlyphForm } from './studyGlyph';
 import { ctrl as studyFormCtrl } from './studyForm';
 import TopicsCtrl from './topics';
 import { NotifCtrl } from './notif';
-import { ctrl as shareCtrl } from './studyShare';
+import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as tours from './studyTour';
@@ -337,7 +337,7 @@ export default function (
   const bottomColor = () =>
     ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation;
 
-  const share = shareCtrl(
+  const share = new StudyShare(
     data,
     currentChapter,
     currentNode,

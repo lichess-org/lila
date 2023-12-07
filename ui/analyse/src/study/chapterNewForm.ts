@@ -1,13 +1,12 @@
 import { parseFen } from 'chessops/fen';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, Toggle, toggle } from 'common';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
-import { StoredProp, storedStringProp } from 'common/storage';
+import { storedStringProp } from 'common/storage';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
@@ -25,106 +24,67 @@ export const modeChoices = [
 export const fieldValue = (e: Event, id: string) =>
   ((e.target as HTMLElement).querySelector('#chapter-' + id) as HTMLInputElement)?.value;
 
-export interface StudyChapterNewFormCtrl {
-  root: AnalyseCtrl;
-  vm: {
-    variants: Variant[];
-    open: boolean;
-    initial: Prop<boolean>;
-    tab: StoredProp<string>;
-    editor: LichessEditor | null;
-    editorFen: Prop<Fen | null>;
-    isDefaultName: boolean;
-  };
-  open(): void;
-  openInitial(): void;
-  close(): void;
-  toggle(): void;
-  submit(d: Omit<ChapterData, 'initial'>): void;
-  chapters: Prop<StudyChapterMeta[]>;
-  startTour(): void;
-  multiPgnMax: number;
-  redraw: Redraw;
-}
+export class StudyChapterNewForm {
+  readonly multiPgnMax = 32;
+  variants: Variant[] = [];
+  open: Toggle;
+  initial = toggle(false);
+  tab = storedStringProp('analyse.study.form.tab', 'init');
+  editor: LichessEditor | null = null;
+  editorFen: Prop<Fen | null> = prop(null);
+  isDefaultName = toggle(true);
 
-export function ctrl(
-  send: StudySocketSend,
-  chapters: Prop<StudyChapterMeta[]>,
-  setTab: () => void,
-  root: AnalyseCtrl,
-): StudyChapterNewFormCtrl {
-  const multiPgnMax = 32;
-
-  const vm = {
-    variants: [],
-    open: false,
-    initial: prop(false),
-    tab: storedStringProp('analyse.study.form.tab', 'init'),
-    editor: null,
-    editorFen: prop(null),
-    isDefaultName: true,
-  };
-
-  function loadVariants() {
-    if (!vm.variants.length)
-      xhrVariants().then(function (vs) {
-        vm.variants = vs;
-        root.redraw();
-      });
+  constructor(
+    private readonly send: StudySocketSend,
+    readonly chapters: Prop<StudyChapterMeta[]>,
+    readonly setTab: () => void,
+    readonly root: AnalyseCtrl,
+  ) {
+    this.open = toggle(false, open => {
+      if (!open) return;
+      lichess.pubsub.emit('analyse.close-all');
+      this.loadVariants();
+      this.initial(false);
+    });
+    lichess.pubsub.on('analyse.close-all', close);
   }
 
-  const open = () => {
-    lichess.pubsub.emit('analyse.close-all');
-    vm.open = true;
-    loadVariants();
-    vm.initial(false);
-  };
-  const close = () => {
-    vm.open = false;
+  loadVariants = () => {
+    if (!this.variants.length)
+      xhrVariants().then(vs => {
+        this.variants = vs;
+        this.redraw();
+      });
   };
 
-  lichess.pubsub.on('analyse.close-all', close);
-
-  return {
-    vm,
-    open,
-    root,
-    openInitial() {
-      open();
-      vm.initial(true);
-    },
-    close,
-    toggle() {
-      if (vm.open) close();
-      else open();
-    },
-    submit(d) {
-      const study = root.study!;
-      const dd = {
-        ...d,
-        sticky: study.vm.mode.sticky,
-        initial: vm.initial(),
-      };
-      if (!dd.pgn) send('addChapter', dd);
-      else importPgn(study.data.id, dd);
-      close();
-      setTab();
-    },
-    chapters,
-    startTour: () =>
-      chapterTour(tab => {
-        vm.tab(tab);
-        root.redraw();
-      }),
-    multiPgnMax,
-    redraw: root.redraw,
+  openInitial = () => {
+    this.open(true);
+    this.initial(true);
   };
+  submit = (d: Omit<ChapterData, 'initial'>) => {
+    const study = this.root.study!;
+    const dd = {
+      ...d,
+      sticky: study.vm.mode.sticky,
+      initial: this.initial(),
+    };
+    if (!dd.pgn) this.send('addChapter', dd);
+    else importPgn(study.data.id, dd);
+    close();
+    this.setTab();
+  };
+  startTour = () =>
+    chapterTour(tab => {
+      this.tab(tab);
+      this.redraw();
+    });
+  redraw = this.root.redraw;
 }
 
-export function view(ctrl: StudyChapterNewFormCtrl): VNode {
+export function view(ctrl: StudyChapterNewForm): VNode {
   const trans = ctrl.root.trans,
     study = ctrl.root.study!;
-  const activeTab = ctrl.vm.tab();
+  const activeTab = ctrl.tab();
   const makeTab = function (key: string, name: string, title: string) {
     return h(
       'span.' + key,
@@ -133,7 +93,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         attrs: { role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
           const select = (e: Event) => {
-            ctrl.vm.tab(key);
+            ctrl.tab(key);
             ctrl.root.redraw();
             e.preventDefault();
           };
@@ -160,7 +120,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   return snabDialog({
     class: 'chapter-new',
     onClose() {
-      ctrl.close();
+      ctrl.open(false);
       ctrl.redraw();
     },
     noClickAway: true,
@@ -186,8 +146,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               pgn: fieldValue(e, 'pgn'),
               orientation: fieldValue(e, 'orientation') as Orientation,
               mode: fieldValue(e, 'mode') as ChapterMode,
-              fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
-              isDefaultName: ctrl.vm.isDefaultName,
+              fen: fieldValue(e, 'fen') || (ctrl.tab() === 'edit' ? ctrl.editorFen() : null),
+              isDefaultName: ctrl.isDefaultName(),
             });
           }, ctrl.redraw),
         },
@@ -207,10 +167,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               },
               hook: onInsert<HTMLInputElement>(el => {
                 if (!el.value) {
-                  el.value = trans('chapterX', ctrl.vm.initial() ? 1 : ctrl.chapters().length + 1);
-                  el.onchange = function () {
-                    ctrl.vm.isDefaultName = false;
-                  };
+                  el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters().length + 1);
+                  el.onchange = () => ctrl.isDefaultName(false);
                   el.select();
                   el.focus();
                 }
@@ -237,14 +195,14 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         data.options = {
                           inlineCastling: true,
                           orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorFen,
+                          onChange: ctrl.editorFen,
                         };
-                        ctrl.vm.editor = await lichess.asset.loadEsm<LichessEditor>('editor', { init: data });
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                        ctrl.editor = await lichess.asset.loadEsm<LichessEditor>('editor', { init: data });
+                        ctrl.editorFen(ctrl.editor.getFen());
                       });
                     },
                     destroy: _ => {
-                      ctrl.vm.editor = null;
+                      ctrl.editor = null;
                     },
                   },
                 },
@@ -363,7 +321,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         noarg('automatic'),
                       ),
                     ]
-                  : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
+                  : ctrl.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
               ),
             ]),
             h('div.form-group.form-half', [
@@ -377,10 +335,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               h(
                 'select#chapter-orientation.form-control',
                 {
-                  hook: bind('change', e => {
-                    ctrl.vm.editor &&
-                      ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value as Color);
-                  }),
+                  hook: bind(
+                    'change',
+                    e => ctrl.editor?.setOrientation((e.target as HTMLInputElement).value as Color),
+                  ),
                 },
                 [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>
                   option(c, currentChapter.setup.orientation, noarg(c)),

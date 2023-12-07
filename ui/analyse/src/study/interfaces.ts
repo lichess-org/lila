@@ -14,7 +14,7 @@ import TopicsCtrl from './topics';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
-import { StudyShareCtrl } from './studyShare';
+import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import { StudyFormCtrl } from './studyForm';
 import { StudyMemberCtrl } from './studyMembers';
@@ -38,7 +38,7 @@ export interface StudyCtrl {
   glyphForm: GlyphForm;
   topics: TopicsCtrl;
   serverEval: ServerEval;
-  share: StudyShareCtrl;
+  share: StudyShare;
   tags: TagsForm;
   studyDesc: DescriptionCtrl;
   chapterDesc: DescriptionCtrl;
