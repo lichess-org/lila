@@ -206,7 +206,8 @@ object Permission:
           ChangePermission,
           StudyAdmin,
           BroadcastTimeout,
-          ApiChallengeAdmin
+          ApiChallengeAdmin,
+          DailyFeed
         ),
         "Admin"
       )
