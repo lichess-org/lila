@@ -179,19 +179,20 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
             },
           },
-          ['', ...[3, 6].flatMap(r => 'abcdefgh'.split('').map(f => f + r))].map(key =>
-            h(
-              'option',
-              {
-                attrs: {
-                  value: key,
-                  selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
-                  hidden: Boolean(key && !state.enPassantOptions.includes(key)),
-                  disabled: Boolean(key && !state.enPassantOptions.includes(key)) /*Safari*/,
+          ['', ...[ctrl.turn === 'black' ? 3 : 6].flatMap(r => 'abcdefgh'.split('').map(f => f + r))].map(
+            key =>
+              h(
+                'option',
+                {
+                  attrs: {
+                    value: key,
+                    selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
+                    hidden: Boolean(key && !state.enPassantOptions.includes(key)),
+                    disabled: Boolean(key && !state.enPassantOptions.includes(key)) /*Safari*/,
+                  },
                 },
-              },
-              key,
-            ),
+                key,
+              ),
           ),
         ),
       ]),
