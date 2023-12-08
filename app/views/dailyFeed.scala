@@ -46,7 +46,7 @@ object dailyFeed:
           iconTag(licon.StarOutline),
           div(cls := "daily-feed__update__content")(
             st.section(cls := "daily-feed__update__day")(
-              h2(semanticDate(update.day)),
+              h2(a(href := s"#${update.dayString}")(semanticDate(update.day))),
               isGranted(_.DailyFeed) option frag(
                 a(
                   href     := routes.DailyFeed.edit(update.day),

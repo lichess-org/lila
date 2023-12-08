@@ -32,12 +32,20 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       color: #fff;
     }
     &__day {
-      time {
+      @extend %flex-center;
+      h2 {
+        display: inline;
+        font-size: 1.4em;
+      }
+      a {
         font-weight: bold;
-        font-size: 1.3em;
         color: $c-contours;
       }
-      margin-bottom: 1em;
+      time {
+        font-size: 1em;
+        opacity: 1;
+      }
+      margin-bottom: 1rem;
     }
 
     &__markup {
