@@ -54,7 +54,8 @@ object chat:
       restricted: Boolean = false,
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
-      palantir: Boolean = false
+      palantir: Boolean = false,
+      hostIds: List[UserId] = Nil
   )(using ctx: Context) =
     Json
       .obj(
@@ -65,6 +66,7 @@ object chat:
             "lines"      -> lines,
             "resourceId" -> resourceId.value
           )
+          .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
           .add("userId" -> ctx.userId)
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
