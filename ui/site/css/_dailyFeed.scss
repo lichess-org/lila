@@ -35,7 +35,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       @extend %flex-center;
       h2 {
         display: inline;
-        font-size: 1.4em;
+        font-size: 1.5em;
       }
       a {
         font-weight: bold;
@@ -50,6 +50,18 @@ $c-contours: mix($c-brag, $c-shade, 80%);
 
     &__markup {
       @include rendered-markdown;
+      h2 {
+        color: $c-bad;
+        text-decoration: line-through;
+      }
+      h3 {
+        font-size: 1.3em;
+        color: $c-font-dim;
+        border-bottom: $border;
+      }
+      h4 {
+        font-size: 1.25em;
+      }
     }
   }
 
