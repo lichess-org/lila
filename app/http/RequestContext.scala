@@ -85,7 +85,6 @@ trait RequestContext(using Executor):
       case Some(Right(d)) if !env.net.isProd =>
         d.copy(me = d.me.map:
           _.addRole(lila.security.Permission.Beta.dbKey)
-            .addRole(lila.security.Permission.Prismic.dbKey)
         ).some
       case Some(Right(d)) => d.some
       case _              => none
