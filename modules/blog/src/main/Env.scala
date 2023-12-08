@@ -28,5 +28,7 @@ final class Env(
 
   lazy val lastPostCache = wire[LastPostCache]
 
-  private lazy val feedColl = db(CollName("daily_feed"))
-  lazy val dailyFeed        = wire[DailyFeed]
+  private val feedColl = db(CollName("daily_feed"))
+  val dailyFeed        = wire[DailyFeed]
+
+  export dailyFeed.lastUpdate

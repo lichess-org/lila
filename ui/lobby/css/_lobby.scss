@@ -107,6 +107,24 @@ body {
   .ublog-post-card:hover {
     box-shadow: none;
   }
+  .daily-feed {
+    &__update {
+      &--fresh {
+        outline: 1px solid $c-brag;
+      }
+      &__day {
+        color: $c-brag;
+        margin: 0.5em 0 0.6em 0;
+      }
+      a {
+        color: $c-brag;
+      }
+      time {
+        font-size: 1em;
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .tour-team-icon {

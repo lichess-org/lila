@@ -116,7 +116,7 @@ object home:
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastPost, ublogPosts),
+        bits.lastPosts(lastUpdate, ublogPosts),
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(

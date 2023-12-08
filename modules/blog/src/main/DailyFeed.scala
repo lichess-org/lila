@@ -17,7 +17,9 @@ object DailyFeed:
 
     lazy val dayString: String = day.toString
 
-    def title = "Daily update - " + dayString
+    lazy val title = "Daily update - " + dayString
+
+    lazy val isFresh = instant isAfter nowInstant.minusDays(1)
 
   private val renderer = lila.common.MarkdownRender(
     autoLink = false,
@@ -26,6 +28,8 @@ object DailyFeed:
     strikeThrough = true,
     header = true
   )
+
+  type GetLastUpdate = () => Option[Update]
 
 final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
@@ -37,22 +41,33 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   )
   private given BSONDocumentHandler[Update] = Macros.handler
 
-  private val cache = cacheApi[Max, List[Update]](512, "dailyFeed.updates"):
-    _.expireAfterWrite(3 seconds).buildAsyncFuture: nb =>
-      coll.find($empty).sort($sort.desc("_id")).cursor[Update]().list(nb.value)
-  private def clearCache() = cache.underlying.synchronous.invalidateAll()
+  private object cache:
+    private var mutableLastUpdate: Option[Update] = None
+    val store = cacheApi[Max, List[Update]](4, "dailyFeed.updates"):
+      _.expireAfterWrite(1 minute).buildAsyncFuture: nb =>
+        coll
+          .find($empty)
+          .sort($sort.desc("_id"))
+          .cursor[Update]()
+          .list(nb.value)
+          .addEffect: ups =>
+            mutableLastUpdate = ups.headOption
+    def clear()                             = store.underlying.synchronous.invalidateAll()
+    def lastUpdate: DailyFeed.GetLastUpdate = () => mutableLastUpdate
+    store.get(Max(1)) // populate lastUpdate
 
-  export cache.{ get as recent }
+  export cache.store.{ get as recent }
+  export cache.lastUpdate
 
   def get(day: LocalDate): Fu[Option[Update]] = coll.one[Update]($id(day))
 
   def set(update: Update, from: Option[Update]): Funit = for
     _ <- from.filter(_.day != update.day).so(up => coll.delete.one($id(up.day)).void)
-    _ <- coll.update.one($id(update.day), update, upsert = true).void andDo clearCache()
+    _ <- coll.update.one($id(update.day), update, upsert = true).void andDo cache.clear()
   yield ()
 
   def delete(id: LocalDate): Funit =
-    coll.delete.one($id(id)).void andDo clearCache()
+    coll.delete.one($id(id)).void andDo cache.clear()
 
   def form(from: Option[Update]) =
     import play.api.data.*

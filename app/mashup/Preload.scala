@@ -30,7 +30,7 @@ final class Preload(
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
-    lastPostCache: lila.blog.LastPostCache,
+    getLastUpdate: lila.blog.DailyFeed.GetLastUpdate,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi,
     relayApi: lila.relay.RelayApi,
@@ -105,7 +105,7 @@ final class Preload(
     currentGame,
     simulIsFeaturable,
     blindGames,
-    lastPostCache.apply,
+    getLastUpdate(),
     ublogPosts,
     withPerfs,
     hasUnreadLichessMessage = lichessMsg
@@ -148,7 +148,7 @@ object Preload:
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      lastPost: Option[lila.blog.MiniPost],
+      lastUpdate: Option[lila.blog.DailyFeed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
       me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean
