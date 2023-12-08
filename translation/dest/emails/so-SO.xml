@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Hubi boggaaga lichess.org, %s</string>
+  <string name="emailConfirm_subject">Hubi akoonkaaga lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Riix laynkan hoose si aad u furtid boggaaga Lichess:</string>
   <string name="emailConfirm_ignore">Haddii aanad iska diwaan-gelin Lichess uma baahnid farriintan.</string>
   <string name="passwordReset_subject">Cusboonaysii furaha boggaaga lichess.org, %s</string>
