@@ -32,6 +32,10 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       }
       margin-bottom: 1em;
     }
+
+    &__markup {
+      @include rendered-markdown;
+    }
   }
 
   &__delete {
