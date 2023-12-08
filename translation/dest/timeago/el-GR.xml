@@ -29,7 +29,7 @@
     <item quantity="one">σε %s έτος</item>
     <item quantity="other">%s έτη</item>
   </plurals>
-  <string name="rightNow">αυτή την στιγμή</string>
+  <string name="rightNow">αυτή τη στιγμή</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s λεπτό πριν</item>
     <item quantity="other">%s λεπτά πριν</item>

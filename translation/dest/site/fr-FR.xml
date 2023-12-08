@@ -508,6 +508,7 @@
   <string name="firstName">Prénom</string>
   <string name="lastName">Nom</string>
   <string name="setFlair">Choisissez votre émoji :</string>
+  <string name="flair">Flair</string>
   <string name="youCanHideFlair">Un paramètre permet de cacher les émojis d\'un utilisateur sur tout le site.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou région</string>
@@ -746,6 +747,7 @@
   <string name="withFriends">Avec mes amis</string>
   <string name="withEverybody">Avec tout le monde</string>
   <string name="kidMode">Mode enfants</string>
+  <string name="kidModeIsEnabled">Le mode enfant est activé.</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les écoliers, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Votre compte est géré. Demandez à votre professeur d\'échecs de désactiver le mode enfant.</string>

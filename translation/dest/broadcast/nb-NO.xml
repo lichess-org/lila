@@ -8,10 +8,15 @@
   </plurals>
   <string name="liveBroadcasts">Direkteoverføringer av turneringer</string>
   <string name="newBroadcast">Ny direkteoverføring</string>
+  <string name="aboutBroadcasts">Om overføringer</string>
+  <string name="noRoundsYet">Ingen runder ennå.</string>
+  <string name="howToUseLichessBroadcasts">Hvordan bruke overføringer hos Lichess.</string>
+  <string name="theNewRoundHelp">Den nye runden vil ha de samme medlemmene og bidragsyterne som den forrige.</string>
   <string name="addRound">Legg til runde</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommende</string>
   <string name="completed">Fullført</string>
+  <string name="completedHelp">Lichess oppdager fullførte runder basert på kildepartiene. Bruk denne knappen hvis det ikke finnes noen kilde.</string>
   <string name="roundName">Rundenavn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnavn</string>
@@ -35,4 +40,14 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringen</string>
   <string name="definitivelyDeleteTournament">Slett hele turneringen for godt, sammen med alle rundene og alle partiene.</string>
+  <string name="automaticLeaderboard">Automatisk ledertabell</string>
+  <string name="automaticLeaderboardHelp">Beregn og vis en enkel ledertabell basert på resultatene av partiene</string>
+  <string name="replace">Valgfritt: erstatt spillernavn, ratinger og titler</string>
+  <string name="replaceHelp">Én linje per spiller, formatert slik:
+Originalt navn; Erstattet navn; Valgfri erstattet rating; Valgfri erstattet tittel
+Eksempel:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Tidsrom i sekunder</string>
+  <string name="periodInSecondsHelp">Valgfritt, hvor lenge man skal vente mellom forespørslene. Minst 2 sekunder, maks 60 sekunder. Standardinnstillingen er automatisk basert på antall seere.</string>
 </resources>

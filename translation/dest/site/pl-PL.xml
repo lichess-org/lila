@@ -574,6 +574,7 @@
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
   <string name="setFlair">Ustaw swój emblemat:</string>
+  <string name="flair">Emblemat</string>
   <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>
   <string name="biography">O mnie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub region</string>
@@ -822,6 +823,7 @@
   <string name="withFriends">Tylko znajomym</string>
   <string name="withEverybody">Każdemu</string>
   <string name="kidMode">Tryb dla dzieci</string>
+  <string name="kidModeIsEnabled">Tryb dla dzieci jest włączony.</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, wiesz wtedy, że Twoje dziecko jest chronione.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Twoim kontem zarządza nauczyciel. Poproś go o przekazanie zarządzania Tobie.</string>
