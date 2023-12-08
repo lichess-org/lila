@@ -30,8 +30,8 @@ export default class StudyChaptersCtrl {
   get = (id: string) => this.list().find(c => c.id === id);
   sort = (ids: string[]) => this.send('sortChapters', ids);
   firstChapterId = () => this.list()[0].id;
-  toggleNewForm = () => {
-    if (this.newForm.open() || this.list().length < 64) this.newForm.open.toggle();
+  openNewForm = () => {
+    if (this.list().length < 64) this.newForm.open();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
 }
@@ -153,7 +153,7 @@ export function view(ctrl: StudyCtrl): VNode {
               h(
                 'div.add',
                 {
-                  hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw),
+                  hook: bind('click', ctrl.chapters.openNewForm, ctrl.redraw),
                 },
                 [h('span', iconTag(licon.PlusButton)), h('h3', ctrl.trans.noarg('addNewChapter'))],
               ),

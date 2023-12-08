@@ -257,7 +257,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
 }
 
 export const overboard = (ctrl: StudyCtrl) =>
-  ctrl.chapters.newForm.open()
+  ctrl.chapters.newForm.isOpen()
     ? chapterNewFormView(ctrl.chapters.newForm)
     : ctrl.chapters.editForm.current()
     ? chapterEditFormView(ctrl.chapters.editForm)

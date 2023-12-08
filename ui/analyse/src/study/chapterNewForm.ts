@@ -1,5 +1,5 @@
 import { parseFen } from 'chessops/fen';
-import { defined, prop, Prop, Toggle, toggle } from 'common';
+import { defined, prop, Prop, toggle } from 'common';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
@@ -27,7 +27,7 @@ export const fieldValue = (e: Event, id: string) =>
 export class StudyChapterNewForm {
   readonly multiPgnMax = 32;
   variants: Variant[] = [];
-  open: Toggle;
+  isOpen = toggle(false);
   initial = toggle(false);
   tab = storedStringProp('analyse.study.form.tab', 'init');
   editor: LichessEditor | null = null;
@@ -40,14 +40,15 @@ export class StudyChapterNewForm {
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
-    this.open = toggle(false, open => {
-      if (!open) return;
-      lichess.pubsub.emit('analyse.close-all');
-      this.loadVariants();
-      this.initial(false);
-    });
-    lichess.pubsub.on('analyse.close-all', this.open.toggle);
+    lichess.pubsub.on('analyse.close-all', () => this.isOpen(false));
   }
+
+  open = () => {
+    lichess.pubsub.emit('analyse.close-all');
+    this.isOpen(true);
+    this.loadVariants();
+    this.initial(false);
+  };
 
   loadVariants = () => {
     if (!this.variants.length)
@@ -58,7 +59,7 @@ export class StudyChapterNewForm {
   };
 
   openInitial = () => {
-    this.open(true);
+    this.open();
     this.initial(true);
   };
   submit = (d: Omit<ChapterData, 'initial'>) => {
@@ -70,7 +71,7 @@ export class StudyChapterNewForm {
     };
     if (!dd.pgn) this.send('addChapter', dd);
     else importPgn(study.data.id, dd);
-    this.open(false);
+    this.isOpen(false);
     this.setTab();
   };
   startTour = () =>
@@ -119,7 +120,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   return snabDialog({
     class: 'chapter-new',
     onClose() {
-      ctrl.open(false);
+      ctrl.isOpen(false);
       ctrl.redraw();
     },
     noClickAway: true,
