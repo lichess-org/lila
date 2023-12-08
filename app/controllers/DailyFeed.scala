@@ -21,11 +21,11 @@ final class DailyFeed(env: Env) extends LilaController(env):
   private def get(day: String): Fu[Option[Update]] =
     scala.util.Try(LocalDate.parse(day)).toOption.so(api.get)
 
-  def createForm = Secure(_.Prismic) { ctx ?=> me ?=>
+  def createForm = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Ok.pageAsync(html.dailyFeed.create(api.form(none)))
   }
 
-  def create = SecureBody(_.Prismic) { ctx ?=> me ?=>
+  def create = SecureBody(_.DailyFeed) { _ ?=> _ ?=>
     api
       .form(none)
       .bindFromRequest()
@@ -35,12 +35,12 @@ final class DailyFeed(env: Env) extends LilaController(env):
       )
   }
 
-  def edit(day: String) = Secure(_.Prismic) { ctx ?=> me ?=>
+  def edit(day: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Found(get(day)): up =>
       Ok.pageAsync(html.dailyFeed.edit(api.form(up.some), up))
   }
 
-  def update(day: String) = SecureBody(_.Prismic) { ctx ?=> me ?=>
+  def update(day: String) = SecureBody(_.DailyFeed) { _ ?=> _ ?=>
     Found(get(day)): from =>
       api
         .form(from.some)
@@ -51,7 +51,7 @@ final class DailyFeed(env: Env) extends LilaController(env):
         )
   }
 
-  def delete(day: String) = Secure(_.Prismic) { ctx ?=> me ?=>
+  def delete(day: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Found(get(day)): up =>
       api.delete(up.day) inject Redirect(routes.DailyFeed.index).flashSuccess
   }

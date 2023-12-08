@@ -16,14 +16,12 @@ object dailyFeed:
       moreJs = edit option jsModule("flatpickr")
     )
 
-  private def canEdit(using Context) = isGranted(_.Prismic)
-
   def index(updates: List[Update])(using PageContext) =
     layout("Daily News"):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1("Daily News"),
-          canEdit option div(cls := "box__top__actions"):
+          isGranted(_.DailyFeed) option div(cls := "box__top__actions"):
             a(
               href     := routes.DailyFeed.createForm,
               cls      := "button button-green",
@@ -42,7 +40,7 @@ object dailyFeed:
           div(cls := "daily-feed__update__content")(
             div(cls := "daily-feed__update__day")(
               semanticDate(update.day),
-              canEdit option frag(
+              isGranted(_.DailyFeed) option frag(
                 a(
                   href     := routes.DailyFeed.edit(update.day),
                   cls      := "button button-green button-empty button-thin text",

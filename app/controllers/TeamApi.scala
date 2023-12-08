@@ -11,7 +11,6 @@ import lila.team.TeamSecurity
 
 final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def forms     = env.team.forms
   private def api       = env.team.api
   private def paginator = env.team.paginator
 
@@ -34,7 +33,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def show(id: TeamId) = Open:
     JsonOptionOk:
-      api teamEnabled id flatMapz { team =>
+      api teamEnabled id flatMapz: team =>
         for
           joined      <- ctx.userId.so { api.belongsTo(id, _) }
           requested   <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
@@ -47,7 +46,6 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
               "joined"    -> joined,
               "requested" -> requested
             )
-      }
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
     Found(api teamEnabled teamId): team =>
