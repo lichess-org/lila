@@ -206,6 +206,13 @@ object layout:
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
+  private val dailyNewsAtom = link(
+    href     := routes.DailyFeed.atom,
+    st.title := "Daily News",
+    tpe      := "application/atom+xml",
+    rel      := "alternate"
+  )
+
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
@@ -266,13 +273,7 @@ object layout:
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
-          (atomLinkTag | link(
-            href     := routes.Blog.atom,
-            st.title := trans.blog.txt()
-          ))(
-            tpe := "application/atom+xml",
-            rel := "alternate"
-          ),
+          atomLinkTag | dailyNewsAtom,
           pref.bg == lila.pref.Pref.Bg.TRANSPARENT option pref.bgImgOrDefault map { img =>
             raw:
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)

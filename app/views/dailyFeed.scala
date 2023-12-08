@@ -11,19 +11,16 @@ import play.api.i18n.Lang
 object dailyFeed:
 
   private def layout(title: String, edit: Boolean = false)(using PageContext) =
-    views.html.base.layout(
+    views.html.site.page.layout(
       title = title,
+      active = "news",
       moreCss = cssTag("dailyFeed"),
-      moreJs = edit option jsModule("flatpickr"),
-      atomLinkTag = link(
-        href     := routes.DailyFeed.atom,
-        st.title := "Lichess Daily News"
-      ).some
+      moreJs = edit option jsModule("flatpickr")
     )
 
   def index(updates: List[Update])(using PageContext) =
     layout("Daily News"):
-      main(cls := "daily-feed page-small box box-pad")(
+      div(cls := "daily-feed box box-pad")(
         boxTop(
           h1("Daily News"),
           div(cls := "box__top__actions")(
