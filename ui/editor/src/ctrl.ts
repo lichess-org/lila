@@ -165,8 +165,7 @@ export default class EditorCtrl {
         : [null, null];
     return Array.from(filesEnPassant)
       .filter(e => rank1![e] === 'x' && rank2![e] === 'x')
-      .map(e => String.fromCharCode('a'.charCodeAt(0) + e) + (turn === 'w' ? '6' : '3'))
-      .sort();
+      .map(e => String.fromCharCode('a'.charCodeAt(0) + e) + (turn === 'w' ? '6' : '3'));
   }
 
   getState(): EditorState {
