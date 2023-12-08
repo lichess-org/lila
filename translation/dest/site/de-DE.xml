@@ -663,10 +663,10 @@
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
   <string name="hostColorX">Farbe des Ausrichters: %s</string>
-  <string name="yourPendingSimuls">Deine ausstehenden Simultan-Vorstellungen</string>
+  <string name="yourPendingSimuls">Deine ausstehenden Simultanpartien</string>
   <string name="createdSimuls">Neue Simultanspiele</string>
   <string name="hostANewSimul">Ein Simultan veranstalten</string>
-  <string name="signUpToHostOrJoinASimul">Melde dich an, um eine Simultan-Vorstellung zu geben, oder einer beizutreten</string>
+  <string name="signUpToHostOrJoinASimul">Melde dich an, um eine Simultanpartie auszutragen oder sich einer anzuschließen</string>
   <string name="noSimulFound">Simultan nicht gefunden</string>
   <string name="noSimulExplanation">Dieses Simultan existiert nicht.</string>
   <string name="returnToSimulHomepage">Zurück zur Simultan Homepage</string>
@@ -691,7 +691,7 @@
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
-  <string name="keyCycleSelectedVariation">Durch die ausgewählte Variation schalten</string>
+  <string name="keyCycleSelectedVariation">Durch die ausgewählte Variante schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
   <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
@@ -701,7 +701,7 @@
   <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
   <string name="keyPreviousBranch">Vorherige Verzweigung</string>
   <string name="keyNextBranch">Nächste Verzweigung</string>
-  <string name="toggleVariationArrows">Variationspfeile an/auschalten</string>
+  <string name="toggleVariationArrows">Variantenpfeile ein-/auschalten</string>
   <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
   <string name="toggleGlyphAnnotations">Glyph-Anmerkungen umschalten</string>
   <string name="variationArrowsInfo">Mit Variationspfeilen navigierst du durch die Zugliste.</string>
