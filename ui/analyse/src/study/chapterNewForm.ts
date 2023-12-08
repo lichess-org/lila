@@ -50,6 +50,8 @@ export class StudyChapterNewForm {
     this.initial(false);
   };
 
+  toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
+
   loadVariants = () => {
     if (!this.variants.length)
       xhrVariants().then(vs => {
