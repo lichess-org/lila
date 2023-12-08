@@ -1,6 +1,7 @@
 package views.html.swiss
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
@@ -31,7 +32,7 @@ object home:
             iconTag(licon.Group),
             p:
               trans.swiss.teamOnly:
-                a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
+                a(href := teamRoutes.home())(trans.swiss.joinOrCreateTeam.txt())
           ),
           comparison,
           div(id := "faq")(faq)

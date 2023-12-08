@@ -1,5 +1,6 @@
 package views.html.team
 
+import controllers.team.routes.{ Team as teamRoutes }
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
@@ -16,7 +17,7 @@ object tournaments:
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${t.name} team tournaments",
-          url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
+          url = s"$netBaseUrl${teamRoutes.tournaments(t.id)}",
           description = shorten(t.description.value, 152)
         )
         .some,

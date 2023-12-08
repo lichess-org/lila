@@ -1,6 +1,7 @@
 package views.html
 package forum
 
+import controllers.team.routes.{ Team as teamRoutes }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -28,9 +29,7 @@ object categ:
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
         categs.exists(_.categ.isTeam) option frag(
-          boxTop(
-            h1("Your Team Boards")
-          ),
+          boxTop(h1("Your Team Boards")),
           showCategs(categs.filter(_.categ.isTeam))
         )
       )
@@ -84,7 +83,7 @@ object categ:
         boxTop(
           h1(
             a(
-              href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+              href     := categ.team.fold(routes.ForumCateg.index)(teamRoutes.show(_)),
               dataIcon := licon.LessThan,
               cls      := "text"
             ),

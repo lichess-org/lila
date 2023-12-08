@@ -6,6 +6,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
+import controllers.team.routes.{ Team as teamRoutes }
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.ChatFor
@@ -117,10 +118,9 @@ final class Swiss(
           .fold(
             err => BadRequest.page(html.swiss.form.create(err, teamId)),
             data =>
-              tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
-                env.swiss.api.create(data, teamId) map { swiss =>
+              tourC.rateLimitCreation(isPrivate = true, Redirect(teamRoutes.show(teamId))):
+                env.swiss.api.create(data, teamId) map: swiss =>
                   Redirect(routes.Swiss.show(swiss.id))
-                }
           )
   }
 
@@ -220,7 +220,7 @@ final class Swiss(
 
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
+      env.swiss.api kill swiss inject Redirect(teamRoutes.show(swiss.teamId))
   }
 
   def standing(id: SwissId, page: Int) = Anon:

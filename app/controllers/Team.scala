@@ -1,4 +1,5 @@
 package controllers
+package team
 
 import play.api.data.{ Forms, Form }
 import play.api.data.Forms.*
@@ -8,16 +9,11 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
-import lila.memo.RateLimit
 import lila.team.{ Requesting, Team as TeamModel, TeamMember }
 import lila.user.{ User as UserModel }
-import Api.ApiResult
 import lila.team.TeamSecurity
 
-final class Team(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env):
+final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   private def forms     = env.team.forms
   private def api       = env.team.api
@@ -94,21 +90,6 @@ final class Team(
       (isGrantedOpt(_.ModerateForum) && asMod)
     }
 
-  def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
-    Found(api teamEnabled teamId): team =>
-      val canView: Fu[Boolean] =
-        if team.publicMembers then fuccess(true)
-        else ctx.me.so(api.belongsTo(team.id, _))
-      canView.map:
-        if _ then
-          apiC.jsonDownload(
-            env.team
-              .memberStream(team, config.MaxPerSecond(20))
-              .map: (user, joinedAt) =>
-                env.api.userApi.one(user, joinedAt.some)
-          )
-        else Unauthorized
-
   def tournaments(teamId: TeamId) = Open:
     FoundPage(api teamEnabled teamId): team =>
       env.teamInfo.tournaments(team, 30, 30) map:
@@ -148,27 +129,6 @@ final class Team(
     WithOwnedTeamEnabled(id, _.Kick): team =>
       forms.members.bindFromRequest().value so { api.kickMembers(team, _) } inject
         Redirect(routes.Team.show(team.id)).flashSuccess
-  }
-
-  private val ApiKickRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "team.kick.api.ip",
-    enforce = env.net.rateLimit.value
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 50, 1.day)
-  )
-  private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
-
-  def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me ?=>
-    WithOwnedTeamEnabledApi(teamId, _.Kick): team =>
-      def limited =
-        if kickLimitReportOnce(username.id) then
-          lila
-            .log("security")
-            .warn(s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}")
-        fuccess(ApiResult.Limited)
-      ApiKickRateLimitPerIP(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
-        api.kick(team, username.id) inject ApiResult.Done
   }
 
   def blocklist(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -262,6 +222,17 @@ final class Team(
               redirect.flashSuccess
         )
   }
+
+  private def LimitPerWeek[A <: Result](a: => Fu[A])(using ctx: Context, me: Me): Fu[Result] =
+    api.countCreatedRecently(me) flatMap { count =>
+      val allow =
+        isGrantedOpt(_.ManageTeam) ||
+          (isGrantedOpt(_.Verified) && count < 100) ||
+          (isGrantedOpt(_.Teacher) && count < 10) ||
+          count < 3
+      if allow then a
+      else Forbidden.page(views.html.site.message.teamCreateLimit)
+    }
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
@@ -454,7 +425,7 @@ final class Team(
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
-      import RateLimit.Result
+      import lila.memo.RateLimit.Result
       forms.pmAll
         .bindFromRequest()
         .fold(
@@ -498,82 +469,6 @@ final class Team(
         )
   }
 
-  // API
-
-  def apiAll(page: Int) = Anon:
-    import env.team.jsonView.given
-    import lila.common.paginator.PaginatorJson.given
-    JsonOk:
-      for
-        pager <- paginator popularTeamsWithPublicLeaders page
-        _     <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
-      yield pager
-
-  def apiShow(id: TeamId) = Open:
-    JsonOptionOk:
-      api teamEnabled id flatMapz { team =>
-        for
-          joined      <- ctx.userId.so { api.belongsTo(id, _) }
-          requested   <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
-          withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
-          _           <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
-        yield some:
-          import env.team.jsonView.given
-          Json.toJsObject(withLeaders) ++ Json
-            .obj(
-              "joined"    -> joined,
-              "requested" -> requested
-            )
-      }
-
-  def apiSearch(text: String, page: Int) = Anon:
-    import env.team.jsonView.given
-    import lila.common.paginator.PaginatorJson.given
-    JsonOk:
-      if text.trim.isEmpty
-      then paginator popularTeamsWithPublicLeaders page
-      else env.teamSearch(text, page).flatMap(_.mapFutureList(env.team.memberRepo.addPublicLeaderIds))
-
-  def apiTeamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
-    import env.team.jsonView.given
-    JsonOk:
-      for
-        ids   <- api.joinedTeamIdsOfUserAsSeenBy(username)
-        teams <- api.teamsByIds(ids)
-        teams <- env.team.memberRepo.addPublicLeaderIds(teams)
-        _     <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
-      yield teams
-
-  def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
-    WithOwnedTeamEnabledApi(teamId, _.Request): team =>
-      import env.team.jsonView.requestWithUserWrites
-      val reqs =
-        if getBool("declined") then api.declinedRequestsWithUsers(team)
-        else api.requestsWithUsers(team)
-      reqs map Json.toJson map ApiResult.Data.apply
-
-  }
-
-  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) {
-    _ ?=> me ?=>
-      WithOwnedTeamEnabledApi(teamId, _.Request): team =>
-        api request lila.team.TeamRequest.makeId(team.id, userId.id) flatMap {
-          case None      => fuccess(ApiResult.ClientError("No such team join request"))
-          case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
-        }
-  }
-
-  private def LimitPerWeek[A <: Result](a: => Fu[A])(using ctx: Context, me: Me): Fu[Result] =
-    api.countCreatedRecently(me) flatMap { count =>
-      val allow =
-        isGrantedOpt(_.ManageTeam) ||
-          (isGrantedOpt(_.Verified) && count < 100) ||
-          (isGrantedOpt(_.Teacher) && count < 10) ||
-          count < 3
-      if allow then a
-      else Forbidden.page(views.html.site.message.teamCreateLimit)
-    }
-
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: TeamModel => Fu[Result]
   )(using Context): Fu[Result] =
@@ -591,16 +486,3 @@ final class Team(
     WithOwnedTeam(teamId, perm): team =>
       if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
       else notFound
-
-  private def WithOwnedTeamEnabledApi(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
-      f: TeamModel => Fu[ApiResult]
-  )(using me: Me): Fu[Result] =
-    api teamEnabled teamId flatMap {
-      case Some(team) =>
-        api
-          .isGranted(team.id, me.value, perm)
-          .flatMap:
-            if _ then f(team)
-            else fuccess(ApiResult.ClientError("Insufficient team permissions"))
-      case None => fuccess(ApiResult.NoData)
-    } map apiC.toHttp

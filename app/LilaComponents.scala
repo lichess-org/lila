@@ -146,7 +146,8 @@ final class LilaComponents(
   lazy val simul: Simul                   = wire[Simul]
   lazy val streamer: Streamer             = wire[Streamer]
   lazy val study: Study                   = wire[Study]
-  lazy val team: Team                     = wire[Team]
+  lazy val teamC: team.Team               = wire[team.Team]
+  lazy val teamApi: TeamApi               = wire[TeamApi]
   lazy val timeline: Timeline             = wire[Timeline]
   lazy val tournament: Tournament         = wire[Tournament]
   lazy val tournamentCrud: TournamentCrud = wire[TournamentCrud]
@@ -168,6 +169,7 @@ final class LilaComponents(
   private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]
   private val reportRouter: _root_.router.report.Routes = wire[_root_.router.report.Routes]
   private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
+  private val teamRouter: _root_.router.team.Routes     = wire[_root_.router.team.Routes]
   val router: Router                                    = wire[_root_.router.router.Routes]
 
   if configuration.get[Boolean]("kamon.enabled") then

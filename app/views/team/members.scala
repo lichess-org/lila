@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
@@ -17,7 +18,7 @@ object members:
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
-          url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+          url = s"$netBaseUrl${teamRoutes.show(t.id).url}",
           description = t.intro so { shorten(_, 152) }
         )
         .some
@@ -38,6 +39,6 @@ object members:
                 td(momentFromNowOnce(date))
               )
             },
-            pagerNextTable(pager, np => routes.Team.members(t.slug, np).url)
+            pagerNextTable(pager, np => teamRoutes.members(t.slug, np).url)
           )
       )

@@ -417,49 +417,17 @@ POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id, variant
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id)
 GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
 
-# Team
-GET   /team                                   controllers.Team.home(page: Int ?= 1)
-GET   /team/new                               controllers.Team.form
-POST  /team/new                               controllers.Team.create
-GET   /team/me                                controllers.Team.mine
-GET   /team/leader                            controllers.Team.leader
-GET   /team/all                               controllers.Team.all(page: Int ?= 1)
-GET   /team/requests                          controllers.Team.requests
-GET   /team/search                            controllers.Team.search(text ?= "", page: Int ?= 1)
-GET   /team/autocomplete                      controllers.Team.autocomplete
-GET   /team/:id                               controllers.Team.show(id, page: Int ?= 1, mod: Boolean ?= false)
-POST  /team/:id/join                          controllers.Team.join(id)
-POST  /team/:id/quit                          controllers.Team.quit(id)
-GET   /team/:id/request/new                   controllers.Team.requestForm(id)
-POST  /team/:id/request/new                   controllers.Team.requestCreate(id)
-POST  /team/:id/request/process               controllers.Team.requestProcess(id)
-GET   /team/:id/declined-requests             controllers.Team.declinedRequests(id, page: Int ?=1)
-GET   /team/:id/edit                          controllers.Team.edit(id)
-POST  /team/:id/edit                          controllers.Team.update(id)
-GET   /team/:id/kick                          controllers.Team.kickForm(id)
-POST  /team/:id/kick                          controllers.Team.kick(id)
-POST  /team/:id/kick/:user                    controllers.Team.kickUser(id, user)
-POST  /team/:id/blocklist                     controllers.Team.blocklist(id)
-GET   /team/:id/leaders                       controllers.Team.leaders(id)
-POST  /team/:id/permissions                   controllers.Team.permissions(id)
-POST  /team/:id/leaders                       controllers.Team.addLeader(id)
-GET   /team/:id/members                       controllers.Team.members(id, page: Int ?= 1)
-POST  /team/:id/close                         controllers.Team.close(id)
-POST  /team/:id/disable                       controllers.Team.disable(id)
-GET   /team/:id/tournaments                   controllers.Team.tournaments(id)
-GET   /team/:id/pm-all                        controllers.Team.pmAll(id)
-POST  /team/:id/pm-all                        controllers.Team.pmAllSubmit(id)
-POST  /team/:id/subscribe                     controllers.Team.subscribe(id)
 # Team API
-GET   /api/team/all                           controllers.Team.apiAll(page: Int ?= 1)
-GET   /api/team/search                        controllers.Team.apiSearch(text ?= "", page: Int ?= 1)
-GET   /api/team/of/:username                  controllers.Team.apiTeamsOf(username)
-GET   /api/team/:id                           controllers.Team.apiShow(id)
-GET   /api/team/:id/users                     controllers.Team.users(id)
+GET   /api/team/all                           controllers.TeamApi.all(page: Int ?= 1)
+GET   /api/team/search                        controllers.TeamApi.search(text ?= "", page: Int ?= 1)
+GET   /api/team/of/:username                  controllers.TeamApi.teamsOf(username)
+GET   /api/team/:id                           controllers.TeamApi.show(id)
+GET   /api/team/:id/users                     controllers.TeamApi.users(id)
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id)
-GET   /api/team/:id/requests                  controllers.Team.apiRequests(id)
-POST  /api/team/:id/request/:userId/:decision controllers.Team.apiRequestProcess(id, userId, decision)
+GET   /api/team/:id/requests                  controllers.TeamApi.requests(id)
+POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id, userId, decision)
+POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id, user)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId)
@@ -651,6 +619,7 @@ GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen)
 GET   /editor                          controllers.Editor.index
 
+->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
 ->    /report                          report.Routes
 ->    /class                           clas.Routes

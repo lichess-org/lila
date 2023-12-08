@@ -1,6 +1,7 @@
 package views.html
 package forum
 
+import controllers.team.routes.{ Team as teamRoutes }
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
@@ -128,7 +129,7 @@ object topic:
               .map: teamId =>
                 p:
                   trans.joinTheTeamXToPost:
-                    a(href := routes.Team.show(teamId))(trans.teamNamedX(teamLink(teamId, true)))
+                    a(href := teamRoutes.show(teamId))(trans.teamNamedX(teamLink(teamId, true)))
               .orElse:
                 if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
                 else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())

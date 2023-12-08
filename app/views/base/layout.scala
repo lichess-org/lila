@@ -1,6 +1,7 @@
 package views.html.base
 
 import controllers.report.routes.{ Report as reportRoutes }
+import controllers.team.routes.{ Team as teamRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -398,7 +399,7 @@ object layout:
       ctx.teamNbRequests > 0 option
         a(
           cls       := "link data-count link-center",
-          href      := routes.Team.requests,
+          href      := teamRoutes.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon  := licon.Group,
           title     := trans.team.teams.txt()
