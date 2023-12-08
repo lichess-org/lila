@@ -35,6 +35,8 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   import DailyFeed.Update
 
+  private val max = Max(50)
+
   private given BSONHandler[LocalDate] = quickHandler[LocalDate](
     { case BSONString(s) => LocalDate.parse(s) },
     d => BSONString(d.toString)
@@ -43,21 +45,22 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private object cache:
     private var mutableLastUpdate: Option[Update] = None
-    val store = cacheApi[Max, List[Update]](4, "dailyFeed.updates"):
-      _.expireAfterWrite(1 minute).buildAsyncFuture: nb =>
+    val store = cacheApi.unit[List[Update]]:
+      _.expireAfterWrite(1 minute).buildAsyncFuture: _ =>
         coll
           .find($empty)
           .sort($sort.desc("_id"))
           .cursor[Update]()
-          .list(nb.value)
+          .list(max.value)
           .addEffect: ups =>
             mutableLastUpdate = ups.headOption
     def clear()                             = store.underlying.synchronous.invalidateAll()
     def lastUpdate: DailyFeed.GetLastUpdate = () => mutableLastUpdate
-    store.get(Max(1)) // populate lastUpdate
+    store.get({}) // populate lastUpdate
 
-  export cache.store.{ get as recent }
   export cache.lastUpdate
+
+  def recent: Fu[List[Update]] = cache.store.get({})
 
   def get(day: LocalDate): Fu[Option[Update]] = coll.one[Update]($id(day))
 

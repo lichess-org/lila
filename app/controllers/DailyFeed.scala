@@ -14,7 +14,7 @@ final class DailyFeed(env: Env) extends LilaController(env):
 
   def index = Open:
     for
-      updates <- api.recent(Max(50))
+      updates <- api.recent
       page    <- renderPage(html.dailyFeed.index(updates))
     yield Ok(page)
 
@@ -57,5 +57,5 @@ final class DailyFeed(env: Env) extends LilaController(env):
   }
 
   def atom = Anon:
-    api.recent(Max(50)) map: ups =>
+    api.recent map: ups =>
       Ok(html.dailyFeed.atom(ups)) as XML
