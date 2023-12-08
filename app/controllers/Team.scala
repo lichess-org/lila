@@ -130,7 +130,6 @@ final class Team(
       forms
         .edit(team)
         .bindFromRequest()
-        .pp(team)
         .fold(
           err => BadRequest.pageAsync(renderEdit(team, err)),
           data => api.update(team, data) inject Redirect(routes.Team.show(team.id)).flashSuccess

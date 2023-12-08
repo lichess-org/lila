@@ -44,9 +44,8 @@ trait AssetHelper extends HasEnv:
     else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
 
   private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
-    cssAt(
+    cssAt:
       s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
-    )
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
