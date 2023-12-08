@@ -55,3 +55,7 @@ final class DailyFeed(env: Env) extends LilaController(env):
     Found(get(day)): up =>
       api.delete(up.day) inject Redirect(routes.DailyFeed.index).flashSuccess
   }
+
+  def atom = Anon:
+    api.recent(Max(50)) map: ups =>
+      Ok(html.dailyFeed.atom(ups)) as XML

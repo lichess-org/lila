@@ -6,6 +6,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.DailyFeed.Update
 import play.api.data.Form
+import play.api.i18n.Lang
 
 object dailyFeed:
 
@@ -13,7 +14,11 @@ object dailyFeed:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("dailyFeed"),
-      moreJs = edit option jsModule("flatpickr")
+      moreJs = edit option jsModule("flatpickr"),
+      atomLinkTag = link(
+        href     := routes.DailyFeed.atom,
+        st.title := "Lichess Daily News"
+      ).some
     )
 
   def index(updates: List[Update])(using PageContext) =
@@ -21,25 +26,27 @@ object dailyFeed:
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1("Daily News"),
-          isGranted(_.DailyFeed) option div(cls := "box__top__actions"):
-            a(
+          div(cls := "box__top__actions")(
+            isGranted(_.DailyFeed) option a(
               href     := routes.DailyFeed.createForm,
               cls      := "button button-green",
               dataIcon := licon.PlusButton
-            )
+            ),
+            views.html.site.bits.atomLink(routes.DailyFeed.atom)
+          )
         ),
         standardFlash,
         updateList(updates)
       )
 
   private def updateList(ups: List[Update])(using Context) =
-    div(cls := "daily-feed__updates")(
+    div(cls := "daily-feed__updates"):
       ups.map: update =>
-        div(cls := "daily-feed__update")(
+        div(cls := "daily-feed__update", id := update.dayString)(
           iconTag(licon.StarOutline),
           div(cls := "daily-feed__update__content")(
-            div(cls := "daily-feed__update__day")(
-              semanticDate(update.day),
+            st.section(cls := "daily-feed__update__day")(
+              h2(semanticDate(update.day)),
               isGranted(_.DailyFeed) option frag(
                 a(
                   href     := routes.DailyFeed.edit(update.day),
@@ -52,7 +59,6 @@ object dailyFeed:
             div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
           )
         )
-    )
 
   def create(form: Form[Update])(using PageContext) =
     layout("Daily News: New", true):
@@ -108,3 +114,24 @@ object dailyFeed:
       )(form3.textarea(_)(rows := 10)),
       form3.action(form3.submit("Save"))
     )
+
+  def atom(ups: List[Update])(using Lang) =
+    import views.html.base.atom.{ atomDate, category }
+    views.html.base.atom(
+      elems = ups,
+      htmlCall = routes.DailyFeed.index,
+      atomCall = routes.DailyFeed.atom,
+      title = "Lichess Daily News",
+      updated = ups.headOption.map(_.instant)
+    ): up =>
+      frag(
+        tag("id")(up.dayString),
+        tag("published")(atomDate(up.instant)),
+        link(
+          rel  := "alternate",
+          tpe  := "text/html",
+          href := s"$netBaseUrl${routes.DailyFeed.index}#${up.dayString}"
+        ),
+        tag("title")(up.title),
+        tag("content")(tpe := "html")(up.rendered)
+      )

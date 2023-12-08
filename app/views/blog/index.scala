@@ -26,7 +26,7 @@ object index:
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
             h1("Lichess Official Blog"),
-            a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
+            views.html.site.bits.atomLink(routes.Blog.atom)
           ),
           primaryPost map { post =>
             frag(

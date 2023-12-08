@@ -13,8 +13,14 @@ object DailyFeed:
 
     lazy val rendered: Html = renderer(s"dailyFeed:${day}")(content)
 
+    lazy val instant: Instant = day.atStartOfDay.instant
+
+    lazy val dayString: String = day.toString
+
+    def title = "Daily update - " + dayString
+
   private val renderer = lila.common.MarkdownRender(
-    autoLink = true,
+    autoLink = false,
     list = true,
     table = true,
     strikeThrough = true,

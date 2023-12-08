@@ -5,6 +5,13 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     margin: 3em 3em 0 3em;
     border-#{$start-direction}: 3px solid $c-contours;
   }
+  .atom {
+    font-size: 2.6em;
+    color: $c-font-dimmer;
+    &:hover {
+      color: $c-accent;
+    }
+  }
 
   &__update {
     padding-#{$start-direction}: 45px;

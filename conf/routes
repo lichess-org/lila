@@ -130,6 +130,7 @@ GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
 GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
 POST  /feed/:day/edit                  controllers.DailyFeed.update(day)
 POST  /feed/:day/delete                controllers.DailyFeed.delete(day)
+GET   /feed.atom                       controllers.DailyFeed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
