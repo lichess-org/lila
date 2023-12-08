@@ -507,9 +507,9 @@
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
-  <string name="setFlair">Setze deine Dekoration:</string>
+  <string name="setFlair">Setze dein Flair</string>
   <string name="flair">Flair</string>
-  <string name="youCanHideFlair">Es gibt eine Einstellung, um alle persönlichen Stilelemente der Benutzer auf der gesamten Website zu verbergen.</string>
+  <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>
   <string name="biography">Profiltext</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Region</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -703,8 +703,8 @@
   <string name="keyNextBranch">Nächste Verzweigung</string>
   <string name="toggleVariationArrows">Variantenpfeile ein-/auschalten</string>
   <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
-  <string name="toggleGlyphAnnotations">Glyph-Anmerkungen umschalten</string>
-  <string name="variationArrowsInfo">Mit Variationspfeilen navigierst du durch die Zugliste.</string>
+  <string name="toggleGlyphAnnotations">Schalten der Zeichen-Anmerkungen</string>
+  <string name="variationArrowsInfo">Mit Variantenpfeilen navigierst du durch die Zugliste.</string>
   <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
@@ -982,7 +982,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
-  <string name="instructions">Anweisungen</string>
+  <string name="instructions">Anleitung</string>
   <string name="showMeEverything">Alles zeigen</string>
   <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
