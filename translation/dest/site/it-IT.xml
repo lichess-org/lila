@@ -744,6 +744,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="withFriends">Con gli amici</string>
   <string name="withEverybody">Con tutti</string>
   <string name="kidMode">Modalità bambino</string>
+  <string name="kidModeIsEnabled">La modalità bambini è attiva.</string>
   <string name="kidModeExplanation">Questa modalità riguarda la sicurezza: in modalità bambino tutte le comunicazioni sono disabilitate. Si consiglia di attivare questa modalità per bambini e studenti, in modo da proteggerli dagli altri utenti.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", al logo di lichess viene aggiunto %s, in questo modo sai che il bambino è sicuro.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Il tuo account è gestito esternamente. Chiedi al tuo istruttore di disattivare la \"modalità bambino\".</string>
