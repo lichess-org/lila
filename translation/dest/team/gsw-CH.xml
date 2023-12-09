@@ -9,7 +9,7 @@
   <string name="allTeams">Alli Teams</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vu dir gleiteti Teams</string>
   <string name="newTeam">Neus Team</string>
-  <string name="myTeams">Mini Teams</string>
+  <string name="myTeams">Eigeni Teams</string>
   <string name="noTeamFound">Keis Team g\'funde</string>
   <string name="joinTeam">Tritt em Team bi</string>
   <string name="onlyLeaderLeavesTeam">Gib dem Team en neue Leiter, bevor du gahsch - oder lös das Team uf.</string>
@@ -39,7 +39,7 @@
   <string name="messageAllMembers">Benachrichtig alli Mitglider</string>
   <string name="messageAllMembersOverview">Schick e privati Nachricht a alli Mitglider vom Team</string>
   <string name="messageAllMembersLongDescription">Schick e privati Nachricht a ALLI Mitglider vu dem Team. Du chasch die Funktion benutze, um Schpiller uf z\'fordere sich ame Turnier oder ame Team-Kampf z\'beteilige. Schpiller wo die Nachrichte nöd wänd empfange, chönd s\'Team verlah.</string>
-  <string name="teamsIlead">Teams wonich leitä</string>
+  <string name="teamsIlead">Teams wo ich leite</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Wottsch eis vu de kommende Turnier verlinke?</string>
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team uflöösä</string>
