@@ -2,7 +2,7 @@
 <resources>
   <string name="challengesX" comment="%1$s is the number of challenges. Appears as hover text for challenge notifications.">Thách đấu (%1$s)</string>
   <string name="challengeToPlay">Yêu cầu chơi</string>
-  <string name="challengeDeclined">Lời thách đấu bị từ chối</string>
+  <string name="challengeDeclined">Lời thách đấu bị từ chối.</string>
   <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
   <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
   <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
@@ -22,5 +22,5 @@
   <string name="declineVariant" comment="One of the standard replies which players can use to decline challenges.">Tôi chưa sẵn sàng chơi biến thể này bây giờ.</string>
   <string name="declineNoBot">Tôi không chấp nhận thách đấu từ bot.</string>
   <string name="declineOnlyBot">Tôi chỉ chấp nhận thách đấu từ bot.</string>
-  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">Hoặc mời một Người dùng Lichess:</string>
+  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">Hoặc mời một người dùng Lichess:</string>
 </resources>
