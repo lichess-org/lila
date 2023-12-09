@@ -476,6 +476,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="setFlair">フレアを設定：</string>
+  <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
   <string name="biography">自己紹介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域</string>
@@ -708,6 +709,7 @@
   <string name="withFriends">友達にだけ</string>
   <string name="withEverybody">誰にでも</string>
   <string name="kidMode">キッズモード</string>
+  <string name="kidModeIsEnabled">キッズモードが有効です。</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">あなたのアカウントは管理されています。キッズモードの停止は講師に依頼してください。</string>
