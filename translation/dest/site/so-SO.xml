@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Fur luuqa</string>
   <string name="chat">U qor</string>
   <string name="resign">Is dhiib</string>
-  <string name="checkmate">Jiq-dam</string>
+  <string name="checkmate">Jeg-meyd</string>
   <string name="stalemate">Ismariwaa</string>
   <string name="white">Cadaan</string>
   <string name="black">Madow</string>
@@ -28,7 +28,7 @@
   <string name="itsYourTurn">Waa markaagii!</string>
   <string name="cheatDetected">Dareen khiyaamo</string>
   <string name="kingInTheCenter">Dhexdu boqran</string>
-  <string name="threeChecks">Sadex jiq</string>
+  <string name="threeChecks">Sadex jeg</string>
   <string name="raceFinished">Baratanki wuu dhamaaday</string>
   <string name="variantEnding">Dhamaadka noocan</string>
   <string name="newOpponent">Horjeede cusub</string>
