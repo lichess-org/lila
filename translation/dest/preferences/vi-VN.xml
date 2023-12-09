@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ tập trung</string>
   <string name="showPlayerRatings">Hiển thị hệ số của người chơi</string>
   <string name="showFlairs">Hiển thị biểu tượng của người chơi</string>
-  <string name="explainShowPlayerRatings">Điều này cho phép ẩn toàn bộ hệ số Elo từ trang web, giúp tập trung vào ván cờ. Ván đấu vẫn có thể tính Elo, điều này chỉ là về những thứ bạn muốn nhìn thấy.</string>
+  <string name="explainShowPlayerRatings">Điều này sẽ ẩn toàn bộ hệ số Elo khỏi Lichess để giúp tập trung vào ván cờ. Ván đấu có xếp hạng vẫn ảnh hưởng đến hệ số Elo của bạn, đây chỉ là những thứ bạn có thể nhìn thấy.</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly">Chỉ trong ván cờ</string>
