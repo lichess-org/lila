@@ -22,7 +22,7 @@ Berserk không áp dụng cho ván đấu không có thời gian bắt đầu (0
 
 Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước trong một ván.</string>
   <string name="howIsTheWinnerDecided">Cách xác định người chiến thắng?</string>
-  <string name="howIsTheWinnerDecidedAnswer">(Những) kỳ thủ có điểm cao nhất khi kết thúc giải đấu sẽ là (những) người thắng cuộc.
+  <string name="howIsTheWinnerDecidedAnswer">(Những) kỳ thủ có điểm cao nhất sau khi giải đấu kết thúc sẽ là (những) người thắng cuộc.
 
 Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua tie break.</string>
   <string name="howDoesPairingWork">Cặp đấu được chọn ra sao?</string>
