@@ -36,7 +36,7 @@ import { make as makeSocket, Socket } from './socket';
 import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
 import { Outcome, isNormal } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
+import { parseFen, makeFen, parseCastlingFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
@@ -130,6 +130,11 @@ export default class AnalyseCtrl {
     makeStudy?: typeof StudyCtrl,
   ) {
     this.data = opts.data;
+    if (opts.data.game.variant.key === 'standard' || opts.data.game.variant.key === 'fromPosition') {
+      const new_fen = this.returnStandardCastlingFen(opts.data.game.fen);
+      opts.data.game.fen = new_fen;
+      opts.data.treeParts[0].fen = new_fen;
+    }
     this.element = opts.element;
     this.trans = opts.trans;
     this.treeView = new TreeView('column');
@@ -472,6 +477,38 @@ export default class AnalyseCtrl {
       this.data.game.variant.key +
       '/' +
       encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  }
+  returnStandardCastlingFen(fen: Fen): Fen {
+    let new_fen = fen;
+    const setup = parseFen(fen).unwrap();
+    let castlingPart = '-';
+    const iterable = setup.unmovedRooks[Symbol.iterator]();
+    const w_castling_squares = [];
+    const b_castling_squares = [];
+    const kings_in_starting = {
+      //check if white king on its starting square
+      w: setup.board.king.has(4) && setup.board.white.has(4),
+      //check same thing for black king
+      b: setup.board.king.has(60) && setup.board.black.has(60),
+    };
+    let result = iterable.next();
+    //populate arrays to contain possible black and white castling squares
+    while (!result.done) {
+      if (setup.board.black.has(result.value)) b_castling_squares.push(result.value);
+      else if (setup.board.white.has(result.value)) w_castling_squares.push(result.value);
+      result = iterable.next();
+    }
+    //generate new fen if necessary
+    if ((kings_in_starting['w'] && w_castling_squares) || (kings_in_starting['b'] && b_castling_squares)) {
+      castlingPart =
+        'K'.repeat(w_castling_squares.includes(7) ? 1 : 0) +
+        'Q'.repeat(w_castling_squares.includes(0) ? 1 : 0) +
+        'k'.repeat(b_castling_squares.includes(63) ? 1 : 0) +
+        'q'.repeat(b_castling_squares.includes(56) ? 1 : 0);
+    }
+    setup.unmovedRooks = parseCastlingFen(setup.board, castlingPart).unwrap();
+    new_fen = makeFen(setup);
+    return new_fen;
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
