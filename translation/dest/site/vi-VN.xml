@@ -888,7 +888,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
   <string name="tournDescription">Mô tả giải đấu</string>
-  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [Văn bản](https://url)</string>
   <string name="ratedFormHelp">Các ván đấu có tính Elo và tác động đến hệ số Elo của người chơi</string>
   <string name="onlyMembersOfTeam">Chỉ thành viên trong đội</string>
   <string name="noRestriction">Không giới hạn</string>
