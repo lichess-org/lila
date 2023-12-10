@@ -61,6 +61,7 @@ $section-margin-more: 5vh;
     .user-link {
       display: inline-block;
       vertical-align: bottom;
+      padding-#{$end-direction}: 0.25em;
     }
   }
 

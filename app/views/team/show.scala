@@ -74,11 +74,8 @@ object show:
               t.publicLeaders.nonEmpty option p(
                 teamLeaders.pluralSame(t.publicLeaders.size),
                 ": ",
-                fragList(
-                  t.publicLeaders.toList.map: l =>
-                    userIdLink(l.some),
-                  " "
-                )
+                t.publicLeaders.toList.map: l =>
+                  userIdLink(l.some)
               ),
               info.ledByMe option a(
                 dataIcon := licon.InfoCircle,
