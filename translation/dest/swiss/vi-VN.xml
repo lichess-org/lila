@@ -61,8 +61,8 @@ Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộn
 Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
  Họ có thể tham gia lại bất cứ lúc nào.</string>
   <string name="protectionAgainstNoShowQ">Những gì được thực hiện liên quan đến vắng mặt?</string>
-  <string name="protectionAgainstNoShowA">Người chơi đăng ký các sự kiện của giải hệ Thụy Sĩ nhưng không chơi trò chơi của họ có thể gặp vấn đề.
-Để giải quyết vấn đề này, Lichess ngăn những người chơi không chơi được trò chơi tham gia một sự kiện hệ Thụy Sĩ mới trong một khoảng thời gian nhất định.
+  <string name="protectionAgainstNoShowA">Người chơi đăng ký các sự kiện của giải hệ Thụy Sĩ nhưng không chơi ván của họ có thể gặp vấn đề.
+Để giải quyết vấn đề này, Lichess ngăn những người chơi không chơi được ván đấu tham gia một sự kiện hệ Thụy Sĩ mới trong một khoảng thời gian nhất định.
 Người tạo ở sự kiện hệ Thụy Sĩ vẫn có thể quyết định cho phép họ tham gia sự kiện đó.</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
   <string name="lateJoinA">Có, trước khi quá nửa số vòng của giải đã bắt đầu; ví dụ: trong 1 giải hệ Thụy Sĩ 11 vòng, người chơi có thể tham gia trước khi vòng 6 bắt đầu, còn trong giải hệ Thụy Sĩ 12 ván sẽ là trước khi vòng 7 bắt đầu.
@@ -84,7 +84,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="tournDuration">Khoảng thời gian của giải đấu</string>
   <string name="predefinedDuration">Chọn trước khoảng thời gian theo phút</string>
   <string name="durationUnknown">Chọn trước khoảng thời gian theo vòng, nhưng không xác định về thời gian</string>
-  <string name="numberOfGames">Số lượng trò chơi</string>
+  <string name="numberOfGames">Số lượng ván đấu</string>
   <string name="numberOfGamesAsManyAsPossible">Số lượng tối đa ván đấu có thể chơi cho tới khi hết giờ</string>
   <string name="numberOfGamesPreDefined">Giới hạn số ván, đồng đều cho tất cả người chơi</string>
   <string name="pairingSystem">Hệ thống bắt cặp</string>
