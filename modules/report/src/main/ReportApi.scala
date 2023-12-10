@@ -45,6 +45,9 @@ final class ReportApi(
           )
     }
 
+  def isAutoBlock(data: ReportSetup): Boolean =
+    Reason(data.reason) exists Reason.autoBlock
+
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
     (!c.reporter.user.marks.reportban && !isAlreadySlain(c)) so {
       scorer(c) map (_ withScore score) flatMap { case scored @ Candidate.Scored(candidate, _) =>

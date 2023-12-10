@@ -30,10 +30,6 @@
     <item quantity="other">%s nem</item>
   </plurals>
   <string name="rightNow">DaH</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s lup ret</item>
-    <item quantity="other">%s lup ret</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s tup ret</item>
     <item quantity="other">%s tup ret</item>

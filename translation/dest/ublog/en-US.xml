@@ -37,10 +37,11 @@
   <string name="imageCredit">Image credit</string>
   <string name="deleteBlog">Delete this blog post definitively</string>
   <string name="deleteImage">Delete the image</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">It is safe to use images from the following websites: </string>
+  <string name="safeToUseImages">It is safe to use images from the following websites: </string>
   <string name="selectPostTopics">Select the topics your post is about</string>
   <string name="useImagesYouMadeYourself">You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else.</string>
   <string name="safeAndRespectfulContent">Please only post safe and respectful content. Do not copy someone else\'s content.</string>
   <string name="inappropriateContentAccountClosed">Anything inappropriate could get your account closed.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Our simple tips to write great blog posts</string>
+  <string name="blogTips">Our simple tips to write great blog posts</string>
+  <string name="discussThisBlogPostInTheForum">Discuss this blog post in the forum</string>
 </resources>

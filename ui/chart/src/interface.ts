@@ -1,7 +1,6 @@
-import type Highcharts from 'highcharts';
+import { Chart } from 'chart.js';
 
-export interface PlyChart extends Highcharts.ChartObject {
-  firstPly: number;
+export interface PlyChart extends Chart {
   selectPly(ply: number, isMainline: boolean): void;
 }
 
@@ -34,6 +33,7 @@ export interface AnalyseData {
     status: {
       name: string;
     };
+    startedAtTurn?: number;
   };
   analysis?: {
     partial: boolean;
@@ -46,6 +46,29 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
-  movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): Promise<PlyChart>;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
+  movetime(
+    el: HTMLCanvasElement,
+    data: AnalyseData,
+    trans: Trans,
+    hunter: boolean,
+  ): Promise<PlyChart | undefined>;
+}
+
+export interface DistributionData {
+  freq: number[];
+  i18n: {
+    cumulative: string;
+    glicko2Rating: string;
+    players: string;
+    yourRating: string;
+  };
+  myRating: number | null;
+  otherPlayer: string | null;
+  otherRating: number | null;
+}
+
+export interface PerfRatingHistory {
+  name: string;
+  points: [number, number, number, number][];
 }

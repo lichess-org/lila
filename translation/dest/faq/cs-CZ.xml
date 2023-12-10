@@ -38,7 +38,7 @@ Například odhadovaná délka partie 5+3 je 5 × 60 + 40 × 3 = 420 sekund.</st
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess podporuje standartní šachy a %1$s.</string>
+  <string name="lichessSupportChessAnd">Lichess podporuje standardní šachy a %1$s.</string>
   <string name="eightVariants">8 variant šachu</string>
   <string name="whatIsACPL">Co je to průměrná pěšcová ztráta (angl. \"average centipawn loss\")?</string>
   <string name="acplExplanation">V šachu se jako jednotka síly jednotlivých tahů ve srovnání s nejlepšími možnými tahy doporučenými počítačem používá tzv. centipawn (z angličtiny). Jeden centipawn je ekvivalentní jedné setině hodnoty pěšáka. To znamená, že 100 centipawnů odpovídá jednomu pěšákovi.
@@ -54,6 +54,7 @@ Počítačová analýza na Lichessu využívá program Stockfish. Hráčovy tahy
 Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. \"fortressů\", česky \"pevností\"). Pokud si nejsme jistí, vždy upřednostňujeme výhru hráče, který na čas neprohrál.
 
 Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má figuru, která by mohla králi zatarasit únikovou cestu.</string>
+  <string name="fideHandbook">Příručka FIDE</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
   <string name="explainingEnPassant">Tento tah je však platný a podle pravidel, a nazává se \"en passant\", neboli braní mimochodem. Můžete si přečíst tento článek na Wikipedii: %1$s.
@@ -65,7 +66,7 @@ Pro procvičení můžete použít %3$s.</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
   <string name="watchIMRosenCheckmate">Sledujte video mezinárodního mistra Erica Rosena: šach mat zbraním mimochodem %s.</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
-  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 pravidel FIDE, viz %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojí opakování pozice</string>
   <string name="notRepeatedMoves">Neopakovali jsme tahy, i tak ale hra skončila remízou pro opakování tahů? Proč?</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakování pozice se týká %1$s, nikoliv tahů. Pozice se nemusí opakovat ihned po sobě.</string>
@@ -116,7 +117,7 @@ Dále je také nutné poznamenat, že postupem času se interval spolehlivosti z
   <string name="ratingLeaderboards">žebříček podle ratingu</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">odehrát alespoň 30 hodnocených partií v dané časové kontrole,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">odehráli jste hodnocenou hru během minulého týdne v dané časové kontrole,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">mít odchylku hodnocení nižší než %1$s v standartním šachu a nižší než %2$s ve variantách,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">mít odchylku hodnocení nižší než %1$s v standardním šachu a nižší než %2$s ve variantách,</string>
   <string name="beInTopTen">být v top 10 v dané časové kontrole.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhý požadavek je, aby hráči, kteří již své účty nepoužívají, přestali plnit žebříčky.</string>
   <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>

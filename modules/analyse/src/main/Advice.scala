@@ -18,12 +18,10 @@ sealed trait Advice:
       (this.match
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
-      )
-      + "." + {
-        withBestMove.so:
-          info.variation.headOption.so: move =>
-            s" $move was best."
-      }
+      ) + "." + withBestMove.so:
+        info.variation.headOption.so: move =>
+          s" $move was best."
+
   }
 
   def evalComment: Option[String] = {
@@ -96,6 +94,7 @@ private[analyse] case class MateAdvice(
     info: Info,
     prev: Info
 ) extends Advice
+
 private[analyse] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =

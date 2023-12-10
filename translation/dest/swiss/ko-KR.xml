@@ -55,8 +55,7 @@
   <string name="numberOfByesA">플레이어는 페어링 시스템이 상대를 찾을 수 없을 때마다 부전승으로 승점 1점을 받습니다.
 또한, 토너먼트에 늦게 참여한 플레이어는 0.5점을 받습니다.</string>
   <string name="earlyDrawsQ">이른 무승부는 어떻게 되나요?</string>
-  <string name="earlyDrawsA">플레이어는 페어링 시스템이 상대를 찾을 수 없을 때마다 부전승으로 승점 1점을 받습니다.
-또한, 토너먼트에 늦게 참여한 플레이어는 0.5점을 받습니다.</string>
+  <string name="earlyDrawsAnswer">스위스 게임에서는 30수가 되기 전 까지는 무승부 제안이 불가능합니다. 이런 조치로 서로 합의된 30수 이상의 무승부를 막을 수는 없지만, 최소한 30수 전에 이루어지는 합의 무승부를 막을 수 있습니다.</string>
   <string name="whatIfOneDoesntPlayQ">플레이어가 게임을 하지 않으면 어떻게 되나요?</string>
   <string name="whatIfOneDoesntPlayA">플레이어의 시간이 줄어들고, 시간이 다하면 게임에서 패배합니다.
 이후 시스템은 그 플레이어를 토너먼트에서 기권처리하므로 더 이상 점수를 잃지 않습니다.
@@ -107,4 +106,5 @@
   <string name="unlimitedAndFree">무제한/무료인가</string>
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
+  <string name="playYourGames">더 많은 게임을 시작하세요.</string>
 </resources>

@@ -54,6 +54,7 @@ Es Schpiel chann jedoch au als Remis erchlärt werde, wänn de vermeindlich Sieg
 
 I sältene Fäll channs schwierig si das z\'entscheide (erzwungeni Zugfolge, gfeschtigti Stellige). Schtandardmässig wir immer für de Schpiller entschiede, wo no Bedänkzit hät.
 Gib also acht druf, dass es möglich isch, nur mit Schpringer oder Läufer, es Matt z\'mache, falls de Gägner e Figur hät, wo sin König chönnt blockiere.</string>
+  <string name="fideHandbook">FIDE Handbuech</string>
   <string name="fideHandbookX">FIDE Handbuech %s</string>
   <string name="discoveringEnPassant">Wieso chann en Pur en andere Pur schlah, wänn de bereits verbizoge isch? (en passant)</string>
   <string name="explainingEnPassant">Das isch en regelkonforme Zug, bekannt als \"en passant\". De Wikipedia Artikel git e %1$s.
@@ -68,7 +69,7 @@ Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="lichessTraining">Lichess-Träning</string>
   <string name="watchIMRosenCheckmate">Lueg zue, wie de IM Eric Rosen - mit eme %s - es Schachmatt macht.</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
-  <string name="threefoldRepetitionExplanation">Bi drümal glicher Stellig, chann en Schpiller es Remis dur %1$s reklamiere. Lichess setzt die offiziell FIDE Regle, wo im Artikel 9.2 (d) vum %2$s beschribe isch, um.</string>
+  <string name="threefoldRepetitionExplanation">Bi drümal glicher Stellig, chann en Schpiller es Remis dur %1$s reklamiere. Lichess setzt die offiziell FIDE Regle, wo im Artikel 9.2 vum %2$s beschribe isch, um.</string>
   <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
   <string name="notRepeatedMoves">Mir händ kei Züge widerholt, wieso hät d\'Partie trotzdem, dur Schtelligswiderholig, Remis gändet?</string>
   <string name="repeatedPositionsThatMatters">Bi drüfach glicher Schtellig gahts um vollschtändig glichi %1$s, nöd um Zugswiderholige. Di glichi Schtellig cha mit beliebige Züg erreicht werde, sofern d\'Zugmöglichkeite i dene Schtellige immer glich sind.</string>
@@ -143,4 +144,28 @@ Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu 
 Klick uf s\'Schlosssymbol, näbe de lichess.org Adrässe, i de URL-Lischte vu dim Browser.
 
 Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert wärde sölled.</string>
+  <string name="enableAutoplayForSoundsQ">Autoplay für de Ton aktiviere?</string>
+  <string name="enableAutoplayForSoundsA">Die meischte Browser chönd - zum de Nutzer schütze - d\'Tonwidergab uf ere frisch gladene Site verhindere. Stell dir vor, jedi Website chönnt dich direkt mit Audio-Werbig stresse!
+
+Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass lichess.org Tön abschpillt. Normal wird die Ischränkig uf g\'hobe, sobald du öppis klicksch. Bi einige mobile Browser gilt s\'Figureziehe, dur Berüherig, nöd als Klick. Isch das so, dänn muesch du bim Beginn vu jedere Partie ufs Brett tippe und so de Ton aktiviere.
+
+Das roti Symbol macht dich druf ufmerksam, dass das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
+  <string name="desktop">Desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Gang zu Lichess.org
+2. Taschte Ctrl-i bi Linux / Windos oder cmd-i bi MacOS
+3. Klick de Tab \"Permissions\"
+4. Erlaub \"Audio and Video\" uf Lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Gang zu Lichess.org
+2. Klick i de Adrässzile ufs Schloss-Icon
+3. Klick d\'Site \"Settings\"
+4. Erlaub \"Sound\"</string>
+  <string name="enableAutoplayForSoundsSafari">1. Gang zu Lichess.org
+2. Klick ide Menuezile uf \"Safari\"
+3. Klick \"Settings für lichess.org\"...
+4. Erlaub \"All Autoplay\"</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klick uf die 3 Pünkt ganz obe, im rächte Egge
+2. Klick \"Settings\"
+3. Klick \"Cookies and Site Permissions\"
+4. Scroll abwärts und klick \"Media autoplay\"
+5. \"Lichess.org\" zum Erlaube bi-füege</string>
 </resources>

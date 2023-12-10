@@ -6,9 +6,8 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { richHTML } from 'common/richText';
 import { rounds as relayTourRounds } from './relay/relayTourView';
-import { StudyCtrl, Tab, ToolTab } from './interfaces';
+import { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
 import { view as chapterView } from './studyChapters';
@@ -23,6 +22,7 @@ import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
+import StudyCtrl from './studyCtrl';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -126,9 +126,9 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag(licon.NodeBranching),
       }),
-      !ctrl.relay
+      !ctrl.relay && !ctrl.data.chapter.gamebook
         ? h('span.help', {
-            attrs: { title: 'Need help? Get the tour!', 'data-icon': licon.InfoCircle },
+            attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
             hook: bind('click', ctrl.startTour),
           })
         : null,
@@ -139,20 +139,16 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay?.data.tour.credit,
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', { attrs: { title } }, [
-        title,
-        credit ? h('span.credit', { hook: richHTML(credit, false) }) : undefined,
-      ]),
+      h('span.name', { attrs: { title } }, title),
       h(
         'span.liking.text',
         {
           class: { liked: d.liked },
           attrs: {
-            'data-icon': d.liked ? licon.Heart : licon.HeartOutline,
+            ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
             title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
@@ -167,13 +163,14 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
-    tourShow = ctrl.relay?.tourShow;
+    tourShow = ctrl.relay?.tourShow,
+    tourShown = !!tourShow && tourShow();
 
   const makeTab = (key: Tab, name: string) =>
     h(
       `span.${key}`,
       {
-        class: { active: !tourShow?.active && activeTab === key },
+        class: { active: !tourShown && activeTab === key },
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => ctrl.setTab(key)),
       },
@@ -185,16 +182,10 @@ export function side(ctrl: StudyCtrl): VNode {
     h(
       'span.relay-tour.text',
       {
-        class: { active: tourShow.active },
-        hook: bind(
-          'mousedown',
-          () => {
-            tourShow.active = true;
-          },
-          ctrl.redraw,
-        ),
+        class: { active: tourShown },
+        hook: bind('mousedown', () => tourShow(true), ctrl.redraw),
         attrs: {
-          'data-icon': licon.RadioTower,
+          ...dataIcon(licon.RadioTower),
           role: 'tab',
         },
       },
@@ -217,20 +208,20 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
     h('span.search.narrow', {
       attrs: {
-        'data-icon': licon.Search,
+        ...dataIcon(licon.Search),
         title: 'Search',
       },
       hook: bind('click', () => ctrl.search.open(true)),
     }),
     ctrl.members.isOwner()
       ? h('span.more.narrow', {
-          attrs: { 'data-icon': licon.Hamburger },
+          attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
           hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
         })
       : null,
   ]);
 
-  const content = tourShow?.active
+  const content = tourShown
     ? relayTourRounds(ctrl)
     : (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
@@ -256,7 +247,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
           {
             hook: bind('click', () => {
               ctrl.vm.toolTab('glyphs');
-              ctrl.userJump(path);
+              ctrl.ctrl.userJump(path);
             }),
           },
           ctrl.trans.noarg('annotateWithGlyphs'),
@@ -266,14 +257,14 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
 }
 
 export const overboard = (ctrl: StudyCtrl) =>
-  ctrl.chapters.newForm.vm.open
+  ctrl.chapters.newForm.isOpen()
     ? chapterNewFormView(ctrl.chapters.newForm)
     : ctrl.chapters.editForm.current()
     ? chapterEditFormView(ctrl.chapters.editForm)
     : ctrl.members.inviteForm.open()
     ? inviteFormView(ctrl.members.inviteForm)
     : ctrl.topics.open()
-    ? topicsFormView(ctrl.topics, ctrl.members.myId)
+    ? topicsFormView(ctrl.topics, ctrl.members.opts.myId)
     : ctrl.form.open()
     ? studyFormView(ctrl.form)
     : ctrl.search.open()
@@ -284,7 +275,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
-  if (study.gamebookPlay())
+  if (study.gamebookPlay)
     return [gbPlayButtons(ctrl), descView(study, true), descView(study, false), metadata(study)];
   let panel;
   switch (toolTab) {

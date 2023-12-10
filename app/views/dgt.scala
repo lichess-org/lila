@@ -9,61 +9,53 @@ import lila.oauth.AccessToken
 
 object dgt:
 
+  import trans.dgt.*
+
   private val liveChessVersion = "2.2.5+"
 
   def index(using PageContext) =
     layout("index")(
-      h1(cls := "box__top")("Lichess & DGT"),
-      p(
-        "This page allows you to connect your DGT board to Lichess, and to use it for playing games."
-      ),
+      h1(cls := "box__top")(lichessAndDgt()),
+      p(thisPageAllowsConnectingDgtBoard()),
       br,
       br,
       st.section(
-        h2("DGT Board Requirements"),
+        h2(dgtBoardRequirements()),
         br,
+        p(toConnectTheDgtBoard(s"LiveChess $liveChessVersion")),
         p(
-          s"To connect to the DGT Electronic Board you will need to install DGT LiveChess $liveChessVersion."
+          downloadHere(
+            a(href := "https://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion")
+          )
         ),
         p(
-          "You can download the software here: ",
-          a(href := "https://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion"),
-          "."
-        ),
-        p(
-          "If LiveChess is running on this computer, you can check your connection to it by ",
-          a(href := "http://localhost:1982/doc/index.html")("opening this link"),
-          "."
+          ifLiveChessRunningOnThisComputer(
+            "LiveChess",
+            a(href := "http://localhost:1982/doc/index.html")(openingThisLink())
+          )
         )
       ),
       p(
-        "If LiveChess is running on a different machine or different port, ",
-        "you will need to set the IP address and port here in the ",
-        a(href := routes.DgtCtrl.config)("Configuration Section"),
-        "."
+        ifLiveChessRunningElsewhere(
+          "LiveChess",
+          a(href := routes.DgtCtrl.config)(configurationSection())
+        )
       ),
       st.section(
-        h2("DGT Board Limitations"),
+        h2(dgtBoardLimitations()),
         br,
+        p(keepPlayPageOpen()),
+        p(boardWillAutoConnect()),
         p(
-          "The play page needs to remain open on your browser. ",
-          "It does not need to be visible, you can minimize it or set it side to side with the Lichess game page, ",
-          "but don't close it or the board will stop working. "
-        ),
-        p(
-          "The board will auto connect to any game that is already on course or any new game that starts. ",
-          "Ability to choose which game to play is coming soon."
-        ),
-        p(
-          "Time controls for casual games: Classical, Correspondence and Rapid only.",
+          timeControlsForCasualGames(),
           br,
-          "Time controls for rated games: Classical, Correspondence and some Rapids including 15+10 and 20+0"
+          timeControlsForRatedGames()
         )
       ),
       p(
-        "When ready, setup your board and then click ",
-        a(href := routes.DgtCtrl.play)("Play"),
-        "."
+        whenReadySetupBoard(
+          a(href := routes.DgtCtrl.play)(trans.play())
+        )
       )
     )
 
@@ -71,127 +63,126 @@ object dgt:
     layout("play", s"'${token.plain.value}'".some)(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
-        h2(iconTag(licon.InfoCircle, "If a move is not detected")),
+        h2(iconTag(licon.InfoCircle, ifMoveNotDetected())),
+        p(checkYouHaveMadeOpponentsMove()),
         p(
-          "Check that you have made your opponent's move on the DGT board first. ",
-          "Revert your move. Play again. "
-        ),
-        p(
-          "As a last resort, setup the board identically as Lichess, then ",
-          a(href := routes.DgtCtrl.play)("Reload this page")
+          asALastResort(
+            a(href := routes.DgtCtrl.play)(reloadThisPage())
+          )
         )
       )
     )
 
   def config(token: Option[lila.oauth.AccessToken])(using PageContext) =
     layout("config")(
-      div(cls := "account")(
-        h1(cls := "box__top")("DGT - configure"),
-        form(action := routes.DgtCtrl.generateToken, method := "post")(
-          st.section(
-            h2("Lichess connectivity"),
-            if token.isDefined then
-              p(cls := "text", dataIcon := licon.Checkmark)(
-                "You have an OAuth token suitable for DGT play.",
-                br,
-                br,
-                "A ",
-                strong("DGT board"),
-                " entry was added to your PLAY menu at the top."
-              )
-            else
-              frag(
-                p("No suitable OAuth token available yet."),
-                form3.submit("Click to generate one")
-              )
-          )
-        ),
-        form(cls := "form3", id := "dgt-config")(
-          st.section(
-            h2("DGT board connectivity"),
-            "dgt-livechess-url" pipe { name =>
-              div(cls := "form-group")(
-                st.label(`for` := name, cls := "form-label")(
-                  s"LiveChess $liveChessVersion WebSocket URL"
-                ),
-                st.input(id := name, st.name := name, cls := "form-control", required := true),
-                st.small(cls := "form-help")(
-                  """Use "ws://localhost:1982/api/v1.0" unless LiveChess is running on a different machine or different port."""
-                )
-              )
-            }
-          ),
-          st.section(
-            h2("Text to speech"),
-            div(cls := "form-group")(
-              p("Configure voice narration of the played moves, so you can keep your eyes on the board.")
-            ),
-            div(cls := "form-group")(
-              st.label(cls := "form-label")("Enable Speech Synthesis"),
-              radios(
-                "dgt-speech-synthesis",
-                List((false, trans.no.txt()), (true, trans.yes.txt()))
-              )
-            ),
-            "dgt-speech-voice" pipe { name =>
-              div(cls := "form-group")(
-                st.label(`for` := name, cls := "form-label")(
-                  s"Speech synthesis voice"
-                ),
-                st.select(id := name, st.name := name, cls := "form-control")
-              )
-            },
-            div(cls := "form-group")(
-              st.label(cls := "form-label")("Announce All Moves"),
-              radios(
-                "dgt-speech-announce-all-moves",
-                List((false, trans.no.txt()), (true, trans.yes.txt()))
-              ),
-              st.small(cls := "form-help")(
-                """Select YES to announce both your moves and your opponent's moves. Select NO to announce only your opponent's moves."""
-              )
-            ),
-            div(cls := "form-group")(
-              st.label(cls := "form-label")("Announce Move Format"),
-              radios(
-                "dgt-speech-announce-move-format",
-                List(("san", "SAN (Nf6)"), ("uci", "UCI (g8f6)"))
-              ),
-              st.small(cls := "form-help")(
-                """San is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6""""
-              )
-            ),
-            "dgt-speech-keywords" pipe { name =>
-              div(cls := "form-group")(
-                st.label(`for` := name, cls := "form-label")("Keywords"),
-                st.textarea(
-                  id        := name,
-                  st.name   := name,
-                  cls       := "form-control",
-                  maxlength := 600,
-                  rows      := 10
-                ),
-                st.small(cls := "form-help")(
-                  """Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it."""
-                )
-              )
-            }
-          ),
-          st.section(
-            h2("Debug"),
-            div(cls := "form-group")(
-              st.label(cls := "form-label")("Verbose logging"),
-              radios(
-                "dgt-verbose",
-                List((false, trans.no.txt()), (true, trans.yes.txt()))
-              ),
-              st.small(cls := "form-help")(
-                """To see console message press Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)"""
+      h1(cls := "box__top")(dgtConfigure()),
+      form(action := routes.DgtCtrl.generateToken, method := "post")(
+        st.section(
+          h2(lichessConnectivity()),
+          if token.isDefined then
+            p(cls := "text", dataIcon := licon.Checkmark)(
+              validDgtOauthToken(),
+              br,
+              br,
+              dgtPlayMenuEntryAdded(
+                strong(dgtBoard())
               )
             )
-          ),
-          form3.submit(trans.save())
+          else
+            frag(
+              p(noSuitableOauthToken()),
+              form3.submit(clickToGenerateOne())
+            )
         )
+      ),
+      form(cls := "form3", id := "dgt-config")(
+        st.section(
+          h2(dgtBoardConnectivity()),
+          "dgt-livechess-url" pipe { name =>
+            div(cls := "form-group")(
+              st.label(`for` := name, cls := "form-label")(
+                webSocketUrl(s"LiveChess $liveChessVersion")
+              ),
+              st.input(id := name, st.name := name, cls := "form-control", required := true),
+              st.small(cls := "form-help")(
+                useWebSocketUrl(
+                  "ws://localhost:1982/api/v1.0",
+                  "LiveChess"
+                )
+              )
+            )
+          }
+        ),
+        st.section(
+          h2(textToSpeech()),
+          div(cls := "form-group")(
+            p(configureVoiceNarration())
+          ),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(enableSpeechSynthesis()),
+            radios(
+              "dgt-speech-synthesis",
+              List((false, trans.no.txt()), (true, trans.yes.txt()))
+            )
+          ),
+          "dgt-speech-voice" pipe { name =>
+            div(cls := "form-group")(
+              st.label(`for` := name, cls := "form-label")(
+                speechSynthesisVoice()
+              ),
+              st.select(id := name, st.name := name, cls := "form-control")
+            )
+          },
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(announceAllMoves()),
+            radios(
+              "dgt-speech-announce-all-moves",
+              List((false, trans.no.txt()), (true, trans.yes.txt()))
+            ),
+            st.small(cls := "form-help")(
+              selectAnnouncePreference()
+            )
+          ),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(announceMoveFormat()),
+            radios(
+              "dgt-speech-announce-move-format",
+              List(("san", "SAN (Nf6)"), ("uci", "UCI (g8f6)"))
+            ),
+            st.small(cls := "form-help")(
+              moveFormatDescription()
+            )
+          ),
+          "dgt-speech-keywords" pipe { name =>
+            div(cls := "form-group")(
+              st.label(`for` := name, cls := "form-label")(keywords()),
+              st.textarea(
+                id        := name,
+                st.name   := name,
+                cls       := "form-control",
+                maxlength := 600,
+                rows      := 10
+              ),
+              st.small(cls := "form-help")(
+                keywordFormatDescription()
+              )
+            )
+          }
+        ),
+        st.section(
+          h2(debug()),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(verboseLogging()),
+            radios(
+              "dgt-verbose",
+              List((false, trans.no.txt()), (true, trans.yes.txt()))
+            ),
+            st.small(cls := "form-help")(
+              toSeeConsoleMessage()
+            )
+          )
+        ),
+        form3.submit(trans.save())
       )
     )
 
@@ -215,21 +206,20 @@ object dgt:
     views.html.base.layout(
       moreCss = cssTag("dgt"),
       moreJs = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
-      title = "Play with a DGT board",
+      title = playWithDgtBoard.txt(),
       csp = defaultCsp.withAnyWs.some
-    )(
-      main(cls := "page-menu dgt")(
-        st.nav(cls := "page-menu__menu subnav")(
+    ):
+      main(cls := "account page-menu dgt")(
+        views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
-            "DGT board"
+            dgtBoard()
           ),
           a(cls := path.active("play"), href := routes.DgtCtrl.play)(
-            "Play"
+            trans.play()
           ),
           a(cls := path.active("config"), href := routes.DgtCtrl.config)(
-            "Configure"
+            configure()
           )
         ),
         div(cls := s"page-menu__content box box-pad dgt__$path")(body)
       )
-    )

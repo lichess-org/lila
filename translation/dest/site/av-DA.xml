@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Компутергун хӀазе</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щивалиго ахӀизе, гьаб бухьен кье</string>
   <string name="gameOver">ХӀай лъугӀана</string>
-  <string name="waitingForOpponent">Дандеясухъ балагьун чӀун</string>
+  <string name="waitingForOpponent">Дандиясухъ балагьун чӀун</string>
   <string name="waiting">Балагьун чӀун</string>
   <string name="yourTurn">Дур ирга</string>
   <string name="aiNameLevelAiLevel">%1$s %2$s даражаялъул</string>
@@ -31,16 +31,16 @@
   <string name="threeChecks">Лъабго шах</string>
   <string name="raceFinished">Хадур гъей лъугӀана</string>
   <string name="variantEnding">ХӀай лъугӀана</string>
-  <string name="newOpponent">ЦӀияв дандеяв</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Дур дандеясе цӀидасан бокьун буго мунгун хӀазе</string>
+  <string name="newOpponent">ЦӀияв дандияв</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Дур дандиясе цӀидасан бокьун буго мунгун хӀазе</string>
   <string name="joinTheGame">ХӀаялде жувазе</string>
   <string name="whitePlays">ХъахӀазул ирга</string>
   <string name="blackPlays">ЧӀегӀеразул ирга</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
-    <item quantity="other">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
+    <item quantity="one">Дур дандияс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
+    <item quantity="other">Дур дандияс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
   </plurals>
-  <string name="opponentLeftChoices">Дур дандеяс хӀай рехун тана. Дуда кӀола бергьенлъи яги ращад ккей лъазабизе яги балагьун чӀезе.</string>
+  <string name="opponentLeftChoices">Дур дандияс хӀай рехун тана. Дуда кӀола бергьенлъи яги ращад ккей лъазабизе яги балагьун чӀезе.</string>
   <string name="forceResignation">Бергьенлъи лъазабизе</string>
   <string name="forceDraw">Ращад ккей лъазабизе</string>
   <string name="talkInChat">Чаталда адаб гьабе!</string>
@@ -205,9 +205,9 @@
   <string name="usernameOrEmail">ХӀалтӀизабулесда цӀар яги электронияб поч</string>
   <string name="changeUsername">ХӀалтӀизабуласда цӀар хисизе</string>
   <string name="changeUsernameNotSame">ЦохӀо хӀарпазул регистер хисизе бегьула. Масала \"johndoe\"-ги \"JohnDoe\"-ги.</string>
-  <string name="changeUsernameDescription">ХӀалтизабулесда цӀар хисизе. Гьеб цохӀо цо нухалъ гьабизе бегьула, дуе бегьула цохӀо дур цӀаралда хӀарпазул регистер хисизе.</string>
+  <string name="changeUsernameDescription">ХӀалтизабулесда цӀар хисизе. Гьеб цохӀо нухалъ гьабизе бегьула, дуе бегьула цохӀо дур цӀаралда хӀарпазул регистер хисизе.</string>
   <string name="signupUsernameHint">Адаб бугеб цӀар бище. Дуда хадуб гьеб хисизе кӀоларо, киналго аккаунтал адаб гьечӀел цӀарал ругел къазе руго!</string>
-  <string name="signupEmailHint">Нижеца гьеб цохӀо парол цӀидасан чӀезабизе хӀалтӀизабизе буго.</string>
+  <string name="signupEmailHint">Нижеца гьеб гӀицӀго парол цӀидасан чӀезабизе хӀалтӀизабизе буго.</string>
   <string name="password">Парол</string>
   <string name="changePassword">Парол хисизе</string>
   <string name="changeEmail">Электронияб поч хисизе</string>
@@ -264,7 +264,7 @@
   <string name="blackOffersDraw">ЧӀегӀераз ращад ккеялда разилъаян абуна</string>
   <string name="whiteDeclinesDraw">ХъахӀаз ращадккей нахъчӀвана</string>
   <string name="blackDeclinesDraw">ЧӀегӀераз ращадккей нахъчӀвана</string>
-  <string name="yourOpponentOffersADraw">Дур дандеяс ращад ккеялда разилъаян абуна</string>
+  <string name="yourOpponentOffersADraw">Дур дандияс ращад ккеялда разилъаян абуна</string>
   <string name="accept">Разилъизе</string>
   <string name="decline">НахъчӀвазе</string>
   <string name="playingRightNow">ХӀай унеб буго гьабсагӀат</string>
@@ -334,7 +334,7 @@
   <string name="takebackPropositionDeclined">ТӀадбуссинабизе биччачӀо</string>
   <string name="takebackPropositionAccepted">ТӀадбуссинабизе биччана</string>
   <string name="takebackPropositionCanceled">ТӀадбуссинаби гьабичӀого тана</string>
-  <string name="yourOpponentProposesATakeback">Дур дандеяс тӀадбуссинабизе биччаян абуна</string>
+  <string name="yourOpponentProposesATakeback">Дур дандияс тӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьеб хӀаялда аскӀоб гӀуж базе</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирал</string>
@@ -419,7 +419,7 @@
     <item quantity="one">%s гьудул онлайн</item>
     <item quantity="other">%s гьудул онлайн</item>
   </plurals>
-  <string name="favoriteOpponents">ТӀаса рищарал дандеял</string>
+  <string name="favoriteOpponents">ТӀаса рищарал дандиял</string>
   <string name="follow">Нахъвилълъине</string>
   <string name="following">Нахърилълъунел</string>
   <string name="unfollow">Нахъвилълъин нахъе бахъизе</string>
@@ -485,8 +485,8 @@
   <string name="blackWins">ЧӀегӀераз бергьенлъи</string>
   <string name="draws">Ращад ккей</string>
   <string name="nextXTournament">Хадусеб %s турнир:</string>
-  <string name="averageOpponent">Гьоркьохъев дандеяв</string>
-  <string name="boardEditor">Хъарщил редактор</string>
+  <string name="averageOpponent">Гьоркьохъев дандияв</string>
+  <string name="boardEditor">Хъорщол редактор</string>
   <string name="setTheBoard">Хъарщи чӀезабизе</string>
   <string name="popularOpenings">ТӀиритӀарал байбихьиял</string>
   <string name="endgamePositions">Ахиралъул позицияби</string>
@@ -504,13 +504,10 @@
   <string name="firstName">ЦӀар</string>
   <string name="lastName">Хъизамалъул цӀар</string>
   <string name="biography">ГӀумрухъвай</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрахъ</string>
   <string name="thankYou">Баркала!</string>
   <string name="socialMediaLinks">Социалиял медиабазул бухьенал</string>
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
   <string name="inlineNotation">Мухъилаб нотация</string>
-  <string name="savingMoves">Заманалъе бугеб хъурщиязул ракӀалдачӀей</string>
-  <string name="savingMovesHelp">Нижеца кидаго дур вариантал дур браузералъул кешалда цӀунула.</string>
   <string name="makeAStudy">ЦӀунизеги гӀахьал гьабизеги, цӀех-рех гьабизе бегьула.</string>
   <string name="clearSavedMoves">Хъурщиял нахъе росизе</string>
   <string name="previouslyOnLichessTV">Lichess TV-ялда цебе букӀараб</string>
@@ -611,7 +608,7 @@
   <string name="computer">Компутер</string>
   <string name="side">Рахъ</string>
   <string name="clock">СагӀат</string>
-  <string name="opponent">Дандеяв</string>
+  <string name="opponent">Дандияв</string>
   <string name="learnMenu">Ругьунлъизе</string>
   <string name="studyMenu">ЦӀех-рех</string>
   <string name="practice">ХӀалбихьи</string>
@@ -732,7 +729,7 @@
   <string name="security">ХӀинкъи гьечӀолъи</string>
   <string name="sessions">Сессияби</string>
   <string name="revokeAllSessions">киналго сессияби къазе</string>
-  <string name="playChessEverywhere">Шахматаби кибго хӀай</string>
+  <string name="playChessEverywhere">Шахматал кибго хӀай</string>
   <string name="asFreeAsLichess">Lichess гӀадин мугь босулареб буго</string>
   <string name="builtForTheLoveOfChessNotMoney">Шахматазде рокьиялъ гьабуна, гӀарцуде гуро</string>
   <string name="everybodyGetsAllFeaturesForFree">Киназего киналго алатал чӀобого щола</string>
@@ -755,7 +752,7 @@
   <string name="quickPairing">Хехаб байбихьи</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Аноним</string>
-  <string name="yourScore">Нужер рикӀкӀин: %s</string>
+  <string name="yourScore">Дур рикӀкӀин: %s</string>
   <string name="language">МацӀ</string>
   <string name="background">НахъабакӀ</string>
   <string name="light">КанчӀаб</string>
@@ -887,9 +884,6 @@
   <string name="timeAlmostUp">Заман лъугӀизехъин буго!</string>
   <string name="clickToRevealEmailAddress">[Электронияб почалъул адресс ричӀизе, тӀадецуй]</string>
   <string name="download">РещтӀинабизе</string>
-  <string name="welcome">ЛъикӀ щварав!</string>
-  <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
-Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
   <string name="coachManager">Мударибзабазе</string>
   <string name="streamerManager">Стрим менежер</string>
   <string name="cancelTournament">Турнир гьабичӀого тезе</string>
@@ -946,4 +940,6 @@
   <string name="switchSides">Рахъ хизисе</string>
   <string name="closingAccountWithdrawAppeal">Дур аккаунт къаялъ дур хитӀаб нахъе ахӀула</string>
   <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
+  <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
+Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
 </resources>

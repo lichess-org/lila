@@ -31,8 +31,6 @@ private[study] object UciPathDb:
     UciPath(key.replace(144.toChar, '.').replace(145.toChar, '$'))
 
   def isMainline(node: Node, path: UciPath): Boolean =
-    path.split.fold(true) { (id, rest) =>
-      node.children.first so { child =>
+    path.split.forall: (id, rest) =>
+      node.children.first.so: child =>
         child.id == id && isMainline(child, rest)
-      }
-    }

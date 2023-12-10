@@ -7,16 +7,8 @@ import sri from './component/sri';
 import { storage, tempStorage } from './component/storage';
 import powertip from './component/powertip';
 import clockWidget from './component/clock-widget';
-import {
-  assetUrl,
-  loadCss,
-  loadCssPath,
-  jsModule,
-  loadIife,
-  hopscotch,
-  userComplete,
-  loadEsm,
-} from './component/assets';
+import * as assets from './component/assets';
+import makeLog from './component/log';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
 import { unload, redirect, reload } from './component/reload';
@@ -30,9 +22,11 @@ import { format as timeago, formatter as dateFormat } from './component/timeago'
 import watchers from './component/watchers';
 import { Chessground } from 'chessground';
 
+declare const __debug__: boolean;
+
 export default () => {
-  window.$as = <T>(cash: Cash) => cash[0] as T;
   const l = window.lichess;
+  l.debug = __debug__;
   l.StrongSocket = StrongSocket;
   l.mousetrap = new Mousetrap(document);
   l.requestIdleCallback = requestIdleCallback;
@@ -43,14 +37,7 @@ export default () => {
   l.powertip = powertip;
   l.clockWidget = clockWidget;
   l.spinnerHtml = spinnerHtml;
-  l.assetUrl = assetUrl;
-  l.loadCss = loadCss;
-  l.loadCssPath = loadCssPath;
-  l.jsModule = jsModule;
-  l.loadIife = loadIife;
-  l.loadEsm = loadEsm;
-  l.hopscotch = hopscotch;
-  l.userComplete = userComplete;
+  l.asset = assets;
   l.idleTimer = idleTimer;
   l.pubsub = pubsub;
   l.unload = unload;
@@ -68,6 +55,8 @@ export default () => {
   l.dateFormat = dateFormat;
   l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
   l.blindMode = document.body.classList.contains('blind-mode');
-  l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
+  l.makeChat = data =>
+    lichess.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
   l.makeChessground = Chessground;
+  l.log = makeLog();
 };

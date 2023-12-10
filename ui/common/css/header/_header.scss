@@ -23,7 +23,7 @@
   @extend %flex-center;
   &::after {
     @extend %data-icon;
-    content: '';
+    content: $licon-Wings;
     font-size: 1.3em;
     color: $c-brag;
     @include margin-direction(0, 0, 0.08ch, 0.3ch);

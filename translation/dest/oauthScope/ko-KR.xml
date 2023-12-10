@@ -9,7 +9,7 @@
   <string name="doNotShareIt">토큰은 계정에 대한 액세스 권한을 부여합니다. 누구와도 공유하지 마세요!</string>
   <string name="copyTokenNow">지금 새 개인 액세스 토큰을 복사했는지 확인하십시오. 다시 볼 수 없게 됩니다.</string>
   <string name="preferenceRead">읽기 환경 설정</string>
-  <string name="preferenceWrite">쓰기 설정</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, a setting that enables permission to edit/change preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">쓰기 설정</string>
   <string name="emailRead">이메일 주소 확인</string>
   <string name="challengeRead">새로운 도전 과제 읽기</string>
   <string name="challengeWrite">도전 과제 보내기, 수락 및 거부</string>
@@ -31,4 +31,5 @@
   <string name="engineWrite">외부 엔진 제작 및 업데이트</string>
   <string name="webLogin">인증된 웹사이트 세션 만들기(전체 액세스 권한 부여!)</string>
   <string name="webMod">운영자 도구 사용(허용 범위 내에서)</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">개인 접속 토큰을 생성합니다.</string>
 </resources>

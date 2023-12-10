@@ -7,7 +7,7 @@
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">%s मिनिट</item>
-    <item quantity="other">%s मिनीट</item>
+    <item quantity="other">%s मिनीटांत</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">%s तासांमध्ये</item>
@@ -15,25 +15,21 @@
   </plurals>
   <plurals name="inNbDays">
     <item quantity="one">%s दिवस</item>
-    <item quantity="other">%s दिवस</item>
+    <item quantity="other">%s दिवसांत</item>
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">%s आठवडा</item>
-    <item quantity="other">%s आठवडे</item>
+    <item quantity="other">%s आठवड्यांत</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">%s महिना</item>
-    <item quantity="other">%s महिने</item>
+    <item quantity="one">%s महिन्यात</item>
+    <item quantity="other">%s महिन्यांत</item>
   </plurals>
   <plurals name="inNbYears">
     <item quantity="one">%s वर्ष</item>
-    <item quantity="other">%s वर्ष</item>
+    <item quantity="other">%s वर्षात</item>
   </plurals>
   <string name="rightNow">आत्ताच</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s सेकंदापूर्वी</item>
-    <item quantity="other">%s सेकंदांपूर्वी</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s मिनिटांपूर्वी</item>
     <item quantity="other">%s मिनिटांआधी</item>

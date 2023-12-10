@@ -14,7 +14,7 @@ sealed trait AnyChat:
 
   def isEmpty = lines.isEmpty
 
-  def userIds: List[UserId]
+  def flairUserIds: List[UserId]
 
 sealed trait Chat[L <: Line] extends AnyChat:
   def id: ChatId
@@ -30,13 +30,12 @@ case class UserChat(
 
   def forUser(u: Option[User]): UserChat =
     if u.so(_.marks.troll) then this
-    else copy(lines = lines filterNot (_.troll))
+    else copy(lines = lines.filterNot(_.troll))
 
-  def markDeleted(u: User) =
-    copy(
-      lines = lines.map: l =>
-        if l.userId is u.id then l.delete else l
-    )
+  def markDeleted(u: User) = copy(
+    lines = lines.map: l =>
+      if l.userId is u.id then l.delete else l
+  )
 
   def hasLinesOf(u: User) = lines.exists(_.userId == u.id)
 
@@ -44,14 +43,17 @@ case class UserChat(
 
   def mapLines(f: UserLine => UserLine) = copy(lines = lines map f)
 
-  def userIds = lines.map(_.userId)
+  def filterLines(f: UserLine => Boolean) = copy(lines = lines filter f)
+
+  def flairUserIds = lines.collect:
+    case l if l.flair => l.userId
 
   def truncate(max: Int) = copy(lines = lines.drop((lines.size - max) atLeast 0))
 
   def hasRecentLine(u: User): Boolean = lines.reverse.take(12).exists(_.userId == u.id)
 
 object UserChat:
-  case class Mine(chat: UserChat, timeout: Boolean, locked: Boolean = false):
+  case class Mine(chat: UserChat, lines: JsonChatLines, timeout: Boolean, locked: Boolean = false):
     def truncate(max: Int) = copy(chat = chat truncate max)
 
 case class MixedChat(
@@ -71,9 +73,8 @@ case class MixedChat(
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
 
-  def userIds =
-    lines.collect:
-      case l: UserLine => l.userId
+  def flairUserIds = lines.collect:
+    case l: UserLine if l.flair => l.userId
 
 object Chat:
 
@@ -86,7 +87,7 @@ object Chat:
   def simulSetup(simulId: SimulId)    = Setup(simulId into ChatId, PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
-  case class Restricted(chat: MixedChat, restricted: Boolean)
+  case class Restricted(chat: MixedChat, lines: JsonChatLines, restricted: Boolean)
 
   // left: game chat
   // right: tournament/simul chat

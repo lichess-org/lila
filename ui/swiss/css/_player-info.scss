@@ -84,6 +84,7 @@
 
   .pairings {
     width: 100%;
+    border-collapse: separate;
 
     tr {
       cursor: pointer;
@@ -128,17 +129,17 @@
       max-width: 200px;
     }
 
-    td:last-child {
+    td.result {
       font-weight: bold;
       opacity: 0.8;
     }
 
-    tr.win td:last-child {
+    tr.win td.result {
       color: $c-good;
       opacity: 1;
     }
 
-    tr.loss td:last-child {
+    tr.loss td.result {
       color: $c-bad;
       opacity: 1;
     }

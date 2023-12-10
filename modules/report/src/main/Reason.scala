@@ -24,9 +24,10 @@ object Reason:
   case object Other    extends Reason
   case object Playbans extends Reason
 
-  val all   = List(Cheat, AltPrint, Comm, Boost, Username, Sexism, Other, CheatPrint)
-  val keys  = all.map(_.key)
-  val byKey = all.mapBy(_.key)
+  val all       = List(Cheat, AltPrint, Comm, Boost, Username, Sexism, Other, CheatPrint)
+  val keys      = all.map(_.key)
+  val byKey     = all.mapBy(_.key)
+  val autoBlock = Set(Comm, Sexism)
 
   given Iso.StringIso[Reason] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
 

@@ -23,9 +23,6 @@
     <item quantity="other">%s ҫултан</item>
   </plurals>
   <string name="rightNow">тин кӑна</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">%s ҫек кайалла</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">%s минут кайалла</item>
   </plurals>

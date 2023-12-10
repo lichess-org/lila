@@ -37,10 +37,11 @@
   <string name="imageCredit">Bild Herkunft</string>
   <string name="deleteBlog">Lösch de Blog-Post definitiv</string>
   <string name="deleteImage">Lösch s\'Bild</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
+  <string name="safeToUseImages">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
   <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
   <string name="useImagesYouMadeYourself">Du chasch auch sälber g\'machti- oder knipsti Bilder verwände oder Screenshots vu Lichess... eifach alles, was nöd vu öpper anderem urheberrächtlich gschützt isch.</string>
   <string name="safeAndRespectfulContent">Bitte nur sicheri und reschpäktvolli Inhält poschte. Kopier nöd Inhält vu öpper anderem.</string>
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Euseri simple Ratschläg, zum tolli Biträg poschte</string>
+  <string name="blogTips">Euseri simple Ratschläg, zum tolli Biträg poschte</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskutier de Blogbitrag im Forum</string>
 </resources>

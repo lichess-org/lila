@@ -1,18 +1,20 @@
 import * as control from './control';
-import * as xhr from 'common/xhr';
-import { isTouchDevice } from 'common/mobile';
 import AnalyseCtrl from './ctrl';
-import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import * as xhr from 'common/xhr';
+import { VNode } from 'snabbdom';
+import { snabDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
-  document.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift') return;
-    if ((e.location === 1 && ctrl.fork.prev()) || (e.location === 2 && ctrl.fork.next())) {
-      ctrl.setAutoShapes();
+  let shiftAlone = 0;
+  document.addEventListener('keydown', e => e.key === 'Shift' && (shiftAlone = e.location));
+  document.addEventListener('keyup', e => {
+    if (e.key === 'Shift' && e.location === shiftAlone) {
+      if (shiftAlone === 1 && ctrl.fork.prev()) ctrl.setAutoShapes();
+      else if (shiftAlone === 2 && ctrl.fork.next()) ctrl.setAutoShapes();
+      else if (shiftAlone === 0) return;
       ctrl.redraw();
     }
+    shiftAlone = 0;
   });
   const kbd = window.lichess.mousetrap;
   kbd
@@ -21,20 +23,25 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['shift+left', 'shift+k'], () => {
-      control.exitVariation(ctrl);
+      control.previousBranch(ctrl);
       ctrl.redraw();
     })
-    .bind(['shift+right', 'shift+j'], () => {})
+    .bind(['shift+right', 'shift+j'], () => {
+      control.nextBranch(ctrl);
+      ctrl.redraw();
+    })
     .bind(['right', 'j'], () => {
       control.next(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0', 'home'], () => {
-      control.first(ctrl);
+    .bind(['up', '0', 'home'], e => {
+      if (e.key === 'ArrowUp' && ctrl.fork.prev()) ctrl.setAutoShapes();
+      else control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$', 'end'], () => {
-      control.last(ctrl);
+    .bind(['down', '$', 'end'], e => {
+      if (e.key === 'ArrowDown' && ctrl.fork.next()) ctrl.setAutoShapes();
+      else control.last(ctrl);
       ctrl.redraw();
     })
     .bind('shift+c', () => {
@@ -71,6 +78,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
     })
     .bind('a', () => {
       ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
+      ctrl.redraw();
+    })
+    .bind('v', () => {
+      ctrl.toggleVariationArrows();
       ctrl.redraw();
     })
     .bind('x', ctrl.toggleThreatMode)
@@ -121,34 +132,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabModal({
-    class: 'keyboard-help',
-    onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([
-        lichess.loadCssPath('analyse.keyboard'),
-        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
-      ]);
-      $wrap.find('.scrollable').html(html);
-    },
+  return snabDialog({
+    class: 'help.keyboard-help',
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [h('div.scrollable', spinner())],
   });
-}
-
-export function maybeShowShiftKeyHelp() {
-  // we can probably delete this after a month or so
-  if (isTouchDevice() || !lichess.once('help.analyse.shift-key')) return;
-  Promise.all([lichess.loadCssPath('analyse.keyboard'), xhr.text('/help/analyse/shift-key')]).then(
-    ([, html]) => {
-      $('.cg-wrap').append($(html).attr('id', 'analyse-shift-key-tooltip'));
-      const cb = () => {
-        $(document).off('mousedown keydown wheel', cb);
-        $('#analyse-shift-key-tooltip').remove();
-      };
-      $(document).on('mousedown keydown wheel', cb);
-    },
-  );
 }

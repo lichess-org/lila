@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">บล็อกของ %s</string>
   <string name="newPost">โพสต์ใหม่</string>
   <string name="editYourBlogPost">แก้ไขโพสต์ของคุณ</string>
   <string name="saveDraft">บันทึกฉบับร่าง</string>
+  <string name="postTitle">หัวข้อโพสต์</string>
+  <string name="postIntro">บทนำโพสต์</string>
+  <string name="postBody">เนื้อหาโพสต์</string>
   <string name="drafts">แบบร่าง</string>
   <string name="published">เผยแพร่ไปแล้ว</string>
+  <string name="createBlogDiscussion">เปิดใช้งานคอมเมนต์</string>
+  <plurals name="nbViews">
+    <item quantity="other">คนดู %s</item>
+  </plurals>
+  <string name="imageCredit">เครดิตภาพ</string>
+  <string name="deleteImage">ลบรูปภาพ</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
 </resources>

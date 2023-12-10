@@ -22,6 +22,8 @@ import {
 import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
+import disableDarkBoard from './disableDarkBoard';
+import { ready as loadDialogPolyfill } from 'common/dialog';
 
 export default class LobbyController {
   data: LobbyData;
@@ -62,6 +64,9 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.me?.username.toLowerCase());
+    if (!this.me?.isBot && this.stores.tab.get() == 'now_playing' && this.data.nbNowPlaying == 0) {
+      this.stores.tab.set('pools');
+    }
     this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.stores.sort.get();
@@ -69,7 +74,7 @@ export default class LobbyController {
 
     const locationHash = location.hash.replace('#', '');
     if (['ai', 'friend', 'hook'].includes(locationHash)) {
-      let friendUser;
+      let friendUser: string;
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       if (locationHash === 'hook') {
@@ -87,7 +92,10 @@ export default class LobbyController {
         friendUser = urlParams.get('user')!;
       }
 
-      this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+      loadDialogPolyfill.then(() => {
+        this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+        redraw();
+      });
       history.replaceState(null, '', '/');
     }
 
@@ -117,6 +125,7 @@ export default class LobbyController {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      disableDarkBoard();
     });
 
     window.addEventListener('beforeunload', () => this.leavePool());

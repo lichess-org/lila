@@ -93,11 +93,19 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
+  <string name="maxDepthReached">උපරිම ගැඹුරට ළඟා විය!
+යතුර: maxDepthReached
+maxDepthReached
+ගොනුව: වෙබ් අඩවිය සහ යෙදුම - වඩාත්ම වැදගත් තන්තු!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>
   <string name="openings">චෙස් විවෘත කිරීම්</string>
   <string name="openingExplorer">පටන්ගැනීම් ගවේෂකය</string>
   <string name="openingEndgameExplorer">විවෘත කිරීම/අවසන් ක්‍රීඩා ගවේෂක</string>
   <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
+  <string name="playFirstOpeningEndgameExplorerMove">පළමු විවෘත කිරීම/අවසන් ක්‍රීඩාව-ගවේෂක චලනය වාදනය කරන්න
+යතුර: playFirstOpeningEndgameExplorerMove
+PlayFirstOpeningEndgameExplorerMove
+ගොනුව: වෙබ් අඩවිය සහ යෙදුම - වඩාත්ම වැදගත් තන්තු</string>
   <string name="winPreventedBy50MoveRule">ඇදීම් 50 නීතීයෙන් ජයග්‍රහණය නැතිවුණා</string>
   <string name="lossSavedBy50MoveRule">ඇදීම් 50 නීතියෙන් පරාජය නැතිවුණා</string>
   <string name="winOr50MovesByPriorMistake">පෙර වැරදීමකින් ජයග්‍රහණය හෝ චලනයන් 50 ක්</string>

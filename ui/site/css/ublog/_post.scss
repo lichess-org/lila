@@ -29,6 +29,9 @@
       margin-#{$start-direction}: -0.5rem;
       vertical-align: top;
     }
+    &__date {
+      unicode-bidi: embed;
+    }
   }
   &__topics {
     @extend %flex-wrap;
@@ -61,11 +64,11 @@
     font-weight: bold;
     cursor: pointer;
     &::before {
-      margin-#{$end-direction}: 0.4em;
-      content: '';
+      margin: 0 0.4em;
+      content: $licon-HeartOutline;
     }
     &.ublog-post__like--liked::before {
-      content: '';
+      content: $licon-Heart;
     }
     &--mini {
       margin-#{$start-direction}: 1rem;
@@ -92,6 +95,7 @@
       font-size: 0.9em;
       color: $c-font-dim;
       text-align: right;
+      word-break: break-word;
     }
   }
   &__intro {

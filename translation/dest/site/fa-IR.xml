@@ -29,7 +29,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
-  <string name="raceFinished">رقابت به اتمام رسید</string>
+  <string name="raceFinished">مسابقه تمام شد</string>
   <string name="variantEnding">اتمام بازی</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
@@ -48,7 +48,7 @@
   <string name="whiteResigned">بازیکن سفید تسلیم شد</string>
   <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">بازیکن سفید بازی را ترک کرد</string>
-  <string name="blackLeftTheGame">بازیکن سیاه بازی را ترک کرد</string>
+  <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید تکان نخورد</string>
   <string name="blackDidntMove">مشکی تکان نخورد</string>
   <string name="requestAComputerAnalysis">یک تحلیل رایانه‌ای درخواست بدهید</string>
@@ -66,10 +66,11 @@
   <string name="showThreat">تهدید را نمایش بدهید</string>
   <string name="inLocalBrowser">در مرورگر محلی</string>
   <string name="toggleLocalEvaluation">ارزیابی به صورت محلی انتخاب شود</string>
-  <string name="promoteVariation">تنوع را یک سطح بالاتر ببرید</string>
+  <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
+  <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
   <string name="variantLoss">تنوع بازی منجر به باخت اجباری یا از دست دادن حرکتها را نمایش بدهید</string>
   <string name="variantWin">تنوع بازی منجر به پیروزی یا به دست آوردن حرکتها را نمایش بدهید</string>
@@ -114,6 +115,7 @@
   <string name="openStudy">مطالعه را شروع نمایید</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
+  <string name="showVariationArrows">نمایش پیکان‌های شاخه اصلی</string>
   <string name="evaluationGauge">درجه ی نشان دهنده برتری</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
@@ -229,7 +231,7 @@
   <string name="emailSent">ما یک ایمیل به آدرس %s ارسال کرده ایم.</string>
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
-  <string name="checkSpamFolder">پوشه اسپم خود را نیز بررسی کنید، ممکن است ایمیل را آنجا بیابید. اگر چنین است، آن را به عنوان غیر اسپم (امن) علامت گذاری کنید.</string>
+  <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
   <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
   <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
   <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
@@ -402,6 +404,7 @@
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
+  <string name="importGameCaveat2">این PGN برای عموم در دسترس است، برای وارد کردن خصوصی یک بازی، یک مطالعه ایجاد کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگزاری شده</item>
     <item quantity="other">%s بارگزاری شده</item>
@@ -482,6 +485,7 @@
   <string name="movesPlayed">حرکات انجام شده</string>
   <string name="whiteWins">پیروزی با مهره سفید</string>
   <string name="blackWins">سیاه برنده شد</string>
+  <string name="drawRate">نرخ تساوی</string>
   <string name="draws">مساوی</string>
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
@@ -502,14 +506,14 @@
   <string name="editProfile">ویرایش پروفایل</string>
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
+  <string name="setFlair">تعیین کردن شکلک:</string>
+  <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
   <string name="biography">زندگی نامه</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">پرچم</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
-  <string name="savingMoves">دخیره سازی حرکت موقت</string>
-  <string name="savingMovesHelp">ما همیشه تغییرات شما را در حافظه پنهان مرورگر شما ذخیره می کنیم.</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک گذاری، ساختن یک پژوهش را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
@@ -657,8 +661,10 @@
   <string name="simultaneousExhibitions">نمایش هم زمان</string>
   <string name="host">میزبان</string>
   <string name="hostColorX">رنگ میزبان: %s</string>
+  <string name="yourPendingSimuls">بازی های سیمولتانه در جریان شما</string>
   <string name="createdSimuls">نمایش هم زمان  به تازگی ایجاد شده</string>
   <string name="hostANewSimul">میزبانی نمایش همزمان جدید</string>
+  <string name="signUpToHostOrJoinASimul">ثبت‌نام کنید تا در بازی های سیمولتانه شرکت، یا برگزار کنید</string>
   <string name="noSimulFound">نمایش هم زمان پیدا نشد</string>
   <string name="noSimulExplanation">نمایش همزمان برای نمایش وجود ندارد</string>
   <string name="returnToSimulHomepage">برگشت به صحفه اصلی نمایش های همزمان</string>
@@ -673,6 +679,7 @@
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
+  <string name="simulAddExtraTimePerPlayer">به ازای پیوستن هر بازیکن، به زمان اولیه خود اضافه کنید.</string>
   <string name="lichessTournaments">مسابقات لی چس</string>
   <string name="tournamentFAQ">سوالات متداول مسابقات</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
@@ -681,8 +688,21 @@
   <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
+  <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
   <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
+  <string name="keyRequestComputerAnalysis">یک تحلیل کامپیوتری درخواست کنید، از اشتباهات خود درس بگیرید</string>
+  <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباهات خود درس بگیرید)</string>
+  <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
+  <string name="keyNextMistake">اشتباه بعدی</string>
+  <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
+  <string name="keyPreviousBranch">شاخه قبلی</string>
+  <string name="keyNextBranch">شاخه بعدی</string>
+  <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
+  <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
+  <string name="toggleGlyphAnnotations">کلید نماد حاشیه‌نویسی</string>
+  <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
+  <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
   <string name="tournamentHomeTitle">مسابقات شطرنج با ویژگی های مختلف مثل کنترل زمان و غیره</string>
   <string name="tournamentHomeDescription">مسابقات شطرنج حرکت سریع را بازی کنید! به مسابقات رسمی برنامه ریزی شده بپیوندید ، یا خودتان بسازید. گلوله، برق آسای، کلاسیک، شطرنج 960، پادشاه تپه، سه کیش، و گزینه های بیشتر موجود برای شطرنج سرگرم کننده بی پایان</string>
@@ -725,6 +745,7 @@
   <string name="withFriends">با دوستان</string>
   <string name="withEverybody">با همه</string>
   <string name="kidMode">حالت کودکان</string>
+  <string name="kidModeIsEnabled">حالت کودک فعال است.</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">اکانت شما مدیریت شده است. برای برداشتن حالت کودک از معلم شطرنج خود درخواست کنید.</string>
@@ -860,6 +881,7 @@
   <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">بازی های سریع دیوانه وار : کمتر از 30 ثانیه</string>
@@ -899,8 +921,6 @@
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
   <string name="download">دانلود</string>
-  <string name="welcome">خوش آمدید!</string>
-  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت پخش</string>
   <string name="cancelTournament">لغو مسابقه</string>
@@ -958,4 +978,7 @@
   <string name="switchSides">تعویض سمت</string>
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
+  <string name="instructions">راهنما</string>
+  <string name="showMeEverything">همه چیز را به من نشان بده</string>
+  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
 </resources>

@@ -2,15 +2,15 @@
 <resources>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nova publicação</string>
-  <string name="editYourBlogPost">Modificar a sua publicação</string>
+  <string name="editYourBlogPost">Modificar a tua publicação</string>
   <string name="saveDraft">Guardar rascunho</string>
   <string name="postTitle">Titulo da publicação</string>
-  <string name="postIntro">Introdução à publicação</string>
+  <string name="postIntro">Introdução da publicação</string>
   <string name="postBody">Corpo da publicação</string>
   <string name="drafts">Rascunhos</string>
   <string name="published">Publicado</string>
   <string name="createBlogDiscussion">Ativar comentários</string>
-  <string name="createBlogDiscussionHelp">Será criado um tópico do fórum para as pessoas comentarem a sua publicação</string>
+  <string name="createBlogDiscussionHelp">Será criado um tópico no fórum para as pessoas comentarem a tua publicação</string>
   <string name="publishOnYourBlog">Publicar no teu blog</string>
   <string name="publishHelp">Se for marcada, a publicação será listada no teu blog. Se não, ficará privada, nos teus rascunhos de publicações</string>
   <plurals name="publishedNbBlogPosts">
@@ -27,20 +27,21 @@
   <string name="moreBlogPostsBy">Ver mais publicações de %s</string>
   <string name="noPostsInThisBlogYet">Ainda não há publicações neste blog.</string>
   <string name="noDrafts">Sem rascunhos para mostrar.</string>
-  <string name="latestBlogPosts">Últimas publicações no fórum</string>
+  <string name="latestBlogPosts">Últimas publicações no blog</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Ver uma publicação</item>
     <item quantity="other">Ver todas as %s publicações</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Enviar uma imagem para a sua publicação</string>
+  <string name="uploadAnImageForYourPost">Enviar uma imagem para a tua publicação</string>
   <string name="imageAlt">Texto alternativo à imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
   <string name="deleteBlog">Eliminar esta publicação definitivamente</string>
   <string name="deleteImage">Eliminar a imagem</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">É seguro utilizar imagens dos seguintes sites: </string>
-  <string name="selectPostTopics">Selecione os tópicos de que fala na sua publicação</string>
-  <string name="useImagesYouMadeYourself">Também pode utilizar imagens feita por si, fotografias que tirou, capturas de ecrã do Lichess... tudo o que não esteja protegido pelos direitos de autor por outra pessoa.</string>
-  <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
-  <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">As nossas dicas simples para escrever ótimas publicações no blogue</string>
+  <string name="safeToUseImages">É seguro utilizar imagens dos seguintes sites: </string>
+  <string name="selectPostTopics">Selecione os tópicos de que falas na publicação</string>
+  <string name="useImagesYouMadeYourself">Também podes utilizar imagens feita por ti, fotografias que tirastes, capturas de ecrã do Lichess... tudo o que não estejam protegidos pelos direitos de autor de outra pessoa.</string>
+  <string name="safeAndRespectfulContent">Publica apenas conteúdo seguro e respeitoso. Não copies o conteúdo de outra pessoa.</string>
+  <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da tua conta.</string>
+  <string name="blogTips">As nossas dicas simples para escrever ótimas publicações no blogue</string>
+  <string name="discussThisBlogPostInTheForum">Discutir esta publicação no fórum</string>
 </resources>

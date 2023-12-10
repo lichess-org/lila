@@ -3,7 +3,7 @@
   <string name="advancedPawn">Frífinna</string>
   <string name="advancedPawnDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="advantage">Fyrimunur</string>
-  <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mát Anastasiu</string>
   <string name="anastasiaMateDescription">Riddari og rókur ella frúgv samstarva um at fanga mótstøðukongin millum síðuna á talvborðinum og eitt vinarligt sinnað fólk.</string>
   <string name="arabianMate">Arábiskt mát</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Tak fólkið, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
   <string name="crushing">At knúsa</string>
-  <string name="crushingDescription">Finn mistakið hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Finn mistakið hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Tvífalt bispamát</string>
   <string name="doubleBishopMateDescription">Tveir bispar, ið leypa á á tveimum grannahornalinjum, seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
   <string name="dovetailMate">Sýlt mát (dúgvuvelamát)</string>
   <string name="dovetailMateDescription">Ein frúgv stendur beint við mótstøðukongin og setir hann skák og mát, tí at kongsins egnu fólk forða konginum í at flýggja til einastu tveir puntarnar, ið eru tøkir.</string>
   <string name="equality">Javnstøða</string>
-  <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Álop kongamegin</string>
   <string name="kingsideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg kongamegin.</string>
   <string name="clearance">Rudding</string>

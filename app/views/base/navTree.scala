@@ -12,7 +12,7 @@ object navTree:
     case Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None)
     case Leaf(id: String, name: Frag, content: Frag)
 
-  def renderNode(node: Node, parent: Option[Node], forceLtr: Boolean = false)(using PageContext): Frag =
+  def renderNode(node: Node, parent: Option[Node], forceLtr: Boolean = false)(using Context): Frag =
     node match
       case Node.Leaf(id, name, content) =>
         List(

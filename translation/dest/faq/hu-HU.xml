@@ -54,6 +54,7 @@ A számítógépes elemzéshez a Lichess Stockfish-t használ.</string>
 Ritkán előfordul, hogy ezt nem kézenfekvő megállapítani (teljesen zárt állás, kényszerített patt). Alapesetben annak a javára döntünk, akinek még maradt játékideje.
 
 Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot adni, ha az ellenfélnek van még figurája amivel eltorlaszolhatja a királyt.</string>
+  <string name="fideHandbook">FIDE kézikönyv</string>
   <string name="fideHandbookX">FIDE kézikönyv %s</string>
   <string name="discoveringEnPassant">Miért tud egy gyalog leütni egy másikat ha az már mellette áll? (en passant)</string>
   <string name="explainingEnPassant">Ez egy szabályos lépés, amit \"en passant\"-nak hívnak. A Wikipédia szócikk %1$s.
@@ -67,7 +68,7 @@ Lásd még az erről készült %3$s-t.</string>
   <string name="lichessTraining">Lichess gyakorlás</string>
   <string name="watchIMRosenCheckmate">Tekintsd meg Eric Rosen Nemzetközi Mester %s mattját.</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
-  <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
+  <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>
   <string name="notRepeatedMoves">Nem is ismétlődtek meg a lépések. Miért lett a játszma mégis döntetlen?</string>
   <string name="repeatedPositionsThatMatters">A szabály %1$s ismétlődésén alapszik, nem lépésekén. Az ismétlődés nem szükségszerűen egymást követő lépésekből adódik.</string>

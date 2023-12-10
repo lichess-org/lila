@@ -49,10 +49,10 @@
   <string name="imageCredit">حقوق الصورة</string>
   <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="deleteImage">حذف الصورة</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">من الآمن استخدام الصور من المواقع التالية على الإنترنت: </string>
+  <string name="safeToUseImages">من الآمن استخدام الصور من المواقع التالية على الإنترنت: </string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
   <string name="useImagesYouMadeYourself">يمكنك ايضا استخدام الصور التي صممتها بنفسك، او التي التقطها انتاو الي لقطات شاشة من موقعنا... أو اي شيء لا يخضع لحقوق النشر لاي احد اخر.</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد اخر.</string>
   <string name="inappropriateContentAccountClosed">اي شيء غير لائق من الممكن أن يتسبب باغلاق حسابك.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">نصائحنا البسيطة لكتابة مقالة رائعة</string>
+  <string name="blogTips">نصائحنا البسيطة لكتابة مقالة رائعة</string>
 </resources>

@@ -31,7 +31,7 @@
   <string name="color">Barva</string>
   <string name="evaluation">Ocenjevanje</string>
   <string name="maxNumber">Največje število</string>
-  <string name="maxNumberExplanation">Največje število iger za vrnitev</string>
+  <string name="maxNumberExplanation">Največje prikazano število iger</string>
   <string name="include">Vključuje</string>
   <string name="descending">Padajoče</string>
   <string name="ascending">Naraščajoče</string>

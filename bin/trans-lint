@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 import re
 import sys
 import pathlib
@@ -84,7 +83,6 @@ class ReportContext:
 def lint(report, path):
     db = path.parent.name # site, study, ...
     source = ET.parse(path.parent.parent.parent / "source" / f"{db}.xml", parser=AnnotatingParser()).getroot()
-
     root = ET.parse(path, parser=AnnotatingParser()).getroot()
     for el in root:
         name = el.attrib["name"]

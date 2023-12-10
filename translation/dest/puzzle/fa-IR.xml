@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">تم پازل ها</string>
-  <string name="recommended">توصیه شده
-
-عنوان های پازل ها در  https://lichess.org/training/themes قابل مشاهده است
-
-تنها موضوع تحت عنوان \"healthy mix\" است که تغییری نخواهد کرد.</string>
-  <string name="phases">فاز ها</string>
-  <string name="motifs">موضوع</string>
+  <string name="puzzleThemes">موضوعات معما</string>
+  <string name="recommended">توصیه</string>
+  <string name="phases">مرحله‌ها</string>
+  <string name="motifs">بُن‌مایه‌ها</string>
   <string name="advanced">پیشرفته</string>
-  <string name="lengths">مدت</string>
-  <string name="mates">مات</string>
+  <string name="lengths">تعداد حرکات</string>
+  <string name="mates">مات‌ها</string>
   <string name="goals">اهداف</string>
-  <string name="origin">منشا</string>
-  <string name="specialMoves">حرکات مخصوص</string>
-  <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
-  <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
-  <string name="upVote">پازل خوبی بود</string>
-  <string name="downVote">پازل بدی بود</string>
-  <string name="yourPuzzleRatingWillNotChange">ریتینگ پازل شما تغییری نخواهد کرد. توجه کنید که پازل ها یک مسابقه نیستند. ریتینگ پازل شما به انتخاب پازل مناسب در سطح خودتان کمک می کند.</string>
+  <string name="origin">خاستگاه</string>
+  <string name="specialMoves">حرکات ویژه</string>
+  <string name="didYouLikeThisPuzzle">این معما را دوست داشتید؟</string>
+  <string name="voteToLoadNextOne">موافقت برای بارگذاری معمای بعدی!</string>
+  <string name="upVote">معمای خوبی بود</string>
+  <string name="downVote">معمای بدی بود</string>
+  <string name="yourPuzzleRatingWillNotChange">امتیازبندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. امتیازبندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
-  <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
-  <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
-  <string name="puzzleId">معمای %s</string>
-  <string name="puzzleOfTheDay">مسئله روز</string>
-  <string name="dailyPuzzle">پازل روزانه</string>
-  <string name="clickToSolve">برای جل کردن کلیک کنید</string>
-  <string name="goodMove">حرکتی خوب</string>
+  <string name="findTheBestMoveForBlack">بهترین حرکت برای سیاه را پیدا کنید.</string>
+  <string name="toGetPersonalizedPuzzles">دریافت معماهای شخصی‌سازی‌شده:</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">معمای %s</string>
+  <string name="puzzleOfTheDay">معمای روز</string>
+  <string name="dailyPuzzle">معمای روزانه</string>
+  <string name="clickToSolve">برای جل کردن بزتیذ</string>
+  <string name="goodMove">حرکتِ خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
-  <string name="puzzleSuccess">موفقیت!</string>
-  <string name="puzzleComplete">پازل تمام شد!</string>
-  <string name="notTheMove">ابن حرکت صحیح نیست</string>
+  <string name="puzzleSuccess">موفق شدید!</string>
+  <string name="puzzleComplete">معما تکمیل شد!</string>
+  <string name="byOpenings">بر اساس گشایش‌ها</string>
+  <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
+  <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">از گزینه «پیدا کردن در صفحه» مرورگر استفاده کنید تا گشایش مورد علاقه خود را پیدا کنید!</string>
+  <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
+  <string name="notTheMove">ابن حرکت نیست!</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
-  <string name="ratingX">امتیاز: %s</string>
-  <string name="hidden">پنهان</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">امتیاز: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">پنهان</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">%s بار بازی شده است</item>
-    <item quantity="other">این جدول%s بار بازی شده است</item>
+    <item quantity="other">%s بار بازی شده</item>
   </plurals>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
   <string name="normal">معمولی</string>
-  <string name="easier">اسان تر</string>
+  <string name="easier">آسان‌تر</string>
   <string name="easiest">آسان‌ترین</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز پایین‌تر از امتیازبندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز پایین‌تر از امتیازبندی معمایی‌تان</item>
   </plurals>
-  <string name="harder">سخت تر</string>
+  <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">یک امتیاز بالاتر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز بالاتر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز بالاتر از امتیازبندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز بالاتر از امتیازبندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
-  <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
+  <string name="addAnotherTheme">افزودن موضوع دیگری</string>
   <string name="nextPuzzle">پازل بعدی</string>
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
 با فعال کردن این تنظیمات ، صفحه به محض تکمیل پازلی که مشاهده می کنید به یک معمای جدید منتقل می شود.</string>
@@ -68,7 +69,7 @@
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
   <string name="streakDescription">به تدریج معماهای پیچیده‌تری را حل کنید و یک توالی پیروزی بسازید. هیچ ساعتی در کار نیست، پس از زمان استفاده کنید. یک حرکت اشتباه لازم است تا بازی پایان یابد! اما می‌توانید در هر جلسه از یک حرکت چشم‌پوشی کنید.</string>
-  <string name="yourStreakX">توالی شما: %s</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">توالی شما: %s</string>
   <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>

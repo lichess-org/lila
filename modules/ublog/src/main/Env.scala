@@ -15,6 +15,7 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.relation.RelationApi,
+    shutup: lila.hub.actors.Shutup,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
@@ -47,11 +48,10 @@ final class Env(
         api
           .latestPosts(lookInto)
           .map:
-            _.mapWithIndex: (post, i) =>
-              (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
-            .sortBy(_._2)
-              .take(keep)
-              .map(_._1)
+            _.groupBy(_.blog)
+              .flatMap(_._2.headOption)
+          .map(ThreadLocalRandom.shuffle)
+          .map(_.take(keep).toList)
 
   lila.common.Bus.subscribeFun("shadowban"):
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>

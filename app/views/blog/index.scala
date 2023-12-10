@@ -26,7 +26,7 @@ object index:
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
             h1("Lichess Official Blog"),
-            a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
+            views.html.site.bits.atomLink(routes.Blog.atom)
           ),
           primaryPost map { post =>
             frag(
@@ -36,7 +36,7 @@ object index:
           },
           div(cls := "blog-cards box__pad list infinite-scroll")(
             pager.currentPageResults flatMap MiniPost.apply map { post =>
-              primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
+              primaryPost.forall(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
             },
             pagerNext(pager, np => routes.Blog.index(np).url)
           )
@@ -76,16 +76,16 @@ object index:
         div(cls := "body")(
           doc.getStructuredText("blog.body").map { body =>
             raw(lila.blog.BlogApi.extract(body))
-          },
-          p(cls := "more")(
-            a(
-              cls      := "button",
-              href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
-              dataIcon := licon.PlayTriangle
-            )(
-              " Continue reading this post"
-            )
-          )
+          }
+        )
+      ),
+      p(cls := "more")(
+        a(
+          cls      := "button",
+          href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
+          dataIcon := licon.PlayTriangle
+        )(
+          " Continue reading this post"
         )
       )
     )

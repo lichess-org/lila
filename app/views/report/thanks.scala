@@ -15,7 +15,7 @@ object thanks:
 $('button.report-block').one('click', function() {
 const $button = $(this);
 $button.find('span').text('Blocking...');
-fetch($button.data('action'), {method:'post'})
+fetch(this.dataset.action, {method:'post'})
   .then(() => $button.find('span').text('Blocked!'));
 });
 """)

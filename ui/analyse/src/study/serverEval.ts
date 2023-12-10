@@ -18,8 +18,6 @@ export default class ServerEval {
     this.requested = false;
   };
 
-  onMergeAnalysisData = () => this.chart?.updateData(this.root.data, this.root.mainline);
-
   request = () => {
     this.root.socket.send('requestAnalysis', this.chapterId());
     this.requested = true;
@@ -31,14 +29,13 @@ export function view(ctrl: ServerEval): VNode {
 
   if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
-
-  return h(
-    'div.study__server-eval.ready.' + analysis.id,
+  const chart = h(
+    'canvas.study__server-eval.ready.' + analysis.id,
     {
       hook: onInsert(el => {
         lichess.requestIdleCallback(async () => {
-          (await lichess.loadEsm<ChartGame>('chart.game')).acpl(
-            el,
+          (await lichess.asset.loadEsm<ChartGame>('chart.game')).acpl(
+            el as HTMLCanvasElement,
             ctrl.root.data,
             ctrl.root.mainline,
             ctrl.root.trans,
@@ -48,6 +45,8 @@ export function view(ctrl: ServerEval): VNode {
     },
     [h('div.study__message', spinnerVdom())],
   );
+
+  return h('div.study__server-eval.ready.', chart);
 }
 
 const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');

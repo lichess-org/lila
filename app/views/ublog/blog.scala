@@ -42,12 +42,7 @@ object blog:
               else
                 frag(
                   isGranted(_.ModerateBlog) option tierForm(blog),
-                  a(
-                    cls      := "atom",
-                    st.title := "Atom RSS feed",
-                    href     := routes.Ublog.userAtom(user.username),
-                    dataIcon := licon.RssFeed
-                  )
+                  views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
                 )
             )
           ),

@@ -52,6 +52,7 @@
 Зрэдку гэта можа быць складана ацаніць аўтаматычна (серыі вымушаных хадоў, крэпасці). Па змаўчанні, мы заўсёды на баку гульца ў якога не скончыўся час.
 
 Заўважце, што магчыма паставіць мат і адзіным канём/сланом, калі ў суперніка ёсць фігуры, якія могуць заблакаваць караля.</string>
+  <string name="fideHandbook">Правілы FIDE</string>
   <string name="fideHandbookX">Правилы ФІДЭ %s</string>
   <string name="discoveringEnPassant">Чаму пешка можа ўзяць іншую пешку калі яна ўжо прайшла? (узяцце на праходзе)</string>
   <string name="explainingEnPassant">Гэта дазволены ход, які называецца \"ўзяцце на праходзе\". Артыкул на вікіпедыі дае %1$s.
@@ -64,7 +65,7 @@
   <string name="goodIntroduction">добрае тлумачэнне</string>
   <string name="lichessTraining">Lichess практыку</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
-  <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
   <string name="notRepeatedMoves">Мы не паўтаралі хады. Чаму гульня скончылася ўнічыю праз паўтарэнне?</string>
   <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтораныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>

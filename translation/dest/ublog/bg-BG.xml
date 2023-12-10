@@ -37,10 +37,10 @@
   <string name="imageCredit">Права на изображението</string>
   <string name="deleteBlog">Изтийте тази публикация окончателно</string>
   <string name="deleteImage">Изтриване на изображението</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Може безопасно да използвате изображения от следните уебстраници: </string>
+  <string name="safeToUseImages">Може безопасно да използвате изображения от следните уебстраници: </string>
   <string name="selectPostTopics">Изберете темите, за които се касае Вашата публикация</string>
   <string name="useImagesYouMadeYourself">Също можете да използвате изображения които сте направили сами, Ваши снимки, екранни снимки на Lichess... всичко което не е обект на авторско право на друго лице.</string>
   <string name="safeAndRespectfulContent">Моля, публикувайте само безопасно и уважително съдържание. Не копирайте чуждо съдържание.</string>
   <string name="inappropriateContentAccountClosed">За всяко неподходящо действие акаунтът ви може да бъде закрит.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Нашите прости съвети за писане на страхотни публикации в блогове</string>
+  <string name="blogTips">Нашите прости съвети за писане на страхотни публикации в блогове</string>
 </resources>

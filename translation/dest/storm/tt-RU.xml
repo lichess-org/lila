@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Башлар өчен хәрәкәт</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Барлык башваткычларда аклар сөякләрне уйныйсыз</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Барлык башваткычларда каралар кисәкләрне уйныйсыз</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Барлык башваткычларда аклар сөякләрне уйныйсыз</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Барлык башваткычларда каралар кисәкләрне уйныйсыз</string>
   <string name="puzzlesSolved">табышмаклар чишелде</string>
-  <string name="newDailyHighscore">Яңа көндәлек югары күрсәткеч!</string>
-  <string name="newWeeklyHighscore">Яңа атналык югары күрсәткеч!</string>
-  <string name="newMonthlyHighscore">Яңа айлык югары күрсәткеч!</string>
-  <string name="newAllTimeHighscore">Яңа гел югары күрсәткеч!</string>
-  <string name="previousHighscoreWasX">Элеккеге югары күрсәткеч %s иде</string>
+  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">Яңа көндәлек югары күрсәткеч!</string>
+  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">Яңа атналык югары күрсәткеч!</string>
+  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">Яңа айлык югары күрсәткеч!</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">Яңа гел югары күрсәткеч!</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">Элеккеге югары күрсәткеч %s иде</string>
   <string name="playAgain">Яңадан уйнау</string>
   <plurals name="xRuns">
     <item quantity="other">%s йөгерә</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm">
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
     <item quantity="other">%1$s уйнаган %2$s йөгерә</item>
   </plurals>
-  <string name="highscoreX">Югары күрсәткеч: %s</string>
-  <string name="score">Күрсәткеч</string>
-  <string name="moves">Хәрәкәт</string>
-  <string name="accuracy">Төгәллек</string>
-  <string name="combo">Комбо</string>
-  <string name="time">Вакыт</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">Югары күрсәткеч: %s</string>
+  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">Күрсәткеч</string>
+  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">Хәрәкәт</string>
+  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">Төгәллек</string>
+  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">Комбо</string>
+  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">Вакыт</string>
   <string name="timePerMove">Бер хәрәкәт вакыты</string>
   <string name="highestSolved">Иң югары чишелгән</string>
   <string name="puzzlesPlayed">Башваткыч уйналды</string>
   <string name="newRun">Яңа йөгерү (уңайлытөймә: Space)</string>
   <string name="endRun">Ахыр йөгерү (уңайлытөймә: Enter)</string>
-  <string name="highscores">Югары күрсәткеч</string>
-  <string name="viewBestRuns">Иң яхшы йөгерүне карау</string>
+  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">Югары күрсәткеч</string>
+  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Иң яхшы йөгерүне карау</string>
   <string name="bestRunOfDay">Көннең иң яхшы йөгереше</string>
-  <string name="runs">Үтәргә</string>
+  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Үтәргә</string>
   <string name="getReady">Әзер бул!</string>
   <string name="waitingForMorePlayers">Күбрәк уенчыларның кушылуын көтеп...</string>
   <string name="raceComplete">Ярыш тәмам!</string>
@@ -44,7 +44,8 @@
   <string name="createNewGame">Яңа уен ясагыз</string>
   <string name="joinPublicRace">Иҗтимагый ярышка кушылыгыз</string>
   <string name="raceYourFriends">Сезнең дусларың белән ярыш</string>
-  <string name="skip">отыш</string>
+  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">отыш</string>
   <string name="skipHelp">Сез бер ярышка бер хәрәкәтне калдыра аласыз:</string>
   <string name="skipExplanation">Комбаны саклап калу өчен бу хәрәкәтне ташлагыз! Ярышка бер тапкыр гына эшли.</string>
+  <string name="thisWeek">Бу атна</string>
 </resources>

@@ -16,7 +16,9 @@ export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {
   let move: VoiceMove;
   const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
 
-  lichess.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } }).then(x => (move = x));
+  lichess.asset
+    .loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } })
+    .then(x => (move = x));
   return {
     ui,
     initGrammar: () => move?.initGrammar(),
@@ -94,7 +96,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   }
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/move-${ui.lang()}.json`));
+    const g = await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -265,27 +267,13 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     return sub?.cost ?? Infinity;
   }
 
-  function chooseMoves(m: [string, Match][]) {
-    if (m.length === 0) return false;
-    if (m.length === 1 && m[0][0].length === 2) {
-      console.info('chooseMoves', `select '${m[0][0]}'`);
-      submit(m[0][0]);
-      return true;
-    }
-    if (timer()) return ambiguate(m);
-    if (
-      (m.length === 1 && m[0][1].cost < 0.4) ||
-      (m.length > 1 && m[1][1].cost - m[0][1].cost > [0.7, 0.5, 0.3][clarityPref()])
-    ) {
-      console.info('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1].cost}`);
-      submit(m[0][0]);
-      return true;
-    }
-    return ambiguate(m);
-  }
-
-  function ambiguate(options: [string, Match][]) {
+  function chooseMoves(options: [string, Match][]) {
     if (options.length === 0) return false;
+    if (options.length === 1 && options[0][0].length === 2) {
+      console.info('chooseMoves', `select '${options[0][0]}'`);
+      submit(options[0][0]);
+      return true;
+    }
     // dedup by uci squares & keep first to preserve cost order
     options = options
       .filter(
@@ -303,12 +291,21 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
       [options[0], options[sanIndex]] = [options[sanIndex], options[0]];
       options[0][1].cost -= 0.01;
     }
-    if (timer()) {
-      const clarityThreshold = [1.0, 0.5, 0.001][clarityPref()];
-      const lowestCost = options[0][1].cost;
-      // trim choices to clarity window
-      options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
+    const clarityThreshold = [1.0, 0.5, 0.001][clarityPref()];
+    const lowestCost = options[0][1].cost;
+    // trim choices to clarity window
+    options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
+
+    if (!timer() && options.length === 1 && options[0][1].cost < 0.3) {
+      console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
+      submit(options[0][0]);
+      return true;
     }
+    return ambiguate(options);
+  }
+
+  function ambiguate(options: [string, Match][]) {
+    if (options.length === 0) return false;
 
     choices = new Map<string, Uci>();
     const preferred = options.length === 1 || options[0][1].cost < options[1][1].cost;
@@ -344,12 +341,19 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     if (!choices) return;
     const arrowTime = choiceTimeout ? timer() : undefined;
     cg.setShapes(
-      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime), //, cg.state.orientation === 'white')
+      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
     );
   }
 
   function confirmCommand(key: string, action: (v: boolean) => void) {
-    command = { key, action };
+    command = {
+      key,
+      action: v => {
+        action(v);
+        command = undefined;
+        root.redraw();
+      },
+    };
     root.redraw();
   }
 
@@ -375,7 +379,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   function submit(uci: Uci) {
     clearMoveProgress();
     if (uci.length < 3) {
-      const dests = ucis.filter(x => x.startsWith(uci));
+      const dests = [...new Set(ucis.filter(x => x.length === 4 && x.startsWith(uci)))];
 
       if (dests.length <= maxArrows()) return ambiguate(dests.map(uci => [uci, { cost: 0 }]));
       if (uci !== selection()) selection(src(uci));

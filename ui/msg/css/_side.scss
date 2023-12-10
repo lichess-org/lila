@@ -64,7 +64,7 @@
         background: mix($c-msg, $c-bg-box, 30%);
       }
 
-      &__icon {
+      .user-link {
         flex: 0 0 auto;
         font-size: 2.3em;
       }

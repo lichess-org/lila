@@ -37,10 +37,11 @@
   <string name="imageCredit">Δικαιώματα εικόνας</string>
   <string name="deleteBlog">Οριστική διαγραφή δημοσίευσης</string>
   <string name="deleteImage">Διαγραφή εικόνας</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Είναι ασφαλές να χρησιμοποιείτε εικόνες από τις ακόλουθες ιστοσελίδες: </string>
+  <string name="safeToUseImages">Είναι ασφαλές να χρησιμοποιείτε εικόνες από τις ακόλουθες ιστοσελίδες: </string>
   <string name="selectPostTopics">Επιλέξτε τα θέματα που είναι σχετικά με τη δημοσίευσή σας</string>
   <string name="useImagesYouMadeYourself">Μπορείτε επίσης να χρησιμοποιήσετε δικές σας εικόνες, φωτογραφίες που τραβήξατε, στιγμιότυπα οθόνης από το Lichess... με λίγα λόγια οτιδήποτε δεν έχει κατοχυρωμένα δικαιώματα πνευματικής ιδιοκτησίας.</string>
   <string name="safeAndRespectfulContent">Το περιεχόμενο που δημοσιεύετε πρέπει να είναι ασφαλές, με σεβασμό προς όλους και να μην αντιγράφει δημοσιεύσεις άλλων χρηστών.</string>
   <string name="inappropriateContentAccountClosed">Ο λογαριασμός σας ενδεχομένως να κλείσει αν εντοπίσουμε οτιδήποτε ακατάλληλο.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Απλές συμβουλές μας για να γράψει φανταστικές δημοσιεύσεις</string>
+  <string name="blogTips">Απλές συμβουλές μας για να γράψει φανταστικές δημοσιεύσεις</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Σχολιάστε αυτήν τη δημοσίευση στο φόρουμ</string>
 </resources>

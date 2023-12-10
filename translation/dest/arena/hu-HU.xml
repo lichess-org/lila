@@ -30,7 +30,7 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="howDoesItEnd">Mikor ér véget?</string>
   <string name="howDoesItEndAnswer">A versenynek van egy visszaszámláló órája. Amikor eléri a nullát a rangsorolás megáll, és kihírdetődik a győztes. A folyamatban levő játszmákat be kell fejezni, de azok már nem számítanak bele a versenybe.</string>
   <string name="otherRules">Egyéb fontos szabályok</string>
-  <string name="thereIsACountdown">Az első lépés előtt visszaszámlálás folyik. Ha ez idő alatt nem lépsz a játszmát automatikusan az ellenfeled nyeri.</string>
+  <string name="thereIsACountdown">Az első lépést bizonyos időn belül meg kell tenned. Ha ez idő alatt nem lépsz a játszmát automatikusan az ellenfeled nyeri.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Döntetlen esetén kevesebb, mint %s lépés előtt, egyik játékos sem kap pontot.</item>
     <item quantity="other">Döntetlen esetén kevesebb, mint %s lépés előtt, egyik játékos sem kap pontot.</item>

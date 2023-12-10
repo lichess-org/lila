@@ -8,10 +8,10 @@
   <string name="whatTheTokenCanDo">Kion la ĵetono povas fari en via nomo:</string>
   <string name="doNotShareIt">La ĵetono donos atingon al via konto. Ne disdiru ĝin al iu ajn!</string>
   <string name="copyTokenNow">Nepre nun kopiu vian novan persona atinga ĵetono. Vi ne denove povos vidi ĝin!</string>
-  <string name="preferenceRead">Legi preferojn</string>
-  <string name="preferenceWrite">Skribi preferojn</string>
-  <string name="emailRead">Legi retpoŝtadresojn</string>
-  <string name="challengeRead">Legi envenajn defiojn</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Legi preferojn</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Skribi preferojn</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Legi retpoŝtadresojn</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Legi envenajn defiojn</string>
   <string name="challengeWrite">Sendi, akcepti, kaj malakcepti defiojn</string>
   <string name="challengeBulk">Krei samtempe multajn ludojn por aliaj ludantoj</string>
   <string name="studyRead">Legi privatajn studojn kaj elsendojn</string>
@@ -31,4 +31,5 @@
   <string name="engineWrite">Krei kaj ĝisdatigi eksterajn motorojn</string>
   <string name="webLogin">Krei aŭtentigitajn retejajn sesiojn (donas plena atingo!)</string>
   <string name="webMod">Uzi administrantajn ilojn (ene la limoj de via permeso)</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Ekzemple: %s</string>
 </resources>

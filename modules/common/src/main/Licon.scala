@@ -44,6 +44,7 @@ object licon:
   val Rabbit: Icon          = "" // e017
   val NodeBranching: Icon   = "" // e018
   val Gear: Icon            = "" // e019
+  val Reload: Icon          = "" // e01a
   val DieSix: Icon          = "" // e01b
   val FlagKingHill: Icon    = "" // e01c
   val FlameBlitz: Icon      = "" // e01d
@@ -84,7 +85,7 @@ object licon:
   val ArrowDownRight: Icon  = "" // e040
   val ArrowUpRight: Icon    = "" // e041
   val PlusButton: Icon      = "" // e042
-  val Reload: Icon          = "" // e043
+  val MinusButton: Icon     = "" // e043
   val Fire: Icon            = "" // e044
   val DownTriangle: Icon    = "" // e045
   val UpTriangle: Icon      = "" // e046

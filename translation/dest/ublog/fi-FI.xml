@@ -37,10 +37,11 @@
   <string name="imageCredit">Kuvan lähde</string>
   <string name="deleteBlog">Poista blogikirjoitus lopullisesti</string>
   <string name="deleteImage">Poista kuva</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Seuraavilta sivustoilta peräisin olevia kuvia saa käyttää: </string>
+  <string name="safeToUseImages">Seuraavilta sivustoilta peräisin olevia kuvia saa käyttää: </string>
   <string name="selectPostTopics">Valitse kirjoituksesi teemat</string>
   <string name="useImagesYouMadeYourself">Voit myös käyttää itse tekemiäsi tai ottamiasi kuvia, kuvakaappauksia Lichessistä... mitä tahansa sisältöä, jota eivät suojaa jonkun muun tekijänoikeudet.</string>
   <string name="safeAndRespectfulContent">Julkaise vain turvallista ja muita kunnioittavaa sisältöä. Älä kopioi toisten luomaa sisältöä.</string>
   <string name="inappropriateContentAccountClosed">Epäasiallisen sisällön julkaisu voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
+  <string name="blogTips">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Keskustele tästä blogikirjoituksesta foorumissa</string>
 </resources>

@@ -31,4 +31,22 @@
   <string name="engineWrite">Krijoni dhe përditësoni motorë të jashtëm</string>
   <string name="webLogin">Krijoni sesione të vërtetuara në websajt (ju jep hyrje të plotë!)</string>
   <string name="webMod">Përdorni mjetet e moderatorit (brenda kufijve të lejes suaj)</string>
+  <string name="personalAccessTokens">Token-ë personalë përdorimi API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Mund të kryeni kërkessa OAuth pa kaluar nëpër %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">rrjedhën e kodeve të autorizimit</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Në vend të kësaj, %s mund të përdoret drejtpërsëdrejti në kërkesa ndaj API-t.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">prodho një token përdorimi personal</string>
+  <string name="guardTokensCarefully">Ruajini me kujdes këto kode! Janë si fjalëkalimet. Avantazhi i përdorimit të kodeve kundrejt dhënies së fjalëkalimit në një programth është fakti se kodet mund të shfuqizohen dhe mund të prodhoni sa të doni të tillë.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Ja një %1$s dhe %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">shembull aplikacioni token-i personal</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">Dokumentim API</string>
+  <string name="newToken">Token i ri përdorimi</string>
+  <string name="apiAccessTokens">Token-ë përdorimi API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Krijuar më %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Përdorur së fundi më %s</string>
+  <string name="alreadyHavePlayedGames">Keni luajtur lojëra tashmë!</string>
+  <string name="attentionOfDevelopers">Shënim vetëm për zhvilluesit:</string>
+  <string name="possibleToPrefill">Është e mundur të plotësohet paraprakisht ky formula duke ndryshuar parametra kërkese te URL.</string>
+  <string name="forExample">Për shembull: %s</string>
+  <string name="givingPrefilledUrls">Dhënia përdoruesve tuaj e këtyre URL-ve të plotësuara paraprakisht do t’i ndihmojë ata të kenë fushëveprim të saktë për token-ët.</string>
 </resources>

@@ -14,43 +14,30 @@ import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo       = env.tournament.tournamentRepo
-  private def api        = env.tournament.api
-  private def jsonView   = env.tournament.jsonView
-  private def forms      = env.tournament.forms
-  private def cachedTour = env.tournament.cached.tourCache.byId
+  private def repo                     = env.tournament.tournamentRepo
+  private def api                      = env.tournament.api
+  private def jsonView                 = env.tournament.jsonView
+  private def forms                    = env.tournament.forms
+  private def cachedTour(id: TourId)   = env.tournament.cached.tourCache.byId(id)
+  private given lila.user.FlairApi     = env.user.flairApi
+  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
-
-  private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
-    _.refreshAfterWrite(3.seconds)
-      .buildAsyncFuture { _ =>
-        for
-          visible   <- api.fetchVisibleTournaments
-          scheduled <- repo.allScheduledDedup
-        yield (visible, scheduled)
-      }
-  }
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
     for
-      (visible, scheduled) <- upcomingCache.getUnit
       teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
-      allTeamIds = (TeamId.from(env.featuredTeamsSetting.get().value) ++ teamIds).distinct
-      teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-      scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
+      (scheduled, visible) <- env.tournament.featuring.tourIndex.get(teamIds)
+      scheduleJson         <- env.tournament.apiJsonView(visible)
       response <- negotiate(
         html = for
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
           page     <- renderPage(html.tournament.home(scheduled, finished, winners, scheduleJson))
-        yield
-          pageHit
-          Ok(page).noCache
-        ,
+        yield Ok(page).noCache,
         json = Ok(scheduleJson)
       )
     yield response
@@ -66,10 +53,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
-    tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
+    tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
-          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.is(tour.createdBy) ||
+          (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
             isGrantedOpt(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
           (env.chat.panic.allowed(u) || isGrantedOpt(_.ChatTimeout))
       }
@@ -78,13 +65,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def show(id: TourId) = Open:
     val page = getInt("page")
-    cachedTour(id) flatMap { tourOption =>
-      def loadChat(tour: Tour, json: JsObject) =
-        canHaveChat(tour, json.some) so env.chat.api.userChat.cached
+    cachedTour(id).flatMap: tourOption =>
+      def loadChat(tour: Tour, json: JsObject): Fu[Option[lila.chat.UserChat.Mine]] =
+        canHaveChat(tour, json.some) soFu env.chat.api.userChat.cached
           .findMine(ChatId(tour.id))
-          .flatMap: c =>
-            env.user.lightUserApi.preloadMany(c.chat.userIds) inject
-              c.copy(locked = !env.api.chatFreshness.of(tour)).some
+          .map:
+            _.copy(locked = !env.api.chatFreshness.of(tour))
       negotiate(
         html = tourOption
           .fold(tournamentNotFound): tour =>
@@ -95,7 +81,6 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               json <- jsonView(
                 tour = tour,
                 page = page,
-                getTeamName = env.team.getTeamName.apply,
                 playerInfoExt = none,
                 socketVersion = version.some,
                 partial = false,
@@ -121,18 +106,17 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               json <- jsonView(
                 tour = tour,
                 page = page,
-                getTeamName = env.team.getTeamName.apply,
                 playerInfoExt = playerInfoExt,
                 socketVersion = socketVersion,
                 partial = partial,
                 withScores = getBoolOpt("scores") | true
               )
-              chat <- !partial so loadChat(tour, json)
-            yield Ok(json.add("chat" -> chat.map: c =>
-              lila.chat.JsonView.mobile(chat = c.chat))).noCache
+              chatOpt <- !partial so loadChat(tour, json)
+              jsChat <- chatOpt.soFu: c =>
+                lila.chat.JsonView.mobile(c.chat)
+            yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
       )
-    }
 
   def standing(id: TourId, page: Int) = Open:
     Found(cachedTour(id)): tour =>
@@ -153,7 +137,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def teamInfo(tourId: TourId, teamId: TeamId) = Open:
     Found(cachedTour(tourId)): tour =>
-      Found(env.team.teamRepo mini teamId): team =>
+      Found(env.team lightTeam teamId): team =>
         negotiate(
           FoundPage(api.teamBattleTeamInfo(tour, teamId)):
             views.html.tournament.teamBattle.teamInfo(tour, team, _)
@@ -196,7 +180,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
     data.team
-      .so { env.team.cached.isLeader(_, me) }
+      .so { env.team.api.isGranted(_, me, _.Tour) }
       .flatMap: isLeader =>
         api.joinWithResult(tourId, data = data, isLeader)
 
@@ -214,15 +198,15 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def form = Auth { ctx ?=> me ?=>
     NoBot:
-      env.team.api.lightsByLeader(me) flatMap { teams =>
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
         Ok.page(html.tournament.form.create(forms.create(teams), teams))
       }
   }
 
   def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoBot:
-      env.team.api.lightsByLeader(me) flatMap { teams =>
-        env.team.api.leads(teamId, me) elseNotFound
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
+        env.team.api.isGranted(teamId, me, _.Tour) elseNotFound
           Ok.page(html.tournament.form.create(forms.create(teams, teamId.some), Nil))
       }
   }
@@ -248,7 +232,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       then 5
       else 20
     CreateLimitPerUser(me, fail, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail, cost = cost, msg = me.username):
+      CreateLimitPerIP(fail, cost = cost, msg = me.username):
         create
 
   def webCreate = AuthBody(_ ?=> _ ?=> create)
@@ -257,7 +241,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def create(using BodyContext[?])(using me: Me) = NoBot:
     def whenRateLimited = negotiate(Redirect(routes.Tournament.home), rateLimited)
     env.team.api
-      .lightsByLeader(me)
+      .lightsByTourLeader(me)
       .flatMap: teams =>
         forms
           .create(teams)
@@ -282,7 +266,6 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                       json = jsonView(
                         tour,
                         none,
-                        env.team.getTeamName.apply,
                         none,
                         none,
                         partial = false,
@@ -294,7 +277,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     cachedTour(id).flatMap:
       _.filter(_.createdBy.is(me) || isGranted(_.ManageTournament)) so { tour =>
-        env.team.api.lightsByLeader(me) flatMap { teams =>
+        env.team.api.lightsByTourLeader(me) flatMap { teams =>
           forms
             .edit(teams, tour)
             .bindFromRequest()
@@ -306,7 +289,6 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                   jsonView(
                     tour,
                     none,
-                    env.team.getTeamName.apply,
                     none,
                     none,
                     partial = false,
@@ -371,7 +353,6 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                   jsonView(
                     tour,
                     none,
-                    env.team.getTeamName.apply,
                     none,
                     none,
                     partial = false,
@@ -386,9 +367,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def featured = Open:
     negotiateJson:
       WithMyPerfs:
-        env.tournament.cached.onHomepage.getUnit.recoverDefault map {
-          lila.tournament.Spotlight.select(_, 4)
-        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
+        for
+          teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
+          tours   <- env.tournament.featuring.homepage.get(teamIds)
+          spotlight = lila.tournament.Spotlight.select(tours, 4)
+          json <- env.tournament.apiJsonView.featured(spotlight)
+        yield Ok(json)
 
   def shields = Open:
     for
@@ -417,7 +401,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def edit(id: TourId) = Auth { ctx ?=> me ?=>
     WithEditableTournament(id): tour =>
-      env.team.api.lightsByLeader(me) flatMap { teams =>
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
         val form = forms.edit(teams, tour)
         Ok.page(html.tournament.form.edit(tour, form, teams))
       }
@@ -425,7 +409,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def update(id: TourId) = AuthBody { ctx ?=> me ?=>
     WithEditableTournament(id): tour =>
-      env.team.api.lightsByLeader(me) flatMap { teams =>
+      env.team.api.lightsByTourLeader(me) flatMap { teams =>
         forms
           .edit(teams, tour)
           .bindFromRequest()
@@ -455,11 +439,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:
-      _.filter(_.isTeamBattle) so { tour =>
-        env.tournament.cached.battle.teamStanding.get(tour.id) flatMap { standing =>
-          Ok.page(views.html.tournament.teamBattle.standing(tour, standing))
-        }
-      }
+      _.filter(_.isTeamBattle) so: tour =>
+        env.tournament.cached.battle.teamStanding.get(tour.id) flatMap: standing =>
+          env.team.cached.preloadMany(standing.map(_.teamId)) >>
+            Ok.page(views.html.tournament.teamBattle.standing(tour, standing))
 
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
@@ -473,14 +456,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture: tourId =>
-        repo.isUnfinished(tourId) flatMapz {
-          env.streamer.liveStreamApi.all.flatMap {
+        repo.isUnfinished(tourId) flatMapz:
+          env.streamer.liveStreamApi.all.flatMap:
             _.streams
-              .map: stream =>
+              .traverse: stream =>
                 env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
-              .parallel
               .dmap(_.flatten)
-          }
-        }
 
   private given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)

@@ -16,6 +16,7 @@
   <string name="otherWaysToHelp">други начини за подпомагане</string>
   <string name="areThereWebsitesBasedOnLichess">Има ли уебсайтове, базирани на Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Да. Lichess наистина вдъхнови други сайтове с отворен код, които използват нашите %1$s, %2$s или %3$s.</string>
+  <string name="keyboardShortcuts">Какви клавишни комбинации има?</string>
   <string name="fairPlay">Честна игра</string>
   <string name="whenAmIEligibleRatinRefund">Кога отговарям на условията за автоматично възстановяване на състезателният ми рейтинг от измамници?</string>
   <string name="ratingRefundExplanation">Една минута след като даден играч бъде маркиран, се вземат неговите 40 най-нови оценени игри през последните 3 дни. Ако сте техен опонент в тези игри, загубили сте рейтинг (поради загуба или равенство) и рейтингът ви не е временен, получавате възстановяване на сумата за рейтинг. Възстановяването е ограничено въз основа на най-високия ви рейтинг и напредъка ви в рейтинга след играта.
@@ -52,6 +53,7 @@
 В редки случаи може да е трудно да се реши автоматично (форсирани линии, крепости). По подразбиране винаги сме на страната на играча, който не е изтекъл времето.
 
 Обърнете внимание, че може да е възможно да се чифтосвате с един кон или офицер, ако опонентът има фигура, която може да блокира краля.</string>
+  <string name="fideHandbook">Правилник на ФИДЕ</string>
   <string name="fideHandbookX">Наръчник на FIDE %s</string>
   <string name="discoveringEnPassant">Защо една пешка може да улови друга пешка, когато вече е премината? (преминаване)</string>
   <string name="explainingEnPassant">Това е легален ход, известен като „преминаване“. Статията в Wikipedia дава %1$s.
@@ -65,7 +67,7 @@
   <string name="lichessTraining">Обучение по шах от Lichess</string>
   <string name="watchIMRosenCheckmate">Вижте как Международният Майстор Ерик Росен матира %s.</string>
   <string name="threefoldRepetition">Трикратно повторение</string>
-  <string name="threefoldRepetitionExplanation">Ако дадена позиция се появи три пъти, играчите могат да поискат равенство с %1$s. Lichess прилага официалните правила на FIDE, както е описано в член 9.2 (d) от %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Ако дадена позиция се появи три пъти, играчите могат да поискат равенство с %1$s. Lichess прилага официалните правила на FIDE, както е описано в член 9.2 от %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трикратно повторение</string>
   <string name="notRepeatedMoves">Не повтаряхме ходове. Защо играта все още беше наравна чрез повторение?</string>
   <string name="repeatedPositionsThatMatters">Трикратното повторение е за повтарящи се %1$s, а не за движения. Повторението не трябва да се извършва последователно.</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">FAQ</string>
+  <string name="faqAbbreviation">자주 묻는 질문</string>
   <string name="frequentlyAskedQuestions">자주 묻는 질문들</string>
   <string name="whyIsLichessCalledLichess">Lichess는 무슨 뜻인가요?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 부릅니다.</string>
@@ -35,8 +35,8 @@
   <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
 예를 들어 5+3 게임의 예상 시간은 5 × 60 + 40 × 3 = 420초입니다.</string>
   <string name="durationFormula">(초기 시간) + 40 × (증분)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s초 = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s초 = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess에서 플레이할 수 있는 변형 체스에는 무엇이 있나요?</string>
   <string name="lichessSupportChessAnd">Lichess는 일반 체스와 %1$s를 지원합니다.</string>
   <string name="eightVariants">8가지 변형 체스</string>
@@ -54,6 +54,7 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
 드물지만 자동으로 결정하기 힘들 수도 있습니다. (강제수, 요새 구축 등) 기본적으로 우리는 항상 시간이 부족하지 않은 플레이어의 편입니다.
 
 상대의 기물이 상대 킹의 진로를 막고 있는 상황에서는 비숍이나 나이트 한 개만으로도 상대 킹을 체크메이트 시킬 수 있다는 것에 유의하세요.</string>
+  <string name="fideHandbook">FIDE 안내문</string>
   <string name="fideHandbookX">FIDE 핸드북 %s</string>
   <string name="discoveringEnPassant">왜 폰이 이미 지나쳐간 다른 폰을 잡을 수 있나요? (앙파상)</string>
   <string name="explainingEnPassant">\"앙파상\"이라는 규칙입니다. 위키피디아의 %1$s를 읽어보세요.
@@ -67,7 +68,7 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
   <string name="lichessTraining">Lichess 연습</string>
   <string name="watchIMRosenCheckmate">인터네셔널 마스터 Eric Rosen이 %s으로 체크메이트 하는 것을 보세요.</string>
   <string name="threefoldRepetition">3회 반복</string>
-  <string name="threefoldRepetitionExplanation">같은 포지션이 3번 반복될 경우 플레이어들은 %1$s으로 무승부를 요청할 수 있습니다. Lichess는 FIDE 공식 규칙(%2$s의 9.2 (d))을 구현했습니다.</string>
+  <string name="threefoldRepetitionExplanation">같은 포지션이 3번 반복될 경우 플레이어들은 %1$s으로 무승부를 요청할 수 있습니다. Lichess는 FIDE 공식 규칙(%2$s의 9.2)을 구현했습니다.</string>
   <string name="threefoldRepetitionLowerCase">3회 동형반복</string>
   <string name="notRepeatedMoves">같은 수를 반복하지 않았는데 반복이라면서 끝났는데요?</string>
   <string name="repeatedPositionsThatMatters">3회 반복은 %1$s에 관한 것이지, 수에 관한 것이 아닙니다. 반복은 연속적으로 이루어져야만 하는 것이 아닙니다.</string>

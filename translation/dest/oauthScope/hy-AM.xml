@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="tokenDescription">Թոքենի նկարագրություն</string>
+  <string name="rememberTokenUse">Այնպես, որ հիշեք, թե ինչի համար է այս թոքենը</string>
+  <string name="whatTheTokenCanDo">Գործողություններ, որոնք կարելի է կատարել թոքենի օգնությամբ Ձեր անունից․</string>
   <string name="preferenceRead">Կարդալ կարգավորումները</string>
   <string name="preferenceWrite">Գրել կարգավորումները</string>
   <string name="emailRead">Կարդալ էլփոստի հասցեները</string>

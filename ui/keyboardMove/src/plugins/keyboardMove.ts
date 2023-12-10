@@ -24,7 +24,7 @@ interface Opts {
 }
 
 export function load(opts: Opts): Promise<KeyboardMoveHandler> {
-  return lichess.loadEsm('keyboardMove', { init: opts });
+  return lichess.asset.loadEsm('keyboardMove', { init: opts });
 }
 
 export function initModule(opts: Opts) {
@@ -92,8 +92,8 @@ export function initModule(opts: Opts) {
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
-      if ('who' === v.toLowerCase()) {
-        readOpponentName();
+      if ('who' === v.toLowerCase() && opts.ctrl.opponent) {
+        lichess.sound.say(opts.ctrl.opponent, false, true);
         clear();
       }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
@@ -228,11 +228,6 @@ function readClocks(clockCtrl: any | undefined) {
     return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));
-}
-
-function readOpponentName(): void {
-  const opponentName = document.querySelector('.ruser-top') as HTMLInputElement;
-  lichess.sound.say(opponentName.innerText.split('\n')[0]);
 }
 
 function simplePlural(nb: number, word: string) {

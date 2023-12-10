@@ -1,6 +1,6 @@
 function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
-    const dataTheme = $('body').data('theme');
+    const dataTheme = document.body.dataset.theme;
     const theme =
       'shepherd-theme-' +
       (dataTheme === 'system'
@@ -10,11 +10,13 @@ function loadShepherd(f) {
         : dataTheme === 'light'
         ? 'default'
         : 'dark');
-    lichess.loadCss('vendor/' + theme + '.css');
-    lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
-      lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
-        f(theme);
-      });
+    lichess.asset.loadCss('vendor/' + theme + '.css');
+    lichess.asset.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
+      lichess.asset
+        .loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true })
+        .then(function () {
+          f(theme);
+        });
     });
   }
 }

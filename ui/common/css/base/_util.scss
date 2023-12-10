@@ -16,12 +16,12 @@
   @extend %data-icon;
 
   margin-right: 0.2em;
-  content: '';
+  content: $licon-ArrowUpRight;
 }
 
 bad.rp {
   &::before {
-    content: '';
+    content: $licon-ArrowDownRight;
   }
 }
 

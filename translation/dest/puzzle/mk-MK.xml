@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">Најди го најдобриот потег на белиот.</string>
   <string name="findTheBestMoveForBlack">Најди го најдобриот потег на црниот.</string>
   <string name="toGetPersonalizedPuzzles">Персонализирани загатки:</string>
-  <string name="puzzleId">Загатка %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Загатка %s</string>
   <string name="puzzleOfTheDay">Загатка на денот</string>
   <string name="clickToSolve">Кликни за решение</string>
   <string name="goodMove">Добар потег</string>
@@ -27,9 +27,9 @@
   <string name="puzzleComplete">Загатката е решена!</string>
   <string name="notTheMove">Неточен потег!</string>
   <string name="trySomethingElse">Пробајте нешто друго.</string>
-  <string name="ratingX">Рејтинг: %s</string>
-  <string name="hidden">скриен</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Рејтинг: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">скриен</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Одиграно %s</item>
     <item quantity="other">Одиграно %s пати</item>
   </plurals>

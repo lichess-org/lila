@@ -51,3 +51,5 @@ trait ResponseHeaders extends HeaderNames:
   def asAttachment(name: String)(res: Result) =
     res.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
   def asAttachmentStream(name: String)(res: Result) = noProxyBuffer(asAttachment(name)(res))
+
+  def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)

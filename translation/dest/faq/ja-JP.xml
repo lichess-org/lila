@@ -49,6 +49,7 @@
   <string name="lichessFollowFIDErules">一方のプレイヤーが時間切れになると、通常は負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順でも相手のキングをメイトできない場合はドローになります（%1$s）。
  まれな場合には自動での判定が難しいことがあります（強制手順、フォートレスの存在など）。Lichess では常に時間を残した方に有利に判定しています。
  一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
+  <string name="fideHandbook">FIDE ハンドブック</string>
   <string name="fideHandbookX">FIDE ハンドブック %s</string>
   <string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
   <string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
@@ -59,7 +60,7 @@
   <string name="lichessTraining">Lichess のトレーニング機能</string>
   <string name="watchIMRosenCheckmate">IM Eric Rosen が %s をメイトするところをご覧ください。</string>
   <string name="threefoldRepetition">同形三復について</string>
-  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
+  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 項を実装しています。</string>
   <string name="threefoldRepetitionLowerCase">同形三復</string>
   <string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）でドローなのですか？</string>
   <string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>
@@ -124,4 +125,28 @@
   <string name="lichessCanOptionnalySendPopUps">Lichess では、たとえば自分の手番やメッセージが来たなどの通知をポップアップで表示するかどうかが選べます。 
  ブラウザの URL バーで錠のアイコンをクリックしてください。
  そして Lichess からの通知を認めるかブロックするかを選びます。</string>
+  <string name="enableAutoplayForSoundsQ">サウンドの自動再生を有効にしますか？</string>
+  <string name="enableAutoplayForSoundsA">通常のブラウザではユーザーを守るため、新たに読み込んだページのサウンド再生がオフになっています。ウェブサイトがいきなり広告の音を聞かせたりできないようにです。
+
+ブラウザが lichess.org のサウンド再生を阻止すると、赤のミュート・アイコンが表示されます。通常、何かをクリックするとこの制限は解除されます。一部のモバイル用ブラウザでは、駒のタッチ＆ドラッグはクリックしたことになりません。その場合は対局が始まるたびに盤をタップして音声をオンにする必要があります。
+
+たいていの場合、ブラウザの設定で lichess.org のサウンド再生を許可できます。以下によく使われるブラウザの最近のバージョンでの操作方法をまとめました。</string>
+  <string name="desktop">デスクトップ</string>
+  <string name="enableAutoplayForSoundsFirefox">1. lichess.org に行く
+2. Linux/Windows なら Ctrl+i を、MacOS なら cmd+i を押す
+3. 許可設定タブをクリック
+4. lichess.org の音声と動画を許可する</string>
+  <string name="enableAutoplayForSoundsChrome">1. lichess.org に行く
+2. アドレスバーの URL の左のアイコンをクリック
+3. 「サイトの設定」をクリック
+4. サウンドを許可する</string>
+  <string name="enableAutoplayForSoundsSafari">1. lichess.org に行く
+2. メニューバーで Safari をクリック
+3. lichess.org の設定をクリック
+4. 「すべてのメディアを自動再生」を許可する</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 右上の点 3 つのアイコンをクリック
+2. 「設定」をクリック
+3. 「Cookie とサイトのアクセス許可」をクリック
+4. スクロールして「メディアの自動再生」をクリック
+5. 「許可」に lichess.org を追加</string>
 </resources>

@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Toto umožňuje skrýt všechna hodnocení z webových stránek, což pomůže zaměřit se na šachy. Hry jsou stále hodnoceny.</string>
   <string name="displayBoardResizeHandle">Zobrazit tlačítko pro změnu velikosti šachovnice</string>
   <string name="onlyOnInitialPosition">Jen v základním postavení</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Pouze u partie</string>
+  <string name="inGameOnly">Pouze u partie</string>
   <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desetiny sekund</string>
@@ -29,7 +29,7 @@
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Chování hry</string>
   <string name="howDoYouMovePieces">Způsob provádění tahů</string>
   <string name="clickTwoSquares">Kliknutím na dvě pole</string>
-  <string name="dragPiece">Přetažením kamene</string>
+  <string name="dragPiece">Přetažením figury</string>
   <string name="bothClicksAndDrag">Obojí</string>
   <string name="premovesPlayingDuringOpponentTurn">Předtahy (hraní během protivníkova tahu)</string>
   <string name="takebacksWithOpponentApproval">Vrácení tahu (s protivníkovým souhlasem)</string>
@@ -51,7 +51,7 @@
   <string name="inputMovesWithVoice">Zadat tahy hlasem</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Přichytit šipky k platným tahům</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Řekněte \"Good game, well played\" (překlad: \"Dobrá hra, pěkně zahráno\") po porážce nebo remíze</string>
-  <string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
+  <string name="yourPreferencesHaveBeenSaved">Vaše nastavení bylo uloženo.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rolováním na šachovnici přehrát tahy</string>
   <string name="correspondenceEmailNotification">Denní e-mailové oznámení se seznamem vašich korespondenčních her</string>
   <string name="notifyStreamStart">Streamer vysílá živě</string>

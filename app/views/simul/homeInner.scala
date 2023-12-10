@@ -19,7 +19,7 @@ object homeInner:
         pendings.nonEmpty option frag(
           thead(
             tr(
-              th("Your pending simuls"),
+              th(trans.yourPendingSimuls()),
               th(cls := "host")(trans.host()),
               th(cls := "players")(trans.players())
             )
@@ -54,7 +54,7 @@ object homeInner:
               if ctx.isAuth then
                 a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
               else
-                a(href := routes.Auth.signup, cls := "action button text")("Sign up to host or join a simul")
+                a(href := routes.Auth.signup, cls := "action button text")(trans.signUpToHostOrJoinASimul())
             )
           )
         ),

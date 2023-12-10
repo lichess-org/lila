@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pion terdepan</string>
   <string name="advancedPawnDescription">Satu pion anda jauh dalam posisi lawan, mungkin mengancam untuk melakukan promosi.</string>
   <string name="advantage">Keuntungan</string>
-  <string name="advantageDescription">Raih kesempatan Anda untuk mendapatkan keuntungan yang besar. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Raih kesempatan Anda untuk mendapatkan keuntungan yang besar. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Skakmat Anastasia</string>
   <string name="anastasiaMateDescription">Kuda dan benteng bekerja sama untuk menjebak raja lawan di antara sisi papan dan bidak kawan di sisi lain.</string>
   <string name="arabianMate">Skakmat Arab</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Memakan pelindung</string>
   <string name="capturingDefenderDescription">Memakan bidak yang sangat penting untuk menjaga bidak lain, memungkinkan bagian yang sekarang tidak terlindungi untuk ditangkap pada langkah berikut.</string>
   <string name="crushing">Hancurkan</string>
-  <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Skakmat gajah ganda</string>
   <string name="doubleBishopMateDescription">Dua bidak gajah yang menyerang pada diagonal yang bersebelahan mengantarkan sekakmat pada raja yang terhalang bidaknya sendiri.</string>
   <string name="dovetailMate">Skatmat Dovetail</string>
   <string name="dovetailMateDescription">Menteri skakmat disebelah raja, yang dua petak melarikan dirinya terhambat oleh bidak kawan.</string>
   <string name="equality">Kesetaraan</string>
-  <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Serangan raja</string>
   <string name="kingsideAttackDescription">Serangan raja lawan, setelah mereka berada di sisi raja.</string>
   <string name="clearance">Pembersihan</string>

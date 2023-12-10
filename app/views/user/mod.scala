@@ -136,6 +136,15 @@ object mod:
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
           )
         },
+        isGranted(_.ArenaBan) option {
+          postForm(
+            action := routes.Mod.arenaBan(u.username, !u.marks.arenaBan),
+            title  := "Enable/disable this user from joining all arenas.",
+            cls    := "xhr"
+          )(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.arenaBan))("Arena ban")
+          )
+        },
         isGranted(_.PrizeBan) option {
           postForm(
             action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
@@ -508,23 +517,22 @@ object mod:
           pag.pag.playerAssessments
             .sortBy(-_.assessment.id)
             .take(15)
-            .map { result =>
+            .map: result =>
               tr(
                 td(
-                  a(href := routes.Round.watcher(result.gameId, result.color.name))(
-                    pag.pov(result).fold[Frag](result.gameId) { p =>
-                      playerUsername(p.opponent.light)
-                    }
-                  )
+                  a(href := routes.Round.watcher(result.gameId, result.color.name)):
+                    pag
+                      .pov(result)
+                      .fold[Frag](result.gameId): p =>
+                        playerUsername(p.opponent.light, p.opponent.userId flatMap lightUser)
                 ),
                 td(
-                  pag.pov(result).map { p =>
+                  pag.pov(result) map: p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
                       p.game.isTournament option iconTag(licon.Trophy),
                       iconTag(p.game.perfType.icon)(cls := "text"),
                       shortClockName(p.game.clock.map(_.config))
                     )
-                  }
                 ),
                 td(
                   span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := licon.DiscBig),
@@ -547,19 +555,16 @@ object mod:
                   if result.basics.hold then "Yes" else "No"
                 ),
                 td(
-                  pag.pov(result).map { p =>
+                  pag.pov(result) map: p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name), cls := "glpt")(
                       momentFromNowServerText(p.game.movedAt)
                     )
-                  }
                 ),
                 td(
-                  div(cls := "aggregate")(
+                  div(cls := "aggregate"):
                     span(cls := s"sig sig_${result.assessment.id}")(result.assessment.emoticon)
-                  )
                 )
               )
-            }
         )
       )
     )

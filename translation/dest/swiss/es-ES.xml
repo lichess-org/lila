@@ -62,8 +62,7 @@ Creemos que es más probable que estas condiciones se cumplan en un equipo que e
   <string name="numberOfByesA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no es capaz de asignarle un oponente.
 Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando éste ya ha empezado.</string>
   <string name="earlyDrawsQ">¿Qué sucede con las tablas tempranas?</string>
-  <string name="earlyDrawsA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no es capaz de asignarle un oponente.
-Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando este ya ha empezado.</string>
+  <string name="earlyDrawsAnswer">En los torneos suizos, los jugadores no pueden declarar tablas antes de jugar 30 movimientos. Si bien esta medida no puede impedir las tablas acordadas previamente, al menos hace más difícil aceptarlas sobre la marcha.</string>
   <string name="whatIfOneDoesntPlayQ">¿Qué pasa si un jugador no juega una partida?</string>
   <string name="whatIfOneDoesntPlayA">Su reloj se pondrá en marcha, hasta que pierda la partida por tiempo.
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.

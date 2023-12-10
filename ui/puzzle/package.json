@@ -12,17 +12,17 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "board": "workspace:*",
     "ceval": "workspace:*",
-    "chart.js": "=3.9.1",
+    "chart.js": "=4.4.0",
     "chess": "workspace:*",
     "chessops": "^0.12.7",
     "common": "workspace:*",
     "keyboardMove": "workspace:*",
-    "voice": "workspace:*",
     "nvui": "workspace:*",
-    "board": "workspace:*",
     "snabbdom": "^3.5.1",
-    "tree": "workspace:*"
+    "tree": "workspace:*",
+    "voice": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

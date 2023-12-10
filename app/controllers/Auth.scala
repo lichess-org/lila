@@ -132,7 +132,9 @@ final class Auth(
                             )
                           case Some(u) =>
                             lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
-                            env.user.repo.email(u.id) foreach { _ foreach garbageCollect(u) }
+                            env.user.repo.email(u.id) foreach:
+                              case None        => env.msg.emailReminder(u.id)
+                              case Some(email) => garbageCollect(u)(email)
                             val remember = api.rememberForm.bindFromRequest().value | true
                             authenticateUser(u, remember, Some(redirectTo))
                     )
@@ -272,7 +274,8 @@ final class Auth(
   private def redirectNewUser(user: UserModel)(using Context) =
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
-        Redirect(getReferrerOption | routes.User.show(user.username).url),
+        Redirect(getReferrerOption | routes.User.show(user.username).url)
+          .flashSuccess("Welcome! Your account is now active."),
         mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
@@ -481,31 +484,29 @@ final class Auth(
     ): Fu[Result] =
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
-      env.security.ipTrust
-        .rateLimitCostFactor(ip, _.proxyMultiplier(8))
-        .flatMap: cost =>
-          PasswordHasher.rateLimit[Result](
-            rateLimited,
-            enforce = env.net.rateLimit,
-            ipCost = cost.toInt + EmailAddress.isValid(id.value).so(2),
-            userCost = 1 + multipleIps.so(4)
-          )(id, req)(run)
-
-  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
-    env.security.ipTrust
-      .rateLimitCostFactor(ctx.ip, _.proxyMultiplier(8))
-      .flatMap: cost =>
+      passwordCost(req).flatMap: cost =>
         PasswordHasher.rateLimit[Result](
           rateLimited,
           enforce = env.net.rateLimit,
-          ipCost = cost.toInt
-        )(me.userId into UserIdOrEmail, req)(_ => run)
+          ipCost = cost.toInt + EmailAddress.isValid(id.value).so(2),
+          userCost = 1 + multipleIps.so(4)
+        )(id, req)(run)
+
+  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
+    passwordCost(req).flatMap: cost =>
+      PasswordHasher.rateLimit[Result](
+        rateLimited,
+        enforce = env.net.rateLimit,
+        ipCost = cost.toInt
+      )(me.userId into UserIdOrEmail, req)(_ => run)
+
+  private def passwordCost(req: RequestHeader): Fu[Float] =
+    env.security.ipTrust
+      .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
 
   private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result]
 
   private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx.me match
-      case Some(me) => Redirect(routes.User.show(me.username))
-      case None     => f
+    ctx.me.fold(f)(me => Redirect(routes.User.show(me.username)))

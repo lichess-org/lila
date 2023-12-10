@@ -45,15 +45,8 @@ final private class CheckMail(
 
   private val prefix = "security:check_mail"
 
-  private val cache = mongoCache[Domain.Lower, Boolean](
-    512,
-    prefix,
-    1000 days,
-    _.toString
-  ) { loader =>
-    _.maximumSize(512)
-      .buildAsyncFuture(loader(fetch))
-  }
+  private val cache = mongoCache[Domain.Lower, Boolean](512, prefix, 1000 days, _.toString): loader =>
+    _.maximumSize(512).buildAsyncFuture(loader(fetch))
 
   export cache.invalidate
 

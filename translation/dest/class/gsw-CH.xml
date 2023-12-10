@@ -85,7 +85,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="noStudents">Bis jetzt kei Schüeler i dere Klass.</string>
   <string name="noRemovedStudents">Kei entfernti Schüeler.</string>
   <string name="overDays">Über Täg</string>
-  <string name="timePlaying">Spillzit</string>
+  <string name="timePlaying">Schpilzit</string>
   <string name="variantXOverLastY">%1$s über die letschte %2$s</string>
   <string name="winrate">Gwünnrate</string>
   <string name="na">Nöd verfüegbar</string>
@@ -100,7 +100,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="newsEdit3">Tränn Neuigkeite mit ---
 Es wird als horizontali Linie azeigt.</string>
   <string name="invite">ilade</string>
-  <string name="youHaveBeenInvitedByX">Du bisch iglade vu %s.</string>
+  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Du bisch iglade vu %s.</string>
   <string name="youAcceptedThisInvitation">Du häsch die Iladig agnah.</string>
   <string name="youDeclinedThisInvitation">Du häsch die Iladig abglehnt.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>

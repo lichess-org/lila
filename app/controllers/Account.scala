@@ -30,19 +30,30 @@ final class Account(
       html.account.username(me, env.user.forms usernameOf me)
   }
 
-  def profileApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.profile)(err => renderPage(html.account.profile(me, err))): profile =>
-      profile.bio
-        .exists(env.security.spam.detect)
-        .option("profile.bio" -> ~profile.bio)
-        .orElse:
-          profile.links
-            .exists(env.security.spam.detect)
-            .option("profile.links" -> ~profile.links)
-        .so { (resource, text) =>
-          env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-        } >> env.user.repo.setProfile(me, profile) >>
-        Redirect(routes.User show me.username).flashSuccess
+  def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    env.user.forms.profile
+      .bindFromRequest()
+      .fold(
+        err =>
+          negotiate(
+            BadRequest.page(html.account.profile(me, err)),
+            jsonFormError(err)
+          ),
+        profile =>
+          for
+            _ <- profile.bio
+              .exists(env.security.spam.detect)
+              .option("profile.bio" -> ~profile.bio)
+              .orElse:
+                profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
+              .so: (resource, text) =>
+                env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+            _ <- env.user.repo.setProfile(me, profile)
+            _ <- env.user.forms.flair.bindFromRequest().fold(_ => funit, env.user.repo.setFlair(me, _))
+          yield
+            env.user.lightUserApi.invalidate(me)
+            Redirect(routes.User show me.username).flashSuccess
+      )
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
@@ -53,7 +64,7 @@ final class Account(
         }
   }
 
-  def info = Auth { _ ?=> me ?=>
+  def info = Auth { ctx ?=> me ?=>
     negotiateJson:
       for
         povs         <- env.round.proxyRepo urgentGames me
@@ -69,7 +80,7 @@ final class Account(
             "nbChallenges" -> nbChallenges,
             "online"       -> true
           )
-          .add("kid" -> me.kid)
+          .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
           .add("announce" -> AnnounceStore.get.map(_.json))
@@ -85,32 +96,38 @@ final class Account(
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
-      rateLimit(me, limited):
-        env.api.userApi.extended(
-          me.value,
-          withFollows = apiC.userWithFollows,
-          withTrophies = false
-        ) dmap { JsonOk(_) }
+      val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
+      if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
+      else
+        rateLimit(me, limited):
+          env.api.userApi.extended(
+            me.value,
+            withFollows = apiC.userWithFollows,
+            withTrophies = false,
+            forWiki = wikiGranted
+          ) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying = Scoped()(doNowPlaying)
 
-  private def doNowPlaying(using Context)(using me: Me) =
-    env.round.proxyRepo.urgentGames(me) map { povs =>
-      val nb = (getInt("nb") | 9) atMost 50
-      Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
-    }
+  private def doNowPlaying(using ctx: Context)(using me: Me) =
+    env.round.proxyRepo
+      .urgentGames(me)
+      .map:
+        _.take((getInt("nb") | 9) atMost 50)
+      .map:
+        _.filterNot(_.game.isTournament) map env.api.lobbyApi.nowPlaying
+      .map: povs =>
+        Ok(Json.obj("nowPlaying" -> JsArray(povs)))
 
   def dasher = Auth { _ ?=> me ?=>
-    negotiateJson(
-      env.pref.api.get(me).map { prefs =>
+    negotiateJson:
+      env.pref.api.get(me) map: prefs =>
         Ok:
-          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+          lila.common.LightUser.write(me.light) ++ Json.obj(
             "coach" -> isGranted(_.Coach),
             "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
           )
-      }
-    )
   }
 
   def passwd = Auth { _ ?=> me ?=>

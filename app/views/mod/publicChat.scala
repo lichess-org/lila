@@ -17,42 +17,34 @@ object publicChat:
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
       moreJs = jsModule("publicChats")
-    ) {
+    ):
       main(cls := "page-menu")(
         views.html.mod.menu("public-chat"),
         div(id := "comm-wrap")(
           div(id := "communication", cls := "page-menu__content public-chat box box-pad")(
             h2("Tournament Chats"),
-            div(cls := "player_chats")(
-              tourChats.map { case (tournament, chat) =>
-                div(cls := "game", dataChan := "tournament", dataRoom := tournament.id)(
+            div(cls := "player_chats"):
+              tourChats.map: (tournament, chat) =>
+                div(cls := "game", dataChan := "tournament", dataRoom := tournament.id):
                   chatOf(tournamentTitle(tournament), chat)
-                )
-              }
-            ),
+            ,
             div(
               h2("Swiss Chats"),
-              div(cls := "player_chats")(
-                swissChats.map { case (swiss, chat) =>
-                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id)(
+              div(cls := "player_chats"):
+                swissChats.map: (swiss, chat) =>
+                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id):
                     chatOf(swissTitle(swiss), chat)
-                  )
-                }
-              )
             ),
             div(cls := "timeout-modal none")(
               h2(cls := "username")("username"),
               p(cls := "text")("text"),
-              div(cls := "continue-with")(
-                ChatTimeout.Reason.all.map { reason =>
+              div(cls := "continue-with"):
+                ChatTimeout.Reason.all.map: reason =>
                   button(cls := "button", value := reason.key)(reason.shortName)
-                }
-              )
             )
           )
         )
       )
-    }
 
   private val dataRoom = attr("data-room")
   private val dataChan = attr("data-chan")
@@ -60,8 +52,8 @@ object publicChat:
   private def chatOf(titleFragment: Frag, chat: UserChat)(using PageContext) =
     frag(
       titleFragment,
-      div(cls := "chat")(
-        chat.lines.filter(_.isVisible).map { line =>
+      div(cls := "chat"):
+        chat.lines.filter(_.isVisible) map: line =>
           div(
             cls := List(
               "line"    -> true,
@@ -70,10 +62,8 @@ object publicChat:
           )(
             userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
             " ",
-            communication.highlightBad(line.text)
+            lila.shutup.Analyser.highlightBad(line.text)
           )
-        }
-      )
     )
 
   private def swissTitle(swiss: lila.swiss.Swiss) =

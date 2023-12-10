@@ -16,7 +16,7 @@
   <string name="castling">易位</string>
   <string name="capturingDefender">吃子 - 防守者</string>
   <string name="crushing">壓倒性優勢</string>
-  <string name="crushingDescription">察覺對方的漏著並藉此取得巨大優勢。(大於600百分兵)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">察覺對方的漏著並藉此取得巨大優勢。(大於600百分兵)</string>
   <string name="doubleBishopMate">雙主教將死</string>
   <string name="equality">均勢</string>
   <string name="kingsideAttack">王翼攻擊</string>

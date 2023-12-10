@@ -482,8 +482,6 @@
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="oneUrlPerLine">প্রতি লাইনে একটি লিংক।</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
-  <string name="savingMoves">চালগুলো বর্তমানে ক্ষণস্থায়ী ভাবে সংরক্ষিত</string>
-  <string name="savingMovesHelp">আপনার ব্রাউজার ক্যাচে ভ্যারিয়েশনগুলো সংরক্ষিত করছি আমরা.</string>
   <string name="makeAStudy">অধ্যায়ন নিরাপদ রাখার জন্য অন্য ইউজারদের সঙ্গে শেয়ারকরুন ও অধ্যায়ন তৈরি করুন.</string>
   <string name="clearSavedMoves">চাল গুলো মুছুন</string>
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>
@@ -651,6 +649,7 @@
   <string name="tournamentFAQ">কর্মক্ষেত্র প্রতিযোগিতার প্রশ্নবলী</string>
   <string name="timeBeforeTournamentStarts">সময়ের পূর্বে প্রতিযোগিতা শুরু</string>
   <string name="averageCentipawnLoss">গড় ছিন্টেপাওন ক্ষতি</string>
+  <string name="accuracy">নির্ভুলতা</string>
   <string name="keyboardShortcuts">কী-বোর্ড শর্টকাট</string>
   <string name="keyMoveBackwardOrForward">পেছনে সরান/সামনে যান</string>
   <string name="keyGoToStartOrEnd">শুরু করতে যান/শেষ</string>
@@ -866,9 +865,6 @@
   <string name="timeAlmostUp">সময় প্রায় শেষ!</string>
   <string name="clickToRevealEmailAddress">[ইমেইল অ্যাড্রেস দেখতে ক্লিক করুন]</string>
   <string name="download">ডাউনলোড করুন</string>
-  <string name="welcome">স্বাগতম!</string>
-  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
-সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
   <string name="coachManager">প্রশিক্ষক ব্যবস্থাপনা</string>
   <string name="streamerManager">সম্প্রচার নিয়ন্ত্রণ</string>
   <string name="cancelTournament">টুর্নামেন্ট বাতিল করুন</string>
@@ -915,4 +911,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>
   <string name="switchSides">পক্ষ পরিবর্তন করুন</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
+  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
+সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
 </resources>

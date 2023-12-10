@@ -70,6 +70,7 @@
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
+  <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>
@@ -115,6 +116,7 @@
   <string name="openStudy">Avaa tutkielma</string>
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
+  <string name="showVariationArrows">Näytä muunnelman nuolet</string>
   <string name="evaluationGauge">Arviomittari</string>
   <string name="multipleLines">Muunnelmien määrä</string>
   <string name="cpus">Suorittimia</string>
@@ -153,6 +155,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-vahvuusluku %2$s pelistä</item>
+    <item quantity="other">%1$s-vahvuusluku %2$s pelistä</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s oma kirjanmerkki</item>
@@ -399,6 +405,7 @@
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
   <string name="importGameCaveat">Muunnelmat poistetaan. Jos haluat säilyttää ne, tuo PGN ensin tutkielmaan.</string>
+  <string name="importGameCaveat2">Tähän PGN:ään on julkinen pääsy. Käytä tutkielmaa halutessasi tuoda pelin ja pitää sen yksityisenä.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
@@ -479,6 +486,7 @@
   <string name="movesPlayed">Siirtoja</string>
   <string name="whiteWins">Valkean voittoja</string>
   <string name="blackWins">Mustan voittoja</string>
+  <string name="drawRate">Tasapelien osuus</string>
   <string name="draws">Tasapelejä</string>
   <string name="nextXTournament">Seuraava %s-turnaus:</string>
   <string name="averageOpponent">Keskimääräinen vastustaja</string>
@@ -499,14 +507,14 @@
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
+  <string name="setFlair">Valitse tyylisi:</string>
+  <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
   <string name="biography">Kuvaus</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lippu</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai alue</string>
   <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="oneUrlPerLine">Yksi URL per rivi.</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
-  <string name="savingMoves">Väliaikainen siirtojen tallennus</string>
-  <string name="savingMovesHelp">Muunnelmasi tallentuvat aina selaimesi välimuistiin.</string>
   <string name="makeAStudy">Tallenna analyysisi tutkielmaksi, jos haluat säilyttää sen tai jakaa sen muiden kanssa.</string>
   <string name="clearSavedMoves">Tyhjennä siirrot</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
@@ -560,7 +568,7 @@
   <string name="noNoteYet">Ei vielä muistiinpanoja</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
-  <string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
+  <string name="invalidAuthenticationCode">Tunnistautumiskoodi ei kelpaa</string>
   <string name="emailMeALink">Lähetä minulle linkki</string>
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
@@ -654,6 +662,7 @@
   <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
+  <string name="yourPendingSimuls">Odottavat simultaanisi</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Pidä uusi simultaani</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
@@ -680,6 +689,7 @@
   <string name="keyboardShortcuts">Pikanäppäimet</string>
   <string name="keyMoveBackwardOrForward">siirry eteenpäin/taaksepäin</string>
   <string name="keyGoToStartOrEnd">siirry alkuun/loppuun</string>
+  <string name="keyCycleSelectedVariation">Vaihda valittu muunnelma</string>
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
   <string name="keyRequestComputerAnalysis">Pyydä tietokoneanalyysiä, opi virheistäsi</string>
@@ -687,9 +697,16 @@
   <string name="keyNextBlunder">Seuraava vakava virhe</string>
   <string name="keyNextMistake">Seuraava virhe</string>
   <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
+  <string name="keyPreviousBranch">Edellinen haara</string>
+  <string name="keyNextBranch">Seuraava haara</string>
+  <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
+  <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
+  <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
+  <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
+  <string name="playSelectedMove">tee valittu siirto</string>
   <string name="newTournament">Uusi turnaus</string>
   <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
-  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Blitz, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
+  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Pikapeli, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
   <string name="tournamentNotFound">Turnausta ei löydy</string>
   <string name="tournamentDoesNotExist">Tätä turnausta ei ole olemassa.</string>
   <string name="tournamentMayHaveBeenCanceled">Se on saatettua perua, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.</string>
@@ -744,7 +761,7 @@
   <string name="zeroAdvertisement">Ei mainoksia</string>
   <string name="fullFeatured">Kaikki ominaisuudet</string>
   <string name="phoneAndTablet">Puhelin ja tabletti</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassinen</string>
+  <string name="bulletBlitzClassical">Bullet, pikapeli, klassinen</string>
   <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
@@ -864,6 +881,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Pikapeli</string>
   <string name="rapid">Nopea</string>
   <string name="classical">Klassinen</string>
   <string name="ultraBulletDesc">Järjettömän nopeat pelit: alle 30 sekuntia</string>
@@ -903,9 +921,6 @@
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
   <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tätä]</string>
   <string name="download">Lataa</string>
-  <string name="welcome">Tervetuloa!</string>
-  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
-Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>
   <string name="cancelTournament">Peruuta turnaus</string>
@@ -964,4 +979,8 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="switchSides">Vaihda puolta</string>
   <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
   <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
+  <string name="instructions">Ohjeet</string>
+  <string name="showMeEverything">Näytä kaikki</string>
+  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
+Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
 </resources>

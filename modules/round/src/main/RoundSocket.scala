@@ -28,9 +28,9 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
-    mobileSocket: RoundMobileSocket,
+    mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor, lila.user.FlairApi.Getter)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -38,19 +38,24 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket"): () =>
     stopping = true
-    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
+    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map: nb =>
       Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
-    }
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
-    rounds.getOrMake(gameId).getGame addEffect { g =>
+    rounds.getOrMake(gameId).getGame addEffect: g =>
       if g.isEmpty then finishRound(gameId)
-    }
+
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
+    gameIds.traverse: id =>
+      rounds.getOrMake(id).getGame dmap { id -> _ }
+
+  def getMany(gameIds: List[GameId]): Fu[List[GameAndSocketStatus]] =
     gameIds
-      .map: id =>
-        rounds.getOrMake(id).getGame dmap { id -> _ }
-      .parallel
+      .traverse: id =>
+        gameAndStatusIfPresent(id).orElse:
+          roundDependencies.gameRepo game id map2: g =>
+            GameAndSocketStatus(g, SocketStatus.default)
+      .map(_.flatten)
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
@@ -62,6 +67,9 @@ final class RoundSocket(
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId).so(_ updateGame f)
 
+  def gameAndStatusIfPresent(gameId: GameId): Fu[Option[GameAndSocketStatus]] =
+    rounds.askIfPresent[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
+
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
       id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo game id recoverDefault none),
@@ -69,13 +77,13 @@ final class RoundSocket(
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
-    val proxy = GameProxy(id, proxyDependencies, gameFu)
+    given proxy: GameProxy = GameProxy(id, proxyDependencies, gameFu)
     val roundActor = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
       version = version
-    )(using ec, proxy)
+    )
     terminationDelay schedule id
     gameFu.dforeach:
       _.foreach: game =>
@@ -137,7 +145,7 @@ final class RoundSocket(
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.json(game.game, game.socket, anyId)
+        data <- mobileSocket.json(game.game, anyId, game.socket.some)
       yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
@@ -160,7 +168,7 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) andDo send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame"):
+  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame", "roundUnplayed"):
     case TvSelect(gameId, speed, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
@@ -174,13 +182,12 @@ final class RoundSocket(
     case Exists(gameId, promise)    => promise success rounds.exists(GameId(gameId))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
-      }
     case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
-      }
+    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>

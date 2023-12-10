@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Atrodiet labāko gājienu baltajiem.</string>
   <string name="findTheBestMoveForBlack">Atrodiet labāko gājienu melnajiem.</string>
   <string name="toGetPersonalizedPuzzles">Lai iegūtu pielāgotus uzdevumus:</string>
-  <string name="puzzleId">Uzdevums %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Uzdevums %s</string>
   <string name="puzzleOfTheDay">Dienas uzdevums</string>
   <string name="dailyPuzzle">Šodienas uzdevums</string>
   <string name="clickToSolve">Klikšķiniet, lai atrisinātu</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Pa atklātnēm</string>
   <string name="puzzlesByOpenings">Puzles pa atklātnēm</string>
   <string name="openingsYouPlayedTheMost">Visvairāk spēlētās atklātnes spēlēs ar reitingu</string>
-  <string name="useFindInPage">Lieto \"Find in page\" no pārlūka izvēlnes lai atrastu savu mīļāko atklātni!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Lieto \"Find in page\" no pārlūka izvēlnes lai atrastu savu mīļāko atklātni!</string>
   <string name="useCtrlF">Lieto Ctrl+f lai atrastu savu mīļāko atklātni!</string>
   <string name="notTheMove">Tas nav īstais gājiens!</string>
   <string name="trySomethingElse">Izmēģiniet ko citu.</string>
-  <string name="ratingX">Reitings: %s</string>
-  <string name="hidden">slēpts</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Reitings: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">slēpts</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="zero">Spēlēts %s reizes</item>
     <item quantity="one">Spēlēts %s reizi</item>
     <item quantity="other">Spēlēts %s reizes</item>

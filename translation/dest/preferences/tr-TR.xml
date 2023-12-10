@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Seçenekler</string>
+  <string name="preferences">Tercihler</string>
   <string name="display">Görünüm</string>
   <string name="privacy">Gizlilik</string>
   <string name="notifications">Bildirimler</string>
@@ -10,20 +10,21 @@
   <string name="pieceDestinations">Taşın gidebileceği kareler (geçerli hamleler ve ön hamleler)</string>
   <string name="boardCoordinates">Tahta koordinatları (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
-  <string name="pgnPieceNotation">Notasyon tut</string>
+  <string name="pgnPieceNotation">Notasyonda taşların simgesi</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
   <string name="pgnLetter">Harf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="showPlayerRatings">Oyuncu puanlarını göster</string>
   <string name="explainShowPlayerRatings">Bu seçenek, sitedeki bütün oyuncu puanlarını gizleyerek yalnızca satranca odaklanmanıza yardımcı olur. Hâlâ puanlı maçlar oynayabilirsiniz ancak puanlar sizden gizlenir.</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
-  <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
+  <string name="onlyOnInitialPosition">Sadece başlangıç konumunda</string>
+  <string name="inGameOnly">Sadece oyun sırasında</string>
   <string name="blindfoldChess">Körleme satranç (taşlar görünmez)</string>
   <string name="chessClock">Satranç saati</string>
-  <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
+  <string name="tenthsOfSeconds">Saniyenin onda biri</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniyeden az ise</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
-  <string name="soundWhenTimeGetsCritical">Zaman azaldığında sesle uyarı</string>
+  <string name="soundWhenTimeGetsCritical">Zaman kritik seviyeye düştüğünde sesle uyar</string>
   <string name="giveMoreTime">Fazladan süre ver</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Oyun tercihleri</string>
   <string name="howDoYouMovePieces">Taşları nasıl hareket ettirirsin?</string>
@@ -31,7 +32,7 @@
   <string name="dragPiece">Taşı sürükleyerek</string>
   <string name="bothClicksAndDrag">İkisi de</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (hamle sırası rakipteyken oynama)</string>
-  <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
+  <string name="takebacksWithOpponentApproval">Hamle geri alma (rakibin onayıyla)</string>
   <string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
   <string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
   <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi sırasında &lt;ctrl&gt; tuşunu basılı tutun</string>
@@ -46,7 +47,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma şekli</string>
   <string name="castleByMovingTwoSquares">Şahı iki kare sürerek</string>
   <string name="castleByMovingOntoTheRook">Şahı kalenin üstüne getirerek</string>
-  <string name="inputMovesWithTheKeyboard">Hamleleri klavye ile gir</string>
+  <string name="inputMovesWithTheKeyboard">Hamleleri Klavye ile yap</string>
   <string name="inputMovesWithVoice">Hamleleri sesinizle sağlayın</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Sadece mümkün hamlelere ok çiz</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Beraberlik veya yenilgiyle biten maçların sonunda \"İyi oyundu, güzel oynadın\" mesajı gönder</string>

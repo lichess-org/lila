@@ -3,7 +3,7 @@
   <string name="advancedPawn">Ushtar i përparuar</string>
   <string name="advancedPawnDescription">Një nga ushtarët tuaj ka hyrë thellë në territorin e kundërshtarit, ndoshta duke kërcënuar të gradohet.</string>
   <string name="advantage">Avantazh</string>
-  <string name="advantageDescription">Shfrytëzoni shansin tuaj që të përfitoni një avantazh vendimtar. (200cp ≤ vlerë ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Shfrytëzoni shansin tuaj që të përfitoni një avantazh vendimtar. (200cp ≤ vlerë ≤ 600cp)</string>
   <string name="anastasiaMate">Mati i Anastasisë</string>
   <string name="anastasiaMateDescription">Një kalë dhe torrë ose mbretëreshë bëhen tok për të bllokuar mbretin kundërshtar mes anës së fushës dhe një guri miqësor.</string>
   <string name="arabianMate">Mat arab</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Merrni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, çka tani lejon që pjesa e pambrojtur të merret me një lëvizje vijuese.</string>
   <string name="crushing">Shkatërrim</string>
-  <string name="crushingDescription">Shfrytëzoni gafën e kundërshtarit për të përfituar një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Shfrytëzoni gafën e kundërshtarit për të përfituar një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
   <string name="doubleBishopMate">Mat me dy oficerë</string>
   <string name="doubleBishopMateDescription">Dy oficerë në sulm, në diagonale krah njëra-tjetrës, i japin mat mbretit të penguar nga figura miqësore.</string>
   <string name="dovetailMate">Mati bishtpëllumb</string>
   <string name="dovetailMateDescription">Një mbretëreshë i jep mat një mbretit afër, dy kuadratet e vetme të shpëtimit të të cilit janë zënë nga gurë të vetët.</string>
   <string name="equality">Barazim</string>
-  <string name="equalityDescription">Kthehuni nga një pozicion humbës dhe siguroni një barazim ose një pozicion të ekuilibruar. (vlera ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Kthehuni nga një pozicion humbës dhe siguroni një barazim ose një pozicion të ekuilibruar. (vlera ≤ 200cp)</string>
   <string name="kingsideAttack">Sulmi nga ana e mbretit</string>
   <string name="kingsideAttackDescription">Një sulm në anë të mbretit, pasi bëri rrokade në anë te mbretit.</string>
   <string name="clearance">Largim</string>

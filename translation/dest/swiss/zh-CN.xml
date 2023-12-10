@@ -54,15 +54,14 @@
   <string name="numberOfByesA">每当系统无法为某选手配对，他将轮空一轮并获得一分。
 此外，一个晚加入比赛的选手将轮空一轮并获得半分。</string>
   <string name="earlyDrawsQ">过早平局会发生什么？</string>
-  <string name="earlyDrawsA">当系统无法为某位选手配对，他将轮空一轮并获得一分。
-此外，若选手是晚加入比赛的，他将轮空一轮并获得半分。</string>
+  <string name="earlyDrawsAnswer">在瑞士锦标赛中，当棋局长度不足 30 回合时，玩家将不能提和。尽管这不能防止提前约定好的和棋，但至少使商定和棋更加困难。</string>
   <string name="whatIfOneDoesntPlayQ">如果玩家不进行棋局会怎样？</string>
   <string name="whatIfOneDoesntPlayA">当时间耗尽，他们会被标记，并输掉比赛。
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
 他们随时可以重新加入比赛。</string>
   <string name="protectionAgainstNoShowQ">对于没有参加的情况怎么办？</string>
   <string name="protectionAgainstNoShowA">报名参加瑞士锦标赛但不下棋的玩家可能导致问题。
-为了缓解这些麻烦，Lichess会阻止未能这些玩家在一段时间内加入新的瑞士锦标赛。
+为了缓解这些麻烦，Lichess 会阻止未能在加入锦标赛一段时间内下出一盘棋的玩家。
 瑞士锦标赛的创建者也可以决定是否让他们加入。</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>
   <string name="lateJoinA">是的，直到一半的回合完成之前。比如一个有 11 轮的比赛，选手可以在第 6 轮开始前加入；一个 12 轮的比赛可以在第 7 轮开始前加入。
@@ -105,5 +104,5 @@
   <string name="unlimitedAndFree">无限制并免费</string>
   <string name="predefinedUsers">仅允许预定义的用户加入</string>
   <string name="forbiddedUsers">如果这个列表是非空的，则此列表中缺少的用户将被禁止加入。每行一个用户名。</string>
-  <string name="playYourGames">开始您的棋局</string>
+  <string name="playYourGames">开始你的对局</string>
 </resources>

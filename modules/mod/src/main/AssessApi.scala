@@ -67,7 +67,7 @@ final class AssessApi(
         }
         missing.nonEmpty so
           analysisRepo.coll
-            .idsMap[Analysis, GameId](missing)(_.id into GameId)
+            .idsMap[Analysis, GameId](missing)(x => GameId(x.id.value))
             .flatMap { ans =>
               povs
                 .flatMap { pov =>

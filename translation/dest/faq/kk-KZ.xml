@@ -31,8 +31,8 @@
   <string name="fairPlayPage">адал ойын парақшасында</string>
   <string name="youCanUseOpeningBookNoEngine">Личестегі хат-хабарлы ойынның басты ерекшелігі – бастаулар кітабын пайдалану рұқсат. Компьютердің көмегін қолдану бұрынғыдай тыйым, әрі шектеу белгісіне шалдықтырады. ICCF ұйымы хат-хабарлы ойындарда есептеуіш көмегін рұқсат еткенімен, біздің ережеміз өзгеше.</string>
   <string name="gameplay">Ойын</string>
-  <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
-  <string name="basedOnGameDuration">Личесте уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s
+  <string name="howBulletBlitzEtcDecided">Буллит, Блиц пен басқа да уақыт қалыптарының айырмашылығы неде?</string>
+  <string name="basedOnGameDuration">Личестегі уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s.
 Мысалы, 5+3 ойынның болжаулы ұзақтығы 5 × 60 + 40 × 3 = 420 секунд.</string>
   <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
@@ -53,6 +53,7 @@
 Көп жағдайда бұны автоматты түрде шешу қиын. Әдетте біз уақытты кетірмеген ойыншыны қолдаймыз.
 
 Бір атпен не пілмен мат қою мүмкін екенін ескертеміз. Ол үшін қарсыластың өз патшасына бөгет болып тұратын тасы болуы шарт.</string>
+  <string name="fideHandbook">FIDE нұсқаулығы</string>
   <string name="fideHandbookX">FIDE анықтамалығының %s</string>
   <string name="discoveringEnPassant">Бір сарбаз, қасынан басқа сарбаз өтіп болғанда, оны неге басып алуға қабілетті (жолай басу)?</string>
   <string name="explainingEnPassant">Бұл ережеге сай \"жолай басу\" жүрісі. Википедия мақаласында %1$s беріп тұр.
@@ -66,13 +67,13 @@
   <string name="lichessTraining">Личес жаттығулары</string>
   <string name="watchIMRosenCheckmate">Халықаралық Шебер Эрик Розын матын қарау %s.</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
-  <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 (d) бабында жазылғандай, FIDE ережесін ұстанады.</string>
+  <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 бабында жазылғандай, FIDE ережесін ұстанады.</string>
   <string name="threefoldRepetitionLowerCase">үш реттік қайталану</string>
   <string name="notRepeatedMoves">Біз жүрістерді қайталамадық. Ойын неге қайталанудан тепе-теңдік болып аяқталды?</string>
   <string name="repeatedPositionsThatMatters">Үш реттік қайталану деп %1$sн меңзейді, жүрістерді емес. Қайталану бірінен соң бірі болу міндетті емес.</string>
   <string name="positions">тақта күйі</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Біз күйді үш рет қайталадық. Ойын неге тепе-теңдік болып тоқталмады?</string>
-  <string name="threeFoldHasToBeClaimed">Қайталануды ойыншылардың бірі жариялау керек. Ол үшін сәйкес батырмаға басыңыз немесе тепе-теңдікті соңғы қайталану болар алдында сұраңыз, сонда қарсыласыңыз келіспесе де, ойын үш реттік қайталану негізінде тепе-теңдікпен тоқталады. Сонымен қатар, Личес %1$s қайталануды автоматты түрде жариялауды қоса аласыз. Одан бөлек, бес реттік қайталану болып қалса, ол ешбір шартсыз ойынды тоқтады.</string>
+  <string name="threeFoldHasToBeClaimed">Қайталануды ойыншылардың бірі жариялау керек. Ол үшін сәйкес батырмаға басыңыз немесе тепе-теңдікті соңғы қайталану болар алдында сұраңыз, сонда қарсыласыңыз келіспесе де, ойын үш реттік қайталану негізінде тепе-теңдікпен аяқталады. Сонымен қатар, Личес %1$s қайталануды автоматты түрде жариялауды қоса аласыз. Бес реттік қайталану ойынды әрқашан аяқтайды.</string>
   <string name="configure">баптауында</string>
   <string name="accounts">Тіркелгі</string>
   <string name="titlesAvailableOnLichess">Личесте қандай атақтар бар?</string>
@@ -140,4 +141,26 @@
 Браузердің URL жолағында lichess.org мекенжайының қасында орналасқан құлып таңбасын басыңыз.
 
 Кейін Личестің ескетулерін көрсету-көрсетпеуді таңдаңыз.</string>
+  <string name="enableAutoplayForSoundsQ">Дыбысты автошығару рұқсат па?</string>
+  <string name="enableAutoplayForSoundsA">Браузердің дені қолданушыны қорғау үшін жаңа жүктелген парақшада дыбысты тыйым етеді. Өйткені әрбір сайт дыбысқа жол берсе, жарнаманың шуы бітпес еді.
+Браузер Личес-тегі дыбысқа тыйым етсе, қызыл \"үнсіз\" белгісі шығады. Жағдайдың көбінде қандай да бір жерге шертсеңіз бұл тыйым кетеді. Кейбір мобилді браузер тасты тартып жүргеніңізді шерту деп қабылдамайды, сондықтан дыбысқа рұқсат беру үшін әр ойын басында тақтаға бір шертуіңіз керек. Бұл кезде қызыл белгі шығады.
+Браузер Лическе тұрақты түрде дыбыс рұқсатын бере алады. Ол үшін танымал браузерлерді қамтитын келесідей нұсқаулықты қарап шығыңыз.</string>
+  <string name="desktop">компьютер</string>
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. lichess.org сайтын ашыңыз
+2. Windows пен Linux үшін Cntr + i, MacOS үшін Cmd + i
+3. Рұқсаттар бөліміне өтіңіз
+4. lichess.org-та Аудио мен Видео рұқсат ету</string>
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. lichess.org сайтын ашыңыз
+2. Мекенжай жолағында құлып белгісін басыңыз
+3. Сайт баптауларына өтіңіз
+4. Дыбысқа рұқсат беріңіз</string>
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. lichess.org сайтын ашыңыз
+2. Мәзір жолағында Safari басыңыз
+3. lichess.org арналған баптаулар
+4. Бүкіл автоойнатуды рұқсат ету</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Төбенің оң жағында үш нүктеге басыңыз
+2. Баптаулар
+3. Куки мен сайт рұқсаттарына кіріңіз
+4. Төмен түсіп, Медиа автоойнату
+5. lichess.org-ты қосып, Рұқсатты басыңыз</string>
 </resources>

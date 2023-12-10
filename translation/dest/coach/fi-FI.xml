@@ -14,7 +14,7 @@
   <string name="accepting">Hyväksyn oppilaita</string>
   <string name="notAccepting">En ota oppilaita tällä hetkellä</string>
   <string name="xCoachesStudents">%s valmentaa shakkioppilaita</string>
-  <string name="viewXProfile">Katsele %s:n Lichess-profiilia</string>
+  <string name="viewXProfile">Näytä %s:n Lichess-profiili</string>
   <string name="sendPM">Lähetä yksityisviesti</string>
   <string name="aboutMe">Tietoa minusta</string>
   <string name="playingExperience">Pelikokemus</string>

@@ -1,5 +1,5 @@
 .ublog-post__markup {
-  @include rendered-markdown(2em);
+  @include rendered-markdown(2em, 450vh);
   @include rendered-markdown--code;
   @include rendered-markdown--quote;
 
@@ -27,5 +27,10 @@
   .twitter-tweet {
     color-scheme: normal;
     margin: auto;
+  }
+
+  .private-study {
+    color: $c-brag;
+    font-size: 1.2em;
   }
 }

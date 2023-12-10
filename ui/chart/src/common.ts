@@ -1,26 +1,122 @@
-import { PlyChart } from './interface';
+import { Chart, ChartDataset, ChartOptions } from 'chart.js';
 import { currentTheme } from 'common/theme';
 
 export interface MovePoint {
-  y: number | null;
-  x?: number;
-  name?: any;
-  marker?: any;
+  y: number;
+  x: number;
 }
 
 let highchartsPromise: Promise<any> | undefined;
 
-export function selectPly(this: PlyChart, ply: number, onMainline: boolean) {
-  const plyline = (this.xAxis[0] as any).plotLinesAndBands[0];
-  plyline.options.value = ply - 1 - this.firstPly;
-  plyline.svgElem?.dashstyleSetter(onMainline ? 'solid' : 'dash');
-  plyline.render();
+// Add a slight offset so the graph doesn't get cutoff when eval = mate.
+export const chartYMax = 1 + 0.05;
+export const chartYMin = -chartYMax;
+
+const lightTheme = currentTheme() == 'light';
+export const orangeAccent = '#d85000';
+export const whiteFill = lightTheme ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)';
+export const blackFill = lightTheme ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)';
+export const fontColor = lightTheme ? '#2F2F2F' : '#A0A0A0';
+export const gridColor = '#404040';
+export const hoverBorderColor = lightTheme ? gridColor : 'white';
+export const tooltipBgColor = lightTheme ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0,0,0,0.7)';
+
+const zeroLineColor = lightTheme ? '#959595' : '#676664';
+export const axisOpts = (xmin: number, xmax: number): ChartOptions<'line'>['scales'] => ({
+  x: {
+    display: false,
+    type: 'linear',
+    min: xmin,
+    max: xmax,
+    offset: false,
+  },
+  y: {
+    // Set equidistant max and min to center the graph at y=0.
+    min: chartYMin,
+    max: chartYMax,
+    border: { display: false },
+    ticks: { display: false },
+    grid: {
+      color: ctx => (ctx.tick.value == 0 ? zeroLineColor : undefined),
+    },
+  },
+});
+
+export function fontFamily(size?: number, weight?: 'bold') {
+  return {
+    family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+    size: size ?? 12,
+    weight: weight,
+  };
+}
+
+export function maybeChart(el: HTMLCanvasElement): Chart | undefined {
+  const ctx = el.getContext('2d');
+  if (ctx) return Chart.getChart(ctx);
+  return undefined;
+}
+
+/**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annontation
+ *  @returns a vertical line from {ply,-1.05} to {ply,+1.05}.
+ * */
+export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
+  return {
+    xAxisID: 'x',
+    type: 'line',
+    label: 'ply',
+    data: [
+      { x: ply, y: chartYMin },
+      { x: ply, y: chartYMax },
+    ],
+    borderColor: orangeAccent,
+    pointRadius: 0,
+    pointHoverRadius: 0,
+    borderWidth: 1,
+    animation: false,
+    segment: !mainline ? { borderDash: [5] } : undefined,
+    order: 0,
+    datalabels: { display: false },
+  };
+}
+
+export function selectPly(this: Chart, ply: number, onMainline: boolean) {
+  const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
+  const line = plyLine(ply, onMainline);
+  this.data.datasets[index] = line;
+  this.update('none');
+}
+
+// Modified from https://www.chartjs.org/docs/master/samples/animations/progressive-line.html
+export function animation(duration: number): ChartOptions<'line'>['animations'] {
+  return {
+    x: {
+      type: 'number',
+      easing: 'easeOutQuad',
+      duration: duration,
+      from: NaN, // the point is initially skipped
+      delay: ctx => (ctx.mode == 'resize' ? 0 : ctx.dataIndex * duration),
+    },
+    y: {
+      type: 'number',
+      easing: 'easeOutQuad',
+      duration: duration,
+      from: ctx =>
+        !ctx.dataIndex
+          ? ctx.chart.scales.y.getPixelForValue(100)
+          : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.dataIndex - 1].getProps(['y'], true).y,
+      delay: ctx => (ctx.mode == 'resize' ? 0 : ctx.dataIndex * duration),
+    },
+  };
+}
+
+export function resizePolyfill() {
+  if ('ResizeObserver' in window === false) lichess.asset.loadEsm('chart.resizePolyfill');
 }
 
 export async function loadHighcharts(tpe: string) {
   if (highchartsPromise) return highchartsPromise;
   const file = tpe === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  highchartsPromise = lichess.loadIife('vendor/highcharts-4.2.5/' + file, {
+  highchartsPromise = lichess.asset.loadIife('npm/highcharts-4.2.5/' + file, {
     noVersion: true,
   });
   await highchartsPromise;

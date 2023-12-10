@@ -93,7 +93,7 @@ function landscapeView(ctrl: Ctrl) {
         h('div.panel-tabs', [
           h('a.tab.preset', panelTabData(ctrl, 'preset'), 'Presets'),
           h('a.tab.filter', panelTabData(ctrl, 'filter'), 'Filters'),
-          clearBtn(ctrl),
+          Object.keys(ctrl.vm.filters).length ? clearBtn(ctrl) : null,
         ]),
         ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
         ctrl.vm.panel === 'preset' ? presets(ctrl) : null,

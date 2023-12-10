@@ -8,7 +8,7 @@ import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
-import { ExternalEngine } from 'ceval';
+import { ExternalEngineInfo } from 'ceval';
 import * as Prefs from 'common/prefs';
 
 export type Seconds = number;
@@ -52,7 +52,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
-  externalEngines?: ExternalEngine[];
+  externalEngines?: ExternalEngineInfo[];
 }
 
 export interface AnalysePref {

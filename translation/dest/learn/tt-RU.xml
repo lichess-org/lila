@@ -6,7 +6,7 @@
   <string name="progressX">Үтелгән: %s</string>
   <string name="resetMyProgress">Яңадан башларга</string>
   <string name="youWillLoseAllYourProgress">Сез бөтен прогрессыгызны югалтырсыз!</string>
-  <string name="play">уйна!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">уйна!</string>
   <string name="chessPieces">Шахмат сыннары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Туры юл буенча йөри</string>
@@ -112,6 +112,7 @@
   <string name="howTheGameStarts">Уен ничек башлана</string>
   <string name="placeTheBishops">Филне урнаштырыгыз!
 Алар атчылар янына китәләр.</string>
+  <string name="castling">Рокировка</string>
   <string name="castlingComplete">Котлыйбыз! Сез һәрвакыт диярлек уенда калкалада булырга тиеш.</string>
   <string name="enPassant">Бик вакытлы</string>
   <string name="theSpecialPawnMove">Махсус җәяүле хәрәкәте</string>
@@ -126,6 +127,7 @@
   <string name="whatNext">Дәвамы?</string>
   <string name="register">Теркәлү</string>
   <string name="getAFreeLichessAccount">Азат Lichess хисабын алыгыз</string>
+  <string name="practice">Күнегүләрегез</string>
   <string name="puzzles">Башваткычлар</string>
   <string name="exerciseYourTacticalSkills">Тактик осталыгыгызны кулланыгыз</string>
   <string name="videos">Видеолар</string>

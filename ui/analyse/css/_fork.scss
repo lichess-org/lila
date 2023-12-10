@@ -22,12 +22,24 @@ $c-fork: $c-primary;
     &:nth-child(odd) {
       border-#{$end-direction}: 1px solid $c-bg-box;
     }
+    &.correct {
+      background: mix($c-secondary, $c-bg-box, 25%);
+    }
+    &.wrong {
+      background: mix($c-bad, $c-bg-box, 25%);
+    }
   }
 
   move:hover,
   &:not(:hover) move.selected {
-    background: mix($c-fork, $c-bg-box, 100%);
+    background: $c-fork;
     color: #fff;
+    &.correct {
+      background: $c-secondary;
+    }
+    &.wrong {
+      background: $c-bad;
+    }
   }
 
   glyph {

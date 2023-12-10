@@ -182,9 +182,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.run.moves++;
       this.promotion.cancel();
       const pos = puzzle.position();
-      const move = parseUci(uci)!;
-      let captureSound = pos.board.occupied.has(move.to);
-      pos.play(move);
+      pos.play(parseUci(uci)!);
       if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
         puzzle.moveIndex++;
         this.localScore++;
@@ -200,9 +198,8 @@ export default class RacerCtrl implements PuzCtrl {
           if (!this.incPuzzle(true)) this.end();
         } else {
           puzzle.moveIndex++;
-          captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
         }
-        sound.move(captureSound);
+        this.run.current.playSound(puzzle);
       } else {
         sound.wrong();
         this.run.errors++;

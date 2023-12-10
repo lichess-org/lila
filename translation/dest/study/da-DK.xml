@@ -62,7 +62,7 @@
   <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Download alle partier</string>
   <string name="chapterPgn">Kapitel PGN</string>
-  <string name="copyChapterPgn">Kopier PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopier PGN</string>
   <string name="copyChapterPgnDescription">Kopier kapitel-PGN til udklipsholder.</string>
   <string name="downloadGame">Download parti</string>
   <string name="studyUrl">Studie URL</string>
@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>
   <string name="saveChapter">Gem kapitel</string>
   <string name="clearAnnotations">Ryd annoteringer</string>
-  <string name="clearVariations">Ryd variationer</string>
+  <string name="clearVariations">Ryd varianter</string>
   <string name="deleteChapter">Slet kapitel</string>
   <string name="deleteThisChapter">Slet dette kapitel? Du kan ikke fortryde!</string>
   <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>

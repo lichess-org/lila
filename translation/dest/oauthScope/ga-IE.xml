@@ -25,7 +25,7 @@
   <string name="followRead">Léigh imreoirí atá leanta</string>
   <string name="followWrite">Lean ficheallaithe eile agus dílean iad</string>
   <string name="msgWrite">Seol teachtaireachtaí príobháideacha chuig ficheallaithe eile</string>
-  <string name="boardPlay">Imir cluichí le bord api</string>
+  <string name="boardPlay">Imir cluichí le bord API</string>
   <string name="botPlay">Imir cluichí le bota api</string>
   <string name="engineRead">Féach ar agus úsáid do innill sheachtracha</string>
   <string name="engineWrite">Cruthaigh agus nuashonraigh innill sheachtracha</string>

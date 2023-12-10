@@ -2,6 +2,7 @@ package lila.chat
 
 import lila.user.User
 import lila.hub.actorApi.shutup.PublicSource
+import play.api.libs.json.JsArray
 
 case class UserModInfo(
     user: User,
@@ -22,3 +23,7 @@ object BusChan:
 
 case class GetLinkCheck(line: UserLine, source: PublicSource, promise: Promise[Boolean])
 case class IsChatFresh(source: PublicSource, promise: Promise[Boolean])
+
+opaque type JsonChatLines = JsArray
+object JsonChatLines extends TotalWrapper[JsonChatLines, JsArray]:
+  def empty: JsonChatLines = JsArray.empty

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">प्रसारण</string>
-  <string name="liveBroadcasts">लाइव प्रसारण</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s प्रसारण</item>
+    <item quantity="other">%s प्रसारण</item>
+  </plurals>
+  <string name="liveBroadcasts">लाइव टूर्नामेंट प्रसारण</string>
   <string name="newBroadcast">नया लाइव प्रसारण</string>
   <string name="addRound">एक दौर जोड़ें</string>
   <string name="ongoing">चल रही है</string>
@@ -25,4 +29,9 @@
   <string name="downloadAllRounds">सभी राउंड डाउनलोड करें</string>
   <string name="resetRound">इस फॉर्म को रीसेट करें</string>
   <string name="deleteRound">इस राउंड को डिलीट करें</string>
+  <string name="definitivelyDeleteRound">राउंड और उसके सभी गेम को निश्चित रूप से हटा दें।</string>
+  <string name="deleteAllGamesOfThisRound">इस दौर के सभी गेम हटाएं. उन्हें पुनः बनाने के लिए स्रोत को सक्रिय होने की आवश्यकता होगी।</string>
+  <string name="editRoundStudy">राउंड स्टडी संपादित करें</string>
+  <string name="deleteTournament">इस टूर्नामेंट को हटाएं</string>
+  <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, उसके सभी राउंड और उसके सभी गेम को निश्चित रूप से हटा दें।</string>
 </resources>

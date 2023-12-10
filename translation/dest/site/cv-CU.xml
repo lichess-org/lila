@@ -294,7 +294,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Ҫӳрени хыҫҫӑн тепӗр вӑйӑ патне хӑй халлӗн куҫ</string>
   <string name="autoSwitch">Хӑй халлӗн куҫарас</string>
-  <string name="puzzles">Лартӑмсем</string>
+  <string name="puzzles">Лартӑм</string>
   <string name="tournamentWinners">Турнирти ҫӗнтереӳҫӗ</string>
   <string name="name">Йат</string>
   <string name="description">Каласа кӑтартни</string>
@@ -486,7 +486,6 @@
   <string name="xInvitedYouToY">%1$s сана \"%2$s\" чӗннӗ.</string>
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="welcome">Хапӑл тӑватпӑр!</string>
   <string name="cancelTournament">Турнира пӑрахӑҫла</string>
   <string name="tournDescription">Турнир пирки</string>
   <string name="tournChat">Турнир калаҫӑвӗ</string>

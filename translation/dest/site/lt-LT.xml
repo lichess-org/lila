@@ -72,6 +72,7 @@
   <string name="makeMainLine">Padaryti pagrindine linija</string>
   <string name="deleteFromHere">Ištrinti nuo čia</string>
   <string name="forceVariation">Rodyti kaip variaciją</string>
+  <string name="copyVariationPgn">Kopijuoti variacijos PGN</string>
   <string name="move">Ėjimas</string>
   <string name="variantLoss">Variantinis pralaimėjimas</string>
   <string name="variantWin">Variantinė pergalė</string>
@@ -119,6 +120,7 @@
   <string name="openStudy">Atverti studiją</string>
   <string name="enable">Įjungti</string>
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
+  <string name="showVariationArrows">Rodyti variacijų rodykles</string>
   <string name="evaluationGauge">Vertinimo matuoklis</string>
   <string name="multipleLines">Keletas linijų</string>
   <string name="cpus">Procesoriai</string>
@@ -571,12 +573,11 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="firstName">Vardas</string>
   <string name="lastName">Pavardė</string>
   <string name="biography">Aprašymas</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Šalis ar regionas</string>
   <string name="thankYou">Ačiū!</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
-  <string name="savingMoves">Laikinas ėjimų saugojimas</string>
-  <string name="savingMovesHelp">Mes visada laikome jūsų variacijas jūsų naršyklės atmintyje.</string>
   <string name="makeAStudy">Norėdami pasiekti vėliau ar pasidalinti sukurkite studiją.</string>
   <string name="clearSavedMoves">Išvalyti ėjimus</string>
   <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
@@ -732,8 +733,10 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="simultaneousExhibitions">Simultanai</string>
   <string name="host">Šeimininkas</string>
   <string name="hostColorX">Šeimininko spalva: %s</string>
+  <string name="yourPendingSimuls">Jūsų laukiantys simulai</string>
   <string name="createdSimuls">Naujai sukurti simultanai</string>
   <string name="hostANewSimul">Kurti nauji simultaną</string>
+  <string name="signUpToHostOrJoinASimul">Prisijunkite norėdami sukurti ar prisijungti prie simulo</string>
   <string name="noSimulFound">Simultanas nerastas</string>
   <string name="noSimulExplanation">Šis simultanas neegzistuoja.</string>
   <string name="returnToSimulHomepage">Grįžti į simultanų pradžią</string>
@@ -782,6 +785,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="yourPerfTypeRatingIsRating">Jūsų „%1$s“ reitingas yra %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jūs esate geresni už %1$s iš %2$s žaidėjų.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s yra geresnis už %2$s iš %3$s žaidėjų.</string>
+  <string name="betterThanPercentPlayers">Geriau nei %1$s %2$s žaidėjų</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jūs neturite nusistovėjusio „%s“ reitingo.</string>
   <string name="yourRating">Jūsų reitingas</string>
   <string name="cumulative">Iš viso</string>
@@ -951,6 +955,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Greitieji</string>
   <string name="classical">Klasikiniai</string>
   <string name="ultraBulletDesc">Be proto greitos partijos: mažiau nei 30 sekundžių</string>
@@ -990,9 +995,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
   <string name="clickToRevealEmailAddress">[spustelėkite norėdami pamatyti el. pašto adresą]</string>
   <string name="download">Atsisiųsti</string>
-  <string name="welcome">Sveiki atvykę!</string>
-  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
-Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="coachManager">Trenerių valdymas</string>
   <string name="streamerManager">Transliuotojų valdymas</string>
   <string name="cancelTournament">Atšaukti turnyrą</string>
@@ -1051,4 +1053,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="switchSides">Pakeisti puses</string>
   <string name="closingAccountWithdrawAppeal">paskyras</string>
   <string name="ourEventTips">Mūsų patarimai organizuojant renginius</string>
+  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
+Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
 </resources>

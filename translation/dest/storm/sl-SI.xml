@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Premaknite za začetek</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Bele figure igrate v vseh ugankah</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Črne figure igrate v vseh ugankah</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Bele figure igrate v vseh ugankah</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Črne figure igrate v vseh ugankah</string>
   <string name="puzzlesSolved">uganke rešene</string>
-  <string name="newDailyHighscore">Nov dnevni rekord!</string>
-  <string name="newWeeklyHighscore">Nov tedenski rekord!</string>
-  <string name="newMonthlyHighscore">Nov mesečni rekord!</string>
-  <string name="newAllTimeHighscore">Nov rekord vseh časov!</string>
-  <string name="previousHighscoreWasX">Prejšnji rekord je bil %s</string>
+  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">Nov dnevni rekord!</string>
+  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">Nov tedenski rekord!</string>
+  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">Nov mesečni rekord!</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">Nov rekord vseh časov!</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">Prejšnji rekord je bil %s</string>
   <string name="playAgain">Igrajte ponovno</string>
   <plurals name="xRuns">
     <item quantity="one">1 poskus</item>
@@ -16,27 +16,27 @@
     <item quantity="few">%s poskusi</item>
     <item quantity="other">%s poskusov</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm">
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
     <item quantity="one">Opravljen en poskus %2$s</item>
     <item quantity="two">Opravljena %1$s poskusa %2$s</item>
     <item quantity="few">Opravljeni %1$s poskusi %2$s</item>
     <item quantity="other">Opravljenih %1$s poskusov %2$s</item>
   </plurals>
-  <string name="highscoreX">Rekord: %s</string>
-  <string name="score">Rezultat</string>
-  <string name="moves">Poteze</string>
-  <string name="accuracy">Točnost</string>
-  <string name="combo">Zaporedje pravilnih potez</string>
-  <string name="time">Čas</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">Rekord: %s</string>
+  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">Rezultat</string>
+  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">Poteze</string>
+  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">Točnost</string>
+  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">Zaporedje pravilnih potez</string>
+  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">Čas</string>
   <string name="timePerMove">Čas na potezo</string>
   <string name="highestSolved">Rejting najtežje pravilno rešene uganke</string>
   <string name="puzzlesPlayed">Igrane uganke</string>
   <string name="newRun">Nova igra (bližnjična tipka: preslednica)</string>
   <string name="endRun">Konec igre (bližnjična tipka: vnašalka)</string>
-  <string name="highscores">Nojboljši rezultati</string>
-  <string name="viewBestRuns">Ogled najboljših iger</string>
+  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">Nojboljši rezultati</string>
+  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Ogled najboljših iger</string>
   <string name="bestRunOfDay">Najboljša igra dneva</string>
-  <string name="runs">Igre</string>
+  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Igre</string>
   <string name="getReady">Pripravite se!</string>
   <string name="waitingForMorePlayers">Čakanje, da se pridruži več igralcev...</string>
   <string name="raceComplete">Dirka končana!</string>
@@ -51,11 +51,11 @@
   <string name="createNewGame">Ustvari novo igro</string>
   <string name="joinPublicRace">Pridružite se javni tekmi</string>
   <string name="raceYourFriends">Dirka s prijatelji</string>
-  <string name="skip">preskoči</string>
+  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">preskoči</string>
   <string name="skipHelp">NOVO! Lahko preskočite eno potezo na dirko:</string>
   <string name="skipExplanation">Preskočite to potezo, da ohranite svojo kombinacijo! Deluje samo enkrat na dirko.</string>
-  <string name="failedPuzzles">Neuspele uganke</string>
-  <string name="slowPuzzles">Počasne uganke</string>
+  <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">Neuspele uganke</string>
+  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">Počasne uganke</string>
   <string name="thisWeek">Te teden</string>
   <string name="thisMonth">Ta mesec</string>
   <string name="allTime">Ves čas</string>

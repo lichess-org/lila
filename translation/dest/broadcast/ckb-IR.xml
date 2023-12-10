@@ -7,6 +7,10 @@
   </plurals>
   <string name="liveBroadcasts">پەخشی ڕاستەوخۆی پاڵەوانییەتیەکان</string>
   <string name="newBroadcast">پەخشێکی تازە</string>
+  <string name="aboutBroadcasts">دەربارەی پەخش</string>
+  <string name="noRoundsYet">هێشتا هیچ خولێک نییە.</string>
+  <string name="howToUseLichessBroadcasts">چۆنیەتی بەکارهێنانی پەخشی لیچێس.</string>
+  <string name="theNewRoundHelp">خولی نوێ هەمان ئەندام و بەشداربووانی پێشووی دەبێت.</string>
   <string name="addRound">زیادکردنی خولێکی تر</string>
   <string name="ongoing">بەردەوامە</string>
   <string name="upcoming">لە داھاتوو دا</string>
@@ -33,5 +37,5 @@
   <string name="deleteAllGamesOfThisRound">هەموو یارییەکانی ئەم خولە بسڕەوە. سەرچاوەکە پێویستی بە چالاکبوون دەبێت بۆ ئەوەی دووبارە دروستیان بکاتەوە.</string>
   <string name="editRoundStudy">دەسکاری کردنی خولی فێربون</string>
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
+  <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
 </resources>

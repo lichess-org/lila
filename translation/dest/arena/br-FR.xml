@@ -39,6 +39,7 @@ Grit buan da vezañ trec\'h evit distreiñ d\'ar sal c\'hortoz da c\'hounit muio
   </plurals>
   <string name="thisIsPrivate">Prevez eo an tournamant-mañ</string>
   <string name="shareUrl">Skignit an URL-mañ da zesachañ c\'hoarierien: %s</string>
+  <string name="minimumGameLength">Padelezh izelañ rekis</string>
   <string name="history">Istor an Arenoù</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Gwelet ar skipailh</item>
@@ -55,5 +56,7 @@ Grit buan da vezañ trec\'h evit distreiñ d\'ar sal c\'hortoz da c\'hounit muio
   <string name="arenaStreaks">Heuliad trec\'h en Arena</string>
   <string name="arenaStreaksHelp">Adalek an trede trec\'h da heul e vo roet 4 foent ha n\'eo ket 2.</string>
   <string name="noBerserkAllowed">Ne c\'haller ket Berserk</string>
+  <string name="averagePerformance">Efedusted keitat</string>
+  <string name="averageScore">Disoc\'h keitat</string>
   <string name="myTournaments">Ma zournamantoù</string>
 </resources>

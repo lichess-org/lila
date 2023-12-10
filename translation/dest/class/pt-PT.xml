@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Dá aulas de xadrez ao teus alunos com o conjunto de ferramentas das Aulas Lichess.</string>
   <string name="features">Funcionalidades</string>
   <string name="quicklyGenerateSafeUsernames">Gera rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
-  <string name="trackStudentProgress">Acompanha o progresso do aluno em jogos e problemas</string>
+  <string name="trackStudentProgress">Acompanha o progresso do aluno em jogos e em problemas</string>
   <string name="messageAllStudents">Envia uma mensagem a todos os alunos sobre o novo material didático</string>
   <string name="freeForAllForever">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
   <string name="applyToBeLichessTeacher">Candidata-te para seres um professor Lichess</string>
@@ -99,7 +99,7 @@ Aqui está o link para acederes à aula.</string>
   <string name="newsEdit2">Adiciona as novidades recentes no topo. Não excluas novidades anteriores.</string>
   <string name="newsEdit3">Separa as novidades com --- tal irá mostrar uma linha horizontal.</string>
   <string name="invite">Convidar</string>
-  <string name="youHaveBeenInvitedByX">Foi convidado por %s.</string>
+  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Foi convidado por %s.</string>
   <string name="youAcceptedThisInvitation">Aceitou este convite.</string>
   <string name="youDeclinedThisInvitation">Recusou este convite.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>

@@ -1,7 +1,7 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
+import { Feature } from 'common/device';
 import CevalCtrl from './ctrl';
-import { ExternalEngine } from './worker';
 
 export interface Eval {
   cp?: number;
@@ -15,7 +15,7 @@ export interface Work {
   stopRequested: boolean;
 
   path: string;
-  maxDepth: number;
+  searchMs: number;
   multiPv: number;
   ply: number;
   threatMode: boolean;
@@ -25,23 +25,71 @@ export interface Work {
   emit: (ev: Tree.LocalEval) => void;
 }
 
+export interface EngineInfo {
+  id: string;
+  name: string;
+  tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
+  short?: string;
+  variants?: VariantKey[];
+  minThreads?: number;
+  maxThreads?: number;
+  maxHash?: number;
+  requires?: Requires[];
+}
+
+export interface ExternalEngineInfo extends EngineInfo {
+  clientSecret: string;
+  officialStockfish?: boolean;
+  endpoint: string;
+}
+
+export interface BrowserEngineInfo extends EngineInfo {
+  minMem?: number;
+  assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string };
+  obsoletedBy?: Feature;
+}
+
+export type Requires = Feature | 'recentFirefoxOrNotBrave';
+
+export type EngineNotifier = (status?: {
+  download?: { bytes: number; total: number };
+  error?: string;
+}) => void;
+
+export enum CevalState {
+  Initial,
+  Loading,
+  Idle,
+  Computing,
+  Failed,
+}
+
+export interface CevalEngine {
+  getInfo(): EngineInfo;
+  getState(): CevalState;
+  start(work: Work): void;
+  stop(): void;
+  destroy(): void;
+}
+
 export interface EvalMeta {
   path: string;
   threatMode: boolean;
 }
 
 export type Redraw = () => void;
+export type Progress = (p?: { bytes: number; total: number }) => void;
 
 export interface CevalOpts {
-  storageKeyPrefix?: string;
-  multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: Redraw;
-  externalEngines?: ExternalEngine[];
+  search?: { searchMs?: number; multiPv?: number };
+  onSelectEngine?: () => void;
+  externalEngines?: ExternalEngineInfo[];
 }
 
 export interface Hovering {
@@ -77,6 +125,11 @@ export interface ParentCtrl {
   threatMode(): boolean;
   getNode(): Tree.Node;
   showComputer(): boolean;
+  toggleComputer?: () => void;
+  clearCeval?: () => void;
+  restartCeval?: () => void;
+  redraw?: () => void;
+  externalEngines?: () => ExternalEngineInfo[] | undefined;
   trans: Trans;
 }
 

@@ -54,6 +54,7 @@ Mblidhni pikët e çdo kundërshtari që lojtari mund dhe gjysmën e pikëve të
   <string name="restrictedToTeamsA">Turnetë zvicerane nuk janë menduar për shah internetor. Ato lypin përpikëri, përkushtim dhe durim nga lojtarët.
 Mendojmë se këto kushte ka më shumë gjasa të plotësohen brenda një ekipi, se sa në turne globalë.</string>
   <string name="numberOfByesQ">Sa mirupafshim mund të marrë një lojtar?</string>
+  <string name="earlyDrawsAnswer">Në lojëra zvicerane, lojtarët s’mund të dalin barazim para se të jenë luajtur 30 lëvizje. Teksa kjo masë s’mund të parandalojë barazime të vendosura bashkërisht më herët, të paktën e bën të vështirë të bihet dakord aty për aty për një barazim.</string>
   <string name="whatIfOneDoesntPlayQ">Ç’ndodh nëse një lojtar s’luan një lojë?</string>
   <string name="protectionAgainstNoShowQ">Çfarë bëhet lidhur me mosparaqitjet?</string>
   <string name="protectionAgainstNoShowA">Lojëtarët që regjistrohen për turne zvicerane, por nuk luajnë lojërat përkatëse, mund të jenë problematikë.

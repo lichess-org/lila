@@ -45,13 +45,16 @@
   <string name="whiteLeftTheGame">मित्रेण सह  क्रीडतु</string>
   <string name="blackLeftTheGame">मित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतु</string>
   <string name="whiteDidntMove">श्वेतः न क्रीडति</string>
+  <string name="blackDidntMove">श्वेतः न क्रीडति</string>
   <string name="requestAComputerAnalysis">सङ्गणकयन्त्र-विश्लेषणस्य आवेदनम् कुरु |</string>
   <string name="computerAnalysis">सङ्गणकयन्त्र-विश्लेषणम्</string>
   <string name="computerAnalysisAvailable">सङ्गणकयन्त्र-विश्लेषणम् विद्यते |</string>
+  <string name="computerAnalysisDisabled">सङ्गणकयन्त्र-विश्लेषणम् अशक्तम्</string>
   <string name="analysis">विश्लेषण-फलकम्</string>
   <string name="depthX">गाम्भीर्य %s</string>
   <string name="usingServerAnalysis">जालवितरक-विश्लेषणस्य प्रयोगेन</string>
   <string name="loadingEngine">यन्त्रस्य सिद्धम्</string>
+  <string name="calculatingMoves">चालनां गणयति</string>
   <string name="cloudAnalysis">अभ्र-विश्लेषणम्</string>
   <string name="goDeeper">संनततरम् गतम्</string>
   <string name="showThreat">तर्जनम् दर्शय</string>

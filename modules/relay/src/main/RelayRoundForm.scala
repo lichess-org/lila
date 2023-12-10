@@ -23,10 +23,13 @@ final class RelayRoundForm:
       "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncUrl" -> optional {
-        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
+        cleanText(minLength = 8, maxLength = 600)
+          .verifying("Invalid source", validSource)
+          .verifying("The source URL cannot specify a port", validSourcePort)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
+      "finished"     -> optional(boolean),
       "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
       "delay" -> optional(
         number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]
@@ -71,6 +74,11 @@ object RelayRoundForm:
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
     yield url.toString.stripSuffix("/")
 
+  private val validPorts = Set(-1, 80, 443, 8080, 8491)
+  private def validSourcePort(source: String): Boolean =
+    Try(URL.parse(source)).toOption.forall: url =>
+      validPorts(url.port)
+
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 
   private val blocklist = List(
@@ -99,6 +107,7 @@ object RelayRoundForm:
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[Instant] = None,
+      finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None
   ):
@@ -116,7 +125,7 @@ object RelayRoundForm:
         sync = makeSync(me).pipe: sync =>
           if relay.sync.playing then sync.play else sync,
         startsAt = startsAt,
-        finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
+        finished = ~finished
       )
 
     private def makeSync(user: User) =
@@ -141,7 +150,7 @@ object RelayRoundForm:
         caption = caption,
         sync = makeSync(user),
         createdAt = nowInstant,
-        finished = false,
+        finished = ~finished,
         startsAt = startsAt,
         startedAt = none
       )
@@ -158,6 +167,7 @@ object RelayRoundForm:
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
+        finished = relay.finished option true,
         period = relay.sync.period,
         delay = relay.sync.delay
       )

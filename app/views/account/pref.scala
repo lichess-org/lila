@@ -14,7 +14,8 @@ object pref:
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
 
-  private def setting(name: Frag, body: Frag) = st.section(h2(name), body)
+  private def setting(name: Frag, body: Frag, settingId: String) =
+    st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
 
   def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
     account.layout(
@@ -22,90 +23,111 @@ object pref:
       active = categ.slug
     ):
       val booleanChoices = translatedBooleanIntChoices
-      div(cls := "account box box-pad")(
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
           categFieldset(PrefCateg.Display, categ)(
             setting(
               pieceAnimation(),
-              radios(form("display.animation"), translatedAnimationChoices)
+              radios(form("display.animation"), translatedAnimationChoices),
+              "pieceAnimation"
             ),
             setting(
               materialDifference(),
-              radios(form("display.captured"), booleanChoices)
+              radios(form("display.captured"), booleanChoices),
+              "materialDifference"
             ),
             setting(
               boardHighlights(),
-              radios(form("display.highlight"), booleanChoices)
+              radios(form("display.highlight"), booleanChoices),
+              "boardHighlights"
             ),
             setting(
               pieceDestinations(),
-              radios(form("display.destination"), booleanChoices)
+              radios(form("display.destination"), booleanChoices),
+              "pieceDestinations"
             ),
             setting(
               boardCoordinates(),
-              radios(form("display.coords"), translatedBoardCoordinateChoices)
+              radios(form("display.coords"), translatedBoardCoordinateChoices),
+              "boardCoordinates"
             ),
             setting(
               moveListWhilePlaying(),
-              radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
+              radios(form("display.replay"), translatedMoveListWhilePlayingChoices),
+              "moveListWhilePlaying"
             ),
             setting(
               pgnPieceNotation(),
-              radios(form("display.pieceNotation"), translatedPieceNotationChoices)
+              radios(form("display.pieceNotation"), translatedPieceNotationChoices),
+              "pgnPieceNotation"
             ),
             setting(
               zenMode(),
-              radios(form("display.zen"), translatedZenChoices)
+              radios(form("display.zen"), translatedZenChoices),
+              "zenMode"
             ),
             setting(
               displayBoardResizeHandle(),
-              radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
+              radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices),
+              "displayBoardResizeHandle"
             ),
             setting(
               blindfoldChess(),
-              radios(form("display.blindfold"), translatedBlindfoldChoices)
+              radios(form("display.blindfold"), translatedBlindfoldChoices),
+              "blindfoldChess"
             ),
             setting(
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
-                  explainShowPlayerRatings()
-                )
-              )
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(explainShowPlayerRatings())
+              ),
+              "showRatings"
+            ),
+            setting(
+              showFlairs(),
+              radios(form("flairs"), translatedBooleanChoices),
+              "showFlairs"
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(
             setting(
               tenthsOfSeconds(),
-              radios(form("clock.tenths"), translatedClockTenthsChoices)
+              radios(form("clock.tenths"), translatedClockTenthsChoices),
+              "tenthsOfSeconds"
             ),
             setting(
               horizontalGreenProgressBars(),
-              radios(form("clock.bar"), booleanChoices)
+              radios(form("clock.bar"), booleanChoices),
+              "horizontalGreenProgressBars"
             ),
             setting(
               soundWhenTimeGetsCritical(),
-              radios(form("clock.sound"), booleanChoices)
+              radios(form("clock.sound"), booleanChoices),
+              "soundWhenTimeGetsCritical"
             ),
             setting(
               giveMoreTime(),
-              radios(form("clock.moretime"), translatedMoretimeChoices)
+              radios(form("clock.moretime"), translatedMoretimeChoices),
+              "giveMoreTime"
             )
           ),
           categFieldset(PrefCateg.GameBehavior, categ)(
             setting(
               howDoYouMovePieces(),
-              radios(form("behavior.moveEvent"), translatedMoveEventChoices)
+              radios(form("behavior.moveEvent"), translatedMoveEventChoices),
+              "howDoYouMovePieces"
             ),
             setting(
               premovesPlayingDuringOpponentTurn(),
-              radios(form("behavior.premove"), booleanChoices)
+              radios(form("behavior.premove"), booleanChoices),
+              "premovesPlayingDuringOpponentTurn"
             ),
             setting(
               takebacksWithOpponentApproval(),
-              radios(form("behavior.takeback"), translatedTakebackChoices)
+              radios(form("behavior.takeback"), translatedTakebackChoices),
+              "takebacksWithOpponentApproval"
             ),
             setting(
               promoteToQueenAutomatically(),
@@ -114,11 +136,13 @@ object pref:
                 div(cls := "help text shy", dataIcon := licon.InfoCircle)(
                   explainPromoteToQueenAutomatically()
                 )
-              )
+              ),
+              "promoteToQueenAutomatically"
             ),
             setting(
               claimDrawOnThreefoldRepetitionAutomatically(),
-              radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices)
+              radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices),
+              "claimDrawOnThreefoldRepetitionAutomatically"
             ),
             setting(
               moveConfirmation(),
@@ -128,57 +152,70 @@ object pref:
                   "Multiple choices. ",
                   explainCanThenBeTemporarilyDisabled()
                 )
-              )
+              ),
+              "moveConfirmation"
             ),
             setting(
               confirmResignationAndDrawOffers(),
-              radios(form("behavior.confirmResign"), confirmResignChoices)
+              radios(form("behavior.confirmResign"), confirmResignChoices),
+              "confirmResignationAndDrawOffers"
             ),
             setting(
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
-              radios(form("behavior.rookCastle"), translatedRookCastleChoices)
+              radios(form("behavior.rookCastle"), translatedRookCastleChoices),
+              "castleByMovingTheKingTwoSquaresOrOntoTheRook"
             ),
             setting(
               inputMovesWithTheKeyboard(),
-              radios(form("behavior.keyboardMove"), booleanChoices)
+              radios(form("behavior.keyboardMove"), booleanChoices),
+              "inputMovesWithTheKeyboard"
             ),
             setting(
               inputMovesWithVoice(),
-              radios(form("behavior.voice"), booleanChoices)
+              radios(form("behavior.voice"), booleanChoices),
+              "inputMovesWithVoice"
             ),
             setting(
               snapArrowsToValidMoves(),
-              radios(form("behavior.arrowSnap"), booleanChoices)
+              radios(form("behavior.arrowSnap"), booleanChoices),
+              "snapArrowsToValidMoves"
             )(cls := "arrow-snap"),
             setting(
               sayGgWpAfterLosingOrDrawing(),
-              radios(form("behavior.courtesy"), booleanChoices)
+              radios(form("behavior.courtesy"), booleanChoices),
+              "sayGgWpAfterLosingOrDrawing"
             ),
             setting(
               scrollOnTheBoardToReplayMoves(),
-              radios(form("behavior.scrollMoves"), booleanChoices)
+              radios(form("behavior.scrollMoves"), booleanChoices),
+              "scrollOnTheBoardToReplayMoves"
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(
             setting(
               trans.letOtherPlayersFollowYou(),
-              radios(form("follow"), booleanChoices)
+              radios(form("follow"), booleanChoices),
+              "letOtherPlayersFollowYou"
             ),
             setting(
               trans.letOtherPlayersChallengeYou(),
-              radios(form("challenge"), translatedChallengeChoices)
+              radios(form("challenge"), translatedChallengeChoices),
+              "letOtherPlayersChallengeYou"
             ),
             setting(
               trans.letOtherPlayersMessageYou(),
-              radios(form("message"), translatedMessageChoices)
+              radios(form("message"), translatedMessageChoices),
+              "letOtherPlayersMessageYou"
             ),
             setting(
               trans.letOtherPlayersInviteYouToStudy(),
-              radios(form("studyInvite"), translatedStudyInviteChoices)
+              radios(form("studyInvite"), translatedStudyInviteChoices),
+              "letOtherPlayersInviteYouToStudy"
             ),
             setting(
               trans.shareYourInsightsData(),
-              radios(form("insightShare"), translatedInsightShareChoices)
+              radios(form("insightShare"), translatedInsightShareChoices),
+              "shareYourInsightsData"
             )
           ),
           p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())

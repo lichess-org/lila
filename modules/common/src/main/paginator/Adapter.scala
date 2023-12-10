@@ -16,18 +16,16 @@ abstract class AdapterLike[A](using Executor):
     */
   def slice(offset: Int, length: Int): Fu[Seq[A]]
 
-  def map[B](f: A => B): AdapterLike[B] =
-    new AdapterLike[B]:
+  def map[B](f: A => B): AdapterLike[B] = new:
 
-      def nbResults = AdapterLike.this.nbResults
+    def nbResults = AdapterLike.this.nbResults
 
-      def slice(offset: Int, length: Int) =
-        AdapterLike.this.slice(offset, length) dmap { _ map f }
+    def slice(offset: Int, length: Int) =
+      AdapterLike.this.slice(offset, length) dmap { _ map f }
 
-  def mapFutureList[B](f: Seq[A] => Fu[Seq[B]]): AdapterLike[B] =
-    new AdapterLike[B]:
+  def mapFutureList[B](f: Seq[A] => Fu[Seq[B]]): AdapterLike[B] = new:
 
-      def nbResults = AdapterLike.this.nbResults
+    def nbResults = AdapterLike.this.nbResults
 
-      def slice(offset: Int, length: Int) =
-        AdapterLike.this.slice(offset, length) flatMap f
+    def slice(offset: Int, length: Int) =
+      AdapterLike.this.slice(offset, length) flatMap f

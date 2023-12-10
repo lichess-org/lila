@@ -32,7 +32,7 @@ export function makeCtrl(opts: {
 
   const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     lichess.mic.stop();
-    if (val) enabled(true);
+    enabled(val);
     if (enabled()) lichess.mic.start(!val);
   });
 

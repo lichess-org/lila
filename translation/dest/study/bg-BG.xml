@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Дата на добавяне (най-стари)</string>
   <string name="recentlyUpdated">Скоро обновени</string>
   <string name="mostPopular">Най-популярни</string>
-  <string name="alphabetical">По азбучен ред</string>
+  <string name="alphabetical">Азбучно</string>
   <string name="addNewChapter">Добавяне на нов раздел</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Глава</item>
@@ -35,7 +35,7 @@
   <string name="searchByUsername">Търсене по потребителско име</string>
   <string name="spectator">Зрител</string>
   <string name="contributor">Сътрудник</string>
-  <string name="kick">Изгонване</string>
+  <string name="kick">Изритване</string>
   <string name="leaveTheStudy">Напусни казуса</string>
   <string name="youAreNowAContributor">Вие сте сътрудник</string>
   <string name="youAreNowASpectator">Вие сте зрител</string>
@@ -162,7 +162,7 @@
   <string name="topics">Теми</string>
   <string name="myTopics">Моите теми</string>
   <string name="popularTopics">Популярни теми</string>
-  <string name="manageTopics">Управление на теми</string>
+  <string name="manageTopics">Управление на темите</string>
   <string name="back">Обратно</string>
   <string name="playAgain">Играйте отново</string>
   <string name="whatWouldYouPlay">Какво бихте играли в тази позиция?</string>

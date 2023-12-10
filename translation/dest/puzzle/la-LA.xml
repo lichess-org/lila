@@ -5,7 +5,7 @@
   <string name="bestMove">Optimum spatium!</string>
   <string name="byOpenings">Initiis</string>
   <string name="puzzlesByOpenings">Problemae Initiis</string>
-  <string name="hidden">conditus</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">conditus</string>
   <string name="easier">Facilior</string>
   <string name="easiest">Facillimus</string>
   <string name="harder">Difficilior</string>

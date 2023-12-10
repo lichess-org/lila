@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Questa funzionalità permette di nascondere i punteggi dei giocatori per aiutare a concentrarti sulla partita. Le partite possono comunque essere classificate, questa impostazione riguarda solo ciò che vedi.</string>
   <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della scacchiera</string>
   <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
+  <string name="inGameOnly">Solamente durante la partita</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>

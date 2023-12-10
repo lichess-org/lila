@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Su\'aalaha Inta Badan La Isweydiiyo</string>
+  <string name="leechess">lee-chess</string>
+  <string name="fairPlay">Ciyaar cadaalad ah</string>
+  <string name="accounts">Xisaabaadka</string>
+  <string name="noUpperCaseDot">Maya.</string>
+</resources>

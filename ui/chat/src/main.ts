@@ -1,16 +1,17 @@
 import { init, attributesModule, classModule } from 'snabbdom';
 
-import makeCtrl from './ctrl';
 import view from './view';
 import { ChatOpts } from './interfaces';
 import { PresetCtrl } from './preset';
+import ChatCtrl from './ctrl';
 
-export type { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
+export type { ChatPlugin } from './interfaces';
+export { default as ChatCtrl } from './ctrl';
 
 export function initModule(opts: ChatOpts): { preset: PresetCtrl } {
   const patch = init([classModule, attributesModule]);
 
-  const ctrl = makeCtrl(opts, redraw);
+  const ctrl = new ChatCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
   opts.el.innerHTML = '';

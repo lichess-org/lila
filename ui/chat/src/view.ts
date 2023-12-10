@@ -1,31 +1,30 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import { Ctrl, Tab } from './interfaces';
+import { Tab } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
 import { moderationView } from './moderation';
 
 import type * as palantir from 'palantir';
+import ChatCtrl from './ctrl';
 
-export default function (ctrl: Ctrl): VNode {
-  const mod = ctrl.moderation();
-
+export default function (ctrl: ChatCtrl): VNode {
   return h(
     'section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'),
     {
       class: {
-        'mchat-mod': !!mod,
+        'mchat-mod': !!ctrl.moderation,
       },
       hook: {
         destroy: ctrl.destroy,
       },
     },
-    moderationView(mod) || normalView(ctrl),
+    moderationView(ctrl.moderation) || normalView(ctrl),
   );
 }
 
-function renderPalantir(ctrl: Ctrl) {
+function renderPalantir(ctrl: ChatCtrl) {
   const p = ctrl.palantir;
   if (!p.enabled()) return;
   return p.instance
@@ -38,8 +37,8 @@ function renderPalantir(ctrl: Ctrl) {
         hook: bind('click', () => {
           if (!p.loaded) {
             p.loaded = true;
-            lichess.loadIife('javascripts/vendor/peerjs.min.js').then(() => {
-              lichess
+            lichess.asset.loadIife('javascripts/vendor/peerjs.min.js').then(() => {
+              lichess.asset
                 .loadEsm<palantir.Palantir>('palantir', {
                   init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
                 })
@@ -53,7 +52,7 @@ function renderPalantir(ctrl: Ctrl) {
       });
 }
 
-function normalView(ctrl: Ctrl) {
+function normalView(ctrl: ChatCtrl) {
   const active = ctrl.vm.tab;
   return [
     h('div.mchat__tabs.nb_' + ctrl.allTabs.length, { attrs: { role: 'tablist' } }, [
@@ -71,7 +70,7 @@ function normalView(ctrl: Ctrl) {
   ];
 }
 
-const renderTab = (ctrl: Ctrl, tab: Tab, active: Tab) =>
+const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
   h(
     'div.mchat__tab.' + tab,
     {
@@ -82,7 +81,7 @@ const renderTab = (ctrl: Ctrl, tab: Tab, active: Tab) =>
     tabName(ctrl, tab),
   );
 
-function tabName(ctrl: Ctrl, tab: Tab) {
+function tabName(ctrl: ChatCtrl, tab: Tab) {
   if (tab === 'discussion')
     return [
       h('span', ctrl.data.name),

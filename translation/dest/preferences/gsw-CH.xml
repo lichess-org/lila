@@ -14,7 +14,8 @@
   <string name="chessPieceSymbol">Schachfigure Symbol</string>
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
-  <string name="showPlayerRatings">Zeig Spiller Wertige</string>
+  <string name="showPlayerRatings">Zeig Schpiller Wertige</string>
+  <string name="showFlairs">Benutzer-Emojis azeige</string>
   <string name="explainShowPlayerRatings">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Afangsschtellig</string>

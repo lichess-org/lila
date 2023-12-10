@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Това позволява скриването на всички рейтинги от уебсайта за да можете да се фокусирате само на шахмата. Игрите все още може да са с рейтинг; тази настройка променя само това което виждате.</string>
   <string name="displayBoardResizeHandle">Показване на инструмента за промяна на размера на дъската</string>
   <string name="onlyOnInitialPosition">Само в началната позиция</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Само по време на игра</string>
+  <string name="inGameOnly">Само по време на игра</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
   <string name="chessClock">Шахматен часовник</string>
   <string name="tenthsOfSeconds">Десети от секундата</string>

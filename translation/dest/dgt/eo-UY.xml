@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT-estraro</string>
+  <string name="keywords">Ŝlosilvorto</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Agordoj</string>
+</resources>

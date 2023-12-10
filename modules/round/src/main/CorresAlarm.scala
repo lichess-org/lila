@@ -12,11 +12,7 @@ final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, UserId) => Fu[Boolean],
     proxyGame: GameId => Fu[Option[Game]]
-)(using
-    Executor,
-    Scheduler,
-    akka.stream.Materializer
-):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   private case class Alarm(
       _id: GameId,
@@ -50,14 +46,14 @@ final private class CorresAlarm(
         }
   }
 
-  LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
+  LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)):
     def deleteAlarm(id: GameId) = coll.delete.one($id(id)).void
     coll
       .find($doc("ringsAt" $lt nowInstant))
       .cursor[Alarm]()
       .documentSource(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id).map(alarm -> _))
-      .mapAsyncUnordered(4) {
+      .mapAsyncUnordered(4):
         case (_, Some(game)) =>
           val pov = Pov.ofCurrentTurn(game)
           deleteAlarm(game.id) zip
@@ -66,9 +62,7 @@ final private class CorresAlarm(
               else Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
             }
         case (alarm, None) => deleteAlarm(alarm._id)
-      }
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .mon(_.round.alarm.time)
       .void
-  }

@@ -30,10 +30,6 @@
     <item quantity="other">در %s سال</item>
   </plurals>
   <string name="rightNow">هم‌اکنون</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s ثانیه پیش</item>
-    <item quantity="other">%s ثانیه پیش</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s دقیقه پیش</item>
     <item quantity="other">%s دقیقه پیش</item>

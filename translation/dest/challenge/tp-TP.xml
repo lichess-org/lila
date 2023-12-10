@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX" comment="%1$s is the number of challenges. Appears as hover text for challenge notifications.">utala: %1$s</string>
   <string name="challengeToPlay">wile musi</string>
   <string name="challengeDeclined">ona li wile ala musi</string>
   <string name="challengeAccepted">ona li wile musi a!</string>
@@ -11,15 +12,15 @@
   <string name="cannotChallengeDueToProvisionalXRating">sina ken ala utala musi e jan. nasin %s la nanpa wawa sina li ken pini.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">jan pona li ken utala musi e jan %s. sina li jan pona ala.</string>
   <string name="declineGeneric">mi wile ala musi lon tenpo ni.</string>
-  <string name="declineLater">mi ken ala musi lon tenpo ni. toki tawa mi lon tenpo ante.</string>
-  <string name="declineTooFast">tenpo musi ni li lili mute tawa mi. musi pi tenpo mute la o utala musi e mi.</string>
-  <string name="declineTooSlow">tenpo musi ni li suli mute tawa mi. musi pi tenpo lili la o utala musi e mi.</string>
-  <string name="declineTimeControl">tenpo li ni la mi wile ala musi.</string>
-  <string name="declineRated">mi wile kama jo e nanpa wawa. sina wile e ni la o utala musi e mi.</string>
-  <string name="declineCasual">mi wile ala kama jo e nanpa wawa. sina wile ala e ni la o utala musi e mi.</string>
-  <string name="declineStandard">mi wile ala musi kepeken nasin ante lon tenpo ni.</string>
-  <string name="declineVariant">mi wile ala musi kepeken nasin ni lon tenpo ni.</string>
+  <string name="declineLater" comment="One of the standard replies which players can use to decline challenges.">mi ken ala musi lon tenpo ni. toki tawa mi lon tenpo ante.</string>
+  <string name="declineTooFast" comment="One of the standard replies which players can use to decline challenges.">tenpo musi ni li lili mute tawa mi. musi pi tenpo mute la o utala musi e mi.</string>
+  <string name="declineTooSlow" comment="One of the standard replies which players can use to decline challenges.">tenpo musi ni li suli mute tawa mi. musi pi tenpo lili la o utala musi e mi.</string>
+  <string name="declineTimeControl" comment="One of the standard replies which players can use to decline challenges.">tenpo li ni la mi wile ala musi.</string>
+  <string name="declineRated" comment="One of the standard replies which players can use to decline challenges.">mi wile kama jo e nanpa wawa. sina wile e ni la o utala musi e mi.</string>
+  <string name="declineCasual" comment="One of the standard replies which players can use to decline challenges.">mi wile ala kama jo e nanpa wawa. sina wile ala e ni la o utala musi e mi.</string>
+  <string name="declineStandard" comment="One of the standard replies which players can use to decline challenges.">mi wile ala musi kepeken nasin ante lon tenpo ni.</string>
+  <string name="declineVariant" comment="One of the standard replies which players can use to decline challenges.">mi wile ala musi kepeken nasin ni lon tenpo ni.</string>
   <string name="declineNoBot">mi wile ala e ni: jan ilo li utala musi e mi.</string>
   <string name="declineOnlyBot">mi wile e ni: jan ilo li utala musi e mi.</string>
-  <string name="inviteLichessUser">anu tawa e jan ilo Lichess:</string>
+  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">anu tawa e jan ilo Lichess:</string>
 </resources>

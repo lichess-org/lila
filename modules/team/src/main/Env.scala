@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.LightTeam
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -24,11 +25,11 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer):
+)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.user.FlairApi.Getter):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
-  lazy val memberRepo  = MemberRepo(db(CollName("team_member")))
-  lazy val requestRepo = RequestRepo(db(CollName("team_request")))
+  lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = TeamRequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[TeamForm]
 
@@ -46,7 +47,11 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  val getTeamName = GetTeamNameSync(cached.blockingTeamName)
+  export cached.{ lightApi as lightTeamApi }
+
+  export cached.{ async as lightTeam, sync as lightTeamSync }
+
+  lazy val security = wire[TeamSecurity]
 
   lazy val api = wire[TeamApi]
 
@@ -63,8 +68,11 @@ final class Env(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
     },
-    "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
-      promise completeWith cached.isLeader(teamId, userId)
+    "teamIsLeader" -> {
+      case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+        promise completeWith api.isLeader(teamId, userId)
+      case lila.hub.actorApi.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
+        promise completeWith api.hasPerm(teamId, userId, _.Comm)
     },
     "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
       promise completeWith cached.teamIdsList(userId)

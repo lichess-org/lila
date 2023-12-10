@@ -1,4 +1,4 @@
-import { isTouchDevice } from 'common/mobile';
+import { isTouchDevice } from 'common/device';
 
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {

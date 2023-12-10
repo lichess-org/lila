@@ -6,11 +6,11 @@ import { toggle } from 'common/controls';
 import { richHTML } from 'common/richText';
 import { option, plural } from '../../view/util';
 import { view as descView } from '../description';
-import { StudyCtrl } from '../interfaces';
 import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
+import StudyCtrl from '../studyCtrl';
 
-function selector(data: StudyPracticeData) {
-  return h(
+const selector = (data: StudyPracticeData) =>
+  h(
     'select.selector',
     {
       hook: bind('change', e => {
@@ -38,7 +38,6 @@ function selector(data: StudyPracticeData) {
       ),
     ],
   );
-}
 
 function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   const goal = practice.goal();
@@ -64,7 +63,7 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
 export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   if (ctrl.vm.loading) return [h('div.feedback', spinner())];
   const p = ctrl.practice!,
-    gb = ctrl.gamebookPlay(),
+    gb = ctrl.gamebookPlay,
     pinned = ctrl.data.chapter.description;
   if (gb) return pinned ? [h('div.feedback.ongoing', [h('div.comment', { hook: richHTML(pinned) })])] : [];
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];

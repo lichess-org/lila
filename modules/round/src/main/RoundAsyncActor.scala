@@ -26,7 +26,7 @@ final private[round] class RoundAsyncActor(
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using ec: Executor, proxy: GameProxy)
+)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
 
   import RoundSocket.Protocol
@@ -148,10 +148,10 @@ final private[round] class RoundAsyncActor(
             (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
-      fuccess:
+      lila.chat.JsonView(line) map: json =>
         publish(List(line match
-          case l: lila.chat.UserLine   => Event.UserMessage(l, watcher)
-          case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+          case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
         ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
@@ -384,7 +384,7 @@ final private[round] class RoundAsyncActor(
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def getSocketStatus: Future[SocketStatus] =
-    whitePlayer.isLongGone zip blackPlayer.isLongGone map { (whiteIsGone, blackIsGone) =>
+    whitePlayer.isLongGone zip blackPlayer.isLongGone map: (whiteIsGone, blackIsGone) =>
       SocketStatus(
         version = version,
         whiteOnGame = whitePlayer.isOnline,
@@ -392,7 +392,6 @@ final private[round] class RoundAsyncActor(
         blackOnGame = blackPlayer.isOnline,
         blackIsGone = blackIsGone
       )
-    }
 
   private def recordLag(pov: Pov): Unit =
     if (pov.game.playedTurns.value & 30) == 10 then
@@ -460,7 +459,7 @@ final private[round] class RoundAsyncActor(
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
-      logger.info(s"Round client error $name: ${e.getMessage}")
+      logger.debug(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client.increment()
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
@@ -483,7 +482,7 @@ object RoundAsyncActor:
 
     def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
 
-    def offerable = lastDeclined.fold(true) { _ isBefore nowInstant.minusSeconds(delaySeconds) }
+    def offerable = lastDeclined.forall { _ isBefore nowInstant.minusSeconds(delaySeconds) }
 
     def reset = takebackSituationZero.zero
 

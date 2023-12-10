@@ -4,7 +4,7 @@ import java.util.regex.Matcher
 import play.api.Mode
 
 import lila.common.config
-import lila.common.{ Bus, Markdown, MarkdownRender }
+import lila.common.{ Bus, LpvEmbed, Markdown, MarkdownRender }
 import lila.hub.actorApi.lpv.AllPgnsFromText
 import lila.memo.CacheApi
 
@@ -21,7 +21,7 @@ final class UblogMarkup(
   type PgnSourceId = String
 
   private val pgnCache =
-    cacheApi.notLoadingSync[PgnSourceId, chess.format.pgn.PgnStr](256, "ublogMarkup.pgn"):
+    cacheApi.notLoadingSync[PgnSourceId, LpvEmbed](256, "ublogMarkup.pgn"):
       _.expireAfterWrite(1 second).build()
 
   private val renderer = MarkdownRender(

@@ -592,8 +592,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
   <string name="oneUrlPerLine">URL amháin an líne.</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
-  <string name="savingMoves">Stóráil beart sealadach</string>
-  <string name="savingMovesHelp">Bímid i gcónaí ag stóráil do chuid athruithe i dtaisce do bhrabhsálaí.</string>
   <string name="makeAStudy">Ar mhaithe le slánú agus le roinnt, smaoinigh ar staidéar a dhéanamh.</string>
   <string name="clearSavedMoves">Glan amach bearta</string>
   <string name="previouslyOnLichessTV">Roimhe seo ar Lichess TV</string>
@@ -1010,9 +1008,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
   <string name="clickToRevealEmailAddress">[Cliceáil chun seoladh ríomhphoist a nochtadh]</string>
   <string name="download">Íoslódáil</string>
-  <string name="welcome">Fáilte!</string>
-  <string name="lichessPatronInfo">Is carthanas é Lichess, agus agus bogearraí foinse oscailte go hiomlán saor in aisce.
-Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
   <string name="coachManager">Socruithe cóitseál a bhainistiú</string>
   <string name="streamerManager">Socruithe sruthanna a bhainistiú</string>
   <string name="cancelTournament">Cuir an comórtas ar ceal</string>
@@ -1071,4 +1066,6 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="switchSides">Athraigh taobhanna</string>
   <string name="closingAccountWithdrawAppeal">Má dhúnann tú do chuntas tarraingeofar siar d’achomharc</string>
   <string name="ourEventTips">Ár leideanna chun imeachtaí a eagrú</string>
+  <string name="lichessPatronInfo">Is carthanas é Lichess, agus agus bogearraí foinse oscailte go hiomlán saor in aisce.
+Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
 </resources>

@@ -2,4 +2,38 @@
 <resources>
   <string name="activity">செயல்பாடு</string>
   <string name="hostedALiveStream">இணைய நேரலை</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">%1$s மாதத்திற்கு %2$s ஆக lichess.org ஆதரிக்கப்படுகிறது</item>
+    <item quantity="other">%1$s மாதங்களுக்கு %2$s ஆக lichess.org ஆதரிக்கப்படுகிறது</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">%2$s இல் %1$s நிலையைப் பயிற்சி செய்தேன்</item>
+    <item quantity="other">%2$s இல் %1$s பதவிகளைப் பயிற்சி செய்தேன்</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s பயிற்சி புதிர் தீர்க்கப்பட்டது</item>
+    <item quantity="other">%s பயிற்சி புதிர்கள் தீர்க்கப்பட்டன</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s ஆட்டம் விளையாடினார்</item>
+    <item quantity="other">%1$s %2$s ஆட்டங்களை விளையாடினார்</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%2$s இல் %1$s செய்தி வெளியிடப்பட்டது</item>
+    <item quantity="other">%2$s இல் %1$s செய்திகள் வெளியிடப்பட்டன</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s நகர்த்தப்பட்டது</item>
+    <item quantity="other">%1$s நகர்வுகளை விளையாடியது</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%s சுவிஸ் போட்டியில் போட்டியிட்டார்</item>
+    <item quantity="other">%s சுவிஸ் போட்டிகளில் போட்டியிட்டார்</item>
+  </plurals>
+  <string name="rankedInSwissTournament">%2$s இல் #%1$s தரவரிசை</string>
+  <string name="signedUp">Lichess.org இல் பதிவு செய்துள்ளார்</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s குழுவில் சேர்ந்தார்</item>
+    <item quantity="other">%s குழுக்களில் சேர்ந்தார்</item>
+  </plurals>
 </resources>

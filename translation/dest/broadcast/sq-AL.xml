@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmetime</string>
+  <string name="myBroadcasts">Transmetimet e mia</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s transmetim</item>
     <item quantity="other">%s transmetime</item>
@@ -32,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
   <string name="editRoundStudy">Përpunoni analizë raundi</string>
   <string name="deleteTournament">Fshije këtë turne</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
+  <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
 </resources>

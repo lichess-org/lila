@@ -117,9 +117,25 @@
     }
     .previous {
       @extend %flex-wrap;
+      gap: 0.4em;
       .button {
         margin: 0.3em 0.2em;
         text-transform: none;
+      }
+      .remove {
+        @extend %button-none;
+        $remove-button-diameter: 1.75em;
+        margin-#{$start-direction}: -$remove-button-diameter;
+        width: $remove-button-diameter;
+        height: $remove-button-diameter;
+        top: -1.5em;
+        #{$end-direction}: -0.65em;
+        background-color: $c-bg-popup;
+        position: relative;
+        border-radius: 50%;
+        &:hover {
+          background-color: $c-error;
+        }
       }
     }
   }

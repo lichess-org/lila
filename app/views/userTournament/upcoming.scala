@@ -13,7 +13,7 @@ object upcoming:
       u = u,
       title = s"${u.username} upcoming tournaments",
       path = "upcoming"
-    ) {
+    ):
       if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't joined any tournament yet!")
       else
         div(cls := "tournament-list")(
@@ -25,16 +25,13 @@ object upcoming:
                 th(trans.players())
               )
             ),
-            tbody(
-              pager.currentPageResults.map { t =>
+            tbody:
+              pager.currentPageResults.map: t =>
                 tr(
                   td(cls := "icon")(iconTag(tournamentIcon(t))),
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
                 )
-              }
-            )
           )
         )
-    }

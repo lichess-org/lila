@@ -6,4 +6,6 @@
   <string name="teamRead">Lenn titouroù ar skipailhoù prevez</string>
   <string name="teamWrite">Emezelañ ha kuitaat ur skipailh</string>
   <string name="botPlay">C\'hoari krogadoù a-enep ar robot API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Krouet %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Implij diwezhañ %s</string>
 </resources>

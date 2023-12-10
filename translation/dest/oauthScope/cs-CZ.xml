@@ -8,10 +8,10 @@
   <string name="whatTheTokenCanDo">Co token může udělat vaším jménem:</string>
   <string name="doNotShareIt">Token umožní přístup k vašemu účtu. NESDÍLEJTE jej s nikým!</string>
   <string name="copyTokenNow">Ujistěte se, že máte svůj nový osobní přístupový token uložený. Není možné ho znovu zobrazit!</string>
-  <string name="preferenceRead">Číst předvolby</string>
-  <string name="preferenceWrite">Zapisovat předvolby</string>
-  <string name="emailRead">Číst e-mailovou adresu</string>
-  <string name="challengeRead">Číst příchozí výzvy</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Číst předvolby</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Zapisovat předvolby</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Číst e-mailovou adresu</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Číst příchozí výzvy</string>
   <string name="challengeWrite">Odeslat, potvrdit a odmítnout výzvy</string>
   <string name="challengeBulk">Vytvořte mnoho her najednou pro ostatní hráče</string>
   <string name="studyRead">Číst soukromé studie a vysílání</string>
@@ -31,4 +31,17 @@
   <string name="engineWrite">Vytvořit a aktualizovat externí engine</string>
   <string name="webLogin">Vytváření ověřených webových sezení (poskytuje plný přístup!)</string>
   <string name="webMod">Používat nástroje moderátora (v mezích Vašeho oprávnění)</string>
+  <string name="personalAccessTokens">Osobní přístupový token API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Můžete vytvořit OAuth žádosti bez procházení %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">tok kódu autorizace</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Místo, %s můžete přímo použít API žádosti.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">generovat osobní přístupový token</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">Dokumentace API</string>
+  <string name="newToken">Nový přístupový token</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Vytvořeno %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Naposledy použito %s</string>
+  <string name="alreadyHavePlayedGames">Již jsi hrál hry!</string>
+  <string name="attentionOfDevelopers">Upozornění pouze pro vývojáře:</string>
+  <string name="possibleToPrefill">Tento formulář lze předvyplnit úpravou parametrů dotazu URL.</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">%s</string>
 </resources>

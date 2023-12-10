@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pješak napreduje</string>
   <string name="advancedPawnDescription">Pješak u postupku ili prijetnji promaknućem je ključan za taktiku.</string>
   <string name="advantage">Prednost</string>
-  <string name="advantageDescription">Iskoristi priliku i pridobij odlučujuču prednost. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Iskoristi priliku i pridobij odlučujuču prednost. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastazijin mat</string>
   <string name="anastasiaMateDescription">Skakač i top ili dama udružuju se kako bi uhvatili protivničkog kralja u zamku između ruba ploče s jedne i njegove figure s druge strane.</string>
   <string name="arabianMate">Arapski mat</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Eliminiraj obranu</string>
   <string name="capturingDefenderDescription">Eliminacijom figure koja brani ili je neizravno uključena u obranu druge figure omogućujete uzimanje figure koja ostaje bez obrane.</string>
   <string name="crushing">Uništavanje</string>
-  <string name="crushingDescription">Uoči protivničku grešku te pridobij golemu prednost. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Uoči protivničku grešku te pridobij golemu prednost. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat lovačkim parom</string>
   <string name="doubleBishopMateDescription">Lovački par zadaje mat na susjednim dijagonalama kralju zarobljenom iza prijateljske figure.</string>
   <string name="dovetailMate">Lastin mat</string>
   <string name="dovetailMateDescription">Kraljica zadaje mat dodirujuči protivničkog kralja po dijagonali. Kraljeva jedina polja za bijeg zauzeta su njegovim figurama.</string>
   <string name="equality">Izjednačenje</string>
-  <string name="equalityDescription">Pronađi potez koji te dovodi iz gubitničke u podjednaku poziciju. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Pronađi potez koji te dovodi iz gubitničke u podjednaku poziciju. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Napad na kraljevoj strani</string>
   <string name="kingsideAttackDescription">Napad na protivničkog kralja nakon što je protivnik odigrao malu rokadu.</string>
   <string name="clearance">Čiščenje</string>

@@ -9,7 +9,7 @@ object help:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
-  private val or                          = tag("or")
+  private val or                          = tag("or")("/")
   private val kbd                         = tag("kbd")
   private def voice(text: String)         = strong(cls := "val-to-word", text)
   private def phonetic(text: String)      = strong(cls := "val-to-word phonetic", text)
@@ -30,6 +30,10 @@ object help:
     row(kbd("space"), trans.playComputerMove()),
     row(kbd("x"), trans.showThreat())
   )
+  private def phonetics = "abcdefgh"
+    .map(_.toString)
+    .map: letter =>
+      frag(s"${letter.capitalize} = ", phonetic(letter), ". ")
 
   def round(using Lang) =
     frag(
@@ -65,15 +69,22 @@ object help:
       h2(trans.keyboardShortcuts()),
       table(
         tbody(
-          navigateMoves,
-          row(kbd("shift"), "Cycle selected move arrow"),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("J")), "Rewind to mainline"),
+          row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
+          row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
+          row(kbd("shift"), trans.keyCycleSelectedVariation()),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.cyclePreviousOrNextVariation()),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.keyPreviousBranch()),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.keyNextBranch()),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
+          row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
+          row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd()),
           header(trans.analysisOptions()),
           flip,
           row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
           localAnalysis,
           row(kbd("z"), trans.toggleAllAnalysis()),
           row(kbd("a"), trans.bestMoveArrow()),
+          row(kbd("v"), trans.toggleVariationArrows()),
           row(kbd("e"), trans.openingEndgameExplorer()),
           row(frag(kbd("shift"), kbd("space")), trans.playFirstOpeningEndgameExplorerMove()),
           row(kbd("r"), trans.keyRequestComputerAnalysis()),
@@ -90,7 +101,7 @@ object help:
             row(kbd("g"), trans.study.annotateWithGlyphs()),
             row(kbd("n"), trans.study.nextChapter()),
             row(kbd("p"), trans.study.prevChapter()),
-            row(frag((1 to 6).map(kbd(_))), "Toggle glyph annotations")
+            row(frag((1 to 6).map(kbd(_))), trans.toggleGlyphAnnotations())
           ),
           header(trans.mouseTricks()),
           tr(
@@ -106,20 +117,16 @@ object help:
       )
     )
 
-  def analyseShiftKey(using Lang) =
-    frag(
-      div(cls := "help-ephemeral")(
-        ul(
-          li("Purple arrow is mainline move"),
-          li("Pink arrows are variations"),
-          li("Blue arrow is eval best move")
-        ),
-        table(
-          tbody(
-            row(kbd("shift"), "cycle selected move arrow"),
-            row(kbd("→"), "play selected move"),
-            row(span(kbd("shift"), or, kbd("←")), "return to previous mainline move")
-          )
+  def analyseVariationArrow(using Lang) =
+    div(cls := "help-ephemeral")(
+      p(trans.variationArrowsInfo()),
+      table(
+        tbody(
+          row(kbd("v"), trans.toggleVariationArrows()),
+          row(frag(kbd("↑"), or, kbd("↓"), or, kbd("shift")), trans.keyCycleSelectedVariation()),
+          row(kbd("→"), trans.playSelectedMove()),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.keyPreviousBranch()),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.keyNextBranch())
         )
       )
     )
@@ -172,97 +179,81 @@ object help:
 
   def voiceCoords(using Lang) =
     frag(
-      h2("Voice commands"),
+      h2(trans.voiceCommands.voiceCommands()),
       "This space for rent"
     )
 
   def voiceMove(using Lang) =
-    import trans.keyboardMove.*
+    import trans.voiceCommands.*
     frag(
-      h2("Voice commands"),
+      h2(voiceCommands()),
       table(
         tbody(
-          tr(th(p("Instructions"))),
+          tr(th(p(trans.instructions()))),
           tr(
             td(cls := "tips")(
               ul(
                 li(
-                  "Use the ",
-                  i(dataIcon := licon.Voice),
-                  " button to toggle voice recognition. Moves are sent to lichess.org "
-                    + "as plain text. Audio does not leave your device. Use the ",
-                  i(dataIcon := licon.Gear),
-                  " menu to configure all speech options."
+                  a(target := "_blank", href := "https://youtu.be/Ibfk4TyDZpY")(
+                    watchTheVideoTutorial()
+                  )
                 ),
                 li(
-                  "We show arrows for multiple moves when we're not sure. Speak the color or number of a move "
-                    + "arrow to select it."
+                  instructions1(
+                    i(dataIcon := licon.Voice),
+                    i(dataIcon := licon.InfoCircle),
+                    i(dataIcon := licon.Gear)
+                  )
                 ),
+                li(instructions2()),
+                li(instructions3(voice("yes"), voice("no"))),
+                li(instructions4(strong("Push to Talk"))),
+                li(instructions5(), phonetics),
                 li(
-                  "If an arrow shows a sweeping arc, that move will be played when the arc becomes a full circle. "
-                    + "During this countdown, you may say \"",
-                  voice("yes"),
-                  "\" to play it immediately, \"",
-                  voice("no"),
-                  "\" to cancel, or choose a different arrow. The timer can be adjusted or turned off."
-                ),
-                li(
-                  "An increased clarity setting reduces the number of moves shown when using a good microphone "
-                    + "in quiet surroundings. Decrease clarity to offer more choices if moves are often "
-                    + "misheard."
-                ),
-                li(
-                  "Enable ",
-                  strong("Push to Talk"),
-                  " in noisy surroundings. You must hold shift while speaking and lichess.org must be the frontmost tab and window."
-                ),
-                li(
-                  "Use the phonetic alphabet to improve recognition of chessboard files. ",
-                  phonetics
+                  instructions6(
+                    a(target := "_blank", href := "/@/schlawg/blog/how-to-lichess-voice/nWrypoWI")(
+                      thisBlogPost()
+                    )
+                  )
                 )
               )
             )
           )
-        )
-      ),
-      div(cls := "commands")(
-        table(
-          tbody(
-            header(performAMove()),
-            row(voice("e,4"), "Move to e4 or select e4 piece"),
-            row(voice("N"), "Select or capture a knight"),
-            row(voice("B,h,6"), "Move bishop to h6"),
-            row(voice("Q,x,R"), "Take rook with queen"),
-            row(voice("c,8,=,N"), "Pawn to c8 promote to knight"),
-            row(voice("castle"), "castle (either side)"),
-            row(voice("O-O-O"), "Queenside castle"),
-            row(phonetic("a,7,g,1"), "Phonetic alphabet is best"),
-            row(voice("draw"), offerOrAcceptDraw()),
-            row(voice("resign"), trans.resignTheGame()),
-            row(voice("takeback"), "Request a takeback")
-          )
         ),
-        table(
-          tbody(
-            header(otherCommands()),
-            row(voice("no"), "Cancel timer or deny a request"),
-            row(voice("yes"), "Play preferred move or confirm something"),
-            row(voice("stop"), "Sleep (if wake word enabled)"),
-            row(voice("mic-off"), "Turn off voice recognition"),
-            row(voice("next"), trans.puzzle.nextPuzzle()),
-            row(voice("upvote"), trans.puzzle.upVote()),
-            row(voice("solve"), "Show puzzle solution"),
-            row(voice("help"), trans.showHelpDialog()),
-            tr(
-              td,
-              td(button(cls := "button", id := "all-phrases-button")("Show me everything"))
+        div(cls := "commands")(
+          table(
+            tbody(
+              header(trans.keyboardMove.performAMove()),
+              row(voice("e,4"), moveToE4OrSelectE4Piece()),
+              row(voice("B"), selectOrCaptureABishop()),
+              row(voice("N,c,3"), trans.keyboardMove.moveKnightToC3()),
+              row(voice("Q,x,R"), takeRookWithQueen()),
+              row(voice("c,8,=,Q"), trans.keyboardMove.promoteC8ToQueen()),
+              row(voice("castle"), castle()),
+              row(voice("O-O-O"), trans.keyboardMove.queensideCastle()),
+              row(phonetic("a,7,g,1"), phoneticAlphabetIsBest()),
+              row(voice("draw"), trans.keyboardMove.offerOrAcceptDraw()),
+              row(voice("resign"), trans.resignTheGame()),
+              row(voice("takeback"), trans.proposeATakeback())
+            )
+          ),
+          table(
+            tbody(
+              header(trans.keyboardMove.otherCommands()),
+              row(voice("no"), cancelTimerOrDenyARequest()),
+              row(voice("yes"), playPreferredMoveOrConfirmSomething()),
+              row(voice("stop"), sleep()),
+              row(voice("mic-off"), turnOffVoiceRecognition()),
+              row(voice("next"), trans.puzzle.nextPuzzle()),
+              row(voice("upvote"), trans.puzzle.upVote()),
+              row(voice("solve"), showPuzzleSolution()),
+              row(voice("help"), trans.showHelpDialog()),
+              tr(
+                td,
+                td(button(cls := "button", cls := "all-phrases-button")(trans.showMeEverything()))
+              )
             )
           )
         )
       )
     )
-
-  private def phonetics = "abcdefgh"
-    .map(_.toString)
-    .map: letter =>
-      frag(s"${letter.capitalize} is ", phonetic(letter), ". ")

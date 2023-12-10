@@ -2,10 +2,11 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
-import { userName, player as renderPlayer, numberRow } from './util';
+import { player as renderPlayer, numberRow } from './util';
 import { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';
+import { fullName } from 'common/userLink';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
   if (!ctrl.playerInfoId) return;
@@ -85,10 +86,10 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               },
               [
                 h('th', '' + round),
-                h('td', userName(p.user)),
+                h('td', fullName(p.user)),
                 ctrl.opts.showRatings ? h('td', '' + p.rating) : null,
                 h('td.is.color-icon.' + (p.c ? 'white' : 'black')),
-                h('td', res),
+                h('td.result', res),
               ],
             );
           }),

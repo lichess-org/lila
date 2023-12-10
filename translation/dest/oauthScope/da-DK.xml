@@ -25,10 +25,30 @@
   <string name="followRead">Læs fulgte spillere</string>
   <string name="followWrite">Følg og affølg andre spillere</string>
   <string name="msgWrite">Send privat besked til andre spillere</string>
-  <string name="boardPlay">Spil partier med bræt-api</string>
+  <string name="boardPlay">Spil partier med bræt-API</string>
   <string name="botPlay">Spil partier med bot-api</string>
   <string name="engineRead">Se og brug dit eksterne skakprogram</string>
   <string name="engineWrite">Opret og opdater eksternt skakprogram</string>
   <string name="webLogin">Opret godkendte hjemmesidesessioner (giver fuld adgang!)</string>
   <string name="webMod">Brug moderatorværktøjer (inden for rammerne af din tilladelse)</string>
+  <string name="personalAccessTokens">Personlige API-adgangstokens</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan lave OAuth-anmodninger uden at gå gennem %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">proceduren for autorisationskoder</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">%s, som du i stedet kan bruge direkte i API-anmodninger.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">Generer en personlig adgangstoken</string>
+  <string name="guardTokensCarefully">Pas godt på disse tokens! De svarer til adgangskoder. Fordelen ved at bruge tokens frem for at skrive din adgangskode i et script er, at tokens kan tilbagekaldes, og du kan generere mange af dem.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Her er et %1$s og %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">eksempel på en personlig token-app</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API-dokumentation</string>
+  <string name="newToken">Ny adgangstoken</string>
+  <string name="apiAccessTokens">API-adgangstoken</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oprettet %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Senest brugt %s</string>
+  <string name="alreadyHavePlayedGames">Du har allerede spillet partier!</string>
+  <string name="attentionOfDevelopers">Bemærkning kun til udviklere:</string>
+  <string name="possibleToPrefill">Det er muligt at forhåndsudfylde denne formular ved at tilpasse forespørgselsparametrene i URL\'en.</string>
+  <string name="forExample">For eksempel: %s</string>
+  <string name="ticksTheScopes">markerer %1$s og %2$s omfang og indstiller token-beskrivelsen.</string>
+  <string name="scopesCanBeFound">Omfangskoderne kan findes i HTML-koden for formularen.</string>
+  <string name="givingPrefilledUrls">Hvis du giver disse forudfyldte URL\'er til dine brugere, hjælper det dem med at få de rigtige token-omfang.</string>
 </resources>

@@ -15,13 +15,15 @@
     border-bottom: $border;
     padding-bottom: 0.5em;
 
-    &:hover {
-      background: mix($c-bg-box, $c-primary, 70%);
-      padding-bottom: 0;
-      outline: 1px solid $c-primary;
+    @media (hover: hover) {
+      &:hover {
+        background: mix($c-bg-box, $c-primary, 70%);
+        padding-bottom: 0;
+        outline: 1px solid $c-primary;
 
-      .perf {
-        color: $c-primary !important;
+        .perf {
+          color: $c-primary !important;
+        }
       }
     }
 
@@ -30,12 +32,16 @@
     }
 
     .buttons {
-      display: none;
+      @extend %flex-between-nowrap;
+
+      @media (hover: hover) {
+        display: none;
+      }
     }
 
     &:hover .buttons,
     .blind-mode & .buttons {
-      @extend %flex-between-nowrap;
+      display: flex;
     }
 
     .buttons > * {
@@ -66,18 +72,20 @@
       line-height: 3rem;
     }
 
-    .owner .view,
-    .owner:hover .waiting {
-      display: none;
-    }
+    @media (hover: hover) {
+      .owner .view,
+      .owner:hover .waiting {
+        display: none;
+      }
 
-    .owner:hover .view {
-      display: block;
-      background: $c-primary;
-      color: $c-primary-over;
+      .owner:hover .view {
+        display: block;
+        background: $c-primary;
+        color: $c-primary-over;
 
-      &::before {
-        vertical-align: middle;
+        &::before {
+          vertical-align: middle;
+        }
       }
     }
 
@@ -119,10 +127,12 @@
       display: block;
       font-weight: bold;
       margin-bottom: 0.1em;
-    }
-
-    .head .user-link {
-      margin-#{$start-direction}: -5px;
+      .user-link {
+        margin-#{$start-direction}: -5px;
+      }
+      signal {
+        margin-#{$start-direction}: 5px;
+      }
     }
 
     .color-icon::before {
@@ -130,12 +140,16 @@
     }
 
     .position {
-      display: none;
+      @extend %flex-between-nowrap;
+
+      @media (hover: hover) {
+        display: none;
+      }
     }
 
     &:hover .position,
     .blind-mode & .position {
-      @extend %flex-between-nowrap;
+      display: flex;
     }
   }
 }

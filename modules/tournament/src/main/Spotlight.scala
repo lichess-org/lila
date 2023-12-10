@@ -7,7 +7,6 @@ import lila.rating.Perf
 
 case class Spotlight(
     headline: String,
-    description: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
     iconFont: Option[licon.Icon] = None,
     iconImg: Option[String] = None
@@ -17,14 +16,17 @@ object Spotlight:
 
   import Schedule.Freq.*
 
-  private given Ordering[Tournament] = Ordering.by[Tournament, Int](_.schedule.so(_.freq.importance))
+  private given Ordering[Tournament] = Ordering.by[Tournament, (Int, Int)]: tour =>
+    tour.schedule match
+      case Some(schedule) => (schedule.freq.importance, -tour.secondsToStart)
+      case None           => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart)
 
   def select(tours: List[Tournament], max: Int)(using me: Option[User.WithPerfs]): List[Tournament] =
     me.foldUse(select(tours))(selectForMe(tours)) topN max
 
   private def select(tours: List[Tournament]): List[Tournament] =
     tours.filter: tour =>
-      tour.spotlight.fold(true)(manually(tour, _))
+      tour.spotlight.forall(manually(tour, _))
 
   private def selectForMe(tours: List[Tournament])(using User.WithPerfs): List[Tournament] =
     tours filter selectForMe
@@ -38,7 +40,7 @@ object Spotlight:
       tour.startsAt.minusHours(hours).isBeforeNow
 
   private def automatically(tour: Tournament)(using me: User.WithPerfs): Boolean =
-    tour.schedule.so: sched =>
+    tour.isTeamRelated || tour.schedule.so: sched =>
       def playedSinceWeeks(weeks: Int) = me.perfs(tour.perfType).latest.so(_.plusWeeks(weeks).isAfterNow)
       sched.freq match
         case Hourly                               => canMaybeJoinLimited(tour) && playedSinceWeeks(2)
@@ -52,10 +54,10 @@ object Spotlight:
     given Me   = Me(me.user)
     given Perf = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&
-    tour.conditions.nbRatedGame.fold(true) { c =>
+    tour.conditions.nbRatedGame.forall { c =>
       c(tour.perfType).accepted
     } &&
-    tour.conditions.minRating.fold(true) { c =>
+    tour.conditions.minRating.forall { c =>
       c(tour.perfType).accepted
     } &&
-    tour.conditions.maxRating.fold(true)(_.maybe(tour.perfType))
+    tour.conditions.maxRating.forall(_.maybe(tour.perfType))

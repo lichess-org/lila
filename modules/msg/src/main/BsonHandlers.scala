@@ -5,6 +5,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.db.BSON
+import lila.user.{ User, Me }
 
 private object BsonHandlers:
 
@@ -45,3 +46,7 @@ private object BsonHandlers:
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
       ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
     // looks weird, but maybe.. it is the way
+
+  def selectNotDeleted(using me: Me) =
+    if User.isLichess(me) then $empty // using "del" is too expensive
+    else $doc("del" $ne me.userId)

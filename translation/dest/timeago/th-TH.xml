@@ -1,2 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">เมื่อสักครู่</string>
+  <plurals name="inNbSeconds">
+    <item quantity="other">ใน %s วินาที</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">ใน %s นาที</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">ใน %s ชั่วโมง</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="other">ใน %s วัน</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="other">ใน %s สัปดาห์</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="other">ใน %s เดือน</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="other">ใน %s ปี</item>
+  </plurals>
+  <string name="rightNow">ตอนนี้</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s นาทีที่แล้ว</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s ชั่วโมงที่แล้ว</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s วันที่แล้ว</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s สัปดาห์ที่แล้ว</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s เดือนที่แล้ว</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s ปีที่แล้ว</item>
+  </plurals>
+</resources>

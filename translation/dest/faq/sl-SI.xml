@@ -66,7 +66,7 @@ Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="goodIntroduction">dober uvod</string>
   <string name="lichessTraining">Lichess usposabljanje</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
-  <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. Lichess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. Lichess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trikratna ponovitev</string>
   <string name="notRepeatedMoves">Potez nismo ponavljali. Zakaj je bila igra še vedno remizirana s ponavljanjem?</string>
   <string name="repeatedPositionsThatMatters">Trikratno ponavljanje je ponovitev %1$s in ne premiki. Ni nujno, da se ponavljanje ponavlja.</string>
@@ -141,4 +141,28 @@ Najbolje, da na rejting gledate kot na \"relativno\" številko (ne kot \"absolut
 Kliknite ikono ključavnice poleg naslova lichess.org v vrstici URL vašega brskalnika.
 
 Nato izberite, ali želite dovoliti ali blokirati obvestila strani Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Omogočiti samodejno predvajanje za zvoke?</string>
+  <string name="enableAutoplayForSoundsA">Večina brskalnikov lahko prepreči predvajanje zvoka na sveže naloženi strani, da zaščiti uporabnike. Predstavljajte si, da bi vas lahko vsako spletno mesto takoj zasulo z zvočnimi oglasi.
+
+Rdeča ikona za izklop zvoka se prikaže, ko vaš brskalnik lichess.org prepreči predvajanje zvoka. Običajno se ta omejitev odpravi, ko nekaj kliknete. V nekaterih mobilnih brskalnikih se vlečenje kosa na dotik ne šteje kot klik. V tem primeru se morate dotakniti table, da omogočite zvok na začetku vsake igre.
+
+Prikažemo rdečo ikono, da vas opozorimo, ko se to zgodi. Pogosto lahko lichess.org izrecno dovolite predvajanje zvokov. Tu so navodila, kako to narediti v najnovejših različicah nekaterih priljubljenih brskalnikov.</string>
+  <string name="desktop">namizje</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Pojdite na lichess.org
+2. Pritisnite Ctrl-i v sistemu Linux/Windows ali cmd-i v sistemu MacOS
+3. Kliknite zavihek Dovoljenja
+4. Dovolite avdio in video na lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Pojdite na lichess.org
+2. Kliknite ikono ključavnice v naslovni vrstici
+3. Kliknite Nastavitve mesta
+4. Dovoli zvok</string>
+  <string name="enableAutoplayForSoundsSafari">1. Pojdite na lichess.org
+2. V menijski vrstici kliknite Safari
+3. Kliknite Nastavitve za lichess.org ...
+4. Dovoli vse samodejno predvajanje</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Kliknite tri pike v zgornjem desnem kotu
+2. Kliknite Nastavitve
+3. Kliknite Piškotki in dovoljenja za spletno mesto
+4. Pomaknite se navzdol in kliknite Samodejno predvajanje medijev
+5. Dodajte lichess.org v Dovoli</string>
 </resources>

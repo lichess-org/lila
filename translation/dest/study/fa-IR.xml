@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">خصوصی</string>
-  <string name="myStudies">درس های من</string>
-  <string name="studiesIContributeTo">مطالعاتی که من مشارکت میکنم</string>
-  <string name="myPublicStudies">درس های عمومی من</string>
-  <string name="myPrivateStudies">درس های خصوصی من</string>
-  <string name="myFavoriteStudies">درس های مورد علاقه من</string>
-  <string name="whatAreStudies">درس ها چه هستند?</string>
-  <string name="allStudies">همه درس های من</string>
+  <string name="myStudies">مطالعات من</string>
+  <string name="studiesIContributeTo">مطالعاتی که من در آن مشارکت میکنم</string>
+  <string name="myPublicStudies">مطالعات عمومی من</string>
+  <string name="myPrivateStudies">مطالعات خصوصی من</string>
+  <string name="myFavoriteStudies">مطالعات مورد علاقه من</string>
+  <string name="whatAreStudies">مطالعه‌ها چه هستند؟</string>
+  <string name="allStudies">همه مطالعات من</string>
   <string name="studiesCreatedByX">مطالعاتِ ایجاد شده توسط %s</string>
   <string name="noneYet">هنوز چیزی نیست.</string>
   <string name="hot">داغ</string>
@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN درس</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN فصل</string>
-  <string name="copyChapterPgn">کپی کردن PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">کپی کردن PGN</string>
   <string name="copyChapterPgnDescription">کپی کردن فصل PGN.</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>

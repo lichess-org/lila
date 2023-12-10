@@ -1,8 +1,7 @@
 import { h } from 'snabbdom';
 import * as licon from 'common/licon';
 import { onInsert, bind } from 'common/snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { snabDialog, type Dialog } from 'common/dialog';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
@@ -24,7 +23,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       h('button#voice-settings-button', {
         attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
         class: { active: ctrl.showPrefs() },
-        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw),
+        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
     ]),
     ctrl.showPrefs()
@@ -33,11 +32,8 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
           langSetting(ctrl),
           ...(ctrl.module()?.prefNodes(redraw) ?? []),
           pushTalkSetting(ctrl),
-          h('br'),
-          ctrl.moduleId === 'move' ? voiceDisable() : null,
         ])
       : null,
-
     ctrl.showHelp() ? renderHelpModal(ctrl) : null,
   ]);
 }
@@ -96,7 +92,15 @@ function langSetting(ctrl: VoiceCtrl) {
       ]);
 }
 
-let devices: MediaDeviceInfo[] | undefined;
+const nullMic: MediaDeviceInfo = {
+  deviceId: 'null',
+  label: 'None selected',
+  groupId: '',
+  kind: 'audioinput',
+  toJSON: () => '[]',
+};
+
+let devices: MediaDeviceInfo[] = [nullMic];
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),
@@ -107,12 +111,12 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
           el.addEventListener('change', () => ctrl.micId(el.value));
           if (devices === undefined)
             lichess.mic.getMics().then(ds => {
-              devices = ds;
+              devices = ds.length ? ds : [nullMic];
               redraw();
             });
         }),
       },
-      (devices || []).map(d =>
+      devices.map(d =>
         h(
           'option',
           {
@@ -128,28 +132,9 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   ]);
 }
 
-function voiceDisable() {
-  return !$('body').data('user')
-    ? null
-    : h(
-        'a.button',
-        {
-          attrs: {
-            title: 'Also set in Preferences -> Display',
-          },
-          hook: bind('click', () =>
-            xhr
-              .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
-              .then(() => window.location.reload()),
-          ),
-        },
-        'Disable voice recognition',
-      );
-}
-
 function renderHelpModal(ctrl: VoiceCtrl) {
-  const showMoveList = (el: Cash) => {
-    let html = '<table id="big-table"><tbody>';
+  const showMoveList = (dlg: Dialog) => {
+    let html = '<table class="big-table"><tbody>';
     const all =
       ctrl
         .module()
@@ -165,32 +150,30 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       html += '</tr>';
     }
     html += '</tbody></table>';
-    el.find('.scrollable').html(html);
+    dlg.view.innerHTML = html;
+    if (!dlg.open) dlg.showModal();
   };
-  return snabModal({
-    class: `voice-move-help`,
-    content: [h('div.scrollable', spinner())],
-    onClose: () => ctrl.showHelp(false),
-    onInsert: async el => {
-      const [, grammar, html] = await Promise.all([
-        lichess.loadCssPath('voiceMove.help'),
-        ctrl.moduleId !== 'coords'
-          ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`))
-          : Promise.resolve({ entries: [] }),
-        xhr.text(xhr.url(`/help/voice/${ctrl.moduleId}`, {})),
-      ]);
 
+  return snabDialog({
+    class: 'help.voice-move-help',
+    htmlUrl: `/help/voice/${ctrl.moduleId}`,
+    cssPath: 'voiceMove.help',
+    onClose: () => ctrl.showHelp(false),
+    onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {
-        showMoveList(el);
+        showMoveList(dlg);
         return;
       }
-      // using lexicon instead of crowdin translations for moves/commands
-      el.find('.scrollable').html(html);
+      const grammar =
+        ctrl.moduleId === 'coords'
+          ? []
+          : await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
         )?.in;
-      $('.val-to-word', el).each(function (this: HTMLElement) {
+      $('.val-to-word', dlg.view).each(function (this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
         this.innerText = this.innerText
@@ -198,7 +181,8 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           .map(v => tryPhonetic(v))
           .join(' ');
       });
-      el.find('#all-phrases-button').on('click', () => showMoveList(el));
+      $('.all-phrases-button', dlg.view).on('click', () => showMoveList(dlg));
+      dlg.showModal();
     },
   });
 }

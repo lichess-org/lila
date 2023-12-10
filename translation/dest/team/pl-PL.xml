@@ -16,7 +16,7 @@
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="onlyLeaderLeavesTeam">Zanim opuścisz klub, dodaj proszę nowego lidera lub zamknij klub.</string>
   <string name="quitTeam">Opuść klub</string>
-  <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o dopuszczenie</string>
+  <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o przyjęcie</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
@@ -49,7 +49,6 @@ Możesz w ten sposób wezwać graczy, aby dołączyli do turnieju lub potyczki k
 Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
-  <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
   <string name="leadersChat">Czat liderów</string>
   <string name="closeTeam">Zamknij klub</string>
   <string name="closeTeamDescription">Zamyka klub na zawsze.</string>

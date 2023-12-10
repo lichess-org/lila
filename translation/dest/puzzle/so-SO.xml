@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Halxidhaale</string>
+  <string name="puzzleThemes">Mawduucyada halxiraalaha</string>
+  <string name="origin">Asalka</string>
+  <string name="puzzleSuccess">Guul!</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">qarsoon</string>
+  <string name="solved">xaliyay</string>
+  <string name="failed">khaldan</string>
+</resources>

@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
   <string name="toGetPersonalizedPuzzles">Pour obtenir des problèmes personnalisés :</string>
-  <string name="puzzleId">Problème %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problème %s</string>
   <string name="puzzleOfTheDay">Problème du jour</string>
   <string name="dailyPuzzle">Problème du jour</string>
   <string name="clickToSolve">Cliquez pour résoudre</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Par ouverture</string>
   <string name="puzzlesByOpenings">Problèmes par ouverture</string>
   <string name="openingsYouPlayedTheMost">Ouvertures que vous avez le plus jouées dans des parties classées</string>
-  <string name="useFindInPage">Utilisez la fonction « Rechercher dans la page » du navigateur pour trouver votre ouverture préférée !</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Utilisez la fonction « Rechercher dans la page » du navigateur pour trouver votre ouverture préférée !</string>
   <string name="useCtrlF">Appuyez sur les touches Ctrl+f pour trouver votre ouverture préférée !</string>
   <string name="notTheMove">Ce n\'est pas le coup !</string>
   <string name="trySomethingElse">Essayez autre chose.</string>
-  <string name="ratingX">Classement : %s</string>
-  <string name="hidden">masqué</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Classement : %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">masqué</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
   </plurals>
@@ -68,7 +68,7 @@
   <string name="solved">résolu</string>
   <string name="failed">non résolu</string>
   <string name="streakDescription">Résolvez des problèmes de plus en plus difficiles et obtenez une série de victoires. Prenez votre temps, il n\'y a pas de pendule. Un mauvais coup et c\'est terminé ! Mais vous pouvez passer un coup par session.</string>
-  <string name="yourStreakX">Votre série gagnante : %s</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">Votre série gagnante : %s</string>
   <string name="streakSkipExplanation">Sautez ce coup pour préserver votre série gagnante! Possible une seule fois par session.</string>
   <string name="continueTheStreak">Continuer la série</string>
   <string name="newStreak">Nouvelle série</string>
@@ -77,7 +77,7 @@
   <string name="fromXGames">Problèmes tirés des parties de %s\'</string>
   <string name="searchPuzzles">Rechercher des problèmes</string>
   <string name="fromMyGamesNone">Vous n\'avez pas de problèmes dans la base de données, mais Lichess vous aime toujours.
-Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vos parties soit utilisée comme problème!</string>
+Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vos parties soit utilisée comme problème !</string>
   <string name="fromXGamesFound">%1$s problèmes trouvés dans %2$s parties</string>
   <string name="puzzleDashboardDescription">S\'entraîner, analyser, s\'améliorer</string>
   <plurals name="nbPlayed">

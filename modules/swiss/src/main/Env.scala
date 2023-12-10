@@ -27,12 +27,13 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
 )(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator,
-    mode: play.api.Mode
+    Executor,
+    akka.actor.ActorSystem,
+    Scheduler,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode,
+    lila.user.FlairApi.Getter
 ):
 
   private val mongo = new SwissMongo(
@@ -92,10 +93,11 @@ final class Env(
   wire[SwissNotify]
 
   lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "teamLeave"):
-    case lila.game.actorApi.FinishGame(game, _)           => api.finishGame(game)
-    case lila.hub.actorApi.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId)
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)  => api.kickLame(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId)
+    case lila.game.actorApi.FinishGame(game, _)              => api.finishGame(game)
+    case lila.hub.actorApi.team.LeaveTeam(teamId, userId)    => api.leaveTeam(teamId, userId)
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.leaveTeam(teamId, userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds

@@ -3,7 +3,7 @@
   <string name="advancedPawn">Keçid piyadası</string>
   <string name="advancedPawnDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="advantage">Üstünlük</string>
-  <string name="advantageDescription">Həlledici üstünlük əldə etmək üçün fürsətdən istifadə edin. (200-600sp arası)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Həlledici üstünlük əldə etmək üçün fürsətdən istifadə edin. (200-600sp arası)</string>
   <string name="anastasiaMate">Anastasiya matı</string>
   <string name="anastasiaMateDescription">Bir atın köməyilə top və ya vəzir, rəqib şahını lövhənin kənarında digər bir rəqib fiquru ilə mat edir.</string>
   <string name="arabianMate">Ərəb matı</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="capturingDefenderDescription">Bir fiquru müdafiə edən başqa bir fiquru ələ keçirərək, müdafiəsiz qalan digər fiquru da növbəti gedişdə ələ keçirin.</string>
   <string name="crushing">Əzici üstünlük</string>
-  <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
   <string name="doubleBishopMate">İki fil matı</string>
   <string name="doubleBishopMateDescription">İki fil, öz fiqurları tərəfindən bloklanan şahı bitişik diaqonallardan hücum edərək mat edir.</string>
   <string name="dovetailMate">Koziyo matı</string>
   <string name="dovetailMateDescription">İki qaçış xanası da öz fiqurları tərəfindən tutulan şaha çarpaz bitişik diaqonaldan vəzirlə edilən mat.</string>
   <string name="equality">Bərabərləşmə</string>
-  <string name="equalityDescription">İtirilmiş bir pozisiyadan çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">İtirilmiş bir pozisiyadan çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
   <string name="kingsideAttackDescription">Qısa qalaqurma edən rəqib şahına hücum.</string>
   <string name="clearance">Xətt açmaq</string>

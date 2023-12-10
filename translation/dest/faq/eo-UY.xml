@@ -20,6 +20,7 @@
   <string name="keyboardShortcutsExplanation">Kelkaj Lichess paĝoj havas flumklavojn, ke vi povas uzi. Provi premu la \"?\" klavon ĉe studa, analiza, puzla, aŭ luda paĝo por listo de disponeblaj flumklavoj.</string>
   <string name="fairPlay">Honesta ludo</string>
   <string name="whenAmIEligibleRatinRefund">Kiam mi aŭtomate reakiras la perditajn poentojn pro trompantoj?</string>
+  <string name="ratingRefundExplanation">Minuton post la momento kiam la ludanto estas markita kiel trompa, la poentoj de la lasta lastaj 40 rangaj ludoj, dum la lastaj tri tagoj, estos demetintaj. Si iu alia perdis poentojn en tiuj ludoj (pro malvenko aŭ egalvenko), kaj ties rango ne estis provizora, tiu rehavos poentojn. La kvanto da poentoj ricevotaj estas limigita de via plej alta rango kaj de la progreso de via rango post tiu ludo. (Ezkemple, se via rango multe supreniris post tiu ludo, vi povus rehavi neniun poenton aŭ parton de tio, kion vi estus devinta ricevi. Rehavo estos neniam pli ol 150 poentoj).</string>
   <string name="preventLeavingGameWithoutResigning">Kio estas fari pri ludantoj forlasantaj ludojn sen rezigni?</string>
   <string name="howCanIBecomeModerator">Kiel mi fariĝis moderatoro?</string>
   <string name="youCannotApply">Ne eblas peti por fariĝi moderatoro. Se ni vidi iun, kiun ni pensi, estus bone kiel moderatoro, ni kontaktos ilin direkte.</string>
@@ -46,13 +47,14 @@ Tiu valoro povas esti uzata kiel indikilo de la kvalito de ludo. Ju malpli cento
 
 La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="insufficientMaterial">Perdi pro tempo, egaleco kaj nesufiĉa materialo</string>
+  <string name="fideHandbook">FIDE manlibro</string>
   <string name="fideHandbookX">FIDE-a manlibro %s</string>
   <string name="discoveringEnPassant">Kial povas peonon kaptiĝi alian peonon kiam ĝi estas pasita? (pasante)</string>
   <string name="goodIntroduction">bona enkonduko</string>
   <string name="lichessTraining">trejniĝo en Lichess</string>
   <string name="watchIMRosenCheckmate">Spektu International Master Eric Rosen ŝakmati %s.</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
-  <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 (d) de la %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 de la %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
   <string name="notRepeatedMoves">Ni ne ripetis movojn. Kial tamen la ludo estis egalvenko pro ripetado?</string>
   <string name="repeatedPositionsThatMatters">Trifoja ripetado estas pro ripetado de %1$s, ne movoj. Ripetado ne devas okazi sekve.</string>
@@ -77,15 +79,19 @@ Ni rare aljuĝas ĝin al alte noteblaj ludantoj, kiuj estas bonaj civitanoj de L
 
 Ne petu por la LM titolo.</string>
   <string name="whatUsernameCanIchoose">Kio povas esti mia uzantnomo?</string>
+  <string name="usernamesNotOffensive">Ĝenerale, uzantnomoj ne povus esti: ofenda, imitanta de aliulo, aŭ varbanta. Vi povas legi plu pri la %1$s.</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
+  <string name="usernamesCannotBeChanged">Ne uzantnomoj ne povas esti ŝanĝita por teknikaj kaj praktikaj kialoj. Uzantnomoj estas materialaj en tro da lokoj: datumbazoj, eksportoj, protokoloj, kaj mensoj de homoj. Vi povas unue ĝustigi la majuskligo.</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
   <string name="ownerUniqueTrophies">Tiu trofeo estas unika en la historio de Lichess, neniu krom %1$s iam havos ĝin.</string>
   <string name="wayOfBerserkExplanation">Por akiri ĝin, hiimgosu defiis sin berserki kaj venki ciujn ludojn de %s.</string>
   <string name="aHourlyBulletTournament">hore kugla turniro</string>
+  <string name="goldenZeeExplanation">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
+  <string name="provisionalRatingExplanation">La demandosigno signifis, ke la rango estas provizora. Kialoj ampleksas:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">La ludanto ne finiĝis sufiĉe da rangaj ludoj kontraŭ %1$s en la rangkategorio.</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
   <string name="notPlayedRecently">La ludanto ne ludis sufiĉe da lastatempaj ludoj. Depende de la nombro da ludoj, kiujn vi ludis, eble daŭros ĉirkaŭ unu jaro da senaktiveco, por ke via rango reprovizoriĝas.</string>

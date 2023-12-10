@@ -3,79 +3,79 @@
   <string name="puzzles">谜题</string>
   <string name="puzzleThemes">训练主题</string>
   <string name="recommended">我们推荐：</string>
-  <string name="phases">阶段</string>
-  <string name="motifs">主题</string>
+  <string name="phases">分阶段</string>
+  <string name="motifs">分主题</string>
   <string name="advanced">进阶</string>
-  <string name="lengths">长度</string>
-  <string name="mates">杀王</string>
-  <string name="goals">目标</string>
+  <string name="lengths">分长度</string>
+  <string name="mates">将死</string>
+  <string name="goals">分目标</string>
   <string name="origin">来源</string>
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="upVote">赞</string>
   <string name="downVote">踩</string>
-  <string name="yourPuzzleRatingWillNotChange">您的谜题等级分将不会改变。请注意，解谜题不是比赛。计分有助于根据您当前水平选择最佳谜题。</string>
+  <string name="yourPuzzleRatingWillNotChange">你的谜题等级分将不会改变。请注意，解谜题不是比赛。等级分有助于根据你当前水平选择最佳谜题。</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
-  <string name="puzzleId">谜题编号：%s</string>
-  <string name="puzzleOfTheDay">每日一题</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">谜题编号：%s</string>
+  <string name="puzzleOfTheDay">每日棋谜</string>
   <string name="dailyPuzzle">每日棋谜</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法！</string>
   <string name="keepGoing">请继续…</string>
   <string name="puzzleSuccess">解题成功!</string>
-  <string name="puzzleComplete">解题完成</string>
+  <string name="puzzleComplete">解题完成!</string>
   <string name="byOpenings">按开局分类</string>
   <string name="puzzlesByOpenings">按开局分类的谜题</string>
-  <string name="openingsYouPlayedTheMost">您在计分赛中使用最多的开局。</string>
-  <string name="useFindInPage">在浏览器菜单中使用“在页面中查找”，来找到您最爱的开局。</string>
-  <string name="useCtrlF">使用 Ctrl + f 查找您最爱的开局</string>
+  <string name="openingsYouPlayedTheMost">你在排位赛中使用最多的开局</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
+  <string name="useCtrlF">使用 Ctrl + F 查找你最爱的开局！</string>
   <string name="notTheMove">不是最佳着法</string>
-  <string name="trySomethingElse">尝试其他着法</string>
-  <string name="ratingX">积分：%s</string>
-  <string name="hidden">已隐藏</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">已被尝试 %s 次</item>
+  <string name="trySomethingElse">试试别的</string>
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">等级分：%s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">已隐藏</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+    <item quantity="other">共 %s 次尝试</item>
   </plurals>
-  <string name="fromGameLink">来自对局： %s</string>
+  <string name="fromGameLink">来自对局：%s</string>
   <string name="continueTraining">继续训练</string>
   <string name="difficultyLevel">难易级别</string>
   <string name="normal">正常</string>
-  <string name="easier">容易</string>
-  <string name="easiest">最容易</string>
+  <string name="easier">更简单</string>
+  <string name="easiest">最简单</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="other">谜题得分比你低%s分</item>
+    <item quantity="other">比你的谜题等级分低%s</item>
   </plurals>
   <string name="harder">更难</string>
   <string name="hardest">最难</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="other">谜题得分比你高%s分</item>
+    <item quantity="other">比你的谜题等级分高%s</item>
   </plurals>
-  <string name="example">例子</string>
+  <string name="example">示例</string>
   <string name="addAnotherTheme">添加新的主题</string>
   <string name="nextPuzzle">下一个谜题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
   <string name="puzzleDashboard">数据统计</string>
-  <string name="improvementAreas">待提升</string>
+  <string name="improvementAreas">有待提升</string>
   <string name="strengths">强项</string>
   <string name="history">解题历史</string>
   <string name="solved">已解答</string>
   <string name="failed">失败</string>
-  <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时的情况下，慢慢来。一次错的动作，游戏将会结束！不过，每场游戏里可跳过一步。</string>
-  <string name="yourStreakX">您的连胜纪录: %s</string>
-  <string name="streakSkipExplanation">跳过这一步来保持您的连胜纪录！每场比赛只能一次使用。</string>
+  <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时。一步错解，游戏就会结束！不过，每场游戏都可跳过一步棋。</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">你的连胜纪录: %s</string>
+  <string name="streakSkipExplanation">跳过这一步来保持你的连胜纪录！每场游戏只能使用一次。</string>
   <string name="continueTheStreak">继续连胜纪录</string>
   <string name="newStreak">新连胜纪录</string>
-  <string name="fromMyGames">来自于我的对局</string>
+  <string name="fromMyGames">来自我的对局</string>
   <string name="lookupOfPlayer">从玩家的对局中查找谜题</string>
   <string name="fromXGames">来自 %s 的对局的谜题</string>
   <string name="searchPuzzles">搜索谜题</string>
-  <string name="fromMyGamesNone">您下过的棋局暂时没有被纳入到谜题数据库中，但Lichess将一如既往地记着你所走的每一步。
-多下快棋和慢棋可以提升您的棋局被纳入谜题数据库的概率哦！</string>
-  <string name="fromXGamesFound">在 %2$s 场游戏中发现了 %1$s 个谜题</string>
+  <string name="fromMyGamesNone">你下过的棋局暂时没有被纳入到谜题数据库中，但 Lichess 将一如既往地记着你所走的每一步。
+多下快棋和慢棋可以提升你的棋局被纳入谜题数据库的概率哦！</string>
+  <string name="fromXGamesFound">在 %2$s 场对局中发现了 %1$s 个谜题</string>
   <string name="puzzleDashboardDescription">训练、分析、提升</string>
   <plurals name="nbPlayed">
     <item quantity="other">玩过 %s</item>

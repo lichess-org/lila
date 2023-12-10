@@ -7,18 +7,19 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.swiss.Swiss
-import lila.swiss.SwissRoundNumber
+import lila.swiss.{ Swiss, SwissRoundNumber }
 import lila.common.paginator.Paginator
 import lila.swiss.SwissPairing
 import lila.gathering.Condition.WithVerdicts
+import lila.hub.LightTeam
 
 object show:
 
-  private def fullName(s: Swiss) = s"${s.name} by ${teamIdToName(s.teamId)}"
+  private def fullName(s: Swiss, t: LightTeam) = s"${s.name} by ${t.name}"
 
   def apply(
       s: Swiss,
+      team: LightTeam,
       verdicts: WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
@@ -28,7 +29,7 @@ object show:
     val isDirector       = ctx is s.createdBy
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
-      title = fullName(s),
+      title = fullName(s, team),
       moreJs = frag(
         hasScheduleInput option jsModule("flatpickr"),
         jsModuleInit(
@@ -38,17 +39,17 @@ object show:
               "data"   -> data,
               "i18n"   -> bits.jsI18n,
               "userId" -> ctx.userId,
-              "chat" -> chatOption.map { c =>
+              "chat" -> chatOption.map: c =>
                 chat.json(
                   c.chat,
+                  c.lines,
                   name = trans.chatRoom.txt(),
                   timeout = c.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
                   localMod = isLocalMod,
                   writeable = !c.locked
-                )
-              },
+                ),
               "showRatings" -> ctx.pref.showRatings
             )
             .add("schedule" -> hasScheduleInput)
@@ -60,14 +61,13 @@ object show:
       ),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${fullName(s)}: ${s.variant.name} ${s.clock.show} #${s.id}",
+          title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
           url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
           description =
-            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
-              s"organized by ${teamIdToName(s.teamId)}. " +
-              s.winnerId.fold("Winner is not yet decided.") { winnerId =>
+            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
+              s"organized by ${team.name}. " +
+              s.winnerId.fold("Winner is not yet decided."): winnerId =>
                 s"${titleNameOrId(winnerId)} takes the prize home!"
-              }
         )
         .some
     )(
@@ -79,11 +79,13 @@ object show:
       )
     )
 
-  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(using PageContext) =
+  def round(s: Swiss, r: SwissRoundNumber, team: LightTeam, pairings: Paginator[SwissPairing])(using
+      PageContext
+  ) =
     views.html.base.layout(
-      title = s"${fullName(s)} • Round $r/${s.round}",
+      title = s"${fullName(s, team)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")
-    ) {
+    ):
       val pager = views.html.base.bits
         .pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
       main(cls := "box swiss__round")(
@@ -106,4 +108,3 @@ object show:
         ),
         pager(cls := "pagination--bottom")
       )
-    }

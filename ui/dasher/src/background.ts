@@ -1,23 +1,12 @@
 import { h, VNode } from 'snabbdom';
-import { Redraw, Close, bind, header } from './util';
+import { Close, header } from './util';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
-import { onInsert } from 'common/snabbdom';
+import { bind, onInsert, Redraw } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { elementScrollBarWidth } from 'common/scroll';
 import { throttlePromiseDelay } from 'common/throttle';
 import { supportsSystemTheme } from 'common/theme';
-
-export interface BackgroundCtrl {
-  list: Background[];
-  set(k: string): void;
-  get(): string;
-  getImage(): string;
-  setImage(i: string): void;
-  trans: Trans;
-  close: Close;
-  data: BackgroundData;
-}
 
 export interface BackgroundData {
   current: string;
@@ -35,53 +24,58 @@ interface Background {
   title?: string;
 }
 
-export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
-  const list: Background[] = [
-    { key: 'system', name: trans.noarg('deviceTheme') },
-    { key: 'light', name: trans.noarg('light') },
-    { key: 'dark', name: trans.noarg('dark') },
-    { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
-    { key: 'transp', name: 'Picture' },
-  ];
+export class BackgroundCtrl {
+  list: Background[];
 
-  const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
+  constructor(
+    readonly data: BackgroundData,
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+    readonly close: Close,
+  ) {
+    this.list = [
+      { key: 'system', name: trans.noarg('deviceTheme') },
+      { key: 'light', name: trans.noarg('light') },
+      { key: 'dark', name: trans.noarg('dark') },
+      { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
+      { key: 'transp', name: 'Picture' },
+    ];
+  }
 
-  const reloadAllTheThings = () => {
-    if ('Highcharts' in window) lichess.reload();
+  private announceFail = (err: string) =>
+    lichess.announce({ msg: `Failed to save background preference: ${err}` });
+
+  private reloadAllTheThings = () => {
+    if ($('canvas').length || window.Highcharts) lichess.reload();
   };
 
-  return {
-    list,
-    trans,
-    get: () => data.current,
-    set: throttlePromiseDelay(
-      () => 700,
-      (c: string) => {
-        data.current = c;
-        applyBackground(data, list);
-        redraw();
-        return xhr
-          .text('/pref/bg', {
-            body: xhr.form({ bg: c }),
-            method: 'post',
-          })
-          .then(reloadAllTheThings, announceFail);
-      },
-    ),
-    getImage: () => data.image,
-    setImage(i: string) {
-      data.image = i;
-      xhr
-        .text('/pref/bgImg', {
-          body: xhr.form({ bgImg: i }),
+  get = () => this.data.current;
+  set = throttlePromiseDelay(
+    () => 700,
+    (c: string) => {
+      this.data.current = c;
+      applyBackground(this.data, this.list);
+      this.redraw();
+      return xhr
+        .text('/pref/bg', {
+          body: xhr.form({ bg: c }),
           method: 'post',
         })
-        .then(reloadAllTheThings, announceFail);
-      applyBackground(data, list);
-      redraw();
+        .then(this.reloadAllTheThings, this.announceFail);
     },
-    close,
-    data,
+  );
+  getImage = () => this.data.image;
+  setImage = (i: string) => {
+    this.data.image = i;
+    xhr
+      .textRaw('/pref/bgImg', {
+        body: xhr.form({ bgImg: i }),
+        method: 'post',
+      })
+      .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
+      .then(this.reloadAllTheThings, err => err.then(this.announceFail));
+    applyBackground(this.data, this.list);
+    this.redraw();
   };
 }
 
@@ -146,9 +140,9 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
     .addClass(cls);
 
-  const prev = $('body').data('theme');
+  const prev = document.body.dataset.theme!;
   const sheet = key == 'darkBoard' ? 'dark' : key;
-  $('body').data('theme', sheet);
+  document.body.dataset.theme = sheet;
   if (prev === 'system') {
     const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     const other = active === 'dark' ? 'light' : 'dark';
@@ -199,7 +193,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
 
   const gallery = ctrl.data.gallery!;
   const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
-  const montageUrl = lichess.assetUrl(gallery[`montage${cols}`], { noVersion: true });
+  const montageUrl = lichess.asset.url(gallery[`montage${cols}`], { noVersion: true });
   // our layout is static due to the single image gallery optimization. set width here
   // and allow for the possibility of non-overlaid scrollbars
   const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidth() : 0);
@@ -211,7 +205,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
         'div#images-grid',
         { attrs: { style: `background-image: url(${montageUrl});` } },
         gallery.images.map(img => {
-          const assetUrl = lichess.assetUrl(img, { noVersion: true });
+          const assetUrl = lichess.asset.url(img, { noVersion: true });
           const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
           return h(`div#${urlId(assetUrl)}${divClass}`, {
             hook: bind('click', () => setImg(assetUrl)),

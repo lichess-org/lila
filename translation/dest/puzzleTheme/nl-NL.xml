@@ -3,7 +3,7 @@
   <string name="advancedPawn">Opgerukte pion</string>
   <string name="advancedPawnDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="advantage">Voordeel</string>
-  <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
   <string name="anastasiaMate">Mat van Anastasia</string>
   <string name="anastasiaMateDescription">Een paard werkt samen met een toren of dame om de koning van de tegenstander tussen de zijkant van het bord en een eigen stuk te vangen.</string>
   <string name="arabianMate">Arabisch mat</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk een volgende zet kan worden geslagen.</string>
   <string name="crushing">Verpletteren</string>
-  <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat met twee lopers</string>
   <string name="doubleBishopMateDescription">Twee lopers op belendende diagonalen zetten een koning mat die wordt belemmerd door de eigen stukken.</string>
   <string name="dovetailMate">Zwaluwstaartmat</string>
   <string name="dovetailMateDescription">Een dame zet mat naast de koning, wiens vluchtvelden geblokkeerd zijn door eigen stukken.</string>
   <string name="equality">Evenwicht</string>
-  <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de vijandelijke koning na een korte rokade.</string>
   <string name="clearance">Breekzet</string>

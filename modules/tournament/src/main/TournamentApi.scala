@@ -11,7 +11,7 @@ import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
@@ -54,32 +54,15 @@ final class TournamentApi(
 
   def createTournament(
       setup: TournamentSetup,
-      leaderTeams: List[LeaderTeam],
+      leaderTeams: List[LightTeam],
       andJoin: Boolean = true
   )(using me: Me): Fu[Tournament] =
-    val tour = Tournament
-      .make(
-        by = Right(me),
-        name = setup.name,
-        clock = setup.clockConfig,
-        minutes = setup.minutes,
-        waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
-        startDate = setup.startDate,
-        mode = setup.realMode,
-        password = setup.password,
-        variant = setup.realVariant,
-        position = setup.realPosition,
-        berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
-        streakable = setup.streakable | true,
-        teamBattle = setup.teamBattleByTeam map TeamBattle.init,
-        description = setup.description,
-        hasChat = setup.hasChat | true
-      )
-      .copy(conditions = setup.conditions)
+    val tour = Tournament.fromSetup(setup)
     tournamentRepo.insert(tour) >> {
-      setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).so { teamId =>
-        tournamentRepo.setForTeam(tour.id, teamId).void
-      }
+      setup.teamBattleByTeam
+        .orElse(tour.conditions.teamMember.map(_.teamId))
+        .so: teamId =>
+          tournamentRepo.setForTeam(tour.id, teamId).void
     } >> {
       (andJoin && !me.isBot && !me.lame) so join(
         tour.id,
@@ -95,14 +78,27 @@ final class TournamentApi(
   def apiUpdate(old: Tournament, data: TournamentSetup): Fu[Tournament] =
     updateTour(old, data, data updatePresent old)
 
-  private def updateTour(old: Tournament, data: TournamentSetup, tour: Tournament): Fu[Tournament] =
+  private[tournament] def updateTour(
+      old: Tournament,
+      data: TournamentSetup,
+      tour: Tournament
+  ): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
-      startsAt = if old.isCreated then tour.startsAt else old.startsAt,
-      mode = if tour.position.isDefined then chess.Mode.Casual else tour.mode
+      startsAt = if old.isCreated then tour.startsAt else old.startsAt
     )
-    tournamentRepo.update(finalized) andDo cached.tourCache.clear(tour.id) inject finalized
+    for
+      _ <- tournamentRepo.update(finalized)
+      _ <- ejectPlayersNonLongerOnAllowList(old, finalized)
+      _ = cached.tourCache.clear(tour.id)
+    yield finalized
+
+  private def ejectPlayersNonLongerOnAllowList(old: Tournament, tour: Tournament): Funit =
+    tour.isCreated.so:
+      tour.conditions.removedFromAllowList(old.conditions).toList.traverse_ {
+        withdraw(tour.id, _, false, false)
+      }
 
   def teamBattleUpdate(
       tour: Tournament,
@@ -277,7 +273,8 @@ final class TournamentApi(
       playerRepo.find(tour.id, me) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if me.marks.prizeban && tour.looksLikePrize then fuccess(JoinResult.PrizeBanned)
+          if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
+          else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
           else if prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
@@ -356,7 +353,7 @@ final class TournamentApi(
     game.tournamentId so { stallPause(_, player) }
 
   private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
-    Parallel(tourId, "withdraw")(cached.tourCache.enterable) {
+    Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) andDo {
           socket.reload(tour.id)
@@ -374,13 +371,12 @@ final class TournamentApi(
           socket.reload(tour.id)
           publish()
       case _ => funit
-    }
 
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {
-      _.map {
+      _.traverse_ {
         withdraw(_, user.id, isPause = false, isStalling = false)
-      }.parallel.void
+      }
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =

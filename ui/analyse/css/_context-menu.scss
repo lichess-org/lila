@@ -7,6 +7,7 @@
   z-index: z('context-menu');
   cursor: default;
   user-select: none;
+  -webkit-user-select: none;
 
   &.visible {
     display: block;

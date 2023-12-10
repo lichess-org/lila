@@ -48,7 +48,6 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   private def renderHome(using Context) =
-    pageHit
     Ok.page(views.html.clas.clas.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
@@ -482,7 +481,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.me.soUse: me ?=>
     if me.isBot then fuFalse
-    else if me.kid then fuFalse
+    else if ctx.kid.yes then fuFalse
     else if env.clas.hasClas then fuTrue
     else !env.mod.logApi.wasUnteachered(me)
 
@@ -532,7 +531,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       Found(env.clas.api.student.get(clas, user))(f)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
-    if ctx.me.exists(!_.lameOrTroll) then f
+    if ctx.me.exists(!_.lameOrTroll) && !ctx.isBot then f
     else Redirect(routes.Clas.index)
 
   private def redirectTo(c: lila.clas.Clas): Result = redirectTo(c.id)

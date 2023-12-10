@@ -1,130 +1,166 @@
-import { loadHighcharts } from './common';
+import { Point } from 'chart.js/dist/core/core.controller';
+import { animation, fontFamily, gridColor, hoverBorderColor, resizePolyfill } from './common';
+import { DistributionData } from './interface';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartData,
+  ChartDataset,
+  Filler,
+  LineController,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Tooltip,
+} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-export async function initModule(data: any) {
-  await loadHighcharts('highchart');
-  const trans = lichess.trans(data.i18n);
-  const Highcharts = window.Highcharts;
-  const disabled = { enabled: false };
-  $('#rating_distribution_chart').each(function (this: HTMLElement) {
-    const colors = Highcharts.getOptions().colors;
+resizePolyfill();
+Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
+
+export async function initModule(data: DistributionData) {
+  $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
-    const cumul = [];
-    const buildRatingLine = (v: number, color: string, yCoord: number, label: string) => {
-      const right = v > 1800;
-      return v
-        ? [
-            {
-              label: {
-                text: label,
-                verticalAlign: 'top',
-                align: right ? 'right' : 'left',
-                y: yCoord,
-                x: right ? -5 : 5,
-                style: {
-                  color: color,
-                },
-                rotation: -0,
-              },
-              dashStyle: 'dash',
-              color: color,
-              width: 3,
-              value: v,
-            },
-          ]
-        : [];
-    };
-    for (let i = 0; i < data.freq.length; i++)
-      cumul.push(Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100));
-    Highcharts.chart(this, {
-      credits: disabled,
-      legend: disabled,
-      series: [
-        {
-          name: trans.noarg('players'),
-          type: 'area',
-          data: data.freq.map((nb: number, i: number) => [ratingAt(i), nb]),
-          color: colors[1],
-          fillColor: {
-            linearGradient: {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1.1,
-            },
-            stops: [
-              [0, colors[1]],
-              [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')],
-            ],
-          },
-          marker: {
-            radius: 5,
-          },
-          lineWidth: 4,
-        },
-        {
-          name: trans.noarg('cumulative'),
-          type: 'line',
-          yAxis: 1,
-          data: cumul.map(function (p, i) {
-            return [ratingAt(i), p];
-          }),
-          color: Highcharts.Color(colors[11]).setOpacity(0.8).get('rgba'),
-          marker: {
-            radius: 1,
-          },
-          shadow: true,
-          tooltip: {
-            valueSuffix: '%',
-          },
-        },
-      ],
-      chart: {
-        zoomType: 'xy',
-        alignTicks: false,
-      },
-      plotOptions: {},
-      title: {
-        text: null,
-      },
-      xAxis: {
-        type: 'category',
-        title: {
-          text: trans.noarg('glicko2Rating'),
-        },
-        labels: {
-          rotation: -45,
-        },
-        gridLineWidth: 1,
-        gridZIndex: -1,
-        tickInterval: 100,
-        plotLines: buildRatingLine(data.myRating, colors[2], 13, trans.noarg('yourRating')).concat(
-          buildRatingLine(data.otherRating, colors[6], 50, data.otherPlayer),
-        ),
-      },
-      yAxis: [
-        {
-          // frequency
-          title: {
-            text: trans.noarg('players'),
-          },
-          gridZIndex: -1,
-        },
-        {
-          // cumulative
-          min: 0,
-          max: 100,
-          gridLineWidth: 0,
-          title: {
-            text: trans.noarg('cumulative'),
-          },
-          labels: {
-            format: '{value}%',
-          },
-          opposite: true,
-        },
-      ],
+    const cumul: number[] = [];
+    const ratings: number[] = [];
+    for (let i = 0; i < data.freq.length; i++) {
+      ratings.push(ratingAt(i));
+      cumul.push(arraySum(data.freq.slice(0, i)) / sum);
+    }
+    const gradient = this.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
+    gradient?.addColorStop(0, 'rgba(119, 152, 191, 1)');
+    gradient?.addColorStop(1, 'rgba(119, 152, 191, 0.3)');
+    const seriesCommonData = (color: string): Partial<ChartDataset<'line'>> => ({
+      pointHoverRadius: 6,
+      pointHoverBorderWidth: 2,
+      pointHoverBorderColor: hoverBorderColor,
+      borderColor: color,
+      pointBackgroundColor: color,
     });
+    const maxRating = Math.max(...ratings);
+
+    const datasets: ChartDataset<'line'>[] = [
+      {
+        ...seriesCommonData('#dddf0d'),
+        data: cumul,
+        yAxisID: 'y2',
+        label: data.i18n.cumulative,
+        pointRadius: 0,
+        datalabels: { display: false },
+        pointHitRadius: 200,
+      },
+      {
+        ...seriesCommonData('#7798bf'),
+        data: data.freq,
+        backgroundColor: gradient,
+        yAxisID: 'y',
+        fill: true,
+        label: data.i18n.players,
+        pointRadius: 4,
+        datalabels: { display: false },
+        pointHitRadius: 200,
+      },
+    ];
+    const pushLine = (color: string, rating: number, label: string) =>
+      datasets.push({
+        ...seriesCommonData(color),
+        yAxisID: 'y2',
+        data: [
+          { x: rating, y: 0 },
+          { x: rating, y: Math.max(...cumul) },
+        ],
+        segment: {
+          borderDash: [10],
+        },
+        label: label,
+        pointRadius: 4,
+        datalabels: {
+          align: 'top',
+          offset: 0,
+          display: 'auto',
+          formatter: (value: Point) => (value.y == 0 ? '' : label),
+          color: color,
+        },
+      });
+    if (data.myRating && data.myRating <= maxRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
+    if (data.otherRating && data.otherPlayer && data.otherRating <= maxRating)
+      pushLine('#eeaaee', data.otherRating, data.otherPlayer);
+    const chartData: ChartData<'line'> = {
+      labels: ratings,
+      datasets: datasets,
+    };
+
+    const config: ChartConfiguration<'line'> = {
+      type: 'line',
+      data: chartData,
+      options: {
+        scales: {
+          x: {
+            type: 'linear',
+            min: Math.min(...ratings),
+            max: maxRating,
+            grid: {
+              color: gridColor,
+            },
+            ticks: {
+              stepSize: 100,
+              format: {
+                useGrouping: false,
+              },
+            },
+            title: {
+              display: true,
+              text: data.i18n.glicko2Rating,
+            },
+          },
+          y: {
+            grid: {
+              color: gridColor,
+              tickLength: 0,
+            },
+            ticks: {
+              padding: 10,
+            },
+            title: {
+              display: true,
+              text: data.i18n.players,
+            },
+          },
+          y2: {
+            position: 'right',
+            grid: {
+              display: false,
+            },
+            ticks: {
+              format: {
+                style: 'percent',
+                maximumFractionDigits: 1,
+              },
+            },
+            title: {
+              display: true,
+              text: data.i18n.cumulative,
+            },
+          },
+        },
+        animations: animation(1000 / ratings.length),
+        locale: document.documentElement.lang,
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          tooltip: {
+            titleFont: fontFamily(),
+            bodyFont: fontFamily(),
+            caretPadding: 8,
+            callbacks: {
+              label: item => (item.datasetIndex > 1 ? item.dataset.label : undefined),
+            },
+          },
+        },
+      },
+    };
+    new Chart(this, config);
   });
 }

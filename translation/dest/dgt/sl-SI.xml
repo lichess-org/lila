@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT plošča</string>
+  <string name="lichessAndDgt">Lichess \"&amp;ąmp;\" DGT</string>
+  <string name="dgtBoardRequirements">Zahteve plošče DGT</string>
+  <string name="dgtBoardLimitations">Omejitve DGT plošče</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Ta stran vam omogoča, da svojo desko DGT povežete z Lichessom in jo uporabite za igranje iger.</string>
+  <string name="toConnectTheDgtBoard">Za povezavo z elektronsko ploščo DGT boste morali namestiti %s.</string>
+  <string name="downloadHere">Programsko opremo lahko prenesete tukaj: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Če se %1$s izvaja v tem računalniku, lahko preverite povezavo z njim do %2$s.</string>
+  <string name="openingThisLink">odpiranje te povezave</string>
+  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Če se %1$s izvaja na drugem računalniku ali drugih vratih, boste morali tukaj v %2$s nastaviti naslov IP in vrata.</string>
+  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Oddelek za konfiguracijo</string>
+  <string name="keepPlayPageOpen">Stran za predvajanje mora ostati odprta v vašem brskalniku. Ni nujno, da je vidna, lahko jo pomanjšate ali postavite ob stran strani igre Lichess, vendar je ne zaprite, sicer bo tabla prenehala delovati.</string>
+  <string name="boardWillAutoConnect">Tabla se bo samodejno povezala z vsako igro, ki je že na teku, ali katero koli novo igro, ki se začne. Kmalu bo na voljo možnost izbire igre za igranje.</string>
+  <string name="timeControlsForCasualGames">Časovne kontrole za priložnostne igre: samo klasične, korespondenčne in hitre.</string>
+  <string name="timeControlsForRatedGames">Časovne kontrole za priložnostne igre: samo klasične, korespondenčne in hitre</string>
+  <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Ko ste pripravljeni, nastavite svojo ploščo in kliknite %s.</string>
+  <string name="ifMoveNotDetected">Če poteza ni zaznana</string>
+  <string name="checkYouHaveMadeOpponentsMove">Najprej preverite, ali ste izvedli nasprotnikovo potezo na plošči DGT. Povrni svojo potezo. Igraj ponovno.</string>
+  <string name="asALastResort">V skrajnem primeru nastavite ploščo enako kot Lichess, nato %s</string>
+  <string name="reloadThisPage">Ponovno naloži to stran</string>
+  <string name="dgtConfigure">DGT - Konfiguriraj</string>
+  <string name="lichessConnectivity">Lichess povezljivost</string>
+  <string name="validDgtOauthToken">Imate žeton OAuth, primeren za igranje DGT.</string>
+  <string name="dgtPlayMenuEntryAdded">Vnos %s je bil dodan v vaš meni PREDVAJANJE na vrhu.</string>
+  <string name="noSuitableOauthToken">Ustvarjen ni bil ustrezen žeton OAuth.</string>
+  <string name="dgtBoardConnectivity">Povezljivost plošče DGT</string>
+  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Kliknite, da ga ustvarite</string>
+  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">URL spletne vtičnice %s</string>
+  <string name="useWebSocketUrl" comment="useWebSocketUrl&#10;&#10;%1$s = ws://localhost:1982/api/v1.0&#10;(this is a URL)&#10;%2$s = LiveChess&#10;&#10;Complete string: Use &quot;ws://localhost:1982/api/v1.0&quot; unless LiveChess is running on a different machine or different port.&#10;&#10;LiveChess is a move broadcasting technology by the DGT Company, used by many third parties.">Uporabite »%1$s«, razen če se %2$s izvaja na drugem računalniku ali drugih vratih.</string>
+  <string name="textToSpeech">Besedilo v govor</string>
+  <string name="configureVoiceNarration">Konfigurirajte glasovno pripovedovanje odigranih potez, da boste lahko imeli pogled na plošči.</string>
+  <string name="enableSpeechSynthesis">Omogoči sintezo govora</string>
+  <string name="speechSynthesisVoice">Glas za sintezo govora</string>
+  <string name="announceAllMoves">Objavi vse poteze</string>
+  <string name="selectAnnouncePreference">Izberite DA, če želite objaviti svoje poteze in poteze nasprotnika. Izberite NE, če želite objaviti samo nasprotnikove poteze.</string>
+  <string name="announceMoveFormat">Objavi obliko poteze</string>
+  <string name="moveFormatDescription">SAN je standard za Lichess, kot je \"Nf6\". UCI je pogost pri motorjih, kot je \"g8f6\".</string>
+  <string name="keywords">Ključne besede</string>
+  <string name="keywordFormatDescription">Ključne besede so v formatu JSON. Uporabljajo se za prevajanje potez in rezultatov v vaš jezik. Privzeto je angleščina, vendar jo lahko spremenite.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Razhroščevanje</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Podrobno vodenje dnevnika</string>
+  <string name="toSeeConsoleMessage">Če si želite ogledati sporočilo konzole, pritisnite Command + Option + C (Mac) ali Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="playWithDgtBoard">Igrajte s ploščo DGT</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Nastavi</string>
+</resources>

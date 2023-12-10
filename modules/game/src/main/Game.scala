@@ -81,22 +81,22 @@ case class Game(
 
   def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
 
-  def isTournament         = tournamentId.isDefined
-  def isSimul              = simulId.isDefined
-  def isSwiss              = swissId.isDefined
+  export tournamentId.{ isDefined as isTournament }
+  export simulId.{ isDefined as isSimul }
+  export swissId.{ isDefined as isSwiss }
   def isMandatory          = isTournament || isSimul || isSwiss
   def nonMandatory         = !isMandatory
   def canTakebackOrAddTime = !isMandatory
 
-  def hasChat = !isTournament && !isSimul && nonAi
+  def hasChat = !isTournament && !isSimul && !isSwiss && nonAi
 
   // we can't rely on the clock,
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    movedAt.toSeconds - createdAt.toSeconds match
-      case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
-      case seconds                           => seconds.toInt.some
+    val seconds = movedAt.toSeconds - createdAt.toSeconds
+    seconds < 60 * 60 * 12 option // no way it lasted more than 12 hours, come on.
+      seconds.toInt
 
   private def everyOther[A](l: List[A]): List[A] =
     l match
@@ -250,11 +250,11 @@ case class Game(
   lazy val perfType: PerfType = PerfType(variant, speed)
   def perfKey: Perf.Key       = perfType.key
 
-  def ratingVariant =
+  def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant
 
   def ratingPerfType: Option[PerfType] =
-    if variant.fromPosition then isTournament option PerfType.Standard
+    if variant.fromPosition then isTournament option PerfType(ratingVariant, speed)
     else perfType.some
 
   def started = status >= Status.Started
@@ -647,7 +647,7 @@ object Game:
   def abandonedDate = nowInstant minusDays abandonedDays.value
 
   def isBoardCompatible(game: Game): Boolean =
-    game.clock.fold(true): c =>
+    game.clock.forall: c =>
       isBoardCompatible(c.config) || {
         (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
       }

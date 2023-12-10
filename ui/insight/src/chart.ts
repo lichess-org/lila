@@ -1,259 +1,189 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import Ctrl from './ctrl';
-import { Chart } from './interfaces';
-import type * as Highcharts from 'highcharts';
+import { InsightChart, InsightData } from './interfaces';
+import {
+  Chart,
+  ChartDataset,
+  ChartConfiguration,
+  BarController,
+  BarElement,
+  CategoryScale,
+  Legend,
+  LinearScale,
+  Tooltip,
+  ChartOptions,
+} from 'chart.js';
 import { currentTheme } from 'common/theme';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill } from 'chart';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { formatNumber } from './table';
 
-function metricDataTypeFormat(dt: string) {
-  if (dt === 'seconds') return '{point.y:.1f}';
-  if (dt === 'average') return '{point.y:,.1f}';
-  if (dt === 'percent') return '{point.y:.1f}%';
-  return '{point.y:,.0f}';
-}
+resizePolyfill();
+Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
+Chart.defaults.font = fontFamily();
 
-function dimensionDataTypeFormat(dt: string) {
-  if (dt === 'date') return '{value:%Y-%m-%d}';
-  return '{value}';
-}
+const light = currentTheme() == 'light';
 
-function yAxisTypeFormat(dt: string) {
-  if (dt === 'seconds') return '{value:.1f}';
-  if (dt === 'average') return '{value:,.1f}';
-  if (dt === 'percent') return '{value:.0f}%';
-  return '{value:,.0f}';
-}
-
-const colors = {
-  green: '#759900',
-  red: '#dc322f',
-  orange: '#d59120',
-  blue: '#007599',
-};
 const resultColors = {
-  Victory: colors.green,
-  Draw: colors.blue,
-  Defeat: colors.red,
+  Victory: '#759900',
+  Draw: '#007599',
+  Defeat: '#dc322f',
 };
+const theme = [
+  '#2b908f',
+  '#90ee7e',
+  '#f45b5b',
+  '#7798BF',
+  '#aaeeee',
+  '#ff0066',
+  '#eeaaee',
+  '#55BF3B',
+  '#DF5353',
+  '#7798BF',
+  '#aaeeee',
+];
+const sizeColor = 'rgba(120,120,120,0.2)';
+const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
-interface Theme {
-  light: boolean;
-  text: {
-    weak: string;
-    strong: string;
+function insightChart(el: HTMLCanvasElement, data: InsightData) {
+  const config: ChartConfiguration<'bar'> = {
+    type: 'bar',
+    data: {
+      labels: labelBuilder(data),
+      datasets: datasetBuilder(data),
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: {
+          labels: { color: tooltipFontColor },
+          display: true,
+          position: 'bottom',
+        },
+        tooltip: {
+          mode: 'index',
+          filter: tooltipItem => (tooltipItem.raw as number) != 0,
+          itemSort: (a, b) => b.datasetIndex - a.datasetIndex,
+          backgroundColor: tooltipBgColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+          titleFont: fontFamily(14, 'bold'),
+          titleColor: tooltipFontColor,
+          bodyFont: fontFamily(13),
+          bodyColor: tooltipFontColor,
+        },
+      },
+      scales: scaleBuilder(data),
+    },
   };
-  line: {
-    weak: string;
-    strong: string;
-    fat: string;
+  const chart = new Chart(el, config) as InsightChart;
+  chart.updateData = (d: InsightData) => {
+    chart.data.datasets = datasetBuilder(d);
+    chart.options.scales = scaleBuilder(d);
+    chart.data.labels = labelBuilder(d);
+    chart.update();
   };
-  colors?: string[];
+  return chart;
 }
 
-const theme = (function () {
-  const light = currentTheme() === 'light';
-  const t: Theme = {
-    light: light,
-    text: {
-      weak: light ? '#808080' : '#9a9a9a',
-      strong: light ? '#505050' : '#c0c0c0',
-    },
-    line: {
-      weak: light ? '#ccc' : '#404040',
-      strong: light ? '#a0a0a0' : '#606060',
-      fat: '#d85000', // light ? '#a0a0a0' : '#707070'
-    },
+function datasetBuilder(d: InsightData) {
+  const color = (i: number, name: string, stack: boolean) => {
+    if (d.valueYaxis.name == 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
+    else if (!stack && light) return '#7cb5ec';
+    return theme[i % theme.length];
   };
-  if (!light)
-    t.colors = [
-      '#2b908f',
-      '#90ee7e',
-      '#f45b5b',
-      '#7798BF',
-      '#aaeeee',
-      '#ff0066',
-      '#eeaaee',
-      '#55BF3B',
-      '#DF5353',
-      '#7798BF',
-      '#aaeeee',
-    ];
-  return t;
-})();
+  return [
+    ...d.series.map((serie, i) =>
+      barBuilder(serie, 'y1', color(i, serie.name, !!serie.stack), { stack: serie.stack }),
+    ),
+    barBuilder(d.sizeSerie, 'y2', sizeColor),
+  ];
+}
 
-const animation = false; //{ duration: 100 };
-
-function makeChart(el: HTMLElement, data: Chart) {
-  const sizeSerie = {
-    name: data.sizeSerie.name,
-    data: data.sizeSerie.data,
-    yAxis: 1,
-    type: 'column',
-    stack: 'size',
-    animation,
-    color: 'rgba(120,120,120,0.2)',
+function barBuilder(
+  serie: InsightData['sizeSerie'],
+  id: string,
+  color: string,
+  opts?: { stack?: string },
+): ChartDataset<'bar'> {
+  const percent = serie.dataType == 'percent';
+  return {
+    label: serie.name,
+    data: serie.data.map(nb => nb / (serie.dataType == 'percent' ? 100 : 1)),
+    borderWidth: 1.5,
+    yAxisID: id,
+    backgroundColor: color,
+    borderColor: '#4a4a4a',
+    stack: opts?.stack,
+    minBarLength: !percent ? 5 : undefined,
+    datalabels:
+      id == 'y2'
+        ? { display: false }
+        : {
+            color: tooltipFontColor,
+            textStrokeColor: tooltipBgColor,
+            textShadowBlur: 10,
+            textShadowColor: tooltipBgColor,
+            textStrokeWidth: 1.2,
+            font: fontFamily(12, 'bold'),
+            formatter: val =>
+              val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
+          },
   };
-  const valueSeries = data.series.map(s => {
-    const c: Highcharts.ColumnChartSeriesOptions = {
-      name: s.name,
-      data: s.data,
-      yAxis: 0,
-      type: 'column',
-      stack: s.stack,
-      // animation,
-      dataLabels: {
-        enabled: true,
-        format: s.stack ? '{point.percentage:.0f}%' : metricDataTypeFormat(s.dataType),
-      },
-      tooltip: {
-        // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: (function () {
-          return (
-            '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' +
-            metricDataTypeFormat(s.dataType) +
-            '</b><br/>'
-          );
-        })(),
-        shared: true,
-      } as Highcharts.SeriesTooltipOptions,
-    };
-    if (data.valueYaxis.name === 'Game result')
-      c.color = resultColors[s.name as 'Victory' | 'Draw' | 'Defeat'];
-    return c;
-  });
-  const chartConf: Highcharts.Options = {
-    chart: {
-      type: 'column',
-      alignTicks: data.valueYaxis.dataType !== 'percent',
-      spacing: [20, 7, 20, 5],
-      backgroundColor: undefined,
-      borderWidth: 0,
-      borderRadius: 0,
-      plotBackgroundColor: undefined,
-      plotShadow: false,
-      plotBorderWidth: 0,
-      style: {
-        font: "12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+}
+
+function labelBuilder(d: InsightData) {
+  return d.xAxis.categories.map(ts =>
+    d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
+  );
+}
+
+function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
+  const stacked = !!d.series[0].stack;
+  const percent = stacked || d.valueYaxis.dataType == 'percent';
+  return {
+    x: {
+      type: 'category',
+      ticks: { color: tooltipFontColor },
+      grid: {
+        color: light ? '#cccccc' : gridColor,
       },
     },
-    title: {
-      text: undefined,
-    },
-    xAxis: {
-      type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
-      categories: data.xAxis.categories.map(function (v) {
-        return (data.xAxis.dataType === 'date' ? v * 1000 : v) as any;
-      }),
-      crosshair: true,
-      labels: {
-        format: dimensionDataTypeFormat(data.xAxis.dataType),
-        style: {
-          color: theme.text.weak,
-          fontSize: '9',
+    y1: {
+      max: percent ? 1 : undefined,
+      grid: {
+        color: light ? '#cccccc' : gridColor,
+      },
+      ticks: {
+        color: tooltipFontColor,
+        format: {
+          style: percent ? 'percent' : undefined,
+          maximumFractionDigits: percent ? 1 : 2,
         },
       },
       title: {
-        style: {
-          color: theme.text.weak,
-          fontSize: '9',
-        },
+        color: tooltipFontColor,
+        display: true,
+        text: d.valueYaxis.name,
       },
-      gridLineColor: theme.line.weak,
-      lineColor: theme.line.strong,
-      tickColor: theme.line.strong,
+      stacked: stacked,
     },
-    yAxis: [data.valueYaxis, data.sizeYaxis].map(function (a, i) {
-      const isPercent = data.valueYaxis.dataType === 'percent';
-      const isSize = i % 2 === 1;
-      const isStack = data.series[0].stack;
-      const isAuto =
-        isSize || ['acpl', 'blurs', 'timeVariance', 'accuracy', 'movetime'].includes(data.question.metric);
-      const c: Highcharts.AxisOptions = {
-        opposite: isSize,
-        min: isAuto ? undefined : isStack ? 0 : Math.min(...data.series[0].data),
-        max: isAuto ? undefined : isStack ? 100 : Math.max(...data.series[0].data),
-        labels: {
-          format: yAxisTypeFormat(a.dataType),
-          style: {
-            color: theme.text.weak,
-            fontSize: '9',
-          },
-        },
-        title: {
-          text: i === 1 ? a.name : '',
-          style: {
-            color: theme.text.weak,
-            fontSize: '9',
-          },
-        },
-        gridLineColor: theme.line.weak,
-      };
-      if (isSize && isPercent) {
-        c.minorGridLineWidth = 0;
-        c.gridLineWidth = 0;
-        c.alternateGridColor = undefined;
-      }
-      return c;
-    }),
-    plotOptions: {
-      column: {
-        animation,
-        stacking: 'normal',
-        dataLabels: {
-          color: theme.text.strong,
-        },
-        marker: {
-          lineColor: theme.text.weak,
-        },
-        borderColor: theme.line.strong,
+    y2: {
+      position: 'right',
+      ticks: { color: tooltipFontColor },
+      grid: { display: false },
+      title: {
+        color: tooltipFontColor,
+        display: true,
+        text: d.sizeSerie.name,
       },
-    },
-    series: valueSeries.concat(sizeSerie),
-    credits: {
-      enabled: false,
-    },
-    labels: {
-      style: {
-        color: theme.text.strong,
-      },
-    },
-    tooltip: {
-      backgroundColor: {
-        linearGradient: {
-          x1: 0,
-          y1: 0,
-          x2: 0,
-          y2: 1,
-        },
-        stops: theme.light
-          ? [
-              [0, 'rgba(200, 200, 200, .8)'],
-              [1, 'rgba(250, 250, 250, .8)'],
-            ]
-          : [
-              [0, 'rgba(56, 56, 56, .8)'],
-              [1, 'rgba(16, 16, 16, .8)'],
-            ],
-      },
-      style: {
-        fontWeight: 'bold',
-        color: theme.text.strong,
-      },
-    },
-    legend: {
-      enabled: true,
-      itemStyle: {
-        color: theme.text.weak,
-      },
-      itemHiddenStyle: {
-        color: theme.text.weak,
-      },
+      beginAtZero: true,
     },
   };
-  if (theme.colors) chartConf.colors = theme.colors;
-  window.Highcharts.chart(el, chartConf);
 }
-
 function empty(txt: string) {
   return h('div.chart.empty', [
     h('i', {
@@ -263,22 +193,27 @@ function empty(txt: string) {
   ]);
 }
 
+let chart: InsightChart;
 function chartHook(vnode: VNode, ctrl: Ctrl) {
-  const el = vnode.elm as HTMLElement;
+  const el = vnode.elm as HTMLCanvasElement;
   if (ctrl.vm.loading || !ctrl.vm.answer) {
     $(el).html(lichess.spinnerHtml);
   } else {
-    makeChart(el, ctrl.vm.answer);
+    if (!maybeChart(el)) chart = insightChart(el, ctrl.vm.answer);
+    else if (chart) chart.updateData(ctrl.vm.answer);
   }
 }
 
 export default function (ctrl: Ctrl) {
   if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
   if (!ctrl.vm.answer?.series.length) return empty('No data. Try widening or clearing the filters.');
-  return h('div.chart', {
-    hook: {
-      insert: vnode => chartHook(vnode, ctrl),
-      update: (_oldVnode, newVnode) => chartHook(newVnode, ctrl),
-    },
-  });
+  return h(
+    'div.chart',
+    h('canvas.chart', {
+      hook: {
+        insert: vnode => chartHook(vnode, ctrl),
+        update: (_oldVnode, newVnode) => chartHook(newVnode, ctrl),
+      },
+    }),
+  );
 }

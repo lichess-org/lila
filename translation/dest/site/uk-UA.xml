@@ -32,7 +32,7 @@
   <string name="raceFinished">Перегони завершено</string>
   <string name="variantEnding">Гру завершено</string>
   <string name="newOpponent">Новий суперник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник знову хоче з вами зіграти</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник хоче зіграти знову</string>
   <string name="joinTheGame">Приєднатися до гри</string>
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
@@ -72,6 +72,7 @@
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
   <string name="forceVariation">Зробити варіантом</string>
+  <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
@@ -97,7 +98,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' з округленням на основі кількості півходів до наступного взяття чи ходу пішака</string>
   <string name="noGameFound">Ігор не знайдено</string>
-  <string name="maxDepthReached">Досягнуто найбільшої глибини!</string>
+  <string name="maxDepthReached">Максимальна глибина досягнута!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Дослідження дебютів</string>
@@ -119,6 +120,7 @@
   <string name="openStudy">Почати дослідження</string>
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
+  <string name="showVariationArrows">Показати стрілки для варіантів</string>
   <string name="evaluationGauge">Шкала оцінки</string>
   <string name="multipleLines">Кількість стрілок</string>
   <string name="cpus">Потоки</string>
@@ -460,6 +462,7 @@
   <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
+  <string name="importGameCaveat2">Цей PGN може бути у вільному доступі. Для імпорту гри в приватному режимі використовуйте студії.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
     <item quantity="few">%s імпортовані гри</item>
@@ -550,6 +553,7 @@
   <string name="movesPlayed">Ходів зіграно</string>
   <string name="whiteWins">Перемог білими</string>
   <string name="blackWins">Перемог чорними</string>
+  <string name="drawRate">Шанс нічиєї</string>
   <string name="draws">Нічиїх</string>
   <string name="nextXTournament">Наступний турнір з %s:</string>
   <string name="averageOpponent">Середній рейтинг суперника</string>
@@ -570,14 +574,14 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
+  <string name="setFlair">Оберіть свій тотем:</string>
+  <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Прапор</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна чи область</string>
   <string name="thankYou">Дякуємо!</string>
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
-  <string name="savingMoves">Тимчасове сховище ходів</string>
-  <string name="savingMovesHelp">Ми завжди зберігаємо ваші варіанти в кеші браузера.</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
   <string name="clearSavedMoves">Очистити ходи</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
@@ -733,8 +737,10 @@
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Організатор</string>
   <string name="hostColorX">Колір організатора: %s</string>
+  <string name="yourPendingSimuls">Ваші сеанси одночасної гри, що в режимі очікування</string>
   <string name="createdSimuls">Нещодавно створені сеанси</string>
   <string name="hostANewSimul">Організувати новий сеанс</string>
+  <string name="signUpToHostOrJoinASimul">Зареєструйтеся, щоб створити чи приєднатися до сеансу одночасної гри</string>
   <string name="noSimulFound">Сеанс не знайдено</string>
   <string name="noSimulExplanation">Цього сеансу одночасної гри не існує.</string>
   <string name="returnToSimulHomepage">Повернутися до сторінки \"Сеанси\"</string>
@@ -766,6 +772,9 @@
   <string name="keyNextBlunder">Наступна груба помилка</string>
   <string name="keyNextMistake">Наступна помилка</string>
   <string name="keyNextInaccuracy">Наступна неточність</string>
+  <string name="keyPreviousBranch">Попередній варіант</string>
+  <string name="keyNextBranch">Наступний варіант</string>
+  <string name="toggleVariationArrows">Показати стрілки варіантів</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
   <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>
@@ -953,6 +962,7 @@
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
   <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>
@@ -992,8 +1002,6 @@
   <string name="timeAlmostUp">Час майже скінчився!</string>
   <string name="clickToRevealEmailAddress">[Натисніть щоб побачити електронну адресу]</string>
   <string name="download">Завантаження</string>
-  <string name="welcome">Вітаємо!</string>
-  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
   <string name="coachManager">Тренерські налаштування</string>
   <string name="streamerManager">Стрімерські налаштування</string>
   <string name="cancelTournament">Скасувати турнір</string>
@@ -1051,4 +1059,5 @@
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
   <string name="ourEventTips">Наші поради щодо організації подій</string>
+  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
 </resources>

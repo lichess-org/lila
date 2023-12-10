@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Открийте най-добрия ход за белите.</string>
   <string name="findTheBestMoveForBlack">Открийте най-добрия ход за черните.</string>
   <string name="toGetPersonalizedPuzzles">За да получите персонализирани задачи:</string>
-  <string name="puzzleId">Задача %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Задача %s</string>
   <string name="puzzleOfTheDay">Задача на деня</string>
   <string name="dailyPuzzle">Задача на деня</string>
   <string name="clickToSolve">Щракнете, за да решите</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">По дебюти</string>
   <string name="puzzlesByOpenings">Задачи по дебюти</string>
   <string name="openingsYouPlayedTheMost">Дебюти, които сте играли най-много в игри с рейтинг</string>
-  <string name="useFindInPage">Използвайте \"Намери на страницата\" в менюто на браузера за да намерите любимия си дебют!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Използвайте \"Намери на страницата\" в менюто на браузера за да намерите любимия си дебют!</string>
   <string name="useCtrlF">Използвайте Ctrl+f за да намерите любимия си дебют!</string>
   <string name="notTheMove">Това не е верният ход!</string>
   <string name="trySomethingElse">Опитайте нещо друго.</string>
-  <string name="ratingX">Рейтинг: %s</string>
-  <string name="hidden">скрито</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Рейтинг: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">скрито</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Решавана %s пъти</item>
     <item quantity="other">Изиграна %s пъти</item>
   </plurals>

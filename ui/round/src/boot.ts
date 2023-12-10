@@ -12,7 +12,7 @@ interface RoundApi {
 
 export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
   const data = opts.data;
-  if (data.tournament) $('body').data('tournament-id', data.tournament.id);
+  if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
@@ -57,7 +57,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
         lichess.clockWidget(this, {
-          time: parseFloat($(this).data('time')),
+          time: parseFloat(this.dataset.time!),
         });
       });
   };
@@ -72,7 +72,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
 
   const round: RoundApi = roundMain(
     opts,
-    lichess.blindMode ? await lichess.loadEsm<NvuiPlugin>('round.nvui') : undefined,
+    lichess.blindMode ? await lichess.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined,
   );
   const chatOpts = opts.chat;
   if (chatOpts) {

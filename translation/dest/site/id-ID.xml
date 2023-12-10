@@ -69,6 +69,7 @@
   <string name="makeMainLine">Buat jalur utama</string>
   <string name="deleteFromHere">Hapus dari sini</string>
   <string name="forceVariation">Paksakan variasi</string>
+  <string name="copyVariationPgn">Salin Variasi dalam PGN</string>
   <string name="move">Langkah</string>
   <string name="variantLoss">Kekalahan variasi</string>
   <string name="variantWin">Kemenangan variasi</string>
@@ -109,6 +110,7 @@
   <string name="openStudy">Buka studi</string>
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
+  <string name="showVariationArrows">Tampilkan variasi panah</string>
   <string name="evaluationGauge">Mengukur evaluasi</string>
   <string name="multipleLines">Beberapa variasi</string>
   <string name="cpus">CPU</string>
@@ -459,13 +461,11 @@
   <string name="firstName">Nama depan</string>
   <string name="lastName">Nama Belakang</string>
   <string name="biography">Biografi</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bendera</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau wilayah</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
-  <string name="savingMoves">Penyimpanan temporer</string>
-  <string name="savingMovesHelp">Kami selalu menyimpan variasi Anda di cache browser.</string>
   <string name="clearSavedMoves">Bersihkan gerakan</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
@@ -634,7 +634,11 @@
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>
   <string name="keyShowOrHideComments">Tampilkan/sembunyikan komentar</string>
   <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
+  <string name="keyRequestComputerAnalysis">Minta analisis komputer, belajar dari kesalahan anda</string>
+  <string name="keyNextLearnFromYourMistakes">Berikutnya (Belajar dari kesalahan anda)</string>
+  <string name="keyNextBlunder">Blunder selanjutnya</string>
   <string name="keyNextMistake">Kesalahan berikutnya</string>
+  <string name="keyNextInaccuracy">Ketidakakuratan selanjutnya</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
   <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>
@@ -649,6 +653,7 @@
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s lebih baik daripada %2$s dari %3$s pemain.</string>
+  <string name="betterThanPercentPlayers">Anda lebih baik %1$s dari %2$s pemain lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
   <string name="yourRating">Rating Anda</string>
   <string name="cumulative">Kumulatif</string>
@@ -677,6 +682,7 @@
   <string name="kidMode">Mode anak</string>
   <string name="kidModeExplanation">Ini adalah tentang keselamatan. Dalam modus anak, semua situs komunikasi dinonaktifkan. Mengaktifkan ini untuk anak-anak Anda dan sekolah siswa, untuk melindungi mereka dari pengguna internet yang lain.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dalam modus anak, lichess logo mendapat ikon %s, sehingga Anda tahu anak-anak Anda aman.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Akun anda dimanjemen. Tanya pelatih catur anda untuk menghapus mode anak-anak.</string>
   <string name="enableKidMode">Mengaktifkan mode anak</string>
   <string name="disableKidMode">Menonaktifkan modus anak</string>
   <string name="security">Keamanan</string>
@@ -729,6 +735,7 @@
   <string name="invalidFen">FEN tidak valid</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
+  <string name="notificationsX">Pemberitahuan: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -843,9 +850,6 @@
   <string name="timeAlmostUp">Waktu hampir habis!</string>
   <string name="clickToRevealEmailAddress">[Klik untuk memunculkan alamat email]</string>
   <string name="download">Unduh</string>
-  <string name="welcome">Wilujeng sumping!</string>
-  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
-Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
   <string name="coachManager">Manajer pelatih</string>
   <string name="streamerManager">Manajer stream</string>
   <string name="cancelTournament">Batalkan turnamen</string>
@@ -902,4 +906,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
+  <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
+  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
+Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
 </resources>

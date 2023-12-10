@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Troba lo millor movimiento pa las blancas.</string>
   <string name="findTheBestMoveForBlack">Troba lo millor movimiento pa las negras.</string>
   <string name="toGetPersonalizedPuzzles">Pa aconseguir problemas personalizaus:</string>
-  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problema %s</string>
   <string name="puzzleOfTheDay">Problema d\'o día</string>
   <string name="dailyPuzzle">Problema diario</string>
   <string name="clickToSolve">Fe cli pa resolver</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Per obriduras</string>
   <string name="puzzlesByOpenings">Problemas per obridura</string>
   <string name="openingsYouPlayedTheMost">Obriduras que mas has chugau en partidas puntuadas</string>
-  <string name="useFindInPage">Fe servir \"Buscar en a pachina\" en o menú d\'o tuyo navegador pa trobar la tuya obridura preferida!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Fe servir \"Buscar en a pachina\" en o menú d\'o tuyo navegador pa trobar la tuya obridura preferida!</string>
   <string name="useCtrlF">Usar Ctrl+f pa trobar la tuya obridura favorita!</string>
   <string name="notTheMove">Ixe no ye lo movimiento!</string>
   <string name="trySomethingElse">Mira de prebar en belatro puesto.</string>
-  <string name="ratingX">Puntuación: %s</string>
-  <string name="hidden">amagau</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Puntuación: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">amagau</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Chugau %s vegada</item>
     <item quantity="other">Chugau %s vegadas</item>
   </plurals>

@@ -37,10 +37,11 @@
   <string name="imageCredit">Resim kaynağı</string>
   <string name="deleteBlog">Bu blog gönderisini kalıcı olarak sil</string>
   <string name="deleteImage">Resmi sil</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Aşağıda verilen sitelerde bulunan resimleri dilediğiniz gibi kullanabilirsiniz: </string>
+  <string name="safeToUseImages">Aşağıda verilen sitelerde bulunan resimleri dilediğiniz gibi kullanabilirsiniz: </string>
   <string name="selectPostTopics">Gönderinizin ilgili olduğu konuları seçin</string>
   <string name="useImagesYouMadeYourself">Kendi oluşturduğunuz görseller, çektiğiniz fotoğraflar veya Lichess ekran görüntüleri gibi telif hakkı başkasına ait olmayan herhangi bir resmi de kullanabilirsiniz.</string>
   <string name="safeAndRespectfulContent">Paylaştığınız içeriklerin uygun ve orijinal olmasına lütfen dikkat edin. Başka bir kullanıcının içeriğini kopyalamayın.</string>
   <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Harika blog gönderileri yazmanın püf noktaları</string>
+  <string name="blogTips">Harika blog gönderileri yazmanın püf noktaları</string>
+  <string name="discussThisBlogPostInTheForum">Bu blog gönderisini forumda tartış</string>
 </resources>

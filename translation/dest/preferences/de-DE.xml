@@ -15,6 +15,7 @@
   <string name="pgnLetter">Buchstaben (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-Modus</string>
   <string name="showPlayerRatings">Wertungszahl von Spielern anzeigen</string>
+  <string name="showFlairs">Spieler-Dekoration anzeigen</string>
   <string name="explainShowPlayerRatings">Versteckt alle Wertungen auf der Website, damit du dich voll auf das Schach zu konzentrieren kannst. Partien können immer noch gewertet sein, es geht nur darum, was du zu sehen bekommst.</string>
   <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
   <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>

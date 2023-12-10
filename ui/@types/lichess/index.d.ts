@@ -4,6 +4,7 @@
 interface Lichess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
+  debug: boolean;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
@@ -12,14 +13,18 @@ interface Lichess {
   powertip: LichessPowertip;
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
-  assetUrl(url: string, opts?: AssetUrlOpts): string;
-  loadCss(path: string): void;
-  loadCssPath(path: string): Promise<void>;
-  jsModule(name: string): string;
-  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-  hopscotch: any;
-  userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
+  asset: {
+    baseUrl(): string;
+    url(url: string, opts?: AssetUrlOpts): string;
+    flairSrc(flair: Flair): string;
+    loadCss(path: string): void;
+    loadCssPath(path: string): Promise<void>;
+    jsModule(name: string): string;
+    loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+    loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    hopscotch: any;
+    userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
+  };
   slider(): Promise<void>;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
@@ -29,7 +34,7 @@ interface Lichess {
   blindMode: boolean;
   unload: { expected: boolean };
   watchers(el: HTMLElement): void;
-  redirect(o: RedirectTo, notify?: 'countdown' | 'beep'): void;
+  redirect(o: RedirectTo, beep?: boolean): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
@@ -69,10 +74,19 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
+  log: LichessLog;
+}
+
+interface LichessLog {
+  (...args: any[]): Promise<void>;
+  clear(): Promise<void>;
+  get(): Promise<string>;
 }
 
 type I18nDict = { [key: string]: string };
 type I18nKey = string;
+
+type Flair = string;
 
 type RedirectTo = string | { url: string; cookie: Cookie };
 
@@ -104,6 +118,7 @@ interface UserCompleteOpts {
   friend?: boolean;
   tour?: string;
   swiss?: string;
+  team?: string;
 }
 
 interface QuestionChoice {
@@ -118,13 +133,20 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
+type SoundMove = (opts?: {
+  name?: string; // either provide this or valid san/uci
+  san?: string;
+  uci?: string;
+  filter?: 'music' | 'game'; // undefined allows either
+}) => void;
+
 interface SoundI {
   ctx?: AudioContext;
   load(name: string, path?: string): void;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
-  move(node?: { san?: string; uci?: Uci }): void;
-  countdown(count: number, intervalMs?: number): Promise<void>; // default interval 1000ms
+  move: SoundMove;
+  countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
@@ -333,6 +355,7 @@ interface Study {
 interface LightUserNoId {
   name: string;
   title?: string;
+  flair?: Flair;
   patron?: boolean;
 }
 
@@ -419,13 +442,10 @@ declare namespace Tree {
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
-    maxDepth?: undefined;
     millis?: undefined;
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;
-    maxDepth: number;
-    knps: number;
     millis: number;
   }
   export type ClientEval = CloudEval | LocalEval;
@@ -578,4 +598,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const $as: <T>(cash: Cash) => T;
+declare const $as: <T>(cashOrHtml: Cash | string) => T;

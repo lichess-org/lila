@@ -4,11 +4,11 @@ import { bind } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 import AnalyseCtrl from '../ctrl';
 import { nodeFullName } from '../view/util';
-import { StudyCtrl } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export type AuthorObj = {
   id: string;
-  name: string;
+  name: string; // contains the title
 };
 export type Author = AuthorObj | string;
 

@@ -3,13 +3,14 @@ import { bind, onInsert, dataIcon } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { LogEvent } from './interfaces';
 import RelayCtrl from './relayCtrl';
+import { memoize } from 'common';
 
 export default function (ctrl: RelayCtrl): VNode | undefined {
   return ctrl.members.canContribute()
     ? h(
         'div.relay-admin',
         {
-          hook: onInsert(_ => lichess.loadCssPath('analyse.relay-admin')),
+          hook: onInsert(_ => lichess.asset.loadCssPath('analyse.relay-admin')),
         },
         [
           h('h2', [
@@ -36,7 +37,6 @@ const logSuccess = (e: LogEvent) => [
 ];
 
 function renderLog(ctrl: RelayCtrl) {
-  const dateFormatter = getDateFormatter();
   const url = ctrl.data.sync?.url;
   const logLines = (ctrl.data.sync?.log || [])
     .slice(0)
@@ -63,7 +63,7 @@ function renderLog(ctrl: RelayCtrl) {
           key: e.at,
           attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark),
         },
-        [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter(new Date(e.at)))])],
+        [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter()(new Date(e.at)))])],
       );
     });
   if (ctrl.loading()) logLines.unshift(h('div.load', [h('i.ddloader'), 'Polling source...']));
@@ -107,20 +107,14 @@ const stateOff = (ctrl: RelayCtrl) =>
     [h('div.fat', 'Click to connect')],
   );
 
-let cachedDateFormatter: (date: Date) => string;
-
-function getDateFormatter(): (date: Date) => string {
-  if (!cachedDateFormatter)
-    cachedDateFormatter =
-      window.Intl && Intl.DateTimeFormat
-        ? new Intl.DateTimeFormat(document.documentElement!.lang, {
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-          }).format
-        : d => d.toLocaleString();
-
-  return cachedDateFormatter;
-}
+const dateFormatter = memoize(() =>
+  window.Intl && Intl.DateTimeFormat
+    ? new Intl.DateTimeFormat(document.documentElement.lang, {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      }).format
+    : (d: Date) => d.toLocaleString(),
+);

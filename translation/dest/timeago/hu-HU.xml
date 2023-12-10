@@ -30,10 +30,6 @@
     <item quantity="other">%s év múlva</item>
   </plurals>
   <string name="rightNow">épp most</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s másodperce</item>
-    <item quantity="other">%s másodperce</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s perce</item>
     <item quantity="other">%s perce</item>

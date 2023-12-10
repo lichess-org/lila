@@ -1,5 +1,6 @@
 package lila.common
 
+import chess.format.pgn.PgnStr
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import play.api.mvc.Call
@@ -15,9 +16,13 @@ object ApiVersion extends OpaqueInt[ApiVersion]:
 
 opaque type AssetVersion = String
 object AssetVersion extends OpaqueString[AssetVersion]:
-  var current        = random
-  def change()       = current = random
+  private var stored = random
+  def current        = stored
+  def change() =
+    stored = random
+    Bus.publish(Changed(current), "assetVersion")
   private def random = AssetVersion(SecureRandom nextString 6)
+  case class Changed(version: AssetVersion)
 
 opaque type Bearer = String
 object Bearer extends OpaqueString[Bearer]:
@@ -89,3 +94,10 @@ case class Preload[A](value: Option[A]) extends AnyVal:
 object Preload:
   def apply[A](value: A): Preload[A] = Preload(value.some)
   def none[A]                        = Preload[A](None)
+
+enum LpvEmbed:
+  case PublicPgn(pgn: PgnStr)
+  case PrivateStudy
+
+opaque type KidMode = Boolean
+object KidMode extends YesNo[KidMode]

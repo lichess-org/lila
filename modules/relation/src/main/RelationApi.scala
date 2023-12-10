@@ -34,7 +34,12 @@ final class RelationApi(
   def fetchRelations(u1: UserId, u2: UserId): Fu[Relations] =
     fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.apply
 
-  export repo.{ blocking as fetchBlocking, following as fetchFollowing, freshFollowersFromSecondary }
+  export repo.{
+    blocking as fetchBlocking,
+    following as fetchFollowing,
+    freshFollowersFromSecondary,
+    filterBlocked
+  }
 
   def fetchFriends(userId: UserId) =
     coll
@@ -141,7 +146,7 @@ final class RelationApi(
 
   private def limitBlock(u: UserId) =
     countBlocking(u).flatMap: nb =>
-      (nb > config.maxBlock.value) so repo.drop(u, false, nb - config.maxBlock.value)
+      (config.maxBlock < nb) so repo.drop(u, false, nb - config.maxBlock.value)
 
   def block(u1: UserId, u2: UserId): Funit =
     (u1 != u2 && u2 != User.lichessId) so fetchBlocks(u1, u2).flatMap {
@@ -186,7 +191,7 @@ final class RelationApi(
       else funit
     }
 
-  def searchFollowedBy(u: User, term: UserStr, max: Int): Fu[List[UserId]] =
+  def searchFollowedBy(u: User, term: UserSearch, max: Int): Fu[List[UserId]] =
     repo.followingLike(u.id, term) map { list =>
       lila.common.Heapsort.topN(list, max)(using stringOrdering[UserId].reverse)
     }

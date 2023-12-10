@@ -54,6 +54,7 @@ L\'analisi del computer su Lichess è fornita da Stockfish.</string>
 In rari casi può essere difficile decidere automaticamente (linee forzate, fortezze). Di default ci schieriamo sempre con il giocatore che non è rimasto senza tempo.
 
 Nota che può essere possibile dare scacco matto con un solo cavallo o alfiere se l\'avversario ha un pezzo che potrebbe bloccare il re.</string>
+  <string name="fideHandbook">Regolamento FIDE</string>
   <string name="fideHandbookX">Manuale FIDE %s</string>
   <string name="discoveringEnPassant">Perché una pedone può catturare un altro pedone quando è già passato? (en passant)</string>
   <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\" (\"al varco\"). L\'articolo di Wikipedia fornisce una %1$s.
@@ -67,7 +68,7 @@ Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="lichessTraining">Allenamento Lichess</string>
   <string name="watchIMRosenCheckmate">Guarda il Maestro Internazionale Eric Rosen mentre fa scacco matto \"%s\".</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
-  <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>
   <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché la partita è stata comunque dichiarata patta per ripetizione?</string>
   <string name="repeatedPositionsThatMatters">La triplice ripetizione riguarda la %1$s, non le mosse. La ripetizione non deve necessariamente avvenire consecutivamente.</string>
@@ -142,4 +143,28 @@ Un altro aspetto di rilievo è che, allo scorrere del tempo senza aver giocate p
 Clicca sull\'icona a forma di lucchetto accanto a lichess.org nella barra degli indirizzi URL del tuo browser.
 
 Quindi seleziona se consentire o bloccare le notifiche da Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Attivare la riproduzione automatica dei suoni?</string>
+  <string name="enableAutoplayForSoundsA">La maggior parte dei browser può impedire ad una pagina appena caricata di riprodurre suoni. Immagina se ogni pagina potesse immediatamente bombardarti con annunci audio!
+
+L\'icona rossa di muto appare quando il tuo browser impedisce a lichess.org di riprodurre suoni. Normalmente questa restrizione è rimossa non appena clicchi da qualche parte. Su alcuni browser per dispositivi mobili, toccare e trascinare un pezzo non conta come un click. In tal caso devi toccare la scacchiera per abilitare i suoni all\'inizio di ogni partita.
+
+Ti mostriamo l\'icona rossa di muto per avvisarti quando questo succede. Spesso puoi esplicitamente dare il permesso a lichess.org di riprodurre suoni. Qui sotto trovi delle istruzioni per versioni recenti di alcuni browser popolari.</string>
+  <string name="desktop">desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Vai su lichess.org
+2. Premi Ctrl-i su Linux/Windows o cmd-i su MacOS
+3. Fai clic sulla scheda Autorizzazioni
+4. Consenti audio e video su lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Vai su lichess.org
+2. Fai clic sull\'icona del lucchetto nella barra degli indirizzi
+3. Fai clic su Impostazioni del sito
+4. Consenti suoni</string>
+  <string name="enableAutoplayForSoundsSafari">1. Vai su lichess.org
+2. Fai clic su Safari nella barra dei menu
+3. Fai clic su Impostazioni per lichess.org...
+4. Consenti ogni riproduzione automatica</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Clicca sui tre puntini nell\'angolo in alto a destra
+2. Clicca su Impostazioni
+3. Clicca su Cookies e autorizzazioni del sito
+4. Scendi nella pagina e clicca su Riproduzione automatica di contenuti multimediali
+5. Aggiungi lichess.org agli autorizzati</string>
 </resources>

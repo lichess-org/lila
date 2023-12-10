@@ -1,5 +1,5 @@
 export const currentTheme = () => {
-  const dataTheme = $('body').data('theme');
+  const dataTheme = document.body.dataset.theme!;
   if (dataTheme === 'system')
     return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   else if (dataTheme === 'light') return 'light';

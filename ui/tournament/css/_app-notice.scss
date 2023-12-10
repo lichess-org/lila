@@ -19,7 +19,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: $licon-Swords;
     font-size: 2rem;
     position: absolute;
     top: 30px;

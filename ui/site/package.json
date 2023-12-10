@@ -21,15 +21,12 @@
     "flatpickr": "^4.6.13",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
-    "lichess-pgn-viewer": "^2.0.0",
+    "lichess-pgn-viewer": "^2.0.1",
     "prop-types": "^15.8.1",
-    "stockfish-mv.wasm": "^0.6.1",
-    "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
-    "stockfish.js": "^10.0.2",
-    "stockfish.wasm": "^0.10.0",
     "tablesort": "^5.3.0",
     "voice": "workspace:*",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "emoji-mart": "^5.5.2"
   },
   "scripts": {
     "compile": "tsc",
@@ -71,25 +68,27 @@
         "src/ublog.ts": "ublog",
         "src/ublogForm.ts": "ublogForm",
         "src/streamer.ts": "streamer",
-        "src/soundMove.ts": "soundMove"
+        "src/soundMove.ts": "soundMove",
+        "src/diagnostic.ts": "diagnostic",
+        "src/flairPicker.ts": "flairPicker"
       }
     },
     "copy": [
       {
         "src": "node_modules/hopscotch/dist/**",
-        "dest": "../../public/vendor/hopscotch/dist"
+        "dest": "../../public/npm/hopscotch/dist"
       },
       {
         "src": "node_modules/highcharts/*.js",
-        "dest": "../../public/vendor/highcharts-4.2.5"
+        "dest": "../../public/npm/highcharts-4.2.5"
       },
       {
         "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
-        "dest": "../../public/vendor/tagify"
+        "dest": "../../public/npm/tagify"
       },
       {
-        "src": "node_modules/stockfish*/*.{js,wasm}",
-        "dest": "../../public/vendor"
+        "src": "../../node_modules/chessground/dist/chessground.min.js",
+        "dest": "../../public/npm"
       }
     ]
   }

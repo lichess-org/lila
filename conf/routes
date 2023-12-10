@@ -111,7 +111,7 @@ GET   /blog                            controllers.Blog.index(page: Int ?= 1)
 GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id)
 GET   /blog/topic                      controllers.Ublog.topics
-GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1)
+GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
 GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
@@ -123,6 +123,15 @@ GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lan
 GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
+
+GET   /feed                            controllers.DailyFeed.index
+GET   /feed/new                        controllers.DailyFeed.createForm
+POST  /feed/new                        controllers.DailyFeed.create
+GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
+GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
+POST  /feed/:day/edit                  controllers.DailyFeed.update(day)
+POST  /feed/:day/delete                controllers.DailyFeed.delete(day)
+GET   /feed.atom                       controllers.DailyFeed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
@@ -234,6 +243,7 @@ GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
+POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -247,6 +257,7 @@ GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
+POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
@@ -408,47 +419,17 @@ POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id, variant
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id)
 GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
 
-# Team
-GET   /team                                   controllers.Team.home(page: Int ?= 1)
-GET   /team/new                               controllers.Team.form
-POST  /team/new                               controllers.Team.create
-GET   /team/me                                controllers.Team.mine
-GET   /team/leader                            controllers.Team.leader
-GET   /team/all                               controllers.Team.all(page: Int ?= 1)
-GET   /team/requests                          controllers.Team.requests
-GET   /team/search                            controllers.Team.search(text ?= "", page: Int ?= 1)
-GET   /team/autocomplete                      controllers.Team.autocomplete
-GET   /team/:id                               controllers.Team.show(id, page: Int ?= 1, mod: Boolean ?= false)
-POST  /team/:id/join                          controllers.Team.join(id)
-POST  /team/:id/quit                          controllers.Team.quit(id)
-GET   /team/:id/request/new                   controllers.Team.requestForm(id)
-POST  /team/:id/request/new                   controllers.Team.requestCreate(id)
-POST  /team/:id/request/process               controllers.Team.requestProcess(id)
-GET   /team/:id/declined-requests             controllers.Team.declinedRequests(id, page: Int ?=1)
-GET   /team/:id/edit                          controllers.Team.edit(id)
-POST  /team/:id/edit                          controllers.Team.update(id)
-GET   /team/:id/kick                          controllers.Team.kickForm(id)
-POST  /team/:id/kick                          controllers.Team.kick(id)
-POST  /team/:id/kick/:user                    controllers.Team.kickUser(id, user)
-GET   /team/:id/leaders                       controllers.Team.leadersForm(id)
-POST  /team/:id/leaders                       controllers.Team.leaders(id)
-GET   /team/:id/members                       controllers.Team.members(id, page: Int ?= 1)
-POST  /team/:id/close                         controllers.Team.close(id)
-POST  /team/:id/disable                       controllers.Team.disable(id)
-GET   /team/:id/tournaments                   controllers.Team.tournaments(id)
-GET   /team/:id/pm-all                        controllers.Team.pmAll(id)
-POST  /team/:id/pm-all                        controllers.Team.pmAllSubmit(id)
-POST  /team/:id/subscribe                     controllers.Team.subscribe(id)
 # Team API
-GET   /api/team/all                           controllers.Team.apiAll(page: Int ?= 1)
-GET   /api/team/search                        controllers.Team.apiSearch(text ?= "", page: Int ?= 1)
-GET   /api/team/of/:username                  controllers.Team.apiTeamsOf(username)
-GET   /api/team/:id                           controllers.Team.apiShow(id)
-GET   /api/team/:id/users                     controllers.Team.users(id)
+GET   /api/team/all                           controllers.TeamApi.all(page: Int ?= 1)
+GET   /api/team/search                        controllers.TeamApi.search(text ?= "", page: Int ?= 1)
+GET   /api/team/of/:username                  controllers.TeamApi.teamsOf(username)
+GET   /api/team/:id                           controllers.TeamApi.show(id)
+GET   /api/team/:id/users                     controllers.TeamApi.users(id)
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id)
-GET   /api/team/:id/requests                  controllers.Team.apiRequests(id)
-POST  /api/team/:id/request/:userId/:decision controllers.Team.apiRequestProcess(id, userId, decision)
+GET   /api/team/:id/requests                  controllers.TeamApi.requests(id)
+POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id, userId, decision)
+POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id, user)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId)
@@ -547,6 +528,7 @@ POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(userna
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
+POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)
@@ -602,7 +584,7 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, sl
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug, id)
+POST  /forum/delete/:id     controllers.ForumPost.delete(id)
 POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
@@ -639,6 +621,7 @@ GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen)
 GET   /editor                          controllers.Editor.index
 
+->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
 ->    /report                          report.Routes
 ->    /class                           clas.Routes
@@ -699,6 +682,7 @@ GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
+POST  /api/account/preferences/:name   controllers.Pref.apiSet(name)
 GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
@@ -719,15 +703,15 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username)
 GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username)
 
+# Lichess Mobile
+GET   /api/mobile/my-games             controllers.Api.mobileGames
+
 # External engine
 GET   /api/external-engine             controllers.Analyse.externalEngineList
 POST  /api/external-engine             controllers.Analyse.externalEngineCreate
 GET   /api/external-engine/:id         controllers.Analyse.externalEngineShow(id)
 PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id)
 DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id)
-
-# Mobile API only
-GET   /api/user/:name/games            controllers.Api.userGames(name)
 
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id)
@@ -850,7 +834,7 @@ GET   /variant/:key                    controllers.ContentPage.variant(key)
 # Help
 GET   /help/contribute                 controllers.ContentPage.help
 GET   /help/master                     controllers.ContentPage.master
-GET   /help/analyse/shift-key          controllers.Main.analyseShiftKeyHelp
+GET   /help/analyse/variation-arrow    controllers.Main.analyseVariationArrowHelp
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

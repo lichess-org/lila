@@ -296,8 +296,12 @@ abstract private[controllers] class LilaController(val env: Env)
       .bindFromRequest()
       .fold(
         form => err(form) dmap { BadRequest(_) },
-        data => op(data)
+        op
       )
+
+  def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
+    if req.method == "HEAD" then NoContent.withDateHeaders(lastModified(updatedAt))
+    else f
 
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment()
@@ -315,7 +319,6 @@ abstract private[controllers] class LilaController(val env: Env)
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
         case ByHref.Refused(_) => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
-          pageHit
           f(using ctx.withLang(lang))
 
   import lila.rating.{ Perf, PerfType }

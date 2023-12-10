@@ -70,6 +70,7 @@
   <string name="makeMainLine">Bëje variantin kryesor</string>
   <string name="deleteFromHere">Fshije nga këtu</string>
   <string name="forceVariation">Detyro variant</string>
+  <string name="copyVariationPgn">Kopjo PGN varianti</string>
   <string name="move">Lëvizje</string>
   <string name="variantLoss">Varianti humb</string>
   <string name="variantWin">Varianti fiton</string>
@@ -115,6 +116,7 @@
   <string name="openStudy">Studim i hapur</string>
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
+  <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
   <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>
@@ -505,12 +507,11 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="firstName">Emër</string>
   <string name="lastName">Mbiemër</string>
   <string name="biography">Jetëshkrim</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="socialMediaLinks">Lidhje mediash shoqërore</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
   <string name="inlineNotation">Shënim brendazi</string>
-  <string name="savingMoves">Depozitim i përkohshëm i lëvizjeve</string>
-  <string name="savingMovesHelp">Po i depozitojmë variacionet tuaja në fshehtinën e shfletuesit.</string>
   <string name="makeAStudy">Për ruajtje të sigurt dhe për ndarje me të tjerët, shihni mundësinë e krijimit të një studimi.</string>
   <string name="clearSavedMoves">Spastroji lëvizjet</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
@@ -691,6 +692,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyNextBlunder">Gafa pasuese</string>
   <string name="keyNextMistake">Gabimi pasues</string>
   <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
+  <string name="keyPreviousBranch">Dega e mëparshme</string>
+  <string name="keyNextBranch">Dega pasuese</string>
+  <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
+  <string name="playSelectedMove">luaj lëvizjen e përzgjedhur</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
   <string name="tournamentHomeDescription">Luani turne shahu me ritëm të shpejtë! Merrni pjesë në një turne zyrtar të planifikuar, ose krijoni tuajin. Plumb, Blic, Klasik, Shah960, Mbreti i Kodrës, Treshah dhe më tepër mundësi të gatshme, për argëtim të pafund në shah.</string>
@@ -907,9 +912,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>
   <string name="clickToRevealEmailAddress">[Klikoni që të zbulohet adresa email]</string>
   <string name="download">Shkarkoje</string>
-  <string name="welcome">Mirë se vini!</string>
-  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
-Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="coachManager">Trajner</string>
   <string name="streamerManager">Përgjegjës transmetimesh</string>
   <string name="cancelTournament">Anulojeni turneun</string>
@@ -968,4 +970,8 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
   <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
+  <string name="instructions">Udhëzime</string>
+  <string name="showMeEverything">Shfaqmë gjithçka</string>
+  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
+Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
 </resources>

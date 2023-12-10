@@ -124,4 +124,4 @@ object UserInfo:
         (user.count.rated >= 10).so(insightShare.grant(user))
       ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
-    def preloadTeams(info: UserInfo) = teamCache.nameCache.preloadMany(info.teamIds)
+    def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

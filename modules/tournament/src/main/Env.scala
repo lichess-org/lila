@@ -33,7 +33,8 @@ final class Env(
     ActorSystem,
     akka.stream.Materializer,
     lila.game.IdGenerator,
-    play.api.Mode
+    play.api.Mode,
+    lila.user.FlairApi.Getter
 ):
 
   lazy val forms = wire[TournamentForm]
@@ -104,6 +105,8 @@ final class Env(
   private lazy val autoPairing = wire[AutoPairing]
 
   lazy val getTourName = new GetTourName(cached.nameCache)
+
+  lazy val featuring = wire[TournamentFeaturing]
 
   wire[TournamentBusHandler]
 

@@ -34,10 +34,10 @@
   <string name="imageCredit">이미지 저작권</string>
   <string name="deleteBlog">이 블로그 게시물 완전히 삭제하기</string>
   <string name="deleteImage">이미지를 삭제하기</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">다음 웹사이트의 이미지를 사용하는 것이 안전합니다: </string>
+  <string name="safeToUseImages">다음 웹사이트의 이미지를 사용하는 것이 안전합니다: </string>
   <string name="selectPostTopics">게시물의 주제를 선택하세요</string>
   <string name="useImagesYouMadeYourself">직접 만든 이미지, 직접 찍은 사진, 라이선스 스크린샷 등 다른 사람이 저작권을 가지고 있지 않은 모든 것을 사용할 수도 있습니다.</string>
   <string name="safeAndRespectfulContent">안전하고 서로를 존중하는 콘텐츠만 게시하세요. 다른 사람의 콘텐츠를 복사하지 마세요.</string>
   <string name="inappropriateContentAccountClosed">부적절한 행위로 인해 계정이 폐쇄될 수 있습니다.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">멋진 블로그 게시물을 작성하기 위한 간단한 팁</string>
+  <string name="blogTips">멋진 블로그 게시물을 작성하기 위한 간단한 팁</string>
 </resources>

@@ -48,13 +48,16 @@ final class Ublog(env: Env) extends LilaController(env):
                 if slug != post.slug then Redirect(urlOfPost(post))
                 else
                   for
-                    others   <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
-                    liked    <- ctx.user.so(env.ublog.rank.liked(post))
-                    followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-                    markup   <- env.ublog.markup(post)
+                    others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
+                    liked          <- ctx.user.so(env.ublog.rank.liked(post))
+                    followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+                    prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+                    blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+                    followable = prefFollowable && !blocked
+                    markup <- env.ublog.markup(post)
                     viewedPost = env.ublog.viewCounter(post, ctx.ip)
                     page <- renderPage:
-                      html.ublog.post(user, blog, viewedPost, markup, others, liked, followed)
+                      html.ublog.post(user, blog, viewedPost, markup, others, liked, followable, followed)
                   yield Ok(page)
             }
 
@@ -100,21 +103,23 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def create = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      env.ublog.form.create
-        .bindFromRequest()
-        .fold(
-          err =>
-            BadRequest.pageAsync:
-              env.ublog.form.anyCaptcha.map:
-                html.ublog.form.create(me, err, _)
-          ,
-          data =>
-            CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
-              env.ublog.api.create(data) map { post =>
-                lila.mon.ublog.create(me.userId.value).increment()
-                Redirect(editUrlOfPost(post)).flashSuccess
-              }
-        )
+      env.ublog.api.canBlog(me) so {
+        env.ublog.form.create
+          .bindFromRequest()
+          .fold(
+            err =>
+              BadRequest.pageAsync:
+                env.ublog.form.anyCaptcha.map:
+                  html.ublog.form.create(me, err, _)
+            ,
+            data =>
+              CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
+                env.ublog.api.create(data) map { post =>
+                  lila.mon.ublog.create(me.userId.value).increment()
+                  Redirect(editUrlOfPost(post)).flashSuccess
+                }
+          )
+      }
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
@@ -264,13 +269,13 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.topic.withPosts.map:
           html.ublog.index.topics(_)
 
-  def topic(str: String, page: Int) = Open:
+  def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
       Reasonable(page, config.Max(100)):
         lila.ublog.UblogTopic.fromUrl(str) so { top =>
           Ok.pageAsync:
-            env.ublog.paginator.liveByTopic(top, page) map {
-              html.ublog.index.topic(top, _)
+            env.ublog.paginator.liveByTopic(top, page, byDate) map {
+              html.ublog.index.topic(top, _, byDate)
             }
         }
 

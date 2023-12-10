@@ -14,7 +14,7 @@
   <string name="accepting">Prihvatam učenike</string>
   <string name="notAccepting">Trenutno ne prihvatam učenike</string>
   <string name="xCoachesStudents">%s podučava učenike u šahu</string>
-  <string name="viewXProfile">Pogledajte Lichess profil %s</string>
+  <string name="viewXProfile">Pogledajte profil %s</string>
   <string name="sendPM">Pošaljite privatnu poruku</string>
   <string name="aboutMe">O meni</string>
   <string name="playingExperience">Igračko iskustvo</string>
@@ -22,6 +22,6 @@
   <string name="otherExperiences">Dodatna iskustva</string>
   <string name="bestSkills">Najbolje sposobnosti</string>
   <string name="teachingMethod">Metodologija predavanja</string>
-  <string name="publicStudies">Javni učenici</string>
+  <string name="publicStudies" comment="Appears on pages of individual coaches ofering their services. It is the heading for a section listing the publicly-available studies of that coach.">Javne studije</string>
   <string name="youtubeVideos">Youtube videozapisi</string>
 </resources>

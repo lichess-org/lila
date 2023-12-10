@@ -1,34 +1,39 @@
 import * as xhr from 'common/xhr';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 
 lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      modal({
-        content: $('.forum-delete-modal'),
-        onInsert($wrap) {
-          $wrap
-            .find('form')
-            .attr('action', link.href)
-            .on('submit', function (this: HTMLFormElement, e: Event) {
-              e.preventDefault();
-              xhr.formToXhr(this);
-              modal.close();
-              $(link).closest('.forum-post').hide();
-            });
-        },
+      domDialog({
+        cash: $('.forum-delete-modal'),
+        attrs: { view: { action: link.href } },
+      }).then(dlg => {
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.showModal();
       });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
-      xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
+      xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
     });
-
+  $('.forum-post__blocked button').on('click', e => {
+    const el = (e.target as HTMLElement).parentElement!;
+    $(el).replaceWith($('.forum-post__message', el));
+  });
   $('.forum-post__message').each(function (this: HTMLElement) {
-    if (this.innerText.match(/(^|\n)>/)) {
+    if (this.innerHTML.match(/(^|<br>)&gt;/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
@@ -95,7 +100,7 @@ lichess.load.then(() => {
       topicId = $(this).attr('data-topic');
 
     if (topicId)
-      lichess.loadIife('vendor/textcomplete.min.js').then(function () {
+      lichess.asset.loadIife('vendor/textcomplete.min.js').then(function () {
         const searchCandidates = function (term: string, candidateUsers: string[]) {
           return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
         };
@@ -125,7 +130,11 @@ lichess.load.then(() => {
                     // and there are no matches in the forum thread participants
                     xhr
                       .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)));
+                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                      .catch(error => {
+                        console.error('Autocomplete request failed:', error);
+                        callback([]);
+                      });
                   } else {
                     callback([]);
                   }

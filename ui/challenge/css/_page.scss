@@ -19,6 +19,11 @@
       margin: 1em;
       flex: 1 1 auto;
     }
+
+    p.error {
+      color: $c-bad;
+      margin-top: 1em;
+    }
   }
 
   .waiting {

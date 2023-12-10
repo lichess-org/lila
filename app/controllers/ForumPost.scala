@@ -37,7 +37,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else
-          categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
+          categ.team.so(env.team.api.isLeader(_, me)) flatMap { inOwnTeam =>
             forms
               .post(inOwnTeam)
               .bindFromRequest()
@@ -65,7 +65,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
     env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
-      teamId.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
+      teamId.so(env.team.api.isLeader(_, me)) flatMap { inOwnTeam =>
         Found(postApi getPost postId): post =>
           forms
             .postEdit(inOwnTeam, post.text)
@@ -82,14 +82,17 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
-  def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me ?=>
-    Found(postApi getPost id): post =>
-      if post.userId.exists(_ is me) && !post.erased
-      then postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
+  def delete(id: ForumPostId) = AuthBody { ctx ?=> me ?=>
+    Found(postApi.getPost(id).flatMapz(postApi.viewOf)): view =>
+      val post = view.post
+      if post.userId.exists(_ is me) && !post.erased then
+        if view.topic.nbPosts == 1 then
+          env.forum.delete.deleteTopic(view) inject Redirect(routes.ForumCateg.show(view.categ.slug))
+        else postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
       else
-        TopicGrantModById(categId, post.topicId):
+        TopicGrantModById(post.categId, post.topicId):
           env.forum.delete
-            .post(categId, id)
+            .post(view)
             .inject:
               for
                 userId    <- post.userId
@@ -100,8 +103,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   if isGranted(_.ModerateForum) then MsgPreset.forumDeletion.byModerator
                   else if topic.exists(_ isUblogAuthor me) then
                     MsgPreset.forumDeletion.byBlogAuthor(me.username)
-                  else MsgPreset.forumDeletion.byTeamLeader(categId)
-              do env.msg.api.systemPost(userId, preset(reason))
+                  else MsgPreset.forumDeletion.byTeamLeader(post.categId)
+              do env.msg.api.systemPost(userId, preset(reason, view.logFormatted))
               NoContent
   }
 

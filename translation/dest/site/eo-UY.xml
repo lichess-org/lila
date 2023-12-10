@@ -21,7 +21,7 @@
   <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
-  <string name="whiteIsVictorious">Blanko venkas</string>
+  <string name="whiteIsVictorious">Blanko venkis</string>
   <string name="blackIsVictorious">Nigro venkis</string>
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
   <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
@@ -115,6 +115,7 @@
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="showVariationArrows">Montri variaĵojn sagojn</string>
   <string name="evaluationGauge">Gaŭĝo de rangado</string>
   <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
@@ -347,6 +348,10 @@
     <item quantity="one">%s studo</item>
     <item quantity="other">%s studoj</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s samtempludo</item>
+    <item quantity="other">%s samtempludoj</item>
+  </plurals>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
   <string name="noDrawBeforeSwissLimit">Vi ne povas egalvenki antaŭ 30 movoj estas luditaj en svisa turniro.</string>
@@ -479,6 +484,7 @@
   <string name="movesPlayed">Moviĝoj luditaj</string>
   <string name="whiteWins">Blankaj venkoj</string>
   <string name="blackWins">Nigraj venkoj</string>
+  <string name="drawRate">Procento de egalvenkoj</string>
   <string name="draws">Egalvenkoj</string>
   <string name="nextXTournament">Proksima %s turniro:</string>
   <string name="averageOpponent">Mezuma kontraŭulo</string>
@@ -500,13 +506,10 @@
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flago</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
-  <string name="savingMoves">Dumtempa konservejo de movoj</string>
-  <string name="savingMovesHelp">Ni ĉiam konservas viajn variojn en via retumila kaŝmemoro.</string>
   <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
   <string name="clearSavedMoves">Forigi movojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
@@ -864,6 +867,7 @@
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapida</string>
   <string name="classical">Klasika</string>
   <string name="ultraBulletDesc">Freneze rapidaj ludoj: malpli ol 30 sekundoj</string>
@@ -903,9 +907,6 @@
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
   <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>
-  <string name="welcome">Bonvenon!</string>
-  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
-Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="coachManager">Trejnista administranto</string>
   <string name="streamerManager">Filmprezentista administranto</string>
   <string name="cancelTournament">Nuligi la turniron</string>
@@ -964,4 +965,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="switchSides">Ŝanĝi flankojn</string>
   <string name="closingAccountWithdrawAppeal">Fermata de via konto estos eltiri vian apelacion</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
+  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
+Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
 </resources>

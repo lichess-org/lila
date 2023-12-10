@@ -9,14 +9,15 @@ import controllers.routes
 object show:
 
   def apply(post: BlogPost)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
+    val postTitle = ~post.title
     views.html.base.layout(
-      title = s"${post.title} | Blog",
+      title = s"$postTitle | Blog",
       moreJs = jsModule("expandText"),
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
           image = post.getImage("blog.image", "main").map(_.url),
-          title = ~post.title,
+          title = postTitle,
           url = s"$netBaseUrl${routes.Blog.show(post.id, post.slug).url}",
           description = post.shortlede
         )
@@ -27,7 +28,7 @@ object show:
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
         div(cls := s"blog page-menu__content box post force-ltr ${~post.getText("blog.cssClasses")}")(
-          h1(cls := "box__top")(post.title),
+          h1(cls := "box__top")(postTitle),
           bits.metas(post),
           post.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))
@@ -35,13 +36,13 @@ object show:
           div(cls := "body expand-text")(
             Html
               .from(post.getHtml("blog.body", prismic.linkResolver))
-              .map(lila.blog.Youtube.fixStartTimes)
+              .map(lila.blog.Youtube.augmentEmbeds)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
               .map(env.blog.api.expand)
               .map(rawHtml)
           ),
-          ctx.noKid option
+          ctx.kid.no option
             div(cls := "footer")(
               if prismic.maybeRef.isEmpty then
                 post.date

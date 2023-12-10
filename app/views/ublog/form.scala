@@ -202,7 +202,7 @@ object form:
         href     := routes.ContentPage.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
-      )("Blog Etiquette")
+      )("Ranking your blog")
     ),
     p(tips)
   )

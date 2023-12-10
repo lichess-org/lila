@@ -55,7 +55,8 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     else result
 
   private def addCrendentialless(req: RequestHeader)(result: Result): Result =
-    if HTTPRequest.actionName(req) != "Plan.index" &&
+    val actionName = HTTPRequest actionName req
+    if actionName != "Plan.index" && actionName != "Plan.list" &&
       HTTPRequest.uaMatches(req, env.credentiallessUaRegex.get())
     then result.withHeaders(credentiallessHeaders*)
     else result

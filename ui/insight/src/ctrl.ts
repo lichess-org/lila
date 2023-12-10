@@ -1,6 +1,17 @@
 import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
-import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters, ViewTab } from './interfaces';
+import {
+  InsightData,
+  Dimension,
+  Env,
+  Metric,
+  Question,
+  UI,
+  EnvUser,
+  Vm,
+  Filters,
+  ViewTab,
+} from './interfaces';
 import { isLandscapeLayout } from './view';
 
 export default class {
@@ -88,7 +99,7 @@ export default class {
                 }),
               })
               .then(
-                (answer: Chart) => {
+                (answer: InsightData) => {
                   this.vm.answer = answer;
                   this.vm.loading = false;
                   if (this.isUserAction) this.vm.view = 'insights';

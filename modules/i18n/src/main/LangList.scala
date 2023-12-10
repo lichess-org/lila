@@ -10,6 +10,7 @@ object LangList:
     Lang("an", "ES")  -> "Aragonés",
     Lang("ar", "SA")  -> "العربية",
     Lang("as", "IN")  -> "অসমীয়া",
+    Lang("av", "DA")  -> "авар мацӀ",
     Lang("az", "AZ")  -> "Azərbaycanca",
     Lang("be", "BY")  -> "Беларуская",
     Lang("bg", "BG")  -> "български език",
@@ -17,6 +18,7 @@ object LangList:
     Lang("br", "FR")  -> "Brezhoneg",
     Lang("bs", "BA")  -> "Bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("ckb", "IR") -> "کوردی سۆرانی",
     Lang("co", "FR")  -> "Corsu",
     Lang("cs", "CZ")  -> "Čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
@@ -126,7 +128,7 @@ object LangList:
     all.keys.toList.sortBy(l => langs.getOrElse(l, Int.MaxValue))
 
   lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
+    case l if defaultRegions.get(l.language).forall(_ == l) => l
   }
 
   lazy val popularAlternateLanguageCodes: List[String] =

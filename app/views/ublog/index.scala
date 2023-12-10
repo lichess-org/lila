@@ -48,7 +48,7 @@ object index:
     title = "Friends blogs",
     posts = posts,
     menuItem = "friends",
-    route = routes.Ublog.friends,
+    route = (p, _) => routes.Ublog.friends(p),
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
@@ -56,18 +56,21 @@ object index:
     title = "Liked blog posts",
     posts = posts,
     menuItem = "liked",
-    route = routes.Ublog.liked,
+    route = (p, _) => routes.Ublog.liked(p),
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = s"Blog posts about $top",
-    posts = posts,
-    menuItem = "topics",
-    route = p => routes.Ublog.topic(top.value, p),
-    onEmpty = "Nothing to show."
-  )
+  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost], byDate: Boolean)(using PageContext) =
+    list(
+      title = s"Blog posts about $top",
+      posts = posts,
+      menuItem = "topics",
+      route = (p, bd) => routes.Ublog.topic(top.value, p, ~bd),
+      onEmpty = "Nothing to show.",
+      byDate.some
+    )
 
+  import views.html.ublog.post.ShowAt
   def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
@@ -104,17 +107,12 @@ object index:
                     )(name)
                   }
               ),
-              a(
-                cls      := "atom",
-                st.title := "Atom RSS feed",
-                href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-                dataIcon := licon.RssFeed
-              )
+              views.html.site.bits.atomLink(routes.Ublog.communityAtom(lang.fold("all")(_.language)))
             )
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = true) },
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(
                 posts,
                 p =>
@@ -158,8 +156,9 @@ object index:
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
       menuItem: String,
-      route: Int => Call,
-      onEmpty: => Frag
+      route: (Int, Option[Boolean]) => Call,
+      onEmpty: => Frag,
+      byDate: Option[Boolean] = None
   )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
@@ -169,11 +168,21 @@ object index:
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, menuItem.some),
         div(cls := "page-menu__content box box-pad ublog-index")(
-          boxTop(h1(title)),
+          boxTop(
+            h1(title),
+            byDate.map: v =>
+              span(
+                "Sort by ",
+                span(cls := "btn-rack")(
+                  a(cls := s"btn-rack__btn${!v so " active"}", href := route(1, false.some))("rank"),
+                  a(cls := s"btn-rack__btn${v so " active"}", href := route(1, true.some))("date")
+                )
+              )
+          ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = true) },
-              pagerNext(posts, np => route(np).url)
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
+              pagerNext(posts, np => route(np, byDate).url)
             )
           else div(cls := "ublog-index__posts--empty")(onEmpty)
         )

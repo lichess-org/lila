@@ -77,9 +77,8 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[Instant]):
     if isContinued(nowInstant) then this
     else copy(nb = nb.reset, time = time.reset)
   private def isContinued(at: Instant) =
-    lastDate.fold(true) { ld =>
+    lastDate.forall: ld =>
       at.isBefore(ld plusMinutes PlayStreak.expirationMinutes)
-    }
 object PlayStreak:
   val expirationMinutes = 60
 
@@ -169,11 +168,9 @@ case class RatingAt(int: IntRating, at: Instant, gameId: GameId)
 object RatingAt:
   def agg(cur: Option[RatingAt], pov: Pov, comp: Int) =
     pov.player.stableRatingAfter
-      .filter { r =>
-        cur.fold(true) { c =>
+      .filter: r =>
+        cur.forall: c =>
           r.value.compare(c.int.value) == comp
-        }
-      }
       .map {
         RatingAt(_, pov.game.movedAt, pov.gameId)
       } orElse cur

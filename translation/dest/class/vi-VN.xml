@@ -3,11 +3,11 @@
   <string name="lichessClasses">Lớp học</string>
   <string name="teachClassesOfChessStudents">Dạy các lớp học sinh chơi cờ với bộ công cụ Lớp học Lichess.</string>
   <string name="features">Tính năng</string>
-  <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho học viên</string>
+  <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho các học viên</string>
   <string name="trackStudentProgress">Theo dõi sự tiến bộ của học viên trong các ván đấu và giải đố</string>
   <string name="messageAllStudents">Thông báo cho tất cả học viên về tài liệu lớp học mới</string>
   <string name="freeForAllForever">Miễn phí 100% cho tất cả, mãi mãi, không có quảng cáo hay theo dõi</string>
-  <string name="applyToBeLichessTeacher">Đăng ký để trở thành một Giáo Viên Lichess</string>
+  <string name="applyToBeLichessTeacher">Đăng ký để trở thành một Giáo viên Lichess</string>
   <string name="noClassesYet">Chưa có lớp nào.</string>
   <string name="teachersX">Giáo viên: %s</string>
   <string name="newClass">Lớp học mới</string>
@@ -43,7 +43,7 @@ Mật khẩu: %3$s</string>
   <string name="inviteDesc4">Không bao giờ gửi lời mời không mong muốn đến người chơi tùy ý.</string>
   <string name="createANewLichessAccount">Tạo một tài khoản Lichess mới</string>
   <string name="createDesc1">Nếu học viên chưa có tài khoản Lichess, bạn có thể tạo một tài khoản cho họ tại đây.</string>
-  <string name="createDesc2">Không yêu cầu địa chỉ email. Một mật khẩu sẽ được tạo và bạn sẽ phải gửi nó cho học viên, để họ có thể đăng nhập.</string>
+  <string name="createDesc2">Không yêu cầu địa chỉ email. Một mật khẩu sẽ được tạo và bạn sẽ phải gửi nó cho học viên để họ có thể đăng nhập.</string>
   <string name="createDesc3">Quan trọng: một học viên không được có nhiều tài khoản.</string>
   <string name="createDesc4">Nếu họ đã có, hãy sử dụng biểu mẫu mời thay thế.</string>
   <string name="createStudentWarning">Chỉ được tạo tài khoản cho học sinh có thật. Không được lợi dụng để tạo nhiều tài khoản cho bản thân. Bạn sẽ bị ban.</string>
@@ -51,7 +51,7 @@ Mật khẩu: %3$s</string>
   <string name="generateANewUsername">Tạo một tài khoản mới</string>
   <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
 Đây là đường link để tham gia lớp học.</string>
-  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách học viên.</string>
+  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách là một học viên.</string>
   <string name="clickToViewInvitation">Nhấn vào đường link để xem lời mời:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s lời mời đang chờ</item>
@@ -96,7 +96,7 @@ Mật khẩu: %3$s</string>
   <string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Đừng xóa tin tức trước đó.</string>
   <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
   <string name="invite">Mời</string>
-  <string name="youHaveBeenInvitedByX">Bạn được mời bởi %s.</string>
+  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Bạn được mời bởi %s.</string>
   <string name="youAcceptedThisInvitation">Bạn đã chấp nhận lời mời.</string>
   <string name="youDeclinedThisInvitation">Bạn đã từ chối lời mời.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">hoặc</string>

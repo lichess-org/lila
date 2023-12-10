@@ -15,6 +15,7 @@
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Tryb Zen</string>
   <string name="showPlayerRatings">Pokaż rankingi gracza</string>
+  <string name="showFlairs">Pokaż emblematy graczy</string>
   <string name="explainShowPlayerRatings">Ukrywa wszystkie rankingi na stronie internetowej, aby pomóc skupić się na grze. Partie nadal mogą być oceniane, opcja ukrywa tylko widok rankingu.</string>
   <string name="displayBoardResizeHandle">Pokaż uchwyt od zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>

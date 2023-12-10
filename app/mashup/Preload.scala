@@ -30,7 +30,7 @@ final class Preload(
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
-    lastPostCache: lila.blog.LastPostCache,
+    getLastUpdate: lila.blog.DailyFeed.GetLastUpdate,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi,
     relayApi: lila.relay.RelayApi,
@@ -73,7 +73,7 @@ final class Preload(
       userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot so dailyPuzzle()).mon(_.lobby segment "puzzle") zip
-      (ctx.noKid so liveStreamApi.all
+      (ctx.kid.no so liveStreamApi.all
         .dmap(_.homepage(streamerSpots, ctx.req, ctx.me.flatMap(_.lang)) withTitles lightUserApi)
         .mon(_.lobby segment "streams")) zip
       (ctx.userId so playbanApi.currentBan).mon(_.lobby segment "playban") zip
@@ -105,7 +105,7 @@ final class Preload(
     currentGame,
     simulIsFeaturable,
     blindGames,
-    lastPostCache.apply,
+    getLastUpdate(),
     ublogPosts,
     withPerfs,
     hasUnreadLichessMessage = lichessMsg
@@ -148,7 +148,7 @@ object Preload:
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      lastPost: Option[lila.blog.MiniPost],
+      lastUpdate: Option[lila.blog.DailyFeed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
       me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean

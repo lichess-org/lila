@@ -55,7 +55,7 @@ function image(d: TournamentData): VNode | undefined {
   const s = d.spotlight;
   if (s && s.iconImg)
     return h('img.img', {
-      attrs: { src: lichess.assetUrl('images/' + s.iconImg) },
+      attrs: { src: lichess.asset.url('images/' + s.iconImg) },
     });
   return h('i.img', {
     attrs: dataIcon(s?.iconFont || licon.Trophy),

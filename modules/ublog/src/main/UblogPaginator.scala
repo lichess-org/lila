@@ -14,6 +14,7 @@ import lila.user.Me
 final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
+    userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -63,44 +64,61 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByTopic(topic: UblogTopic, page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByTopic(topic: UblogTopic, page: Int, byDate: Boolean): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
         def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
-          aggregateVisiblePosts($doc("topics" -> topic), offset, length)
+          aggregateVisiblePosts($doc("topics" -> topic), offset, length, byDate)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
-    .aggregateList(length, _.sec): framework =>
-      import framework.*
-      Match(select ++ $doc("live" -> true)) -> List(
-        Sort(Descending("rank")),
-        PipelineOperator:
-          $lookup.pipeline(
-            from = colls.blog,
-            as = "blog",
-            local = "blog",
-            foreign = "_id",
-            pipe = List(
-              $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW)))),
-              $doc("$project" -> $id(true))
+  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
+  // i.e. byDate can only be true if $select contains `topics`
+  private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int, byDate: Boolean = false) =
+    colls.post
+      .aggregateList(length, _.sec): framework =>
+        import framework.*
+        Match(select ++ $doc("live" -> true)) -> List(
+          Sort(Descending(if byDate then "lived.at" else "rank")),
+          Limit(500),
+          PipelineOperator:
+            $lookup.pipeline(
+              from = colls.blog,
+              as = "blog",
+              local = "blog",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW)))),
+                $doc("$project" -> $id(true))
+              )
             )
-          )
-        ,
-        UnwindField("blog"),
-        Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
-        Skip(offset),
-        Limit(length)
-      )
-    .map: docs =>
-      for
-        doc  <- docs
-        post <- doc.asOpt[PreviewPost]
-      yield post
+          ,
+          UnwindField("blog"),
+          PipelineOperator:
+            $lookup.pipeline(
+              from = userRepo.coll,
+              as = "user",
+              local = "created.by",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc(User.BSONFields.enabled -> true)),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ,
+          UnwindField("user"),
+          Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
+          Skip(offset),
+          Limit(length)
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          post <- doc.asOpt[PreviewPost]
+        yield post
 
   object liveByFollowed:
 

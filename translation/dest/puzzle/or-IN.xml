@@ -6,11 +6,11 @@
   <string name="advanced">ବିକଶିତ</string>
   <string name="origin">ଉତ୍ପତ୍ତି</string>
   <string name="didYouLikeThisPuzzle">ଆପଣଙ୍କୁ ଏହି ପ୍ରହେଳିକା ଭଲ ଲାଗିଲା କି?</string>
-  <string name="puzzleId">ପ୍ରହେଳିକା %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">ପ୍ରହେଳିକା %s</string>
   <string name="puzzleOfTheDay">ଆଜିର ପ୍ରହେଳିକା</string>
   <string name="puzzleSuccess">ସଫଳତା!</string>
   <string name="puzzleComplete">ପ୍ରହେଳିକା ସଂପୂର୍ଣ୍ଣ ହେଲା!</string>
-  <string name="hidden">ଲୁକ୍କାୟିତ</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ଲୁକ୍କାୟିତ</string>
   <string name="continueTraining">ତାଲିମ୍ ଜାରି ରଖିବା</string>
   <string name="puzzleDashboard">ପ୍ରହେଳିକା ଡ୍ୟାସବୋର୍ଡ</string>
   <string name="history">ପ୍ରହେଳିକା ଇତିବୃତ୍ତି</string>

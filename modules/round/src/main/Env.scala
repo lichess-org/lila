@@ -31,6 +31,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
+    flairApi: lila.user.FlairApi,
     timeline: lila.hub.actors.Timeline,
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
@@ -81,12 +82,12 @@ final class Env(
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
-  lazy val roundSocket: RoundSocket = wire[RoundSocket]
+  private given lila.user.FlairApi.Getter = flairApi.getter
+  lazy val roundSocket: RoundSocket           = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
-    gameRepo allPlaying userId foreach {
+    gameRepo allPlaying userId foreach:
       _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
-    }
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
@@ -107,21 +108,20 @@ final class Env(
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
   lazy val onStart: OnStart = OnStart: gameId =>
-    proxyRepo game gameId foreach {
+    proxyRepo game gameId foreach:
       _.foreach: game =>
-        lightUserApi.preloadMany(game.userIds) andDo {
+        lightUserApi.preloadMany(game.userIds) andDo:
           val sg = lila.game.actorApi.StartGame(game)
           Bus.publish(sg, "startGame")
           game.userIds.foreach: userId =>
             Bus.publish(sg, s"userStartGame:$userId")
-        }
-    }
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 
-  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { (() => correspondenceEmail.tick()) }
+  scheduler.scheduleAtFixedRate(10 minute, 10 minute): () =>
+    correspondenceEmail.tick()
 
   import SettingStore.Regex.given
   val selfReportEndGame = settingStore[Regex](
@@ -177,7 +177,7 @@ final class Env(
 
   lazy val noteApi = NoteApi(db(config.noteColl))
 
-  private lazy val mobileSocket = wire[RoundMobileSocket]
+  lazy val mobile = wire[RoundMobile]
 
   MoveLatMonitor.start(scheduler)
 

@@ -70,9 +70,10 @@
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
+  <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Kayıp devam yolu</string>
-  <string name="variantWin">Kazanç devam yolu</string>
+  <string name="variantLoss">Varyant yenilgisi</string>
+  <string name="variantWin">Varyant zaferi</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
@@ -115,6 +116,7 @@
   <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
+  <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
@@ -403,6 +405,7 @@
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
   <string name="importGameCaveat">Varyasyonlar silinecek. Varyasyonları saklamak için bir çalışma aracılığıyla PGN\'yi içe aktarın.</string>
+  <string name="importGameCaveat2">Bu PGN herkes tarafından erişilebilir. Bir oyunu özel olarak içe aktarmak isterseniz bir çalışma kullanın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
@@ -483,6 +486,7 @@
   <string name="movesPlayed">Toplam hamle sayısı</string>
   <string name="whiteWins">Beyaz zaferleri</string>
   <string name="blackWins">Siyah zaferleri</string>
+  <string name="drawRate">Berabere oranı</string>
   <string name="draws">Beraberlikler</string>
   <string name="nextXTournament">Sıradaki %s Turnuvası:</string>
   <string name="averageOpponent">Ortalama rakip</string>
@@ -504,12 +508,11 @@
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya bölge</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
-  <string name="savingMoves">Geçici hamle depolama</string>
-  <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
   <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
   <string name="clearSavedMoves">Hamleleri sil</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
@@ -657,8 +660,10 @@
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
+  <string name="yourPendingSimuls">Bekleyen simultane oyunlarınız</string>
   <string name="createdSimuls">Yeni oluşturulan eş zamanlı gösteriler</string>
   <string name="hostANewSimul">Eş zamanlı gösteri düzenle</string>
+  <string name="signUpToHostOrJoinASimul">Bir simultane oyuna katılmak veya ev sahipliği yapmak için kayıt olun</string>
   <string name="noSimulFound">Eş zamanlı gösteri bulunamadı</string>
   <string name="noSimulExplanation">Eş zamanlı gösteri yok.</string>
   <string name="returnToSimulHomepage">Eş zamanlı gösteri sayfasına geri dön</string>
@@ -683,6 +688,7 @@
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
   <string name="keyGoToStartOrEnd">başa/sona git</string>
+  <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
@@ -690,6 +696,12 @@
   <string name="keyNextBlunder">Sonraki vahim hata</string>
   <string name="keyNextMistake">Sonraki hata</string>
   <string name="keyNextInaccuracy">Sonraki kusurlu hamle</string>
+  <string name="keyPreviousBranch">Önceki dal</string>
+  <string name="keyNextBranch">Sıradaki dal</string>
+  <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>
+  <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
+  <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
+  <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
   <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
@@ -705,6 +717,7 @@
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s kategorisindeki oyuncuların %1$s kadarından daha iyisiniz.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyuncularının %2$s kadarından daha iyi.</string>
+  <string name="betterThanPercentPlayers">%2$s oyuncularının %1$s kadarından daha iyi</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="yourRating">Sizin puanınız</string>
   <string name="cumulative">Kümülatif</string>
@@ -731,6 +744,7 @@
   <string name="withFriends">Yalnızca arkadaşlarımla</string>
   <string name="withEverybody">Herkes ile</string>
   <string name="kidMode">Çocuk modu</string>
+  <string name="kidModeIsEnabled">Çocuk modu etkin.</string>
   <string name="kidModeExplanation">Bu mod çocuğunuzun güvenliği ile ilgilidir. Tüm site bağlantıları devre dışı bırakılır. Eğer çocuklarınızı veya okul öğrencilerinizi diğer internet kullanıcılarına karşı korumak istiyorsanız, bu modu etkinleştirin.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess.org logosu yerine %s belirir, bilin ki çocuğunuz güvendedir :)</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Hesabınız kısıtlandı. Çocuk modunu kaldırmak için satranç öğretmeninize danışın.</string>
@@ -866,7 +880,8 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
-  <string name="rapid">Rapid</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
+  <string name="rapid">Hızlı</string>
   <string name="classical">Klasik</string>
   <string name="ultraBulletDesc">Aşırı hızlı oyunlar: 30 saniyeden daha az</string>
   <string name="bulletDesc">Çok yüksek tempolu oyunlar: 3 dakikadan daha az</string>
@@ -905,8 +920,6 @@
   <string name="timeAlmostUp">Zaman dolmak üzere!</string>
   <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
   <string name="download">İndir</string>
-  <string name="welcome">Hoş geldiniz!</string>
-  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
   <string name="coachManager">Eğitmen ayarları</string>
   <string name="streamerManager">Yayıncı ayarları</string>
   <string name="cancelTournament">Turnuvayı iptal et</string>
@@ -964,4 +977,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="switchSides">Renk değiştir</string>
   <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
   <string name="ourEventTips">Etkinlik düzenlemek için ipuçlarımız</string>
+  <string name="instructions">Talimatlar</string>
+  <string name="showMeEverything">Bana her şeyi göster</string>
+  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
 </resources>

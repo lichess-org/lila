@@ -60,6 +60,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="nextPayment">Próximo pago</string>
   <string name="youWillBeChargedXOnY">Se te cobrará %1$s el %2$s.</string>
   <string name="makeAdditionalDonation">Haz una donación adicional</string>
+  <string name="giftPatronWingsShort">Regalar alas de patrón</string>
   <string name="giftPatronWings">Regalar alas de patrón a otro jugador</string>
   <string name="update">Actualizar</string>
   <string name="changeMonthlyAmount">Cambiar la cantidad mensual (%s)</string>

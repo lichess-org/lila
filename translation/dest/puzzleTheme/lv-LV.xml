@@ -3,7 +3,7 @@
   <string name="advancedPawn">Brīvbandinieks</string>
   <string name="advancedPawnDescription">Kāds no jūsu bandiniekiem nonācis dziļi pretinieka pozīcijā, iespējams draudot ar paaugstināšanu.</string>
   <string name="advantage">Pārsvars</string>
-  <string name="advantageDescription">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
   <string name="anastasiaMate">Anastāsijas mats</string>
   <string name="anastasiaMateDescription">Zirdziņš ar torni vai dāmu iesprosto pretinieka karali starp galdiņa malu un viņa paša figūru.</string>
   <string name="arabianMate">Arābu mats</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>
   <string name="crushing">Graušana</string>
-  <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
   <string name="doubleBishopMate">Dubultlaidņa mats</string>
   <string name="doubleBishopMateDescription">Divi laidņi uz blakus diagonālēm piesaka matu karalim, ko ierobežo paša figūras.</string>
   <string name="dovetailMate">Kozio mats</string>
   <string name="dovetailMateDescription">Dāma piesaka matu nostājoties pie pretinieka karaļa tā, ka tā abi neapdraudētie lauciņi ir aizņemti ar paša figūrām.</string>
   <string name="equality">Vienlīdzība</string>
-  <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
   <string name="kingsideAttack">Karaļa puses uzbrukums</string>
   <string name="kingsideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes karaļa pusē.</string>
   <string name="clearance">Atbrīvošana</string>

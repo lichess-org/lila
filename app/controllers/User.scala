@@ -53,7 +53,8 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  private[controllers] val userShowRateLimit = env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.ip")
+  private[controllers] val userShowRateLimit =
+    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -65,7 +66,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
-      userShowRateLimit(req.ipAddress, rateLimited, cost = if env.socket.isOnline(u.id) then 1 else 2):
+      userShowRateLimit(rateLimited, cost = if env.socket.isOnline(u.id) then 2 else 3):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)
@@ -121,11 +122,10 @@ final class User(
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
                     info   <- env.userInfo(u, nbs, withUblog = false)
-                    _      <- env.team.cached.nameCache preloadMany info.teamIds
+                    _      <- env.team.cached.lightCache preloadMany info.teamIds
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search) option
-                      GameFilterMenu
-                        .searchForm(userGameSearch, filters.current)
+                      GameFilterMenu.searchForm(userGameSearch, filters.current)
                     page <- renderPage:
                       html.user.show.page.games(info, pag, filters, searchForm, social, notes)
                   yield Ok(page)
@@ -537,47 +537,46 @@ final class User(
       )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
-    getUserStr("term").flatMap(UserModel.validateId) match
-      case None                          => BadRequest("No search term provided")
-      case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
-      case Some(term) =>
-        {
-          (get("tour"), get("swiss"), get("team")) match
-            case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
-            case (_, Some(swissId), _) =>
-              env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-            case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, ctx.me, 10)
-            case _ =>
-              ctx.me.ifTrue(getBool("friend")) match
-                case Some(follower) =>
-                  env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-                    case Nil     => env.user.cached userIdsLike term
-                    case userIds => fuccess(userIds)
-                  }
-                case None if getBool("teacher") =>
-                  env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
-                case None => env.user.cached userIdsLike term
-        } flatMap { userIds =>
-          if getBool("names") then
-            lightUserApi.asyncMany(userIds) map { users =>
-              Json toJson users.flatMap(_.map(_.name))
-            }
-          else if getBool("object") then
-            lightUserApi.asyncMany(userIds) map { users =>
-              Json.obj(
-                "result" -> JsArray(users collect { case Some(u) =>
-                  lila.common.LightUser.lightUserWrites
-                    .writes(u)
-                    .add("online" -> env.socket.isOnline(u.id))
-                })
-              )
-            }
-          else fuccess(Json toJson userIds)
-        } map JsonOk
+    NoTor:
+      get("term").flatMap(UserSearch.read) match
+        case None => BadRequest("No search term provided")
+        case Some(term) if getBool("exists") =>
+          UserModel.validateId(term into UserStr).so(env.user.repo.exists) map JsonOk
+        case Some(term) =>
+          {
+            (get("tour"), get("swiss"), get("team")) match
+              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
+              case (_, Some(swissId), _) =>
+                env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
+              case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
+              case _ =>
+                ctx.me.ifTrue(getBool("friend")) match
+                  case Some(follower) =>
+                    env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
+                      case Nil     => env.user.cached userIdsLike term
+                      case userIds => fuccess(userIds)
+                    }
+                  case None if getBool("teacher") =>
+                    env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
+                  case None => env.user.cached userIdsLike term
+          } flatMap { userIds =>
+            if getBool("names") then
+              lightUserApi.asyncMany(userIds) map: users =>
+                Json toJson users.flatMap(_.map(_.name))
+            else if getBool("object") then
+              lightUserApi.asyncMany(userIds) map: users =>
+                Json.obj:
+                  "result" -> JsArray(users collect { case Some(u) =>
+                    lila.common.LightUser
+                      .write(u)
+                      .add("online" -> env.socket.isOnline(u.id))
+                  })
+            else fuccess(Json toJson userIds)
+          } map JsonOk
 
-  def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[UserStr] = None) = Open:
-    Found(lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has)): perfType =>
-      env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
+  def ratingDistribution(perfKey: Perf.Key, username: Option[UserStr] = None) = Open:
+    Found(PerfType(perfKey).filter(PerfType.isLeaderboardable)): perfType =>
+      env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap: data =>
         WithMyPerfs:
           username match
             case Some(name) =>
@@ -587,7 +586,6 @@ final class User(
                   .flatMap: u =>
                     Ok.page(html.stat.ratingDistribution(perfType, data, u.some))
             case _ => Ok.page(html.stat.ratingDistribution(perfType, data, none))
-      }
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

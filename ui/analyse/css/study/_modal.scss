@@ -1,4 +1,4 @@
-#modal-wrap {
+.dialog-content {
   min-width: 80vw;
 
   @include breakpoint($mq-x-small) {
@@ -65,7 +65,13 @@
     }
   }
 
-  &.chapter-new .tabs-horiz {
-    margin: -1em 0 1.6em 0;
+  &.chapter-new {
+    .tabs-horiz {
+      margin: -1em 0 1.6em 0;
+    }
+    .import-from__chapter {
+      @extend %break-word-hard, %ellipsis;
+      max-width: 100%;
+    }
   }
 }

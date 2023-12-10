@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { titleNameToId } from '../view/util';
 import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
@@ -59,13 +59,13 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = [...new Set([...ctrl.spectators(), ...ctrl.previouslyInvited()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return snabModal({
+  return snabDialog({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', ctrl.trans.noarg('inviteToTheStudy')),
       h(
         'p.info',
@@ -80,7 +80,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
+            lichess.asset
               .userComplete({
                 input,
                 tag: 'span',

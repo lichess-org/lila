@@ -1,39 +1,42 @@
+import { chartYMax, chartYMin } from './common';
 import { Division } from './interface';
+import { ChartDataset, Point } from 'chart.js';
 
-const divisionLine = (division: string, ply: number) => {
-  const textWeak = window.Highcharts.theme.lichess.text.weak;
-  return {
-    label: {
-      text: division,
-      verticalAlign: 'top',
-      align: 'left',
-      y: 0,
-      style: {
-        color: textWeak,
-      },
-    },
-    color: textWeak,
-    width: 1,
-    value: ply,
-    zIndex: 5,
-  };
-};
-
-export default function (div: Division | undefined, trans: Trans) {
-  const lines = [];
-  lines.push({
-    color: window.Highcharts.theme.lichess.line.accent,
-    width: 1,
-    value: 0,
-    zIndex: 6,
-  });
+export default function (trans: Trans, div?: Division) {
+  const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
-    if (div.middle > 1) lines.push(divisionLine(trans('opening'), 0));
-    lines.push(divisionLine(trans('middlegame'), div.middle - 1));
+    if (div.middle > 1) lines.push({ div: trans('opening'), loc: 1 });
+    lines.push({ div: trans('middlegame'), loc: div.middle - 1 });
   }
   if (div?.end) {
-    if (div.end > 1 && !div?.middle) lines.push(divisionLine(trans('middlegame'), 0));
-    lines.push(divisionLine(trans('endgame'), div.end - 1));
+    if (div.end > 1 && !div?.middle) lines.push({ div: trans('middlegame'), loc: 0 });
+    lines.push({ div: trans('endgame'), loc: div.end - 1 });
   }
-  return lines;
+  const annotationColor = '#707070';
+
+  /**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annontation
+   *  @returns An array of vertical lines from {div,-1.05} to {div,+1.05}.
+   * */
+  const annotations: ChartDataset<'line'>[] = lines.map(line => ({
+    type: 'line',
+    xAxisID: 'x',
+    yAxisID: 'y',
+    label: line.div,
+    data: [
+      { x: line.loc, y: chartYMin },
+      { x: line.loc, y: chartYMax },
+    ],
+    pointHoverRadius: 0,
+    borderWidth: 1,
+    borderColor: annotationColor,
+    pointRadius: 0,
+    order: 1,
+    datalabels: {
+      offset: -5,
+      align: 45,
+      rotation: 90,
+      formatter: (val: Point) => (val.y > 0 ? line.div : ''),
+    },
+  }));
+  return annotations;
 }

@@ -103,7 +103,7 @@ object bits:
     trans.gamesPlayed,
     trans.whiteWins,
     trans.blackWins,
-    trans.draws,
+    trans.drawRate,
     trans.winRate,
     trans.performance,
     trans.standByX,

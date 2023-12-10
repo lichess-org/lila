@@ -268,7 +268,7 @@ def deploy_script(profile, session, run, url):
         f"cat {artifact_unzipped}/d/commit.txt",
         "echo",
         "echo \\# Preparing lifat ...",
-        f"(cd {artifact_unzipped} && if [ -x .bin/download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./bin/download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
+        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
         f"chown -R lichess:lichess {ARTIFACT_DIR}",
         "echo",
         "echo \\# Installing ...",

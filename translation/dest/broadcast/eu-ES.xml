@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emanaldiak</string>
+  <string name="myBroadcasts">Nire zuzenekoak</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">Zuzeneko %s</item>
+    <item quantity="other">%s zuzeneko</item>
+  </plurals>
   <string name="liveBroadcasts">Txapelketen zuzeneko emanaldiak</string>
   <string name="newBroadcast">Zuzeneko emanaldi berria</string>
   <string name="addRound">Gehitu txanda bat</string>
@@ -27,4 +32,7 @@
   <string name="deleteRound">Ezabatu txanda hau</string>
   <string name="definitivelyDeleteRound">Betiko ezabatu txanda eta bere partida guztiak.</string>
   <string name="deleteAllGamesOfThisRound">Ezabatu txanda honetako partida guztiak. Jatorria aktibo egon behar da berriz sortzeko.</string>
+  <string name="editRoundStudy">Editatu txandako azterlana</string>
+  <string name="deleteTournament">Ezabatu txapelketa hau</string>
+  <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
 </resources>

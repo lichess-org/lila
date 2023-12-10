@@ -43,10 +43,11 @@
   <string name="imageCredit">קרדיטים ליוצרי התמונה</string>
   <string name="deleteBlog">מחק/י את הפוסט הזה לצמיתות</string>
   <string name="deleteImage">מחיקת התמונה</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">מומלץ להשתמש בתמונות מהאתרים הבאים: </string>
+  <string name="safeToUseImages">מומלץ להשתמש בתמונות מהאתרים הבאים: </string>
   <string name="selectPostTopics">בחר/י את הנושאים שהפוסט שלך עוסק בהם</string>
   <string name="useImagesYouMadeYourself">תוכל להשתמש בתמונות שצילמת או יצרת, צילומי מסך מתוך ליצ׳ס... כל מה שלא מוגן בזכויות יוצרים ושייך למישהו אחר.</string>
   <string name="safeAndRespectfulContent">נא לפרסם רק תוכן מכבד ובטוח. אין להעתיק תוכן של מישהו אחר.</string>
   <string name="inappropriateContentAccountClosed">כל דבר לא הולם עלול להוביל לסגירת חשבונך.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">הטיפים שלנו לכתיבת פוסטים מעולים</string>
+  <string name="blogTips">הטיפים שלנו לכתיבת פוסטים מעולים</string>
+  <string name="discussThisBlogPostInTheForum">שיחה על הבלוג הזה בפורומים</string>
 </resources>

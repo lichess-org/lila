@@ -1,0 +1,16 @@
+$mq-col2: $mq-xx-small;
+$mq-col3: $mq-small;
+$mq-col4: $mq-x-large;
+
+@mixin lobby-app-size {
+  min-height: 300px;
+
+  @include breakpoint($mq-col2) {
+    min-height: 400px;
+  }
+
+  @include breakpoint($mq-col3) {
+    height: 600px;
+    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
+  }
+}

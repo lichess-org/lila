@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Domosdoshmëri Fushe DGT</string>
+  <string name="dgtBoardLimitations">Kufizime Fushe DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Kjo faqe ju lejon të lidhni fushën tuaj DGT në Lichess dhe ta përdorni për të luajtur lojëra.</string>
+  <string name="toConnectTheDgtBoard">Për të lidhur Fushën Elektronike DGT do t’ju duhet të instaloni %s.</string>
+  <string name="downloadHere">Software-in mund ta shkarkoni prej këtu: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Nëse %1$s po xhiron në këtë kompjuter, lidhjen tuaj me të mund ta kontrolloni duke %2$s.</string>
+  <string name="openingThisLink">hapur këtë lidhje</string>
+  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Nëse %1$s po xhiron në një tjetër makinë, apo në një tjetër portë, do t’ju duhet të caktoni adresën IP dhe portën këtu te %2$s.</string>
+  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Ndarja e Formësimeve</string>
+  <string name="keepPlayPageOpen">Faqja e lojës lypset të mbetet hapur në shfletuesin tuaj. S’ka pse të jetë e dukshme, mund ta minimizoni, ose ta vini krah për krahj me faqen e lojës Liches, por mos e mbyllni, përndryshe tabela do të reshtë së funksionuari.</string>
+  <string name="boardWillAutoConnect">Fusha do të lidhet vetvetiu me çfarëdo loje që është duke u zhvilluar tashmë, ose çfarëdo loje të re që fillon. Aftësia për të zgjedhur cila lojë të luhet vjen së shpejti.</string>
+  <string name="timeControlsForCasualGames">Kontrolle kohe për lojëra të rastit: vetëm Klasike, Korrespondencë dhe E shpejtë.</string>
+  <string name="timeControlsForRatedGames">Kontrolle kohe për lojëra me vlerësim: Klasike, Korrespondencë dhe disa Të shpejtë, përfshi 15+10 dhe 20+0</string>
+  <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Kur të jeni gati, ujdisni fushën tuaj dhe mandej klikoni %s.</string>
+  <string name="ifMoveNotDetected">Nëse s’pikaset ndonjë lëvizje</string>
+  <string name="reloadThisPage">Ringarko këtë faqe</string>
+  <string name="dgtConfigure">DGT - Formësojeni</string>
+  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Klikoni që të prodhohet një</string>
+  <string name="textToSpeech">Tekst në të folur</string>
+  <string name="enableSpeechSynthesis">Aktivizo Sintetizim të Folure</string>
+  <string name="speechSynthesisVoice">Zë sintetizimi të folure</string>
+  <string name="keywords">Fjalëkyçe</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Diagnostikojeni</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Regjistrim fjalaman</string>
+  <string name="toSeeConsoleMessage">Që të shihni mesazh konsole, shtypni tastet Command + Option + C (Mac), ose Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Formësojeni</string>
+</resources>

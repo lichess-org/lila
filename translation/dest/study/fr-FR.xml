@@ -6,7 +6,7 @@
   <string name="myPublicStudies">Mes études publiques</string>
   <string name="myPrivateStudies">Mes études privées</string>
   <string name="myFavoriteStudies">Mes études favorites</string>
-  <string name="whatAreStudies">Qu\'est-ce qu\'une étude?</string>
+  <string name="whatAreStudies">Qu\'est-ce qu\'une étude ?</string>
   <string name="allStudies">Toutes les études</string>
   <string name="studiesCreatedByX">Études créées par %s</string>
   <string name="noneYet">Aucune étude.</string>
@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN de l\'étude</string>
   <string name="downloadAllGames">Télécharger toutes les parties</string>
   <string name="chapterPgn">PGN du chapitre</string>
-  <string name="copyChapterPgn">Copier le fichier PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copier le fichier PGN</string>
   <string name="copyChapterPgnDescription">Copier le fichier PGN du chapitre dans le presse-papiers.</string>
   <string name="downloadGame">Télécharger la partie</string>
   <string name="studyUrl">URL de l\'étude</string>

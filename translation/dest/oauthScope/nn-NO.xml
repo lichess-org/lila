@@ -31,4 +31,24 @@
   <string name="engineWrite">Opprett og oppdater ekstern motor</string>
   <string name="webLogin">Opprett autentiserte nettstadsesjonar (gjev full tilgjenge!)</string>
   <string name="webMod">Bruk moderatorverktøy (som er innanfor dine tilgangsrettar)</string>
+  <string name="personalAccessTokens">Personlege API-tilgangsnøklar</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Du kan lage OAuth-førespurnader utan å gå gjennom %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">autorisasjonskode prosess</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">I staden kan du bruka %s direkte i API-forespurnader.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">generer ein personlieg tilgjengenøkkel</string>
+  <string name="guardTokensCarefully">Pass godt på desse nøklane! Dei er som passord å rekne. Fordelen med å bruke nøklar framfor å sette passordet ditt inn i eit skript, er at nøklar kan tilbakekallas, og at du kan generere mange av dei.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Her er ein %1$s og %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">døme på ein personleg tilgjengenøkkel</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">API-dokumentasjon</string>
+  <string name="newToken">Ny tilgjengenøkkel</string>
+  <string name="apiAccessTokens">API tilgjengenøklar</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oppretta %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Sist brukt: %s</string>
+  <string name="alreadyHavePlayedGames">Du har allereie spelt parti!</string>
+  <string name="attentionOfDevelopers">Merknadar retta berre mot utviklarar:</string>
+  <string name="possibleToPrefill">Det er mogleg å fylle dette skjemaet ut på førehand ved å justere spørjingsparametrane til URL-en.</string>
+  <string name="forExample">Til dømes: %s</string>
+  <string name="ticksTheScopes">merkar av %1$s og %2$s omfanget og fastset nøkkelbeskrivinga.</string>
+  <string name="scopesCanBeFound">Omfangskodane finn du i skjemaet si HTML-kode.</string>
+  <string name="givingPrefilledUrls">Ved å gje desse ferdig utfylte nettadressene til brukarane hjelper du dei til å få rette tilgansnøklar.</string>
 </resources>

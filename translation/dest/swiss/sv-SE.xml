@@ -51,8 +51,8 @@ När en spelare inte kan lottas in under en rond, de får en frirond som är vä
 Lägg ihop poängen för varje motståndare som spelaren slår och hälften av poängen för varje motståndare som spelaren spelar remi mot.</string>
   <string name="pairingsQ">Hur görs lottningen?</string>
   <string name="dutchSystem">Holländsk lottning</string>
-  <string name="FIDEHandbook">FIDEs handbok</string>
-  <string name="pairingsA">Med %1$s implementeras %2$s, i enlighet med %3$s.</string>
+  <string name="FIDEHandbook">FIDE handbok</string>
+  <string name="pairingsA">Med %1$s, implementerat av %2$s, i enlighet med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Vad händer om turneringen har fler ronder än spelare?</string>
   <string name="moreRoundsThanPlayersA">När alla möjliga möten har spelats kommer turneringen att avslutas och en vinnare utses.</string>
   <string name="restrictedToTeamsQ">Varför gäller det enbart för lag?</string>
@@ -62,8 +62,7 @@ Vi tror att dessa villkor har större sannolikhet att uppfyllas inom ett lag än
   <string name="numberOfByesA">En spelare får en frirond och en poäng varje gång lottningssystemet inte kan hitta en motståndare.
 Dessutom får spelaren ytterligare en halv poäng när en spelare går sent med i en turnering.</string>
   <string name="earlyDrawsQ">Vad händer vid snabba remier?</string>
-  <string name="earlyDrawsA">En spelare får en frirond och en poäng varje gång lottningssystemet inte kan hitta en motståndare.
-Dessutom får spelaren ytterligare en halv poäng när en spelare går sent med i en turnering.</string>
+  <string name="earlyDrawsAnswer">I schweiziska spel kan spelare inte erbjuda remi innan 30 drag har spelats. Även om denna åtgärd inte kan förhindra uppgjorda oavgjorda partier, gör det åtminstone svårare att gå med på remi mitt i spelet.</string>
   <string name="whatIfOneDoesntPlayQ">Vad händer om en spelare inte spelar ett parti?</string>
   <string name="whatIfOneDoesntPlayA">Deras klocka kommer att gå, deras tid kommer gå ut, och de kommer förlora spelet.
 Därefter kommer systemet att ta bort spelaren från turneringen, så att de inte förlorar fler partier.

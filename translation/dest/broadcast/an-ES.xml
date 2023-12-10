@@ -3,6 +3,10 @@
   <string name="broadcasts">Emisions</string>
   <string name="liveBroadcasts">Emisions de torneyos en directo</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
+  <string name="aboutBroadcasts">Sobre las retransmisions</string>
+  <string name="noRoundsYet">Encara no i hai rondas.</string>
+  <string name="howToUseLichessBroadcasts">Cómo fer servir las retransmisions de Lichess.</string>
+  <string name="theNewRoundHelp">La nueva ronda habrá de tener los mesmos miembros y contribuidors que l\'anterior.</string>
   <string name="addRound">Anyadir una ronda</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximament</string>

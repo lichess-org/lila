@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Faigh an beart is fearr do bán.</string>
   <string name="findTheBestMoveForBlack">Faigh an beart is fearr do dubh.</string>
   <string name="toGetPersonalizedPuzzles">Chun fadhbanna pearsantaithe a fháil:</string>
-  <string name="puzzleId">Fadhb %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Fadhb %s</string>
   <string name="puzzleOfTheDay">Fadhb an lae</string>
   <string name="clickToSolve">Cliceáil chun réitigh</string>
   <string name="goodMove">Beart maith</string>
@@ -29,9 +29,9 @@
   <string name="puzzleComplete">Fadhb críochnaithe!</string>
   <string name="notTheMove">Ní hé sin an beart!</string>
   <string name="trySomethingElse">Triail beart eile.</string>
-  <string name="ratingX">Rátáil: %s</string>
-  <string name="hidden">folaithe</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Rátáil: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">folaithe</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">Imeartha %s uair</item>
     <item quantity="two">Imeartha %s uair</item>
     <item quantity="few">Imeartha %s uair</item>

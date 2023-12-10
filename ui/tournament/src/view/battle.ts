@@ -1,9 +1,9 @@
 import TournamentController from '../ctrl';
 import { bind, MaybeVNode } from 'common/snabbdom';
-import { playerName } from './util';
+import { fullName, userFlair } from 'common/userLink';
 import { h, VNode } from 'snabbdom';
-import { TeamBattle, RankedTeam } from '../interfaces';
-import { snabModal } from 'common/modal';
+import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
+import { snabDialog } from 'common/dialog';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
@@ -11,16 +11,17 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
-  return snabModal({
+  return snabDialog({
     class: 'team-battle__choice',
-    onInsert($el) {
-      $el.on('click', '.team-picker__team', e => {
+    onInsert(dlg) {
+      $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);
-        onClose();
+        dlg.close();
       });
+      dlg.showModal();
     },
     onClose,
-    content: [
+    vnodes: [
       h('div.team-picker', [
         h('h2', 'Pick your team'),
         h('br'),
@@ -35,7 +36,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
                       'data-id': id,
                     },
                   },
-                  tb.teams[id],
+                  renderTeamArray(tb.teams[id]),
                 ),
               ),
             ]
@@ -43,15 +44,15 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               h('p', 'You must join one of these teams to participate!'),
               h(
                 'ul',
-                shuffleArray(Object.keys(tb.teams)).map((t: string) =>
+                shuffleArray(Object.keys(tb.teams)).map((id: string) =>
                   h(
                     'li',
                     h(
                       'a',
                       {
-                        attrs: { href: '/team/' + t },
+                        attrs: { href: '/team/' + id },
                       },
-                      tb.teams[t],
+                      renderTeamArray(tb.teams[id]),
                     ),
                   ),
                 ),
@@ -61,6 +62,8 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ],
   });
 }
+
+const renderTeamArray = (team: LightTeam) => [team[0], userFlair({ flair: team[1] })];
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle,
@@ -105,7 +108,7 @@ function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
 export function teamName(battle: TeamBattle, teamId: string): VNode {
   return h(
     battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
-    battle.teams[teamId],
+    renderTeamArray(battle.teams[teamId]),
   );
 }
 
@@ -126,7 +129,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
           },
         },
-        [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score],
+        [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), '' + p.score],
       ),
     );
   });

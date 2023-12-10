@@ -2,7 +2,8 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
-import { numberRow, playerName, player as renderPlayer } from './util';
+import { numberRow, player as renderPlayer } from './util';
+import { fullName } from 'common/userLink';
 import { teamName } from './battle';
 import * as status from 'game/status';
 import TournamentController from '../ctrl';
@@ -102,10 +103,12 @@ export default function (ctrl: TournamentController): VNode {
               },
               [
                 h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
-                h('td', playerName(p.op)),
+                h('td', fullName(p.op)),
                 ctrl.opts.showRatings ? h('td', p.op.rating) : null,
+                berserkTd(!!p.op.berserk),
                 h('td.is.color-icon.' + p.color),
-                h('td', res),
+                h('td.result', res),
+                berserkTd(p.berserk),
               ],
             );
           }),
@@ -114,3 +117,6 @@ export default function (ctrl: TournamentController): VNode {
     ],
   );
 }
+
+const berserkTd = (b: boolean) =>
+  b ? h('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }) : h('td.berserk');

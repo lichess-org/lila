@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spill géint e Kolleg</string>
+  <string name="playWithAFriend">Spill géint e Kolleeg</string>
   <string name="playWithTheMachine">Spill géint de Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
-  <string name="waitingForOpponent">Waarden op de Géigner</string>
+  <string name="waitingForOpponent">Op de Géigner waarden</string>
   <string name="waiting">Waarden</string>
   <string name="yourTurn">Du bass drun</string>
   <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
   <string name="level">Level</string>
-  <string name="strength">Stäerkt</string>
+  <string name="strength">Spillstäerkt</string>
   <string name="toggleTheChat">Chat uweisen/ausblenden</string>
   <string name="chat">So eppes</string>
   <string name="resign">Opginn</string>
@@ -17,9 +17,9 @@
   <string name="stalemate">Patt</string>
   <string name="white">Wäiss</string>
   <string name="black">Schwaarz</string>
-  <string name="asWhite">als wäiss</string>
-  <string name="asBlack">als schwaarz</string>
-  <string name="randomColor">Zoufälleg Säit</string>
+  <string name="asWhite">mat Wäiss</string>
+  <string name="asBlack">mat Schwaarz</string>
+  <string name="randomColor">Zoufälleg Faarf</string>
   <string name="createAGame">Erstell eng Partie</string>
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
   <string name="blackIsVictorious">Schwaarz gewënnt</string>
@@ -52,7 +52,7 @@
   <string name="whiteDidntMove">Wäiss huet net gezunn</string>
   <string name="blackDidntMove">Schwaarz huet net gezunn</string>
   <string name="requestAComputerAnalysis">Eng Computer Analyse ufroen</string>
-  <string name="computerAnalysis">Computer Analyse</string>
+  <string name="computerAnalysis">Computeranalys</string>
   <string name="computerAnalysisAvailable">Computer Analyse disponibel</string>
   <string name="computerAnalysisDisabled">Computer Analyse desaktivéiert</string>
   <string name="analysis">Analysebriet</string>
@@ -70,6 +70,7 @@
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
   <string name="forceVariation">Variant forcéieren</string>
+  <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
   <string name="variantLoss">Variant verluer</string>
   <string name="variantWin">Variant gewonn</string>
@@ -81,7 +82,7 @@
   <string name="losing">Verléiert</string>
   <string name="drawn">Remis</string>
   <string name="unknown">Onbekannt</string>
-  <string name="database">Datenbank</string>
+  <string name="database">Datebank</string>
   <string name="whiteDrawBlack">Wäiss / Remis / Schwaarz</string>
   <string name="averageRatingX">Duerchschnëttlech Wäertung: %s</string>
   <string name="recentGames">Rezent Partien</string>
@@ -95,10 +96,11 @@
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maxDepthReached">Maximal Déift erreecht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
-  <string name="openings">Eröffnungen</string>
-  <string name="openingExplorer">Eröffnungsdatenbank</string>
-  <string name="openingEndgameExplorer">Eröffnungs-/Endspilldatenbank</string>
-  <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
+  <string name="openings">Erëffnungen</string>
+  <string name="openingExplorer">Erëffnungsdatebank</string>
+  <string name="openingEndgameExplorer">Erëffnungs-/Endspilldatebank</string>
+  <string name="xOpeningExplorer">%s -Erëffnungsdatebank</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spill den éischten Zuch vun der Erëffnungs-/Endspill-Datebank</string>
   <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
   <string name="winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
@@ -114,6 +116,7 @@
   <string name="openStudy">Studie opmaachen</string>
   <string name="enable">Aktivéieren</string>
   <string name="bestMoveArrow">Beschten Zuch Feil</string>
+  <string name="showVariationArrows">Variantefeiler weisen</string>
   <string name="evaluationGauge">Evaluatioun weisen</string>
   <string name="multipleLines">Puer Linnen</string>
   <string name="cpus">CPUs</string>
@@ -140,7 +143,7 @@
   <string name="flipBoard">Briet dréinen</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
-  <string name="offerDraw">Remis ubidden</string>
+  <string name="offerDraw">Remis bidden</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s Spiller</item>
@@ -152,6 +155,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-Wäertung aus %2$s Partie</item>
+    <item quantity="other">%1$s-Wäertung aus %2$s Partien</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Lieszeeche</item>
@@ -169,7 +176,7 @@
   <string name="xPostedInForumY">%1$s huet zum Thema %2$s geschriwwen</string>
   <string name="latestForumPosts">Neisten Forumbäiträg</string>
   <string name="players">Spiller</string>
-  <string name="friends">Frënn</string>
+  <string name="friends">Kolleegen</string>
   <string name="discussions">Konversatiounen</string>
   <string name="today">Haut</string>
   <string name="yesterday">Gëschter</string>
@@ -250,16 +257,16 @@
     <item quantity="other">%s Partien géint dech</item>
   </plurals>
   <string name="cancel">Annuléieren</string>
-  <string name="whiteTimeOut">Zäitiwwerschreidung vun Wäiss</string>
-  <string name="blackTimeOut">Zäitiwwerschreidung vun Schwaarz</string>
-  <string name="drawOfferSent">Remis Offer geschéckt</string>
-  <string name="drawOfferAccepted">Remis Offer ugeholl</string>
-  <string name="drawOfferCanceled">Remis Offer annuléiert</string>
-  <string name="whiteOffersDraw">Wäiss bitt Remis un</string>
-  <string name="blackOffersDraw">Schwaarz bitt Remis un</string>
+  <string name="whiteTimeOut">Zäitiwwerschreidung vu Wäiss</string>
+  <string name="blackTimeOut">Zäitiwwerschreidung vu Schwaarz</string>
+  <string name="drawOfferSent">Remis-Offer geschéckt</string>
+  <string name="drawOfferAccepted">Remis-Offer ugeholl</string>
+  <string name="drawOfferCanceled">Remis-Offer annuléiert</string>
+  <string name="whiteOffersDraw">Wäiss bitt Remis</string>
+  <string name="blackOffersDraw">Schwaarz bitt Remis</string>
   <string name="whiteDeclinesDraw">Wäiss leent Remis of</string>
   <string name="blackDeclinesDraw">Schwaarz leent Remis of</string>
-  <string name="yourOpponentOffersADraw">Däin Géigner bitt Remis un</string>
+  <string name="yourOpponentOffersADraw">Däi Géigner bitt Remis</string>
   <string name="accept">Acceptéieren</string>
   <string name="decline">Ofleenen</string>
   <string name="playingRightNow">Partie leeft</string>
@@ -277,16 +284,16 @@
   <string name="ratedTournament">Gewäert</string>
   <string name="thisGameIsRated">Dës Partie ass gewäert</string>
   <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Revanche Offer geschéckt</string>
-  <string name="rematchOfferAccepted">Revanche Offer ugeholl</string>
-  <string name="rematchOfferCanceled">Revanche Offer annuléiert</string>
-  <string name="rematchOfferDeclined">Revanche Offer ofgeleent</string>
-  <string name="cancelRematchOffer">Revanche Offer annuléieren</string>
+  <string name="rematchOfferSent">Revanche-Offer geschéckt</string>
+  <string name="rematchOfferAccepted">Revanche-Offer ugeholl</string>
+  <string name="rematchOfferCanceled">Revanche-Offer annuléiert</string>
+  <string name="rematchOfferDeclined">Revanche-Offer ofgeleent</string>
+  <string name="cancelRematchOffer">Revanche-Offer annuléieren</string>
   <string name="viewRematch">Revanche ukucken</string>
   <string name="confirmMove">Zuch confirméieren</string>
   <string name="play">Spillen</string>
   <string name="inbox">Posteingang</string>
-  <string name="chatRoom">Chat Raum</string>
+  <string name="chatRoom">Chatraum</string>
   <string name="loginToChat">An Chat aloggen</string>
   <string name="youHaveBeenTimedOut">Du krus eng Auszeit.</string>
   <string name="spectatorRoom">Spectateur Raum</string>
@@ -341,6 +348,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s Etüd</item>
     <item quantity="other">%s Etüden</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s Simultanveranstaltung</item>
+    <item quantity="other">%s Simultanveranstaltungen</item>
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei den Turnéier</string>
@@ -407,8 +418,8 @@
   <string name="retry">Nei probéieren</string>
   <string name="reconnecting">Remverbannen</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s Frënd online</item>
-    <item quantity="other">%s Frënn online</item>
+    <item quantity="one">%s Kolleeg online</item>
+    <item quantity="other">%s Kolleegen online</item>
   </plurals>
   <string name="favoriteOpponents">Lieblingsgéigner</string>
   <string name="follow">Followen</string>
@@ -495,13 +506,10 @@
   <string name="firstName">Virnumm</string>
   <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Fändel</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="oneUrlPerLine">Eng URL pro Zeil.</string>
   <string name="inlineNotation">Inline-Notatioun</string>
-  <string name="savingMoves">Temporär gespäichert Zich</string>
-  <string name="savingMovesHelp">Mir späicheren deng Varianten an dengem Browser Cache.</string>
   <string name="makeAStudy">Fir Varianten laangfristeg ze haalen an ze deelen, consideréier eng Etüd ze kreéieren.</string>
   <string name="clearSavedMoves">Zich läschen</string>
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
@@ -622,7 +630,7 @@
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
   <string name="ifRegistered">Wann registréiert</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
-  <string name="onlyFriends">Just Frënn</string>
+  <string name="onlyFriends">Just Kolleegen</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
   <string name="whiteCastlingKingside">Wäiss O-O</string>
@@ -697,6 +705,7 @@
   <string name="yourPerfTypeRatingIsRating">Deng %1$s Wäertung ass %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bass besser wéi %1$s vun allen %2$s-Spiller.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ass besser wéi %2$s vun allen %3$s-Spiller.</string>
+  <string name="betterThanPercentPlayers">Besser wéi %1$s vun de(n) %2$s-Spiller</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hues keng feststehend %s Wäertung.</string>
   <string name="yourRating">Deng Wäertung</string>
   <string name="cumulative">Kumulativ</string>
@@ -720,7 +729,7 @@
   <string name="receiveForumNotifications">Notificatioun kréien wann du am Forum erwähnt gëss</string>
   <string name="shareYourInsightsData">Deng perséinlech Schachstatistiken deelen</string>
   <string name="withNobody">Mat kengem</string>
-  <string name="withFriends">Mat Frënn</string>
+  <string name="withFriends">Mat Kolleegen</string>
   <string name="withEverybody">Mat jidderengem</string>
   <string name="kidMode">Kannermodus</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
@@ -742,7 +751,7 @@
   <string name="correspondenceChess">Korrespondenz Schach</string>
   <string name="onlineAndOfflinePlay">Online an Offline spillen</string>
   <string name="viewTheSolution">Léisung ukucken</string>
-  <string name="followAndChallengeFriends">Frënn followen an erausfuerderen</string>
+  <string name="followAndChallengeFriends">Kolleege followen an erausfuerderen</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibel an %s Sprooch!</item>
     <item quantity="other">Disponibel an %s Sproochen!</item>
@@ -858,6 +867,7 @@
   <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
   <string name="ultraBulletDesc">Immens schnell Partien: manner wéi 30 Sekonnen</string>
@@ -897,9 +907,6 @@
   <string name="timeAlmostUp">Deng Zäit ass baal ofgelaf!</string>
   <string name="clickToRevealEmailAddress">[Klick fir Email Adress ze weisen]</string>
   <string name="download">Download</string>
-  <string name="welcome">Wëllkomm!</string>
-  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
-All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="coachManager">Coach Manager</string>
   <string name="streamerManager">Stream Manager</string>
   <string name="cancelTournament">Turnéier annuléieren</string>
@@ -958,4 +965,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="switchSides">Faarf wiesselen</string>
   <string name="closingAccountWithdrawAppeal">Däin Benotzerkonto zou ze maachen wäert och däin Asproch zeréckzéihen</string>
   <string name="ourEventTips">Eis Tipps fir d\'Organiséieren vun Turnéier</string>
+  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
+All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
 </resources>

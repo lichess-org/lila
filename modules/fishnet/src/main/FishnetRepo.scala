@@ -33,11 +33,9 @@ final private class FishnetRepo(
   def enableClient(key: Client.Key, v: Boolean): Funit =
     clientColl.update.one($id(key), $set("enabled" -> v)).void andDo clientCache.invalidate(key)
   def allRecentClients =
-    clientColl.list[Client](
-      $doc(
+    clientColl.list[Client]:
+      $doc:
         "instance.seenAt" $gt Client.Instance.recentSince
-      )
-    )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id)           = analysisColl.byId[Work.Analysis](id)

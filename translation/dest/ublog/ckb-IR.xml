@@ -29,8 +29,7 @@
   <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
   <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">بینەری یەک بلاو کراوە 
-بینەری ھەموو %s بڵاوکراوەکانت</item>
+    <item quantity="one">بینەری یەک بلاو کراوە</item>
     <item quantity="other">نیشاندانی هەموو پەیامەکانی %s</item>
   </plurals>
   <string name="uploadAnImageForYourPost">بەرزکردنەوەی وێنەیەک بۆ پەیامەکەت</string>
@@ -38,10 +37,11 @@
   <string name="imageCredit">دروستکەری وێنە</string>
   <string name="deleteBlog">سڕینەوەی ئەم پەیامە کەسییە بە دڵنیاییەوە</string>
   <string name="deleteImage">سڕینەوەی وێنە</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
+  <string name="safeToUseImages">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
   <string name="selectPostTopics">دیاریکردنی ناونیشانی پەیامەکەت، کە دەربارەی</string>
   <string name="useImagesYouMadeYourself">هەروەها دەتوانی ئەو وینانە بەکاربهێنی کە خۆت بەرهەمت هێناون، ئەو وێنانەی کە گرتووتن یان ئەو وێنە شاشەییانەی لە لیچێسەوە گرتووتن.. هەرشتێک کە خاوەندارێتی کەسیتری بەسەرەوە نەبێت.</string>
   <string name="safeAndRespectfulContent">تکایە تەنیا بابەتی پارێزراو وە وە لەسنوری ڕێزدا بکە بە پەیام، بابتی کەسی تر لەبەر مەگرەوە.</string>
   <string name="inappropriateContentAccountClosed">هەرشتێکی نەگوونجاو دەشێت ببێتە هۆی داخستنی هەژمارەکەت.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
+  <string name="blogTips">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">لە مەکۆدا باسی ئەم پۆستەی بلۆگەکە بکەن</string>
 </resources>

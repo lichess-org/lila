@@ -31,4 +31,5 @@
   <string name="engineWrite">Buat dan perbarui komputer eksternal</string>
   <string name="webLogin">Buat sesi website terautentikasi (memberikan akses penuh!)</string>
   <string name="webMod">Menggunakan alat moderator (dalam batasan izin Anda)</string>
+  <string name="personalAccessTokens">Token Akses API Pribadi</string>
 </resources>

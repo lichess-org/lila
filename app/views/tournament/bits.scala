@@ -26,17 +26,23 @@ object bits:
   def enterable(tours: List[Tournament])(using Context) =
     table(cls := "tournaments")(
       tours.map: tour =>
+        val visiblePlayers = tour.nbPlayers >= 10 option tour.nbPlayers
         tr(
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id))(
               tour.name(full = false)
             )
           ),
-          tour.schedule.fold(td) { s =>
-            td(momentFromNow(s.at.instant))
-          },
+          td(momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))),
           td(tour.durationString),
-          td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
+          tour.conditions.teamMember match
+            case Some(t) =>
+              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
+            case _ if tour.isTeamBattle =>
+              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt())(
+                visiblePlayers
+              )
+            case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
         )
     )
 
@@ -75,7 +81,7 @@ object bits:
     trans.movesPlayed,
     trans.whiteWins,
     trans.blackWins,
-    trans.draws,
+    trans.drawRate,
     trans.nextXTournament,
     trans.averageOpponent,
     trans.tournamentEntryCode

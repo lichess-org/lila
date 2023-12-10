@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-UI_DIR=$(dirname "${BASH_SOURCE:-$0}")
+cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
-if [ `expr "$*" : '.*--no-install'` -eq 0 ]; then
-  pushd "$UI_DIR/.." > /dev/null
-  pnpm i
+update=$(echo "$*" | grep -q -- '--update' && echo true || echo false)
+
+if $update || [ ! -d "node_modules" ]; then
+  pnpm install --silent --ignore-workspace --no-lockfile
 fi
-
-popd > /dev/null
-cd "$UI_DIR/@build"
-pnpm -s dev "$@"
+if $update || [ ! -d "dist" ]; then
+  ./node_modules/.bin/tsc
+fi
+node --input-type=module dist/main.js "$@"

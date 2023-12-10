@@ -30,10 +30,11 @@ b(iy?t?|t)ch
 blow(job|)
 blumpkin
 bollock
+bomb (yo)?ur?(self)?
 boner
 boob
 bozo
-braindea?d
+brain(dea?d|less?)
 bugger
 buk?kake
 bull?shit
@@ -63,6 +64,7 @@ fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
 gangbang(e?d|)
 gay
+go (and )?bomb
 gobshite?
 gook
 gypo
@@ -81,8 +83,10 @@ kill (you|u)
 labia
 lamer?
 lesbo
-lo++ser
+lo++ser++
+maggot
 masturbat(ed?|ion|ing)
+mf\b
 milf
 molest(er|ed|)
 mong
@@ -92,7 +96,7 @@ mother(fuc?k(er|)|)
 mthrfckr
 nazi
 nigg?
-nigg?ah?
+nigg?a[hr]?
 nonce
 noo++b
 nutsac?k
@@ -243,6 +247,7 @@ uebok
 cabr[oó]na?
 cag[oó]n
 ching(ue|a)
+chupa ?pija
 chupame
 cobarde
 est[úu]pid[ao]
@@ -270,6 +275,7 @@ baldracca
 bastardo
 cazzo
 coglione
+cornutt?o
 cretino
 di merda
 figa
@@ -347,11 +353,13 @@ cancer
 (ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
 (die|burn)s? irl
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
+gas the
 g?kys
+get bombed
 k y s
 ky5
 (l|1|ı|\|)<ys
-nigg?[ae]r
+nigg?er
 rap(ed?|e?ing)
 subhuman
 """)

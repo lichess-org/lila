@@ -17,11 +17,9 @@ import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
-  cfg: Editor.Config;
   options: Editor.Options;
   trans: Trans;
   chessground: CgApi | undefined;
-  redraw: Redraw;
 
   selected: Prop<Selected>;
 
@@ -36,21 +34,20 @@ export default class EditorCtrl {
   halfmoves: number;
   fullmoves: number;
 
-  constructor(cfg: Editor.Config, redraw: Redraw) {
-    this.cfg = cfg;
+  constructor(
+    readonly cfg: Editor.Config,
+    readonly redraw: Redraw,
+  ) {
     this.options = cfg.options || {};
 
     this.trans = lichess.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 
-    if (cfg.positions) {
-      cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
-    }
+    if (cfg.positions) cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
 
-    if (cfg.endgamePositions) {
+    if (cfg.endgamePositions)
       cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
-    }
 
     lichess.mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
@@ -62,16 +59,35 @@ export default class EditorCtrl {
     this.rules = this.cfg.embed ? 'chess' : lichessRules((params.get('variant') || 'standard') as VariantKey);
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
-    this.redraw = () => {};
-    if (!this.cfg.embed) {
-      this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
+    if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
+
+    parseFen(this.initialFen).unwrap(this.setSetup);
+  }
+
+  private nthIndexOf = (haystack: string, needle: string, n: number): number => {
+    let index = haystack.indexOf(needle);
+    while (n-- > 0) {
+      if (index === -1) break;
+      index = haystack.indexOf(needle, index + needle.length);
     }
-    this.setFen(this.initialFen);
-    this.redraw = redraw;
+    return index;
+  };
+
+  // Ideally to be replaced when something like parseCastlingFen exists in chessops but for epSquare (@getSetup)
+  private fenFixedEp(fen: string) {
+    let enPassant = fen.split(' ')[3];
+    if (enPassant !== '-' && !this.getEnPassantOptions(fen).includes(enPassant)) {
+      this.epSquare = undefined;
+      enPassant = '-';
+    }
+
+    const epIndex = this.nthIndexOf(fen, ' ', 2) + 1;
+    const epEndIndex = fen.indexOf(' ', epIndex);
+    return `${fen.substring(0, epIndex)}${enPassant}${fen.substring(epEndIndex)}`;
   }
 
   onChange(): void {
-    const fen = this.getFen();
+    const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
     }
@@ -123,11 +139,42 @@ export default class EditorCtrl {
     );
   }
 
+  // hopefully moved to chessops soon
+  // https://github.com/niklasf/chessops/issues/154
+  private getEnPassantOptions(fen: string): string[] {
+    const unpackRank = (packedRank: string) =>
+      [...packedRank].reduce((accumulator, current) => {
+        const parsedInt = parseInt(current);
+        return accumulator + (parsedInt >= 1 ? 'x'.repeat(parsedInt) : current);
+      }, '');
+    const checkRank = (rank: string, regex: RegExp, offset: number, filesEnPassant: Set<number>) => {
+      let match: RegExpExecArray | null;
+      while ((match = regex.exec(rank)) != null) {
+        filesEnPassant.add(match.index + offset);
+      }
+    };
+    const filesEnPassant: Set<number> = new Set();
+    const [positions, turn] = fen.split(' ');
+    const ranks = positions.split('/');
+    const unpackedRank = unpackRank(ranks[turn === 'w' ? 3 : 4]);
+    checkRank(unpackedRank, /pP/g, turn === 'w' ? 0 : 1, filesEnPassant);
+    checkRank(unpackedRank, /Pp/g, turn === 'w' ? 1 : 0, filesEnPassant);
+    const [rank1, rank2] =
+      filesEnPassant.size >= 1
+        ? [unpackRank(ranks[turn === 'w' ? 1 : 6]), unpackRank(ranks[turn === 'w' ? 2 : 5])]
+        : [null, null];
+    return Array.from(filesEnPassant)
+      .filter(e => rank1![e] === 'x' && rank2![e] === 'x')
+      .map(e => String.fromCharCode('a'.charCodeAt(0) + e) + (turn === 'w' ? '6' : '3'));
+  }
+
   getState(): EditorState {
+    const legalFen = this.getLegalFen();
     return {
       fen: this.getFen(),
-      legalFen: this.getLegalFen(),
+      legalFen: legalFen,
       playable: this.rules == 'chess' && this.isPlayable(),
+      enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };
   }
 
@@ -155,6 +202,12 @@ export default class EditorCtrl {
 
   setTurn(turn: Color): void {
     this.turn = turn;
+    this.epSquare = undefined;
+    this.onChange();
+  }
+
+  setEnPassant(epSquare: Square | undefined): void {
+    this.epSquare = epSquare;
     this.onChange();
   }
 
@@ -170,30 +223,32 @@ export default class EditorCtrl {
     this.setFen(fen);
   }
 
-  setFen(fen: string): boolean {
-    return parseFen(fen).unwrap(
+  private setSetup = (setup: Setup): void => {
+    this.pockets = setup.pockets;
+    this.turn = setup.turn;
+    this.unmovedRooks = setup.unmovedRooks;
+    this.epSquare = setup.epSquare;
+    this.remainingChecks = setup.remainingChecks;
+    this.halfmoves = setup.halfmoves;
+    this.fullmoves = setup.fullmoves;
+
+    const castles = Castles.fromSetup(setup);
+    this.castlingToggles['K'] = defined(castles.rook.white.h);
+    this.castlingToggles['Q'] = defined(castles.rook.white.a);
+    this.castlingToggles['k'] = defined(castles.rook.black.h);
+    this.castlingToggles['q'] = defined(castles.rook.black.a);
+  };
+
+  setFen = (fen: string): boolean =>
+    parseFen(fen).unwrap(
       setup => {
         if (this.chessground) this.chessground.set({ fen });
-        this.pockets = setup.pockets;
-        this.turn = setup.turn;
-        this.unmovedRooks = setup.unmovedRooks;
-        this.epSquare = setup.epSquare;
-        this.remainingChecks = setup.remainingChecks;
-        this.halfmoves = setup.halfmoves;
-        this.fullmoves = setup.fullmoves;
-
-        const castles = Castles.fromSetup(setup);
-        this.castlingToggles['K'] = defined(castles.rook.white.h);
-        this.castlingToggles['Q'] = defined(castles.rook.white.a);
-        this.castlingToggles['k'] = defined(castles.rook.black.h);
-        this.castlingToggles['q'] = defined(castles.rook.black.a);
-
+        this.setSetup(setup);
         this.onChange();
         return true;
       },
       _ => false,
     );
-  }
 
   setRules(rules: Rules): void {
     this.rules = rules;

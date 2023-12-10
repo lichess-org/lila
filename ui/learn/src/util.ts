@@ -15,7 +15,7 @@ export function toLevel(l: LevelPartial, it: number): Level {
   };
 }
 
-export const assetUrl = $('body').data('asset-url') + '/assets/';
+export const assetUrl = document.body.dataset.assetUrl + '/assets/';
 
 export const roleToSan: {
   [R in PromotionRole]: PromotionChar;

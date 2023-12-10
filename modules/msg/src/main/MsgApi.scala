@@ -2,7 +2,6 @@ package lila.msg
 
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
-import scala.util.Try
 
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
@@ -30,7 +29,7 @@ final class MsgApi(
 
   def myThreads(using me: Me): Fu[List[MsgThread]] =
     colls.thread
-      .find($doc("users" -> me.userId, "del" $ne me.userId))
+      .find(selectMyThreads)
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
       .list(inboxSize)
@@ -46,12 +45,14 @@ final class MsgApi(
     else
       val receivedMultis = threads.filter(_.maskFor.exists(_ isnt me))
       colls.thread
-        .find($doc("users" -> me.userId, "del" $ne me.userId))
+        .find(selectMyThreads)
         .sort($sort desc "maskWith.date") // sorting on maskWith.date now
         .cursor[MsgThread]()
         .list(inboxSize)
         // last we filter receivedMultis and reinsert them according to their lastMsg.date
         .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
+
+  private def selectMyThreads(using me: Me) = $doc("users" -> me.userId) ++ selectNotDeleted
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match
@@ -74,7 +75,7 @@ final class MsgApi(
     val userId   = username.id
     val threadId = MsgThread.id(me, userId)
     val before = beforeMillis.flatMap: millis =>
-      Try(millisToInstant(millis)).toOption
+      util.Try(millisToInstant(millis)).toOption
     (userId isnt me) so lightUserApi.async(userId).flatMapz { contact =>
       for
         _         <- setReadBy(threadId, me, userId)
@@ -240,12 +241,12 @@ final class MsgApi(
           ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
         }).parallel
 
-  def deleteAllBy(user: User): Funit =
-    colls.thread.list[MsgThread]($doc("users" -> user.id)) flatMap { threads =>
-      colls.thread.delete.one($doc("users" -> user.id)) >>
-        colls.msg.delete.one($doc("tid" $in threads.map(_.id))) >>
-        notifier.deleteAllBy(threads, user)
-    }
+  def deleteAllBy(user: User): Funit = for
+    threads <- colls.thread.list[MsgThread]($doc("users" -> user.id))
+    _       <- colls.thread.delete.one($doc("users" -> user.id))
+    _       <- colls.msg.delete.one($doc("tid" $in threads.map(_.id)))
+    _       <- notifier.deleteAllBy(threads, user)
+  yield ()
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false)
 
@@ -261,7 +262,7 @@ final class MsgApi(
       .list(msgsPerPage.value)
       .map:
         _.flatMap: doc =>
-          doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) so doc.asOpt[Msg]
+          doc.getAsOpt[List[UserId]]("del").forall(!_.has(me.id)) so doc.asOpt[Msg]
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
     colls.thread
@@ -291,32 +292,27 @@ final class MsgApi(
         List(
           Match($doc("users" -> userId)),
           Project($id(true)),
-          PipelineOperator(
+          PipelineOperator:
             $lookup.pipelineFull(
               from = colls.msg.name,
               as = "msg",
               let = $doc("t" -> "$_id"),
-              pipe = List(
-                $doc(
+              pipe = List:
+                $doc:
                   "$match" ->
-                    $expr(
+                    $expr:
                       $and(
                         $doc("$eq" -> $arr("$user", userId)),
                         $doc("$eq" -> $arr("$tid", "$$t")),
-                        $doc(
-                          "$not" -> $doc(
+                        $doc:
+                          "$not" -> $doc:
                             "$regexMatch" -> $doc(
                               "input" -> "$text",
                               "regex" -> "You received this because you are (subscribed to messages|part) of the team"
                             )
-                          )
-                        )
                       )
-                    )
-                )
-              )
             )
-          ),
+          ,
           Unwind("msg"),
           Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )

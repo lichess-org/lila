@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="fairPlay">Төгс тоглох</string>
+  <string name="gameplay">Тоглолт</string>
+  <string name="threefoldRepetition">Давтсан гурван нүүдэл</string>
+  <string name="threefoldRepetitionLowerCase">давтсан гурван нүүдэл</string>
+  <string name="positions">байрлал</string>
+  <string name="accounts">Бүртгэлүүд</string>
+</resources>

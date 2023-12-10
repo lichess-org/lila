@@ -1,5 +1,6 @@
 package lila.security
 
+import com.softwaremill.tagging.*
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
@@ -15,6 +16,7 @@ import lila.oauth.{ OAuthScope, OAuthServer, AccessToken }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo, Me }
 import lila.socket.Socket.Sri
+import lila.user.User.LoginCandidate.Result
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -23,8 +25,9 @@ final class SecurityApi(
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    oAuthServer: lila.oauth.OAuthServer,
-    tor: Tor
+    oAuthServer: OAuthServer,
+    ip2proxy: Ip2Proxy,
+    proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: Mode):
 
   val AccessUri = "access_uri"
@@ -42,7 +45,7 @@ final class SecurityApi(
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
-  private def loadedLoginForm(candidate: Option[LoginCandidate]) =
+  private def loadedLoginForm(candidate: Option[LoginCandidate]): Form[Result] =
     import LoginCandidate.Result.*
     Form(
       mapping(
@@ -63,17 +66,29 @@ final class SecurityApi(
             Invalid(
               Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
             )
+          case Must2fa =>
+            Invalid(Seq(ValidationError("2-Factor Authentication is required to log in from this network.")))
           case err => Invalid(Seq(ValidationError(err.toString)))
       })
     )
 
-  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] =
+  private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
+    ip2proxy(HTTPRequest.ipAddress(req)).map: p =>
+      p.name.exists(proxy2faSetting.get().value.has(_)) option p
+
+  def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
         case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
       .map(_.filter(_.user isnt User.lichessId))
+      .flatMap:
+        _.so: candidate =>
+          must2fa(req).map:
+            _.fold(candidate.some): p =>
+              lila.mon.security.login.proxy(p.value).increment()
+              candidate.copy(must2fa = true).some
       .map(loadedLoginForm)
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
@@ -98,9 +113,11 @@ final class SecurityApi(
     userRepo mustConfirmEmail userId flatMap {
       if _ then fufail(SecurityApi MustConfirmEmail userId)
       else
-        val sessionId = SecureRandom nextString 22
-        if tor isExitNode HTTPRequest.ipAddress(req) then logger.info(s"Tor login $userId")
-        store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
+        ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
+          val sessionId = SecureRandom nextString 22
+          proxy.name.foreach: p =>
+            logger.info(s"Proxy login $p $userId")
+          store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy) inject sessionId
     }
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
@@ -126,7 +143,7 @@ final class SecurityApi(
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
-  ): Fu[lila.oauth.OAuthServer.AuthResult] =
+  ): Fu[OAuthServer.AuthResult] =
     oAuthServer
       .auth(req, required)
       .addEffect:

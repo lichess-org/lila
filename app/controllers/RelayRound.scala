@@ -16,14 +16,14 @@ final class RelayRound(
     apiC: => Api
 ) extends LilaController(env):
 
-  def form(tourId: String) = Auth { ctx ?=> _ ?=>
+  def form(tourId: TourModel.Id) = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         Ok.page:
           html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
-  def create(tourId: String) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+  def create(tourId: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         val tour = trs.tour
@@ -89,19 +89,17 @@ final class RelayRound(
   def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
       negotiate(
-        html =
-          pageHit
-          WithRoundAndTour(ts, rs, id): rt =>
-            val sc =
-              if rt.round.sync.ongoing then
-                env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
-                  chapters.find(_.looksAlive) orElse chapters.headOption match
-                    case Some(chapter) =>
-                      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
-                    case None => env.study.api byIdWithChapter rt.round.studyId
-                }
-              else env.study.api byIdWithChapter rt.round.studyId
-            sc orNotFound { doShow(rt, _) }
+        html = WithRoundAndTour(ts, rs, id): rt =>
+          val sc =
+            if rt.round.sync.ongoing then
+              env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
+                chapters.find(_.looksAlive) orElse chapters.headOption match
+                  case Some(chapter) =>
+                    env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
+                  case None => env.study.api byIdWithChapter rt.round.studyId
+              }
+            else env.study.api byIdWithChapter rt.round.studyId
+          sc orNotFound { doShow(rt, _) }
         ,
         json = Found(env.relay.api.byIdWithTour(id)): rt =>
           Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
@@ -174,6 +172,7 @@ final class RelayRound(
         sVersion  <- env.study.version(sc.study.id)
         streamers <- studyC.streamersOf(sc.study)
         page      <- renderPage(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
+        _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield Ok(page).enableSharedArrayBuffer
     )(
       studyC.privateUnauthorizedFu(oldSc.study),

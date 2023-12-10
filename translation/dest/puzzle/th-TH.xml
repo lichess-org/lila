@@ -19,19 +19,25 @@
   <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
   <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
   <string name="toGetPersonalizedPuzzles">ถ้าต้องการปริศนาที่เหมาะสมกับคุณ:</string>
-  <string name="puzzleId">ปริศนา %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">ปริศนา %s</string>
   <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
+  <string name="dailyPuzzle">ปริศนารายวัน</string>
   <string name="clickToSolve">คลิกเพื่อแก้ปริศนา</string>
   <string name="goodMove">เดินได้ดี</string>
   <string name="bestMove">เดินได้ดีที่สุด!</string>
   <string name="keepGoing">เดินต่อไป...</string>
   <string name="puzzleSuccess">แก้ไขปริศนาสำเร็จ!</string>
   <string name="puzzleComplete">แก้ไขปริศนาสำเร็จ!</string>
+  <string name="byOpenings">โดยการเปิดเกม</string>
+  <string name="puzzlesByOpenings">ปริศนาโดยการเปิดเกม</string>
+  <string name="openingsYouPlayedTheMost">การเปิดหมากที่คุณเล่นเยอะสุดในเกมคิดคะแนน</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">ใช้ \"Find in page\" ในเมนูบราวเซอร์ในการหาการเปิดเกมที่คุณชอบ</string>
+  <string name="useCtrlF">ใช้ Ctrl+f ในการหาการเปิดเกมที่คุณชอบ</string>
   <string name="notTheMove">ไม่ใช่การเดินที่ถูกต้อง!</string>
   <string name="trySomethingElse">ลองเดินอย่างอื่น</string>
-  <string name="ratingX">ระดับคะแนน: %s</string>
-  <string name="hidden">ถูกซ่อน</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">ระดับคะแนน: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ถูกซ่อน</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="other">ถูกเล่น %s ครั้ง</item>
   </plurals>
   <string name="fromGameLink">จากเกม %s</string>
@@ -59,7 +65,7 @@
   <string name="solved">แก้แล้ว</string>
   <string name="failed">ล้มเหลว</string>
   <string name="streakDescription">แก้ปริศนาที่ยากขึ้นเรื่อยๆ และสร้างคะแนนชนะต่อเนื่อง ไม่มีการจับเวลา ไม่จำเป็นต้องรีบร้อน อย่างไรก็ตาม เดินหมากผิดครั้งเดียวก็จบเกมเลย คุณสามารถข้ามตาเดินหมากได้หนึ่งครั้งต่อเกม</string>
-  <string name="yourStreakX">คะแนน: %s</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">คะแนน: %s</string>
   <string name="streakSkipExplanation">ข้ามการเดินหมากครั้งนี้เพื่อรักษาคะแนนของคุณไว้! มีผลแค่ครั้งเดียวต่อเกม</string>
   <string name="continueTheStreak">เล่นเกมต่อ</string>
   <string name="newStreak">เกมใหม่</string>

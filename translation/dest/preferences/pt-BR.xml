@@ -15,10 +15,11 @@
   <string name="pgnLetter">Letra (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="showPlayerRatings">Mostrar rating dos jogadores</string>
+  <string name="showFlairs">Mostrar emotes de usuário</string>
   <string name="explainShowPlayerRatings">Permite ocultar todas os ratings do site, para ajudar a se concentrar no jogo. As partidas continuam valendo rating.</string>
   <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Durante partidas</string>
+  <string name="inGameOnly">Durante partidas</string>
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
@@ -36,7 +37,7 @@
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
-  <string name="whenPremoving">Quando mover previamente</string>
+  <string name="whenPremoving">Quando pré-mover</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
@@ -45,9 +46,9 @@
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono e oferta de empate</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
-  <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
-  <string name="castleByMovingOntoTheRook">Mova o Rei em direção a torre</string>
-  <string name="inputMovesWithTheKeyboard">Inclua os lances com o teclado</string>
+  <string name="castleByMovingTwoSquares">Mover o rei duas casas</string>
+  <string name="castleByMovingOntoTheRook">Mover o rei em direção à torre</string>
+  <string name="inputMovesWithTheKeyboard">Fazer lances com escrita do teclado</string>
   <string name="inputMovesWithVoice">Mova as peças com sua voz</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Insira setas para movimentos válidos</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Diga \"Bom jogo, bem jogado\" após a derrota ou empate</string>

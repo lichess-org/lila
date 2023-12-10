@@ -1,8 +1,10 @@
 package views.html.team
 
+import controllers.team.routes.{ Team as teamRoutes }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import lila.team.Team
 
 import controllers.routes
 
@@ -10,32 +12,31 @@ object list:
 
   import trans.team.*
 
-  def search(text: String, teams: Paginator[lila.team.Team])(using PageContext) =
+  def search(text: String, teams: Paginator[Team.WithMyLeadership])(using PageContext) =
     list(
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
-      nextPageUrl = n => routes.Team.search(text, n).url,
+      nextPageUrl = n => teamRoutes.search(text, n).url,
       search = text
     )
 
-  def all(teams: Paginator[lila.team.Team])(using PageContext) =
+  def all(teams: Paginator[Team.WithMyLeadership])(using PageContext) =
     list(
       name = trans.team.teams.txt(),
       teams = teams,
-      nextPageUrl = n => routes.Team.all(n).url
+      nextPageUrl = n => teamRoutes.all(n).url
     )
 
-  def mine(teams: List[lila.team.Team])(using ctx: PageContext) =
+  def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(myTeams()),
-          standardFlash,
-          ctx.me.filter(me => teams.size > lila.team.Team.maxJoin(me)) map { me =>
-            flashMessage("failure")(
-              s"You have joined ${teams.size} out of ${lila.team.Team.maxJoin(me)} teams. Leave some teams before you can join others."
-            )
+          standardFlash.map(div(cls := "box__pad")(_)),
+          ctx.me.filter(me => teams.size > Team.maxJoin(me)) map { me =>
+            flashMessage("failure"):
+              s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
           },
           table(cls := "slist slist-pad")(
             if teams.nonEmpty then tbody(teams.map(bits.teamTr(_)))
@@ -45,34 +46,31 @@ object list:
       )
     }
 
-  def ledByMe(teams: List[lila.team.Team])(using PageContext) =
-    bits.layout(title = myTeams.txt()) {
+  def ledByMe(teams: List[Team])(using PageContext) =
+    bits.layout(title = myTeams.txt()):
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(teamsIlead()),
           standardFlash,
           table(cls := "slist slist-pad")(
-            if teams.nonEmpty then tbody(teams.map(bits.teamTr(_)))
+            if teams.nonEmpty then tbody(teams.map(Team.WithMyLeadership(_, true)).map(bits.teamTr(_)))
             else noTeam()
           )
         )
       )
-    }
 
-  private def noTeam()(using PageContext) =
-    tbody(
-      tr(
+  private def noTeam()(using Context) =
+    tbody:
+      tr:
         td(colspan := "2")(
           br,
           noTeamFound()
         )
-      )
-    )
 
   private def list(
       name: String,
-      teams: Paginator[lila.team.Team],
+      teams: Paginator[Team.WithMyLeadership],
       nextPageUrl: Int => String,
       search: String = ""
   )(using PageContext) =
@@ -83,7 +81,7 @@ object list:
           boxTop(
             h1(name),
             div(cls := "box__top__actions")(
-              st.form(cls := "search", action := routes.Team.search())(
+              st.form(cls := "search", action := teamRoutes.search())(
                 input(st.name := "text", value := search, placeholder := trans.search.search.txt())
               )
             )
@@ -92,7 +90,7 @@ object list:
           table(cls := "slist slist-pad")(
             if teams.nbResults > 0 then
               tbody(cls := "infinite-scroll")(
-                teams.currentPageResults map { bits.teamTr(_) },
+                teams.currentPageResults map bits.teamTr,
                 pagerNextTable(teams, nextPageUrl)
               )
             else noTeam()

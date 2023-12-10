@@ -14,7 +14,7 @@ case class PublicLine(
 object PublicLine:
 
   def make(text: String, from: Source): PublicLine =
-    PublicLine(text, from.some, nowInstant.some)
+    PublicLine(text.take(200), from.some, nowInstant.some)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*
@@ -27,6 +27,8 @@ object PublicLine:
         case Array("u", id) => Success(Source.Study(StudyId(id)))
         case Array("e", id) => Success(Source.Team(TeamId(id)))
         case Array("i", id) => Success(Source.Swiss(SwissId(id)))
+        case Array("f", id) => Success(Source.Forum(ForumPostId(id)))
+        case Array("b", id) => Success(Source.Ublog(UblogPostId(id)))
         case _              => lila.db.BSON.handlerBadValue(s"Invalid PublicLine source $v")
     },
     x =>
@@ -37,6 +39,8 @@ object PublicLine:
         case Source.Watcher(gameId) => s"w:$gameId"
         case Source.Team(id)        => s"e:$id"
         case Source.Swiss(id)       => s"i:$id"
+        case Source.Forum(id)       => s"f:$id"
+        case Source.Ublog(id)       => s"b:$id"
       )
   )
 

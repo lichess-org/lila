@@ -5,6 +5,7 @@ import lila.common.paginator.*
 import lila.common.String.noShouting
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
 import lila.memo.CacheApi
 import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Me, User }
@@ -23,7 +24,8 @@ final private class ForumTopicApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    relationApi: lila.relation.RelationApi
 )(using Executor):
 
   import BSONHandlers.given
@@ -37,14 +39,26 @@ final private class ForumTopicApi(
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
       data <- categRepo byId categId flatMapz { categ =>
-        topicRepo.forUser(me).byTree(categId, slug) dmap {
-          _ map (categ -> _)
-        }
+        topicRepo
+          .forUser(me)
+          .byTree(categId, slug)
+          .dmap:
+            _.map(categ -> _)
       }
-      res <- data so { (categ, topic) =>
+      res <- data.so: (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator.topicPosts(topic, page) map { (categ, topic, _).some }
-      }
+        paginator
+          .topicPosts(topic, page)
+          .flatMap: paginated =>
+            val authors = paginated.currentPageResults.flatMap(_.post.userId)
+            me.so(relationApi.filterBlocked(_, authors))
+              .map: blockedAuthors =>
+                (
+                  categ,
+                  topic,
+                  paginated.mapResults: p =>
+                    p.copy(hide = p.post.userId.so(blockedAuthors(_)))
+                ).some
     yield res
 
   object findDuplicate:
@@ -92,8 +106,8 @@ final private class ForumTopicApi(
             promotion.save(post.text)
             shutup ! {
               val text = s"${topic.name} ${post.text}"
-              if post.isTeam then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
+              if post.isTeam then RecordTeamForumMessage(me, text)
+              else RecordPublicText(me, text, PublicSource.Forum(post.id))
             }
             if !post.troll && !categ.quiet then
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))

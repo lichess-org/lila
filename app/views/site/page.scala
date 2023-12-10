@@ -46,41 +46,43 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       active = "source",
       moreCss = frag(cssTag("source")),
       contentCls = "page force-ltr",
-      moreJs = embedJsUnsafeLoadThen(
+      moreJs = embedJsUnsafeLoadThen:
         """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 12));
+$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 7));
+$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + lichess.info.commit + '...master').find('pre').text('...');
 $('#asset-version-message').text(lichess.info.message);"""
-      )
     ):
+      val commit = env.appVersionCommit | "???"
       frag(
-        st.section(cls := "box box-pad body")(
-          h1(cls := "box__top")(title),
-          raw(~doc.getHtml("doc.content", resolver))
-        ),
-        br,
         st.section(cls := "box")(
-          h1(id := "version", cls := "box__top")("lila version"),
-          table(cls := "slist slist-pad")(
-            env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
-              case ((date, commit), message) =>
-                tr(
-                  td("Server"),
-                  td(date),
-                  td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(12)))),
-                  td(message)
-                )
-            },
-            tr(
-              td("Assets"),
-              td(id := "asset-version-date"),
-              td(a(id := "asset-version-commit")(pre)),
-              td(id := "asset-version-message")
+          h1(cls := "box__top")(title),
+          table(cls := "slist slist-pad", id := "version")(
+            thead(
+              tr(
+                th(colspan := 3)("Current versions"),
+                th(colspan := 2)("Last boot: ", momentFromNow(lila.common.Uptime.startedAt))
+              )
             ),
-            tr(
-              td("Boot"),
-              td(colspan := 3)(momentFromNow(lila.common.Uptime.startedAt))
+            tbody(
+              tr(
+                td("Server"),
+                td(env.appVersionDate),
+                td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(7)))),
+                td(env.appVersionMessage),
+                td(a(href := s"https://github.com/lichess-org/lila/compare/$commit...master")(pre("...")))
+              ),
+              tr(
+                td("Assets"),
+                td(id := "asset-version-date"),
+                td(a(id := "asset-version-commit")(pre)),
+                td(id := "asset-version-message"),
+                td(a(id := "asset-version-upcoming")(pre("...")))
+              )
             )
           )
+        ),
+        st.section(cls := "box box-pad body")(
+          raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
         st.section(cls := "box")(freeJs())
@@ -172,7 +174,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
-              a(href := routes.Study.allDefault(1))("a study"),
+              a(href := routes.Study.allDefault())("a study"),
               ", then click the share button to get the HTML code for the current chapter."
             ),
             parameters,
@@ -212,8 +214,9 @@ $('#asset-version-message').text(lichess.info.message);"""
       val external             = frag(" ", i(dataIcon := licon.ExternalArrow))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
+        views.html.site.bits.pageMenuSubnav(
           a(activeCls("about"), href := "/about")(trans.aboutX("lichess.org")),
+          a(activeCls("news"), href := routes.DailyFeed.index)("Daily News"),
           a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
           a(activeCls("tos"), href := routes.ContentPage.tos)(trans.termsOfService()),

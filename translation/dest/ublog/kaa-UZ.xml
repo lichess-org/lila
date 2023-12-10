@@ -36,10 +36,10 @@
   <string name="imageAlt">Súwrettiń tekstli táriypi</string>
   <string name="deleteBlog">Usı blog xabarın pútkilley óshiriw</string>
   <string name="deleteImage">Súwretti óshiriw</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
+  <string name="safeToUseImages">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
   <string name="selectPostTopics">Xabarlarıńız ushın temalar tańlań</string>
   <string name="useImagesYouMadeYourself">Sonıń menen birge siz avtorlıq huqıqı menen qorǵalmaǵan qálegen nárseni yaǵnıy ózińiz sızǵan súwretler, túsirgenler fotolar, Lichesstiń skrinshotların... qollanıwıńız múmkin.</string>
   <string name="safeAndRespectfulContent">Ótinish, tek ǵana mazmunı qáwipsiz hám basqalardı húrmet etip xabarlar jazıń. Basqalardıń kontentin nusqalamań.</string>
   <string name="inappropriateContentAccountClosed">Hár qanday orınsız nárse akkauntıńız jabılıwına alıp keliwi múmkin.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ájayıp blog xabarların jazıw ushın bizlerdiń ápiwayı máláhátlerimiz</string>
+  <string name="blogTips">Ájayıp blog xabarların jazıw ushın bizlerdiń ápiwayı máláhátlerimiz</string>
 </resources>

@@ -3,7 +3,7 @@
   <string name="advancedPawn">Προωθημένο πιόνι</string>
   <string name="advancedPawnDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="advantage">Πλεονέκτημα</string>
-  <string name="advantageDescription">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">To ματ της Αναστασίας</string>
   <string name="anastasiaMateDescription">Ένας ίππος και ένας πύργος ή βασίλισσα κάνουν ματ στον αντίπαλο βασιλιά στο περιθώριο της σκακιέρας, όταν ένα φιλικό κομμάτι του εμποδίζει την διαφυγή.</string>
   <string name="arabianMate">Αραβικό ματ</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
   <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
   <string name="crushing">Σύνθλιψη</string>
-  <string name="crushingDescription">Εντοπίστε το σοβαρό λάθος του αντιπάλου για να αποκτήσετε συντριπτικό πλεονέκτημα. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Εντοπίστε το σοβαρό λάθος του αντιπάλου για να αποκτήσετε συντριπτικό πλεονέκτημα. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Ματ με δύο αξιωματικούς</string>
   <string name="doubleBishopMateDescription">Δύο επιτιθέμενοι αξιωματικοί σε κοντινή απόσταση κάνουν ματ σε βασιλιά που εμποδίζεται από φιλικά κομμάτια.</string>
   <string name="dovetailMate">Dovetail ματ</string>
   <string name="dovetailMateDescription">Βασίλισσα κάνει ματ σε παρακείμενο βασιλιά, του οποίου τα μοναδικά δύο τετράγωνα διαφυγής εμποδίζονται από φιλικά κομμάτια.</string>
   <string name="equality">Ισότητα</string>
-  <string name="equalityDescription">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Επίθεση στην πλευρά του βασιλιά</string>
   <string name="kingsideAttackDescription">Επίθεση στον αντίπαλο βασιλιά, μετά από μικρό ροκέ.</string>
   <string name="clearance">Ελευθέρωση</string>
@@ -110,7 +110,7 @@
   <string name="superGM">Παιχνίδια Super GM</string>
   <string name="superGMDescription">Γρίφοι από παρτίδες που παίχθηκαν από κορυφαίους παίκτες του κόσμου.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
-  <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
+  <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει την αιχμαλώτιση, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
   <string name="underPromotionDescription">Προώθηση σε ιππότη, αξιωματικό ή πύργο.</string>
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">Προτεινόμενο μίγμα</string>
   <string name="healthyMixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
   <string name="playerGames">Παιχνίδια παίκτη</string>
-  <string name="playerGamesDescription">Αναζητήστε παζλ που δημιουργήθηκαν από παιχνίδια είτε δικά σας είτε άλλων παικτών.</string>
+  <string name="playerGamesDescription">Αναζητήστε γρίφους που δημιουργήθηκαν από παιχνίδια είτε δικά σας είτε άλλων παικτών.</string>
   <string name="puzzleDownloadInformation">Αυτοί οι γρίφοι είναι δημόσιοι και μπορείτε να τους κατεβάσετε εδώ %s.</string>
 </resources>

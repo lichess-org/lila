@@ -471,8 +471,6 @@
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
-  <string name="savingMoves">임시 이동 저장</string>
-  <string name="savingMovesHelp">변동 사항들은 항상 당신의 브라우저 캐시에 저장됩니다.</string>
   <string name="makeAStudy">안전하게 보관하고 공유하려면 스터디를 만들어 보세요.</string>
   <string name="clearSavedMoves">저장된 움직임 삭제</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
@@ -663,6 +661,7 @@
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s는 %2$s의 %3$s 플레이어보다 더 뛰어납니다.</string>
+  <string name="betterThanPercentPlayers">%1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="yourRating">당신의 레이팅</string>
   <string name="cumulative">누적 유저 비율</string>
@@ -704,7 +703,7 @@
   <string name="zeroAdvertisement">광고가 없습니다</string>
   <string name="fullFeatured">모든 기능을 지원합니다</string>
   <string name="phoneAndTablet">스마트폰과 태블릿 지원</string>
-  <string name="bulletBlitzClassical">불릿, 블릿츠, 클래식 방식 지원</string>
+  <string name="bulletBlitzClassical">불릿, 블리츠, 클래식 방식 지원</string>
   <string name="correspondenceChess">우편 체스 지원</string>
   <string name="onlineAndOfflinePlay">온라인/오프라인 게임 모두 지원</string>
   <string name="viewTheSolution">해답 보기</string>
@@ -820,6 +819,7 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
   <string name="classical">클래시컬</string>
   <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
@@ -859,9 +859,6 @@
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
   <string name="clickToRevealEmailAddress">[이메일 주소를 보려면 클릭]</string>
   <string name="download">다운로드</string>
-  <string name="welcome">환영합니다!</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
-모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="coachManager">코치 설정</string>
   <string name="streamerManager">스트리머 설정</string>
   <string name="cancelTournament">토너먼트 취소</string>
@@ -920,4 +917,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="switchSides">색 바꾸기</string>
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
+  <string name="instructions">설명</string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
+모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
 </resources>

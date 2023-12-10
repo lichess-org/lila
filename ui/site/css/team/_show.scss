@@ -7,10 +7,13 @@ $section-margin-more: 5vh;
   overflow: hidden;
 
   h1 {
-    @extend %break-word-hard, %zalgoverflow;
+    @extend %break-word-hard, %zalgoverflow, %flex-center;
 
     unicode-bidi: plaintext;
-    display: flex;
+
+    .uflair {
+      transform: none;
+    }
   }
 
   .mchat {
@@ -146,19 +149,5 @@ $section-margin-more: 5vh;
 
   &__log {
     margin-bottom: 2em;
-  }
-}
-
-.team-edit {
-  .inline {
-    display: inline;
-  }
-  .accent {
-    textarea {
-      border-color: $c-brag;
-    }
-    label {
-      color: $c-brag;
-    }
   }
 }

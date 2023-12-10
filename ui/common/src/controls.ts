@@ -1,5 +1,5 @@
-import { h, Hooks } from 'snabbdom';
-import { bind, onInsert } from './snabbdom';
+import { h, Hooks, VNode } from 'snabbdom';
+import { bind } from './snabbdom';
 import { toggle as baseToggle } from './common';
 import * as xhr from './xhr';
 
@@ -39,12 +39,19 @@ export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
   );
 }
 
-export const rangeConfig = (read: () => number, write: (value: number) => void): Hooks =>
-  onInsert((el: HTMLInputElement) => {
-    el.value = '' + read();
-    el.addEventListener('input', _ => write(parseInt(el.value)));
-    el.addEventListener('mouseout', _ => el.blur());
-  });
+export function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
+  return {
+    insert: (v: VNode) => {
+      const el = v.elm as HTMLInputElement;
+      el.value = '' + read();
+      el.addEventListener('input', _ => write(parseInt(el.value)));
+      el.addEventListener('mouseout', _ => el.blur());
+    },
+    update: (_, v: VNode) => {
+      (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
+    },
+  };
+}
 
 export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => void = lichess.reload) =>
   baseToggle(val, async v => {

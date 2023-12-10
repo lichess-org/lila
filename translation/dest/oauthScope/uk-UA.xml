@@ -9,7 +9,7 @@
   <string name="doNotShareIt">Токен надає доступ до вашого облікового запису. Не поширюйте його нікому!</string>
   <string name="copyTokenNow">Переконайтеся, що ви скопіювали ваш токен. Ви не зможете побачити його ще раз!</string>
   <string name="preferenceRead">Переглядати налаштування</string>
-  <string name="preferenceWrite">Змінювати налаштування</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, a setting that enables permission to edit/change preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Змінювати налаштування</string>
   <string name="emailRead">Переглядати ел. адресу</string>
   <string name="challengeRead">Переглядати вхідні виклики</string>
   <string name="challengeWrite">Створювати, приймати та відхиляти виклики</string>
@@ -31,4 +31,21 @@
   <string name="engineWrite">Створювати та оновлювати зовнішні рушії</string>
   <string name="webLogin">Створювати автентифіковані сесії на вебсайті (надає повний доступ!)</string>
   <string name="webMod">Використовувати інструменти модерації (в рамках ваших дозволів)</string>
+  <string name="personalAccessTokens">API токени особистого доступу</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Ви можете зробити запити OAuth не проходячи через %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">Потік коду авторизації</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Натомість %s який ви можете безпосередньо використовувати в запитах API.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">згенеруйте токен особистого доступу</string>
+  <string name="guardTokensCarefully">Обережно бережіть ці токени! Вони як паролі. Перевага використання токенів перед розміщенням паролю у скрипт полягає в тому, що токени можна відкликати та ви можете згенерувати багато таких.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Ось %1$s та %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">приклад особистого додатка з токеном</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">документація API</string>
+  <string name="newToken">Новий токен доступу</string>
+  <string name="apiAccessTokens">Токени доступу до API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Створено %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Востаннє використано %s</string>
+  <string name="alreadyHavePlayedGames">Ви вже грали в ігри!</string>
+  <string name="attentionOfDevelopers">Нотатка тільки для уваги розробників:</string>
+  <string name="possibleToPrefill">Цю форму можна попередньо заповнити, налаштувавши параметри запиту URL-адреси.</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Приклад: %s</string>
 </resources>

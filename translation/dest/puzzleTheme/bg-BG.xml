@@ -3,7 +3,7 @@
   <string name="advancedPawn">Напреднала пешка</string>
   <string name="advancedPawnDescription">Произвеждането на пешка, или заплахата за произвеждане, е ключова стратегия.</string>
   <string name="advantage">Предимство</string>
-  <string name="advantageDescription">Възползване от шанс за решаващо предимство. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Възползване от шанс за решаващо предимство. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Мат на Анастасия</string>
   <string name="anastasiaMateDescription">Кон и топ (или дама) се координират за да приклещят противниковия цар между края на дъската и друга фигура.</string>
   <string name="arabianMate">Арабски мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
   <string name="crushing">Погром</string>
-  <string name="crushingDescription">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
   <string name="doubleBishopMate">Мат с два офицера</string>
   <string name="doubleBishopMateDescription">Два офицера на съседни диагонали матират цар обкръжен от собствените си фигури.</string>
   <string name="dovetailMate">Мат на Коцио</string>
   <string name="dovetailMateDescription">Дамата матира стоящият до нея цар, чиито единствени две полета за отстъпление са блокирани от собствените му фигури.</string>
   <string name="equality">Изравняване</string>
-  <string name="equalityDescription">Обрат от губеща позиция и постигане на равенство или равностойна позиция. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Обрат от губеща позиция и постигане на равенство или равностойна позиция. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на царския фланг</string>
   <string name="kingsideAttackDescription">Атака над противниковия цар след малка рокада.</string>
   <string name="clearance">Освобождаване на поле</string>

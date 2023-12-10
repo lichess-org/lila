@@ -2,12 +2,6 @@
   width: 100%;
   border-bottom: $border;
 
-  .slist-wrapper & {
-    @include breakpoint($mq-not-x-small) {
-      min-width: calc(650px - var(--box-padding) * 2);
-    }
-  }
-
   thead {
     @extend %metal, %roboto;
 
@@ -66,4 +60,48 @@
 .slist-wrapper {
   overflow-x: auto;
   max-width: calc(100vw - var(--box-padding) * 2);
+
+  .slist {
+    @include breakpoint($mq-not-x-small) {
+      min-width: calc(650px - var(--box-padding) * 2);
+    }
+  }
+}
+
+/* requires each td to have a data-label attribute */
+.slist.slist-resp {
+  @include breakpoint($mq-not-x-small) {
+    border-collapse: collapse;
+    table-layout: fixed;
+    thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    tr {
+      display: block;
+      border-top: $border;
+    }
+
+    td {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem var(--box-padding);
+      border-top: $border;
+    }
+
+    td::before {
+      /* aria-label has no advantage, it won't be read inside a table
+         content: attr(aria-label); */
+      content: attr(data-label);
+    }
+  }
 }

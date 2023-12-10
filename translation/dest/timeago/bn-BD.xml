@@ -30,10 +30,6 @@
     <item quantity="other">%s বছরের মধ্যে</item>
   </plurals>
   <string name="rightNow">এই মুহূর্তে</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s সেকেন্ড আগে</item>
-    <item quantity="other">%s সেকেন্ড আগে</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s মিনিট আগে</item>
     <item quantity="other">%s মিনিট আগে</item>

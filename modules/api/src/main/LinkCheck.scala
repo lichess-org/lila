@@ -7,8 +7,7 @@ import lila.simul.Simul
 import lila.simul.SimulApi
 import lila.swiss.Swiss
 import lila.swiss.SwissApi
-import lila.team.Team
-import lila.team.TeamRepo
+import lila.team.{ Team, TeamApi }
 import lila.tournament.Tournament
 import lila.tournament.TournamentRepo
 import lila.study.Study
@@ -23,7 +22,7 @@ import scala.annotation.nowarn
  * */
 final private class LinkCheck(
     domain: NetDomain,
-    teamRepo: TeamRepo,
+    teamApi: TeamApi,
     tournamentRepo: TournamentRepo,
     simulApi: SimulApi,
     swissApi: SwissApi,
@@ -51,7 +50,7 @@ final private class LinkCheck(
       case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource.apply
       case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource.apply
       case PublicSource.Swiss(id)      => swissApi fetchByIdNoCache id map2 FullSource.SwissSource.apply
-      case PublicSource.Team(id)       => teamRepo byId id map2 FullSource.TeamSource.apply
+      case PublicSource.Team(id)       => teamApi idAndLeaderIds id map2 FullSource.TeamSource.apply
       case PublicSource.Study(id)      => studyRepo byId id map2 FullSource.StudySource.apply
       case _                           => fuccess(none)
   } flatMapz { source =>
@@ -107,8 +106,8 @@ private object LinkCheck:
     case class SwissSource(value: Swiss) extends FullSource:
       def owners = Set(value.createdBy)
       def teamId = value.teamId.some
-    case class TeamSource(value: Team) extends FullSource:
-      def owners = value.leaders
+    case class TeamSource(value: Team.IdAndLeaderIds) extends FullSource:
+      def owners = value.leaderIds
       def teamId = value.id.some
     case class StudySource(value: Study) extends FullSource:
       def owners = value.members.idSet

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">Tabuleiro DGT</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Requisitos do Tabuleiro DGT</string>
+  <string name="dgtBoardLimitations">Limitações do Tabuleiro DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Esta página permite que conectes o teu tabuleiro DGT ao Lichess, e usá-lo para jogar.</string>
+  <string name="toConnectTheDgtBoard">Para conectar ao Tabuleiro Eletrónico DGT, precisas instalar o %s.</string>
+  <string name="downloadHere">Podes transferir o programa por aqui: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Se executas a %1$s neste computador, podes verificar a tua conexão com ela %2$s.</string>
+  <string name="openingThisLink">acedendo este link</string>
+  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Se executas a %1$s numa máquina diferente ou numa porta diferente, precisarás de definir o endereço de IP e a porta na %2$s.</string>
+  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Secção de Configuração</string>
+  <string name="keepPlayPageOpen">A página \"Jogar\" precisa continuar aberta no teu navegador. Ele não precisa estar visível, podes minimizá-la ou colocá-la lado a lado com a página da partida do Lichess, mas não a feche ou o tabuleiro vai parar de funcionar.</string>
+  <string name="boardWillAutoConnect">O tabuleiro irá se conectar automaticamente a qualquer jogo que já esteja em curso ou a qualquer novo jogo que seja iniciado. A capacidade de escolher qual o jogo jogar será adicionado em breve.</string>
+  <string name="timeControlsForCasualGames">Os controlos de tempo para jogos amigáveis: Clássicas, Correspondência e Semi-Rápidas só.</string>
+  <string name="timeControlsForRatedGames">Os controlos de tempo para jogos a valer pontos: Clássicas, Correspondência e algumas Semi-Rápidas, incluído 15+10 e 20+0</string>
+  <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Quando estiveres pronto, configura o teu tabuleiro e clique em %s.</string>
+  <string name="ifMoveNotDetected">Se um movimento não for detetado</string>
+  <string name="checkYouHaveMadeOpponentsMove">Verifique se fizestes primeiro o movimento do teu oponente no tabuleiro DGT. Reverte o teu movimento. Joga novamente.</string>
+  <string name="asALastResort">Como último recurso, configura o tabuleiro de forma idêntica com do Lichess, e então %s</string>
+  <string name="reloadThisPage">Recarrega esta pagina</string>
+  <string name="dgtConfigure">DGT — Configuração</string>
+  <string name="lichessConnectivity">Conexão com o Lichess</string>
+  <string name="validDgtOauthToken">Tens um token OAuth adequado para o jogar com o DGT.</string>
+  <string name="dgtPlayMenuEntryAdded">\"%s\" foi adicionado ao teu menu JOGAR na parte superior.</string>
+  <string name="noSuitableOauthToken">Nenhum token OAuth adequado foi criado.</string>
+  <string name="dgtBoardConnectivity">Conexão com o Tabuleiro DGT</string>
+  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Clica aqui para gerar um</string>
+  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">URL do WebSocket da %s</string>
+  <string name="useWebSocketUrl" comment="useWebSocketUrl&#10;&#10;%1$s = ws://localhost:1982/api/v1.0&#10;(this is a URL)&#10;%2$s = LiveChess&#10;&#10;Complete string: Use &quot;ws://localhost:1982/api/v1.0&quot; unless LiveChess is running on a different machine or different port.&#10;&#10;LiveChess is a move broadcasting technology by the DGT Company, used by many third parties.">Usa \"%1$s\" a menos que a %2$s esteja a ser executada numa máquina ou porta diferente.</string>
+  <string name="textToSpeech">Texto por voz</string>
+  <string name="configureVoiceNarration">Configura a narração de voz dos movimentos jogados, assim podes ficar de olho no tabuleiro.</string>
+  <string name="enableSpeechSynthesis">Ativar a Narração</string>
+  <string name="speechSynthesisVoice">Voz da Narração</string>
+  <string name="announceAllMoves">Anunciar todos os movimentos</string>
+  <string name="selectAnnouncePreference">Seleciona SIM para anunciar tanto os teus movimentos do teu oponente. Seleciona NÃO para anunciar só os movimentos do teu oponente.</string>
+  <string name="announceMoveFormat">Formato da Anunciação dos Movimentos</string>
+  <string name="moveFormatDescription">SAN é o padrão do Lichess como o \"Nf6\". O UCI é o comum em motores como o \"g8f6\".</string>
+  <string name="keywords">Palavras-chave</string>
+  <string name="keywordFormatDescription">Palavras-chave estão no formato JSON. Elas são usadas para traduzir movimentos e resultados para o teu idioma. O padrão é o inglês, mas és livre para mudá-las.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Depuração</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">Registo detalhado</string>
+  <string name="toSeeConsoleMessage">Para ver a mensagem da consola, pressiona Command + Option + C (Mac) ou Ctrl + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="playWithDgtBoard">Jogar com um Tabuleiro DGT</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Configurar</string>
+</resources>

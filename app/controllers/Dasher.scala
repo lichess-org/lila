@@ -55,7 +55,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
   private lazy val galleryJson = env.memo.cacheApi.unit[Option[JsValue]]:
     _.refreshAfterWrite(1.minute)
       .buildAsyncFuture: _ =>
-        ws.url(s"${env.net.assetBaseUrl}/assets/lifat/background/gallery.json")
+        ws.url(s"${env.net.assetBaseUrlInternal}/assets/lifat/background/gallery.json")
           .get()
           .map:
             case res if res.status == 200 => res.body[JsValue].some

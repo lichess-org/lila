@@ -7,6 +7,7 @@ case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[UserTitle],
+    flair: Option[lila.Lila.Flair],
     isPatron: Boolean
 ):
 
@@ -18,23 +19,24 @@ object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), none, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false)
 
   given UserIdOf[LightUser] = _.id
 
-  given lightUserWrites: OWrites[LightUser] = OWrites: u =>
-    writeNoId(u) + ("id" -> JsString(u.id.value))
+  given lightUserWrites: OWrites[LightUser] = OWrites(write)
 
-  def writeNoId(u: LightUser): JsObject =
-    Json
-      .obj("name" -> u.name)
-      .add("title" -> u.title)
-      .add("patron" -> u.isPatron)
+  def write(u: LightUser): JsObject = writeNoId(u) + ("id" -> JsString(u.id.value))
+  def writeNoId(u: LightUser): JsObject = Json
+    .obj("name" -> u.name.value)
+    .add("title", u.title)
+    .add("flair", u.flair)
+    .add("patron", u.isPatron)
 
   def fallback(name: UserName) = LightUser(
     id = name.id,
     name = name,
     title = None,
+    flair = None,
     isPatron = false
   )
 

@@ -16,7 +16,7 @@ import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import { ClockController } from './clock/clockCtrl';
-import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
+import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
 import * as atomic from './atomic';
@@ -163,8 +163,6 @@ export default class RoundController {
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
-
-    lichess.sound.move();
   }
 
   private showExpiration = () => {
@@ -189,8 +187,8 @@ export default class RoundController {
       if (this.data.game.variant.key === 'atomic') {
         lichess.sound.play('explosion');
         atomic.capture(this, dest);
-      }
-    }
+      } else lichess.sound.move({ name: 'capture', filter: 'game' });
+    } else lichess.sound.move({ name: 'move', filter: 'game' });
   };
 
   private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -274,7 +272,7 @@ export default class RoundController {
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
     this.chessground.set(config);
-    if (isForwardStep) lichess.sound.move(s);
+    if (s.san && isForwardStep) lichess.sound.move(s);
     this.autoScroll();
     const canMove = ply === this.lastPly() && this.data.player.color === config.turnColor;
     this.voiceMove?.update(s.fen, canMove);
@@ -294,7 +292,7 @@ export default class RoundController {
 
   isLate = () => this.replaying() && status.playing(this.data);
 
-  playerAt = (position: Position) =>
+  playerAt = (position: Position): game.Player =>
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
   flipNow = () => {
@@ -445,6 +443,7 @@ export default class RoundController {
         },
         check: !!o.check,
       });
+      if (o.check) lichess.sound.play('check');
       blur.onMove();
       lichess.pubsub.emit('ply', this.ply);
     }
@@ -496,7 +495,7 @@ export default class RoundController {
     this.onChange();
     this.keyboardMove?.update(step, playedColor != d.player.color);
     this.voiceMove?.update(step.fen, playedColor != d.player.color);
-    lichess.sound.move(o);
+    lichess.sound.move({ ...o, filter: 'music' });
     lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
@@ -550,6 +549,7 @@ export default class RoundController {
     ) {
       this.reload(d);
     }
+    this.promotion.cancel();
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
@@ -594,7 +594,7 @@ export default class RoundController {
     lichess.pubsub.emit('challenge-app.open');
     if (lichess.once('rematch-challenge'))
       setTimeout(() => {
-        lichess.hopscotch(function () {
+        lichess.asset.hopscotch(function () {
           window.hopscotch
             .configure({
               i18n: { doneBtn: 'OK, got it' },
@@ -617,7 +617,7 @@ export default class RoundController {
 
   private makeCorrespondenceClock = (): void => {
     if (this.data.correspondence && !this.corresClock)
-      this.corresClock = makeCorresClock(this, this.data.correspondence, this.socket.outoftime);
+      this.corresClock = new CorresClockController(this, this.data.correspondence, this.socket.outoftime);
   };
 
   private corresClockTick = (): void => {
@@ -653,23 +653,18 @@ export default class RoundController {
         prompt: this.noarg('takebackPropositionSent'),
         no: { action: this.cancelTakebackPreventDraws, key: 'cancel' },
       };
-    } else if (this.data.player.offeringDraw) {
-      this.voiceMove?.listenForResponse('cancelDraw', v => !v && this.socket.sendLoading('draw-no'));
-      return {
-        prompt: this.noarg('drawOfferSent'),
-        no: { action: () => this.socket.sendLoading('draw-no'), key: 'cancel' },
-      };
-    } else if (this.data.opponent.proposingTakeback)
-      return {
-        prompt: this.noarg('yourOpponentProposesATakeback'),
-        yes: { action: this.takebackYes, icon: licon.Back },
-        no: { action: () => this.socket.send('takeback-no') },
-      };
+    } else if (this.data.player.offeringDraw) return { prompt: this.noarg('drawOfferSent') };
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: this.noarg('yourOpponentOffersADraw'),
         yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
         no: { action: () => this.socket.send('draw-no') },
+      };
+    else if (this.data.opponent.proposingTakeback)
+      return {
+        prompt: this.noarg('yourOpponentProposesATakeback'),
+        yes: { action: this.takebackYes, icon: licon.Back },
+        no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
     else return false;

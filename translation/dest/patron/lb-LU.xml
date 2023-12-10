@@ -42,23 +42,25 @@ Dann bezuelen mir och en Vollzäit-Entwéckler: %s, den Grënner vun Lichess.</s
   <string name="changeOrContact">Jo, zu all Zäitpunkt, op dëser Säit.
 Oder du kanns %s.</string>
   <string name="contactSupport">de Lichess Support kontaktéieren</string>
-  <string name="otherMethods">Aner Weeër ze spenden?</string>
+  <string name="otherMethods">Aner Weeër fir ze spenden?</string>
   <string name="lichessIsRegisteredWith">Lichess ass bei %s registréiert.</string>
   <string name="bankTransfers">Mir akzeptéieren och Bank-Transferten</string>
-  <string name="patronFeatures">Sinn verschidden Funktiounen just fir Ënnerstëtzer?</string>
-  <string name="noPatronFeatures">Nee, well Lichess komplett gratis ass, fir ëmmer an fir jiddereen. Dat ass versprach.
+  <string name="onlyDonationFromAbove">Bedenk, datt s du nëmmen iwwer de Spendeformulaire hei uewen driwwer den Ënnerstëtzer-Status kriss.</string>
+  <string name="patronFeatures">Si verschidde Funktioune just fir Ënnerstëtzer?</string>
+  <string name="noPatronFeatures">Nee, well Lichess komplett gratis ass, an zwar fir ëmmer a fir jiddereen. Dat ass versprach.
 Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flilleken-Icon ze bretzen.</string>
-  <string name="featuresComparison">Detailléierten Funktiounen-Vergläich kucken</string>
+  <string name="featuresComparison">Detailléierte Verglach vun de Funktioune kucken</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Ënnerstëtzer säit engem Mount</item>
-    <item quantity="other">Lichess Ënnerstëtzer säit %s Méint</item>
+    <item quantity="one">Lichess-Ënnerstëtzer säit engem Mount</item>
+    <item quantity="other">Lichess-Ënnerstëtzer säit %s Méint</item>
   </plurals>
   <string name="youSupportWith">Du ënnerstëtzs lichess.org mat %s pro Mount.</string>
-  <string name="tyvm">Villmols merci fir deng Hëllef. Du rocks!</string>
-  <string name="currentStatus">Aktuellen Status</string>
+  <string name="tyvm">Villmools merci fir deng Hëllef. Du rocks!</string>
+  <string name="currentStatus">Aktuelle Status</string>
   <string name="nextPayment">Nächst Zuelung</string>
   <string name="youWillBeChargedXOnY">Dir ginn %1$s um %2$s berechent.</string>
   <string name="makeAdditionalDonation">Eng zousätzlech Spend maachen</string>
+  <string name="giftPatronWingsShort">Ënnerstëtzer-Flilleke schenken</string>
   <string name="giftPatronWings">Engem Spiller Ënnerstëtzer-Flilleken schenken</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Méintlechen Montant änneren (%s)</string>

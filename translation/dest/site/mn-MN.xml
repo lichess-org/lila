@@ -54,10 +54,13 @@
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
   <string name="computerAnalysis">Компьютерийн шинжилгээ</string>
   <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
+  <string name="computerAnalysisDisabled">Дүгнэлт шинжилгээ хориглогдсон</string>
   <string name="analysis">Өрөг шинжлэх</string>
   <string name="depthX">Гүн %s</string>
   <string name="usingServerAnalysis">Серверийн шинжилгээг ашиглаж байна</string>
   <string name="loadingEngine">Шинжилгээ ачааллагдаж байна...</string>
+  <string name="calculatingMoves">Нүүдлийг тооцоолж байна...</string>
+  <string name="engineFailed">Төхөөрөмж ашиглахад алдаатай байна</string>
   <string name="cloudAnalysis">Өндөр хэмжээний шинжилгээ</string>
   <string name="goDeeper">Цаашлах</string>
   <string name="showThreat">Аюулыг үзүүл</string>
@@ -84,12 +87,19 @@
   <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
+  <string name="dtzWithRounding">DTZ50 үе нь, хүүний нүүдлийн эсвэл дараагийн барилт хүртэлийн тал нүүдлээр тулгуурлагдсан</string>
   <string name="noGameFound">Өрөг олдсонгүй</string>
+  <string name="maxDepthReached">Дээд хязгаард хүрсэн!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
+  <string name="openings">Гараа</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
+  <string name="openingEndgameExplorer">Гараа/төгсгөл судлах</string>
   <string name="xOpeningExplorer">%s гарааны сан</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Эхлээд гарааны/төгсгөлийг судлах нүүдлээр тогло</string>
   <string name="winPreventedBy50MoveRule">50-н нүүдлийн дүрмээр хожил тооцогдоогүй</string>
   <string name="lossSavedBy50MoveRule">50-н нүүдлийн дүрмээр хожилдол аваагүй</string>
+  <string name="winOr50MovesByPriorMistake">Ялах эсвэл өмнөх алдаагаар 50 нүүх</string>
+  <string name="lossOr50MovesByPriorMistake">Хожигдох эсвэл өмнөх алдаагаар 50 нүүх</string>
   <string name="allSet">Бүгд бэлэн!</string>
   <string name="importPgn">PGN оруулах</string>
   <string name="delete">Устгах</string>
@@ -100,6 +110,7 @@
   <string name="openStudy">Хичээл нээх</string>
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
+  <string name="showVariationArrows">Хувилбарыг сумаар харуулах</string>
   <string name="evaluationGauge">Шинжилгээний хэм</string>
   <string name="multipleLines">Олон хувилбарууд</string>
   <string name="cpus">CPU</string>
@@ -119,6 +130,7 @@
     <item quantity="one">%s тоглогчид байна</item>
     <item quantity="other">%s тоглогчид байна</item>
   </plurals>
+  <string name="drawByMutualAgreement">Харилцан тохиролцож тэнцэх</string>
   <string name="currentGames">Яг одоо тоглогдож буй өргүүд</string>
   <plurals name="nbGames">
     <item quantity="one">Бүх %s өргүүд</item>
@@ -131,6 +143,7 @@
   <string name="viewInFullSize">Бүрэн хэмжээсээр харах</string>
   <string name="logOut">Гарах</string>
   <string name="signIn">Нэвтрэх</string>
+  <string name="rememberMe">Намайг нэвтэрснээр минь үлдээ</string>
   <string name="youNeedAnAccountToDoThat">Личессийн гишүүн болсноор та энэхүү үйлдлийг хийх боломжтой болно</string>
   <string name="signUp">Бүртгүүлэх</string>
   <string name="computersAreNotAllowedToPlay">Компьютер болон компьютерийн тусламж авч тоглох хориотой болно. Та өөр хүн, шатрын автомат сан хөмрөг, компьютерийн тусламж битгий аваарай. Мөн нэг хүн олон тооны гишүүнчлэл үүсгэхийг бид дэмжихгүй бөгөөд энэхүү үйлдэл нь таны манай цахим хуудасанд хандах эрхийг хасахад хүргэнэ.</string>
@@ -167,12 +180,24 @@
   <string name="changeUsername">Хэрэглэгчийн нэрийг өөрчлөх</string>
   <string name="changeUsernameNotSame">Зөвхөн үсэг нь зөвхөн өөрчлөгдөж болно. Жишээ нь \"johndoe\" нь \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Хэрэглэгчийн нэрээ өөрчил. Энэ нь зөвхөн нэг удаа хийгдэж болох ба зөвхөн хэрэглэгчийн нэр дээр үсгээ засах боломжтой.</string>
+  <string name="signupEmailHint">Би зөвхөн нууц үг сэргээхэд ашиглана.</string>
   <string name="password">Нууц үг</string>
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
   <string name="changeEmail">Электрон шуудангийн хаягаа өөрчлөх</string>
   <string name="email">Электрон шуудангийн хаяг</string>
   <string name="passwordReset">Нэвтрэх үгээ шинэчлэх</string>
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
+  <string name="error.weakPassword">Энэ нууц үг аймшигтай амархан байна хха, бас таахад ч амархан.</string>
+  <string name="error.namePassword">Нууц үгэндээ нэвтрэх нэрээ оруулахгүй.</string>
+  <string name="youAreLeavingLichess">Чи lichessыг орхиж байна гомдлоо шүү</string>
+  <string name="neverTypeYourPassword">Lichess нууц үгээ өөр сайтанд хэзээ ч бүр хэзээ ч битгий хий!</string>
+  <string name="passwordSuggestion">Нууц үгээ бусдын санал болгосноор хийж тэнэгтэв. Тэд хаягыг чинь хулгайлах гэж байгаа юм.</string>
+  <string name="emailSuggestion">Битгий цахим шуудангийн хаягаа бусдын санал болгосноор хий хийх юм бол. Тэд чиний хаягыг хулгайлна.</string>
+  <string name="emailConfirmHelp">Цахим шуудангийн хаягаа баталгаажуулахад туслаарай</string>
+  <string name="emailConfirmNotReceived">Email дээр чинь нэг удаагийн код бүртгүүлэхэд ирэхгүй байгаа юм уу?</string>
+  <string name="whatSignupUsername">Чи ямар нэр бүртгүүлэхдээ ашигласан бэ?</string>
+  <string name="usernameNotFound">Бид ийм нэртэй хүн битгий хэл нохой ч олохгүй буруу юм биш үү %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Чи энэ нэрээ шинэ хаяг нээхэд ашиглаж болно шүү</string>
   <string name="rank">Зэрэг</string>
   <string name="rankX">Үнэлгээ: %s</string>
   <plurals name="nbPuzzles">
@@ -185,6 +210,8 @@
     <item quantity="other">%s өрөг таньтай тоглосон байна</item>
   </plurals>
   <string name="cancel">Цуцлах</string>
+  <string name="whiteTimeOut">Цагааны цаг дуусчихлаа тийм ээ</string>
+  <string name="blackTimeOut">Харын цаг дуусчихлаа тийм ээ</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
   <string name="drawOfferCanceled">Тэнцэх саналаа цуцаллаа</string>
@@ -689,4 +716,21 @@
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
   <string name="lifetimeScore">Амьдралын оноо</string>
   <string name="agreementPolicy">Личесс-н дүрмээ баримталж байхаа зөвшөөр ч байна уу?</string>
+  <string name="edit">Засаж янзлах</string>
+  <string name="rapid">Түргэн</string>
+  <string name="classical">Удаан</string>
+  <string name="subscribe">Дэмжих</string>
+  <string name="unsubscribe">Дэмжихээ болих</string>
+  <string name="congratsYouWon">Баяр хүргье мундаг аа, чи ялчихлаа!</string>
+  <string name="download">Татаж суулгах</string>
+  <string name="cancelTournament">Хударсан бол тэмцээнийг цуцлах</string>
+  <string name="tournDescription">Тэмцээний тайлбар</string>
+  <string name="onlyMembersOfTeam">Зөвхөн багийн хүмүүс шүү</string>
+  <string name="noRestriction">Хязгаарлалтгүй</string>
+  <string name="minimumRatedGames">Чансаатай өрөг бага</string>
+  <string name="tournChat">Тэмцээний холбоо</string>
+  <string name="noChat">Харилцахгүй</string>
+  <string name="onlyTeamLeaders">Зөвхөн багийн удирдагчид</string>
+  <string name="onlyTeamMembers">Зөвхөн багийн гишүүд</string>
+  <string name="until">Хүртэл</string>
 </resources>

@@ -181,7 +181,7 @@ async function parseCrowdvData(file: string) {
     if (!fs.existsSync('crowdv')) fs.mkdirSync('crowdv');
     let url = file;
     if (/https?:/.test(url)) file = file.split('/').pop()!;
-    else url = `https://raw.githubusercontent.com/lichess-org/lifat/master/crowdv/${file}`;
+    else url = `https://raw.githubusercontent.com/lichess-org/lifat/schlawg/crowdv/${file}`;
     file = `crowdv/${file}`;
     try {
       const { ok, statusText, body } = await (globalThis as any).fetch(url);

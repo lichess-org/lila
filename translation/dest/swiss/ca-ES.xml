@@ -62,8 +62,7 @@ Creiem que és més probable que aquestes condicions es compleixin dins d\'un eq
   <string name="numberOfByesA">Un jugador obté un descans d\'un punt cada vegada que el sistema d\'aparellament no pot trobar una parella.
 A més, s\'atribueix un únic descans de mig punt quan un jugador s\'uneix tard a un torneig.</string>
   <string name="earlyDrawsQ">Què passa amb les taules ràpides?</string>
-  <string name="earlyDrawsA">Un jugador obté un descans d\'un punt cada vegada que el sistema d\'aparellament no pot trobar una parella.
-A més, s\'atribueix un únic descans de mig punt quan un jugador s\'uneix tard a un torneig.</string>
+  <string name="earlyDrawsAnswer">Als tornejos suïssos, els jugadors no poden acordar taules abans dels 30 moviments. Aquesta mesura no pot evitar les taules prèviament acordades, però almenys fa més complicat acordar les taules al moment.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa si un jugador no juga una partida?</string>
   <string name="whatIfOneDoesntPlayA">El rellotge farà tic-tac, li caurà la bandera i perdrà la partida.
 Aleshores, el sistema retirarà el jugador del torneig perquè no perdi més jocs.

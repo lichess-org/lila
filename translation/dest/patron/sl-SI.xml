@@ -63,6 +63,7 @@ Ali pa %s.</string>
   <string name="nextPayment">Naslednje plačilo</string>
   <string name="youWillBeChargedXOnY">Dne %2$s vam bomo zaračunali %1$s.</string>
   <string name="makeAdditionalDonation">Zdaj naredite dodatno donacijo</string>
+  <string name="giftPatronWingsShort">Daruj donatorska krila</string>
   <string name="giftPatronWings">Podari krila pokrovitelja igralcu</string>
   <string name="update">Posodobitev</string>
   <string name="changeMonthlyAmount">Spremeni mesečni znesek (%s)</string>

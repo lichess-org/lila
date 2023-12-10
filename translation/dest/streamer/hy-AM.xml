@@ -17,8 +17,10 @@
   <string name="rules">Հեռարձակումների կանոնները</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Կարդացեք մեր %sները` ձեր հեռարձակումներում ազնիվ խաղի կանոններին հետևելու համար։</string>
   <string name="streamingFairplayFAQ">ՀՏՀ (հաճախ տրվող հարցեր) հեռարձակողների համար` ազնիվ խաղի վերաբերյալ</string>
+  <string name="youTubeChannelId">Ձեր յութուբյան ալիքի ID-ն</string>
   <string name="headline">Վերնագիր</string>
   <string name="longDescription">Մանրամասն նկարագրություն</string>
+  <string name="changePicture">Փոխել կամ հեռացնել Ձեր պատկերը</string>
   <string name="uploadPicture">Բեռնել պատկեր</string>
   <string name="maxSize">Առավելագույն չափսը` %s</string>
 </resources>

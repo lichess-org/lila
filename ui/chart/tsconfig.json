@@ -6,9 +6,8 @@
     "rootDir": "src",
     "types": ["lichess", "web", "cash"],
     "declaration": true,
-    "emitDeclarationOnly": true,
     "composite": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }],
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../ceval/tsconfig.json" }],
   "isolatedModules": true
 }

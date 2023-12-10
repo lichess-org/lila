@@ -19,8 +19,8 @@
   </plurals>
   <string name="roundsAreStartedManually">Ronne ginn manuell gestart</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">%s Sekonn tëschent Ronnen</item>
-    <item quantity="other">%s Sekonne tëschent Ronnen</item>
+    <item quantity="one">%s Sekonn tëschent de Ronnen</item>
+    <item quantity="other">%s Sekonne tëschent de Ronnen</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">%s Minutt tëschent Ronnen</item>
@@ -36,9 +36,9 @@
   <string name="numberOfRounds">Unzuel u Ronnen</string>
   <string name="numberOfRoundsHelp">Eng ongerued Unzuel u Ronnen erlaabt fir eng optimal Säiteverdeelung.</string>
   <string name="roundInterval">Intervall tëschent de Ronnen</string>
-  <string name="forbiddenPairings">Verbuede Puerungen</string>
+  <string name="forbiddenPairings">Verbuede Paarungen</string>
   <string name="forbiddenPairingsHelp">Benotzernimm vu Spiller déi net géinteneen spillen däerfen (zum Beispill Geschwëster). Zwee Benotzernimm pro Zeil, getrennt duerch en Espace.</string>
-  <string name="newSwiss">Neien SchwäizerTurnéier</string>
+  <string name="newSwiss">Neit Schwäizer Turnéier</string>
   <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
   <string name="swissVsArenaA">An engem Turnéier nom Schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
 Et kann eng gutt Optioun sinn fir Clibb an offiziell Turnéier.</string>
@@ -61,10 +61,12 @@ Mir sinn der Meenung, datt dës Konditiounen éischter bannent enger Ekipp erfë
   <string name="numberOfByesQ">Wéi vill kampflos Punkte kann e Spiller kréien?</string>
   <string name="numberOfByesA">E Spiller kritt all Kéiers, wann de System keng Puerung fir e fënnt, e Punkt.
 Zousätzlech, kritt e Spiller en hallwen Punkt, wann en gëtt ze spéit bäitrëtt.</string>
+  <string name="earlyDrawsQ">Wat geschitt bei engem schnelle Remis?</string>
   <string name="whatIfOneDoesntPlayQ">Wat geschitt, wann e Spiller eng Partie net spillt?</string>
   <string name="whatIfOneDoesntPlayA">D\'Zäit wäert oflafen an e wäert d\'Partie verléieren.
 Uschléissend gëtt de Spiller vum System aus dem Turnéier ofgezunn, esou datt dësen keng weider Partie verléiert.
  E kann jidderzäit dem Turnéier erëm bäitrieden.</string>
+  <string name="protectionAgainstNoShowQ">Wat geschitt, wann ee Spiller net optaucht?</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
   <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom Schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
 Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>

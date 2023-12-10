@@ -9,7 +9,7 @@ const patch = init([classModule, attributesModule]);
 export async function initModule(opts: PuzzleOpts) {
   const element = document.querySelector('main.puzzle') as HTMLElement;
   const ctrl = makeCtrl(opts, redraw);
-  ctrl.nvui = lichess.blindMode ? await lichess.loadEsm<NvuiPlugin>('puzzle.nvui') : undefined;
+  ctrl.nvui = lichess.blindMode ? await lichess.asset.loadEsm<NvuiPlugin>('puzzle.nvui') : undefined;
 
   const blueprint = view(ctrl);
   element.innerHTML = '';

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Uitzendingen</string>
+  <string name="myBroadcasts">Mijn uitzendingen</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s uitzending</item>
     <item quantity="other">%s uitzendingen</item>
   </plurals>
   <string name="liveBroadcasts">Live toernooi uitzendingen</string>
   <string name="newBroadcast">Nieuwe live uitzending</string>
+  <string name="aboutBroadcasts">Over uitzending</string>
+  <string name="noRoundsYet">Nog geen rondes.</string>
+  <string name="howToUseLichessBroadcasts">Hoe Lichess Uitzendingen te gebruiken.</string>
+  <string name="theNewRoundHelp">De nieuwe ronde zal dezelfde leden en bijdragers hebben als de vorige.</string>
   <string name="addRound">Ronde toevoegen</string>
   <string name="ongoing">Lopend</string>
   <string name="upcoming">Aankomend</string>
   <string name="completed">Voltooid</string>
+  <string name="completedHelp">Lichess detecteert voltooiing van de ronde op basis van de bronpartijen. Gebruik deze schakelaar als er geen bron is.</string>
   <string name="roundName">Naam ronde</string>
   <string name="roundNumber">Ronde</string>
   <string name="tournamentName">Naam toernooi</string>
@@ -31,6 +37,12 @@
   <string name="deleteRound">Deze ronde verwijderen</string>
   <string name="definitivelyDeleteRound">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
   <string name="deleteAllGamesOfThisRound">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
+  <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
+  <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
+  <string name="automaticLeaderboard">Automatisch scorebord</string>
+  <string name="automaticLeaderboardHelp">Bereken en toon een eenvoudig scorebord gebaseerd op de uitslagen</string>
+  <string name="replace">Optioneel: vervang spelersnamen, ratings en titels</string>
+  <string name="periodInSeconds">Periode in seconden</string>
+  <string name="periodInSecondsHelp">Optioneel, hoe lang te wachten tussen aanvragen. Minimaal 2 seconden, maximaal 60 seconden. Standaard automatisch gebaseerd op het aantal kijkers.</string>
 </resources>

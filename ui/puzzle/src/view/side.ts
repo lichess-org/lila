@@ -5,6 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
 import * as router from 'common/router';
+import { userLink } from 'common/userLink';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
@@ -15,47 +16,53 @@ export function puzzleBox(ctrl: Controller): VNode {
   ]);
 }
 
+const angleImg = (ctrl: Controller): string => {
+  const angle = ctrl.getData().angle;
+  const name = angle.opening ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
+  return lichess.asset.url(`images/puzzle-themes/${name}.svg`);
+};
+
 const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
-  h(
-    'div.infos.puzzle',
-    {
-      attrs: dataIcon(licon.ArcheryTarget),
-    },
-    [
-      h('div', [
-        ctrl.streak
-          ? null
-          : h(
-              'p',
-              ctrl.trans.vdom(
-                'puzzleId',
-                h(
-                  'a',
-                  {
-                    attrs: {
-                      href: router.withLang(`/training/${puzzle.id}`),
-                      ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
-                    },
+  h('div.infos.puzzle', [
+    h('img.infos__angle-img', {
+      attrs: {
+        src: angleImg(ctrl),
+        alt: ctrl.getData().angle.name,
+      },
+    }),
+    h('div', [
+      h(
+        'p',
+        ctrl.trans.vdom(
+          'puzzleId',
+          ctrl.streak && ctrl.vm.mode === 'play'
+            ? h('span.hidden', ctrl.trans.noarg('hidden'))
+            : h(
+                'a',
+                {
+                  attrs: {
+                    href: router.withLang(`/training/${puzzle.id}`),
+                    ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
                   },
-                  '#' + puzzle.id,
-                ),
+                },
+                '#' + puzzle.id,
               ),
+        ),
+      ),
+      ctrl.showRatings
+        ? h(
+            'p',
+            ctrl.trans.vdom(
+              'ratingX',
+              !ctrl.streak && ctrl.vm.mode === 'play'
+                ? h('span.hidden', ctrl.trans.noarg('hidden'))
+                : h('strong', puzzle.rating),
             ),
-        ctrl.showRatings
-          ? h(
-              'p',
-              ctrl.trans.vdom(
-                'ratingX',
-                !ctrl.streak && ctrl.vm.mode === 'play'
-                  ? h('span.hidden', ctrl.trans.noarg('hidden'))
-                  : h('strong', puzzle.rating),
-              ),
-            )
-          : null,
-        h('p', ctrl.trans.vdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
-      ]),
-    ],
-  );
+          )
+        : null,
+      h('p', ctrl.trans.vdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
+    ]),
+  ]);
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
@@ -79,19 +86,12 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
       h(
         'div.players',
         game.players.map(p => {
-          const name = ctrl.showRatings ? p.name : p.name.split(' ')[0];
-          return h(
-            'div.player.color-icon.is.text.' + p.color,
-            p.userId != 'anon'
-              ? h(
-                  'a.user-link.ulpt',
-                  {
-                    attrs: { href: '/@/' + p.userId },
-                  },
-                  p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + name] : name,
-                )
-              : name,
-          );
+          const user = {
+            ...p,
+            rating: ctrl.showRatings ? p.rating : undefined,
+            line: false,
+          };
+          return h('div.player.color-icon.is.text.' + p.color, userLink(user));
         }),
       ),
     ]),

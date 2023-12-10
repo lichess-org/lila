@@ -79,3 +79,4 @@ object ReverseRouterConversions:
   given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
   given perfKeyConv: Conversion[Perf.Key, String]                    = _.value
   given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
+  given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString

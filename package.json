@@ -19,7 +19,7 @@
   "homepage": "https://lichess.org",
   "engines": {
     "node": ">=14",
-    "pnpm": "^8.6"
+    "pnpm": "^8.7"
   },
   "lint-staged": {
     "*.{js,ts,md,json,scss}": "prettier --write"
@@ -27,26 +27,26 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "@types/node": "^20.5.0",
-    "@types/web": "^0.0.113",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "@typescript-eslint/parser": "^6.4.0",
+    "@types/node": "^20.9.1",
+    "@types/web": "^0.0.119",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "ab": "github:lichess-org/ab-stub",
-    "chessground": "^9.0.2",
-    "eslint": "^8.47.0",
-    "lint-staged": "^14.0.0",
-    "prettier": "^3.0.2",
-    "typescript": "^5.1.6"
+    "chessground": "^9.0.4",
+    "eslint": "^8.54.0",
+    "lint-staged": "^15.1.0",
+    "prettier": "3.0.2",
+    "typescript": "^5.2.2"
   },
   "scripts": {
-    "format": "prettier --write .",
-    "check-format": "prettier --check .",
+    "format": "prettier --write --log-level warn .",
+    "check-format": "prettier --check --log-level warn .",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint . --ext .ts",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
-    "multilog": "pnpm serverlog & ui/build -w"
+    "multilog": "pnpm serverlog & ui/build -r"
   }
 }

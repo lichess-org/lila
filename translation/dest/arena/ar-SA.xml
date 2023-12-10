@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">مسابقات أرينا</string>
+  <string name="arenaTournaments">مسابقات الساحة</string>
   <string name="isItRated">هل هي مقيمة؟</string>
   <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
@@ -12,7 +12,7 @@
 وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.
 بمعنى أن، الفوز سيستحق 4 نقاط، التعادل: 2 نقطة، وستبقى الخسارة تستحق 0 نقطة.
 كمثال، انتصاران يليهما تعادل سيساوي 6 نقاط: 2 + 2 + (2 × 1)</string>
-  <string name="berserk">مخاطرة أرينا</string>
+  <string name="berserk">مخاطرة الساحة</string>
   <string name="berserkAnswer">عندما يضغط اللاعب زر المخاطرة في بداية المباراة سيفقد اللاعب نصف وقته لكنه في حال الفوز يحصل على نقطة إضافية.
 المخاطرة في حالة الوقت المتزايد يلغي الزيادة مع كل نقلة (يستثنى من ذلك نمط دقيقة +2 ث زيادة/نقلة ، ستلغى الزيادة لكن الوقت سيكون دقيقة فقط)
 المخاطرة غير متاحة للمباريات ذات التوقيت صفر +زيادة بالثواني (0+1ث/نقلة, 0+2ث).
@@ -35,11 +35,11 @@
   </plurals>
   <string name="thisIsPrivate">هذه بطولة خاصة</string>
   <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
-  <string name="drawStreakStandard">سلسلة تعادلات: عندما يحصل لاعب على تعادلات متتالية فى مسابقات أرينا, يحصل اللاعب على نقطة من أول تعادل فقط, او من التعادلات التى إجتازت %s نقلة. يمكن كسر سلسلة تعادلات عن طريق الربح فقط, وليس خسارة أو تعادل.</string>
+  <string name="drawStreakStandard">سلسلة تعادلات: عندما يحصل لاعب على تعادلات متتالية في مسابقات الساحة، يحصل اللاعب على نقطة من أول تعادل فقط، أو من التعادلات التي اجتازت %s نقلة. يمكن كسر سلسلة تعادلات عن طريق الربح فقط، وليس خسارة أو تعادل.</string>
   <string name="drawStreakVariants">الحد الادنى للمباريات المتعادلة لاحراز نقطة يختلف من متغير للثاني انظلا للجدول ادناه لمعرفى النقاط.</string>
   <string name="variant">متغير (أنواع شطرنج غير الكلاسيكي)</string>
   <string name="minimumGameLength">الحد الادنى لطول المباراة</string>
-  <string name="history">يُمكنك الإطلاع على جميع مسابقات أرينا السابقة حسب النمط من خلال الرتبط التالي: https://lichess. org/tournament/history</string>
+  <string name="history">سجل الساحة</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="zero">%s عرض للفرق</item>
     <item quantity="one">عرض الفريق</item>
@@ -54,10 +54,11 @@
   <string name="allowBerserk">السماح بالتحدي بنصف الوقت</string>
   <string name="allowBerserkHelp">السماح للاعبين بالتضحية بنصف وقتهم مقابل الحصول على نقاط إضافية</string>
   <string name="allowChatHelp">السماح للاعبين بالمناقشة في غرفة الدردشة</string>
-  <string name="arenaStreaks">تسلسل الفوز في الارينا</string>
+  <string name="arenaStreaks">تسلسل الفوز في الساحة</string>
   <string name="arenaStreaksHelp">بعد تحقيق فوزين، الفوز المتتالي يمنحك اربعة نقاط بدلاً من ٢.</string>
   <string name="noBerserkAllowed">كسر الوقت غير مسموح به</string>
   <string name="noArenaStreaks">لا يوجد تسلسل بالفوز</string>
   <string name="averagePerformance">متوسط الأداء</string>
   <string name="averageScore">معدل النقاط</string>
+  <string name="myTournaments">بطولاتي</string>
 </resources>

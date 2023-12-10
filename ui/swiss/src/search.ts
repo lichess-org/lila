@@ -22,7 +22,7 @@ export function input(ctrl: TournamentController): VNode {
         spellcheck: 'false',
       },
       hook: onInsert((el: HTMLInputElement) => {
-        lichess
+        lichess.asset
           .userComplete({
             input: el,
             swiss: ctrl.data.id,

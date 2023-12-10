@@ -59,7 +59,7 @@ final private class TvBroadcast(
             val user = p.userId.flatMap(lightUserSync)
             Json
               .obj("color" -> p.color.name)
-              .add("user" -> user.map(LightUser.lightUserWrites.writes))
+              .add("user" -> user.map(LightUser.write))
               .add("ai" -> p.aiLevel)
               .add("rating" -> p.rating)
               .add("seconds" -> pov.game.clock.map(_.remainingTime(pov.color).roundSeconds))

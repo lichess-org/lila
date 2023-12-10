@@ -16,8 +16,10 @@ final class UserApi(
     crosstableApi: lila.game.CrosstableApi,
     gameCache: lila.game.Cached,
     userApi: lila.user.UserApi,
+    userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
     prefApi: lila.pref.PrefApi,
+    streamerApi: lila.streamer.StreamerApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     trophyApi: lila.user.TrophyApi,
@@ -43,7 +45,8 @@ final class UserApi(
   def extended(
       u: User | User.WithPerfs,
       withFollows: Boolean,
-      withTrophies: Boolean
+      withTrophies: Boolean,
+      forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User           => userApi.withPerfs(u)
@@ -62,7 +65,9 @@ final class UserApi(
             bookmarkApi.countByUser(u.user),
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
-            (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user))
+            (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
+            streamerApi.listed(u.user),
+            forWiki.soFu(userRepo.email(u.id))
           ).mapN:
             (
                 gameOption,
@@ -74,7 +79,9 @@ final class UserApi(
                 nbBookmarks,
                 nbPlaying,
                 nbImported,
-                trophiesAndAwards
+                trophiesAndAwards,
+                streamer,
+                email
             ) =>
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
                 Json
@@ -97,10 +104,28 @@ final class UserApi(
                       "me"       -> nbGamesWithMe
                     )
                   )
+                  .add("email", email)
+                  .add("groups", forWiki.option(wikiGroups(u.user)))
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
-                  .add("trophies", trophiesAndAwards map trophiesJson) ++
+                  .add("trophies", trophiesAndAwards map trophiesJson)
+                  .add(
+                    "streamer",
+                    streamer.map: s =>
+                      Json
+                        .obj()
+                        .add(
+                          "twitch",
+                          s.twitch.map: t =>
+                            Json.obj("channel" -> t.fullUrl)
+                        )
+                        .add(
+                          "youTube",
+                          s.youTube.map: y =>
+                            Json.obj("channel" -> y.fullUrl)
+                        )
+                  ) ++
                   as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,
@@ -152,6 +177,11 @@ final class UserApi(
     js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
+
+  private def wikiGroups(u: User): List[String] =
+    val perms          = lila.security.Permission.expanded(u.roles).map(_.name).toList
+    val wikiAdminGroup = "Administrators"
+    if perms.contains("Admin") then wikiAdminGroup :: perms else perms
 
 object UserApi:
   case class TrophiesAndAwards(

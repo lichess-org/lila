@@ -6,6 +6,7 @@ import lila.study.Study
 import lila.common.Seconds
 
 case class RelayRound(
+    /* Same as the Study id it refers to */
     _id: RelayRoundId,
     tourId: RelayTour.Id,
     name: RelayRoundName,
@@ -91,10 +92,10 @@ object RelayRound:
         until = none
       )
 
-    def seconds: Option[Int] =
-      until map { u =>
+    def seconds: Option[Int] = until
+      .map: u =>
         (u.toSeconds - nowSeconds).toInt
-      } filter (0 <)
+      .filter(0 <)
 
     def playing = nextAt.isDefined
     def paused  = !playing

@@ -24,14 +24,14 @@
 // mirror arrow icons in RTL
 
 @if $direction == 'rtl' {
-  [data-icon=''],
-  [data-icon=''],
-  [data-icon=''],
-  [data-icon=''],
-  [data-icon=''],
-  [data-icon=''],
-  [data-icon=''],
-  [data-icon=''] {
+  [data-icon='#{$licon-Wings}'],
+  [data-icon='#{$licon-PlayTriangle}'],
+  [data-icon='#{$licon-GreaterThan}'],
+  [data-icon='#{$licon-LessThan}'],
+  [data-icon='#{$licon-JumpFirst}'],
+  [data-icon='#{$licon-JumpPrev}'],
+  [data-icon='#{$licon-JumpNext}'],
+  [data-icon='#{$licon-JumpLast}'] {
     &:not(.no-mirror)::before {
       display: inline-block;
       transform: scaleX(-1);

@@ -31,4 +31,24 @@
   <string name="engineWrite">Создание и изменение внешних движков</string>
   <string name="webLogin">Создание авторизованных сеансов на сайте (предоставляет полный доступ!)</string>
   <string name="webMod">Использование инструментов модератора (в рамках вашего доступа)</string>
+  <string name="personalAccessTokens">Персональный токен доступа к API</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Вы можете делать запросы OAuth, не проходя через %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;Flow in this contexts means a process.">процесс авторизации</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Вместо этого, %s можно напрямую использовать в API-запросах.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'">создать персональный токен</string>
+  <string name="guardTokensCarefully">Тщательно охраняйте эти токены! Они как пароли. Преимущество использования токенов над прописыванием пароля в скриптах заключается в том, что токены можно отозвать, и вы можете сгенерировать множество других.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Вот %1$s и %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">пример персонального токена</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">Документация по API</string>
+  <string name="newToken">Новый токен доступа</string>
+  <string name="apiAccessTokens">Токены доступа к API</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Создан %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Последнее использование %s</string>
+  <string name="alreadyHavePlayedGames">Вы уже сыграли партии!</string>
+  <string name="attentionOfDevelopers">Примечание только для разработчиков:</string>
+  <string name="possibleToPrefill">Можно предварительно заполнить эту форму, путём изменения параметров запроса URL.</string>
+  <string name="forExample">Например: %s</string>
+  <string name="ticksTheScopes">отметка %1$s в области %2$s устанавливает описание токена.</string>
+  <string name="scopesCanBeFound">Область кодов можно найти в HTML-коде формы.</string>
+  <string name="givingPrefilledUrls">Предоставление этих предварительно заполненных URL вашим пользователям поможет им получить правильные области действия токенов.</string>
 </resources>

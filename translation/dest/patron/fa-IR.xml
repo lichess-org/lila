@@ -60,6 +60,7 @@
   <string name="nextPayment">پرداخت بعدی</string>
   <string name="youWillBeChargedXOnY">برای شما در تاریخ %2$s به مقدار %1$s بدهکاری ثبت خواهد شد.</string>
   <string name="makeAdditionalDonation">یک کمک مالی اضافه انجام دهید</string>
+  <string name="giftPatronWingsShort">بال‌های پشتیبان هدیه دهید</string>
   <string name="giftPatronWings">به یک بازیکن بالهای پشتیبان هدیه بدهید</string>
   <string name="update">به روز رسانی</string>
   <string name="changeMonthlyAmount">مقدار ماهانه (%s) را تغییر دهید</string>

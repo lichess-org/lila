@@ -179,8 +179,8 @@ final private class PushApi(
     }
 
   def corresAlarm(pov: Pov): Funit =
-    pov.player.userId so { userId =>
-      asyncOpponentName(pov) flatMap { opponent =>
+    pov.player.userId.so: userId =>
+      asyncOpponentName(pov).flatMap { opponent =>
         maybePush(
           userId,
           _.corresAlarm,
@@ -197,7 +197,6 @@ final private class PushApi(
           )
         )
       }
-    }
 
   private def corresGameJson(pov: Pov, typ: String) =
     Json.obj(
@@ -379,9 +378,8 @@ final private class PushApi(
       event: NotificationPref.Event,
       data: PushApi.Data
   ): Funit =
-    notifyAllows(userId, event) flatMap { allows =>
+    notifyAllows(userId, event).flatMap: allows =>
       filterPush(NotifyAllows(userId, allows), monitor, data)
-    }
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
     _ <- to.allows.web so webPush(to.userId, data).addEffects(res =>

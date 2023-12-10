@@ -72,6 +72,7 @@
   <string name="makeMainLine">Povýšiť na hlavnú variantu</string>
   <string name="deleteFromHere">Vymazať odtiaľto</string>
   <string name="forceVariation">Povýšiť variant</string>
+  <string name="copyVariationPgn">Kopírovať PGN variantu</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
@@ -119,6 +120,7 @@
   <string name="openStudy">Otvoriť štúdie</string>
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
+  <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="cpus">Procesory</string>
@@ -459,6 +461,7 @@
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
+  <string name="importGameCaveat2">Toto PGN je verejne dostupné. Ak chcete partiu importovať súkromne, použite štúdiu!</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
     <item quantity="few">%s importované partie</item>
@@ -549,6 +552,7 @@
   <string name="movesPlayed">Odohraných ťahov</string>
   <string name="whiteWins">Výhry ako biely</string>
   <string name="blackWins">Výhry ako čierny</string>
+  <string name="drawRate">Pomer remíz</string>
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
@@ -569,14 +573,15 @@
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
   <string name="lastName">Priezvisko</string>
+  <string name="setFlair">Nastavte si svoju ikonku štýlu:</string>
+  <string name="flair">Ikonka štýlu</string>
+  <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
   <string name="biography">Životopis</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vlajka</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Krajina alebo región</string>
   <string name="thankYou">Ďakujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="oneUrlPerLine">Jedna URL na riadok.</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
-  <string name="savingMoves">Úložisko dočasných ťahov</string>
-  <string name="savingMovesHelp">Vaše varianty vždy ukladáme do cash pamäti Vášho prehliadača.</string>
   <string name="makeAStudy">Pre bezpečné uchovanie a zdieľanie pouvažujte nad vytvorením štúdie.</string>
   <string name="clearSavedMoves">Zrušiť dočasné ťahy</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
@@ -732,6 +737,7 @@
   <string name="simultaneousExhibitions">Simultánne exhibície</string>
   <string name="host">Hostiteľ</string>
   <string name="hostColorX">Farba simultánneho hráča: %s</string>
+  <string name="yourPendingSimuls">Vaše čakajúce simultánky</string>
   <string name="createdSimuls">Novovytvorené simultánky</string>
   <string name="hostANewSimul">Vytvoriť novú simultánku</string>
   <string name="noSimulFound">Simultánka nenájdená</string>
@@ -952,6 +958,7 @@
   <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasický šach</string>
   <string name="ultraBulletDesc">Šialene rýchle partie: menej než 30 sekúnd</string>
@@ -991,8 +998,6 @@
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
-  <string name="welcome">Vitajte!</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
@@ -1051,4 +1056,7 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
+  <string name="instructions">Inštrukcie</string>
+  <string name="showMeEverything">Ukázať všetko</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
 </resources>

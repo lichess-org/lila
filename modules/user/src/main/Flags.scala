@@ -3,17 +3,24 @@ package lila.user
 import scala.*
 
 final class Flag(
-    val code: String,
-    val name: String,
-    val shortName: String
-)
+    val code: Flag.Code,
+    val name: Flag.Name,
+    val abrev: Option[String]
+):
+  def shortName = abrev | name
+
+object Flag:
+  type Code = String
+  type Name = String
 
 object Flags:
 
-  private inline def C(code: String, name: String)                    = new Flag(code, name, name)
-  private inline def C(code: String, name: String, shortName: String) = new Flag(code, name, shortName)
+  import Flag.*
 
-  val all = List(
+  private inline def C(code: Code, name: Name)                    = new Flag(code, name, none)
+  private inline def C(code: Code, name: Name, shortName: String) = new Flag(code, name, shortName.some)
+
+  val all: List[Flag] = List(
     C("AD", "Andorra"),
     C("AE", "United Arab Emirates", "UAE"),
     C("AF", "Afghanistan"),
@@ -22,6 +29,7 @@ object Flags:
     C("AL", "Albania"),
     C("AM", "Armenia"),
     C("AM-RA", "Artsakh"),
+    C("AN", "Netherlands Antilles"),
     C("AO", "Angola"),
     C("AQ", "Antarctica"),
     C("AR", "Argentina"),
@@ -85,6 +93,8 @@ object Flags:
     C("ER", "Eritrea"),
     C("ES", "Spain"),
     C("ES-AN", "Andalusia"),
+    C("ES-AR", "Aragon"),
+    C("ES-AS", "Asturia"),
     C("ES-CT", "Catalonia"),
     C("ES-EU", "Basque Country"),
     C("ES-GA", "Galicia"),
@@ -124,6 +134,7 @@ object Flags:
     C("HR", "Croatia"),
     C("HT", "Haiti"),
     C("HU", "Hungary"),
+    C("IC", "Canary Islands"),
     C("ID", "Indonesia"),
     C("IE", "Ireland"),
     C("IL", "Israel"),
@@ -281,35 +292,27 @@ object Flags:
     C("_adygea", "Adygea"),
     C("_belarus-wrw", "Belarus White-red-white"),
     C("_east-turkestan", "East Turkestan"),
-    C("_lichess", "Lichess"),
-    C("_pirate", "Pirate"),
-    C("_rainbow", "Rainbow"),
     C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
-    C("_earth", "Earth"),
-    C("_transgender", "Transgender")
+    C("_earth", "Earth")
   )
 
-  val allPairs = all.map: c =>
+  val allPairs: List[(Code, Name)] = all.map: c =>
     c.code -> c.name
 
-  val map: Map[String, Flag] = all.mapBy(_.code)
+  val map: Map[Code, Flag] = all.mapBy(_.code)
 
-  val nameMap: Map[Flag, String] = all.view
+  val nameMap: Map[Flag, Name] = all.view
     .map: c =>
       c -> c.name
     .toMap
 
-  val codeSet = map.keySet
+  val codeSet: Set[Code] = map.keySet
 
-  val nonCountries = List(
-    "_lichess",
-    "_pirate",
-    "_rainbow",
+  val nonCountries: List[Code] = List(
     "_united-nations",
-    "_earth",
-    "_transgender"
+    "_earth"
   )
 
-  def info(code: String): Option[Flag] = map get code
-  def name(flag: Flag): String         = nameMap.getOrElse(flag, flag.name)
+  def info(code: Code): Option[Flag] = map get code
+  def name(flag: Flag): Name         = nameMap.getOrElse(flag, flag.name)

@@ -71,14 +71,12 @@ object list:
       h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
-      ol(winners take 10 map { w =>
+      ol(winners take 10 map: w =>
         li(
           userIdLink(w.userId.some),
-          a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+          a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
             scheduledTournamentNameShortHtml(w.tourName)
-          )
-        )
-      })
+        ))
     )
 
   private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
@@ -86,12 +84,11 @@ object list:
       h2(cls := "text", dataIcon := perfType.icon)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
       ),
-      ol(users map { l =>
+      ol(users.map: l =>
         li(
           lightUserLink(l.user),
           ctx.pref.showRatings option l.rating
-        )
-      })
+        ))
     )
 
   private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[licon.Icon])(using
@@ -99,10 +96,9 @@ object list:
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
-      ol(users map { u =>
+      ol(users.map: u =>
         li(
           lightUserLink(u.user),
           span(title := trans.gamesPlayed.txt())(s"#${u.count.localize}")
-        )
-      })
+        ))
     )

@@ -31,4 +31,24 @@
   <string name="engineWrite">Crear y actualizar motor externo</string>
   <string name="webLogin">Crear sesiones web autenticadas (¡concede acceso completo!)</string>
   <string name="webMod">Usar herramientas de moderador (dentro de los límites de tu permiso)</string>
+  <string name="personalAccessTokens">Tokens personales de acceso a la API</string>
+  <string name="canMakeOauthRequests">Puedes hacer solicitudes de OAuth sin pasar por la %s.</string>
+  <string name="authorizationCodeFlow">flujo de código de autorización</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">En su lugar, %s, que puedes usar directamente en solicitudes de API.</string>
+  <string name="generatePersonalToken">generar un token de acceso personal</string>
+  <string name="guardTokensCarefully">¡Guarda estos tokens con cuidado! Son como contraseñas. La ventaja de usar tokens sobre poner tu contraseña en un script es que los tokens pueden ser revocados, y puedes generar muchos de ellos.</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Aquí hay un %1$s y el %2$s.</string>
+  <string name="personalTokenAppExample">ejemplo de aplicación de token personal</string>
+  <string name="apiDocumentation">Documentación de la API</string>
+  <string name="newToken">Nuevo token de acceso</string>
+  <string name="apiAccessTokens">Token de acceso a la API</string>
+  <string name="created">Creado %s</string>
+  <string name="lastUsed">Último uso %s</string>
+  <string name="alreadyHavePlayedGames">¡Ya has jugado!</string>
+  <string name="attentionOfDevelopers">Nota para la atención de los desarrolladores solamente:</string>
+  <string name="possibleToPrefill">Es posible llenar parcialmente este formulario ajustando los parámetros de consulta de la URL.</string>
+  <string name="forExample">Por ejemplo: %s</string>
+  <string name="ticksTheScopes">marca los alcances %1$s y %2$s, y establece la descripción del token.</string>
+  <string name="scopesCanBeFound">Los códigos de alcance se pueden encontrar en el código HTML del formulario.</string>
+  <string name="givingPrefilledUrls">Dar estas URLs parcialmente llenadas a tus usuarios les ayudará a obtener el alcance correcto del token.</string>
 </resources>

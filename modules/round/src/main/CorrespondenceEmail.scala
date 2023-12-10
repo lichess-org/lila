@@ -18,7 +18,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
     akka.stream.Materializer
 ):
 
-  private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:11")
+  private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:10")
 
   def tick(): Unit =
     val now = LocalTime.now

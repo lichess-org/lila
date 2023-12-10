@@ -9,7 +9,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
-import lila.mod.UserSearch
+import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
 import lila.user.{ User as UserModel }
@@ -121,6 +121,11 @@ final class Mod(
   def rankban(username: UserStr, v: Boolean) = OAuthMod(_.RemoveRanking) { _ ?=> me ?=>
     withSuspect(username): sus =>
       modApi.setRankban(sus, v) map some
+  }(actionResult(username))
+
+  def arenaBan(username: UserStr, v: Boolean) = OAuthMod(_.ArenaBan) { _ ?=> me ?=>
+    withSuspect(username): sus =>
+      modApi.setArenaBan(sus, v) map some
   }(actionResult(username))
 
   def prizeban(username: UserStr, v: Boolean) = OAuthMod(_.PrizeBan) { _ ?=> me ?=>
@@ -339,7 +344,7 @@ final class Mod(
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
-    UserSearch.form
+    ModUserSearch.form
       .bindFromRequest()
       .fold(err => BadRequest.page(html.mod.search(err, Nil)), searchTerm)
   }
@@ -364,7 +369,7 @@ final class Mod(
       case None =>
         for
           users <- env.mod.search(query)
-          page  <- renderPage(html.mod.search(UserSearch.form.fill(query), users))
+          page  <- renderPage(html.mod.search(ModUserSearch.form.fill(query), users))
         yield Ok(page)
 
   def print(fh: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>

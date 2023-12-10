@@ -22,19 +22,19 @@ jobs:
   assets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - uses: pnpm/action-setup@v2
         with:
-          version: '8.6'
+          version: '8.11'
       - run: git submodule absorbgitdirs
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '19'
           cache: pnpm
       - run: pnpm install
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: lichess-org/ab
           ssh-key: ${{ secrets.id_rsa_ab }}
@@ -46,7 +46,7 @@ jobs:
         if: steps.ab.outcome == 'success'
       - run: ./ui/build --no-install -p
       - run: cd ui && pnpm run test && cd -
-      - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+      - run: mkdir assets && mv public assets/ && cp bin/download-lifat LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:
           XZ_OPT: '-0'

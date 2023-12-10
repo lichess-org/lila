@@ -1,31 +1,34 @@
 import pubsub from './pubsub';
-import { assetUrl } from './assets';
+import { url as assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS, isIOSChrome } from 'common/mobile';
+import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
 type Name = string;
 type Path = string;
 
-export type SoundMove = (node?: { san?: string; uci?: string }) => void;
-
 export default new (class implements SoundI {
   ctx = makeAudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
-  theme = $('body').data('sound-set');
+  theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
-  soundMove?: SoundMove;
+  music?: SoundMove;
+  primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
+  primer = () =>
+    this.ctx.resume().then(() => {
+      setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+      for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+    });
 
   constructor() {
-    $('body').on('click touchstart', this.primer);
+    this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
-    if (!this.ctx) return;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
@@ -36,9 +39,9 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx?.decodeAudioData.length === 1)
-        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
+      if (this.ctx.decodeAudioData.length === 1)
+        this.ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else this.ctx.decodeAudioData(arrayBuffer, resolve, reject);
     });
     const sound = new Sound(this.ctx, audioBuffer);
     this.sounds.set(path, sound);
@@ -56,28 +59,26 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    return new Promise(resolve => {
-      if (!this.enabled()) return resolve();
-      this.load(name)
-        .then(async sound => {
-          if (!sound) return resolve();
-          if (await this.resumeContext()) sound.play(this.getVolume() * volume, resolve);
-          else resolve();
-        })
-        .catch(resolve);
-    });
+    if (!this.enabled()) return;
+    const sound = await this.load(name);
+    if (sound && (await this.resumeWithTest())) await sound.play(this.getVolume() * volume);
   }
 
-  move: SoundMove = throttle(100, async node => {
-    if (this.theme === 'music') {
-      this.soundMove ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.soundMove(node);
-      return;
+  throttled = throttle(100, (name: Name) => this.play(name));
+
+  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+    if (o?.filter !== 'music' && this.theme !== 'music') {
+      if (o?.name) this.throttled(o.name);
+      else {
+        if (o?.san?.includes('x')) this.throttled('capture');
+        else this.throttled('move');
+        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check');
+      }
     }
-    if (node?.san?.includes('x')) this.play('capture');
-    else this.play('move');
-    if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
-  });
+    if (o?.filter === 'game' || this.theme !== 'music') return;
+    this.music ??= await lichess.asset.loadEsm<SoundMove>('soundMove');
+    this.music(o);
+  }
 
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
@@ -146,10 +147,9 @@ export default new (class implements SoundI {
   publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
-    if (isIOS()) this.ctx?.resume();
+    if (isIOS()) this.ctx.resume();
     this.theme = s;
     this.publish();
-    this.move();
   };
 
   set = () => this.theme;
@@ -195,17 +195,17 @@ export default new (class implements SoundI {
     for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
   }
 
-  async resumeContext(): Promise<boolean> {
-    if (!this.ctx) return false;
+  async resumeWithTest(): Promise<boolean> {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
+      if (this.ctx.state !== 'closed') this.ctx.close();
       this.ctx = makeAudioContext();
       if (this.ctx) {
         for (const s of this.sounds.values()) s.rewire(this.ctx);
       }
     }
     // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
-    if (this.ctx?.state === 'suspended')
+    if (this.ctx.state === 'suspended')
       await new Promise<void>(resolve => {
         const resumeTimer = setTimeout(() => {
           $('#warn-no-autoplay').addClass('shown');
@@ -219,17 +219,10 @@ export default new (class implements SoundI {
           })
           .catch(resolve);
       });
-    return this.ctx?.state === 'running';
+    if (this.ctx.state !== 'running') return false;
+    $('#warn-no-autoplay').removeClass('shown');
+    return true;
   }
-
-  primer = () => {
-    if (isIOS({ below: 13 }) || isIOSChrome()) {
-      this.ctx = makeAudioContext()!;
-      for (const s of this.sounds.values()) s.rewire(this.ctx);
-    } else if (this.ctx?.state === 'suspended') this.ctx.resume();
-    $('body').off('click touchstart keydown', this.primer);
-    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-  };
 })();
 
 class Sound {
@@ -243,18 +236,19 @@ class Sound {
     this.rewire(ctx);
   }
 
-  play(volume = 1, onend?: () => void) {
+  play(volume = 1): Promise<void> {
     this.node.gain.setValueAtTime(volume, this.ctx!.currentTime);
     const source = this.ctx!.createBufferSource();
     source.buffer = this.buffer;
     source.connect(this.node);
-    source.onended = () => {
-      source.disconnect();
-      onend?.();
-    };
-    source.start(0);
+    return new Promise<void>(resolve => {
+      source.onended = () => {
+        source.disconnect();
+        resolve();
+      };
+      source.start(0);
+    });
   }
-
   rewire(ctx: AudioContext) {
     this.node?.disconnect();
     this.ctx = ctx;
@@ -263,10 +257,6 @@ class Sound {
   }
 }
 
-function makeAudioContext(): AudioContext | undefined {
-  return window.webkitAudioContext
-    ? new window.webkitAudioContext()
-    : typeof AudioContext !== 'undefined'
-    ? new AudioContext()
-    : undefined;
+function makeAudioContext(): AudioContext {
+  return window.webkitAudioContext ? new window.webkitAudioContext() : new AudioContext();
 }

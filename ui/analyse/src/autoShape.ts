@@ -1,9 +1,10 @@
-import { parseUci, makeSquare, squareRank } from 'chessops/util';
+import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
 import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
+import { annotationShapes } from './glyphs';
 import AnalyseCtrl from './ctrl';
 
 const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
@@ -15,6 +16,9 @@ const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
   },
   brush: 'green',
 });
+
+const findShape = (uci?: Uci, shapes?: Tree.Shape[]) =>
+  ((shapes ?? []) as DrawShape[]).find(s => s.orig === uci?.slice(0, 2) && s.dest === uci?.slice(2, 4));
 
 export function makeShapesFromUci(
   color: Color,
@@ -74,8 +78,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   ctrl.fork.hover(hovering?.uci);
+  if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
+
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
-    if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
+    if (nEval.best && !ctrl.showVariationArrows())
+      shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.multiPv()) {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue', undefined));
@@ -116,58 +123,41 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   shapes = shapes.concat(annotationShapes(ctrl));
-
-  if (ctrl.showAutoShapes() && ctrl.node.children.length > 1) {
-    ctrl.node.children.forEach((node, i) => {
-      const existing = shapes.find(s => s.orig === node.uci!.slice(0, 2) && s.dest === node.uci!.slice(2, 4));
-      const symbol = node.glyphs?.[0]?.symbol;
-      if (existing) {
-        existing.brush = i === 0 ? 'purple' : existing.brush;
-        if (i === ctrl.fork.selected()) {
-          existing.modifiers ??= {};
-          existing.modifiers.hilite = true;
-        }
-        if (symbol) existing.label = { text: symbol, fill: glyphColors[symbol] };
-      } else
-        shapes.push({
-          orig: node.uci!.slice(0, 2) as Key,
-          dest: node.uci?.slice(2, 4) as Key,
-          brush: i === 0 ? 'purple' : 'pink',
-          modifiers: { hilite: i === ctrl.fork.selected() },
-          label: symbol ? { text: symbol, fill: glyphColors[symbol] } : undefined,
-        });
-    });
-  }
+  if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
   return shapes;
 }
 
-const glyphColors: { [k: string]: string } = {
-  '??': '#df5353',
-  '?': '#e69f00',
-  '?!': '#56b4e9',
-  '!': '#22ac38',
-  '!!': '#168226',
-  '!?': '#ea45d8',
-};
+function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
+  const chap = ctrl.study?.data.chapter;
+  const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
 
-function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
-  const shapes: DrawShape[] = [];
-  const { uci, glyphs, san } = ctrl.node;
-  if (ctrl.showMoveAnnotation() && uci && san && glyphs && glyphs.length > 0) {
-    const move = parseUci(uci)!;
-    const destSquare = san.startsWith('O-O') // castle, short or long
-      ? squareRank(move.to) === 0 // white castle
-        ? san.startsWith('O-O-O')
-          ? 'c1'
-          : 'g1'
-        : san.startsWith('O-O-O')
-        ? 'c8'
-        : 'g8'
-      : makeSquare(move.to);
-    shapes.push({
-      orig: destSquare,
-      label: { text: glyphs[0].symbol, fill: glyphColors[glyphs[0].symbol] },
-    });
+  for (const [i, node] of ctrl.node.children.entries()) {
+    if (node.comp && !ctrl.showComputer()) continue;
+    const userShape = findShape(node.uci, ctrl.node.shapes);
+
+    if (userShape && i === ctrl.fork.selected()) autoShapes.push({ ...userShape }); // so we can hilite it
+
+    const existing = findShape(node.uci, autoShapes);
+    const brush = isGamebookEditor
+      ? i === 0
+        ? 'paleGreen'
+        : 'paleRed'
+      : existing
+      ? existing.brush
+      : 'white';
+    if (existing) {
+      if (i === ctrl.fork.selected()) {
+        existing.brush = brush;
+        existing.modifiers ??= {};
+        existing.modifiers.hilite = true;
+      }
+    } else if (!userShape) {
+      autoShapes.push({
+        orig: node.uci!.slice(0, 2) as Key,
+        dest: node.uci?.slice(2, 4) as Key,
+        brush,
+        modifiers: { hilite: i === ctrl.fork.selected() },
+      });
+    }
   }
-  return shapes;
 }

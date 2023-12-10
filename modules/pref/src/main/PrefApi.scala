@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi.*
 import lila.user.User
+import chess.ByColor
 
 final class PrefApi(
     val coll: Coll,
@@ -18,6 +19,8 @@ final class PrefApi(
 
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
     _.expireAfterAccess(10 minutes).buildAsyncFuture(fetchPref)
+
+  export cache.{ get as getPrefById }
 
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) = {
     if value then
@@ -34,11 +37,8 @@ final class PrefApi(
         .void andDo { cache invalidate user.id }
   } andDo { cache invalidate user.id }
 
-  def getPrefById(id: UserId): Fu[Option[Pref]] = cache get id
-
-  def get(user: User): Fu[Pref] = cache get user.id dmap {
-    _ getOrElse Pref.create(user)
-  }
+  def get(user: User): Fu[Pref] = cache get user.id dmap:
+    _ | Pref.create(user)
 
   def get[A](user: User, pref: Pref => A): Fu[A] = get(user) dmap pref
 
@@ -52,8 +52,17 @@ final class PrefApi(
     case Some(u) => get(u) dmap RequestPref.queryParamOverride(req)
     case None    => fuccess(RequestPref.fromRequest(req))
 
+  def byId(userId: UserId): Fu[Pref] = cache get userId dmap:
+    _ | Pref.create(userId)
+
+  def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
+    both.traverse(_.fold(fuccess(Pref.default))(byId))
+
+  def get(both: ByColor[Option[User]]): Fu[ByColor[Pref]] =
+    both.traverse(_.fold(fuccess(Pref.default))(get))
+
   def followable(userId: UserId): Fu[Boolean] =
-    coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
+    coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
 
   private def unfollowableIds(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.secondaryPreferred.distinctEasy[UserId, Set](
@@ -65,9 +74,8 @@ final class PrefApi(
     unfollowableIds(userIds) map userIds.toSet.diff
 
   def followables(userIds: List[UserId]): Fu[List[Boolean]] =
-    followableIds(userIds) map { followables =>
+    followableIds(userIds).map: followables =>
       userIds map followables.contains
-    }
 
   private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     coll.secondaryPreferred.distinctEasy[UserId, Set](
@@ -84,10 +92,6 @@ final class PrefApi(
 
   def setPref(user: User, change: Pref => Pref): Funit =
     get(user) map change flatMap setPref
-
-  def setPrefString(user: User, name: String, value: String): Funit =
-    get(user) map { _.set(name, value) } orFail
-      s"Bad pref ${user.id} $name -> $value" flatMap setPref
 
   def agree(user: User): Funit =
     coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void andDo

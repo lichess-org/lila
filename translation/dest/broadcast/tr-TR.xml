@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Canlı Turnuvalar</string>
+  <string name="myBroadcasts">Canlı Turnuvalarım</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s canlı turnuva</item>
     <item quantity="other">%s canlı turnuva</item>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Bu turdaki tüm oyunları sil. Tekrardan yapılabilmesi için kaynağın aktif olması gerekir.</string>
   <string name="editRoundStudy">Tur çalışmasını düzenle</string>
   <string name="deleteTournament">Bu turnuvayı sil</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Bütün turnuvayı, turlarını ve oyunlarını kalıcı olarak sil.</string>
+  <string name="definitivelyDeleteTournament">Bütün turnuvayı, turlarını ve oyunlarını kalıcı olarak sil.</string>
 </resources>

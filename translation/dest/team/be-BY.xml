@@ -15,7 +15,7 @@
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="onlyLeaderLeavesTeam">Калі ласка, абярыце новага лідара каманды перад сыходам, або зачыніце каманду.</string>
-  <string name="quitTeam">Выйсці з каманды</string>
+  <string name="quitTeam">Пакінуць каманду</string>
   <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Калі абрана, гульцы будуць павінны напісаць запыт, каб далучыцца да каманды, яго можна будзе адхіліць або пацвердзіць.</string>
   <plurals name="teamLeaders">
@@ -49,7 +49,6 @@
 Гульцы, якія ня любяць такія паведамленні могуць пакінуць каманду.</string>
   <string name="teamsIlead">Каманды, лідарам якіх я з\'яўляюся</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
-  <string name="usersWhoCanManageThisTeam">Карыстальнікі, якія могуць кіраваць камандай</string>
   <string name="leadersChat">Чат лідараў</string>
   <string name="closeTeam">Зачыніць каманду</string>
   <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>

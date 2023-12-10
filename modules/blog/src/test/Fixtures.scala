@@ -250,7 +250,7 @@ object Fixtures:
 
 <h4>Modified Chigorin/Trompowsky </h4>
 
-<div data-oembed="https://www.youtube.com/watch?v=uz-dZ2W4Bf0#t=1m01s" data-oembed-type="video" data-oembed-provider="youtube"><iframe width="480" height="270" src="https://www.youtube.com/embed/uz-dZ2W4Bf0?feature=oembed" frameborder="0" allowfullscreen></iframe></div>
+<div data-oembed="https://www.youtube.com/watch?v=uz-dZ2W4Bf0#t=1m01s" data-oembed-type="video" data-oembed-provider="youtube"><iframe width="480" height="270" src="https://www.youtube.com/embed/uz-dZ2W4Bf0?feature=oembed" frameborder="0" allowfullscreen title="Crazyhouse opening repertoire"></iframe></div>
 
 <p><em>Basic setup:</em> 1. d4 ... 2. Nc3 ... 3. Bg5 ... 4. Nf3 ... 5. e3 (or e4, if allowed) ... 6. Be2/d3 ... 7. 0-0</p>
 

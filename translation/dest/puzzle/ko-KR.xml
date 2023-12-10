@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">백의 최고의 수를 찾아보세요.</string>
   <string name="findTheBestMoveForBlack">흑의 최고의 수를 찾아보세요.</string>
   <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
-  <string name="puzzleId">퍼즐 %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
   <string name="dailyPuzzle">일일 퍼즐</string>
   <string name="clickToSolve">퍼즐 풀기</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">오프닝별</string>
   <string name="puzzlesByOpenings">오프닝별 퍼즐</string>
   <string name="openingsYouPlayedTheMost">레이팅 게임에서 가장 많이 플레이한 오프닝</string>
-  <string name="useFindInPage">브라우저의 \"페이지에서 찾기\" 메뉴를 이용해 가장 좋아하는 오프닝을 찾으세요!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">브라우저의 \"페이지에서 찾기\" 메뉴를 이용해 가장 좋아하는 오프닝을 찾으세요!</string>
   <string name="useCtrlF">Ctrl+f를 사용해서 가장 좋아하는 오프닝을 찾으세요!</string>
   <string name="notTheMove">답이 아닙니다!</string>
   <string name="trySomethingElse">다른 것 시도하기</string>
-  <string name="ratingX">레이팅: %s</string>
-  <string name="hidden">숨겨짐</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">레이팅: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">숨겨짐</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="other">%s회 플레이</item>
   </plurals>
   <string name="fromGameLink">게임 %s에서</string>

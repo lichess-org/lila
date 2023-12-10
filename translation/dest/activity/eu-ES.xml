@@ -59,7 +59,7 @@
     <item quantity="other">%s txapelketetan parte hartu du</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%1$s. postua (%% %2$s onenen artean) partida %3$s jokatuta %4$s txapelketan</item>
+    <item quantity="one">%1$s. postua lortu du (%% %2$s onenen artean) partida %3$s jokatuta %4$s txapelketan</item>
     <item quantity="other">%1$s. postua (%% %2$s onenen artean) %3$s partida jokatuta %4$s txapelketan</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">

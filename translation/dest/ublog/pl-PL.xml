@@ -43,10 +43,11 @@
   <string name="imageCredit">Prawa autorskie</string>
   <string name="deleteBlog">Usuń bezpowrotnie ten wpis na blogu</string>
   <string name="deleteImage">Usuń obrazek</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Można bezpieczne korzystać z obrazków dostępnych na następujących stronach internetowych: </string>
+  <string name="safeToUseImages">Można bezpieczne korzystać z obrazków dostępnych na następujących stronach internetowych: </string>
   <string name="selectPostTopics">Wybierz tematy, których dotyczy Twój post</string>
   <string name="useImagesYouMadeYourself">Możesz również używać obrazów, które sam stworzyłeś, zdjęć, które zrobiłeś, zrzutów ekranu Lichess... czegokolwiek co nie jest chronione prawem autorskim kogoś innego.</string>
   <string name="safeAndRespectfulContent">Publikuj proszę wyłącznie wyważone i taktowne treści. Nie kopiuj materiałów od innych.</string>
   <string name="inappropriateContentAccountClosed">Każda niestosowna rzecz może spowodować zamknięcie Twojego konta.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Nasze proste rady dotyczące pisania dobrych wpisów na blogu</string>
+  <string name="blogTips">Nasze proste rady dotyczące pisania dobrych wpisów na blogu</string>
+  <string name="discussThisBlogPostInTheForum">Omów ten wpis na forum</string>
 </resources>

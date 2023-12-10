@@ -51,7 +51,7 @@ Cando un xogador non pode ser emparellado durante unha rolda, recibe un \"bye\" 
 É a suma dos puntos dos rivais derrotados máis a metade dos puntos dos rivais cos que se fai táboas.</string>
   <string name="pairingsQ">Como se deciden os emparellamentos?</string>
   <string name="dutchSystem">sistema holandés</string>
-  <string name="FIDEHandbook">manual da FIDE</string>
+  <string name="FIDEHandbook">Manual da FIDE</string>
   <string name="pairingsA">Co %1$s, posto en práctica por %2$s, de acordo co %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis roldas ca xogadores?</string>
   <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador.</string>
@@ -62,8 +62,7 @@ Cremos que é máis probable que se cumpran estas condicións nun equipo que en 
   <string name="numberOfByesA">Un xogador recibe unha exención de rolda de un punto cada vez que o sistema de emparellamento non é quen de atoparlle un rival.
 Ademais, outórgaselle un único \"bye\" de medio punto ó xogador que se une tarde ó torneo.</string>
   <string name="earlyDrawsQ">Que pasa coas táboas rápidas?</string>
-  <string name="earlyDrawsA">Un xogador recibe unha exención de rolda de un punto cada vez que o sistema de emparellamento non é quen de atoparlle un rival.
-Ademais, outórgaselle un único \"bye\" de medio punto ó xogador que se une tarde ó torneo.</string>
+  <string name="earlyDrawsAnswer">Nun torneo suízo non se permiten as táboas en menos de 30 xogadas. Malia que esta medida non evita as táboas pactadas, cando menos dificulta acordalas de improviso.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador non xoga unha partida?</string>
   <string name="whatIfOneDoesntPlayA">O seu reloxo parará, será marcado e perderá a partida.
 Logo o sistema botará ao xogador do torneo para que non perda máis partidas.
@@ -78,9 +77,9 @@ Os xogadores que se unen tarde reciben un só \"bye\", mesmo se non se presentan
   <string name="willSwissReplaceArenasQ">Substituirán os torneos suízos ás Arenas?</string>
   <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
   <string name="roundRobinQ">Que pasa cos \"todos contra todos\" (\"Round Robin\")?</string>
-  <string name="roundRobinA">Gustaríanos engadilos, pero os torneos \"todos contra todos\" non adoitan funcionar en liña.
-O motivo é que non existe unha forma xusta de penalizar ós xogadores que abandonan o torneo de forma temperá. Nun evento en liña non podemos esperar que todos os participantes xoguen todas as súas partidas. Simplemente non vai ocorrer e, como resultado, a maioría dos torneos \"todos contra todos\" serán imperfectos e inxustos, o que invalida a súa razón de ser.
-O formato máis próximo a un torneo \"todos contra todos\" en liña é un torneo suizo cun número de roldas moi elevado. Desta maneira, xogaranse todos os posibles emparellamentos antes de que finalice o torneo.</string>
+  <string name="roundRobinA">Gustaríanos engadilos, pero os torneos \"todos contra todos\" en liña non adoitan funcionar.
+O motivo é que non existe unha forma xusta de penalizar ós xogadores que abandonan o torneo de forma temperá. Nun evento en liña non podemos agardar que todos os participantes xoguen todas as súas partidas. Simplemente non vai ocorrer e, como resultado, a maioría dos torneos \"todos contra todos\" serán imperfectos e inxustos, o que invalida a súa razón de ser.
+O formato máis próximo a un torneo \"todos contra todos\" en liña é un torneo suízo cun número de roldas moi elevado. Desta maneira, xogaranse todos os posibles emparellamentos antes de que finalice o torneo.</string>
   <string name="otherSystemsQ">Que pasa con outros sistemas de torneos?</string>
   <string name="otherSystemsA">Polo de agora non temos a intención de engadir máis sistemas de torneos a Lichess.</string>
   <string name="swissDescription">Nun torneo suízo %1$s, cada xogador non ten que enfrontarse necesariamente a todos os participantes. Os xogadores enfróntanse un a un en cada rolda e se emparellan mediante un conxunto de regras deseñado para garantir que xoguen con opoñentes cun marcador similar, pero non poden enfrontarse máis dunha vez ao mesmo opoñente. O gañador é o xogador que obteña o maior número de puntos en todas as roldas. Os participantes deben xogar todas as roldas, excepto se hai un número impar de xogadores.</string>

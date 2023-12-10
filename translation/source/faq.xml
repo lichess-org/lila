@@ -53,11 +53,12 @@ The computer analysis on Lichess is powered by Stockfish.</string>
 In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
 
 Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+  <string name="fideHandbook">FIDE handbook</string>
   <string name="fideHandbookX">FIDE handbook %s</string>
   <string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
   <string name="explainingEnPassant">This is a legal move known as "en passant". The Wikipedia article gives a %1$s.
 
-It is described in section 3.7 (d) of the %2$s:
+It is described in sections 3.7.3.1 and 3.7.3.2 of the %2$s:
 
 "A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture."
 
@@ -66,7 +67,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="lichessTraining">Lichess training</string>
   <string name="watchIMRosenCheckmate">Watch International Master Eric Rosen checkmate %s.</string>
   <string name="threefoldRepetition">Threefold repetition</string>
-  <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
+  <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">threefold repetition</string>
   <string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
@@ -141,4 +142,28 @@ It's best to think of ratings as "relative" figures (as opposed to "absolute" fi
 Click the lock icon next to the lichess.org address in the URL bar of your browser.
 
 Then select whether to allow or block notifications from Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Enable autoplay for sounds?</string>
+  <string name="enableAutoplayForSoundsA">Most browsers can prevent sound from playing on a freshly loaded page to protect users. Imagine if every website could immediately bombard you with audio ads.
+
+The red mute icon appears when your browser prevents lichess.org from playing a sound. Usually this restriction is lifted once you click something. On some mobile browsers, touch dragging a piece does not count as a click. In that case you must tap the board to allow sound at the start of each game.
+
+We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
+  <string name="desktop">desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Go to lichess.org
+2. Press Ctrl-i on Linux/Windows or cmd-i on MacOS
+3. Click the Permissions tab
+4. Allow Audio and Video on lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Go to lichess.org
+2. Click the lock icon in the address bar
+3. Click Site Settings
+4. Allow Sound</string>
+  <string name="enableAutoplayForSoundsSafari">1. Go to lichess.org
+2. Click Safari in the menu bar
+3. Click Settings for lichess.org ...
+4. Allow All Auto-Play</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Click the three dots in the top right corner
+2. Click Settings
+3. Click Cookies and Site Permissions
+4. Scroll down and click Media autoplay
+5. Add lichess.org to Allow</string>
 </resources>

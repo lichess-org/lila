@@ -9,6 +9,7 @@
 /public/glyphs.json
 /public/javascripts/vendor
 /public/vendor
+/public/oops/429.html
 
 /translation/dest
 
@@ -24,6 +25,7 @@
 /ui/puz/**/*.d.ts
 
 *.min.js
+readme
 
 /.bloop/
 /.bsp/

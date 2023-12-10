@@ -1,2 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">ಈಗ ತಾನೆ</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s ಸೆಕೆಂಡಿನಲ್ಲಿ</item>
+    <item quantity="other">%s ಸೆಕೆಂಡುಗಳಲ್ಲಿ</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s ನಿಮಿಷದಲ್ಲಿ</item>
+    <item quantity="other">%s ನಿಮಿಷಗಳಲ್ಲಿ</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s ಗಂಟೆಯಲ್ಲಿ</item>
+    <item quantity="other">%s ಗಂಟೆಗಳಲ್ಲಿ</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s ದಿನದಲ್ಲಿ</item>
+    <item quantity="other">%s ದಿನಗಳಲ್ಲಿ</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s ವಾರದಲ್ಲಿ</item>
+    <item quantity="other">%s ವಾರಗಳಲ್ಲಿ</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s ತಿಂಗಳಲ್ಲಿ</item>
+    <item quantity="other">%s ತಿಂಗಳುಗಳಲ್ಲಿ</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s ವರ್ಷದಲ್ಲಿ</item>
+    <item quantity="other">%s ವರ್ಷಗಳಲ್ಲಿ</item>
+  </plurals>
+  <string name="rightNow">ಇದೀಗ</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s ನಿಮಿಷದ ಹಿಂದೆ</item>
+    <item quantity="other">%s ನಿಮಿಷಗಳ ಹಿಂದೆ</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s ಗಂಟೆಯ ಹಿಂದೆ</item>
+    <item quantity="other">%s ಗಂಟೆಗಳ ಹಿಂದೆ</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s ದಿನದ ಹಿಂದೆ</item>
+    <item quantity="other">%s ದಿನಗಳ ಹಿಂದೆ</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s ವಾರದ ಹಿಂದೆ</item>
+    <item quantity="other">%s ವಾರಗಳ ಹಿಂದೆ</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s ತಿಂಗಳ ಹಿಂದೆ</item>
+    <item quantity="other">%s ತಿಂಗಳ ಹಿಂದೆ</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s ತಿಂಗಳ ಹಿಂದೆ</item>
+    <item quantity="other">%s ತಿಂಗಳ ಹಿಂದೆ</item>
+  </plurals>
+</resources>

@@ -67,13 +67,19 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(
-    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId, _) =>
+    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
         _ so api.requestPlay(id into RelayRoundId, v)
       }
+    },
+    "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
+      roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
+    },
+    "adminStudy" -> { case lila.study.actorApi.BecomeStudyAdmin(studyId, me) =>
+      api.becomeStudyAdmin(studyId, me)
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
       promise completeWith api.isOfficial(studyId)

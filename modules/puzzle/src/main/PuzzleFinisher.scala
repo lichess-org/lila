@@ -176,21 +176,19 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.doubleCheck,
       PuzzleTheme.mateIn1,
       PuzzleTheme.castling
-    ).map(_.key)
+    ).map(_.key) ++ PuzzleTheme.allMates
 
     private def weightOf(angle: PuzzleAngle, win: PuzzleWin) =
-      angle.asTheme.fold(1f) { theme =>
+      angle.asTheme.fold(1f): theme =>
         if theme == PuzzleTheme.mix.key then 1
-        else if isObvious(theme) then if win.yes then 0.2f else 0.6f
-        else if isHinting(theme) then if win.yes then 0.3f else 0.7f
+        else if isObvious(theme) then if win.yes then 0.1f else 0.4f
+        else if isHinting(theme) then if win.yes then 0.2f else 0.7f
         else if win.yes then 0.7f
         else 0.8f
-      }
 
     def player(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), puzzle: Glicko) =
-      val provisionalPuzzle = puzzle.provisional.yes so {
+      val provisionalPuzzle = puzzle.provisional.yes.so:
         if win.yes then -0.2f else -0.7f
-      }
       glicko._1.average(glicko._2, (weightOf(angle, win) + provisionalPuzzle) atLeast 0.1f)
 
     def puzzle(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), player: Glicko) =

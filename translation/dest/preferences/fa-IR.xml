@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">تنظیمات عملکرد</string>
+  <string name="preferences">تنظیمات</string>
   <string name="display">صفحه نمایش</string>
   <string name="privacy">امنیت و حریم شخصی</string>
   <string name="notifications">اعلانات</string>
@@ -44,6 +44,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
+  <string name="explainCanThenBeTemporarilyDisabled">می‌توانید در طول بازی منوی تخته را غیرفعال کنید</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>

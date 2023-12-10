@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">পছন্দসমূহ</string>
+  <string name="display">ডিসপ্লে</string>
+  <string name="privacy">গোপনীয়তা</string>
   <string name="pieceAnimation">গুটির অ্যানিমেশন</string>
   <string name="materialDifference">গুটির মধ্যে ব্যবধান</string>
   <string name="boardHighlights">বোর্ডের বৈশিষ্ট সমূহ (শেষ চাল এবং পরীক্ষা)</string>

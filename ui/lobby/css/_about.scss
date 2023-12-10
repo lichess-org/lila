@@ -1,6 +1,7 @@
 .lobby__about {
   display: flex;
   align-content: flex-start;
+  justify-content: center;
   flex-flow: row wrap;
   font-size: 0.85em;
   font-weight: bold;
@@ -24,7 +25,9 @@
 }
 
 .connect-links {
-  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  flex: 1 0 100%;
   margin-top: 0.5em;
 
   a {

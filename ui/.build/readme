@@ -1,0 +1,34 @@
+ui/build was lovingly crafted from a single block of wood as a personal gift to you.
+
+  ./build <options> <modules> # modules are top level directories in ui
+  one letter options can be consolidated after a single dash (e.g. -cdw)
+  ui/build can be run from anywhere, does not care about cwd
+
+Options:
+  -c, --clean       clean build artifacts, build only if additional args provided
+  -d, --debug       build assets with lichess.debug = true
+  -p, --prod        build minified assets (prod builds)
+  -w, --watch       build, watch for changes, but terminate on package.json changes
+  -r, --rebuild     build, watch, and rebuild on package.json changes
+  -n, --no-install  don't run pnpm install (--no-install is incompatible with --rebuild)
+  --no-color        don't use color in logs
+  --no-time         don't log the time
+  --no-context      don't log the context
+  --update          rebuild ui/build (not performed in normal builds, not even clean ones)
+  --tsc             run tsc, any of [--tsc, --sass, --esbuild, --copies] will disable the others
+  --sass            run sass
+  --esbuild         run esbuild
+  --copies          run copies
+
+Examples:
+  ./build -c                 # clean build artifacts, exit without building
+  ./build -d                 # build client sssets with lichess.debug = true
+  ./build -wn                # build, watch for changes, no pnpm install
+  ./build -r                 # build, watch, and rebuild on package.json change
+  ./build -rd                # build, watch, rebuild on package.json change, lichess.debug = true
+  ./build -cp                # clean, build minified
+  ./build -rc                # clean, build, watch, and clean rebuild on package.json change
+  ./build analyse site msg   # build analyse, site, and msg modules (as opposed to everything)
+  ./build -w dasher chart    # watch mode for dasher and chart modules
+  ./build --tsc -w           # watch mode but type checking only
+  ./build --sass msg notify  # build css only for msg and notify modules

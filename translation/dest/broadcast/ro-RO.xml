@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Difuzări</string>
+  <string name="broadcasts">Transmisiuni</string>
+  <string name="myBroadcasts">Transmisiile mele</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transmisiune</item>
+    <item quantity="few">%s transmisiuni</item>
+    <item quantity="other">%s de transmisiuni</item>
+  </plurals>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
   <string name="addRound">Adaugă o rundă</string>
@@ -15,7 +21,7 @@
   <string name="fullDescriptionHelp">Descriere lungă, opțională, a difuzării. %1$s este disponibil. Lungimea trebuie să fie mai mică decât %2$s caractere.</string>
   <string name="sourceUrlOrGameIds">Link-ul sursă, sau ID-ul partidei</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
-  <string name="gameIdsHelp">Alternativ, poți să adaugi 64 ID-uri de jocuri pe Lichees, separat de spațiu.</string>
+  <string name="gameIdsHelp">Alternativ, poți să adaugi 64 ID-uri de jocuri pe Lichess, separat de spațiu.</string>
   <string name="startDate">Data de începere conform fusului tău orar</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
   <string name="credits">Creditează sursa</string>
@@ -27,6 +33,7 @@
   <string name="deleteRound">Șterge această rundă</string>
   <string name="definitivelyDeleteRound">Șterge definitiv runda și jocurile sale.</string>
   <string name="deleteAllGamesOfThisRound">Șterge toate jocurile din această rundă. Sursa va trebui să fie activă pentru a le recrea.</string>
+  <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
+  <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
 </resources>

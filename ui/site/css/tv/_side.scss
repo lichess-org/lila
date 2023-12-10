@@ -35,13 +35,12 @@
   }
 }
 
-.tv-channels.subnav {
-  @include breakpoint($mq-subnav-top) {
-    grid-template-columns: repeat(auto-fit, minmax(18ch, 1fr));
-
-    strong {
-      letter-spacing: -1px;
-    }
+@include breakpoint($mq-subnav-top) {
+  .round__side {
+    overflow: hidden;
+  }
+  .subnav strong {
+    letter-spacing: -1px;
   }
 }
 

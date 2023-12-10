@@ -6,7 +6,7 @@
   <string name="progressX">Araokadur: %s</string>
   <string name="resetMyProgress">Nullañ ma araokadur</string>
   <string name="youWillLoseAllYourProgress">Kollet e vo hoc\'h araokadur ganeoc\'h!</string>
-  <string name="play">c\'hoari!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">c\'hoari!</string>
   <string name="chessPieces">Pezhioù ar c\'hoari echedoù</string>
   <string name="theRook">An tour</string>
   <string name="itMovesInStraightLines">Fiñval a ra a-blom hag a-blaen</string>
@@ -212,6 +212,7 @@ Pezh gwerin = 1</string>
   <string name="rightOn">Mat!</string>
   <string name="stageXComplete">Echu eo ar gentel %s</string>
   <string name="next">War-raok</string>
+  <string name="nextX">Goude-se: %s</string>
   <string name="backToMenu">Distreiñ d\'al lañser</string>
   <string name="puzzleFailed">C\'hwitet warni!</string>
   <string name="retry">Klask en-dro</string>

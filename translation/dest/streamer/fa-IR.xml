@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">صفحه استریمر لیچس مخاطبان شما را با زبان ارائه شده توسط پلتفرم استریم شما هدف قرار می دهد. زبان پیش‌فرض صحیح را برای استریم های شطرنج خود در برنامه یا سرویسی که برای پخش استفاده می‌کنید، تنظیم کنید.</string>
   <string name="twitchUsername">نام کاربری شما در توییچ</string>
   <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
+  <string name="youTubeChannelId">شناسه کانال یوتیوب شما</string>
   <string name="streamerName">نام استریم شما رد لیچس</string>
   <plurals name="keepItShort">
     <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>

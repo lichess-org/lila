@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { Contact, LastMsg } from '../interfaces';
+import { Contact, LastMsg, User } from '../interfaces';
 import MsgCtrl from '../ctrl';
-import { userName, userIcon } from './util';
 import * as licon from 'common/licon';
-import { hookMobileMousedown } from 'common/mobile';
+import { hookMobileMousedown } from 'common/device';
+import { fullName, userLine } from 'common/userLink';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,
@@ -20,7 +20,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
       userIcon(user, 'msg-app__side__contact__icon'),
       h('div.msg-app__side__contact__user', [
         h('div.msg-app__side__contact__head', [
-          h('div.msg-app__side__contact__name', userName(user)),
+          h('div.msg-app__side__contact__name', fullName(user)),
           h('div.msg-app__side__contact__date', renderDate(msg)),
         ]),
         h('div.msg-app__side__contact__body', [
@@ -42,8 +42,19 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
   );
 }
 
-function renderDate(msg: LastMsg): VNode {
-  return h(
+export const userIcon = (user: User, cls: string): VNode =>
+  h(
+    'div.user-link.' + cls,
+    {
+      class: {
+        online: user.online,
+      },
+    },
+    userLine(user),
+  );
+
+const renderDate = (msg: LastMsg): VNode =>
+  h(
     'time.timeago',
     {
       key: msg.date.getTime(),
@@ -54,4 +65,3 @@ function renderDate(msg: LastMsg): VNode {
     },
     lichess.timeago(msg.date),
   );
-}

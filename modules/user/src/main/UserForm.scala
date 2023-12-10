@@ -9,25 +9,24 @@ import lila.common.Form.{ cleanNonEmptyText, cleanText, trim, into, given }
 
 final class UserForm:
 
-  def username(user: User): Form[UserName] =
-    Form(
-      single(
-        "username" -> cleanNonEmptyText
-          .into[UserName]
-          .verifying(
-            "changeUsernameNotSame",
-            name => name.id == user.username.id && name != user.username
-          )
-          .verifying(
-            "usernameUnacceptable",
-            name => !LameName.hasTitle(name.value) || LameName.hasTitle(user.username.value)
-          )
-      )
-    ).fill(user.username)
+  def username(user: User): Form[UserName] = Form(
+    single(
+      "username" -> cleanNonEmptyText
+        .into[UserName]
+        .verifying(
+          "changeUsernameNotSame",
+          name => name.id == user.username.id && name != user.username
+        )
+        .verifying(
+          "usernameUnacceptable",
+          name => !LameName.hasTitle(name.value) || LameName.hasTitle(user.username.value)
+        )
+    )
+  ).fill(user.username)
 
   def usernameOf(user: User) = username(user) fill user.username
 
-  val profile: Form[Profile] = Form(
+  val profile: Form[Profile] = Form:
     mapping(
       "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
       "location"   -> optional(cleanNonEmptyText(maxLength = 80)),
@@ -42,30 +41,30 @@ final class UserForm:
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
-  )
 
   def profileOf(user: User) = profile fill user.profileOrDefault
+
+  def flair(using Me) = Form[Option[Flair]]:
+    single(FlairApi.formPair)
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
 object UserForm:
 
-  val note = Form(
+  val note = Form:
     mapping(
       "text"     -> cleanText(minLength = 3, maxLength = 2000),
       "noteType" -> text
     )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ =>
       none
     )
-  )
 
-  val apiNote = Form(
+  val apiNote = Form:
     mapping(
       "text" -> cleanText(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
       "dox"  -> default(boolean, false)
     )(NoteData.apply)(unapply)
-  )
 
   case class NoteData(text: String, mod: Boolean, dox: Boolean)
 

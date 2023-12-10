@@ -1,5 +1,5 @@
 function loadShepherd(f) {
-  const dataTheme = $('body').data('theme');
+  const dataTheme = document.body.dataset.theme;
   const theme =
     'shepherd-theme-' +
     (dataTheme === 'system'
@@ -9,15 +9,16 @@ function loadShepherd(f) {
       : dataTheme === 'light'
       ? 'default'
       : 'dark');
-  lichess.loadCss('vendor/' + theme + '.css');
-  lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
-    lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
+  lichess.asset.loadCss('vendor/' + theme + '.css');
+  lichess.asset.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
+    lichess.asset.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
       f(theme);
     });
   });
 }
 lichess.studyTourChapter = function (study) {
   loadShepherd(function (theme) {
+    const viewSel = 'dialog div.dialog-content';
     var onTab = function (tab) {
       return {
         'before-show': function () {
@@ -39,18 +40,18 @@ lichess.studyTourChapter = function (study) {
           'A study can have several chapters.<br>' +
           'Each chapter has a distinct move tree,<br>' +
           'and can be created in various ways.',
-        attachTo: '#modal-wrap label[for=chapter-name] left',
+        attachTo: `${viewSel} label[for=chapter-name] left`,
       },
       {
         title: 'From initial position',
         text: 'Just a board setup for a new game.<br>' + 'Suited to explore openings.',
-        attachTo: '#modal-wrap .tabs-horiz .init top',
+        attachTo: `${viewSel} .tabs-horiz .init top`,
         when: onTab('init'),
       },
       {
         title: 'Custom position',
         text: 'Setup the board your way.<br>' + 'Suited to explore endgames.',
-        attachTo: '#modal-wrap .tabs-horiz .edit bottom',
+        attachTo: `${viewSel} .tabs-horiz .edit bottom`,
         when: onTab('edit'),
       },
       {
@@ -59,7 +60,7 @@ lichess.studyTourChapter = function (study) {
           'Paste a lichess game URL<br>' +
           '(like lichess.org/7fHIU0XI)<br>' +
           'to load the game moves in the chapter.',
-        attachTo: '#modal-wrap .tabs-horiz .game top',
+        attachTo: `${viewSel} .tabs-horiz .game top`,
         when: onTab('game'),
       },
       {
@@ -68,19 +69,19 @@ lichess.studyTourChapter = function (study) {
           'Paste a position in FEN format<br>' +
           '<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>' +
           'to start the chapter from a position.',
-        attachTo: '#modal-wrap .tabs-horiz .fen top',
+        attachTo: `${viewSel} .tabs-horiz .fen top`,
         when: onTab('fen'),
       },
       {
         title: 'From a PGN game',
         text: 'Paste a game in PGN format.<br>' + 'to load moves, comments and variations in the chapter.',
-        attachTo: '#modal-wrap .tabs-horiz .pgn top',
+        attachTo: `${viewSel} .tabs-horiz .pgn top`,
         when: onTab('pgn'),
       },
       {
         title: 'Studies support variants',
         text: 'Yes, you can study crazyhouse,<br>' + 'and all lichess variants!',
-        attachTo: '#modal-wrap label[for=chapter-variant] left',
+        attachTo: `${viewSel} label[for=chapter-variant] left`,
         when: onTab('init'),
       },
       {
@@ -92,7 +93,7 @@ lichess.studyTourChapter = function (study) {
             action: tour.next,
           },
         ],
-        attachTo: '#modal-wrap .help bottom',
+        attachTo: `${viewSel} .help bottom`,
       },
     ].forEach(function (s) {
       tour.addStep(s.title, s);

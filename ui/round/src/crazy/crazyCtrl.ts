@@ -138,6 +138,6 @@ export function init(ctrl: RoundController) {
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color[0];
-  for (const pKey of 'PNBRQ') fetch(lichess.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
+  for (const pKey of 'PNBRQ') fetch(lichess.asset.url(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

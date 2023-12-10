@@ -25,7 +25,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       env.user.repo
         .isManaged(me)
         .flatMap:
-          if _ then notFoundJson()
+          if _ then notFoundJson("Managed accounts cannot be bots.")
           else
             {
               for
@@ -149,17 +149,24 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
     }
 
+  private val botsCache = env.memo.cacheApi.unit[List[lila.user.User.WithPerfs]]:
+    _.expireAfterWrite(10 seconds).buildAsyncFuture: _ =>
+      env.user.api.visibleBotsByIds(env.bot.onlineApiUsers.get)
+
   def botOnline = Open:
     for
-      users <- env.user.repo.botsByIds(env.bot.onlineApiUsers.get)
-      users <- env.user.perfsRepo.withPerfs(users)
+      users <- botsCache.get({})
       page  <- renderPage(views.html.user.bots(users))
     yield Ok(page)
 
   def botOnlineApi = Anon:
-    apiC
-      .jsonDownload:
-        env.user.api
-          .botsByIdsStream(env.bot.onlineApiUsers.get, getInt("nb"))
-          .map: u =>
-            env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
+    import akka.stream.scaladsl.*
+    apiC.jsonDownload:
+      Source
+        .futureSource:
+          getInt("nb")
+            .foldLeft(botsCache.get({}))((users, nb) => users.map(_ take nb))
+            .map(Source(_))
+        .map: u =>
+          env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
+        .throttle(50, 1.second)

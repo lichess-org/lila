@@ -7,25 +7,25 @@ import lila.hub.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,
-    trouper: SyncActor,
+    actor: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
 )(using Executor):
 
   import Tv.*
   import ChannelSyncActor.*
 
-  private def roundProxyGame = gameProxyRepo.game
+  import gameProxyRepo.game as roundProxyGame
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMapz roundProxyGame
+    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMapz roundProxyGame
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
-    trouper
+    actor
       .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
       .flatMapz(roundProxyGame)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
+    actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for
           game <- gameId so roundProxyGame
@@ -45,7 +45,7 @@ final class Tv(
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
-    trouper.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))
+    actor.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))
 
   def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
@@ -54,7 +54,7 @@ final class Tv(
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
   def getChampions: Fu[Champions] =
-    trouper.ask[Champions](TvSyncActor.GetChampions.apply)
+    actor.ask[Champions](TvSyncActor.GetChampions.apply)
 
 object Tv:
   import chess.{ variant as V, Speed as S }

@@ -11,7 +11,7 @@
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan.</string>
   <string name="toGetPersonalizedPuzzles">Til að fá sérsniðaðar þrautir:</string>
-  <string name="puzzleId">Þraut %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Þraut %s</string>
   <string name="puzzleOfTheDay">Þraut dagsins</string>
   <string name="clickToSolve">Smelltu til að leysa</string>
   <string name="goodMove">Góður leikur</string>
@@ -21,8 +21,8 @@
   <string name="puzzleComplete">Þraut leyst!</string>
   <string name="notTheMove">Þetta er ekki leikurinn!</string>
   <string name="trySomethingElse">Reyndu eitthvað annað.</string>
-  <string name="ratingX">Skákstig: %s</string>
-  <string name="hidden">falið</string>
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Skákstig: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">falið</string>
   <string name="fromGameLink">Úr leik %s</string>
   <string name="continueTraining">Halda áfram að æfa</string>
   <string name="difficultyLevel">Þyngdarstig</string>

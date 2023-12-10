@@ -37,12 +37,13 @@
   <string name="lichessSupportChessAnd">Lichess гадәти шаһматны һәм %1$s ярдәм итә.</string>
   <string name="eightVariants">8 шаһмат варианты</string>
   <string name="whatIsACPL">Ни ул уртача урнашу-матерьялы җиңүлүше (ACPL)?</string>
+  <string name="fideHandbook">FIDE кулланмасы</string>
   <string name="fideHandbookX">FIDE кулланмасы %s</string>
   <string name="discoveringEnPassant">Ни өчен җәяүлене инде узган җәяүлене тотып ала? (бик вакытлы)</string>
   <string name="goodIntroduction">якшы кереш сүз</string>
   <string name="lichessTraining">Lichess күнегүе</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
-  <string name="threefoldRepetitionExplanation">Әгәр дә позиция өч тапкыр килеп чыкса, уенчылар %1$s белән җирәбә таләп итә ала. Lichess рәсми FIDE кагыйдәләрен тормышка ашыра, %2$s ның 9.2 (d) статьясында күрсәтелгәнчә.</string>
+  <string name="threefoldRepetitionExplanation">Әгәр дә позиция өч тапкыр килеп чыкса, уенчылар %1$s белән җирәбә таләп итә ала. Lichess рәсми FIDE кагыйдәләрен тормышка ашыра, %2$s ның 9.2 статьясында күрсәтелгәнчә.</string>
   <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
   <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
   <string name="positions">позициясе</string>
@@ -76,4 +77,5 @@
 Браузерыгызның URL сызыгында lichess.org адресы янындагы йозак иконасына басыгыз.
 
 Аннары Lichess хәбәрләрне рөхсәт итәргәме, ябаргамы-юкмы икәнен сайлагыз.</string>
+  <string name="desktop">эш өстәле</string>
 </resources>

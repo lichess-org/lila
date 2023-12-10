@@ -4,6 +4,7 @@ import { findTag } from '../study/studyChapters';
 import * as game from 'game';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
+import { ratingDiff } from 'common/userLink';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -13,15 +14,6 @@ interface Advice {
   symbol: string;
 }
 
-const renderRatingDiff = (rd: number | undefined): VNode | undefined =>
-  rd === 0
-    ? h('span', '±0')
-    : rd && rd > 0
-    ? h('good', '+' + rd)
-    : rd && rd < 0
-    ? h('bad', '−' + -rd)
-    : undefined;
-
 const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
   const p = game.getPlayer(ctrl.data, color);
   if (p.user)
@@ -30,7 +22,7 @@ const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
       {
         attrs: { href: '/@/' + p.user.username },
       },
-      [p.user.username, ' ', renderRatingDiff(p.ratingDiff)],
+      [p.user.username, ' ', ratingDiff(p)],
     );
   return h(
     'span',
@@ -82,40 +74,15 @@ const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
     ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb)),
   );
 
-const markerColorPrefix = (el: Element): string => {
-  const symbol = el.getAttribute('data-symbol');
-  const playerColorBit = el.getAttribute('data-color') == 'white' ? '1' : '0';
-  // these 5 digit hex values are from the bottom of chart/acpl.ts
-  if (symbol == '??') return '#db303' + playerColorBit;
-  else if (symbol == '?') return '#cc9b0' + playerColorBit;
-  else if (symbol == '?!') return '#1c9ae' + playerColorBit;
-  else return '#000000';
-};
-
 const doRender = (ctrl: AnalyseCtrl): VNode => {
-  const markers = $('g.highcharts-tracker');
-  const showMarkers = (el: Element, visible: boolean) => {
-    const prefix = markerColorPrefix(el);
-    $(`path[stroke^='${prefix}']`, markers)
-      .attr('fill', `${prefix}${visible ? 'ff' : '00'}`)
-      .attr('stroke', `${prefix}${visible ? 'ff' : '00'}`);
-  };
-
   return h(
     'div.advice-summary',
     {
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement)
-            .on('click', 'div.symbol', function (this: Element) {
-              ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
-            })
-            .on('mouseenter', 'div.symbol', function (this: Element) {
-              showMarkers(this, true);
-            })
-            .on('mouseleave', 'div.symbol', function (this: Element) {
-              showMarkers(this, false);
-            });
+          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: HTMLElement) {
+            ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
+          });
         },
       },
     },

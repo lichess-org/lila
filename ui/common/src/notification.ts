@@ -17,7 +17,7 @@ function notify(msg: string | (() => string)) {
   storage.set('' + Date.now());
   if ($.isFunction(msg)) msg = msg();
   const notification = new Notification('lichess.org', {
-    icon: lichess.assetUrl('logo/lichess-favicon-256.png', { noVersion: true }),
+    icon: lichess.asset.url('logo/lichess-favicon-256.png', { noVersion: true }),
     body: msg,
   });
   notification.onclick = () => window.focus();

@@ -60,6 +60,7 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="nextPayment">Nästa betalning</string>
   <string name="youWillBeChargedXOnY">Du kommer att debiteras %1$s den %2$s.</string>
   <string name="makeAdditionalDonation">Gör ytterligare en donation nu</string>
+  <string name="giftPatronWingsShort">Ge bort Patron-vingar</string>
   <string name="giftPatronWings">Skänk Patron-vingar till en spelare</string>
   <string name="update">Uppdatera</string>
   <string name="changeMonthlyAmount">Ändra månadsbeloppet (%s)</string>

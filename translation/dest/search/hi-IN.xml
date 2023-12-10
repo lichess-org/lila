@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">खोजें</string>
-  <string name="advancedSearch">उच्च खोज</string>
+  <string name="advancedSearch">उन्नत खोज</string>
   <plurals name="searchInXGames">
     <item quantity="one">%s शतरंज के खेल में खोजें</item>
-    <item quantity="other">%s शतरंज के खेलो में खोजें</item>
+    <item quantity="other">शतरंज के %s खेलो में खोजें</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">एक खेल मिला</item>
@@ -28,7 +28,7 @@
   <string name="evaluation">मूल्यांकन</string>
   <string name="maxNumber">अधिकतम संख्या</string>
   <string name="maxNumberExplanation">अधिक्तम खेल​</string>
-  <string name="include">शामिल करे</string>
+  <string name="include">शामिल करें</string>
   <string name="descending">अवरोही</string>
   <string name="ascending">आरोही</string>
   <plurals name="gamesFound">

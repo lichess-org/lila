@@ -28,8 +28,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def noCache(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       fetch(userIds.toPair, perfType)
 
-    def loggedIn(ids: ByColor[UserId], perfType: PerfType): Fu[Option[ByColor[User.WithPerf]]] =
-      apply(ids.map(some), perfType).map:
+    def loggedIn(
+        ids: ByColor[UserId],
+        perfType: PerfType,
+        useCache: Boolean = true
+    ): Fu[Option[ByColor[User.WithPerf]]] =
+      val users =
+        if useCache then apply(ids.map(some), perfType)
+        else fetch(ids.map(some).toPair, perfType)
+      users.map:
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
 
@@ -64,11 +71,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[User.WithPerf]] =
     withPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+  def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[User.WithPerfs]] =
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
-        .aggregateList(Int.MaxValue, readPref): framework =>
+        .aggregateList(Int.MaxValue, _.autoTemp(ids)): framework =>
           import framework.*
           Match($inIds(ids)) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
@@ -146,17 +153,24 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else
       userRepo.addTitle(user.id, Title.BOT) >>
+        userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
 
-  def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, ?] =
+  def visibleBotsByIds(ids: Iterable[UserId], max: Int = 200): Fu[List[User.WithPerfs]] =
     userRepo.coll
-      .find($inIds(ids) ++ userRepo.botSelect(true))
-      .cursor[User](ReadPref.priTemp)
-      .documentSource(nb | Int.MaxValue)
-      .grouped(40)
-      .mapAsync(1)(perfsRepo.withPerfs(_))
-      .throttle(1, 1 second)
-      .mapConcat(identity)
+      .aggregateList(max, _.priTemp): framework =>
+        import framework.*
+        Match($inIds(ids) ++ userRepo.botWithBioSelect) -> List(
+          Sort(Descending(User.BSONFields.roles), Descending(User.BSONFields.playTimeTotal)),
+          Limit(max),
+          PipelineOperator(perfsRepo.aggregate.lookup)
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- doc.asOpt[User]
+          perfs = perfsRepo.aggregate.readFirst(doc, user)
+        yield User.WithPerfs(user, perfs)
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User.WithPerfs]] =

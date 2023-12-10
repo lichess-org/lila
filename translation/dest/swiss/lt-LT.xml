@@ -74,8 +74,7 @@ Sudėkite visų oponentų, kuriuos žaidėjas nugalėjo, taškus ir pusę visų 
   <string name="numberOfByesA">Žaidėjas gauna vieno taško vertės \"bye\" kiekvieną kartą kai poravimo sistema jam negali surasti partnerio.
 Taip pat, vienas pusės taško vertės \"bye\" suteikiamas, kai žaidėjas pavėluotai prisijungia prie turnyro.</string>
   <string name="earlyDrawsQ">Kas vyksta kai pasiekiamos ankstyvos lygiosios?</string>
-  <string name="earlyDrawsA">Žaidimas gauna vieno taško bye kiekvieną kartą, kai poravimo sistema jiems nesuranda poros.
-Taip pat pusės taško bye suteikiamas, kai žaidėjas prie turnyro prisijungia pavėluotai.</string>
+  <string name="earlyDrawsAnswer">Šveicariškose partijose žaidėjai negali baigti lygiosiomis nesužaidę 30 ėjimų. Nors ši taisyklė negali apsaugoti nuo iš anksto sutartų lygiųjų, tačiau ji bent apsunkina sutikimą dėl lygiųjų.</string>
   <string name="whatIfOneDoesntPlayQ">Kas vyksta, jei žaidėjas nesužaidžia žaidimo?</string>
   <string name="whatIfOneDoesntPlayA">Jų laikrodis toliau eis, jiems pasibaigs laikas ir jie pralaimės partiją.
 Tada sistema pašalins žaidėją iš turnyro tam, kad jie nepralaimėtų daugiau partijų.

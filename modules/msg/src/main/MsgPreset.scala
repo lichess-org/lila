@@ -1,5 +1,9 @@
 package lila.msg
 
+import lila.user.User
+import lila.hub.LightTeam
+import lila.common.config.BaseUrl
+
 case class MsgPreset(name: String, text: String)
 
 object MsgPreset:
@@ -45,7 +49,8 @@ Thank you for your understanding."""
       "public shaming",
       "disrespecting other players",
       "spamming",
-      "inappropriate behavior"
+      "inappropriate behavior",
+      "incorrect subforum"
     )
 
     def byModerator = compose("A moderator")
@@ -54,5 +59,13 @@ Thank you for your understanding."""
 
     def byBlogAuthor(authorId: String) = compose(by = s"The community blog author $authorId")
 
-    private def compose(by: String)(reason: String) =
-      s"""$by deleted one of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
+    private def compose(by: String)(reason: String, forumPost: String) =
+      s"""$by deleted the following of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette
+----
+$forumPost
+    """
+
+  def newPermissions(by: User, team: LightTeam, perms: Iterable[String], baseUrl: BaseUrl) =
+    s"""@${by.username} has changed your leader permissions in the team "${team.name}".
+Your new permissions are: ${perms.mkString(", ")}.
+$baseUrl/team/${team.id}"""

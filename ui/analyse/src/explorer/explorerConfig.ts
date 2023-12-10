@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { ucfirst } from './explorerUtil';
@@ -102,6 +102,16 @@ export class ExplorerConfigCtrl {
     this.data.db('player');
     this.data.playerName.value(name);
     this.data.playerName.open(false);
+  };
+
+  removePlayer = (name?: string) => {
+    if (!name) return;
+    const previous = this.data.playerName.previous().filter(n => n !== name);
+    this.data.playerName.previous(previous);
+
+    if (this.data.playerName.value() === name) {
+      this.data.playerName.value('');
+    }
   };
 
   toggleMany =
@@ -317,13 +327,23 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
-  return snabModal({
+  const nameToOptionalColor = (name: string | undefined) => {
+    if (!name) {
+      return;
+    } else if (name === ctrl.myName) {
+      return '.button-green';
+    } else if (ctrl.data.playerName.previous().includes(name)) {
+      return '';
+    }
+    return '.button-metal';
+  };
+  return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
@@ -332,7 +352,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
+            lichess.asset
               .userComplete({
                 input,
                 tag: 'span',
@@ -344,15 +364,34 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(
-          name =>
-            h(
-              `button.button${name == ctrl.myName ? '.button-green' : ''}`,
-              {
-                hook: bind('click', () => onSelect(name)),
-              },
-              name,
-            ),
+        [
+          ...new Set([
+            ...(ctrl.myName ? [ctrl.myName] : []),
+            ...ctrl.participants,
+            ...ctrl.data.playerName.previous(),
+          ]),
+        ].map(name =>
+          h(
+            'div',
+            {
+              key: name,
+            },
+            [
+              h(
+                `button.button${nameToOptionalColor(name)}`,
+                {
+                  hook: bind('click', () => onSelect(name)),
+                },
+                name,
+              ),
+              name && ctrl.data.playerName.previous().includes(name)
+                ? h('button.remove', {
+                    attrs: dataIcon(licon.X),
+                    hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                  })
+                : null,
+            ],
+          ),
         ),
       ),
     ],

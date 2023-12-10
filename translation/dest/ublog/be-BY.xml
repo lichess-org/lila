@@ -43,10 +43,10 @@
   <string name="imageCredit">Выява належыць</string>
   <string name="deleteBlog">Выдаліць гэты допіс у блогу канчаткова</string>
   <string name="deleteImage">Выдаліць выяву</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Бяспечна выкарыстоўваць выявы з наступных сайтаў: </string>
+  <string name="safeToUseImages">Бяспечна выкарыстоўваць выявы з наступных сайтаў: </string>
   <string name="selectPostTopics">Выберыце тэмы вашага допісу</string>
   <string name="useImagesYouMadeYourself">Вы таксама можаце выкарыстоўваць выявы, зробленыя вамі, зробленыя вамі фатаграфіі, скрыншоты Lichess... усё, што не абаронена чыім-небудзь аўтарскім правам.</string>
   <string name="safeAndRespectfulContent">Калі ласка, размяшчайце толькі бяспечны і паважлівы кантэнт. Не капіруйце чужы кантэнт.</string>
   <string name="inappropriateContentAccountClosed">Любая недарэчнасць можа прывесці да закрыцця вашага ўліковага запісу.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Нашыя простыя парады пра напісанне цудоўных допісаў у блогу</string>
+  <string name="blogTips">Нашыя простыя парады пра напісанне цудоўных допісаў у блогу</string>
 </resources>

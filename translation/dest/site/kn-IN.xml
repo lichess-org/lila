@@ -59,6 +59,8 @@
   <string name="depthX">ಆಳ %s</string>
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
   <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
+  <string name="calculatingMoves">ಲೆಕ್ಕಿಸುತ್ತಿದ್ದೇವೆ...</string>
+  <string name="engineFailed">ಎಂಜಿನ್ ಲೋಡ್ ಆಗುವಾಗ ದೋಷ ಕಂಡಿದೆ</string>
   <string name="cloudAnalysis">ಕ್ಲೌಡ್ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="goDeeper">ಆಳ ಹೆಚ್ಚಿಸಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
@@ -91,10 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">ಮುಂದಿನ ಸೆರೆಹಿಡಿತ (capture) ಅಥವಾ ಕಾಲಾಳು-ನಡೆ(pawn move)ಯವರೆಗಿನ ಅರ್ಧ-ನಡೆಗಳ ಸಂಖ್ಯೆಯ ಆಧಾರದ ಮೇಲೆ, DTZ50\'\' ಉಪಯೋಗಿಸಿ ಪೂರ್ಣಾಂಕಕ್ಕೆ ತರಲಾಗಿದೆ</string>
   <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
+  <string name="maxDepthReached">ಕೊನೆಯ ಆಳ ತಲುಪಾಗಿದೆ!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ಆದ್ಯತೆಯ ಮೆನುವಿನಿಂದ ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಸೇರಿಸಬಹುದೇ?</string>
+  <string name="openings">ಪ್ರಾರಂಭಗಳು</string>
   <string name="openingExplorer">ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
   <string name="openingEndgameExplorer">ಪ್ರಾರಂಭಿಕ ಘಟ್ಟ/ ಅಂತಿಮ ಘಟ್ಟ ದ ಅನ್ವೇಷಕ</string>
   <string name="xOpeningExplorer">%s ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ಪ್ರಾರಂಭ ಹೂವಿಕೆಯನ್ನು ಅಥವಾ ಅಂತಿಮ ಆವರಣ ಅನ್ವೇಷಕ ಆಡಿ</string>
   <string name="winPreventedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಗೆಲುವು ತಪ್ಪಿದೆ</string>
   <string name="lossSavedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಸೋಲು ತಪ್ಪಿದೆ</string>
   <string name="winOr50MovesByPriorMistake">ಗೆಲುವು ಅಥವಾ ಹಿಂದಿನ ತಪ್ಪುಗಳಿಂದ ಉಂಟಾದ ೫೦-ನಡೆಗಳ ನಿಯಮದ ಅನಿರ್ದಿಷ್ಟತೆ</string>
@@ -116,6 +121,7 @@
   <string name="memory">ಮೆಮೊರಿ</string>
   <string name="infiniteAnalysis">ಅನಂತ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="removesTheDepthLimit">ಆಳ ನಿರ್ಬಂಧಿನೆ ತೆಗೆಯುತ್ತದೆ, ಕಂಪ್ಯೂಟರ್ ಬಿಸಿಯಾಗಬಹುದು</string>
+  <string name="engineManager">ಎಂಜಿನ್ ಮೇನೇಜರ್</string>
   <string name="blunder">ಪ್ರಮಾದ</string>
   <string name="mistake">ತಪ್ಪು</string>
   <string name="inaccuracy">ಅಸ್ಪಷ್ಟತೆ</string>
@@ -148,6 +154,10 @@
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s ಆಟಗಳಿಗಿಂತ %1$s ರೇಟಿಂಗ್</item>
+    <item quantity="other">%1$s ರೇಟಿಂಗ್ ಮೇಲ್ಮೆ %2$s ಆಟಗಳು</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ಗುರುತುಸಂಗ್ರಹ</item>
     <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
@@ -155,6 +165,7 @@
   <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
   <string name="logOut">ಹೊರನಡೆಯಿರಿ</string>
   <string name="signIn">ಒಳಗೆ ಪ್ರವೇಶಿಸಿ</string>
+  <string name="rememberMe">ನನ್ನನ್ನು ಲಾಗಿನ್ ಇಟ್ಟಿರಿ</string>
   <string name="youNeedAnAccountToDoThat">ಅದನ್ನು ಮಾಡಲು ನಿಮಗೆ ಖಾತೆ ಇರಬೇಕು</string>
   <string name="signUp">ನೋಂದಣಿ</string>
   <string name="computersAreNotAllowedToPlay">ಕಂಪ್ಯೂಟರ್ ಅಥವಾ ಕಂಪ್ಯೂಟರ್-ಸಹಾಯಿತ ಆಟಗಾರರಿಗೆ ಆಡಲು ಅನುಮತಿ ಇಲ್ಲ. ಆಟ ಆಡುವ ಸಮಯದಲ್ಲಿ ದಯವಿಟ್ಟು ಯಾವುದೇ ಕಂಪ್ಯೂಟರ್-ಇಂಜಿನ್, ಕಂಪ್ಯೂಟರ್-ದತ್ತಸಂಚಯ, ಅಥವಾ ಬೇರೆ ಆಟಗಾರರ ಸಹಾಯ ಪಡೆಯಬೇಡಿ. ಹಾಗೂ ಗಮನಿಸಿ, ಒಂದೇ ವ್ಯಕ್ತಿ ಅನೇಕ ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದನ್ನು ಖಡ್ಡಾಯವಾಗಿ ವಿರೋಧಿಸಲಾಗಿದೆ. ಅನೇಕ ಖಾತೆಗಳನ್ನು ತೆರೆದಿರುವುದು ಕಂಡುಬಂದಲ್ಲಿ, ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿಷೇಧಿಸಲಾಗುವುದು.</string>
@@ -195,12 +206,39 @@
   <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
   <string name="changeUsernameNotSame">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ \"case\" ಮಾತ್ರ ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, \"johndoe\" ದಿಂದ \"JohnDoe\" ಕ್ಕೆ ಬದಲಾಯಿಸಬಹುದು.</string>
   <string name="changeUsernameDescription">ನಿಮ್ಮ ಖಾತೆಯ ಹೆಸರು, ಅಂದರೆ username, ಅನ್ನು ಬದಲಾಯಿಸಿ. ಈ ಬದಲಾವಣೆಯನ್ನು ಕೇವಲ ಒಂದೇ ಬಾರಿ ಮಾಡಲು ಅವಕಾಶವಿದೆಯಷ್ಟೆ. ಹಾಗೂ, ಈ ಅವಕಾಶ ಕೇವಲ ನಿಮ್ಮ \"username\" ನಲ್ಲಿರುವ \"case\" ಬದಲಾವಣೆಗಷ್ಟೇ ಸೀಮಿತಗೊಳಿಸಲಾಗಿದೆ.</string>
+  <string name="signupUsernameHint">ಕುಟುಂಬ ಸ್ನೇಹಿತ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಆರಿಸರಿ. ನೀವು ನಂತರ ಅದನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ ಮತ್ತು ಅನವಶ್ಯಕ ಹೆಸರುಗಳನ್ನು ಹೊಂದಿರುವ ಖಾತೆಗಳು ಮುಚ್ಚಲ್ಪಡುವುವು!</string>
+  <string name="signupEmailHint">ನಾವು ಅದನ್ನು ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸುವಲ್ಲಿ ಮಾತ್ರ ಬಳಸುತ್ತೇವೆ.</string>
   <string name="password">ಗುಪ್ತಪದ</string>
   <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
   <string name="changeEmail">ಇಮೇಲ್ ವಿಳಾಸ ಬದಲಿಸಿ</string>
   <string name="email">ಇಮೇಲ್</string>
   <string name="passwordReset">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
   <string name="forgotPassword">ಗುಪ್ತಪದ ಮರೆತು ಹೋಯಿತೇ?</string>
+  <string name="error.weakPassword">ಈ ಪಾಸ್ವರ್ಡ್ ಅತ್ಯಂತ ಸಾಮಾನ್ಯವಾಗಿದೆ ಮತ್ತು ತುಚ್ಛವಾಗಿ ಊಹಿಸಲು ಹೆಚ್ಚು ಸುಲಭವಾಗಿದೆ.</string>
+  <string name="error.namePassword">ದಯವಿಟ್ಟು ನೀವು ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ಆಗಿ ಬಳಸಬೇಡಿ.</string>
+  <string name="blankedPassword">ನೀವು ಇನ್ನೊಂದು ಸೈಟ್‌ನಲ್ಲಿ ಒಂದೇ ಪಾಸ್ವರ್ಡ್‌ನನ್ನು ಬಳಸಿದ್ದೀರಿ, ಮತ್ತು ಆ ಸೈಟ್‌ಗೆ ಭೇದಿಸಲಾಗಿದೆ. ನಿಮ್ಮ Lichess ಖಾತೆಯ ಸುರಕ್ಷತೆಗೆ ಖಚಿತವಾಗಿರಲು, ನೀವು ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಹೊಂದಿಸಬೇಕಾಗಿದೆ. ನಿಮ್ಮ ಮನವನ್ನು ಅರಿತುಕೊಳ್ಳುವ ಹೊರತು ಧನ್ಯವಾದಗಳು.</string>
+  <string name="youAreLeavingLichess">ನೀವು Lichess ಅನ್ನು ಬಿಟ್ಟುಹೋಗುತ್ತಿದ್ದೀರಿ</string>
+  <string name="neverTypeYourPassword">ಇನ್ನೊಂದು ಸೈಟ್‌ನಲ್ಲಿ ನೀವು ನಿಮ್ಮ Lichess ಪಾಸ್ವರ್ಡ್ ಟೈಪ್ ಮಾಡಬೇಡಿ!</string>
+  <string name="proceedToX">%s ಗೆ ಮುಂದುವರೆಯಿರಿ</string>
+  <string name="passwordSuggestion">ಬೇರೆಯವರು ಸೂಚಿಸಿದ ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಬೇಡಿ. ಅವರು ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಕದಿಯಲು ಬಳಸುತ್ತಾರೆ.</string>
+  <string name="emailSuggestion">ಬೇರೆಯವರು ಸೂಚಿಸಿದ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಹೊಂದಿಸಬೇಡಿ. ಅವರು ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಕದಿಯಲು ಬಳಸುತ್ತಾರೆ.</string>
+  <string name="emailConfirmHelp">ಇಮೇಲ್ ದೃಢೀಕರಣದೊಂದಿಗೆ ಸಹಾಯ ಮಾಡಿ</string>
+  <string name="emailConfirmNotReceived">ಸೈನ್ ಅಪ್ ಮಾಡಿದ ನಂತರ ನಿಮ್ಮ ದೃಢೀಕರಣ ಇಮೇಲ್ ಸ್ವೀಕರಿಸಲಿಲ್ಲವೇ?</string>
+  <string name="whatSignupUsername">ಸೈನ್ ಅಪ್ ಮಾಡಲು ನೀವು ಯಾವ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಬಳಸಿದ್ದೀರಿ?</string>
+  <string name="usernameNotFound">ಈ ಹೆಸರಿನಿಂದ ನಮಗೆ ಯಾವುದೇ ಬಳಕೆದಾರರನ್ನು ಹುಡುಕಲಾಗಲಿಲ್ಲ: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">ಹೊಸ ಖಾತೆಯನ್ನು ರಚಿಸಲು ನೀವು ಈ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಬಳಸಬಹುದು</string>
+  <string name="emailSent">ನಾವು %s ಗೆ ಇಮೇಲ್ ಕಳುಹಿಸಿದ್ದೇವೆ.</string>
+  <string name="emailCanTakeSomeTime">ಬರಲು ಸ್ವಲ್ಪ ಸಮಯ ತೆಗೆದುಕೊಳ್ಳಬಹುದು.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 ನಿಮಿಷ ನಿರೀಕ್ಷಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಇಮೇಲ್ ಇನ್‌ಬಾಕ್ಸ್ ಅನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಿ.</string>
+  <string name="checkSpamFolder">ನಿಮ್ಮ ಸ್ಪ್ಯಾಮ್ ಫೋಲ್ಡರ್ ಅನ್ನು ಸಹ ಪರಿಶೀಲಿಸಿ, ಅದು ಅಲ್ಲಿಗೆ ಕೊನೆಗೊಳ್ಳಬಹುದು. ಹಾಗಿದ್ದಲ್ಲಿ, ಅದನ್ನು ಸ್ಪ್ಯಾಮ್ ಅಲ್ಲ ಎಂದು ಗುರುತಿಸಿ.</string>
+  <string name="emailForSignupHelp">ಎಲ್ಲವೂ ವಿಫಲವಾದರೆ, ನಮಗೆ ಈ ಇಮೇಲ್ ಕಳುಹಿಸಿ:</string>
+  <string name="copyTextToEmail">ಮೇಲಿನ ಪಠ್ಯವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಅಂಟಿಸಿ ಮತ್ತು ಅದನ್ನು %s ಗೆ ಕಳುಹಿಸಿ</string>
+  <string name="waitForSignupHelp">ನಿಮ್ಮ ಸೈನ್ ಅಪ್ ಅನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮ ಬಳಿಗೆ ಬರುತ್ತೇವೆ.</string>
+  <string name="accountConfirmed">ಬಳಕೆದಾರ %s ಯಶಸ್ವಿಯಾಗಿ ದೃಢೀಕರಿಸಲಾಗಿದೆ.</string>
+  <string name="accountCanLogin">ನೀವು ಇದೀಗ %s ನಂತೆ ಲಾಗಿನ್ ಮಾಡಬಹುದು.</string>
+  <string name="accountConfirmationEmailNotNeeded">ನಿಮಗೆ ದೃಢೀಕರಣ ಇಮೇಲ್ ಅಗತ್ಯವಿಲ್ಲ.</string>
+  <string name="accountClosed">ಖಾತೆ %s ಮುಚ್ಚಲಾಗಿದೆ.</string>
+  <string name="accountRegisteredWithoutEmail">%s ಖಾತೆಯನ್ನು ಇಮೇಲ್ ಇಲ್ಲದೆ ನೋಂದಾಯಿಸಲಾಗಿದೆ.</string>
   <string name="rank">ಶ್ರೇಣಿ</string>
   <string name="rankX">ಶ್ರೇಣಿ %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -309,8 +347,13 @@
     <item quantity="one">%s ಅಧ್ಯಯನ</item>
     <item quantity="other">%s ಅಧ್ಯಯನಗಳು</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s ಸಿಮ್ಯುಲ್</item>
+    <item quantity="other">%s ಸಿಮ್ಯುಲ್‌ಗಳು</item>
+  </plurals>
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
+  <string name="noDrawBeforeSwissLimit">ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ 30 ಚಲನೆಗಳನ್ನು ಆಡುವ ಮೊದಲು ನೀವು ಡ್ರಾ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
   <string name="thematic">ವಿಶೇಷ ವಿಷಯಾಧಾರಿತ</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ಧಾರಣೆ-ಸಹಿತ ಆಟ</item>
@@ -340,6 +383,7 @@
   <string name="siteDescription">ಜಾಲತಾಣದಲ್ಲಿ ಉಚಿತವಾಗಿ ಚೆಸ್ (ಚದುರಂಗ) ಆಡುವ ವ್ಯವಸ್ಥೆ. ಸರಳ ಮತ್ತು ಶುಭ್ರವಾದ ಇಂಟರ್ಫೇಸ್ ನಲ್ಲಿ ಚೆಸ್ ಆಡಿ. ಯಾವುದೇ ರೀತಿಯ ನೋಂದಾವಣೆಯ ಅಗತ್ಯವಿಲ್ಲ. ಯಾವುದೇ ಜಾಹೀರಾತು ಅಥವಾ ಹೆಚ್ಚಿನ ಸಾಫ್ಟ್ ವೇರ್ (plugin) ಗಳ ಅವಶ್ಯಕತೆಯಿಲ್ಲ. ಕಂಪ್ಯೂಟರ್, ಗೆಳೆಯ/ಗೆಳತಿಯರು, ಅಥವಾ ಯಾವುದೋ ಆಗಂತುಕ ಎದುರಾಳಿಯೊಂದಿಗೆ ಚೆಸ್ ಆಡಿ.</string>
   <string name="xJoinedTeamY">%1$s ಅವರು %2$s ತಂಡಕ್ಕೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xCreatedTeamY">%1$s ಅವರು %2$s ಎಂಬ ತಂಡವನ್ನು ರಚಿಸಿದ್ದಾರೆ</string>
+  <string name="startedStreaming">ಸ್ಟ್ರೀಮಿಂಗ್ ಆರಂಭಿಸಿದರು</string>
   <string name="xStartedStreaming">%s ಅವರು ನೇರಪ್ರಸಾರ ಮಾಡಲು ಆರಂಭಿಸಿದ್ದಾರೆ</string>
   <string name="averageElo">ಸರಾಸರಿ ಧಾರಣೆ</string>
   <string name="location">ಸ್ಥಳ</string>
@@ -358,6 +402,7 @@
   <string name="toStudy">ಅಧ್ಯಯನ</string>
   <string name="importGame">ಆಟವನ್ನು ಆಮದು ಮಾಡಿ</string>
   <string name="importGameExplanation">ಒಂದು ಆಟದ PGN ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, ಬ್ರೌಸ್ ಮಾಡಲರ್ಹ ರಿಪ್ಲೇಗಳು, ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ, ಹಾಗೂ ಆಟದ ಚಾಟ್ ಅಥವಾ ಹರಟೆ, ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಬಹುದಾದ URL ಪಡೆಯಿರಿ.</string>
+  <string name="importGameCaveat">ವ್ಯತ್ಯಾಸಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ. ಅವುಗಳನ್ನು ಇರಿಸಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನದ ಮೂಲಕ PGN ಅನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ಆಮದು ಮಾಡಿದ ಆಟ</item>
     <item quantity="other">%s ಆಮದು ಮಾಡಿದ ಆಟಗಳು</item>
@@ -463,6 +508,8 @@
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
   <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
+  <string name="makeAStudy">ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನವನ್ನು ಮಾಡಲು ಪರಿಗಣಿಸಿ.</string>
+  <string name="clearSavedMoves">ಎಲ್ಲಾ ಚಲನೆಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
   <string name="activePlayers">ಸಕ್ರಿಯವಾಗಿರುವ ಆಟಗಾರರು</string>
@@ -510,6 +557,8 @@
   <string name="blog">ಬ್ಲಾಗ್</string>
   <string name="notes">ಟಿಪ್ಪಣಿಗಳು</string>
   <string name="typePrivateNotesHere">ಸ್ವಂತಕ್ಕಿರುವ ಟಿಪ್ಪಣಿಗಳನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ</string>
+  <string name="writeAPrivateNoteAboutThisUser">ಈ ಬಳಕೆದಾರರ ಬಗ್ಗೆ ಖಾಸಗಿ ಟಿಪ್ಪಣಿ ಬರೆಯಿರಿ</string>
+  <string name="noNoteYet">ಇನ್ನೂ ಯಾವ ಟಿಪ್ಪಣಿ ಇಲ್ಲ</string>
   <string name="invalidUsernameOrPassword">ಅಮಾನ್ಯ ಖಾತೆಯ ಹೆಸರು (username) ಅಥವಾ ಗುಪ್ತಪದ (password)</string>
   <string name="incorrectPassword">ಗುಪ್ತಪದ ಅಂದರೆ ಪಾಸ್ ವರ್ಡ್ ಸರಿ ಇಲ್ಲ</string>
   <string name="invalidAuthenticationCode">ದೃಢೀಕರಣದ ಸಂಕೇತ ಸರಿ ಇಲ್ಲ</string>
@@ -566,6 +615,7 @@
   <string name="community">ಸಮುದಾಯ</string>
   <string name="tools">ಸಲಕರಣೆಗಳು</string>
   <string name="increment">ಹೆಚ್ಚಳ</string>
+  <string name="error.unknown">ಅಮಾನ್ಯ ಮೌಲ್ಯ</string>
   <string name="error.required">ಈ ಮಾಹಿತಿ ಖಡ್ಡಾಯವಾಗಿದೆ</string>
   <string name="error.email">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಅಮಾನ್ಯವಾಗಿದೆ</string>
   <string name="error.email_acceptable">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸ್ವೀಕಾರಾರ್ಹವಲ್ಲ. ದಯವಿಟ್ಟು ಮರುಪರಿಶೀಲಿಸಿ ನೋಡಿ, ಹಾಗೂ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
@@ -621,15 +671,23 @@
   <string name="simulClockHint">ಫಿಷರ್ ಗಡಿಯಾರದ ಸಿದ್ಧತೆ. ಎಷ್ಟು ಹೆಚ್ಚು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತೀರೋ, ಅಷ್ಟೇ ಹೆಚ್ಚಿನ ಸಮಯ ನಿಮಗೆ ಬೇಕಾಗಬಹುದು.</string>
   <string name="simulAddExtraTime">ನಿಮಗೆ ಬೇಕಾದರೆ, simul ನಿಭಾಯಿಸುವ ಸಲುವಾಗಿ, ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಹೆಚ್ಚಿನ ಸಮಯವನ್ನು ಸೇರಿಸಿಕೊಳ್ಳಬಹುದು.</string>
   <string name="simulHostExtraTime">ಆತಿಥೇಯರ ಗಡಿಯಾರದಲ್ಲಿನ ಅಧಿಕ ಸಮಯ</string>
+  <string name="simulAddExtraTimePerPlayer">ಸಿಮುಲ್‌ಗೆ ಸೇರುವ ಪ್ರತಿಯೊಬ್ಬ ಆಟಗಾರನಿಗೆ ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಆರಂಭಿಕ ಸಮಯವನ್ನು ಸೇರಿಸಿ.</string>
+  <string name="simulHostExtraTimePerPlayer">ಪ್ರತಿ ಆಟಗಾರನಿಗೆ ಹೆಚ್ಚುವರಿ ಗಡಿಯಾರ ಸಮಯವನ್ನು ಹೋಸ್ಟ್ ಮಾಡಿ</string>
   <string name="lichessTournaments">ಲೀಚೆಸ್ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <string name="tournamentFAQ">ಅಖಾಡ ಪಂದ್ಯಾವಳಿಗೆ ಸಂಬಂಧಿಸಿ ಹೆಚ್ಚಾಗಿ ಕೇಳಿ ಬರುವ ಪ್ರಶ್ನೆಗಳು</string>
   <string name="timeBeforeTournamentStarts">ಪಂದ್ಯಾವಳಿ ಆರಂಭವಾಗಲು ಉಳಿದಿರುವ ಸಮಯ</string>
   <string name="averageCentipawnLoss">ಸರಾಸರಿ ಸೆಂಟಿಪಾನ್ ನಷ್ಟ</string>
+  <string name="accuracy">ನಿಖರತೆ</string>
   <string name="keyboardShortcuts">ಕೀಲಿಮಣೆಯ ಒಳದಾರಿ</string>
   <string name="keyMoveBackwardOrForward">ಹಿಂದೆ ಅಥವಾ ಮುಂದೆ ಚಲಿಸಿ</string>
   <string name="keyGoToStartOrEnd">ಆರಂಭ/ಅಂತ್ಯಕ್ಕೆ ಹೋಗಿ</string>
   <string name="keyShowOrHideComments">ಅಭಿಪ್ರಾಯಗಳನ್ನು ತೋರಿಸಿ/ಅಡಗಿಸಿ</string>
   <string name="keyEnterOrExitVariation">ಕವಲುದಾರಿ ಪ್ರವೇಶಿಸಿ/ನಿರ್ಗಮಿಸಿ</string>
+  <string name="keyRequestComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ವಿನಂತಿಸಿ, ನಿಮ್ಮ ತಪ್ಪುಗಳಿಂದ ಕಲಿಯಿರಿ</string>
+  <string name="keyNextLearnFromYourMistakes">ಮುಂದೆ (ನಿಮ್ಮ ತಪ್ಪುಗಳಿಂದ ಕಲಿಯಿರಿ)</string>
+  <string name="keyNextBlunder">ಮುಂದಿನ ಪ್ರಮಾದ</string>
+  <string name="keyNextMistake">ಮುಂದಿನ ತಪ್ಪು</string>
+  <string name="keyNextInaccuracy">ಮುಂದಿನ ಅಚಾತುರ್ಯ</string>
   <string name="newTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ</string>
   <string name="tournamentHomeTitle">ವಿವಿಧ ಸಮಯದ ನಿಯಂತ್ರಣ ಹಾಗೂ ವಿವಿಧ ಶೈಲಿಗಳನ್ನು ಹೊಂದಿದ ಚೆಸ್ ಪಂದ್ಯಾವಳಿ</string>
   <string name="tournamentHomeDescription">ವೇಗ-ಗತಿಯ ಚೆಸ್ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಆಡಿ! ಅಧಿಕೃತ ನಿಗದಿತ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಸೇರಿ, ಅಥವಾ ನಿಮ್ಮದೇ ಸ್ವಂತ ಪಂದ್ಯಾವಳಿ ರಚಿಸಿ. ಅಪರಿಮಿತ ಚೆಸ್ ಆನಂದಕ್ಕಾಗಿ ಬುಲೆಟ್, ಬ್ಲಿಟ್ಜ್, ಶಾಸ್ತ್ರೀಯ, Chess೯೬೦, ಬೆಟ್ಟದ ರಾಜ, ತ್ರೀಚೆಕ್, ಹಾಗೂ ಇನ್ನೂ ಅಧಿಕ ಆಯ್ಕೆಗಳಿಂದ ಆಯ್ದುಕೊಳ್ಳಿ.</string>
@@ -645,6 +703,7 @@
   <string name="yourPerfTypeRatingIsRating">%1$s ನಲ್ಲಿ ನಿಮ್ಮ ಧಾರಣೆ %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s ಶೈಲಿಯಲ್ಲಿ ನೀವು %1$s ರಷ್ಟು ಆಟಗಾರಿಗಿಂತ ಚೆನ್ನಾಗಿ ಆಡುತ್ತೀರಿ.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ಅವರು %3$s ಶೈಲಿಯಲ್ಲಿ %2$s ರಷ್ಟು ಆಟಗಾರರಿಗಿಂತ ಚೆನ್ನಾಗಿ ಆಡುತ್ತಾರೆ.</string>
+  <string name="betterThanPercentPlayers">%2$s ಆಟಗಾರರಲ್ಲಿ %1$s ಗಿಂತ ಉತ್ತಮವಾಗಿದೆ</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ನಿಮಗೆ ಅಧಿಷ್ಠಿತ %s ಧಾರಣೆ ಇನ್ನೂ ಲಭ್ಯವಾಗಿಲ್ಲ.</string>
   <string name="yourRating">ನಿಮ್ಮ ಧಾರಣೆ</string>
   <string name="cumulative">ಒಟ್ಟು</string>
@@ -673,6 +732,7 @@
   <string name="kidMode">ಮಕ್ಕಳಿಗಾಗಿ</string>
   <string name="kidModeExplanation">ಇದು ಸುರಕ್ಷತೆಯ ಕುರಿತಾಗಿದೆ. ಕಿಡ್ ಮೋಡ್ ನಲ್ಲಿ, ಎಲ್ಲಾ ಸಂವಹನ ಸಲಕರಣೆಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿಡಲಾಗುತ್ತದೆ. ನಿಮ್ಮ ಮಕ್ಕಳು ಮತ್ತು ಶಾಲಾ ವಿದ್ಯಾರ್ಥಿ ಗಳು ಆಡುವಾಗ, ಅವರನ್ನು ಅಂತರ್ಜಾಲದಲ್ಲಿನ ಇತರೆ ವ್ಯಕ್ತಿಗಳಿಂದ ರಕ್ಷಿಸಲು ಈ ಮೋಡ್ ಅನ್ನು ಬಳಸಿ.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">ಕಿಡ್ ಮೋಡ್ ನಲ್ಲಿ, ಲೀಚೆಸ್ ಲಾಂಛನವು %s ಚಿತ್ರವನ್ನು ತೋರಿಸುತ್ತದೆ. ಇದರಿಂದಾಗಿ, ನಿಮ್ಮ ಮಕ್ಕಳು ಸುರಕ್ಷಿತವಾಗಿದ್ದಾರೆ ಎಂದು ನೀವು ಸುಲಭವಾಗಿ ತಿಳಿದುಕೊಳ್ಳಬಹುದು.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿರ್ವಹಿಸಲಾಗಿದೆ. ಕಿಡ್ ಮೋಡ್ ಅನ್ನು ಎತ್ತುವ ಬಗ್ಗೆ ನಿಮ್ಮ ಚೆಸ್ ಶಿಕ್ಷಕರನ್ನು ಕೇಳಿ.</string>
   <string name="enableKidMode">ಕಿಡ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="disableKidMode">ಕಿಡ್ ಮೋಡ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="security">ಭದ್ರತೆ</string>
@@ -707,6 +767,7 @@
   <string name="light">ತಿಳಿಬಣ್ಣ</string>
   <string name="dark">ಗಾಢ ಬಣ್ಣ</string>
   <string name="transparent">ಪಾರದರ್ಶಕ</string>
+  <string name="deviceTheme">ಸಾಧನದ ಥೀಮ್</string>
   <string name="backgroundImageUrl">ಹಿನ್ನೆಲೆ ಚಿತ್ರಕ್ಕೆ URL:</string>
   <string name="boardGeometry">ಚೆಸ್ ಮಣೆಯ ಜ್ಯಾಮಿತಿ</string>
   <string name="boardTheme">ಚೆಸ್ ಮಣೆಯ ಥೀಮ್</string>
@@ -725,6 +786,7 @@
   <string name="invalidFen">FEN ಸರಿ ಇಲ್ಲ</string>
   <string name="custom">ಸ್ವಂತೀಕರಿಸಿ</string>
   <string name="notifications">ಅಧಿಸೂಚನೆಗಳು</string>
+  <string name="notificationsX">ಅಧಿಸೂಚನೆಗಳು: %1$s</string>
   <string name="perfRatingX">ಧಾರಣೆ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ಸೆಕೆಂಡು ಬಾಕಿ ಇದೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>
@@ -735,6 +797,7 @@
   <string name="bestWasX">ಉತ್ತಮ ನಡೆ ಇದಾಗಿತ್ತು: %s</string>
   <string name="youBrowsedAway">ನೀವು ಬ್ರೌಸರ್ ನ ಈ ಜಾಗದಿಂದ ಹೊರ ಹೋಗಿದ್ದೀರಿ</string>
   <string name="resumePractice">ಅಭ್ಯಾಸ ಮುಂದುವರೆಸಿ</string>
+  <string name="drawByFiftyMoves">ಐವತ್ತು ನಡೆಯ ನಿಯಮದಿಂದ ಆಟವನ್ನು ಡ್ರಾ ಮಾಡಲಾಗಿದೆ.</string>
   <string name="theGameIsADraw">ಈ ಪಂದ್ಯವು ಡ್ರಾ ಆಗಿದೆ.</string>
   <string name="computerThinking">ಕಂಪ್ಯೂಟರ್ ಯೋಚಿಸುತ್ತಿದೆ ...</string>
   <string name="seeBestMove">ಅತ್ಯುತ್ತಮ ನಡೆಯನ್ನು ನೋಡಿ</string>
@@ -818,6 +881,8 @@
   <string name="useTheReportForm">ದೂರು ಸಲ್ಲಿಸುವ ಅರ್ಜಿಯನ್ನು ಬಳಸಿ</string>
   <string name="toRequestSupport">ಸಹಾಯ ಕೇಳಲು, %1$s</string>
   <string name="tryTheContactPage">ಸಂಪರ್ಕದ ವಿವರ ಇರುವ ಪುಟದಲ್ಲಿ ಪ್ರಯತ್ನಿಸಿ</string>
+  <string name="makeSureToRead">%1$s ಅನ್ನು ಓದುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ</string>
+  <string name="theForumEtiquette">ವೇದಿಕೆಯ ಶಿಷ್ಟಾಚಾರ</string>
   <string name="thisTopicIsArchived">ಈ ವಿಷಯವನ್ನು ಹಳೆಕಡತಗಳ ಕಂತೆಗೆ ಸೇರಿಸಲಾಗಿದೆ ಹಾಗೂ ಇದಕ್ಕೆ ಇನ್ನು ಉತ್ತರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
   <string name="joinTheTeamXToPost">ಈ ವೇದಿಕೆಯಲ್ಲಿ ಬರೆಯಬೇಕಾದರೆ, %1$s ತಂಡವನ್ನು ಸೇರಿ</string>
   <string name="teamNamedX">%1$s ತಂಡ</string>
@@ -839,9 +904,6 @@
   <string name="timeAlmostUp">ಸಮಯ ಮುಗಿಯುತ್ತಾ ಬರುತ್ತಿದೆ!</string>
   <string name="clickToRevealEmailAddress">[ಇಮೇಲ್ ವಿಳಾಸ ತೋರಿಸಲು ಇಲ್ಲಿ ಒತ್ತಿ]</string>
   <string name="download">ಡೌನ್ಲೋಡ್</string>
-  <string name="welcome">ಸುಸ್ವಾಗತ!</string>
-  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
-ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="coachManager">ಕೋಚ್ ಪ್ರೊಫೈಲ್ ಸಲಕರಣೆಗಳು</string>
   <string name="streamerManager">ನೇರಪ್ರಸಾರ ವ್ಯವಸ್ಥಾಪಕ</string>
   <string name="cancelTournament">ಪಂದ್ಯಾವಳಿಯನ್ನು ರದ್ದುಪಡಿಸಿ</string>
@@ -898,4 +960,7 @@
   <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
   <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
   <string name="closingAccountWithdrawAppeal">ಖಾತೆ ಮುಚ್ಚಿದರೆ ನಿಮ್ಮ ಮನವಿಯನ್ನು ಹಿಂಪಡೆಯಲಾಗುವುದು</string>
+  <string name="ourEventTips">ಈವೆಂಟ್‌ಗಳನ್ನು ಆಯೋಜಿಸಲು ನಮ್ಮ ಸಲಹೆಗಳು</string>
+  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
+ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
 </resources>

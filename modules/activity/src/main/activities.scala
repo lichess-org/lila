@@ -95,7 +95,7 @@ object activities:
   case class Follows(in: Option[FollowList], out: Option[FollowList]):
     def addIn(id: UserId)  = copy(in = Some(~in + id))
     def addOut(id: UserId) = copy(out = Some(~out + id))
-    def isEmpty            = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
+    def isEmpty            = in.forall(_.isEmpty) && out.forall(_.isEmpty)
     def allUserIds         = in.so(_.ids) ::: out.so(_.ids)
 
   opaque type Studies = List[StudyId]

@@ -25,10 +25,8 @@ final private[api] class Cli(
 
   def apply(args: List[String]): Fu[String] =
     run(args)
-      .dmap(_ + "\n")
+      .map(_ + "\n")
       .logFailure(logger, _ => args mkString " ")
-      .addEffect: output =>
-        logger.info("%s\n%s".format(args mkString " ", output))
 
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
@@ -46,9 +44,8 @@ final private[api] class Cli(
           Bus.publish(announce, "announce")
           fuccess(announce.json.toString)
         case None =>
-          fuccess(
+          fuccess:
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
-          )
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
       puzzle.opening.recomputeAll
       fuccess("started in background")

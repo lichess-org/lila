@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">البثوث</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="zero">%s بث</item>
+    <item quantity="one">%s بث</item>
+    <item quantity="two">بثين</item>
+    <item quantity="few">%s بثوث</item>
+    <item quantity="many">%s بثوث</item>
+    <item quantity="other">%s بثوث</item>
+  </plurals>
   <string name="liveBroadcasts">بث البطولة المباشرة</string>
   <string name="newBroadcast">بث مباشر جديد</string>
   <string name="addRound">إضافة جولة</string>
@@ -27,5 +35,7 @@
   <string name="deleteRound">حذف هذه الجولة</string>
   <string name="definitivelyDeleteRound">قم بحذف الجولة وألعابها نهائيا.</string>
   <string name="deleteAllGamesOfThisRound">احذف جميع ألعاب هذه الجولة. سوف يحتاج المصدر إلى أن يكون نشطا من أجل إعادة إنشائها.</string>
+  <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه المسابقة</string>
+  <string name="definitivelyDeleteTournament">قم بحذف البطولة جميعها و جميع جولاتها و جميع ألعابها.</string>
 </resources>

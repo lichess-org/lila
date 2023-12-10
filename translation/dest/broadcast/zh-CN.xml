@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">转播</string>
+  <string name="myBroadcasts">我的直播</string>
   <plurals name="nbBroadcasts">
     <item quantity="other">%s 直播</item>
   </plurals>
@@ -16,11 +17,11 @@
   <string name="tournamentDescription">锦标赛简短描述</string>
   <string name="fullDescription">赛事详情</string>
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
-  <string name="sourceUrlOrGameIds">对局的 URL 链接或 ID</string>
+  <string name="sourceUrlOrGameIds">资源的 URL 链接或对局 ID</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
-  <string name="gameIdsHelp">或者，您可以输入最长 64 个字符的 Lichess 游戏 ID，用空格隔开。</string>
-  <string name="startDate">开始日期 (在您的时区)</string>
-  <string name="startDateHelp">如果您知道比赛开始时间 (可选)</string>
+  <string name="gameIdsHelp">你也可以输入最长 64 个字符的 Lichess 对局 ID，用空格隔开。</string>
+  <string name="startDate">开始日期，在你的本地时区</string>
+  <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
   <string name="credits">信任来源</string>
   <string name="broadcastUrl">直播链接</string>
   <string name="currentRoundUrl">当前一轮链接</string>
@@ -32,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">删除此回合的所有游戏。源需要激活才能重新创建。</string>
   <string name="editRoundStudy">编辑该轮次的棋局研究</string>
   <string name="deleteTournament">删除该锦标赛</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
+  <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
 </resources>

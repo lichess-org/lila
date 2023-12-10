@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Көрсетілімдер</string>
+  <string name="myBroadcasts">Менің көрсетілімдерім</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s көрсетілім</item>
     <item quantity="other">%s көрсетілім</item>
@@ -33,5 +34,5 @@
   <string name="deleteAllGamesOfThisRound">Айналымның бүкіл ойындарын жою. Оларды қайта құру үшін қайнар көзі белсенді болуы керек.</string>
   <string name="editRoundStudy">Айналымның зертханасын өзгерту</string>
   <string name="deleteTournament">Бұл жарысты жою</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Жарысты айналым мен ойындарымен бірге толығымен жою.</string>
+  <string name="definitivelyDeleteTournament">Жарысты айналым мен ойындарымен бірге толығымен жою.</string>
 </resources>

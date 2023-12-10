@@ -4,7 +4,7 @@
   <string name="newPost">Nova postagem</string>
   <string name="editYourBlogPost">Editar sua postagem no blog</string>
   <string name="saveDraft">Salvar rascunho</string>
-  <string name="postTitle">Título</string>
+  <string name="postTitle">Título da postagem</string>
   <string name="postIntro">Introdução</string>
   <string name="postBody">Corpo</string>
   <string name="drafts">Rascunhos</string>
@@ -14,8 +14,8 @@
   <string name="publishOnYourBlog">Publicar no seu blog</string>
   <string name="publishHelp">Se ativado, a postagem será listada no seu blog. Senão, ficará privada, e salva como rascunho</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Uma postagem de blog foi feita</item>
-    <item quantity="other">%s postagens de blog foram feitas</item>
+    <item quantity="one">Fez uma postagem no blog</item>
+    <item quantity="other">Fez %s postagens no blog</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Uma visualização</item>
@@ -37,10 +37,11 @@
   <string name="imageCredit">Crédito da imagem</string>
   <string name="deleteBlog">Excluir esta postagem definitivamente</string>
   <string name="deleteImage">Excluir a imagem</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">É seguro utilizar imagens dos seguintes sites: </string>
+  <string name="safeToUseImages">É seguro utilizar imagens dos seguintes sites: </string>
   <string name="selectPostTopics">Selecione os assuntos da sua postagem</string>
   <string name="useImagesYouMadeYourself">Você também pode utilizar imagens feitas por você, fotografias que tirou, capturas de tela do Lichess... qualquer coisa que não esteja protegida por direitos autorais de outra pessoa.</string>
   <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Nossas dicas simples para escrever ótimas postagens</string>
+  <string name="blogTips">Nossas dicas simples para escrever ótimas postagens</string>
+  <string name="discussThisBlogPostInTheForum">Discutir esta postagem no fórum</string>
 </resources>

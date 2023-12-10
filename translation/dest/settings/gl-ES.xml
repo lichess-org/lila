@@ -7,5 +7,5 @@
   <string name="cantOpenSimilarAccount">Non se che permitirá abrir outra conta co mesmo nome, nin sequera cambiando maiúsculas e minúsculas.</string>
   <string name="changedMindDoNotCloseAccount">Cambiei de opinión, non pechedes a miña conta</string>
   <string name="closeAccountExplanation">Estás seguro de que queres eliminar a túa conta? Esta decisión é irreversible. NUNCA poderás volver acceder a ela.</string>
-  <string name="thisAccountIsClosed">Esta conta está pechada.</string>
+  <string name="thisAccountIsClosed">Esta conta foi pechada.</string>
 </resources>

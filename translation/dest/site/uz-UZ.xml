@@ -504,13 +504,10 @@
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bayroq</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="oneUrlPerLine">Har qatorda bitta URL.</string>
   <string name="inlineNotation">Ichki yozuv</string>
-  <string name="savingMoves">Vaqtinchalik yurishlar zaxirasi</string>
-  <string name="savingMovesHelp">Biz doim sizning variantlaringizni sizning brovzeringiz keshida saqlaymiz.</string>
   <string name="makeAStudy">Saqlash va ulashish uchun \"ta‘lim\" yaratishni ko‘rib chiqing.</string>
   <string name="clearSavedMoves">Yurishlarni tozalash</string>
   <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
@@ -907,9 +904,6 @@
   <string name="timeAlmostUp">Vaqt deyarli yakunlandi!</string>
   <string name="clickToRevealEmailAddress">[Email manzilni ochiqlash uchun bosing]</string>
   <string name="download">Yuklab oling</string>
-  <string name="welcome">Хуш келибсиз!</string>
-  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
-Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
   <string name="coachManager">Murabbiylarga</string>
   <string name="streamerManager">Strimmerlarga</string>
   <string name="cancelTournament">Turnirni yakunlash</string>
@@ -968,4 +962,6 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="switchSides">Tomonlarni almashtirish</string>
   <string name="closingAccountWithdrawAppeal">Akkountingizni yopishingiz sizni murojaatlaringizni bekor qiladi</string>
   <string name="ourEventTips">Tadbirlar o‘tkazish yuzasidan bizning maslahatlarimiz</string>
+  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
+Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
 </resources>

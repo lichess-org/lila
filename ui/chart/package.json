@@ -5,9 +5,15 @@
   "description": "lichess.org chart",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "module": "dist/game.js",
   "types": "dist/game.d.ts",
   "dependencies": {
+    "@juggle/resize-observer": "^3.4.0",
     "@types/highcharts": "=4.2.57",
+    "ceval": "workspace:*",
+    "chart.js": "4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*"
   },
   "scripts": {
@@ -20,7 +26,8 @@
       "esm": {
         "src/ratingDistribution.ts": "chart.ratingDistribution",
         "src/ratingHistory.ts": "chart.ratingHistory",
-        "src/game.ts": "chart.game"
+        "src/game.ts": "chart.game",
+        "src/resizePolyfill.ts": "chart.resizePolyfill"
       }
     }
   }

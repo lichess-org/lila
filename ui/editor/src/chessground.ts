@@ -33,7 +33,7 @@ function isLeftClick(e: MouchEvent): boolean {
 }
 
 function isRightClick(e: MouchEvent): boolean {
-  return util.isRightButton(e) || (!!e.ctrlKey && isLeftButton(e));
+  return e.button === 2 || (!!e.ctrlKey && isLeftButton(e));
 }
 
 let downKey: Key | undefined;

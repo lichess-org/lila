@@ -4,9 +4,9 @@ import renderInteract from './interact';
 import renderMsgs from './msgs';
 import { Convo } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { userName } from './util';
 import * as licon from 'common/licon';
-import { hookMobileMousedown } from 'common/mobile';
+import { hookMobileMousedown } from 'common/device';
+import { userLink } from 'common/userLink';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;
@@ -22,20 +22,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
             attrs: { 'data-icon': licon.LessThan },
             hook: hookMobileMousedown(ctrl.showSide),
           }),
-          h(
-            'a.user-link.ulpt',
-            {
-              attrs: { href: `/@/${user.name}` },
-              class: {
-                online: user.online,
-                offline: !user.online,
-              },
-            },
-            [
-              h('i.line' + (user.id == 'lichess' ? '.moderator' : user.patron ? '.patron' : '')),
-              h('span', userName(user)),
-            ],
-          ),
+          userLink({ ...user, moderator: user.id == 'lichess' }),
         ]),
         h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
       ]),

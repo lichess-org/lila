@@ -38,6 +38,7 @@ case class Pref(
     voice: Option[Int],
     zen: Int,
     ratings: Int,
+    flairs: Boolean,
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
@@ -64,36 +65,6 @@ case class Pref(
   def coordsClass = Coords classOf coords
 
   def hasDgt = tags contains Tag.dgt
-
-  def set(name: String, value: String): Option[Pref] =
-    name match
-      case "bg"    => Pref.Bg.fromString.get(value).map { bg => copy(bg = bg) }
-      case "bgImg" => copy(bgImg = value.some).some
-      case "theme" =>
-        Theme.allByName get value map { t =>
-          copy(theme = t.name)
-        }
-      case "pieceSet" =>
-        PieceSet.allByName get value map { p =>
-          copy(pieceSet = p.name)
-        }
-      case "theme3d" =>
-        Theme3d.allByName get value map { t =>
-          copy(theme3d = t.name)
-        }
-      case "pieceSet3d" =>
-        PieceSet3d.allByName get value map { p =>
-          copy(pieceSet3d = p.name)
-        }
-      case "is3d" => copy(is3d = value == "true").some
-      case "soundSet" =>
-        SoundSet.allByKey get value map { s =>
-          copy(soundSet = s.key)
-        }
-      case "zen"          => copy(zen = ~value.toIntOption.filter(Zen.choices.map(_._1).contains)).some
-      case "voice"        => copy(voice = if value == "1" then 1.some else 0.some).some
-      case "keyboardMove" => copy(keyboardMove = if value == "1" then 1 else 0).some
-      case _              => none
 
   def animationMillis: Int =
     animation match
@@ -500,6 +471,7 @@ object Pref:
     voice = None,
     zen = Zen.NO,
     ratings = Ratings.YES,
+    flairs = true,
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,

@@ -8,10 +8,7 @@ import lila.common.config.Max
 final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
   private val workQueue =
     lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
@@ -25,7 +22,7 @@ final class PerfStatIndexer(
             Query.turnsGt(2) ++
             Query.variant(PerfType variantOf perfType),
           Query.sortChronological,
-          readPref = _.sec
+          readPref = _.priTemp
         )
         .fold(PerfStat.init(user.id, perfType)):
           case (perfStat, game) if game.perfType == perfType =>
@@ -44,6 +41,7 @@ final class PerfStatIndexer(
       .void
 
   private def addPov(pov: Pov, userId: UserId): Funit =
-    storage.find(userId, pov.game.perfType).flatMapz { perfStat =>
-      storage.update(perfStat, perfStat agg pov)
-    }
+    storage
+      .find(userId, pov.game.perfType)
+      .flatMapz: perfStat =>
+        storage.update(perfStat, perfStat agg pov)

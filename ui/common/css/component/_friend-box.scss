@@ -65,7 +65,7 @@
 
         .line::before {
           color: $c-good;
-          content: '';
+          content: $licon-Disc;
         }
       }
 

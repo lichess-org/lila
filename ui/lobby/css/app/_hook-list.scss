@@ -52,7 +52,7 @@
     &.sort .is:before {
       opacity: 0.7;
       margin-#{$end-direction}: 3px;
-      content: '';
+      content: $licon-DownTriangle;
     }
 
     &.player {

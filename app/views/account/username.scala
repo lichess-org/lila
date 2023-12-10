@@ -12,8 +12,8 @@ object username:
     account.layout(
       title = s"${u.username} - ${trans.editProfile.txt()}",
       active = "username"
-    ) {
-      div(cls := "account box box-pad")(
+    ):
+      div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.changeUsername()),
         standardFlash,
         postForm(cls := "form3", action := routes.Account.usernameApply)(
@@ -24,4 +24,3 @@ object username:
           form3.action(form3.submit(trans.apply()))
         )
       )
-    }

@@ -23,7 +23,7 @@ object top:
           description = s"The 200 best chess players in ${perfType.trans}, sorted by rating"
         )
         .some
-    )(
+    ):
       main(cls := "page-small box")(
         boxTop(h1(a(href := routes.User.list, dataIcon := licon.LessThan), title)),
         table(cls := "slist slist-pad")(
@@ -40,4 +40,3 @@ object top:
           )
         )
       )
-    )

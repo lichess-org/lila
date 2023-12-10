@@ -220,7 +220,7 @@ object mon:
     private val userSegment  = timer("user.segment")
     def segment(seg: String) = userSegment.withTag("segment", seg)
     def leaderboardCompute   = future("user.leaderboard.compute")
-  object trouper:
+  object actor:
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
   object mod:
     object report:
@@ -259,6 +259,7 @@ object mon:
     def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
     def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
+    def httpGet(host: String)                      = future("relay.http.get", tags("host" -> host))
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
     def chats(username: String)   = counter("bot.chats").withTag("name", username)
@@ -313,6 +314,7 @@ object mon:
       def attempt(byEmail: Boolean, stuffing: String, result: Boolean) =
         counter("security.login.attempt").withTags:
           tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
+      def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
@@ -375,6 +377,8 @@ object mon:
     object notifier:
       def tournaments = counter("tournament.notify.tournaments").withoutTags()
       def players     = counter("tournament.notify.players").withoutTags()
+    object featuring:
+      def forTeams(page: String) = future("tournament.featuring.forTeams", page)
   object swiss:
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags()
@@ -593,13 +597,7 @@ object mon:
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
     def openingBook(level: Int, variant: String, ply: Int, hit: Boolean, success: Boolean) =
       timer("fishnet.opening.hit").withTags:
-        tags(
-          "level"   -> level.toLong,
-          "variant" -> variant,
-          "ply"     -> ply.toLong,
-          "hit"     -> hitTag(hit),
-          "success" -> successTag(success)
-        )
+        tags("variant" -> variant, "hit" -> hitTag(hit))
   object opening:
     def searchTime = timer("opening.search.time").withoutTags()
   object study:
@@ -609,9 +607,8 @@ object mon:
     object sequencer:
       val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
   object api:
-    val userGames = counter("api.cost").withTag("endpoint", "userGames")
-    val users     = counter("api.cost").withTag("endpoint", "users")
-    val activity  = counter("api.cost").withTag("endpoint", "activity")
+    val users    = counter("api.cost").withTag("endpoint", "users")
+    val activity = counter("api.cost").withTag("endpoint", "activity")
     object challenge:
       object bulk:
         def scheduleNb(byUserId: String) = counter("api.challenge.bulk.schedule.nb").withTag("by", byUserId)

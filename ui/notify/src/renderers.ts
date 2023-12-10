@@ -154,7 +154,10 @@ function generic(n: Notification, url: string | undefined, icon: string, content
         [n.type]: true,
         new: !n.read,
       },
-      attrs: url ? { href: url } : undefined,
+      attrs: {
+        key: n.date,
+        ...(url ? { href: url } : {}),
+      },
     },
     [
       h('i', {

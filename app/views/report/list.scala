@@ -125,7 +125,7 @@ object list:
                   .toList
               }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := appealRoutes.queue,
+                href := appealRoutes.queue(),
                 cls := List(
                   "new"    -> true,
                   "active" -> (filter == "appeal")

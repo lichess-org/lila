@@ -107,7 +107,7 @@ object MarkdownRender:
   type Key         = String
   type PgnSourceId = String
 
-  case class PgnSourceExpand(domain: config.NetDomain, getPgn: PgnSourceId => Option[PgnStr])
+  case class PgnSourceExpand(domain: config.NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
 
   private val rel = "nofollow noopener noreferrer"
 
@@ -194,7 +194,7 @@ object MarkdownRender:
       val quotedDomain = java.util.regex.Pattern.quote(domain.value)
       PgnRegexes(
         s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,
-        s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8})/(\\w{8})(?:#(last|\\d+))?$$""".r
+        s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8}/)?(\\w{8})(?:#(last|\\d+))?$$""".r
       )
     private val pgnRegexes = makePgnRegexes(expander.domain)
 
@@ -215,11 +215,11 @@ object MarkdownRender:
           case pgnRegexes.game(id, color, ply) =>
             expander
               .getPgn(id)
-              .fold(justAsLink())(renderPgnViewer(node, html, link, _, Option(color), Option(ply)))
+              .fold(justAsLink())(renderLpvEmbed(node, context, html, link, _, Option(color), Option(ply)))
           case pgnRegexes.chapter(id, ply) =>
             expander
               .getPgn(id)
-              .fold(justAsLink())(renderPgnViewer(node, html, link, _, none, Option(ply)))
+              .fold(justAsLink())(renderLpvEmbed(node, context, html, link, _, none, Option(ply)))
           case _ => justAsLink()
 
     private def renderLinkWithBase(
@@ -235,27 +235,47 @@ object MarkdownRender:
       context.renderChildren(node)
       html.tag("/a")
 
-    private def renderPgnViewer(
+    private def renderLpvEmbed(
         node: LinkNode,
+        context: NodeRendererContext,
         html: HtmlWriter,
         link: ResolvedLink,
-        pgn: PgnStr,
+        embed: LpvEmbed,
         color: Option[String],
         ply: Option[String]
     ) =
-      html
-        .attr("data-pgn", pgn.value)
-        .attr("class", "lpv--autostart is2d")
-      color.foreach:
-        html.attr("data-orientation", _)
-      ply.foreach:
-        html.attr("data-ply", _)
-      html
-        .srcPos(node.getChars())
-        .withAttr(link)
-        .tag("div")
-        .text(link.getUrl)
-        .tag("/div")
+      embed match
+        case LpvEmbed.PublicPgn(pgn) =>
+          html
+            .attr("data-pgn", pgn.value)
+            .attr("class", "lpv--autostart is2d")
+          color.foreach:
+            html.attr("data-orientation", _)
+          ply.foreach:
+            html.attr("data-ply", _)
+          html
+            .srcPos(node.getChars())
+            .withAttr(link)
+            .tag("div")
+            .text(link.getUrl)
+            .tag("/div")
+        case LpvEmbed.PrivateStudy =>
+          html
+            .attr("href", link.getUrl)
+            .attr(link.getNonNullAttributes())
+            .srcPos(node.getChars())
+            .withAttr(link)
+            .tag("a")
+            .withAttr()
+            .attr("data-icon", licon.Padlock.toString)
+            .attr("class", "private-study")
+            .attr("title", "Private")
+            .attr("aria-label", "Private")
+            .tag("i")
+            .tag("/i")
+          context.renderChildren(node)
+          html
+            .tag("/a")
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()

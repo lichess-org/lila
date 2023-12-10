@@ -53,6 +53,7 @@ Analiza computerizată pe Lichess este posibilă cu ajutorul Stockfish.</string>
 În cazurile rare care poate fi greu de decis automat (linii forțate, cetăți). Implicit luăm partea jucătorului care nu a rămas fara timp.
 
 Ține minte că poate fi posibil să dai mat cu un singur rege sau nebun daca oponentul are o piesă care poate bloca regele.</string>
+  <string name="fideHandbook">manualul FIDE</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
   <string name="discoveringEnPassant">De ce poate un pion să captureze alt pion când deja a trecut? (en passant)</string>
   <string name="explainingEnPassant">Este o mișcare legală numită și \"en passant\". Articolul de pe Wikipedia iți va face o %1$s.
@@ -66,7 +67,7 @@ Vezi %3$s pe această mutare pentru a te putea antrena cu ea.</string>
   <string name="lichessTraining">antrenamentul Lichess</string>
   <string name="watchIMRosenCheckmate">Urmărește-l pe Maestrul Internațional Eric Rosen dând șah-mat %s.</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
-  <string name="threefoldRepetitionExplanation">Dacă o poziție apare de trei ori, jucătorii pot cere o remiză pentru %1$s. Lichess implementează regulile oficiale FIDE, cum este descris in Articolul 9.2 (d) a %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Dacă o poziție apare de trei ori, jucătorii pot cere o remiză pentru %1$s. Lichess implementează regulile oficiale FIDE, cum este descris in Articolul 9.2 a %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetare de trei ori</string>
   <string name="notRepeatedMoves">Nu am repetat mișcări. De ce partida a fost declarată ca remiză?</string>
   <string name="repeatedPositionsThatMatters">Repetarea de trei ori este despre repetarea %1$s, nu a mișcărilor. Repetiția nu trebuie să se execute consecutiv.</string>
@@ -142,4 +143,27 @@ Este cel mai bine să te gândești la scoruri ca la niște cifre \"relative\" (
 Dă click pe iconița de lângă adresa lichess.org în bara URL a browser-ului tau.
 
 Apoi selecteaza daca dacă vrei să permiți sau să blochezi notificarile de la Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Activați redarea automată pentru sunete?</string>
+  <string name="enableAutoplayForSoundsA">Majoritatea browserelor pot împiedica sunetul să ruleze pe o pagină nou încărcată pentru a proteja utilizatorii. Imaginați-vă că fiecare site ar putea să vă bombardeze imediat cu anunțuri audio.
+
+Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedică lichess.org să ruleze un sunet. De obicei, această restricţie este ridicată odată ce faceţi clic pe ceva. Pe unele browsere mobile, atingerea sau glisarea unei piese nu contează ca un click. În acest caz trebuie să atingeți tabla pentru a permite sunetul la începutul fiecărui joc.
+
+Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Mergeți la lichess.org
+2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
+3. Faceți clic pe fila Permisiuni
+4. Permiteți audio și video pe lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Mergeți la lichess.org
+2. Faceți clic pe pictograma de blocare din bara de adrese
+3. Faceți clic pe Setările Site-ului
+4. Permiteți sunetul</string>
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Mergeți la lichess.org
+2. Faceți clic pe Safari din bara de meniu
+3. Faceți clic pe Setări pentru lichess.org ...
+4. Permiteți toate Auto-Play</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Faceţi clic pe cele trei puncte din colţul din dreapta sus
+2. Faceţi clic pe Setări
+3. Faceți clic pe Cookie-uri și Permisiunile site-ului
+4. Derulați în jos și apăsați pe Media autoplay
+5. Adăugați lichess.org pentru a permite</string>
 </resources>

@@ -70,6 +70,7 @@
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="forceVariation">Mostra come variante</string>
+  <string name="copyVariationPgn">Copia il PGN della variante</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Sconfitta per variante</string>
   <string name="variantWin">Vittoria per variante</string>
@@ -115,6 +116,7 @@
   <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
+  <string name="showVariationArrows">Mostra le frecce delle varianti</string>
   <string name="evaluationGauge">Indicatore di valutazione del vantaggio</string>
   <string name="multipleLines">Varianti multiple</string>
   <string name="cpus">Processori</string>
@@ -505,13 +507,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="firstName">Nome</string>
   <string name="lastName">Cognome</string>
   <string name="biography">Biografia</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandiera</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Nazione o regione</string>
   <string name="thankYou">Grazie!</string>
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="oneUrlPerLine">Un URL per riga.</string>
   <string name="inlineNotation">Notazione in linea</string>
-  <string name="savingMoves">Salvataggio temporaneo delle mosse</string>
-  <string name="savingMovesHelp">Salviamo sempre le tue varianti nella cache del tuo browser.</string>
   <string name="makeAStudy">Per conservare e condividere l\'analisi, valuta di farne uno studio.</string>
   <string name="clearSavedMoves">Fai pulizia delle mosse</string>
   <string name="previouslyOnLichessTV">Già visti sulla TV di Lichess</string>
@@ -659,8 +659,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
+  <string name="yourPendingSimuls">Le tue simultanee in attesa</string>
   <string name="createdSimuls">Simultanee recenti</string>
   <string name="hostANewSimul">Crea una nuova simultanea</string>
+  <string name="signUpToHostOrJoinASimul">Registrati per organizzare, o unirti a, un\'esibizione simultanea</string>
   <string name="noSimulFound">Simultanea non trovata</string>
   <string name="noSimulExplanation">Questa esibizione simultanea non esiste.</string>
   <string name="returnToSimulHomepage">Ritorna alla pagina delle simultanee</string>
@@ -685,6 +687,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyboardShortcuts">Scorciatoie da tastiera</string>
   <string name="keyMoveBackwardOrForward">muovi indietro/avanti</string>
   <string name="keyGoToStartOrEnd">vai all\'inizio/fine</string>
+  <string name="keyCycleSelectedVariation">Cicla tra le varianti</string>
   <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
   <string name="keyRequestComputerAnalysis">Richiedi analisi del computer, Impara dai tuoi errori</string>
@@ -692,6 +695,13 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyNextBlunder">Prossimo grave errore</string>
   <string name="keyNextMistake">Prossimo errore</string>
   <string name="keyNextInaccuracy">Prossima imprecisione</string>
+  <string name="keyPreviousBranch">Variante precedente</string>
+  <string name="keyNextBranch">Variante successiva</string>
+  <string name="toggleVariationArrows">Mostra le frecce delle varianti</string>
+  <string name="cyclePreviousOrNextVariation">Vai alla variante precedente/successiva</string>
+  <string name="toggleGlyphAnnotations">Mostra i simboli delle annotazioni</string>
+  <string name="variationArrowsInfo">Le frecce delle varianti ti permettono di esplorare le mosse senza usare la lista.</string>
+  <string name="playSelectedMove">gioca la mossa selezionata</string>
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
   <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
@@ -869,6 +879,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
   <string name="edit">Modifica</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Partite follemente veloci: meno di 30 secondi</string>
@@ -908,9 +919,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>
   <string name="clickToRevealEmailAddress">[Clicca per mostrare l\'indirizzo email]</string>
   <string name="download">Download</string>
-  <string name="welcome">Benvenuto!</string>
-  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
-Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="coachManager">Gestore allenatore</string>
   <string name="streamerManager">Gestore streamer</string>
   <string name="cancelTournament">Annulla il torneo</string>
@@ -969,4 +977,8 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="switchSides">Cambia colore</string>
   <string name="closingAccountWithdrawAppeal">Se cancelli il tuo account il tuo appello sarà ritirato</string>
   <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
+  <string name="instructions">Istruzioni</string>
+  <string name="showMeEverything">Mostra tutto</string>
+  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
+Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
 </resources>

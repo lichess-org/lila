@@ -24,4 +24,8 @@
   <string name="teamLead">Управление на клубовете които ръководите: изпращане на лични съобщения, изключване на членове</string>
   <string name="followWrite">Следвай и отследвай други играчи</string>
   <string name="msgWrite">Изпращане на лично съобщение до други играчи</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'">Документацията за API</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Последно употребено %s</string>
+  <string name="alreadyHavePlayedGames">Вече сте играли игри!</string>
+  <string name="forExample">Например: %s</string>
 </resources>

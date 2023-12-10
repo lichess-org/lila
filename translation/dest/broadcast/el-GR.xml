@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Αναμεταδόσεις</string>
+  <string name="myBroadcasts">Οι αναμεταδόσεις μου</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s αναμετάδοση</item>
+    <item quantity="other">%s αναμεταδόσεις</item>
+  </plurals>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
   <string name="addRound">Προσθήκη γύρου</string>
@@ -25,4 +30,9 @@
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
+  <string name="definitivelyDeleteRound">Σίγουρα διαγράψτε τον γύρο και όλα τα παιχνίδια του.</string>
+  <string name="deleteAllGamesOfThisRound">Διαγράψτε όλα τα παιχνίδια αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
+  <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
+  <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
+  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
 </resources>

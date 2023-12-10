@@ -5,7 +5,7 @@
 
   &.online .line {
     &::before {
-      content: '';
+      content: $licon-Disc;
     }
 
     color: $c-good;
@@ -34,15 +34,15 @@
     }
 
     &::before {
-      content: '';
+      content: $licon-DiscOutline;
     }
 
     &.patron::before {
-      content: '' !important;
+      content: $licon-Wings !important;
     }
 
     &.moderator::before {
-      content: '';
+      content: $licon-Agent;
     }
   }
 }
@@ -57,5 +57,17 @@ a.user-link:hover {
 
   &[data-bot] {
     color: $c-bot;
+  }
+}
+
+.uflair {
+  height: 1.1em;
+  vertical-align: middle;
+  margin-left: 0.5ch;
+  transform: translateY(-0.1em);
+  // keeps the username easily selectable
+  user-select: none;
+  body.no-flair & {
+    display: none;
   }
 }

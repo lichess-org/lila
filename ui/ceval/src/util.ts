@@ -1,5 +1,6 @@
-import { CevalTechnology } from './platform';
-import { ExternalEngine } from './worker';
+import { type Dialog, domDialog } from 'common/dialog';
+import { isMobile } from 'common/device';
+import { memoize } from 'common/common';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
@@ -18,48 +19,43 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   return variant === 'threeCheck' && san.includes('+');
 }
 
-export const pow2floor = (n: number) => {
-  let pow2 = 1;
-  while (pow2 * 2 <= n) pow2 *= 2;
-  return pow2;
-};
+export function constrain(n: number, constraints: { min?: number; max?: number }): number {
+  const min = constraints.min ?? n;
+  const max = constraints.max ?? n;
+  return Math.max(min, Math.min(max, n));
+}
+export const fewerCores = memoize<boolean>(() => isMobile() || navigator.userAgent.includes('CrOS'));
 
-export const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory => {
+export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {
+  let shrink = 4; // 32767 -> 24576 -> 16384 -> 12288 -> 8192 -> 6144 -> etc
   while (true) {
     try {
-      return new WebAssembly.Memory({ shared: true, initial, maximum });
+      return new WebAssembly.Memory({ shared: true, initial: lo, maximum: hi });
     } catch (e) {
-      if (e instanceof RangeError) {
-        if (initial === maximum) throw e;
-        maximum = Math.max(initial, Math.floor(maximum / 2));
-      } else throw e;
+      if (hi <= lo || !(e instanceof RangeError)) throw e;
+      hi = Math.max(lo, Math.ceil(hi - hi / shrink));
+      shrink = shrink === 4 ? 3 : 4;
     }
   }
 };
 
-export function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
-  const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);
-  switch (technology) {
-    case 'asmjs':
-      return 18;
-    case 'wasm':
-      return 20;
-    case 'external':
-      return 24 + extraDepth;
-    default:
-      return 22 + extraDepth;
-  }
-}
-
-export function engineName(technology: CevalTechnology, externalEngine?: ExternalEngine): string {
-  if (externalEngine) return externalEngine.name;
-  switch (technology) {
-    case 'wasm':
-    case 'asmjs':
-      return 'Stockfish 10+';
-    case 'hce':
-      return 'Stockfish 11+';
-    default:
-      return 'Stockfish 14+';
-  }
+export function showEngineError(engine: string, error: string) {
+  domDialog({
+    class: 'engine-error',
+    htmlText:
+      `<h2>${lichess.escapeHtml(engine)} <bad>error</bad></h2><pre tabindex="0" class="err">` +
+      `${lichess.escapeHtml(error)}</pre><h2>Things to try</h2><ul>` +
+      '<li>Decrease memory slider in engine settings</li><li>Clear site settings for lichess.org</li>' +
+      '<li>Select another engine</li><li>Update your browser</li></ul>',
+  }).then((dlg: Dialog) => {
+    const select = () =>
+      setTimeout(() => {
+        const range = document.createRange();
+        range.selectNodeContents(dlg.view.querySelector('.err')!);
+        window.getSelection()?.removeAllRanges();
+        window.getSelection()?.addRange(range);
+      }, 0);
+    dlg.view.querySelector('.err')?.addEventListener('focus', select);
+    dlg.showModal();
+  });
 }

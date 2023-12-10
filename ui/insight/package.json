@@ -15,8 +15,10 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/highcharts": "=4.2.57",
+    "chart": "workspace:^",
+    "chart.js": "^4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*",
-    "numeral": "^2.0.6",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

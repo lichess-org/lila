@@ -7,7 +7,7 @@
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s %2$s aylığına Lichess\'i destekledi</item>
+    <item quantity="one">%1$s %2$s aydır Lichess\'i destekliyor</item>
     <item quantity="other">%1$s %2$s aylığına Lichess\'i destekledi</item>
   </plurals>
   <string name="newPatrons">Yeni Destekçiler</string>
@@ -62,6 +62,7 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="nextPayment">Sonraki ödeme</string>
   <string name="youWillBeChargedXOnY">%2$s tarihinde %1$s ödemeniz olacak.</string>
   <string name="makeAdditionalDonation">Bir bağış daha yap</string>
+  <string name="giftPatronWingsShort">Destekçi kanatları hediye et</string>
   <string name="giftPatronWings">Başka bir oyuncu adına Lichess\'i destekle</string>
   <string name="update">Güncelle</string>
   <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>

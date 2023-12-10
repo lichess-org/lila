@@ -99,12 +99,14 @@ object Condition:
             trans.youAreNotInTeam.txt(teamName)(using lang)
 
   case class AllowList(value: String) extends Condition with FlatCond:
-    private lazy val segments      = value.linesIterator.map(_.trim.toLowerCase).toSet
-    private def allowAnyTitledUser = segments contains "%titled"
+    private lazy val segments: Set[String] = value.linesIterator.map(_.trim.toLowerCase).toSet
+    private val titled                     = "%titled"
+    private def allowAnyTitledUser         = segments contains titled
     def apply(pt: PerfType)(using me: Me, perf: Perf): Condition.Verdict =
       if segments.contains(me.userId.value) then Accepted
       else if allowAnyTitledUser && me.hasTitle then Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
+    def userIds: Set[UserId]           = UserId.from(segments - titled)
     def name(pt: PerfType)(using Lang) = "Fixed line-up"
 
   case class WithVerdicts(list: List[WithVerdict]):

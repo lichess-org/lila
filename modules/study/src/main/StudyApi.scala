@@ -13,7 +13,7 @@ import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.tree.{ Branch, Branches }
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, MyId }
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -147,32 +147,33 @@ final class StudyApi(
         indexStudy(sc.study) inject sc.some
     }
 
-  def clone(me: User, prev: Study): Fu[Option[Study]] =
-    Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) so {
-      val study1 = prev.cloneFor(me)
-      chapterRepo
-        .orderedByStudySource(prev.id)
-        .map(_ cloneFor study1)
-        .mapAsync(4): c =>
-          chapterRepo.insert(c) inject c
-        .toMat(Sink.reduce[Chapter] { case (prev, _) => prev })(Keep.right)
-        .run()
-        .flatMap { (first: Chapter) =>
-          val study = study1 rewindTo first
-          studyRepo.insert(study) >>
-            chatApi.userChat.system(
-              study.id into ChatId,
-              s"Cloned from lichess.org/study/${prev.id}",
-              _.Study
-            ) inject study.some
-        }
-    }
+  def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
+    study <- justCloneNoChecks(me, prev, update)
+    _ <- chatApi.userChat.system(study.id into ChatId, s"Cloned from lichess.org/study/${prev.id}", _.Study)
+  yield study.some
+
+  def justCloneNoChecks(
+      me: User,
+      prev: Study,
+      update: Study => Study = identity
+  ): Fu[Study] =
+    val study1 = update(prev.cloneFor(me))
+    chapterRepo
+      .orderedByStudySource(prev.id)
+      .map(_ cloneFor study1)
+      .mapAsync(1): c =>
+        chapterRepo.insert(c) inject c
+      .toMat(Sink.reduce[Chapter] { (prev, _) => prev })(Keep.right)
+      .run()
+      .flatMap: first =>
+        val study = study1 rewindTo first
+        studyRepo.insert(study) inject study
 
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =
     chapters.headOption match
       case Some(c) if study.isOld && study.position != c.initialPosition =>
         val newStudy = study rewindTo c
-        studyRepo.updateSomeFields(newStudy) zip chapterRepo.byId(c.id) map { case (_, chapter) =>
+        studyRepo.updateSomeFields(newStudy) zip chapterRepo.byId(c.id) map { (_, chapter) =>
           newStudy -> chapter
         }
       case _ => fuccess(study -> none)
@@ -242,7 +243,7 @@ final class StudyApi(
             parent.children.get(singleNode.id) so { node =>
               val newPosition = position.ref + node
               for
-                _ <- chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter)
+                _ <- chapterRepo.addSubTree(node, parent, position.path)(chapter)
                 _ <- relay so { chapterRepo.setRelay(chapter.id, _) }
                 _ <-
                   if opts.sticky
@@ -362,13 +363,13 @@ final class StudyApi(
         )
         .void
 
-  def kick(studyId: StudyId, userId: UserId)(who: Who) =
+  def kick(studyId: StudyId, userId: UserId, who: MyId) =
     sequenceStudy(studyId): study =>
       studyRepo
-        .isAdminMember(study, who.u)
+        .isAdminMember(study, who)
         .flatMap: isAdmin =>
           val allowed = study.isMember(userId) && {
-            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+            (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who is userId))
           }
           allowed.so:
             studyRepo.removeMember(study, userId) andDo
@@ -534,17 +535,17 @@ final class StudyApi(
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): Funit =
+  ): Fu[List[Chapter]] =
     data.manyGames match
       case Some(datas) =>
-        datas.traverse_(addChapter(studyId, _, sticky, withRatings)(who))
+        datas.traverse(addChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
       case _ =>
         sequenceStudy(studyId): study =>
           Contribute(who.u, study):
             chapterRepo
               .countByStudyId(study.id)
               .flatMap: count =>
-                if count >= Study.maxChapters then funit
+                if count >= Study.maxChapters then fuccess(Nil)
                 else
                   for
                     _ <- data.initial.so:
@@ -554,10 +555,11 @@ final class StudyApi(
                     order   <- chapterRepo.nextOrderByStudy(study.id)
                     chapter <- chapterMaker(study, data, order, who.u, withRatings)
                     _       <- doAddChapter(study, chapter, sticky, who)
-                  yield ()
+                  yield List(chapter)
               .recover:
                 case ChapterMaker.ValidationException(error) =>
                   sendTo(study.id)(_.validationError(error, who.sri))
+                  Nil
               .addFailureEffect:
                 case u => logger.error(s"StudyApi.addChapter to $studyId", u)
 
@@ -568,7 +570,10 @@ final class StudyApi(
 
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ) = datas.traverse_(addChapter(studyId, _, sticky, withRatings)(who))
+  ): Future[List[Chapter]] = datas
+    .traverse:
+      addChapter(studyId, _, sticky, withRatings)(who)
+    .map(_.flatten)
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit =
     chapterRepo.insert(chapter) >> {
@@ -732,8 +737,10 @@ final class StudyApi(
 
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
-      studyRepo.delete(study) >>
-        chapterRepo.deleteByStudy(study)
+      for
+        _ <- studyRepo.delete(study)
+        _ <- chapterRepo.deleteByStudy(study)
+      yield Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id), "study")
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_ so delete)
@@ -775,8 +782,8 @@ final class StudyApi(
       Contribute(by.id, study):
         chapterRepo deleteByStudy study
 
-  def adminInvite(studyId: StudyId)(using Me): Funit =
-    sequenceStudy(studyId)(inviter.admin)
+  def becomeAdmin(studyId: StudyId, me: MyId): Funit =
+    sequenceStudy(studyId)(inviter.becomeAdmin(me))
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")

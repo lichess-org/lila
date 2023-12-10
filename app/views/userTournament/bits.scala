@@ -16,9 +16,8 @@ object bits:
       title = s"${u.username} best tournaments",
       path = "best",
       moreJs = infiniteScrollTag
-    ) {
+    ):
       views.html.userTournament.list(u, "best", pager, "BEST")
-    }
 
   def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(using PageContext) =
     layout(
@@ -26,9 +25,8 @@ object bits:
       title = s"${u.username} recent tournaments",
       path = "recent",
       moreJs = infiniteScrollTag
-    ) {
+    ):
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
-    }
 
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
       body: Frag
@@ -37,9 +35,9 @@ object bits:
       title = title,
       moreCss = cssTag("user-tournament"),
       moreJs = moreJs
-    ) {
+    ):
       main(cls := "page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
+        views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
             "Created"
           ),
@@ -59,4 +57,3 @@ object bits:
         ),
         div(cls := "page-menu__content box")(body)
       )
-    }

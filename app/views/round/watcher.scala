@@ -24,12 +24,13 @@ object watcher:
     val chatJson = chatOption.map: c =>
       chat.json(
         c.chat,
+        c.lines,
         name = trans.spectatorRoom.txt(),
         timeout = c.timeout,
         withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.me.exists(_.canPalantir)
+        palantir = ctx.canPalantir
       )
 
     bits.layout(
@@ -46,7 +47,8 @@ object watcher:
           )
         )
       ),
-      openGraph = povOpenGraph(pov).some
+      openGraph = povOpenGraph(pov).some,
+      zenable = true
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(

@@ -111,11 +111,6 @@ final class Env(
     text =
       "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
   )
-  val featuredTeamsSetting = memo.settingStore[Strings](
-    "featuredTeams",
-    default = Strings(Nil),
-    text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
-  )
   val prizeTournamentMakers = memo.settingStore[UserIds](
     "prizeTournamentMakers",
     default = UserIds(Nil),
@@ -181,7 +176,7 @@ final class EnvBoot(
   given Scheduler = system.scheduler
   given Mode      = environment.mode
   val netConfig   = config.get[NetConfig]("net")
-  export netConfig.{ domain, baseUrl }
+  export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
 
   // eagerly load the Uptime object to fix a precise date
 

@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">सफेद रंग के लिए सर्वश्रेष्ठ चाल का पता लगाएं।</string>
   <string name="findTheBestMoveForBlack">काले रंग के लिए सर्वश्रेष्ठ चाल का पता लगाएं।</string>
   <string name="toGetPersonalizedPuzzles">वैयक्तिकृत पहेलियाँ प्राप्त करने के लिए:</string>
-  <string name="puzzleId">पहेलियाँ %s</string>
+  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">पहेलियाँ %s</string>
   <string name="puzzleOfTheDay">आज की पहेली</string>
   <string name="dailyPuzzle">दैनिक पहेली</string>
   <string name="clickToSolve">हल करने के लिए क्लिक करें</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">उद्घाटन द्वारा</string>
   <string name="puzzlesByOpenings">उद्घाटन द्वारा पहेलियाँ</string>
   <string name="openingsYouPlayedTheMost">ओपनिंग्स आपने रेटेड गेम्स में सबसे ज्यादा खेले</string>
-  <string name="useFindInPage">अपनी पसंदीदा ओपनिंग ढूंढने के लिए ब्राउज़र मेनू में \"पेज खोजें\" का उपयोग करें!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">अपनी पसंदीदा ओपनिंग ढूंढने के लिए ब्राउज़र मेनू में \"पेज खोजें\" का उपयोग करें!</string>
   <string name="useCtrlF">अपनी पसंदीदा ओपनिंग ढूंढने के लिए Ctrl+f का उपयोग करें!</string>
   <string name="notTheMove">यह कदम नहीं है!</string>
   <string name="trySomethingElse">कुछ और कोशिश करो।</string>
-  <string name="ratingX">रेटिंग: %s</string>
-  <string name="hidden">छिपा हुआ</string>
-  <plurals name="playedXTimes">
+  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">रेटिंग: %s</string>
+  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">छिपा हुआ</string>
+  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
     <item quantity="one">%s समय खेले</item>
     <item quantity="other">%s समय खेले</item>
   </plurals>

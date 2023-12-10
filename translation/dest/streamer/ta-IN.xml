@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">லிச்சஸ் ஸ்ட்ரீமர்கள்</string>
-  <string name="lichessStreamer">லிச்சஸ் ஸ்ட்ரீமர்</string>
-  <string name="live">லைவ்!</string>
-  <string name="offline">ஆஃப்லைன்</string>
+  <string name="lichessStreamers">லிசெஸ் இணைய ஒளிபரப்பாளர்கள்</string>
+  <string name="lichessStreamer">லிசெஸ் இணைய ஒளிபரப்பாளர்</string>
+  <string name="live">நேரலை!</string>
+  <string name="offline">அகல்நிலை</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">தற்போதைய இணைய ஒளிபரப்புகள்: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">கடைசி இணைய ஒளிப்பரப்பு %s</string>
+  <string name="becomeStreamer">லிசெஸ் இணைய ஒளிபரப்பாளர் ஆகுங்கள்</string>
+  <string name="doYouHaveStream">உங்களிடம் Twitch அல்லது YouTube சேனல் உள்ளதா?</string>
+  <string name="hereWeGo">இதோ!</string>
+  <string name="allStreamers">அனைத்து இணைய ஒளிபரப்பாளர்கள்</string>
+  <string name="editPage">இணைய ஒளிபரப்பாளர் பக்கத்தைத் திருத்து</string>
+  <string name="yourPage">உங்கள் இணைய ஒளிபரப்பாளர் பக்கம்</string>
+  <string name="downloadKit">இணைய ஒளிபரப்பு சாதனங்களைப் பதிவிறக்கு</string>
+  <string name="xIsStreaming">%s இணைய ஒளிபரப்பு செய்கிறார்</string>
+  <string name="rules">இணைய ஒளிபரப்புவதற்கான விதிமுறைகள்</string>
+  <string name="rule1">உங்கள் இணைய ஒளிபரப்பு தலைப்பில் \"lichess.org\" என்ற முக்கிய சொல்லைச் சேர்த்து, நீங்கள் Lichess இல் இணைய ஒளிபரப்பு செய்யும்போது \"Chess\" வகையைப் பயன்படுத்தவும்.</string>
+  <string name="rule2">லிசெஸ் அல்லாதவற்றை நீங்கள் இணைய ஒலிபரப்பு செய்யும்போது முக்கிய சொல்லை அகற்றவும்.</string>
+  <string name="rule3">லிசெஸ் உங்கள் இணைய ஒளிபரப்பை தானாகவே கண்டறிந்து பின்வரும் சலுகைகளை இயக்கும்:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">உங்கள் இணைய ஒளிபரப்பின்போது அனைவருக்கும் நியாயமான விளையாட்டை உறுதிசெய்ய எங்கள் %sஐப் படிக்கவும்.</string>
+  <string name="streamingFairplayFAQ">இணைய ஒளிபரப்பு நியாயமான விளையாட்டு அதிகம் கேட்க்கபட்ட கேள்விகள்</string>
+  <string name="perks">முக்கிய வார்த்தையுடன் இணைய ஒளிபரப்பின் நன்மைகள்</string>
+  <string name="perk1">உங்கள் லிசெஸ் சுயவிவரத்தில் தீப்பிடிக்கும் இணைய ஒளிபரப்பாளர் சின்னம் பெறுங்கள்.</string>
+  <string name="perk2">இணைய ஒளிபரப்பாளர்கள் பட்டியலில் முதலிடம் பெறுங்கள்.</string>
+  <string name="perk3">உங்கள் லிசெஸ் பின்தொடர்பவர்களுக்கு தெரிவிக்கவும்.</string>
+  <string name="perk4">உங்கள் விளையாட்டுகள், போட்டிகள் மற்றும் படிப்புகளில் உங்கள் இணைய ஒளிபரப்பை காட்டுங்கள்.</string>
+  <string name="approved">உங்கள் இணைய ஒளிபரப்பு அங்கீகரிக்கப்பட்டது.</string>
+  <string name="pendingReview">உங்கள் இணைய ஒளிபரப்பு மதிப்பீட்டாளர்களால் மதிப்பாய்வு செய்யப்படுகிறது.</string>
+  <string name="pleaseFillIn">உங்கள் இணைய ஒளிபரப்பாளர் தகவலைப் பூர்த்தி செய்து, படத்தைப் பதிவேற்றவும்.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">நீங்கள் லிசெஸ் இணைய ஒளிபரப்பாளராகப் பட்டியலிட தயாராக இருக்கும்போது, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">மதிப்பீட்டாளர் மதிப்பாய்வைக் கோருங்கள்</string>
+  <string name="streamerLanguageSettings">லிசெஸ் இணைய ஒளிபரப்பாளர் பக்கம் உங்கள் இணைய ஒளிபரப்பாளர் மேடை வழங்கிய மொழிமூலம் உங்கள் பார்வையாளர்களைக் குறிவைக்கிறது. நீங்கள் ஒளிபரப்புவதற்குப் பயன்படுத்தும் செயலிகள் அல்லது சேவையில் உங்கள் சதுரங்க இணைய ஒளிபரப்புகளுக்கான சரியான இயல்புநிலை மொழியை அமைக்கவும்.</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">உங்கள் Twitch பயனர்பெயர் அல்லது URL</string>
+  <string name="optionalOrEmpty">விருப்பமானது. இல்லை என்றால் காலியாக விடவும்</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">உங்கள் YouTube அலைவரிசை அடையாளம்</string>
+  <string name="streamerName">லிசெஸ் இல் உங்கள் இணைய ஒளிபரப்பாளர் பெயர்</string>
+  <plurals name="keepItShort">
+    <item quantity="one">சுருக்கமாக வைக்கவும்: %s எழுத்து அதிகபட்சம்</item>
+    <item quantity="other">சுருக்கமாக வைத்திருங்கள்: %s எழுத்துகள் அதிகபட்சம்</item>
+  </plurals>
+  <string name="visibility">இணைய ஒளிபரப்பாளர் பக்கத்தில் தெரியும்</string>
+  <string name="whenApproved">மதிப்பீட்டாளர்களால் அங்கீகரிக்கப்படும்போது</string>
+  <string name="headline">தலைப்பு</string>
+  <string name="tellUsAboutTheStream">உங்கள் இணைய ஒலிபரப்பு பற்றி ஒரே வாக்கியத்தில் சொல்லுங்கள்</string>
+  <string name="longDescription">நீண்ட விளக்கம்</string>
+  <string name="xStreamerPicture">%s இணைய ஒளிபரப்பாளர் படம்</string>
+  <string name="changePicture">உங்கள் படத்தை மாற்றவும்/நீக்கவும்</string>
+  <string name="uploadPicture">ஒரு படத்தைப் பதிவேற்றவும்</string>
+  <string name="maxSize">அதிகபட்ச அளவு: %s</string>
 </resources>

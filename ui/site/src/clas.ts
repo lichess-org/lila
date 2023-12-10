@@ -23,7 +23,7 @@ lichess.load.then(() => {
       return textarea.value.split('\n').slice(0, -1);
     }
 
-    lichess.loadIife('vendor/textcomplete.min.js').then(() => {
+    lichess.asset.loadIife('vendor/textcomplete.min.js').then(() => {
       const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea), {
         dropdown: {
           maxCount: 10,

@@ -33,11 +33,10 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { throttled } from '../sound';
 
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
+const selectSound = () => lichess.sound.play('select');
+const borderSound = () => lichess.sound.play('outOfBound');
+const errorSound = () => lichess.sound.play('error');
 
 // esbuild
 export function initModule(): NvuiPlugin {

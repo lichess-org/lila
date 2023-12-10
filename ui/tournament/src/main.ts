@@ -8,7 +8,7 @@ import makeCtrl from './ctrl';
 import view from './view/main';
 
 export function initModule(opts: TournamentOpts) {
-  $('body').data('tournament-id', opts.data.id);
+  document.body.dataset.tournamentId = opts.data.id;
   lichess.socket = new lichess.StrongSocket(
     `/tournament/${opts.data.id}/socket/v5`,
     opts.data.socketVersion,

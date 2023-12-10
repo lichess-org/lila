@@ -5,7 +5,7 @@ import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 
 export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
@@ -51,17 +51,16 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                       ? bind('click', () => {
                           if (ctrl.data.variants.length === 1)
                             xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
-                          else {
-                            modal({
-                              content: $('.simul .continue-with'),
-                              onInsert($wrap) {
-                                $wrap.find('button').on('click', function (this: HTMLElement) {
-                                  modal.close();
-                                  xhr.join(ctrl.data.id, $(this).data('variant'));
-                                });
-                              },
+                          else
+                            domDialog({
+                              cash: $('.simul .continue-with'),
+                            }).then(dlg => {
+                              $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
+                                xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
+                                dlg.close();
+                              });
+                              dlg.showModal();
                             });
-                          }
                         })
                       : {},
                   },

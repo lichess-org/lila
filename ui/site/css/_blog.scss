@@ -151,7 +151,7 @@
         text-align: center;
       }
 
-      margin-bottom: 2em;
+      margin-bottom: 1em;
     }
 
     .meta {
@@ -160,13 +160,18 @@
 
     .parts {
       @extend %box-padding-horiz;
+      @extend %flex-center-nowrap;
+      margin: 3em 0 1em;
+      gap: 3em;
 
-      margin-top: 3em;
+      @media (max-width: $mq-width-medium) {
+        flex-flow: column;
+      }
 
       .illustration {
-        float: left;
-        max-width: 40%;
-        margin: 0 3em 2em 0;
+        flex: 1 0 40%;
+        max-width: 80%;
+        margin: 0;
 
         img {
           margin: 0;
@@ -176,11 +181,11 @@
       .body {
         font-size: 1.15em;
         line-height: 1.7;
+        margin: 0;
       }
     }
-
     .more {
-      margin-top: 2em;
+      font-size: 1.3em;
       text-align: center;
     }
   }

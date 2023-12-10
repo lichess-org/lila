@@ -37,10 +37,10 @@
   <string name="imageCredit">Agnosko de bildo</string>
   <string name="deleteBlog">Forigi ĉi tiun afiŝon definitive</string>
   <string name="deleteImage">Forigi la bildon</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Estas sekure uzi bildojn de la sekvaj retejoj: </string>
+  <string name="safeToUseImages">Estas sekure uzi bildojn de la sekvaj retejoj: </string>
   <string name="selectPostTopics">Elektu temojn, ke via afiŝo temas</string>
   <string name="useImagesYouMadeYourself">Vi ankaŭ povas uzi bildojn, kiujn vi mem faris, bildojn vi fotis, ekrankopioj de Lichess... ion ajn, kio ne estas kopirajtita de alia iu.</string>
   <string name="safeAndRespectfulContent">Bonvolu nur afiŝi sekuran kaj respektan enhavon. Ne kopiu enhavon de iu alia.</string>
   <string name="inappropriateContentAccountClosed">Io malkonvena povus fermigi vian konton.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Niaj facilaj konsiloj por verki bonegajn blogafiŝojn</string>
+  <string name="blogTips">Niaj facilaj konsiloj por verki bonegajn blogafiŝojn</string>
 </resources>

@@ -9,92 +9,71 @@ import {
   StudyChapterConfig,
   StudyChapterMeta,
 } from './interfaces';
-import { defined, prop, Prop } from 'common';
+import { defined, prop } from 'common';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { StudySocketSend } from '../socket';
 
-export interface StudyChapterEditFormCtrl {
-  current: Prop<StudyChapterMeta | StudyChapterConfig | null>;
-  open(data: StudyChapterMeta): void;
-  toggle(data: StudyChapterMeta): void;
-  submit(data: Omit<EditChapterData, 'id'>): void;
-  delete(id: string): void;
-  clearAnnotations(id: string): void;
-  clearVariations(id: string): void;
-  isEditing(id: string): boolean;
-  redraw: Redraw;
-  trans: Trans;
-}
+export class StudyChapterEditForm {
+  current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
 
-export function ctrl(
-  send: StudySocketSend,
-  chapterConfig: (id: string) => Promise<StudyChapterConfig>,
-  trans: Trans,
-  redraw: Redraw,
-): StudyChapterEditFormCtrl {
-  const current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
+  constructor(
+    private readonly send: StudySocketSend,
+    private readonly chapterConfig: (id: string) => Promise<StudyChapterConfig>,
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+  ) {}
 
-  function open(data: StudyChapterMeta) {
-    current({
+  open = (data: StudyChapterMeta) => {
+    this.current({
       id: data.id,
       name: data.name,
     });
-    chapterConfig(data.id).then(d => {
-      current(d!);
-      redraw();
+    this.chapterConfig(data.id).then(d => {
+      this.current(d!);
+      this.redraw();
     });
-  }
+  };
 
-  function isEditing(id: string) {
-    const c = current();
-    return c ? c.id === id : false;
-  }
+  isEditing = (id: string) => this.current()?.id === id;
 
-  return {
-    open,
-    toggle(data) {
-      if (isEditing(data.id)) current(null);
-      else open(data);
-    },
-    current,
-    submit(data) {
-      const c = current();
-      if (c) {
-        send('editChapter', { id: c.id, ...data });
-        current(null);
-      }
-    },
-    delete(id) {
-      send('deleteChapter', id);
-      current(null);
-    },
-    clearAnnotations(id) {
-      send('clearAnnotations', id);
-      current(null);
-    },
-    clearVariations(id) {
-      send('clearVariations', id);
-      current(null);
-    },
-    isEditing,
-    trans,
-    redraw,
+  toggle = (data: StudyChapterMeta) => {
+    if (this.isEditing(data.id)) this.current(null);
+    else this.open(data);
+  };
+  submit = (data: Omit<EditChapterData, 'id'>) => {
+    const c = this.current();
+    if (c) {
+      this.send('editChapter', { id: c.id, ...data });
+      this.current(null);
+    }
+  };
+  delete = (id: string) => {
+    this.send('deleteChapter', id);
+    this.current(null);
+  };
+  clearAnnotations = (id: string) => {
+    this.send('clearAnnotations', id);
+    this.current(null);
+  };
+  clearVariations = (id: string) => {
+    this.send('clearVariations', id);
+    this.current(null);
   };
 }
 
-export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
+export function view(ctrl: StudyChapterEditForm): VNode | undefined {
   const data = ctrl.current(),
     noarg = ctrl.trans.noarg;
   return data
-    ? snabModal({
+    ? snabDialog({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
           ctrl.redraw();
         },
-        content: [
+        vnodes: [
           h('h2', noarg('editChapter')),
           h(
             'form.form3',
@@ -142,7 +121,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
 const isLoaded = (data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig =>
   'orientation' in data;
 
-function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {
+function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode[] {
   const mode = data.practice
       ? 'practice'
       : defined(data.conceal)

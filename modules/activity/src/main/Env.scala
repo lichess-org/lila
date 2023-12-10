@@ -17,14 +17,11 @@ final class Env(
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamNameSync,
     teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi,
+    getLightTeam: lila.hub.LightTeam.GetterSync,
     lightUserApi: lila.user.LightUserApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()
 
@@ -65,14 +62,14 @@ final class Env(
     "streamStart",
     "swissFinish"
   ):
-    case lila.forum.CreatePost(post)                      => write.forumPost(post)
-    case lila.ublog.UblogPost.Create(post)                => write.ublogPost(post)
-    case prog: lila.practice.PracticeProgress.OnComplete  => write.practice(prog)
-    case lila.simul.Simul.OnStart(simul)                  => write.simul(simul)
-    case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
-    case lila.hub.actorApi.plan.MonthInc(userId, months)  => write.plan(userId, months)
-    case lila.hub.actorApi.relation.Follow(from, to)      => write.follow(from, to)
-    case lila.study.actorApi.StartStudy(id)               =>
+    case lila.forum.CreatePost(post)                     => write.forumPost(post)
+    case lila.ublog.UblogPost.Create(post)               => write.ublogPost(post)
+    case prog: lila.practice.PracticeProgress.OnComplete => write.practice(prog)
+    case lila.simul.Simul.OnStart(simul)                 => write.simul(simul)
+    case CorresMoveEvent(move, Some(userId), _, _, _)    => write.corresMove(move.gameId, userId)
+    case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
+    case lila.hub.actorApi.relation.Follow(from, to)     => write.follow(from, to)
+    case lila.study.actorApi.StartStudy(id)              =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
     case lila.hub.actorApi.team.CreateTeam(id, _, userId)  => write.team(id, userId)

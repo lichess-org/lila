@@ -310,6 +310,7 @@
   <string name="apply">Саклау</string>
   <string name="save">Саклау</string>
   <string name="leaderboard">Лидерлар тактасы</string>
+  <string name="gameAsGIF">GIF итеп саклау</string>
   <string name="pasteTheFenStringHere">FEN текстын монда кертегез</string>
   <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
   <string name="fromPosition">Позициядән</string>
@@ -335,6 +336,7 @@
   <string name="follow">Язылу</string>
   <string name="following">Язылгансыз</string>
   <string name="unfollow">Язылынмау</string>
+  <string name="unfollowX">%s язылынмау</string>
   <string name="block">Блоклау</string>
   <string name="blocked">Блокланган</string>
   <string name="unblock">Блоктан чыгару</string>
@@ -380,6 +382,8 @@
   <string name="tournamentIsStarting">Бәйгене башлана</string>
   <string name="tournamentPairingsAreNowClosed">Бәйге чиратлаштыруы ябылган.</string>
   <string name="standByX">%s көтегез, уйнаучылар чиратлаштырыла, әзерләнегез!</string>
+  <string name="pause">Туктату</string>
+  <string name="resume">Дәвам итү</string>
   <string name="youArePlaying">Сез уйныйсыз!</string>
   <string name="winRate">Җиңүләр</string>
   <string name="berserkRate">Берсерк</string>
@@ -407,7 +411,6 @@
   <string name="firstName">Исем</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрак</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
   <string name="inlineNotation">Кертелгән билгеләнеш</string>
@@ -559,6 +562,7 @@
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
   <string name="averageCentipawnLoss">Уртача урнашу-матерьялы җиңүлүе</string>
+  <string name="accuracy">Төгәллек</string>
   <string name="keyboardShortcuts">Керткечнең эзмәләре</string>
   <string name="keyMoveBackwardOrForward">артка/Алга хәрәкәт</string>
   <string name="keyGoToStartOrEnd">башлануга/бетүгә</string>
@@ -727,6 +731,7 @@
   <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Тиз</string>
   <string name="classical">Классика</string>
   <string name="ultraBulletDesc">Гаҗәеп тиз уеннар: 30 секундтан да азрак</string>
@@ -763,4 +768,6 @@
   <string name="refundXpointsTimeControlY">Кире кайтару %1$s %2$s рейтинг накате.</string>
   <string name="timeAlmostUp">Вакыт тугады диярлек!</string>
   <string name="download">Йөкләп алу</string>
+  <string name="tournDescription">Ярыш тасвирламасы</string>
+  <string name="hangOn">Туктагыз!</string>
 </resources>

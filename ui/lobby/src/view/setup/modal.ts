@@ -1,24 +1,58 @@
-import { MaybeVNode } from 'common/snabbdom';
-import { snabModal } from 'common/modal';
+import { h } from 'snabbdom';
+import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import { snabDialog } from 'common/dialog';
+import { userLink } from 'common/userLink';
 import LobbyController from '../../ctrl';
-import hookContent from './hookContent';
-import friendContent from './friendContent';
-import aiContent from './aiContent';
-
-const gameTypeToRenderer = {
-  hook: hookContent,
-  friend: friendContent,
-  ai: aiContent,
-};
+import { variantPicker } from './components/variantPicker';
+import { timePickerAndSliders } from './components/timePickerAndSliders';
+import { gameModeButtons } from './components/gameModeButtons';
+import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
+import { colorButtons } from './components/colorButtons';
+import { ratingView } from './components/ratingView';
+import { fenInput } from './components/fenInput';
+import { levelButtons } from './components/levelButtons';
 
 export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
-  const renderContent = gameTypeToRenderer[setupCtrl.gameType];
-  return snabModal({
+  return snabDialog({
     class: 'game-setup',
-    onInsert: () => lichess.loadCssPath('lobby.setup'),
+    cssPath: 'lobby.setup',
     onClose: setupCtrl.closeModal,
-    content: renderContent(ctrl),
+    vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
   });
 }
+
+const views = {
+  hook: (ctrl: LobbyController): MaybeVNodes => [
+    h('h2', ctrl.trans('createAGame')),
+    h('div.setup-content', [
+      variantPicker(ctrl),
+      timePickerAndSliders(ctrl),
+      gameModeButtons(ctrl),
+      ratingDifferenceSliders(ctrl),
+      colorButtons(ctrl),
+    ]),
+  ],
+  friend: (ctrl: LobbyController): MaybeVNodes => [
+    h('h2', ctrl.trans('playWithAFriend')),
+    h('div.setup-content', [
+      ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
+      variantPicker(ctrl),
+      fenInput(ctrl),
+      timePickerAndSliders(ctrl, true),
+      gameModeButtons(ctrl),
+      colorButtons(ctrl),
+    ]),
+  ],
+  ai: (ctrl: LobbyController): MaybeVNodes => [
+    h('h2', ctrl.trans('playWithTheMachine')),
+    h('div.setup-content', [
+      variantPicker(ctrl),
+      fenInput(ctrl),
+      timePickerAndSliders(ctrl, true),
+      ...levelButtons(ctrl),
+      colorButtons(ctrl),
+    ]),
+  ],
+};

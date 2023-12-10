@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">সুরু করতে চাল দিন</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">আপনি সমস্ত ধাঁধাতে সাদা ঘুঁটি নিয়ে খেলছেন।</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">আপনি সমস্ত ধাঁধাতে কালো ঘুঁটি নিয়ে খেলছেন।</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">আপনি সমস্ত ধাঁধাতে সাদা ঘুঁটি নিয়ে খেলছেন।</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">আপনি সমস্ত ধাঁধাতে কালো ঘুঁটি নিয়ে খেলছেন।</string>
   <string name="puzzlesSolved">ধাঁধা সমাধান করা হয়েছে</string>
-  <string name="newDailyHighscore">নতুন দৈনিক হাইস্কোর!</string>
-  <string name="newWeeklyHighscore">নতুন সাপ্তাহিক হাইস্কোর!</string>
-  <string name="newMonthlyHighscore">নতুন মাসিক হাইস্কোর!</string>
-  <string name="newAllTimeHighscore">নতুন সর্বকালের হাইস্কোর!</string>
-  <string name="previousHighscoreWasX">আগের হাইস্কোর তি ছিল %s</string>
+  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">নতুন দৈনিক হাইস্কোর!</string>
+  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">নতুন সাপ্তাহিক হাইস্কোর!</string>
+  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">নতুন মাসিক হাইস্কোর!</string>
+  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">নতুন সর্বকালের হাইস্কোর!</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">আগের হাইস্কোর তি ছিল %s</string>
   <string name="playAgain">আবার খেলুন</string>
   <plurals name="xRuns">
     <item quantity="one">১ দউর</item>
     <item quantity="other">%s দউর</item>
   </plurals>
-  <string name="highscoreX">হাইস্কোর %s</string>
-  <string name="score">স্কোর</string>
-  <string name="moves">চাল</string>
-  <string name="accuracy">নির্ভুলতা</string>
-  <string name="time">সময়</string>
+  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">হাইস্কোর %s</string>
+  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">স্কোর</string>
+  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">চাল</string>
+  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">নির্ভুলতা</string>
+  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">সময়</string>
   <string name="timePerMove">চাল প্রতি সময়</string>
   <string name="highestSolved">সর্বোচ্চ সমাধানকৃত</string>
-  <string name="highscores">হাইস্কোর</string>
-  <string name="runs">চালান</string>
-  <string name="skip">এড়িয়ে যান</string>
+  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">হাইস্কোর</string>
+  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">চালান</string>
+  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">এড়িয়ে যান</string>
 </resources>

@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
 import { h } from 'snabbdom';
 import { Position } from '../interfaces';
+import { bind } from '../util';
 import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';
@@ -46,12 +47,30 @@ export const renderTableWatch = (ctrl: RoundController) =>
     isLoading(ctrl) ? loader() : game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
   ]);
 
+const prompt = (ctrl: RoundController) => {
+  const o = ctrl.question();
+  if (!o) return {};
+
+  const btn = (tpe: 'yes' | 'no', icon: string, i18nKey: I18nKey, action: () => void) =>
+    ctrl.nvui
+      ? h('button', { hook: bind('click', action) }, ctrl.noarg(i18nKey))
+      : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: bind('click', action) });
+
+  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.key || 'decline', o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.key || 'accept', o.yes.action);
+
+  return {
+    promptVNode: h('div.question', { key: o.prompt }, [noBtn, h('p', o.prompt), yesBtn]),
+    isQuestion: o.no !== undefined || o.yes !== undefined,
+  };
+};
+
 export const renderTablePlay = (ctrl: RoundController) => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
-    question = button.askQuestion(ctrl),
+    { promptVNode, isQuestion } = prompt(ctrl),
     icons =
-      loading || question
+      loading || isQuestion
         ? []
         : [
             game.abortable(d)
@@ -100,7 +119,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
           ],
     buttons: MaybeVNodes = loading
       ? [loader()]
-      : [question, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
+      : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
   return [
     replay.render(ctrl),
     h('div.rcontrols', [

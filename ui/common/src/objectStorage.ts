@@ -1,4 +1,4 @@
-/* 
+/*
 usage:
   const store = await objectStorage<MyObject>({store: 'my-store'});
   const value = await store.get(key);
@@ -11,18 +11,25 @@ export interface DbInfo {
   upgrade?: (e: IDBVersionChangeEvent, store?: IDBObjectStore) => void;
 }
 
-export interface ObjectStorage<V> {
-  get(key: string): Promise<V>;
-  put(key: string, value: V): Promise<string>; // returns key
-  count(key: string): Promise<number>;
-  remove(key: string): Promise<void>; // delete one
-  clear(): Promise<void>; // delete all
-  txn(mode: IDBTransactionMode): IDBTransaction;
+export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
+  list(): Promise<K[]>;
+  get(key: K): Promise<V>;
+  getMany(keys?: IDBKeyRange): Promise<V[]>;
+  put(key: K, value: V): Promise<K>; // returns key
+  count(key?: K | IDBKeyRange): Promise<number>;
+  remove(key: K | IDBKeyRange): Promise<void>;
+  clear(): Promise<void>; // remove all
+  txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
 }
 
-export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>> {
-  const name = dbInfo.store;
-  const db = await dbAsync(dbInfo);
+export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
+  dbInfo: DbInfo,
+): Promise<ObjectStorage<V, K>> {
+  const db = await dbConnect(dbInfo);
+
+  function objectStore(mode: IDBTransactionMode) {
+    return db.transaction(dbInfo.store, mode).objectStore(dbInfo.store);
+  }
 
   function actionPromise<V>(f: () => IDBRequest) {
     return new Promise<V>((resolve, reject) => {
@@ -31,42 +38,25 @@ export async function objectStorage<V>(dbInfo: DbInfo): Promise<ObjectStorage<V>
       res.onerror = (e: Event) => reject((e.target as IDBRequest).result);
     });
   }
+
   return {
-    get(key: string) {
-      const store = db.transaction(name, 'readonly').objectStore(name);
-      return actionPromise<V>(store.get.bind(store, key));
-    },
-
-    put(key: string, value: V) {
-      const store = db.transaction(name, 'readwrite').objectStore(name);
-      return actionPromise<string>(store.put.bind(store, value, key));
-    },
-
-    count(key: string) {
-      const store = db.transaction(name, 'readonly').objectStore(name);
-      return actionPromise<number>(store.count.bind(store, key));
-    },
-
-    remove(key: string) {
-      const store = db.transaction(name, 'readwrite').objectStore(name);
-      return actionPromise<void>(store.delete.bind(store, key));
-    },
-
-    clear() {
-      const store = db.transaction(name, 'readwrite').objectStore(name);
-      return actionPromise<void>(store.clear.bind(store));
-    },
-
-    txn(mode: IDBTransactionMode) {
-      return db.transaction(name, mode);
-    },
+    list: () => actionPromise<K[]>(() => objectStore('readonly').getAllKeys()),
+    get: (key: K) => actionPromise<V>(() => objectStore('readonly').get(key)),
+    getMany: (keys?: IDBKeyRange) => actionPromise<V[]>(() => objectStore('readonly').getAll(keys)),
+    put: (key: K, value: V) => actionPromise<K>(() => objectStore('readwrite').put(value, key)),
+    count: (key?: K | IDBKeyRange) => actionPromise<number>(() => objectStore('readonly').count(key)),
+    remove: (key: K | IDBKeyRange) => actionPromise<void>(() => objectStore('readwrite').delete(key)),
+    clear: () => actionPromise<void>(() => objectStore('readwrite').clear()),
+    txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
   };
 }
 
-async function dbAsync(dbInfo: DbInfo) {
+async function dbConnect(dbInfo: DbInfo) {
   const dbName = dbInfo?.db || `${dbInfo.store}--db`;
+
   return new Promise<IDBDatabase>((resolve, reject) => {
     const result = window.indexedDB.open(dbName, dbInfo?.version ?? 1);
+
     result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);
     result.onerror = (e: Event) => reject((e.target as IDBOpenDBRequest).result ?? 'IndexedDB Unavailable');
     result.onupgradeneeded = (e: IDBVersionChangeEvent) => {
@@ -75,6 +65,7 @@ async function dbAsync(dbInfo: DbInfo) {
       const store = db.objectStoreNames.contains(dbInfo.store)
         ? txn!.objectStore(dbInfo.store)
         : db.createObjectStore(dbInfo.store);
+
       dbInfo.upgrade?.(e, store);
     };
   });

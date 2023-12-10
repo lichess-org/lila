@@ -57,6 +57,7 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</strin
 Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman, süresi bitmeyen oyuncunun lehine karar veririz.
 
 Rakip şahın hareketini engelleyebilecek herhangi bir taş varsa tek at veya tek fil ile matın mümkün olduğunu unutmayın.</string>
+  <string name="fideHandbook">FIDE el kitabı</string>
   <string name="fideHandbookX">FIDE satranç kuralları %s</string>
   <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi. Bu nasıl olur? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.
@@ -145,4 +146,24 @@ Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutl
 Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
 Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
+  <string name="enableAutoplayForSoundsQ">Sesler için otomatik oynatma etkinleştir?</string>
+  <string name="enableAutoplayForSoundsA">Birçok tarayıcı yeni açılmış sayfalarda sesin oynamasını kullanıcıları korumak için engelleyebilir. Bir websitesinin sizi anında sesli reklamlar ile bombardıman etmesini düşünün.
+
+Kırmızı sustur simgesi, tarayıcınız lichess.org\'un ses oynatmasını engelleyince çıkar. Genellikle bu kısıtlama birşeye tıkladığınızda kalkar. Bazı mobil tarayıcılarda, bir satranç taşını sürüklemek tıklamak olarak algılanmayabilir. O durumda her bir oyunun başlangıcında ses için tahtaya dokunmanız gerekir.
+
+Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlukla lichess.org\'un ses oynatmasına tarayıcınızın ayarlarında izin verebilirsiniz. Bazı popüler tarayıcıların son sürümleri için talimatlar burada.</string>
+  <string name="desktop">masaüstü</string>
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. lichess.org\'a git
+2. Linux/Windows\'da Ctrl-i ya da MacOS\'de cmd-i bas
+3. İzinler sekmesine tıkla
+4. lichess.org\'da Ses ve Video\'ya izin ver</string>
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Lichess.org\'a gidin
+2. Adres çubuğundaki kilit simgesine tıklayın
+3. Site ayarlarına tıklayın
+4. Sese izin verin</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Sağ üst köşedeki üç noktaya tıklayın
+2. Ayarlara tıklayın
+3. Sol taraftan Tanılama bilgileri ve site izinlerine tıklayın
+4. Aşağıya inin ve Medya otomatik yürütmeye tıklayın
+5. İzin Ver listesine lichess.org\'u ekleyin</string>
 </resources>

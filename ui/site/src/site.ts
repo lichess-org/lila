@@ -14,18 +14,20 @@ import serviceWorker from './component/serviceWorker';
 import StrongSocket from './component/socket';
 import topBar from './component/top-bar';
 import watchers from './component/watchers';
-import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
-import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
-import { trapFocus } from 'common/modal';
-import { isIOS } from 'common/mobile';
+import { isIOS } from 'common/device';
+import { scrollToInnerSelector } from 'common';
 
+window.$as = <T>(cashOrHtml: Cash | string) =>
+  (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 exportLichessGlobals();
 lichess.info = info;
 
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');
+  const setBlind = location.hash === '#blind';
+  const showDebug = location.hash === '#debug';
 
   requestAnimationFrame(() => {
     miniBoard.initAll();
@@ -42,13 +44,16 @@ lichess.load.then(() => {
     const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
     if (chatMembers) watchers(chatMembers);
 
+    $('.subnav__inner').each(function (this: HTMLElement) {
+      scrollToInnerSelector(this, '.active', true);
+    });
     $('#main-wrap')
       .on('click', '.autoselect', function (this: HTMLInputElement) {
         this.select();
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
         const showCheckmark = () => $(this).attr('data-icon', licon.Checkmark);
-        $('#' + $(this).data('rel')).each(function (this: HTMLInputElement) {
+        $('#' + this.dataset.rel).each(function (this: HTMLInputElement) {
           try {
             navigator.clipboard.writeText(this.value).then(showCheckmark);
           } catch (e) {
@@ -93,10 +98,10 @@ lichess.load.then(() => {
     $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
-        userComplete({
+        lichess.asset.userComplete({
           input: this,
-          friend: $(this).data('friend'),
-          tag: $(this).data('tag'),
+          friend: !!this.dataset.friend,
+          tag: this.dataset.tag as any,
           focus,
         });
 
@@ -116,17 +121,6 @@ lichess.load.then(() => {
       return false;
     });
 
-    $('body').on('focusin', trapFocus);
-
-    lichess.mousetrap.bind('esc', () => {
-      const $oc = $('#modal-wrap .close');
-      if ($oc.length) $oc.trigger('click');
-      else {
-        const $input = $(':focus');
-        if ($input.length) $input.trigger('blur');
-      }
-    });
-
     /* Edge randomly fails to rasterize SVG on page load
      * A different SVG must be loaded so a new image can be rasterized */
     if (navigator.userAgent.includes('Edge/'))
@@ -141,16 +135,9 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    if (location.hash === '#blind' && !lichess.blindMode)
-      xhr
-        .text('/toggle-blind-mode', {
-          method: 'post',
-          body: xhr.form({
-            enable: 1,
-            redirect: '/',
-          }),
-        })
-        .then(reload);
+    if (setBlind && !lichess.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
+
+    if (showDebug) lichess.asset.loadEsm('diagnostic');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
@@ -174,7 +161,7 @@ lichess.load.then(() => {
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
-      if ($('#announce').length || $('body').data('tournament-id') == data.id) return;
+      if ($('#announce').length || document.body.dataset.tournamentId == data.id) return;
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')

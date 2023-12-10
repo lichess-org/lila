@@ -7,6 +7,9 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s babak</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="other">%s ronde Swiss</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">Satu babak per %s hari</item>
   </plurals>
@@ -28,18 +31,29 @@
   <string name="roundInterval">Jarak antar ronde</string>
   <string name="newSwiss">Turnamen Swiss baru</string>
   <string name="pointsCalculationQ">Bagaimana skor dihitung?</string>
+  <string name="tiebreaksCalculationQ">Bagaimana cara menghitung tie-break?</string>
   <string name="sonnebornBergerScore">penilaian Sonneborn–Berger</string>
+  <string name="FIDEHandbook">pedoman FIDE</string>
   <string name="lateJoinQ">Dapatkah pemain telat bergabung?</string>
   <string name="lateJoinA">Ya, sampai lebih dari setengah putaran dimulai; misalnya dalam 11 ronde swiss, pemain dapat bergabung sebelum ronde 6 dimulai dan dalam 12 ronde, sebelum ronde 7 dimulai.
 Peserta yang terlambat mendapatkan satu \"bye\", bahkan jika mereka melewatkan beberapa ronde.</string>
+  <string name="joinOrCreateTeam">Bergabung atau membuat sebuah tim</string>
   <string name="nowPlaying">Sedang berlangsung</string>
   <string name="startingSoon">Segera dimulai</string>
   <string name="comparison">Perbandingan</string>
   <string name="tournDuration">Durasi turnamen</string>
   <string name="numberOfGames">Jumlah babak</string>
   <string name="pairingSystem">Sistem pembagian partai</string>
+  <string name="pairingWaitTime">Waktu tunggu pemasangan</string>
+  <string name="pairingWaitTimeArena">Sebentar: tidak perlu menunggu semua pemain</string>
+  <string name="pairingWaitTimeSwiss">Lama: perlu menunggu semua pemain</string>
+  <string name="identicalPairing">Pasangan identik</string>
+  <string name="possibleButNotConsecutive">Memungkinkan, tapi tidak konsekutif</string>
   <string name="identicalForbidden">Dilarang</string>
   <string name="lateJoin">Telat bergabung</string>
   <string name="pause">Jeda</string>
+  <string name="streaksAndBerserk">Streaks dan Berserk</string>
+  <string name="similarToOTB">Sama dengan turnamen OTB</string>
   <string name="unlimitedAndFree">Tidak terbatas dan gratis</string>
+  <string name="playYourGames">Mainkan permainanmu</string>
 </resources>

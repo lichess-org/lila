@@ -58,6 +58,7 @@
   <string name="nextPayment">次の支払い</string>
   <string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
   <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
+  <string name="giftPatronWingsShort">パトロンの翼を贈る</string>
   <string name="giftPatronWings">他の人にパトロンの翼を贈る</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>

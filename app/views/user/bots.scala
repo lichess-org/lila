@@ -10,8 +10,7 @@ import lila.user.User
 object bots:
 
   def apply(users: List[User.WithPerfs])(using PageContext) =
-    val title  = s"${users.size} Online bots"
-    val sorted = users.sortBy { -_.playTime.so(_.total) }
+    val title = s"${users.size} Online bots"
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("slist"), cssTag("bot.list")),
@@ -19,7 +18,7 @@ object bots:
     ):
       main(cls := "page-menu bots")(
         user.bits.communityMenu("bots"),
-        sorted.partition(_.isVerified) match
+        users.partition(_.isVerified) match
           case (featured, all) =>
             div(cls := "bots page-menu__content")(
               div(cls := "box bots__featured")(
@@ -49,7 +48,7 @@ object bots:
               u.perfs.bestAny3Perfs.map { showPerfRating(u.perfs, _) }
           ),
           u.profile
-            .ifTrue(ctx.noKid)
+            .ifTrue(ctx.kid.no)
             .ifTrue(!u.marks.troll || ctx.is(u))
             .flatMap(_.nonEmptyBio)
             .map { bio => td(shorten(bio, 400)) }

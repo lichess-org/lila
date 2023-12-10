@@ -37,10 +37,10 @@
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
-    <item quantity="few">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundy.</item>
-    <item quantity="many">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
-    <item quantity="other">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="one">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekundę.</item>
+    <item quantity="few">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekundy.</item>
+    <item quantity="many">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="other">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
   <string name="forceResignation">Ogłoś wygraną</string>
@@ -72,6 +72,7 @@
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="forceVariation">Przedstaw jako wariant</string>
+  <string name="copyVariationPgn">Skopiuj wariant PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
@@ -119,6 +120,7 @@
   <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
+  <string name="showVariationArrows">Pokaż strzałki wariantów</string>
   <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
@@ -459,6 +461,7 @@
   <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <string name="importGameCaveat">Warianty zostaną usunięte. Aby je zachować, zaimportuj plik PGN jako opracowanie.</string>
+  <string name="importGameCaveat2">Ten zapis PGN będzie dostępny publicznie. Aby zaimportować partię tylko dla siebie, stwórz prywatne opracowanie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -549,6 +552,7 @@
   <string name="movesPlayed">Wykonanych ruchów</string>
   <string name="whiteWins">Wygranych białych</string>
   <string name="blackWins">Wygranych czarnych</string>
+  <string name="drawRate">Częstość remisowania</string>
   <string name="draws">Remisów</string>
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
@@ -569,14 +573,15 @@
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
+  <string name="setFlair">Ustaw swój emblemat:</string>
+  <string name="flair">Emblemat</string>
+  <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>
   <string name="biography">O mnie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flaga</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub region</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
-  <string name="savingMoves">Tymczasowe miejsce zapisu ruchów</string>
-  <string name="savingMovesHelp">Zawsze przechowujemy Twoje warianty w pamięci podręcznej przeglądarki.</string>
   <string name="makeAStudy">Aby bezpiecznie zapamiętać i udostępniać, rozważ stworzenie opracowania.</string>
   <string name="clearSavedMoves">Usuń ruchy</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
@@ -732,8 +737,10 @@
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
   <string name="hostColorX">Kolor symultanisty: %s</string>
+  <string name="yourPendingSimuls">Twoje oczekujące symultany</string>
   <string name="createdSimuls">Nowe symultany</string>
   <string name="hostANewSimul">Nowa symultana</string>
+  <string name="signUpToHostOrJoinASimul">Dołącz do simultany</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do do strony głównej symultan</string>
@@ -758,6 +765,7 @@
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
+  <string name="keyCycleSelectedVariation">Powtarzaj wybrany wariant</string>
   <string name="keyShowOrHideComments">pokaż/ukryj komentarze</string>
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
   <string name="keyRequestComputerAnalysis">Poproś o analizę komputerową, ucz się na swoich błędach</string>
@@ -765,6 +773,12 @@
   <string name="keyNextBlunder">Następny błąd</string>
   <string name="keyNextMistake">Następna pomyłka</string>
   <string name="keyNextInaccuracy">Następna niedokładność</string>
+  <string name="keyPreviousBranch">Poprzedni wariant</string>
+  <string name="keyNextBranch">Następny wariant</string>
+  <string name="toggleVariationArrows">Pokaż strzałki wariantów</string>
+  <string name="cyclePreviousOrNextVariation">Powtarzaj poprzedni/następny wariant</string>
+  <string name="variationArrowsInfo">Strzałki wariantów pozwalają nawigować bez użycia listy posunięć.</string>
+  <string name="playSelectedMove">wykonaj wybrane posunięcie</string>
   <string name="newTournament">Nowy turniej</string>
   <string name="tournamentHomeTitle">Turnieje szachowe z możliwością rozgrywki w różnym tempie i odmianach szachów</string>
   <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Błyskawiczne, szybkie, klasyczne, Fishera, król w centrum, trzy szachy i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
@@ -809,6 +823,7 @@
   <string name="withFriends">Tylko znajomym</string>
   <string name="withEverybody">Każdemu</string>
   <string name="kidMode">Tryb dla dzieci</string>
+  <string name="kidModeIsEnabled">Tryb dla dzieci jest włączony.</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, wiesz wtedy, że Twoje dziecko jest chronione.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Twoim kontem zarządza nauczyciel. Poproś go o przekazanie zarządzania Tobie.</string>
@@ -824,7 +839,7 @@
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
-  <string name="bulletBlitzClassical">Błyskawiczne, szybkie, klasyczne</string>
+  <string name="bulletBlitzClassical">Superbłyskawiczne, błyskawiczne, klasyczne</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
@@ -952,12 +967,13 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Szybkie</string>
   <string name="classical">Klasyczne</string>
   <string name="ultraBulletDesc">Partie szalenie szybkie: mniej niż 30 sekund</string>
   <string name="bulletDesc">Partie bardzo szybkie: mniej niż 3 minuty</string>
   <string name="blitzDesc">Partie szybkie: 3 do 8 minut</string>
-  <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
+  <string name="rapidDesc">Partie szybkie: 8 do 25 minut</string>
   <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
   <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>
   <string name="puzzleDesc">Trener taktyk szachowych</string>
@@ -991,9 +1007,6 @@
   <string name="timeAlmostUp">Czas prawie minął!</string>
   <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
   <string name="download">Pobierz</string>
-  <string name="welcome">Witaj!</string>
-  <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
-Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="coachManager">Menedżer trenera</string>
   <string name="streamerManager">Menedżer streamera</string>
   <string name="cancelTournament">Anuluj turniej</string>
@@ -1052,4 +1065,8 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="switchSides">Zmień kolor</string>
   <string name="closingAccountWithdrawAppeal">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
   <string name="ourEventTips">Nasze wskazówki dotyczące organizacji wydarzeń</string>
+  <string name="instructions">Instrukcje</string>
+  <string name="showMeEverything">Pokaż mi wszystko</string>
+  <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
+Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
 </resources>

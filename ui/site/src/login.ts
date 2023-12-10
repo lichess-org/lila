@@ -108,5 +108,5 @@ function signupStart() {
     else return false;
   });
 
-  lichess.loadEsm('passwordComplexity', { init: 'form3-password' });
+  lichess.asset.loadEsm('passwordComplexity', { init: 'form3-password' });
 }

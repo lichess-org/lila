@@ -60,7 +60,7 @@ Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere 
   <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
 Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan verilir.</string>
   <string name="earlyDrawsQ">Erken beraberlik durumunda ne oluyor?</string>
-  <string name="earlyDrawsA">Bir oyuncu, eşleştirme sistemi kendisine bir rakip bulamadığında bay geçer ve bir puan alır. Ayrıca turnuvaya geç katılan oyunculara tek seferlğine yarım puan verilir.</string>
+  <string name="earlyDrawsAnswer">İsviçre sistemi maçlarda 30 hamle oynanmadan oyuncular berabere kalamaz. Bu önlem, maçtan önce ayarlanmış beraberlikleri engelleyemese de maç esnasında berabere kalmayı zorlaştırır.</string>
   <string name="whatIfOneDoesntPlayQ">Rakip oyuna gelmezse ne olur?</string>
   <string name="whatIfOneDoesntPlayA">Süresi bitene kadar oyun devam eder ve süre bittiğinde mağlup sayılır.
 Sonrasında sistem bu oyuncuyu daha fazla oyun kaybetmemesi için turnuvadan çeker.

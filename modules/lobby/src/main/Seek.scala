@@ -37,8 +37,7 @@ case class Seek(
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(s: Seek) =
-    realRatingRange.fold(true): range =>
-      range.contains(s.rating)
+    realRatingRange.forall(_.contains(s.rating))
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
 

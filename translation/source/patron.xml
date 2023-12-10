@@ -31,7 +31,7 @@
   <string name="withCreditCard">Credit Card</string>
   <string name="logInToDonate">Log in to donate</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
-  <string name="celebratedPatrons">The celebrated Patrons who make possible</string>
+  <string name="celebratedPatrons">The celebrated Patrons who make Lichess possible</string>
   <string name="whereMoneyGoes">Where does the money go?</string>
   <string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lichess.
@@ -49,7 +49,7 @@ Or you can %s.</string>
   <string name="onlyDonationFromAbove">Please note that only the donation form above will grant the Patron status.</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
   <string name="noPatronFeatures">No, because Lichess is entirely free, forever, and for everyone. That's a promise.
-However, Patrons get bragging rights with a cool new profile icon.</string>
+However, Patrons get bragging rights with cool new Patron wings that show up on your profile.</string>
   <string name="featuresComparison">See the detailed feature comparison</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron for one month</item>
@@ -61,6 +61,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
   <string name="makeAdditionalDonation">Make an additional donation</string>
+  <string name="giftPatronWingsShort">Gift Patron wings</string>
   <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>

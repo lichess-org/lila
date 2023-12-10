@@ -34,7 +34,12 @@ export function makeConfig(ctrl: RoundController): Config {
         const firstPly = round.firstPly(ctrl.data);
         const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
         const showUntil = firstPly + 2 + +isSecond;
-        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply, p => p <= showUntil);
+        resizeHandle(
+          elements,
+          playing ? ctrl.data.pref.resizeHandle : Prefs.ShowResizeHandle.Always,
+          ctrl.ply,
+          p => p <= showUntil,
+        );
       },
     },
     movable: {

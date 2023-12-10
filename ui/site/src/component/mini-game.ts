@@ -1,10 +1,11 @@
 import { uciToMove } from 'chessground/util';
 import { fenColor } from 'common/mini-board';
+import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
 
-export const init = (node: HTMLElement) => {
+export const init = (node: Element, withCg?: typeof Chessground) => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
     config = {
       coordinates: false,
@@ -21,7 +22,11 @@ export const init = (node: HTMLElement) => {
     $cg = $el.find('.cg-wrap'),
     turnColor = fenColor(fen);
 
-  domData.set($as($cg), 'chessground', lichess.makeChessground($as($cg), config));
+  domData.set(
+    $cg[0] as Element,
+    'chessground',
+    (withCg ?? lichess.makeChessground)($cg[0] as HTMLElement, config),
+  );
 
   ['white', 'black'].forEach((color: Color) =>
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
@@ -39,7 +44,7 @@ const clockIsRunning = (fen: string, color: Color) =>
 
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
-    ids = nodes.map(init).filter(id => id);
+    ids = nodes.map(x => init(x)).filter(id => id);
   if (ids.length) StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
 };
 
@@ -66,8 +71,10 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
 
 export const finish = (node: HTMLElement, win?: 'black' | 'white') =>
   ['white', 'black'].forEach(color => {
-    const $clock = $(node).find('.mini-game__clock--' + color);
+    const clock: HTMLElement | null = node.querySelector('.mini-game__clock--' + color);
     // don't interfere with snabbdom clocks
-    if (!$clock.data('managed'))
-      $clock.replaceWith(`<span class="mini-game__result">${win ? (win === color[0] ? 1 : 0) : '½'}</span>`);
+    if (clock && !clock.dataset['managed'])
+      $(clock).replaceWith(
+        `<span class="mini-game__result">${win ? (win === color[0] ? 1 : 0) : '½'}</span>`,
+      );
   });

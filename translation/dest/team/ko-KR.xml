@@ -38,7 +38,6 @@
   <string name="messageAllMembersLongDescription">팀원 전원에게 메시지 보내기. 팀 내 대회나 팀 배틀에 참가를 독려하기 위해 사용할 수 있습니다. 메시지를 받기 싫어하는 팀원이 팀을 탈퇴할 수 있습니다.</string>
   <string name="teamsIlead">내가 이끄는 팀</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">곧 있을 다음 토너먼트들의 링크가 필요하신가요?</string>
-  <string name="usersWhoCanManageThisTeam">팀 관리자</string>
   <string name="leadersChat">지도자 \'대화</string>
   <string name="closeTeam">팀 폐쇄</string>
   <string name="closeTeamDescription">영구히 팀 폐쇄</string>

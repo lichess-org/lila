@@ -1,23 +1,23 @@
 .color-icon {
   @if $theme-light {
     &.white::before {
-      content: '';
+      content: $licon-DiscBigOutline;
     }
 
     &.black::before {
-      content: '';
+      content: $licon-DiscBig;
     }
   } @else {
     &.white::before {
-      content: '';
+      content: $licon-DiscBig;
     }
 
     &.black::before {
-      content: '';
+      content: $licon-DiscBigOutline;
     }
   }
 
   &.random::before {
-    content: '';
+    content: $licon-RandomColor;
   }
 }

@@ -5,6 +5,7 @@ import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText }
 import lila.memo.PicfitApi
 import lila.security.Granter
 import lila.user.{ User, UserApi, Me }
@@ -15,6 +16,7 @@ final class UblogApi(
     userApi: UserApi,
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
+    shutup: lila.hub.actors.Shutup,
     irc: lila.irc.IrcApi
 )(using Executor):
 
@@ -45,25 +47,24 @@ final class UblogApi(
           timeline ! Propagate(
             lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
           ).toFollowersOf(user.id)
+          shutup ! RecordPublicText(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
-    getBlog(UblogBlog.Id.User(user.id)) getOrElse {
+    getBlog(UblogBlog.Id.User(user.id)) getOrElse
       userApi
         .withPerfs(user)
         .flatMap: user =>
           val blog = UblogBlog make user
           (insertMissing so colls.blog.insert.one(blog).void) inject blog
-    }
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
   def findByUserBlogOrAdmin(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
-    colls.post.byId[UblogPost](id) dmap {
+    colls.post.byId[UblogPost](id) dmap:
       _.filter(_.isBy(me) || Granter(_.ModerateBlog))
-    }
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
@@ -90,7 +91,7 @@ final class UblogApi(
 
   def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
-      .find($doc("live" -> true), previewPostProjection.some)
+      .find($doc("live" -> true, "topics" $ne UblogTopic.offTopic), previewPostProjection.some)
       .sort($doc("rank" -> -1))
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)

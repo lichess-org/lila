@@ -31,4 +31,6 @@
   <string name="otherRules">Бусад чухал дүрмүүд</string>
   <string name="thisIsPrivate">Энэ тэмцээн нь нийтэд харагдахгүй</string>
   <string name="shareUrl">Бусдыг урих холбоос: %s</string>
+  <string name="variant">Хувилбар</string>
+  <string name="allowBerserk">Цагаа хуваахыг зөвшөөрөх</string>
 </resources>

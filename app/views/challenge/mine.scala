@@ -16,16 +16,15 @@ object mine:
   )(using ctx: PageContext) =
 
     val cancelForm =
-      postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
+      postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
         submitButton(cls := "button button-red text", dataIcon := licon.X)(trans.cancel())
-      )
 
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
       moreJs = bits.js(c, json, owner = true),
       moreCss = cssTag("challenge.page")
-    ) {
+    ):
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
       main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match
@@ -82,7 +81,7 @@ object mine:
                           cls         := "friend-autocomplete",
                           placeholder := trans.search.search.txt()
                         ),
-                        error.map { badTag(_) }
+                        error.map { p(cls := "error")(_) }
                       )
                     )
                   )
@@ -109,9 +108,8 @@ object mine:
             div(cls := "follow-up")(
               h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               bits.details(c, color),
-              a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
+              a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat"):
                 trans.joinTheGame()
-              )
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
@@ -120,4 +118,3 @@ object mine:
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
       )
-    }

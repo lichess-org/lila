@@ -22,12 +22,13 @@ final class Api(
   import Api.*
   import env.api.{ userApi, gameApi }
 
-  private lazy val apiStatusJson = Json.obj(
+  private lazy val apiStatusJson = Json.obj:
     "api" -> Json.obj(
       "current" -> Mobile.Api.currentVersion.value,
       "olds"    -> Json.arr()
     )
-  )
+
+  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")
@@ -38,7 +39,7 @@ final class Api(
     Ok(views.html.site.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userC.userShowRateLimit(ctx.ip, rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
+    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
       userApi.extended(
         name,
         withFollows = userWithFollows,
@@ -70,8 +71,8 @@ final class Api(
     env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
       val streamingIds = env.streamer.liveStreamApi.userIds
       def toJson(u: LightUser) =
-        LightUser.lightUserWrites
-          .writes(u)
+        LightUser
+          .write(u)
           .add("online" -> env.socket.isOnline(u.id))
           .add("playing" -> env.round.playing(u.id))
           .add("streaming" -> streamingIds(u.id))
@@ -106,14 +107,6 @@ final class Api(
     key = "user_games.api.global"
   )
 
-  private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) =
-    val ip      = req.ipAddress
-    def limited = fuccess(ApiResult.Limited)
-    UserGamesRateLimitPerIP(ip, limited, cost = cost):
-      UserGamesRateLimitPerUA(HTTPRequest.userAgent(req), limited, cost = cost, msg = ip.value):
-        UserGamesRateLimitGlobal("-", limited, cost = cost, msg = ip.value):
-          run
-
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(
       analysis = getBool("with_analysis"),
@@ -123,25 +116,6 @@ final class Api(
       moveTimes = getBool("with_movetimes"),
       token = get("token")
     )
-
-  // for mobile app
-  def userGames(name: UserStr) = MobileApiRequest:
-    val page = (getInt("page") | 1) atLeast 1 atMost 200
-    val nb   = MaxPerPage((getInt("nb") | 10) atLeast 1 atMost 100)
-    val cost = page * nb.value + 10
-    UserGamesRateLimit(cost, req):
-      lila.mon.api.userGames.increment(cost.toLong)
-      env.user.repo byId name flatMapz { user =>
-        gameApi.byUser(
-          user = user,
-          rated = getBoolOpt("rated"),
-          playing = getBoolOpt("playing"),
-          analysed = getBoolOpt("analysed"),
-          withFlags = gameFlagsFromRequest,
-          nb = nb,
-          page = page
-        ) map some
-      } map toApiResult
 
   def game(id: GameId) = ApiRequest:
     gameApi.one(id, gameFlagsFromRequest) map toApiResult
@@ -175,7 +149,6 @@ final class Api(
       env.tournament.jsonView(
         tour = tour,
         page = page.some,
-        getTeamName = env.team.getTeamName.apply,
         playerInfoExt = none,
         socketVersion = none,
         partial = false,
@@ -314,9 +287,9 @@ final class Api(
     else f(ids)
 
   val cloudEval =
-    val rateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "cloud-eval.api.ip")
+    val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
     Anon:
-      rateLimit(req.ipAddress, rateLimited):
+      rateLimit(rateLimited):
         get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
           import chess.variant.Variant
           JsonOptionOk:
@@ -372,17 +345,17 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
-    env.perfStat.api.data(username, perfKey) map {
+    env.perfStat.api.data(username, perfKey) map:
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
-    }
+
+  def mobileGames = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+    val ids = get("ids").so(_.split(',').take(50).toList) map GameId.take
+    ids.nonEmpty.so:
+      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.json).map(JsonOk)
+  }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js map toHttp
-
-  def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
-    if lila.security.Mobile.Api.requested(req)
-    then js map toHttp
-    else NotFound
 
   def toApiResult(json: Option[JsValue]): ApiResult =
     json.fold[ApiResult](ApiResult.NoData)(ApiResult.Data.apply)
@@ -437,13 +410,13 @@ final class Api(
       ttl = 1.hour,
       maxConcurrency = 2
     )
+    val generous = lila.memo.ConcurrencyLimit[IpAddress](
+      name = "API generous concurrency per IP",
+      key = "api.ip.generous",
+      ttl = 1.hour,
+      maxConcurrency = 20
+    )
 
-  private[controllers] val GlobalConcurrencyGenerousLimitPerIP = lila.memo.ConcurrencyLimit[IpAddress](
-    name = "API generous concurrency per IP",
-    key = "api.ip.generous",
-    ttl = 1.hour,
-    maxConcurrency = 20
-  )
   private[controllers] val GlobalConcurrencyLimitUser = lila.memo.ConcurrencyLimit[UserId](
     name = "API concurrency per user",
     key = "api.user",
@@ -461,7 +434,7 @@ final class Api(
   )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result)(using ctx: Context): Result =
     val ipLimiter =
       if ctx.me.exists(u => about.exists(u.is(_)))
-      then GlobalConcurrencyGenerousLimitPerIP
+      then GlobalConcurrencyLimitPerIP.generous
       else GlobalConcurrencyLimitPerIP.download
     ipLimiter.compose[T](req.ipAddress) flatMap { limitIp =>
       GlobalConcurrencyLimitPerUserOption[T](ctx.me) map { limitUser =>

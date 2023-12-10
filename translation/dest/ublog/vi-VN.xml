@@ -3,42 +3,42 @@
   <string name="xBlog">Bài viết của %s</string>
   <string name="newPost">Bài đăng mới</string>
   <string name="editYourBlogPost">Chỉnh sửa bài đăng của bạn</string>
-  <string name="saveDraft">Lưu nháp</string>
+  <string name="saveDraft">Lưu bản nháp</string>
   <string name="postTitle">Tiêu đề bài viết</string>
   <string name="postIntro">Giới thiệu bài viết</string>
   <string name="postBody">Nội dung bài viết</string>
-  <string name="drafts">Nháp</string>
+  <string name="drafts">Bản nháp</string>
   <string name="published">Đã đăng</string>
-  <string name="createBlogDiscussion">Bật bình luận</string>
+  <string name="createBlogDiscussion">Cho phép bình luận</string>
   <string name="createBlogDiscussionHelp">Một chủ đề diễn đàn sẽ được tạo để mọi người bình luận vào bài đăng của bạn</string>
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư, trong các bài đăng nháp của bạn</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="other">Đã đăng %s bài</item>
+    <item quantity="other">Đã đăng %s bài Blog</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="other">%s lượt xem</item>
   </plurals>
-  <string name="xPublishedY">%1$s đã đăng %2$s bài</string>
-  <string name="thisPostIsPublished">Bài viết này đã được đăng xuất bản</string>
+  <string name="xPublishedY">%1$s đã đăng bài %2$s</string>
+  <string name="thisPostIsPublished">Bài viết này đã được xuất bản</string>
   <string name="thisIsADraft">Nó là một bản nháp</string>
-  <string name="moreBlogPostsBy">Thêm bài đăng blog bởi %s</string>
-  <string name="noPostsInThisBlogYet">Không có bài đăng nào ở blog này, cho tới nay.</string>
-  <string name="noDrafts">Không có bản nháp nào để hiển thị</string>
-  <string name="latestBlogPosts">Các bài đăng blog mới nhất</string>
+  <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
+  <string name="noPostsInThisBlogYet">Chưa có bài viết nào trong blog này.</string>
+  <string name="noDrafts">Không có bài nháp nào để hiển thị.</string>
+  <string name="latestBlogPosts">Các bài blog mới nhất</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="other">Xem một bài đăng
-Xem tất cả %s bài đăng</item>
+    <item quantity="other">Xem tất cả %s bài đăng</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Tải một bức ảnh cho bài viết của bạn</string>
   <string name="imageAlt">Văn bản thay thế cho hình ảnh</string>
   <string name="imageCredit">Nguồn ảnh</string>
-  <string name="deleteBlog">Xóa bài đăng blog này</string>
+  <string name="deleteBlog">Xóa bài blog này</string>
   <string name="deleteImage">Xóa hình ảnh</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Sử dụng an toàn hình ảnh từ các trang web: </string>
+  <string name="safeToUseImages">Sử dụng các hình ảnh an toàn từ các trang web: </string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="useImagesYouMadeYourself">Bạn cũng có thể dùng hình ảnh của riêng bạn, những bức ảnh bạn chụp, ảnh chụp màn hình của Lichess... bất kỳ thứ gì miễn là không vi phạm bản quyền của ai.</string>
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai khác.</string>
-  <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị khoá.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Vài mẹo đơn giản để giúp viết ra một bài đăng blog tuyệt vời</string>
+  <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
+  <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
+  <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
 </resources>

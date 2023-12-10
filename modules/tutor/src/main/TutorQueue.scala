@@ -38,12 +38,11 @@ final private class TutorQueue(
 
   def status(user: User): Fu[Status] = workQueue { fetchStatus(user) }
 
-  def enqueue(user: User): Fu[Status] = workQueue {
+  def enqueue(user: User): Fu[Status] = workQueue:
     colls.queue.insert
       .one($doc(F.id -> user.id, F.requestedAt -> nowInstant))
       .recover(lila.db.ignoreDuplicateKey)
       .void >> fetchStatus(user)
-  }
 
   def next: Fu[List[Next]] =
     colls.queue.find($empty).sort($sort asc F.requestedAt).cursor[Next]().list(parallelism.get())
