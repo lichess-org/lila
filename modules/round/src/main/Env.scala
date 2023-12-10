@@ -83,7 +83,7 @@ final class Env(
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   private given lila.user.FlairApi.Getter = flairApi.getter
-  lazy val roundSocket: RoundSocket           = wire[RoundSocket]
+  lazy val roundSocket: RoundSocket       = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
     gameRepo allPlaying userId foreach:
