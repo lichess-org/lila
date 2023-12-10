@@ -94,7 +94,7 @@ object Flags:
     C("ES", "Spain"),
     C("ES-AN", "Andalusia"),
     C("ES-AR", "Aragon"),
-    C("ES-AS", "Asturia"),
+    C("ES-AS", "Asturias"),
     C("ES-CT", "Catalonia"),
     C("ES-EU", "Basque Country"),
     C("ES-GA", "Galicia"),
