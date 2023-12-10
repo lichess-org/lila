@@ -75,7 +75,7 @@
   <string name="searchPuzzles">Tìm câu đố</string>
   <string name="fromMyGamesNone">Bạn không có câu đố nào trong dữ liệu, nhưng Lichess vẫn rất yêu mến bạn.
 
-Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có một câu đố từ ván đấu của riêng bạn!</string>
+Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có một câu đố từ ván cờ của riêng bạn!</string>
   <string name="fromXGamesFound">Đã tìm được %1$s câu đố trong các ván đấu của %2$s</string>
   <string name="puzzleDashboardDescription">Rèn luyện, phân tích, cải thiện</string>
   <plurals name="nbPlayed">
