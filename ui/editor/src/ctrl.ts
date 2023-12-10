@@ -26,7 +26,7 @@ export default class EditorCtrl {
   initialFen: string;
   pockets: Material | undefined;
   turn: Color;
-  unmovedRooks: SquareSet | undefined;
+  castlingRights: SquareSet | undefined;
   castlingToggles: CastlingToggles<boolean>;
   epSquare: Square | undefined;
   remainingChecks: RemainingChecks | undefined;
@@ -113,7 +113,7 @@ export default class EditorCtrl {
       board,
       pockets: this.pockets,
       turn: this.turn,
-      unmovedRooks: this.unmovedRooks || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
+      castlingRights: this.castlingRights || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
       epSquare: this.epSquare,
       remainingChecks: this.remainingChecks,
       halfmoves: this.halfmoves,
@@ -195,7 +195,7 @@ export default class EditorCtrl {
   }
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
-    if (this.castlingToggles[id] != value) this.unmovedRooks = undefined;
+    if (this.castlingToggles[id] != value) this.castlingRights = undefined;
     this.castlingToggles[id] = value;
     this.onChange();
   }
@@ -226,7 +226,7 @@ export default class EditorCtrl {
   private setSetup = (setup: Setup): void => {
     this.pockets = setup.pockets;
     this.turn = setup.turn;
-    this.unmovedRooks = setup.unmovedRooks;
+    this.castlingRights = setup.castlingRights;
     this.epSquare = setup.epSquare;
     this.remainingChecks = setup.remainingChecks;
     this.halfmoves = setup.halfmoves;

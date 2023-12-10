@@ -23,7 +23,7 @@
     "chart": "workspace:*",
     "chat": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.12.7",
+    "chessops": "^0.13.0",
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "game": "workspace:*",
