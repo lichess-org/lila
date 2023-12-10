@@ -12,8 +12,8 @@
   <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Nếu %1$s đang chạy trên một máy khác hoặc cổng khác, bạn sẽ cần đặt địa chỉ IP và cổng tại đây trong %2$s.</string>
   <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">Phần cấu hình</string>
   <string name="keepPlayPageOpen">Trang ván đấu cần được mở trên trình duyệt của bạn. Nó không cần phải hiển thị, bạn có thể thu nhỏ nó hoặc đặt nó cạnh trang ván đấu Lichess, nhưng đừng đóng nó nếu không bàn cờ sẽ ngừng hoạt động.</string>
-  <string name="boardWillAutoConnect">Bàn cờ sẽ tự động kết nối với bất kỳ ván đấu nào đang diễn ra hoặc bất kỳ trò chơi mới nào bắt đầu. Khả năng chọn ván đấu để chơi sắp ra mắt.</string>
-  <string name="timeControlsForCasualGames">Kiểm soát thời gian cho các ván cờ không tính Elo: Chỉ Cờ Nhanh, Cờ Chậm và Cờ qua thư.</string>
+  <string name="boardWillAutoConnect">Bàn cờ sẽ tự động kết nối với bất kỳ ván đấu nào đang diễn ra hoặc bất kỳ ván cờ mới nào bắt đầu. Khả năng chọn ván đấu để chơi sắp ra mắt.</string>
+  <string name="timeControlsForCasualGames">Kiểm soát thời gian cho các ván cờ không xếp hạng: chỉ Cờ nhanh, Cờ chậm và Cờ qua thư.</string>
   <string name="timeControlsForRatedGames">Kiểm soát thời gian cho các ván cờ có tính Elo: Cờ Chậm, Cờ qua thư và một số thể loại Cờ Nhanh bao gồm 15+10 và 20+0</string>
   <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">Khi đã sẵn sàng, hãy thiết lập bàn cờ của bạn rồi nhấp vào %s.</string>
   <string name="ifMoveNotDetected">Nếu không phát hiện được nước cờ</string>
