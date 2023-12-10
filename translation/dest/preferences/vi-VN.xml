@@ -41,7 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp cờ ba lần</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Khi thời gian còn lại &lt; 30 giây</string>
   <string name="moveConfirmation">Xác nhận nước đi</string>
-  <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong trò chơi với mục lục bàn cờ</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong ván cờ với mục lục bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
   <string name="correspondenceAndUnlimited">Cờ qua thư và không giới hạn</string>
   <string name="confirmResignationAndDrawOffers">Xác nhận chịu thua và đề nghị hòa</string>
