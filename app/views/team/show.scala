@@ -74,7 +74,7 @@ object show:
               t.publicLeaders.nonEmpty option p(
                 teamLeaders.pluralSame(t.publicLeaders.size),
                 ": ",
-                t.publicLeaders.toList.map: l =>
+                t.publicLeaders.map: l =>
                   userIdLink(l.some)
               ),
               info.ledByMe option a(
