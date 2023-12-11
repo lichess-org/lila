@@ -1,6 +1,8 @@
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
-export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
+export type LobbyTab = 'feed' | 'pools' | 'custom_games' | 'now_playing';
+export type CustomGameTab = 'real_time' | 'correspondence';
+export type Tab = LobbyTab | CustomGameTab;
 export type GameType = 'hook' | 'friend' | 'ai';
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
@@ -65,6 +67,7 @@ export interface LobbyOpts {
   hasUnreadLichessMessage: boolean;
   playban: boolean;
   hideRatings: boolean;
+  lastFeedRev: number;
   data: LobbyData;
   i18n: I18nDict;
   trans: Trans;

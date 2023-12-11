@@ -1,4 +1,4 @@
-import { Tab, Mode, Sort } from './interfaces';
+import { CustomGameTab, LobbyTab, Mode, Sort } from './interfaces';
 
 interface Store<A> {
   set(v: string): A;
@@ -6,7 +6,8 @@ interface Store<A> {
 }
 
 export interface Stores {
-  tab: Store<Tab>;
+  tab: Store<LobbyTab>;
+  customGameTab: Store<CustomGameTab>;
   mode: Store<Mode>;
   sort: Store<Sort>;
 }
@@ -16,11 +17,18 @@ interface Config<A> {
   fix(v: string | null): A;
 }
 
-const tab: Config<Tab> = {
+const tab: Config<LobbyTab> = {
   key: 'lobby.tab',
-  fix(t: string | null): Tab {
-    if (<Tab>t) return t as Tab;
+  fix(t: string | null): LobbyTab {
+    if (<LobbyTab>t) return t as LobbyTab; // doesn't fix, it amounts to a runtime null check
     return 'pools';
+  },
+};
+const customGameTab: Config<CustomGameTab> = {
+  key: 'customGame.tab',
+  fix(t: string | null): CustomGameTab {
+    if (<CustomGameTab>t) return t as CustomGameTab;
+    return 'real_time';
   },
 };
 const mode: Config<Mode> = {
@@ -54,7 +62,8 @@ function makeStore<A>(conf: Config<A>, userId?: string): Store<A> {
 
 export function make(userId?: string): Stores {
   return {
-    tab: makeStore<Tab>(tab, userId),
+    tab: makeStore<LobbyTab>(tab, userId),
+    customGameTab: makeStore<CustomGameTab>(customGameTab, userId),
     mode: makeStore<Mode>(mode, userId),
     sort: makeStore<Sort>(sort, userId),
   };

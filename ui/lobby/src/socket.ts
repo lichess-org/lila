@@ -36,7 +36,8 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       reload_seeks() {
-        if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
+        if (ctrl.tab === 'custom_games' && ctrl.customGameTab === 'correspondence')
+          xhr.seeks().then(ctrl.setSeeks);
       },
     };
 

@@ -20,7 +20,7 @@ object home:
       moreJs = jsModuleInit(
         "lobby",
         Json
-          .obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
+          .obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys), "lastFeedRev" -> env.blog.dailyFeed.lastRev)
           .add("hideRatings" -> !ctx.pref.showRatings)
           .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
           .add(
@@ -29,7 +29,7 @@ object home:
               Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
           )
       ),
-      moreCss = cssTag("lobby"),
+      moreCss = frag(cssTag("lobby"), cssTag("dailyFeed")),
       openGraph = lila.app.ui
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
@@ -116,7 +116,7 @@ object home:
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastUpdate, ublogPosts),
+        bits.lastPosts(lastPost, ublogPosts),
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(

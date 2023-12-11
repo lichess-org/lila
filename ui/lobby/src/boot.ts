@@ -62,7 +62,7 @@ export function initModule(opts: LobbyOpts) {
         method: 'post',
       },
     );
-    lobbyCtrl.setTab('real_time');
+    lobbyCtrl.setTab('custom_games');
     lobbyCtrl.redraw();
     history.replaceState(null, '', '/');
   });

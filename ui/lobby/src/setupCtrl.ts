@@ -297,7 +297,8 @@ export default class SetupController {
       return;
     }
 
-    if (this.gameType === 'hook') this.root.setTab(this.timeMode() === 'realTime' ? 'real_time' : 'seeks');
+    if (this.gameType === 'hook')
+      this.root.setTab(this.timeMode() === 'realTime' ? 'real_time' : 'correspondence');
     this.loading = true;
     this.root.redraw();
 

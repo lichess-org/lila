@@ -1,15 +1,16 @@
 package lila.blog
 
-import java.time.LocalDate
+import java.time.{ LocalDate, Instant, ZoneId }
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.common.config.Max
+import lila.user.Me
 
 object DailyFeed:
 
-  case class Update(@Key("_id") day: LocalDate, content: Markdown, public: Boolean):
+  case class Update(@Key("_id") day: LocalDate, content: Markdown, public: Boolean, rev: Long):
 
     lazy val rendered: Html = renderer(s"dailyFeed:${day}")(content)
 
@@ -17,9 +18,19 @@ object DailyFeed:
 
     lazy val dayString: String = day.toString
 
-    lazy val title = "Daily update - " + dayString
+    lazy val title = "Update - " + dayString
 
     lazy val isFresh = instant isAfter nowInstant.minusDays(1)
+
+    lazy val isVisible = public && (instant isBefore nowInstant)
+
+  object Update:
+
+    def apply(day: LocalDate, content: Markdown, public: Boolean): Update =
+      new Update(day, content, public, nowInstant.getEpochSecond)
+
+    def formUnapply(update: Update): Option[(LocalDate, Markdown, Boolean)] =
+      (update.day, update.content, update.public).some
 
   private val renderer = lila.common.MarkdownRender(
     autoLink = false,
@@ -53,12 +64,14 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
-            mutableLastUpdate = ups.headOption
+            mutableLastUpdate = ups.filter(_.isVisible).headOption
     def clear()                             = store.underlying.synchronous.invalidateAll()
     def lastUpdate: DailyFeed.GetLastUpdate = () => mutableLastUpdate
+    def lastRev: Long                       = mutableLastUpdate.fold(0L)(_.rev)
+
     store.get({}) // populate lastUpdate
 
-  export cache.lastUpdate
+  export cache.{ lastUpdate, lastRev }
 
   def recent: Fu[List[Update]] = cache.store.get({})
 
@@ -85,8 +98,10 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
           ),
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
         "public"  -> boolean
-      )(Update.apply)(unapply)
-    from.fold(form)(form.fill)
+      )((Update.apply))(Update.formUnapply)
+    from.fold(form):
+      cache.clear() // we need lastRev to be correct
+      form.fill(_)
 
   private def existsBlocking(day: LocalDate): Boolean =
     coll.exists($id(day)).await(1.second, "dailyFeed.existsBlocking")

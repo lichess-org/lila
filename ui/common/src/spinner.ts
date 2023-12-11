@@ -18,24 +18,13 @@ const pathAttrs = [
   },
 ];
 
-export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
-  h(
-    'div.spinner',
-    {
-      'aria-label': 'loading',
-    },
-    [
-      h('svg', { attrs: { viewBox: box } }, [
-        h(
-          'g',
-          {
-            attrs: {
-              mask: 'url(#mask)',
-              fill: 'none',
-            },
-          },
-          pathAttrs.map(attrs => h('path', { attrs })),
-        ),
-      ]),
-    ],
-  );
+export const spinnerVdom = (): VNode =>
+  h('div.spinner', { 'aria-label': 'loading' }, [
+    h('svg', { attrs: { viewBox: '-2 -2 54 54' } }, [
+      h(
+        'g',
+        { attrs: { mask: 'url(#mask)', fill: 'none' } },
+        pathAttrs.map(attrs => h('path', { attrs })),
+      ),
+    ]),
+  ]);

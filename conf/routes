@@ -124,6 +124,7 @@ GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Opti
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
 GET   /feed                            controllers.DailyFeed.index
+GET   /feedxhr                         controllers.DailyFeed.xhr
 GET   /feed/new                        controllers.DailyFeed.createForm
 POST  /feed/new                        controllers.DailyFeed.create
 GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)

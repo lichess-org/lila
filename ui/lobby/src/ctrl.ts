@@ -8,7 +8,8 @@ import * as poolRangeStorage from './poolRangeStorage';
 import {
   LobbyOpts,
   LobbyData,
-  Tab,
+  LobbyTab,
+  CustomGameTab,
   Mode,
   Sort,
   Hook,
@@ -31,7 +32,8 @@ export default class LobbyController {
   me?: LobbyMe;
   socket: LobbySocket;
   stores: Stores;
-  tab: Tab;
+  tab: LobbyTab;
+  customGameTab: CustomGameTab;
   mode: Mode;
   sort: Sort;
   stepHooks: Hook[] = [];
@@ -68,6 +70,7 @@ export default class LobbyController {
       this.stores.tab.set('pools');
     }
     this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
+    this.customGameTab = this.stores.customGameTab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.stores.sort.get();
     this.trans = opts.trans;
@@ -79,10 +82,12 @@ export default class LobbyController {
       const urlParams = new URLSearchParams(location.search);
       if (locationHash === 'hook') {
         if (urlParams.get('time') === 'realTime') {
-          this.tab = 'real_time';
+          this.tab = 'custom_games';
+          this.customGameTab = 'real_time';
           forceOptions.timeMode = 'realTime';
         } else if (urlParams.get('time') === 'correspondence') {
-          this.tab = 'seeks';
+          this.tab = 'custom_games';
+          this.customGameTab = 'correspondence';
           forceOptions.timeMode = 'correspondence';
         }
       } else if (urlParams.get('fen')) {
@@ -115,13 +120,14 @@ export default class LobbyController {
     } else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
-        else if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+        else if (this.tab === 'custom_games' && this.customGameTab === 'real_time' && !this.data.hooks.length)
+          this.socket.realTimeIn();
       }, 10 * 1000);
       this.joinPoolFromLocationHash();
     }
 
     lichess.pubsub.on('socket.open', () => {
-      if (this.tab === 'real_time') {
+      if (this.tab === 'custom_games' && this.customGameTab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
@@ -153,7 +159,7 @@ export default class LobbyController {
 
   private doFlushHooks() {
     this.stepHooks = this.data.hooks.slice(0);
-    if (this.tab === 'real_time') this.redraw();
+    if (this.tab === 'custom_games' && this.customGameTab === 'real_time') this.redraw();
   }
 
   flushHooks = (now: boolean) => {
@@ -161,7 +167,7 @@ export default class LobbyController {
     if (now) this.doFlushHooks();
     else {
       this.stepping = true;
-      if (this.tab === 'real_time') this.redraw();
+      if (this.tab === 'custom_games' && this.customGameTab === 'real_time') this.redraw();
       setTimeout(() => {
         this.stepping = false;
         this.doFlushHooks();
@@ -172,16 +178,21 @@ export default class LobbyController {
 
   private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
-  setTab = (tab: Tab) => {
-    if (tab !== this.tab) {
-      if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
-      else if (tab === 'real_time') this.socket.realTimeIn();
-      else if (this.tab === 'real_time') {
-        this.socket.realTimeOut();
-        this.data.hooks = [];
-      }
-      this.tab = this.stores.tab.set(tab);
+  setTab = (tab: LobbyTab | CustomGameTab) => {
+    if (this.tab === tab || (this.tab === 'custom_games' && this.customGameTab === tab)) return;
+
+    if (this.customGameTab === 'real_time' && this.tab === 'custom_games') {
+      this.socket.realTimeOut();
+      this.data.hooks = [];
     }
+    const newCustomGameTab = tab === 'correspondence' || tab === 'real_time' ? tab : this.customGameTab;
+    if (newCustomGameTab === 'correspondence') xhr.seeks().then(this.setSeeks);
+    else if (newCustomGameTab === 'real_time') this.socket.realTimeIn();
+
+    this.tab = tab === 'correspondence' || tab === 'real_time' ? 'custom_games' : tab;
+    this.customGameTab = newCustomGameTab;
+    this.stores.tab.set(this.tab);
+    this.stores.customGameTab.set(this.customGameTab);
     this.filter.open = false;
   };
 
@@ -196,7 +207,7 @@ export default class LobbyController {
 
   onSetFilter = () => {
     this.flushHooks(true);
-    if (this.tab !== 'real_time') this.redraw();
+    this.redraw();
   };
 
   clickHook = (id: string) => {
@@ -275,14 +286,11 @@ export default class LobbyController {
   };
 
   awake = () => {
-    switch (this.tab) {
-      case 'real_time':
-        this.data.hooks = [];
-        this.socket.realTimeIn();
-        break;
-      case 'seeks':
-        xhr.seeks().then(this.setSeeks);
-        break;
+    if (this.tab !== 'custom_games') return;
+    if (this.customGameTab === 'correspondence') xhr.seeks().then(this.setSeeks);
+    else if (this.customGameTab === 'real_time') {
+      this.data.hooks = [];
+      this.socket.realTimeIn();
     }
   };
 

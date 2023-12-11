@@ -18,3 +18,5 @@ export const anonPoolSeek = (pool: Pool) =>
       color: 'random',
     }),
   });
+
+export const feed = () => xhr.text(`/feedxhr?t=${Date.now()}`);

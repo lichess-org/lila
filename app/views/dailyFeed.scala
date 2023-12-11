@@ -2,6 +2,7 @@ package views.html
 
 import controllers.routes
 
+import java.time.Instant
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.DailyFeed.Update
@@ -13,16 +14,16 @@ object dailyFeed:
   private def layout(title: String, edit: Boolean = false)(using PageContext) =
     views.html.site.page.layout(
       title = title,
-      active = "news",
+      active = "updates",
       moreCss = cssTag("dailyFeed"),
       moreJs = edit option jsModule("flatpickr")
     )
 
   def index(updates: List[Update])(using PageContext) =
-    layout("Daily News"):
+    layout("Updates"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
-          h1("Daily News"),
+          h1("Updates"),
           div(cls := "box__top__actions")(
             isGranted(_.DailyFeed) option a(
               href     := routes.DailyFeed.createForm,
@@ -33,36 +34,38 @@ object dailyFeed:
           )
         ),
         standardFlash,
-        updateList(updates)
+        updateList(updates, true)
       )
 
-  private def updateList(ups: List[Update])(using Context) =
-    div(cls := "daily-feed__updates"):
-      ups.map: update =>
-        div(cls := "daily-feed__update", id := update.dayString)(
-          iconTag(licon.StarOutline),
-          div(cls := "daily-feed__update__content")(
-            st.section(cls := "daily-feed__update__day")(
-              h2(a(href := s"#${update.dayString}")(semanticDate(update.day))),
-              isGranted(_.DailyFeed) option frag(
-                a(
-                  href     := routes.DailyFeed.edit(update.day),
-                  cls      := "button button-green button-empty button-thin text",
-                  dataIcon := licon.Pencil
-                ),
-                !update.public option badTag("Draft")
-              )
-            ),
-            div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
+  def updateList(ups: List[Update], editable: Boolean)(using Context) =
+    div(cls := "daily-feed__updates", attr("data-rev") := ups.headOption.map(_.rev))(
+      ups.collect:
+        case up if (isGranted(_.DailyFeed) || up.public && up.instant.isBefore(Instant.now)) =>
+          div(cls := "daily-feed__update", id := up.dayString)(
+            iconTag(licon.StarOutline),
+            div(cls := "daily-feed__update__content")(
+              st.section(cls := "daily-feed__update__day")(
+                h2(a(href := s"#${up.dayString}")(semanticDate(up.day))),
+                editable && isGranted(_.DailyFeed) option frag(
+                  a(
+                    href     := routes.DailyFeed.edit(up.day),
+                    cls      := "button button-green button-empty button-thin text",
+                    dataIcon := licon.Pencil
+                  ),
+                  !up.public option badTag("Draft")
+                )
+              ),
+              div(cls := "daily-feed__update__markup")(rawHtml(up.rendered))
+            )
           )
-        )
+    )
 
   def create(form: Form[Update])(using PageContext) =
-    layout("Daily News: New", true):
+    layout("Updates: Create", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.DailyFeed.index)("Daily Feed"),
+            a(href := routes.DailyFeed.index)("Updates"),
             " • ",
             "New update!"
           )
@@ -72,12 +75,12 @@ object dailyFeed:
       )
 
   def edit(form: Form[Update], update: Update)(using PageContext) =
-    layout(s"Daily News ${update.day}", true):
+    layout(s"Updates ${update.day}", true):
       main(cls := "daily-feed page-small")(
         div(cls := "box box-pad")(
           boxTop(
             h1(
-              a(href := routes.DailyFeed.index)("Daily News"),
+              a(href := routes.DailyFeed.index)("Updates"),
               " • ",
               semanticDate(update.day)
             )
@@ -88,7 +91,7 @@ object dailyFeed:
         ),
         br,
         div(cls := "box box-pad")(
-          updateList(List(update)),
+          updateList(List(update), false),
           postForm(action := routes.DailyFeed.delete(update.day))(cls := "daily-feed__delete"):
             submitButton(cls := "button button-red button-empty confirm")("Delete")
         )
@@ -118,7 +121,7 @@ object dailyFeed:
       elems = ups,
       htmlCall = routes.DailyFeed.index,
       atomCall = routes.DailyFeed.atom,
-      title = "Lichess Daily News",
+      title = "Lichess Updates",
       updated = ups.headOption.map(_.instant)
     ): up =>
       frag(

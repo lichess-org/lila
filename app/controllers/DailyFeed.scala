@@ -18,6 +18,12 @@ final class DailyFeed(env: Env) extends LilaController(env):
       page    <- renderPage(html.dailyFeed.index(updates))
     yield Ok(page)
 
+  def xhr = Open:
+    for
+      updates  <- api.recent
+      fragment <- renderPage(html.dailyFeed.updateList(updates, false))
+    yield Ok(fragment)
+
   private def get(day: String): Fu[Option[Update]] =
     scala.util.Try(LocalDate.parse(day)).toOption.so(api.get)
 

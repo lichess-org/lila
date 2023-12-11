@@ -84,27 +84,31 @@ object bits:
       )
     )
 
-  def lastPosts(update: Option[lila.blog.DailyFeed.Update], uposts: List[lila.ublog.UblogPost.PreviewPost])(
-      using ctx: Context
+  def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
+      ctx: Context
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
-      update
-        .map: up =>
-          div(
-            cls := List(
-              "ublog-post-card daily-feed__update" -> true,
-              "daily-feed__update--fresh"          -> up.isFresh
-            )
-          )(
+      lichess
+        .filter(_.forKids || ctx.kid.no)
+        .map: post =>
+          val imgSize = UblogPost.thumbnail.Size.Small
+          a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
+            img(
+              src     := post.image,
+              cls     := "ublog-post-card__image",
+              widthA  := imgSize.width,
+              heightA := imgSize.height
+            ),
             span(cls := "ublog-post-card__content")(
-              h2(cls := "daily-feed__update__day text", dataIcon := licon.Star)(
-                a(href := s"${routes.DailyFeed.index}#${up.dayString}")(semanticDate(up.day))
-              ),
-              div(cls := "daily-feed__update__markup")(rawHtml(up.rendered))
+              h2(cls := "ublog-post-card__title")(post.title),
+              semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
             )
-          ),
-      ctx.kid.no option uposts.map:
-        views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
+          )
+      ,
+      ctx.kid.no option uposts
+        .take(if lichess.nonEmpty then 2 else 3)
+        .map:
+          views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
     )
 
   def showUnreadLichessMessage =
