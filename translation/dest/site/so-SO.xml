@@ -74,6 +74,8 @@
   <string name="losing">Lumin</string>
   <string name="drawn">Barbardhac</string>
   <string name="unknown">Lama garanayo</string>
+  <string name="recentGames">Ciyaarihii ugu bambeeyey</string>
+  <string name="topGames">Ciyaaraha ugu sareeya</string>
   <string name="realtimeReplay">Waqtiga dhabta ah</string>
   <string name="enable">Fur</string>
   <string name="cpus">CPU</string>
