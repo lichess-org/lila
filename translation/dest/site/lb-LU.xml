@@ -732,6 +732,7 @@
   <string name="withFriends">Mat Kolleegen</string>
   <string name="withEverybody">Mat jidderengem</string>
   <string name="kidMode">Kannermodus</string>
+  <string name="kidModeIsEnabled">De Kannermodus ass aktiv.</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Däin Konto gëtt verwalt. Fro däin Schachtrainer fir den Kannermodus opzehiewen.</string>
