@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Wëllkomm!</string>
+  <string name="welcomeToLichess">Wëllkomm op lichess.org!</string>
+  <string name="thisIsYourProfilePage">Dëst ass deng Profilsäit.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Soll dëse Kont vun emgem Kand benotzt ginn? Villäicht wëlls de de %s aktivéieren.</string>
+  <string name="whatNowSuggestions">Wat elo? Hei sinn e puer Virschléi:</string>
+  <string name="learnChessRules">D\'Schachreegele léieren</string>
+</resources>
