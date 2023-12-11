@@ -218,7 +218,7 @@
     <item quantity="two">%s eur</item>
     <item quantity="few">%s eur</item>
     <item quantity="many">%s eur</item>
-    <item quantity="other">%s eurvezhioù</item>
+    <item quantity="other">%s eur</item>
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s vunutenn</item>
