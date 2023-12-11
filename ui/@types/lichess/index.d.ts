@@ -305,6 +305,7 @@ declare namespace Editor {
     orientation?: Color;
     onChange?: (fen: string) => void;
     inlineCastling?: boolean;
+    coordinates?: boolean;
   }
 
   export interface OpeningPosition {

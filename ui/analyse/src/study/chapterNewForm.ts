@@ -198,6 +198,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                           inlineCastling: true,
                           orientation: currentChapter.setup.orientation,
                           onChange: ctrl.editorFen,
+                          coordinates: true,
                         };
                         ctrl.editor = await lichess.asset.loadEsm<LichessEditor>('editor', { init: data });
                         ctrl.editorFen(ctrl.editor.getFen());

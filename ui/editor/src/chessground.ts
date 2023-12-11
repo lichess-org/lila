@@ -120,7 +120,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
     fen: ctrl.initialFen,
     orientation: ctrl.options.orientation || 'white',
-    coordinates: !ctrl.cfg.embed,
+    coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
