@@ -34,7 +34,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Virauszich (wärend dem Géigner sengem Zuch spillen)</string>
   <string name="takebacksWithOpponentApproval">Zeréckhuelen (mat Zoustemmung vum Géigner)</string>
   <string name="inCasualGamesOnly">Just an ongewäerten Partien</string>
-  <string name="promoteToQueenAutomatically">Automatesch zur Damm ëmwandelen</string>
+  <string name="promoteToQueenAutomatically">Automatesch an eng Damm ëmwandelen</string>
   <string name="explainPromoteToQueenAutomatically">Dréck ob deng &lt;ctrl&gt; Tasten während der Emwandlung fir temporär déi automatesch Emwandlung ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
