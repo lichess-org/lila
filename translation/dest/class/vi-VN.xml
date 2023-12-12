@@ -96,7 +96,7 @@ Mật khẩu: %3$s</string>
   <string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Đừng xóa tin tức trước đó.</string>
   <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
   <string name="invite">Mời</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Bạn được mời bởi %s.</string>
+  <string name="youHaveBeenInvitedByX">Bạn được mời bởi %s.</string>
   <string name="youAcceptedThisInvitation">Bạn đã chấp nhận lời mời.</string>
   <string name="youDeclinedThisInvitation">Bạn đã từ chối lời mời.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">hoặc</string>
