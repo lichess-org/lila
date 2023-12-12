@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Tornei in diretta</string>
   <string name="newBroadcast">Nuova diretta</string>
+  <string name="aboutBroadcasts">Informazioni sulle trasmissioni</string>
   <string name="addRound">Aggiungi un turno</string>
   <string name="ongoing">In corso</string>
   <string name="upcoming">Prossimamente</string>
