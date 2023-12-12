@@ -4,7 +4,14 @@
   <string name="welcomeToLichess">Bonvenon al lichess.org!</string>
   <string name="thisIsYourProfilePage">Ĉi tiu estas via profilpaĝon.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Ĉu infano uzos ĉi tiun konton? Vi eble volas ebligi %s.</string>
+  <string name="whatNowSuggestions">Kio nun? Jen kelkaj sugestoj:</string>
   <string name="learnChessRules">Lernu ŝakajn regulojn.</string>
+  <string name="improveWithChessTacticsPuzzles">Pliboniĝu per ŝakaj taktikaj puzloj.</string>
   <string name="playTheArtificialIntelligence">Ludu kontraŭ la artefaritan intelekton.</string>
   <string name="playOpponentsFromAroundTheWorld">Ludu kontraŭ kontraŭulojn de la tuta mondo.</string>
+  <string name="followYourFriendsOnLichess">Sekvu viajn geamikojn sur Lichess.</string>
+  <string name="playInTournaments">Ludu en turniroj.</string>
+  <string name="learnFromXAndY">Lernu de %1$s kaj %2$s.</string>
+  <string name="configureLichess">Agordu Lichess laŭ via plaĉo.</string>
+  <string name="exploreTheSiteAndHaveFun">Esploru la retpaĝon kaj amuziĝu :)</string>
 </resources>
