@@ -946,6 +946,8 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
+  <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
