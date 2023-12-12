@@ -863,7 +863,7 @@
     <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
   <string name="showUnreadLichessMessage">Du hast eine private Nachricht von Lichess erhalten.</string>
-  <string name="clickHereToReadIt">Hier klicken zum lesen</string>
+  <string name="clickHereToReadIt">Hier klicken zum Lesen</string>
   <string name="sorry">Entschuldigung :(</string>
   <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
   <string name="timeoutExpires">Die Sperre endet in %s.</string>
