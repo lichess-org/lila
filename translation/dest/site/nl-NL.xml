@@ -862,6 +862,8 @@
     <item quantity="one">en bewaar %s premove-variant</item>
     <item quantity="other">en bewaar %s premove-varianten</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Je hebt een privébericht van Lichess ontvangen.</string>
+  <string name="clickHereToReadIt">Klik hier om het te bekijken</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
   <string name="timeoutExpires">The time-out verloopt %s.</string>
