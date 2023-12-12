@@ -862,6 +862,8 @@
     <item quantity="one">y ahorra %s línea de premovimiento</item>
     <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has recibido un mensaje privado de Lichess.</string>
+  <string name="clickHereToReadIt">Haz clic aquí para leerlo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
   <string name="timeoutExpires">La suspensión expira en %s.</string>
