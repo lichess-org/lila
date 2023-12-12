@@ -860,6 +860,8 @@
     <item quantity="one">e garda %s variante de premovementos</item>
     <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Recibiches unha mensaxe privada de Lichess.</string>
+  <string name="clickHereToReadIt">Fai clic aquí para lela</string>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>
   <string name="timeoutExpires">A suspensión expira %s.</string>
