@@ -40,7 +40,7 @@ object dailyFeed:
   def updateList(ups: List[Update], editable: Boolean)(using Context) =
     div(cls := "daily-feed__updates", attr("data-rev") := ups.headOption.map(_.rev))(
       ups.collect:
-        case up if (isGranted(_.DailyFeed) || up.public && up.instant.isBefore(Instant.now)) =>
+        case up if up.isVisible || isGranted(_.DailyFeed) =>
           div(cls := "daily-feed__update", id := up.dayString)(
             iconTag(licon.StarOutline),
             div(cls := "daily-feed__update__content")(
