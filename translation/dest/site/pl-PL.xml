@@ -945,6 +945,8 @@
     <item quantity="many">i zapisz %s wariantów warunkowych</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Otrzymałeś prywatną wiadomość od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknij tutaj, aby ją odczytać</string>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
