@@ -13,7 +13,8 @@ final class LobbyApi(
     seekApi: SeekApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     gameJson: lila.game.JsonView,
-    lobbySocket: LobbySocket
+    lobbySocket: LobbySocket,
+    feedApi: lila.blog.DailyFeed
 )(using Executor):
 
   def apply(using me: Option[User.WithPerfs]): Fu[(JsObject, List[Pov])] =
@@ -26,6 +27,7 @@ final class LobbyApi(
               "seeks"        -> seeks.map(_.render),
               "nowPlaying"   -> displayedPovs.map(nowPlaying),
               "nbNowPlaying" -> povs.size,
+              "lastFeedRev"  -> feedApi.lastRev,
               "counters" -> Json.obj(
                 "members" -> lobbySocket.counters.members,
                 "rounds"  -> lobbySocket.counters.rounds

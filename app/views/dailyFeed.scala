@@ -34,31 +34,30 @@ object dailyFeed:
           )
         ),
         standardFlash,
-        updateList(updates, true)
+        div(cls := "daily-feed__updates")(updateList(updates, true))
       )
 
-  def updateList(ups: List[Update], editable: Boolean)(using Context) =
-    div(cls := "daily-feed__updates", attr("data-rev") := ups.headOption.map(_.rev))(
-      ups.collect:
-        case up if (isGranted(_.DailyFeed) || up.public && up.instant.isBefore(Instant.now)) =>
-          div(cls := "daily-feed__update", id := up.dayString)(
-            iconTag(licon.StarOutline),
-            div(cls := "daily-feed__update__content")(
-              st.section(cls := "daily-feed__update__day")(
-                h2(a(href := s"#${up.dayString}")(semanticDate(up.day))),
-                editable && isGranted(_.DailyFeed) option frag(
-                  a(
-                    href     := routes.DailyFeed.edit(up.day),
-                    cls      := "button button-green button-empty button-thin text",
-                    dataIcon := licon.Pencil
-                  ),
-                  !up.public option badTag("Draft")
-                )
-              ),
-              div(cls := "daily-feed__update__markup")(rawHtml(up.rendered))
-            )
+  def updateList(ups: List[Update], editable: Boolean)(using Context) = frag(
+    ups.collect:
+      case up if (isGranted(_.DailyFeed) || up.public && up.instant.isBefore(Instant.now)) =>
+        div(cls := "daily-feed__update", id := up.dayString)(
+          iconTag(licon.StarOutline),
+          div(cls := "daily-feed__update__content")(
+            st.section(cls := "daily-feed__update__day")(
+              h2(a(href := s"#${up.dayString}")(semanticDate(up.day))),
+              editable && isGranted(_.DailyFeed) option frag(
+                a(
+                  href     := routes.DailyFeed.edit(up.day),
+                  cls      := "button button-green button-empty button-thin text",
+                  dataIcon := licon.Pencil
+                ),
+                !up.public option badTag("Draft")
+              )
+            ),
+            div(cls := "daily-feed__update__markup")(rawHtml(up.rendered))
           )
-    )
+        )
+  )
 
   def create(form: Form[Update])(using PageContext) =
     layout("Updates: Create", true):

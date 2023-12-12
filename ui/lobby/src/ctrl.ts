@@ -1,4 +1,5 @@
 import { numberFormat } from 'common/number';
+import { storedIntProp, Prop } from 'common/storage';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
@@ -39,6 +40,8 @@ export default class LobbyController {
   stepHooks: Hook[] = [];
   stepping = false;
   redirecting = false;
+  feedRev: Prop<number>;
+  feedHtml: string;
   poolMember?: PoolMember;
   trans: Trans;
   pools: Pool[];
@@ -60,7 +63,8 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
-
+    this.feedRev = storedIntProp('feed.lastUpdate', opts.data.lastFeedRev);
+    this.feedHtml = (opts.appElement.querySelector('.daily-feed__updates') as HTMLElement).innerHTML;
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);
@@ -180,7 +184,7 @@ export default class LobbyController {
 
   setTab = (tab: LobbyTab | CustomGameTab) => {
     if (this.tab === tab || (this.tab === 'custom_games' && this.customGameTab === tab)) return;
-
+    if (tab === 'feed') this.unreadFeedUpdates(false);
     if (this.customGameTab === 'real_time' && this.tab === 'custom_games') {
       this.socket.realTimeOut();
       this.data.hooks = [];
@@ -311,4 +315,18 @@ export default class LobbyController {
       }
     }
   };
+
+  unreadFeedUpdates = (value?: false) => {
+    if (value === false) this.feedRev(this.data.lastFeedRev);
+    return this.data.lastFeedRev !== this.feedRev();
+  };
+
+  // unused for now
+  setFeedRev(rev: number) {
+    if (this.data.lastFeedRev === rev) return;
+
+    this.data.lastFeedRev = rev;
+    $('.daily-feed__updates').attr('data-dirty', String(Date.now())); // make sure snabbdom redraws
+    this.redraw();
+  }
 }

@@ -67,7 +67,6 @@ export interface LobbyOpts {
   hasUnreadLichessMessage: boolean;
   playban: boolean;
   hideRatings: boolean;
-  lastFeedRev: number;
   data: LobbyData;
   i18n: I18nDict;
   trans: Trans;
@@ -83,6 +82,7 @@ export interface LobbyData {
   seeks: Seek[];
   me?: LobbyMe;
   nbNowPlaying: number;
+  lastFeedRev: number;
   nowPlaying: NowPlaying[];
   ratingMap: Record<Perf, RatingWithProvisional> | null;
   counters: { members: number; rounds: number };

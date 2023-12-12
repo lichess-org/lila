@@ -29,7 +29,7 @@ object home:
               Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
           )
       ),
-      moreCss = frag(cssTag("lobby"), cssTag("dailyFeed")),
+      moreCss = frag(cssTag("lobby")),
       openGraph = lila.app.ui
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
@@ -62,7 +62,7 @@ object home:
           .orElse:
             playban.map(bits.playbanInfo)
           .getOrElse:
-            if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
+            if ctx.blind then blindLobby(blindGames) else bits.lobbyApp(feedUpdates)
         ,
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
@@ -116,7 +116,7 @@ object home:
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastPost, ublogPosts),
+        bits.lastPosts(lichessBlog, ublogPosts),
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(

@@ -49,6 +49,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     else
       part.contentType
         .collect:
+          case "image/webp" => "webp"
           case "image/png"  => "png"
           case "image/jpeg" => "jpg"
         .match
