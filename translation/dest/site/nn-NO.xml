@@ -863,6 +863,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har fått ei privat melding frå Lichess.</string>
+  <string name="clickHereToReadIt">Klikk her for å lesa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
   <string name="timeoutExpires">Timeouten tek slutt %s.</string>
