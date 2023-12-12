@@ -859,6 +859,8 @@
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
+  <string name="showUnreadLichessMessage">شما یک پیام خصوصی از لیچس دریافت کرده‌اید.</string>
+  <string name="clickHereToReadIt">برای خواندن آنها اینجا کلیک کنید</string>
   <string name="sorry">متاسفم :(</string>
   <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
   <string name="timeoutExpires">تعداد %s به پایان رسیدن زمان.</string>
