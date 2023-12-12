@@ -863,6 +863,8 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>
   </plurals>
+  <string name="showUnreadLichessMessage">You have received a private message from Lichess.</string>
+  <string name="clickHereToReadIt">Click here to read it</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
   <string name="timeoutExpires">The timeout expires %s.</string>
