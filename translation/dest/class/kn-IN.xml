@@ -100,7 +100,7 @@
   <string name="newsEdit3">ಇದರೊಂದಿಗೆ ಪ್ರತ್ಯೇಕ ಸುದ್ದಿ ---
 ಇದು ಸಮತಲ ರೇಖೆಯನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ.</string>
   <string name="invite">ಆಹ್ವಾನಿಸಿ</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">ನಿಮ್ಮನ್ನು %s ಅವರು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="youHaveBeenInvitedByX">ನಿಮ್ಮನ್ನು %s ಅವರು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="youAcceptedThisInvitation">ನೀವು ಈ ಆಹ್ವಾನವನ್ನು ಒಪ್ಪಿಕೊಂಡಿದ್ದೀರಿ.</string>
   <string name="youDeclinedThisInvitation">ನೀವು ಆಹ್ವಾನವನ್ನು ನಿರಾಕರಿಸಿದ್ದೀರಿ.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ಅಥವಾ</string>
