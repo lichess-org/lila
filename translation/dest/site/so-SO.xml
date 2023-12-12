@@ -94,6 +94,15 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" la soo gaabiyey, kuna salaysan tirada badh-tallaabood ee ka hadhay qabashada ama tallaabada askari ee xigta</string>
   <string name="noGameFound">Ciyaari ma jirto</string>
+  <string name="maxDepthReached">Muggii ugu weynaa la gaadh!</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Malaha kaga soo dar ciyaaro kale meesha doorashada?</string>
+  <string name="openings">Furitaanada</string>
+  <string name="openingExplorer">Furitaan baadhaha</string>
+  <string name="openingEndgameExplorer">Furitaan/dhamaad baadhaha</string>
+  <string name="xOpeningExplorer">Furitaan baadhaha %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Ciyaar tallaabada ugu horeysa ee furitaan/dhamaad-baadhaha</string>
+  <string name="winPreventedBy50MoveRule">Badis uu hor istaagay xeerka 50 tallaabo</string>
+  <string name="lossSavedBy50MoveRule">Guuldarro uu hor istaagay xeerka 50 tallaabo</string>
   <string name="realtimeReplay">Waqtiga dhabta ah</string>
   <string name="enable">Fur</string>
   <string name="cpus">CPU</string>
