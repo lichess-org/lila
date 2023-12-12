@@ -946,6 +946,8 @@
     <item quantity="many">ושמרו %s המשכים מוגדרים מראש</item>
     <item quantity="other">ושמרו %s המשכים מוגדרים מראש</item>
   </plurals>
+  <string name="showUnreadLichessMessage">קיבלתם הודעה פרטית מ-Lichess.</string>
+  <string name="clickHereToReadIt">לחצו כאן כדי לקרוא אותה</string>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
   <string name="timeoutExpires">ההשעיה תסתיים %s.</string>
