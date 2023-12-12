@@ -3214,7 +3214,9 @@ symbols.play-or-pause-button
 symbols.plus
 symbols.potable-water
 symbols.purple-heart
+symbols.puzzle-racer
 symbols.puzzle-storm
+symbols.puzzle-streak
 symbols.question-mark
 symbols.radio-button
 symbols.rainbow-flag
