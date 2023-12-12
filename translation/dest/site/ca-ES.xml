@@ -862,6 +862,8 @@
     <item quantity="one">i guardar %s línia anticipada</item>
     <item quantity="other">i guardar %s línies anticipades</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Heu rebut un missatge privat de Lichess.</string>
+  <string name="clickHereToReadIt">Fes clic aquí per llegir-lo</string>
   <string name="sorry">Ho sentim :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
   <string name="timeoutExpires">La penalització acaba en %s.</string>
