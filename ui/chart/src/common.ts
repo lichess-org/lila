@@ -16,7 +16,7 @@ const lightTheme = currentTheme() == 'light';
 export const orangeAccent = '#d85000';
 export const whiteFill = lightTheme ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)';
 export const blackFill = lightTheme ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)';
-export const fontColor = lightTheme ? '#2F2F2F' : '#A0A0A0';
+export const fontColor = lightTheme ? '#2F2F2F' : 'hsl(0, 0%, 73%)';
 export const gridColor = '#404040';
 export const hoverBorderColor = lightTheme ? gridColor : 'white';
 export const tooltipBgColor = lightTheme ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0,0,0,0.7)';

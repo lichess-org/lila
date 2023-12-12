@@ -53,7 +53,14 @@ object perfStat:
               )(viewTheGames())
             )
           ),
-          ratingChart.isDefined option div(cls := "rating-history")(spinner),
+          ratingChart.isDefined option div(cls := "rating-history-container")(
+            div(cls := "rating-history-container")(
+              div(cls := "time-selector-buttons"),
+              (spinner),
+              div(cls := "chart-container")(canvas(cls := "rating-history")),
+              div(id := "time-range-slider")
+            )
+          ),
           div(cls := "box__pad perf-stat__content")(
             glicko(user, perfType, user.perfs(perfType), percentile),
             counter(stat.count),

@@ -13,8 +13,12 @@
     "@types/highcharts": "=4.2.57",
     "ceval": "workspace:*",
     "chart.js": "4.4.0",
+    "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "common": "workspace:*"
+    "chartjs-plugin-zoom": "^2.0.1",
+    "common": "workspace:*",
+    "dayjs": "^1.11.10",
+    "nouislider": "^15.7.1"
   },
   "scripts": {
     "compile": "tsc",

@@ -21,18 +21,7 @@
     margin: 10px 0;
   }
 
-  .rating-history {
-    flex: 1 1 58%;
-    margin: -10px 0 -14px -8px;
-    height: 350px;
-    direction: ltr;
-
-    .spinner {
-      width: 90px;
-      height: 90px;
-      margin: 120px auto 0 auto;
-    }
-  }
+  @import '../../../common/css/component/chart';
 
   .profile-side {
     @extend %flex-column;
