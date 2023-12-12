@@ -88,6 +88,12 @@
   <string name="recentGames">Ciyaarihii ugu bambeeyey</string>
   <string name="topGames">Ciyaaraha ugu sareeya</string>
   <string name="masterDbExplanation">Ciyaaraha MD ee %1$s+ ciyaartoyda FIDE ee %2$s ilaa %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mayd %s badh-tallaabo gudeheed</item>
+    <item quantity="other">Mayd %s badh-tallaabo gudohood</item>
+  </plurals>
+  <string name="dtzWithRounding">DTZ50\" la soo gaabiyey, kuna salaysan tirada badh-tallaabood ee ka hadhay qabashada ama tallaabada askari ee xigta</string>
+  <string name="noGameFound">Ciyaari ma jirto</string>
   <string name="realtimeReplay">Waqtiga dhabta ah</string>
   <string name="enable">Fur</string>
   <string name="cpus">CPU</string>
