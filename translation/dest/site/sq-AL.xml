@@ -406,6 +406,7 @@
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
+  <string name="importGameCaveat2">Kjo PGN mund të shihet nga publiku. Që të importoni privatisht një lojë, përdorni një ushtrim.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>
     <item quantity="other">%s lojëra të importuara</item>
@@ -738,6 +739,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="withFriends">Me shokët</string>
   <string name="withEverybody">Me gjithkënd</string>
   <string name="kidMode">Mënyra për fëmijë</string>
+  <string name="kidModeIsEnabled">Mënyra për fëmijë është e aktivizuar.</string>
   <string name="kidModeExplanation">Kjo është për sigurinë. Nën mënyrën për fëmijë, krejt komunikimet në sajt janë të çaktivizuara. Aktivizojeni këtë për fëmijët dhe nxënësit tuaj të shkollave, për t’i mbrojtur ata nga të tjerë përdorues të internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Nën mënyrën për fëmijë, stemës së Lichess-it i vihet një ikonë %s, që ta dini se fëmijët tuaj janë të parrezik.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Llogaria juaj administrohet. Rreth heqjes së mënyrës “fëmijë” pyetni mëuesin tuaj të shahut.</string>
@@ -851,6 +853,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
     <item quantity="one">edhe ruaj %s linja premove</item>
     <item quantity="other">edhe ruaj %s linja premove</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Morët një mesazh privat nga Lichess.</string>
+  <string name="clickHereToReadIt">Klikoni këtu që ta lexoni</string>
   <string name="sorry">Na ndjeni :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na u desh t’ju ndalnim për ca kohë.</string>
   <string name="timeoutExpires">Ndalesa skadon më %s.</string>
