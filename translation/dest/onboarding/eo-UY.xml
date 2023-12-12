@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Bonvenon!</string>
+  <string name="welcomeToLichess">Bonvenon al lichess.org!</string>
+  <string name="thisIsYourProfilePage">Ĉi tiu estas via profilpaĝon.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Ĉu infano uzos ĉi tiun konton? Vi eble volas ebligi %s.</string>
+</resources>
