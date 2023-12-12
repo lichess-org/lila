@@ -30,4 +30,8 @@
   <string name="thereIsACountdown">დროა გამოყოფილი თქვენს პირველ სვლაზე. თუ ვერ ჩაეტევით დროში, მოწინააღმდეგე გაიმარჯვებს.</string>
   <string name="thisIsPrivate">ეს არის პირადი ტურნირი</string>
   <string name="shareUrl">გაუზიარე ლინკი სხვებს რათა შემოგიერთდნენ: %s</string>
+  <string name="variant">ვარიანტი</string>
+  <string name="arenaStreaks">არენას ჯაჭვი</string>
+  <string name="averageScore">საშუალო ქულა</string>
+  <string name="myTournaments">ჩემი ტურნირები</string>
 </resources>
