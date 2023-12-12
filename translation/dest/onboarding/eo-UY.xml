@@ -4,4 +4,7 @@
   <string name="welcomeToLichess">Bonvenon al lichess.org!</string>
   <string name="thisIsYourProfilePage">Ĉi tiu estas via profilpaĝon.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Ĉu infano uzos ĉi tiun konton? Vi eble volas ebligi %s.</string>
+  <string name="learnChessRules">Lernu ŝakajn regulojn.</string>
+  <string name="playTheArtificialIntelligence">Ludu kontraŭ la artefaritan intelekton.</string>
+  <string name="playOpponentsFromAroundTheWorld">Ludu kontraŭ kontraŭulojn de la tuta mondo.</string>
 </resources>
