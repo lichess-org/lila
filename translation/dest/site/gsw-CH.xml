@@ -871,6 +871,8 @@ gits nöd und es isch immer ungwertet.</string>
     <item quantity="one">und speicher %s Voruszug Zile</item>
     <item quantity="other">und speicher %s Voruszug Zile</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichess hät dir e privati Nachricht g\'schickt.</string>
+  <string name="clickHereToReadIt">Klick da zum läse</string>
   <string name="sorry">Äxgüsi :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Zitli müesse schperre.</string>
   <string name="timeoutExpires">Die Schperrig ändet in %s.</string>
