@@ -283,7 +283,7 @@
   <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
   <string name="spectatorRoom">Phòng khán giả</string>
   <string name="composeMessage">Soạn tin nhắn</string>
-  <string name="subject">Chủ đề</string>
+  <string name="subject">Tiêu đề</string>
   <string name="send">Gửi</string>
   <string name="incrementInSeconds">Gia tăng theo giây</string>
   <string name="freeOnlineChess">Chơi Cờ Vua Trực Tuyến Miễn Phí</string>
