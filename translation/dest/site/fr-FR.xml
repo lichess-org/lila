@@ -862,6 +862,8 @@
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Vous avez reçu un message privé de Lichess.</string>
+  <string name="clickHereToReadIt">Cliquez ici pour le lire.</string>
   <string name="sorry">Désolé :(</string>
   <string name="weHadToTimeYouOutForAWhile">Nous avons dû temporairement vous suspendre.</string>
   <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
