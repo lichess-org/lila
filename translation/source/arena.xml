@@ -8,9 +8,9 @@
   <string name="someRated">Some tournaments are rated and will affect your rating.</string>
   <string name="howAreScoresCalculated">How are scores calculated?</string>
   <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
-If you win two games consecutively you will start a double point streak, represented by a flame icon.
+If you win two games consecutively you will start a double-point streak, represented by a flame icon.
 The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
+That is, a win will be worth 4 points, a draw 2 points and a loss will still not award any points.
 
 For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
@@ -22,15 +22,15 @@ Berserk is not available for games with zero initial time (0+1, 0+2).
 
 Berserk only grants an extra point if you play at least 7 moves in the game.</string>
   <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament's set time limit will be announced winner(s).
+  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points after the tournament's set time limit will be announced the winner(s).
 
 When two or more players have the same number of points, the tournament performance is the tie break.</string>
   <string name="howDoesPairingWork">How does the pairing work?</string>
   <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
-As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.
+As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however, you may not face all other players in the tournament.
 Play fast and return to the lobby to play more games and win more points.</string>
   <string name="howDoesItEnd">How does it end?</string>
-  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don't count for the tournament.</string>
+  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however, they don't count for the tournament.</string>
   <string name="otherRules">Other important rules</string>
   <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
   <plurals name="drawingWithinNbMoves">
@@ -39,7 +39,7 @@ Play fast and return to the lobby to play more games and win more points.</strin
   </plurals>
   <string name="thisIsPrivate">This is a private tournament</string>
   <string name="shareUrl">Share this URL to let people join: %s</string>
-  <string name="drawStreakStandard">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves in standard games. The draw streak can only be broken by a win, not a loss or a draw.</string>
+  <string name="drawStreakStandard">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point or draws lasting more than %s moves in standard games. The draw streak can only be broken by a win, not a loss or a draw.</string>
   <string name="drawStreakVariants">The minimum game length for drawn games to award points differs by variant. The table below lists the threshold for each variant.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minimum game length</string>
