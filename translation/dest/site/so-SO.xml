@@ -82,8 +82,11 @@
   <string name="drawn">Barbardhac</string>
   <string name="unknown">Lama garanayo</string>
   <string name="database">Keydka weyn</string>
+  <string name="whiteDrawBlack">Caddaan / Baraaje / Madow</string>
+  <string name="averageRatingX">Darajada isku celceliska ah: %s</string>
   <string name="recentGames">Ciyaarihii ugu bambeeyey</string>
   <string name="topGames">Ciyaaraha ugu sareeya</string>
+  <string name="masterDbExplanation">Ciyaaraha MD ee %1$s+ ciyaartoyda FIDE ee %2$s ilaa %3$s</string>
   <string name="realtimeReplay">Waqtiga dhabta ah</string>
   <string name="enable">Fur</string>
   <string name="cpus">CPU</string>
