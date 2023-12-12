@@ -732,6 +732,7 @@
   <string name="withFriends">Kun amikoj</string>
   <string name="withEverybody">Kun ĉiuj</string>
   <string name="kidMode">Infana reĝimo</string>
+  <string name="kidModeIsEnabled">Infana reĝimo estas enŝaltita.</string>
   <string name="kidModeExplanation">Ĉi tio temas pri sekureco. En infana reĝimo, ĉiuj retejaj komunikadoj estas malebligitaj. Aktivigu ĉi tiun por viaj infanoj kaj lernejaj studentoj, por protekti ilin de aliaj retaj uzantoj.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En infana reĝimo, la lichess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Via konto estas mastrumita. Petu vian ŝako-instruiston pri malaktivigado de \"infana reĝimo\".</string>
@@ -845,6 +846,8 @@
     <item quantity="one">kaj savi %s antaŭmovan vicon</item>
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Vi ricevis privatan mesaĝon de Lichess.</string>
+  <string name="clickHereToReadIt">Alklaku ĉi tie por legi ĝin</string>
   <string name="sorry">Bedaŭrinde :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
   <string name="timeoutExpires">La suspendo finiĝos %s.</string>
