@@ -863,6 +863,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Recebestes uma mensagem privada do Lichess.</string>
+  <string name="clickHereToReadIt">Clica aqui para ler</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de te banir por algum tempo.</string>
   <string name="timeoutExpires">O banimento expira %s.</string>
