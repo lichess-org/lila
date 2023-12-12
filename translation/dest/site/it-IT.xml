@@ -858,6 +858,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
     <item quantity="one">e salva %s linea pre-mossa</item>
     <item quantity="other">e salva %s linee pre-mossa</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Hai ricevuto un messaggio privato da Lichess.</string>
+  <string name="clickHereToReadIt">Clicca qui per leggerlo</string>
   <string name="sorry">Ci dispiace :(</string>
   <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
   <string name="timeoutExpires">Sarai sbloccato %s.</string>
