@@ -697,6 +697,8 @@ object I18nKeys:
   val `playVariationToCreateConditionalPremoves` = I18nKey("playVariationToCreateConditionalPremoves")
   val `noConditionalPremoves` = I18nKey("noConditionalPremoves")
   val `playX` = I18nKey("playX")
+  val `showUnreadLichessMessage` = I18nKey("showUnreadLichessMessage")
+  val `clickHereToReadIt` = I18nKey("clickHereToReadIt")
   val `sorry` = I18nKey("sorry")
   val `weHadToTimeYouOutForAWhile` = I18nKey("weHadToTimeYouOutForAWhile")
   val `timeoutExpires` = I18nKey("timeoutExpires")
