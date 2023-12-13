@@ -15,7 +15,7 @@
   @include breakpoint($mq-col2) {
     --cols: 2; // ui/lobby/src/main.ts
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto repeat(3, fit-content(0));
+    grid-template-rows: fit-content(0);
     grid-template-areas:
       'app      app'
       'side     table'

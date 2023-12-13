@@ -5,13 +5,17 @@ import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
+import views.html.dailyFeed
 
 object bits:
 
-  val lobbyApp = div(cls := "lobby__app")(
-    div(cls := "tabs-horiz")(span(nbsp)),
-    div(cls := "lobby__app__content")
-  )
+  def lobbyApp(feedUpdates: List[lila.blog.DailyFeed.Update])(using PageContext) =
+    div(cls := "lobby__app")(
+      div(cls := "tabs-horiz")(span(nbsp)),
+      div(cls := "lobby__app__content none")(
+        div(cls := "daily-feed__updates", views.html.dailyFeed.updateList(feedUpdates, false))
+      )
+    )
 
   def underboards(
       tours: List[lila.tournament.Tournament],

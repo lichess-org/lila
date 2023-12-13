@@ -30,8 +30,9 @@ final class Preload(
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
-    lastPostCache: lila.blog.LastPostCache,
-    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
+    feedCache: lila.blog.DailyFeed,
+    lichessBlogCache: lila.blog.LastPostCache,
+    ublogPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi,
     relayApi: lila.relay.RelayApi,
     notifyApi: lila.notify.NotifyApi
@@ -54,12 +55,15 @@ final class Preload(
         (
           (
             (
-              (((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle),
-              streams
+              (
+                (((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle),
+                streams
+              ),
+              playban
             ),
-            playban
+            blindGames
           ),
-          blindGames
+          feedUpdates
         ),
         ublogPosts
       ),
@@ -78,7 +82,8 @@ final class Preload(
         .mon(_.lobby segment "streams")) zip
       (ctx.userId so playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind so ctx.me so roundProxy.urgentGames) zip
-      lastPostsCache.get {} zip
+      feedCache.recent.mon(_.lobby segment "feedCache") zip
+      ublogPostsCache.get {} zip
       ctx.userId
         .ifTrue(nbNotifications > 0)
         .filterNot(liveStreamApi.isStreaming)
@@ -105,7 +110,8 @@ final class Preload(
     currentGame,
     simulIsFeaturable,
     blindGames,
-    lastPostCache.apply,
+    feedUpdates,
+    lichessBlogCache.apply,
     ublogPosts,
     withPerfs,
     hasUnreadLichessMessage = lichessMsg
@@ -148,7 +154,8 @@ object Preload:
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      lastPost: Option[lila.blog.MiniPost],
+      feedUpdates: List[lila.blog.DailyFeed.Update],
+      lichessBlog: Option[lila.blog.MiniPost],
       ublogPosts: List[UblogPost.PreviewPost],
       me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean

@@ -57,6 +57,7 @@ final class Env(
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
+    feedApi: lila.blog.DailyFeed,
     ws: StandaloneWSClient,
     val mode: Mode
 )(using

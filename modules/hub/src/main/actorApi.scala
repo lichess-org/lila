@@ -182,6 +182,9 @@ package timeline:
     def modsOnly(value: Boolean)         = add(ModsOnly(value))
     private def add(p: Propagation)      = copy(propagations = p :: propagations)
 
+package feed:
+  case class UpdateFeedRev(rev: Long)
+
 package tv:
   case class TvSelect(gameId: GameId, speed: chess.Speed, data: JsObject)
 

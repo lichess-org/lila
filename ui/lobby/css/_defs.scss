@@ -4,6 +4,7 @@ $mq-col4: $mq-x-large;
 
 @mixin lobby-app-size {
   min-height: 300px;
+  max-height: 400px;
 
   @include breakpoint($mq-col2) {
     min-height: 400px;
