@@ -1123,7 +1123,7 @@ object I18nKeys:
     val `coordinateTraining` = I18nKey("coordinates:coordinateTraining")
     val `averageScoreAsWhiteX` = I18nKey("coordinates:averageScoreAsWhiteX")
     val `averageScoreAsBlackX` = I18nKey("coordinates:averageScoreAsBlackX")
-    val `knowingTheChessBoard` = I18nKey("coordinates:knowingTheChessBoard")
+    val `knowingTheChessboard` = I18nKey("coordinates:knowingTheChessboard")
     val `mostChessCourses` = I18nKey("coordinates:mostChessCourses")
     val `talkToYourChessFriends` = I18nKey("coordinates:talkToYourChessFriends")
     val `youCanAnalyseAGameMoreEffectively` = I18nKey("coordinates:youCanAnalyseAGameMoreEffectively")

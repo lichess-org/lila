@@ -36,7 +36,7 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
   return h('div.explanation', [
-    h('p', trans('knowingTheChessBoard')),
+    h('p', trans('knowingTheChessboard')),
     h('ul', [
       h('li', trans('mostChessCourses')),
       h('li', trans('talkToYourChessFriends')),
