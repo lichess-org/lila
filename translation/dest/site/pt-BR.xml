@@ -858,6 +858,8 @@
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>
   </plurals>
+  <string name="showUnreadLichessMessage" comment="Appears when a player receives a message from the Lichess account: https://lichess.org/@/Lichess&#10;&#10;This appears as a standard private message conversation  within Lichess.">Você recebeu uma mensagem privada do Lichess.</string>
+  <string name="clickHereToReadIt" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Clique aqui para ler</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de bloqueá-lo por um tempo.</string>
   <string name="timeoutExpires">O tempo expirará %s.</string>
