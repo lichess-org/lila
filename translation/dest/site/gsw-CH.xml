@@ -895,6 +895,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui a</string>
   <string name="edit">Bearbeite</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Schnällschach</string>
   <string name="classical">Klassisch</string>
