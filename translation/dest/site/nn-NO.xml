@@ -673,7 +673,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
   <string name="aboutSimulImage">Mot 50 motspelarar, fekk Fischer 47 sigrar, to remisar og eit tap.</string>
-  <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
+  <string name="aboutSimulRealLife">Konseptet er henta frå verkelege framsyningar der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
   <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
@@ -765,7 +765,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="zeroAdvertisement">Annonsefri</string>
   <string name="fullFeatured">Alle funksjonar</string>
   <string name="phoneAndTablet">Mobiltelefon og nettbrett</string>
-  <string name="bulletBlitzClassical">kvikksjakk, lynsjakk, saktesjakk</string>
+  <string name="bulletBlitzClassical">Bullet, lynsjakk, saktesjakk</string>
   <string name="correspondenceChess">Fjernsjakk</string>
   <string name="onlineAndOfflinePlay">Spel online og offline</string>
   <string name="viewTheSolution">Vis løysinga</string>
@@ -887,6 +887,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>
