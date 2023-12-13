@@ -37,11 +37,11 @@ export default function (ctrl: LobbyController) {
 
   async function feed(v: VNode) {
     const el = v.elm as HTMLElement;
-    if (ctrl.unreadFeedUpdates()) {
+    if (ctrl.feedUpdates) {
       ctrl.feedHtml = await xhr.feed();
       setTimeout(ctrl.redraw); // to clear the 'new' indicator on the tab
     }
-    if (ctrl.unreadFeedUpdates() || !el.hasChildNodes()) el.innerHTML = ctrl.feedHtml;
-    ctrl.unreadFeedUpdates(false);
+    if (ctrl.feedUpdates || !el.hasChildNodes()) el.innerHTML = ctrl.feedHtml;
+    ctrl.feedUpdates = false;
   }
 }
