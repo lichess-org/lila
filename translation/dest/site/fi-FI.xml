@@ -859,6 +859,7 @@
     <item quantity="one">ja tallenna %s esisiirtolinja</item>
     <item quantity="other">ja tallenna %s esisiirtolinjaa</item>
   </plurals>
+  <string name="showUnreadLichessMessage" comment="Appears when a player receives a message from the Lichess account: https://lichess.org/@/Lichess&#10;&#10;This appears as a standard private message conversation  within Lichess.">Olet saanut henkilökohtaisen viestin Lichessiltä.</string>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
   <string name="timeoutExpires">Jäähy päättyy %s.</string>
