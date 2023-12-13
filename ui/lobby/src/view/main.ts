@@ -36,11 +36,12 @@ export default function (ctrl: LobbyController) {
   ]);
 
   async function feed(v: VNode) {
+    const el = v.elm as HTMLElement;
     if (ctrl.unreadFeedUpdates()) {
       ctrl.feedHtml = await xhr.feed();
-      ctrl.unreadFeedUpdates(false);
       setTimeout(ctrl.redraw); // to clear the 'new' indicator on the tab
     }
-    (v.elm as HTMLElement).innerHTML = ctrl.feedHtml;
+    if (ctrl.unreadFeedUpdates() || !el.hasChildNodes()) el.innerHTML = ctrl.feedHtml;
+    ctrl.unreadFeedUpdates(false);
   }
 }
