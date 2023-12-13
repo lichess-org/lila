@@ -820,8 +820,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">以儲存%s列預走的棋步</item>
   </plurals>
-  <string name="showUnreadLichessMessage" comment="Appears when a player receives a message from the Lichess account: https://lichess.org/@/Lichess&#10;&#10;This appears as a standard private message conversation  within Lichess.">你收到一個來自 Lichess 的私人信息。</string>
-  <string name="clickHereToReadIt" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">點擊閱讀</string>
+  <string name="showUnreadLichessMessage">你收到一個來自 Lichess 的私人信息。</string>
+  <string name="clickHereToReadIt">點擊閱讀</string>
   <string name="sorry">抱歉:(</string>
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
   <string name="timeoutExpires">封鎖結束至%s</string>
