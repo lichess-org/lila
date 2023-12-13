@@ -18,8 +18,7 @@ final class Env(
 
   def cli = new lila.common.Cli:
     def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
-      Variant(Variant.LilaKey(variantKey)).fold(fufail("Invalid variant")) { variant =>
+      Variant(Variant.LilaKey(variantKey)).fold(fufail("Invalid variant")): variant =>
         api.drop(variant, chess.format.Fen.Epd(fenParts mkString " ")) inject
           "Done, but the eval can stay in cache for up to 5 minutes"
-      }
     }
