@@ -617,7 +617,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các Streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
-  <string name="webmasters">Các nhà phát triển web</string>
+  <string name="webmasters">Nhà phát triển web</string>
   <string name="about">Về chúng tôi</string>
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
@@ -822,8 +822,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">và lưu %s nước đi trước</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Bạn đã nhận được một tin nhắn riêng từ Lichess.</string>
-  <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
+  <string name="showUnreadLichessMessage" comment="Appears when a player receives a message from the Lichess account: https://lichess.org/@/Lichess&#10;&#10;This appears as a standard private message conversation  within Lichess.">Bạn đã nhận được một tin nhắn riêng từ Lichess.</string>
+  <string name="clickHereToReadIt" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Nhấn vào đây để đọc nó</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
   <string name="timeoutExpires">Hết hiệu lực trong %s.</string>
