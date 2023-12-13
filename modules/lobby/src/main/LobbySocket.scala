@@ -4,6 +4,7 @@ import actorApi.*
 import play.api.libs.json.*
 
 import lila.game.Pov
+import lila.hub.actorApi.feed.UpdateFeedRev
 import lila.hub.actorApi.timeline.*
 import lila.hub.SyncActor
 import lila.pool.{ PoolApi, PoolConfig }
@@ -67,6 +68,7 @@ final class LobbySocket(
         hookSubscriberSris.clear()
 
       case ReloadTimelines(users) => send(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
+      case UpdateFeedRev(rev)     => send(Out.tellLobby(makeMessage("update_feed", rev)))
 
       case AddHook(hook) =>
         send(

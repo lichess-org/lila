@@ -16,7 +16,7 @@ export default function (ctrl: LobbyController) {
   else
     switch (ctrl.tab) {
       case 'feed':
-        body = h('div.daily-feed__updates', { hook: { insert: insertFeed, update: updateFeed } });
+        body = h('div.daily-feed__updates', { hook: { insert: feed, update: (_, v) => feed(v) } });
         break;
       case 'pools':
         body = renderPools.render(ctrl);
@@ -35,15 +35,12 @@ export default function (ctrl: LobbyController) {
     h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : cls), data, body),
   ]);
 
-  function insertFeed(v: VNode) {
-    if (ctrl.unreadFeedUpdates()) setTimeout(ctrl.redraw);
-    ctrl.unreadFeedUpdates(false);
+  async function feed(v: VNode) {
+    if (ctrl.unreadFeedUpdates()) {
+      ctrl.feedHtml = await xhr.feed();
+      ctrl.unreadFeedUpdates(false);
+      setTimeout(ctrl.redraw); // to clear the 'new' indicator on the tab
+    }
     (v.elm as HTMLElement).innerHTML = ctrl.feedHtml;
-  }
-
-  async function updateFeed(_: VNode, v: VNode) {
-    if (!ctrl.unreadFeedUpdates()) return;
-    ctrl.feedHtml = await xhr.feed();
-    insertFeed(v);
   }
 }

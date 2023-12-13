@@ -3,9 +3,9 @@ package lila.blog
 import java.time.{ LocalDate, Instant, ZoneId }
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
+import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.common.config.Max
 import lila.user.Me
 
 object DailyFeed:
@@ -99,9 +99,11 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
         "public"  -> boolean
       )((Update.apply))(Update.formUnapply)
-    from.fold(form):
-      cache.clear() // we need lastRev to be correct
-      form.fill(_)
+    from.fold(form): up =>
+      if up.rev != lastRev && up.isVisible then
+        cache.clear() // we need lastRev to be correct
+        lila.common.Bus.publish(lila.hub.actorApi.feed.UpdateFeedRev(up.rev), "lobbySocket")
+      form.fill(up)
 
   private def existsBlocking(day: LocalDate): Boolean =
     coll.exists($id(day)).await(1.second, "dailyFeed.existsBlocking")

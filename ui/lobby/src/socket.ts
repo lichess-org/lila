@@ -39,6 +39,9 @@ export default class LobbySocket {
         if (ctrl.tab === 'custom_games' && ctrl.customGameTab === 'correspondence')
           xhr.seeks().then(ctrl.setSeeks);
       },
+      update_feed(rev: number) {
+        ctrl.updateFeed(rev);
+      },
     };
 
     lichess.idleTimer(

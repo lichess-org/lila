@@ -126,7 +126,7 @@ lazy val coordinate = module("coordinate",
 )
 
 lazy val blog = module("blog",
-  Seq(timeline),
+  Seq(timeline, hub),
   Seq(prismic) ++ tests.bundle ++ reactivemongo.bundle
 )
 

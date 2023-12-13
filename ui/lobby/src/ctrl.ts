@@ -184,7 +184,6 @@ export default class LobbyController {
 
   setTab = (tab: LobbyTab | CustomGameTab) => {
     if (this.tab === tab || (this.tab === 'custom_games' && this.customGameTab === tab)) return;
-    if (tab === 'feed') this.unreadFeedUpdates(false);
     if (this.customGameTab === 'real_time' && this.tab === 'custom_games') {
       this.socket.realTimeOut();
       this.data.hooks = [];
@@ -321,12 +320,9 @@ export default class LobbyController {
     return this.data.lastFeedRev !== this.feedRev();
   };
 
-  // unused for now
-  setFeedRev(rev: number) {
+  updateFeed(rev: number) {
     if (this.data.lastFeedRev === rev) return;
-
     this.data.lastFeedRev = rev;
-    $('.daily-feed__updates').attr('data-dirty', String(Date.now())); // make sure snabbdom redraws
     this.redraw();
   }
 }
