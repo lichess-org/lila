@@ -60,7 +60,10 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
 
   def myRound(r: RelayRound.WithTourAndStudy)(using me: Me) = Json
     .obj(
-      "round" -> Json.toJsObject(r.relay).add("url" -> s"$baseUrl${r.path}".some),
+      "round" -> Json
+        .toJsObject(r.relay)
+        .add("url" -> s"$baseUrl${r.path}".some)
+        .add("delay" -> r.relay.sync.delay),
       "tour"  -> r.tour,
       "study" -> Json.obj("writeable" -> r.study.canContribute(me))
     )
