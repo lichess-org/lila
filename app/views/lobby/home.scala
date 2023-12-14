@@ -116,8 +116,20 @@ object home:
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastUpdate, ublogPosts),
+        bits.lastPosts(lastPost, ublogPosts),
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
+        div(cls := "lobby__feed")(
+          lastUpdates
+            .map: up =>
+              div(cls := "lobby__feed__update")(
+                span(cls := "lobby__feed__content")(
+                  h2(cls := "lobby__feed__day text", dataIcon := licon.Star)(
+                    a(href := s"${routes.DailyFeed.index}#${up.dayString}")(semanticDate(up.day))
+                  ),
+                  div(cls := "lobby__feed__markup")(rawHtml(up.rendered))
+                )
+              ),
+        ),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),

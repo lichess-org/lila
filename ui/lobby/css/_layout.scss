@@ -2,7 +2,7 @@
   --cols: 1; // ui/lobby/src/main.ts
   grid-area: main;
   display: grid;
-  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'timeline' 'about';
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'feed' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'timeline' 'about';
   grid-gap: $block-gap;
 
   &__tournaments,
@@ -10,6 +10,7 @@
   &__leaderboard,
   &__winners {
     max-height: 20em;
+    min-height: 20em;
   }
 
   @include breakpoint($mq-col2) {
@@ -22,9 +23,10 @@
       'blog     blog'
       'tv       puzzle'
       'support  support'
+      'feed     feed'
       'tours    tours'
-      'leader   winner'
       'timeline timeline'
+      'leader   winner'
       'about    about';
 
     &__support {
@@ -43,9 +45,9 @@
       'side   app     app'
       'tv     blog    blog'
       'tv     support support'
-      'puzzle tours   tours'
-      'puzzle leader  winner'
-      '.      leader  winner'
+      'puzzle feed   feed'
+      'leader tours   tours'
+      'winner tours  tours'
       'about  about   about';
 
     &__start {
@@ -72,8 +74,9 @@
     grid-template-areas:
       'side   app     app     table'
       'tv     blog    blog    puzzle'
-      'tv     support support puzzle'
-      'leader winner  tours   tours'
+      'tv     support support    puzzle'
+      'feed   feed tours  tours'
+      '. leader winner .'
       'about  about   about   about';
 
     &__start {
@@ -148,6 +151,14 @@
 
   &__support {
     grid-area: support;
+  }
+
+  &__feed {
+    @extend %box-neat;
+    background: $c-bg-box;
+    grid-area: feed;
+    max-height: 20em;
+    overflow: hidden;
   }
 
   &__about {
