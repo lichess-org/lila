@@ -56,8 +56,9 @@ trait ResponseBuilder(using Executor)
     json = TooManyRequests(jsonError(msg))
   )
 
-  val jsonOkBody   = Json.obj("ok" -> true)
-  val jsonOkResult = JsonOk(jsonOkBody)
+  val jsonOkBody             = Json.obj("ok" -> true)
+  val jsonOkResult           = JsonOk(jsonOkBody)
+  def jsonOkMsg(msg: String) = JsonOk(Json.obj("ok" -> msg))
 
   def JsonOk(body: JsValue): Result               = Ok(body) as JSON
   def JsonOk[A: Writes](body: A): Result          = Ok(Json toJson body) as JSON

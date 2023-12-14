@@ -254,9 +254,10 @@ final class RelayApi(
             sendToContributors(round.id, "relaySync", jsonView sync round)
           _ <- (round.finished != from.finished) so denormalizeTourActive(round.tourId)
         yield
-          round.sync.log.events.lastOption.ifTrue(round.sync.log != from.sync.log).foreach { event =>
-            sendToContributors(round.id, "relayLog", Json.toJsObject(event))
-          }
+          round.sync.log.events.lastOption
+            .ifTrue(round.sync.log != from.sync.log)
+            .foreach: event =>
+              sendToContributors(round.id, "relayLog", Json.toJsObject(event))
           round
     }
 

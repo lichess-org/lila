@@ -137,7 +137,12 @@ final class RelayRound(
       .flatMap:
         case None                                    => notFoundJson()
         case Some(rt) if !rt.study.canContribute(me) => forbiddenJson()
-        case Some(rt) => env.relay.push(rt.withTour, PgnStr(ctx.body.body)) inject jsonOkResult
+        case Some(rt) =>
+          env.relay
+            .push(rt.withTour, PgnStr(ctx.body.body))
+            .map:
+              case Right(msg) => jsonOkMsg(msg)
+              case Left(e)    => JsonBadRequest(e.message)
   }
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
