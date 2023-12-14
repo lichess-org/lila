@@ -5,7 +5,7 @@ import { Tab } from '../interfaces';
 
 function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes) {
   return h(
-    `span`,
+    'span',
     {
       attrs: { role: 'tab' },
       class: {
@@ -25,9 +25,6 @@ export default function (ctrl: LobbyController) {
 
   return [
     h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
-      isBot
-        ? undefined
-        : tab(ctrl, 'feed', ctrl.tab, ['Updates', ctrl.feedUpdates ? h('i.unread', 'new') : null]),
       isBot ? undefined : tab(ctrl, 'pools', ctrl.tab, [ctrl.trans.noarg('quickPairing')]),
       isBot ? undefined : tab(ctrl, 'custom_games', ctrl.tab, ['Custom games']),
       ctrl.tab === 'now_playing' || nbPlaying || isBot
@@ -40,6 +37,7 @@ export default function (ctrl: LobbyController) {
             myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,
           ])
         : null,
+      tab(ctrl, 'feed', ctrl.tab, ['Updates', ctrl.feedUpdates ? h('i.unread', '•') : null]),
     ]),
     ctrl.tab === 'custom_games'
       ? h('div.tabs-horiz.secondary-tabs', { attrs: { role: 'tablist' } }, [
