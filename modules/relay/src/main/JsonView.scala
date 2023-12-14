@@ -41,7 +41,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
         "tour" -> Json
           .toJsObject(trs.tour)
           .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
-          .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
+          .add("url" -> withUrls.option(s"$baseUrl/${trs.tour.path}")),
         "rounds" -> trs.rounds.map: round =>
           if withUrls then withUrl(round withTour trs.tour) else apply(round)
       )
@@ -60,7 +60,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
 
   def myRound(r: RelayRound.WithTourAndStudy)(using me: Me) = Json
     .obj(
-      "round" -> r.relay,
+      "round" -> Json.toJsObject(r.relay).add("url" -> s"$baseUrl${r.path}".some),
       "tour"  -> r.tour,
       "study" -> Json.obj("writeable" -> r.study.canContribute(me))
     )
