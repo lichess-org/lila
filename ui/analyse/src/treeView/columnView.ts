@@ -242,7 +242,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     ctrl,
     truncateComments: false,
     concealOf: concealOf || emptyConcealOf,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
+    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),

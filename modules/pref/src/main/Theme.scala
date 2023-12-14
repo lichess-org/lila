@@ -40,7 +40,7 @@ object Theme extends ThemeObject:
     new Theme("grey", "grey.jpg"),
     new Theme("metal", "metal.jpg"),
     new Theme("olive", "olive.jpg"),
-    new Theme("newspaper", "newspaper.png"),
+    new Theme("newspaper", "svg/newspaper.svg"),
     new Theme("purple", "svg/purple.svg"),
     new Theme("purple-diag", "purple-diag.png"),
     new Theme("pink", "pink-pyramid.png"),

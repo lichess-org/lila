@@ -141,7 +141,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
+    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),

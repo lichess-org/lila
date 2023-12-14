@@ -313,7 +313,7 @@ export default function (deps?: typeof studyDeps) {
     if (ctrl.nvui) return ctrl.nvui.render();
     const concealOf = makeConcealOf(ctrl),
       study = ctrl.study,
-      showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
+      showCevalPvs = !ctrl.retro?.isSolving() && !ctrl.practice,
       menuIsOpen = ctrl.actionMenu(),
       gamebookPlay = ctrl.gamebookPlay(),
       gamebookPlayView = gamebookPlay && deps?.gbPlay.render(gamebookPlay),

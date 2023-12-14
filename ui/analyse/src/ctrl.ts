@@ -768,7 +768,7 @@ export default class AnalyseCtrl {
       !chap?.practice &&
       chap?.conceal === undefined &&
       !this.study?.gamebookPlay &&
-      !this.retro &&
+      !this.retro?.isSolving() &&
       this.variationArrowsProp() &&
       this.node.children.filter(x => !x.comp || this.showComputer()).length > 1
     );

@@ -259,7 +259,7 @@ trait SetupHelper:
       (Pref.SubmitMove.CORRESPONDENCE, trans.correspondence.txt()),
       (Pref.SubmitMove.CLASSICAL, trans.classical.txt()),
       (Pref.SubmitMove.RAPID, trans.rapid.txt()),
-      (Pref.SubmitMove.BLITZ, "Blitz")
+      (Pref.SubmitMove.BLITZ, trans.blitz.txt())
     )
 
   def confirmResignChoices(using Lang) =
