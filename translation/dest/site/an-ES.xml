@@ -862,6 +862,8 @@
     <item quantity="one">y cabida %s linia de premovimiento</item>
     <item quantity="other">y cabida %s linias de premovimiento</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has recibiu un mensache privau de Lichess.</string>
+  <string name="clickHereToReadIt">Fe clic aquí pa leyer-lo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos habiu de que suspender-te temporalment.</string>
   <string name="timeoutExpires">La suspensión expira en %s.</string>
@@ -884,6 +886,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapidas</string>
   <string name="classical">Clasica</string>
