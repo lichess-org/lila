@@ -70,7 +70,7 @@
   <string name="makeMainLine">Sida ugu caansan ka dhig</string>
   <string name="deleteFromHere">Ka tuur halkan</string>
   <string name="forceVariation">Khasab faracan</string>
-  <string name="copyVariationPgn">Koobi garee noocan PGN</string>
+  <string name="copyVariationPgn">Koobi garee PGNka faracan</string>
   <string name="move">Dhaqaaq</string>
   <string name="variantLoss">Guukdarro nooc</string>
   <string name="variantWin">Nooc badis</string>
@@ -117,16 +117,65 @@
   <string name="bestMoveArrow">Falaadha tallaabada ugu fiican</string>
   <string name="showVariationArrows">Tus falaadhaha faracyada</string>
   <string name="evaluationGauge">Qiinqaynta tallaabada</string>
+  <string name="multipleLines">Waddooyin</string>
   <string name="cpus">CPU</string>
+  <string name="memory">Baaxad</string>
+  <string name="infiniteAnalysis">Falanqayn bilaa xad ah</string>
+  <string name="removesTheDepthLimit">Mug bilaa xad ah oo aaladdaada kululaynaya</string>
   <string name="blunder">Qalad</string>
   <string name="mistake">Qalad</string>
   <string name="inaccuracy">Khalad</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s qalad</item>
+    <item quantity="other">%s qaladaad</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s halmaam</item>
+    <item quantity="other">%s halmaamyo</item>
+  </plurals>
+  <string name="moveTimes">Wakhtiyada tallaabo</string>
+  <string name="flipBoard">Rog looxa</string>
+  <string name="threefoldRepetition">Ku celin sadex jeer</string>
+  <string name="claimADraw">Ku dhawaaq baraaje</string>
+  <string name="offerDraw">Codso baraaje</string>
+  <string name="draw">Baraaje</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s ciyaartow</item>
+    <item quantity="other">%s ciyaartoy</item>
+  </plurals>
+  <string name="drawByMutualAgreement">Heshiis baraaje</string>
+  <string name="fiftyMovesWithoutProgress">Konton tallaabo bilaa natiijo</string>
+  <string name="currentGames">Ciyaaraha hadda</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s ciyaar</item>
+    <item quantity="other">%s ciyaarood</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Darajada %1$s ee %2$s ciyaar</item>
+    <item quantity="other">Darajada %1$s ee %2$s ciyaarood</item>
+  </plurals>
+  <string name="viewInFullSize">Weynee daaqadda</string>
+  <string name="logOut">Ka bax</string>
+  <string name="signIn">Gal</string>
+  <string name="rememberMe">Ha ka bixin</string>
+  <string name="youNeedAnAccountToDoThat">Akoon baad u baahanahay</string>
+  <string name="signUp">Is diwaangeli</string>
   <string name="games">Ciyaaraha</string>
   <string name="forum">Madal</string>
+  <string name="latestForumPosts">Qoraalkii ugu dambeeyay ee barxadda</string>
   <string name="players">Ciyaartoyda</string>
   <string name="friends">Saaxiibo</string>
+  <string name="discussions">Sheekaysiyada</string>
   <string name="today">Maanta</string>
   <string name="yesterday">Shalay</string>
+  <string name="minutesPerSide">Daqiiqadaha dhinacyada</string>
+  <string name="variant">Farac</string>
+  <string name="variants">Faracyada</string>
+  <string name="timeControl">Xadka wakhtiga</string>
+  <string name="realTime">Isla imika</string>
+  <string name="correspondence">Maalinle</string>
+  <string name="daysPerTurn">Maalmood tallaabadiiba</string>
+  <string name="oneDay">Hal maalin</string>
   <string name="time">Waqtiga</string>
   <string name="password">Erey sir</string>
   <string name="rank">Darajo</string>
