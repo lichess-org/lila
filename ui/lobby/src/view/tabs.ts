@@ -27,7 +27,7 @@ export default function (ctrl: LobbyController) {
     h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
       isBot
         ? undefined
-        : tab(ctrl, 'feed', ctrl.tab, ['Updates', ctrl.unreadFeedUpdates() ? h('i.unread', 'new') : null]),
+        : tab(ctrl, 'feed', ctrl.tab, ['Updates', ctrl.feedUpdates ? h('i.unread', 'new') : null]),
       isBot ? undefined : tab(ctrl, 'pools', ctrl.tab, [ctrl.trans.noarg('quickPairing')]),
       isBot ? undefined : tab(ctrl, 'custom_games', ctrl.tab, ['Custom games']),
       ctrl.tab === 'now_playing' || nbPlaying || isBot

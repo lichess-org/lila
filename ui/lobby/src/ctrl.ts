@@ -315,13 +315,16 @@ export default class LobbyController {
     }
   };
 
-  unreadFeedUpdates = (value?: false) => {
-    if (value === false) this.feedRev(this.data.lastFeedRev);
+  get feedUpdates(): boolean {
     return this.data.lastFeedRev !== this.feedRev();
-  };
+  }
+
+  set feedUpdates(v: false) {
+    if (v === false) this.feedRev(this.data.lastFeedRev);
+  }
 
   updateFeed(rev: number) {
-    if (this.data.lastFeedRev === rev) return;
+    if (rev === this.data.lastFeedRev) return;
     this.data.lastFeedRev = rev;
     this.redraw();
   }
