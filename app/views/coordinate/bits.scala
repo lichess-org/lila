@@ -31,7 +31,7 @@ object bits:
     trans.coordinates.averageScoreAsBlackX,
     trans.coordinates.averageScoreAsWhiteX,
     trans.coordinates.coordinates,
-    trans.coordinates.knowingTheChessboard,
+    trans.coordinates.knowingTheChessBoard,
     trans.coordinates.mostChessCourses,
     trans.coordinates.startTraining,
     trans.coordinates.talkToYourChessFriends,
