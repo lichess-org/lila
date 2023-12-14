@@ -862,6 +862,8 @@
     <item quantity="one">och spara %s linje av förhandsdrag</item>
     <item quantity="other">och spara %s linje av förhandsdrag</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har fått ett privat meddelande från Lichess.</string>
+  <string name="clickHereToReadIt">Klicka här för att läsa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
   <string name="timeoutExpires">Avstängningen upphör om %s.</string>
@@ -884,6 +886,7 @@
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snabbschack</string>
   <string name="classical">Classical</string>
