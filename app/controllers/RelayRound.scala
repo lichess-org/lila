@@ -9,6 +9,7 @@ import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
 import chess.format.pgn.PgnStr
 import views.*
+import lila.common.config.{ Max, MaxPerSecond }
 
 final class RelayRound(
     env: Env,
@@ -112,6 +113,11 @@ final class RelayRound(
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn                                   = studyC.apiPgn
+
+  def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
+    val source = env.relay.api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(env.relay.jsonView.myRound)
+    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(apiC.sourceToNdJson)
+  }
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rt =>

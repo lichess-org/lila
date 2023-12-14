@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import lila.common.config.BaseUrl
 import lila.common.Json.given
 import lila.study.Chapter
+import lila.user.Me
 
 final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
     Executor
@@ -13,34 +14,39 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
   import JsonView.given
   import lila.study.JsonView.given
 
+  given OWrites[RelayTour] = OWrites: t =>
+    Json
+      .obj(
+        "id"          -> t.id,
+        "name"        -> t.name,
+        "slug"        -> t.slug,
+        "description" -> t.description
+      )
+      .add("official" -> t.official)
+
+  given OWrites[RelayRound] = OWrites: r =>
+    Json
+      .obj(
+        "id"   -> r.id,
+        "name" -> r.name,
+        "slug" -> r.slug
+      )
+      .add("finished" -> r.finished)
+      .add("ongoing" -> (r.hasStarted && !r.finished))
+      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
+
   def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
       .obj(
         "tour" -> Json
-          .obj(
-            "id"          -> trs.tour.id,
-            "name"        -> trs.tour.name,
-            "slug"        -> trs.tour.slug,
-            "description" -> trs.tour.description
-          )
+          .toJsObject(trs.tour)
           .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
-          .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}"))
-          .add("official" -> trs.tour.official),
-        "rounds" -> trs.rounds.map { round =>
+          .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
+        "rounds" -> trs.rounds.map: round =>
           if withUrls then withUrl(round withTour trs.tour) else apply(round)
-        }
       )
 
-  def apply(round: RelayRound): JsObject =
-    Json
-      .obj(
-        "id"   -> round.id,
-        "name" -> round.name,
-        "slug" -> round.slug
-      )
-      .add("finished" -> round.finished)
-      .add("ongoing" -> (round.hasStarted && !round.finished))
-      .add("startsAt" -> round.startsAt.orElse(round.startedAt))
+  def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
   def withUrl(rt: RelayRound.WithTour): JsObject =
     apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
@@ -51,6 +57,13 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
     })
 
   def sync(round: RelayRound) = Json toJsObject round.sync
+
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Me) = Json
+    .obj(
+      "round" -> r.relay,
+      "tour"  -> r.tour,
+      "study" -> Json.obj("writeable" -> r.study.canContribute(me))
+    )
 
   def makeData(
       trs: RelayTour.WithRounds,

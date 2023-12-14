@@ -15,6 +15,7 @@ import lila.security.Granter
 import lila.user.{ User, Me, MyId }
 import lila.relay.RelayTour.ActiveWithSomeRounds
 import lila.i18n.I18nKeys.streamer.visibility
+import lila.common.config.Max
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -232,7 +233,7 @@ final class RelayApi(
           )
         ) >>
         tourRepo.setActive(tour.id, true) >>
-        studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast)) inject relay
+        studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value)) inject relay
     }
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
@@ -335,7 +336,7 @@ final class RelayApi(
                 visibility = Study.Visibility.Public
               )
             ) >>
-            studyApi.addTopics(round.studyId, List(StudyTopic.broadcast))
+            studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
       _ <- roundRepo.coll.insert.one(round)
     yield round
 
@@ -379,6 +380,17 @@ final class RelayApi(
       .throttle(perSecond.value, 1 second)
       .take(nb)
   end officialTourStream
+
+  def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
+      me: Me
+  ): Source[RelayRound.WithTourAndStudy, ?] =
+    studyRepo
+      .sourceByMember(me.userId, isMe = true, select = studyRepo.selectBroadcast)
+      .mapAsync(1): study =>
+        byIdWithTour(study.id into RelayRoundId).map2(_.withStudy(study))
+      .mapConcat(identity)
+      .throttle(perSecond.value, 1 second)
+      .take(max.fold(9999)(_.value))
 
   private[relay] def autoStart: Funit =
     roundRepo.coll

@@ -268,6 +268,8 @@ POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundI
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
+GET   /api/broadcast                          controllers.RelayTour.apiIndex
+GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -692,7 +694,6 @@ POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id)
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id)
 POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
-GET   /api/broadcast                   controllers.RelayTour.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
