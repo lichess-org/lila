@@ -52,9 +52,8 @@ final class RelayApi(
 
   def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id) flatMapz { case RelayRound.WithTour(relay, tour) =>
-      studyApi.byId(relay.studyId) dmap2 {
+      studyApi.byId(relay.studyId) dmap2:
         RelayRound.WithTourAndStudy(relay, tour, _)
-      }
     }
 
   def byTourOrdered(tour: RelayTour): Fu[List[RelayRound.WithTour]] =

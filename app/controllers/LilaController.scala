@@ -238,7 +238,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
       OAuthServer.responseHeaders(accepted, available):
-        Forbidden(jsonError(e.message))
+        forbiddenJson(e.message)
     case e =>
       OAuthServer.responseHeaders(accepted, TokenScopes(Nil)):
         Unauthorized(jsonError(e.message))
