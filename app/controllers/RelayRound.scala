@@ -133,10 +133,11 @@ final class RelayRound(
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     env.relay.api
-      .byIdAndContributor(id)
+      .byIdWithStudy(id)
       .flatMap:
-        case None     => notFoundJson()
-        case Some(rt) => env.relay.push(rt, PgnStr(ctx.body.body)) inject jsonOkResult
+        case None                                    => notFoundJson()
+        case Some(rt) if !rt.study.canContribute(me) => forbiddenJson()
+        case Some(rt) => env.relay.push(rt.withTour, PgnStr(ctx.body.body)) inject jsonOkResult
   }
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
