@@ -322,7 +322,6 @@
   <string name="playingRightNow">يلعب الآن</string>
   <string name="eventInProgress">يلعب الآن</string>
   <string name="finished">انتهت</string>
-  <string name="finishesX">تنتهي %s</string>
   <string name="abortGame">إلغاء اللعبة</string>
   <string name="gameAborted">اللعبة ألغيت</string>
   <string name="standard">عادي</string>
