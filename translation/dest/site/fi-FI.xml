@@ -272,7 +272,6 @@
   <string name="playingRightNow">Pelaamassa juuri nyt</string>
   <string name="eventInProgress">Parhaillaan menossa</string>
   <string name="finished">Päättynyt</string>
-  <string name="finishesX">päättyy %s</string>
   <string name="abortGame">Keskeytä peli</string>
   <string name="gameAborted">Peli keskeytetty</string>
   <string name="standard">Tavallinen</string>
