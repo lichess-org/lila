@@ -45,7 +45,8 @@ object HTTPRequest:
   def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value contains "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
-  def isAndroid = UaMatcher("Android")
+  def isAndroid                     = UaMatcher("Android")
+  def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
 
   def origin(req: RequestHeader): Option[String]  = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER

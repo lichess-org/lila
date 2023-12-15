@@ -331,6 +331,8 @@ abstract private[controllers] class LilaController(val env: Env)
     .flatMap:
       f(using _)
 
+  given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
+
   /* We roll our own action, as we don't want to compose play Actions. */
   private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
     import play.api.libs.streams.Accumulator

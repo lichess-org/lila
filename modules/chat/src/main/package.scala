@@ -10,3 +10,6 @@ case class Timeout(chatId: ChatId, mod: UserId, userId: UserId, reason: ChatTime
 
 case class OnTimeout(chatId: ChatId, userId: UserId)
 case class OnReinstate(chatId: ChatId, userId: UserId)
+
+opaque type AllMessages = Boolean
+object AllMessages extends YesNo[AllMessages]
