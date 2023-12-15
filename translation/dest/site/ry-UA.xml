@@ -277,7 +277,6 @@
   <string name="playingRightNow">Бавит ся тепирь</string>
   <string name="eventInProgress">Бавит ся тепирь</string>
   <string name="finished">Довершеный</string>
-  <string name="finishesX">кончит ся %s</string>
   <string name="abortGame">Одмінити бавку</string>
   <string name="gameAborted">Бавка одмінена</string>
   <string name="standard">Прості шахматы</string>
