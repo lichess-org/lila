@@ -285,7 +285,6 @@
   <string name="playingRightNow">Šobrīd spēlē</string>
   <string name="eventInProgress">Šobrīd notiek</string>
   <string name="finished">Beidzies</string>
-  <string name="finishesX">beidzas %s</string>
   <string name="abortGame">Atcelt spēli</string>
   <string name="gameAborted">Spēle atcelta</string>
   <string name="standard">Standarta</string>
