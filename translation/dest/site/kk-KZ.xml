@@ -850,7 +850,6 @@
   </plurals>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
-  <string name="timeoutExpires">Шектеудің аяқталуына %s қалды.</string>
   <string name="why">Себебі қандай?</string>
   <string name="pleasantChessExperience">Біз әрбіреудің ойны жайлы өтуін мақсат етеміз.</string>
   <string name="goodPractice">Сол үшін барлық ойыншылардың тәртібін қадағалауға тура келеді.</string>
