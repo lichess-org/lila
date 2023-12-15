@@ -264,7 +264,6 @@
   <string name="playingRightNow">अभी खेला जा रहा</string>
   <string name="eventInProgress">अभी खेला जा रहा</string>
   <string name="finished">समाप्त</string>
-  <string name="finishesX">%s में खत्म</string>
   <string name="abortGame">खेल रद्द करें</string>
   <string name="gameAborted">खेल रद्द किया गया</string>
   <string name="standard">साधारण</string>
