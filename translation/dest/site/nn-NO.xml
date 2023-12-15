@@ -272,7 +272,6 @@
   <string name="playingRightNow">Pågår</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Slutt</string>
-  <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
