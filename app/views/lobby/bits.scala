@@ -25,9 +25,9 @@ object bits:
           h2(cls := "title text", dataIcon := licon.CrownElite)(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
         ),
-        div(cls := "lobby__box__content")(
-          table(
-            tbody(
+        div(cls := "lobby__box__content"):
+          table:
+            tbody:
               leaderboard.map: l =>
                 tr(
                   td(lightUserLink(l.user)),
@@ -36,31 +36,22 @@ object bits:
                   },
                   td(ratingProgress(l.progress))
                 )
-            )
-          )
-        )
       ),
       div(cls := s"lobby__box ${if ctx.pref.showRatings then "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := licon.Trophy)(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
         ),
-        div(cls := "lobby__box__content")(
-          table(
-            tbody(
-              tournamentWinners take 10 map { w =>
+        div(cls := "lobby__box__content"):
+          table:
+            tbody:
+              tournamentWinners take 10 map: w =>
                 tr(
                   td(userIdLink(w.userId.some)),
-                  td(
-                    a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+                  td:
+                    a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
                       scheduledTournamentNameShortHtml(w.tourName)
-                    )
-                  )
                 )
-              }
-            )
-          )
-        )
       ),
       div(cls := "lobby__tournaments-simuls")(
         div(cls := "lobby__tournaments lobby__box")(
@@ -112,11 +103,9 @@ object bits:
     nopeInfo(
       cls := "unread-lichess-message",
       p(trans.showUnreadLichessMessage()),
-      p(
-        a(cls := "button button-big", href := routes.Msg.convo(lila.user.User.lichessId))(
+      p:
+        a(cls := "button button-big", href := routes.Msg.convo(lila.user.User.lichessId)):
           trans.clickHereToReadIt()
-        )
-      )
     )
 
   def playbanInfo(ban: lila.playban.TempBan)(using Context) =
@@ -177,9 +166,8 @@ object bits:
   def nopeInfo(content: Modifier*) =
     frag(
       div(cls := "lobby__app"),
-      div(cls := "lobby__nope")(
+      div(cls := "lobby__nope"):
         st.section(cls := "lobby__app__content")(content)
-      )
     )
 
   def spotlight(e: lila.event.Event)(using Context) =
@@ -194,8 +182,7 @@ object bits:
       span(cls := "content")(
         span(cls := "name")(e.title),
         span(cls := "headline")(e.headline),
-        span(cls := "more")(
+        span(cls := "more"):
           if e.isNow then trans.eventInProgress() else momentFromNow(e.startsAt)
-        )
       )
     )
