@@ -250,7 +250,6 @@
   <string name="playingRightNow">Bermain saat ini</string>
   <string name="eventInProgress">Mainkan sekarang</string>
   <string name="finished">Selesai</string>
-  <string name="finishesX">berakhir dalam %s</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standar</string>
