@@ -2482,6 +2482,7 @@ object I18nKeys:
   object timeago:
     val `justNow` = I18nKey("timeago:justNow")
     val `rightNow` = I18nKey("timeago:rightNow")
+    val `completed` = I18nKey("timeago:completed")
     val `inNbSeconds` = I18nKey("timeago:inNbSeconds")
     val `inNbMinutes` = I18nKey("timeago:inNbMinutes")
     val `inNbHours` = I18nKey("timeago:inNbHours")
@@ -2495,6 +2496,8 @@ object I18nKeys:
     val `nbWeeksAgo` = I18nKey("timeago:nbWeeksAgo")
     val `nbMonthsAgo` = I18nKey("timeago:nbMonthsAgo")
     val `nbYearsAgo` = I18nKey("timeago:nbYearsAgo")
+    val `nbMinutesRemaining` = I18nKey("timeago:nbMinutesRemaining")
+    val `nbHoursRemaining` = I18nKey("timeago:nbHoursRemaining")
 
   object oauthScope:
     val `newAccessToken` = I18nKey("oauthScope:newAccessToken")

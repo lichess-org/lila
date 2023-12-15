@@ -458,7 +458,10 @@ object layout:
       trans.timeago.nbDaysAgo,
       trans.timeago.nbWeeksAgo,
       trans.timeago.nbMonthsAgo,
-      trans.timeago.nbYearsAgo
+      trans.timeago.nbYearsAgo,
+      trans.timeago.nbMinutesRemaining,
+      trans.timeago.nbHoursRemaining,
+      trans.timeago.completed
     )
 
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]

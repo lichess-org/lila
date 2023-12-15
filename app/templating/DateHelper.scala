@@ -101,3 +101,6 @@ trait DateHelper:
     else if months == 0 then s"${pluralize("week", weeks)}$preposition"
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
+
+  def timeRemaining(instant: Instant, once: Boolean = false): Tag =
+    timeTag(cls := s"timeago remaining${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
