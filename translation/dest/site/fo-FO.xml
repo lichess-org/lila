@@ -231,7 +231,6 @@
   <string name="playingRightNow">Verður telvað beint nú</string>
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
-  <string name="finishesX">endar %s</string>
   <string name="abortGame">Enda talvið</string>
   <string name="gameAborted">Talvið varð brotið av</string>
   <string name="standard">Vanligt</string>
