@@ -845,7 +845,6 @@
   </plurals>
   <string name="sorry">Kechirasiz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Biz sizga bir muncha vaqtga taym aut berishimiz kerak edi.</string>
-  <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
   <string name="why">Nima uchun?</string>
   <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
   <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>
