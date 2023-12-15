@@ -82,7 +82,7 @@ textarea.form-control {
 
 .form-check {
   @extend %flex-column;
-  justify-content: center;
+  // justify-content: center;
   div {
     display: flex;
   }
