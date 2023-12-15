@@ -373,7 +373,6 @@
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
-  <string name="importGameCaveat2">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกม โปรดใช้หน้ากรณีศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
