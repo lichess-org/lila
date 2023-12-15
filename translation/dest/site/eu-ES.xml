@@ -272,7 +272,6 @@
   <string name="playingRightNow">Oraintxe jokatzen</string>
   <string name="eventInProgress">Oraintxe jokatzen</string>
   <string name="finished">Amaituta</string>
-  <string name="finishesX">bukaera: %s</string>
   <string name="abortGame">Partida geldiarazi</string>
   <string name="gameAborted">Geldiarazitako partida</string>
   <string name="standard">Ohikoa</string>
