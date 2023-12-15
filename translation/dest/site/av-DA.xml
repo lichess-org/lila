@@ -270,7 +270,6 @@
   <string name="playingRightNow">ХӀай унеб буго гьабсагӀат</string>
   <string name="eventInProgress">ХӀай унеб буго гьабсагӀат</string>
   <string name="finished">ТӀубана</string>
-  <string name="finishesX">%s лъугӀула</string>
   <string name="abortGame">ХӀай лъугӀизабичӀого тезе</string>
   <string name="gameAborted">ХӀай лъугӀизабичӀого тана</string>
   <string name="standard">ГӀадатаб</string>
