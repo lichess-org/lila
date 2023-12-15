@@ -19,10 +19,10 @@ object dailyFeed:
     )
 
   def index(updates: List[Update])(using PageContext) =
-    layout("Daily News"):
+    layout("Updates"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
-          h1("Daily News"),
+          h1("Lichess updates"),
           div(cls := "box__top__actions")(
             isGranted(_.DailyFeed) option a(
               href     := routes.DailyFeed.createForm,
@@ -58,7 +58,7 @@ object dailyFeed:
         )
 
   def create(form: Form[Update])(using PageContext) =
-    layout("Daily News: New", true):
+    layout("Lichess updates: New", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
@@ -72,12 +72,12 @@ object dailyFeed:
       )
 
   def edit(form: Form[Update], update: Update)(using PageContext) =
-    layout(s"Daily News ${update.day}", true):
+    layout(s"Lichess update ${update.day}", true):
       main(cls := "daily-feed page-small")(
         div(cls := "box box-pad")(
           boxTop(
             h1(
-              a(href := routes.DailyFeed.index)("Daily News"),
+              a(href := routes.DailyFeed.index)("Lichess update"),
               " • ",
               semanticDate(update.day)
             )
@@ -118,7 +118,7 @@ object dailyFeed:
       elems = ups,
       htmlCall = routes.DailyFeed.index,
       atomCall = routes.DailyFeed.atom,
-      title = "Lichess Daily News",
+      title = "Lichess updates feed",
       updated = ups.headOption.map(_.instant)
     ): up =>
       frag(

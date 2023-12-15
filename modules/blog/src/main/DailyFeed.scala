@@ -67,8 +67,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   def set(update: Update, from: Option[Update]): Funit = for
     _ <- from.filter(_.day != update.day).so(up => coll.delete.one($id(up.day)).void)
     _ <- coll.update.one($id(update.day), update, upsert = true).void
-    _ = cache.clear()
-  yield ()
+  yield cache.clear()
 
   def delete(id: LocalDate): Funit =
     coll.delete.one($id(id)).void andDo cache.clear()
