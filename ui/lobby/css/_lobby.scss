@@ -7,6 +7,7 @@
 @import 'box';
 @import 'support';
 @import 'about';
+@import 'feed';
 @import 'layout';
 
 body {
@@ -106,28 +107,6 @@ body {
   }
   .ublog-post-card:hover {
     box-shadow: none;
-  }
-}
-
-.lobby__feed {
-  padding: 1em 1em 1em 1.5em;
-  &__update {
-    &--fresh {
-      outline: 1px solid $c-brag;
-    }
-  }
-  &__day {
-    color: $c-brag;
-    margin: 0.5em 0 0.6em 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  a {
-    color: $c-brag;
-  }
-  time {
-    font-size: 1em;
-    opacity: 1;
   }
 }
 

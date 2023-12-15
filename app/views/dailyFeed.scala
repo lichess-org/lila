@@ -33,10 +33,10 @@ object dailyFeed:
           )
         ),
         standardFlash,
-        updateList(updates)
+        updateList(updates, editor = isGranted(_.DailyFeed))
       )
 
-  private def updateList(ups: List[Update])(using Context) =
+  def updateList(ups: List[Update], editor: Boolean)(using Context) =
     div(cls := "daily-feed__updates"):
       ups.map: update =>
         div(cls := "daily-feed__update", id := update.dayString)(
@@ -44,7 +44,7 @@ object dailyFeed:
           div(cls := "daily-feed__update__content")(
             st.section(cls := "daily-feed__update__day")(
               h2(a(href := s"#${update.dayString}")(semanticDate(update.day))),
-              isGranted(_.DailyFeed) option frag(
+              editor option frag(
                 a(
                   href     := routes.DailyFeed.edit(update.day),
                   cls      := "button button-green button-empty button-thin text",
@@ -56,6 +56,26 @@ object dailyFeed:
             div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
           )
         )
+
+  def lobbyUpdateList(ups: List[Update])(using Context) =
+    div(cls := "daily-feed__updates")(
+      ups.map: update =>
+        div(cls := "daily-feed__update")(
+          iconTag(licon.StarOutline),
+          div(
+            a(cls := "daily-feed__update__day", href := s"/feed#${update.dayString}"):
+              semanticDate(update.day)
+            ,
+            rawHtml(update.rendered)
+          )
+        ),
+      div(cls := "daily-feed__update")(
+        iconTag(licon.StarOutline),
+        div:
+          a(cls := "daily-feed__update__day", href := s"/feed"):
+            "All updates »"
+      )
+    )
 
   def create(form: Form[Update])(using PageContext) =
     layout("Lichess updates: New", true):
@@ -88,7 +108,7 @@ object dailyFeed:
         ),
         br,
         div(cls := "box box-pad")(
-          updateList(List(update)),
+          updateList(List(update), editor = true),
           postForm(action := routes.DailyFeed.delete(update.day))(cls := "daily-feed__delete"):
             submitButton(cls := "button button-red button-empty confirm")("Delete")
         )
