@@ -272,7 +272,6 @@
   <string name="playingRightNow">En joc</string>
   <string name="eventInProgress">Jugant-se ara mateix</string>
   <string name="finished">Acabat</string>
-  <string name="finishesX">finalitza %s</string>
   <string name="abortGame">Avortar la partida</string>
   <string name="gameAborted">Partida avortada</string>
   <string name="standard">Estàndard</string>
