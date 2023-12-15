@@ -405,6 +405,7 @@
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Enganxa el PGN d\'una partida per obtenir una repetició navegable, anàlisi computeritzada, xat de joc i enllaç per compartir.</string>
   <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
+  <string name="importGameDataPrivacyWarning">Aquest PGN és accessible públicament. Per a importar un joc de manera privada, utilitza un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
@@ -865,7 +866,6 @@
   <string name="clickHereToReadIt">Fes clic aquí per llegir-lo</string>
   <string name="sorry">Ho sentim :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
-  <string name="timeoutExpires">La penalització acaba en %s.</string>
   <string name="why">Perquè?</string>
   <string name="pleasantChessExperience">Intentem donar una bona experiència d’escacs a tothom.</string>
   <string name="goodPractice">Per això, hem de garantir que tots els jugadors segueixin bones pràctiques.</string>
