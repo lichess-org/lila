@@ -271,7 +271,6 @@
   <string name="playingRightNow">بازی در حال انجام</string>
   <string name="eventInProgress">بازی در حال انجام</string>
   <string name="finished">تمام شده</string>
-  <string name="finishesX">به پایان می‌رسد %s</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
   <string name="standard">استاندارد</string>
