@@ -257,7 +257,6 @@
   <string name="playingRightNow">Đang diễn ra</string>
   <string name="eventInProgress">Đang diễn ra</string>
   <string name="finished">Hoàn thành</string>
-  <string name="finishesX">kết thúc trong %s</string>
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>
