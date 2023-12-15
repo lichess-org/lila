@@ -826,7 +826,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="sorry">Vabandust :(</string>
   <string name="weHadToTimeYouOutForAWhile">Me pidime su natukeseks ära blokeerima.</string>
-  <string name="timeoutExpires">Blokeering aegub %s.</string>
   <string name="why">Miks?</string>
   <string name="pleasantChessExperience">Me tahame pakkuda häid malekogemusi kõigile.</string>
   <string name="goodPractice">Selleks peame olema kindlad, et kõik meie kasutajad järgivad reegleid.</string>
