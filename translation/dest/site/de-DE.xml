@@ -865,7 +865,6 @@
   <string name="clickHereToReadIt">Hier klicken zum Lesen</string>
   <string name="sorry">Entschuldigung :(</string>
   <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
-  <string name="timeoutExpires">Die Sperre endet in %s.</string>
   <string name="why">Warum?</string>
   <string name="pleasantChessExperience">Wir möchten allen eine möglichst gute Schach-Erfahrung bieten.</string>
   <string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler korrekt verhalten.</string>
