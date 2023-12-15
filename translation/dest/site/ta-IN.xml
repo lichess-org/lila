@@ -272,7 +272,6 @@
   <string name="playingRightNow">இப்பொழுது ஆடுகின்றது</string>
   <string name="eventInProgress">இப்பொழுது ஓடிக்கொண்டிருக்கின்றன</string>
   <string name="finished">முடிந்தது</string>
-  <string name="finishesX">%s வினாடிகளில் முடியும்</string>
   <string name="abortGame">ஆட்டத்தைக் கலை</string>
   <string name="gameAborted">ஆட்டம் கலைந்தது</string>
   <string name="standard">மரபு</string>
