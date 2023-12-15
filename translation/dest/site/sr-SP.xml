@@ -230,7 +230,6 @@
   <string name="playingRightNow">Управо игра</string>
   <string name="eventInProgress">Управо игра</string>
   <string name="finished">Завршен</string>
-  <string name="finishesX">завршава се %s</string>
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
