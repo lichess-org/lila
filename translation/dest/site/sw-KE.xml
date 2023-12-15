@@ -120,6 +120,5 @@
   <string name="playingRightNow">Inachezwa</string>
   <string name="eventInProgress">Inaendelea</string>
   <string name="finished">Imekamilika</string>
-  <string name="finishesX">itakamilika ndani ya %s</string>
   <string name="rematch">cheza tena</string>
 </resources>
