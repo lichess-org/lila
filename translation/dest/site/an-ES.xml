@@ -272,7 +272,6 @@
   <string name="playingRightNow">En chuego agora mesmo</string>
   <string name="eventInProgress">Se ye chugando agora</string>
   <string name="finished">Rematau</string>
-  <string name="finishesX">remata %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Standard</string>
