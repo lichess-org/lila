@@ -405,7 +405,6 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
   <string name="importGameCaveat">Varianter vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
-  <string name="importGameCaveat2">Denne PGN kan tilgås af offentligheden. For at importere et parti privat, skal du bruge et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
