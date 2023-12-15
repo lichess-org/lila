@@ -262,7 +262,6 @@
   <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
-  <string name="finishesX">lõppeb %s</string>
   <string name="abortGame">Katkesta mäng</string>
   <string name="gameAborted">Mäng katkestatud</string>
   <string name="standard">Standard</string>
