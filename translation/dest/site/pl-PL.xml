@@ -302,7 +302,6 @@
   <string name="playingRightNow">W toku</string>
   <string name="eventInProgress">W toku</string>
   <string name="finished">Zakończone</string>
-  <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Partia została przerwana</string>
   <string name="standard">Standard</string>
