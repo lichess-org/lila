@@ -405,6 +405,7 @@
   <string name="importGame">Partida inportatu</string>
   <string name="importGameExplanation">PGN partida bat itsastean ikusi daitekeen partida bat lortuko duzu, partidare eta analisiarekin, txatarekin eta elkarbanatu dezakezun helbide batekin.</string>
   <string name="importGameCaveat">Aldaerak ezabatu egingo dira. Mantendu nahi badituzu inportatu PGNa azterlan gisa.</string>
+  <string name="importGameDataPrivacyWarning">PGN hau edonork deskargatu dezake. Partida bat era pribatuan inportatzeko azterlan bat erabili behar duzu.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s inportatutako partidak</item>
     <item quantity="other">%s inportatutako partidak</item>
@@ -861,9 +862,10 @@
     <item quantity="one">eta aurrejokaldi linea %s gorde</item>
     <item quantity="other">eta %s aurrejokaldi linea gorde</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichessek bidalitako mezu pribatu bat jaso duzu.</string>
+  <string name="clickHereToReadIt">Egin klik hemen irakurtzeko</string>
   <string name="sorry">Barkatu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
-  <string name="timeoutExpires">Kanporaketaren amaiera: %s.</string>
   <string name="why">Zergatik?</string>
   <string name="pleasantChessExperience">Guztioi xakean jokatzeko aukera atsegina eskaintzea da gure helburua.</string>
   <string name="goodPractice">Horretarako, jokalari guztiek praktika onak jarraitzen dituztela ziur izan behar dugu.</string>
@@ -883,6 +885,7 @@
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Aktiboa</string>
   <string name="classical">Estandarra</string>
