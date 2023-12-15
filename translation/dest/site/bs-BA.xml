@@ -286,7 +286,6 @@
   <string name="playingRightNow">Upravo igraju</string>
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
-  <string name="finishesX">završava %s</string>
   <string name="abortGame">Otkažite partiju</string>
   <string name="gameAborted">Partija otkazana</string>
   <string name="standard">Standardna</string>
