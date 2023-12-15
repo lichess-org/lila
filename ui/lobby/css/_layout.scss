@@ -43,7 +43,10 @@
   @include breakpoint($mq-col3) {
     --cols: 3; // ui/lobby/src/main.ts
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em repeat(2, fit-content(0)) auto repeat(3, fit-content(0)) minmax(0, 1fr);
+    grid-template-rows: 12em repeat(2, fit-content(0)) auto fit-content(15em) repeat(2, fit-content(0)) minmax(
+        0,
+        1fr
+      );
     grid-template-areas:
       'table  app     app'
       'side   app     app'
