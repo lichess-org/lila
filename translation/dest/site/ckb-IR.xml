@@ -272,7 +272,6 @@
   <string name="playingRightNow">یارییەکانی ئێستا</string>
   <string name="eventInProgress">ئێستا یاری دەکەن</string>
   <string name="finished">تەواوبوو</string>
-  <string name="finishesX">تەواوبوو %s</string>
   <string name="abortGame">هەڵوەشاندنەوەی یاری</string>
   <string name="gameAborted">یارییەکە هەڵوەشایەوە</string>
   <string name="standard">ئاسایی</string>
