@@ -271,7 +271,6 @@
   <string name="playingRightNow">Играещи сега</string>
   <string name="eventInProgress">Играещи сега</string>
   <string name="finished">Приключи</string>
-  <string name="finishesX">свършва след %s</string>
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
   <string name="standard">Обикновен</string>
