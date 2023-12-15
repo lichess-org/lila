@@ -12,6 +12,11 @@
     max-height: 20em;
     min-height: 20em;
   }
+  &__simuls {
+    td.name {
+      display: none;
+    }
+  }
 
   @include breakpoint($mq-col2) {
     --cols: 2; // ui/lobby/src/main.ts
