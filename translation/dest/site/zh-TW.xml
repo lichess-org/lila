@@ -823,7 +823,6 @@
   <string name="clickHereToReadIt">點擊閱讀</string>
   <string name="sorry">抱歉:(</string>
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
-  <string name="timeoutExpires">封鎖結束至%s</string>
   <string name="why">為什麼？</string>
   <string name="pleasantChessExperience">我們的目的在於為所有人提供愉快的國際象棋體驗</string>
   <string name="goodPractice">為此，我們必須確保所有參與者都遵循良好做法</string>
