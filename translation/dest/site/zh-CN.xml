@@ -815,7 +815,6 @@
   </plurals>
   <string name="sorry">抱歉 :(</string>
   <string name="weHadToTimeYouOutForAWhile">我们必须将你停止一段时间。</string>
-  <string name="timeoutExpires">剩余时间：%s</string>
   <string name="why">为什么？</string>
   <string name="pleasantChessExperience">我们致力于为所有人提供一个愉悦的下棋体验。</string>
   <string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
