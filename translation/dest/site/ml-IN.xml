@@ -228,7 +228,6 @@
   <string name="playingRightNow">ഇപ്പോള്‍ കളിച്ചുക്കൊണ്ടിരിക്കുന്നു</string>
   <string name="eventInProgress">ഇപ്പോൾ കളിച്ചുകൊണ്ടിരിക്കുന്നു</string>
   <string name="finished">പൂര്‍ത്തിയായി</string>
-  <string name="finishesX">%s-ൽ തീരുന്നു</string>
   <string name="abortGame">മത്സരം ഉപേക്ഷിക്കുക</string>
   <string name="gameAborted">മത്സരം ഉപേക്ഷിച്ചു</string>
   <string name="standard">സ്റ്റാന്‍ഡേര്‍ഡ്</string>
