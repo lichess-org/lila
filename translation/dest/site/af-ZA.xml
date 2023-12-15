@@ -272,7 +272,6 @@
   <string name="playingRightNow">In spel</string>
   <string name="eventInProgress">Tans besig om te speel</string>
   <string name="finished">Klaar</string>
-  <string name="finishesX">maak klaar %s</string>
   <string name="abortGame">Staak spel</string>
   <string name="gameAborted">Spel gestaak</string>
   <string name="standard">Standaard</string>
