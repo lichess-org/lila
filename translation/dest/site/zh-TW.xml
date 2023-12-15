@@ -257,7 +257,6 @@
   <string name="playingRightNow">正在對局</string>
   <string name="eventInProgress">正在進行</string>
   <string name="finished">已結束</string>
-  <string name="finishesX">%s 後結束</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">標準</string>
