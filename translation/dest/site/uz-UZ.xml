@@ -270,7 +270,6 @@
   <string name="playingRightNow">Xozirni o\'zidayoq o\'ynash</string>
   <string name="eventInProgress">Xozirni o\'zidayoq o\'ynash</string>
   <string name="finished">Tugadi</string>
-  <string name="finishesX">%s tugaydi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
   <string name="standard">Standart</string>
