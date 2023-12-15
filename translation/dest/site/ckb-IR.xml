@@ -405,7 +405,6 @@
   <string name="importGame">یارییەکان هەناردەبکە</string>
   <string name="importGameExplanation">دوای پەیستکردنی PGN لینکێکت دەست دەکەوێت، دەتوانی لە وێبگەرەکان بەکاری بێنیت بۆ شیکاریکردنی یارییەکە، گفتوگۆکردن و بەشداریپێکردن.</string>
   <string name="importGameCaveat">گۆڕانکارییەکان دەسڕدرێنەوە. بۆ پاراستنی، لە ڕێگەی PGN توێژینەوەکە هاوردە بکە.</string>
-  <string name="importGameCaveat2">ئەم PGN ـە دەتوانرێت لەلایەن خەڵکەوە دەستی پێ بگات. بۆ هاوردەکردنی یارییەک بە شێوەیەکی تایبەت یان توێژینەوەیەک بەکاردێت.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s یاری هاوردەکراو</item>
     <item quantity="other">%s یارییە هاوردەکراوەکان</item>
