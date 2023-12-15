@@ -254,7 +254,6 @@
   <string name="playingRightNow">대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료</string>
-  <string name="finishesX">%s 남음</string>
   <string name="abortGame">게임 중단</string>
   <string name="gameAborted">게임 중단됨</string>
   <string name="standard">표준</string>
