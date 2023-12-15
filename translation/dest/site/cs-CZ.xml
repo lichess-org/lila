@@ -301,7 +301,6 @@
   <string name="playingRightNow">Právě se hraje</string>
   <string name="eventInProgress">Právě se hraje</string>
   <string name="finished">Dokončeno</string>
-  <string name="finishesX">končí za %s</string>
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
   <string name="standard">Standard</string>
