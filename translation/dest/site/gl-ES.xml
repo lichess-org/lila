@@ -393,7 +393,7 @@
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
-  <string name="leaderboard">Lista de líderes</string>
+  <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
@@ -403,8 +403,9 @@
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa do xogo e unha ligazón para compartila.</string>
+  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
   <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
+  <string name="importGameCaveat2">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -485,6 +486,7 @@
   <string name="movesPlayed">Movementos xogados</string>
   <string name="whiteWins">Vitorias das brancas</string>
   <string name="blackWins">Vitorias das negras</string>
+  <string name="drawRate">Taxa de táboas</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
@@ -505,6 +507,9 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
+  <string name="setFlair">Escolle a túa habelencia:</string>
+  <string name="flair">Habelencia</string>
+  <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
   <string name="thankYou">Grazas!</string>
@@ -604,7 +609,7 @@
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s xogador bloqueado</item>
-    <item quantity="other">%s bloqueos</item>
+    <item quantity="other">%s xogadores bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Listar os xogadores que bloqueaches</string>
   <string name="human">Humano</string>
@@ -693,6 +698,8 @@
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
   <string name="keyNextInaccuracy">Seguinte imprecisión</string>
+  <string name="keyPreviousBranch">Rama anterior</string>
+  <string name="keyNextBranch">Rama seguinte</string>
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
@@ -739,6 +746,7 @@
   <string name="withFriends">Cos teus amigos</string>
   <string name="withEverybody">Con todo o mundo</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">O modo infantil está activado.</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de Lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pídelle ó teu mestre que desactive o modo infantil.</string>
@@ -852,6 +860,8 @@
     <item quantity="one">e garda %s variante de premovementos</item>
     <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Recibiches unha mensaxe privada de Lichess.</string>
+  <string name="clickHereToReadIt">Fai clic aquí para lela</string>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>
   <string name="timeoutExpires">A suspensión expira %s.</string>
@@ -874,6 +884,7 @@
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
   <string name="rapid">Rápidas</string>
   <string name="classical">Clásicas</string>
@@ -914,9 +925,6 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="welcome">Benvid@!</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
-Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="coachManager">Administrador de adestradores</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
@@ -977,4 +985,6 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
   <string name="instructions">Instrucións</string>
   <string name="showMeEverything">Amósamo todo</string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
+Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
 </resources>

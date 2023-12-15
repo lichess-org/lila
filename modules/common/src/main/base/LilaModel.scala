@@ -32,6 +32,7 @@ trait LilaModel:
     extension (e: GameFullId)
       def gameId: GameId         = GameId.take(e)
       def playerId: GamePlayerId = GamePlayerId(e drop GameId.size)
+      def anyId: GameAnyId       = e into GameAnyId
 
   // Either a GameId or a GameFullId
   opaque type GameAnyId = String
@@ -90,8 +91,8 @@ trait LilaModel:
   opaque type UserTitle = String
   object UserTitle extends OpaqueString[UserTitle]
 
-  opaque type UserFlair = String
-  object UserFlair extends OpaqueString[UserFlair]
+  opaque type Flair = String
+  object Flair extends OpaqueString[Flair]
 
   opaque type TourId = String
   object TourId extends OpaqueString[TourId]

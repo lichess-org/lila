@@ -28,10 +28,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
   }
 
-  def exportOne(id: GameAnyId) = Anon:
+  def exportOne(id: GameAnyId) = AnonOrScoped():
     exportGame(id.gameId)
 
-  private[controllers] def exportGame(gameId: GameId)(using req: RequestHeader): Fu[Result] =
+  private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
       case None => NotFound
       case Some(game) =>
@@ -41,14 +41,12 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           flags = requestPgnFlags(extended = true),
           playerFile = get("players")
         )
-        env.api.gameApiV2.exportOne(game, config) flatMap { content =>
-          env.api.gameApiV2.filename(game, config.format) map { filename =>
+        env.api.gameApiV2.exportOne(game, config) flatMap: content =>
+          env.api.gameApiV2.filename(game, config.format) map: filename =>
             Ok(content)
               .pipe(asAttachment(filename))
               .withHeaders(headersForApiOrApp*)
               .as(gameContentType(config))
-          }
-        }
     }
 
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
@@ -56,17 +54,17 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def handleExport(username: UserStr)(using ctx: Context) =
     env.user.repo byId username flatMap {
-      _.filter(u => u.enabled.yes || ctx.me.exists(_ is u) || isGrantedOpt(_.GamesModView)) so { user =>
+      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)) so { user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
         WithVs: vs =>
           env.security.ipTrust
-            .throttle(MaxPerSecond(ctx.me match
-              case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
-              case Some(m) if m is user.id                   => 60
-              case Some(_) if ctx.isOAuth => 30 // bonus for oauth logged in only (not for CSRF)
-              case _                      => 25
-            ))
+            .throttle(MaxPerSecond:
+              if ctx is lila.user.User.explorerId then env.apiExplorerGamesPerSecond.get()
+              else if ctx is user then 60
+              else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
+              else 25
+            )
             .flatMap: perSecond =>
               val finished = getBoolOpt("finished") | true
               val config = GameApiV2.ByUserConfig(
@@ -89,7 +87,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                 ongoing = getBool("ongoing") || !finished,
                 finished = finished
               )
-              if ctx.me.exists(_ is lila.user.User.explorerId) then
+              if ctx.is(lila.user.User.explorerId) then
                 Ok.chunked(env.api.gameApiV2.exportByUser(config))
                   .pipe(noProxyBuffer)
                   .as(gameContentType(config))

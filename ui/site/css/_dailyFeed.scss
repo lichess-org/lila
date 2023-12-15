@@ -1,0 +1,71 @@
+$c-contours: mix($c-brag, $c-shade, 80%);
+
+.daily-feed {
+  &__updates {
+    margin: 3em 3em 0 3em;
+    border-#{$start-direction}: 3px solid $c-contours;
+  }
+  .atom {
+    font-size: 2.6em;
+    color: $c-font-dimmer;
+    &:hover {
+      color: $c-accent;
+    }
+  }
+
+  &__update {
+    padding-#{$start-direction}: 45px;
+    margin-bottom: 4em;
+
+    > i {
+      font-size: 24px;
+      float: $start-direction;
+      width: 50px;
+      height: 50px;
+      margin-top: -12px;
+      margin-#{$start-direction}: -72px;
+      line-height: 42px;
+      text-align: center;
+      background-color: $c-contours;
+      border: 3px solid $c-bg-box;
+      border-radius: 50%;
+      color: #fff;
+    }
+    &__day {
+      @extend %flex-center;
+      h2 {
+        display: inline;
+        font-size: 1.5em;
+      }
+      a {
+        font-weight: bold;
+        color: $c-contours;
+      }
+      time {
+        font-size: 1em;
+        opacity: 1;
+      }
+      margin-bottom: 1rem;
+    }
+
+    &__markup {
+      @include rendered-markdown;
+      h2 {
+        color: $c-bad;
+        text-decoration: line-through;
+      }
+      h3 {
+        font-size: 1.3em;
+        color: $c-font-dim;
+        border-bottom: $border;
+      }
+      h4 {
+        font-size: 1.25em;
+      }
+    }
+  }
+
+  &__delete {
+    text-align: $end-direction;
+  }
+}

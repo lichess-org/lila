@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Sesli komutlar</string>
+  <string name="watchTheVideoTutorial">Öğretici videoyu izle</string>
+  <string name="instructions1">Ses tanımayı açıp kapatmak için %1$s tuşunu, bu yardım penceresini açmak için %2$s tuşunu ve konuşma ayarlarını değiştirmek için %3$s menüsünü kullanın.</string>
+  <string name="thisBlogPost">Bu blog yazısı</string>
+  <string name="moveToE4OrSelectE4Piece">E4\'e hareket et veya e4\'teki taşı seç</string>
+  <string name="takeRookWithQueen">Vezir ile kaleyi al</string>
+  <string name="castle">Rok at (kısa veya uzun)</string>
+  <string name="phoneticAlphabetIsBest">Fonetik alfabe en iyisidir</string>
+  <string name="turnOffVoiceRecognition">Ses tanımayı kapat</string>
+  <string name="showPuzzleSolution">Bulmaca çözümünü göster</string>
+</resources>

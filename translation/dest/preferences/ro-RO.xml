@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Doar în joc</string>
+  <string name="inGameOnly">Doar în joc</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Execută mișcările cu vocea</string>
+  <string name="inputMovesWithVoice">Execută mișcările cu vocea</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Trage săgețile la mutările valide</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>

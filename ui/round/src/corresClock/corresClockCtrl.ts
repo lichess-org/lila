@@ -9,14 +9,14 @@ export interface CorresClockData {
   showBar: boolean;
 }
 
-export interface CorresClockController {
-  root: RoundController;
-  data: CorresClockData;
-  timePercent(color: Color): number;
-  update(white: Seconds, black: Seconds): void;
-  tick(color: Color): void;
-  millisOf(color: Color): Millis;
-}
+// export interface CorresClockController {
+//   root: RoundController;
+//   data: CorresClockData;
+//   timePercent(color: Color): number;
+//   update(white: Seconds, black: Seconds): void;
+//   tick(color: Color): void;
+//   millisOf(color: Color): Millis;
+// }
 
 interface Times {
   white: Millis;
@@ -24,41 +24,36 @@ interface Times {
   lastUpdate: Millis;
 }
 
-export function ctrl(
-  root: RoundController,
-  data: CorresClockData,
-  onFlag: () => void,
-): CorresClockController {
-  const timePercentDivisor = 0.1 / data.increment;
+export class CorresClockController {
+  timePercentDivisor: number;
+  times: Times;
 
-  const timePercent = (color: Color): number => Math.max(0, Math.min(100, times[color] * timePercentDivisor));
+  constructor(
+    readonly root: RoundController,
+    readonly data: CorresClockData,
+    private readonly onFlag: () => void,
+  ) {
+    this.timePercentDivisor = 0.1 / data.increment;
+    this.update(data.white, data.black);
+  }
 
-  let times: Times;
+  timePercent = (color: Color): number =>
+    Math.max(0, Math.min(100, this.times[color] * this.timePercentDivisor));
 
-  function update(white: Seconds, black: Seconds): void {
-    times = {
+  update = (white: Seconds, black: Seconds): void => {
+    this.times = {
       white: white * 1000,
       black: black * 1000,
       lastUpdate: performance.now(),
     };
-  }
-  update(data.white, data.black);
-
-  function tick(color: Color): void {
-    const now = performance.now();
-    times[color] -= now - times.lastUpdate;
-    times.lastUpdate = now;
-    if (times[color] <= 0) onFlag();
-  }
-
-  const millisOf = (color: Color): Millis => Math.max(0, times[color]);
-
-  return {
-    root,
-    data,
-    timePercent,
-    millisOf,
-    update,
-    tick,
   };
+
+  tick = (color: Color): void => {
+    const now = performance.now();
+    this.times[color] -= now - this.times.lastUpdate;
+    this.times.lastUpdate = now;
+    if (this.times[color] <= 0) this.onFlag();
+  };
+
+  millisOf = (color: Color): Millis => Math.max(0, this.times[color]);
 }

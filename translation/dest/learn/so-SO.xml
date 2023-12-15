@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ciyaar!</string>
+  <string name="theRook">Qalcadda</string>
+  <string name="itMovesInStraightLines">Waxay u dhaqaaqdaa toos afarta jiho</string>
+  <string name="rookIntro">Qalcaddu waa mid awood badan. Diyaar ma u tahay in ad masmusho?</string>
+  <string name="theBishop">Maroodiga</string>
+  <string name="itMovesDiagonally">Wuxu u socdaa janjeedh</string>
+  <string name="theQueen">Abaanduulaha</string>
+  <string name="queenCombinesRookAndBishop">Abaanduule = qalcad + maroodi</string>
+  <string name="theKing">Boqorka</string>
+  <string name="theKnight">Faraska</string>
+  <string name="thePawn">Askariga</string>
   <string name="puzzles">Halxiraalaha</string>
   <string name="awesome">Cajiib!</string>
   <string name="excellent">Wanaag!</string>

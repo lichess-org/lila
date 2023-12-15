@@ -10,8 +10,9 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   if (isPassList(url)) return true;
 
   domDialog({
+    class: 'link-popup',
     cssPath: 'linkPopup',
-    htmlText: `<div class="link-popup">
+    htmlText: `
       <div class="link-popup__content">
         <div class="link-popup__content__title">
           <h2>${trans('youAreLeavingLichess')}</h2>
@@ -23,8 +24,7 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
         <a href="${a.href}" target="_blank" class="button button-red button-no-upper">
           ${trans('proceedToX', url.host)}
         </a>
-      </div>
-    </div>`,
+      </div>`,
   }).then(dlg => {
     $('.cancel', dlg.view).on('click', dlg.close);
     $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));

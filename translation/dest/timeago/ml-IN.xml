@@ -6,8 +6,4 @@
     <item quantity="other">%s നിമിഷങ്ങൾ</item>
   </plurals>
   <string name="rightNow">ഇപ്പോൾ തന്നെ</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s നിമിഷം മുൻപ്</item>
-    <item quantity="other">%s നിമിഷങ്ങൾക്ക് മുൻപ്</item>
-  </plurals>
 </resources>

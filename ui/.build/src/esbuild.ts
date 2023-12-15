@@ -7,7 +7,7 @@ import { env, errorMark, colors as c } from './main';
 const typeBundles = new Map<string, Map<string, string>>();
 const esbuildCtx: es.BuildContext[] = [];
 
-export async function killEsbuild() {
+export async function stopEsbuild() {
   const proof = Promise.allSettled(esbuildCtx.map(x => x.dispose()));
   esbuildCtx.length = 0;
   typeBundles.clear();

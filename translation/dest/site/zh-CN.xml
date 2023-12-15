@@ -69,6 +69,7 @@
   <string name="makeMainLine">做为主线</string>
   <string name="deleteFromHere">从此处开始删除</string>
   <string name="forceVariation">强制作为变着</string>
+  <string name="copyVariationPgn">复制变体的 PGN</string>
   <string name="move">着法</string>
   <string name="variantLoss">变体输了</string>
   <string name="variantWin">变体胜利</string>
@@ -451,6 +452,7 @@
   <string name="movesPlayed">步数</string>
   <string name="whiteWins">白方胜</string>
   <string name="blackWins">黑方胜</string>
+  <string name="drawRate">绘制速率</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一个 %s 锦标赛：</string>
   <string name="averageOpponent">对手平均积分</string>
@@ -471,7 +473,10 @@
   <string name="editProfile">编辑个人资料</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
+  <string name="setFlair">设置你的图标:</string>
+  <string name="youCanHideFlair">有一个设置可以隐藏整个站点上的所有用户图标。</string>
   <string name="biography">个人简介</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或地区</string>
   <string name="thankYou">致谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="oneUrlPerLine">每行一个URL。</string>
@@ -619,8 +624,10 @@
   <string name="simultaneousExhibitions">车轮战</string>
   <string name="host">主持者</string>
   <string name="hostColorX">主持颜色：%s</string>
+  <string name="yourPendingSimuls">您待办的同步展览</string>
   <string name="createdSimuls">最近创建的车轮战</string>
   <string name="hostANewSimul">主持新车轮战</string>
+  <string name="signUpToHostOrJoinASimul">报名主办或参加同期展览</string>
   <string name="noSimulFound">找不到车轮战</string>
   <string name="noSimulExplanation">该车轮战不存在。</string>
   <string name="returnToSimulHomepage">返回车轮战主页</string>
@@ -645,6 +652,7 @@
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
+  <string name="keyCycleSelectedVariation">经历选定的变化</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入／退出变着</string>
   <string name="keyRequestComputerAnalysis">请求电脑分析，并从你的失误中学习</string>
@@ -652,6 +660,9 @@
   <string name="keyNextBlunder">下一个漏着</string>
   <string name="keyNextMistake">下一个错着</string>
   <string name="keyNextInaccuracy">下一个失准着</string>
+  <string name="keyPreviousBranch">上一个分支</string>
+  <string name="keyNextBranch">下一个分行</string>
+  <string name="toggleVariationArrows">切换变化箭头</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与 Lichess 官方的锦标赛，或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给你带来无尽的国际象棋乐趣。</string>
@@ -864,8 +875,6 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
-  <string name="welcome">欢迎！</string>
-  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="coachManager">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
@@ -924,4 +933,6 @@
   <string name="switchSides">更换所持颜色</string>
   <string name="closingAccountWithdrawAppeal">关闭账户将撤回你的上诉</string>
   <string name="ourEventTips">举办赛事的小建议</string>
+  <string name="showMeEverything">全部展示</string>
+  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
 </resources>

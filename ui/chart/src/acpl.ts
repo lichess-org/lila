@@ -23,13 +23,14 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  resizePolyfill,
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
-
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
@@ -40,10 +41,10 @@ export default async function (
   if (possibleChart) return possibleChart as AcplChart;
   const blurBackgroundColorWhite = 'white';
   const blurBackgroundColorBlack = 'black';
-  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
   const ply = plyLine(0);
   const divisionLines = division(trans, data.game.division);
   const firstPly = mainline[0].ply;
+  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
 
   const makeDataset = (
     d: AnalyseData,
@@ -60,7 +61,6 @@ export default async function (
     const pointSizes: number[] = [];
     const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
-    const partial = isPartial(d);
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) == 1;
@@ -79,7 +79,8 @@ export default async function (
       const label = turn + dots + ' ' + node.san;
       let annotation = '';
       if (advice) annotation = ` [${trans(advice)}]`;
-      const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
+      const isBlur =
+        blurs[isWhite ? 1 : 0][Math.floor((node.ply - (d.game.startedAtTurn || 0) - 1) / 2)] === '1';
       if (isBlur) annotation = ' [blur]';
       moveLabels.push(label + annotation);
       pointStyles.push(isBlur ? 'rect' : 'circle');
@@ -199,14 +200,14 @@ const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } =
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
-function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: string[]) {
+function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: string[]) {
   $('div.advice-summary').on('mouseenter', 'div.symbol', function (this: HTMLElement) {
     const symbol = this.getAttribute('data-symbol');
     const playerColorBit = this.getAttribute('data-color') == 'white' ? 1 : 0;
     const acplDataset = chart.data.datasets[0];
     if (symbol == '??' || symbol == '?!' || symbol == '?') {
-      acplDataset.hoverBackgroundColor = hoverColors;
-      acplDataset.borderColor = hoverColors;
+      acplDataset.pointHoverBackgroundColor = hoverColors;
+      acplDataset.pointBorderColor = hoverColors;
       const points = mainline
         .map((node, i) =>
           node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit
@@ -219,9 +220,9 @@ function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: string[
     }
   });
   $('div.advice-summary').on('mouseleave', 'div.symbol', function (this: HTMLElement) {
-    if (chart.getActiveElements().length) chart.setActiveElements([]);
-    chart.data.datasets[0].hoverBackgroundColor = orangeAccent;
-    chart.data.datasets[0].borderColor = orangeAccent;
+    chart.setActiveElements([]);
+    chart.data.datasets[0].pointHoverBackgroundColor = orangeAccent;
+    chart.data.datasets[0].pointBorderColor = orangeAccent;
     chart.update('none');
   });
 }

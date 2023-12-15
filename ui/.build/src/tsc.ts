@@ -6,7 +6,7 @@ import { env, colors as c, errorMark, lines } from './main';
 
 let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
 
-export function killTsc() {
+export function stopTsc() {
   tscPs?.removeAllListeners();
   tscPs?.kill();
   tscPs = undefined;
@@ -29,7 +29,7 @@ export async function tsc(): Promise<void> {
       ...(env.watch ? ['-w', '--preserveWatchOutput'] : []),
     ]);
 
-    env.log(`Checking typescript`, { ctx: 'tsc' });
+    env.log(`Compiling typescript`, { ctx: 'tsc' });
 
     tscPs.stdout?.on('data', (buf: Buffer) => {
       // no way to magically get build events...

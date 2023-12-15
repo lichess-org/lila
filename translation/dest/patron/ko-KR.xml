@@ -58,7 +58,7 @@
   <string name="nextPayment">다음 결제일</string>
   <string name="youWillBeChargedXOnY">%1$s가 %2$s에 결제될 예정입니다.</string>
   <string name="makeAdditionalDonation">지금 추가 기부하기</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;The word 'gift' is used as a verb here. This function allows players to donate in another player's name, and have that player receive patron wings.">후원자 날개 선물</string>
+  <string name="giftPatronWingsShort">후원자 날개 선물</string>
   <string name="giftPatronWings">후원자 날개를 선물하기</string>
   <string name="update">업데이트</string>
   <string name="changeMonthlyAmount">월 금액 변경(%s)</string>

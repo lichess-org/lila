@@ -69,6 +69,7 @@
   <string name="makeMainLine">將這步棋導入主要流程中</string>
   <string name="deleteFromHere">從這處開始刪除</string>
   <string name="forceVariation">移除變化</string>
+  <string name="copyVariationPgn">複製變體 PGN</string>
   <string name="move">走棋</string>
   <string name="variantLoss">您因特殊規則而輸了</string>
   <string name="variantWin">您因特殊規則而贏了</string>
@@ -85,7 +86,7 @@
   <string name="averageRatingX">平均評分: %s</string>
   <string name="recentGames">最近的棋局</string>
   <string name="topGames">評分最高的棋局</string>
-  <string name="masterDbExplanation">兩百萬局來自%2$s到%3$s年國際棋聯積分%1$s以上的棋手對局棋譜</string>
+  <string name="masterDbExplanation">來自%2$s到%3$s年國際棋聯積分%1$s以上的棋手對局棋譜</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">在%s步內將死對手</item>
   </plurals>
@@ -97,6 +98,7 @@
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="openingEndgameExplorer">開局與終局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
+  <string name="playFirstOpeningEndgameExplorerMove">在開局/殘局瀏覽器走第一步棋</string>
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
   <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
   <string name="winOr50MovesByPriorMistake">贏棋或因先前錯誤50步作和</string>
@@ -112,6 +114,7 @@
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
   <string name="bestMoveArrow">最佳移動的箭頭</string>
+  <string name="showVariationArrows">顯示變體箭頭</string>
   <string name="evaluationGauge">棋力估計表</string>
   <string name="multipleLines">路線分析線</string>
   <string name="cpus">CPU</string>
@@ -374,6 +377,7 @@
   <string name="importGame">導入棋局</string>
   <string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
   <string name="importGameCaveat">變著分支將被刪除。 若要保存這些變著，請通過導入PGN棋譜創建一個研究。</string>
+  <string name="importGameCaveat2">此 PGN 為公開。若要導入私人棋局，請使用研究。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
@@ -449,6 +453,7 @@
   <string name="movesPlayed">步數</string>
   <string name="whiteWins">白方獲勝</string>
   <string name="blackWins">黑方獲勝</string>
+  <string name="drawRate">和棋率</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一個%s錦標賽</string>
   <string name="averageOpponent">平均對手評分</string>
@@ -469,7 +474,11 @@
   <string name="editProfile">編輯資料</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
+  <string name="setFlair">設置你的圖標:</string>
+  <string name="flair">圖標</string>
+  <string name="youCanHideFlair">有一個設置可以隱藏整個網站上所有用户圖標。</string>
   <string name="biography">個人簡介</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">國家或地區</string>
   <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="oneUrlPerLine">每行一個網址</string>
@@ -617,8 +626,10 @@
   <string name="simultaneousExhibitions">車輪戰</string>
   <string name="host">主持</string>
   <string name="hostColorX">主持者使用旗子顏色:%s</string>
+  <string name="yourPendingSimuls">你待處理的車輪戰</string>
   <string name="createdSimuls">最近开始的同步赛</string>
   <string name="hostANewSimul">主持新同步赛</string>
+  <string name="signUpToHostOrJoinASimul">註冊以舉辦或參與車輪戰</string>
   <string name="noSimulFound">找不到该同步赛</string>
   <string name="noSimulExplanation">此車輪戰不存在。</string>
   <string name="returnToSimulHomepage">返回表演赛主页</string>
@@ -643,6 +654,7 @@
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
+  <string name="keyCycleSelectedVariation">循環已選取的變體</string>
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入/退出变体</string>
   <string name="keyRequestComputerAnalysis">請求引擎分析，從你的失誤中學習</string>
@@ -650,6 +662,13 @@
   <string name="keyNextBlunder">下一個漏著</string>
   <string name="keyNextMistake">下一個錯著</string>
   <string name="keyNextInaccuracy">下一個疑著</string>
+  <string name="keyPreviousBranch">上一個分支</string>
+  <string name="keyNextBranch">下一個分支</string>
+  <string name="toggleVariationArrows">切換變體箭頭</string>
+  <string name="cyclePreviousOrNextVariation">循環上一個/下一個變體</string>
+  <string name="toggleGlyphAnnotations">切換圖形標註</string>
+  <string name="variationArrowsInfo">變體箭頭讓你不需棋步列表導航</string>
+  <string name="playSelectedMove">走已選的棋步</string>
   <string name="newTournament">新比赛</string>
   <string name="tournamentHomeTitle">国际象棋赛事均设有不同的时间控制和变体</string>
   <string name="tournamentHomeDescription">加入快節奏的國際象棋比賽！加入定時賽事，或創建自己的。子彈，閃電，經典，菲舍爾任意制，王到中心，三次將軍，並提供更多的選擇為無盡的國際象棋樂趣。</string>
@@ -691,6 +710,7 @@
   <string name="withFriends">與好友分享</string>
   <string name="withEverybody">與所有人分享</string>
   <string name="kidMode">兒童模式</string>
+  <string name="kidModeIsEnabled">已啓用兒童模式</string>
   <string name="kidModeExplanation">考量安全，在兒童模式中，網站上全部的文字交流將會被關閉。開啟此模式來保護你的孩子及學生不被網路上的人傷害。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，Lichess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">你的帳戶被管理，詢問你的老師解除兒童模式。</string>
@@ -800,6 +820,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">以儲存%s列預走的棋步</item>
   </plurals>
+  <string name="showUnreadLichessMessage">你收到一個來自 Lichess 的私人信息。</string>
+  <string name="clickHereToReadIt">點擊閱讀</string>
   <string name="sorry">抱歉:(</string>
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
   <string name="timeoutExpires">封鎖結束至%s</string>
@@ -822,9 +844,10 @@
   <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">快棋</string>
   <string name="rapid">快速模式</string>
   <string name="classical">經典</string>
-  <string name="ultraBulletDesc">瘋狂速度模式:低於30秒</string>
+  <string name="ultraBulletDesc">瘋狂速度模式: 低於30秒</string>
   <string name="bulletDesc">非常速度模式:低於3分鐘</string>
   <string name="blitzDesc">快速模式:3到8分鐘</string>
   <string name="rapidDesc">一般模式:8到25分鐘</string>
@@ -861,9 +884,6 @@
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
   <string name="download">下載</string>
-  <string name="welcome">歡迎！</string>
-  <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
-一切營運成本、開發和內容皆來自用戶之捐贈。</string>
   <string name="coachManager">教練管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消錦標賽</string>
@@ -922,4 +942,8 @@
   <string name="switchSides">更換所持顏色</string>
   <string name="closingAccountWithdrawAppeal">關閉帳戶將會收回你的上訴</string>
   <string name="ourEventTips">舉辦賽事的小建議</string>
+  <string name="instructions">說明</string>
+  <string name="showMeEverything">全部顯示</string>
+  <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
+一切營運成本、開發和內容皆來自用戶之捐贈。</string>
 </resources>

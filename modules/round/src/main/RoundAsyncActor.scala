@@ -26,7 +26,7 @@ final private[round] class RoundAsyncActor(
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using Executor, lila.user.UserFlairApi.Getter)(using proxy: GameProxy)
+)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
 
   import RoundSocket.Protocol
@@ -384,7 +384,7 @@ final private[round] class RoundAsyncActor(
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def getSocketStatus: Future[SocketStatus] =
-    whitePlayer.isLongGone zip blackPlayer.isLongGone map { (whiteIsGone, blackIsGone) =>
+    whitePlayer.isLongGone zip blackPlayer.isLongGone map: (whiteIsGone, blackIsGone) =>
       SocketStatus(
         version = version,
         whiteOnGame = whitePlayer.isOnline,
@@ -392,7 +392,6 @@ final private[round] class RoundAsyncActor(
         blackOnGame = blackPlayer.isOnline,
         blackIsGone = blackIsGone
       )
-    }
 
   private def recordLag(pov: Pov): Unit =
     if (pov.game.playedTurns.value & 30) == 10 then
@@ -460,7 +459,7 @@ final private[round] class RoundAsyncActor(
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
-      logger.info(s"Round client error $name: ${e.getMessage}")
+      logger.debug(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client.increment()
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")

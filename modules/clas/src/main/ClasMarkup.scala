@@ -2,14 +2,13 @@ package lila.clas
 
 final class ClasMarkup:
 
-  private val renderer =
-    new lila.common.MarkdownRender(
-      autoLink = true,
-      list = true,
-      table = true,
-      strikeThrough = true,
-      header = true
-    )
+  private val renderer = lila.common.MarkdownRender(
+    autoLink = true,
+    list = true,
+    table = true,
+    strikeThrough = true,
+    header = true
+  )
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)

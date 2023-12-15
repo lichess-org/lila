@@ -23,6 +23,7 @@
   <string name="dgtConfigure">DGT ボード：設定</string>
   <string name="lichessConnectivity">Lichess との接続</string>
   <string name="validDgtOauthToken">DGT でのプレイに適合した OAuth トークンがあります。</string>
+  <string name="dgtPlayMenuEntryAdded">上端の「対局」メニューに %s が追加されました。</string>
   <string name="noSuitableOauthToken">適切な OAuth トークンが作成されていません。</string>
   <string name="dgtBoardConnectivity">DGT ボードとの接続</string>
   <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">クリックして作成</string>

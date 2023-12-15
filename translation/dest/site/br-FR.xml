@@ -218,7 +218,7 @@
     <item quantity="two">%s eur</item>
     <item quantity="few">%s eur</item>
     <item quantity="many">%s eur</item>
-    <item quantity="other">%s eurvezhioù</item>
+    <item quantity="other">%s eur</item>
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s vunutenn</item>
@@ -939,6 +939,8 @@
     <item quantity="many">hag enrollit %s linennoù raktaolioù</item>
     <item quantity="other">hag enrollit %s linennoù raktaolioù</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Resevet ho peus ur gemennadenn brevez eus perzh Lichess.</string>
+  <string name="clickHereToReadIt">Klikit amañ evit lenn anezhi</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
@@ -1000,7 +1002,6 @@
   <string name="timeAlmostUp">Ne chom ket kalz amzer!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="download">Pellgargañ</string>
-  <string name="welcome">Degemer mat!</string>
   <string name="coachManager">Korn ar gourdoner</string>
   <string name="streamerManager">Merañ ar stream</string>
   <string name="cancelTournament">Nullañ an tournamant</string>

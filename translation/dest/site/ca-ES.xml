@@ -405,6 +405,7 @@
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Enganxa el PGN d\'una partida per obtenir una repetició navegable, anàlisi computeritzada, xat de joc i enllaç per compartir.</string>
   <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
+  <string name="importGameCaveat2">El públic pot accedir a aquest PGN. Per a importar un joc de manera privada, utilitza un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
@@ -485,6 +486,7 @@
   <string name="movesPlayed">Moviments jugats</string>
   <string name="whiteWins">Victòries blanques</string>
   <string name="blackWins">Victòries negres</string>
+  <string name="drawRate">Percentatge de taules</string>
   <string name="draws">Entaulades</string>
   <string name="nextXTournament">Proper torneig de %s:</string>
   <string name="averageOpponent">Oponent mitjà</string>
@@ -505,6 +507,9 @@
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
+  <string name="setFlair">Defineix el teu estil:</string>
+  <string name="flair">Icona</string>
+  <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o regió</string>
   <string name="thankYou">Gràcies!</string>
@@ -686,6 +691,7 @@
   <string name="keyboardShortcuts">Dreceres del teclat</string>
   <string name="keyMoveBackwardOrForward">moure enrere/davant</string>
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
+  <string name="keyCycleSelectedVariation">Canvia la variació seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
   <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
@@ -693,6 +699,13 @@
   <string name="keyNextBlunder">Següent errada</string>
   <string name="keyNextMistake">Següent errada greu</string>
   <string name="keyNextInaccuracy">Següent imprecisió</string>
+  <string name="keyPreviousBranch">Branca anterior</string>
+  <string name="keyNextBranch">Branca següent</string>
+  <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>
+  <string name="cyclePreviousOrNextVariation">Canvia la variació següent/anterior</string>
+  <string name="toggleGlyphAnnotations">Mostra/amaga les anotacions glif</string>
+  <string name="variationArrowsInfo">Les fletxes de variants et permeten navegar sense utilitzar la llista de moviments.</string>
+  <string name="playSelectedMove">juga el moviment seleccionat</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
@@ -735,6 +748,7 @@
   <string name="withFriends">Amb amics</string>
   <string name="withEverybody">Amb tothom</string>
   <string name="kidMode">Mode infantil</string>
+  <string name="kidModeIsEnabled">Mode nens activat.</string>
   <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Activa això als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de lichess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">El vostre compte és gestionat. Demaneu al vostre professor deixar el mode per a nens.</string>
@@ -848,6 +862,8 @@
     <item quantity="one">i guardar %s línia anticipada</item>
     <item quantity="other">i guardar %s línies anticipades</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has rebut un missatge privat de Lichess.</string>
+  <string name="clickHereToReadIt">Fes clic aquí per llegir-lo</string>
   <string name="sorry">Ho sentim :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
   <string name="timeoutExpires">La penalització acaba en %s.</string>
@@ -870,6 +886,7 @@
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ràpides</string>
   <string name="classical">Clàssic</string>
@@ -910,9 +927,6 @@
   <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>
   <string name="clickToRevealEmailAddress">[Clica per a mostrar l\'adreça de correu electrònic]</string>
   <string name="download">Descarregar</string>
-  <string name="welcome">Benvinguts!</string>
-  <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
-Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="coachManager">Gestionament d\'entrenador</string>
   <string name="streamerManager">Gestionament de retransmissor</string>
   <string name="cancelTournament">Cancel-lar el torneig</string>
@@ -972,4 +986,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
   <string name="instructions">Instruccions</string>
+  <string name="showMeEverything">Mostrar tot</string>
+  <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
+Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
 </resources>

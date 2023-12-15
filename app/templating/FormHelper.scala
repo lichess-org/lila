@@ -32,13 +32,12 @@ trait FormHelper:
   val postForm     = form(method := "post")
   val submitButton = button(tpe := "submit")
 
-  def markdownAvailable(using Lang) =
-    trans.markdownAvailable(
+  def markdownAvailable(using Lang): Frag =
+    trans.markdownAvailable:
       a(
         href := "https://guides.github.com/features/mastering-markdown/",
         targetBlank
       )("Markdown")
-    )
 
   def checkboxes[V](
       field: play.api.data.Field,
@@ -252,15 +251,37 @@ trait FormHelper:
         field: Field,
         withTime: Boolean = true,
         utc: Boolean = false,
-        minDate: Option[String] = Some("today")
+        minDate: Option[String] = Some("today"),
+        dateFormat: Option[String] = None
     ): Tag =
       input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         dataTime24h    := withTime,
+        dateFormat.map(df => data("date-format") := df),
         dataMinDate := minDate.map:
           case "today" if utc => "yesterday"
           case d              => d
       )
+
+    private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
+    def flairPicker(field: Field, current: Option[Flair])(view: Frag)(using ctx: Context) =
+      form3.group(field, trans.flair(), half = true): f =>
+        frag(
+          details(cls := "form-control emoji-details")(
+            summary(cls := "button button-metal button-no-upper")(
+              trans.setFlair(),
+              nbsp,
+              view
+            ),
+            hidden(f, current.map(_.value)),
+            div(
+              cls := "flair-picker",
+              (!ctx.me.exists(_.isAdmin)).option(exceptEmojis)
+            )
+          ),
+          current.isDefined option p:
+            button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+        )
 
     object file:
       def image(name: String): Frag =

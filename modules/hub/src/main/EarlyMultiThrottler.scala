@@ -1,5 +1,6 @@
 package lila.hub
 
+import scala.util.chaining.*
 import akka.actor.*
 
 import lila.log.Logger
@@ -13,10 +14,15 @@ final class EarlyMultiThrottler[K](logger: Logger)(using
     system: ActorSystem
 ):
 
-  private val actor = system.actorOf(Props(new EarlyMultiThrottlerActor(logger)))
+  private val actor = system.actorOf(Props(EarlyMultiThrottlerActor(logger)))
 
-  def apply(id: K, cooldown: FiniteDuration)(run: => Funit) =
+  def apply(id: K, cooldown: FiniteDuration)(run: => Funit): Unit =
     actor ! EarlyMultiThrottlerActor.Work(sr(id), run = () => run, cooldown)
+
+  def ask[A](id: K, cooldown: FiniteDuration)(run: => Fu[A]): Fu[A] =
+    val promise = Promise[A]()
+    actor ! EarlyMultiThrottlerActor.Work(sr(id), run = () => run.tap(promise.completeWith).void, cooldown)
+    promise.future
 
 // actor based implementation
 final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) extends Actor:

@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Questa funzionalità permette di nascondere i punteggi dei giocatori per aiutare a concentrarti sulla partita. Le partite possono comunque essere classificate, questa impostazione riguarda solo ciò che vedi.</string>
   <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della scacchiera</string>
   <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Solamente durante la partita</string>
+  <string name="inGameOnly">Solamente durante la partita</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
   <string name="castleByMovingOntoTheRook">Muovi il re sopra la Torre</string>
   <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Muovi con la tua voce</string>
+  <string name="inputMovesWithVoice">Muovi con la tua voce</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Collega le frecce a mosse valide</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Di\' \"Good game, well played\" alla sconfitta o al pareggio</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>

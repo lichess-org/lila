@@ -11,7 +11,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   return h(
     'div.gamebook',
     {
-      hook: { insert: _ => lichess.loadCssPath('analyse.gamebook.play') },
+      hook: { insert: _ => lichess.asset.loadCssPath('analyse.gamebook.play') },
     },
     [
       state.comment || state.feedback == 'play' || state.feedback == 'end'
@@ -41,7 +41,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
           attrs: {
             width: 120,
             height: 120,
-            src: lichess.assetUrl('images/mascot/octopus.svg'),
+            src: lichess.asset.url('images/mascot/octopus.svg'),
           },
         }),
       ]),

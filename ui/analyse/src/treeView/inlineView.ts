@@ -15,7 +15,7 @@ import {
 } from './common';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children,
+  const cs = node.children.filter(x => ctx.showComputer || !x.comp),
     main = cs[0];
   if (!main) return;
   if (opts.isMainline) {
@@ -141,7 +141,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
+    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),

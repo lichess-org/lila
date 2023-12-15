@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ given, * }
@@ -23,7 +24,7 @@ object request:
         div(cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(title),
           div(cls := "team-show__desc")(bits.markdown(t, t.description)),
-          postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
+          postForm(cls := "form3", action := teamRoutes.requestCreate(t.id))(
             !t.open so frag(
               form3.group(form("message"), trans.message())(form3.textarea(_)()),
               p(willBeReviewed())
@@ -33,7 +34,7 @@ object request:
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := routes.Team.show(t.slug))(trans.cancel()),
+              a(href := teamRoutes.show(t.slug))(trans.cancel()),
               form3.submit(joinTeam())
             )
           )
@@ -65,11 +66,11 @@ object request:
             td(request.message),
             td(momentFromNow(request.date)),
             td(cls := "process")(
-              postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
+              postForm(cls := "process-request", action := teamRoutes.requestProcess(request.id))(
                 input(
                   tpe   := "hidden",
                   name  := "url",
-                  value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
+                  value := t.fold(teamRoutes.requests)(te => teamRoutes.show(te.id))
                 ),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
                   trans.decline()

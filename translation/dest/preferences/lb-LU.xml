@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Nëmmen während enger Partie</string>
+  <string name="inGameOnly">Nëmmen während enger Partie</string>
   <string name="blindfoldChess">Blanneschach (onsichtbar Figuren)</string>
   <string name="chessClock">Schachauer</string>
   <string name="tenthsOfSeconds">Zéngtelsekonnen</string>
@@ -34,7 +34,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Virauszich (wärend dem Géigner sengem Zuch spillen)</string>
   <string name="takebacksWithOpponentApproval">Zeréckhuelen (mat Zoustemmung vum Géigner)</string>
   <string name="inCasualGamesOnly">Just an ongewäerten Partien</string>
-  <string name="promoteToQueenAutomatically">Automatesch zur Damm ëmwandelen</string>
+  <string name="promoteToQueenAutomatically">Automatesch an eng Damm ëmwandelen</string>
   <string name="explainPromoteToQueenAutomatically">Dréck ob deng &lt;ctrl&gt; Tasten während der Emwandlung fir temporär déi automatesch Emwandlung ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Kinnek zwee Felder beweegen</string>
   <string name="castleByMovingOntoTheRook">Kinnek op Tuerm beweegen</string>
   <string name="inputMovesWithTheKeyboard">Zich mat der Tastatur aginn</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Zich per Sproocherkennung aginn</string>
+  <string name="inputMovesWithVoice">Zich per Sproocherkennung aginn</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Feiler können just legal Zich weisen</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">No Defaite oder Remis \"Good game, well played\" (Gudd Partie, gudd gespillt) soen</string>
   <string name="yourPreferencesHaveBeenSaved">Deng Astellungen goufen gespäichert.</string>

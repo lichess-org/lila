@@ -61,9 +61,9 @@
   <string name="knightEndgameDescription">En Endspill nëmmen mat Sprénger a Baueren.</string>
   <string name="long">Laang Aufgab</string>
   <string name="longDescription">Dräi Zich fir ze gewannen.</string>
-  <string name="master">Meeschter Partien</string>
+  <string name="master">Meeschter-Partien</string>
   <string name="masterDescription">Aufgabe aus Partie vu Spiller mat engem Titel.</string>
-  <string name="masterVsMaster">Partie vun Meeschter géint Meeschter</string>
+  <string name="masterVsMaster">Partië vu Meeschter géint Meeschter</string>
   <string name="masterVsMasterDescription">Aufgabe aus Partie tëschent zwee Spiller mat engem Titel.</string>
   <string name="mate">Schachmatt</string>
   <string name="mateDescription">Gewann d\'Partie mat Stil.</string>

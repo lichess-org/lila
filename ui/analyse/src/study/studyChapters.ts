@@ -4,20 +4,14 @@ import { bind, dataIcon, iconTag } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
-import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
-import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
-import {
-  LocalPaths,
-  StudyChapter,
-  StudyChapterConfig,
-  StudyChapterMeta,
-  StudyCtrl,
-  TagArray,
-} from './interfaces';
+import { StudyChapterEditForm } from './chapterEditForm';
+import { StudyChapterNewForm } from './chapterNewForm';
+import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, TagArray } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export default class StudyChaptersCtrl {
-  newForm: StudyChapterNewFormCtrl;
-  editForm: StudyChapterEditFormCtrl;
+  newForm: StudyChapterNewForm;
+  editForm: StudyChapterEditForm;
   list: Prop<StudyChapterMeta[]>;
   localPaths: LocalPaths = {};
 
@@ -29,15 +23,15 @@ export default class StudyChaptersCtrl {
     root: AnalyseCtrl,
   ) {
     this.list = prop(initChapters);
-    this.newForm = chapterNewForm(send, this.list, setTab, root);
-    this.editForm = chapterEditForm(send, chapterConfig, root.trans, root.redraw);
+    this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
   }
 
   get = (id: string) => this.list().find(c => c.id === id);
   sort = (ids: string[]) => this.send('sortChapters', ids);
   firstChapterId = () => this.list()[0].id;
   toggleNewForm = () => {
-    if (this.newForm.vm.open || this.list().length < 64) this.newForm.toggle();
+    if (this.newForm.isOpen() || this.list().length < 64) this.newForm.toggle();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
 }
@@ -96,7 +90,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
       };
       if (window.Sortable) makeSortable();
-      else lichess.loadIife('javascripts/vendor/Sortable.min.js').then(makeSortable);
+      else lichess.asset.loadIife('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }
 
@@ -134,7 +128,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && !ctrl.relay?.tourShow.active && current.id === chapter.id;
+          active = !ctrl.vm.loading && current && !ctrl.relay?.tourShow() && current.id === chapter.id;
         return h(
           'div',
           {

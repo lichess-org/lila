@@ -75,7 +75,7 @@
   <string name="variantWin">Νίκη εκδοχής</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό</string>
   <string name="pawnMove">Κίνηση πιονιού</string>
-  <string name="capture">Πιάσιμο</string>
+  <string name="capture">Αιχμαλώτιση</string>
   <string name="close">Κλείσιμο</string>
   <string name="winning">Κερδίζει</string>
   <string name="losing">Χάνει</string>
@@ -282,12 +282,12 @@
   <string name="ratedTournament">Βαθμολογημένo</string>
   <string name="thisGameIsRated">Το παιχνίδι βαθμολογείται</string>
   <string name="rematch">Ξαναπαίξτε</string>
-  <string name="rematchOfferSent">Πρόταση επανάληψης εστάλη</string>
-  <string name="rematchOfferAccepted">Πρόταση επανάληψης αποδεκτή</string>
-  <string name="rematchOfferCanceled">Πρόταση επανάληψης ακυρώθηκε</string>
-  <string name="rematchOfferDeclined">Πρόταση επανάληψης απερρίφθη</string>
-  <string name="cancelRematchOffer">Ακύρωση προσφοράς επανάληψης</string>
-  <string name="viewRematch">Δείτε την επανάληψη</string>
+  <string name="rematchOfferSent">Πρόταση ρεβάνς εστάλη</string>
+  <string name="rematchOfferAccepted">Η πρόταση ρεβάνς έγινε αποδεκτή</string>
+  <string name="rematchOfferCanceled">Η πρόταση ρεβάνς ακυρώθηκε</string>
+  <string name="rematchOfferDeclined">Η πρόταση ρεβάνς απορρίφθηκε</string>
+  <string name="cancelRematchOffer">Ακύρωση πρότασης ρεβάνς</string>
+  <string name="viewRematch">Δείτε την παρτίδα ρεβάνς</string>
   <string name="confirmMove">Επιβεβαίωση κίνησης</string>
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
@@ -336,12 +336,12 @@
   <string name="takebackPropositionCanceled">Προσφορά ακύρωσης κίνησης ακυρώθηκε</string>
   <string name="yourOpponentProposesATakeback">Ο αντίπαλός σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
-  <string name="tournament">Πρωτάθλημα</string>
+  <string name="tournament">Τουρνουά</string>
   <string name="tournaments">Πρωταθλήματα</string>
-  <string name="tournamentPoints">Πόντοι από πρωταθλήματα</string>
+  <string name="tournamentPoints">Πόντοι από τουρνουά</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s πόντος πρωταθλήματος</item>
-    <item quantity="other">%s πόντοι πρωταθλήματος</item>
+    <item quantity="one">%s πόντος τουρνουά</item>
+    <item quantity="other">%s πόντοι τουρνουά</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s μελέτη</item>
@@ -351,8 +351,8 @@
     <item quantity="one">%s σιμουλτανέ</item>
     <item quantity="other">%s σιμουλτανέ</item>
   </plurals>
-  <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
-  <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
+  <string name="viewTournament">Παρακολούθηση τουρνουά</string>
+  <string name="backToTournament">Επιστροφή στο τουρνουά</string>
   <string name="noDrawBeforeSwissLimit">Στα τουρνουά ελβετικού τύπου, απαγορεύονται οι προτάσεις ισοπαλίας σε λιγότερες από 30 κινήσεις.</string>
   <string name="thematic">Θεματικό</string>
   <plurals name="moreThanNbRatedGames">
@@ -450,17 +450,17 @@
     <item quantity="other">Λιγότερο από %s λεπτά</item>
   </plurals>
   <string name="required">Απαιτείται.</string>
-  <string name="openTournaments">Ανοικτά πρωταθλήματα</string>
+  <string name="openTournaments">Ανοικτά τουρνουά</string>
   <string name="duration">Διάρκεια</string>
   <string name="winner">Νικητής</string>
   <string name="standing">Κατάταξη</string>
-  <string name="createANewTournament">Δημιουργήστε νέο πρωτάθλημα</string>
+  <string name="createANewTournament">Δημιουργήστε νέο τουρνουά</string>
   <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
   <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>
   <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
   <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
   <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
-  <string name="emptyTournamentName">Αφήστε το κενό για να πάρει τ\' όνομά του από κάποιον τυχαίο Γραντ Μετρ.</string>
+  <string name="emptyTournamentName">Αφήστε το κενό για να πάρει το όνομά του τυχαία από κάποιον γνωστό σκακιστή.</string>
   <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
   <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
   <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
@@ -471,8 +471,8 @@
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
-  <string name="tournamentIsStarting">Το πρωτάθλημα αρχίζει</string>
-  <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις του πρωταθλήματος έχουν κλείσει.</string>
+  <string name="tournamentIsStarting">Το τουρνουά αρχίζει</string>
+  <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις του διαγωνισμού έχουν κλείσει.</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
   <string name="resume">Συνέχεια</string>
@@ -480,12 +480,12 @@
   <string name="winRate">Ποσοστό νικών</string>
   <string name="berserkRate">Ποσοστό berserk</string>
   <string name="performance">Επίδοση</string>
-  <string name="tournamentComplete">Το πρωτάθλημα ολοκληρώθηκε</string>
+  <string name="tournamentComplete">Το τουρνουά ολοκληρώθηκε</string>
   <string name="movesPlayed">Παιγμένες κινήσεις</string>
   <string name="whiteWins">Τα άσπρα νικούν</string>
   <string name="blackWins">Τα μαύρα νικούν</string>
   <string name="draws">Ισοπαλίες</string>
-  <string name="nextXTournament">Επόμενο %s πρωτάθλημα:</string>
+  <string name="nextXTournament">Επόμενο τουρνουά %s:</string>
   <string name="averageOpponent">Μέση βαθμολογία αντιπάλων</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="setTheBoard">Στήστε την σκακιέρα</string>
@@ -675,9 +675,9 @@
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
   <string name="simulAddExtraTimePerPlayer">Προσθήκη χρόνου στο ρολόι κάθε παίκτη που συνδέεται στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
-  <string name="lichessTournaments">Πρωταθλήματα lichess</string>
-  <string name="tournamentFAQ">Τεκμηρίωση πρωταθλημάτων τύπου αρένας</string>
-  <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το πρωτάθλημα</string>
+  <string name="lichessTournaments">Τουρνουά στο Lichess</string>
+  <string name="tournamentFAQ">Τεκμηρίωση τουρνουά τύπου αρένας</string>
+  <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το τουρνουά</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
   <string name="accuracy">Ακρίβεια</string>
   <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
@@ -690,13 +690,13 @@
   <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
   <string name="keyNextMistake">Επόμενο λάθος</string>
   <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
-  <string name="newTournament">Νέο πρωτάθλημα</string>
-  <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
-  <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
-  <string name="tournamentNotFound">Πρωτάθλημα δεν ευρέθη</string>
-  <string name="tournamentDoesNotExist">Αυτό το πρωτάθλημα δεν υπάρχει.</string>
-  <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
-  <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>
+  <string name="newTournament">Νέο τουρνουά</string>
+  <string name="tournamentHomeTitle">Σκακιστικά τουρνουά διαφόρων χρόνων και εκδοχών</string>
+  <string name="tournamentHomeDescription">Παίξτε στιγμιαία τορνουά. Συμμετάσχετε σε επίσημο διαγωνισμό ή δημιουργήστε δικό σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
+  <string name="tournamentNotFound">Τουρνουά δεν βρέθηκε</string>
+  <string name="tournamentDoesNotExist">Αυτό το τουρνουά δεν υπάρχει.</string>
+  <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν ξεκινήσει το τουρνουά.</string>
+  <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα τουρνουά</string>
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία κατανομή βαθμολογίας %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s παίκτης %2$s αυτήν την εβδομάδα.</item>
@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Κλασικό</string>
@@ -907,9 +908,6 @@
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
   <string name="clickToRevealEmailAddress">[Κάντε κλικ για να δείτε τη διεύθυνση ηλεκτρονικού ταχυδρομείου]</string>
   <string name="download">Λήψη</string>
-  <string name="welcome">Καλώς ήρθατε!</string>
-  <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
-Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="coachManager">Διαχειριστής προπονητή</string>
   <string name="streamerManager">Διαχειριστής streamer</string>
   <string name="cancelTournament">Ακύρωση τουρνουά</string>
@@ -968,4 +966,6 @@
   <string name="switchSides">Εναλλαγή πλευρών</string>
   <string name="closingAccountWithdrawAppeal">Αν απενεργοποιήσετε τον λογαριασμό σας θα χάσετε το δικαίωμα έφεσης</string>
   <string name="ourEventTips">Οι συμβουλές μας για τη διοργάνωση εκδηλώσεων</string>
+  <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
+Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
 </resources>

@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Αυτό επιτρέπει την απόκρυψη όλων τις βαθμολογίες από την ιστοσελίδα, έτσι ώστε να μπορείτε να επικεντρωθείτε στο σκάκι. Τα παιχνίδια θα αξιολογούνται, η ρύθμιση αυτή επηρεάζει την εμφάνιση μόνο.</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
-  <string name="inGameOnly" comment="Appears on the display preferences page: https://lichess.org/account/preferences/display&#10;&#10;This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
+  <string name="inGameOnly">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
   <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Ροκέ μετακινώντας τον βασιλιά δύο τετράγωνα</string>
   <string name="castleByMovingOntoTheRook">Ροκέ μετακινώντας τον βασιλιά πάνω στον πύργο</string>
   <string name="inputMovesWithTheKeyboard">Κάντε κινήσεις με το πληκτρολόγιο</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Εισαγωγή κινήσεων με τη φωνή σας</string>
+  <string name="inputMovesWithVoice">Εισαγωγή κινήσεων με τη φωνή σας</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Αγκύρωση βελών σε έγκυρες κινήσεις</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Αποστολή «Good game, well played» (Ωραίο παιχνίδι, καλά παιγμένο) μετά από ήττα ή ισοπαλία</string>
   <string name="yourPreferencesHaveBeenSaved">Οι προτιμήσεις σας αποθηκεύτηκαν.</string>
@@ -60,7 +60,7 @@
   <string name="notifyInvitedStudy">Πρόσκληση μελέτης</string>
   <string name="notifyGameEvent">Ενημερώσεις σε παιχνίδια αλληλογραφίας</string>
   <string name="notifyChallenge">Προκλήσεις</string>
-  <string name="notifyTournamentSoon">Το πρωτάθλημα ξεκινά σύντομα</string>
+  <string name="notifyTournamentSoon">Το τουρνουά ξεκινά σύντομα</string>
   <string name="notifyTimeAlarm">Το ρολόι εξαντλείται στο παιχνίδι αλληλογραφίας</string>
   <string name="notifyBell">Ειδοποίηση με καμπανάκι εντός του Lichess</string>
   <string name="notifyPush">Ειδοποίηση συσκευής όταν δεν είστε στο Lichess</string>

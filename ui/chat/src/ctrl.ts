@@ -158,7 +158,7 @@ export default class ChatCtrl {
         resourceId: this.data.resourceId,
         redraw: this.redraw,
       });
-      lichess.loadCssPath('chat.mod');
+      lichess.asset.loadCssPath('chat.mod');
     }
   };
 

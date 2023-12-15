@@ -77,7 +77,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
-  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Option[Me]) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(

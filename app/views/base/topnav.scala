@@ -1,6 +1,7 @@
 package views.html.base
 
 import controllers.clas.routes.{ Clas as clasRoutes }
+import controllers.team.routes.{ Team as teamRoutes }
 import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
@@ -56,7 +57,7 @@ object topnav:
             a(href := routes.Practice.index)(trans.practice()),
             a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
           ),
-          a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
+          a(href := langHref(routes.Study.allDefault()))(trans.studyMenu()),
           ctx.kid.no option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
           canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )
@@ -78,7 +79,7 @@ object topnav:
         linkTitle(routes.User.list.url, trans.community()),
         div(role := "group")(
           a(href := routes.User.list)(trans.players()),
-          a(href := routes.Team.home())(trans.team.teams()),
+          a(href := teamRoutes.home())(trans.team.teams()),
           ctx.kid.no option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.kid.no option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
           ctx.kid.no && ctx.me.exists(_.isPatron) option

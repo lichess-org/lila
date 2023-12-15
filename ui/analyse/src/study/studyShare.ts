@@ -1,4 +1,4 @@
-import { prop, Prop } from 'common';
+import { prop } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
@@ -8,24 +8,7 @@ import { baseUrl } from '../view/util';
 import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
-export interface StudyShareCtrl {
-  studyId: string;
-  variantKey: VariantKey;
-  chapter: () => StudyChapterMeta;
-  bottomColor: () => Color;
-  isPrivate(): boolean;
-  currentNode: () => Tree.Node;
-  onMainline: () => boolean;
-  withPly: Prop<boolean>;
-  relay: RelayCtrl | undefined;
-  cloneable(): boolean;
-  shareable(): boolean;
-  redraw: () => void;
-  trans: Trans;
-  gamebook: boolean;
-}
-
-function fromPly(ctrl: StudyShareCtrl): VNode {
+function fromPly(ctrl: StudyShare): VNode {
   const renderedMove = renderIndexAndMove(
     {
       withDots: true,
@@ -49,35 +32,29 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   );
 }
 
-export function ctrl(
-  data: StudyData,
-  currentChapter: () => StudyChapterMeta,
-  currentNode: () => Tree.Node,
-  onMainline: () => boolean,
-  bottomColor: () => Color,
-  relay: RelayCtrl | undefined,
-  redraw: () => void,
-  trans: Trans,
-): StudyShareCtrl {
-  const withPly = prop(false);
-  return {
-    studyId: data.id,
-    variantKey: data.chapter.setup.variant.key as VariantKey,
-    chapter: currentChapter,
-    bottomColor,
-    isPrivate() {
-      return data.visibility === 'private';
-    },
-    currentNode,
-    onMainline,
-    withPly,
-    relay,
-    cloneable: () => data.features.cloneable,
-    shareable: () => data.features.shareable,
-    redraw,
-    trans,
-    gamebook: data.chapter.gamebook,
-  };
+export class StudyShare {
+  withPly = prop(false);
+
+  constructor(
+    readonly data: StudyData,
+    readonly currentChapter: () => StudyChapterMeta,
+    readonly currentNode: () => Tree.Node,
+    readonly onMainline: () => boolean,
+    readonly bottomColor: () => Color,
+    readonly relay: RelayCtrl | undefined,
+    readonly redraw: () => void,
+    readonly trans: Trans,
+  ) {}
+
+  studyId = this.data.id;
+
+  variantKey = this.data.chapter.setup.variant.key as VariantKey;
+
+  chapter = this.currentChapter;
+  isPrivate = () => this.data.visibility === 'private';
+  cloneable = () => this.data.features.cloneable;
+  shareable = () => this.data.features.shareable;
+  gamebook = this.data.chapter.gamebook;
 }
 
 async function writePgnClipboard(url: string): Promise<void> {
@@ -101,7 +78,7 @@ const copyButton = (rel: string) =>
     },
   });
 
-export function view(ctrl: StudyShareCtrl): VNode {
+export function view(ctrl: StudyShare): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
   const isPrivate = ctrl.isPrivate();
@@ -199,7 +176,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               {
                 attrs: {
                   ...dataIcon(licon.Download),
-                  href: xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
+                  href: xhrUrl(lichess.asset.baseUrl() + '/export/fen.gif', {
                     fen: ctrl.currentNode().fen,
                     color: ctrl.bottomColor(),
                     lastMove: ctrl.currentNode().uci,

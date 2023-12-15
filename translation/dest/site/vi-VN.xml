@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Chơi với bạn bè</string>
   <string name="playWithTheMachine">Chơi với máy tính</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
-  <string name="gameOver">Kết thúc</string>
+  <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="waiting">Đang chờ</string>
   <string name="yourTurn">Đến lượt bạn</string>
@@ -12,7 +12,7 @@
   <string name="strength">Độ mạnh</string>
   <string name="toggleTheChat">Bật/Tắt trò chuyện</string>
   <string name="chat">Trò chuyện</string>
-  <string name="resign">Bỏ cuộc</string>
+  <string name="resign">Chịu thua</string>
   <string name="checkmate">Chiếu hết</string>
   <string name="stalemate">Hòa pat</string>
   <string name="white">Trắng</string>
@@ -20,7 +20,7 @@
   <string name="asWhite">khi chơi quân trắng</string>
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
-  <string name="createAGame">Tạo ván cờ mới</string>
+  <string name="createAGame">Tạo một ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
@@ -101,9 +101,9 @@
   <string name="playFirstOpeningEndgameExplorerMove">Chơi nước đầu tiên của người khám phá khai cuộc/tàn cuộc</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn cản bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
-  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
+  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 nước đi do sai lầm trước</string>
   <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần nước đi do nhầm lẫn trước đó</string>
-  <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng tàn cuộc được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong sách tàn cuộc Syzygy.</string>
+  <string name="unknownDueToRounding">Thắng/thua chỉ được đảm bảo nếu dòng tàn cuộc được đề xuất đã được tuân theo kể từ lần ăn quân hoặc tiến tốt cuối cùng, do có thể làm tròn các giá trị DTZ trong sách tàn cuộc Syzygy.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
@@ -195,7 +195,7 @@
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="changeUsername">Thay đổi tên đăng nhập</string>
   <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/thường. Ví dụ \"johndoe\" thành \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn.</string>
+  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn. Ví dụ: \"m_dinhhoangviet\" có thể đổi thành \"M_DinhHoangViet\".</string>
   <string name="signupUsernameHint">Hãy đảm bảo chọn tên người dùng thân thiện với mọi người. Bạn sẽ không thể thay đổi nó và bất kỳ tài khoản nào có tên người dùng không phù hợp sẽ bị đóng!</string>
   <string name="signupEmailHint">Chúng tôi chỉ sử dụng nó cho việc khôi phục mật khẩu.</string>
   <string name="password">Mật khẩu</string>
@@ -262,7 +262,7 @@
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>
   <string name="unlimited">Không giới hạn</string>
-  <string name="mode">Chế độ</string>
+  <string name="mode">Thể loại</string>
   <string name="casual">Không xếp hạng</string>
   <string name="rated">Có xếp hạng</string>
   <string name="casualTournament">Không xếp hạng</string>
@@ -283,12 +283,12 @@
   <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
   <string name="spectatorRoom">Phòng khán giả</string>
   <string name="composeMessage">Soạn tin nhắn</string>
-  <string name="subject">Chủ đề</string>
+  <string name="subject">Tiêu đề</string>
   <string name="send">Gửi</string>
   <string name="incrementInSeconds">Gia tăng theo giây</string>
   <string name="freeOnlineChess">Chơi Cờ Vua Trực Tuyến Miễn Phí</string>
   <plurals name="nbRated">
-    <item quantity="other">%s xếp hạng</item>
+    <item quantity="other">%s ván xếp hạng</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s thắng</item>
@@ -300,7 +300,7 @@
     <item quantity="other">%s hòa</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">%s đang chơi</item>
+    <item quantity="other">%s ván đang chơi</item>
   </plurals>
   <string name="exportGames">Xuất ván cờ</string>
   <string name="ratingRange">Phạm vi Elo</string>
@@ -377,10 +377,11 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
   <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, 
-trò chuyện trong ván đấu và có một URL có thể chia sẻ được.</string>
+trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai.</string>
   <string name="importGameCaveat">Các biến sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
+  <string name="importGameCaveat2">Ai cũng có thể truy cập PGN này. Để nhập ván cờ một cách riêng tư, hãy sử dụng nghiên cứu.</string>
   <plurals name="nbImportedGames">
-    <item quantity="other">%s các ván cờ đã nhập</item>
+    <item quantity="other">%s ván cờ đã nhập</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua.</string>
   <string name="clickOnTheBoardToMakeYourMove">Nhấn vào bàn cờ để di chuyển và chứng minh bạn là con người.</string>
@@ -454,6 +455,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="movesPlayed">Số nước đi</string>
   <string name="whiteWins">Tỉ lệ trắng thắng</string>
   <string name="blackWins">Tỉ lệ đen thắng</string>
+  <string name="drawRate">Tỉ lệ hòa</string>
   <string name="draws">Hoà</string>
   <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
   <string name="averageOpponent">Xếp hạng trung bình của đối thủ</string>
@@ -474,6 +476,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
+  <string name="setFlair">Đặt biểu tượng của bạn:</string>
+  <string name="flair">Biểu tượng</string>
+  <string name="youCanHideFlair">Có một cài đặt để ẩn tất cả biểu tượng của người dùng trên toàn bộ trang web.</string>
   <string name="biography">Tiểu sử</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
   <string name="thankYou">Lời cảm ơn!</string>
@@ -493,7 +498,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
-  <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
+  <string name="tournamentWinners">Các nhà vô địch giải</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
   <string name="descPrivate">Mô tả riêng tư</string>
@@ -564,13 +569,13 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="drawVsYInZ">%1$s %2$s trong %3$s</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="starting">Bắt đầu đấu:</string>
-  <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều được công khai và không bắt buộc.</string>
+  <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều công khai và không bắt buộc.</string>
   <string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, bạn thích gì ở cờ, khai cuộc yêu thích, ván cờ yêu thích, thần tượng, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Tối đa: %s kí tự.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="other">%s chặn</item>
+    <item quantity="other">Đang chặn %s thành viên</item>
   </plurals>
   <string name="listBlockedPlayers">Danh sách các kỳ thủ mà bạn đang chặn</string>
   <string name="human">Con người</string>
@@ -612,10 +617,10 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các Streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
-  <string name="webmasters">Các nhà phát triển web</string>
-  <string name="about">Giới thiệu</string>
+  <string name="webmasters">Nhà phát triển web</string>
+  <string name="about">Về chúng tôi</string>
   <string name="aboutX">Giới thiệu về %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), không có quảng cáo, mã nguồn mở.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
   <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
@@ -698,7 +703,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="downloadImported">Tải tệp đã được nhập</string>
   <string name="crosstable">Bảng tổng điểm</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến thể máy tính để xem trước chúng.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến máy tính để xem trước chúng.</string>
   <string name="analysisShapesHowTo">Nhấn Shift+click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
   <string name="letOtherPlayersMessageYou">Cho phép người chơi khác gửi tin nhắn cho bạn</string>
   <string name="receiveForumNotifications">Nhận thông báo khi được đề cập trong diễn đàn</string>
@@ -707,6 +712,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="withFriends">Với bạn bè</string>
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
+  <string name="kidModeIsEnabled">Chế độ trẻ em đã được bật.</string>
   <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng Lichess có một biểu tượng %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
@@ -745,7 +751,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="transparent">Trong suốt</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
-  <string name="boardGeometry">Hình dạng của bàn cờ</string>
+  <string name="boardGeometry">Hình dáng bàn cờ</string>
   <string name="boardTheme">Chủ đề bàn cờ</string>
   <string name="boardSize">Kích cỡ bàn cờ</string>
   <string name="pieceSet">Bộ cờ</string>
@@ -755,7 +761,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="usernameSuffixInvalid">Tên người dùng phải kết thúc với một chữ cái hoặc một số.</string>
   <string name="usernameCharsInvalid">Tên người dùng chỉ được chứa chữ cái, số, dấu gạch nối và dấu gạch dưới. Dấu gạch dưới và dấu gạch nối không được liên tiếp nhau.</string>
   <string name="usernameUnacceptable">Tên người dùng này không được chấp nhận.</string>
-  <string name="playChessInStyle">Chơi cờ vua phong cách</string>
+  <string name="playChessInStyle">Chơi cờ vua theo phong cách</string>
   <string name="chessBasics">Cờ cơ bản</string>
   <string name="coaches">Huấn luyện viên</string>
   <string name="invalidPgn">PGN không hợp lệ</string>
@@ -816,6 +822,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">và lưu %s nước đi trước</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Bạn đã nhận được một tin nhắn riêng từ Lichess.</string>
+  <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
   <string name="timeoutExpires">Hết hiệu lực trong %s.</string>
@@ -838,6 +846,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Cờ đạn</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Cờ chớp</string>
   <string name="rapid">Cờ nhanh</string>
   <string name="classical">Cờ chậm</string>
@@ -878,26 +887,23 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ được.<
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải xuống</string>
-  <string name="welcome">Chào mừng!</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
-Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
   <string name="tournDescription">Mô tả giải đấu</string>
-  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [name](https://url)</string>
-  <string name="ratedFormHelp">Các ván đấu có tính Elo và tác động đến hệ số Elo của người chơi</string>
+  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [Văn bản](https://url)</string>
+  <string name="ratedFormHelp">Các ván đấu có xếp hạng và ảnh hưởng đến hệ số Elo của người chơi</string>
   <string name="onlyMembersOfTeam">Chỉ thành viên trong đội</string>
   <string name="noRestriction">Không giới hạn</string>
-  <string name="minimumRatedGames">Số ván đã tính Elo tối thiểu</string>
+  <string name="minimumRatedGames">Số ván đã xếp hạng tối thiểu</string>
   <string name="minimumRating">Elo tối thiểu</string>
   <string name="maximumWeeklyRating">Elo cao nhất trong tuần</string>
   <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>
   <string name="onlyTitledHelp">Bắt buộc có một danh hiệu chính thức để tham gia giải đấu</string>
-  <string name="positionInputHelp">Dán một FEN để bắt đầu tất cả ván đấu bằng thế cờ đó.
-Nó chỉ dùng được cho cờ tiêu chuẩn, không phải các biến thể.
+  <string name="positionInputHelp">Dán một FEN hợp lệ để bắt đầu tất cả ván đấu bằng một thế cờ nhất định đó.
+Nó chỉ dùng được cho cờ vua tiêu chuẩn, không được với các biến thể.
 Bạn có thể dùng %s để tạo ra một FEN rồi dán ở đây.
-Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở đầu bình thường.</string>
+Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban đầu bình thường.</string>
   <string name="cancelSimul">Hủy sự kiện cờ đồng loạt</string>
   <string name="simulHostcolor">Màu quân của người chủ trì cho mỗi ván đấu</string>
   <string name="estimatedStart">Thời gian bắt đầu dự kiến</string>
@@ -940,4 +946,6 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
+Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
 </resources>

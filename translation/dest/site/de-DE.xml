@@ -237,7 +237,7 @@
   <string name="copyTextToEmail">Kopiere den obigen Text, füge ihn hier ein und sende alles an %s</string>
   <string name="waitForSignupHelp">Wir werden uns bald mit dir in Verbindung setzen, um deine Registrierung abzuschließen.</string>
   <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
-  <string name="accountCanLogin">Du kannst dich ab sofort als %s einloggen.</string>
+  <string name="accountCanLogin">Du kannst dich als %s einloggen.</string>
   <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
   <string name="accountClosed">Das Benutzerkonto %s ist geschlossen.</string>
   <string name="accountRegisteredWithoutEmail">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse registriert.</string>
@@ -405,6 +405,7 @@
   <string name="importGame">Partie importieren</string>
   <string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <string name="importGameCaveat">Varianten werden gelöscht. Importiere die PGN mittels einer Studie, um sie zu behalten.</string>
+  <string name="importGameCaveat2">Diese PGN ist öffentlich zugänglich. Nutze eine Studie, um eine Partie nur für dich zu importieren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -485,6 +486,7 @@
   <string name="movesPlayed">Gespielte Züge</string>
   <string name="whiteWins">Weiße Siege</string>
   <string name="blackWins">Schwarze Siege</string>
+  <string name="drawRate">Remisquote</string>
   <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
@@ -505,6 +507,9 @@
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
+  <string name="setFlair">Setze dein Flair</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>
   <string name="biography">Profiltext</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Region</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -658,10 +663,10 @@
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
   <string name="hostColorX">Farbe des Ausrichters: %s</string>
-  <string name="yourPendingSimuls">Deine ausstehenden Simultan-Vorstellungen</string>
+  <string name="yourPendingSimuls">Deine ausstehenden Simultanpartien</string>
   <string name="createdSimuls">Neue Simultanspiele</string>
   <string name="hostANewSimul">Ein Simultan veranstalten</string>
-  <string name="signUpToHostOrJoinASimul">Melde dich an, um eine Simultan-Vorstellung zu geben, oder einer beizutreten</string>
+  <string name="signUpToHostOrJoinASimul">Melde dich an, um eine Simultanpartie auszutragen oder sich einer anzuschließen</string>
   <string name="noSimulFound">Simultan nicht gefunden</string>
   <string name="noSimulExplanation">Dieses Simultan existiert nicht.</string>
   <string name="returnToSimulHomepage">Zurück zur Simultan Homepage</string>
@@ -686,6 +691,7 @@
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
+  <string name="keyCycleSelectedVariation">Durch die ausgewählte Variante schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
   <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
@@ -693,6 +699,13 @@
   <string name="keyNextBlunder">Der nächste grobe Patzer</string>
   <string name="keyNextMistake">Der nächste Fehler</string>
   <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
+  <string name="keyPreviousBranch">Vorherige Verzweigung</string>
+  <string name="keyNextBranch">Nächste Verzweigung</string>
+  <string name="toggleVariationArrows">Variantenpfeile ein-/auschalten</string>
+  <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
+  <string name="toggleGlyphAnnotations">Schalten der Zeichen-Anmerkungen</string>
+  <string name="variationArrowsInfo">Mit Variantenpfeilen navigierst du durch die Zugliste.</string>
+  <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
@@ -735,6 +748,7 @@
   <string name="withFriends">Mit deinen Freunden</string>
   <string name="withEverybody">Mit jedem</string>
   <string name="kidMode">Kindermodus</string>
+  <string name="kidModeIsEnabled">Kindermodus ist aktiviert.</string>
   <string name="kidModeExplanation">Dies ist eine Sicherheitseinstellung. Im Kindermodus sind alle Kommunikationsmöglichkeiten deaktiviert. Aktiviere diese Option, um Kinder und Schüler vor anderen Internetbenutzern zu schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Kindermodus erhält das Lichess-Logo ein %s-Icon, an dem erkennen kannst, dass deine Kinder geschützt sind.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Dein Konto wird verwaltet. Bitte deinen Schachlehrer den Kindermodus aufzuheben.</string>
@@ -848,6 +862,8 @@
     <item quantity="one">und speichere %s Variante im Voraus</item>
     <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du hast eine private Nachricht von Lichess erhalten.</string>
+  <string name="clickHereToReadIt">Hier klicken zum Lesen</string>
   <string name="sorry">Entschuldigung :(</string>
   <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
   <string name="timeoutExpires">Die Sperre endet in %s.</string>
@@ -870,6 +886,7 @@
   <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
   <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Konversation</string>
   <string name="edit">Bearbeiten</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Schnellschach</string>
   <string name="classical">Klassisch</string>
@@ -910,9 +927,6 @@
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
   <string name="download">Herunterladen</string>
-  <string name="welcome">Herzlich Willkommen!</string>
-  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
-Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="coachManager">Trainerverwaltung</string>
   <string name="streamerManager">Streamerverwaltung</string>
   <string name="cancelTournament">Turnier abbrechen</string>
@@ -971,5 +985,8 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
+  <string name="instructions">Anleitung</string>
   <string name="showMeEverything">Alles zeigen</string>
+  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
+Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
 </resources>

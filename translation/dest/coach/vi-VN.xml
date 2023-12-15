@@ -14,14 +14,14 @@
   <string name="accepting">Đang nhận học viên</string>
   <string name="notAccepting">Hiện tại không nhận học viên</string>
   <string name="xCoachesStudents">%s huấn luyện học viên</string>
-  <string name="viewXProfile">Xem hồ sơ của %s</string>
+  <string name="viewXProfile">Xem hồ sơ Lichess của %s</string>
   <string name="sendPM">Gửi tin nhắn riêng</string>
-  <string name="aboutMe">Thông tin về tôi</string>
+  <string name="aboutMe">Giới thiệu và những thông tin về tôi</string>
   <string name="playingExperience">Kinh nghiệm chơi cờ</string>
   <string name="teachingExperience">Kinh nghiệm dạy cờ</string>
   <string name="otherExperiences">Kinh nghiệm khác</string>
   <string name="bestSkills">Những kỹ năng tốt nhất</string>
   <string name="teachingMethod">Phương pháp giảng dạy</string>
-  <string name="publicStudies">Nghiên cứu công khai</string>
+  <string name="publicStudies" comment="Appears on pages of individual coaches ofering their services. It is the heading for a section listing the publicly-available studies of that coach.">Nghiên cứu công khai</string>
   <string name="youtubeVideos">Các video trên YouTube</string>
 </resources>

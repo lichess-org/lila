@@ -3,6 +3,7 @@ import { Attrs, h, VNode } from 'snabbdom';
 export interface HasRating {
   rating?: number;
   provisional?: boolean;
+  brackets?: boolean; // display the rating in brackets/parentheses, true by default
 }
 
 export interface HasRatingDiff {
@@ -51,7 +52,7 @@ export const userFlair = (u: HasFlair): VNode | undefined =>
   u.flair
     ? h('img.uflair', {
         attrs: {
-          src: lichess.flairSrc(u.flair),
+          src: lichess.asset.flairSrc(u.flair),
         },
       })
     : undefined;
@@ -71,8 +72,13 @@ export const userTitle = (u: HasTitle): VNode | undefined =>
 
 export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
 
-export const userRating = (u: HasRating): string | undefined =>
-  u.rating ? ` (${u.rating + (u.provisional ? '?' : '')})` : undefined;
+export const userRating = (u: HasRating): string | undefined => {
+  if (u.rating) {
+    const rating = `${u.rating}${u.provisional ? '?' : ''}`;
+    return u.brackets !== false ? `(${rating})` : rating;
+  }
+  return undefined;
+};
 
 export const ratingDiff = (u: HasRatingDiff): VNode | undefined =>
   u.ratingDiff === 0

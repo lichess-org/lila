@@ -27,7 +27,7 @@ object faq:
       active = "faq",
       moreCss = cssTag("faq")
     ) {
-      div(cls := "faq small-page box box-pad")(
+      div(cls := "faq box box-pad")(
         h1(cls := "box__top")(frequentlyAskedQuestions()),
         h2("Lichess"),
         question(
@@ -126,7 +126,7 @@ object faq:
           ),
           ul(
             li(inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(179, "Bullet")),
+            li(inferiorThanXsEqualYtimeControl(179, trans.bullet())),
             li(inferiorThanXsEqualYtimeControl(479, trans.blitz())),
             li(inferiorThanXsEqualYtimeControl(1499, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))

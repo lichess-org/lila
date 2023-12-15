@@ -66,7 +66,7 @@
   <string name="masterVsMaster">Ván đấu giữa 2 kiện tướng</string>
   <string name="masterVsMasterDescription">Câu đố từ các ván đấu giữa hai người chơi có danh hiệu.</string>
   <string name="mate">Chiếu hết</string>
-  <string name="mateDescription">Chiến thắng trò chơi với phong cách.</string>
+  <string name="mateDescription">Chiến thắng ván cờ với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
   <string name="mateIn1Description">Chiếu hết trong một nước cờ.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
@@ -88,7 +88,7 @@
   <string name="pin">Ghim</string>
   <string name="pinDescription">Một chiến thuật khiến một quân cờ không thể di chuyển mà không làm lộ quân cờ đằng sau nó với giá trị lớn hơn.</string>
   <string name="promotion">Phong cấp</string>
-  <string name="promotionDescription">Phong cấp tốt của bạn thành hậu hoặc những quân phụ khác.</string>
+  <string name="promotionDescription">Phong cấp tốt của bạn thành quân hậu hoặc những quân phụ khác.</string>
   <string name="queenEndgame">Tàn cuộc Hậu</string>
   <string name="queenEndgameDescription">Một thế cờ tàn chỉ có hậu và tốt.</string>
   <string name="queenRookEndgame">Hậu và Xe</string>
@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Một quân cờ tấn công hoặc phòng thủ một ô sau một quân cờ khác của đối phương.</string>
   <string name="zugzwang">Cưỡng ép</string>
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi ấy đều hại họ.</string>
-  <string name="healthyMix">Kết hợp lành mạnh</string>
+  <string name="healthyMix">Phối hợp nhịp nhàng</string>
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
   <string name="playerGames">Ván đấu của các người chơi</string>
   <string name="playerGamesDescription">Những câu đố từ các ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>

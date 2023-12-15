@@ -3,7 +3,7 @@ import { Tab } from './interfaces';
 
 export function study(ctrl: AnalyseCtrl) {
   if (!ctrl.study?.data.chapter.gamebook)
-    lichess.loadIife('javascripts/study/tour.js').then(() => {
+    lichess.asset.loadIife('javascripts/study/tour.js').then(() => {
       window.lichess.studyTour({
         userId: ctrl.opts.userId,
         isContrib: ctrl.study!.members.canContribute(),
@@ -21,7 +21,7 @@ export function study(ctrl: AnalyseCtrl) {
 }
 
 export const chapter = (setTab: (tab: string) => void) =>
-  lichess.loadIife('javascripts/study/tour-chapter.js').then(() => {
+  lichess.asset.loadIife('javascripts/study/tour-chapter.js').then(() => {
     window.lichess.studyTourChapter({
       setTab,
     });

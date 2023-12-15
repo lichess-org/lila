@@ -461,6 +461,7 @@
   <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <string name="importGameCaveat">Warianty zostaną usunięte. Aby je zachować, zaimportuj plik PGN jako opracowanie.</string>
+  <string name="importGameCaveat2">Ten zapis PGN będzie dostępny publicznie. Aby zaimportować partię tylko dla siebie, stwórz prywatne opracowanie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -551,6 +552,7 @@
   <string name="movesPlayed">Wykonanych ruchów</string>
   <string name="whiteWins">Wygranych białych</string>
   <string name="blackWins">Wygranych czarnych</string>
+  <string name="drawRate">Częstość remisowania</string>
   <string name="draws">Remisów</string>
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
@@ -571,6 +573,9 @@
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
+  <string name="setFlair">Ustaw swój emblemat:</string>
+  <string name="flair">Emblemat</string>
+  <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>
   <string name="biography">O mnie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub region</string>
   <string name="thankYou">Dziękujemy!</string>
@@ -818,6 +823,7 @@
   <string name="withFriends">Tylko znajomym</string>
   <string name="withEverybody">Każdemu</string>
   <string name="kidMode">Tryb dla dzieci</string>
+  <string name="kidModeIsEnabled">Tryb dla dzieci jest włączony.</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, wiesz wtedy, że Twoje dziecko jest chronione.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Twoim kontem zarządza nauczyciel. Poproś go o przekazanie zarządzania Tobie.</string>
@@ -939,6 +945,8 @@
     <item quantity="many">i zapisz %s wariantów warunkowych</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Otrzymałeś prywatną wiadomość od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknij tutaj, aby ją odczytać</string>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
@@ -961,6 +969,7 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Szybkie</string>
   <string name="classical">Klasyczne</string>
@@ -1001,9 +1010,6 @@
   <string name="timeAlmostUp">Czas prawie minął!</string>
   <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
   <string name="download">Pobierz</string>
-  <string name="welcome">Witaj!</string>
-  <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
-Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="coachManager">Menedżer trenera</string>
   <string name="streamerManager">Menedżer streamera</string>
   <string name="cancelTournament">Anuluj turniej</string>
@@ -1064,4 +1070,6 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="ourEventTips">Nasze wskazówki dotyczące organizacji wydarzeń</string>
   <string name="instructions">Instrukcje</string>
   <string name="showMeEverything">Pokaż mi wszystko</string>
+  <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
+Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
 </resources>

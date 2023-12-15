@@ -5,6 +5,7 @@ import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
+import { parseSquare, makeSquare } from 'chessops/util';
 import { domDialog } from 'common/dialog';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
@@ -163,6 +164,37 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', 'O-O-O', true),
         ]),
+      ]),
+      h('div.enpassant', [
+        h('label', { attrs: { for: 'enpassant-select' } }, 'En passant'),
+        h(
+          'select#enpassant-select',
+          {
+            on: {
+              change(e) {
+                ctrl.setEnPassant(parseSquare((e.target as HTMLSelectElement).value));
+              },
+            },
+            props: {
+              value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
+            },
+          },
+          ['', ...[ctrl.turn === 'black' ? 3 : 6].flatMap(r => 'abcdefgh'.split('').map(f => f + r))].map(
+            key =>
+              h(
+                'option',
+                {
+                  attrs: {
+                    value: key,
+                    selected: (key ? parseSquare(key) : undefined) === ctrl.epSquare,
+                    hidden: Boolean(key && !state.enPassantOptions.includes(key)),
+                    disabled: Boolean(key && !state.enPassantOptions.includes(key)) /*Safari*/,
+                  },
+                },
+                key,
+              ),
+          ),
+        ),
       ]),
     ]),
     ...(ctrl.cfg.embed || !ctrl.cfg.positions || !ctrl.cfg.endgamePositions
@@ -462,7 +494,7 @@ function makeCursor(selected: Selected): string {
   if (selected === 'pointer') return 'pointer';
 
   const name = selected === 'trash' ? 'trash' : selected.join('-');
-  const url = lichess.assetUrl('cursors/' + name + '.cur');
+  const url = lichess.asset.url('cursors/' + name + '.cur');
 
   return `url('${url}'), default !important`;
 }
@@ -483,7 +515,7 @@ export default function (ctrl: EditorCtrl): VNode {
       h('div.main-board', [chessground(ctrl)]),
       sparePieces(ctrl, color, color, 'bottom'),
       controls(ctrl, state),
-      inputs(ctrl, state.fen),
+      inputs(ctrl, state.legalFen || state.fen),
     ],
   );
 }

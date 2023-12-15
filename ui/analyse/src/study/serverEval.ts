@@ -34,7 +34,7 @@ export function view(ctrl: ServerEval): VNode {
     {
       hook: onInsert(el => {
         lichess.requestIdleCallback(async () => {
-          (await lichess.loadEsm<ChartGame>('chart.game')).acpl(
+          (await lichess.asset.loadEsm<ChartGame>('chart.game')).acpl(
             el as HTMLCanvasElement,
             ctrl.root.data,
             ctrl.root.mainline,

@@ -41,6 +41,11 @@ Compile / scalaSource       := baseDirectory.value / "app"
 Test / scalaSource          := baseDirectory.value / "test"
 Universal / sourceDirectory := baseDirectory.value / "dist"
 
+// cats-parse v1.0.0 is the same as v0.3.1, so this is safe
+ThisBuild / libraryDependencySchemes ++= Seq(
+  "org.typelevel" %% "cats-parse" % VersionScheme.Always
+)
+
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
   play.json, play.server, play.netty, play.logback,
@@ -84,7 +89,7 @@ lazy val i18n = module("i18n",
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
       compileTo = (Compile / sourceManaged).value
     )
   }.taskValue

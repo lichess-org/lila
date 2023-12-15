@@ -39,7 +39,7 @@ export interface ChatData {
   loginRequired: boolean;
   restricted: boolean;
   palantir: boolean;
-  hostId?: string;
+  hostIds?: string[];
 }
 
 export interface Line {

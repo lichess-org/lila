@@ -13,15 +13,18 @@ interface Lichess {
   powertip: LichessPowertip;
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
-  assetUrl(url: string, opts?: AssetUrlOpts): string;
-  flairSrc(flair: Flair): string;
-  loadCss(path: string): void;
-  loadCssPath(path: string): Promise<void>;
-  jsModule(name: string): string;
-  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-  hopscotch: any;
-  userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
+  asset: {
+    baseUrl(): string;
+    url(url: string, opts?: AssetUrlOpts): string;
+    flairSrc(flair: Flair): string;
+    loadCss(path: string): void;
+    loadCssPath(path: string): Promise<void>;
+    jsModule(name: string): string;
+    loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+    loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    hopscotch: any;
+    userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
+  };
   slider(): Promise<void>;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
@@ -71,6 +74,13 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
+  log: LichessLog;
+}
+
+interface LichessLog {
+  (...args: any[]): Promise<void>;
+  clear(): Promise<void>;
+  get(): Promise<string>;
 }
 
 type I18nDict = { [key: string]: string };
@@ -295,6 +305,7 @@ declare namespace Editor {
     orientation?: Color;
     onChange?: (fen: string) => void;
     inlineCastling?: boolean;
+    coordinates?: boolean;
   }
 
   export interface OpeningPosition {

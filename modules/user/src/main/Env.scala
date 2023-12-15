@@ -72,7 +72,7 @@ final class Env(
 
   lazy val forms = wire[UserForm]
 
-  val flairApi = wire[UserFlairApi]
+  val flairApi = wire[FlairApi]
 
   export flairApi.getter
 

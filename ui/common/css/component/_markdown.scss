@@ -1,4 +1,11 @@
-@mixin rendered-markdown($element-margin: 1em, $img-max-height: 50vh) {
+@mixin rendered-markdown(
+  $element-margin: 1em,
+  $img-max-height: 50vh,
+  $table: true,
+  $img: true,
+  $h1: true,
+  $h2: true
+) {
   @extend %break-word;
 
   strong {
@@ -42,19 +49,23 @@
     margin-top: 0;
   }
 
-  /* should not be used */
-  h1 {
-    font-size: 1em;
-    margin: 0;
+  @if $h1 {
+    /* should not be used */
+    h1 {
+      font-size: 1em;
+      margin: 0;
+    }
   }
 
-  h2 {
-    &:not(:first-child) {
-      margin-top: calc(0.9 * #{$element-margin});
+  @if $h2 {
+    h2 {
+      &:not(:first-child) {
+        margin-top: calc(0.9 * #{$element-margin});
+      }
+      border-bottom: 1px solid $c-brag;
+      line-height: 1.5em;
+      padding-bottom: calc(0.25 * #{$element-margin});
     }
-    border-bottom: 1px solid $c-brag;
-    line-height: 1.5em;
-    padding-bottom: calc(0.25 * #{$element-margin});
   }
 
   h3 {
@@ -72,23 +83,27 @@
     @include fluid-size('font-size', 17px, 23px);
   }
 
-  img {
-    display: block;
-    max-width: 100%;
-    max-height: $img-max-height;
-    margin: auto;
+  @if $img {
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: $img-max-height;
+      margin: auto;
+    }
   }
 
-  th,
-  td {
-    &[align='left'] {
-      text-align: left;
-    }
-    &[align='center'] {
-      text-align: center;
-    }
-    &[align='right'] {
-      text-align: right;
+  @if $table {
+    th,
+    td {
+      &[align='left'] {
+        text-align: left;
+      }
+      &[align='center'] {
+        text-align: center;
+      }
+      &[align='right'] {
+        text-align: right;
+      }
     }
   }
 }

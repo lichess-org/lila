@@ -2,11 +2,11 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import AnalyseCtrl from '../../ctrl';
-import { StudyCtrl } from '../interfaces';
+import StudyCtrl from '../studyCtrl';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
-    ctrl = study.gamebookPlay();
+    ctrl = study.gamebookPlay;
   if (!ctrl) return;
   const state = ctrl.state,
     fb = state.feedback,
@@ -66,7 +66,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
       );
     else {
       const isAnalyse = o === 'analyse',
-        ctrl = study.gamebookPlay();
+        ctrl = study.gamebookPlay;
       if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
         return h(
           'a.fbt.text.preview',

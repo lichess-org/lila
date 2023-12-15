@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
-import { StudyCtrl } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export type Save = (t: string) => void;
 
@@ -30,7 +30,7 @@ export const descTitle = (chapter: boolean) => `Pinned ${chapter ? 'chapter' : '
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = chapter ? study.chapterDesc : study.studyDesc,
-    contrib = study.members.canContribute() && !study.gamebookPlay();
+    contrib = study.members.canContribute() && !study.gamebookPlay;
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;

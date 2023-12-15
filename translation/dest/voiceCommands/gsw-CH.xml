@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Sprachbefehl</string>
+  <string name="watchTheVideoTutorial">Lueg s\'Video-Tutorial</string>
+  <string name="instructions1">Benutz d\'Schaltflächi %1$s, zum d\'Spracherkännig aktivieren, d\'Schaltflächi %2$s, zum de Hilfedialog ufmache, und s\'Menü %3$s, zum d\'Sprachinschtellige ändere.</string>
+  <string name="instructions2">Mir zeiged Pfil für mehreri Züg a, wänn mir nöd sicher sind. Sprich eifach d\'Farb oder d\'Nummere vu dem Zugpfil, wo du wotsch wähle.</string>
+  <string name="instructions4">Aktiviert %s in luter Umgebig. Bim Spräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
+  <string name="instructions5">Benutz s\'Ponetischi-Alphabet, zum d\'Verständlichkeit verbessere. </string>
+  <string name="instructions6">%s erchlärt d\'Ischtellige vu de Sprachschtürig im Detail.</string>
+  <string name="thisBlogPost">De Blog Bitrag</string>
+  <string name="moveToE4OrSelectE4Piece">Zug uf e4 oder Uswahl vu de Figur uf e4</string>
+  <string name="selectOrCaptureABishop">En Läufer wähle oder schlah</string>
+  <string name="takeRookWithQueen">Schlag de Turm mit de Dame</string>
+  <string name="castle">Rochade (beidi Site)</string>
+  <string name="phoneticAlphabetIsBest">Phonetischs Alphabet isch s\'Bescht</string>
+  <string name="cancelTimerOrDenyARequest">Timer abbräche oder e Afrag ablehne</string>
+  <string name="playPreferredMoveOrConfirmSomething">Bevorzugte Zug spiele oder öppis bestätige</string>
+  <string name="sleep">Ruhezueschtand (wänn es Weckwort aktiviert isch)</string>
+  <string name="turnOffVoiceRecognition">Spracherkännig usschalte</string>
+  <string name="showPuzzleSolution">Zeig d\'Lösung vu de Ufgab</string>
+</resources>

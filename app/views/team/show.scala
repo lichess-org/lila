@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 import play.api.libs.json.Json
 
 import lila.app.mashup.TeamInfo
@@ -32,7 +33,7 @@ object show:
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${t.name} team",
-          url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+          url = s"$netBaseUrl${teamRoutes.show(t.id).url}",
           description = t.intro so { shorten(_, 152) }
         )
         .some,
@@ -60,11 +61,11 @@ object show:
           data("socket-version") := v
       )(
         boxTop(
-          h1(cls := "text", dataIcon := licon.Group)(t.name),
+          h1(cls := "text", dataIcon := licon.Group)(t.name, teamFlair(t.team)),
           div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else
-              canSeeMembers option a(href := routes.Team.members(t.slug)):
+              canSeeMembers option a(href := teamRoutes.members(t.slug)):
                 nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
         ),
         div(cls := "team-show__content")(
@@ -73,8 +74,8 @@ object show:
               t.publicLeaders.nonEmpty option p(
                 teamLeaders.pluralSame(t.publicLeaders.size),
                 ": ",
-                fragList(t.publicLeaders.toList.map: l =>
-                  userIdLink(l.some))
+                t.publicLeaders.map: l =>
+                  userIdLink(l.some)
               ),
               info.ledByMe option a(
                 dataIcon := licon.InfoCircle,
@@ -96,7 +97,7 @@ object show:
                 else if info.myRequest.isDefined then
                   frag(
                     strong(beingReviewed()),
-                    postForm(action := routes.Team.quit(t.id)):
+                    postForm(action := teamRoutes.quit(t.id)):
                       submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
                   )
                 else ctx.isAuth option joinButton(t.team)
@@ -104,7 +105,7 @@ object show:
               t.enabled && info.mine option
                 postForm(
                   cls    := "team-show__subscribe form3",
-                  action := routes.Team.subscribe(t.id)
+                  action := teamRoutes.subscribe(t.id)
                 )(
                   div(
                     span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
@@ -112,7 +113,7 @@ object show:
                   )
                 ),
               (info.mine && !info.havePerm(_.Admin)) option
-                postForm(cls := "quit", action := routes.Team.quit(t.id))(
+                postForm(cls := "quit", action := teamRoutes.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
               t.enabled && info.havePerm(_.Tour) option frag(
@@ -148,7 +149,7 @@ object show:
               ),
               t.enabled && info.havePerm(_.PmAll) option frag(
                 a(
-                  href     := routes.Team.pmAll(t.id),
+                  href     := teamRoutes.pmAll(t.id),
                   cls      := "button button-empty text",
                   dataIcon := licon.Envelope
                 ):
@@ -158,43 +159,47 @@ object show:
                   )
               ),
               ((t.enabled && info.havePerm(_.Settings)) || asMod) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := licon.Gear)(
+                a(
+                  href     := teamRoutes.edit(t.id),
+                  cls      := "button button-empty text",
+                  dataIcon := licon.Gear
+                )(
                   trans.settings.settings()
                 ),
               ((t.enabled && info.havePerm(_.Admin)) || asMod) option
                 a(
                   cls      := "button button-empty text",
-                  href     := routes.Team.leaders(t.id),
+                  href     := teamRoutes.leaders(t.id),
                   dataIcon := licon.Group
                 )(teamLeaders()),
               ((t.enabled && info.havePerm(_.Kick)) || asMod) option
                 a(
                   cls      := "button button-empty text",
-                  href     := routes.Team.kick(t.id),
+                  href     := teamRoutes.kick(t.id),
                   dataIcon := licon.InternalArrow
                 )(kickSomeone()),
               ((t.enabled && info.havePerm(_.Request)) || asMod) option
                 a(
                   cls      := "button button-empty text",
-                  href     := routes.Team.declinedRequests(t.id),
+                  href     := teamRoutes.declinedRequests(t.id),
                   dataIcon := licon.Cancel
                 )(
                   declinedRequests()
                 ),
               ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !asMod) option a(
-                href := routes.Team.show(t.id, 1, mod = true),
+                href := teamRoutes.show(t.id, 1, mod = true),
                 cls  := "button button-red"
               ):
                 "View team as Mod"
             ),
             canSeeMembers option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
-                h2(a(href := routes.Team.members(t.slug))(teamRecentMembers())),
+                h2(a(href := teamRoutes.members(t.slug))(teamRecentMembers())),
                 div(cls := "userlist infinite-scroll")(
                   members.currentPageResults.map { member =>
                     div(cls := "paginated")(lightUserLink(member))
                   },
-                  pagerNext(members, np => routes.Team.show(t.id, np).url)
+                  pagerNext(members, np => teamRoutes.show(t.id, np).url)
                 )
               )
             )
@@ -203,7 +208,7 @@ object show:
             standardFlash,
             t.intro.isEmpty && info.havePerm(_.Settings) option div(cls := "flash flash-warning")(
               div(cls := "flash__content"):
-                a(href := routes.Team.edit(t.id))("Give your team a short introduction text!")
+                a(href := teamRoutes.edit(t.id))("Give your team a short introduction text!")
             ),
             log.nonEmpty option renderLog(log),
             (t.enabled || asMod) option st.section(cls := "team-show__desc")(
@@ -222,7 +227,7 @@ object show:
               ),
               t.enabled && info.tours.nonEmpty option frag(
                 st.section(cls := "team-show__tour team-events team-tournaments")(
-                  h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
+                  h2(a(href := teamRoutes.tournaments(t.id))(trans.tournaments())),
                   table(cls := "slist")(
                     tournaments.renderList(
                       info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
@@ -258,9 +263,9 @@ object show:
   private def joinButton(t: Team)(using PageContext) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
-      case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
+      case "ecf"                   => joinAt(teamRoutes.show("english-chess-players").url)
       case _ =>
-        postForm(cls := "inline", action := routes.Team.join(t.id))(
+        postForm(cls := "inline", action := teamRoutes.join(t.id))(
           submitButton(cls := "button button-green")(joinTeam())
         )
 

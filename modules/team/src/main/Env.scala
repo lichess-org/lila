@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.LightTeam
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -24,7 +25,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.user.UserFlairApi.Getter):
+)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.user.FlairApi.Getter):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
   lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))
@@ -46,7 +47,9 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  val getTeamName = GetTeamNameSync(cached.blockingTeamName)
+  export cached.{ lightApi as lightTeamApi }
+
+  export cached.{ async as lightTeam, sync as lightTeamSync }
 
   lazy val security = wire[TeamSecurity]
 

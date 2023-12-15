@@ -378,6 +378,7 @@
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
   <string name="importGameCaveat">変化手順は消えます。残したい場合は研究を経由して PGN をインポートしてください。</string>
+  <string name="importGameCaveat2">この PGN はすべての人に公開されます。非公開の状態で棋譜をインポートするには「研究」機能でどうぞ。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
   </plurals>
@@ -453,6 +454,7 @@
   <string name="movesPlayed">総手数</string>
   <string name="whiteWins">白勝ち</string>
   <string name="blackWins">黒勝ち</string>
+  <string name="drawRate">ドロー率</string>
   <string name="draws">ドロー</string>
   <string name="nextXTournament">次の %s トーナメント:</string>
   <string name="averageOpponent">対局相手の平均</string>
@@ -473,6 +475,9 @@
   <string name="editProfile">プロフィールの編集</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
+  <string name="setFlair">フレアを設定：</string>
+  <string name="flair">フレア</string>
+  <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
   <string name="biography">自己紹介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域</string>
   <string name="thankYou">ありがとう！</string>
@@ -704,6 +709,7 @@
   <string name="withFriends">友達にだけ</string>
   <string name="withEverybody">誰にでも</string>
   <string name="kidMode">キッズモード</string>
+  <string name="kidModeIsEnabled">キッズモードが有効です。</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">あなたのアカウントは管理されています。キッズモードの停止は講師に依頼してください。</string>
@@ -813,6 +819,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 種のコンディショナルムーブを設定</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichess からプライベートメッセージが来ました。</string>
+  <string name="clickHereToReadIt">ここをクリックして読む</string>
   <string name="sorry">残念です :(</string>
   <string name="weHadToTimeYouOutForAWhile">しばらく対局を禁止します。</string>
   <string name="timeoutExpires">禁止は %s 後に解けます。</string>
@@ -835,6 +843,7 @@
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">ブレット</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ブリッツ</string>
   <string name="rapid">ラピッド</string>
   <string name="classical">クラシカル</string>
@@ -875,9 +884,6 @@
   <string name="timeAlmostUp">残り時間わずか！</string>
   <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
   <string name="download">ダウンロード</string>
-  <string name="welcome">ようこそ！</string>
-  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
-運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="coachManager">コーチ用設定</string>
   <string name="streamerManager">配信者用設定</string>
   <string name="cancelTournament">トーナメントをキャンセル</string>
@@ -938,4 +944,6 @@
   <string name="ourEventTips">チェスイベント開催のアドバイス</string>
   <string name="instructions">使用法</string>
   <string name="showMeEverything">すべてを表示</string>
+  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
+運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
 </resources>

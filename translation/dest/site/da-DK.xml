@@ -393,7 +393,7 @@
   <string name="reset">Nulstil</string>
   <string name="apply">Anvend</string>
   <string name="save">Gem</string>
-  <string name="leaderboard">Førertavle</string>
+  <string name="leaderboard">Rangliste</string>
   <string name="screenshotCurrentPosition">Tag et skræmbillede af den aktuelle stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
@@ -405,6 +405,7 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
   <string name="importGameCaveat">Varianter vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
+  <string name="importGameCaveat2">Denne PGN kan tilgås af offentligheden. For at importere et parti privat, skal du bruge et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
@@ -485,6 +486,7 @@
   <string name="movesPlayed">Spillede træk</string>
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
+  <string name="drawRate">Remis-rate</string>
   <string name="draws">Remiser</string>
   <string name="nextXTournament">Næste %s turnering:</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
@@ -505,6 +507,9 @@
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
+  <string name="setFlair">Indstil dit ikon:</string>
+  <string name="flair">Ikon</string>
+  <string name="youCanHideFlair">Der er en indstilling til at skjule alle brugerikoner på tværs af hele webstedet.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tak!</string>
@@ -743,6 +748,7 @@
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Børnetilstand</string>
+  <string name="kidModeIsEnabled">Børnetilstand er aktiveret.</string>
   <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér dette for dine børn eller skoleelever for at beskytte dem mod andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Din konto er under administration. Spørg din skaklærer om at ophæve børnetilstanden.</string>
@@ -856,6 +862,8 @@
     <item quantity="one">og gem %s serie af forhåndstræk</item>
     <item quantity="other">og gem %s serier af forhåndstræk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har modtaget en privat besked fra Lichess.</string>
+  <string name="clickHereToReadIt">Klik her for at læse den</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
   <string name="timeoutExpires">Timeouten udløber %s.</string>
@@ -878,6 +886,7 @@
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lynskak</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
@@ -918,9 +927,6 @@
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
   <string name="clickToRevealEmailAddress">[Klik for at vise e-mailadresse]</string>
   <string name="download">Download</string>
-  <string name="welcome">Velkommen!</string>
-  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
-Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="coachManager">Træner-administration</string>
   <string name="streamerManager">Streamer-administration</string>
   <string name="cancelTournament">Aflys turneringen</string>
@@ -981,4 +987,6 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="ourEventTips">Tips til organisering af begivenheder</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Vis mig alt</string>
+  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
+Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
 </resources>

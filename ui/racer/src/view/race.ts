@@ -74,7 +74,7 @@ const renderTrack = (
 
 export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
   player.id
-    ? userLink(player)
+    ? userLink({ ...player, line: false })
     : h(
         'anonymous',
         {

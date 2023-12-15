@@ -3,7 +3,7 @@ export default function () {
     voiceSelector = document.getElementById('dgt-speech-voice') as HTMLSelectElement;
 
   (function populateVoiceList() {
-    if (typeof speechSynthesis === 'undefined') return;
+    if (!voiceSelector || typeof speechSynthesis === 'undefined') return;
     speechSynthesis.getVoices().forEach((voice, i) => {
       const option = document.createElement('option');
       option.value = voice.name;
@@ -67,11 +67,13 @@ export default function () {
     });
   }
 
-  ensureDefaults();
-  populateForm();
+  if (form) {
+    ensureDefaults();
+    populateForm();
 
-  form.addEventListener('submit', (e: Event) => {
-    e.preventDefault();
-    Array.from(new FormData(form).entries()).forEach(([k, v]) => localStorage.setItem(k, v.toString()));
-  });
+    form.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      Array.from(new FormData(form).entries()).forEach(([k, v]) => localStorage.setItem(k, v.toString()));
+    });
+  }
 }

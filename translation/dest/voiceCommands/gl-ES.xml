@@ -14,6 +14,9 @@
   <string name="takeRookWithQueen">Capturar a torre coa dama</string>
   <string name="castle">Enrocar (en curto ou en longo)</string>
   <string name="phoneticAlphabetIsBest">O alfabeto fonético é mellor</string>
+  <string name="cancelTimerOrDenyARequest">Cancelar o temporizador ou denegar unha solicitude</string>
+  <string name="playPreferredMoveOrConfirmSomething">Realizar a xogada preferida ou confirmar unha acción</string>
+  <string name="sleep">Suspender (se se activou unha palabra de activación)</string>
   <string name="turnOffVoiceRecognition">Apagar o recoñecemento da fala</string>
   <string name="showPuzzleSolution">Amosar a solución do crebacabezas</string>
 </resources>

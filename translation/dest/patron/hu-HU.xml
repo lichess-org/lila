@@ -60,7 +60,7 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="nextPayment">Következő fizetés</string>
   <string name="youWillBeChargedXOnY">%1$s-t fogunk levonni ezen a napon: %2$s.</string>
   <string name="makeAdditionalDonation">Egészítsd ki az adományod most</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;The word 'gift' is used as a verb here. This function allows players to donate in another player's name, and have that player receive patron wings.">Ajándékozz Patron szárnyakat</string>
+  <string name="giftPatronWingsShort">Ajándékozz Patron szárnyakat</string>
   <string name="giftPatronWings">Ajándékozz Patron szárnyakat</string>
   <string name="update">Frissítés</string>
   <string name="changeMonthlyAmount">Havi összeg módosítása (%s)</string>

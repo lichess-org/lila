@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Iwwerdroungen</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s Iwwerdroung</item>
     <item quantity="other">%s Iwwerdroungen</item>
   </plurals>
   <string name="liveBroadcasts">Live Turnéier Iwwerdroungen</string>
   <string name="newBroadcast">Nei Live Iwwerdroung</string>
+  <string name="noRoundsYet">Nach keng Ronnen.</string>
   <string name="addRound">Ronn hinzufügen</string>
   <string name="ongoing">Am Gaang</string>
   <string name="upcoming">Demnächst</string>
@@ -34,4 +35,5 @@
   <string name="editRoundStudy">Ronnen-Etüd modifiéieren</string>
   <string name="deleteTournament">Dësen Turnéier läschen</string>
   <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
+  <string name="periodInSeconds">Period a Sekonnen</string>
 </resources>

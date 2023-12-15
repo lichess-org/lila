@@ -4,7 +4,7 @@
   <string name="puzzleThemes">Chủ đề câu đố</string>
   <string name="recommended">Đề xuất</string>
   <string name="phases">Giai đoạn</string>
-  <string name="motifs">Chủ đề khác</string>
+  <string name="motifs">Các mô-típ</string>
   <string name="advanced">Nâng cao</string>
   <string name="lengths">Thời lượng</string>
   <string name="mates">Chiếu hết</string>
@@ -65,7 +65,7 @@
   <string name="solved">giải đúng</string>
   <string name="failed">giải sai</string>
   <string name="streakDescription">Giải những câu đố có độ khó tăng dần và tích lũy chuỗi thắng. Sẽ không có đồng hồ, nên hãy giải chúng một cách bình tĩnh. Một nước đi sai, và trò chơi sẽ kết thúc! Tuy nhiên, bạn được quyền bỏ qua một nước đi trong mỗi lần chơi.</string>
-  <string name="yourStreakX">Chuỗi của bạn: %s</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">Chuỗi của bạn: %s</string>
   <string name="streakSkipExplanation">Bỏ qua nước đi này để bảo toàn chuỗi của bạn! Chỉ dùng được một lần cho mỗi lần chơi.</string>
   <string name="continueTheStreak">Tiếp tục chuỗi</string>
   <string name="newStreak">Chuỗi mới</string>
@@ -73,11 +73,11 @@
   <string name="lookupOfPlayer">Tìm câu đố từ các ván đấu của người khác</string>
   <string name="fromXGames">Câu đố từ ván cờ của %s</string>
   <string name="searchPuzzles">Tìm câu đố</string>
-  <string name="fromMyGamesNone">Bạn không có thế cờ nào trong dữ liệu, nhưng Lichess vẫn rất yêu mến bạn.
+  <string name="fromMyGamesNone">Bạn không có câu đố nào trong dữ liệu, nhưng Lichess vẫn rất yêu mến bạn.
 
-Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có một câu đó từ ván đấu của riêng bạn!</string>
+Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có một câu đố từ ván cờ của riêng bạn!</string>
   <string name="fromXGamesFound">Đã tìm được %1$s câu đố trong các ván đấu của %2$s</string>
-  <string name="puzzleDashboardDescription">Rèn luyện, phân tích và cải thiện</string>
+  <string name="puzzleDashboardDescription">Rèn luyện, phân tích, cải thiện</string>
   <plurals name="nbPlayed">
     <item quantity="other">Đã giải %s</item>
   </plurals>

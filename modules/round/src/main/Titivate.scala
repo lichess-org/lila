@@ -75,7 +75,6 @@ final private[round] class Titivate(
       gameRepo unsetCheckAt id
 
     case Right(game) =>
-      println(s"titivate: ${game.id} ${game.outoftime(true)} ${game.abandoned} ${game.unplayed}")
       game match
 
         case game if game.finished || game.isPgnImport || game.playedThenAborted =>

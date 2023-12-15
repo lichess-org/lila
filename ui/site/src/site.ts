@@ -14,9 +14,7 @@ import serviceWorker from './component/serviceWorker';
 import StrongSocket from './component/socket';
 import topBar from './component/top-bar';
 import watchers from './component/watchers';
-import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
-import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector } from 'common';
@@ -28,6 +26,8 @@ lichess.info = info;
 
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');
+  const setBlind = location.hash === '#blind';
+  const showDebug = location.hash === '#debug';
 
   requestAnimationFrame(() => {
     miniBoard.initAll();
@@ -98,7 +98,7 @@ lichess.load.then(() => {
     $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
-        userComplete({
+        lichess.asset.userComplete({
           input: this,
           friend: !!this.dataset.friend,
           tag: this.dataset.tag as any,
@@ -135,16 +135,9 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    if (location.hash === '#blind' && !lichess.blindMode)
-      xhr
-        .text('/toggle-blind-mode', {
-          method: 'post',
-          body: xhr.form({
-            enable: 1,
-            redirect: '/',
-          }),
-        })
-        .then(reload);
+    if (setBlind && !lichess.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
+
+    if (showDebug) lichess.asset.loadEsm('diagnostic');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));

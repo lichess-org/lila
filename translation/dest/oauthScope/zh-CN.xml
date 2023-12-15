@@ -44,9 +44,9 @@
   <string name="apiAccessTokens">API 访问令牌</string>
   <string name="created" comment="%s is relative time, e.g. 2 hours ago.">创建于 %s</string>
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">上次使用：%s</string>
-  <string name="alreadyHavePlayedGames">你已经有过对局了！</string>
+  <string name="alreadyHavePlayedGames">你已经玩过对局了！</string>
   <string name="attentionOfDevelopers">给开发者的提示：</string>
-  <string name="possibleToPrefill">可以通过调整 URL 参数来预填此界面。</string>
+  <string name="possibleToPrefill">可以通过调整 URL 内参数以预填此界面。</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">例如：%s</string>
   <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">将 %1$s 和 %2$s 作用域划勾，并设置令牌描述。</string>
   <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">作用域代码可以在此表格的 HTML 代码中找到。</string>

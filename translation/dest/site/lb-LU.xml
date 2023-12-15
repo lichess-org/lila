@@ -51,21 +51,21 @@
   <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
   <string name="whiteDidntMove">Wäiss huet net gezunn</string>
   <string name="blackDidntMove">Schwaarz huet net gezunn</string>
-  <string name="requestAComputerAnalysis">Eng Computer Analyse ufroen</string>
+  <string name="requestAComputerAnalysis">Eng Computeranalys ufroen</string>
   <string name="computerAnalysis">Computeranalys</string>
-  <string name="computerAnalysisAvailable">Computer Analyse disponibel</string>
-  <string name="computerAnalysisDisabled">Computer Analyse desaktivéiert</string>
+  <string name="computerAnalysisAvailable">Computeranalys disponibel</string>
+  <string name="computerAnalysisDisabled">Computeranalys desaktivéiert</string>
   <string name="analysis">Analysebriet</string>
   <string name="depthX">Déift %s</string>
-  <string name="usingServerAnalysis">Server Analyse gëtt benotzt</string>
+  <string name="usingServerAnalysis">Serveranalys gëtt benotzt</string>
   <string name="loadingEngine">Engine luet...</string>
   <string name="calculatingMoves">Zich ginn gerechent...</string>
   <string name="engineFailed">Feeler beim Lueden</string>
-  <string name="cloudAnalysis">Cloud Analyse</string>
-  <string name="goDeeper">Déift erhiewen</string>
-  <string name="showThreat">Bedrohung weisen</string>
+  <string name="cloudAnalysis">Cloudanalys</string>
+  <string name="goDeeper">Déift eropsetzen</string>
+  <string name="showThreat">Bedroung weisen</string>
   <string name="inLocalBrowser">am lokalen Browser</string>
-  <string name="toggleLocalEvaluation">Lokal Computer Analyse aktivéieren/desaktivéieren</string>
+  <string name="toggleLocalEvaluation">Lokal Computeranalys aktivéieren/desaktivéieren</string>
   <string name="promoteVariation">Variant opwäerten</string>
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
@@ -110,7 +110,7 @@
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
   <string name="deleteThisImportedGame">Importéiert Partie läschen?</string>
-  <string name="replayMode">Replay Modus</string>
+  <string name="replayMode">Replay-Modus</string>
   <string name="realtimeReplay">Realzäit</string>
   <string name="byCPL">No CPL</string>
   <string name="openStudy">Studie opmaachen</string>
@@ -118,10 +118,10 @@
   <string name="bestMoveArrow">Beschten Zuch Feil</string>
   <string name="showVariationArrows">Variantefeiler weisen</string>
   <string name="evaluationGauge">Evaluatioun weisen</string>
-  <string name="multipleLines">Puer Linnen</string>
+  <string name="multipleLines">Méi Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Aarbechtsspäicher</string>
-  <string name="infiniteAnalysis">Endlos Analyse</string>
+  <string name="infiniteAnalysis">Endlos Analys</string>
   <string name="removesTheDepthLimit">Entfernt d\'Déifenbegrenzung an hält däin Computer waarm</string>
   <string name="engineManager">Engineverwaltung</string>
   <string name="blunder">Gaffe</string>
@@ -488,14 +488,14 @@
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
-  <string name="boardEditor">Briet Editor</string>
+  <string name="boardEditor">Briet-Editor</string>
   <string name="setTheBoard">Briet opbauen</string>
-  <string name="popularOpenings">Beléift Eröffnungen</string>
+  <string name="popularOpenings">Beléift Erëffnungen</string>
   <string name="endgamePositions">Endspill Positiounen</string>
   <string name="chess960StartPosition">Chess960 Start Positioun: %s</string>
-  <string name="startPosition">Start Positioun</string>
+  <string name="startPosition">Ausgangsstellung</string>
   <string name="clearBoard">Briet opraumen</string>
-  <string name="loadPosition">Positioun lueden</string>
+  <string name="loadPosition">Stellung lueden</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">%s den Moderatoren mellen</string>
   <string name="profileCompletion">Profil vollstänneg zu: %s</string>
@@ -586,7 +586,7 @@
   <string name="outsideTheBoard">Außerhalb vum Briet</string>
   <string name="onSlowGames">An luesen Partien</string>
   <string name="always">Ëmmer</string>
-  <string name="never">Nie</string>
+  <string name="never">Ni</string>
   <string name="xCompetesInY">%1$s hëlt deel bei %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Defaite</string>
@@ -685,7 +685,7 @@
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
   <string name="keyShowOrHideComments">Kommentarer weisen/verstoppen</string>
   <string name="keyEnterOrExitVariation">Variant wiehlen/verloossen</string>
-  <string name="keyRequestComputerAnalysis">Computer-Analyse ufroen, léier aus dengen Feeler</string>
+  <string name="keyRequestComputerAnalysis">Computeranalys ufroen, léier aus denge Feeler</string>
   <string name="keyNextLearnFromYourMistakes">Nächst (Aus dengen Feeler léieren)</string>
   <string name="keyNextBlunder">Nächst Gaffe</string>
   <string name="keyNextMistake">Nächsten Feeler</string>
@@ -732,6 +732,7 @@
   <string name="withFriends">Mat Kolleegen</string>
   <string name="withEverybody">Mat jidderengem</string>
   <string name="kidMode">Kannermodus</string>
+  <string name="kidModeIsEnabled">De Kannermodus ass aktiv.</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Däin Konto gëtt verwalt. Fro däin Schachtrainer fir den Kannermodus opzehiewen.</string>
@@ -756,7 +757,7 @@
     <item quantity="one">Disponibel an %s Sprooch!</item>
     <item quantity="other">Disponibel an %s Sproochen!</item>
   </plurals>
-  <string name="gameAnalysis">Spill Analyse</string>
+  <string name="gameAnalysis">Analys vun der Partie</string>
   <string name="xHostsY">%1$s huet %2$s kreéiert</string>
   <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
@@ -772,9 +773,9 @@
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
   <string name="boardGeometry">Briet Geometrie</string>
-  <string name="boardTheme">Briet Design</string>
+  <string name="boardTheme">Brietdesign</string>
   <string name="boardSize">Briet Gréisst</string>
-  <string name="pieceSet">Figuren Set</string>
+  <string name="pieceSet">Figurestil</string>
   <string name="embedInYourWebsite">An Websäit anbetten</string>
   <string name="usernameAlreadyUsed">Dësen Benotzernumm gëtt schonn benotzt, wiel wannechgelift een aneren.</string>
   <string name="usernamePrefixInvalid">De Benotzernumm muss mat engem Buschtaf ufänken.</string>
@@ -820,7 +821,7 @@
   <string name="tryAnotherMoveForWhite">Probéier een aneren Zuch fir Wäiss</string>
   <string name="tryAnotherMoveForBlack">Probéier een aneren Zuch fir Schwaarz</string>
   <string name="solution">Léisung</string>
-  <string name="waitingForAnalysis">Waarden op Analyse</string>
+  <string name="waitingForAnalysis">Waarden op d\'Analys</string>
   <string name="noMistakesFoundForWhite">Keng Feeler vun Wäiss fonnt</string>
   <string name="noMistakesFoundForBlack">Keng Feeler vun Schwaarz fonnt</string>
   <string name="doneReviewingWhiteMistakes">Wäiss Feeler all nogekuckt</string>
@@ -907,9 +908,6 @@
   <string name="timeAlmostUp">Deng Zäit ass baal ofgelaf!</string>
   <string name="clickToRevealEmailAddress">[Klick fir Email Adress ze weisen]</string>
   <string name="download">Download</string>
-  <string name="welcome">Wëllkomm!</string>
-  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
-All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="coachManager">Coach Manager</string>
   <string name="streamerManager">Stream Manager</string>
   <string name="cancelTournament">Turnéier annuléieren</string>
@@ -944,10 +942,10 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="onlyTeamMembers">Just Ekippenmemberen</string>
   <string name="navigateMoveTree">Duerch den Zuchbam navigéieren</string>
   <string name="mouseTricks">Maus Tricks</string>
-  <string name="toggleLocalAnalysis">Lokal Computer Analyse aktivéieren/desaktivéieren</string>
-  <string name="toggleAllAnalysis">All Computer Analyse aktivéieren/desaktivéieren</string>
+  <string name="toggleLocalAnalysis">Lokal Computeranalys aktivéieren/desaktivéieren</string>
+  <string name="toggleAllAnalysis">All Computeranalysen aktivéieren/desaktivéieren</string>
   <string name="playComputerMove">Beschten Computer Zuch spillen</string>
-  <string name="analysisOptions">Analyse Optiounen</string>
+  <string name="analysisOptions">Analysoptiounen</string>
   <string name="focusChat">Chat fokusséieren</string>
   <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
   <string name="reopenYourAccount">Konto nei opmaachen</string>
@@ -968,4 +966,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="switchSides">Faarf wiesselen</string>
   <string name="closingAccountWithdrawAppeal">Däin Benotzerkonto zou ze maachen wäert och däin Asproch zeréckzéihen</string>
   <string name="ourEventTips">Eis Tipps fir d\'Organiséieren vun Turnéier</string>
+  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
+All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
 </resources>

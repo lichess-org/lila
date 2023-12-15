@@ -620,6 +620,7 @@
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
   <string name="biography">نبذة عنك</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
@@ -1056,9 +1057,6 @@
   <string name="timeAlmostUp">أوشك الوقت على الإنتهاء!</string>
   <string name="clickToRevealEmailAddress">[انقر للكشف عن عنوان البريد الإلكتروني]</string>
   <string name="download">تحميل</string>
-  <string name="welcome">مرحبا!</string>
-  <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
-كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
   <string name="coachManager">مدير المدرب</string>
   <string name="streamerManager">مدير البث</string>
   <string name="cancelTournament">الغاء البطولة</string>
@@ -1117,4 +1115,6 @@
   <string name="switchSides">تبديل جهة اللعب</string>
   <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
   <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
+  <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
+كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
 </resources>

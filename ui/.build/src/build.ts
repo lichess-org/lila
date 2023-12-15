@@ -2,11 +2,11 @@ import * as fs from 'node:fs';
 import * as cps from 'node:child_process';
 import * as ps from 'node:process';
 import { parseModules } from './parse';
-import { tsc, killTsc } from './tsc';
-import { sass, killSass } from './sass';
-import { esbuild, killEsbuild } from './esbuild';
-import { copies, killCopies } from './copies';
-import { rebuildWatch, killRebuildWatch } from './rebuild';
+import { tsc, stopTsc } from './tsc';
+import { sass, stopSass } from './sass';
+import { esbuild, stopEsbuild } from './esbuild';
+import { copies, stopCopies } from './copies';
+import { startTickling, stopTickling } from './tickler';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -15,11 +15,7 @@ export let modules: Map<string, LichessModule>;
 export let buildModules: LichessModule[];
 
 export async function build(mods: string[]) {
-  killRebuildWatch();
-  killSass();
-  killTsc();
-  killCopies();
-  await killEsbuild();
+  await stop();
   await clean();
 
   if (env.install) cps.execSync('pnpm install', { cwd: env.rootDir, stdio: 'inherit' });
@@ -35,11 +31,19 @@ export async function build(mods: string[]) {
   if (mods.length) env.log(`Building ${c.grey(buildModules.map(x => x.name).join(', '))}`);
 
   await Promise.allSettled([fs.promises.mkdir(env.jsDir), fs.promises.mkdir(env.cssDir)]);
-  rebuildWatch(mods);
   sass();
   await tsc();
   await copies();
   await esbuild();
+  startTickling(mods);
+}
+
+export async function stop() {
+  stopTickling();
+  stopSass();
+  stopTsc();
+  stopCopies();
+  await stopEsbuild();
 }
 
 export function postBuild() {

@@ -50,8 +50,8 @@
   <string name="entryCodeDescriptionForLeader">(Προαιρετικό) Ένας κωδικός εισόδου που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
   <string name="incorrectEntryCode">Λάθος κωδικός εισόδου.</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
-  <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
-  <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
+  <string name="upcomingTourns">Επερχόμενα τουρνουά</string>
+  <string name="completedTourns">Ολοκληρωμένα τουρνουά</string>
   <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
   <string name="joinLichessVariantTeam">Γίνε μέλος της επίσημης ομάδας %s για να ενημερώνεσαι και να συμμετέχεις σε διάφορες εκδηλώσεις</string>
   <string name="teamPage">Σελίδα ομάδας</string>

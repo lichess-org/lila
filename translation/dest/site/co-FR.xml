@@ -850,8 +850,6 @@
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
   <string name="clickToRevealEmailAddress">[Clicheghja pè palisà l\' indirizzu mail]</string>
   <string name="download">Telecaricà</string>
-  <string name="welcome">Benvenutu!</string>
-  <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
   <string name="coachManager">Respunsevule di l\' allinadori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
@@ -908,4 +906,5 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucadori di Lichess</string>
   <string name="switchSides">Invertì a scacchera</string>
   <string name="closingAccountWithdrawAppeal">Chjude u vostru contu cancellerà a vostra chjama</string>
+  <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
 </resources>

@@ -1,7 +1,9 @@
 import { h, VNode } from 'snabbdom';
 import { ParentCtrl } from '../types';
+import CevalCtrl from '../ctrl';
+import { fewerCores } from '../util';
 import { rangeConfig } from 'common/controls';
-import { hasFeature } from 'common/device';
+import { hasFeature, isChrome } from 'common/device';
 import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import * as Licon from 'common/licon';
 import { onClickAway, isReadonlyProp } from 'common';
@@ -19,7 +21,21 @@ const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(
 export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
   const ceval = ctrl.getCeval(),
     noarg = ctrl.trans.noarg,
+    minThreads = ceval.engines.active?.minThreads ?? 1,
+    maxThreads = ceval.maxThreads(),
     engCtrl = ctrl.getCeval().engines;
+
+  let observer: ResizeObserver;
+
+  function clickThreads(x = ceval.recommendedThreads()) {
+    ceval.setThreads(x);
+    ctrl.restartCeval?.();
+    ceval.opts.redraw();
+  }
+
+  function threadsTick(dir: 'up' | 'down') {
+    return h(`div.arrow-${dir}`, { hook: bind('click', () => clickThreads()) });
+  }
 
   function searchTick() {
     const millis = ceval.searchMs();
@@ -73,8 +89,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     'div.setting',
                     {
                       attrs: {
-                        title:
-                          'Set number of lines atop the move list in addition to move arrows on the board',
+                        title: 'Set number of evaluation lines and move arrows on the board',
                       },
                     },
                     [
@@ -93,34 +108,48 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     ],
                   );
                 })('analyse-multipv'),
-            hasFeature('sharedMem')
+            hasFeature('sharedMem') || ceval.engines.external
               ? (id => {
                   return h(
                     'div.setting',
                     {
                       attrs: {
-                        title: 'Higher values improve performance, but other apps may run slower',
+                        title:
+                          fewerCores() && !ceval.engines.external
+                            ? 'More threads will use more battery for better analysis'
+                            : "Set this below your CPU's thread count\nThe ticks mark a good safe choice",
                       },
                     },
                     [
                       h('label', { attrs: { for: id } }, 'Threads'),
-                      h('input#' + id, {
-                        attrs: {
-                          type: 'range',
-                          min: 1,
-                          max: ceval.maxThreads(),
-                          step: 1,
-                          disabled: ceval.maxThreads() <= 1,
-                        },
-                        hook: rangeConfig(
-                          () => ceval.threads(),
-                          x => {
-                            ceval.setThreads(x);
-                            ctrl.restartCeval?.();
+                      h('span', [
+                        h('input#' + id, {
+                          attrs: {
+                            type: 'range',
+                            min: minThreads,
+                            max: maxThreads,
+                            step: 1,
+                            disabled: maxThreads <= minThreads,
                           },
+                          hook: rangeConfig(() => ceval.threads(), clickThreads),
+                        }),
+                        h(
+                          'div.tick',
+                          {
+                            hook: {
+                              update: (_, v) => setupTick(v, ceval),
+                              insert: v => {
+                                setupTick(v, ceval);
+                                observer = new ResizeObserver(() => setupTick(v, ceval));
+                                observer.observe(v.elm!.parentElement!);
+                              },
+                              destroy: () => observer?.disconnect(),
+                            },
+                          },
+                          ceval.engines.external ? null : [threadsTick('up'), threadsTick('down')],
                         ),
-                      }),
-                      h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads()}`),
+                      ]),
+                      h('div.range_value', `${ceval.threads()} / ${maxThreads}`),
                     ],
                   );
                 })('analyse-threads')
@@ -130,7 +159,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                 'div.setting',
                 {
                   attrs: {
-                    title: 'Higher values improve performance',
+                    title: 'Higher values may improve performance',
                   },
                 },
                 [
@@ -159,6 +188,19 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
         ),
       )
     : null;
+}
+
+function setupTick(v: VNode, ceval: CevalCtrl) {
+  const tick = v.elm as HTMLElement;
+  const parentSpan = tick.parentElement!;
+  const minThreads = ceval.engines.active?.minThreads ?? 1;
+  const thumbWidth = isChrome() ? 17 : 19; // it is what it is
+  const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
+  const tickRatio = (ceval.recommendedThreads() - minThreads) / (ceval.maxThreads() - minThreads);
+  const tickLeft = Math.floor(thumbWidth / 2 + trackWidth * tickRatio);
+
+  tick.style.left = `${tickLeft}px`;
+  $(tick).toggleClass('recommended', ceval.threads() === ceval.recommendedThreads());
 }
 
 function engineSelection(ctrl: ParentCtrl) {

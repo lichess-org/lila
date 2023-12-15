@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Schpill mit eme Fründ</string>
   <string name="playWithTheMachine">Schpill mit em Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
-  <string name="gameOver">Schpiil verbii</string>
+  <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
@@ -406,6 +406,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="importGame">Partie importiere</string>
   <string name="importGameExplanation">Füeg e Schpiel-PGN i, für Zuegriff uf Schpielwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
   <string name="importGameCaveat">d\'Variazione werded glöscht. Zums b\'halte, muesch d\'PGN mit ere Schtudie importiere.</string>
+  <string name="importGameCaveat2">De PGN isch öffentlich zuegänglich. Zum es Schpiel privat importiere, nimmsch e Schtudie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partie</item>
     <item quantity="other">%s importierti Partie</item>
@@ -487,6 +488,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="movesPlayed">Gschpillti Züg</string>
   <string name="whiteWins">Sieg mit Wiss</string>
   <string name="blackWins">Sieg mit Schwarz</string>
+  <string name="drawRate">Remis-Rate</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächschts %s Turnier:</string>
   <string name="averageOpponent">Durchschnitt - Gägner</string>
@@ -507,6 +509,9 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="editProfile">Profil bearbeite</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
+  <string name="setFlair">Wähl dis Emoji:</string>
+  <string name="flair">Emoji</string>
+  <string name="youCanHideFlair">Alli Benutzer-Emojis chönnd - uf de ganze Site - usbländet werde.</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land, Region oder Kanton</string>
   <string name="thankYou">Ich danke dir!</string>
@@ -697,12 +702,19 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
   <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
-  <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
+  <string name="keyEnterOrExitVariation">Variante ischtige/verlah</string>
   <string name="keyRequestComputerAnalysis">Computeranalyse afordere, Lern us dine Fähler</string>
   <string name="keyNextLearnFromYourMistakes">Nächschts (Lern vu dine Fähler)</string>
   <string name="keyNextBlunder">Nächschte Patzer</string>
   <string name="keyNextMistake">Nächschte Fähler</string>
   <string name="keyNextInaccuracy">Nächschti Ungnauigkeit</string>
+  <string name="keyPreviousBranch">Vorherige Variante</string>
+  <string name="keyNextBranch">Nächschti Variante</string>
+  <string name="toggleVariationArrows">Variatione-Pfil umschalte</string>
+  <string name="cyclePreviousOrNextVariation">Zyklus vorherigi/nächschti Variante</string>
+  <string name="toggleGlyphAnnotations">Glyph-Amerkige ischalte und usschalte (...was immer das glyph isch?!)</string>
+  <string name="variationArrowsInfo">Mit de Variationspfil chasch ohni d\'Zugslischte navigiere.</string>
+  <string name="playSelectedMove">spill de gwählti zug</string>
   <string name="newTournament">Neus Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedene Zitkontrolle und Variante</string>
   <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und witeri Variante sind vorhande - für ändlose Schach-Spass.</string>
@@ -745,6 +757,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="withFriends">Mit Fründe</string>
   <string name="withEverybody">Mit allne</string>
   <string name="kidMode">Chinder-Modus</string>
+  <string name="kidModeIsEnabled">De Chindermodus isch aktiviert.</string>
   <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz dini Chind vor andere Internetbenutzer.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Dis Konto wird verwaltet, frög din Schachlehrer für d\'Ufhebig vum Chindermodus.</string>
@@ -858,6 +871,8 @@ gits nöd und es isch immer ungwertet.</string>
     <item quantity="one">und speicher %s Voruszug Zile</item>
     <item quantity="other">und speicher %s Voruszug Zile</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichess hät dir e privati Nachricht g\'schickt.</string>
+  <string name="clickHereToReadIt">Klick da zum läse</string>
   <string name="sorry">Äxgüsi :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Zitli müesse schperre.</string>
   <string name="timeoutExpires">Die Schperrig ändet in %s.</string>
@@ -880,6 +895,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui a</string>
   <string name="edit">Bearbeite</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Schnällschach</string>
   <string name="classical">Klassisch</string>
   <string name="ultraBulletDesc">Wahnsinnig schnälli Schpiel: weniger als 30 Sekunde</string>
@@ -919,9 +936,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe azeige]</string>
   <string name="download">Abelade</string>
-  <string name="welcome">Willkomme!</string>
-  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
-Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
@@ -981,4 +995,8 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="switchSides">Farb wächsle</string>
   <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
   <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
+  <string name="instructions">Awisige</string>
+  <string name="showMeEverything">Zeig mer alles</string>
+  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
+Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
 </resources>

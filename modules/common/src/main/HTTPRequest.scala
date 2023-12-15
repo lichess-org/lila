@@ -45,7 +45,8 @@ object HTTPRequest:
   def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value contains "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
-  def isAndroid = UaMatcher("Android")
+  def isAndroid                     = UaMatcher("Android")
+  def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
 
   def origin(req: RequestHeader): Option[String]  = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
@@ -61,7 +62,7 @@ object HTTPRequest:
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider""" +
+    """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider|Amazonbot|Bytespider""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus"""
 

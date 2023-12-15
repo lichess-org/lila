@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
-
-import { Redraw, bind, header, Close } from './util';
+import { header, Close } from './util';
+import { bind, Redraw } from 'common/snabbdom';
 
 type Theme = string;
 
@@ -15,48 +15,32 @@ export interface ThemeData {
   d3: ThemeDimData;
 }
 
-export interface ThemeCtrl {
-  dimension: () => keyof ThemeData;
-  data: () => ThemeDimData;
-  trans: Trans;
-  set(t: Theme): void;
-  close: Close;
-}
-
-export function ctrl(
-  data: ThemeData,
-  trans: Trans,
-  dimension: () => keyof ThemeData,
-  redraw: Redraw,
-  close: Close,
-): ThemeCtrl {
-  function dimensionData() {
-    return data[dimension()];
-  }
-
-  return {
-    dimension,
-    trans,
-    data: dimensionData,
-    set(t: Theme) {
-      const d = dimensionData();
-      d.current = t;
-      applyTheme(t, d.list, dimension() === 'd3');
-      const field = `theme${dimension() === 'd3' ? '3d' : ''}`;
-      xhr
-        .text(`/pref/${field}`, {
-          body: xhr.form({ [field]: t }),
-          method: 'post',
-        })
-        .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
-      redraw();
-    },
-    close,
+export class ThemeCtrl {
+  constructor(
+    private readonly data: ThemeData,
+    readonly trans: Trans,
+    readonly dimension: () => keyof ThemeData,
+    readonly redraw: Redraw,
+    readonly close: Close,
+  ) {}
+  dimensionData = () => this.data[this.dimension()];
+  set = (t: Theme) => {
+    const d = this.dimensionData();
+    d.current = t;
+    applyTheme(t, d.list, this.dimension() === 'd3');
+    const field = `theme${this.dimension() === 'd3' ? '3d' : ''}`;
+    xhr
+      .text(`/pref/${field}`, {
+        body: xhr.form({ [field]: t }),
+        method: 'post',
+      })
+      .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
+    this.redraw();
   };
 }
 
 export function view(ctrl: ThemeCtrl): VNode {
-  const d = ctrl.data();
+  const d = ctrl.dimensionData();
 
   return h('div.sub.theme.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.close()),
@@ -64,18 +48,16 @@ export function view(ctrl: ThemeCtrl): VNode {
   ]);
 }
 
-function themeView(current: Theme, set: (t: Theme) => void) {
-  return (t: Theme) =>
-    h(
-      'button',
-      {
-        hook: bind('click', () => set(t)),
-        attrs: { title: t, type: 'button' },
-        class: { active: current === t },
-      },
-      [h('span.' + t)],
-    );
-}
+const themeView = (current: Theme, set: (t: Theme) => void) => (t: Theme) =>
+  h(
+    'button',
+    {
+      hook: bind('click', () => set(t)),
+      attrs: { title: t, type: 'button' },
+      class: { active: current === t },
+    },
+    h('span.' + t),
+  );
 
 function applyTheme(t: Theme, list: Theme[], is3d: boolean) {
   $('body').removeClass(list.join(' ')).addClass(t);

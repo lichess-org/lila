@@ -222,7 +222,7 @@ function confetti(data: SwissData): VNode | undefined {
   return data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id)
     ? h('canvas#confetti', {
         hook: {
-          insert: _ => lichess.loadIife('javascripts/confetti.js'),
+          insert: _ => lichess.asset.loadIife('javascripts/confetti.js'),
         },
       })
     : undefined;
@@ -240,7 +240,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
           numberRow(noarg('gamesPlayed'), s.games),
           numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
           numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),
-          numberRow(noarg('draws'), [s.draws, slots], 'percent'),
+          numberRow(noarg('drawRate'), [s.draws, slots], 'percent'),
           numberRow('Byes', [s.byes, slots], 'percent'),
           numberRow('Absences', [s.absences, slots], 'percent'),
         ]),

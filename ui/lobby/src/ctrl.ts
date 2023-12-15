@@ -92,7 +92,7 @@ export default class LobbyController {
         friendUser = urlParams.get('user')!;
       }
 
-      loadDialogPolyfill().then(() => {
+      loadDialogPolyfill.then(() => {
         this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
         redraw();
       });

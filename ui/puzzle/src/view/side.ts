@@ -19,7 +19,7 @@ export function puzzleBox(ctrl: Controller): VNode {
 const angleImg = (ctrl: Controller): string => {
   const angle = ctrl.getData().angle;
   const name = angle.opening ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
-  return lichess.assetUrl(`images/puzzle-themes/${name}.svg`);
+  return lichess.asset.url(`images/puzzle-themes/${name}.svg`);
 };
 
 const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
@@ -89,6 +89,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
           const user = {
             ...p,
             rating: ctrl.showRatings ? p.rating : undefined,
+            line: false,
           };
           return h('div.player.color-icon.is.text.' + p.color, userLink(user));
         }),

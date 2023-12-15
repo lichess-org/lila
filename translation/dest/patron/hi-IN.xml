@@ -60,7 +60,7 @@
   <string name="nextPayment">अगला भुगतान</string>
   <string name="youWillBeChargedXOnY">आपसे %2$s पर %1$s लिया जाएगा।</string>
   <string name="makeAdditionalDonation">अब एक अतिरिक्त दान करें</string>
-  <string name="giftPatronWingsShort" comment="giftPatronWingsShort&#10;&#10;The word 'gift' is used as a verb here. This function allows players to donate in another player's name, and have that player receive patron wings.">उपहार संरक्षक पंख</string>
+  <string name="giftPatronWingsShort">उपहार संरक्षक पंख</string>
   <string name="giftPatronWings">एक खिलाड़ी को संरक्षक पंख उपहार कीजिये</string>
   <string name="update">अपडेट करें</string>
   <string name="changeMonthlyAmount">मासिक राशि बदलें (%s)</string>

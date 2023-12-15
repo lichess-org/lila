@@ -22,7 +22,7 @@ export default function (ctrl: SimulCtrl) {
         hook: onInsert(el => {
           $(el).replaceWith(ctrl.opts.$side);
           if (ctrl.opts.chat) {
-            ctrl.opts.chat.data.hostId = ctrl.data.host.id;
+            ctrl.opts.chat.data.hostIds = [ctrl.data.host.id];
             lichess.makeChat(ctrl.opts.chat);
           }
         }),

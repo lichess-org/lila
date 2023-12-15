@@ -7,12 +7,11 @@
   <string name="enterPassword">Introdueix la teva contrasenya i el codi d\'autenticació generat per l\'aplicació per a completar la configuració. Necessitaràs un codi d\'autenticació cada vegada que iniciïs la sessió.</string>
   <string name="ifYouCannotScanEnterX">Si no pots escanejar el codi, introdueix el número %s a la teva aplicació.</string>
   <string name="authenticationCode">Codi d\'autenticació</string>
-  <string name="ifYouLoseAccess">Nota: Si perds l\'accés als teus codis d\'autenticació en dos passos, pots restablir la teva contrasenya per correu electrònic.</string>
+  <string name="ifYouLoseAccessTwoFactor">Nota: Si perds l\'accés als teus codis d\'autenticació en dos passos, pots %s per correu electrònic.</string>
   <string name="enableTwoFactor">Habilitar l\'autenticació en dos passos</string>
   <string name="disableTwoFactor">Desactivar l\'autenticació en dos passos</string>
   <string name="twoFactorEnabled">Autenticació en dos passos habilitada</string>
-  <string name="twoFactorDisable">Necessites la teva contrasenya i un codi d\'autenticació de la teva aplicació d\'autenticació per desactivar l\'autenticació en dos passos.
-Si has perdut l\'accés als teus codis d\'autenticació, també pots restablir la teva contrasenya per correu electrònic.</string>
+  <string name="twoFactorToDisable">Necessites la teva contrasenya i un codi d\'autenticació de la teva aplicació d\'autenticació per a desactivar l\'autenticació en dos passos.</string>
   <string name="openTwoFactorApp">Obre al teu dispositiu l\'aplicació d\'autenticació de dos factors per veure el teu codi d\'autenticació verificar la teva identitat.</string>
   <string name="setupReminder">Si us plau, activeu l\'autentificació en dues passes per augmentar la seguretat del vostre compte a https://lichess.org/account/twofactor.
 Heu rebut aquest missatge perquè el vostre compte té responsabilitats especials com líder d\'un equip, entrenador, professor o streamer</string>

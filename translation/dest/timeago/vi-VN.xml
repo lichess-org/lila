@@ -23,9 +23,6 @@
     <item quantity="other">trong %s năm</item>
   </plurals>
   <string name="rightNow">ngay bây giờ</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">%s giây trước</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">%s phút trước</item>
   </plurals>

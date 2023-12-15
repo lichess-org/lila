@@ -4,4 +4,4 @@ resolvers += Resolver.url(
 )(Resolver.ivyStylePatterns)
 addSbtPlugin("com.typesafe.play" % "sbt-plugin"   % "2.8.18-lila_1.21") // scala2 branch
 addSbtPlugin("org.scalameta"     % "sbt-scalafmt" % "2.5.2")
-addSbtPlugin("ch.epfl.scala"     % "sbt-bloop"    % "1.5.12")
+addSbtPlugin("ch.epfl.scala"     % "sbt-bloop"    % "1.5.13")

@@ -27,13 +27,13 @@ import * as pgnExport from '../pgnExport';
 import retroView from '../retrospect/retroView';
 import practiceView from '../practice/practiceView';
 import serverSideUnderboard from '../serverSideUnderboard';
-import { StudyCtrl } from '../study/interfaces';
 import { render as renderTreeView } from '../treeView/treeView';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { stepwiseScroll } from 'common/scroll';
 import type * as studyDeps from '../study/studyDeps';
 import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
+import StudyCtrl from '../study/studyCtrl';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
@@ -313,7 +313,7 @@ export default function (deps?: typeof studyDeps) {
     if (ctrl.nvui) return ctrl.nvui.render();
     const concealOf = makeConcealOf(ctrl),
       study = ctrl.study,
-      showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
+      showCevalPvs = !ctrl.retro?.isSolving() && !ctrl.practice,
       menuIsOpen = ctrl.actionMenu(),
       gamebookPlay = ctrl.gamebookPlay(),
       gamebookPlayView = gamebookPlay && deps?.gbPlay.render(gamebookPlay),

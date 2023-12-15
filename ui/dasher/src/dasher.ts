@@ -1,11 +1,12 @@
 import { PingCtrl } from './ping';
-import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
-import { SoundCtrl, ctrl as soundCtrl } from './sound';
-import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
-import { BoardCtrl, BoardData, ctrl as boardCtrl } from './board';
-import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
-import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece';
-import { Redraw, Prop, prop } from './util';
+import { LangsCtrl, LangsData } from './langs';
+import { SoundCtrl } from './sound';
+import { BackgroundCtrl, BackgroundData } from './background';
+import { BoardCtrl, BoardData } from './board';
+import { ThemeCtrl, ThemeData } from './theme';
+import { PieceCtrl, PieceData } from './piece';
+import { Redraw } from 'common/snabbdom';
+import { Prop, prop } from 'common';
 
 export interface DasherData {
   user?: LightUser;
@@ -26,63 +27,46 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
 
 const defaultMode = 'links';
 
-export interface DasherCtrl {
-  mode: Prop<Mode>;
-  setMode(m: Mode): void;
-  data: DasherData;
-  trans: Trans;
-  ping: PingCtrl;
-  subs: {
-    langs: LangsCtrl;
-    sound: SoundCtrl;
-    background: BackgroundCtrl;
-    board: BoardCtrl;
-    theme: ThemeCtrl;
-    piece: PieceCtrl;
-  };
-  opts: DasherOpts;
-}
-
 export interface DasherOpts {
   playing: boolean;
   zenable: boolean;
 }
 
-export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
-  const trans = lichess.trans(data.i18n);
-  const opts = {
+export default class DasherCtrl {
+  trans: Trans;
+  ping: PingCtrl;
+  langs: LangsCtrl;
+  sound: SoundCtrl;
+  background: BackgroundCtrl;
+  board: BoardCtrl;
+  theme: ThemeCtrl;
+  piece: PieceCtrl;
+  opts = {
     playing: $('body').hasClass('playing'),
     zenable: $('body').hasClass('zenable'),
   };
 
-  const mode: Prop<Mode> = prop(defaultMode as Mode);
+  constructor(
+    readonly data: DasherData,
+    readonly redraw: Redraw,
+  ) {
+    this.trans = lichess.trans(data.i18n);
+    this.ping = new PingCtrl(this.trans, this.redraw);
+    const dimension = () => (this.data.board.is3d ? 'd3' : 'd2');
+    this.langs = new LangsCtrl(this.data.lang, this.trans, this.close);
+    this.sound = new SoundCtrl(this.data.sound.list, this.trans, this.redraw, this.close);
+    this.background = new BackgroundCtrl(this.data.background, this.trans, this.redraw, this.close);
+    this.board = new BoardCtrl(this.data.board, this.trans, this.redraw, this.close);
+    this.theme = new ThemeCtrl(this.data.theme, this.trans, dimension, this.redraw, this.close);
+    this.piece = new PieceCtrl(this.data.piece, this.trans, dimension, this.redraw, this.close);
+    lichess.pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
+  }
 
-  const setMode = (m: Mode) => {
-    mode(m);
-    redraw();
+  mode: Prop<Mode> = prop(defaultMode as Mode);
+
+  setMode = (m: Mode) => {
+    this.mode(m);
+    this.redraw();
   };
-  const close = () => setMode(defaultMode);
-
-  const ping = new PingCtrl(trans, redraw);
-
-  const subs = {
-    langs: langsCtrl(data.lang, trans, close),
-    sound: soundCtrl(data.sound.list, trans, redraw, close),
-    background: backgroundCtrl(data.background, trans, redraw, close),
-    board: boardCtrl(data.board, trans, redraw, close),
-    theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
-    piece: pieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
-  };
-
-  lichess.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));
-
-  return {
-    mode,
-    setMode,
-    data,
-    trans,
-    ping,
-    subs,
-    opts,
-  };
+  close = () => this.setMode(defaultMode);
 }

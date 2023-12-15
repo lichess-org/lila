@@ -52,8 +52,8 @@ final class JsonView(rematches: Rematches):
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (Fen write pov.game.chess),
-        "color"    -> pov.color.name,
+        "fen"      -> Fen.write(pov.game.chess),
+        "color"    -> pov.color,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
         "status"   -> pov.game.status,
@@ -79,7 +79,7 @@ final class JsonView(rematches: Rematches):
       .add("secondsLeft" -> pov.remainingSeconds)
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
-      .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
+      // .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
       .add("winner" -> pov.game.winnerColor)
       .add("ratingDiff" -> pov.player.ratingDiff)
 

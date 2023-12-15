@@ -1,23 +1,26 @@
-import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
+import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
 import CevalCtrl from '../ctrl';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
-import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
+import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
-import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
 
 export class Engines {
-  private localEngines: BrowserEngineInfo[];
-  private localEngineMap: Map<string, WithMake>;
-  private externalEngines: ExternalEngineInfo[];
-  private selectProp: StoredProp<string>;
   private _active: EngineInfo | undefined = undefined;
+  localEngines: BrowserEngineInfo[];
+  localEngineMap: Map<string, WithMake>;
+  externalEngines: ExternalEngineInfo[];
+  selectProp: StoredProp<string>;
+  browserSupport: Requires[] = features().slice();
 
   constructor(private ctrl: CevalCtrl) {
+    if ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) {
+      this.browserSupport.push('recentFirefoxOrNotBrave');
+    }
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
@@ -31,6 +34,35 @@ export class Engines {
   };
 
   makeEngineMap() {
+    type Hash = string;
+    type Variant = [VariantKey, Hash];
+    const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
+    const makeVariant = ([key, nnue]: Variant): WithMake => ({
+      info: {
+        id: `__fsfnnue-${key == 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
+        name: 'Fairy Stockfish 14+ NNUE',
+        short: 'FSF 14+',
+        tech: 'NNUE',
+        requires: ['simd', 'recentFirefoxOrNotBrave'],
+        variants: [key],
+        assets: {
+          version: 'sfw003',
+          root: 'npm/lila-stockfish-web',
+          nnue: `${variantMap(key)}-${nnue}.nnue`,
+          js: 'fsf.js',
+        },
+      },
+      make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
+    });
+    const variants: Variant[] = [
+      ['antichess', '689c016df8e0'],
+      ['atomic', '2cf13ff256cc'],
+      ['crazyhouse', '8ebf84784ad2'],
+      ['horde', '28173ddccabe'],
+      ['kingOfTheHill', '978b86d0e6a4'],
+      ['threeCheck', '313cc226a173'],
+      ['racingKings', '636b95f085e3'],
+    ];
     return new Map<string, WithMake>(
       [
         {
@@ -39,10 +71,10 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
+            requires: ['simd', 'recentFirefoxOrNotBrave'],
             minMem: 1536,
             assets: {
-              version: 'sfw002',
+              version: 'sfw003',
               root: 'npm/lila-stockfish-web',
               js: 'linrock-nnue-7.js',
             },
@@ -55,10 +87,10 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
+            requires: ['simd', 'recentFirefoxOrNotBrave'],
             minMem: 2048,
             assets: {
-              version: 'sfw002',
+              version: 'sfw003',
               root: 'npm/lila-stockfish-web',
               js: 'sf-nnue-40.js',
             },
@@ -82,26 +114,19 @@ export class Engines {
           },
           make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
         },
+        ...variants.map(makeVariant),
         {
           info: {
             id: '__fsfhce',
-            name: 'Fairy Stockfish 14+',
+            name: 'Fairy Stockfish 14+ HCE',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: ['simd', 'webWorkerDynamicImport'],
-            variants: [
-              'crazyhouse',
-              'atomic',
-              'horde',
-              'kingOfTheHill',
-              'racingKings',
-              'antichess',
-              'threeCheck',
-            ],
+            requires: ['simd', 'recentFirefoxOrNotBrave'],
+            variants: variants.map(v => v[0]),
             assets: {
-              version: 'sfw002',
+              version: 'sfw003',
               root: 'npm/lila-stockfish-web',
-              js: 'fsf-hce.js',
+              js: 'fsf.js',
             },
           },
           make: (e: BrowserEngineInfo) =>
@@ -114,15 +139,8 @@ export class Engines {
             short: 'SF 11 MV',
             tech: 'HCE',
             requires: ['sharedMem'],
-            variants: [
-              'crazyhouse',
-              'atomic',
-              'horde',
-              'kingOfTheHill',
-              'racingKings',
-              'antichess',
-              'threeCheck',
-            ],
+            minThreads: 1,
+            variants: variants.map(v => v[0]),
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish-mv.wasm',
@@ -142,6 +160,7 @@ export class Engines {
             short: 'SF 11',
             tech: 'HCE',
             requires: ['sharedMem'],
+            minThreads: 1,
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish.wasm',
@@ -157,6 +176,7 @@ export class Engines {
             name: 'Stockfish WASM',
             short: 'Stockfish',
             tech: 'HCE',
+            minThreads: 1,
             maxThreads: 1,
             requires: ['wasm'],
             obsoletedBy: 'sharedMem',
@@ -174,6 +194,7 @@ export class Engines {
             name: 'Stockfish JS',
             short: 'Stockfish',
             tech: 'HCE',
+            minThreads: 1,
             maxThreads: 1,
             obsoletedBy: 'wasm',
             assets: {
@@ -187,8 +208,8 @@ export class Engines {
       ]
         .filter(
           e =>
-            e.info.requires?.map(req => hasFeature(req)).every(x => !!x) &&
-            !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)),
+            e.info.requires?.every((req: Requires) => this.browserSupport.includes(req)) &&
+            !(e.info.obsoletedBy && this.browserSupport.includes(e.info.obsoletedBy as Feature)),
         )
         .map(e => [e.info.id, { info: withDefaults(e.info as BrowserEngineInfo), make: e.make }]),
     );
@@ -254,11 +275,10 @@ export class Engines {
 }
 
 function maxHashMB() {
-  if (navigator.deviceMemory) return pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
-  else if (isAndroid()) return 64; // budget androids are easy to crash @ 128
+  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
   else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIOS()) return 32;
-  return 256; // this is safe, mostly desktop firefox / mac safari users here
+  return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 const maxHash = maxHashMB();
 
@@ -272,9 +292,10 @@ function externalEngineSupports(e: EngineInfo, v: VariantKey) {
 
 const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
   variants: ['standard', 'chess960', 'fromPosition'],
-  maxThreads: navigator.hardwareConcurrency ?? 1,
   minMem: 1024,
   maxHash,
+  minThreads: 2,
+  maxThreads: 32,
   ...engine,
 });
 

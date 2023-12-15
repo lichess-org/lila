@@ -37,11 +37,6 @@
     <item quantity="other">za %s godina</item>
   </plurals>
   <string name="rightNow">upravo sada</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">prije %s sekundi</item>
-    <item quantity="few">prije %s sekunde</item>
-    <item quantity="other">prije %s sekunda</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">prije %s minutu</item>
     <item quantity="few">prije %s minute</item>

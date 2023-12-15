@@ -36,7 +36,7 @@
   </plurals>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
-  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
+  <string name="drawStreakStandard">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
   <string name="drawStreakVariants">حداقل طول بازی برای بازی های قرعه کشی شده برای کسب امتیاز بر اساس نوع بازی متفاوت است. جدول زیر آستانه انواع مختلف را فهرست می کند.</string>
   <string name="variant">نوع</string>
   <string name="minimumGameLength">حداقل طول بازی</string>
@@ -53,7 +53,7 @@
   <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
   <string name="arenaStreaks">آرنا استریکز</string>
   <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی به‌جای 2 امتیاز 4 امتیاز می دهند.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">برزرک مجاز نیست</string>
+  <string name="noBerserkAllowed">برزرک مجاز نیست</string>
   <string name="noArenaStreaks">سلسله برد ناموجود</string>
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>

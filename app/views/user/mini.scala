@@ -22,8 +22,14 @@ object mini:
         div(cls := "upt__info__top")(
           userLink(u, withPowerTip = false),
           u.profileOrDefault.flagInfo map: c =>
-            span(cls := "upt__info__top__flag", attrData("flag") := c.code, title := c.longName):
-              c.shortName | c.name
+            val hasRoomForNameText = u.username.length + c.shortName.length < 21
+            span(
+              cls   := "upt__info__top__flag",
+              title := (!hasRoomForNameText).option(c.name)
+            )(
+              img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
+              hasRoomForNameText option c.shortName
+            )
           ,
           ping map bits.signalBars
         ),

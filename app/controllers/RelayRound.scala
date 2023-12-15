@@ -9,6 +9,7 @@ import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
 import chess.format.pgn.PgnStr
 import views.*
+import lila.common.config.{ Max, MaxPerSecond }
 
 final class RelayRound(
     env: Env,
@@ -113,6 +114,11 @@ final class RelayRound(
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn                                   = studyC.apiPgn
 
+  def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
+    val source = env.relay.api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(env.relay.jsonView.myRound)
+    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(apiC.sourceToNdJson)
+  }
+
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rt =>
       studyC.CanView(rt.study) {
@@ -127,10 +133,16 @@ final class RelayRound(
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     env.relay.api
-      .byIdAndContributor(id)
+      .byIdWithStudy(id)
       .flatMap:
-        case None     => notFoundJson()
-        case Some(rt) => env.relay.push(rt, PgnStr(ctx.body.body)) inject jsonOkResult
+        case None                                    => notFoundJson()
+        case Some(rt) if !rt.study.canContribute(me) => forbiddenJson()
+        case Some(rt) =>
+          env.relay
+            .push(rt.withTour, PgnStr(ctx.body.body))
+            .map:
+              case Right(msg) => jsonOkMsg(msg)
+              case Left(e)    => JsonBadRequest(e.message)
   }
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(

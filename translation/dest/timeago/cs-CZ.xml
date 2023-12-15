@@ -44,12 +44,6 @@
     <item quantity="other">za %s let</item>
   </plurals>
   <string name="rightNow">právě teď</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">před %s sekundou</item>
-    <item quantity="few">před %s sekundami</item>
-    <item quantity="many">před %s sekundami</item>
-    <item quantity="other">před %s sekundami</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">před %s minutou</item>
     <item quantity="few">před %s minutami</item>

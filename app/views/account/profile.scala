@@ -23,7 +23,7 @@ object profile:
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.editProfile()),
         standardFlash,
-        postForm(cls := "form3", action := routes.Account.profileApply)(
+        postForm(cls := "form3 dirty-alert", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
             ctx.kid.no option
@@ -31,30 +31,16 @@ object profile:
                 .group(form("bio"), trans.biography(), half = true, help = trans.biographyDescription().some):
                   f => form3.textarea(f)(rows := 5)
             ,
-            form3.group(form("flair"), "Flair", half = true): f =>
-              frag(
-                details(cls := "form-control emoji-details")(
-                  summary(cls := "button button-metal button-no-upper")(
-                    trans.setFlair(),
-                    userSpan(u, withPowerTip = false)
-                  ),
-                  form3.hidden(f, u.flair.map(_.value)),
-                  div(cls := "emoji-picker")
-                ),
-                u.flair.isDefined option p(
-                  button(
-                    cls := "button button-red button-thin button-empty text emoji-remove"
-                  )(trans.delete())
-                ),
-                p(cls := "form-help")(
-                  a(
-                    href     := s"${routes.Pref.form("display")}#showFlairs",
-                    cls      := "text",
-                    dataIcon := licon.InfoCircle
-                  ):
-                    trans.youCanHideFlair()
-                )
-              )
+            form3.flairPicker(form("flair"), u.flair)(
+              userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
+            ):
+              p(cls := "form-help"):
+                a(
+                  href     := s"${routes.Pref.form("display")}#showFlairs",
+                  cls      := "text",
+                  dataIcon := licon.InfoCircle
+                ):
+                  trans.youCanHideFlair()
           ),
           form3.split(
             form3.group(form("flag"), trans.countryRegion(), half = true): f =>

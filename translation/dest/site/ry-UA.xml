@@ -606,9 +606,6 @@
   <string name="lostAgainstTOSViolator">Вы прыйграли, тому тко нарушив правила Lichess</string>
   <string name="refundXpointsTimeControlY">Верненя: %1$s %2$s рейтінґовых балув.</string>
   <string name="download">Стерьхати</string>
-  <string name="welcome">Вітаєме!</string>
-  <string name="lichessPatronInfo">Lichess - то незысковоє ай докус задарноє проґрамноє застаченя из одкрытым зачаточным кодом. 
-Вшыткі кельтункы, розробкы ай контент ся фінанзувут лем бо вы нас поддіржуєте.</string>
   <string name="tournDescriptionHelp">Хочете дашто уповісти хосновачам? Будьте курті у свойих словах. Приступні одкликованя у форматови Markdown:[name](https://url)</string>
   <string name="minimumRating">Мінімум рейтінґу</string>
   <string name="maximumWeeklyRating">Максімум тыждньвого рейтінґу</string>
@@ -648,4 +645,6 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтінґові партії вшыткых бавлячув Lichess</string>
   <string name="switchSides">Перемінити бук</string>
+  <string name="lichessPatronInfo">Lichess - то незысковоє ай докус задарноє проґрамноє застаченя из одкрытым зачаточным кодом. 
+Вшыткі кельтункы, розробкы ай контент ся фінанзувут лем бо вы нас поддіржуєте.</string>
 </resources>

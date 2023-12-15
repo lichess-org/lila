@@ -11,8 +11,8 @@
     <item quantity="other">Practised %1$s positions on %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Solved %s tactical puzzle</item>
-    <item quantity="other">Solved %s tactical puzzles</item>
+    <item quantity="one">Solved %s training puzzle</item>
+    <item quantity="other">Solved %s training puzzles</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Played %1$s %2$s game</item>

@@ -5,7 +5,8 @@ import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { StudyCtrl, Topic } from './interfaces';
+import { Topic } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export default class TopicsCtrl {
   open = prop(false);
@@ -87,8 +88,8 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
   });
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
-  lichess.loadCssPath('tagify');
-  lichess.loadIife('npm/tagify/tagify.min.js').then(() => {
+  lichess.asset.loadCssPath('tagify');
+  lichess.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
     const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, {
       pattern: /.{2,}/,
       maxTags: 30,

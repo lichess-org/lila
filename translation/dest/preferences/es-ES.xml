@@ -15,6 +15,7 @@
   <string name="pgnLetter">Inicial (en inglés) de la pieza (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="showPlayerRatings">Mostrar las puntuaciones de los jugadores</string>
+  <string name="showFlairs">Mostrar entorno del jugador</string>
   <string name="explainShowPlayerRatings">Esto permite ocultar todas las puntuaciones del sitio, para ayudar a centrarse en el ajedrez. Las partidas aún pueden ser por puntos, esto es sólo lo que tú puedes ver.</string>
   <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
   <string name="onlyOnInitialPosition">Sólo en posición inicial</string>

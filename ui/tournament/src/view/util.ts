@@ -28,7 +28,7 @@ export const player = (
         defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
         fullName(p),
       ),
-      withRating ? h('span.rating', userRating(p)) : null,
+      withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],
   );
 

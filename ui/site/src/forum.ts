@@ -33,7 +33,7 @@ lichess.load.then(() => {
     $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
-    if (this.innerText.match(/(^|\n)>/)) {
+    if (this.innerHTML.match(/(^|<br>)&gt;/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
@@ -100,7 +100,7 @@ lichess.load.then(() => {
       topicId = $(this).attr('data-topic');
 
     if (topicId)
-      lichess.loadIife('vendor/textcomplete.min.js').then(function () {
+      lichess.asset.loadIife('vendor/textcomplete.min.js').then(function () {
         const searchCandidates = function (term: string, candidateUsers: string[]) {
           return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
         };

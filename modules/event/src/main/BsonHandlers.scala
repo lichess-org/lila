@@ -7,6 +7,6 @@ import lila.db.dsl.{ *, given }
 
 private object BsonHandlers:
 
-  private given BSONHandler[Lang] = stringAnyValHandler[Lang](_.code, Lang.apply)
+  private given BSONHandler[Lang] = langByCodeHandler
 
   given BSONDocumentHandler[Event] = Macros.handler

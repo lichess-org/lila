@@ -6,31 +6,10 @@ import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
 import { prop, Prop, scrollTo } from 'common';
 import { titleNameToId } from '../view/util';
-import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'common/xhr';
 import { userLink } from 'common/userLink';
-
-export interface StudyMemberCtrl {
-  dict: Prop<StudyMemberMap>;
-  confing: Prop<string | null>;
-  myId?: string;
-  inviteForm: StudyInviteFormCtrl;
-  update(members: StudyMemberMap): void;
-  setActive(id: string): void;
-  isActive(id: string): boolean;
-  owner(): StudyMember;
-  myMember(): StudyMember | undefined;
-  isOwner(): boolean;
-  canContribute(): boolean;
-  max: number;
-  setRole(id: string, role: string): void;
-  kick(id: string): void;
-  leave(): void;
-  ordered(): StudyMember[];
-  size(): number;
-  isOnline(userId: string): boolean;
-  hasOnlineContributor(): boolean;
-}
+import StudyCtrl from './studyCtrl';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -56,116 +35,105 @@ function memberActivity(onIdle: () => void) {
   return schedule;
 }
 
-export function ctrl(opts: Opts): StudyMemberCtrl {
-  const dict = prop<StudyMemberMap>(opts.initDict);
-  const confing = prop<string | null>(null);
-  const active: { [id: string]: () => void } = {};
-  let online: { [id: string]: boolean } = {};
-  let spectatorIds: string[] = [];
-  const max = 30;
+export class StudyMemberCtrl {
+  dict: Prop<StudyMemberMap>;
+  confing = prop<string | null>(null);
+  inviteForm: StudyInviteFormCtrl;
+  readonly active: Map<string, () => void> = new Map();
+  online: { [id: string]: boolean } = {};
+  spectatorIds: string[] = [];
+  max = 30;
 
-  const owner = () => dict()[opts.ownerId];
-
-  const isOwner = () => opts.myId === opts.ownerId || (opts.admin && canContribute());
-
-  const myMember = () => (opts.myId ? dict()[opts.myId] : undefined);
-
-  const canContribute = (): boolean => myMember()?.role === 'w';
-
-  const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw, opts.trans);
-
-  function setActive(id: string) {
-    if (opts.tab() !== 'members') return;
-    if (active[id]) active[id]();
-    else
-      active[id] = memberActivity(() => {
-        delete active[id];
-        opts.redraw();
-      });
-    opts.redraw();
-  }
-
-  function updateOnline() {
-    online = {};
-    const members: StudyMemberMap = dict();
-    spectatorIds.forEach(function (id) {
-      if (members[id]) online[id] = true;
+  constructor(readonly opts: Opts) {
+    this.dict = prop<StudyMemberMap>(opts.initDict);
+    this.inviteForm = inviteFormCtrl(
+      opts.send,
+      this.dict,
+      () => opts.tab('members'),
+      opts.redraw,
+      opts.trans,
+    );
+    lichess.pubsub.on('socket.in.crowd', d => {
+      const names: string[] = d.users || [];
+      this.inviteForm.spectators(names);
+      this.spectatorIds = names.map(titleNameToId);
+      this.updateOnline();
     });
-    if (opts.tab() === 'members') opts.redraw();
   }
 
-  lichess.pubsub.on('socket.in.crowd', d => {
-    const names: string[] = d.users || [];
-    inviteForm.spectators(names);
-    spectatorIds = names.map(titleNameToId);
-    updateOnline();
-  });
+  owner = () => this.dict()[this.opts.ownerId];
 
-  return {
-    dict,
-    confing,
-    myId: opts.myId,
-    inviteForm,
-    update(members: StudyMemberMap) {
-      if (isOwner()) confing(Object.keys(members).find(sri => !dict()[sri]) || null);
-      const wasViewer = myMember() && !canContribute();
-      const wasContrib = myMember() && canContribute();
-      dict(members);
-      if (wasViewer && canContribute()) {
-        if (lichess.once('study-tour')) opts.startTour();
-        opts.onBecomingContributor();
-        opts.notif.set({
-          text: opts.trans.noarg('youAreNowAContributor'),
-          duration: 3000,
-        });
-      } else if (wasContrib && !canContribute())
-        opts.notif.set({
-          text: opts.trans.noarg('youAreNowASpectator'),
-          duration: 3000,
-        });
-      updateOnline();
-    },
-    setActive,
-    isActive(id: string) {
-      return !!active[id];
-    },
-    owner,
-    myMember,
-    isOwner,
-    canContribute,
-    max,
-    setRole(id: string, role: string) {
-      setActive(id);
-      opts.send('setRole', {
-        userId: id,
-        role,
+  isOwner = () => this.opts.myId === this.opts.ownerId || (this.opts.admin && this.canContribute());
+
+  myMember = () => (this.opts.myId ? this.dict()[this.opts.myId] : undefined);
+
+  canContribute = (): boolean => this.myMember()?.role === 'w';
+
+  setActive = (id: string) => {
+    if (this.opts.tab() !== 'members') return;
+    const active = this.active.get(id);
+    if (active) active();
+    else
+      this.active.set(
+        id,
+        memberActivity(() => {
+          this.active.delete(id);
+          this.opts.redraw();
+        }),
+      );
+    this.opts.redraw();
+  };
+
+  updateOnline = () => {
+    this.online = {};
+    const members: StudyMemberMap = this.dict();
+    this.spectatorIds.forEach(id => {
+      if (members[id]) this.online[id] = true;
+    });
+    if (this.opts.tab() === 'members') this.opts.redraw();
+  };
+
+  update = (members: StudyMemberMap) => {
+    if (this.isOwner()) this.confing(Object.keys(members).find(sri => !this.dict()[sri]) || null);
+    const wasViewer = this.myMember() && !this.canContribute();
+    const wasContrib = this.myMember() && this.canContribute();
+    this.dict(members);
+    if (wasViewer && this.canContribute()) {
+      if (lichess.once('study-tour')) this.opts.startTour();
+      this.opts.onBecomingContributor();
+      this.opts.notif.set({
+        text: this.opts.trans.noarg('youAreNowAContributor'),
+        duration: 3000,
       });
-      confing(null);
-    },
-    kick(id: string) {
-      opts.send('kick', id);
-      confing(null);
-    },
-    leave() {
-      opts.send('leave');
-    },
-    ordered() {
-      const d = dict();
-      return Object.keys(d)
-        .map(id => d[id])
-        .sort((a, b) => (a.role === 'r' && b.role === 'w' ? 1 : a.role === 'w' && b.role === 'r' ? -1 : 0));
-    },
-    size() {
-      return Object.keys(dict()).length;
-    },
-    isOnline(userId: string) {
-      return online[userId];
-    },
-    hasOnlineContributor() {
-      const members = dict();
-      for (const i in members) if (online[i] && members[i].role === 'w') return true;
-      return false;
-    },
+    } else if (wasContrib && !this.canContribute())
+      this.opts.notif.set({
+        text: this.opts.trans.noarg('youAreNowASpectator'),
+        duration: 3000,
+      });
+    this.updateOnline();
+  };
+  setRole = (userId: string, role: string) => {
+    this.setActive(userId);
+    this.opts.send('setRole', { userId, role });
+    this.confing(null);
+  };
+  kick = (id: string) => {
+    this.opts.send('kick', id);
+    this.confing(null);
+  };
+  leave = () => this.opts.send('leave');
+  ordered = () => {
+    const d = this.dict();
+    return Object.keys(d)
+      .map(id => d[id])
+      .sort((a, b) => (a.role === 'r' && b.role === 'w' ? 1 : a.role === 'w' && b.role === 'r' ? -1 : 0));
+  };
+  size = () => Object.keys(this.dict()).length;
+  isOnline = (userId: string) => this.online[userId];
+  hasOnlineContributor = () => {
+    const members = this.dict();
+    for (const i in members) if (this.online[i] && members[i].role === 'w') return true;
+    return false;
   };
 }
 
@@ -180,7 +148,7 @@ export function view(ctrl: StudyCtrl): VNode {
       {
         class: {
           contrib,
-          active: members.isActive(member.user.id),
+          active: members.active.has(member.user.id),
           online: members.isOnline(member.user.id),
         },
         attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
@@ -190,7 +158,7 @@ export function view(ctrl: StudyCtrl): VNode {
   }
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
-    if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
+    if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
       return h('i.act', {
         attrs: dataIcon(licon.Gear),
         hook: bind(
@@ -199,7 +167,7 @@ export function view(ctrl: StudyCtrl): VNode {
           ctrl.redraw,
         ),
       });
-    if (!isOwner && member.user.id === members.myId)
+    if (!isOwner && member.user.id === members.opts.myId)
       return h('i.act.leave', {
         attrs: {
           'data-icon': licon.InternalArrow,

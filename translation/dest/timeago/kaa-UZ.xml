@@ -30,10 +30,6 @@
     <item quantity="other">%s jıldan keyin</item>
   </plurals>
   <string name="rightNow">tap házir</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekund aldın</item>
-    <item quantity="other">%s sekund aldın</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minut aldın</item>
     <item quantity="other">%s minut aldın</item>

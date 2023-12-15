@@ -6,19 +6,13 @@ import * as licon from './licon';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
-lichess.load.then(async () => {
+export const ready = lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
-  if (!window.HTMLDialogElement)
-    dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js'))).default;
-});
-
-export async function ready() {
-  // sometimes we launch dialogs before lichess.load
   if (window.HTMLDialogElement) return true;
-  await lichess.load;
-  await import(lichess.assetUrl('npm/dialog-polyfill.esm.js'));
+  dialogPolyfill = (await import(lichess.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+    ?.default;
   return dialogPolyfill !== undefined;
-}
+});
 
 export interface Dialog {
   readonly open: boolean; // is visible?
@@ -220,7 +214,7 @@ function assets(o: DialogOpts) {
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve(),
+    o.cssPath ? lichess.asset.loadCssPath(o.cssPath) : Promise.resolve(),
   ]);
 }
 

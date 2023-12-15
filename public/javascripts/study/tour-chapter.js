@@ -9,9 +9,9 @@ function loadShepherd(f) {
       : dataTheme === 'light'
       ? 'default'
       : 'dark');
-  lichess.loadCss('vendor/' + theme + '.css');
-  lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
-    lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
+  lichess.asset.loadCss('vendor/' + theme + '.css');
+  lichess.asset.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
+    lichess.asset.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
       f(theme);
     });
   });

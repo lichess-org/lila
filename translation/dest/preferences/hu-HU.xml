@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Elrejthető a játékosok értékszáma, hogy könnyebb legyen a játékra koncentrálni. A játszmák ettől függetlenül lehetnek értékeltek, ez csak a megjelenítésre vonatkozik.</string>
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Csak játék közben</string>
+  <string name="inGameOnly">Csak játék közben</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
@@ -48,7 +48,7 @@
   <string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
   <string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Lépj a hangod segítségével</string>
+  <string name="inputMovesWithVoice">Lépj a hangod segítségével</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Nyilak illesztése a szabályos lépésekhez</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">\"Good game, well played\" üzenet küldése döntetlen vagy vereség esetén</string>
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>

@@ -38,10 +38,10 @@
   <string name="rapidShield">Khiên Cờ nhanh</string>
   <string name="classicalShieldArena">Đấu trường Khiên Cờ chậm</string>
   <string name="classicalShield">Khiên Cờ chậm</string>
-  <string name="xShieldArena">%s Giải đấu Khiên</string>
-  <string name="xShield">%s Khiên</string>
-  <string name="xTeamBattle">%s Giải đấu Đội</string>
+  <string name="xShieldArena">Giải đấu Khiên %s</string>
+  <string name="xShield">Khiên %s</string>
+  <string name="xTeamBattle">Giải đa Đội %s</string>
   <string name="eliteXArena">Giải đấu %s Chuyên Nghiệp</string>
-  <string name="eliteX">Chuyên Nghiệp %s</string>
+  <string name="eliteX">%s Chuyên nghiệp</string>
   <string name="xArena">Đấu trường %s</string>
 </resources>

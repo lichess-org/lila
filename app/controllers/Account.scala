@@ -110,22 +110,24 @@ final class Account(
 
   def apiNowPlaying = Scoped()(doNowPlaying)
 
-  private def doNowPlaying(using Context)(using me: Me) =
-    env.round.proxyRepo.urgentGames(me) map { povs =>
-      val nb = (getInt("nb") | 9) atMost 50
-      Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
-    }
+  private def doNowPlaying(using ctx: Context)(using me: Me) =
+    env.round.proxyRepo
+      .urgentGames(me)
+      .map:
+        _.take((getInt("nb") | 9) atMost 50)
+      .map:
+        _.filterNot(_.game.isTournament) map env.api.lobbyApi.nowPlaying
+      .map: povs =>
+        Ok(Json.obj("nowPlaying" -> JsArray(povs)))
 
   def dasher = Auth { _ ?=> me ?=>
-    negotiateJson(
-      env.pref.api.get(me).map { prefs =>
+    negotiateJson:
+      env.pref.api.get(me) map: prefs =>
         Ok:
           lila.common.LightUser.write(me.light) ++ Json.obj(
             "coach" -> isGranted(_.Coach),
             "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
           )
-      }
-    )
   }
 
   def passwd = Auth { _ ?=> me ?=>

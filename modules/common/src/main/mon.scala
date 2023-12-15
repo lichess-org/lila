@@ -607,9 +607,8 @@ object mon:
     object sequencer:
       val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
   object api:
-    val userGames = counter("api.cost").withTag("endpoint", "userGames")
-    val users     = counter("api.cost").withTag("endpoint", "users")
-    val activity  = counter("api.cost").withTag("endpoint", "activity")
+    val users    = counter("api.cost").withTag("endpoint", "users")
+    val activity = counter("api.cost").withTag("endpoint", "activity")
     object challenge:
       object bulk:
         def scheduleNb(byUserId: String) = counter("api.challenge.bulk.schedule.nb").withTag("by", byUserId)

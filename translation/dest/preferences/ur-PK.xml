@@ -40,6 +40,6 @@
   <string name="castleByMovingTwoSquares">بادشاہ کو دو خانے چالایں</string>
   <string name="castleByMovingOntoTheRook">بادشاہ کو رخ پر منتقل کریں</string>
   <string name="inputMovesWithTheKeyboard">کی بورڈ کے ذریعے چالیں داخل کریں</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">چالیں اپنی آواز سے داخل کریں</string>
+  <string name="inputMovesWithVoice">چالیں اپنی آواز سے داخل کریں</string>
   <string name="yourPreferencesHaveBeenSaved">آپ کے اندراج محفوظ کر دیے گئے ہیں</string>
 </resources>

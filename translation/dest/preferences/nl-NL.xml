@@ -15,6 +15,7 @@
   <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zenmodus</string>
   <string name="showPlayerRatings">Toon de rating van de spelers</string>
+  <string name="showFlairs">Geef de flairs van de spelers weer</string>
   <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>

@@ -7,7 +7,8 @@ import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -173,8 +174,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
         'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
       },
       class: {
-        active:
-          !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
+        active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow(),
       },
       hook: {
         insert(vnode) {

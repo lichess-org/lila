@@ -29,19 +29,20 @@ object bits:
         val visiblePlayers = tour.nbPlayers >= 10 option tour.nbPlayers
         tr(
           td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id))(
+            a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
               tour.name(full = false)
-            )
           ),
-          td(momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))),
+          td(
+            if tour.isStarted then timeRemaining(tour.finishesAt)
+            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))
+          ),
           td(tour.durationString),
           tour.conditions.teamMember match
             case Some(t) =>
               td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
             case _ if tour.isTeamBattle =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt())(
+              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt()):
                 visiblePlayers
-              )
             case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
         )
     )

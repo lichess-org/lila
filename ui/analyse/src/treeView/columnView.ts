@@ -39,7 +39,7 @@ function emptyMove(conceal?: Conceal): VNode {
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children,
+  const cs = node.children.filter(x => ctx.showComputer || !x.comp),
     main = cs[0];
   if (!main) return;
   const conceal = opts.noConceal
@@ -242,7 +242,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     ctrl,
     truncateComments: false,
     concealOf: concealOf || emptyConcealOf,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
+    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),

@@ -30,10 +30,6 @@
     <item quantity="other">%s ವರ್ಷಗಳಲ್ಲಿ</item>
   </plurals>
   <string name="rightNow">ಇದೀಗ</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s ಸೆಕೆಂಡ್ ಹಿಂದೆ</item>
-    <item quantity="other">%s ಸೆಕೆಂಡುಗಳ ಹಿಂದೆ</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s ನಿಮಿಷದ ಹಿಂದೆ</item>
     <item quantity="other">%s ನಿಮಿಷಗಳ ಹಿಂದೆ</item>

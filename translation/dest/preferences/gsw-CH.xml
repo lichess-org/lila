@@ -15,10 +15,11 @@
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
   <string name="showPlayerRatings">Zeig Schpiller Wertige</string>
+  <string name="showFlairs">Benutzer-Emojis azeige</string>
   <string name="explainShowPlayerRatings">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Afangsschtellig</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Nur im Schpiel</string>
+  <string name="inGameOnly">Nur im Schpiel</string>
   <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zähntelsekunde</string>
@@ -48,7 +49,7 @@
   <string name="castleByMovingTwoSquares">Zieh de König 2 Fälder</string>
   <string name="castleByMovingOntoTheRook">Zieh de König zum Turm</string>
   <string name="inputMovesWithTheKeyboard">Züg mit de Taschtatur usfühere</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Züg per Sprachigab</string>
+  <string name="inputMovesWithVoice">Züg per Sprachigab</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Möglichi Züg werded mit Pfil azeigt</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Säg \"guet gschpillt\" nach ere Niderlag oder bi me Remis</string>
   <string name="yourPreferencesHaveBeenSaved">Dini Ischtellige sind gschpeicheret.</string>

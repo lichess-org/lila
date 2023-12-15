@@ -37,11 +37,6 @@
     <item quantity="other">через %s годув</item>
   </plurals>
   <string name="rightNow">такой тепирь</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s секунда тепирь</item>
-    <item quantity="few">%s секунды тепирь</item>
-    <item quantity="other">%s секунд тепирь</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s минута тепирь</item>
     <item quantity="few">%s минуты тепирь</item>

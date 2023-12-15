@@ -373,6 +373,7 @@
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
+  <string name="importGameCaveat2">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกม โปรดใช้หน้ากรณีศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -448,6 +449,7 @@
   <string name="movesPlayed">การเดินที่ทำ</string>
   <string name="whiteWins">ขาวชนะ</string>
   <string name="blackWins">ดำชนะ</string>
+  <string name="drawRate">อัตราเสมอ</string>
   <string name="draws">เสมอ</string>
   <string name="nextXTournament">ทัวร์นาเมนต์ %s ถัดไป:</string>
   <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
@@ -468,6 +470,8 @@
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
+  <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
+  <string name="youCanHideFlair">มันมีการตั้งค่าที่ทำให้ไม่สามารถเห็นรูปตกแต่งของผู้ใช้ได้ทั้งเวบไซต์</string>
   <string name="biography">ชีวประวัติ</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือภูมิภาค</string>
   <string name="thankYou">ขอบคุณ!</string>
@@ -872,9 +876,6 @@
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
   <string name="clickToRevealEmailAddress">[คลิกเพื่อเผยที่อยู่อีเมล]</string>
   <string name="download">ดาวน์โหลด</string>
-  <string name="welcome">ยินดีต้อนรับ!</string>
-  <string name="lichessPatronInfo">Lichess เป็นมูลนิธิ และเป็นซอฟต์แวร์โอเพนซอร์สที่ฟรีอย่างสิ้นเชิง
-ค่าบริการ การพัฒนา และเนี้อหาของ Lichess ได้รับทุนสนับสนุนจากการบริจาคเงินของผู้ใช้เว็บไซต์อย่างเดียว</string>
   <string name="coachManager">ตัวจัดการผู้ฝึกสอน</string>
   <string name="streamerManager">ตัวจัดการผู้สตรีม</string>
   <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>
@@ -930,4 +931,6 @@
   <string name="ourEventTips">คำแนะนำในการจัดการอีเว้นท์นี้</string>
   <string name="instructions">คำแนะนำ</string>
   <string name="showMeEverything">แสดงให้ฉันทุกอย่าง</string>
+  <string name="lichessPatronInfo">Lichess เป็นมูลนิธิ และเป็นซอฟต์แวร์โอเพนซอร์สที่ฟรีอย่างสิ้นเชิง
+ค่าบริการ การพัฒนา และเนี้อหาของ Lichess ได้รับทุนสนับสนุนจากการบริจาคเงินของผู้ใช้เว็บไซต์อย่างเดียว</string>
 </resources>

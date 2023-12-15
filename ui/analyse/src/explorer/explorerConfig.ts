@@ -352,7 +352,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
+            lichess.asset
               .userComplete({
                 input,
                 tag: 'span',

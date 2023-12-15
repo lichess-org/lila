@@ -20,6 +20,7 @@ case class GameRanks(whiteRank: Rank, blackRank: Rank)
 case class FeaturedSwisses(
     created: List[Swiss],
     started: List[Swiss]
-)
+):
+  def teamIds: Set[TeamId] = (created ::: started).view.map(_.teamId).toSet
 
 case class SwissFinish(id: SwissId, ranking: Ranking)

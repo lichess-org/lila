@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Transliacijos</string>
   <string name="myBroadcasts">Mano transliacijos</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s transliacija</item>
     <item quantity="few">%s transliacijos</item>
     <item quantity="many">%s transliacijos</item>

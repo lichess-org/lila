@@ -461,6 +461,7 @@
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
+  <string name="importGameCaveat2">Toto PGN je verejne dostupné. Ak chcete partiu importovať súkromne, použite štúdiu!</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
     <item quantity="few">%s importované partie</item>
@@ -551,6 +552,7 @@
   <string name="movesPlayed">Odohraných ťahov</string>
   <string name="whiteWins">Výhry ako biely</string>
   <string name="blackWins">Výhry ako čierny</string>
+  <string name="drawRate">Pomer remíz</string>
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
@@ -571,6 +573,9 @@
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
   <string name="lastName">Priezvisko</string>
+  <string name="setFlair">Nastavte si svoju ikonku štýlu:</string>
+  <string name="flair">Ikonka štýlu</string>
+  <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
   <string name="biography">Životopis</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Krajina alebo región</string>
   <string name="thankYou">Ďakujeme!</string>
@@ -953,6 +958,7 @@
   <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasický šach</string>
@@ -993,8 +999,6 @@
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
-  <string name="welcome">Vitajte!</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
@@ -1055,4 +1059,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
 </resources>

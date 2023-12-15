@@ -12,11 +12,11 @@
   </plurals>
   <string name="opponentName">Gägner Name</string>
   <string name="loser">Verlürer</string>
-  <string name="from">Vum</string>
+  <string name="from">vo</string>
   <string name="to">bis</string>
   <string name="humanOrComputer">Ob de Gägner en Mänsch oder en Computer gsi isch</string>
   <string name="aiLevel">K.I. Stärchi</string>
-  <string name="source">Quälle</string>
+  <string name="source">Spielort</string>
   <string name="nbTurns">Azahl Züg</string>
   <string name="result">Ergäbnis</string>
   <string name="winnerColor">Sieger Farb</string>

@@ -10,7 +10,7 @@ import lila.common.{ Preload, HTTPRequest }
 import lila.common.Json.given
 import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.{ Tournament as Tour }
-import lila.user.{ User as UserModel, UserFlairApi }
+import lila.user.{ User as UserModel, FlairApi }
 
 final class Round(
     env: Env,
@@ -23,7 +23,7 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private given UserFlairApi = env.user.flairApi
+  private given FlairApi = env.user.flairApi
 
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     pov.game.playableByAi so env.fishnet.player(pov.game)
@@ -284,22 +284,18 @@ final class Round(
     )(html.game.mini(_))
 
   def miniFullId(fullId: GameFullId) = Open:
-    FoundPage(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
+    FoundPage(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId)):
       html.game.mini(_)
-    )
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.round.actorApi.round.Moretime
-    env.round.proxyRepo.game(anyId.gameId) flatMap {
-      _.flatMap { Pov(_, me) }.so { pov =>
-        env.round.moretimer.isAllowedIn(pov.game) map {
+    env.round.proxyRepo.game(anyId.gameId) flatMap:
+      _.flatMap { Pov(_, me) }.so: pov =>
+        env.round.moretimer.isAllowedIn(pov.game, Preload.none) map:
           if _ then
             env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
             jsonOkResult
           else BadRequest(jsonError("This game doesn't allow giving time"))
-        }
-      }
-    }
   }
 
   def help = Open:

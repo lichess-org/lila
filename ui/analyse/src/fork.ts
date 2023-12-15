@@ -94,7 +94,7 @@ const eventToIndex = (e: MouseEvent): number | undefined => {
 };
 
 export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  if (ctrl.retro) return;
+  if (ctrl.retro?.isSolving()) return;
   const state = ctrl.fork.state();
   if (!state.displayed) return;
   const isMainline = concealOf && ctrl.onMainline;

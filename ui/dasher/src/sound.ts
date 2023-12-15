@@ -2,7 +2,8 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import { h, VNode } from 'snabbdom';
-import { Redraw, Close, bind, header } from './util';
+import { Close, header } from './util';
+import { bind, Redraw } from 'common/snabbdom';
 
 type Key = string;
 
@@ -13,22 +14,20 @@ export interface SoundData {
   list: Sound[];
 }
 
-export interface SoundCtrl {
-  makeList(): Sound[];
-  api: SoundI;
-  set(k: Key): void;
-  volume(v: number): void;
-  redraw: Redraw;
-  trans: Trans;
-  close: Close;
-}
+export class SoundCtrl {
+  list: Sound[];
+  api: SoundI = lichess.sound; // ???
 
-export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close): SoundCtrl {
-  const list: Sound[] = raw.map(s => s.split(' '));
+  constructor(
+    raw: string[],
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+    readonly close: Close,
+  ) {
+    this.list = raw.map(s => s.split(' '));
+  }
 
-  const api = lichess.sound;
-
-  const postSet = throttlePromiseDelay(
+  private postSet = throttlePromiseDelay(
     () => 1000,
     (soundSet: string) =>
       xhr
@@ -39,34 +38,28 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
         .catch(() => lichess.announce({ msg: 'Failed to save sound preference' })),
   );
 
-  return {
-    makeList() {
-      const canSpeech = window.speechSynthesis?.getVoices().length;
-      return list.filter(s => s[0] != 'speech' || canSpeech);
-    },
-    api,
-    set(k: Key) {
-      api.speech(k == 'speech');
-      lichess.pubsub.emit('speech.enabled', api.speech());
-      if (api.speech()) {
-        api.changeSet('standard');
-        postSet('standard');
-        api.say('Speech synthesis ready');
-      } else {
-        api.changeSet(k);
-        api.play('genericNotify');
-        postSet(k);
-      }
-      redraw();
-    },
-    volume(v: number) {
-      api.setVolume(v);
-      // plays a move sound if speech is off
-      api.sayOrPlay('move', 'knight F 7');
-    },
-    redraw,
-    trans,
-    close,
+  makeList = () => {
+    const canSpeech = window.speechSynthesis?.getVoices().length;
+    return this.list.filter(s => s[0] != 'speech' || canSpeech);
+  };
+  set = (k: Key) => {
+    this.api.speech(k == 'speech');
+    lichess.pubsub.emit('speech.enabled', this.api.speech());
+    if (this.api.speech()) {
+      this.api.changeSet('standard');
+      this.postSet('standard');
+      this.api.say('Speech synthesis ready');
+    } else {
+      this.api.changeSet(k);
+      this.api.play('genericNotify');
+      this.postSet(k);
+    }
+    this.redraw();
+  };
+  volume = (v: number) => {
+    this.api.setVolume(v);
+    // plays a move sound if speech is off
+    this.api.sayOrPlay('move', 'knight F 7');
   };
 }
 

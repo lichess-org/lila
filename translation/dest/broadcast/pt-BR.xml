@@ -2,16 +2,21 @@
 <resources>
   <string name="broadcasts">Transmissões</string>
   <string name="myBroadcasts">Minhas transmissões</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s transmissão</item>
     <item quantity="other">%s transmissões</item>
   </plurals>
   <string name="liveBroadcasts">Transmissões ao vivo do torneio</string>
   <string name="newBroadcast">Nova transmissão ao vivo</string>
+  <string name="aboutBroadcasts">Sobre as transmissões</string>
+  <string name="noRoundsYet">Sem rodadas ainda.</string>
+  <string name="howToUseLichessBroadcasts">Como usar as transmissões do Lichess.</string>
+  <string name="theNewRoundHelp">A nova rodada terá os mesmos membros e colaboradores que a anterior.</string>
   <string name="addRound">Adicionar uma rodada</string>
   <string name="ongoing">Em andamento</string>
   <string name="upcoming">Próximos</string>
   <string name="completed">Concluído</string>
+  <string name="completedHelp">O Lichess detecta o fim da rodada baseado nos jogos fonte. Use essa opção se não houver fonte.</string>
   <string name="roundName">Nome da rodada</string>
   <string name="roundNumber">Número da rodada</string>
   <string name="tournamentName">Nome do torneio</string>
@@ -35,4 +40,14 @@
   <string name="editRoundStudy">Editar estudo da rodada</string>
   <string name="deleteTournament">Excluir este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
+  <string name="automaticLeaderboard">Placar automático</string>
+  <string name="automaticLeaderboardHelp">Calcula e exibe um placar simples baseado nos resultados dos jogos</string>
+  <string name="replace">Opcional: nomes de jogador, classificações e títulos alternativos</string>
+  <string name="replaceHelp">Uma linha por jogador, no seguinte formato:
+Nome original; Nome alternativo; Classificação alternativa opcional; Título alternativo opcional
+Exemplo:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Período em segundos</string>
+  <string name="periodInSecondsHelp">Opcional: tempo entre as solicitações. Mín. 2s, máx. 60s. Por padrão, é calculado com base no número de espectadores.</string>
 </resources>

@@ -5,6 +5,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 import lila.irwin.KaladinUser
+import play.api.i18n.Lang
 
 object kaladin:
 
@@ -87,7 +88,7 @@ object kaladin:
       )
     }
 
-  def report(response: lila.irwin.KaladinUser.Response): Frag =
+  def report(response: lila.irwin.KaladinUser.Response)(using Lang): Frag =
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(

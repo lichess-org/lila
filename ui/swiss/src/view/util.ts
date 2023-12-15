@@ -12,7 +12,10 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
-    [h('span.name', fullName(p.user)), withRating ? h('span.rating', userRating(p)) : null],
+    [
+      h('span.name', fullName(p.user)),
+      withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
+    ],
   );
 }
 

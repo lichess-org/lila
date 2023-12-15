@@ -549,13 +549,12 @@ final class SwissApi(
     SwissPairing
       .fields: f =>
         mongo.pairing
-          .aggregateList(100) { framework =>
+          .aggregateList(100): framework =>
             import framework.*
             Match($doc(f.status -> SwissPairing.ongoing)) -> List(
               GroupField(f.swissId)("ids" -> PushField(f.id)),
               Limit(100)
             )
-          }
       .map:
         _.flatMap: doc =>
           for
@@ -563,9 +562,9 @@ final class SwissApi(
             gameIds <- doc.getAsOpt[List[GameId]]("ids")
           yield swissId -> gameIds
       .flatMap:
-        _.map { (swissId, gameIds) =>
+        _.traverse_ { (swissId, gameIds) =>
           Sequencing[List[Game]](swissId)(cache.swissCache.byId) { _ =>
-            roundSocket.getGames(gameIds) map { pairs =>
+            roundSocket.getGames(gameIds) map: pairs =>
               val games               = pairs.collect { case (_, Some(g)) => g }
               val (finished, ongoing) = games.partition(_.finishedOrAborted)
               val flagged             = ongoing.filter(_ outoftime true)
@@ -575,14 +574,15 @@ final class SwissApi(
               lila.mon.swiss.games("flagged").record(flagged.size)
               lila.mon.swiss.games("missing").record(missingIds.size)
               if flagged.nonEmpty then
-                Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag), "roundSocket")
+                Bus.publish(
+                  lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
+                  "roundSocket"
+                )
               if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
               finished
-            }
-          } flatMap {
-            _.map(finishGame).parallel.void
-          }
-        }.parallel.void
+          } flatMap:
+            _.traverse_(finishGame)
+        }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
     chatApi.userChat.service(id into ChatId, text, _.Swiss, isVolatile = volatile)

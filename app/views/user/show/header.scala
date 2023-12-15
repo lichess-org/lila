@@ -15,14 +15,26 @@ object header:
   private val dataTab    = attr("data-tab")
 
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
+    val userDom =
+      span(
+        cls      := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
+        dataHref := userUrl(u.username)
+      )(
+        !u.isPatron so lineIcon(u),
+        titleTag(u.title),
+        u.username,
+        userFlair(u).map: flair =>
+          if ctx.isAuth then a(href := routes.Account.profile, title := trans.setFlair.txt())(flair)
+          else flair
+      )
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
           h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
             a(href := routes.Plan.index)(patronIcon),
-            userSpan(u, withPowerTip = false, withOnline = false)
+            userDom
           )
-        else h1(userSpan(u, withPowerTip = false)),
+        else h1(userDom),
         div(
           cls := List(
             "trophies" -> true,

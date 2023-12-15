@@ -688,7 +688,6 @@
   <string name="congratsYouWon">Llongyfarchiadau, gwnaethoch chi ennill!</string>
   <string name="clickToRevealEmailAddress">[Cliciwch i ddangos cyfeiriad ebost]</string>
   <string name="download">Lawrlwytho</string>
-  <string name="welcome">Croeso!</string>
   <string name="cancelTournament">Gohirio\'r gystadleuaeth</string>
   <string name="tournDescription">Disgrifiad cystadleuaeth</string>
 </resources>

@@ -433,6 +433,7 @@
   <string name="importGame">Importați partida</string>
   <string name="importGameExplanation">Copiați o partidă în format PGN pentru a putea apoi sa o rejucati, sa cereti o analiză a computerului, sa folositi functia de chat și sa obtineti un URL pentru distribuire.</string>
   <string name="importGameCaveat">Variațiile vor fi șterse. Pentru a le păstra, importați PGN-ul printr-un studiu.</string>
+  <string name="importGameCaveat2">Acest PGN poate fi accesat public. Pentru a importa un joc în mod privat, folosește un studiu.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
@@ -518,6 +519,7 @@
   <string name="movesPlayed">Mutări jucate</string>
   <string name="whiteWins">Albul câștigă</string>
   <string name="blackWins">Negrul câștigă</string>
+  <string name="drawRate">Rata de remiză</string>
   <string name="draws">Remize</string>
   <string name="nextXTournament">Următorul turneu %s:</string>
   <string name="averageOpponent">Cota medie a adversarilor</string>
@@ -723,6 +725,7 @@
   <string name="keyboardShortcuts">Scurtături taste</string>
   <string name="keyMoveBackwardOrForward">mută înapoi/înainte</string>
   <string name="keyGoToStartOrEnd">început/sfârșit</string>
+  <string name="keyCycleSelectedVariation">Următoarea variație</string>
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
   <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
@@ -958,9 +961,6 @@
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
   <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
   <string name="download">Descărcare</string>
-  <string name="welcome">Bine ați venit!</string>
-  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
-Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
   <string name="coachManager">Setări pentru antrenor</string>
   <string name="streamerManager">Setări pentru streamer</string>
   <string name="cancelTournament">Anulează turneul</string>
@@ -1021,4 +1021,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="ourEventTips">Sfaturile noastre pentru organizarea evenimentelor</string>
   <string name="instructions">Instrucțiuni</string>
   <string name="showMeEverything">Afișează-mi tot</string>
+  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
+Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
 </resources>

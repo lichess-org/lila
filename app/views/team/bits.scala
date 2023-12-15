@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ given, * }
@@ -12,32 +13,26 @@ object bits:
 
   import trans.team.*
 
-  def link(teamId: TeamId): Frag =
-    a(href := routes.Team.show(teamId))(teamIdToName(teamId))
-
-  def link(team: Team): Frag =
-    a(href := routes.Team.show(team.id))(team.name)
-
   def menu(currentTab: Option[String])(using ctx: PageContext) =
     val tab = ~currentTab
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
-        a(cls := tab.active("requests"), href := routes.Team.requests)(
+        a(cls := tab.active("requests"), href := teamRoutes.requests)(
           xJoinRequests.pluralSame(ctx.teamNbRequests)
         ),
       ctx.isAuth option
-        a(cls := tab.active("mine"), href := routes.Team.mine)(
+        a(cls := tab.active("mine"), href := teamRoutes.mine)(
           myTeams()
         ),
       ctx.isAuth option
-        a(cls := tab.active("leader"), href := routes.Team.leader)(
+        a(cls := tab.active("leader"), href := teamRoutes.leader)(
           leaderTeams()
         ),
-      a(cls := tab.active("all"), href := routes.Team.all())(
+      a(cls := tab.active("all"), href := teamRoutes.all())(
         allTeams()
       ),
       ctx.isAuth option
-        a(cls := tab.active("form"), href := routes.Team.form)(
+        a(cls := tab.active("form"), href := teamRoutes.form)(
           newTeam()
         )
     )
@@ -60,16 +55,17 @@ object bits:
             "team-name text" -> true,
             "mine"           -> isMine
           ),
-          href := routes.Team.show(t.id)
+          href := teamRoutes.show(t.id)
         )(
           t.name,
+          t.flair map teamFlair,
           t.amLeader option em("leader")
         ),
         ~t.intro: String
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
-        isMine option form(action := routes.Team.quit(t.id), method := "post")(
+        isMine option form(action := teamRoutes.quit(t.id), method := "post")(
           submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(quitTeam.txt())
         )
       )

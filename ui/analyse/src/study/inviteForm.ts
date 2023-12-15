@@ -80,7 +80,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
+            lichess.asset
               .userComplete({
                 input,
                 tag: 'span',

@@ -49,20 +49,20 @@
   <string name="blackResigned">काले ने हार मान ली</string>
   <string name="whiteLeftTheGame">सफेद खेल छोड़ कर चला गया</string>
   <string name="blackLeftTheGame">काला खेल छोड़ कर चला गया</string>
-  <string name="whiteDidntMove">सफेद ने चाल नही चली</string>
-  <string name="blackDidntMove">काले ने चाल नही चली</string>
+  <string name="whiteDidntMove">सफेद ने चाल नहीं चली</string>
+  <string name="blackDidntMove">काले ने चाल नहीं चली</string>
   <string name="requestAComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें</string>
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध है</string>
-  <string name="computerAnalysisDisabled">कंप्युटर विश्लेषण निष्क्रिय है</string>
-  <string name="analysis">विश्लेषण मंडल</string>
+  <string name="computerAnalysisDisabled">कंप्यूटर विश्लेषण निष्क्रिय है</string>
+  <string name="analysis">विश्लेषण पट</string>
   <string name="depthX">मध्यमार्ग %s</string>
   <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग किया जा रहा है</string>
   <string name="loadingEngine">इंजन लोड हो रहा है ...</string>
   <string name="calculatingMoves">चालों की गणना की जा रही है...</string>
   <string name="engineFailed">इंजन लोड करने में समस्या</string>
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
-  <string name="goDeeper">भीतर जाओ</string>
+  <string name="goDeeper">गहराई में जाओ</string>
   <string name="showThreat">खतरे को दिखाएं</string>
   <string name="inLocalBrowser">स्थानीय ब्राउज़र में</string>
   <string name="toggleLocalEvaluation">स्थानीय मूल्यांकन को टॉगल करें</string>
@@ -88,7 +88,7 @@
   <string name="topGames">शीर्ष खेल</string>
   <string name="masterDbExplanation">%2$s से %3$s के दशक के %1$s+ FIDE- रेटेड खिलाड़ियों के दो मिलियन ओटीबी खेल</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s हाफ मूव में मैच</item>
+    <item quantity="one">%s हाफ मूव में मेट</item>
     <item quantity="other">%s आधे-कदम में चेकमैट</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' गोलाई के साथ, अगले कब्ज़ा या प्यादा की चाल तक आधे-चालों की संख्या के आधार पर</string>
@@ -889,9 +889,6 @@
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
   <string name="clickToRevealEmailAddress">[ईमेल देखने के लिए क्लिक करें]</string>
   <string name="download">डाउनलोड करें</string>
-  <string name="welcome">आपका स्वागत है!</string>
-  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
-सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
   <string name="coachManager">कोच मनेजर</string>
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
@@ -949,4 +946,6 @@
   <string name="switchSides">पार्श्व बदलना</string>
   <string name="closingAccountWithdrawAppeal">आपका खाता बंद करने से आपकी अपील वापस ले ली जाएगी</string>
   <string name="ourEventTips">कार्यक्रम आयोजित करने कि सलाह</string>
+  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
+सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
 </resources>

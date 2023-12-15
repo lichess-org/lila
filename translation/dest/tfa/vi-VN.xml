@@ -7,12 +7,11 @@
   <string name="enterPassword">Nhập mật khẩu của bạn và mã xác thực do ứng dụng tạo để hoàn tất thiết lập. Bạn sẽ cần mã xác thực mỗi khi đăng nhập.</string>
   <string name="ifYouCannotScanEnterX">Nếu bạn không thể quét mã, hãy nhập khóa bí mật %s vào ứng dụng của bạn.</string>
   <string name="authenticationCode">Mã xác thực</string>
-  <string name="ifYouLoseAccess">Lưu ý: Nếu mất quyền truy cập vào mã xác thực 2 bước, bạn có thể đặt lại mật khẩu qua email.</string>
+  <string name="ifYouLoseAccessTwoFactor">Lưu ý: Nếu mất quyền truy cập vào mã xác thực hai bước, bạn có thể thực hiện %s qua email.</string>
   <string name="enableTwoFactor">Bật xác thực 2 bước</string>
   <string name="disableTwoFactor">Tắt xác thực 2 bước</string>
   <string name="twoFactorEnabled">Xác thực 2 bước đã được kích hoạt</string>
-  <string name="twoFactorDisable">Bạn cần mật khẩu và mã xác thực từ ứng dụng xác thực để tắt xác thực 2 bước.
-Nếu bạn mất quyền truy cập vào mã xác thực, bạn có thể đặt lại mật khẩu qua email.</string>
+  <string name="twoFactorToDisable">Bạn cần có mật khẩu và mã xác thực từ ứng dụng xác thực để tắt xác thực hai bước.</string>
   <string name="openTwoFactorApp">Mở ứng dụng xác minh 2 bước trên thiết bị của bạn để xem mã xác minh của bạn và xác nhận danh tính.</string>
   <string name="setupReminder">Vui lòng bật xác thực hai yếu tố để bảo mật tài khoản của bạn tại https://lichess.org/account/twofactor.
 Bạn nhận được thông báo này vì tài khoản của bạn có các trách nhiệm đặc biệt như huấn luyện viên, giáo viên, đội trưởng hoặc streamer.</string>

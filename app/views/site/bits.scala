@@ -1,7 +1,7 @@
 package views.html.site
 
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
 object bits:
@@ -63,3 +63,10 @@ object bits:
     st.nav(cls := "subnav__inner")(mods)
 
   def pageMenuSubnav(mods: Modifier*) = subnav(cls := "page-menu__menu", mods)
+
+  def atomLink(url: play.api.mvc.Call) = a(
+    cls      := "atom",
+    st.title := "Atom RSS feed",
+    href     := url,
+    dataIcon := licon.RssFeed
+  )

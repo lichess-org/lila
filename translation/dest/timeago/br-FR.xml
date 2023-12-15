@@ -51,13 +51,6 @@
     <item quantity="other">a-benn %s bloaz</item>
   </plurals>
   <string name="rightNow">bremañ</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s eilenn zo</item>
-    <item quantity="two">%s eilenn zo</item>
-    <item quantity="few">%s eilenn zo</item>
-    <item quantity="many">%s eilenn zo</item>
-    <item quantity="other">%s eilenn zo</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s vunutenn zo</item>
     <item quantity="two">%s vunutenn zo</item>

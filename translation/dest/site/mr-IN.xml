@@ -868,9 +868,6 @@
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
-  <string name="welcome">सुस्वागतम!</string>
-  <string name="lichessPatronInfo">Lichess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
-सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
   <string name="coachManager">प्रशिक्षक व्यवस्थापक</string>
   <string name="streamerManager">स्ट्रीमर व्यवस्थापक</string>
   <string name="cancelTournament">स्पर्धा रद्द करा</string>
@@ -929,4 +926,6 @@
   <string name="lichessDbExplanation">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
   <string name="switchSides">रंग बदला</string>
   <string name="closingAccountWithdrawAppeal">खाते बंद केल्यास आवाहन मागे घेतले जाईल</string>
+  <string name="lichessPatronInfo">Lichess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
+सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
 </resources>

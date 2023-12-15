@@ -200,6 +200,9 @@ trait Handlers:
       )
   )
 
+  val langByCodeHandler: BSONHandler[play.api.i18n.Lang] =
+    stringAnyValHandler(_.code, play.api.i18n.Lang.apply)
+
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]
   ): BSONHandler[V] = new:

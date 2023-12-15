@@ -15,10 +15,11 @@
   <string name="pgnLetter">Písmenová notácia (K, D, V, S, J)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
   <string name="showPlayerRatings">Ukázať hráčove ratingy</string>
+  <string name="showFlairs">Zobraziť u hráčov ikonky štýlu</string>
   <string name="explainShowPlayerRatings">Týmto môžete na webovej stránke skryť všetky hodnotenia, aby ste sa mohli sústrediť na šach. Partie môžu byť stále hodnotené, ide len o to, čo sa Vám zobrazí.</string>
   <string name="displayBoardResizeHandle">Zobraziť tlačidlo na zmenu veľkosti šachovnice</string>
   <string name="onlyOnInitialPosition">Iba v základnom postavení</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Iba pri partii</string>
+  <string name="inGameOnly">Iba pri partii</string>
   <string name="blindfoldChess">Šach naslepo (neviditeľné figúrky)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desatiny sekundy</string>
@@ -48,7 +49,7 @@
   <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
   <string name="castleByMovingOntoTheRook">Presunúť kráľa na pole s vežou</string>
   <string name="inputMovesWithTheKeyboard">Zadávanie ťahov pomocou klávesnice</string>
-  <string name="inputMovesWithVoice" comment="inputMovesWithVoice&#10;&#10;A gameplay option. Allows you to enter chess moves with your voice during a game.">Zadávanie ťahov pomocou hlasu</string>
+  <string name="inputMovesWithVoice">Zadávanie ťahov pomocou hlasu</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Zobraziť šípky pri možných ťahoch</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Napíš \"Good game, well played\" (v preklade: Dobrá partia, pekne zahrané) po prehre alebo remíze</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>

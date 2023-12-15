@@ -12,7 +12,7 @@ export class StockfishWebEngine implements CevalEngine {
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status?: EngineNotifier,
-    readonly variantMap?: (v: string) => string,
+    readonly variantMap?: (v: VariantKey) => string,
   ) {
     this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
@@ -28,7 +28,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   async boot() {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
-    const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
+    const makeModule = await import(lichess.asset.url(`${root}/${js}`, { version }));
 
     const module: StockfishWeb = await new Promise((resolve, reject) => {
       makeModule
@@ -36,14 +36,14 @@ export class StockfishWebEngine implements CevalEngine {
           wasmMemory: sharedWasmMemory(this.info.minMem!),
           onError: (msg: string) => reject(new Error(msg)),
           locateFile: (name: string) =>
-            lichess.assetUrl(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
+            lichess.asset.url(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
         })
         .then(resolve)
         .catch(reject);
     });
-    if (!this.info.id.endsWith('hce')) {
+    if (this.info.tech === 'NNUE') {
       const nnueStore = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
-      const nnueFilename = module.getRecommendedNnue();
+      const nnueFilename = this.info.assets.nnue ?? module.getRecommendedNnue();
 
       module.onError = (msg: string) => {
         if (msg.startsWith('BAD_NNUE')) {
@@ -64,7 +64,7 @@ export class StockfishWebEngine implements CevalEngine {
       if (!nnueBuffer || nnueBuffer.byteLength < 128 * 1024) {
         const req = new XMLHttpRequest();
 
-        req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
+        req.open('get', lichess.asset.url(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 
@@ -78,6 +78,12 @@ export class StockfishWebEngine implements CevalEngine {
         });
         this.status?.();
         nnueStore?.put(nnueFilename, nnueBuffer!).catch(() => console.warn('IDB store failed'));
+      }
+      if (this.info.variants?.length === 1) {
+        const variant = this.info.variants[0].toLowerCase();
+        module.postMessage(
+          `setoption name UCI_Variant value ${variant === 'threecheck' ? '3check' : variant}`,
+        );
       }
       module.setNnueBuffer(nnueBuffer!);
     }

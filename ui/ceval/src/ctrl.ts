@@ -1,13 +1,12 @@
 import throttle from 'common/throttle';
 import { Engines } from './engines/engines';
 import { CevalOpts, CevalState, CevalEngine, Work, Step, Hovering, PvBoard, Started } from './types';
-import { sanIrreversible, showEngineError } from './util';
+import { sanIrreversible, showEngineError, fewerCores, constrain } from './util';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
 import { prop, readonlyProp, Prop, Toggle, toggle } from 'common';
-import { hasFeature } from 'common/device';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
@@ -176,25 +175,33 @@ export default class CevalCtrl {
     return this.worker?.getState() ?? CevalState.Initial;
   }
 
+  setThreads = (threads: number) => lichess.storage.set('ceval.threads', threads.toString());
+
   threads = () => {
     const stored = lichess.storage.get('ceval.threads');
-    return Math.min(
-      this.engines.active?.maxThreads ?? 96, // Can haz threadripper?
-      stored ? parseInt(stored, 10) : Math.ceil(navigator.hardwareConcurrency / 4),
-    );
+    const desired = stored ? parseInt(stored) : this.recommendedThreads();
+    return constrain(desired, { min: this.engines.active?.minThreads ?? 1, max: this.maxThreads() });
   };
 
-  hashSize = () => {
-    const stored = lichess.storage.get('ceval.hash-size');
-    return Math.min(this.engines.active?.maxHash ?? 16, stored ? parseInt(stored, 10) : 16);
-  };
+  recommendedThreads = () =>
+    this.engines.external?.maxThreads ??
+    constrain(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
+      min: this.engines.active?.minThreads ?? 1,
+      max: this.maxThreads(),
+    });
 
-  setThreads = (threads: number) => lichess.storage.set('ceval.threads', threads.toString());
+  maxThreads = () =>
+    this.engines.external?.maxThreads ??
+    (fewerCores()
+      ? Math.min(this.engines.active?.maxThreads ?? 32, navigator.hardwareConcurrency)
+      : this.engines.active?.maxThreads ?? 32);
 
   setHashSize = (hash: number) => lichess.storage.set('ceval.hash-size', hash.toString());
 
-  maxThreads = () =>
-    this.engines.external?.maxThreads ?? (hasFeature('sharedMem') ? navigator.hardwareConcurrency : 1);
+  hashSize = () => {
+    const stored = lichess.storage.get('ceval.hash-size');
+    return Math.min(this.maxHash(), stored ? parseInt(stored, 10) : 16);
+  };
 
   maxHash = () => this.engines.active?.maxHash ?? 16;
 

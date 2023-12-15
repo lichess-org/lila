@@ -29,7 +29,7 @@ export function initModule(data: RadarData) {
     ...{
       backgroundColor: 'rgba(189,130,35,0.2)',
       borderColor: 'rgba(189,130,35,1)',
-      pointBackgroundColor: 'rgb(189,130,35,1)',
+      pointBackgroundColor: 'rgba(189,130,35,1)',
     },
   };
   const fontColor = currentTheme() === 'dark' ? '#bababa' : '#4d4d4d';
@@ -47,6 +47,9 @@ export function initModule(data: RadarData) {
           ticks: {
             color: fontColor,
             showLabelBackdrop: false, // hide square behind text
+            format: {
+              useGrouping: false,
+            },
           },
           pointLabels: {
             color: fontColor,

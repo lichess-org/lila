@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">இப்பொழுதுதான்</string>
+  <string name="justNow">சற்று முன்பு</string>
   <plurals name="inNbSeconds">
     <item quantity="one">%s வினாடியில்</item>
     <item quantity="other">%s வினாடிகளில்</item>
@@ -10,8 +10,8 @@
     <item quantity="other">%s நிமிடங்களில்</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">%s மணிநேரத்தில்</item>
-    <item quantity="other">%s மணிநேரத்தில்</item>
+    <item quantity="one">%s மணி நேரத்தில்</item>
+    <item quantity="other">%s மணி நேரத்தில்</item>
   </plurals>
   <plurals name="inNbDays">
     <item quantity="one">%s நாளில்</item>
@@ -26,14 +26,10 @@
     <item quantity="other">%s மாதங்களில்</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">%s ஆண்டில்</item>
-    <item quantity="other">%s ஆண்டுகளில்</item>
+    <item quantity="one">%s வருடத்தில்</item>
+    <item quantity="other">%s வருடங்களில்</item>
   </plurals>
-  <string name="rightNow">இப்பொழுதே</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s வினாடி முன்பு</item>
-    <item quantity="other">%s வினாடிகளுக்கு முன்பு</item>
-  </plurals>
+  <string name="rightNow">இக்கணம்</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s நிமிடத்திற்கு முன்பு</item>
     <item quantity="other">%s நிமிடங்களுக்கு முன்பு</item>

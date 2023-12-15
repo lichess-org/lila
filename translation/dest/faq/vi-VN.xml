@@ -78,11 +78,11 @@ Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="accounts">Tài Khoản</string>
   <string name="titlesAvailableOnLichess">Có những danh hiệu nào trên Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess công nhận tất cả các danh hiệu do FIDE ghi nhận từ OTB (thi đấu bên ngoài), cũng như %1$s. Đây là danh sách các danh hiệu được FIDE công nhận:</string>
-  <string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị tiêu đề này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh tự chụp của bạn đang cầm tài liệu/thẻ.
+  <string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị danh hiệu này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh tự chụp của bạn đang cầm tài liệu/thẻ.
 
-Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
+Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Titled Arena.
 
-Cuối cùng là danh hiệu danh dự %2$s.</string>
+Cuối cùng là danh hiệu %2$s danh dự.</string>
   <string name="asWellAsManyNMtitles">nhiều danh hiệu quốc gia</string>
   <string name="verificationForm">biểu mẫu xác minh</string>
   <string name="canIbecomeLM">Tôi có thể nhận được danh hiệu Lichess Master (LM) không?</string>
@@ -99,7 +99,7 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
-  <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% các ván trong một %s.</string>
+  <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván (Berserk) và giành chiến thắng 100%% các ván trong một %s.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
   <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại AI cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được tôn vinh.</string>
   <string name="lichessRatings">Xếp hạng Lichess</string>

@@ -47,7 +47,7 @@
   <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o deixou atrás usando o seu movemento inicial de dúas casas.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa ó seu redor, a miúdo conducindo a xaque mate.</string>
-  <string name="fork">Pinza</string>
+  <string name="fork">Garfo</string>
   <string name="forkDescription">Movemento no que a peza movida ataca a dúas pezas opoñentes á vez.</string>
   <string name="hangingPiece">Peza colgada</string>
   <string name="hangingPieceDescription">Unha táctica que involucra unha peza do opoñente que non está suficientemente defendida e que por tanto se pode capturar.</string>

@@ -107,12 +107,7 @@ object index:
                     )(name)
                   }
               ),
-              a(
-                cls      := "atom",
-                st.title := "Atom RSS feed",
-                href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-                dataIcon := licon.RssFeed
-              )
+              views.html.site.bits.atomLink(routes.Ublog.communityAtom(lang.fold("all")(_.language)))
             )
           ),
           if posts.nbResults > 0 then
