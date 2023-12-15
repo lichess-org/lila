@@ -271,7 +271,6 @@
   <string name="playingRightNow">Այս պահին խաղում են</string>
   <string name="eventInProgress">Խաղում են այս պահին</string>
   <string name="finished">Ավարտվել է</string>
-  <string name="finishesX">ավարտվում է %s</string>
   <string name="abortGame">Կասեցնել խաղը</string>
   <string name="gameAborted">Խաղը կասեցված է</string>
   <string name="standard">Ստանդարտ</string>
