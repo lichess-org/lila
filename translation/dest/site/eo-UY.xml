@@ -271,7 +271,6 @@
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
-  <string name="finishesX">finiĝos %s</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
