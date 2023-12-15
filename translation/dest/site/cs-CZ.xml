@@ -930,7 +930,6 @@
   </plurals>
   <string name="sorry">Omlouváme se :(</string>
   <string name="weHadToTimeYouOutForAWhile">Museli jsme tě odpojit na chvíli.</string>
-  <string name="timeoutExpires">Odpojení skončí za %s.</string>
   <string name="why">Proč?</string>
   <string name="pleasantChessExperience">Snažíme se všem poskytnout příjemnou hru.</string>
   <string name="goodPractice">Proto se musíme ujistit, že se všichni chovají správně.</string>
