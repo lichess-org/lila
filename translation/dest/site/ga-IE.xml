@@ -306,7 +306,6 @@
   <string name="playingRightNow">Á imirt anois</string>
   <string name="eventInProgress">Á imirt anois</string>
   <string name="finished">Críochnaithe</string>
-  <string name="finishesX">ag críochnú i %s</string>
   <string name="abortGame">Éirigh as</string>
   <string name="gameAborted">Éiríodh as an chluiche</string>
   <string name="standard">Caighdeán</string>
