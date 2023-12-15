@@ -461,7 +461,6 @@
   <string name="importGame">Импортировать партию</string>
   <string name="importGameExplanation">Вставьте запись партии в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <string name="importGameCaveat">Варианты будут удалены. Чтобы их сохранить, импортируйте PGN в студии.</string>
-  <string name="importGameCaveat2">Этот PGN-файл может быть доступен публично. Чтобы импортировать игру приватно, используйте студию.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
