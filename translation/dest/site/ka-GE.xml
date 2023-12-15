@@ -271,7 +271,6 @@
   <string name="playingRightNow">თამაშობს ამ დროს</string>
   <string name="eventInProgress">თამაშობს ამ დროს</string>
   <string name="finished">დამთავრებული</string>
-  <string name="finishesX">რჩება %s</string>
   <string name="abortGame">თამაშის შეწყვეტა</string>
   <string name="gameAborted">თამაში შეწყვეტილია</string>
   <string name="standard">სტანდარტი</string>
