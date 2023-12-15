@@ -74,6 +74,7 @@
   <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="forceVariation">فرض التسلسل</string>
+  <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="move">التقلة</string>
   <string name="variantLoss">خسارة بطريقة خاصة</string>
   <string name="variantWin">فوز بطريقة خاصة</string>
