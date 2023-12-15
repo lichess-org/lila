@@ -255,7 +255,6 @@
   <string name="playingRightNow">musi li lon</string>
   <string name="eventInProgress">musi lon tenpo ni</string>
   <string name="finished">ni li pini</string>
-  <string name="finishesX">pini %s</string>
   <string name="abortGame">o pini e musi</string>
   <string name="gameAborted">musi li pini</string>
   <string name="standard">nasin pi ante ala</string>
