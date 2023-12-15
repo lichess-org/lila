@@ -822,7 +822,6 @@
   <string name="clickHereToReadIt">ここをクリックして読む</string>
   <string name="sorry">残念です :(</string>
   <string name="weHadToTimeYouOutForAWhile">しばらく対局を禁止します。</string>
-  <string name="timeoutExpires">禁止は %s 後に解けます。</string>
   <string name="why">どうして？</string>
   <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
   <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
