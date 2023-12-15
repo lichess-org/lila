@@ -405,7 +405,6 @@
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Enganxa el PGN d\'una partida per obtenir una repetició navegable, anàlisi computeritzada, xat de joc i enllaç per compartir.</string>
   <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
-  <string name="importGameCaveat2">El públic pot accedir a aquest PGN. Per a importar un joc de manera privada, utilitza un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
