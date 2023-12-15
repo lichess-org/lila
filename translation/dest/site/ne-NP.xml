@@ -203,7 +203,6 @@
   <string name="playingRightNow">खेल चालु छ</string>
   <string name="eventInProgress">खेल चालु छ</string>
   <string name="finished">समाप्त भयो</string>
-  <string name="finishesX">समापन हुदैं %s</string>
   <string name="abortGame">खेल रद्द गरौ</string>
   <string name="gameAborted">खेल रद्द गरियो</string>
   <string name="standard">सामान्य</string>
