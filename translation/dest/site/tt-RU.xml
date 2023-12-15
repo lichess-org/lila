@@ -206,7 +206,6 @@
   <string name="playingRightNow">Хәзер уйнала</string>
   <string name="eventInProgress">Хәзер уйнала</string>
   <string name="finished">Тәмамланган</string>
-  <string name="finishesX">%s сон бетә</string>
   <string name="abortGame">Уенны туктату</string>
   <string name="gameAborted">Уен туктатылды</string>
   <string name="standard">Стандартлы</string>
