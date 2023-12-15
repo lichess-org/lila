@@ -54,4 +54,5 @@
     <item quantity="one">Hai %s ano</item>
     <item quantity="other">Hai %s anos</item>
   </plurals>
+  <string name="completed">completado</string>
 </resources>
