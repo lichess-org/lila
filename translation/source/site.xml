@@ -866,7 +866,6 @@
   <string name="clickHereToReadIt">Click here to read it</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
-  <string name="timeoutExpires">The timeout expires %s.</string>
   <string name="why">Why?</string>
   <string name="pleasantChessExperience">We aim to provide a pleasant chess experience for everyone.</string>
   <string name="goodPractice">To that effect, we must ensure that all players follow good practice.</string>

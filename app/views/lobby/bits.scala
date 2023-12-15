@@ -112,7 +112,7 @@ object bits:
     nopeInfo(
       h1(trans.sorry()),
       p(trans.weHadToTimeYouOutForAWhile()),
-      p(trans.timeoutExpires(strong(secondsFromNow(ban.remainingSeconds)))),
+      p(strong(timeRemaining(ban.endsAt))),
       h2(trans.why()),
       p(
         trans.pleasantChessExperience(),
