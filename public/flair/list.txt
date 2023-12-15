@@ -3182,6 +3182,7 @@ symbols.mending-heart
 symbols.mens-room
 symbols.minus
 symbols.mobile-phone-off
+symbols.move-dubious
 symbols.move-interesting
 symbols.multiply
 symbols.name-badge
