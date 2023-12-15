@@ -825,7 +825,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
-  <string name="timeoutExpires">Hết hiệu lực trong %s.</string>
   <string name="why">Tại sao?</string>
   <string name="pleasantChessExperience">Mục tiêu của chúng tôi là cung cấp trải nghiệm chơi cờ vui vẻ cho mọi người.</string>
   <string name="goodPractice">Để đạt được mục đích, chúng tôi phải chắc chắn rằng mọi người phải tuân thủ tốt.</string>
