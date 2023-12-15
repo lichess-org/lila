@@ -461,7 +461,6 @@
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
-  <string name="importGameCaveat2">Toto PGN je verejne dostupné. Ak chcete partiu importovať súkromne, použite štúdiu!</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
     <item quantity="few">%s importované partie</item>
