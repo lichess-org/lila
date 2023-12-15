@@ -936,6 +936,8 @@
     <item quantity="few">in shranite %s predpotezne variante</item>
     <item quantity="other">in shranite %s predpoteznih variant</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Prejeli ste zasebno sporočilo od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknite tukaj, če ga želite prebrati</string>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
   <string name="timeoutExpires">Omejitev poteče čez %s.</string>
@@ -958,6 +960,7 @@
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Hitri šah</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hitropotezni šah</string>
   <string name="rapid">Pospešeni</string>
   <string name="classical">Klasični šah</string>

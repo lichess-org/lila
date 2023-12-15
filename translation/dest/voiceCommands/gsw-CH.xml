@@ -4,8 +4,6 @@
   <string name="watchTheVideoTutorial">Lueg s\'Video-Tutorial</string>
   <string name="instructions1">Benutz d\'Schaltflächi %1$s, zum d\'Spracherkännig aktivieren, d\'Schaltflächi %2$s, zum de Hilfedialog ufmache, und s\'Menü %3$s, zum d\'Sprachinschtellige ändere.</string>
   <string name="instructions2">Mir zeiged Pfil für mehreri Züg a, wänn mir nöd sicher sind. Sprich eifach d\'Farb oder d\'Nummere vu dem Zugpfil, wo du wotsch wähle.</string>
-  <string name="instructions3">Läsed die änglisch Version, uf Schwizerdütsch git das Chrämpf:
-If an arrow shows a sweeping radar, that move will be played when the circle is complete. During this time, you may only say %1$s to play the move immediately, %2$s to cancel, or speak the color/number of a different arrow. This timer can be adjusted or turned off in settings.</string>
   <string name="instructions4">Aktiviert %s in luter Umgebig. Bim Spräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
   <string name="instructions5">Benutz s\'Ponetischi-Alphabet, zum d\'Verständlichkeit verbessere. </string>
   <string name="instructions6">%s erchlärt d\'Ischtellige vu de Sprachschtürig im Detail.</string>

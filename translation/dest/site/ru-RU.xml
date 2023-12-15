@@ -946,6 +946,8 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
+  <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
@@ -968,6 +970,7 @@
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Пуля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>

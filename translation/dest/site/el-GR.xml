@@ -867,6 +867,7 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Κλασικό</string>

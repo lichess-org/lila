@@ -863,6 +863,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Recebestes uma mensagem privada do Lichess.</string>
+  <string name="clickHereToReadIt">Clica aqui para ler</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de te banir por algum tempo.</string>
   <string name="timeoutExpires">O banimento expira %s.</string>
@@ -885,6 +887,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rápidas</string>
   <string name="rapid">Semi-rápidas</string>
   <string name="classical">Clássicas</string>

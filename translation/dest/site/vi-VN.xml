@@ -101,9 +101,9 @@
   <string name="playFirstOpeningEndgameExplorerMove">Chơi nước đầu tiên của người khám phá khai cuộc/tàn cuộc</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn cản bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
-  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
+  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 nước đi do sai lầm trước</string>
   <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần nước đi do nhầm lẫn trước đó</string>
-  <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng tàn cuộc được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong sách tàn cuộc Syzygy.</string>
+  <string name="unknownDueToRounding">Thắng/thua chỉ được đảm bảo nếu dòng tàn cuộc được đề xuất đã được tuân theo kể từ lần ăn quân hoặc tiến tốt cuối cùng, do có thể làm tròn các giá trị DTZ trong sách tàn cuộc Syzygy.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
@@ -262,7 +262,7 @@
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>
   <string name="unlimited">Không giới hạn</string>
-  <string name="mode">Chế độ</string>
+  <string name="mode">Thể loại</string>
   <string name="casual">Không xếp hạng</string>
   <string name="rated">Có xếp hạng</string>
   <string name="casualTournament">Không xếp hạng</string>
@@ -283,7 +283,7 @@
   <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
   <string name="spectatorRoom">Phòng khán giả</string>
   <string name="composeMessage">Soạn tin nhắn</string>
-  <string name="subject">Chủ đề</string>
+  <string name="subject">Tiêu đề</string>
   <string name="send">Gửi</string>
   <string name="incrementInSeconds">Gia tăng theo giây</string>
   <string name="freeOnlineChess">Chơi Cờ Vua Trực Tuyến Miễn Phí</string>
@@ -617,7 +617,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các Streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
-  <string name="webmasters">Các nhà phát triển web</string>
+  <string name="webmasters">Nhà phát triển web</string>
   <string name="about">Về chúng tôi</string>
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
@@ -761,7 +761,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="usernameSuffixInvalid">Tên người dùng phải kết thúc với một chữ cái hoặc một số.</string>
   <string name="usernameCharsInvalid">Tên người dùng chỉ được chứa chữ cái, số, dấu gạch nối và dấu gạch dưới. Dấu gạch dưới và dấu gạch nối không được liên tiếp nhau.</string>
   <string name="usernameUnacceptable">Tên người dùng này không được chấp nhận.</string>
-  <string name="playChessInStyle">Chơi cờ vua phong cách</string>
+  <string name="playChessInStyle">Chơi cờ vua theo phong cách</string>
   <string name="chessBasics">Cờ cơ bản</string>
   <string name="coaches">Huấn luyện viên</string>
   <string name="invalidPgn">PGN không hợp lệ</string>
@@ -822,6 +822,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">và lưu %s nước đi trước</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Bạn đã nhận được một tin nhắn riêng từ Lichess.</string>
+  <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
   <string name="timeoutExpires">Hết hiệu lực trong %s.</string>
@@ -844,6 +846,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Cờ đạn</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Cờ chớp</string>
   <string name="rapid">Cờ nhanh</string>
   <string name="classical">Cờ chậm</string>
@@ -888,11 +891,11 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
   <string name="tournDescription">Mô tả giải đấu</string>
-  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [name](https://url)</string>
-  <string name="ratedFormHelp">Các ván đấu có tính Elo và tác động đến hệ số Elo của người chơi</string>
+  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [Văn bản](https://url)</string>
+  <string name="ratedFormHelp">Các ván đấu có xếp hạng và ảnh hưởng đến hệ số Elo của người chơi</string>
   <string name="onlyMembersOfTeam">Chỉ thành viên trong đội</string>
   <string name="noRestriction">Không giới hạn</string>
-  <string name="minimumRatedGames">Số ván đã tính Elo tối thiểu</string>
+  <string name="minimumRatedGames">Số ván đã xếp hạng tối thiểu</string>
   <string name="minimumRating">Elo tối thiểu</string>
   <string name="maximumWeeklyRating">Elo cao nhất trong tuần</string>
   <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesX" comment="%1$s is the number of challenges. Appears as hover text for challenge notifications.">Thách đấu (%1$s)</string>
+  <string name="challengesX">Thách đấu (%1$s)</string>
   <string name="challengeToPlay">Yêu cầu chơi</string>
-  <string name="challengeDeclined">Lời thách đấu bị từ chối</string>
+  <string name="challengeDeclined">Lời thách đấu bị từ chối.</string>
   <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
   <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
   <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
@@ -12,15 +12,15 @@
   <string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách đấu từ bạn bè.</string>
   <string name="declineGeneric">Hiện tại tôi đang không chấp nhận thách đấu.</string>
-  <string name="declineLater" comment="One of the standard replies which players can use to decline challenges.">Tôi chưa sẵn sàng, hãy hỏi lại sau.</string>
-  <string name="declineTooFast" comment="One of the standard replies which players can use to decline challenges.">Tùy chọn thời gian quá nhanh đối với tôi, hãy thách đấu lại với một tùy chọn chậm hơn.</string>
-  <string name="declineTooSlow" comment="One of the standard replies which players can use to decline challenges.">Tùy chọn thời gian quá chậm đối với tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
-  <string name="declineTimeControl" comment="One of the standard replies which players can use to decline challenges.">Tôi không chấp nhận thách đấu với tùy chọn thời gian này.</string>
-  <string name="declineRated" comment="One of the standard replies which players can use to decline challenges.">Hãy gửi yêu cầu thách đấu có tính xếp hạng cho tôi.</string>
-  <string name="declineCasual" comment="One of the standard replies which players can use to decline challenges.">Hãy gửi tôi yêu cầu thách đấu không tính elo.</string>
-  <string name="declineStandard" comment="One of the standard replies which players can use to decline challenges.">Tôi không muốn chơi biến thể bây giờ.</string>
-  <string name="declineVariant" comment="One of the standard replies which players can use to decline challenges.">Tôi chưa sẵn sàng chơi biến thể này bây giờ.</string>
+  <string name="declineLater">Tôi chưa sẵn sàng, hãy hỏi lại sau.</string>
+  <string name="declineTooFast">Tùy chọn thời gian quá nhanh đối với tôi, hãy thách đấu lại với một tùy chọn chậm hơn.</string>
+  <string name="declineTooSlow">Tùy chọn thời gian quá chậm đối với tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
+  <string name="declineTimeControl">Tôi không chấp nhận thách đấu với tùy chọn thời gian này.</string>
+  <string name="declineRated">Hãy gửi yêu cầu thách đấu có tính xếp hạng cho tôi.</string>
+  <string name="declineCasual">Hãy gửi tôi yêu cầu thách đấu không tính elo.</string>
+  <string name="declineStandard">Tôi không muốn chơi biến thể bây giờ.</string>
+  <string name="declineVariant">Tôi chưa sẵn sàng chơi biến thể này bây giờ.</string>
   <string name="declineNoBot">Tôi không chấp nhận thách đấu từ bot.</string>
   <string name="declineOnlyBot">Tôi chỉ chấp nhận thách đấu từ bot.</string>
-  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">Hoặc mời một Người dùng Lichess:</string>
+  <string name="inviteLichessUser">Hoặc mời một người dùng Lichess:</string>
 </resources>

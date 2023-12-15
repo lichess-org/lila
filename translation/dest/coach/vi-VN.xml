@@ -14,7 +14,7 @@
   <string name="accepting">Đang nhận học viên</string>
   <string name="notAccepting">Hiện tại không nhận học viên</string>
   <string name="xCoachesStudents">%s huấn luyện học viên</string>
-  <string name="viewXProfile">Xem hồ sơ của %s</string>
+  <string name="viewXProfile">Xem hồ sơ Lichess của %s</string>
   <string name="sendPM">Gửi tin nhắn riêng</string>
   <string name="aboutMe">Giới thiệu và những thông tin về tôi</string>
   <string name="playingExperience">Kinh nghiệm chơi cờ</string>

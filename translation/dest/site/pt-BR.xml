@@ -858,6 +858,8 @@
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Você recebeu uma mensagem privada do Lichess.</string>
+  <string name="clickHereToReadIt">Clique aqui para ler</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de bloqueá-lo por um tempo.</string>
   <string name="timeoutExpires">O tempo expirará %s.</string>

@@ -854,6 +854,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
     <item quantity="one">en stoor %s voorafskuif variasie</item>
     <item quantity="other">en stoor %s voorafskuif variasies</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Jy het \'n privaatboodskap van Lichess ontvang.</string>
+  <string name="clickHereToReadIt">Klik hier om dit te lees</string>
   <string name="sorry">Skies :(</string>
   <string name="weHadToTimeYouOutForAWhile">Jy moet vir \'n rukkie in die hoek sit.</string>
   <string name="timeoutExpires">Jy mag weer uitkom %s.</string>

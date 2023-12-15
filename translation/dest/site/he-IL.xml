@@ -946,6 +946,8 @@
     <item quantity="many">ושמרו %s המשכים מוגדרים מראש</item>
     <item quantity="other">ושמרו %s המשכים מוגדרים מראש</item>
   </plurals>
+  <string name="showUnreadLichessMessage">קיבלתם הודעה פרטית מ-Lichess.</string>
+  <string name="clickHereToReadIt">לחצו כאן כדי לקרוא אותה</string>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
   <string name="timeoutExpires">ההשעיה תסתיים %s.</string>
@@ -968,6 +970,7 @@
   <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
   <string name="edit">עריכה</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>

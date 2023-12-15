@@ -40,7 +40,7 @@
   <string name="editRoundStudy">Modifier l\'étude de la ronde</string>
   <string name="deleteTournament">Supprimer ce tournoi</string>
   <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
-  <string name="automaticLeaderboard">Échiquier principal automatique</string>
+  <string name="automaticLeaderboard">Classement automatique</string>
   <string name="automaticLeaderboardHelp">Calculer et afficher un échiquier principal simplifié basé sur les résultats de parties</string>
   <string name="replace">Facultatif : remplacer les noms des joueurs, les cotes et les titres</string>
   <string name="replaceHelp">Une ligne par joueur, formatée comme suit :

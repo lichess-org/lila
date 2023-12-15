@@ -945,6 +945,8 @@
     <item quantity="many">i zapisz %s wariantów warunkowych</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Otrzymałeś prywatną wiadomość od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknij tutaj, aby ją odczytać</string>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
@@ -967,6 +969,7 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Szybkie</string>
   <string name="classical">Klasyczne</string>

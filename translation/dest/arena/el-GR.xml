@@ -38,7 +38,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   </plurals>
   <string name="thisIsPrivate">Αυτός ο διαγωνισμός είναι ιδιωτικός</string>
   <string name="shareUrl">Μοιραστείτε αυτήν την διεύθυνση URL για να συμμετάσχουν άλλα άτομα: %s</string>
-  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">Συνεχόμενες ισοπαλίες: Όταν ένας παίκτης έχει συνεχόμενες ισοπαλίες στην αρένα, είτε μόνο η πρώτη θα δώσει ένα πόντο, είτε ισοπαλίες που διήρκησαν πάνω από %s κινήσεις. Οι συνεχόμενες ισοπαλίες σταματούν να θεωρούνται συνεχόμενες μόνο εφόσον τις ακολουθήσει μία νίκη και όχι μία ήττα ή ισοπαλία.</string>
+  <string name="drawStreakStandard">Συνεχόμενες ισοπαλίες: Όταν ένας παίκτης έχει συνεχόμενες ισοπαλίες στην αρένα, είτε μόνο η πρώτη θα δώσει ένα πόντο, είτε ισοπαλίες που διήρκησαν πάνω από %s κινήσεις. Οι συνεχόμενες ισοπαλίες σταματούν να θεωρούνται συνεχόμενες μόνο εφόσον τις ακολουθήσει μία νίκη και όχι μία ήττα ή ισοπαλία.</string>
   <string name="drawStreakVariants">Ο ελάχιστος αριθμός των κινήσεων που απαιτούνται στα ισόπαλα παιχνίδια για να δώσουν πόντους εξαρτάται από την κάθε παραλλαγή, όπως φαίνεται και στον παρακάτω πίνακα.</string>
   <string name="variant">Εκδοχή</string>
   <string name="minimumGameLength">Ελάχιστος αριθμός κινήσεων</string>
@@ -57,5 +57,5 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="arenaStreaksHelp">Μετά από 2 νίκες, επιπλέον διαδοχικές νίκες σας 4 πόντους αντί για 2.</string>
   <string name="averagePerformance">Μέση επίδοση</string>
   <string name="averageScore">Μέση βαθμολογία</string>
-  <string name="myTournaments" comment="Links to a page with a list of tournaments you have created.">Τα τουρνουά μου</string>
+  <string name="myTournaments">Τα τουρνουά μου</string>
 </resources>
