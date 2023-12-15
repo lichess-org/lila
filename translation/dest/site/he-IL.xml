@@ -302,7 +302,6 @@
   <string name="playingRightNow">מתקיים עכשיו</string>
   <string name="eventInProgress">מתקיים עכשיו</string>
   <string name="finished">הסתיים</string>
-  <string name="finishesX">נגמר %s</string>
   <string name="abortGame">ביטול המשחק</string>
   <string name="gameAborted">המשחק בוטל</string>
   <string name="standard">רגיל</string>
