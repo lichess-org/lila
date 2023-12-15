@@ -272,7 +272,6 @@
   <string name="playingRightNow">Қазір ойнап отыр</string>
   <string name="eventInProgress">Қазір болып жатыр</string>
   <string name="finished">Аяқталды</string>
-  <string name="finishesX">%s аяқталады</string>
   <string name="abortGame">Ойынды тоқтату</string>
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
