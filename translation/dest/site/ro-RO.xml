@@ -287,7 +287,6 @@
   <string name="playingRightNow">În desfășurare...</string>
   <string name="eventInProgress">În desfășurare</string>
   <string name="finished">Terminat</string>
-  <string name="finishesX">se termină %s</string>
   <string name="abortGame">Abandonați partida</string>
   <string name="gameAborted">Partidă abandonată</string>
   <string name="standard">Standard</string>
