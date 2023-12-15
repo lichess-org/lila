@@ -305,7 +305,6 @@
   <string name="playingRightNow">O c\'hoari bremañ</string>
   <string name="eventInProgress">O c\'hoari bremañ</string>
   <string name="finished">Echu</string>
-  <string name="finishesX">a vo echu e %s</string>
   <string name="abortGame">Nullañ ar c\'hrogad</string>
   <string name="gameAborted">Krogad nullet</string>
   <string name="standard">Normal</string>
