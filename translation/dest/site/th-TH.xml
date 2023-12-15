@@ -253,7 +253,6 @@
   <string name="playingRightNow">กำลังเล่น</string>
   <string name="eventInProgress">กำลังแข่ง</string>
   <string name="finished">จบแล้ว</string>
-  <string name="finishesX">เสร็จสิ้น%s</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
   <string name="standard">มาตรฐาน</string>
