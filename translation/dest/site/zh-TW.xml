@@ -377,7 +377,6 @@
   <string name="importGame">導入棋局</string>
   <string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
   <string name="importGameCaveat">變著分支將被刪除。 若要保存這些變著，請通過導入PGN棋譜創建一個研究。</string>
-  <string name="importGameCaveat2">此 PGN 為公開。若要導入私人棋局，請使用研究。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
