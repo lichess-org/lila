@@ -405,7 +405,6 @@
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <string name="importGameCaveat">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
-  <string name="importGameCaveat2">Cette partie en format PGN peut être vue en public. Pour importer une partie en privé, utilisez une étude.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
