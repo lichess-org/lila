@@ -379,7 +379,6 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, 
 trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai.</string>
   <string name="importGameCaveat">Các biến sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
-  <string name="importGameCaveat2">Ai cũng có thể truy cập PGN này. Để nhập ván cờ một cách riêng tư, hãy sử dụng nghiên cứu.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s ván cờ đã nhập</item>
   </plurals>
