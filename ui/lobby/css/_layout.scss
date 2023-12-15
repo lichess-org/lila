@@ -10,12 +10,11 @@
   &__leaderboard,
   &__winners {
     max-height: 20em;
-    min-height: 20em;
   }
-  &__simuls {
-    td.name {
-      display: none;
-    }
+  // this helps in empty dev mode
+  &__leaderboard,
+  &__winners {
+    min-height: 20em;
   }
 
   @include breakpoint($mq-col2) {
@@ -44,16 +43,16 @@
   @include breakpoint($mq-col3) {
     --cols: 3; // ui/lobby/src/main.ts
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em repeat(2, fit-content(0)) auto fit-content(0) fit-content(0);
+    grid-template-rows: 12em repeat(2, fit-content(0)) auto repeat(3, fit-content(0)) minmax(0, 1fr);
     grid-template-areas:
       'table  app     app'
       'side   app     app'
       'tv     blog    blog'
       'tv     support support'
-      'puzzle feed   feed'
+      'puzzle feed    feed'
       'leader tours   tours'
-      'winner tours  tours'
-      'about  about   about';
+      'winner tours   tours'
+      'winner about   about';
 
     &__start {
       margin: 2em 0 0 0;
@@ -79,10 +78,9 @@
     grid-template-areas:
       'side   app     app     table'
       'tv     blog    blog    puzzle'
-      'tv     support support    puzzle'
-      'feed   feed tours  tours'
-      '. leader winner .'
-      'about  about   about   about';
+      'tv     support support puzzle'
+      'feed   feed    tours   tours'
+      'leader winner  about   about';
 
     &__start {
       justify-content: center;
@@ -160,7 +158,6 @@
 
   &__feed {
     grid-area: feed;
-    // max-height: 20em;
   }
 
   &__about {
