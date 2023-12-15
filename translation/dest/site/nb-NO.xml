@@ -863,7 +863,6 @@
   </plurals>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
-  <string name="timeoutExpires">Timeouten utløper %s.</string>
   <string name="why">Hvorfor?</string>
   <string name="pleasantChessExperience">Vi forsøker å gi alle en god sjakkopplevelse.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spillere følger god praksis.</string>
