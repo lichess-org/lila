@@ -141,16 +141,18 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         'form.form3',
         {
           hook: bindSubmit(e => {
-            ctrl.submit({
-              name: fieldValue(e, 'name'),
-              game: fieldValue(e, 'game'),
-              variant: fieldValue(e, 'variant') as VariantKey,
-              pgn: fieldValue(e, 'pgn'),
-              orientation: fieldValue(e, 'orientation') as Orientation,
-              mode: fieldValue(e, 'mode') as ChapterMode,
-              fen: fieldValue(e, 'fen') || (ctrl.tab() === 'edit' ? ctrl.editorFen() : null),
-              isDefaultName: ctrl.isDefaultName(),
-            });
+            setTimeout(() => {
+              ctrl.submit({
+                name: fieldValue(e, 'name'),
+                game: fieldValue(e, 'game'),
+                variant: fieldValue(e, 'variant') as VariantKey,
+                pgn: fieldValue(e, 'pgn'),
+                orientation: fieldValue(e, 'orientation') as Orientation,
+                mode: fieldValue(e, 'mode') as ChapterMode,
+                fen: fieldValue(e, 'fen') || (ctrl.tab() === 'edit' ? ctrl.editorFen() : null),
+                isDefaultName: ctrl.isDefaultName(),
+              });
+            }, 50);
           }, ctrl.redraw),
         },
         [
