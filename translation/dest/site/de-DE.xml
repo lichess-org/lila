@@ -404,6 +404,7 @@
   <string name="importGame">Partie importieren</string>
   <string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <string name="importGameCaveat">Varianten werden gelöscht. Importiere die PGN mittels einer Studie, um sie zu behalten.</string>
+  <string name="importGameDataPrivacyWarning">Diese PGN ist öffentlich zugänglich. Nutze eine Studie, um eine Partie nur für dich zu importieren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
