@@ -865,7 +865,6 @@
   <string name="clickHereToReadIt">Klicka här för att läsa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
-  <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
   <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse till alla.</string>
   <string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>
