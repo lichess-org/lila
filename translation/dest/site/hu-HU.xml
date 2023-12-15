@@ -846,7 +846,6 @@
   </plurals>
   <string name="sorry">Sajnáljuk</string>
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
-  <string name="timeoutExpires">Feloldás %s múlva.</string>
   <string name="why">Miért?</string>
   <string name="pleasantChessExperience">Célunk mindenki számára jó felhasználói élményt biztosítani.</string>
   <string name="goodPractice">Ennek érdekében minden játékosnak követnie kell megfelelő magatartást.</string>
