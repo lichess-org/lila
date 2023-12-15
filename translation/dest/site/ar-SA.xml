@@ -998,7 +998,6 @@
   </plurals>
   <string name="sorry">نأسف :(</string>
   <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
-  <string name="timeoutExpires">ينتهي الحظر خلال %s.</string>
   <string name="why">لماذا ؟</string>
   <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
   <string name="goodPractice">لهذا الغرض، علينا التأكد أن جميع اللاعبين يسلكون سلوكاً حسناً.</string>
