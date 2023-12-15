@@ -846,7 +846,6 @@
   </plurals>
   <string name="sorry">ბოდიში :(</string>
   <string name="weHadToTimeYouOutForAWhile">გარკვეული დროით უნდა შეგიჩეროთ თამაში.</string>
-  <string name="timeoutExpires">დროის ამოწურვა მთავრდება %s-ში.</string>
   <string name="why">რატომ?</string>
   <string name="pleasantChessExperience">ჩვენი მიზანია შევქმნათ სასიამოვნო გამოცდილება ჭადრაკის სათამაშოდ ყველასათვის.</string>
   <string name="goodPractice">ამიტომაც, ჩვენ უნდა დავრწმუნდეთ, რომ ყველა მოთამაშე იცავს თამაშის ეტიკეტს.</string>
