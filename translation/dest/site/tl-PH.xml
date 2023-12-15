@@ -220,7 +220,6 @@
   <string name="playingRightNow">Maglalaro ngayon</string>
   <string name="eventInProgress">Naglalaro ngayon</string>
   <string name="finished">Tapos na</string>
-  <string name="finishesX">matatapos ng %s</string>
   <string name="abortGame">Itigil ang laro</string>
   <string name="gameAborted">Ang laro ay natigil</string>
   <string name="standard">Pamantayan</string>
