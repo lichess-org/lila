@@ -862,6 +862,8 @@
     <item quantity="one">og gem %s serie af forhåndstræk</item>
     <item quantity="other">og gem %s serier af forhåndstræk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har modtaget en privat besked fra Lichess.</string>
+  <string name="clickHereToReadIt">Klik her for at læse den</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
   <string name="timeoutExpires">Timeouten udløber %s.</string>
@@ -884,6 +886,7 @@
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lynskak</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>

@@ -31,7 +31,7 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   </plurals>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
   <string name="shareUrl">Dela denna länk för att låta spelare delta: %s</string>
-  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">Remiserier: När en spelare har konsekutiva remier i en arena så kommer bara den första att ge ett poäng, eller remier som varar mer än %s drag i standardpartier. Remiserien kan bara brytas av en vinst, inte en förlust eller remi.</string>
+  <string name="drawStreakStandard">Remiserier: När en spelare har konsekutiva remier i en arena så kommer bara den första att ge ett poäng, eller remier som varar mer än %s drag i standardpartier. Remiserien kan bara brytas av en vinst, inte en förlust eller remi.</string>
   <string name="drawStreakVariants">Minsta partilängden för att remier ska ge poäng är olika mellan varianter. Tabellen nedan listar gränsvärden för varje variant.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minsta partilängd</string>
@@ -48,7 +48,7 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="allowChatHelp">Låt spelare diskutera i ett chattrum</string>
   <string name="arenaStreaks">Arenavinster i rad</string>
   <string name="arenaStreaksHelp">Efter 2 vinster, ger efterföljande vinster 4 poäng i stället för 2.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Bärsärk tillåts ej</string>
+  <string name="noBerserkAllowed">Bärsärk tillåts ej</string>
   <string name="noArenaStreaks">Inga arena streaks</string>
   <string name="averagePerformance">Genomsnittlig prestanda</string>
   <string name="averageScore">Medelpoäng</string>

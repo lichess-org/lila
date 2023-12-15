@@ -120,7 +120,7 @@
   <string name="zugzwang">Trekktvang</string>
   <string name="zugzwangDescription">Ei stilling der alle moglege trekk skadar stillinga.</string>
   <string name="healthyMix">Blanda drops</string>
-  <string name="healthyMixDescription">Litt av kvart. Du veit ikkje kva du blir møtt med, så du må vera førebudd på det meste. Nett som i verkelege parti.</string>
+  <string name="healthyMixDescription">Litt av alt. Du veit ikkje kva du blir møtt med, så du må vera førebudd på det meste. Nett som i verkelege parti.</string>
   <string name="playerGames">Spelar parti</string>
   <string name="playerGamesDescription">Finn oppgåver generert frå dine eller andre sine parti.</string>
   <string name="puzzleDownloadInformation">Desse oppgåvene er offentleg eigedom og kan lastast ned frå %s.</string>

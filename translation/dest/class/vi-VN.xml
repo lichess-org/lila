@@ -25,12 +25,12 @@
   <string name="teachersOfTheClass">Giáo viên của lớp</string>
   <string name="addLichessUsernames">Thêm tên người dùng Lichess để mời họ làm giáo viên. Mỗi người một dòng.</string>
   <string name="resetPassword">Đặt lại mật khẩu</string>
-  <string name="makeSureToCopy">Hãy chắc chắn sao chép hoặc ghi lại mật khẩu ngay bây giờ. Bạn sẽ không thể nhìn thấy nó sau này nữa!</string>
+  <string name="makeSureToCopy">Hãy chắc chắn sao chép hoặc ghi lại mật khẩu ngay bây giờ. Bạn sẽ không bao giờ có thể nhìn thấy nó nữa!</string>
   <string name="passwordX">Mật khẩu: %s</string>
   <string name="generateANewPassword">Tạo mật khẩu mới cho học viên</string>
   <string name="invitedToXByY">%1$s được mời bởi %2$s</string>
   <string name="realName">Tên thật</string>
-  <string name="privateWillNeverBeShown">Riêng tư. Sẽ không bao giờ được hiển thị bên ngoài lớp học. Giúp nhớ học viên là ai.</string>
+  <string name="privateWillNeverBeShown">Riêng tư. Sẽ không bao giờ được hiển thị bên ngoài lớp học. Giúp bạn nhớ học viên là ai.</string>
   <string name="addStudent">Thêm học viên</string>
   <string name="lichessProfileXCreatedForY">Đã tạo %1$s làm hồ sơ Lichess cho %2$s.</string>
   <string name="studentCredentials">Học viên:%1$s
@@ -63,7 +63,7 @@ Mật khẩu: %3$s</string>
   <string name="upgradeFromManaged">Nâng cấp từ được quản lý lên tự chủ</string>
   <string name="release">Bản phát hành</string>
   <string name="releaseTheAccount">Giải phóng tài khoản để học viên có thể quản lý nó một cách tự chủ.</string>
-  <string name="releaseDesc1">Một tài khoản đã được giải phóng không thể được quản lý lại. Học viên sẽ có thể chuyển đổi chế độ trẻ em và tự đặt lại mật khẩu.</string>
+  <string name="releaseDesc1">Một tài khoản đã được tốt nghiệp không thể được quản lý lại. Học viên sẽ có thể chuyển đổi chế độ trẻ em và tự đặt lại mật khẩu.</string>
   <string name="releaseDesc2">Học viên sẽ vẫn ở trong lớp sau khi tài khoản của họ được giải phóng.</string>
   <string name="realUniqueEmail">Địa chỉ email thực, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận tới đó, kèm theo liên kết để giải phóng tài khoản.</string>
   <string name="closeStudent">Đóng tài khoản</string>
@@ -96,7 +96,7 @@ Mật khẩu: %3$s</string>
   <string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Đừng xóa tin tức trước đó.</string>
   <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
   <string name="invite">Mời</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Bạn được mời bởi %s.</string>
+  <string name="youHaveBeenInvitedByX">Bạn được mời bởi %s.</string>
   <string name="youAcceptedThisInvitation">Bạn đã chấp nhận lời mời.</string>
   <string name="youDeclinedThisInvitation">Bạn đã từ chối lời mời.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">hoặc</string>

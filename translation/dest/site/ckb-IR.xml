@@ -852,6 +852,8 @@
     <item quantity="one">بەم جۆرە %s ـی پێش جوڵە پاشەکەوتبکە</item>
     <item quantity="other">بەم جۆرە %s ـی پێش جوڵە پاشەکەوتبکە</item>
   </plurals>
+  <string name="showUnreadLichessMessage">پەیامێکی تایبەتت لە لایەن لیچێسەوە پێگەیشتووە.</string>
+  <string name="clickHereToReadIt">بۆ خوێندنەوەی کلیک لێرە بکە</string>
   <string name="sorry">ببوورە :(</string>
   <string name="weHadToTimeYouOutForAWhile">ناچاربووین بۆ ماوەیەک دوورت بخەینەوە.</string>
   <string name="timeoutExpires">کاتە دیاریکراوەکەت %s ـیتربەسەر دەچێت.</string>
@@ -874,6 +876,7 @@
   <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">بوڵێت \"Bullet\"</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ئاگرین\"بڵیتز\"</string>
   <string name="rapid">خێرا</string>
   <string name="classical">کلاسیک</string>

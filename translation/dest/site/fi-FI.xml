@@ -859,6 +859,8 @@
     <item quantity="one">ja tallenna %s esisiirtolinja</item>
     <item quantity="other">ja tallenna %s esisiirtolinjaa</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Olet saanut henkilökohtaisen viestin Lichessiltä.</string>
+  <string name="clickHereToReadIt">Lue se napsauttamalla tästä</string>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
   <string name="timeoutExpires">Jäähy päättyy %s.</string>
@@ -881,6 +883,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Pikapeli</string>
   <string name="rapid">Nopea</string>
   <string name="classical">Klassinen</string>
@@ -919,7 +922,7 @@
   <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
   <string name="refundXpointsTimeControlY">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
-  <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tätä]</string>
+  <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tästä]</string>
   <string name="download">Lataa</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>

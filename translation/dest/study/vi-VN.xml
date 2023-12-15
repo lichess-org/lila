@@ -59,7 +59,7 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
-  <string name="copyChapterPgn">Sao chép PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Sao chép PGN</string>
   <string name="copyChapterPgnDescription">Sao chép PGN chương vào bảng nhớ tạm.</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
@@ -97,12 +97,12 @@
   <string name="startFromCustomPosition">Bắt đầu từ thế cờ tùy chỉnh</string>
   <string name="loadAGameByUrl">Tải ván cờ bằng URL</string>
   <string name="loadAPositionFromFen">Tải thế cờ từ chuỗi FEN</string>
-  <string name="loadAGameFromPgn">Tải thế cờ từ PGN</string>
+  <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">Dán PGN ở đây, tối đa %s ván</item>
   </plurals>
-  <string name="urlOfTheGame">Đường dẫn của các ván, một đường dẫn mỗi dòng</string>
+  <string name="urlOfTheGame">URL của các ván, một URL mỗi dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s hoặc %2$s</string>
   <string name="createChapter">Tạo chương</string>
   <string name="createStudy">Tạo nghiên cứu</string>
