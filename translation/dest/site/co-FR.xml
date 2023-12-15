@@ -238,7 +238,6 @@
   <string name="playingRightNow">Si ghjoca avà</string>
   <string name="eventInProgress">Si ghjoca avà</string>
   <string name="finished">Finita</string>
-  <string name="finishesX">finisce %s</string>
   <string name="abortGame">Aburtì a partita</string>
   <string name="gameAborted">Partita aburtita</string>
   <string name="standard">Classica</string>
