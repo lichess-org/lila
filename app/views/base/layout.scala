@@ -208,7 +208,7 @@ object layout:
 
   private val dailyNewsAtom = link(
     href     := routes.DailyFeed.atom,
-    st.title := "Daily News",
+    st.title := "Lichess Updates Feed",
     tpe      := "application/atom+xml",
     rel      := "alternate"
   )

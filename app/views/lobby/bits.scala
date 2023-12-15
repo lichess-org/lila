@@ -68,41 +68,42 @@ object bits:
             h2(cls := "title text", dataIcon := licon.Trophy)(trans.openTournaments()),
             span(cls := "more")(trans.more(), " »")
           ),
-          div(cls := "enterable_list lobby__box__content")(
+          div(cls := "enterable_list lobby__box__content"):
             views.html.tournament.bits.enterable(tours)
-          )
         ),
         simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
           a(cls := "lobby__box__top", href := routes.Simul.home)(
             h2(cls := "title text", dataIcon := licon.Group)(trans.simultaneousExhibitions()),
             span(cls := "more")(trans.more(), " »")
           ),
-          div(cls := "enterable_list lobby__box__content")(
-            views.html.simul.bits.allCreated(simuls)
-          )
+          div(cls := "enterable_list lobby__box__content"):
+            views.html.simul.bits.allCreated(simuls, withName = false)
         )
       )
     )
 
-  def lastPosts(update: Option[lila.blog.DailyFeed.Update], uposts: List[lila.ublog.UblogPost.PreviewPost])(
-      using ctx: Context
-  ): Frag =
+  def lastPosts(
+      lichess: Option[lila.blog.MiniPost],
+      uposts: List[lila.ublog.UblogPost.PreviewPost]
+  )(using ctx: Context): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
-      update
-        .map: up =>
-          div(
-            cls := List(
-              "ublog-post-card daily-feed__update" -> true,
-              "daily-feed__update--fresh"          -> up.isFresh
-            )
-          )(
+      lichess
+        .filter(_.forKids || ctx.kid.no)
+        .map: post =>
+          val imgSize = UblogPost.thumbnail.Size.Small
+          a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
+            img(
+              src     := post.image,
+              cls     := "ublog-post-card__image",
+              widthA  := imgSize.width,
+              heightA := imgSize.height
+            ),
             span(cls := "ublog-post-card__content")(
-              h2(cls := "daily-feed__update__day text", dataIcon := licon.Star)(
-                a(href := s"${routes.DailyFeed.index}#${up.dayString}")(semanticDate(up.day))
-              ),
-              div(cls := "daily-feed__update__markup")(rawHtml(up.rendered))
+              h2(cls := "ublog-post-card__title")(post.title),
+              semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
             )
-          ),
+          )
+      ,
       ctx.kid.no option uposts.map:
         views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
     )

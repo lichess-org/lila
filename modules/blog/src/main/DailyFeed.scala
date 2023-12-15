@@ -29,7 +29,7 @@ object DailyFeed:
     header = true
   )
 
-  type GetLastUpdate = () => Option[Update]
+  type GetLastUpdates = () => List[Update]
 
 final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
@@ -44,7 +44,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   private given BSONDocumentHandler[Update] = Macros.handler
 
   private object cache:
-    private var mutableLastUpdate: Option[Update] = None
+    private var mutableLastUpdates: List[Update] = Nil
     val store = cacheApi.unit[List[Update]]:
       _.expireAfterWrite(1 minute).buildAsyncFuture: _ =>
         coll
@@ -53,9 +53,9 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
-            mutableLastUpdate = ups.headOption
-    def clear()                             = store.underlying.synchronous.invalidateAll()
-    def lastUpdate: DailyFeed.GetLastUpdate = () => mutableLastUpdate
+            mutableLastUpdates = ups.take(3)
+    def clear()                              = store.underlying.synchronous.invalidateAll()
+    def lastUpdate: DailyFeed.GetLastUpdates = () => mutableLastUpdates
     store.get({}) // populate lastUpdate
 
   export cache.lastUpdate
@@ -66,8 +66,8 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def set(update: Update, from: Option[Update]): Funit = for
     _ <- from.filter(_.day != update.day).so(up => coll.delete.one($id(up.day)).void)
-    _ <- coll.update.one($id(update.day), update, upsert = true).void andDo cache.clear()
-  yield ()
+    _ <- coll.update.one($id(update.day), update, upsert = true).void
+  yield cache.clear()
 
   def delete(id: LocalDate): Funit =
     coll.delete.one($id(id)).void andDo cache.clear()

@@ -19,10 +19,10 @@ object dailyFeed:
     )
 
   def index(updates: List[Update])(using PageContext) =
-    layout("Daily News"):
+    layout("Updates"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
-          h1("Daily News"),
+          h1("Lichess updates"),
           div(cls := "box__top__actions")(
             isGranted(_.DailyFeed) option a(
               href     := routes.DailyFeed.createForm,
@@ -33,10 +33,10 @@ object dailyFeed:
           )
         ),
         standardFlash,
-        updateList(updates)
+        updateList(updates, editor = isGranted(_.DailyFeed))
       )
 
-  private def updateList(ups: List[Update])(using Context) =
+  def updateList(ups: List[Update], editor: Boolean)(using Context) =
     div(cls := "daily-feed__updates"):
       ups.map: update =>
         div(cls := "daily-feed__update", id := update.dayString)(
@@ -44,7 +44,7 @@ object dailyFeed:
           div(cls := "daily-feed__update__content")(
             st.section(cls := "daily-feed__update__day")(
               h2(a(href := s"#${update.dayString}")(semanticDate(update.day))),
-              isGranted(_.DailyFeed) option frag(
+              editor option frag(
                 a(
                   href     := routes.DailyFeed.edit(update.day),
                   cls      := "button button-green button-empty button-thin text",
@@ -57,8 +57,28 @@ object dailyFeed:
           )
         )
 
+  def lobbyUpdateList(ups: List[Update])(using Context) =
+    div(cls := "daily-feed__updates")(
+      ups.map: update =>
+        div(cls := "daily-feed__update")(
+          iconTag(licon.StarOutline),
+          div(
+            a(cls := "daily-feed__update__day", href := s"/feed#${update.dayString}"):
+              semanticDate(update.day)
+            ,
+            rawHtml(update.rendered)
+          )
+        ),
+      div(cls := "daily-feed__update")(
+        iconTag(licon.StarOutline),
+        div:
+          a(cls := "daily-feed__update__day", href := s"/feed"):
+            "All updates »"
+      )
+    )
+
   def create(form: Form[Update])(using PageContext) =
-    layout("Daily News: New", true):
+    layout("Lichess updates: New", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
@@ -72,12 +92,12 @@ object dailyFeed:
       )
 
   def edit(form: Form[Update], update: Update)(using PageContext) =
-    layout(s"Daily News ${update.day}", true):
+    layout(s"Lichess update ${update.day}", true):
       main(cls := "daily-feed page-small")(
         div(cls := "box box-pad")(
           boxTop(
             h1(
-              a(href := routes.DailyFeed.index)("Daily News"),
+              a(href := routes.DailyFeed.index)("Lichess update"),
               " • ",
               semanticDate(update.day)
             )
@@ -88,7 +108,7 @@ object dailyFeed:
         ),
         br,
         div(cls := "box box-pad")(
-          updateList(List(update)),
+          updateList(List(update), editor = true),
           postForm(action := routes.DailyFeed.delete(update.day))(cls := "daily-feed__delete"):
             submitButton(cls := "button button-red button-empty confirm")("Delete")
         )
@@ -118,7 +138,7 @@ object dailyFeed:
       elems = ups,
       htmlCall = routes.DailyFeed.index,
       atomCall = routes.DailyFeed.atom,
-      title = "Lichess Daily News",
+      title = "Lichess updates feed",
       updated = ups.headOption.map(_.instant)
     ): up =>
       frag(
