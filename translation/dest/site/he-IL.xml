@@ -461,7 +461,6 @@
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
   <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
-  <string name="importGameCaveat2">ה-PGN הזה הוא ציבורי. כדי לייצא משחק באופן פרטי, השתמשו בלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>
     <item quantity="two">%s משחקים מיובאים</item>
