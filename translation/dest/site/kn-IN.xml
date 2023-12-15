@@ -270,7 +270,6 @@
   <string name="playingRightNow">ಆಟ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
   <string name="eventInProgress">ಆಟಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ</string>
   <string name="finished">ಮುಕ್ತಾಯಗೊಂಡಿದೆ</string>
-  <string name="finishesX">%s ಗಳಲ್ಲಿ ಮುಕ್ತಾಯಗೊಳ್ಳಲಿದೆ</string>
   <string name="abortGame">ಆಟವನ್ನು ತ್ಯಜಿಸು</string>
   <string name="gameAborted">ಆಟವನ್ನು ತ್ಯಜಿಸಲಾಗಿದೆ</string>
   <string name="standard">ಸಾಮಾನ್ಯ</string>
