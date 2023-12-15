@@ -236,7 +236,6 @@
   <string name="playingRightNow">Spilandi núna</string>
   <string name="eventInProgress">Spilandi þessa stundina</string>
   <string name="finished">Lokið</string>
-  <string name="finishesX">lýkur eftir %s</string>
   <string name="abortGame">Hverfa frá leik</string>
   <string name="gameAborted">Hætt við skák</string>
   <string name="standard">Staðlað</string>
