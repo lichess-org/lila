@@ -173,9 +173,8 @@ object event:
         form3.group(form("lang"), raw("Language"), half = true)(
           form3.select(
             _,
-            lila.i18n.LangList.popularNoRegion.map { l =>
+            lila.i18n.LangList.popularNoRegion.map: l =>
               l.code -> s"${l.language.toUpperCase} ${LangList name l}"
-            }
           )
         ),
         form3.group(

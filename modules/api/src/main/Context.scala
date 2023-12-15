@@ -52,6 +52,8 @@ class Context(
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
   def canPalantir                         = kid.no && me.exists(!_.marks.troll)
+  lazy val acceptLangCodes: Set[String] =
+    req.acceptLanguages.view.map(_.language).toSet + "en" ++ user.flatMap(_.lang).toSet
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

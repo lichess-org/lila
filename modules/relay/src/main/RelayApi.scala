@@ -158,7 +158,7 @@ final class RelayApi(
           .parallel
         .addEffect: trs =>
           spotlightCache = trs
-            .filter(_.tour.tier.has(RelayTour.Tier.BEST))
+            .filter(_.tour.spotlight.exists(_.enabled))
             .filterNot(_.display.finished)
             .filter: tr =>
               tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))

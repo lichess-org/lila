@@ -13,12 +13,11 @@ case class LiveStreams(streams: List[Stream]):
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def homepage(max: Int, req: RequestHeader, userLang: Option[String]) = LiveStreams:
-    val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ userLang.toSet
+  def homepage(max: Int, acceptLangCodes: Set[String]) = LiveStreams:
     streams
       .takeWhile(_.streamer.approval.tier > 0)
       .foldLeft(Vector.empty[Stream]):
-        case (selected, s) if langs(s.lang) && {
+        case (selected, s) if acceptLangCodes(s.lang) && {
               selected.sizeIs < max || s.streamer.approval.tier == Streamer.maxTier
             } && {
               s.streamer.approval.tier > 1 || selected.sizeIs < 2

@@ -87,18 +87,44 @@ object tourForm:
         help = automaticLeaderboardHelp().some,
         half = true
       ),
-      if isGranted(_.Relay) then
-        form3.group(
-          form("tier"),
-          raw("Official Lichess broadcast tier"),
-          help = raw("Feature on /broadcast - for admins only").some,
-          half = true
-        )(form3.select(_, RelayTour.Tier.options))
-      else form3.hidden(form("tier"))
+      form3.group(
+        form("players"),
+        replace(),
+        help = replaceHelp().some,
+        half = true
+      )(form3.textarea(_)(rows := 3))
     ),
-    form3.group(
-      form("players"),
-      replace(),
-      help = replaceHelp().some
-    )(form3.textarea(_)(rows := 3))
+    if isGranted(_.Relay) then
+      frag(
+        form3.split(
+          form3.group(
+            form("tier"),
+            raw("Official Lichess broadcast tier"),
+            help = raw("Feature on /broadcast - for admins only").some,
+            half = true
+          )(form3.select(_, RelayTour.Tier.options)),
+          form3.checkbox(
+            form("spotlight.enabled"),
+            "Show a homepage spotlight",
+            help = raw("As a Big Blue Button - for admins only").some,
+            half = true
+          )
+        ),
+        form3.split(
+          form3.group(
+            form("spotlight.title"),
+            "Homepage spotlight custom title",
+            help = raw("Leave empty to use the tournament name").some,
+            half = true
+          )(form3.input(_)),
+          form3.group(form("spotlight.lang"), raw("Language"), half = true)(
+            form3.select(
+              _,
+              lila.i18n.LangList.popularNoRegion.map: l =>
+                l.code -> s"${l.language.toUpperCase} ${lila.i18n.LangList name l}"
+            )
+          )
+        )
+      )
+    else form3.hidden(form("tier"))
   )

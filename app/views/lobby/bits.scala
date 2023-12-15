@@ -155,9 +155,8 @@ object bits:
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
-        button(cls := "text button button-red", dataIcon := licon.X)(
+        button(cls := "text button button-red", dataIcon := licon.X):
           if current.pov.game.abortableByUser then trans.abortTheGame() else trans.resignTheGame()
-        )
       ),
       br,
       p(trans.youCantStartNewGame())
