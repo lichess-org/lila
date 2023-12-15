@@ -859,7 +859,6 @@
   </plurals>
   <string name="sorry">Üzgünüz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
-  <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
