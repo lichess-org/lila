@@ -272,7 +272,6 @@
   <string name="playingRightNow">Hal-hazırda oyundadır</string>
   <string name="eventInProgress">Hal-hazırda oynayır</string>
   <string name="finished">Bitdi</string>
-  <string name="finishesX">%s sonra başa çatacaq</string>
   <string name="abortGame">Oyunu ləğv et</string>
   <string name="gameAborted">Oyun ləğv olundu</string>
   <string name="standard">Standart</string>
