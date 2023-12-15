@@ -273,7 +273,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="playingRightNow">Partie isch am laufe</string>
   <string name="eventInProgress">Lauft jetzt</string>
   <string name="finished">Beändet</string>
-  <string name="finishesX">ändet %s</string>
   <string name="abortGame">Partie abbräche</string>
   <string name="gameAborted">Partie abbroche</string>
   <string name="standard">Standard</string>
