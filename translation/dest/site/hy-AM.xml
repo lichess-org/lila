@@ -845,7 +845,6 @@
   </plurals>
   <string name="sorry">Ներողություն :(</string>
   <string name="weHadToTimeYouOutForAWhile">Մենք ստիպված ենք անջատել Ձեզ որոշ ժամանակով։</string>
-  <string name="timeoutExpires">Դուք կարող եք վերադառնալ %s անց։</string>
   <string name="why">Ինչու՞</string>
   <string name="pleasantChessExperience">Մեր նպատակը շախմատը բոլորի համար հետաքրքիր դարձնելն է։</string>
   <string name="goodPractice">Դրան հասնելու համար մենք պետք է այնպես անենք, որ բոլոր խաղացողները հետևեն բարեկրթության կանոններին։</string>
