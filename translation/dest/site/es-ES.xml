@@ -405,6 +405,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y un enlace para compartir.</string>
   <string name="importGameCaveat">Las variaciones serán borradas. Para mantenerlas, importa el PGN a través de un estudio.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN puede ser accedido públicamente. Para importar un juego privadamente, utiliza un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -865,7 +866,6 @@
   <string name="clickHereToReadIt">Haz clic aquí para leerlo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
-  <string name="timeoutExpires">La suspensión expira en %s.</string>
   <string name="why">¿Por qué?</string>
   <string name="pleasantChessExperience">Nuestro objetivo es proporcionar una experiencia agradable a todo el mundo.</string>
   <string name="goodPractice">Para ello, debemos asegurarnos de que todos los jugadores se comportan como es debido.</string>
