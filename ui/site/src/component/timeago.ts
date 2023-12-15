@@ -68,21 +68,20 @@ export const findAndRender = (parent?: HTMLElement) =>
           abs = cl.contains('abs'),
           set = cl.contains('set');
         node.lichessDate = node.lichessDate || toDate(node.getAttribute('datetime')!);
+        if (!set) {
+          const str = formatter()(node.lichessDate);
+          if (abs) node.textContent = str;
+          else node.setAttribute('title', str);
+          cl.add('set');
+          if (abs || cl.contains('once')) cl.remove('timeago');
+        }
         if (cl.contains('remaining')) {
-          node.textContent = formatRemaining((node.lichessDate.getTime() - now) / 1000);
-        } else {
-          if (!set) {
-            const str = formatter()(node.lichessDate);
-            if (abs) node.textContent = str;
-            else node.setAttribute('title', str);
-            cl.add('set');
-            if (abs || cl.contains('once')) cl.remove('timeago');
-          }
-          if (!abs) {
-            const diff = (now - node.lichessDate.getTime()) / 1000;
-            node.textContent = formatAgo(diff);
-            if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
-          }
+          const diff = (node.lichessDate.getTime() - now) / 1000;
+          node.textContent = formatRemaining(diff);
+        } else if (!abs) {
+          const diff = (now - node.lichessDate.getTime()) / 1000;
+          node.textContent = formatAgo(diff);
+          if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
         }
       });
   });
