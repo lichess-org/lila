@@ -221,7 +221,6 @@
   <string name="playingRightNow">فی الحال کھیل میں مصروف ہے</string>
   <string name="eventInProgress">فی الحال کھیل میں مصروف ہے</string>
   <string name="finished">ختم شد</string>
-  <string name="finishesX">ختم ہو گا %s</string>
   <string name="abortGame">کھیل منسوخ کريں</string>
   <string name="gameAborted">منسوخ شد</string>
   <string name="standard">معروف</string>
