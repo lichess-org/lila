@@ -195,13 +195,16 @@ final class Mod(
     }
   }
 
-  def createNameCloseVote(username: UserStr) = SendToZulip(username, env.irc.api.nameCloseVote)
-  def askUsertableCheck(username: UserStr)   = SendToZulip(username, env.irc.api.usertableCheck)
+  def createNameCloseVote(username: UserStr) = Secure(_.SendToZulip) { _ ?=> me ?=>
+    env.report.api.inquiries ofModId me.id map {
+      _.filter(_.reason == lila.report.Reason.Username).map(_.bestAtom.simplifiedText)
+    } flatMap: reason =>
+      env.user.repo byId username orNotFound { env.irc.api.nameCloseVote(_, reason) inject NoContent }
 
-  private def SendToZulip(username: UserStr, method: UserModel => Me ?=> Funit) =
-    Secure(_.SendToZulip) { _ ?=> _ ?=>
-      env.user.repo byId username orNotFound { method(_) inject NoContent }
-    }
+  }
+  def askUsertableCheck(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
+    env.user.repo byId username orNotFound { env.irc.api.usertableCheck(_) inject NoContent }
+  }
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
     Ok.pageAsync:
