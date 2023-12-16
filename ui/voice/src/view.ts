@@ -109,11 +109,10 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
       {
         hook: onInsert((el: HTMLSelectElement) => {
           el.addEventListener('change', () => ctrl.micId(el.value));
-          if (devices === undefined)
-            lichess.mic.getMics().then(ds => {
-              devices = ds.length ? ds : [nullMic];
-              redraw();
-            });
+          lichess.mic.getMics().then(ds => {
+            devices = ds.length ? ds : [nullMic];
+            redraw();
+          });
         }),
       },
       devices.map(d =>
