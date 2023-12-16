@@ -125,10 +125,10 @@ GET   /blog/prismic-preview            controllers.Blog.preview(token)
 GET   /feed                            controllers.DailyFeed.index
 GET   /feed/new                        controllers.DailyFeed.createForm
 POST  /feed/new                        controllers.DailyFeed.create
-GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
-GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
-POST  /feed/:day/edit                  controllers.DailyFeed.update(day)
-POST  /feed/:day/delete                controllers.DailyFeed.delete(day)
+GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
+GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
+POST  /feed/:id/edit                  controllers.DailyFeed.update(id)
+POST  /feed/:id/delete                controllers.DailyFeed.delete(id)
 GET   /feed.atom                       controllers.DailyFeed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)

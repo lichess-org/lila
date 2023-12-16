@@ -39,14 +39,14 @@ object dailyFeed:
   def updateList(ups: List[Update], editor: Boolean)(using Context) =
     div(cls := "daily-feed__updates"):
       ups.map: update =>
-        div(cls := "daily-feed__update", id := update.dayString)(
+        div(cls := "daily-feed__update", id := update.id)(
           iconTag(licon.StarOutline),
           div(cls := "daily-feed__update__content")(
             st.section(cls := "daily-feed__update__day")(
-              h2(a(href := s"#${update.dayString}")(semanticDate(update.day))),
+              h2(a(href := s"#${update.id}")(momentFromNow(update.at))),
               editor option frag(
                 a(
-                  href     := routes.DailyFeed.edit(update.day),
+                  href     := routes.DailyFeed.edit(update.id),
                   cls      := "button button-green button-empty button-thin text",
                   dataIcon := licon.Pencil
                 ),
@@ -63,8 +63,8 @@ object dailyFeed:
         div(cls := "daily-feed__update")(
           iconTag(licon.StarOutline),
           div(
-            a(cls := "daily-feed__update__day", href := s"/feed#${update.dayString}"):
-              semanticDate(update.day)
+            a(cls := "daily-feed__update__day", href := s"/feed#${update.id}"):
+              momentFromNow(update.at)
             ,
             rawHtml(update.rendered)
           )
@@ -77,7 +77,7 @@ object dailyFeed:
       )
     )
 
-  def create(form: Form[Update])(using PageContext) =
+  def create(form: Form[?])(using PageContext) =
     layout("Lichess updates: New", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
@@ -91,37 +91,38 @@ object dailyFeed:
           inForm(form)
       )
 
-  def edit(form: Form[Update], update: Update)(using PageContext) =
-    layout(s"Lichess update ${update.day}", true):
+  def edit(form: Form[?], update: Update)(using PageContext) =
+    layout(s"Lichess update ${update.id}", true):
       main(cls := "daily-feed page-small")(
         div(cls := "box box-pad")(
           boxTop(
             h1(
               a(href := routes.DailyFeed.index)("Lichess update"),
               " • ",
-              semanticDate(update.day)
+              semanticDate(update.at)
             )
           ),
           standardFlash,
-          postForm(cls := "content_box_content form3", action := routes.DailyFeed.update(update.day)):
+          postForm(cls := "content_box_content form3", action := routes.DailyFeed.update(update.id)):
             inForm(form)
         ),
         br,
         div(cls := "box box-pad")(
           updateList(List(update), editor = true),
-          postForm(action := routes.DailyFeed.delete(update.day))(cls := "daily-feed__delete"):
+          postForm(action := routes.DailyFeed.delete(update.id))(cls := "daily-feed__delete"):
             submitButton(cls := "button button-red button-empty confirm")("Delete")
         )
       )
 
-  private def inForm(form: Form[Update])(using Context) =
+  private def inForm(form: Form[?])(using Context) =
     frag(
       form3.split(
-        form3.group(form("day"), frag("Day"), half = true)(
-          form3.flatpickr(_, withTime = false, utc = true, minDate = none, dateFormat = "Y-m-d".some)(
-            required
-          )
-        ),
+        form3.group(
+          form("at"),
+          frag("Date"),
+          help = raw("Set in the future to schedule an update.").some,
+          half = true
+        )(form3.flatpickr(_)(required)),
         form3.checkbox(form("public"), raw("Publish"), half = true)
       ),
       form3.group(
@@ -139,15 +140,15 @@ object dailyFeed:
       htmlCall = routes.DailyFeed.index,
       atomCall = routes.DailyFeed.atom,
       title = "Lichess updates feed",
-      updated = ups.headOption.map(_.instant)
+      updated = ups.headOption.map(_.at)
     ): up =>
       frag(
-        tag("id")(up.dayString),
-        tag("published")(atomDate(up.instant)),
+        tag("id")(up.id),
+        tag("published")(atomDate(up.at)),
         link(
           rel  := "alternate",
           tpe  := "text/html",
-          href := s"$netBaseUrl${routes.DailyFeed.index}#${up.dayString}"
+          href := s"$netBaseUrl${routes.DailyFeed.index}#${up.id}"
         ),
         tag("title")(up.title),
         tag("content")(tpe := "html")(up.rendered)

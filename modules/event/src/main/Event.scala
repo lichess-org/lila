@@ -1,7 +1,6 @@
 package lila.event
 
 import play.api.i18n.Lang
-import ornicar.scalalib.ThreadLocalRandom
 import lila.i18n.Language
 
 case class Event(
@@ -45,4 +44,5 @@ case class Event(
 
 object Event:
 
+  import ornicar.scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom nextString 8

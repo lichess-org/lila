@@ -178,7 +178,7 @@ object event:
           raw("Hosted by Lichess user"),
           help = raw("Username that must not be featured while the event is ongoing").some,
           half = true
-        ) { f =>
+        ): f =>
           div(cls := "complete-parent")(
             input(
               cls     := "form-control user-autocomplete",
@@ -188,7 +188,6 @@ object event:
               dataTag := "span"
             )
           )
-        }
       ),
       form3.split(
         form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
