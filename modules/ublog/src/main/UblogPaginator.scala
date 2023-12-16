@@ -8,8 +8,8 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import reactivemongo.api.bson.BSONNull
-import play.api.i18n.Lang
 import lila.user.Me
+import lila.i18n.Language
 
 final class UblogPaginator(
     colls: UblogColls,
@@ -39,11 +39,11 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByCommunity(language: Option[Language], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ lang.so: l =>
-          $doc("language" -> l.code)
+        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ language.so: l =>
+          $doc("language" -> l)
         def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       ,

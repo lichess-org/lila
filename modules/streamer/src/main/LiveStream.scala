@@ -3,6 +3,7 @@ package lila.streamer
 import play.api.mvc.RequestHeader
 
 import lila.memo.CacheApi.*
+import lila.i18n.Language
 
 case class LiveStreams(streams: List[Stream]):
 
@@ -13,12 +14,11 @@ case class LiveStreams(streams: List[Stream]):
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def homepage(max: Int, req: RequestHeader, userLang: Option[String]) = LiveStreams:
-    val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ userLang.toSet
+  def homepage(max: Int, accepts: Set[Language]) = LiveStreams:
     streams
       .takeWhile(_.streamer.approval.tier > 0)
       .foldLeft(Vector.empty[Stream]):
-        case (selected, s) if langs(s.lang) && {
+        case (selected, s) if accepts(s.language) && {
               selected.sizeIs < max || s.streamer.approval.tier == Streamer.maxTier
             } && {
               s.streamer.approval.tier > 1 || selected.sizeIs < 2

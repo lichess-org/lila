@@ -81,7 +81,7 @@ final class RelayApi(
   object defaultRoundToShow:
     export cache.get
     private val cache =
-      cacheApi[RelayTour.Id, Option[RelayRound]](16, "relay.lastAndNextRounds"):
+      cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds"):
         _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
           val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
           val lastStarted = roundRepo.coll
@@ -158,7 +158,7 @@ final class RelayApi(
           .parallel
         .addEffect: trs =>
           spotlightCache = trs
-            .filter(_.tour.tier.has(RelayTour.Tier.BEST))
+            .filter(_.tour.spotlight.exists(_.enabled))
             .filterNot(_.display.finished)
             .filter: tr =>
               tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))

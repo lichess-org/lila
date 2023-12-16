@@ -69,7 +69,12 @@ object roundForm:
       form3.globalError(form),
       form3.split(
         form3.group(form("name"), roundName(), half = true)(form3.input(_)(autofocus)),
-        t.official option form3.group(form("caption"), "Homepage caption", half = true)(
+        isGranted(_.Relay) option form3.group(
+          form("caption"),
+          "Homepage spotlight custom round name",
+          help = raw("Leave empty to use the round name").some,
+          half = true
+        )(
           form3.input(_)
         )
       ),

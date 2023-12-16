@@ -184,14 +184,14 @@ object layout:
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
-  private def hrefLang(lang: String, path: String) =
-    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
+  private def hrefLang(langStr: String, path: String) =
+    s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
   private def hrefLangs(path: LangPath) = raw {
     val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
-      lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
-        hrefLang(lang, s"/$lang$pathEnd")
+      lila.i18n.LangList.popularAlternateLanguages.map { l =>
+        hrefLang(l.value, s"/$l$pathEnd")
       }.mkString
   }
 
