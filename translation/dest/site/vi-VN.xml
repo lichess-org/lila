@@ -15,8 +15,8 @@
   <string name="resign">Chịu thua</string>
   <string name="checkmate">Chiếu hết</string>
   <string name="stalemate">Hòa pat</string>
-  <string name="white">Trắng</string>
-  <string name="black">Đen</string>
+  <string name="white">Quân Trắng</string>
+  <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
