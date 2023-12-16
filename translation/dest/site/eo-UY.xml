@@ -70,6 +70,7 @@
   <string name="makeMainLine">Ĉefigi linion</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
   <string name="forceVariation">Devigi variaĵon</string>
+  <string name="copyVariationPgn">Kopi varianto PGN</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Malvenka variaĵo</string>
   <string name="variantWin">Venka variaĵo</string>
@@ -504,6 +505,8 @@
   <string name="editProfile">Redakti profilon</string>
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
+  <string name="setFlair">Agordi viaj emoĝio:</string>
+  <string name="flair">Emoĝio</string>
   <string name="biography">Biografio</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
