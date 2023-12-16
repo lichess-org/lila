@@ -54,4 +54,5 @@
     <item quantity="one">%s year ago</item>
     <item quantity="other">%s years ago</item>
   </plurals>
+  <string name="completed">completed</string>
 </resources>
