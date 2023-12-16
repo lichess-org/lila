@@ -144,14 +144,11 @@ object ServerEval:
                 makeBranch(g, m).addChild(node)
             .some
 
-    def buildReverse[A, B](s: Seq[A], f: A => B): Option[ChessNode[B]] =
-      s.foldLeft(none)((acc, a) => ChessNode(f(a), acc).some)
-
     private def makeNewSubTree(root: Node, variant: chess.variant.Variant, info: Info): Option[NewTree] =
       val (_, reversedGames, error) =
         chess.Replay.gameMoveWhileValidReverse(info.variation take 20, root.fen, variant)
       error.foreach(e => logger.info(e.value))
-      buildReverse(reversedGames, makeNewBranch)
+      chess.Tree.buildReverse(reversedGames, makeNewBranch)
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Branch(
