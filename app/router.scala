@@ -70,6 +70,7 @@ object ReverseRouterConversions:
   given Conversion[UserId, UserStr]                                  = _ into UserStr
   given Conversion[ForumCategId, String]                             = _.value
   given Conversion[ForumTopicId, String]                             = _.value
+  given Conversion[lila.i18n.Language, String]                       = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
   given reportIdConv: Conversion[Report.Id, String]                  = _.value

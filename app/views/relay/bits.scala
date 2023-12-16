@@ -15,9 +15,7 @@ object bits:
   def spotlight(trs: List[RelayTour.ActiveWithSomeRounds])(using ctx: Context): List[Tag] =
     trs
       .filter:
-        _.tour.spotlight
-          .flatMap(_.specialLang)
-          .fold(true)(lang => ctx.acceptLangCodes(lang.code))
+        _.tour.spotlight.map(_.language).exists(ctx.acceptLanguages)
       .map(spotlight)
 
   def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Lang): Tag =

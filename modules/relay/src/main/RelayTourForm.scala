@@ -13,7 +13,7 @@ final class RelayTourForm:
   import RelayTourForm.*
 
   val spotlightMapping =
-    mapping("enabled" -> boolean, "lang" -> LangForm.mapping, "title" -> optional(text))(
+    mapping("enabled" -> boolean, "lang" -> LangForm.popularLanguages.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
 

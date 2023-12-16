@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import play.api.i18n.Lang
 
 import lila.common.Form.{ stringIn, into, PrettyDateTime }
-import lila.i18n.LangList
+import lila.i18n.{ Language, LangList }
 import lila.user.Me
 
 object EventForm:
@@ -28,7 +28,7 @@ object EventForm:
       "description"   -> optional(text(minLength = 5, maxLength = 4000).into[Markdown]),
       "homepageHours" -> bigDecimal(10, 2).verifying(d => d >= 0 && d <= 24),
       "url"           -> nonEmptyText,
-      "lang"          -> lila.i18n.LangForm.mapping,
+      "lang"          -> lila.i18n.LangForm.popularLanguages.mapping,
       "enabled"       -> boolean,
       "startsAt"      -> PrettyDateTime.mapping,
       "finishesAt"    -> PrettyDateTime.mapping,
@@ -42,7 +42,7 @@ object EventForm:
     description = none,
     homepageHours = 0,
     url = "",
-    lang = lila.i18n.enLang,
+    lang = lila.i18n.defaultLanguage,
     enabled = true,
     startsAt = nowDateTime,
     finishesAt = nowDateTime,
@@ -55,7 +55,7 @@ object EventForm:
       description: Option[Markdown],
       homepageHours: BigDecimal,
       url: String,
-      lang: Lang,
+      lang: Language,
       enabled: Boolean,
       startsAt: LocalDateTime,
       finishesAt: LocalDateTime,

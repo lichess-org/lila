@@ -8,6 +8,7 @@ import lila.pref.Pref
 import lila.user.{ Me, MyId, User }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
+import lila.i18n.{ Language, defaultLanguage }
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -52,8 +53,9 @@ class Context(
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
   def canPalantir                         = kid.no && me.exists(!_.marks.troll)
-  lazy val acceptLangCodes: Set[String] =
-    req.acceptLanguages.view.map(_.language).toSet + "en" ++ user.flatMap(_.lang).toSet
+  lazy val acceptLanguages: Set[Language] =
+    req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
+      user.flatMap(_.language).toSet
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

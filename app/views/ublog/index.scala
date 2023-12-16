@@ -1,7 +1,6 @@
 package views.html.ublog
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ given, * }
@@ -10,6 +9,7 @@ import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
+import lila.i18n.Language
 
 object index:
 
@@ -71,22 +71,21 @@ object index:
     )
 
   import views.html.ublog.post.ShowAt
-  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
+  def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
       title = "Community blogs",
       atomLinkTag = link(
-        href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
+        href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
       withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
-      val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
+      val langSelections: List[(String, String)] = ("all", "All languages") :: lila.i18n.I18nLangPicker
         .sortFor(LangList.popularNoRegion, ctx.req)
-        .map { l =>
+        .map: l =>
           l.language -> LangList.name(l)
-        }
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
@@ -95,19 +94,18 @@ object index:
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "ublog-lang",
-                lang.fold("All languages")(LangList.name),
+                language.fold("All languages")(LangList.nameByLanguage),
                 langSelections
-                  .map { case (language, name) =>
+                  .map: (languageSel, name) =>
                     a(
                       href := {
-                        if language == "all" then routes.Ublog.communityAll()
-                        else routes.Ublog.communityLang(language)
+                        if languageSel == "all" then routes.Ublog.communityAll()
+                        else routes.Ublog.communityLang(languageSel)
                       },
-                      cls := (language == lang.fold("all")(_.language)).option("current")
+                      cls := (languageSel == language.fold("all")(_.value)).option("current")
                     )(name)
-                  }
               ),
-              views.html.site.bits.atomLink(routes.Ublog.communityAtom(lang.fold("all")(_.language)))
+              views.html.site.bits.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
             )
           ),
           if posts.nbResults > 0 then
@@ -116,8 +114,8 @@ object index:
               pagerNext(
                 posts,
                 p =>
-                  lang
-                    .fold(routes.Ublog.communityAll(p))(l => routes.Ublog.communityLang(l.language, p))
+                  language
+                    .fold(routes.Ublog.communityAll(p))(l => routes.Ublog.communityLang(l, p))
                     .url
               )
             )

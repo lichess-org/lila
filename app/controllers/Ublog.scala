@@ -5,7 +5,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.config
-import lila.i18n.{ I18nLangPicker, LangList }
+import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User as UserModel }
@@ -220,9 +220,9 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator.liveByFollowed(me, page) map html.ublog.index.friends
   }
 
-  def communityLang(language: String, page: Int = 1) = Open:
+  def communityLang(langStr: String, page: Int = 1) = Open:
     import I18nLangPicker.ByHref
-    I18nLangPicker.byHref(language, ctx.req) match
+    I18nLangPicker.byHref(langStr, ctx.req) match
       case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
       case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
       case ByHref.Refused(lang) => communityIndex(lang.some, page)
@@ -233,24 +233,20 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityAll(page: Int) = Open:
     communityIndex(none, page)
 
-  def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
+  private def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
       Reasonable(page, config.Max(100)):
         pageHit
         Ok.pageAsync:
-          env.ublog.paginator.liveByCommunity(l, page) map {
-            html.ublog.index.community(l, _)
+          val language = l.map(Language.apply)
+          env.ublog.paginator.liveByCommunity(language, page) map {
+            html.ublog.index.community(language, _)
           }
-
-  def communityLangBC(code: String) = Anon:
-    val l = LangList.popularNoRegion.find(_.code == code)
-    Redirect:
-      l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
 
   def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
     env.ublog.paginator
-      .liveByCommunity(l, page = 1)
+      .liveByCommunity(l.map(Language.apply), page = 1)
       .map: posts =>
         Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
 

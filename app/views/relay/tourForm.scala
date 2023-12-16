@@ -117,13 +117,8 @@ object tourForm:
             help = raw("Leave empty to use the tournament name").some,
             half = true
           )(form3.input(_)),
-          form3.group(form("spotlight.lang"), raw("Language"), half = true)(
-            form3.select(
-              _,
-              lila.i18n.LangList.popularNoRegion.map: l =>
-                l.code -> s"${l.language.toUpperCase} ${lila.i18n.LangList name l}"
-            )
-          )
+          form3.group(form("spotlight.lang"), raw("Language"), half = true):
+            form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
         )
       )
     else form3.hidden(form("tier"))

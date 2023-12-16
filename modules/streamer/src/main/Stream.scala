@@ -1,25 +1,26 @@
 package lila.streamer
 
 import play.api.libs.json.*
+import play.api.i18n.Lang
 
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 import lila.common.Json.given
+import lila.i18n.Language
 
 trait Stream:
   def serviceName: String
   val status: Html
   val streamer: Streamer
-  val language: String
+  val lang: Lang
 
   def is(s: Streamer): Boolean    = streamer is s
   def is(userId: UserId): Boolean = streamer is userId
   def twitch                      = serviceName == "twitch"
   def youTube                     = serviceName == "youTube"
+  def language                    = Language(lang)
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
-
-  lazy val lang: String = (language.length == 2) so language.toLowerCase
 
 object Stream:
 
@@ -33,7 +34,7 @@ object Stream:
     case class Pagination(cursor: Option[String])
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]):
       def liveStreams = (~data).filter(_.isLive)
-    case class Stream(userId: String, status: Html, streamer: Streamer, language: String)
+    case class Stream(userId: String, status: Html, streamer: Streamer, lang: Lang)
         extends lila.streamer.Stream:
       def serviceName = "twitch"
     private given Reads[TwitchStream] = Json.reads
@@ -62,7 +63,7 @@ object Stream:
                 unescapeHtml(item.snippet.title),
                 item.id,
                 _,
-                ~item.snippet.defaultAudioLanguage
+                item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.i18n.defaultLang
               )
             }
           }
@@ -71,7 +72,7 @@ object Stream:
         status: Html,
         videoId: String,
         streamer: Streamer,
-        language: String
+        lang: Lang
     ) extends lila.streamer.Stream:
       def serviceName = "youTube"
 
