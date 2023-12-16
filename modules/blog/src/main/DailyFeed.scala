@@ -17,6 +17,7 @@ object DailyFeed:
     lazy val dateStr        = dateFormatter print at
     lazy val title          = "Daily update - " + dateStr
     def published           = public && at.isBeforeNow
+    def future              = at.isAfterNow
 
   private val renderer =
     lila.common.MarkdownRender(autoLink = false, table = false, strikeThrough = true, header = false)

@@ -38,24 +38,28 @@ object dailyFeed:
 
   def updateList(ups: List[Update], editor: Boolean)(using Context) =
     div(cls := "daily-feed__updates"):
-      ups.map: update =>
-        div(cls := "daily-feed__update", id := update.id)(
-          iconTag(licon.StarOutline),
-          div(cls := "daily-feed__update__content")(
-            st.section(cls := "daily-feed__update__day")(
-              h2(a(href := s"#${update.id}")(momentFromNow(update.at))),
-              editor option frag(
-                a(
-                  href     := routes.DailyFeed.edit(update.id),
-                  cls      := "button button-green button-empty button-thin text",
-                  dataIcon := licon.Pencil
-                ),
-                !update.public option badTag("Draft")
-              )
-            ),
-            div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
+      ups.view
+        .filter(_.published || editor)
+        .map: update =>
+          div(cls := "daily-feed__update", id := update.id)(
+            iconTag(licon.StarOutline),
+            div(cls := "daily-feed__update__content")(
+              st.section(cls := "daily-feed__update__day")(
+                h2(a(href := s"#${update.id}")(momentFromNow(update.at))),
+                editor option frag(
+                  a(
+                    href     := routes.DailyFeed.edit(update.id),
+                    cls      := "button button-green button-empty button-thin text",
+                    dataIcon := licon.Pencil
+                  ),
+                  !update.public option badTag(nbsp, "[Draft]"),
+                  update.future option goodTag(nbsp, "[Future]")
+                )
+              ),
+              div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
+            )
           )
-        )
+        .toList
 
   def lobbyUpdateList(ups: List[Update])(using Context) =
     div(cls := "daily-feed__updates")(
