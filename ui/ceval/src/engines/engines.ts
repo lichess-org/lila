@@ -122,7 +122,7 @@ export class Engines {
             short: 'FSF 14+',
             tech: 'HCE',
             requires: ['simd', 'recentFirefoxOrNotBrave'],
-            variants: variants.map(v => v[0]),
+            variants: variants.map(v => v[0]).concat(['standard', 'chess960', 'fromPosition']),
             assets: {
               version: 'sfw003',
               root: 'npm/lila-stockfish-web',
