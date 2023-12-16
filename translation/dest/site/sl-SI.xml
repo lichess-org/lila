@@ -301,7 +301,6 @@
   <string name="playingRightNow">Trenutno se igra</string>
   <string name="eventInProgress">Pravkar poteka</string>
   <string name="finished">Končano</string>
-  <string name="finishesX">končal %s</string>
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
   <string name="standard">Običajno</string>
@@ -460,6 +459,7 @@
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
   <string name="importGameCaveat">Variante bodo izbrisane. Če jih želite obdržat, uvozite PGN kot študijo.</string>
+  <string name="importGameDataPrivacyWarning">Ta PGN je javno dostopen. Za zasebni uvoz igre uporabite študijo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvožena igra</item>
     <item quantity="two">%s uvoženi igri</item>
@@ -940,7 +940,6 @@
   <string name="clickHereToReadIt">Kliknite tukaj, če ga želite prebrati</string>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
-  <string name="timeoutExpires">Omejitev poteče čez %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>

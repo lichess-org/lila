@@ -133,6 +133,10 @@
     <item quantity="one">%s halmaam</item>
     <item quantity="other">%s halmaamyo</item>
   </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s aan fiicnayn</item>
+    <item quantity="other">%s aan fiicnayn</item>
+  </plurals>
   <string name="moveTimes">Wakhtiyada tallaabo</string>
   <string name="flipBoard">Rog looxa</string>
   <string name="threefoldRepetition">Ku celin sadex jeer</string>
@@ -153,6 +157,10 @@
   <plurals name="ratingXOverYGames">
     <item quantity="one">Darajada %1$s ee %2$s ciyaar</item>
     <item quantity="other">Darajada %1$s ee %2$s ciyaarood</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s calaamad</item>
+    <item quantity="other">%s calaamadood</item>
   </plurals>
   <string name="viewInFullSize">Weynee daaqadda</string>
   <string name="logOut">Ka bax</string>
@@ -176,7 +184,24 @@
   <string name="correspondence">Maalinle</string>
   <string name="daysPerTurn">Maalmood tallaabadiiba</string>
   <string name="oneDay">Hal maalin</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s maalin</item>
+    <item quantity="other">%s maalmood</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s saacad</item>
+    <item quantity="other">%s saacadood</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s daqiiqo</item>
+    <item quantity="other">%s daqiiqo</item>
+  </plurals>
   <string name="time">Waqtiga</string>
+  <string name="rating">Qiimayn</string>
+  <string name="ratingStats">Daraasada qiinqaynta</string>
+  <string name="username">Magaca</string>
+  <string name="usernameOrEmail">Magaca ama cinwaanka</string>
+  <string name="changeUsername">Beddel magaca</string>
   <string name="password">Erey sir</string>
   <string name="rank">Darajo</string>
   <string name="rankX">Darajo: %s</string>
@@ -227,7 +252,6 @@
   <string name="next">Xiga</string>
   <string name="solution">Xalka</string>
   <string name="sorry">Waan ka xumahay :(</string>
-  <string name="timeoutExpires">Ganaaxaaga waxa ka hadhay: %s.</string>
   <string name="why">Waayo?</string>
   <string name="lifetimeScore">Dhibcaha abid</string>
   <string name="gameVsX">Ciyaarta &gt;&lt; %1$s</string>

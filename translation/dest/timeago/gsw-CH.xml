@@ -54,4 +54,13 @@
     <item quantity="one">vor %s Jahr</item>
     <item quantity="other">vor %s Jahr</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s Minute blibt</item>
+    <item quantity="other">%s Minute blibed</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s Schtund blibt</item>
+    <item quantity="other">%s Schtunde blibed</item>
+  </plurals>
+  <string name="completed">beändet</string>
 </resources>

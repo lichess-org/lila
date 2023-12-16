@@ -302,7 +302,6 @@
   <string name="playingRightNow">W toku</string>
   <string name="eventInProgress">W toku</string>
   <string name="finished">Zakończone</string>
-  <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Partia została przerwana</string>
   <string name="standard">Standard</string>
@@ -461,7 +460,6 @@
   <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <string name="importGameCaveat">Warianty zostaną usunięte. Aby je zachować, zaimportuj plik PGN jako opracowanie.</string>
-  <string name="importGameCaveat2">Ten zapis PGN będzie dostępny publicznie. Aby zaimportować partię tylko dla siebie, stwórz prywatne opracowanie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -949,7 +947,6 @@
   <string name="clickHereToReadIt">Kliknij tutaj, aby ją odczytać</string>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
-  <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
   <string name="why">Dlaczego?</string>
   <string name="pleasantChessExperience">Naszym celem jest zapewnienie wszystkim przyjemności z gry.</string>
   <string name="goodPractice">W tym celu musimy zapewnić przestrzeganie dobrych praktyk przez wszystkich graczy.</string>

@@ -198,7 +198,6 @@
   <string name="playingRightNow">Häzir oýnalýar</string>
   <string name="eventInProgress">Progressiýada</string>
   <string name="finished">Tamamlanan</string>
-  <string name="finishesX">gutarýar %s</string>
   <string name="abortGame">Oýny abort et</string>
   <string name="gameAborted">Oýun abort edildi</string>
   <string name="standard">Standart</string>

@@ -220,7 +220,6 @@
   <string name="playingRightNow">Maglalaro ngayon</string>
   <string name="eventInProgress">Naglalaro ngayon</string>
   <string name="finished">Tapos na</string>
-  <string name="finishesX">matatapos ng %s</string>
   <string name="abortGame">Itigil ang laro</string>
   <string name="gameAborted">Ang laro ay natigil</string>
   <string name="standard">Pamantayan</string>
@@ -773,7 +772,6 @@
   </plurals>
   <string name="sorry">Pasensya na :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kinailangan naming tapusin ang oras mo pansamantala.</string>
-  <string name="timeoutExpires">Ang pagtatapos ng oras ay magwawakas sa loob ng %s.</string>
   <string name="why">Bakit?</string>
   <string name="pleasantChessExperience">Nilalayon naming makapagbigay ng isang nakalulugod na karanasan sa ahedres para sa lahat.</string>
   <string name="goodPractice">Sa ganoong kahulugan, kailangan naming siguruhin na ang lahat ng mga manlalaro ay susunod sa mabuting gawi.</string>

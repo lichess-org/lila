@@ -17,7 +17,7 @@
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
-  <string name="asWhite">الأبيض</string>
+  <string name="asWhite">بالأبيض</string>
   <string name="asBlack">الأسود</string>
   <string name="randomColor">لون عشوائي</string>
   <string name="createAGame">إنشاء مباراة</string>
@@ -26,7 +26,7 @@
   <string name="youPlayTheWhitePieces">أنت تلعب بالقطع البيضاء</string>
   <string name="youPlayTheBlackPieces">أنت تلعب بالقطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
-  <string name="cheatDetected">ثم تحديد حالة غش</string>
+  <string name="cheatDetected">تحديد حالة غِشّ</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
@@ -53,8 +53,8 @@
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
-  <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
-  <string name="blackDidntMove">لم يقم الأبيض بالحركة</string>
+  <string name="whiteDidntMove">لم يلعب الأبيض بعد</string>
+  <string name="blackDidntMove">لم يلعب الأسود بعد</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
@@ -63,7 +63,7 @@
   <string name="depthX">عمق التحليل %s</string>
   <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
   <string name="loadingEngine">تحميل المحرك...</string>
-  <string name="calculatingMoves">حساب النقلات...</string>
+  <string name="calculatingMoves">جاري حساب النقلات...</string>
   <string name="engineFailed">خطأ في تحميل المحرك</string>
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">تحليل أعمق</string>
@@ -71,9 +71,10 @@
   <string name="inLocalBrowser">باستخدام متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
   <string name="promoteVariation">رفع سلسلة الحركات</string>
-  <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
+  <string name="makeMainLine">كتابة التفريع الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="forceVariation">فرض التسلسل</string>
+  <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="move">التقلة</string>
   <string name="variantLoss">خسارة بطريقة خاصة</string>
   <string name="variantWin">فوز بطريقة خاصة</string>
@@ -90,20 +91,20 @@
   <string name="averageRatingX">متوسط التقييم: %s</string>
   <string name="recentGames">أحدث المباريات</string>
   <string name="topGames">أفضل الالعاب</string>
-  <string name="masterDbExplanation">اثنان مليون مباراة من قاعدة بيانات الاساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
+  <string name="masterDbExplanation">قاعدة بيانات مباريات الأساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="zero">مات في %s نصف-نقلة</item>
     <item quantity="one">مات في %s نصف-نقلة</item>
     <item quantity="two">مات في %s نصف-نقلة</item>
     <item quantity="few">مات في %s نصف-نقلة</item>
-    <item quantity="many">مات في %s نصف-نقلة</item>
-    <item quantity="other">مات في %s نصف-نقلة</item>
+    <item quantity="many">كش مات في %s نقلة</item>
+    <item quantity="other">كش مات في %s نقلة</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' مع تقريب ، استنادًا إلى عدد من نصف التحركات حتى التقاط أو نقل بياض التالي</string>
+  <string name="dtzWithRounding">DTZ50\'\' هي عدد الحركات حتى حصول أخذ أو تحريك بيدق</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maxDepthReached">تم الوصول إلى أقصى عمق!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
-  <string name="openings">الافتتاح</string>
+  <string name="openings">الافتتاحيات</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
@@ -123,6 +124,7 @@
   <string name="openStudy">فتح دراسة</string>
   <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
+  <string name="showVariationArrows">أظهر سلسلة النقلات المرشحة</string>
   <string name="evaluationGauge">مقياس التقييم</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="cpus">المعالجات</string>
@@ -322,7 +324,6 @@
   <string name="playingRightNow">يلعب الآن</string>
   <string name="eventInProgress">يلعب الآن</string>
   <string name="finished">انتهت</string>
-  <string name="finishesX">تنتهي %s</string>
   <string name="abortGame">إلغاء اللعبة</string>
   <string name="gameAborted">اللعبة ألغيت</string>
   <string name="standard">عادي</string>
@@ -998,7 +999,6 @@
   </plurals>
   <string name="sorry">نأسف :(</string>
   <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
-  <string name="timeoutExpires">ينتهي الحظر خلال %s.</string>
   <string name="why">لماذا ؟</string>
   <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
   <string name="goodPractice">لهذا الغرض، علينا التأكد أن جميع اللاعبين يسلكون سلوكاً حسناً.</string>

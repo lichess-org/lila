@@ -273,7 +273,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="playingRightNow">Partie isch am laufe</string>
   <string name="eventInProgress">Lauft jetzt</string>
   <string name="finished">Beändet</string>
-  <string name="finishesX">ändet %s</string>
   <string name="abortGame">Partie abbräche</string>
   <string name="gameAborted">Partie abbroche</string>
   <string name="standard">Standard</string>
@@ -406,7 +405,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="importGame">Partie importiere</string>
   <string name="importGameExplanation">Füeg e Schpiel-PGN i, für Zuegriff uf Schpielwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
   <string name="importGameCaveat">d\'Variazione werded glöscht. Zums b\'halte, muesch d\'PGN mit ere Schtudie importiere.</string>
-  <string name="importGameCaveat2">De PGN isch öffentlich zuegänglich. Zum es Schpiel privat importiere, nimmsch e Schtudie.</string>
+  <string name="importGameDataPrivacyWarning">De PGN isch öffentlich zuegänglich. Zum es Schpiel privat importiere, nimmsch e Schtudie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partie</item>
     <item quantity="other">%s importierti Partie</item>
@@ -875,7 +874,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="clickHereToReadIt">Klick da zum läse</string>
   <string name="sorry">Äxgüsi :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Zitli müesse schperre.</string>
-  <string name="timeoutExpires">Die Schperrig ändet in %s.</string>
   <string name="why">Wieso?</string>
   <string name="pleasantChessExperience">Mir wänd allne e möglichscht gueti Schach-Erfahrig büte.</string>
   <string name="goodPractice">Zum dem Zwäck müend mir sicher si, dass sich all Schpiller korräkt verhalted.</string>

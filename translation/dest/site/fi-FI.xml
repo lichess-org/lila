@@ -272,7 +272,6 @@
   <string name="playingRightNow">Pelaamassa juuri nyt</string>
   <string name="eventInProgress">Parhaillaan menossa</string>
   <string name="finished">Päättynyt</string>
-  <string name="finishesX">päättyy %s</string>
   <string name="abortGame">Keskeytä peli</string>
   <string name="gameAborted">Peli keskeytetty</string>
   <string name="standard">Tavallinen</string>
@@ -405,7 +404,7 @@
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
   <string name="importGameCaveat">Muunnelmat poistetaan. Jos haluat säilyttää ne, tuo PGN ensin tutkielmaan.</string>
-  <string name="importGameCaveat2">Tähän PGN:ään on julkinen pääsy. Käytä tutkielmaa halutessasi tuoda pelin ja pitää sen yksityisenä.</string>
+  <string name="importGameDataPrivacyWarning">Tähän PGN:ään on julkinen pääsy. Käytä tutkielmaa halutessasi tuoda pelin ja pitää sen yksityisenä.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
@@ -863,7 +862,6 @@
   <string name="clickHereToReadIt">Lue se napsauttamalla tästä</string>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
-  <string name="timeoutExpires">Jäähy päättyy %s.</string>
   <string name="why">Miksi?</string>
   <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
   <string name="goodPractice">Siksi meidän on huolehdittava siitä, että kaikki käyttäytyvät asiallisesti.</string>

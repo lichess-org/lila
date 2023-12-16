@@ -70,6 +70,7 @@
   <string name="makeMainLine">Ĉefigi linion</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
   <string name="forceVariation">Devigi variaĵon</string>
+  <string name="copyVariationPgn">Kopi varianto PGN</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Malvenka variaĵo</string>
   <string name="variantWin">Venka variaĵo</string>
@@ -271,7 +272,6 @@
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
-  <string name="finishesX">finiĝos %s</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
@@ -505,6 +505,8 @@
   <string name="editProfile">Redakti profilon</string>
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
+  <string name="setFlair">Agordi viaj emoĝio:</string>
+  <string name="flair">Emoĝio</string>
   <string name="biography">Biografio</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
@@ -850,7 +852,6 @@
   <string name="clickHereToReadIt">Alklaku ĉi tie por legi ĝin</string>
   <string name="sorry">Bedaŭrinde :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
-  <string name="timeoutExpires">La suspendo finiĝos %s.</string>
   <string name="why">Kial?</string>
   <string name="pleasantChessExperience">Nia celo estas provizi plaĉan ŝakan sperton al ĉiuj.</string>
   <string name="goodPractice">Pro tio, ni devas certigi ke ĉiuj ludantoj sekvas bonna etiketon.</string>

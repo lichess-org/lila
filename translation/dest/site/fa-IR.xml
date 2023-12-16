@@ -271,7 +271,6 @@
   <string name="playingRightNow">بازی در حال انجام</string>
   <string name="eventInProgress">بازی در حال انجام</string>
   <string name="finished">تمام شده</string>
-  <string name="finishesX">به پایان می‌رسد %s</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
   <string name="standard">استاندارد</string>
@@ -404,7 +403,6 @@
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
-  <string name="importGameCaveat2">این PGN برای عموم در دسترس است، برای وارد کردن خصوصی یک بازی، یک مطالعه ایجاد کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگزاری شده</item>
     <item quantity="other">%s بارگزاری شده</item>
@@ -863,7 +861,6 @@
   <string name="clickHereToReadIt">برای خواندن آنها اینجا کلیک کنید</string>
   <string name="sorry">متاسفم :(</string>
   <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
-  <string name="timeoutExpires">تعداد %s به پایان رسیدن زمان.</string>
   <string name="why">چرا؟</string>
   <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>

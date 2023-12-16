@@ -253,7 +253,6 @@
   <string name="playingRightNow">กำลังเล่น</string>
   <string name="eventInProgress">กำลังแข่ง</string>
   <string name="finished">จบแล้ว</string>
-  <string name="finishesX">เสร็จสิ้น%s</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
   <string name="standard">มาตรฐาน</string>
@@ -373,7 +372,6 @@
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
-  <string name="importGameCaveat2">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกม โปรดใช้หน้ากรณีศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -816,7 +814,6 @@
   </plurals>
   <string name="sorry">ขออภัย :(</string>
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
-  <string name="timeoutExpires">เวลารอคอย สิ้นสุดใน %s</string>
   <string name="why">ทำไม?</string>
   <string name="pleasantChessExperience">เรามุ่งหวังจะมอบประสบการณ์เกมหมากรุกที่น่าพอใจให้กับทุกคน</string>
   <string name="goodPractice">เพื่อให้ได้ผล เราต้องแน่ใจว่าผู้เล่นทุกคนได้ปฏิบัติตามเป็นอย่างดี</string>

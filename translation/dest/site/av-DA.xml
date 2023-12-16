@@ -270,7 +270,6 @@
   <string name="playingRightNow">ХӀай унеб буго гьабсагӀат</string>
   <string name="eventInProgress">ХӀай унеб буго гьабсагӀат</string>
   <string name="finished">ТӀубана</string>
-  <string name="finishesX">%s лъугӀула</string>
   <string name="abortGame">ХӀай лъугӀизабичӀого тезе</string>
   <string name="gameAborted">ХӀай лъугӀизабичӀого тана</string>
   <string name="standard">ГӀадатаб</string>
@@ -831,7 +830,6 @@
   <string name="playX">%s гьабе</string>
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="weHadToTimeYouOutForAWhile">Дур хӀалтӀи заманалде гьоркьоб къотӀизабизе ккана.</string>
-  <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
   <string name="pleasantChessExperience">Нилъеца киназего шахматазда лъикӀаб хӀалбихьи щвезе жигар бахъула.</string>
   <string name="goodPractice">Гьеб щвезе, нилъеда щивас къагӀидаби цӀунулел ругелали ракӀчӀун лъазе ккола.</string>

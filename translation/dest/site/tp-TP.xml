@@ -255,7 +255,6 @@
   <string name="playingRightNow">musi li lon</string>
   <string name="eventInProgress">musi lon tenpo ni</string>
   <string name="finished">ni li pini</string>
-  <string name="finishesX">pini %s</string>
   <string name="abortGame">o pini e musi</string>
   <string name="gameAborted">musi li pini</string>
   <string name="standard">nasin pi ante ala</string>
@@ -818,7 +817,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   </plurals>
   <string name="sorry">pakala a :(</string>
   <string name="weHadToTimeYouOutForAWhile">sina wile awen lon tenpo lili.</string>
-  <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
   <string name="why">tan seme?</string>
   <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
   <string name="goodPractice">tan ni la, mi wile e ni: jan ale li pona tawa nasin pi musi pona.</string>

@@ -272,7 +272,6 @@
   <string name="playingRightNow">Spilles lige nu</string>
   <string name="eventInProgress">Spilles lige nu</string>
   <string name="finished">Afsluttet</string>
-  <string name="finishesX">afsluttes %s</string>
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
   <string name="standard">Standard</string>
@@ -405,7 +404,6 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
   <string name="importGameCaveat">Varianter vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
-  <string name="importGameCaveat2">Denne PGN kan tilgås af offentligheden. For at importere et parti privat, skal du bruge et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
@@ -866,7 +864,6 @@
   <string name="clickHereToReadIt">Klik her for at læse den</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
-  <string name="timeoutExpires">Timeouten udløber %s.</string>
   <string name="why">Hvorfor?</string>
   <string name="pleasantChessExperience">Vi tilstræber at give alle en behagelig skakoplevelse.</string>
   <string name="goodPractice">I den forbindelse må vi sikre, at alle spillere følger god praksis.</string>

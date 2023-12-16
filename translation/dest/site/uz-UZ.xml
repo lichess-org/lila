@@ -270,7 +270,6 @@
   <string name="playingRightNow">Xozirni o\'zidayoq o\'ynash</string>
   <string name="eventInProgress">Xozirni o\'zidayoq o\'ynash</string>
   <string name="finished">Tugadi</string>
-  <string name="finishesX">%s tugaydi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
   <string name="standard">Standart</string>
@@ -845,7 +844,6 @@
   </plurals>
   <string name="sorry">Kechirasiz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Biz sizga bir muncha vaqtga taym aut berishimiz kerak edi.</string>
-  <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
   <string name="why">Nima uchun?</string>
   <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
   <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>

@@ -272,7 +272,6 @@
   <string name="playingRightNow">Jogando agora</string>
   <string name="eventInProgress">Jogando agora</string>
   <string name="finished">Terminado</string>
-  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
@@ -405,7 +404,6 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Após colar uma partida em PGN você poderá revisá-la interativamente, consultar uma análise de computador, utilizar o chat e compartilhar um link.</string>
   <string name="importGameCaveat">As variantes serão apagadas. Para salvá-las, importe o PGN em um estudo.</string>
-  <string name="importGameCaveat2">Este PGN pode ser acessado publicamente. Use um estudo para importar um jogo privado.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s de partidas importadas</item>
@@ -862,7 +860,6 @@
   <string name="clickHereToReadIt">Clique aqui para ler</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de bloqueá-lo por um tempo.</string>
-  <string name="timeoutExpires">O tempo expirará %s.</string>
   <string name="why">Por quê?</string>
   <string name="pleasantChessExperience">Buscamos oferecer uma experiência agradável de xadrez para todos.</string>
   <string name="goodPractice">Para isso, precisamos assegurar que nossos jogadores sigam boas práticas.</string>

@@ -54,4 +54,13 @@
     <item quantity="one">%s jaar gelede</item>
     <item quantity="other">%s jare gelede</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">nog %s minuut oor</item>
+    <item quantity="other">nog %s minute oor</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">nog %s uur oor</item>
+    <item quantity="other">nog %s ure oor</item>
+  </plurals>
+  <string name="completed">voltooi</string>
 </resources>

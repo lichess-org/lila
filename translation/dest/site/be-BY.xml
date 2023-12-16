@@ -292,7 +292,6 @@
   <string name="playingRightNow">Граецца зараз</string>
   <string name="eventInProgress">Граецца зараз</string>
   <string name="finished">Скончана</string>
-  <string name="finishesX">завяршыцца %s</string>
   <string name="abortGame">Скасаваць гульню</string>
   <string name="gameAborted">Гульня скасавана</string>
   <string name="standard">Стандартная</string>
@@ -911,7 +910,6 @@
   </plurals>
   <string name="sorry">Прабачце :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам прыйшлося на нейкі час выдаць вам тайм-аўт.</string>
-  <string name="timeoutExpires">Вы зможаце вярнуцца праз %s.</string>
   <string name="why">Чаму?</string>
   <string name="pleasantChessExperience">Мы імкнемся даставіць задавальненне ад шахмат ўсім гульцам.</string>
   <string name="goodPractice">Каб дамагчыся гэтага, мы павінны забяспечыць, каб усе гульцы вынікалі правілам добрага тону.</string>

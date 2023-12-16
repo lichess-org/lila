@@ -272,7 +272,6 @@
   <string name="playingRightNow">Partie leeft</string>
   <string name="eventInProgress">Partien lafen</string>
   <string name="finished">Fäerdeg</string>
-  <string name="finishesX">ass fäerdeg %s</string>
   <string name="abortGame">Partie ofbriechen</string>
   <string name="gameAborted">Partie ofgebrach</string>
   <string name="standard">Standard</string>
@@ -846,9 +845,10 @@
     <item quantity="one">an späicher %s bedingten Virauszuch</item>
     <item quantity="other">an späicher %s bedingt Virauszich</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du krus eng privat Noriicht vu Lichess.</string>
+  <string name="clickHereToReadIt">Klick hei fir se ze liesen</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
-  <string name="timeoutExpires">D\'Auszeit ass riwwer %s.</string>
   <string name="why">Firwat?</string>
   <string name="pleasantChessExperience">Mir wëllen jidderengem eng méiglechst gudd Schacherfahrung offréieren.</string>
   <string name="goodPractice">Fir dat ze erreechen mussen mer sécherstellen dass all Spiller sech korrekt verhalen.</string>
@@ -868,6 +868,7 @@
   <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>

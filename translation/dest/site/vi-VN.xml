@@ -257,7 +257,6 @@
   <string name="playingRightNow">Đang diễn ra</string>
   <string name="eventInProgress">Đang diễn ra</string>
   <string name="finished">Hoàn thành</string>
-  <string name="finishesX">kết thúc trong %s</string>
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>
@@ -379,7 +378,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, 
 trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai.</string>
   <string name="importGameCaveat">Các biến sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
-  <string name="importGameCaveat2">Ai cũng có thể truy cập PGN này. Để nhập ván cờ một cách riêng tư, hãy sử dụng nghiên cứu.</string>
+  <string name="importGameDataPrivacyWarning">Ai cũng có thể truy cập PGN này. Để nhập ván cờ một cách riêng tư, hãy sử dụng nghiên cứu.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s ván cờ đã nhập</item>
   </plurals>
@@ -826,7 +825,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
-  <string name="timeoutExpires">Hết hiệu lực trong %s.</string>
   <string name="why">Tại sao?</string>
   <string name="pleasantChessExperience">Mục tiêu của chúng tôi là cung cấp trải nghiệm chơi cờ vui vẻ cho mọi người.</string>
   <string name="goodPractice">Để đạt được mục đích, chúng tôi phải chắc chắn rằng mọi người phải tuân thủ tốt.</string>

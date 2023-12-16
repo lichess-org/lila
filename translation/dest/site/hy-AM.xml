@@ -271,7 +271,6 @@
   <string name="playingRightNow">Այս պահին խաղում են</string>
   <string name="eventInProgress">Խաղում են այս պահին</string>
   <string name="finished">Ավարտվել է</string>
-  <string name="finishesX">ավարտվում է %s</string>
   <string name="abortGame">Կասեցնել խաղը</string>
   <string name="gameAborted">Խաղը կասեցված է</string>
   <string name="standard">Ստանդարտ</string>
@@ -845,7 +844,6 @@
   </plurals>
   <string name="sorry">Ներողություն :(</string>
   <string name="weHadToTimeYouOutForAWhile">Մենք ստիպված ենք անջատել Ձեզ որոշ ժամանակով։</string>
-  <string name="timeoutExpires">Դուք կարող եք վերադառնալ %s անց։</string>
   <string name="why">Ինչու՞</string>
   <string name="pleasantChessExperience">Մեր նպատակը շախմատը բոլորի համար հետաքրքիր դարձնելն է։</string>
   <string name="goodPractice">Դրան հասնելու համար մենք պետք է այնպես անենք, որ բոլոր խաղացողները հետևեն բարեկրթության կանոններին։</string>
