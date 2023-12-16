@@ -81,7 +81,7 @@ final class RelayApi(
   object defaultRoundToShow:
     export cache.get
     private val cache =
-      cacheApi[RelayTour.Id, Option[RelayRound]](16, "relay.lastAndNextRounds"):
+      cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds"):
         _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
           val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
           val lastStarted = roundRepo.coll

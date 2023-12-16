@@ -82,10 +82,11 @@ object index:
       ).some,
       withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
-      val langSelections: List[(String, String)] = ("all", "All languages") :: lila.i18n.I18nLangPicker
-        .sortFor(LangList.popularNoRegion, ctx.req)
-        .map: l =>
-          l.language -> LangList.name(l)
+      val langSelections: List[(String, String)] = ("all", "All languages") ::
+        lila.i18n.I18nLangPicker
+          .sortFor(LangList.popularNoRegion, ctx.req)
+          .map: l =>
+            l.language -> LangList.name(l)
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
