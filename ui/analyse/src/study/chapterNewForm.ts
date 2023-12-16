@@ -274,11 +274,17 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 h(
                   'button.button.button-empty.import-from__chapter',
                   {
-                    hook: bind('click', () => {
-                      xhr
-                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
-                        .then(pgnData => $('#chapter-pgn').val(pgnData));
-                    }),
+                    hook: bind(
+                      'click',
+                      () => {
+                        xhr
+                          .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                          .then(pgnData => $('#chapter-pgn').val(pgnData));
+                        return false;
+                      },
+                      undefined,
+                      false,
+                    ),
                   },
                   trans('importFromChapterX', study.currentChapter().name),
                 ),
