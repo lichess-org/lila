@@ -17,4 +17,7 @@
   <string name="timeControlsForRatedGames">يمكن ضبط الوقت في المباريات المقيمة على: القياسي، والمراسلة وبعض فئات الشطرنج السريع مثل: 10+15 و0+20</string>
   <string name="whenReadySetupBoard" comment="%s is the word 'Play'.">عندما تكون رقعتك جاهزة، انقر على%s.</string>
   <string name="ifMoveNotDetected">إذا لم تكتشف الرقعة النقلة</string>
+  <string name="checkYouHaveMadeOpponentsMove">تأكد أن خصمك لعب نقلته على رقعة DGT أولاً، ثم أعد لعب نقلتك، إذا لم تحل المشكلة، اعد المباراة من البداية.</string>
+  <string name="asALastResort">كملاذ أخير، اعد اللوحة بشكل متطابق مع Lichess، ثم %s</string>
+  <string name="reloadThisPage">أعد تحويل هذه الصفحة</string>
 </resources>
