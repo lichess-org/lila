@@ -505,7 +505,7 @@
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
-  <string name="setFlair">Ställ in din flair:</string>
+  <string name="setFlair">Ställ in din flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
   <string name="biography">Biografi</string>
