@@ -572,7 +572,7 @@
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
-  <string name="setFlair">Ustaw swój emblemat:</string>
+  <string name="setFlair">Ustaw swój emblemat</string>
   <string name="flair">Emblemat</string>
   <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>
   <string name="biography">O mnie</string>
