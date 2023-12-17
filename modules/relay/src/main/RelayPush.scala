@@ -10,7 +10,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using ActorSystem, Executo
 
   private val throttler = lila.hub.EarlyMultiThrottler[RelayRoundId](logger)
 
-  type Result = Either[LilaInvalid, String]
+  type Result = Either[LilaInvalid, Int]
 
   def apply(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Result] =
     if rt.round.sync.hasUpstream
@@ -35,5 +35,5 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using ActorSystem, Executo
                 .update(rt.round):
                   _.withSync(_ addLog event).copy(finished = games.forall(_.end.isDefined))
                 .inject:
-                  event.error.fold(Right(s"${event.moves} new moves"))(err => Left(LilaInvalid(err)))
+                  event.error.fold(Right(event.moves))(err => Left(LilaInvalid(err)))
       )

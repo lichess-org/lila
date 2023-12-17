@@ -10,6 +10,7 @@ import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourM
 import chess.format.pgn.PgnStr
 import views.*
 import lila.common.config.{ Max, MaxPerSecond }
+import play.api.libs.json.Json
 
 final class RelayRound(
     env: Env,
@@ -141,8 +142,8 @@ final class RelayRound(
           env.relay
             .push(rt.withTour, PgnStr(ctx.body.body))
             .map:
-              case Right(msg) => jsonOkMsg(msg)
-              case Left(e)    => JsonBadRequest(e.message)
+              case Right(moves) => JsonOk(Json.obj("moves" -> moves))
+              case Left(e)      => JsonBadRequest(e.message)
   }
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
