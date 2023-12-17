@@ -106,7 +106,7 @@ final class Preload(
     currentGame,
     simulIsFeaturable,
     blindGames,
-    lastPostCache.apply,
+    lastPostCache.apply.filterNot(_.isOld).filter(_.forKids || ctx.kid.no),
     getLastUpdates(),
     ublogPosts,
     withPerfs,
