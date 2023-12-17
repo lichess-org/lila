@@ -506,7 +506,7 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
-  <string name="setFlair">Configura tu entorno:</string>
+  <string name="setFlair">Configura tu entorno</string>
   <string name="flair">Entorno</string>
   <string name="youCanHideFlair">Existe una opción para ocultar la configuración de entorno en todo el sitio.</string>
   <string name="biography">Biografía</string>
