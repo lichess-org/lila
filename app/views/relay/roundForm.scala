@@ -62,9 +62,9 @@ object roundForm:
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
-        create option p(dataIcon := licon.InfoCircle, cls := "text")(
-          theNewRoundHelp()
-        )
+        (create && t.createdAt.isBefore(nowInstant minusMinutes 1)).option:
+          p(dataIcon := licon.InfoCircle, cls := "text"):
+            theNewRoundHelp()
       ),
       form3.globalError(form),
       form3.split(
@@ -74,9 +74,8 @@ object roundForm:
           "Homepage spotlight custom round name",
           help = raw("Leave empty to use the round name").some,
           half = true
-        )(
+        ):
           form3.input(_)
-        )
       ),
       form3.group(
         form("syncUrl"),
