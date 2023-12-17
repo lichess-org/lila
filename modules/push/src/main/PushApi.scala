@@ -18,6 +18,7 @@ final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
     proxyRepo: lila.round.GameProxyRepo,
+    roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
@@ -73,28 +74,28 @@ final private class PushApi(
     LilaFuture.delay(2 seconds):
       proxyRepo.game(move.gameId) flatMap:
         _.filter(_.playable) so: game =>
-          val pov = Pov(game, game.player.color)
-          game.player.userId so: userId =>
-            IfAway(pov):
-              gameRepo.countWhereUserTurn(userId) flatMap: nbMyTurn =>
-                asyncOpponentName(pov) flatMap: opponent =>
-                  game.sans.lastOption.so: sanMove =>
-                    maybePush(
-                      userId,
-                      _.move,
-                      NotificationPref.GameEvent,
-                      PushApi.Data(
-                        title = "It's your turn!",
-                        body = s"$opponent played $sanMove",
-                        stacking = Stacking.GameMove,
-                        urgency = Urgency.Normal,
-                        payload = Json.obj(
-                          "userId"   -> userId,
-                          "userData" -> corresGameJson(pov, "gameMove")
-                        ),
-                        iosBadge = nbMyTurn.some.filter(0 <)
-                      )
+          game.sans.lastOption.so: sanMove =>
+            val pov = Pov(game, game.player.color)
+            game.player.userId so: userId =>
+              IfAway(pov):
+                for
+                  nbMyTurn <- gameRepo.countWhereUserTurn(userId)
+                  opponent <- asyncOpponentName(pov)
+                  payload  <- corresGamePayload(pov, "gameMove", userId)
+                  _ <- maybePush(
+                    userId,
+                    _.move,
+                    NotificationPref.GameEvent,
+                    PushApi.Data(
+                      title = "It's your turn!",
+                      body = s"$opponent played $sanMove",
+                      stacking = Stacking.GameMove,
+                      urgency = Urgency.Normal,
+                      payload = payload,
+                      iosBadge = nbMyTurn.some.filter(0 <)
                     )
+                  )
+                yield ()
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
@@ -105,8 +106,10 @@ final private class PushApi(
           } so { pov => // the pov of the receiver
             pov.player.userId so: userId =>
               IfAway(pov):
-                asyncOpponentName(pov) flatMap: opponent =>
-                  maybePush(
+                for
+                  opponent <- asyncOpponentName(pov)
+                  payload  <- corresGamePayload(pov, "gameTakebackOffer", userId)
+                  _ <- maybePush(
                     userId,
                     _.takeback,
                     NotificationPref.GameEvent,
@@ -116,12 +119,10 @@ final private class PushApi(
                         body = s"$opponent proposes a takeback",
                         stacking = Stacking.GameTakebackOffer,
                         urgency = Urgency.Normal,
-                        payload = Json.obj(
-                          "userId"   -> userId,
-                          "userData" -> corresGameJson(pov, "gameTakebackOffer")
-                        )
+                        payload = payload
                       )
                   )
+                yield ()
           }
 
   def drawOffer(gameId: GameId): Funit =
@@ -133,8 +134,10 @@ final private class PushApi(
           } so { pov => // the pov of the receiver
             pov.player.userId so: userId =>
               IfAway(pov):
-                asyncOpponentName(pov) flatMap: opponent =>
-                  maybePush(
+                for
+                  opponent <- asyncOpponentName(pov)
+                  payload  <- corresGamePayload(pov, "gameDrawOffer", userId)
+                  _ <- maybePush(
                     userId,
                     _.takeback,
                     NotificationPref.GameEvent,
@@ -143,18 +146,18 @@ final private class PushApi(
                       body = s"$opponent offers a draw",
                       stacking = Stacking.GameDrawOffer,
                       urgency = Urgency.Normal,
-                      payload = Json.obj(
-                        "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameDrawOffer")
-                      )
+                      payload = payload
                     )
                   )
+                yield ()
           }
 
   def corresAlarm(pov: Pov): Funit =
     pov.player.userId.so: userId =>
-      asyncOpponentName(pov).flatMap: opponent =>
-        maybePush(
+      for
+        opponent <- asyncOpponentName(pov)
+        payload  <- corresGamePayload(pov, "corresAlarm", userId)
+        _ <- maybePush(
           userId,
           _.corresAlarm,
           NotificationPref.GameEvent,
@@ -163,19 +166,25 @@ final private class PushApi(
             body = s"You are about to lose on time against $opponent",
             stacking = Stacking.GameMove,
             urgency = Urgency.High,
-            payload = Json.obj(
-              "userId"   -> userId,
-              "userData" -> corresGameJson(pov, "corresAlarm")
-            )
+            payload = payload
           )
         )
+      yield ()
 
-  private def corresGameJson(pov: Pov, typ: String) =
-    Json.obj(
-      "type"   -> typ,
-      "gameId" -> pov.gameId,
-      "fullId" -> pov.fullId
-    )
+  private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[JsObject] =
+    roundMobile
+      .json(pov.game, pov.fullId.anyId, socket = none)
+      .map: round =>
+        Json.obj(
+          "userId" -> userId,
+          "userData" ->
+            Json.obj(
+              "type"   -> typ,
+              "gameId" -> pov.gameId,
+              "fullId" -> pov.fullId,
+              "round"  -> round
+            )
+        )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
     filterPush(

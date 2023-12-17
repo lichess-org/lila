@@ -23,6 +23,7 @@ final class Env(
     db: lila.db.Db,
     getLightUser: lila.common.LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
+    roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
