@@ -95,6 +95,11 @@ object Preload:
   def apply[A](value: A): Preload[A] = Preload(value.some)
   def none[A]                        = Preload[A](None)
 
+final class LazyFu[A](run: () => Fu[A]):
+  lazy val value: Fu[A] = run()
+object LazyFu:
+  def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
+
 enum LpvEmbed:
   case PublicPgn(pgn: PgnStr)
   case PrivateStudy

@@ -1,13 +1,12 @@
 package lila.push
 
 import com.google.auth.oauth2.{ AccessToken, GoogleCredentials, ServiceAccountCredentials }
-import lila.common.autoconfig.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.blocking
 
-import lila.common.Chronometer
+import lila.common.{ Chronometer, LazyFu }
 import lila.memo.FrequencyThreshold
 import play.api.ConfigLoader
 import lila.common.config.Max
@@ -26,20 +25,23 @@ final private class FirebasePush(
   private val workQueue =
     lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
-  def apply(userId: UserId, data: => PushApi.Data): Funit =
+  def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
     deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap:
       _.traverse_ { device =>
         val config = if device.isMobile then configs.mobile else configs.lichobile
         config.googleCredentials.so: creds =>
-          // access token has 1h lifetime and is requested only if expired
-          workQueue {
-            Future:
-              Chronometer.syncMon(_.blocking time "firebase"):
-                blocking:
-                  creds.refreshIfExpired()
-                  creds.getAccessToken()
-          }.chronometer.mon(_.push.googleTokenTime).result flatMap: token =>
-            send(token, device, config, data)
+          for
+            // access token has 1h lifetime and is requested only if expired
+            token <- workQueue {
+              Future:
+                Chronometer.syncMon(_.blocking time "firebase"):
+                  blocking:
+                    creds.refreshIfExpired()
+                    creds.getAccessToken()
+            }.chronometer.mon(_.push.googleTokenTime).result
+            data <- data.value
+            _    <- send(token, device, config, data)
+          yield ()
       }
 
   opaque type StatusCode = Int
@@ -50,7 +52,7 @@ final private class FirebasePush(
       token: AccessToken,
       device: Device,
       config: FirebasePush.Config,
-      data: => PushApi.Data
+      data: PushApi.Data
   ): Funit =
     ws.url(config.url)
       .withHttpHeaders(
@@ -115,5 +117,6 @@ private object FirebasePush:
           logger.warn("Failed to create google credentials", e)
           none
   final class BothConfigs(val lichobile: Config, val mobile: Config)
+  import lila.common.autoconfig.*
   given ConfigLoader[Config]      = AutoConfig.loader[Config]
   given ConfigLoader[BothConfigs] = AutoConfig.loader[BothConfigs]

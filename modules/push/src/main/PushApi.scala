@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ LilaFuture, LightUser }
+import lila.common.{ LilaFuture, LightUser, LazyFu }
 import lila.common.Json.given
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
@@ -36,38 +36,42 @@ final private class PushApi(
         lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
       case _ => funit
 
+  private def payload(userId: UserId)(data: JsObject): JsObject =
+    Json.obj("userId" -> userId, "userData" -> data)
+
   def finish(game: Game): Funit =
     if !game.isCorrespondence || game.hasAi then funit
     else
       game.userIds.traverse_ { userId =>
         Pov(game, userId) so: pov =>
           IfAway(pov):
-            gameRepo.countWhereUserTurn(userId) flatMap: nbMyTurn =>
-              asyncOpponentName(pov) flatMap: opponent =>
-                maybePush(
-                  userId,
-                  _.finish,
-                  NotificationPref.GameEvent,
-                  PushApi.Data(
-                    title = pov.win match
-                      case Some(true)  => "You won!"
-                      case Some(false) => "You lost."
-                      case _           => "It's a draw."
-                    ,
-                    body = s"Your game with $opponent is over.",
-                    stacking = Stacking.GameFinish,
-                    urgency = Urgency.VeryLow,
-                    payload = Json.obj(
-                      "userId" -> userId,
-                      "userData" -> Json.obj(
-                        "type"   -> "gameFinish",
-                        "gameId" -> game.id,
-                        "fullId" -> pov.fullId
-                      )
-                    ),
-                    iosBadge = nbMyTurn.some.filter(0 <)
-                  )
+            maybePush(
+              userId,
+              _.finish,
+              NotificationPref.GameEvent,
+              data = LazyFu: () =>
+                for
+                  nbMyTurn <- gameRepo.countWhereUserTurn(userId)
+                  opponent <- asyncOpponentName(pov)
+                yield PushApi.Data(
+                  title = pov.win match
+                    case Some(true)  => "You won!"
+                    case Some(false) => "You lost."
+                    case _           => "It's a draw."
+                  ,
+                  body = s"Your game with $opponent is over.",
+                  stacking = Stacking.GameFinish,
+                  urgency = Urgency.VeryLow,
+                  payload = payload(userId):
+                    Json.obj(
+                      "type"   -> "gameFinish",
+                      "gameId" -> game.id,
+                      "fullId" -> pov.fullId
+                    )
+                  ,
+                  iosBadge = nbMyTurn.some.filter(0 <)
                 )
+            )
       }
 
   def move(move: MoveEvent): Funit =
@@ -78,15 +82,16 @@ final private class PushApi(
             val pov = Pov(game, game.player.color)
             game.player.userId so: userId =>
               IfAway(pov):
-                for
-                  nbMyTurn <- gameRepo.countWhereUserTurn(userId)
-                  opponent <- asyncOpponentName(pov)
-                  payload  <- corresGamePayload(pov, "gameMove", userId)
-                  _ <- maybePush(
-                    userId,
-                    _.move,
-                    NotificationPref.GameEvent,
-                    PushApi.Data(
+                maybePush(
+                  userId,
+                  _.move,
+                  NotificationPref.GameEvent,
+                  data = LazyFu: () =>
+                    for
+                      nbMyTurn <- gameRepo.countWhereUserTurn(userId)
+                      opponent <- asyncOpponentName(pov)
+                      payload  <- corresGamePayload(pov, "gameMove", userId)
+                    yield PushApi.Data(
                       title = "It's your turn!",
                       body = s"$opponent played $sanMove",
                       stacking = Stacking.GameMove,
@@ -94,8 +99,7 @@ final private class PushApi(
                       payload = payload,
                       iosBadge = nbMyTurn.some.filter(0 <)
                     )
-                  )
-                yield ()
+                )
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
@@ -106,14 +110,15 @@ final private class PushApi(
           } so { pov => // the pov of the receiver
             pov.player.userId so: userId =>
               IfAway(pov):
-                for
-                  opponent <- asyncOpponentName(pov)
-                  payload  <- corresGamePayload(pov, "gameTakebackOffer", userId)
-                  _ <- maybePush(
-                    userId,
-                    _.takeback,
-                    NotificationPref.GameEvent,
-                    PushApi
+                maybePush(
+                  userId,
+                  _.takeback,
+                  NotificationPref.GameEvent,
+                  data = LazyFu: () =>
+                    for
+                      opponent <- asyncOpponentName(pov)
+                      payload  <- corresGamePayload(pov, "gameTakebackOffer", userId)
+                    yield PushApi
                       .Data(
                         title = "Takeback offer",
                         body = s"$opponent proposes a takeback",
@@ -121,8 +126,7 @@ final private class PushApi(
                         urgency = Urgency.Normal,
                         payload = payload
                       )
-                  )
-                yield ()
+                )
           }
 
   def drawOffer(gameId: GameId): Funit =
@@ -134,97 +138,92 @@ final private class PushApi(
           } so { pov => // the pov of the receiver
             pov.player.userId so: userId =>
               IfAway(pov):
-                for
-                  opponent <- asyncOpponentName(pov)
-                  payload  <- corresGamePayload(pov, "gameDrawOffer", userId)
-                  _ <- maybePush(
-                    userId,
-                    _.takeback,
-                    NotificationPref.GameEvent,
-                    PushApi.Data(
+                maybePush(
+                  userId,
+                  _.takeback,
+                  NotificationPref.GameEvent,
+                  data = LazyFu: () =>
+                    for
+                      opponent <- asyncOpponentName(pov)
+                      payload  <- corresGamePayload(pov, "gameDrawOffer", userId)
+                    yield PushApi.Data(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
                       stacking = Stacking.GameDrawOffer,
                       urgency = Urgency.Normal,
                       payload = payload
                     )
-                  )
-                yield ()
+                )
           }
 
   def corresAlarm(pov: Pov): Funit =
     pov.player.userId.so: userId =>
-      for
-        opponent <- asyncOpponentName(pov)
-        payload  <- corresGamePayload(pov, "corresAlarm", userId)
-        _ <- maybePush(
-          userId,
-          _.corresAlarm,
-          NotificationPref.GameEvent,
-          PushApi.Data(
+      maybePush(
+        userId,
+        _.corresAlarm,
+        NotificationPref.GameEvent,
+        data = LazyFu: () =>
+          for
+            opponent <- asyncOpponentName(pov)
+            payload  <- corresGamePayload(pov, "corresAlarm", userId)
+          yield PushApi.Data(
             title = "Time is almost up!",
             body = s"You are about to lose on time against $opponent",
             stacking = Stacking.GameMove,
             urgency = Urgency.High,
             payload = payload
           )
-        )
-      yield ()
+      )
 
   private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[JsObject] =
     roundMobile
       .json(pov.game, pov.fullId.anyId, socket = none)
       .map: round =>
-        Json.obj(
-          "userId" -> userId,
-          "userData" ->
-            Json.obj(
-              "type"   -> typ,
-              "gameId" -> pov.gameId,
-              "fullId" -> pov.fullId,
-              "round"  -> round
-            )
-        )
+        payload(userId):
+          Json.obj(
+            "type"   -> typ,
+            "gameId" -> pov.gameId,
+            "fullId" -> pov.fullId,
+            "round"  -> round
+          )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
     filterPush(
       to,
       _.message,
-      PushApi.Data(
-        title = senderName,
-        body = text,
-        stacking = Stacking.PrivateMessage,
-        urgency = Urgency.Normal,
-        payload = Json.obj(
-          "userId" -> to.userId,
-          "userData" -> Json.obj(
-            "type"     -> "newMessage",
-            "threadId" -> senderId
-          )
+      LazyFu.sync:
+        PushApi.Data(
+          title = senderName,
+          body = text,
+          stacking = Stacking.PrivateMessage,
+          urgency = Urgency.Normal,
+          payload = payload(to.userId):
+            Json.obj(
+              "type"     -> "newMessage",
+              "threadId" -> senderId
+            )
         )
-      )
     )
 
   def invitedToStudy(to: NotifyAllows, invitedBy: String, studyName: StudyName, studyId: StudyId): Funit =
     filterPush(
       to,
       _.message,
-      PushApi.Data(
-        title = studyName.value,
-        body = s"$invitedBy invited you to $studyName",
-        stacking = Stacking.InvitedStudy,
-        urgency = Urgency.Normal,
-        payload = Json.obj(
-          "userId" -> to.userId,
-          "userData" -> Json.obj(
-            "type"      -> "invitedStudy",
-            "invitedBy" -> invitedBy,
-            "studyName" -> studyName,
-            "studyId"   -> studyId,
-            "url"       -> s"https://lichess.org/study/$studyId"
-          )
+      LazyFu.sync:
+        PushApi.Data(
+          title = studyName.value,
+          body = s"$invitedBy invited you to $studyName",
+          stacking = Stacking.InvitedStudy,
+          urgency = Urgency.Normal,
+          payload = payload(to.userId):
+            Json.obj(
+              "type"      -> "invitedStudy",
+              "invitedBy" -> invitedBy,
+              "studyName" -> studyName,
+              "studyId"   -> studyId,
+              "url"       -> s"https://lichess.org/study/$studyId"
+            )
         )
-      )
     )
 
   def challengeCreate(c: Challenge): Funit =
@@ -235,19 +234,18 @@ final private class PushApi(
             dest.id,
             _.challenge.create,
             NotificationPref.Challenge,
-            PushApi.Data(
-              title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
-              body = describeChallenge(c),
-              stacking = Stacking.ChallengeCreate,
-              urgency = Urgency.Normal,
-              payload = Json.obj(
-                "userId" -> dest.id,
-                "userData" -> Json.obj(
-                  "type"        -> "challengeCreate",
-                  "challengeId" -> c.id
-                )
+            LazyFu.sync:
+              PushApi.Data(
+                title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
+                body = describeChallenge(c),
+                stacking = Stacking.ChallengeCreate,
+                urgency = Urgency.Normal,
+                payload = payload(dest.id):
+                  Json.obj(
+                    "type"        -> "challengeCreate",
+                    "challengeId" -> c.id
+                  )
               )
-            )
           )
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
@@ -257,19 +255,18 @@ final private class PushApi(
           challenger.id,
           _.challenge.accept,
           NotificationPref.Challenge,
-          PushApi.Data(
-            title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
-            body = describeChallenge(c),
-            stacking = Stacking.ChallengeAccept,
-            urgency = Urgency.Normal,
-            payload = Json.obj(
-              "userId" -> challenger.id,
-              "userData" -> Json.obj(
-                "type"        -> "challengeAccept",
-                "challengeId" -> c.id
-              )
+          LazyFu.sync:
+            PushApi.Data(
+              title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
+              body = describeChallenge(c),
+              stacking = Stacking.ChallengeAccept,
+              urgency = Urgency.Normal,
+              payload = payload(challenger.id):
+                Json.obj(
+                  "type"        -> "challengeAccept",
+                  "challengeId" -> c.id
+                )
             )
-          )
         )
 
   def tourSoon(tour: TourSoon): Funit =
@@ -278,62 +275,60 @@ final private class PushApi(
         userId,
         _.tourSoon,
         NotificationPref.TournamentSoon,
-        PushApi
-          .Data(
-            title = tour.tourName,
-            body = "The tournament is about to start!",
-            stacking = Stacking.ChallengeAccept,
-            urgency = Urgency.Normal,
-            payload = Json
-              .obj(
-                "userId" -> userId,
-                "userData" -> Json.obj(
+        LazyFu.sync:
+          PushApi
+            .Data(
+              title = tour.tourName,
+              body = "The tournament is about to start!",
+              stacking = Stacking.ChallengeAccept,
+              urgency = Urgency.Normal,
+              payload = payload(userId):
+                Json.obj(
                   "type"     -> "tourSoon",
                   "tourId"   -> tour.tourId,
                   "tourName" -> tour.tourName,
                   "path"     -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
                 )
-              )
-          )
+            )
       )
 
   def forumMention(to: NotifyAllows, mentionedBy: String, topicName: String, postId: ForumPostId): Funit =
-    postApi.getPost(postId) flatMap: post =>
-      filterPush(
-        to,
-        _.forumMention,
-        PushApi.Data(
-          title = topicName,
-          body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
-          stacking = Stacking.ForumMention,
-          urgency = Urgency.Low,
-          payload = Json.obj(
-            "userId" -> to.userId,
-            "userData" -> Json.obj(
-              "type"        -> "forumMention",
-              "mentionedBy" -> mentionedBy,
-              "topic"       -> topicName,
-              "postId"      -> postId,
-              "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
-            )
+    filterPush(
+      to,
+      _.forumMention,
+      LazyFu: () =>
+        postApi.getPost(postId) map: post =>
+          PushApi.Data(
+            title = topicName,
+            body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
+            stacking = Stacking.ForumMention,
+            urgency = Urgency.Low,
+            payload = payload(to.userId):
+              Json.obj(
+                "type"        -> "forumMention",
+                "mentionedBy" -> mentionedBy,
+                "topic"       -> topicName,
+                "postId"      -> postId,
+                "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
+              )
+          )
+    )
+
+  def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit =
+    val pushData = LazyFu.sync:
+      PushApi.Data(
+        title = streamerName,
+        body = streamerName + " started streaming",
+        stacking = Stacking.StreamStart,
+        urgency = Urgency.Low,
+        payload = Json.obj(
+          "userData" -> Json.obj(
+            "type"       -> "streamStart",
+            "streamerId" -> streamerId,
+            "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
           )
         )
       )
-
-  def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit =
-    val pushData = PushApi.Data(
-      title = streamerName,
-      body = streamerName + " started streaming",
-      stacking = Stacking.StreamStart,
-      urgency = Urgency.Low,
-      payload = Json.obj(
-        "userData" -> Json.obj(
-          "type"       -> "streamStart",
-          "streamerId" -> streamerId,
-          "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
-        )
-      )
-    )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     webPush(webRecips, pushData).addEffects { res =>
       lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
@@ -348,12 +343,12 @@ final private class PushApi(
       userId: UserId,
       monitor: MonitorType,
       event: NotificationPref.Event,
-      data: PushApi.Data
+      data: LazyFu[PushApi.Data]
   ): Funit =
     notifyAllows(userId, event).flatMap: allows =>
       filterPush(NotifyAllows(userId, allows), monitor, data)
 
-  private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
+  private def filterPush(to: NotifyAllows, monitor: MonitorType, data: LazyFu[PushApi.Data]): Funit = for
     _ <- to.allows.web so webPush(to.userId, data).addEffects: res =>
       monitor(lila.mon.push.send)("web", res.isSuccess, 1)
     _ <- to.allows.device so firebasePush(to.userId, data).addEffects: res =>
