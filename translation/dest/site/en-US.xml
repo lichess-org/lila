@@ -405,6 +405,7 @@
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
   <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
+  <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>

@@ -500,6 +500,7 @@
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
   <string name="importGameCaveat">سيتم محو التغييرات. للحفاظ عليها، يرجى استيراد PGN (تنسيق لعبة الشطرنج المحمول) عبر تبويب دراسة.</string>
+  <string name="importGameDataPrivacyWarning">يمكن لأي أحد الوصول إلى PGN، إذا أردت إنشاء تحليل خاص، استخدم قسم دراسة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>
     <item quantity="one">مباراة مستوردة %s</item>
@@ -600,6 +601,7 @@
   <string name="movesPlayed">نقلات اللعب</string>
   <string name="whiteWins">فوز الأبيض</string>
   <string name="blackWins">فوز الأسود</string>
+  <string name="drawRate">معدل التعادل</string>
   <string name="draws">تعادل</string>
   <string name="nextXTournament">بطولة ال %s التالية:</string>
   <string name="averageOpponent">معدل الخصم</string>
@@ -620,6 +622,9 @@
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
+  <string name="setFlair">اختيار الشارة:</string>
+  <string name="flair">الشارة</string>
+  <string name="youCanHideFlair">يستخدم هذا الإعداد لإخفاء جميع شارات المستخدمين في الموقع.</string>
   <string name="biography">نبذة عنك</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
@@ -789,8 +794,10 @@
   <string name="simultaneousExhibitions">معارض التزامنيات</string>
   <string name="host">المضيف</string>
   <string name="hostColorX">لون المضيف: %s</string>
+  <string name="yourPendingSimuls">مبارياتك المعلقة</string>
   <string name="createdSimuls">تزامنيات مُنشأة حديثاً</string>
   <string name="hostANewSimul">استضف تزامنية جديدة</string>
+  <string name="signUpToHostOrJoinASimul">سجل لاستضافة أو الانضمام إلى محاكاة</string>
   <string name="noSimulFound">التزامنية غير موجودة</string>
   <string name="noSimulExplanation">معرض هذه التزامنية غير موجود.</string>
   <string name="returnToSimulHomepage">العودة لصفحة التزامنية</string>
@@ -815,6 +822,7 @@
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
+  <string name="keyCycleSelectedVariation">التفريع المحدد</string>
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
   <string name="keyRequestComputerAnalysis">اطلب تحليل الحاسوب وتعلم من أخطائك</string>
@@ -822,6 +830,13 @@
   <string name="keyNextBlunder">الخطأ الفادح التالي</string>
   <string name="keyNextMistake">الخطأ التالي</string>
   <string name="keyNextInaccuracy">النقلة غير الدقيقة التالية</string>
+  <string name="keyPreviousBranch">التفريع السابق</string>
+  <string name="keyNextBranch">التفريع القادم</string>
+  <string name="toggleVariationArrows">تبديل أسهم النقلات المرشحة</string>
+  <string name="cyclePreviousOrNextVariation">الدورة السابقة/التفريع التالي</string>
+  <string name="toggleGlyphAnnotations">تبديل الرموز التوضيحية</string>
+  <string name="variationArrowsInfo">أسمهم النقلات تسمح لك بلعبها دون استخدام قائمة النقلات المرشحة.</string>
+  <string name="playSelectedMove">لعب النقلة المحددة</string>
   <string name="newTournament">مسابقة جديدة</string>
   <string name="tournamentHomeTitle">مسابقات بانواع شطرنج مختلفة وساعات مختلفة</string>
   <string name="tournamentHomeDescription">العب مسابقات شطرنج بكل السرعات. انضم للمسابقات الرسمية المجدولة، أو ابدأ مسابقاتك الخاصة.</string>
@@ -868,6 +883,7 @@
   <string name="withFriends">مع الأصدقاء</string>
   <string name="withEverybody">مع الجميع</string>
   <string name="kidMode">موقع الأطفال</string>
+  <string name="kidModeIsEnabled">وضع الطفل مفعل.</string>
   <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">يتم إدارة حسابك. اسأل معلم الشطرنج الخاص بك عن رفع وضع الطفل.</string>
@@ -997,6 +1013,8 @@
     <item quantity="many">واحفظ عدد %s تفريع نقلة مسبقة</item>
     <item quantity="other">واحفظ عدد %s تفريع نقلة مسبقة</item>
   </plurals>
+  <string name="showUnreadLichessMessage">تسلّمتَ رسالة خاصة من ليتشيس.</string>
+  <string name="clickHereToReadIt">اضغط هنا بمتابعة القراءة</string>
   <string name="sorry">نأسف :(</string>
   <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
   <string name="why">لماذا ؟</string>
@@ -1018,6 +1036,8 @@
   <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
   <string name="edit">تعديل</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">الرصاصة</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">الخاطف</string>
   <string name="rapid">سريع</string>
   <string name="classical">تقليدي</string>
   <string name="ultraBulletDesc">مباراةٌ جنونية السرعة: أقل من ثلاثين ثانية</string>
@@ -1115,6 +1135,8 @@
   <string name="switchSides">تبديل جهة اللعب</string>
   <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
   <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
+  <string name="instructions">التعليمات</string>
+  <string name="showMeEverything">اظهر لي كل شيء</string>
   <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
 </resources>

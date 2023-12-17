@@ -54,4 +54,13 @@
     <item quantity="one">lon tenpo sike pini %s</item>
     <item quantity="other">lon tenpo sike pini %s</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">tenpo lili %s li lon</item>
+    <item quantity="other">tenpo lili %s li lon</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">tenpo suli %s li lon</item>
+    <item quantity="other">tenpo suli %s li lon</item>
+  </plurals>
+  <string name="completed">pini</string>
 </resources>
