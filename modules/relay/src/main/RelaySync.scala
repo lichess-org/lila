@@ -83,13 +83,12 @@ final private class RelaySync(
         chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
-            gameNode.clock.filter(c => !existing.clock.has(c)) so { c =>
+            gameNode.clock.filter(c => !existing.clock.has(c)) so: c =>
               studyApi.setClock(
                 studyId = study.id,
                 position = Position(chapter, path).ref,
                 clock = c.some
               )(who)
-            }
             path -> none
       case (found, _) => found
     } match
