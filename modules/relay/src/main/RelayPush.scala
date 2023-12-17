@@ -16,7 +16,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using ActorSystem, Executo
     if rt.round.sync.hasUpstream
     then fuccess(Left(LilaInvalid("The relay has an upstream URL, and cannot be pushed to.")))
     else
-      throttler.ask[Result](rt.round.id, 2.seconds):
+      throttler.ask[Result](rt.round.id, 1.seconds):
         pushNow(rt, pgn)
 
   private def pushNow(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Result] =
