@@ -57,7 +57,7 @@ object tourForm:
       moreCss = cssTag("relay.form")
     )(menu match
       case Some(active) =>
-        main(cls := "page-small page-menu")(
+        main(cls := "page page-menu")(
           tour.pageMenu(active),
           div(cls := "page-menu__content box box-pad")(body)
         )
