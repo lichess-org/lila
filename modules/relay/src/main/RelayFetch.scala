@@ -41,9 +41,8 @@ final private class RelayFetch(
         relays
           .map: rt =>
             if rt.round.sync.ongoing then
-              processRelay(rt) flatMap { newRelay =>
+              processRelay(rt) flatMap: newRelay =>
                 api.update(rt.round)(_ => newRelay)
-              }
             else if rt.round.hasStarted then
               logger.info(s"Finish by lack of activity ${rt.round}")
               api.update(rt.round)(_.finish)
@@ -135,16 +134,14 @@ final private class RelayFetch(
           gameRepo.withInitialFens flatMap { games =>
             if games.size == ids.size then
               val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
-              games.map { (game, fen) =>
+              games.traverse { (game, fen) =>
                 pgnDump(game, fen, pgnFlags).dmap(_.render)
-              }.parallel dmap MultiPgn.apply
+              } dmap MultiPgn.apply
             else
-              throw LilaInvalid(
+              throw LilaInvalid:
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
-              )
-          } flatMap {
+          } flatMap:
             RelayFetch.multiPgnToGames(_).toFuture
-          }
       case url: UpstreamUrl =>
         delayer(url, rt, doFetchUrl)
 
@@ -162,8 +159,8 @@ final private class RelayFetch(
             }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
-          round.pairings
-            .mapWithIndex: (pairing, i) =>
+          round.pairings.zipWithIndex
+            .traverse: (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
@@ -174,10 +171,8 @@ final private class RelayFetch(
                       GameJson(moves = Nil, result = none)
                     } map { _.toPgn(pairing.tags) }
                 .map(number -> _)
-            .parallel
-            .map { results =>
+            .map: results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
-            }
         }
     } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
 
@@ -186,10 +181,7 @@ final private class RelayFetch(
   private def httpGetJson[A: Reads](url: URL): Fu[A] = for
     str  <- formatApi.httpGet(url)
     json <- Future(Json parse str) // Json.parse throws exceptions (!)
-    data <-
-      summon[Reads[A]]
-        .reads(json)
-        .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
+    data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
 
 private[relay] object RelayFetch:
