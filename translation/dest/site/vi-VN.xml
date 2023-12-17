@@ -475,7 +475,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
-  <string name="setFlair">Đặt biểu tượng của bạn:</string>
+  <string name="setFlair">Đặt biểu tượng của bạn</string>
   <string name="flair">Biểu tượng</string>
   <string name="youCanHideFlair">Có một cài đặt để ẩn tất cả biểu tượng của người dùng trên toàn bộ trang web.</string>
   <string name="biography">Tiểu sử</string>
