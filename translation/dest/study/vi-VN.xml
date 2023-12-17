@@ -141,7 +141,7 @@
   <string name="whiteIsSlightlyBetter">Bên trắng có một chút lợi thế</string>
   <string name="blackIsSlightlyBetter">Bên đen có một chút lợi thế</string>
   <string name="whiteIsBetter">Lợi thế bên trắng</string>
-  <string name="blackIsBetter">Lợi thế bên đen</string>
+  <string name="blackIsBetter">Bên đen lợi thế hơn</string>
   <string name="whiteIsWinning">Bên trắng đang thắng dần</string>
   <string name="blackIsWinning">Bên đen đang thắng dần</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nước cờ mới</string>

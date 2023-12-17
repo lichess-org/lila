@@ -43,4 +43,5 @@
   <string name="safeAndRespectfulContent">o sitelen ala e ijo jaki e ijo ike. o lanpan ala e lipu pi jan ante</string>
   <string name="inappropriateContentAccountClosed">sina sitelen anu pana e ijo jaki la sina ken kama ken ala kepeken ilo Lichess</string>
   <string name="blogTips">sona pona mi tawa pali lipu</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">o toki lon lipu ni lon ma toki</string>
 </resources>
