@@ -404,6 +404,7 @@
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
+  <string name="importGameDataPrivacyWarning">Denna PGN kan nås av allmänheten. För att importera ett parti privat, använd en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
