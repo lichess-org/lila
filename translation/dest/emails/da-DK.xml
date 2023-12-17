@@ -5,7 +5,7 @@
   <string name="emailConfirm_ignore">Hvis du ikke har registreret dig hos Lichess, kan du roligt ignorere denne meddelelse.</string>
   <string name="passwordReset_subject">Nulstil din adgangskode til lichess.org, %s</string>
   <string name="passwordReset_intro">Vi har modtaget en anmodning om at nulstille adgangskoden til din konto.</string>
-  <string name="passwordReset_clickOrIgnore">Hvis du har foretaget denne anmodning, skal du klikke på linket nedenfor. Hvis ikke, kan du ignorere denne email.</string>
+  <string name="passwordReset_clickOrIgnore">Hvis du har foretaget denne anmodning, skal du klikke på linket nedenfor. Hvis ikke, kan du ignorere denne e-mail.</string>
   <string name="emailChange_subject">Bekræft ny e-mailadresse, %s</string>
   <string name="emailChange_intro">Du har anmodet om at ændre din e-mailadresse.</string>
   <string name="emailChange_click">For at bekræfte at du har adgang til denne e-mail, skal du klikke på linket nedenfor:</string>
@@ -16,7 +16,7 @@ Her er din profilside: %1$s. Du kan tilpasse den på %2$s.
 
 God fornøjelse, og må din brikker altid finde vej til din modstanders konge!</string>
   <string name="logInToLichess">Log ind på lichess.org, %s</string>
-  <string name="common_orPaste">(Fungerer det ikke at klikke? Prøv at kopiere linket ind i din browser!)</string>
+  <string name="common_orPaste">(Fungerer det ikke at klikke? Prøv at indsætte linket i din browser!)</string>
   <string name="common_note">Dette er en servicemail vedrørende din brug af %s.</string>
   <string name="common_contact">Vil du kontakte os, bedes du bruge %s.</string>
 </resources>

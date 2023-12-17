@@ -506,7 +506,7 @@
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
-  <string name="setFlair">Defineix el teu estil:</string>
+  <string name="setFlair">Defineix el teu estil</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
   <string name="biography">Biografia</string>

@@ -473,7 +473,7 @@
   <string name="editProfile">プロフィールの編集</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
-  <string name="setFlair">フレアを設定：</string>
+  <string name="setFlair">フレアを設定</string>
   <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
   <string name="biography">自己紹介</string>

@@ -572,7 +572,7 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
-  <string name="setFlair">Оберіть свій тотем:</string>
+  <string name="setFlair">Оберіть свій тотем</string>
   <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна чи область</string>

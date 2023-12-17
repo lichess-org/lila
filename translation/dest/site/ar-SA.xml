@@ -622,7 +622,7 @@
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
-  <string name="setFlair">اختيار الشارة:</string>
+  <string name="setFlair">اختيار الشارة</string>
   <string name="flair">الشارة</string>
   <string name="youCanHideFlair">يستخدم هذا الإعداد لإخفاء جميع شارات المستخدمين في الموقع.</string>
   <string name="biography">نبذة عنك</string>

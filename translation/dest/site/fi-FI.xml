@@ -506,7 +506,7 @@
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
-  <string name="setFlair">Valitse tyylisi:</string>
+  <string name="setFlair">Valitse tyylisi</string>
   <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
   <string name="biography">Kuvaus</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai alue</string>

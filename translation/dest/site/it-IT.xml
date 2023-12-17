@@ -507,7 +507,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Cognome</string>
-  <string name="setFlair">Imposta la tua icona:</string>
+  <string name="setFlair">Imposta la tua icona</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Esiste un\'impostazione per nascondere le icone di tutti gli utenti, sull\'intero sito.</string>
   <string name="biography">Biografia</string>

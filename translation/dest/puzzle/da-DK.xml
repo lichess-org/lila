@@ -68,7 +68,7 @@
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
   <string name="streakDescription">Løs opgaver af stigende sværhedsgrad og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe ét træk over per session.</string>
-  <string name="yourStreakX">Din stime: %s</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">Din stime: %s</string>
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
   <string name="continueTheStreak">Fortsæt stimen</string>
   <string name="newStreak">Ny stime</string>
