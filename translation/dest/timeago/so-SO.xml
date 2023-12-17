@@ -55,4 +55,13 @@
     <item quantity="one">%s sanad ka hor</item>
     <item quantity="other">%s sanadood ka hor</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s daqiiqaa hadhay</item>
+    <item quantity="other">%s daqiiqaa hadhay</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s saac baa hadhay</item>
+    <item quantity="other">%s saac baa hadhay</item>
+  </plurals>
+  <string name="completed">dhamaad</string>
 </resources>
