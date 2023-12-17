@@ -472,7 +472,7 @@
   <string name="editProfile">编辑个人资料</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
-  <string name="setFlair">设置你的图标:</string>
+  <string name="setFlair">设置你的图标</string>
   <string name="youCanHideFlair">有一个设置可以隐藏整个站点上的所有用户图标。</string>
   <string name="biography">个人简介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或地区</string>
