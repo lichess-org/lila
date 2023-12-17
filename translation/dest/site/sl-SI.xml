@@ -571,7 +571,7 @@
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
-  <string name="setFlair">Določite svoj okus:</string>
+  <string name="setFlair">Določite svoj okus</string>
   <string name="flair">Simbol</string>
   <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
   <string name="biography">Biografija</string>
