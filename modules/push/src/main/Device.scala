@@ -7,6 +7,7 @@ final private case class Device(
     seenAt: Instant,
     ua: Option[UserAgent]
 ):
+  def isMobile = ua.exists(lila.common.HTTPRequest.isLichessMobile)
 
   def deviceId = platform match
     case "ios" => _id.grouped(8).mkString("<", " ", ">")

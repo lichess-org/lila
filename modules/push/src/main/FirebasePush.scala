@@ -1,6 +1,6 @@
 package lila.push
 
-import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
+import com.google.auth.oauth2.{ AccessToken, GoogleCredentials, ServiceAccountCredentials }
 import lila.common.autoconfig.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
@@ -13,46 +13,45 @@ import play.api.ConfigLoader
 import lila.common.config.Max
 
 final private class FirebasePush(
-    credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
     ws: StandaloneWSClient,
-    config: FirebasePush.Config
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+    configs: FirebasePush.BothConfigs
+)(using Executor, Scheduler):
+
+  if configs.lichobile.googleCredentials.isDefined then
+    logger.info("Lichobile Firebase push notifications are enabled.")
+  if configs.mobile.googleCredentials.isDefined then
+    logger.info("Mobile Firebase push notifications are enabled.")
 
   private val workQueue =
     lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: UserId, data: => PushApi.Data): Funit =
-    credentialsOpt so { creds =>
-      deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
-        case Nil => funit
-        // access token has 1h lifetime and is requested only if expired
-        case devices =>
+    deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap:
+      _.traverse_ { device =>
+        val config = if device.isMobile then configs.mobile else configs.lichobile
+        config.googleCredentials.so: creds =>
+          // access token has 1h lifetime and is requested only if expired
           workQueue {
-            Future {
-              Chronometer.syncMon(_.blocking time "firebase") {
-                blocking {
+            Future:
+              Chronometer.syncMon(_.blocking time "firebase"):
+                blocking:
                   creds.refreshIfExpired()
-                  creds.getAccessToken
-                }
-              }
-            }
-          }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
-            // TODO http batch request is possible using a multipart/mixed content
-            // unfortunately it doesn't seem easily doable with play WS
-            devices.map(send(token, _, data)).parallel.void
-          }
+                  creds.getAccessToken()
+          }.chronometer.mon(_.push.googleTokenTime).result flatMap: token =>
+            send(token, device, config, data)
       }
-    }
 
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]
   private val errorCounter = FrequencyThreshold[StatusCode](50, 10 minutes)
 
-  private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit =
+  private def send(
+      token: AccessToken,
+      device: Device,
+      config: FirebasePush.Config,
+      data: => PushApi.Data
+  ): Funit =
     ws.url(config.url)
       .withHttpHeaders(
         "Authorization" -> s"Bearer ${token.getTokenValue}",
@@ -73,13 +72,12 @@ final private class FirebasePush(
               )
             )
             .add(
-              "apns" -> data.iosBadge.map(number =>
+              "apns" -> data.iosBadge.map: number =>
                 Json.obj(
                   "payload" -> Json.obj(
                     "aps" -> Json.obj("badge" -> number)
                   )
                 )
-              )
             )
         )
       ) flatMap { res =>
@@ -103,5 +101,19 @@ final private class FirebasePush(
 
 private object FirebasePush:
 
-  final class Config(val url: String, val json: lila.common.config.Secret)
-  given ConfigLoader[Config] = AutoConfig.loader[Config]
+  final class Config(val url: String, val json: lila.common.config.Secret):
+    lazy val googleCredentials: Option[GoogleCredentials] =
+      try
+        json.value.some.filter(_.nonEmpty) map: json =>
+          import java.nio.charset.StandardCharsets.UTF_8
+          import scala.jdk.CollectionConverters.*
+          ServiceAccountCredentials
+            .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
+            .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
+      catch
+        case e: Exception =>
+          logger.warn("Failed to create google credentials", e)
+          none
+  final class BothConfigs(val lichobile: Config, val mobile: Config)
+  given ConfigLoader[Config]      = AutoConfig.loader[Config]
+  given ConfigLoader[BothConfigs] = AutoConfig.loader[BothConfigs]
