@@ -505,7 +505,7 @@
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
-  <string name="setFlair">Indstil dit ikon:</string>
+  <string name="setFlair">Indstil dit ikon</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Der er en indstilling til at skjule alle brugerikoner på tværs af hele webstedet.</string>
   <string name="biography">Biografi</string>
