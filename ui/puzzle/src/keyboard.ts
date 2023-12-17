@@ -1,8 +1,8 @@
 import * as control from './control';
-import { Controller, KeyboardController } from './interfaces';
+import PuzzleCtrl from './ctrl';
 import { snabDialog } from 'common/dialog';
 
-export default (ctrl: KeyboardController) =>
+export default (ctrl: PuzzleCtrl) =>
   lichess.mousetrap
     .bind(['left', 'k'], () => {
       control.prev(ctrl);
@@ -24,7 +24,7 @@ export default (ctrl: KeyboardController) =>
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
       if (ctrl.vm.mode === 'view') {
-        if (ctrl.getCeval().enabled()) ctrl.playBestMove();
+        if (ctrl.ceval.enabled()) ctrl.playBestMove();
         else ctrl.toggleCeval();
       }
     })
@@ -33,7 +33,7 @@ export default (ctrl: KeyboardController) =>
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle);
 
-export const view = (ctrl: Controller) =>
+export const view = (ctrl: PuzzleCtrl) =>
   snabDialog({
     class: 'help',
     htmlUrl: '/training/help',

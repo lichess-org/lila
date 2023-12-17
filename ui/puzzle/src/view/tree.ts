@@ -3,11 +3,11 @@ import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
-import { Controller } from '../interfaces';
 import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import PuzzleCtrl from '../ctrl';
 
 interface Ctx {
-  ctrl: Controller;
+  ctrl: PuzzleCtrl;
 }
 
 interface RenderOpts {
@@ -21,7 +21,7 @@ interface Glyph {
   symbol: string;
 }
 
-const autoScroll = throttle(150, (ctrl: Controller, el) => {
+const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el) => {
   const cont = el.parentNode;
   const target = el.querySelector('.active');
   if (!target) {
@@ -213,8 +213,8 @@ function eventPath(e: Event): Tree.Path | null {
   return target.getAttribute('p') || (target.parentNode as HTMLElement).getAttribute('p');
 }
 
-export function render(ctrl: Controller): VNode {
-  const root = ctrl.getTree().root;
+export function render(ctrl: PuzzleCtrl): VNode {
+  const root = ctrl.tree.root;
   const ctx = {
     ctrl: ctrl,
     showComputer: false,
@@ -225,7 +225,7 @@ export function render(ctrl: Controller): VNode {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
-          if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
+          if (ctrl.vm.path !== treePath.root) autoScroll(ctrl, el);
           el.addEventListener('mousedown', (e: MouseEvent) => {
             if (defined(e.button) && e.button !== 0) return; // only touch or left click
             const path = eventPath(e);
@@ -237,7 +237,7 @@ export function render(ctrl: Controller): VNode {
           if (ctrl.vm.autoScrollNow) {
             autoScroll(ctrl, vnode.elm as HTMLElement);
             ctrl.vm.autoScrollNow = false;
-            ctrl.autoScrollRequested = false;
+            ctrl.vm.autoScrollRequested = false;
           } else if (ctrl.vm.autoScrollRequested) {
             if (ctrl.vm.path !== treePath.root) autoScroll(ctrl, vnode.elm as HTMLElement);
             ctrl.vm.autoScrollRequested = false;

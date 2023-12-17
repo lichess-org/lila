@@ -1,10 +1,10 @@
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'chessground/config';
-import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
+import PuzzleCtrl from '../ctrl';
 
-export default function (ctrl: Controller): VNode {
+export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode =>
@@ -14,7 +14,7 @@ export default function (ctrl: Controller): VNode {
   });
 }
 
-export function makeConfig(ctrl: Controller): CgConfig {
+export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
   const opts = ctrl.makeCgOpts();
   return {
     fen: opts.fen,

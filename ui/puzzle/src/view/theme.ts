@@ -1,14 +1,14 @@
 import * as licon from 'common/licon';
 import * as router from 'common/router';
 import { MaybeVNode, bind, dataIcon } from 'common/snabbdom';
-import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { renderColorForm } from './side';
+import PuzzleCtrl from '../ctrl';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
-export default function theme(ctrl: Controller): MaybeVNode {
-  const data = ctrl.getData(),
+export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
+  const data = ctrl.data,
     angle = data.angle;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
@@ -63,8 +63,8 @@ export default function theme(ctrl: Controller): MaybeVNode {
 
 const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
 
-const editor = (ctrl: Controller): VNode[] => {
-  const data = ctrl.getData(),
+const editor = (ctrl: PuzzleCtrl): VNode[] => {
+  const data = ctrl.data,
     trans = ctrl.trans.noarg,
     votedThemes = ctrl.vm.round?.themes || {};
   const visibleThemes: string[] = data.puzzle.themes
