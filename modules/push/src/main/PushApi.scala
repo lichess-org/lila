@@ -38,54 +38,47 @@ final private class PushApi(
   def finish(game: Game): Funit =
     if !game.isCorrespondence || game.hasAi then funit
     else
-      game.userIds
-        .map { userId =>
-          Pov(game, userId) so { pov =>
-            IfAway(pov) {
-              gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
-                asyncOpponentName(pov) flatMap { opponent =>
-                  maybePush(
-                    userId,
-                    _.finish,
-                    NotificationPref.GameEvent,
-                    PushApi.Data(
-                      title = pov.win match
-                        case Some(true)  => "You won!"
-                        case Some(false) => "You lost."
-                        case _           => "It's a draw."
-                      ,
-                      body = s"Your game with $opponent is over.",
-                      stacking = Stacking.GameFinish,
-                      urgency = Urgency.VeryLow,
-                      payload = Json.obj(
-                        "userId" -> userId,
-                        "userData" -> Json.obj(
-                          "type"   -> "gameFinish",
-                          "gameId" -> game.id,
-                          "fullId" -> pov.fullId
-                        )
-                      ),
-                      iosBadge = nbMyTurn.some.filter(0 <)
-                    )
+      game.userIds.traverse_ { userId =>
+        Pov(game, userId) so: pov =>
+          IfAway(pov):
+            gameRepo.countWhereUserTurn(userId) flatMap: nbMyTurn =>
+              asyncOpponentName(pov) flatMap: opponent =>
+                maybePush(
+                  userId,
+                  _.finish,
+                  NotificationPref.GameEvent,
+                  PushApi.Data(
+                    title = pov.win match
+                      case Some(true)  => "You won!"
+                      case Some(false) => "You lost."
+                      case _           => "It's a draw."
+                    ,
+                    body = s"Your game with $opponent is over.",
+                    stacking = Stacking.GameFinish,
+                    urgency = Urgency.VeryLow,
+                    payload = Json.obj(
+                      "userId" -> userId,
+                      "userData" -> Json.obj(
+                        "type"   -> "gameFinish",
+                        "gameId" -> game.id,
+                        "fullId" -> pov.fullId
+                      )
+                    ),
+                    iosBadge = nbMyTurn.some.filter(0 <)
                   )
-                }
-              }
-            }
-          }
-        }
-        .parallel
-        .void
+                )
+      }
 
   def move(move: MoveEvent): Funit =
-    LilaFuture.delay(2 seconds) {
-      proxyRepo.game(move.gameId) flatMap {
-        _.filter(_.playable) so { game =>
+    LilaFuture.delay(2 seconds):
+      proxyRepo.game(move.gameId) flatMap:
+        _.filter(_.playable) so: game =>
           val pov = Pov(game, game.player.color)
-          game.player.userId so { userId =>
-            IfAway(pov) {
-              gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
-                asyncOpponentName(pov) flatMap { opponent =>
-                  game.sans.lastOption so { sanMove =>
+          game.player.userId so: userId =>
+            IfAway(pov):
+              gameRepo.countWhereUserTurn(userId) flatMap: nbMyTurn =>
+                asyncOpponentName(pov) flatMap: opponent =>
+                  game.sans.lastOption.so: sanMove =>
                     maybePush(
                       userId,
                       _.move,
@@ -102,25 +95,17 @@ final private class PushApi(
                         iosBadge = nbMyTurn.some.filter(0 <)
                       )
                     )
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
 
   def takebackOffer(gameId: GameId): Funit =
-    LilaFuture.delay(1 seconds) {
-      proxyRepo.game(gameId) flatMap {
-        _.filter(_.playable).so { game =>
+    LilaFuture.delay(1 seconds):
+      proxyRepo.game(gameId) flatMap:
+        _.filter(_.playable).so: game =>
           game.players.collect {
             case p if p.isProposingTakeback => Pov(game, game opponent p)
           } so { pov => // the pov of the receiver
-            pov.player.userId so { userId =>
-              IfAway(pov) {
-                asyncOpponentName(pov) flatMap { opponent =>
+            pov.player.userId so: userId =>
+              IfAway(pov):
+                asyncOpponentName(pov) flatMap: opponent =>
                   maybePush(
                     userId,
                     _.takeback,
@@ -137,24 +122,18 @@ final private class PushApi(
                         )
                       )
                   )
-                }
-              }
-            }
           }
-        }
-      }
-    }
 
   def drawOffer(gameId: GameId): Funit =
-    LilaFuture.delay(1 seconds) {
-      proxyRepo.game(gameId) flatMap {
-        _.filter(_.playable).so { game =>
+    LilaFuture.delay(1 seconds):
+      proxyRepo.game(gameId) flatMap:
+        _.filter(_.playable).so: game =>
           game.players.collect {
             case p if p.isOfferingDraw => Pov(game, game opponent p)
           } so { pov => // the pov of the receiver
-            pov.player.userId so { userId =>
-              IfAway(pov) {
-                asyncOpponentName(pov) flatMap { opponent =>
+            pov.player.userId so: userId =>
+              IfAway(pov):
+                asyncOpponentName(pov) flatMap: opponent =>
                   maybePush(
                     userId,
                     _.takeback,
@@ -170,17 +149,11 @@ final private class PushApi(
                       )
                     )
                   )
-                }
-              }
-            }
           }
-        }
-      }
-    }
 
   def corresAlarm(pov: Pov): Funit =
     pov.player.userId.so: userId =>
-      asyncOpponentName(pov).flatMap { opponent =>
+      asyncOpponentName(pov).flatMap: opponent =>
         maybePush(
           userId,
           _.corresAlarm,
@@ -196,7 +169,6 @@ final private class PushApi(
             )
           )
         )
-      }
 
   private def corresGameJson(pov: Pov, typ: String) =
     Json.obj(
@@ -247,9 +219,9 @@ final private class PushApi(
     )
 
   def challengeCreate(c: Challenge): Funit =
-    c.destUser so { dest =>
-      c.challengerUser.ifFalse(c.hasClock) so { challenger =>
-        lightUser(challenger.id) flatMap { lightChallenger =>
+    c.destUser.so: dest =>
+      c.challengerUser.ifFalse(c.hasClock) so: challenger =>
+        lightUser(challenger.id) flatMap: lightChallenger =>
           maybePush(
             dest.id,
             _.challenge.create,
@@ -268,13 +240,10 @@ final private class PushApi(
               )
             )
           )
-        }
-      }
-    }
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
-    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) so { challenger =>
-      joinerId so lightUser.optional flatMap { lightJoiner =>
+    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) so: challenger =>
+      joinerId so lightUser.optional flatMap: lightJoiner =>
         maybePush(
           challenger.id,
           _.challenge.accept,
@@ -293,8 +262,6 @@ final private class PushApi(
             )
           )
         )
-      }
-    }
 
   def tourSoon(tour: TourSoon): Funit =
     tour.userIds.toList.traverse_ : userId =>
@@ -322,7 +289,7 @@ final private class PushApi(
       )
 
   def forumMention(to: NotifyAllows, mentionedBy: String, topicName: String, postId: ForumPostId): Funit =
-    postApi.getPost(postId) flatMap { post =>
+    postApi.getPost(postId) flatMap: post =>
       filterPush(
         to,
         _.forumMention,
@@ -343,7 +310,6 @@ final private class PushApi(
           )
         )
       )
-    }
 
   def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit =
     val pushData = PushApi.Data(
@@ -362,13 +328,10 @@ final private class PushApi(
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     webPush(webRecips, pushData).addEffects { res =>
       lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
-    } andDo {
-      recips collect { case u if u.allows.device => u.userId } foreach {
-        firebasePush(_, pushData).addEffects { res =>
+    } andDo:
+      recips collect { case u if u.allows.device => u.userId } foreach:
+        firebasePush(_, pushData).addEffects: res =>
           lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
-        }
-      }
-    }
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean, Int) => Unit)
 
@@ -382,12 +345,10 @@ final private class PushApi(
       filterPush(NotifyAllows(userId, allows), monitor, data)
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
-    _ <- to.allows.web so webPush(to.userId, data).addEffects(res =>
+    _ <- to.allows.web so webPush(to.userId, data).addEffects: res =>
       monitor(lila.mon.push.send)("web", res.isSuccess, 1)
-    )
-    _ <- to.allows.device so firebasePush(to.userId, data).addEffects(res =>
+    _ <- to.allows.device so firebasePush(to.userId, data).addEffects: res =>
       monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
-    )
   yield ()
 
   private def describeChallenge(c: Challenge) =
@@ -405,10 +366,9 @@ final private class PushApi(
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
       Tell(pov.gameId.value, IsOnGame(pov.color, p))
-    } flatMap {
+    } flatMap:
       if _ then funit
       else f
-    }
 
   private def asyncOpponentName(pov: Pov): Fu[String] =
     Namer.playerText(pov.opponent)(using lightUser.optional)
