@@ -4,5 +4,7 @@ contact_links:
     url: https://github.com/lichess-org/lichobile/issues
     about: Issues for the mobile app are tracked in a separate repository. Please check for duplicates first.
   - name: Support
-    url: https://discord.gg/lichess
+    url: https://discord.gg/lichess23
     about: GitHub issues are meant for tracking enhancements and bugs, not general support. Instead, search the Wiki, Lichess Forum, StackOverflow, or join our Discord.
+  - name: Support2
+    echo "Now we are starting the linting process."
