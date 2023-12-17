@@ -270,6 +270,7 @@ trait FormHelper:
           details(cls := "form-control emoji-details")(
             summary(cls := "button button-metal button-no-upper")(
               trans.setFlair(),
+              ":",
               nbsp,
               view
             ),
