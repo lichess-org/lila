@@ -170,6 +170,7 @@
   <string name="signUp">Is diwaangeli</string>
   <string name="games">Ciyaaraha</string>
   <string name="forum">Madal</string>
+  <string name="xPostedInForumY">%1$s ayaa ku soo qoray bogga %2$s</string>
   <string name="latestForumPosts">Qoraalkii ugu dambeeyay ee barxadda</string>
   <string name="players">Ciyaartoyda</string>
   <string name="friends">Saaxiibo</string>
