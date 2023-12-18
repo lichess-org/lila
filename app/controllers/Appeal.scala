@@ -31,7 +31,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.byId(me) flatMap {
     case None =>
       renderAsync:
-        env.playban.api.currentBan(me).dmap(_.isDefined) map { html.appeal.tree(me, _) }
+        for
+          playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
+          // if no blog, consider it's visible because even if it is not, for now the user
+          // has not been negatively impacted
+          ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
+        yield html.appeal.tree(me, playban, ublogIsVisible)
     case Some(a) => renderPage(html.appeal.discussion(a, me, err | userForm))
   }
 

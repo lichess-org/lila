@@ -60,6 +60,9 @@ final class UblogApi(
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
+  def isBlogVisible(userId: UserId): Fu[Option[Boolean]] =
+    getBlog(UblogBlog.Id.User(userId)).dmap(_.map(_.visible))
+
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
   def findByUserBlogOrAdmin(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =

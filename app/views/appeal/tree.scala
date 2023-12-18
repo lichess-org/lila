@@ -23,6 +23,7 @@ object tree:
   val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
   val closedByModerators       = "Your account was closed by moderators.";
+  val hiddenBlog               = "Your account blogs have been hidden by moderators."
 
   private def cleanMenu(using PageContext): Branch =
     Branch(
@@ -251,6 +252,39 @@ object tree:
       )
     )
 
+  private def hiddenBlogMenu(using PageContext): Branch =
+    val accept =
+      "I accept that I have broken the blog rules"
+    val deny =
+      "I deny having broken the blog rules."
+    Branch(
+      "root",
+      hiddenBlog,
+      List(
+        Leaf(
+          "hidden-blog-accept",
+          accept,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(accept)
+          )
+        ),
+        Leaf(
+          "hidden-blog-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(deny)
+          )
+        )
+      ),
+      content = frag(
+        "Make sure to read again our ",
+        a(href := routes.ContentPage.loneBookmark("blog-etiquette"))("blog rules"),
+        "."
+      ).some
+    )
+
   private def prizebanMenu(using PageContext): Branch =
     val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
     val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
@@ -338,10 +372,11 @@ object tree:
     newAppeal()
   )
 
-  def apply(me: User, playban: Boolean)(using ctx: PageContext) =
+  def apply(me: User, playban: Boolean, ublogIsVisible: Boolean)(using ctx: PageContext) =
     bits.layout("Appeal a moderation decision") {
-      val query    = isGranted(_.Appeals) so ctx.req.queryString.toMap
-      val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
+      val query = isGranted(_.Appeals) so ctx.req.queryString.toMap.pp
+      val isMarked =
+        playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban || me.marks.arenaBan || me.marks.prizeban || !ublogIsVisible
       main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),
         div(cls := s"nav-tree${if isMarked then " marked" else ""}")(
@@ -356,6 +391,7 @@ object tree:
                 else if me.marks.rankban || query.contains("rankban") then rankBanMenu
                 else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
                 else if me.marks.prizeban || query.contains("prizeban") then prizebanMenu
+                else if !ublogIsVisible || query.contains("blog") then hiddenBlogMenu
                 else cleanMenu
               },
               none,
