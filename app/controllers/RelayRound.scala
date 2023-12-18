@@ -113,9 +113,8 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
         studyC.CanView(study)(
-          env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
+          env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map: games =>
             JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
-          }
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)

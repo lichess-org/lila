@@ -49,7 +49,10 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
   def withUrl(rt: RelayRound.WithTour): JsObject =
-    apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
+    apply(rt.round) ++ Json.obj(
+      "tour" -> rt.tour,
+      "url"  -> s"$baseUrl${rt.path}"
+    )
 
   def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
     withUrl(rt) ++ Json.obj("games" -> games.map { g =>
