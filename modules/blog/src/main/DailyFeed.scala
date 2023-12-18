@@ -38,7 +38,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
     val store = cacheApi.unit[List[Update]]:
-      _.expireAfterWrite(1 minute).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
         coll
           .find($empty)
           .sort($sort.desc("at"))
