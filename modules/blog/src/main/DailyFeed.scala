@@ -56,6 +56,8 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def recent: Fu[List[Update]] = cache.store.get({})
 
+  def recentPublished = recent.map(_.filter(_.published))
+
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
   def set(update: Update): Funit =
