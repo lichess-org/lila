@@ -6,7 +6,7 @@
   <string name="progressX">Status: %s</string>
   <string name="resetMyProgress">Nulstil min status</string>
   <string name="youWillLoseAllYourProgress">Du vil miste alle dine fremskridt!</string>
-  <string name="play">spil!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spil!</string>
   <string name="chessPieces">Skakbrikker</string>
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Det bevæger sig i lige linjer</string>
@@ -175,7 +175,7 @@ Bonde = 1</string>
   <string name="getAFreeLichessAccount">Få en gratis Lichess konto</string>
   <string name="practice">Øvelser</string>
   <string name="learnCommonChessPositions">Lær almindelige skakstillinger</string>
-  <string name="puzzles">Opgaver</string>
+  <string name="puzzles">Taktikopgaver</string>
   <string name="exerciseYourTacticalSkills">Træn dine taktiske evner</string>
   <string name="videos">Videoer</string>
   <string name="watchInstructiveChessVideos">Se lærerige skakvideoer</string>
@@ -199,6 +199,6 @@ Bonde = 1</string>
   <string name="next">Næste</string>
   <string name="nextX">Næste: %s</string>
   <string name="backToMenu">Tilbage til menu</string>
-  <string name="puzzleFailed">Øvelse mislykkedes!</string>
+  <string name="puzzleFailed">Opgave mislykkedes!</string>
   <string name="retry">Prøv igen</string>
 </resources>
