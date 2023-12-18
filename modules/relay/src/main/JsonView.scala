@@ -54,21 +54,23 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
       "url"  -> s"$baseUrl${rt.path}"
     )
 
-  def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
-    withUrl(rt) ++ Json.obj("games" -> games.map { g =>
-      Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
-    })
+  def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.Metadata])(using
+      Option[Me]
+  ): JsObject =
+    myRound(rt) ++
+      Json.obj("games" -> games.map { g =>
+        Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+      })
 
   def sync(round: RelayRound) = Json toJsObject round.sync
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Me) = Json
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
     .obj(
-      "round" -> Json
-        .toJsObject(r.relay)
+      "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
       "tour"  -> r.tour,
-      "study" -> Json.obj("writeable" -> r.study.canContribute(me))
+      "study" -> Json.obj("writeable" -> me.exists(r.study.canContribute))
     )
 
   def makeData(
