@@ -2,6 +2,7 @@
   $element-margin: 1em,
   $img-max-height: 50vh,
   $table: true,
+  $list: true,
   $img: true,
   $h1: true,
   $h2: true
@@ -17,36 +18,36 @@
   }
 
   p,
-  ol,
-  ul,
-  table,
   pre {
     margin: $element-margin 0;
   }
 
-  ol,
-  ul {
-    padding-#{$start-direction}: 0.5em;
-  }
+  @if $list {
+    ol,
+    ul {
+      margin: $element-margin 0;
+      padding-#{$start-direction}: 0.5em;
+    }
 
-  li ol,
-  li ul {
-    margin: 0;
-    padding-#{$start-direction}: 2em;
-  }
+    li ol,
+    li ul {
+      margin: 0;
+      padding-#{$start-direction}: 2em;
+    }
 
-  ol > li {
-    list-style: decimal inside;
-  }
+    ol > li {
+      list-style: decimal inside;
+    }
 
-  ul > li {
-    list-style: disc inside;
-  }
+    ul > li {
+      list-style: disc inside;
+    }
 
-  li p {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 0;
+    li p {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 0;
+    }
   }
 
   @if $h1 {
@@ -93,6 +94,9 @@
   }
 
   @if $table {
+    table {
+      margin: $element-margin 0;
+    }
     th,
     td {
       &[align='left'] {
