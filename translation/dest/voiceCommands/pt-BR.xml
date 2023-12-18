@@ -9,4 +9,7 @@
   <string name="takeRookWithQueen">Capturar a torre com a rainha</string>
   <string name="castle">Roque (qualquer lado)</string>
   <string name="phoneticAlphabetIsBest">O alfabeto fonético é melhor</string>
+  <string name="cancelTimerOrDenyARequest">Cancelar relógio ou negar um pedido</string>
+  <string name="playPreferredMoveOrConfirmSomething">Fazer lance preferido ou confirmar algo</string>
+  <string name="showPuzzleSolution">Mostrar solução do quebra-cabeça</string>
 </resources>
