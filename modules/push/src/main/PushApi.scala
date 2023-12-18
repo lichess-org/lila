@@ -184,7 +184,7 @@ final private class PushApi(
             "type"   -> typ,
             "gameId" -> pov.gameId,
             "fullId" -> pov.fullId,
-            "round"  -> round
+            "round"  -> Json.stringify(round)
           )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
