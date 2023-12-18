@@ -15,6 +15,7 @@ import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
+import lila.common.config.Max
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -27,32 +28,33 @@ final private class RelayFetch(
     gameProxy: GameProxyRepo
 )(using Executor, Scheduler):
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)):
+  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(25 seconds)):
     syncRelays(official = true)
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)):
+  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(40 seconds)):
     syncRelays(official = false)
 
+  private val maxRelaysToSync = Max(50)
+
   private def syncRelays(official: Boolean) =
-    api
-      .toSync(official)
+    val relays = if official then api.toSyncOfficial(maxRelaysToSync) else api.toSyncUser(maxRelaysToSync)
+    relays
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
-        relays
-          .map: rt =>
-            if rt.round.sync.ongoing then
-              processRelay(rt) flatMap: newRelay =>
-                api.update(rt.round)(_ => newRelay)
-            else if rt.round.hasStarted then
-              logger.info(s"Finish by lack of activity ${rt.round}")
-              api.update(rt.round)(_.finish)
-            else if rt.round.shouldGiveUp then
-              val msg = "Finish for lack of start"
-              logger.info(s"$msg ${rt.round}")
-              if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
-              api.update(rt.round)(_.finish)
-            else fuccess(rt.round)
-          .parallel
+        relays.traverse: rt =>
+          if !official then println(rt.tour.name)
+          if rt.round.sync.ongoing then
+            processRelay(rt) flatMap: newRelay =>
+              api.update(rt.round)(_ => newRelay)
+          else if rt.round.hasStarted then
+            logger.info(s"Finish by lack of activity ${rt.round}")
+            api.update(rt.round)(_.finish)
+          else if rt.round.shouldGiveUp then
+            val msg = "Finish for lack of start"
+            logger.info(s"$msg ${rt.round}")
+            if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+            api.update(rt.round)(_.finish)
+          else fuccess(rt.round)
       .void
 
   // no writing the relay; only reading!
