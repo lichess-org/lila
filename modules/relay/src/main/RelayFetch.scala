@@ -42,7 +42,6 @@ final private class RelayFetch(
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
         relays.traverse: rt =>
-          if !official then println(rt.tour.name)
           if rt.round.sync.ongoing then
             processRelay(rt) flatMap: newRelay =>
               api.update(rt.round)(_ => newRelay)
