@@ -184,6 +184,14 @@
     <item quantity="many">%s مباراة</item>
     <item quantity="other">%s مباراة</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="zero">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
+    <item quantity="one">التصنيف للشطرنج %1$s بعد مباراة واحدة</item>
+    <item quantity="two">التصنيف للشطرنج %1$s بعد مباراتين</item>
+    <item quantity="few">تصنيفك في %1$s بعد %2$s مباراة</item>
+    <item quantity="many">تصنيفك في %1$s بعد %2$s مباراة</item>
+    <item quantity="other">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s مباراة مفضلة</item>
     <item quantity="one">%s مباراة مفضلة</item>
@@ -431,6 +439,14 @@
     <item quantity="few">%s دراسة</item>
     <item quantity="many">%s دراسات</item>
     <item quantity="other">%s دراسة</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="zero">%s خصم</item>
+    <item quantity="one">%s خصم واحد</item>
+    <item quantity="two">%s خَصمان في الوقت نفسه</item>
+    <item quantity="few">%s خصوم في الوقت نفسه</item>
+    <item quantity="many">%s خَصم في الوقت نفسه</item>
+    <item quantity="other">%s خَصم في الوقت نفسه</item>
   </plurals>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
