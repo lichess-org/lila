@@ -177,7 +177,7 @@ final private class PushApi(
 
   private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[JsObject] =
     roundMobile
-      .json(pov.game, pov.fullId.anyId, socket = none)
+      .offline(pov.game, pov.fullId.anyId)
       .map: round =>
         payload(userId):
           Json.obj(
