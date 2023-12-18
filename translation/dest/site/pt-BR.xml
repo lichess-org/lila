@@ -404,6 +404,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Após colar uma partida em PGN você poderá revisá-la interativamente, consultar uma análise de computador, utilizar o chat e compartilhar um link.</string>
   <string name="importGameCaveat">As variantes serão apagadas. Para salvá-las, importe o PGN em um estudo.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN pode ser acessado publicamente. Use um estudo para importar uma partida de forma privada.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s de partidas importadas</item>
@@ -879,6 +880,7 @@
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clássico</string>
