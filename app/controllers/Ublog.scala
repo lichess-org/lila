@@ -164,9 +164,8 @@ final class Ublog(env: Env) extends LilaController(env):
   def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> _ ?=>
     NoBot:
       NotForKids:
-        env.ublog.rank.like(id, v) map { likes =>
+        env.ublog.rank.like(id, v) map: likes =>
           Ok(likes.value)
-        }
   }
 
   def redirect(id: UblogPostId) = Open:
@@ -239,9 +238,8 @@ final class Ublog(env: Env) extends LilaController(env):
         pageHit
         Ok.pageAsync:
           val language = l.map(Language.apply)
-          env.ublog.paginator.liveByCommunity(language, page) map {
+          env.ublog.paginator.liveByCommunity(language, page) map:
             html.ublog.index.community(language, _)
-          }
 
   def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
@@ -254,9 +252,8 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       Reasonable(page, config.Max(100)):
         Ok.pageAsync:
-          env.ublog.paginator.liveByLiked(page) map {
+          env.ublog.paginator.liveByLiked(page) map:
             html.ublog.index.liked(_)
-          }
   }
 
   def topics = Open:
@@ -268,12 +265,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
       Reasonable(page, config.Max(100)):
-        lila.ublog.UblogTopic.fromUrl(str) so { top =>
+        lila.ublog.UblogTopic.fromUrl(str) so: top =>
           Ok.pageAsync:
-            env.ublog.paginator.liveByTopic(top, page, byDate) map {
+            env.ublog.paginator.liveByTopic(top, page, byDate) map:
               html.ublog.index.topic(top, _, byDate)
-            }
-        }
 
   def userAtom(username: UserStr) = Anon:
     env.user.repo
@@ -284,9 +279,8 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>
-              (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+              (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map: posts =>
                 Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
-              }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
