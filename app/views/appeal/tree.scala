@@ -23,7 +23,7 @@ object tree:
   val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
   val closedByModerators       = "Your account was closed by moderators.";
-  val hiddenBlog               = "Your account blogs have been hidden by moderators."
+  val hiddenBlog               = "Your blogs have been hidden by moderators."
 
   private def cleanMenu(using PageContext): Branch =
     Branch(
