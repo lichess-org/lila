@@ -20,4 +20,29 @@
   <string name="checkYouHaveMadeOpponentsMove">تأكد أن خصمك لعب نقلته على رقعة DGT أولاً، ثم أعد لعب نقلتك، إذا لم تحل المشكلة، اعد المباراة من البداية.</string>
   <string name="asALastResort">كملاذ أخير، اعد اللوحة بشكل متطابق مع Lichess، ثم %s</string>
   <string name="reloadThisPage">أعد تحويل هذه الصفحة</string>
+  <string name="dgtConfigure">تهيئة رقعة DGT</string>
+  <string name="lichessConnectivity">الربط بليتشيس</string>
+  <string name="validDgtOauthToken">يجب أن يكون لديك رمز OAuth مناسب لتشغيل رقعة DGT.</string>
+  <string name="dgtPlayMenuEntryAdded">يضيف إدخال %s المباراة إلى أعلى قائمة المباريات الخاصة بك.</string>
+  <string name="noSuitableOauthToken">لم ينشأ رمز OAuth.</string>
+  <string name="dgtBoardConnectivity">اتصال لوحة DGT</string>
+  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">اضغط لإنشاء رمز</string>
+  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">%s رابط الويب</string>
+  <string name="useWebSocketUrl" comment="useWebSocketUrl&#10;&#10;%1$s = ws://localhost:1982/api/v1.0&#10;(this is a URL)&#10;%2$s = LiveChess&#10;&#10;Complete string: Use &quot;ws://localhost:1982/api/v1.0&quot; unless LiveChess is running on a different machine or different port.&#10;&#10;LiveChess is a move broadcasting technology by the DGT Company, used by many third parties.">استخدم \"%1$s\" إذا لم يكن %2$s يعمل على جهاز آخر أو شبكة أخرى.</string>
+  <string name="textToSpeech">تحويل النص إلى كلام</string>
+  <string name="configureVoiceNarration">إصدار صوت ينطق بالحركات التي تلعب، مما يساعدك على التركيز في حركاتك.</string>
+  <string name="enableSpeechSynthesis">تمكين ربط الكلام</string>
+  <string name="speechSynthesisVoice">صوت الكلام</string>
+  <string name="announceAllMoves">نطق كل الحركات</string>
+  <string name="selectAnnouncePreference">اختر نعم لنطق نقلاتك ونقلات خصمك، حدد لا لنطق نقلات خصمك فقط.</string>
+  <string name="announceMoveFormat">طريقة نطق الحركة</string>
+  <string name="moveFormatDescription">SAN هو نظام التدوين على Lichess مثل Nf6. 
+UCI شائع في المحركات مثل \"g8f6\".</string>
+  <string name="keywords">الكلمات المفتاحية</string>
+  <string name="keywordFormatDescription">الكلمات المفتاحية بتنسيق JSON. تستخدم لترجمة التحركات والنتائج إلى لغتك، اللغة الافتراضية هي الإنجليزية، ولكن لا تتردد في تغييرها.</string>
+  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">تصحيح الأخطاء</string>
+  <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">التسجيل المطول</string>
+  <string name="toSeeConsoleMessage">لرؤية رسالة وحدة التحكم اضغط Command + Option + C (ماك) أو Control + Shift + C (ويندوز، لينكس ،كروم OS)</string>
+  <string name="playWithDgtBoard">اللعب على رقعة DGT</string>
+  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">تهيئة</string>
 </resources>
