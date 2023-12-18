@@ -19,8 +19,7 @@ object DailyFeed:
     def published           = public && at.isBeforeNow
     def future              = at.isAfterNow
 
-  private val renderer =
-    lila.common.MarkdownRender(autoLink = false, table = false, strikeThrough = true, header = false)
+  private val renderer      = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
   private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   type GetLastUpdates = () => List[Update]
