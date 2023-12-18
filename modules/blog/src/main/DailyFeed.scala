@@ -45,7 +45,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
-            mutableLastUpdates = ups.filter(_.published).take(3)
+            mutableLastUpdates = ups.filter(_.published).take(7)
     def clear() =
       store.underlying.synchronous.invalidateAll()
       store.get({}) // populate lastUpdate
