@@ -126,7 +126,7 @@ object dailyFeed:
           frag("Date"),
           help = raw("Set in the future to schedule an update.").some,
           half = true
-        )(form3.flatpickr(_)(required)),
+        )(form3.flatpickr(_, minDate = none)(required)),
         form3.checkbox(form("public"), raw("Publish"), half = true)
       ),
       form3.group(
