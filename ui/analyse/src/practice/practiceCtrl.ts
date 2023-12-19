@@ -8,6 +8,7 @@ import { defined, prop, Prop } from 'common';
 import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
+import { colors } from 'chessground/types';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -134,6 +135,10 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function isMyTurn(): boolean {
+    if ((root.data.game.variant.key === 'racingKings') && (root.data.game.player === 'black')) {
+      return root.turnColor() !== root.bottomColor();
+    }
+    console.log("computer plays black");
     return root.turnColor() === root.bottomColor();
   }
 
