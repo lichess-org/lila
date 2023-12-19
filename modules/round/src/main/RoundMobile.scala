@@ -15,8 +15,11 @@ import lila.chat.Chat
 object RoundMobile:
 
   enum UseCase(val socketStatus: Option[SocketStatus], val chat: Boolean, val prefs: Boolean):
+    // full round for every-day use
     case Online(socket: SocketStatus) extends UseCase(socket.some, chat = true, prefs = true)
-    case Offline                      extends UseCase(none, chat = false, prefs = false)
+    // correspondence game sent through firebase data
+    // https://github.com/lichess-org/mobile/blob/main/lib/src/model/correspondence/offline_correspondence_game.dart
+    case Offline extends UseCase(none, chat = false, prefs = false)
 
 final class RoundMobile(
     lightUserGet: LightUser.Getter,

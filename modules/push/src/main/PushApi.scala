@@ -2,6 +2,7 @@ package lila.push
 
 import akka.actor.*
 import play.api.libs.json.*
+import play.api.libs.json.Json.obj
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
@@ -24,6 +25,9 @@ final private class PushApi(
     postApi: lila.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
+  import PushApi.*
+  import PushApi.Data.payload
+
   private[push] def notifyPush(to: Iterable[NotifyAllows], content: NotificationContent): Funit =
     content match
       case PrivateMessage(sender, text) =>
@@ -35,9 +39,6 @@ final private class PushApi(
       case InvitedToStudy(invitedBy, studyName, studyId) =>
         lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
       case _ => funit
-
-  private def payload(userId: UserId)(data: JsObject): JsObject =
-    Json.obj("userId" -> userId, "userData" -> data)
 
   def finish(game: Game): Funit =
     if !game.isCorrespondence || game.hasAi then funit
@@ -53,7 +54,7 @@ final private class PushApi(
                 for
                   nbMyTurn <- gameRepo.countWhereUserTurn(userId)
                   opponent <- asyncOpponentName(pov)
-                yield PushApi.Data(
+                yield Data(
                   title = pov.win match
                     case Some(true)  => "You won!"
                     case Some(false) => "You lost."
@@ -62,13 +63,11 @@ final private class PushApi(
                   body = s"Your game with $opponent is over.",
                   stacking = Stacking.GameFinish,
                   urgency = Urgency.VeryLow,
-                  payload = payload(userId):
-                    Json.obj(
-                      "type"   -> "gameFinish",
-                      "gameId" -> game.id,
-                      "fullId" -> pov.fullId
-                    )
-                  ,
+                  payload = payload(userId)(
+                    "type"   -> "gameFinish",
+                    "gameId" -> game.id.value,
+                    "fullId" -> pov.fullId.value
+                  ),
                   iosBadge = nbMyTurn.some.filter(0 <)
                 )
             )
@@ -91,7 +90,7 @@ final private class PushApi(
                       nbMyTurn <- gameRepo.countWhereUserTurn(userId)
                       opponent <- asyncOpponentName(pov)
                       payload  <- corresGamePayload(pov, "gameMove", userId)
-                    yield PushApi.Data(
+                    yield Data(
                       title = "It's your turn!",
                       body = s"$opponent played $sanMove",
                       stacking = Stacking.GameMove,
@@ -146,7 +145,7 @@ final private class PushApi(
                     for
                       opponent <- asyncOpponentName(pov)
                       payload  <- corresGamePayload(pov, "gameDrawOffer", userId)
-                    yield PushApi.Data(
+                    yield Data(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
                       stacking = Stacking.GameDrawOffer,
@@ -166,7 +165,7 @@ final private class PushApi(
           for
             opponent <- asyncOpponentName(pov)
             payload  <- corresGamePayload(pov, "corresAlarm", userId)
-          yield PushApi.Data(
+          yield Data(
             title = "Time is almost up!",
             body = s"You are about to lose on time against $opponent",
             stacking = Stacking.GameMove,
@@ -175,33 +174,31 @@ final private class PushApi(
           )
       )
 
-  private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[JsObject] =
+  private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[Data.Payload] =
     roundMobile
       .offline(pov.game, pov.fullId.anyId)
       .map: round =>
-        payload(userId):
-          Json.obj(
-            "type"   -> typ,
-            "gameId" -> pov.gameId,
-            "fullId" -> pov.fullId,
-            "round"  -> Json.stringify(round)
-          )
+        payload(userId)(
+          "type"   -> typ,
+          "gameId" -> pov.gameId.value,
+          "fullId" -> pov.fullId.value,
+          "round"  -> Json.stringify(round)
+        )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
     filterPush(
       to,
       _.message,
       LazyFu.sync:
-        PushApi.Data(
+        Data(
           title = senderName,
           body = text,
           stacking = Stacking.PrivateMessage,
           urgency = Urgency.Normal,
-          payload = payload(to.userId):
-            Json.obj(
-              "type"     -> "newMessage",
-              "threadId" -> senderId
-            )
+          payload = payload(to.userId)(
+            "type"     -> "newMessage",
+            "threadId" -> senderId.value
+          )
         )
     )
 
@@ -210,19 +207,18 @@ final private class PushApi(
       to,
       _.message,
       LazyFu.sync:
-        PushApi.Data(
+        Data(
           title = studyName.value,
           body = s"$invitedBy invited you to $studyName",
           stacking = Stacking.InvitedStudy,
           urgency = Urgency.Normal,
-          payload = payload(to.userId):
-            Json.obj(
-              "type"      -> "invitedStudy",
-              "invitedBy" -> invitedBy,
-              "studyName" -> studyName,
-              "studyId"   -> studyId,
-              "url"       -> s"https://lichess.org/study/$studyId"
-            )
+          payload = payload(to.userId)(
+            "type"      -> "invitedStudy",
+            "invitedBy" -> invitedBy,
+            "studyName" -> studyName.value,
+            "studyId"   -> studyId.value,
+            "url"       -> s"https://lichess.org/study/$studyId"
+          )
         )
     )
 
@@ -235,16 +231,15 @@ final private class PushApi(
             _.challenge.create,
             NotificationPref.Challenge,
             LazyFu.sync:
-              PushApi.Data(
+              Data(
                 title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
                 body = describeChallenge(c),
                 stacking = Stacking.ChallengeCreate,
                 urgency = Urgency.Normal,
-                payload = payload(dest.id):
-                  Json.obj(
-                    "type"        -> "challengeCreate",
-                    "challengeId" -> c.id
-                  )
+                payload = payload(dest.id)(
+                  "type"        -> "challengeCreate",
+                  "challengeId" -> c.id.value
+                )
               )
           )
 
@@ -256,16 +251,15 @@ final private class PushApi(
           _.challenge.accept,
           NotificationPref.Challenge,
           LazyFu.sync:
-            PushApi.Data(
+            Data(
               title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
               body = describeChallenge(c),
               stacking = Stacking.ChallengeAccept,
               urgency = Urgency.Normal,
-              payload = payload(challenger.id):
-                Json.obj(
-                  "type"        -> "challengeAccept",
-                  "challengeId" -> c.id
-                )
+              payload = payload(challenger.id)(
+                "type"        -> "challengeAccept",
+                "challengeId" -> c.id.value
+              )
             )
         )
 
@@ -282,13 +276,12 @@ final private class PushApi(
               body = "The tournament is about to start!",
               stacking = Stacking.ChallengeAccept,
               urgency = Urgency.Normal,
-              payload = payload(userId):
-                Json.obj(
-                  "type"     -> "tourSoon",
-                  "tourId"   -> tour.tourId,
-                  "tourName" -> tour.tourName,
-                  "path"     -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
-                )
+              payload = payload(userId)(
+                "type"     -> "tourSoon",
+                "tourId"   -> tour.tourId,
+                "tourName" -> tour.tourName,
+                "path"     -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
+              )
             )
       )
 
@@ -298,35 +291,32 @@ final private class PushApi(
       _.forumMention,
       LazyFu: () =>
         postApi.getPost(postId) map: post =>
-          PushApi.Data(
+          Data(
             title = topicName,
             body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
             stacking = Stacking.ForumMention,
             urgency = Urgency.Low,
-            payload = payload(to.userId):
-              Json.obj(
-                "type"        -> "forumMention",
-                "mentionedBy" -> mentionedBy,
-                "topic"       -> topicName,
-                "postId"      -> postId,
-                "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
-              )
+            payload = payload(to.userId)(
+              "type"        -> "forumMention",
+              "mentionedBy" -> mentionedBy,
+              "topic"       -> topicName,
+              "postId"      -> postId.value,
+              "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
+            )
           )
     )
 
   def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit =
     val pushData = LazyFu.sync:
-      PushApi.Data(
+      Data(
         title = streamerName,
         body = streamerName + " started streaming",
         stacking = Stacking.StreamStart,
         urgency = Urgency.Low,
-        payload = Json.obj(
-          "userData" -> Json.obj(
-            "type"       -> "streamStart",
-            "streamerId" -> streamerId,
-            "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
-          )
+        payload = payload(
+          "type"       -> "streamStart",
+          "streamerId" -> streamerId.value,
+          "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
         )
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
@@ -343,12 +333,12 @@ final private class PushApi(
       userId: UserId,
       monitor: MonitorType,
       event: NotificationPref.Event,
-      data: LazyFu[PushApi.Data]
+      data: LazyFu[Data]
   ): Funit =
     notifyAllows(userId, event).flatMap: allows =>
       filterPush(NotifyAllows(userId, allows), monitor, data)
 
-  private def filterPush(to: NotifyAllows, monitor: MonitorType, data: LazyFu[PushApi.Data]): Funit = for
+  private def filterPush(to: NotifyAllows, monitor: MonitorType, data: LazyFu[Data]): Funit = for
     _ <- to.allows.web so webPush(to.userId, data).addEffects: res =>
       monitor(lila.mon.push.send)("web", res.isSuccess, 1)
     _ <- to.allows.device so firebasePush(to.userId, data).addEffects: res =>
@@ -384,6 +374,16 @@ private object PushApi:
       body: String,
       stacking: Stacking,
       urgency: Urgency,
-      payload: JsObject,
+      payload: Data.Payload,
       iosBadge: Option[Int] = None
+      // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
+      // mobileDistinctDataMsg: Boolean = false
   )
+
+  object Data:
+    case class Payload(
+        userId: Option[UserId],
+        userData: Seq[(String, String)] // firebase doesn't support nested data object
+    )
+    def payload(userId: UserId)(pairs: (String, String)*): Payload = Payload(userId.some, pairs)
+    def payload(pairs: (String, String)*): Payload                 = Payload(none, pairs)

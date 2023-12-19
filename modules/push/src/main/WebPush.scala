@@ -7,6 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import play.api.ConfigLoader
 import lila.common.LazyFu
+import lila.common.Json.given
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
@@ -40,10 +41,12 @@ final private class WebPush(
           }.toList),
           "payload" -> Json
             .obj(
-              "title"   -> data.title,
-              "body"    -> data.body,
-              "tag"     -> data.stacking.key,
-              "payload" -> data.payload
+              "title" -> data.title,
+              "body"  -> data.body,
+              "tag"   -> data.stacking.key,
+              "payload" -> Json
+                .obj("userData" -> data.payload.userData.toMap)
+                .add("userId" -> data.payload.userId)
             )
             .toString,
           "topic"   -> data.stacking.key,
