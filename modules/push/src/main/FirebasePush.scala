@@ -31,16 +31,22 @@ final private class FirebasePush(
         val config = if device.isMobile then configs.mobile else configs.lichobile
         config.googleCredentials.so: creds =>
           for
-            // access token has 1h lifetime and is requested only if expired
-            token <- workQueue {
-              Future:
-                Chronometer.syncMon(_.blocking time "firebase"):
-                  blocking:
-                    creds.refreshIfExpired()
-                    creds.getAccessToken()
-            }.chronometer.mon(_.push.googleTokenTime).result
             data <- data.value
-            _    <- send(token, device, config, data)
+            _ <-
+              if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
+              then funit // don't send data messages to lichobile
+              else
+                for
+                  // access token has 1h lifetime and is requested only if expired
+                  token <- workQueue {
+                    Future:
+                      Chronometer.syncMon(_.blocking time "firebase"):
+                        blocking:
+                          creds.refreshIfExpired()
+                          creds.getAccessToken()
+                  }.chronometer.mon(_.push.googleTokenTime).result
+                  _ <- send(token, device, config, data)
+                yield ()
           yield ()
       }
 
@@ -65,12 +71,15 @@ final private class FirebasePush(
           "message" -> Json
             .obj(
               "token" -> device._id,
-              "data"  -> toDataKeyValue(data.payload),
-              "notification" -> Json.obj(
-                "body"  -> data.body,
-                "title" -> data.title
-              )
+              "data" -> toDataKeyValue:
+                data.firebaseMod.match
+                  case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
+                  case _                                             => data.payload.userData
             )
+            .add:
+              "notification" -> data.firebaseMod.match
+                case Some(PushApi.Data.FirebaseMod.DataOnly) => none
+                case _ => Json.obj("body" -> data.body, "title" -> data.title).some
             .add:
               "apns" -> data.iosBadge.map: number =>
                 Json.obj:
@@ -79,6 +88,12 @@ final private class FirebasePush(
         )
       .flatMap: res =>
         lila.mon.push.firebaseStatus(res.status).increment()
+        lila.mon.push
+          .firebaseType(data.firebaseMod.fold("both"):
+            case PushApi.Data.FirebaseMod.DataOnly     => "data"
+            case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif"
+          )
+          .increment()
         if res.status == 200 then funit
         else if res.status == 404 then
           logger.info(s"Delete missing firebase device $device")
@@ -87,9 +102,8 @@ final private class FirebasePush(
           if errorCounter(res.status) then logger.warn(s"[push] firebase: ${res.status}")
           funit
 
-  // firebase doesn't support nested data object and we only use what is inside userData
-  private def toDataKeyValue(data: PushApi.Data.Payload): JsObject = JsObject:
-    data.userData.view
+  private def toDataKeyValue(data: PushApi.Data.KeyValue): JsObject = JsObject:
+    data.view
       .map: (k, v) =>
         s"lichess.$k" -> JsString(v)
       .toMap
