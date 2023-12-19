@@ -138,7 +138,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if ((root.data.game.variant.key === 'racingKings') && (root.data.game.player === 'black')) {
       return root.turnColor() !== root.bottomColor();
     }
-    console.log("computer plays black");
     return root.turnColor() === root.bottomColor();
   }
 
