@@ -175,6 +175,7 @@ object PgnDump:
       pgnInJson: Boolean = false,
       delayMoves: Boolean = false,
       lastFen: Boolean = false,
+      lastMove: Boolean = false,
       accuracy: Boolean = false
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =

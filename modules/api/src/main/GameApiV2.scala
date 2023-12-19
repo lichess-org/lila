@@ -302,6 +302,7 @@ final class GameApiV2(
         "totalTime" -> clock.estimateTotalSeconds
       ))
     .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.situation)))
+    .add("lastMove" -> flags.lastMove.option(g.lastMoveKeys))
 
   private def gameLightUsers(game: Game): Future[ByColor[(lila.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId so getLightUser).dmap(game.players.zip(_))
