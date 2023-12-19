@@ -8,7 +8,6 @@ import { defined, prop, Prop } from 'common';
 import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
-import { colors } from 'chessground/types';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
