@@ -41,9 +41,8 @@ final private class FirebasePush(
                   token <- workQueue {
                     Future:
                       Chronometer.syncMon(_.blocking time "firebase"):
-                        blocking:
-                          creds.refreshIfExpired()
-                          creds.getAccessToken()
+                        creds.refreshIfExpired()
+                        creds.getAccessToken()
                   }.chronometer.mon(_.push.googleTokenTime).result
                   _ <- send(token, device, config, data)
                 yield ()
