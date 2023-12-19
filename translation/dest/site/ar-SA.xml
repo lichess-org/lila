@@ -186,8 +186,8 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="zero">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
-    <item quantity="one">التصنيف للشطرنج %1$s بعد مباراة واحدة</item>
-    <item quantity="two">التصنيف للشطرنج %1$s بعد مباراتين</item>
+    <item quantity="one">التصنيف للشطرنج %1$s بعد %2$s مباراة واحدة</item>
+    <item quantity="two">التصنيف للشطرنج %1$s بعد %2$s مباراتين</item>
     <item quantity="few">تصنيفك في %1$s بعد %2$s مباراة</item>
     <item quantity="many">تصنيفك في %1$s بعد %2$s مباراة</item>
     <item quantity="other">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
