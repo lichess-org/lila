@@ -8,12 +8,14 @@
   &__tournaments,
   &__simuls,
   &__leaderboard,
-  &__winners {
+  &__winners,
+  &__feed {
     max-height: 20em;
   }
   // this helps in empty dev mode
   &__leaderboard,
-  &__winners {
+  &__winners,
+  &__feed {
     min-height: 20em;
   }
 
@@ -82,9 +84,10 @@
       'side   app     app     table'
       'tv     blog    blog    puzzle'
       'tv     support support puzzle'
-      'feed   feed    tours   tours'
-      'feed   feed    leader  winner'
-      'about  about   leader  winner';
+      'leader feed    feed    winner'
+      '.      tours   tours   .     '
+      '.      about   about   .     ';
+
 
     &__start {
       justify-content: center;
