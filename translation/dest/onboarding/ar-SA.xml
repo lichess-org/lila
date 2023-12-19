@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="welcome">مرحبا!</string>
+  <string name="welcomeToLichess">مرحبًا بك في lichess.org!</string>
   <string name="thisIsYourProfilePage">هذه هي صفحتك الشخصية.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">هل يستخدم هذا الحساب طفل؟ قد ترغب في تمكين %s.</string>
   <string name="whatNowSuggestions">ماذا الآن؟ فيما يلي بعض الاقتراحات:</string>
