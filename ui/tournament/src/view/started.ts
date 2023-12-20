@@ -10,13 +10,11 @@ import TournamentController from '../ctrl';
 import { MaybeVNodes } from 'common/snabbdom';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
-  return h(
-    'a.tour__ur-playing.button.is.is-after',
-    {
-      attrs: { href: '/' + gameId },
-    },
-    [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')],
-  );
+  return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
+    ctrl.trans('youArePlaying'),
+    h('br'),
+    ctrl.trans('joinTheGame'),
+  ]);
 }
 
 function notice(ctrl: TournamentController): VNode {

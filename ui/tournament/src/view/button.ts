@@ -29,41 +29,32 @@ export function join(ctrl: TournamentController): VNode {
     const button = h(
       'button.fbt.text' + (joinable ? '.highlight' : ''),
       {
-        attrs: {
-          disabled: !joinable,
-          'data-icon': licon.PlayTriangle,
-        },
+        attrs: { disabled: !joinable, 'data-icon': licon.PlayTriangle },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
       ctrl.trans.noarg('join'),
     );
     return delay
-      ? h(
-          'div.delay-wrap',
-          {
-            attrs: { title: 'Waiting to be able to re-join the tournament' },
-          },
-          [
-            h(
-              'div.delay',
-              {
-                hook: {
-                  insert(vnode) {
-                    const el = vnode.elm as HTMLElement;
-                    el.style.animation = `tour-delay ${delay}s linear`;
-                    setTimeout(() => {
-                      if (delay === ctrl.data.me!.pauseDelay) {
-                        ctrl.data.me!.pauseDelay = 0;
-                        ctrl.redraw();
-                      }
-                    }, delay * 1000);
-                  },
+      ? h('div.delay-wrap', { attrs: { title: 'Waiting to be able to re-join the tournament' } }, [
+          h(
+            'div.delay',
+            {
+              hook: {
+                insert(vnode) {
+                  const el = vnode.elm as HTMLElement;
+                  el.style.animation = `tour-delay ${delay}s linear`;
+                  setTimeout(() => {
+                    if (delay === ctrl.data.me!.pauseDelay) {
+                      ctrl.data.me!.pauseDelay = 0;
+                      ctrl.redraw();
+                    }
+                  }, delay * 1000);
                 },
               },
-              [button],
-            ),
-          ],
-        )
+            },
+            button,
+          ),
+        ])
       : button;
   });
 }
@@ -72,12 +63,7 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
   if (!ctrl.opts.userId)
     return h(
       'a.fbt.text.highlight',
-      {
-        attrs: {
-          href: '/login?referrer=' + window.location.pathname,
-          'data-icon': licon.PlayTriangle,
-        },
-      },
+      { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
       ctrl.trans('signIn'),
     );
   if (!ctrl.data.isFinished) return ctrl.isIn() ? withdraw(ctrl) : join(ctrl);

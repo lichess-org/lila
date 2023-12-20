@@ -26,10 +26,7 @@ export class StudyChapterEditForm {
   ) {}
 
   open = (data: StudyChapterMeta) => {
-    this.current({
-      id: data.id,
-      name: data.name,
-    });
+    this.current({ id: data.id, name: data.name });
     this.chapterConfig(data.id).then(d => {
       this.current(d!);
       this.redraw();
@@ -89,18 +86,9 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
             },
             [
               h('div.form-group', [
-                h(
-                  'label.form-label',
-                  {
-                    attrs: { for: 'chapter-name' },
-                  },
-                  noarg('name'),
-                ),
+                h('label.form-label', { attrs: { for: 'chapter-name' } }, noarg('name')),
                 h('input#chapter-name.form-control', {
-                  attrs: {
-                    minlength: 2,
-                    maxlength: 80,
-                  },
+                  attrs: { minlength: 2, maxlength: 80 },
                   hook: onInsert<HTMLInputElement>(el => {
                     if (!el.value) {
                       el.value = data.name;
@@ -133,44 +121,22 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
   return [
     h('div.form-split', [
       h('div.form-group.form-half', [
-        h(
-          'label.form-label',
-          {
-            attrs: { for: 'chapter-orientation' },
-          },
-          noarg('orientation'),
-        ),
+        h('label.form-label', { attrs: { for: 'chapter-orientation' } }, noarg('orientation')),
         h(
           'select#chapter-orientation.form-control',
-          ['white', 'black'].map(function (color) {
-            return option(color, data.orientation, noarg(color));
-          }),
+          ['white', 'black'].map(color => option(color, data.orientation, noarg(color))),
         ),
       ]),
       h('div.form-group.form-half', [
-        h(
-          'label.form-label',
-          {
-            attrs: { for: 'chapter-mode' },
-          },
-          noarg('analysisMode'),
-        ),
+        h('label.form-label', { attrs: { for: 'chapter-mode' } }, noarg('analysisMode')),
         h(
           'select#chapter-mode.form-control',
-          chapterForm.modeChoices.map(c => {
-            return option(c[0], mode, noarg(c[1]));
-          }),
+          chapterForm.modeChoices.map(c => option(c[0], mode, noarg(c[1]))),
         ),
       ]),
     ]),
     h('div.form-group', [
-      h(
-        'label.form-label',
-        {
-          attrs: { for: 'chapter-description' },
-        },
-        noarg('pinnedChapterComment'),
-      ),
+      h('label.form-label', { attrs: { for: 'chapter-description' } }, noarg('pinnedChapterComment')),
       h(
         'select#chapter-description.form-control',
         [
@@ -185,7 +151,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         {
           hook: bind(
             'click',
-            _ => {
+            () => {
               if (confirm(noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
             },
             ctrl.redraw,
@@ -199,7 +165,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         {
           hook: bind(
             'click',
-            _ => {
+            () => {
               if (confirm(noarg('clearVariations'))) ctrl.clearVariations(data.id);
             },
             ctrl.redraw,
@@ -215,7 +181,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         {
           hook: bind(
             'click',
-            _ => {
+            () => {
               if (confirm(noarg('deleteThisChapter'))) ctrl.delete(data.id);
             },
             ctrl.redraw,
@@ -224,13 +190,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         },
         noarg('deleteChapter'),
       ),
-      h(
-        'button.button',
-        {
-          attrs: { type: 'submit' },
-        },
-        noarg('saveChapter'),
-      ),
+      h('button.button', { attrs: { type: 'submit' } }, noarg('saveChapter')),
     ]),
   ];
 }

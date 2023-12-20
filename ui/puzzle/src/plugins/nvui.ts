@@ -70,12 +70,7 @@ export function initModule() {
           h('h2', 'Moves'),
           h(
             'p.moves',
-            {
-              attrs: {
-                role: 'log',
-                'aria-live': 'off',
-              },
-            },
+            { attrs: { role: 'log', 'aria-live': 'off' } },
             renderMainline(ctrl.vm.mainline, ctrl.vm.path, moveStyle.get()),
           ),
           h('h2', 'Pieces'),
@@ -83,13 +78,7 @@ export function initModule() {
           h('h2', 'Puzzle status'),
           h(
             'div.status',
-            {
-              attrs: {
-                role: 'status',
-                'aria-live': 'polite',
-                'aria-atomic': 'true',
-              },
-            },
+            { attrs: { role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' } },
             renderStatus(ctrl),
           ),
           h('div.replay', renderReplay(ctrl)),
@@ -97,12 +86,7 @@ export function initModule() {
           h('h2', 'Last move'),
           h(
             'p.lastMove',
-            {
-              attrs: {
-                'aria-live': 'assertive',
-                'aria-atomic': 'true',
-              },
-            },
+            { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
             lastMove(ctrl, moveStyle.get()),
           ),
           h('h2', 'Move form'),
@@ -120,12 +104,7 @@ export function initModule() {
               h('label', [
                 ctrl.vm.mode === 'view' ? 'Command input' : `Find the best move for ${ctrl.vm.pov}.`,
                 h('input.move.mousetrap', {
-                  attrs: {
-                    name: 'move',
-                    type: 'text',
-                    autocomplete: 'off',
-                    autofocus: true,
-                  },
+                  attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
                 }),
               ]),
             ],
@@ -179,16 +158,7 @@ export function initModule() {
               boardStyle.get(),
             ),
           ),
-          h(
-            'div.boardstatus',
-            {
-              attrs: {
-                'aria-live': 'polite',
-                'aria-atomic': 'true',
-              },
-            },
-            '',
-          ),
+          h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
@@ -414,25 +384,13 @@ function renderVote(ctrl: Controller): VNode[] {
 }
 
 function anchor(text: string, href: string): VNode {
-  return h(
-    'a',
-    {
-      attrs: { href },
-    },
-    text,
-  );
+  return h('a', { attrs: { href } }, text);
 }
 
 function button(text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode {
   return h(
     'button',
-    {
-      hook: bind('click', action),
-      attrs: {
-        ...(title ? { title } : {}),
-        disabled: !!disabled,
-      },
-    },
+    { hook: bind('click', action), attrs: { ...(title ? { title } : {}), disabled: !!disabled } },
     text,
   );
 }

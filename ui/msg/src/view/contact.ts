@@ -26,16 +26,10 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
         h('div.msg-app__side__contact__body', [
           h(
             'div.msg-app__side__contact__msg',
-            {
-              class: { 'msg-app__side__contact__msg--new': isNew },
-            },
+            { class: { 'msg-app__side__contact__msg--new': isNew } },
             msg.text,
           ),
-          isNew
-            ? h('i.msg-app__side__contact__new', {
-                attrs: { 'data-icon': licon.BellOutline },
-              })
-            : null,
+          isNew ? h('i.msg-app__side__contact__new', { attrs: { 'data-icon': licon.BellOutline } }) : null,
         ]),
       ]),
     ],
@@ -43,25 +37,11 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
 }
 
 export const userIcon = (user: User, cls: string): VNode =>
-  h(
-    'div.user-link.' + cls,
-    {
-      class: {
-        online: user.online,
-      },
-    },
-    userLine(user),
-  );
+  h('div.user-link.' + cls, { class: { online: user.online } }, userLine(user));
 
 const renderDate = (msg: LastMsg): VNode =>
   h(
     'time.timeago',
-    {
-      key: msg.date.getTime(),
-      attrs: {
-        title: msg.date.toLocaleString(),
-        datetime: msg.date.getTime(),
-      },
-    },
+    { key: msg.date.getTime(), attrs: { title: msg.date.toLocaleString(), datetime: msg.date.getTime() } },
     lichess.timeago(msg.date),
   );

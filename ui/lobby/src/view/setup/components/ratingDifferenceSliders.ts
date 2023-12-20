@@ -17,9 +17,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
     `div.rating-range-config.optional-config${disabled}`,
     {
       attrs: isProvisional
-        ? {
-            title: 'Your rating is still provisional, play some rated games to use the rating range.',
-          }
+        ? { title: 'Your rating is still provisional, play some rated games to use the rating range.' }
         : undefined,
     },
     [

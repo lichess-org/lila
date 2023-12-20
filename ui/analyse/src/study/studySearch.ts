@@ -68,30 +68,24 @@ export function view(ctrl: SearchCtrl) {
         // dynamic extra class necessary to fully redraw the results and produce innerHTML
         `div.study-search__results.search-query-${cleanQuery}`,
         ctrl.results().map(c =>
-          h(
-            'div',
-            {
-              hook: bind('click', () => ctrl.setChapter(c.id)),
-            },
-            [
-              h(
-                'h3',
-                {
-                  hook: highlightRegex
-                    ? {
-                        insert(vnode: VNode) {
-                          const el = vnode.elm as HTMLElement;
-                          el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
-                        },
-                      }
-                    : {},
-                },
-                c.name,
-              ),
-              c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
-              !c.ongoing && c.res ? h('res', c.res) : null,
-            ],
-          ),
+          h('div', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
+            h(
+              'h3',
+              {
+                hook: highlightRegex
+                  ? {
+                      insert(vnode: VNode) {
+                        const el = vnode.elm as HTMLElement;
+                        el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
+                      },
+                    }
+                  : {},
+              },
+              c.name,
+            ),
+            c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
+            !c.ongoing && c.res ? h('res', c.res) : null,
+          ]),
         ),
       ),
     ],

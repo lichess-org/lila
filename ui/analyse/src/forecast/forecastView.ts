@@ -50,59 +50,53 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
 export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
   const cNodes = makeCnodes(ctrl, fctrl);
   const isCandidate = fctrl.isCandidate(cNodes);
-  return h(
-    'div.forecast',
-    {
-      class: { loading: fctrl.loading() },
-    },
-    [
-      fctrl.loading() ? h('div.overlay', spinner()) : null,
-      h('div.box', [
-        h('div.top', ctrl.trans.noarg('conditionalPremoves')),
-        h(
-          'div.list',
-          fctrl.forecasts().map((nodes, i) =>
-            h(
-              'button.entry.text',
-              {
-                attrs: dataIcon(licon.PlayTriangle),
-                hook: bind(
-                  'click',
-                  _ => {
-                    const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
-                    ctrl.userJump(path);
-                  },
-                  ctrl.redraw,
-                ),
-              },
-              [
-                h('button.del', {
-                  hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
-                  attrs: { 'data-icon': licon.X, type: 'button' },
-                }),
-                h('sans', renderNodesHtml(nodes)),
-              ],
-            ),
+  return h('div.forecast', { class: { loading: fctrl.loading() } }, [
+    fctrl.loading() ? h('div.overlay', spinner()) : null,
+    h('div.box', [
+      h('div.top', ctrl.trans.noarg('conditionalPremoves')),
+      h(
+        'div.list',
+        fctrl.forecasts().map((nodes, i) =>
+          h(
+            'button.entry.text',
+            {
+              attrs: dataIcon(licon.PlayTriangle),
+              hook: bind(
+                'click',
+                () => {
+                  const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
+                  ctrl.userJump(path);
+                },
+                ctrl.redraw,
+              ),
+            },
+            [
+              h('button.del', {
+                hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
+                attrs: { 'data-icon': licon.X, type: 'button' },
+              }),
+              h('sans', renderNodesHtml(nodes)),
+            ],
           ),
         ),
-        h(
-          'button.add.text',
-          {
-            class: { enabled: isCandidate },
-            attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
-            hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
-          },
-          [
-            isCandidate
-              ? h('span', [
-                  h('span', ctrl.trans.noarg('addCurrentVariation')),
-                  h('sans', renderNodesHtml(cNodes)),
-                ])
-              : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
-          ],
-        ),
-      ]),
-      fctrl.onMyTurn() ? onMyTurn(ctrl, fctrl, cNodes) : null,
-    ],
-  );
+      ),
+      h(
+        'button.add.text',
+        {
+          class: { enabled: isCandidate },
+          attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
+          hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
+        },
+        [
+          isCandidate
+            ? h('span', [
+                h('span', ctrl.trans.noarg('addCurrentVariation')),
+                h('sans', renderNodesHtml(cNodes)),
+              ])
+            : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
+        ],
+      ),
+    ]),
+    fctrl.onMyTurn() ? onMyTurn(ctrl, fctrl, cNodes) : null,
+  ]);
 }

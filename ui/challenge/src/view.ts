@@ -26,10 +26,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
     'div.challenges',
     {
       class: { many: nb > 3 },
-      hook: {
-        insert: userPowertips,
-        postpatch: userPowertips,
-      },
+      hook: { insert: userPowertips, postpatch: userPowertips },
     },
     d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))),
   );
@@ -44,31 +41,21 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
     return h(
       `div.challenge.${dir}.c-${c.id}`,
       {
-        class: {
-          declined: !!c.declined,
-        },
+        class: { declined: !!c.declined },
       },
       [
         h('div.content', [
-          h(
-            'div.content__text',
-            {
-              attrs: { id: `challenge-text-${c.id}` },
-            },
-            [
-              h('span.head', [renderUser(opponent, ctrl.showRatings), renderLag(opponent)]),
-              h('span.desc', [
-                h('span.is.color-icon.' + myColor),
+          h('div.content__text', { attrs: { id: `challenge-text-${c.id}` } }, [
+            h('span.head', [renderUser(opponent, ctrl.showRatings), renderLag(opponent)]),
+            h('span.desc', [
+              h('span.is.color-icon.' + myColor),
+              ' • ',
+              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
                 ' • ',
-                [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
-                  ' • ',
-                ),
-              ]),
-            ],
-          ),
-          h('i.perf', {
-            attrs: { 'data-icon': c.perf.icon },
-          }),
+              ),
+            ]),
+          ]),
+          h('i.perf', { attrs: { 'data-icon': c.perf.icon } }),
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
@@ -89,32 +76,19 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
   const trans = ctrl.trans();
   return [
-    h(
-      'form',
-      {
+    h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
+      h('button.button.accept', {
         attrs: {
-          method: 'post',
-          action: `/challenge/${c.id}/accept`,
+          type: 'submit',
+          'aria-describedby': `challenge-text-${c.id}`,
+          'data-icon': licon.Checkmark,
+          title: trans('accept'),
         },
-      },
-      [
-        h('button.button.accept', {
-          attrs: {
-            type: 'submit',
-            'aria-describedby': `challenge-text-${c.id}`,
-            'data-icon': licon.Checkmark,
-            title: trans('accept'),
-          },
-          hook: onClick(ctrl.onRedirect),
-        }),
-      ],
-    ),
+        hook: onClick(ctrl.onRedirect),
+      }),
+    ]),
     h('button.button.decline', {
-      attrs: {
-        type: 'submit',
-        'data-icon': licon.X,
-        title: trans('decline'),
-      },
+      attrs: { type: 'submit', 'data-icon': licon.X, title: trans('decline') },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),
     }),
     h(
@@ -140,18 +114,11 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
     h('div.owner', [
       h('span.waiting', ctrl.trans()('waiting')),
       h('a.view', {
-        attrs: {
-          'data-icon': licon.Eye,
-          href: '/' + c.id,
-          title: trans('viewInFullSize'),
-        },
+        attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: trans('viewInFullSize') },
       }),
     ]),
     h('button.button.decline', {
-      attrs: {
-        'data-icon': licon.X,
-        title: trans('cancel'),
-      },
+      attrs: { 'data-icon': licon.X, title: trans('cancel') },
       hook: onClick(() => ctrl.cancel(c.id)),
     }),
   ];
@@ -174,28 +141,10 @@ const renderUser = (u: ChallengeUser | undefined, showRating: boolean): VNode =>
     : h('span', 'Open challenge');
 
 const renderLag = (u?: ChallengeUser) =>
-  u &&
-  h(
-    'signal',
-    u.lag === undefined
-      ? []
-      : [1, 2, 3, 4].map(i =>
-          h('i', {
-            class: { off: u.lag! < i },
-          }),
-        ),
-  );
+  u && h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('i', { class: { off: u.lag! < i } })));
 
 const empty = (): VNode =>
-  h(
-    'div.empty.text',
-    {
-      attrs: {
-        'data-icon': licon.InfoCircle,
-      },
-    },
-    'No challenges.',
-  );
+  h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, 'No challenges.');
 
 const onClick = (f: (e: Event) => void) => ({
   insert: (vnode: VNode) => {

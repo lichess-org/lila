@@ -3,8 +3,8 @@ import RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
 import renderHistory from 'puz/view/history';
 import * as licon from 'common/licon';
-import { MaybeVNodes, bind } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { MaybeVNodes, bind, looseH as h } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
 import { renderBoard } from './board';
@@ -13,12 +13,7 @@ import { povMessage } from 'puz/run';
 export default function (ctrl: RacerCtrl): VNode {
   return h(
     'div.racer.racer-app.racer--play',
-    {
-      class: {
-        ...playModifiers(ctrl.run),
-        [`racer--${ctrl.status()}`]: true,
-      },
-    },
+    { class: { ...playModifiers(ctrl.run), [`racer--${ctrl.status()}`]: true } },
     [
       renderBoard(ctrl),
       h('div.puz-side', selectScreen(ctrl)),
@@ -46,7 +41,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
                 ),
                 povMsg,
               ]),
-              ctrl.knowsSkip() ? null : renderSkip(ctrl),
+              !ctrl.knowsSkip() && renderSkip(ctrl),
             ]),
             comboZone(ctrl),
           ]
@@ -92,12 +87,8 @@ const renderSkip = (ctrl: RacerCtrl) =>
   h(
     'button.racer__skip.button.button-red',
     {
-      class: {
-        disabled: !ctrl.canSkip(),
-      },
-      attrs: {
-        title: ctrl.trans.noarg('skipExplanation'),
-      },
+      class: { disabled: !ctrl.canSkip() },
+      attrs: { title: ctrl.trans.noarg('skipExplanation') },
       hook: bind('click', ctrl.skip),
     },
     ctrl.trans.noarg('skip'),
@@ -125,14 +116,8 @@ const renderControls = (ctrl: RacerCtrl): VNode =>
   h(
     'div.puz-side__control',
     h('a.puz-side__control__flip.button', {
-      class: {
-        active: ctrl.flipped,
-        'button-empty': !ctrl.flipped,
-      },
-      attrs: {
-        'data-icon': licon.ChasingArrows,
-        title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
-      },
+      class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
+      attrs: { 'data-icon': licon.ChasingArrows, title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)' },
       hook: bind('click', ctrl.flip),
     }),
   );
@@ -155,45 +140,31 @@ const renderLink = (ctrl: RacerCtrl) =>
         },
       }),
       h('button.copy.button', {
-        attrs: {
-          title: 'Copy URL',
-          'data-rel': `racer-url-${ctrl.race.id}`,
-          'data-icon': licon.Link,
-        },
+        attrs: { title: 'Copy URL', 'data-rel': `racer-url-${ctrl.race.id}`, 'data-icon': licon.Link },
       }),
     ]),
   ]);
 
 const renderStart = (ctrl: RacerCtrl) =>
-  ctrl.isOwner() && !ctrl.vm.startsAt
-    ? h(
-        'div.puz-side__start',
-        h(
-          'button.button.button-fat',
-          {
-            class: {
-              disabled: ctrl.players().length < 2,
-            },
-            hook: bind('click', ctrl.start),
-            attrs: {
-              disabled: ctrl.players().length < 2,
-            },
-          },
-          ctrl.trans.noarg('startTheRace'),
-        ),
-      )
-    : null;
+  ctrl.isOwner() &&
+  !ctrl.vm.startsAt &&
+  h(
+    'div.puz-side__start',
+    h(
+      'button.button.button-fat',
+      {
+        class: { disabled: ctrl.players().length < 2 },
+        hook: bind('click', ctrl.start),
+        attrs: { disabled: ctrl.players().length < 2 },
+      },
+      ctrl.trans.noarg('startTheRace'),
+    ),
+  );
 
 const renderJoin = (ctrl: RacerCtrl) =>
   h(
     'div.puz-side__join',
-    h(
-      'button.button.button-fat',
-      {
-        hook: bind('click', ctrl.join),
-      },
-      ctrl.trans.noarg('joinTheRace'),
-    ),
+    h('button.button.button-fat', { hook: bind('click', ctrl.join) }, ctrl.trans.noarg('joinTheRace')),
   );
 
 const yourRank = (ctrl: RacerCtrl) => {
@@ -207,53 +178,31 @@ const yourRank = (ctrl: RacerCtrl) => {
 const waitForRematch = (noarg: TransNoArg) =>
   h(
     `a.racer__new-race.button.button-fat.button-navaway.disabled`,
-    {
-      attrs: { disabled: true },
-    },
+    { attrs: { disabled: true } },
     noarg('waitForRematch'),
   );
 
 const lobbyNext = (ctrl: RacerCtrl) =>
-  h(
-    'form',
-    {
-      attrs: {
-        action: '/racer/lobby',
-        method: 'post',
-      },
-    },
-    [
-      h(
-        `button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`,
-        ctrl.trans.noarg('nextRace'),
-      ),
-    ],
-  );
+  h('form', { attrs: { action: '/racer/lobby', method: 'post' } }, [
+    h(
+      `button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`,
+      ctrl.trans.noarg('nextRace'),
+    ),
+  ]);
 
 const friendNext = (ctrl: RacerCtrl) =>
   h('div.racer__post__next', [
     h(
       `a.racer__rematch.button.button-fat.button-navaway`,
-      {
-        attrs: { href: `/racer/${ctrl.race.id}/rematch` },
-      },
+      { attrs: { href: `/racer/${ctrl.race.id}/rematch` } },
       ctrl.trans.noarg('joinRematch'),
     ),
     h(
       'form.racer__post__next__new',
-      {
-        attrs: {
-          action: '/racer',
-          method: 'post',
-        },
-      },
+      { attrs: { action: '/racer', method: 'post' } },
       h(
         'button.racer__post__next__button.button.button-empty',
-        {
-          attrs: {
-            type: 'submit',
-          },
-        },
+        { attrs: { type: 'submit' } },
         ctrl.trans.noarg('createNewGame'),
       ),
     ),

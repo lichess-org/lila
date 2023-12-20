@@ -5,39 +5,20 @@ import afterView from './after';
 
 const viewSolution = (ctrl: Controller): VNode =>
   ctrl.streak
-    ? h(
-        'div.view_solution.skip',
-        {
-          class: { show: !!ctrl.streak?.data.skip },
-        },
-        [
-          h(
-            'a.button.button-empty',
-            {
-              hook: bind('click', ctrl.skip),
-              attrs: {
-                title: ctrl.trans.noarg('streakSkipExplanation'),
-              },
-            },
-            ctrl.trans.noarg('skip'),
-          ),
-        ],
-      )
-    : h(
-        'div.view_solution',
-        {
-          class: { show: ctrl.vm.canViewSolution },
-        },
-        [
-          h(
-            'a.button.button-empty',
-            {
-              hook: bind('click', ctrl.viewSolution),
-            },
-            ctrl.trans.noarg('viewTheSolution'),
-          ),
-        ],
-      );
+    ? h('div.view_solution.skip', { class: { show: !!ctrl.streak?.data.skip } }, [
+        h(
+          'a.button.button-empty',
+          { hook: bind('click', ctrl.skip), attrs: { title: ctrl.trans.noarg('streakSkipExplanation') } },
+          ctrl.trans.noarg('skip'),
+        ),
+      ])
+    : h('div.view_solution', { class: { show: ctrl.vm.canViewSolution } }, [
+        h(
+          'a.button.button-empty',
+          { hook: bind('click', ctrl.viewSolution) },
+          ctrl.trans.noarg('viewTheSolution'),
+        ),
+      ]);
 
 const initial = (ctrl: Controller): VNode =>
   h('div.puzzle__feedback.play', [
