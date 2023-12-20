@@ -83,6 +83,17 @@ object mine:
                         ),
                         error.map { p(cls := "error")(_) }
                       )
+                    ),
+                    div(
+                      h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode(), ": "),
+                      // display the challenge link as a QR code
+                      br,
+                      p(cls := "challenge-id-form")(
+                        img(
+                          src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
+                          alt := "QR Code"
+                        )
+                      )
                     )
                   )
               },
