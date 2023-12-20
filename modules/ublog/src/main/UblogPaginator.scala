@@ -57,7 +57,7 @@ final class UblogPaginator(
         collection = colls.post,
         selector = $doc("live" -> true, "likers" -> me.userId),
         projection = previewPostProjection.some,
-        sort = $sort desc "live.at",
+        sort = $sort desc "lived.at",
         _.sec
       ),
       currentPage = page,

@@ -22,11 +22,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
       renderTextarea(ctrl, user),
       h('button.msg-app__convo__post__submit.button', {
         class: { connected },
-        attrs: {
-          type: 'submit',
-          'data-icon': licon.PlayTriangle,
-          disabled: !connected,
-        },
+        attrs: { type: 'submit', 'data-icon': licon.PlayTriangle, disabled: !connected },
       }),
     ],
   );
@@ -34,10 +30,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
 
 function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
   return h('textarea.msg-app__convo__post__text', {
-    attrs: {
-      rows: 1,
-      enterkeyhint: 'send',
-    },
+    attrs: { rows: 1, enterkeyhint: 'send' },
     hook: {
       insert(vnode) {
         setupTextarea(vnode.elm as HTMLTextAreaElement, user.id, ctrl);

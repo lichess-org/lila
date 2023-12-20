@@ -96,7 +96,8 @@ object Preload:
   def none[A]                        = Preload[A](None)
 
 final class LazyFu[A](run: () => Fu[A]):
-  lazy val value: Fu[A] = run()
+  lazy val value: Fu[A]             = run()
+  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value dmap f)
 object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
 

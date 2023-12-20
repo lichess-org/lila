@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Голосові команди</string>
+  <string name="phoneticAlphabetIsBest">Фонетичний алфавіт найкращий</string>
+  <string name="turnOffVoiceRecognition">Вимкнути розпізнавання голосу</string>
+</resources>

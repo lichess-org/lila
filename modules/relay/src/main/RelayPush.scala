@@ -6,7 +6,7 @@ import chess.format.pgn.PgnStr
 import lila.study.MultiPgn
 import lila.base.LilaInvalid
 
-final class RelayPush(sync: RelaySync, api: RelayApi)(using ActorSystem, Executor):
+final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using ActorSystem, Executor):
 
   private val throttler = lila.hub.EarlyMultiThrottler[RelayRoundId](logger)
 
@@ -31,9 +31,13 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using ActorSystem, Executo
             .recover:
               case e: Exception => SyncLog.event(0, e.some)
             .flatMap: event =>
+              if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
+                irc.broadcastStart(rt.round.id, rt.fullName)
               api
-                .update(rt.round):
-                  _.withSync(_ addLog event).copy(finished = games.forall(_.end.isDefined))
+                .update(rt.round): r1 =>
+                  val r2 = r1.withSync(_ addLog event)
+                  val r3 = if event.hasMoves then r2.ensureStarted.resume else r2
+                  r3.copy(finished = games.nonEmpty && games.forall(_.end.isDefined))
                 .inject:
                   event.error.fold(Right(event.moves))(err => Left(LilaInvalid(err)))
       )

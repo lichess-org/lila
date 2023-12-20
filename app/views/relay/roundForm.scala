@@ -83,7 +83,9 @@ object roundForm:
         help = frag(
           sourceUrlHelp(),
           br,
-          gameIdsHelp()
+          gameIdsHelp(),
+          br,
+          "Or leave empty to push games from another program."
         ).some
       )(form3.input(_)),
       form3

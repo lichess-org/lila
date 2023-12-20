@@ -184,6 +184,14 @@
     <item quantity="many">%s مباراة</item>
     <item quantity="other">%s مباراة</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="zero">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
+    <item quantity="one">التصنيف للشطرنج %1$s بعد %2$s مباراة واحدة</item>
+    <item quantity="two">التصنيف للشطرنج %1$s بعد %2$s مباراتين</item>
+    <item quantity="few">تصنيفك في %1$s بعد %2$s مباراة</item>
+    <item quantity="many">تصنيفك في %1$s بعد %2$s مباراة</item>
+    <item quantity="other">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s مباراة مفضلة</item>
     <item quantity="one">%s مباراة مفضلة</item>
@@ -432,6 +440,14 @@
     <item quantity="many">%s دراسات</item>
     <item quantity="other">%s دراسة</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="zero">%s خصم</item>
+    <item quantity="one">%s خصم واحد</item>
+    <item quantity="two">%s خَصمان في الوقت نفسه</item>
+    <item quantity="few">%s خصوم في الوقت نفسه</item>
+    <item quantity="many">%s خَصم في الوقت نفسه</item>
+    <item quantity="other">%s خَصم في الوقت نفسه</item>
+  </plurals>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
   <string name="noDrawBeforeSwissLimit">لا يمكنك التعادل قبل لعب 30 حركة في بطولة سويسرية.</string>
@@ -468,7 +484,7 @@
     <item quantity="many">يجب أن تلعب %s مباراة مقيمة أخرى</item>
     <item quantity="other">يجب أن تلعب %s مباراة مقيمة أخرى</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">تقييمك %s مؤقت</string>
+  <string name="yourPerfRatingIsProvisional">تقييمك في %s مؤقت</string>
   <string name="yourPerfRatingIsTooHigh">تقييمك في %1$s وقدره %2$s عالي جدًا</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك الأسبوعي في %1$s وقدره %2$s عالي جدًا</string>
   <string name="yourPerfRatingIsTooLow">تقييمك في %1$s وقدره %2$s منخفض جدًا</string>
@@ -622,7 +638,7 @@
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
-  <string name="setFlair">اختيار الشارة:</string>
+  <string name="setFlair">اختيار الشارة</string>
   <string name="flair">الشارة</string>
   <string name="youCanHideFlair">يستخدم هذا الإعداد لإخفاء جميع شارات المستخدمين في الموقع.</string>
   <string name="biography">نبذة عنك</string>
@@ -1038,12 +1054,12 @@
   <string name="edit">تعديل</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">الرصاصة</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">الخاطف</string>
-  <string name="rapid">سريع</string>
+  <string name="rapid">السريع</string>
   <string name="classical">تقليدي</string>
   <string name="ultraBulletDesc">مباراةٌ جنونية السرعة: أقل من ثلاثين ثانية</string>
   <string name="bulletDesc">مباراةٌ سريعةٌ جداً: أقل من ٣ دقائق</string>
-  <string name="blitzDesc">مبارياتٌ سريعة: ٣ - ٨ دقائق</string>
-  <string name="rapidDesc">مباراياتٌ خاطفةٌ: ٨-٢٥ دقائق</string>
+  <string name="blitzDesc">مبارياتٌ خاطفة: ٣ - ٨ دقائق</string>
+  <string name="rapidDesc">مباريات سريعة: ٨-٢٥ دقائق</string>
   <string name="classicalDesc">مبارياتٌ كلاسيكيةٌ: ٢٥ دقيقة و أكثر</string>
   <string name="correspondenceDesc">ألعاب المراسلة: يوم أو عدة أيام لكل نقلة</string>
   <string name="puzzleDesc">مدرب تكتيكات الشطرنج</string>

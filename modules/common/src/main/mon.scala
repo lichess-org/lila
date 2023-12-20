@@ -547,6 +547,7 @@ object mon:
         ()
       val move         = send("move")
       val takeback     = send("takeback")
+      val draw         = send("draw")
       val corresAlarm  = send("corresAlarm")
       val finish       = send("finish")
       val message      = send("message")
@@ -560,6 +561,7 @@ object mon:
         val accept = send("challengeAccept")
     val googleTokenTime             = timer("push.send.googleToken").withoutTags()
     def firebaseStatus(status: Int) = counter("push.firebase.status").withTag("status", status)
+    def firebaseType(typ: String)   = counter("push.firebase.msgType").withTag("type", typ)
   object fishnet:
     object client:
       object result:

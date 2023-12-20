@@ -9,7 +9,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
     hook: {
       insert: vnode =>
         ctrl.setChessground(lichess.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-      destroy: _ => ctrl.ground()!.destroy(),
+      destroy: () => ctrl.ground()!.destroy(),
     },
   });
 }

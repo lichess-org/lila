@@ -572,7 +572,7 @@
   <string name="editProfile">עריכת פרופיל</string>
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
-  <string name="setFlair">הגדירו את הסמליל שלכם:</string>
+  <string name="setFlair">הגדירו את הסמליל שלכם</string>
   <string name="flair">סמליל</string>
   <string name="youCanHideFlair">ישנה הגדרה שמאפשרת להסתיר את כל הסמלילים באתר.</string>
   <string name="biography">ביוגרפיה</string>

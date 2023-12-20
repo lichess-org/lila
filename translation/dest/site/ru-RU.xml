@@ -572,7 +572,7 @@
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
   <string name="lastName">Фамилия</string>
-  <string name="setFlair">Задайте свой эмодзи:</string>
+  <string name="setFlair">Задайте свой эмодзи</string>
   <string name="flair">Эмодзи</string>
   <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
   <string name="biography">О себе</string>

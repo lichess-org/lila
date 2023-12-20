@@ -17,7 +17,7 @@
   <string name="declineTooSlow">Tùy chọn thời gian quá chậm đối với tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
   <string name="declineTimeControl">Tôi không chấp nhận thách đấu với tùy chọn thời gian này.</string>
   <string name="declineRated">Hãy gửi yêu cầu thách đấu có tính xếp hạng cho tôi.</string>
-  <string name="declineCasual">Hãy gửi tôi yêu cầu thách đấu không tính elo.</string>
+  <string name="declineCasual">Hãy gửi tôi yêu cầu thách đấu không xếp hạng.</string>
   <string name="declineStandard">Tôi không muốn chơi biến thể bây giờ.</string>
   <string name="declineVariant">Tôi chưa sẵn sàng chơi biến thể này bây giờ.</string>
   <string name="declineNoBot">Tôi không chấp nhận thách đấu từ bot.</string>

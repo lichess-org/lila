@@ -6,8 +6,8 @@ import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
-import { h, VNode } from 'snabbdom';
-import { onInsert, bindNonPassive } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
+import { onInsert, bindNonPassive, looseH as h } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
@@ -15,10 +15,10 @@ import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 import boardMenu from './boardMenu';
-import * as Prefs from 'common/prefs';
-import PuzzleCtrl from '../ctrl';
 
-const renderAnalyse = (ctrl: PuzzleCtrl): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
+import * as Prefs from 'common/prefs';
+
+const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -26,16 +26,10 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
-  return h('button.fbt', {
-    class: { disabled, glowing },
-    attrs: {
-      'data-act': effect,
-      'data-icon': icon,
-    },
-  });
+  return h('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
 }
 
-function controls(ctrl: PuzzleCtrl): VNode {
+function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
   const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
@@ -67,7 +61,7 @@ function controls(ctrl: PuzzleCtrl): VNode {
 
 let cevalShown = false;
 
-export default function (ctrl: PuzzleCtrl): VNode {
+export default function (ctrl: Controller): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.vm.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
@@ -131,40 +125,34 @@ export default function (ctrl: PuzzleCtrl): VNode {
         // so the siblings are only updated when ceval is added
         h(
           'div.ceval-wrap',
-          {
-            class: { none: !showCeval },
-          },
+          { class: { none: !showCeval } },
           showCeval ? [...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
       ]),
       controls(ctrl),
-      ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
+      ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       session(ctrl),
-      ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
+      ctrl.keyboardHelp() && keyboard.view(ctrl),
     ],
   );
 }
 
-function session(ctrl: PuzzleCtrl) {
+function session(ctrl: Controller) {
   const rounds = ctrl.session.get().rounds,
-    current = ctrl.data.puzzle.id;
+    current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
       const rd =
-        round.ratingDiff && ctrl.opts.showRatings
-          ? round.ratingDiff > 0
-            ? '+' + round.ratingDiff
-            : round.ratingDiff
-          : null;
+        round.ratingDiff && ctrl.opts.showRatings && round.ratingDiff > 0
+          ? '+' + round.ratingDiff
+          : round.ratingDiff;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
           key: round.id,
-          class: {
-            current: current == round.id,
-          },
+          class: { current: current == round.id },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
@@ -174,24 +162,10 @@ function session(ctrl: PuzzleCtrl) {
       );
     }),
     rounds.find(r => r.id == current)
-      ? ctrl.streak
-        ? null
-        : h('a.session-new', {
-            key: 'new',
-            attrs: {
-              href: `/training/${ctrl.session.theme}`,
-            },
-          })
+      ? !ctrl.streak && h('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
       : h(
           'a.result-cursor.current',
-          {
-            key: current,
-            attrs: ctrl.streak
-              ? {}
-              : {
-                  href: `/training/${ctrl.session.theme}/${current}`,
-                },
-          },
+          { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
           ctrl.streak?.data.index,
         ),
   ]);

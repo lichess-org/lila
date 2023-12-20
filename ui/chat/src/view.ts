@@ -12,14 +12,7 @@ import ChatCtrl from './ctrl';
 export default function (ctrl: ChatCtrl): VNode {
   return h(
     'section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'),
-    {
-      class: {
-        'mchat-mod': !!ctrl.moderation,
-      },
-      hook: {
-        destroy: ctrl.destroy,
-      },
-    },
+    { class: { 'mchat-mod': !!ctrl.moderation }, hook: { destroy: ctrl.destroy } },
     moderationView(ctrl.moderation) || normalView(ctrl),
   );
 }
@@ -30,10 +23,7 @@ function renderPalantir(ctrl: ChatCtrl) {
   return p.instance
     ? p.instance.render(h)
     : h('div.mchat__tab.palantir.palantir-slot', {
-        attrs: {
-          'data-icon': licon.Handset,
-          title: 'Voice chat',
-        },
+        attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
         hook: bind('click', () => {
           if (!p.loaded) {
             p.loaded = true;
@@ -88,11 +78,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
       ctrl.opts.alwaysEnabled
         ? undefined
         : h('input', {
-            attrs: {
-              type: 'checkbox',
-              title: ctrl.trans.noarg('toggleTheChat'),
-              checked: ctrl.vm.enabled,
-            },
+            attrs: { type: 'checkbox', title: ctrl.trans.noarg('toggleTheChat'), checked: ctrl.vm.enabled },
             hook: bind('change', (e: Event) => {
               ctrl.setEnabled((e.target as HTMLInputElement).checked);
             }),

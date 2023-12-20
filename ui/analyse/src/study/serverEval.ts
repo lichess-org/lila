@@ -67,10 +67,7 @@ function requestButton(ctrl: ServerEval) {
           h(
             'a.button.text',
             {
-              attrs: {
-                'data-icon': licon.BarChart,
-                disabled: root.mainline.length < 5,
-              },
+              attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
               hook: bind('click', ctrl.request, root.redraw),
             },
             noarg('requestAComputerAnalysis'),

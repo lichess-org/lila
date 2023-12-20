@@ -351,7 +351,7 @@ final class Api(
   def mobileGames = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
     val ids = get("ids").so(_.split(',').take(50).toList) map GameId.take
     ids.nonEmpty.so:
-      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.json).map(JsonOk)
+      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
   }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:

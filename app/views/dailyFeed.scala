@@ -7,6 +7,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.DailyFeed.Update
 import play.api.data.Form
 import play.api.i18n.Lang
+import scalatags.text.Builder
+import scalatags.generic.Frag
 
 object dailyFeed:
 
@@ -61,7 +63,7 @@ object dailyFeed:
           )
         .toList
 
-  def lobbyUpdateList(ups: List[Update])(using Context) =
+  val lobbyUpdates = renderCache[List[Update]](1 minute): ups =>
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
@@ -76,7 +78,7 @@ object dailyFeed:
       div(cls := "daily-feed__update")(
         iconTag(licon.StarOutline),
         div:
-          a(cls := "daily-feed__update__day", href := s"/feed"):
+          a(cls := "daily-feed__update__day", href := "/feed"):
             "All updates »"
       )
     )
@@ -126,7 +128,7 @@ object dailyFeed:
           frag("Date"),
           help = raw("Set in the future to schedule an update.").some,
           half = true
-        )(form3.flatpickr(_)(required)),
+        )(form3.flatpickr(_, minDate = none)(required)),
         form3.checkbox(form("public"), raw("Publish"), half = true)
       ),
       form3.group(

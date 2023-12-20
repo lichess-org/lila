@@ -19,8 +19,7 @@ object DailyFeed:
     def published           = public && at.isBeforeNow
     def future              = at.isAfterNow
 
-  private val renderer =
-    lila.common.MarkdownRender(autoLink = false, table = false, strikeThrough = true, header = false)
+  private val renderer      = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
   private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   type GetLastUpdates = () => List[Update]
@@ -39,14 +38,14 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
     val store = cacheApi.unit[List[Update]]:
-      _.expireAfterWrite(1 minute).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
         coll
           .find($empty)
           .sort($sort.desc("at"))
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
-            mutableLastUpdates = ups.filter(_.published).take(3)
+            mutableLastUpdates = ups.filter(_.published).take(7)
     def clear() =
       store.underlying.synchronous.invalidateAll()
       store.get({}) // populate lastUpdate
@@ -56,6 +55,8 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   export cache.lastUpdate
 
   def recent: Fu[List[Update]] = cache.store.get({})
+
+  def recentPublished = recent.map(_.filter(_.published))
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 

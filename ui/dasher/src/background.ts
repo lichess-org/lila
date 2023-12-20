@@ -57,10 +57,7 @@ export class BackgroundCtrl {
       applyBackground(this.data, this.list);
       this.redraw();
       return xhr
-        .text('/pref/bg', {
-          body: xhr.form({ bg: c }),
-          method: 'post',
-        })
+        .text('/pref/bg', { body: xhr.form({ bg: c }), method: 'post' })
         .then(this.reloadAllTheThings, this.announceFail);
     },
   );
@@ -68,10 +65,7 @@ export class BackgroundCtrl {
   setImage = (i: string) => {
     this.data.image = i;
     xhr
-      .textRaw('/pref/bgImg', {
-        body: xhr.form({ bgImg: i }),
-        method: 'post',
-      })
+      .textRaw('/pref/bgImg', { body: xhr.form({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
     applyBackground(this.data, this.list);
@@ -106,11 +100,7 @@ function imageInput(ctrl: BackgroundCtrl) {
   return h('div.image', [
     h('p', ctrl.trans.noarg('backgroundImageUrl')),
     h('input', {
-      attrs: {
-        type: 'text',
-        placeholder: 'https://',
-        value: ctrl.getImage(),
-      },
+      attrs: { type: 'text', placeholder: 'https://', value: ctrl.getImage() },
       hook: {
         insert: vnode => {
           $(vnode.elm as HTMLElement).on(
@@ -207,9 +197,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
         gallery.images.map(img => {
           const assetUrl = lichess.asset.url(img, { noVersion: true });
           const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
-          return h(`div#${urlId(assetUrl)}${divClass}`, {
-            hook: bind('click', () => setImg(assetUrl)),
-          });
+          return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
         }),
       ),
     ),

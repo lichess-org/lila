@@ -41,16 +41,7 @@ function renderTournament(tour: Tournament, day: Date) {
       },
     },
     [
-      h(
-        'span.icon',
-        tour.perf
-          ? {
-              attrs: {
-                'data-icon': iconOf(tour),
-              },
-            }
-          : {},
-      ),
+      h('span.icon', tour.perf ? { attrs: { 'data-icon': iconOf(tour) } } : {}),
       h('span.body', [tour.fullName]),
     ],
   );
@@ -84,15 +75,7 @@ function renderDay(ctrl: Ctrl) {
     const dayEnd = addDays(day, 1);
     const tours = ctrl.data.tournaments.filter(t => t.bounds.start < dayEnd && t.bounds.end > day);
     return h('day', [
-      h(
-        'date',
-        {
-          attrs: {
-            title: format(day, 'EEEE, dd/MM/yyyy'),
-          },
-        },
-        [format(day, 'dd/MM')],
-      ),
+      h('date', { attrs: { title: format(day, 'EEEE, dd/MM/yyyy') } }, [format(day, 'dd/MM')]),
       h(
         'lanes',
         makeLanes(tours).map(l => renderLane(l, day)),
@@ -115,9 +98,7 @@ function renderTimeline() {
     hours.map(hour =>
       h(
         'div.timeheader',
-        {
-          attrs: { style: startDirection() + ': ' + (hour / 24) * 100 + '%' },
-        },
+        { attrs: { style: startDirection() + ': ' + (hour / 24) * 100 + '%' } },
         timeString(hour),
       ),
     ),

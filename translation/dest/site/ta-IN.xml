@@ -493,7 +493,7 @@
   <string name="editProfile">தகவல்களை  மாற்று</string>
   <string name="firstName">முதல் பெயர்</string>
   <string name="lastName">கடைசி பெயர்</string>
-  <string name="setFlair">உங்கள் திறமையை அமைக்கவும்:</string>
+  <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">நாடு அல்லது வட்டாரம்</string>

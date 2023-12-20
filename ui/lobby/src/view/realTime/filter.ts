@@ -49,17 +49,11 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   const rangeValues = $rangeInput.val() ? ($rangeInput.val() as string).split('-') : [];
 
   $minInput
-    .attr({
-      step: '50',
-      value: rangeValues[0] || $minInput.attr('min')!,
-    })
+    .attr({ step: '50', value: rangeValues[0] || $minInput.attr('min')! })
     .on('input', changeRatingRange);
 
   $maxInput
-    .attr({
-      step: '50',
-      value: rangeValues[1] || $maxInput.attr('max')!,
-    })
+    .attr({ step: '50', value: rangeValues[1] || $maxInput.attr('max')! })
     .on('input', changeRatingRange);
 
   changeRatingRange();
@@ -70,10 +64,7 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
   return h('i.toggle.toggle-filter', {
     class: { gamesFiltered: nbFiltered > 0, active: filter.open },
     hook: bind('mousedown', filter.toggle, ctrl.redraw),
-    attrs: {
-      'data-icon': filter.open ? licon.X : licon.Gear,
-      title: ctrl.trans.noarg('filterGames'),
-    },
+    attrs: { 'data-icon': filter.open ? licon.X : licon.Gear, title: ctrl.trans.noarg('filterGames') },
   });
 }
 

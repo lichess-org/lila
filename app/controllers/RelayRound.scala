@@ -44,12 +44,11 @@ final class RelayRound(
               ),
             setup =>
               rateLimitCreation(whenRateLimited):
-                env.relay.api.create(setup, tour) flatMap { round =>
+                env.relay.api.create(setup, tour) flatMap: rt =>
                   negotiate(
-                    Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value)),
-                    JsonOk(env.relay.jsonView.withUrl(round withTour tour))
+                    Redirect(routes.RelayRound.show(tour.slug, rt.relay.slug, rt.relay.id)),
+                    JsonOk(env.relay.jsonView.myRound(rt))
                   )
-                }
           )
   }
 
@@ -103,14 +102,19 @@ final class RelayRound(
             else env.study.api byIdWithChapter rt.round.studyId
           sc orNotFound { doShow(rt, _) }
         ,
-        json = Found(env.relay.api.byIdWithTour(id)): rt =>
-          Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
-            studyC.CanView(study)(
-              env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
-                JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
-              }
-            )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
+        json = doApiShow(id)
       )
+
+  def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read):
+    doApiShow(id)
+
+  private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
+    Found(env.relay.api.byIdWithTour(id)): rt =>
+      Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
+        studyC.CanView(study)(
+          env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map: games =>
+            JsonOk(env.relay.jsonView.withUrlAndGames(rt withStudy study, games))
+        )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn                                   = studyC.apiPgn

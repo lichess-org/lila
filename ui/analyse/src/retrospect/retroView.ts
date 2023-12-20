@@ -8,31 +8,16 @@ import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h(
-      'a',
-      {
-        hook: bind('click', ctrl.viewSolution, ctrl.redraw),
-      },
-      ctrl.noarg('viewTheSolution'),
-    ),
-    h(
-      'a',
-      {
-        hook: bind('click', ctrl.skip),
-      },
-      ctrl.noarg('skipThisMove'),
-    ),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, ctrl.noarg('viewTheSolution')),
+    h('a', { hook: bind('click', ctrl.skip) }, ctrl.noarg('skipThisMove')),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
-  return h(
-    'a.half.continue',
-    {
-      hook: bind('click', ctrl.jumpToNext),
-    },
-    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), ctrl.noarg('next')],
-  );
+  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
+    h('i', { attrs: dataIcon(licon.PlayTriangle) }),
+    ctrl.noarg('next'),
+  ]);
 }
 
 const minDepth = 8;
@@ -64,11 +49,7 @@ const feedback = {
               h(
                 'move',
                 renderIndexAndMove(
-                  {
-                    withDots: true,
-                    showGlyphs: true,
-                    showEval: false,
-                  },
+                  { withDots: true, showGlyphs: true, showEval: false },
                   ctrl.current()!.fault.node,
                 )!,
               ),
@@ -88,13 +69,7 @@ const feedback = {
         h('div.instruction', [
           h('strong', ctrl.noarg('youBrowsedAway')),
           h('div.choices.off', [
-            h(
-              'a',
-              {
-                hook: bind('click', ctrl.jumpToNext),
-              },
-              ctrl.noarg('resumeLearning'),
-            ),
+            h('a', { hook: bind('click', ctrl.jumpToNext) }, ctrl.noarg('resumeLearning')),
           ]),
         ]),
       ]),
@@ -135,13 +110,7 @@ const feedback = {
                 'bestWasX',
                 h(
                   'strong',
-                  renderIndexAndMove(
-                    {
-                      withDots: true,
-                      showEval: false,
-                    },
-                    ctrl.current()!.solution.node,
-                  )!,
+                  renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)!,
                 ),
               ),
             ),
@@ -230,10 +199,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
       h('button.fbt', {
         hook: bind('click', root.toggleRetro, root.redraw),
-        attrs: {
-          'data-icon': licon.X,
-          'aria-label': 'Close learn window',
-        },
+        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
       }),
     ]),
     h('div.feedback.' + fb, renderFeedback(root, fb)),

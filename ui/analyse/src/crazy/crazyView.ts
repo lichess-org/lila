@@ -38,11 +38,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
         h(
           'div.pocket-c2',
           h('piece.' + role + '.' + color, {
-            attrs: {
-              'data-role': role,
-              'data-color': color,
-              'data-nb': nb,
-            },
+            attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),
       );

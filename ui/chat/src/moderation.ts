@@ -23,11 +23,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
         opts.redraw();
       });
     } else {
-      data = {
-        id: username.toLowerCase(),
-        name: username,
-        text,
-      };
+      data = { id: username.toLowerCase(), name: username, text };
     }
     opts.redraw();
   };
@@ -46,11 +42,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     close,
     async timeout(reason: ModerationReason, text: string) {
       if (data) {
-        const body = {
-          userId: data.id,
-          reason: reason.key,
-          text,
-        };
+        const body = { userId: data.id, reason: reason.key, text };
         if (new URLSearchParams(window.location.search).get('mod') === 'true') {
           await timeout(opts.resourceId, body);
           window.location.reload(); // to load new state since it won't be sent over the socket
@@ -172,12 +164,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               return h('tr', [
                 h('td.reason', e.reason),
                 h('td.mod', e.mod),
-                h(
-                  'td',
-                  h('time.timeago', {
-                    attrs: { datetime: e.date },
-                  }),
-                ),
+                h('td', h('time.timeago', { attrs: { datetime: e.date } })),
               ]);
             }),
           ),
@@ -187,17 +174,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     h('div.top', { key: 'mod-' + data.id }, [
-      h(
-        'span.text',
-        {
-          attrs: { 'data-icon': licon.Agent },
-        },
-        [userLink(data)],
-      ),
-      h('a', {
-        attrs: { 'data-icon': licon.X },
-        hook: bind('click', ctrl.close),
-      }),
+      h('span.text', { attrs: { 'data-icon': licon.Agent } }, [userLink(data)]),
+      h('a', { attrs: { 'data-icon': licon.X }, hook: bind('click', ctrl.close) }),
     ]),
     h('div.mchat__content.moderation', [
       h('i.line-text.block', ['"', data.text, '"']),

@@ -77,13 +77,14 @@
   @include breakpoint($mq-col4) {
     --cols: 4; // ui/lobby/src/main.ts
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, fit-content(0)) auto fit-content(0) minmax(0, 1fr);
+    grid-template-rows: repeat(2, fit-content(0)) auto repeat(6, fit-content(0));
     grid-template-areas:
       'side   app     app     table'
       'tv     blog    blog    puzzle'
       'tv     support support puzzle'
       'feed   feed    tours   tours'
-      'leader winner  about   about';
+      'feed   feed    leader  winner'
+      'about  about   leader  winner';
 
     &__start {
       justify-content: center;

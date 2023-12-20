@@ -57,5 +57,5 @@ final class DailyFeed(env: Env) extends LilaController(env):
   }
 
   def atom = Anon:
-    api.recent map: ups =>
+    api.recentPublished map: ups =>
       Ok(html.dailyFeed.atom(ups)) as XML
