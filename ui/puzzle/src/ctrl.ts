@@ -54,14 +54,14 @@ export default class PuzzleCtrl implements ParentCtrl {
   node: Tree.Node;
   nodeList: Tree.Node[];
   mainline: Tree.Node[];
+  initialPath: Tree.Path;
+  initialNode: Tree.Node;
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
-  initialPath: Tree.Path;
-  initialNode: Tree.Node;
   canViewSolution = toggle(false);
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
