@@ -1,5 +1,5 @@
 import { VNode, Attrs } from 'snabbdom';
-import { onInsert, lh as h, MaybeVNodes } from './snabbdom';
+import { onInsert, looseH as h, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -43,7 +43,7 @@ export interface DomDialogOpts extends DialogOpts {
 }
 
 export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: MaybeVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
+  vnodes?: LooseVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
   onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 

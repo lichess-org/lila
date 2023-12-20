@@ -17,13 +17,11 @@ interface Advice {
 const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
   const p = game.getPlayer(ctrl.data, color);
   if (p.user)
-    return h(
-      'a.user-link.ulpt',
-      {
-        attrs: { href: '/@/' + p.user.username },
-      },
-      [p.user.username, ' ', ratingDiff(p)],
-    );
+    return h('a.user-link.ulpt', { attrs: { href: '/@/' + p.user.username } }, [
+      p.user.username,
+      ' ',
+      ratingDiff(p),
+    ]);
   return h(
     'span',
     p.name ||
@@ -56,11 +54,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         ctrl.trans.noarg('accuracy'),
         ' ',
         h('a', {
-          attrs: {
-            'data-icon': licon.InfoCircle,
-            href: '/page/accuracy',
-            target: '_blank',
-          },
+          attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
         }),
       ]),
     ]),

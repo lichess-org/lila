@@ -48,12 +48,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       h(
         'td.rank',
         player.withdraw
-          ? h('i', {
-              attrs: {
-                'data-icon': licon.Pause,
-                title: ctrl.trans.noarg('pause'),
-              },
-            })
+          ? h('i', { attrs: { 'data-icon': licon.Pause, title: ctrl.trans.noarg('pause') } })
           : player.rank,
       ),
       h('td.player', [
@@ -122,18 +117,14 @@ export function standing(ctrl: TournamentController, pag: Pagination, klass?: st
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
     'table.slist.tour__standing' + (klass ? '.' + klass : ''),
-    {
-      class: { loading: !pag.currentPageResults },
-    },
+    { class: { loading: !pag.currentPageResults } },
     [
       h(
         'tbody',
         {
           hook: {
             insert: vnode => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
-            update(_, vnode) {
-              lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
-            },
+            update: (_, vnode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
           },
         },
         tableBody,

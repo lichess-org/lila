@@ -13,17 +13,12 @@ const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
   ]);
 
 function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | undefined {
-  return p
-    ? h(
-        'div.' + pos,
-        {
-          class: {
-            lame: !!p.lame,
-          },
-        },
-        [h('div.trophy'), userLink({ ...p.user, line: false }), podiumStats(p, ctrl)],
-      )
-    : undefined;
+  if (!p) return undefined;
+  return h('div.' + pos, { class: { lame: !!p.lame } }, [
+    h('div.trophy'),
+    userLink({ ...p.user, line: false }),
+    podiumStats(p, ctrl),
+  ]);
 }
 
 export default function podium(ctrl: SwissCtrl) {

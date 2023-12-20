@@ -12,7 +12,7 @@ export default function (ctrl: EditorCtrl): VNode {
         ctrl.chessground = lichess.makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
-      destroy: _ => ctrl.chessground!.destroy(),
+      destroy: () => ctrl.chessground!.destroy(),
     },
   });
 }

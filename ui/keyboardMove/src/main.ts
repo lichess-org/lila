@@ -154,10 +154,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
 export function render(ctrl: KeyboardMove) {
   return h('div.keyboard-move', [
     h('input', {
-      attrs: {
-        spellcheck: 'false',
-        autocomplete: 'off',
-      },
+      attrs: { spellcheck: 'false', autocomplete: 'off' },
       hook: onInsert((input: HTMLInputElement) =>
         loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m)),
       ),

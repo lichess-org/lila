@@ -30,19 +30,12 @@ export const view = (ctrl: LangsCtrl): VNode =>
     header(ctrl.trans.noarg('language'), ctrl.close),
     h(
       'form',
-      {
-        attrs: { method: 'post', action: '/translation/select' },
-      },
+      { attrs: { method: 'post', action: '/translation/select' } },
       ctrl.list().map(langView(ctrl.data.current, ctrl.accepted)),
     ),
     h(
       'a.help.text',
-      {
-        attrs: {
-          href: 'https://crowdin.com/project/lichess',
-          'data-icon': licon.Heart,
-        },
-      },
+      { attrs: { href: 'https://crowdin.com/project/lichess', 'data-icon': licon.Heart } },
       'Help translate Lichess',
     ),
   ]);
@@ -52,13 +45,6 @@ const langView =
   ([code, name]: Lang) =>
     h(
       'button' + (current === code ? '.current' : '') + (accepted.has(code) ? '.accepted' : ''),
-      {
-        attrs: {
-          type: 'submit',
-          name: 'lang',
-          value: code,
-          title: code,
-        },
-      },
+      { attrs: { type: 'submit', name: 'lang', value: code, title: code } },
       name,
     );
