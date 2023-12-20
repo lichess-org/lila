@@ -62,7 +62,7 @@ export function initModule() {
           ctrl.streak ? '.puzzle--streak' : ''
         }`,
         h('div.nvui', [
-          h('h1', `Puzzle: ${ctrl.vm.pov} to play.`),
+          h('h1', `Puzzle: ${ctrl.pov} to play.`),
           h('h2', 'Puzzle info'),
           puzzleBox(ctrl),
           theme(ctrl),
@@ -71,7 +71,7 @@ export function initModule() {
           h(
             'p.moves',
             { attrs: { role: 'log', 'aria-live': 'off' } },
-            renderMainline(ctrl.vm.mainline, ctrl.vm.path, moveStyle.get()),
+            renderMainline(ctrl.mainline, ctrl.path, moveStyle.get()),
           ),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ground.state.pieces, moveStyle.get())),
@@ -102,7 +102,7 @@ export function initModule() {
             },
             [
               h('label', [
-                ctrl.vm.mode === 'view' ? 'Command input' : `Find the best move for ${ctrl.vm.pov}.`,
+                ctrl.mode === 'view' ? 'Command input' : `Find the best move for ${ctrl.pov}.`,
                 h('input.move.mousetrap', {
                   attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
                 }),
@@ -111,7 +111,7 @@ export function initModule() {
           ),
           notify.render(),
           h('h2', 'Actions'),
-          ctrl.vm.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
+          ctrl.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -119,15 +119,15 @@ export function initModule() {
               hook: onInsert(el => {
                 const $board = $(el);
                 const $buttons = $board.find('button');
-                const steps = () => ctrl.tree.getNodeList(ctrl.vm.path);
+                const steps = () => ctrl.tree.getNodeList(ctrl.path);
                 const uciSteps = () => steps().filter(hasUci);
                 const fenSteps = () => steps().map(step => step.fen);
-                const opponentColor = ctrl.vm.pov === 'white' ? 'black' : 'white';
+                const opponentColor = ctrl.pov === 'white' ? 'black' : 'white';
                 $board.on(
                   'click',
                   selectionHandler(() => opponentColor, selectSound),
                 );
-                $board.on('keydown', arrowKeyHandler(ctrl.vm.pov, borderSound));
+                $board.on('keydown', arrowKeyHandler(ctrl.pov, borderSound));
                 $board.on('keypress', boardCommandsHandler());
                 $buttons.on(
                   'keypress',
@@ -136,7 +136,7 @@ export function initModule() {
                 $buttons.on(
                   'keypress',
                   possibleMovesHandler(
-                    ctrl.vm.pov,
+                    ctrl.pov,
                     () => ground.state.turnColor,
                     ground.getFen,
                     () => ground.state.pieces,
@@ -151,7 +151,7 @@ export function initModule() {
             },
             renderBoard(
               ground.state.pieces,
-              ctrl.vm.pov,
+              ctrl.pov,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
@@ -234,7 +234,7 @@ function hasUci(step: Tree.Node): step is StepWithUci {
 }
 
 function lastMove(ctrl: PuzzleCtrl, style: Style): string {
-  const node = ctrl.vm.node;
+  const node = ctrl.node;
   if (node.ply === 0) return 'Initial position';
   // make sure consecutive moves are different so that they get re-read
   return renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
@@ -252,10 +252,10 @@ function onSubmit(
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
-      const uci = inputToLegalUci(input, ctrl.vm.node.fen, ground);
+      const uci = inputToLegalUci(input, ctrl.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
-        switch (ctrl.vm.lastFeedback) {
+        switch (ctrl.lastFeedback) {
           case 'fail':
             notify(ctrl.trans.noarg('notTheMove'));
             break;
@@ -275,11 +275,11 @@ function onSubmit(
 }
 
 function isYourMove(ctrl: PuzzleCtrl) {
-  return ctrl.vm.node.children.length === 0 || ctrl.vm.node.children[0].puzzle === 'fail';
+  return ctrl.node.children.length === 0 || ctrl.node.children[0].puzzle === 'fail';
 }
 
 function browseHint(ctrl: PuzzleCtrl): string[] {
-  if (ctrl.vm.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.'];
+  if (ctrl.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.'];
   else return [];
 }
 
@@ -303,8 +303,8 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
 }
 
 function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void): void {
-  if (ctrl.vm.mode === 'view') {
-    const node = ctrl.vm.node,
+  if (ctrl.mode === 'view') {
+    const node = ctrl.node,
       next = nextNode(node),
       nextNext = nextNode(next);
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
@@ -335,16 +335,16 @@ function renderStreak(ctrl: PuzzleCtrl): VNode[] {
 }
 
 function renderStatus(ctrl: PuzzleCtrl): string {
-  if (ctrl.vm.mode !== 'view') return 'Solving';
+  if (ctrl.mode !== 'view') return 'Solving';
   else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
-  else if (ctrl.vm.lastFeedback === 'win') return 'Puzzle solved!';
+  else if (ctrl.lastFeedback === 'win') return 'Puzzle solved!';
   else return 'Puzzle complete.';
 }
 
 function renderReplay(ctrl: PuzzleCtrl): string {
   const replay = ctrl.data.replay;
   if (!replay) return '';
-  const i = replay.i + (ctrl.vm.mode === 'play' ? 0 : 1);
+  const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
   return `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles: ${i} of ${replay.of}`;
 }
 
@@ -360,7 +360,7 @@ function playActions(ctrl: PuzzleCtrl): VNode {
 }
 
 function afterActions(ctrl: PuzzleCtrl): VNode {
-  const win = ctrl.vm.lastFeedback === 'win';
+  const win = ctrl.lastFeedback === 'win';
   return h(
     'div.actions_after',
     ctrl.streak && !win
@@ -378,8 +378,8 @@ function renderVote(ctrl: PuzzleCtrl): VNode[] {
   if (!ctrl.data.user || ctrl.autoNexting()) return [];
   return [
     ...renderVoteTutorial(ctrl),
-    button('Thumbs up', () => ctrl.vote(true), undefined, ctrl.vm.voteDisabled),
-    button('Thumbs down', () => ctrl.vote(false), undefined, ctrl.vm.voteDisabled),
+    button('Thumbs up', () => ctrl.vote(true), undefined, ctrl.voteDisabled),
+    button('Thumbs down', () => ctrl.vote(false), undefined, ctrl.voteDisabled),
   ];
 }
 

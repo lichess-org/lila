@@ -23,7 +23,7 @@ export default (ctrl: PuzzleCtrl) =>
     .bind('l', ctrl.toggleCeval)
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
-      if (ctrl.vm.mode === 'view') {
+      if (ctrl.mode === 'view') {
         if (ctrl.ceval.enabled()) ctrl.playBestMove();
         else ctrl.toggleCeval();
       }

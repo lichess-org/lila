@@ -31,7 +31,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
         'p',
         ctrl.trans.vdom(
           'puzzleId',
-          ctrl.streak && ctrl.vm.mode === 'play'
+          ctrl.streak && ctrl.mode === 'play'
             ? h('span.hidden', ctrl.trans.noarg('hidden'))
             : h(
                 'a',
@@ -50,7 +50,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
           'p',
           ctrl.trans.vdom(
             'ratingX',
-            !ctrl.streak && ctrl.vm.mode === 'play'
+            !ctrl.streak && ctrl.mode === 'play'
               ? h('span.hidden', ctrl.trans.noarg('hidden'))
               : h('strong', puzzle.rating),
           ),
@@ -67,9 +67,9 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
         'p',
         ctrl.trans.vdom(
           'fromGameLink',
-          ctrl.vm.mode == 'play'
+          ctrl.mode == 'play'
             ? h('span', gameName)
-            : h('a', { attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` } }, gameName),
+            : h('a', { attrs: { href: `/${game.id}/${ctrl.pov}#${puzzle.initialPly}` } }, gameName),
         ),
       ),
       h(
@@ -106,7 +106,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
       h('p', noarg('toGetPersonalizedPuzzles')),
       h('a.button', { attrs: { href: router.withLang('/signup') } }, noarg('signUp')),
     ]);
-  const diff = ctrl.vm.round?.ratingDiff,
+  const diff = ctrl.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';
   return h('div.puzzle__side__user', [
     !data.replay &&
@@ -115,7 +115,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
       h('div.puzzle__side__config__toggle', [
         h('div.switch', [
           h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
-            attrs: { type: 'checkbox', checked: ctrl.rated(), disabled: ctrl.vm.lastFeedback != 'init' },
+            attrs: { type: 'checkbox', checked: ctrl.rated(), disabled: ctrl.lastFeedback != 'init' },
             hook: {
               insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
             },
@@ -157,7 +157,7 @@ const colors = [
 export function replay(ctrl: PuzzleCtrl): MaybeVNode {
   const replay = ctrl.data.replay;
   if (!replay) return;
-  const i = replay.i + (ctrl.vm.mode == 'play' ? 0 : 1);
+  const i = replay.i + (ctrl.mode == 'play' ? 0 : 1);
   return h('div.puzzle__side__replay', [
     h('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, [
       '« ',
@@ -185,7 +185,7 @@ export function config(ctrl: PuzzleCtrl): MaybeVNode {
             insert: vnode =>
               (vnode.elm as HTMLElement).addEventListener('change', () => {
                 ctrl.autoNext(!ctrl.autoNext());
-                if (ctrl.autoNext() && ctrl.vm.resultSent && !ctrl.streak) {
+                if (ctrl.autoNext() && ctrl.resultSent && !ctrl.streak) {
                   ctrl.nextPuzzle();
                 }
               }),

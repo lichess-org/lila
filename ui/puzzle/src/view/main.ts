@@ -30,9 +30,9 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {
-  const node = ctrl.vm.node;
+  const node = ctrl.node;
   const nextNode = node.children[0];
-  const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  const notOnLastMove = ctrl.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
   return h('div.puzzle__controls.analyse-controls', [
     h(
       'div.jumps',
@@ -63,10 +63,10 @@ let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
-  const showCeval = ctrl.vm.showComputer(),
+  const showCeval = ctrl.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
-    if (!cevalShown) ctrl.vm.autoScrollNow = true;
+    if (!cevalShown) ctrl.autoScrollNow = true;
     cevalShown = showCeval;
   }
   return h(

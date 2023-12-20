@@ -6,7 +6,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import { Vm, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd, NvuiPlugin } from './interfaces';
+import { PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd, NvuiPlugin, PuzzleRound } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -15,7 +15,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
 import { makeVoiceMove, VoiceMove, RootCtrl as VoiceRoot } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, RootController as KeyboardRoot } from 'keyboardMove';
-import { defer } from 'common/defer';
+import { Deferred, defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect, Toggle, toggle } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
@@ -31,12 +31,8 @@ import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 
 export default class PuzzleCtrl implements ParentCtrl {
-  vm: Vm = {
-    next: defer<PuzzleData>(),
-    showAutoShapes: () => true,
-  } as Vm;
-
   data: PuzzleData;
+  next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
   trans: Trans;
   tree: TreeWrapper;
   ceval: CevalCtrl;
@@ -53,6 +49,24 @@ export default class PuzzleCtrl implements ParentCtrl {
   voiceMove?: VoiceMove;
   promotion: PromotionCtrl;
   keyboardHelp: Prop<boolean>;
+  cgConfig?: CgConfig;
+  path: Tree.Path;
+  node: Tree.Node;
+  nodeList: Tree.Node[];
+  mainline: Tree.Node[];
+  pov: Color;
+  mode: 'play' | 'view' | 'try';
+  round?: PuzzleRound;
+  justPlayed?: Key;
+  resultSent: boolean;
+  lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
+  initialPath: Tree.Path;
+  initialNode: Tree.Node;
+  canViewSolution = toggle(false);
+  autoScrollRequested: boolean;
+  autoScrollNow: boolean;
+  voteDisabled?: boolean;
+  isDaily: boolean;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -76,7 +90,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.initiate(opts.data);
     this.promotion = new PromotionCtrl(
       this.withGround,
-      () => this.withGround(g => g.set(this.vm.cgConfig)),
+      () => this.withGround(g => g.set(this.cgConfig!)),
       redraw,
     );
 
@@ -87,7 +101,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     // chessground is not displayed, and the first move is not fully applied.
     // Make sure chessground is fully shown when the page goes back to being visible.
     document.addEventListener('visibilitychange', () =>
-      lichess.requestIdleCallback(() => this.jump(this.vm.path), 500),
+      lichess.requestIdleCallback(() => this.jump(this.path), 500),
     );
 
     lichess.pubsub.on('zen', () => {
@@ -109,10 +123,10 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   setPath = (path: Tree.Path): void => {
-    this.vm.path = path;
-    this.vm.nodeList = this.tree.getNodeList(path);
-    this.vm.node = treeOps.last(this.vm.nodeList)!;
-    this.vm.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.path = path;
+    this.nodeList = this.tree.getNodeList(path);
+    this.node = treeOps.last(this.nodeList)!;
+    this.mainline = treeOps.mainlineNodeList(this.tree.root);
   };
 
   setChessground = (cg: CgApi): void => {
@@ -120,7 +134,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     const makeRoot = () => ({
       data: {
         game: { variant: { key: 'standard' } },
-        player: { color: this.vm.pov },
+        player: { color: this.pov },
       },
       chessground: cg,
       sendMove: this.playUserMove,
@@ -132,11 +146,9 @@ export default class PuzzleCtrl implements ParentCtrl {
       vote: this.vote,
       solve: this.viewSolution,
     });
-    if (this.opts.pref.voiceMove) this.voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (this.opts.pref.voiceMove) this.voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.node.fen);
     if (this.opts.pref.keyboardMove)
-      this.keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, {
-        fen: this.vm.node.fen,
-      });
+      this.keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.node.fen });
     requestAnimationFrame(() => this.redraw());
   };
 
@@ -151,16 +163,16 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.data = fromData;
     this.tree = treeBuild(pgnToTree(this.data.game.pgn.split(' ')));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-    this.vm.mode = 'play';
-    this.vm.next = defer();
-    this.vm.round = undefined;
-    this.vm.justPlayed = undefined;
-    this.vm.resultSent = false;
-    this.vm.lastFeedback = 'init';
-    this.vm.initialPath = initialPath;
-    this.vm.initialNode = this.tree.nodeAtPath(initialPath);
-    this.vm.pov = this.vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
-    this.vm.isDaily = location.href.endsWith('/daily');
+    this.mode = 'play';
+    this.next = defer();
+    this.round = undefined;
+    this.justPlayed = undefined;
+    this.resultSent = false;
+    this.lastFeedback = 'init';
+    this.initialPath = initialPath;
+    this.initialNode = this.tree.nodeAtPath(initialPath);
+    this.pov = this.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    this.isDaily = location.href.endsWith('/daily');
 
     this.setPath(lichess.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -172,16 +184,13 @@ export default class PuzzleCtrl implements ParentCtrl {
     );
 
     // just to delay button display
-    this.vm.canViewSolution = false;
-    if (!this.vm.canViewSolution) {
-      setTimeout(
-        () => {
-          this.vm.canViewSolution = true;
-          this.redraw();
-        },
-        this.rated() ? 4000 : 1000,
-      );
-    }
+    setTimeout(
+      () => {
+        this.canViewSolution(true);
+        this.redraw();
+      },
+      this.rated() ? 4000 : 1000,
+    );
 
     this.withGround(g => {
       g.selectSquare(null);
@@ -194,17 +203,16 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   position = (): Chess => {
-    const setup = parseFen(this.vm.node.fen).unwrap();
+    const setup = parseFen(this.node.fen).unwrap();
     return Chess.fromSetup(setup).unwrap();
   };
 
   makeCgOpts = (): CgConfig => {
-    const node = this.vm.node;
+    const node = this.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(this.position());
-    const nextNode = this.vm.node.children[0];
-    const canMove =
-      this.vm.mode === 'view' || (color === this.vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
+    const nextNode = this.node.children[0];
+    const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
       ? {
           color: dests.size > 0 ? color : undefined,
@@ -216,7 +224,7 @@ export default class PuzzleCtrl implements ParentCtrl {
         };
     const config = {
       fen: node.fen,
-      orientation: this.flipped() ? opposite(this.vm.pov) : this.vm.pov,
+      orientation: this.flipped() ? opposite(this.pov) : this.pov,
       turnColor: color,
       movable: movable,
       premovable: {
@@ -225,13 +233,13 @@ export default class PuzzleCtrl implements ParentCtrl {
       check: !!node.check,
       lastMove: uciToMove(node.uci),
     };
-    if (node.ply >= this.vm.initialNode.ply) {
-      if (this.vm.mode !== 'view' && color !== this.vm.pov && !nextNode) {
-        config.movable.color = this.vm.pov;
+    if (node.ply >= this.initialNode.ply) {
+      if (this.mode !== 'view' && color !== this.pov && !nextNode) {
+        config.movable.color = this.pov;
         config.premovable.enabled = true;
       }
     }
-    this.vm.cgConfig = config;
+    this.cgConfig = config;
     return config;
   };
 
@@ -248,13 +256,13 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   userMove = (orig: Key, dest: Key): void => {
-    this.vm.justPlayed = orig;
+    this.justPlayed = orig;
     if (
       !this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.promotionHook() })
     )
       this.playUserMove(orig, dest);
-    this.voiceMove?.update(this.vm.node.fen, true);
-    this.keyboardMove?.update({ fen: this.vm.node.fen });
+    this.voiceMove?.update(this.node.fen, true);
+    this.keyboardMove?.update({ fen: this.node.fen });
   };
 
   playUci = (uci: Uci): void => this.sendMove(parseUci(uci)!);
@@ -268,7 +276,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       promotion,
     });
 
-  sendMove = (move: Move): void => this.sendMoveAt(this.vm.path, this.position(), move);
+  sendMove = (move: Move): void => this.sendMoveAt(this.path, this.position(), move);
 
   sendMoveAt = (path: Tree.Path, pos: Chess, move: Move): void => {
     move = normalizeMove(pos, move);
@@ -293,7 +301,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.jump(newPath);
     this.withGround(g => g.playPremove());
 
-    const progress = moveTest(this.vm, this.data.puzzle);
+    const progress = moveTest(this);
     if (progress === 'fail') lichess.sound.say('incorrect');
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
@@ -316,7 +324,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       g.cancelPremove();
       g.selectSquare(null);
     });
-    this.jump(treePath.init(this.vm.path));
+    this.jump(treePath.init(this.path));
     this.redraw();
   };
 
@@ -327,29 +335,29 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   applyProgress = (progress: undefined | 'fail' | 'win' | MoveTest): void => {
     if (progress === 'fail') {
-      this.vm.lastFeedback = 'fail';
+      this.lastFeedback = 'fail';
       this.revertUserMove();
-      if (this.vm.mode === 'play') {
+      if (this.mode === 'play') {
         if (this.streak) {
           this.failStreak(this.streak);
           this.streakFailStorage.fire();
         } else {
-          this.vm.canViewSolution = true;
-          this.vm.mode = 'try';
+          this.canViewSolution(true);
+          this.mode = 'try';
           this.sendResult(false);
         }
       }
     } else if (progress == 'win') {
       if (this.streak) this.sound.good();
-      this.vm.lastFeedback = 'win';
-      if (this.vm.mode != 'view') {
-        const sent = this.vm.mode == 'play' ? this.sendResult(true) : Promise.resolve();
-        this.vm.mode = 'view';
+      this.lastFeedback = 'win';
+      if (this.mode != 'view') {
+        const sent = this.mode == 'play' ? this.sendResult(true) : Promise.resolve();
+        this.mode = 'view';
         this.withGround(this.showGround);
         sent.then(_ => (this.autoNext() ? this.nextPuzzle() : this.startCeval()));
       }
     } else if (progress) {
-      this.vm.lastFeedback = 'good';
+      this.lastFeedback = 'good';
       setTimeout(
         () => {
           const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
@@ -361,15 +369,15 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   failStreak = (streak: PuzzleStreak): void => {
-    this.vm.mode = 'view';
+    this.mode = 'view';
     streak.onComplete(false);
     setTimeout(this.viewSolution, 500);
     this.sound.end();
   };
 
   sendResult = async (win: boolean): Promise<void> => {
-    if (this.vm.resultSent) return Promise.resolve();
-    this.vm.resultSent = true;
+    if (this.resultSent) return Promise.resolve();
+    this.resultSent = true;
     this.session.complete(this.data.puzzle.id, win);
     const res = await xhr.complete(
       this.data.puzzle.id,
@@ -384,12 +392,12 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (next?.user && this.data.user) {
       this.data.user.rating = next.user.rating;
       this.data.user.provisional = next.user.provisional;
-      this.vm.round = res.round;
+      this.round = res.round;
       if (res.round?.ratingDiff) this.session.setRatingDiff(this.data.puzzle.id, res.round.ratingDiff);
     }
     if (win) lichess.sound.say('Success!');
     if (next) {
-      this.vm.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
+      this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
     }
     this.redraw();
@@ -404,18 +412,18 @@ export default class PuzzleCtrl implements ParentCtrl {
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
-    if (this.streak && this.vm.lastFeedback != 'win') return;
-    if (this.vm.mode !== 'view') return;
+    if (this.streak && this.lastFeedback != 'win') return;
+    if (this.mode !== 'view') return;
 
     this.ceval.stop();
-    this.vm.next.promise.then(n => {
+    this.next.promise.then(n => {
       if (this.isPuzzleData(n)) {
         this.initiate(n);
         this.redraw();
       }
     });
 
-    if (this.data.replay && this.vm.round === undefined) {
+    if (this.data.replay && this.round === undefined) {
       lichess.redirect(`/training/dashboard/${this.data.replay.days}`);
     }
 
@@ -442,7 +450,7 @@ export default class PuzzleCtrl implements ParentCtrl {
             const threat = ev as Tree.LocalEval;
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
-          if (work.path === this.vm.path) {
+          if (work.path === this.path) {
             this.setAutoShapes();
             this.redraw();
           }
@@ -456,33 +464,29 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.withGround(g =>
       g.setAutoShapes(
         computeAutoShapes({
-          vm: this.vm,
-          ceval: this.ceval,
+          ...this,
           ground: g,
-          threatMode: this.threatMode(),
-          nextNodeBest: this.nextNodeBest(),
+          node: this.node,
         }),
       ),
     );
 
-  canUseCeval = (): boolean => this.vm.mode === 'view' && !this.outcome();
+  canUseCeval = (): boolean => this.mode === 'view' && !this.outcome();
 
   startCeval = (): void => {
     if (this.ceval.enabled() && this.canUseCeval()) this.doStartCeval();
   };
 
-  private doStartCeval = throttle(800, () =>
-    this.ceval.start(this.vm.path, this.vm.nodeList, this.threatMode()),
-  );
+  private doStartCeval = throttle(800, () => this.ceval.start(this.path, this.nodeList, this.threatMode()));
 
-  nextNodeBest = () => treeOps.withMainlineChild(this.vm.node, n => n.eval?.best);
+  nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 
   toggleCeval = (): void => {
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
     if (!this.ceval.enabled()) this.threatMode(false);
-    this.vm.autoScrollRequested = true;
+    this.autoScrollRequested = true;
     this.redraw();
   };
 
@@ -493,7 +497,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   toggleThreatMode = (): void => {
-    if (this.vm.node.check) return;
+    if (this.node.check) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.threatMode.toggle();
@@ -505,70 +509,70 @@ export default class PuzzleCtrl implements ParentCtrl {
   outcome = (): Outcome | undefined => this.position().outcome();
 
   jump = (path: Tree.Path): void => {
-    const pathChanged = path !== this.vm.path,
-      isForwardStep = pathChanged && path.length === this.vm.path.length + 2;
+    const pathChanged = path !== this.path,
+      isForwardStep = pathChanged && path.length === this.path.length + 2;
     this.setPath(path);
     this.withGround(this.showGround);
     if (pathChanged) {
       if (isForwardStep) {
-        lichess.sound.saySan(this.vm.node.san);
-        lichess.sound.move(this.vm.node);
+        lichess.sound.saySan(this.node.san);
+        lichess.sound.move(this.node);
       }
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
     }
     this.promotion.cancel();
-    this.vm.justPlayed = undefined;
-    this.vm.autoScrollRequested = true;
-    this.keyboardMove?.update({ fen: this.vm.node.fen });
-    this.voiceMove?.update(this.vm.node.fen, true);
-    lichess.pubsub.emit('ply', this.vm.node.ply);
+    this.justPlayed = undefined;
+    this.autoScrollRequested = true;
+    this.keyboardMove?.update({ fen: this.node.fen });
+    this.voiceMove?.update(this.node.fen, true);
+    lichess.pubsub.emit('ply', this.node.ply);
   };
 
   userJump = (path: Tree.Path): void => {
-    if (this.tree.nodeAtPath(path)?.puzzle == 'fail' && this.vm.mode != 'view') return;
+    if (this.tree.nodeAtPath(path)?.puzzle == 'fail' && this.mode != 'view') return;
     this.withGround(g => g.selectSquare(null));
     this.jump(path);
   };
 
   userJumpPlyDelta = (plyDelta: Ply) => {
     // ensure we are jumping to a valid ply
-    let maxValidPly = this.vm.mainline.length - 1;
-    if (last(this.vm.mainline)?.puzzle == 'fail' && this.vm.mode != 'view') maxValidPly -= 1;
-    const newPly = Math.min(Math.max(this.vm.node.ply + plyDelta, 0), maxValidPly);
-    this.userJump(fromNodeList(this.vm.mainline.slice(0, newPly + 1)));
+    let maxValidPly = this.mainline.length - 1;
+    if (last(this.mainline)?.puzzle == 'fail' && this.mode != 'view') maxValidPly -= 1;
+    const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
+    this.userJump(fromNodeList(this.mainline.slice(0, newPly + 1)));
   };
 
   viewSolution = (): void => {
     this.sendResult(false);
-    this.vm.mode = 'view';
-    mergeSolution(this.tree, this.vm.initialPath, this.data.puzzle.solution, this.vm.pov);
-    this.reorderChildren(this.vm.initialPath, true);
+    this.mode = 'view';
+    mergeSolution(this.tree, this.initialPath, this.data.puzzle.solution, this.pov);
+    this.reorderChildren(this.initialPath, true);
 
     // try to play the solution next move
-    const next = this.vm.node.children[0];
-    if (next && next.puzzle === 'good') this.userJump(this.vm.path + next.id);
+    const next = this.node.children[0];
+    if (next && next.puzzle === 'good') this.userJump(this.path + next.id);
     else {
-      const firstGoodPath = treeOps.takePathWhile(this.vm.mainline, node => node.puzzle != 'good');
+      const firstGoodPath = treeOps.takePathWhile(this.mainline, node => node.puzzle != 'good');
       if (firstGoodPath) this.userJump(firstGoodPath + this.tree.nodeAtPath(firstGoodPath).children[0].id);
     }
 
-    this.vm.autoScrollRequested = true;
-    this.vm.voteDisabled = true;
+    this.autoScrollRequested = true;
+    this.voteDisabled = true;
     this.redraw();
     this.startCeval();
     setTimeout(() => {
-      this.vm.voteDisabled = false;
+      this.voteDisabled = false;
       this.redraw();
     }, 500);
   };
 
   skip = () => {
-    if (!this.streak || !this.streak.data.skip || this.vm.mode != 'play') return;
+    if (!this.streak || !this.streak.data.skip || this.mode != 'play') return;
     this.streak.skip();
-    this.userJump(treePath.fromNodeList(this.vm.mainline));
-    const moveIndex = treePath.size(this.vm.path) - treePath.size(this.vm.initialPath);
+    this.userJump(treePath.fromNodeList(this.mainline));
+    const moveIndex = treePath.size(this.path) - treePath.size(this.initialPath);
     const solution = this.data.puzzle.solution[moveIndex];
     this.playUci(solution);
     this.playBestMove();
@@ -581,21 +585,21 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   vote = (v: boolean) => {
-    if (!this.vm.voteDisabled) {
+    if (!this.voteDisabled) {
       xhr.vote(this.data.puzzle.id, v);
       this.nextPuzzle();
     }
   };
 
   voteTheme = (theme: ThemeKey, v: boolean) => {
-    if (this.vm.round) {
-      this.vm.round.themes = this.vm.round.themes || {};
-      if (v === this.vm.round.themes[theme]) {
-        delete this.vm.round.themes[theme];
+    if (this.round) {
+      this.round.themes = this.round.themes || {};
+      if (v === this.round.themes[theme]) {
+        delete this.round.themes[theme];
         xhr.voteTheme(this.data.puzzle.id, theme, undefined);
       } else {
-        if (v || this.data.puzzle.themes.includes(theme)) this.vm.round.themes[theme] = v;
-        else delete this.vm.round.themes[theme];
+        if (v || this.data.puzzle.themes.includes(theme)) this.round.themes[theme] = v;
+        else delete this.round.themes[theme];
         xhr.voteTheme(this.data.puzzle.id, theme, v);
       }
       this.redraw();
@@ -603,12 +607,12 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   playBestMove = (): void => {
-    const uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.pvs[0].moves[0]);
+    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);
   };
-  autoNexting = () => this.vm.lastFeedback == 'win' && this.autoNext();
-  currentEvals = () => ({ client: this.vm.node.ceval });
-  showEvalGauge = () => this.vm.showComputer() && this.ceval.enabled() && !this.outcome();
+  autoNexting = () => this.lastFeedback == 'win' && this.autoNext();
+  currentEvals = () => ({ client: this.node.ceval });
+  showEvalGauge = () => this.showComputer() && this.ceval.enabled() && !this.outcome();
   getOrientation = () => this.withGround(g => g.state.orientation)!;
   allThemes = this.opts.themes && {
     dynamic: this.opts.themes.dynamic.split(' '),
@@ -618,6 +622,6 @@ export default class PuzzleCtrl implements ParentCtrl {
   // implement cetal ParentCtrl:
   getCeval = () => this.ceval;
   ongoing = false;
-  getNode = () => this.vm.node;
-  showComputer = () => this.vm.mode === 'view';
+  getNode = () => this.node;
+  showComputer = () => this.mode === 'view';
 }

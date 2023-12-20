@@ -1,5 +1,3 @@
-import { Config as CgConfig } from 'chessground/config';
-import { Deferred } from 'common/defer';
 import { Move } from 'chessops/types';
 import { VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
@@ -19,31 +17,6 @@ export interface NvuiPlugin {
 }
 
 export type ReplayEnd = PuzzleReplay;
-
-// #TODO wut
-export interface Vm {
-  path: Tree.Path;
-  nodeList: Tree.Node[];
-  node: Tree.Node;
-  mainline: Tree.Node[];
-  pov: Color;
-  mode: 'play' | 'view' | 'try';
-  round?: PuzzleRound;
-  next: Deferred<PuzzleData | ReplayEnd>;
-  justPlayed?: Key;
-  resultSent: boolean;
-  lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
-  initialPath: Tree.Path;
-  initialNode: Tree.Node;
-  canViewSolution: boolean;
-  autoScrollRequested: boolean;
-  autoScrollNow: boolean;
-  voteDisabled?: boolean;
-  cgConfig: CgConfig;
-  showComputer(): boolean;
-  showAutoShapes(): boolean;
-  isDaily: boolean;
-}
 
 export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
 

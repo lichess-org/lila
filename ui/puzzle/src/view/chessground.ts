@@ -42,7 +42,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.vm.node.ply);
+        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.node.ply);
       },
     },
     premovable: {

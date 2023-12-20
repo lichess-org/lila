@@ -12,7 +12,7 @@ const viewSolution = (ctrl: PuzzleCtrl): VNode =>
           ctrl.trans.noarg('skip'),
         ),
       ])
-    : h('div.view_solution', { class: { show: ctrl.vm.canViewSolution } }, [
+    : h('div.view_solution', { class: { show: ctrl.canViewSolution() } }, [
         h(
           'a.button.button-empty',
           { hook: bind('click', ctrl.viewSolution) },
@@ -23,12 +23,12 @@ const viewSolution = (ctrl: PuzzleCtrl): VNode =>
 const initial = (ctrl: PuzzleCtrl): VNode =>
   h('div.puzzle__feedback.play', [
     h('div.player', [
-      h('div.no-square', h('piece.king.' + ctrl.vm.pov)),
+      h('div.no-square', h('piece.king.' + ctrl.pov)),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('yourTurn')),
         h(
           'em',
-          ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
+          ctrl.trans.noarg(ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
         ),
       ]),
     ]),
@@ -60,8 +60,8 @@ const fail = (ctrl: PuzzleCtrl): VNode =>
   ]);
 
 export default function (ctrl: PuzzleCtrl): MaybeVNode {
-  if (ctrl.vm.mode === 'view') return afterView(ctrl);
-  switch (ctrl.vm.lastFeedback) {
+  if (ctrl.mode === 'view') return afterView(ctrl);
+  switch (ctrl.lastFeedback) {
     case 'init':
       return initial(ctrl);
     case 'good':
