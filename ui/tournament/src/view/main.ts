@@ -24,26 +24,18 @@ export default function (ctrl: TournamentController) {
       }),
     }),
     h('div.tour__underchat', {
-      hook: onInsert(el => {
-        $(el).replaceWith($('.tour__underchat.none').removeClass('none'));
-      }),
+      hook: onInsert(el => $(el).replaceWith($('.tour__underchat.none').removeClass('none'))),
     }),
     handler.table(ctrl),
     h(
       'div.tour__main',
       h(
         'div.box.' + handler.name,
-        {
-          class: { 'tour__main-finished': ctrl.data.isFinished },
-        },
+        { class: { 'tour__main-finished': ctrl.data.isFinished } },
         handler.main(ctrl),
       ),
     ),
-    ctrl.opts.chat
-      ? h('div.chat__members.none', {
-          hook: onInsert(lichess.watchers),
-        })
-      : null,
+    ctrl.opts.chat ? h('div.chat__members.none', { hook: onInsert(lichess.watchers) }) : null,
     ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);
 }

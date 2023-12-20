@@ -2,25 +2,19 @@ import config from '../config';
 import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { getNow } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import * as licon from 'common/licon';
-import { onInsert } from 'common/snabbdom';
+import { onInsert, looseH as h } from 'common/snabbdom';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload(ctrl, 'thisRunWasOpenedInAnotherTab');
   if (ctrl.vm.lateStart) return renderReload(ctrl, 'thisRunHasExpired');
   if (!ctrl.run.endAt)
-    return h(
-      'div.storm.storm-app.storm--play',
-      {
-        class: playModifiers(ctrl.run),
-      },
-      renderPlay(ctrl),
-    );
+    return h('div.storm.storm-app.storm--play', { class: playModifiers(ctrl.run) }, renderPlay(ctrl));
   return h('main.storm.storm--end', renderEnd(ctrl));
 }
 
@@ -50,8 +44,8 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => {
       run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
       h('div.puz-clock', [
         renderClock(run, ctrl.endNow, true),
-        !!malus && malus.at > now - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
-        !!bonus && bonus.at > now - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
+        !!malus && malus.at > now - 900 && h('div.puz-clock__malus', '-' + malus.seconds),
+        !!bonus && bonus.at > now - 900 && h('div.puz-clock__bonus', '+' + bonus.seconds),
         ...(run.clock.started() ? [] : [h('span.puz-clock__pov', ctrl.trans.noarg(povMessage(run)))]),
       ]),
       h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(run)]),
@@ -65,28 +59,15 @@ const renderSolved = (ctrl: StormCtrl): VNode =>
 const renderControls = (ctrl: StormCtrl): VNode =>
   h('div.puz-side__control', [
     h('a.puz-side__control__flip.button', {
-      class: {
-        active: ctrl.flipped,
-        'button-empty': !ctrl.flipped,
-      },
-      attrs: {
-        'data-icon': licon.ChasingArrows,
-        title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
-      },
+      class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
+      attrs: { 'data-icon': licon.ChasingArrows, title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)' },
       hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
     }),
     h('a.puz-side__control__reload.button.button-empty', {
-      attrs: {
-        href: '/storm',
-        'data-icon': licon.Trash,
-        title: ctrl.trans('newRun'),
-      },
+      attrs: { href: '/storm', 'data-icon': licon.Trash, title: ctrl.trans('newRun') },
     }),
     h('a.puz-side__control__end.button.button-empty', {
-      attrs: {
-        'data-icon': licon.FlagOutline,
-        title: ctrl.trans('endRun'),
-      },
+      attrs: { 'data-icon': licon.FlagOutline, title: ctrl.trans('endRun') },
       hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
     }),
   ]);
@@ -100,11 +81,5 @@ const renderReload = (ctrl: StormCtrl, msgKey: string) =>
   h('div.storm.storm--reload.box.box-pad', [
     h('i', { attrs: { 'data-icon': licon.Storm } }),
     h('p', ctrl.trans.noarg(msgKey)),
-    h(
-      'a.storm--dup__reload.button',
-      {
-        attrs: { href: '/storm' },
-      },
-      ctrl.trans.noarg('clickToReload'),
-    ),
+    h('a.storm--dup__reload.button', { attrs: { href: '/storm' } }, ctrl.trans.noarg('clickToReload')),
   ]);

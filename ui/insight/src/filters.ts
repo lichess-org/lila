@@ -32,12 +32,7 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
     dimension.values.map(value =>
       h(
         'option',
-        {
-          attrs: {
-            value: value.key,
-            selected: ctrl.vm.filters[dimension.key]?.includes(value.key),
-          },
-        },
+        { attrs: { value: value.key, selected: ctrl.vm.filters[dimension.key]?.includes(value.key) } },
         value.name,
       ),
     ),

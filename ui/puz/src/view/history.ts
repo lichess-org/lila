@@ -18,10 +18,7 @@ const toggleButton = (prop: Toggle, title: string): VNode =>
   h(
     'button.puz-history__filter.button',
     {
-      class: {
-        active: prop(),
-        'button-empty': !prop,
-      },
+      class: { active: prop(), 'button-empty': !prop },
       hook: onInsert(e => e.addEventListener('click', prop.toggle)),
     },
     title,
@@ -48,34 +45,28 @@ export default (ctrl: PuzCtrl): VNode => {
             (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId),
         )
         .map(round =>
-          h(
-            'div.puz-history__round',
-            {
-              key: round.puzzle.id,
-            },
-            [
-              h('a.puz-history__round__puzzle.mini-board.cg-wrap.is2d', {
-                attrs: {
-                  href: `/training/${round.puzzle.id}`,
-                  target: '_blank',
-                  rel: 'noopener',
-                },
-                hook: onInsert(e => {
-                  const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
-                  const uci = round.puzzle.line.split(' ')[0];
-                  pos.play(parseUci(uci)!);
-                  miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
-                }),
+          h('div.puz-history__round', { key: round.puzzle.id }, [
+            h('a.puz-history__round__puzzle.mini-board.cg-wrap.is2d', {
+              attrs: {
+                href: `/training/${round.puzzle.id}`,
+                target: '_blank',
+                rel: 'noopener',
+              },
+              hook: onInsert(e => {
+                const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
+                const uci = round.puzzle.line.split(' ')[0];
+                pos.play(parseUci(uci)!);
+                miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
               }),
-              h('span.puz-history__round__meta', [
-                h('span.puz-history__round__result', [
-                  h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
-                  h('rating', round.puzzle.rating),
-                ]),
-                h('span.puz-history__round__id', '#' + round.puzzle.id),
+            }),
+            h('span.puz-history__round__meta', [
+              h('span.puz-history__round__result', [
+                h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
+                h('rating', round.puzzle.rating),
               ]),
-            ],
-          ),
+              h('span.puz-history__round__id', '#' + round.puzzle.id),
+            ]),
+          ]),
         ),
     ),
   ]);

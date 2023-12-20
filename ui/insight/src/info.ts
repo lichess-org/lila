@@ -18,13 +18,7 @@ export default function (ctrl: Ctrl) {
         ctrl.own
           ? h(
               'a',
-              {
-                attrs: {
-                  href: '/account/preferences/site',
-                  target: '_blank',
-                  rel: 'noopener',
-                },
-              },
+              { attrs: { href: '/account/preferences/site', target: '_blank', rel: 'noopener' } },
               shareText,
             )
           : shareText,
@@ -38,19 +32,14 @@ export default function (ctrl: Ctrl) {
             h(
               'form.insight-refresh',
               {
-                attrs: {
-                  action: `/insights/refresh/${ctrl.env.user.id}`,
-                  method: 'post',
-                },
+                attrs: { action: `/insights/refresh/${ctrl.env.user.id}`, method: 'post' },
                 hook: onInsert(_el => lichess.refreshInsightForm()),
               },
               [
                 h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
                 h(
                   'div.crunching.none',
-                  {
-                    hook: onInsert(el => el.insertAdjacentHTML('afterbegin', lichess.spinnerHtml)),
-                  },
+                  { hook: onInsert(el => el.insertAdjacentHTML('afterbegin', lichess.spinnerHtml)) },
                   [h('br'), h('p', h('strong', 'Now crunching data just for you!'))],
                 ),
               ],

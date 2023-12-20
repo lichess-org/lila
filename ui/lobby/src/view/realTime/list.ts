@@ -26,23 +26,11 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     tds([
       h('span.is.color-icon.' + (hook.c || 'random')),
       hook.rating
-        ? h(
-            'span.ulink.ulpt',
-            {
-              attrs: { 'data-href': '/@/' + hook.u },
-            },
-            hook.u,
-          )
+        ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : noarg('anonymous'),
       hook.rating && !ctrl.opts.hideRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
-      h(
-        'span',
-        {
-          attrs: { 'data-icon': perfIcons[hook.perf] },
-        },
-        noarg(hook.ra ? 'rated' : 'casual'),
-      ),
+      h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, noarg(hook.ra ? 'rated' : 'casual')),
     ]),
   );
 }
@@ -75,21 +63,9 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
   const renderedHooks = [
     ...standards.map(render),
     variants.length
-      ? h(
-          'tr.variants',
-          {
-            key: 'variants',
-          },
-          [
-            h(
-              'td',
-              {
-                attrs: { colspan: 5 },
-              },
-              '— ' + ctrl.trans('variant') + ' —',
-            ),
-          ],
-        )
+      ? h('tr.variants', { key: 'variants' }, [
+          h('td', { attrs: { colspan: 5 } }, '— ' + ctrl.trans('variant') + ' —'),
+        ])
       : null,
     ...variants.map(render),
   ];
@@ -103,10 +79,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
         h(
           'th',
           {
-            class: {
-              sortable: true,
-              sort: ctrl.sort === 'rating',
-            },
+            class: { sortable: true, sort: ctrl.sort === 'rating' },
             hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
           },
           [h('i.is'), ctrl.trans('rating')],
@@ -114,10 +87,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
         h(
           'th',
           {
-            class: {
-              sortable: true,
-              sort: ctrl.sort === 'time',
-            },
+            class: { sortable: true, sort: ctrl.sort === 'time' },
             hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
           },
           [h('i.is'), ctrl.trans('time')],

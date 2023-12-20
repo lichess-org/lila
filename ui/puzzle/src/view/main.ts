@@ -7,8 +7,8 @@ import feedbackView from './feedback';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { Controller } from '../interfaces';
-import { h, VNode } from 'snabbdom';
-import { onInsert, bindNonPassive } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
+import { onInsert, bindNonPassive, looseH as h } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
@@ -27,13 +27,7 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
-  return h('button.fbt', {
-    class: { disabled, glowing },
-    attrs: {
-      'data-act': effect,
-      'data-icon': icon,
-    },
-  });
+  return h('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
 }
 
 function controls(ctrl: Controller): VNode {
@@ -132,18 +126,16 @@ export default function (ctrl: Controller): VNode {
         // so the siblings are only updated when ceval is added
         h(
           'div.ceval-wrap',
-          {
-            class: { none: !showCeval },
-          },
+          { class: { none: !showCeval } },
           showCeval ? [...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
       ]),
       controls(ctrl),
-      ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
+      ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       session(ctrl),
-      ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
+      ctrl.keyboardHelp() && keyboard.view(ctrl),
     ],
   );
 }
@@ -154,18 +146,14 @@ function session(ctrl: Controller) {
   return h('div.puzzle__session', [
     ...rounds.map(round => {
       const rd =
-        round.ratingDiff && ctrl.showRatings
-          ? round.ratingDiff > 0
-            ? '+' + round.ratingDiff
-            : round.ratingDiff
-          : null;
+        round.ratingDiff && ctrl.showRatings && round.ratingDiff > 0
+          ? '+' + round.ratingDiff
+          : round.ratingDiff;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
           key: round.id,
-          class: {
-            current: current == round.id,
-          },
+          class: { current: current == round.id },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
@@ -175,24 +163,10 @@ function session(ctrl: Controller) {
       );
     }),
     rounds.find(r => r.id == current)
-      ? ctrl.streak
-        ? null
-        : h('a.session-new', {
-            key: 'new',
-            attrs: {
-              href: `/training/${ctrl.session.theme}`,
-            },
-          })
+      ? !ctrl.streak && h('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
       : h(
           'a.result-cursor.current',
-          {
-            key: current,
-            attrs: ctrl.streak
-              ? {}
-              : {
-                  href: `/training/${ctrl.session.theme}/${current}`,
-                },
-          },
+          { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
           ctrl.streak?.data.index,
         ),
   ]);

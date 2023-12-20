@@ -31,11 +31,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ...tb.joinWith.map(id =>
                 h(
                   'button.button.team-picker__team',
-                  {
-                    attrs: {
-                      'data-id': id,
-                    },
-                  },
+                  { attrs: { 'data-id': id } },
                   renderTeamArray(tb.teams[id]),
                 ),
               ),
@@ -45,16 +41,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               h(
                 'ul',
                 shuffleArray(Object.keys(tb.teams)).map((id: string) =>
-                  h(
-                    'li',
-                    h(
-                      'a',
-                      {
-                        attrs: { href: '/team/' + id },
-                      },
-                      renderTeamArray(tb.teams[id]),
-                    ),
-                  ),
+                  h('li', h('a', { attrs: { href: '/team/' + id } }, renderTeamArray(tb.teams[id]))),
                 ),
               ),
             ]),
@@ -84,16 +71,10 @@ function extraTeams(ctrl: TournamentController): VNode {
     'tr',
     h(
       'td.more-teams',
-      {
-        attrs: { colspan: 4 },
-      },
+      { attrs: { colspan: 4 } },
       h(
         'a',
-        {
-          attrs: {
-            href: `/tournament/${ctrl.data.id}/teams`,
-          },
-        },
+        { attrs: { href: `/tournament/${ctrl.data.id}/teams` } },
         ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length),
       ),
     ),
@@ -122,12 +103,8 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         {
           key: p.user.name,
           class: { top: i === 0 },
-          attrs: {
-            'data-href': '/@/' + p.user.name,
-          },
-          hook: {
-            destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-          },
+          attrs: { 'data-href': '/@/' + p.user.name },
+          hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
         },
         [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), '' + p.score],
       ),
@@ -137,9 +114,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     'tr',
     {
       key: team.id,
-      class: {
-        active: ctrl.teamInfo.requested == team.id,
-      },
+      class: { active: ctrl.teamInfo.requested == team.id },
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [

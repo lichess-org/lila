@@ -72,16 +72,9 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
           return h(
             'span',
             {
-              class: {
-                disabled,
-              },
-              attrs: {
-                title: p.text,
-                disabled,
-              },
-              hook: bind('click', () => {
-                !disabled && ctrl.post(p);
-              }),
+              class: { disabled },
+              attrs: { title: p.text, disabled },
+              hook: bind('click', () => !disabled && ctrl.post(p)),
             },
             p.key,
           );

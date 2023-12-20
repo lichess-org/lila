@@ -1,7 +1,7 @@
 import { AnalyseSocketSend } from '../socket';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { iconTag, bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
+import { iconTag, bind, onInsert, dataIcon, bindNonPassive, looseH as h } from 'common/snabbdom';
 import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
 import { prop, Prop, scrollTo } from 'common';
@@ -163,16 +163,13 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
-          _ => members.confing(members.confing() == member.user.id ? null : member.user.id),
+          () => members.confing(members.confing() == member.user.id ? null : member.user.id),
           ctrl.redraw,
         ),
       });
     if (!isOwner && member.user.id === members.opts.myId)
       return h('i.act.leave', {
-        attrs: {
-          'data-icon': licon.InternalArrow,
-          title: ctrl.trans.noarg('leaveTheStudy'),
-        },
+        attrs: { 'data-icon': licon.InternalArrow, title: ctrl.trans.noarg('leaveTheStudy') },
         hook: bind('click', members.leave, ctrl.redraw),
       });
     return undefined;
@@ -190,16 +187,10 @@ export function view(ctrl: StudyCtrl): VNode {
         h('div.role', [
           h('div.switch', [
             h('input.cmn-toggle', {
-              attrs: {
-                id: roleId,
-                type: 'checkbox',
-                checked: member.role === 'w',
-              },
+              attrs: { id: roleId, type: 'checkbox', checked: member.role === 'w' },
               hook: bind(
                 'change',
-                e => {
-                  members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r');
-                },
+                e => members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r'),
                 ctrl.redraw,
               ),
             }),
@@ -211,10 +202,7 @@ export function view(ctrl: StudyCtrl): VNode {
           'div.kick',
           h(
             'a.button.button-red.button-empty.text',
-            {
-              attrs: dataIcon(licon.X),
-              hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw),
-            },
+            { attrs: dataIcon(licon.X), hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw) },
             ctrl.trans.noarg('kick'),
           ),
         ),
@@ -224,59 +212,39 @@ export function view(ctrl: StudyCtrl): VNode {
 
   const ordered: StudyMember[] = members.ordered();
 
-  return h(
-    'div.study__members',
-    {
-      hook: onInsert(() => lichess.pubsub.emit('chat.resize')),
-    },
-    [
-      ...ordered
-        .map(member => {
-          const confing = members.confing() === member.user.id;
-          return [
-            h(
-              'div',
-              {
-                key: member.user.id,
-                class: { editing: !!confing },
-              },
-              [
-                h('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
-                configButton(ctrl, member),
-              ],
-            ),
-            confing ? memberConfig(member) : null,
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
-      isOwner && ordered.length < members.max
-        ? h(
-            'div.add',
-            {
-              key: 'add',
-              hook: bind('click', members.inviteForm.toggle),
-            },
-            [
-              h('div.left', [
-                h('span.status', iconTag(licon.PlusButton)),
-                h('div.user-link', ctrl.trans.noarg('addMembers')),
-              ]),
-            ],
-          )
-        : null,
-      !members.canContribute() && ctrl.data.admin
-        ? h(
-            'form.admin',
-            {
-              key: ':admin',
-              hook: bindNonPassive('submit', () => {
-                xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
-                return false;
-              }),
-            },
-            [h('button.button.button-red.button-thin', 'Enter as admin')],
-          )
-        : null,
-    ],
-  );
+  return h('div.study__members', { hook: onInsert(() => lichess.pubsub.emit('chat.resize')) }, [
+    ...ordered
+      .map(member => {
+        const confing = members.confing() === member.user.id;
+        return [
+          h('div', { key: member.user.id, class: { editing: !!confing } }, [
+            h('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+            configButton(ctrl, member),
+          ]),
+          confing && memberConfig(member),
+        ];
+      })
+      .reduce((a, b) => a.concat(b), []),
+    isOwner &&
+      ordered.length < members.max &&
+      h('div.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
+        h('div.left', [
+          h('span.status', iconTag(licon.PlusButton)),
+          h('div.user-link', ctrl.trans.noarg('addMembers')),
+        ]),
+      ]),
+    !members.canContribute() &&
+      ctrl.data.admin &&
+      h(
+        'form.admin',
+        {
+          key: ':admin',
+          hook: bindNonPassive('submit', () => {
+            xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+            return false;
+          }),
+        },
+        [h('button.button.button-red.button-thin', 'Enter as admin')],
+      ),
+  ]);
 }

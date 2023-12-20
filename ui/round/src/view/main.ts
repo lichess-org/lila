@@ -3,7 +3,8 @@ import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
 import { stepwiseScroll } from 'common/scroll';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -48,8 +49,8 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')],
         ),
-        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw) : null,
-        ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
+        ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw),
+        ctrl.keyboardHelp && keyboard.view(ctrl),
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],

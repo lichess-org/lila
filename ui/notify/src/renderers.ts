@@ -149,22 +149,10 @@ function generic(n: Notification, url: string | undefined, icon: string, content
   return h(
     url ? 'a' : 'span',
     {
-      class: {
-        site_notification: true,
-        [n.type]: true,
-        new: !n.read,
-      },
-      attrs: {
-        key: n.date,
-        ...(url ? { href: url } : {}),
-      },
+      class: { site_notification: true, [n.type]: true, new: !n.read },
+      attrs: { key: n.date, ...(url ? { href: url } : {}) },
     },
-    [
-      h('i', {
-        attrs: { 'data-icon': icon },
-      }),
-      h('span.content', content),
-    ],
+    [h('i', { attrs: { 'data-icon': icon } }), h('span.content', content)],
   );
 }
 
@@ -172,12 +160,7 @@ function drawTime(n: Notification) {
   const date = new Date(n.date);
   return h(
     'time.timeago',
-    {
-      attrs: {
-        title: date.toLocaleString(),
-        datetime: n.date,
-      },
-    },
+    { attrs: { title: date.toLocaleString(), datetime: n.date } },
     lichess.timeago(date),
   );
 }

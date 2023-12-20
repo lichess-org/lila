@@ -30,10 +30,7 @@ export class ThemeCtrl {
     applyTheme(t, d.list, this.dimension() === 'd3');
     const field = `theme${this.dimension() === 'd3' ? '3d' : ''}`;
     xhr
-      .text(`/pref/${field}`, {
-        body: xhr.form({ [field]: t }),
-        method: 'post',
-      })
+      .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
       .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
     this.redraw();
   };

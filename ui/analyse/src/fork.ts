@@ -35,11 +35,7 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
         prev = node;
         selected = 0;
       }
-      return {
-        node,
-        selected,
-        displayed: displayed(),
-      };
+      return { node, selected, displayed: displayed() };
     },
     next() {
       if (!displayed()) return false;
@@ -120,16 +116,9 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       if (!conceal)
         return h(
           'move',
-          {
-            class: classes,
-            attrs: { 'data-it': it },
-          },
+          { class: classes, attrs: { 'data-it': it } },
           renderIndexAndMove(
-            {
-              withDots: true,
-              showEval: ctrl.showComputer(),
-              showGlyphs: ctrl.showComputer(),
-            },
+            { withDots: true, showEval: ctrl.showComputer(), showGlyphs: ctrl.showComputer() },
             node,
           )!,
         );
