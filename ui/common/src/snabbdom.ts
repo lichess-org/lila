@@ -42,11 +42,11 @@ export type LooseVNodes = (MaybeVNode | boolean)[];
 type LooseVNode = VNodeChildElement | boolean;
 type VNodeKids = LooseVNode | LooseVNode[];
 
-function filterKids(children: VNodeKids): VNodeChildElement[] {
-  return (Array.isArray(children) ? children : [children]).filter(
-    x => (x && x !== true) || x === '', // '' may be falsy but it's a valid VNode
-  ) as VNodeChildElement[];
-}
+// '' may be falsy but it's a valid VNode
+const kidFilter = (x: any): boolean => (x && x !== true) || x === '';
+
+const filterKids = (children: VNodeKids): VNodeChildElement[] =>
+  (Array.isArray(children) ? children : [children]).filter(kidFilter) as VNodeChildElement[];
 
 /* obviate need for some ternary expressions in renders.  Allows
      looseH('div', [ kids && h('div', 'kid') ])
