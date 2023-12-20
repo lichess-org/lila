@@ -3,11 +3,11 @@ import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
-import { Controller } from '../interfaces';
 import { MaybeVNode, LooseVNodes, looseH as h } from 'common/snabbdom';
+import PuzzleCtrl from '../ctrl';
 
 interface Ctx {
-  ctrl: Controller;
+  ctrl: PuzzleCtrl;
 }
 
 interface RenderOpts {
@@ -21,18 +21,18 @@ interface Glyph {
   symbol: string;
 }
 
-const autoScroll = throttle(150, (ctrl: Controller, el) => {
+const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el) => {
   const cont = el.parentNode;
   const target = el.querySelector('.active');
   if (!target) {
-    cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
+    cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
     return;
   }
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
 function pathContains(ctx: Ctx, path: Tree.Path): boolean {
-  return treePath.contains(ctx.ctrl.vm.path, path);
+  return treePath.contains(ctx.ctrl.path, path);
 }
 
 function plyToTurn(ply: number): number {
@@ -91,9 +91,9 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
   const path = opts.parentPath + node.id;
   const classes: Classes = {
-    active: path === ctx.ctrl.vm.path,
-    current: path === ctx.ctrl.vm.initialPath,
-    hist: node.ply < ctx.ctrl.vm.initialNode.ply,
+    active: path === ctx.ctrl.path,
+    current: path === ctx.ctrl.initialPath,
+    hist: node.ply < ctx.ctrl.initialNode.ply,
   };
   if (node.puzzle) classes[node.puzzle] = true;
   return h('move', { attrs: { p: path }, class: classes }, renderMove(ctx, node));
@@ -129,7 +129,7 @@ function renderMove(ctx: Ctx, node: Tree.Node): LooseVNodes {
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
-  const active = path === ctx.ctrl.vm.path;
+  const active = path === ctx.ctrl.path;
   const classes: Classes = { active, parent: !active && pathContains(ctx, path) };
   if (node.puzzle) classes[node.puzzle] = true;
   return h('move', { attrs: { p: path }, class: classes }, [
@@ -159,8 +159,8 @@ function eventPath(e: Event): Tree.Path | null {
   return target.getAttribute('p') || (target.parentNode as HTMLElement).getAttribute('p');
 }
 
-export function render(ctrl: Controller): VNode {
-  const root = ctrl.getTree().root;
+export function render(ctrl: PuzzleCtrl): VNode {
+  const root = ctrl.tree.root;
   const ctx = { ctrl: ctrl, showComputer: false };
   return h(
     'div.tview2.tview2-column',
@@ -177,13 +177,13 @@ export function render(ctrl: Controller): VNode {
           });
         },
         postpatch: (_, vnode) => {
-          if (ctrl.vm.autoScrollNow) {
+          if (ctrl.autoScrollNow) {
             autoScroll(ctrl, vnode.elm as HTMLElement);
-            ctrl.vm.autoScrollNow = false;
+            ctrl.autoScrollNow = false;
             ctrl.autoScrollRequested = false;
-          } else if (ctrl.vm.autoScrollRequested) {
-            if (ctrl.vm.path !== treePath.root) autoScroll(ctrl, vnode.elm as HTMLElement);
-            ctrl.vm.autoScrollRequested = false;
+          } else if (ctrl.autoScrollRequested) {
+            if (ctrl.path !== treePath.root) autoScroll(ctrl, vnode.elm as HTMLElement);
+            ctrl.autoScrollRequested = false;
           }
         },
       },

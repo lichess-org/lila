@@ -1,34 +1,34 @@
 import * as licon from 'common/licon';
 import { MaybeVNodes, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import { Controller } from '../interfaces';
 import { VNode } from 'snabbdom';
 import * as router from 'common/router';
+import PuzzleCtrl from '../ctrl';
 
-const renderVote = (ctrl: Controller): VNode =>
+const renderVote = (ctrl: PuzzleCtrl): VNode =>
   h(
     'div.puzzle__vote',
     {},
     !ctrl.autoNexting() && [
       ctrl.session.isNew() &&
-        ctrl.getData().user?.provisional &&
+        ctrl.data.user?.provisional &&
         h('div.puzzle__vote__help', [
           h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
           h('p', ctrl.trans.noarg('voteToLoadNextOne')),
         ]),
-      h('div.puzzle__vote__buttons', { class: { enabled: !ctrl.vm.voteDisabled } }, [
+      h('div.puzzle__vote__buttons', { class: { enabled: !ctrl.voteDisabled } }, [
         h('div.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
         h('div.vote.vote-down', { hook: bind('click', () => ctrl.vote(false)) }),
       ]),
     ],
   );
 
-const renderContinue = (ctrl: Controller) =>
+const renderContinue = (ctrl: PuzzleCtrl) =>
   h('a.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
     ctrl.trans.noarg('continueTraining'),
   ]);
 
-const renderStreak = (ctrl: Controller): MaybeVNodes => [
+const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
   h('div.complete', [
     h('span.game-over', 'GAME OVER'),
     h('span', ctrl.trans.vdom('yourStreakX', h('strong', ctrl.streak?.data.index))),
@@ -39,9 +39,9 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
   ]),
 ];
 
-export default function (ctrl: Controller): VNode {
-  const data = ctrl.getData();
-  const win = ctrl.vm.lastFeedback == 'win';
+export default function (ctrl: PuzzleCtrl): VNode {
+  const data = ctrl.data;
+  const win = ctrl.lastFeedback == 'win';
   return h(
     'div.puzzle__feedback.after',
     ctrl.streak && !win
@@ -53,7 +53,7 @@ export default function (ctrl: Controller): VNode {
             h('a', {
               attrs: {
                 'data-icon': licon.Bullseye,
-                href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
+                href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
                 title: ctrl.trans.noarg('playWithTheMachine'),
                 target: '_blank',
                 rel: 'noopener',

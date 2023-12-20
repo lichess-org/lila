@@ -6,7 +6,6 @@ import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
-import { Controller } from '../interfaces';
 import { VNode } from 'snabbdom';
 import { onInsert, bindNonPassive, looseH as h } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/device';
@@ -16,10 +15,10 @@ import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 import boardMenu from './boardMenu';
-
 import * as Prefs from 'common/prefs';
+import PuzzleCtrl from '../ctrl';
 
-const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
+const renderAnalyse = (ctrl: PuzzleCtrl): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -30,10 +29,10 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
   return h('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
 }
 
-function controls(ctrl: Controller): VNode {
-  const node = ctrl.vm.node;
+function controls(ctrl: PuzzleCtrl): VNode {
+  const node = ctrl.node;
   const nextNode = node.children[0];
-  const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  const notOnLastMove = ctrl.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
   return h('div.puzzle__controls.analyse-controls', [
     h(
       'div.jumps',
@@ -62,16 +61,16 @@ function controls(ctrl: Controller): VNode {
 
 let cevalShown = false;
 
-export default function (ctrl: Controller): VNode {
+export default function (ctrl: PuzzleCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
-  const showCeval = ctrl.vm.showComputer(),
+  const showCeval = ctrl.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
-    if (!cevalShown) ctrl.vm.autoScrollNow = true;
+    if (!cevalShown) ctrl.autoScrollNow = true;
     cevalShown = showCeval;
   }
   return h(
-    `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+    `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
       class: { 'gauge-on': gaugeOn },
       hook: {
@@ -140,13 +139,13 @@ export default function (ctrl: Controller): VNode {
   );
 }
 
-function session(ctrl: Controller) {
+function session(ctrl: PuzzleCtrl) {
   const rounds = ctrl.session.get().rounds,
-    current = ctrl.getData().puzzle.id;
+    current = ctrl.data.puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
       const rd =
-        round.ratingDiff && ctrl.showRatings && round.ratingDiff > 0
+        round.ratingDiff && ctrl.opts.showRatings && round.ratingDiff > 0
           ? '+' + round.ratingDiff
           : round.ratingDiff;
       return h(

@@ -1,9 +1,9 @@
 import { bind, MaybeVNode } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
-import { Controller } from '../interfaces';
 import afterView from './after';
+import PuzzleCtrl from '../ctrl';
 
-const viewSolution = (ctrl: Controller): VNode =>
+const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
     ? h('div.view_solution.skip', { class: { show: !!ctrl.streak?.data.skip } }, [
         h(
@@ -12,7 +12,7 @@ const viewSolution = (ctrl: Controller): VNode =>
           ctrl.trans.noarg('skip'),
         ),
       ])
-    : h('div.view_solution', { class: { show: ctrl.vm.canViewSolution } }, [
+    : h('div.view_solution', { class: { show: ctrl.canViewSolution() } }, [
         h(
           'a.button.button-empty',
           { hook: bind('click', ctrl.viewSolution) },
@@ -20,22 +20,22 @@ const viewSolution = (ctrl: Controller): VNode =>
         ),
       ]);
 
-const initial = (ctrl: Controller): VNode =>
+const initial = (ctrl: PuzzleCtrl): VNode =>
   h('div.puzzle__feedback.play', [
     h('div.player', [
-      h('div.no-square', h('piece.king.' + ctrl.vm.pov)),
+      h('div.no-square', h('piece.king.' + ctrl.pov)),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('yourTurn')),
         h(
           'em',
-          ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
+          ctrl.trans.noarg(ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
         ),
       ]),
     ]),
     viewSolution(ctrl),
   ]);
 
-const good = (ctrl: Controller): VNode =>
+const good = (ctrl: PuzzleCtrl): VNode =>
   h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
@@ -47,7 +47,7 @@ const good = (ctrl: Controller): VNode =>
     viewSolution(ctrl),
   ]);
 
-const fail = (ctrl: Controller): VNode =>
+const fail = (ctrl: PuzzleCtrl): VNode =>
   h('div.puzzle__feedback.fail', [
     h('div.player', [
       h('div.icon', '✗'),
@@ -59,9 +59,9 @@ const fail = (ctrl: Controller): VNode =>
     viewSolution(ctrl),
   ]);
 
-export default function (ctrl: Controller): MaybeVNode {
-  if (ctrl.vm.mode === 'view') return afterView(ctrl);
-  switch (ctrl.vm.lastFeedback) {
+export default function (ctrl: PuzzleCtrl): MaybeVNode {
+  if (ctrl.mode === 'view') return afterView(ctrl);
+  switch (ctrl.lastFeedback) {
     case 'init':
       return initial(ctrl);
     case 'good':
