@@ -32,8 +32,10 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using ActorSystem, Executo
               case e: Exception => SyncLog.event(0, e.some)
             .flatMap: event =>
               api
-                .update(rt.round):
-                  _.withSync(_ addLog event).copy(finished = games.forall(_.end.isDefined))
+                .update(rt.round): r1 =>
+                  val r2 = r1.withSync(_ addLog event)
+                  val r3 = if event.moves > 0 then r2.ensureStarted.resume else r2
+                  r3.copy(finished = games.nonEmpty && games.forall(_.end.isDefined))
                 .inject:
                   event.error.fold(Right(event.moves))(err => Left(LilaInvalid(err)))
       )
