@@ -10,7 +10,7 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
     {},
     !ctrl.autoNexting() && [
       ctrl.session.isNew() &&
-        ctrl.getData().user?.provisional &&
+        ctrl.data.user?.provisional &&
         h('div.puzzle__vote__help', [
           h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
           h('p', ctrl.trans.noarg('voteToLoadNextOne')),

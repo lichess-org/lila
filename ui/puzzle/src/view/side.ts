@@ -25,7 +25,7 @@ const angleImg = (ctrl: PuzzleCtrl): string => {
 
 const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
   h('div.infos.puzzle', [
-    h('img.infos__angle-img', { attrs: { src: angleImg(ctrl), alt: ctrl.getData().angle.name } }),
+    h('img.infos__angle-img', { attrs: { src: angleImg(ctrl), alt: ctrl.data.angle.name } }),
     h('div', [
       h(
         'p',
@@ -75,7 +75,7 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
       h(
         'div.players',
         game.players.map(p => {
-          const user = { ...p, rating: ctrl.showRatings ? p.rating : undefined, line: false };
+          const user = { ...p, rating: ctrl.opts.showRatings ? p.rating : undefined, line: false };
           return h('div.player.color-icon.is.text.' + p.color, userLink(user));
         }),
       ),
@@ -161,7 +161,7 @@ export function replay(ctrl: PuzzleCtrl): MaybeVNode {
   return h('div.puzzle__side__replay', [
     h('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, [
       '« ',
-      `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles`,
+      `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles`,
     ]),
     h('div.puzzle__side__replay__bar', {
       attrs: {
@@ -202,7 +202,7 @@ export function config(ctrl: PuzzleCtrl): MaybeVNode {
 export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
   h(
     'form.puzzle__side__config__difficulty',
-    { attrs: { action: `/training/difficulty/${ctrl.getData().angle.key}`, method: 'post' } },
+    { attrs: { action: `/training/difficulty/${ctrl.data.angle.key}`, method: 'post' } },
     [
       h('label', { attrs: { for: 'puzzle-difficulty' } }, ctrl.trans.noarg('difficultyLevel')),
       h(
