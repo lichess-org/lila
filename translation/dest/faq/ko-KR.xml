@@ -143,4 +143,5 @@ LM 타이틀에 대해 문의하지 마세요.</string>
 브라우저의 URL 표시 줄에서 lichess.org 주소 옆에 있는 자물쇠 아이콘을 클릭합니다.
 
 그런 다음 Lichess의 알림을 허용할지 차단할지 선택합니다.</string>
+  <string name="enableAutoplayForSoundsQ">소리 자동 재생을 활성화하고 싶어요.</string>
 </resources>
