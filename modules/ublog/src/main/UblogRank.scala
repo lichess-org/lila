@@ -8,6 +8,7 @@ import reactivemongo.api.*
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
 import lila.user.{ Me, User }
+import lila.i18n.Language
 
 final class UblogRank(
     colls: UblogColls,
@@ -54,7 +55,7 @@ final class UblogRank(
               likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
               liveAt   <- doc.getAsOpt[Instant]("at")
               tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
-              language <- doc.getAsOpt[Lang]("language")
+              language <- doc.getAsOpt[Language]("language")
               title    <- doc string "title"
               hasImage = doc.contains("imageId")
             yield (id, likes, liveAt, tier, language, title, hasImage)
@@ -93,7 +94,7 @@ final class UblogRank(
             doc.string("_id"),
             doc.getAsOpt[UblogPost.Likes]("likes"),
             doc.getAsOpt[UblogPost.Recorded]("lived"),
-            doc.getAsOpt[Lang]("language"),
+            doc.getAsOpt[Language]("language"),
             doc.contains("image").some
           ).tupled so { (id, likes, lived, language, hasImage) =>
             colls.post
@@ -118,7 +119,7 @@ final class UblogRank(
   private def computeRank(
       likes: UblogPost.Likes,
       liveAt: Instant,
-      language: Lang,
+      language: Language,
       tier: UblogBlog.Tier,
       hasImage: Boolean
   ) = UblogPost.RankDate {
@@ -135,7 +136,7 @@ final class UblogRank(
 
         val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val langBonus = if language.language == lila.i18n.defaultLang.language then 0 else -24 * 10
+        val langBonus = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
 
         (tierBase + likesBonus + langBonus).toInt
   }

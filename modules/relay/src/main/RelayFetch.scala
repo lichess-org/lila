@@ -15,6 +15,7 @@ import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
+import lila.common.config.Max
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -27,33 +28,32 @@ final private class RelayFetch(
     gameProxy: GameProxyRepo
 )(using Executor, Scheduler):
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)):
+  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(25 seconds)):
     syncRelays(official = true)
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)):
+  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(40 seconds)):
     syncRelays(official = false)
 
+  private val maxRelaysToSync = Max(50)
+
   private def syncRelays(official: Boolean) =
-    api
-      .toSync(official)
+    val relays = if official then api.toSyncOfficial(maxRelaysToSync) else api.toSyncUser(maxRelaysToSync)
+    relays
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
-        relays
-          .map: rt =>
-            if rt.round.sync.ongoing then
-              processRelay(rt) flatMap { newRelay =>
-                api.update(rt.round)(_ => newRelay)
-              }
-            else if rt.round.hasStarted then
-              logger.info(s"Finish by lack of activity ${rt.round}")
-              api.update(rt.round)(_.finish)
-            else if rt.round.shouldGiveUp then
-              val msg = "Finish for lack of start"
-              logger.info(s"$msg ${rt.round}")
-              if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
-              api.update(rt.round)(_.finish)
-            else fuccess(rt.round)
-          .parallel
+        relays.traverse: rt =>
+          if rt.round.sync.ongoing then
+            processRelay(rt) flatMap: newRelay =>
+              api.update(rt.round)(_ => newRelay)
+          else if rt.round.hasStarted then
+            logger.info(s"Finish by lack of activity ${rt.round}")
+            api.update(rt.round)(_.finish)
+          else if rt.round.shouldGiveUp then
+            val msg = "Finish for lack of start"
+            logger.info(s"$msg ${rt.round}")
+            if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+            api.update(rt.round)(_.finish)
+          else fuccess(rt.round)
       .void
 
   // no writing the relay; only reading!
@@ -135,16 +135,14 @@ final private class RelayFetch(
           gameRepo.withInitialFens flatMap { games =>
             if games.size == ids.size then
               val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
-              games.map { (game, fen) =>
+              games.traverse { (game, fen) =>
                 pgnDump(game, fen, pgnFlags).dmap(_.render)
-              }.parallel dmap MultiPgn.apply
+              } dmap MultiPgn.apply
             else
-              throw LilaInvalid(
+              throw LilaInvalid:
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
-              )
-          } flatMap {
+          } flatMap:
             RelayFetch.multiPgnToGames(_).toFuture
-          }
       case url: UpstreamUrl =>
         delayer(url, rt, doFetchUrl)
 
@@ -162,8 +160,8 @@ final private class RelayFetch(
             }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
-          round.pairings
-            .mapWithIndex: (pairing, i) =>
+          round.pairings.zipWithIndex
+            .traverse: (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
@@ -174,10 +172,8 @@ final private class RelayFetch(
                       GameJson(moves = Nil, result = none)
                     } map { _.toPgn(pairing.tags) }
                 .map(number -> _)
-            .parallel
-            .map { results =>
+            .map: results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
-            }
         }
     } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
 
@@ -186,10 +182,7 @@ final private class RelayFetch(
   private def httpGetJson[A: Reads](url: URL): Fu[A] = for
     str  <- formatApi.httpGet(url)
     json <- Future(Json parse str) // Json.parse throws exceptions (!)
-    data <-
-      summon[Reads[A]]
-        .reads(json)
-        .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
+    data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
 
 private[relay] object RelayFetch:

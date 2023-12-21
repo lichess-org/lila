@@ -5,7 +5,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.config
-import lila.i18n.{ I18nLangPicker, LangList }
+import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User as UserModel }
@@ -164,9 +164,8 @@ final class Ublog(env: Env) extends LilaController(env):
   def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> _ ?=>
     NoBot:
       NotForKids:
-        env.ublog.rank.like(id, v) map { likes =>
+        env.ublog.rank.like(id, v) map: likes =>
           Ok(likes.value)
-        }
   }
 
   def redirect(id: UblogPostId) = Open:
@@ -220,9 +219,9 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator.liveByFollowed(me, page) map html.ublog.index.friends
   }
 
-  def communityLang(language: String, page: Int = 1) = Open:
+  def communityLang(langStr: String, page: Int = 1) = Open:
     import I18nLangPicker.ByHref
-    I18nLangPicker.byHref(language, ctx.req) match
+    I18nLangPicker.byHref(langStr, ctx.req) match
       case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
       case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
       case ByHref.Refused(lang) => communityIndex(lang.some, page)
@@ -233,24 +232,19 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityAll(page: Int) = Open:
     communityIndex(none, page)
 
-  def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
+  private def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
       Reasonable(page, config.Max(100)):
         pageHit
         Ok.pageAsync:
-          env.ublog.paginator.liveByCommunity(l, page) map {
-            html.ublog.index.community(l, _)
-          }
-
-  def communityLangBC(code: String) = Anon:
-    val l = LangList.popularNoRegion.find(_.code == code)
-    Redirect:
-      l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
+          val language = l.map(Language.apply)
+          env.ublog.paginator.liveByCommunity(language, page) map:
+            html.ublog.index.community(language, _)
 
   def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
     env.ublog.paginator
-      .liveByCommunity(l, page = 1)
+      .liveByCommunity(l.map(Language.apply), page = 1)
       .map: posts =>
         Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
 
@@ -258,9 +252,8 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       Reasonable(page, config.Max(100)):
         Ok.pageAsync:
-          env.ublog.paginator.liveByLiked(page) map {
+          env.ublog.paginator.liveByLiked(page) map:
             html.ublog.index.liked(_)
-          }
   }
 
   def topics = Open:
@@ -272,12 +265,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
       Reasonable(page, config.Max(100)):
-        lila.ublog.UblogTopic.fromUrl(str) so { top =>
+        lila.ublog.UblogTopic.fromUrl(str) so: top =>
           Ok.pageAsync:
-            env.ublog.paginator.liveByTopic(top, page, byDate) map {
+            env.ublog.paginator.liveByTopic(top, page, byDate) map:
               html.ublog.index.topic(top, _, byDate)
-            }
-        }
 
   def userAtom(username: UserStr) = Anon:
     env.user.repo
@@ -288,9 +279,8 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>
-              (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+              (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map: posts =>
                 Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
-              }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

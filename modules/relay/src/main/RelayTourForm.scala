@@ -6,10 +6,16 @@ import play.api.data.Forms.*
 import lila.common.Form.{ cleanText, formatter, into }
 import lila.security.Granter
 import lila.user.Me
+import lila.i18n.LangForm
 
 final class RelayTourForm:
 
   import RelayTourForm.*
+
+  val spotlightMapping =
+    mapping("enabled" -> boolean, "lang" -> LangForm.popularLanguages.mapping, "title" -> optional(text))(
+      RelayTour.Spotlight.apply
+    )(unapply)
 
   val form = Form(
     mapping(
@@ -18,7 +24,8 @@ final class RelayTourForm:
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
-      "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply)))
+      "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply))),
+      "spotlight"       -> optional(spotlightMapping)
     )(Data.apply)(unapply)
   )
 
@@ -34,7 +41,8 @@ object RelayTourForm:
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
-      players: Option[RelayPlayers]
+      players: Option[RelayPlayers],
+      spotlight: Option[RelayTour.Spotlight]
   ):
 
     def update(tour: RelayTour)(using Me) =
@@ -45,7 +53,8 @@ object RelayTourForm:
           markup = markup,
           tier = tier ifTrue Granter(_.Relay),
           autoLeaderboard = autoLeaderboard,
-          players = players
+          players = players,
+          spotlight = spotlight.filterNot(_.isEmpty)
         )
         .reAssignIfOfficial
 
@@ -61,7 +70,8 @@ object RelayTourForm:
         createdAt = nowInstant,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard,
-        players = players
+        players = players,
+        spotlight = spotlight.filterNot(_.isEmpty)
       ).reAssignIfOfficial
 
   object Data:
@@ -73,5 +83,6 @@ object RelayTourForm:
         markup = tour.markup,
         tier = tour.tier,
         autoLeaderboard = tour.autoLeaderboard,
-        players = tour.players
+        players = tour.players,
+        spotlight = tour.spotlight
       )

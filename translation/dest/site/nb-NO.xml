@@ -272,7 +272,6 @@
   <string name="playingRightNow">Pågår</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Ferdig</string>
-  <string name="finishesX">avsluttes %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
   <string name="standard">Standard</string>
@@ -405,7 +404,7 @@
   <string name="importGame">Importer parti</string>
   <string name="importGameExplanation">Lim inn PGN for gjennomblaing, maskinanalyse, partisamtale og delbar URL.</string>
   <string name="importGameCaveat">Varianter importeres ikke. Bruk en studie for å importere PGN med varianter.</string>
-  <string name="importGameCaveat2">Denne PGN-en er offentlig tilgjengelig. Bruk en studie for å importere et parti privat.</string>
+  <string name="importGameDataPrivacyWarning">Denne PGN-en er offentlig tilgjengelig. Bruk en studie for å importere et parti privat.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte partier</item>
@@ -507,7 +506,7 @@
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Etternavn</string>
-  <string name="setFlair">Velg flair:</string>
+  <string name="setFlair">Velg flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finnes en innstilling for å skjule alle brukerflairer på hele nettstedet.</string>
   <string name="biography">Biografi</string>
@@ -862,9 +861,10 @@
     <item quantity="one">og lagre %s linje med forhåndstrekk</item>
     <item quantity="other">og lagre %s linjer med forhåndstrekk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har mottatt en privat melding fra Lichess.</string>
+  <string name="clickHereToReadIt">Klikk her for å lese den</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
-  <string name="timeoutExpires">Timeouten utløper %s.</string>
   <string name="why">Hvorfor?</string>
   <string name="pleasantChessExperience">Vi forsøker å gi alle en god sjakkopplevelse.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spillere følger god praksis.</string>
@@ -884,6 +884,7 @@
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Hurtigsjakk</string>
   <string name="classical">Klassisk</string>

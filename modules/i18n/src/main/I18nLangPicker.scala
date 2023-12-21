@@ -50,11 +50,11 @@ object I18nLangPicker:
 
   def byHref(code: String, req: RequestHeader): ByHref =
     Lang get code flatMap findCloser match
-      case Some(lang) if fixJavaLanguageCode(lang) == code =>
+      case Some(lang) if fixJavaLanguage(lang).value == code =>
         if req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language)
         then ByHref.Found(lang)
         else ByHref.Refused(lang)
-      case Some(lang) => ByHref.Redir(fixJavaLanguageCode(lang))
+      case Some(lang) => ByHref.Redir(fixJavaLanguage(lang).value)
       case None       => ByHref.NotFound
 
   enum ByHref:

@@ -41,4 +41,11 @@
   <plurals name="nbYearsAgo">
     <item quantity="other">%s年前</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="other">还剩 %s 分钟</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="other">还剩 %s 小时</item>
+  </plurals>
+  <string name="completed">已完成</string>
 </resources>

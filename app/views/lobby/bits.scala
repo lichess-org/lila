@@ -78,25 +78,25 @@ object bits:
       uposts: List[lila.ublog.UblogPost.PreviewPost]
   )(using ctx: Context): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
-      lichess
-        .filter(_.forKids || ctx.kid.no)
-        .map: post =>
-          val imgSize = UblogPost.thumbnail.Size.Small
-          a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
-            img(
-              src     := post.image,
-              cls     := "ublog-post-card__image",
-              widthA  := imgSize.width,
-              heightA := imgSize.height
-            ),
-            span(cls := "ublog-post-card__content")(
-              h2(cls := "ublog-post-card__title")(post.title),
-              semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
-            )
+      lichess.map: post =>
+        val imgSize = UblogPost.thumbnail.Size.Small
+        a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
+          img(
+            src     := post.image,
+            cls     := "ublog-post-card__image",
+            widthA  := imgSize.width,
+            heightA := imgSize.height
+          ),
+          span(cls := "ublog-post-card__content")(
+            h2(cls := "ublog-post-card__title")(post.title),
+            semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
           )
+        )
       ,
-      ctx.kid.no option uposts.map:
-        views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
+      ctx.kid.no option uposts
+        .take(if lichess.isEmpty then 3 else 2)
+        .map:
+          views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
     )
 
   def showUnreadLichessMessage(using Context) =
@@ -155,9 +155,8 @@ object bits:
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
-        button(cls := "text button button-red", dataIcon := licon.X)(
+        button(cls := "text button button-red", dataIcon := licon.X):
           if current.pov.game.abortableByUser then trans.abortTheGame() else trans.resignTheGame()
-        )
       ),
       br,
       p(trans.youCantStartNewGame())

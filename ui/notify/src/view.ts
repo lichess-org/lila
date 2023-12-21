@@ -28,10 +28,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
   if (nb > 0)
     nodes.push(
       h('button.delete.button.button-empty', {
-        attrs: {
-          'data-icon': licon.Trash,
-          title: 'Clear',
-        },
+        attrs: { 'data-icon': licon.Trash, title: 'Clear' },
         hook: clickHook(ctrl.clear),
       }),
     );
@@ -40,10 +37,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   if (pager.nextPage)
     nodes.push(
-      h('div.pager.next', {
-        attrs: { 'data-icon': licon.DownTriangle },
-        hook: clickHook(ctrl.nextPage),
-      }),
+      h('div.pager.next', { attrs: { 'data-icon': licon.DownTriangle }, hook: clickHook(ctrl.nextPage) }),
     );
 
   if (!('Notification' in window))
@@ -61,13 +55,7 @@ export function asText(n: Notification, trans: Trans): string | undefined {
 function notificationDenied(): VNode {
   return h(
     'a.browser-notification.denied',
-    {
-      attrs: {
-        href: '/faq#browser-notifications',
-        target: '_blank',
-        rel: 'noopener',
-      },
-    },
+    { attrs: { href: '/faq#browser-notifications', target: '_blank', rel: 'noopener' } },
     'Notification popups disabled by browser setting',
   );
 }
@@ -92,14 +80,8 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return h(
     'div',
     {
-      class: {
-        notifications: true,
-        scrolling,
-      },
-      hook: {
-        insert: contentLoaded,
-        postpatch: contentLoaded,
-      },
+      class: { notifications: true, scrolling },
+      hook: { insert: contentLoaded, postpatch: contentLoaded },
     },
     d.pager.currentPageResults.map(n => asHtml(n, trans)) as VNode[],
   );

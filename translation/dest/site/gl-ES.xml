@@ -272,7 +272,6 @@
   <string name="playingRightNow">Xogando agora mesmo</string>
   <string name="eventInProgress">Xogando agora mesmo</string>
   <string name="finished">Finalizado</string>
-  <string name="finishesX">remata %s</string>
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
   <string name="standard">Estándar</string>
@@ -405,7 +404,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
   <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
-  <string name="importGameCaveat2">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -507,7 +506,7 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
-  <string name="setFlair">Escolle a túa habelencia:</string>
+  <string name="setFlair">Escolle a túa habelencia</string>
   <string name="flair">Habelencia</string>
   <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
   <string name="biography">Biografía</string>
@@ -864,7 +863,6 @@
   <string name="clickHereToReadIt">Fai clic aquí para lela</string>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>
-  <string name="timeoutExpires">A suspensión expira %s.</string>
   <string name="why">Por que?</string>
   <string name="pleasantChessExperience">O noso obxectivo é proporcionar unha experiencia amena no xadrez pra todo o mundo.</string>
   <string name="goodPractice">Para iso, debemos asegurarnos de que todos os xogadores se comportan como é debido.</string>

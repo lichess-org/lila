@@ -85,8 +85,8 @@ export class ExternalEngine implements CevalEngine {
 
       this.state = CevalState.Initial;
       this.status?.();
-    } catch (err: unknown) {
-      if ((err as Error).name !== 'AbortError') {
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
         console.error(err);
         this.state = CevalState.Failed;
         this.status?.({ error: String(err) });

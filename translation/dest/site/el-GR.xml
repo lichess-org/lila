@@ -270,7 +270,6 @@
   <string name="playingRightNow">Παιχνίδι σε εξέλιξη τώρα</string>
   <string name="eventInProgress">Σε εξέλιξη τώρα</string>
   <string name="finished">Ολοκληρωμένα</string>
-  <string name="finishesX">τελειώνει %s</string>
   <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
   <string name="standard">Κανονικό</string>
@@ -847,7 +846,6 @@
   </plurals>
   <string name="sorry">Λυπούμαστε :(</string>
   <string name="weHadToTimeYouOutForAWhile">Πρέπει να σας αποκλείσουμε για λίγο.</string>
-  <string name="timeoutExpires">Ο αποκλεισμός λήγει σε %s.</string>
   <string name="why">Γιατί;</string>
   <string name="pleasantChessExperience">Ο σκοπός μας είναι να προσφέρουμε μια ευχάριστη σκακιστική ατμόσφαιρα για όλους.</string>
   <string name="goodPractice">Για να πραγματοποιηθεί αυτό, πρέπει να βεβαιωθούμε ότι όλοι οι παίκτες ακολουθούν τους κανόνες.</string>

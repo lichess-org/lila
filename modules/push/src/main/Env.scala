@@ -1,13 +1,10 @@
 package lila.push
 
 import akka.actor.*
-import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import java.nio.charset.StandardCharsets.UTF_8
-import scala.jdk.CollectionConverters.*
 
 import lila.common.config.*
 
@@ -16,7 +13,7 @@ final private class PushConfig(
     @ConfigName("collection.device") val deviceColl: CollName,
     @ConfigName("collection.subscription") val subscriptionColl: CollName,
     val web: WebPush.Config,
-    val firebase: FirebasePush.Config
+    val firebase: FirebasePush.BothConfigs
 )
 
 @Module
@@ -26,6 +23,7 @@ final class Env(
     db: lila.db.Db,
     getLightUser: lila.common.LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
+    roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
@@ -35,24 +33,10 @@ final class Env(
 
   def vapidPublicKey = config.web.vapidPublicKey
 
-  private val deviceApi  = new DeviceApi(db(config.deviceColl))
-  val webSubscriptionApi = new WebSubscriptionApi(db(config.subscriptionColl))
+  private val deviceApi  = DeviceApi(db(config.deviceColl))
+  val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
 
-  def registerDevice    = deviceApi.register
-  def unregisterDevices = deviceApi.unregister
-
-  private lazy val googleCredentials: Option[GoogleCredentials] =
-    try
-      config.firebase.json.value.some.filter(_.nonEmpty).map { json =>
-        ServiceAccountCredentials
-          .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
-          .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
-      }
-    catch
-      case e: Exception =>
-        logger.warn("Failed to create google credentials", e)
-        none
-  if googleCredentials.isDefined then logger.info("Firebase push notifications are enabled.")
+  export deviceApi.{ register as registerDevice, unregister as unregisterDevices }
 
   private lazy val firebasePush = wire[FirebasePush]
 
@@ -71,7 +55,7 @@ final class Env(
     "offerEventCorres",
     "tourSoon",
     "notifyPush"
-  ) {
+  ):
     case lila.game.actorApi.FinishGame(game, _) =>
       logUnit { pushApi finish game }
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
@@ -90,4 +74,3 @@ final class Env(
       logUnit { pushApi notifyPush (to, content) }
     case t: lila.hub.actorApi.push.TourSoon =>
       logUnit { pushApi tourSoon t }
-  }

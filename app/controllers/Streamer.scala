@@ -24,10 +24,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           page        <- renderPage(html.streamer.index(live, pager, requests))
         yield Ok(page)
 
-  def featured = Anon:
+  def featured = Anon: ctx ?=>
     env.streamer.liveStreamApi.all.map: streams =>
       val max      = env.streamer.homepageMaxSetting.get()
-      val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
+      val featured = streams.homepage(max, ctx.acceptLanguages) withTitles env.user.lightUserApi
       JsonOk:
         featured.live.streams.map: s =>
           Json.obj(

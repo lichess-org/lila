@@ -1,8 +1,9 @@
 package lila.relay
 
-import ornicar.scalalib.ThreadLocalRandom
+import play.api.i18n.Lang
 
 import lila.user.User
+import lila.i18n.Language
 
 case class RelayTour(
     _id: RelayTour.Id,
@@ -14,6 +15,7 @@ case class RelayTour(
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
     syncedAt: Option[Instant],    // last time a round was synced
+    spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
     players: Option[RelayPlayers] = None
 ):
@@ -54,6 +56,10 @@ object RelayTour:
       case (t, n) if t == tier.toString => n
     } | "???"
 
+  case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
+    def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
+    def specialLanguage: Option[Language] = language != lila.i18n.defaultLanguage option language
+
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
   case class ActiveWithSomeRounds(tour: RelayTour, display: RelayRound, link: RelayRound)
@@ -64,4 +70,5 @@ object RelayTour:
     def link    = round
     def display = round
 
+  import ornicar.scalalib.ThreadLocalRandom
   def makeId = Id(ThreadLocalRandom nextString 8)

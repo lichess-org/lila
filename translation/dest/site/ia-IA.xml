@@ -203,7 +203,6 @@
   <string name="playingRightNow">Jocante ora mesmo</string>
   <string name="eventInProgress">Jocante ora mesmo</string>
   <string name="finished">Finite</string>
-  <string name="finishesX">fini %s</string>
   <string name="abortGame">Cancellar partita</string>
   <string name="gameAborted">Partita cancellate</string>
   <string name="standard">Standard</string>

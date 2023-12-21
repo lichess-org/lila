@@ -272,7 +272,6 @@
   <string name="playingRightNow">Pågår</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Slutt</string>
-  <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
@@ -406,7 +405,7 @@
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN\'en via ein studie.</string>
-  <string name="importGameCaveat2">Denne PGN er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
+  <string name="importGameDataPrivacyWarning">Denne PGN-fila er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte parti</item>
@@ -508,7 +507,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
-  <string name="setFlair">Vel ikonet ditt:</string>
+  <string name="setFlair">Vel ikonet ditt</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Det finst ei innstilling for å skjule alle brukarikonar på heile nettstaden.</string>
   <string name="biography">Biografi</string>
@@ -867,7 +866,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clickHereToReadIt">Klikk her for å lesa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
-  <string name="timeoutExpires">Timeouten tek slutt %s.</string>
   <string name="why">Kvifor?</string>
   <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spelarane respekterar god praksis.</string>

@@ -54,4 +54,5 @@
     <item quantity="one">il y a %s an</item>
     <item quantity="other">il y a %s ans</item>
   </plurals>
+  <string name="completed">terminé</string>
 </resources>

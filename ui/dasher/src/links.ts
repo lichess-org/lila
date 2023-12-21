@@ -34,24 +34,9 @@ export default function (ctrl: DasherCtrl): VNode {
 
           !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
 
-          h(
-            'form.logout',
-            {
-              attrs: { method: 'post', action: '/logout' },
-            },
-            [
-              h(
-                'button.text',
-                {
-                  attrs: {
-                    type: 'submit',
-                    'data-icon': licon.Power,
-                  },
-                },
-                noarg('logOut'),
-              ),
-            ],
-          ),
+          h('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
+            h('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, noarg('logOut')),
+          ]),
         ])
       : null;
   }
@@ -73,11 +58,7 @@ export default function (ctrl: DasherCtrl): VNode {
         h(
           'button.text',
           {
-            attrs: {
-              'data-icon': licon.DiscBigOutline,
-              title: 'Keyboard: z',
-              type: 'button',
-            },
+            attrs: { 'data-icon': licon.DiscBigOutline, title: 'Keyboard: z', type: 'button' },
             hook: bind('click', () => lichess.pubsub.emit('zen')),
           },
           noarg('zenMode'),
@@ -93,11 +74,7 @@ export default function (ctrl: DasherCtrl): VNode {
 }
 
 const linkCfg = (href: string, icon: string, more?: Attrs) => ({
-  attrs: {
-    href,
-    'data-icon': icon,
-    ...(more || {}),
-  },
+  attrs: { href, 'data-icon': icon, ...(more || {}) },
 });
 
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {

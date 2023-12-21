@@ -2,8 +2,8 @@ import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { domDialog } from 'common/dialog';
 import { isTouchDevice } from 'common/device';
-import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
 import { toggle, ToggleSettings } from 'common/controls';
 import AnalyseCtrl from '../ctrl';
@@ -16,14 +16,8 @@ interface AutoplaySpeed {
 }
 
 const baseSpeeds: AutoplaySpeed[] = [
-  {
-    name: 'fast',
-    delay: 1000,
-  },
-  {
-    name: 'slow',
-    delay: 5000,
-  },
+  { name: 'fast', delay: 1000 },
+  { name: 'slow', delay: 5000 },
 ];
 
 const realtimeSpeed: AutoplaySpeed = {
@@ -52,10 +46,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
       return h(
         'a.button',
         {
-          class: {
-            active,
-            'button-empty': !active,
-          },
+          class: { active, 'button-empty': !active },
           hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw),
         },
         ctrl.trans.noarg(speed.name),
@@ -84,10 +75,7 @@ function studyButton(ctrl: AnalyseCtrl) {
   return h(
     'form',
     {
-      attrs: {
-        method: 'post',
-        action: '/study/as',
-      },
+      attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (ctrl.synthetic || ctrl.persistence?.isDirty)) {
@@ -96,21 +84,12 @@ function studyButton(ctrl: AnalyseCtrl) {
       }),
     },
     [
-      !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : null,
+      !ctrl.synthetic && hiddenInput('gameId', ctrl.data.game.id),
       hiddenInput('pgn', ''),
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
-      h(
-        'button',
-        {
-          attrs: {
-            type: 'submit',
-            'data-icon': licon.StudyBoard,
-          },
-        },
-        ctrl.trans.noarg('toStudy'),
-      ),
+      h('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, ctrl.trans.noarg('toStudy')),
     ],
   );
 }
@@ -126,61 +105,50 @@ export function view(ctrl: AnalyseCtrl): VNode {
     h('div.action-menu__tools', [
       h(
         'a',
-        {
-          hook: bind('click', ctrl.flip),
-          attrs: {
-            'data-icon': licon.ChasingArrows,
-            title: 'Hotkey: f',
-          },
-        },
+        { hook: bind('click', ctrl.flip), attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' } },
         noarg('flipBoard'),
       ),
-      ctrl.ongoing
-        ? null
-        : h(
-            'a',
-            {
-              attrs: {
-                href: d.userAnalysis
-                  ? '/editor?' +
-                    new URLSearchParams({
-                      fen: ctrl.node.fen,
-                      variant: d.game.variant.key,
-                      color: ctrl.chessground.state.orientation,
-                    })
-                  : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
-                'data-icon': licon.Pencil,
-                rel: 'nofollow',
-              },
+      !ctrl.ongoing &&
+        h(
+          'a',
+          {
+            attrs: {
+              href: d.userAnalysis
+                ? '/editor?' +
+                  new URLSearchParams({
+                    fen: ctrl.node.fen,
+                    variant: d.game.variant.key,
+                    color: ctrl.chessground.state.orientation,
+                  })
+                : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
+              'data-icon': licon.Pencil,
+              rel: 'nofollow',
             },
-            noarg('boardEditor'),
-          ),
-      canContinue
-        ? h(
-            'a',
-            {
-              hook: bind('click', () =>
-                domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
-              ),
-              attrs: dataIcon(licon.Swords),
-            },
-            noarg('continueFromHere'),
-          )
-        : null,
+          },
+          noarg('boardEditor'),
+        ),
+      canContinue &&
+        h(
+          'a',
+          {
+            hook: bind('click', () => domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' })),
+            attrs: dataIcon(licon.Swords),
+          },
+          noarg('continueFromHere'),
+        ),
       studyButton(ctrl),
-      ctrl.persistence?.isDirty
-        ? h(
-            'a',
-            {
-              attrs: {
-                title: noarg('clearSavedMoves'),
-                'data-icon': licon.Trash,
-              },
-              hook: bind('click', ctrl.persistence.clear),
+      ctrl.persistence?.isDirty &&
+        h(
+          'a',
+          {
+            attrs: {
+              title: noarg('clearSavedMoves'),
+              'data-icon': licon.Trash,
             },
-            noarg('clearSavedMoves'),
-          )
-        : null,
+            hook: bind('click', ctrl.persistence.clear),
+          },
+          noarg('clearSavedMoves'),
+        ),
     ]),
   ];
 
@@ -240,30 +208,28 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
-    isTouchDevice()
-      ? null
-      : ctrlToggle(
-          {
-            name: 'showVariationArrows',
-            title: 'Variation navigation arrows',
-            id: 'variationArrows',
-            checked: ctrl.variationArrowsProp(),
-            change: ctrl.toggleVariationArrows,
-          },
-          ctrl,
-        ),
-    ctrl.ongoing
-      ? null
-      : ctrlToggle(
-          {
-            name: 'Annotations on board',
-            title: 'Display analysis symbols on the board',
-            id: 'move-annotation',
-            checked: ctrl.showMoveAnnotation(),
-            change: ctrl.toggleMoveAnnotation,
-          },
-          ctrl,
-        ),
+    !isTouchDevice() &&
+      ctrlToggle(
+        {
+          name: 'showVariationArrows',
+          title: 'Variation navigation arrows',
+          id: 'variationArrows',
+          checked: ctrl.variationArrowsProp(),
+          change: ctrl.toggleVariationArrows,
+        },
+        ctrl,
+      ),
+    !ctrl.ongoing &&
+      ctrlToggle(
+        {
+          name: 'Annotations on board',
+          title: 'Display analysis symbols on the board',
+          id: 'move-annotation',
+          checked: ctrl.showMoveAnnotation(),
+          change: ctrl.toggleMoveAnnotation,
+        },
+        ctrl,
+      ),
   ];
 
   return h('div.action-menu', [
@@ -271,33 +237,32 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...displayConfig,
     ...cevalConfig,
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
-    canContinue
-      ? h('div.continue-with.none.g_' + d.game.id, [
-          h(
-            'a.button',
-            {
-              attrs: {
-                href: d.userAnalysis
-                  ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
-                  : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow',
-              },
+    canContinue &&
+      h('div.continue-with.none.g_' + d.game.id, [
+        h(
+          'a.button',
+          {
+            attrs: {
+              href: d.userAnalysis
+                ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
+                : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow',
             },
-            noarg('playWithTheMachine'),
-          ),
-          h(
-            'a.button',
-            {
-              attrs: {
-                href: d.userAnalysis
-                  ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
-                  : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow',
-              },
+          },
+          noarg('playWithTheMachine'),
+        ),
+        h(
+          'a.button',
+          {
+            attrs: {
+              href: d.userAnalysis
+                ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
+                : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow',
             },
-            noarg('playWithAFriend'),
-          ),
-        ])
-      : null,
+          },
+          noarg('playWithAFriend'),
+        ),
+      ]),
   ]);
 }

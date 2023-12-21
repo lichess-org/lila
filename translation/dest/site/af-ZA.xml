@@ -272,7 +272,6 @@
   <string name="playingRightNow">In spel</string>
   <string name="eventInProgress">Tans besig om te speel</string>
   <string name="finished">Klaar</string>
-  <string name="finishesX">maak klaar %s</string>
   <string name="abortGame">Staak spel</string>
   <string name="gameAborted">Spel gestaak</string>
   <string name="standard">Standaard</string>
@@ -402,7 +401,7 @@
   <string name="importGameExplanation">Plak \'n wedstryd PGN om dit deursoekbaar te herspeel,
 rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="importGameCaveat">Variasies sal uitgevee word. Voer die PGN in d.m.v. \'n studie om hulle te behou.</string>
-  <string name="importGameCaveat2">Hierdie PGN is toeganklik vir die algemene publiek. Gebruik \'n studie om \'n spel privaat in te voer.</string>
+  <string name="importGameDataPrivacyWarning">Hierdie PGN is toeganklik vir die algemene publiek. Gebruik \'n studie om \'n spel privaat in te voer.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ingevoerde spel</item>
     <item quantity="other">%s het spelle ingetrek</item>
@@ -858,7 +857,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="clickHereToReadIt">Klik hier om dit te lees</string>
   <string name="sorry">Skies :(</string>
   <string name="weHadToTimeYouOutForAWhile">Jy moet vir \'n rukkie in die hoek sit.</string>
-  <string name="timeoutExpires">Jy mag weer uitkom %s.</string>
   <string name="why">Hoekom?</string>
   <string name="pleasantChessExperience">Ons poog om \'n aangename ervaring aan alle spelers te gee.</string>
   <string name="goodPractice">Om dit reg te kry, moet ons seker maak dat alle spelers goeie praktyke handhaaf.</string>
@@ -878,6 +876,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="agreementPolicy">Ek stem in om al Lichess se beleide na te volg.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blits</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassieke</string>

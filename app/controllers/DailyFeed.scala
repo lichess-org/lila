@@ -18,9 +18,6 @@ final class DailyFeed(env: Env) extends LilaController(env):
       page    <- renderPage(html.dailyFeed.index(updates))
     yield Ok(page)
 
-  private def get(day: String): Fu[Option[Update]] =
-    scala.util.Try(LocalDate.parse(day)).toOption.so(api.get)
-
   def createForm = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Ok.pageAsync(html.dailyFeed.create(api.form(none)))
   }
@@ -31,31 +28,34 @@ final class DailyFeed(env: Env) extends LilaController(env):
       .bindFromRequest()
       .fold(
         err => BadRequest.pageAsync(html.dailyFeed.create(err)),
-        up => api.set(up, none) inject Redirect(routes.DailyFeed.edit(up.day)).flashSuccess
+        data =>
+          val up = data toUpdate none
+          api.set(up) inject Redirect(routes.DailyFeed.edit(up.id)).flashSuccess
       )
   }
 
-  def edit(day: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
-    Found(get(day)): up =>
+  def edit(id: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
+    Found(api.get(id)): up =>
       Ok.pageAsync(html.dailyFeed.edit(api.form(up.some), up))
   }
 
-  def update(day: String) = SecureBody(_.DailyFeed) { _ ?=> _ ?=>
-    Found(get(day)): from =>
+  def update(id: String) = SecureBody(_.DailyFeed) { _ ?=> _ ?=>
+    Found(api.get(id)): from =>
       api
         .form(from.some)
         .bindFromRequest()
         .fold(
           err => BadRequest.pageAsync(html.dailyFeed.edit(err, from)),
-          up => api.set(up, from.some) inject Redirect(routes.DailyFeed.edit(up.day)).flashSuccess
+          data =>
+            api.set(data toUpdate from.id.some) inject Redirect(routes.DailyFeed.edit(from.id)).flashSuccess
         )
   }
 
-  def delete(day: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
-    Found(get(day)): up =>
-      api.delete(up.day) inject Redirect(routes.DailyFeed.index).flashSuccess
+  def delete(id: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
+    Found(api.get(id)): up =>
+      api.delete(up.id) inject Redirect(routes.DailyFeed.index).flashSuccess
   }
 
   def atom = Anon:
-    api.recent map: ups =>
+    api.recentPublished map: ups =>
       Ok(html.dailyFeed.atom(ups)) as XML

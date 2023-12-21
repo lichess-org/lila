@@ -272,7 +272,6 @@
   <string name="playingRightNow">En chuego agora mesmo</string>
   <string name="eventInProgress">Se ye chugando agora</string>
   <string name="finished">Rematau</string>
-  <string name="finishesX">remata %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Standard</string>
@@ -405,7 +404,6 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Apegando lo PGN d\'una partida, s\'obtiene una repetición navegable, una analisi per ordinador, un chat de partida y un vinclo pa compartir.</string>
   <string name="importGameCaveat">Se borrarán las variants. Pa mantenir-la, importa lo PGN a traviés d\'un estudio.</string>
-  <string name="importGameCaveat2">Este PGN ye accesible per lo publico. Pa importar una partida de manera privada, fe servir un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -507,7 +505,7 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
-  <string name="setFlair">Define lo tuyo estilo:</string>
+  <string name="setFlair">Define lo tuyo estilo</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">I hai un achuste pa amagar toz es estilos d\'usuario en tot lo puesto web.</string>
   <string name="biography">Biografía</string>
@@ -866,7 +864,6 @@
   <string name="clickHereToReadIt">Fe clic aquí pa leyer-lo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos habiu de que suspender-te temporalment.</string>
-  <string name="timeoutExpires">La suspensión expira en %s.</string>
   <string name="why">Per qué?</string>
   <string name="pleasantChessExperience">Lo nuestro obchectivo ye proporcionar una experiencia agradable a toz.</string>
   <string name="goodPractice">Pa ixo, hemos d\'asegurar-nos que toz los chugadors se comportan como cal.</string>

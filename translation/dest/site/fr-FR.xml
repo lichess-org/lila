@@ -272,7 +272,6 @@
   <string name="playingRightNow">En cours</string>
   <string name="eventInProgress">Parties en cours</string>
   <string name="finished">Terminé</string>
-  <string name="finishesX">se termine dans %s</string>
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
   <string name="standard">Standard</string>
@@ -405,7 +404,7 @@
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <string name="importGameCaveat">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
-  <string name="importGameCaveat2">Cette partie en format PGN peut être vue en public. Pour importer une partie en privé, utilisez une étude.</string>
+  <string name="importGameDataPrivacyWarning">Cette partie en format PGN n\'est pas privée. Pour importer une partie en privé, utilisez une étude.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
@@ -507,7 +506,7 @@
   <string name="editProfile">Modifier le profil</string>
   <string name="firstName">Prénom</string>
   <string name="lastName">Nom</string>
-  <string name="setFlair">Choisir votre émoji :</string>
+  <string name="setFlair">Choisir votre émoji</string>
   <string name="flair">Émoji</string>
   <string name="youCanHideFlair">Un paramètre permet de cacher les émojis d\'un utilisateur sur tout le site.</string>
   <string name="biography">Biographie</string>
@@ -866,7 +865,6 @@
   <string name="clickHereToReadIt">Cliquez ici pour le lire.</string>
   <string name="sorry">Désolé :(</string>
   <string name="weHadToTimeYouOutForAWhile">Nous avons dû temporairement vous suspendre.</string>
-  <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience du jeu d\'échecs.</string>
   <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs adoptent les bonnes pratiques.</string>

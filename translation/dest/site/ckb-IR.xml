@@ -272,7 +272,6 @@
   <string name="playingRightNow">یارییەکانی ئێستا</string>
   <string name="eventInProgress">ئێستا یاری دەکەن</string>
   <string name="finished">تەواوبوو</string>
-  <string name="finishesX">تەواوبوو %s</string>
   <string name="abortGame">هەڵوەشاندنەوەی یاری</string>
   <string name="gameAborted">یارییەکە هەڵوەشایەوە</string>
   <string name="standard">ئاسایی</string>
@@ -405,7 +404,6 @@
   <string name="importGame">یارییەکان هەناردەبکە</string>
   <string name="importGameExplanation">دوای پەیستکردنی PGN لینکێکت دەست دەکەوێت، دەتوانی لە وێبگەرەکان بەکاری بێنیت بۆ شیکاریکردنی یارییەکە، گفتوگۆکردن و بەشداریپێکردن.</string>
   <string name="importGameCaveat">گۆڕانکارییەکان دەسڕدرێنەوە. بۆ پاراستنی، لە ڕێگەی PGN توێژینەوەکە هاوردە بکە.</string>
-  <string name="importGameCaveat2">ئەم PGN ـە دەتوانرێت لەلایەن خەڵکەوە دەستی پێ بگات. بۆ هاوردەکردنی یارییەک بە شێوەیەکی تایبەت یان توێژینەوەیەک بەکاردێت.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s یاری هاوردەکراو</item>
     <item quantity="other">%s یارییە هاوردەکراوەکان</item>
@@ -507,7 +505,7 @@
   <string name="editProfile">دەستکاریکردنی پڕۆفایل</string>
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
-  <string name="setFlair">توانای خۆت دابنێ:</string>
+  <string name="setFlair">توانای خۆت دابنێ</string>
   <string name="flair">بەهرە</string>
   <string name="youCanHideFlair">ڕێکخستنێک هەیە بۆ شاردنەوەی هەموو تواناکانی بەکارهێنەر لە سەرانسەری ماڵپەڕەکەدا.</string>
   <string name="biography">ژیاننامە</string>
@@ -856,7 +854,6 @@
   <string name="clickHereToReadIt">بۆ خوێندنەوەی کلیک لێرە بکە</string>
   <string name="sorry">ببوورە :(</string>
   <string name="weHadToTimeYouOutForAWhile">ناچاربووین بۆ ماوەیەک دوورت بخەینەوە.</string>
-  <string name="timeoutExpires">کاتە دیاریکراوەکەت %s ـیتربەسەر دەچێت.</string>
   <string name="why">بۆ?</string>
   <string name="pleasantChessExperience">ئامانجمان دابینکردنی ئەزموونێکی خۆشی شەترەنجە بۆ هەمووان.</string>
   <string name="goodPractice">بۆ ئەو مەبەستەش دەبێت دڵنیابین لەوەی کە هەموو یاریزانەکان مەشقی باش پەیڕەو دەکەن.</string>

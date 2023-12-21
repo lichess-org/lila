@@ -16,6 +16,7 @@
   <string name="ongoing">In corso</string>
   <string name="upcoming">Prossimamente</string>
   <string name="completed">Conclusa</string>
+  <string name="completedHelp">Lichess rileva il completamento del turno a seconda delle partite di origine. Utilizza questo interruttore se non è presente alcuna origine.</string>
   <string name="roundName">Nome turno</string>
   <string name="roundNumber">Turno numero</string>
   <string name="tournamentName">Nome del torneo</string>

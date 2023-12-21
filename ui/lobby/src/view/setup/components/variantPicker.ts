@@ -12,9 +12,7 @@ export const variantPicker = (ctrl: LobbyController) => {
     h(
       'select#sf_variant',
       {
-        on: {
-          change: (e: Event) => setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey),
-        },
+        on: { change: (e: Event) => setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey) },
         hook: onInsert<HTMLSelectElement>(element => element.focus()),
       },
       variantsForGameType(baseVariants, setupCtrl.gameType!).map(variant =>

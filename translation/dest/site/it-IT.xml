@@ -272,7 +272,6 @@
   <string name="playingRightNow">Partita in corso</string>
   <string name="eventInProgress">In corso</string>
   <string name="finished">Terminati</string>
-  <string name="finishesX">finisce %s</string>
   <string name="abortGame">Interrompi la partita</string>
   <string name="gameAborted">Partita interrotta</string>
   <string name="standard">Standard</string>
@@ -406,6 +405,7 @@
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai rivederla,
 analizzarla con il computer, commentarla in chat, e condividerla tramite un indirizzo URL.</string>
   <string name="importGameCaveat">Le varianti saranno cancellate. Per salvarle, importa il PGN in uno studio.</string>
+  <string name="importGameDataPrivacyWarning">Questo PGN è accessibile dal pubblico. Per importare un gioco privatamente, utilizza uno studio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>
     <item quantity="other">%s partite importate</item>
@@ -486,6 +486,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="movesPlayed">Mosse giocate</string>
   <string name="whiteWins">Il Bianco vince</string>
   <string name="blackWins">Il Nero vince</string>
+  <string name="drawRate">Tasso di pareggio</string>
   <string name="draws">Patte</string>
   <string name="nextXTournament">Prossimo torneo %s:</string>
   <string name="averageOpponent">Punteggio medio degli avversari</string>
@@ -506,6 +507,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Cognome</string>
+  <string name="setFlair">Imposta la tua icona</string>
+  <string name="flair">Icona</string>
+  <string name="youCanHideFlair">Esiste un\'impostazione per nascondere le icone di tutti gli utenti, sull\'intero sito.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Nazione o regione</string>
   <string name="thankYou">Grazie!</string>
@@ -862,7 +866,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="clickHereToReadIt">Clicca qui per leggerlo</string>
   <string name="sorry">Ci dispiace :(</string>
   <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
-  <string name="timeoutExpires">Sarai sbloccato %s.</string>
   <string name="why">Perché?</string>
   <string name="pleasantChessExperience">Vogliamo offrire a tutti una esperienza di scacchi piacevole.</string>
   <string name="goodPractice">A tal fine, dobbiamo assicurarci che tutti i giocatori si comportino bene.</string>

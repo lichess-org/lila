@@ -302,7 +302,6 @@
   <string name="playingRightNow">Vyksta šiuo metu</string>
   <string name="eventInProgress">Vyksta šiuo metu</string>
   <string name="finished">Baigėsi</string>
-  <string name="finishesX">baigiasi %s</string>
   <string name="abortGame">Nutraukti partiją</string>
   <string name="gameAborted">Partija nutraukta</string>
   <string name="standard">Standartinis</string>
@@ -935,7 +934,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   </plurals>
   <string name="sorry">Atsiprašome :(</string>
   <string name="weHadToTimeYouOutForAWhile">Turėjome jus laikinai apriboti.</string>
-  <string name="timeoutExpires">Apribojimas baigiasi %s.</string>
   <string name="why">Kodėl?</string>
   <string name="pleasantChessExperience">Mes stengiamės suteikti galimybę visiems patirti šachmatų malonumą.</string>
   <string name="goodPractice">Dėl to turime užtikrinti, kad visi žaidėjai laikytųsi gerųjų praktikų.</string>

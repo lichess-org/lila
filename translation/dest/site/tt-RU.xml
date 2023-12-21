@@ -206,7 +206,6 @@
   <string name="playingRightNow">Хәзер уйнала</string>
   <string name="eventInProgress">Хәзер уйнала</string>
   <string name="finished">Тәмамланган</string>
-  <string name="finishesX">%s сон бетә</string>
   <string name="abortGame">Уенны туктату</string>
   <string name="gameAborted">Уен туктатылды</string>
   <string name="standard">Стандартлы</string>
@@ -712,7 +711,6 @@
   </plurals>
   <string name="sorry">Юаныч :(</string>
   <string name="weHadToTimeYouOutForAWhile">Без сезне бераз вакытка чыгарырга тиеш идек.</string>
-  <string name="timeoutExpires">Тоту вакыты %s.</string>
   <string name="why">Нигә?</string>
   <string name="pleasantChessExperience">Без һәркемгә шаһмат тәҗрибәсен тәкъдим итәбез.</string>
   <string name="goodPractice">Моның өчен без барлык уенчыларның да яхшы практиканы үтәргә тиеш.</string>

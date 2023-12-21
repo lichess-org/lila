@@ -45,9 +45,11 @@ final class IrcApi(
           dox = domain == ModDomain.Admin
         )
 
-  def nameCloseVote(user: User)(using mod: Me): Funit =
+  def nameCloseVote(user: User, reason: Option[String])(using mod: Me): Funit =
     val topic = "/" + user.username
-    zulip(_.mod.usernames, topic)(s"created on: ${user.createdAt.date}, ${user.count.game} games") >>
+    zulip(_.mod.usernames, topic)(
+      s"created on: ${user.createdAt.date}, ${user.count.game} games${reason.fold("")(r => s", reason: $r")}"
+    ) >>
       zulip
         .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
         .flatMapz: zulipLink =>

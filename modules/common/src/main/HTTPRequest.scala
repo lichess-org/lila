@@ -37,12 +37,13 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers get HeaderNames.USER_AGENT
 
-  val isChrome96Plus                      = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus                     = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox114Plus                    = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
-  val isMobileBrowser                     = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-  def isLichessMobile(req: RequestHeader) = userAgent(req).exists(_.value startsWith "Lichess Mobile/")
-  def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value contains "Lichobile/")
+  val isChrome96Plus                               = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus                              = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox114Plus                             = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
+  val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def isLichessMobile(ua: UserAgent): Boolean      = ua.value startsWith "Lichess Mobile/"
+  def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
+  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value contains "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid                     = UaMatcher("Android")

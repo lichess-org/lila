@@ -271,7 +271,6 @@
   <string name="playingRightNow">Po luhet tani</string>
   <string name="eventInProgress">Po luhet tani</string>
   <string name="finished">Përfundoi</string>
-  <string name="finishesX">përfundon %s</string>
   <string name="abortGame">Ndërprite lojën</string>
   <string name="gameAborted">Loja u ndërpre</string>
   <string name="standard">Standard</string>
@@ -406,7 +405,6 @@
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
-  <string name="importGameCaveat2">Kjo PGN mund të shihet nga publiku. Që të importoni privatisht një lojë, përdorni një ushtrim.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>
     <item quantity="other">%s lojëra të importuara</item>
@@ -857,7 +855,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="clickHereToReadIt">Klikoni këtu që ta lexoni</string>
   <string name="sorry">Na ndjeni :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na u desh t’ju ndalnim për ca kohë.</string>
-  <string name="timeoutExpires">Ndalesa skadon më %s.</string>
   <string name="why">Pse?</string>
   <string name="pleasantChessExperience">Synojmë të ofrojmë përvojë të këndshme me shahun për këdo.</string>
   <string name="goodPractice">Për këtë qëllim, duhet të garantojmë që krejt tarët të ndjekin praktikat e mira.</string>

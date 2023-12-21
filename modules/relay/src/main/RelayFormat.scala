@@ -74,9 +74,8 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
       .monSuccess(_.relay.httpGet(url.host.toString))
 
   private def looksLikePgn(body: String): Boolean =
-    MultiPgn.split(PgnStr(body), 1).value.headOption so { pgn =>
+    MultiPgn.split(PgnStr(body), 1).value.headOption so: pgn =>
       lila.study.PgnImport(pgn, Nil).isRight
-    }
   private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url) map looksLikePgn
 
   private def looksLikeJson(body: String): Boolean =

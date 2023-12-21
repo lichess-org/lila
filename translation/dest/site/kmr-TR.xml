@@ -228,7 +228,6 @@
   <string name="playingRightNow">Vê gavê tê lîstin</string>
   <string name="eventInProgress">Vê gavê tê lîstin</string>
   <string name="finished">Qedîya</string>
-  <string name="finishesX">xelas dibe nav %s de</string>
   <string name="abortGame">Lîstikê betal bike</string>
   <string name="gameAborted">Lîstik hate betalkirin</string>
   <string name="standard">Standard</string>
@@ -756,7 +755,6 @@
   </plurals>
   <string name="sorry">Bibore :(</string>
   <string name="weHadToTimeYouOutForAWhile">Em ji bo demekê te bi dûr xistin.</string>
-  <string name="timeoutExpires">Xelasbûna wextê bidûrxistinê: %s.</string>
   <string name="why">Çima?</string>
   <string name="pleasantChessExperience">Em armanc dikin ku ji bo herkesî serpêhatiyeke bi xweşî pêşkêş bikin.</string>
   <string name="goodPractice">Ji bo vê yekê, divê em piştrast bibin ku hemû lîzer mêtodeke baş dişopînin.</string>

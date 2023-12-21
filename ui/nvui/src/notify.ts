@@ -24,14 +24,5 @@ export class Notify {
       : '';
 
   render = () =>
-    h(
-      'div.notify',
-      {
-        attrs: {
-          'aria-live': 'assertive',
-          'aria-atomic': 'true',
-        },
-      },
-      this.currentText(),
-    );
+    h('div.notify', { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } }, this.currentText());
 }

@@ -5,11 +5,11 @@ import lila.push.WebSubscription
 
 final class Push(env: Env) extends LilaController(env):
 
-  def mobileRegister(platform: String, deviceId: String) = Auth { ctx ?=> me ?=>
+  def mobileRegister(platform: String, deviceId: String) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     env.push.registerDevice(me, platform, deviceId) inject NoContent
   }
 
-  def mobileUnregister = Auth { ctx ?=> me ?=>
+  def mobileUnregister = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     env.push.unregisterDevices(me) inject NoContent
   }
 
