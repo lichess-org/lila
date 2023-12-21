@@ -3184,6 +3184,7 @@ symbols.minus
 symbols.mobile-phone-off
 symbols.move-blunder
 symbols.move-brilliant
+symbols.move-dubious
 symbols.multiply
 symbols.name-badge
 symbols.new-button
