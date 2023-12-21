@@ -7,6 +7,22 @@
     }
   }
 
+  .qr-code-invite {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
+
+    .qr-code {
+      @extend %box-radius;
+      @include padding-direction(2em, 2em, 1em, 2em);
+      background: $c-bg-zebra;
+      margin: 1em;
+      flex: 1 1 auto;
+    }
+  }
+
   .invite {
     display: flex;
     flex-flow: row wrap;
