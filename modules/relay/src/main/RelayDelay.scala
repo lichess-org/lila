@@ -6,6 +6,7 @@ import lila.common.Seconds
 import lila.db.dsl.{ *, given }
 import lila.study.MultiPgn
 import chess.format.pgn.PgnStr
+import lila.common.config.Max
 
 final private class RelayDelay(colls: RelayColls)(using Executor):
 
@@ -14,7 +15,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   def apply(
       url: UpstreamUrl,
       rt: RelayRound.WithTour,
-      doFetchUrl: (UpstreamUrl, Int) => Fu[RelayGames]
+      doFetchUrl: (UpstreamUrl, Max) => Fu[RelayGames]
   ): Fu[RelayGames] =
     dedupCache(url, rt.round, () => doFetchUrl(url, RelayFetch.maxChapters(rt.tour)))
       .flatMap: latest =>
@@ -63,7 +64,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     def get(upstream: UpstreamUrl, delay: Seconds): Fu[Option[RelayGames]] =
       getPgn(upstream, delay).map2: pgn =>
-        RelayGame.iso.to(MultiPgn.split(pgn, 999))
+        RelayGame.iso.to(MultiPgn.split(pgn, Max(999)))
 
     private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:

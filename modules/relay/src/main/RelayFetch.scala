@@ -146,7 +146,7 @@ final private class RelayFetch(
       case url: UpstreamUrl =>
         delayer(url, rt, doFetchUrl)
 
-  private def doFetchUrl(upstream: UpstreamUrl, max: Int): Fu[RelayGames] =
+  private def doFetchUrl(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
     import RelayFetch.DgtJson.*
     formatApi get upstream.withRound flatMap {
       case RelayFormat.SingleFile(doc) =>
@@ -155,11 +155,10 @@ final private class RelayFetch(
           case RelayFormat.DocFormat.Pgn => httpGetPgn(doc.url) map { MultiPgn.split(_, max) }
           // maybe a single JSON game? Why not
           case RelayFormat.DocFormat.Json =>
-            httpGetJson[GameJson](doc.url) map { game =>
+            httpGetJson[GameJson](doc.url) map: game =>
               MultiPgn(List(game.toPgn()))
-            }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
-        httpGetJson[RoundJson](indexUrl) flatMap { round =>
+        httpGetJson[RoundJson](indexUrl) flatMap: round =>
           round.pairings.zipWithIndex
             .traverse: (pairing, i) =>
               val number  = i + 1
@@ -174,7 +173,6 @@ final private class RelayFetch(
                 .map(number -> _)
             .map: results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
-        }
     } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
 
   private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from formatApi.httpGet(url)
@@ -187,7 +185,7 @@ final private class RelayFetch(
 
 private[relay] object RelayFetch:
 
-  def maxChapters(tour: RelayTour) =
+  def maxChapters(tour: RelayTour) = Max:
     lila.study.Study.maxChapters * (if tour.official then 2 else 1)
 
   private[relay] object DgtJson:

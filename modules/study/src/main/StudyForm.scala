@@ -5,9 +5,10 @@ import chess.format.pgn.PgnStr
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.data.format.Formatter
 
 import lila.common.Form.{ cleanNonEmptyText, formatter, into, defaulting, given }
-import play.api.data.format.Formatter
+import lila.common.config.Max
 
 object StudyForm:
 
@@ -84,7 +85,7 @@ object StudyForm:
     ):
 
       def toChapterDatas: List[ChapterMaker.Data] =
-        val pgns = MultiPgn.split(pgn, max = 32).value
+        val pgns = MultiPgn.split(pgn, max = Max(32)).value
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
