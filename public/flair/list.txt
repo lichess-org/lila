@@ -3187,6 +3187,7 @@ symbols.move-brilliant
 symbols.move-dubious
 symbols.move-good
 symbols.move-interesting
+symbols.move-mistake
 symbols.multiply
 symbols.name-badge
 symbols.new-button
