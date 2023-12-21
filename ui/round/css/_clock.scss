@@ -184,7 +184,8 @@
   }
 
   .tour-rank,
-  .moretime,
+  .clock-side .moretime,
+  .clock-blindfold,
   .berserked {
     @extend %flex-center, %zen;
 
@@ -201,6 +202,12 @@
     @include breakpoint($mq-col2) {
       order: inherit;
     }
+  }
+
+  .clock-side {
+    @extend %flex-column, %zen;
+    justify-content: center;
+    order: -1;
   }
 
   .tour-rank {

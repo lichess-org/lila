@@ -83,5 +83,5 @@ object mini:
         ),
         (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u.user, None))
       ),
-      playing.ifFalse(ctx.pref.isBlindfold).map(views.html.game.mini(_))
+      playing.map(views.html.game.mini(_))
     )

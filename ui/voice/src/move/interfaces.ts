@@ -15,10 +15,11 @@ export interface RootCtrl {
   next?: () => void;
   vote?: (v: boolean) => void;
   solve?: () => void;
+  blindfold?: (v?: boolean) => boolean;
 }
 
 export interface VoiceMove extends VoiceModule {
-  update: (fen: string, canMove: boolean) => void;
+  update: (fen: string, canMove: boolean, chessground?: CgApi) => void;
   promotionHook: () => (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
   listenForResponse: (request: string, action: (v: boolean) => void) => void;
   question: () => QuestionOpts | false;

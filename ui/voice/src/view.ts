@@ -17,7 +17,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       }),
       h('button#voice-help-button', {
         attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
-        hook: bind('click', () => ctrl.showHelp(true)),
+        hook: bind('click', () => ctrl.showHelp(true), undefined, false),
       }),
       h('button#voice-settings-button', {
         attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },

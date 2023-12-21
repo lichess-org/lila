@@ -34,6 +34,9 @@ final private class Rematcher(
 
   def isOffering(pov: Pov): Boolean = rematches isOffering pov.ref
 
+  def apply(pov: Pov, confirm: Boolean): Fu[Events] =
+    if confirm then yes(pov) else no(pov)
+
   def yes(pov: Pov): Fu[Events] =
     pov match
       case Pov(game, color) if game.playerCouldRematch =>

@@ -82,7 +82,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   return result;
 }
 
-function sanOf(board: Board, uci: string) {
+export function sanOf(board: Board, uci: string) {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);

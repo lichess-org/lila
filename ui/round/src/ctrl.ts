@@ -274,12 +274,13 @@ export default class RoundController {
     this.chessground.set(config);
     if (s.san && isForwardStep) lichess.sound.move(s);
     this.autoScroll();
-    const canMove = ply === this.lastPly() && this.data.player.color === config.turnColor;
-    this.voiceMove?.update(s.fen, canMove);
-    this.keyboardMove?.update(s), canMove;
+    this.voiceMove?.update(s.fen, this.canMove());
+    this.keyboardMove?.update(s, this.canMove());
     lichess.pubsub.emit('ply', ply);
     return true;
   };
+
+  canMove = () => !this.replaying() && this.data.player.color === this.chessground.state.turnColor;
 
   replayEnabledByPref = (): boolean => {
     const d = this.data;
@@ -400,7 +401,6 @@ export default class RoundController {
   apiMove = (o: ApiMove): true => {
     const d = this.data,
       playing = this.isPlaying();
-
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
@@ -641,7 +641,7 @@ export default class RoundController {
 
   question = (): QuestionOpts | false => {
     if (this.moveToSubmit || this.dropToSubmit) {
-      this.voiceMove?.listenForResponse('submitMove', this.submitMove);
+      setTimeout(() => this.voiceMove?.listenForResponse('submitMove', this.submitMove));
       return {
         prompt: this.noarg('confirmMove'),
         yes: { action: () => this.submitMove(true) },
@@ -836,11 +836,23 @@ export default class RoundController {
     this.chessground = cg;
     if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
-    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
+    if (this.data.pref.voiceMove) {
+      if (!this.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
+      else this.voiceMove?.update(this.stepAt(this.ply).fen, this.canMove(), cg);
+    }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
   };
 
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+
+  blindfold = (v?: boolean): boolean => {
+    if (v === undefined || v === this.data.player.blindfold) return this.data.player.blindfold ?? false;
+
+    this.data.player.blindfold = v;
+    this.socket.send(`blindfold-${v ? 'yes' : 'no'}`);
+    this.redraw();
+    return v;
+  };
 
   private delayedInit = () => {
     lichess.requestIdleCallback(() => {

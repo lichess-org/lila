@@ -5,8 +5,8 @@ import chess.format.Uci
 import lila.common.Bus
 import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, RematchNo, RematchYes, Resign }
-import lila.round.actorApi.round.{ DrawNo, DrawYes, ResignForce, TakebackNo, TakebackYes }
+import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, Rematch, Resign }
+import lila.round.actorApi.round.{ Draw, ResignForce, Takeback }
 import lila.user.{ User, Me }
 
 final class BotPlayer(
@@ -51,7 +51,7 @@ final class BotPlayer(
         // delay so it feels more natural
         lila.common.LilaFuture.delay(if accept then 100.millis else 1.second) {
           fuccess {
-            tellRound(pov.gameId, if accept then RematchYes(pov.playerId) else RematchNo(pov.playerId))
+            tellRound(pov.gameId, Rematch(pov.playerId, accept))
           }
         }
         true
@@ -80,18 +80,18 @@ final class BotPlayer(
     else clientError("This game cannot be resigned")
 
   private def declineDraw(pov: Pov): Unit =
-    if pov.game.drawable && pov.opponent.isOfferingDraw then tellRound(pov.gameId, DrawNo(pov.playerId))
+    if pov.game.drawable && pov.opponent.isOfferingDraw then tellRound(pov.gameId, Draw(pov.playerId, false))
 
   private def offerDraw(pov: Pov): Unit =
     if pov.game.drawable && (pov.game.playerCanOfferDraw(pov.color) || pov.opponent.isOfferingDraw) then
-      tellRound(pov.gameId, DrawYes(pov.playerId))
+      tellRound(pov.gameId, Draw(pov.playerId, true))
 
   def setDraw(pov: Pov, v: Boolean): Unit =
     if v then offerDraw(pov) else declineDraw(pov)
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
     if pov.game.playable && pov.game.canTakebackOrAddTime then
-      tellRound(pov.gameId, if v then TakebackYes(pov.playerId) else TakebackNo(pov.playerId))
+      tellRound(pov.gameId, Takeback(pov.playerId, v))
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin.so:

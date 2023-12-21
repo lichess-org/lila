@@ -1,5 +1,5 @@
 import { Board, SwissOpts } from '../interfaces';
-import { renderClock } from 'common/mini-board';
+import { renderClock } from 'common/miniBoard';
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer } from './util';

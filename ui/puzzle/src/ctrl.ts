@@ -67,6 +67,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   autoScrollNow: boolean;
   voteDisabled?: boolean;
   isDaily: boolean;
+  blindfolded = false;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -145,8 +146,11 @@ export default class PuzzleCtrl implements ParentCtrl {
       next: this.nextPuzzle,
       vote: this.vote,
       solve: this.viewSolution,
+      blindfold: this.blindfold,
     });
-    if (this.opts.pref.voiceMove) this.voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.node.fen);
+    if (this.opts.pref.voiceMove)
+      if (this.voiceMove) this.voiceMove.update(this.node.fen, true, cg);
+      else this.voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.node.fen);
     if (this.opts.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.node.fen });
     requestAnimationFrame(() => this.redraw());
@@ -605,7 +609,13 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.redraw();
     }
   };
-
+  blindfold = (v?: boolean): boolean => {
+    if (v !== undefined && v !== this.blindfolded) {
+      this.blindfolded = v;
+      this.redraw();
+    }
+    return this.blindfolded;
+  };
   playBestMove = (): void => {
     const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);

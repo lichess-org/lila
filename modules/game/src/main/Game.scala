@@ -358,6 +358,17 @@ case class Game(
             Event.Berserk(color)
           )
 
+  def setBlindfold(color: Color, blindfold: Boolean): (Option[Int], Progress) =
+    val newPlayer = player(color).setBlindfold(blindfold, playedTurns.value)
+    (
+      newPlayer.blindfold,
+      Progress(
+        this,
+        updatePlayer(color, _ => newPlayer),
+        List(Event.Blindfold(color, blindfold))
+      )
+    )
+
   def resignable      = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved

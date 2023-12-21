@@ -33,7 +33,7 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
   {count} is minimum occurrences of a substitution in the input data
 
   {in} is a crowdv json resolved in the following manner:
-    - as a local file either absolute or relative to the @build/crowdv directory
+    - as a local file either absolute or relative to the .build/crowdv directory
     - as a https url
     - otherwise, downloaded from https://raw.githubusercontent.com/lichess-org/lifat/dev/crowdv
 

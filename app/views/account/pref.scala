@@ -73,11 +73,6 @@ object pref:
               "displayBoardResizeHandle"
             ),
             setting(
-              blindfoldChess(),
-              radios(form("display.blindfold"), translatedBlindfoldChoices),
-              "blindfoldChess"
-            ),
-            setting(
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),

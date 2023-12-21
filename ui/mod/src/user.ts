@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
-import extendTablesortNumber from 'common/tablesort-number';
+import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 

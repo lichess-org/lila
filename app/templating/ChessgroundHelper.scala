@@ -13,7 +13,9 @@ trait ChessgroundHelper:
   private val cgBoard     = tag("cg-board")
   val cgWrapContent       = cgContainer(cgBoard)
 
-  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil)(using ctx: Context): Frag =
+  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil, blindfold: Boolean)(using
+      ctx: Context
+  ): Frag =
     wrap {
       cgBoard {
         raw {
@@ -25,7 +27,7 @@ trait ChessgroundHelper:
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""
             val pieces =
-              if ctx.pref.isBlindfold then ""
+              if blindfold then ""
               else
                 board.pieces.map { case (pos, piece) =>
                   val klass = s"${piece.color.name} ${piece.role.name}"
@@ -43,7 +45,8 @@ trait ChessgroundHelper:
       lastMove = pov.game.history.lastMove
         .map(_.origDest)
         .so: (orig, dest) =>
-          List(orig, dest)
+          List(orig, dest),
+      blindfold = pov.player.blindfold.nonEmpty
     )
 
   private def wrap(content: Frag): Frag =

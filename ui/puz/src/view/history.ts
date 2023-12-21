@@ -1,4 +1,4 @@
-import * as miniBoard from 'common/mini-board';
+import * as miniBoard from 'common/miniBoard';
 import { PuzCtrl } from '../interfaces';
 import { Chess } from 'chessops/chess';
 import { h, VNode } from 'snabbdom';
