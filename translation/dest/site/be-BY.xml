@@ -555,6 +555,7 @@
   <string name="firstName">Імя</string>
   <string name="lastName">Прозвішча</string>
   <string name="biography">Біяграфія</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна або рэгіён</string>
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="oneUrlPerLine">Адзін URL на радок.</string>
