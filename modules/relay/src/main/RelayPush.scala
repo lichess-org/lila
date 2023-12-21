@@ -37,7 +37,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
                 .update(rt.round): r1 =>
                   val r2 = r1.withSync(_ addLog event)
                   val r3 = if event.hasMoves then r2.ensureStarted.resume else r2
-                  r3.copy(finished = games.nonEmpty && games.forall(_.end.isDefined))
+                  r3.copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
                 .inject:
                   event.error.fold(Right(event.moves))(err => Left(LilaInvalid(err)))
       )
