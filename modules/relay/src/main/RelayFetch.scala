@@ -44,6 +44,12 @@ final private class RelayFetch(
         relays.traverse: rt =>
           if rt.round.sync.ongoing then
             processRelay(rt) flatMap: newRelay =>
+              // #TODO #FIXME
+              // This overwrites the round fully. Race condition:
+              // 1. A sync starts with a very slow source
+              // 2. The relay sync is changed by a user
+              // 3. The sync finishes and overwrites the relay sync changes
+              // TODO fetch latest sync and apply diff?
               api.update(rt.round)(_ => newRelay)
           else if rt.round.hasStarted then
             logger.info(s"Finish by lack of activity ${rt.round}")
