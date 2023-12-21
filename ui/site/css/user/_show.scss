@@ -22,7 +22,7 @@
   }
 
   &__social {
-    @extend %flex-between;
+    @extend %flex-between-nowrap;
 
     background: $c-bg-zebra;
 
@@ -32,17 +32,74 @@
 
     .user-actions {
       margin: 1em;
+    }
 
-      form {
+    .btn-rack {
+      display: none;
+      @media (hover: hover) {
+        display: inherit;
+      }
+      a {
         display: inline;
       }
     }
 
-    .relation-actions {
-      @extend %flex-center-nowrap;
+    .dropdown {
+      @media (hover: hover) {
+        display: none;
+      }
+      position: relative;
+      top: 0.6em;
+      font-size: x-large;
+      height: 2.5em;
+      margin-right: 1em;
+      padding: 0.2em 0 0 0.5em;
+      > a {
+        color: $c-font-page;
+        text-shadow: $text-shadow;
+        float: right;
+        padding-left: 0.5em;
+      }
 
-      border-#{$end-direction}: $border;
+      .dropdown-window {
+        visibility: hidden;
+        background: $c-bg-header-dropdown;
+        box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+        position: absolute;
+        top: 1.6em;
+        right: 0;
+        a {
+          width: 10em;
+          font-size: small;
+          display: block;
+          padding: 0.4rem 0.5rem;
+          vertical-align: middle;
+          color: $c-header-dropdown;
+          &:hover {
+            background: $c-primary;
+            &,
+            &::after {
+              color: $c-primary-over;
+            }
+          }
+        }
+      }
     }
+    .dropdown:hover {
+      > a {
+        background: $c-bg-header-dropdown;
+        box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+      }
+      .dropdown-window {
+        visibility: visible;
+      }
+    }
+  }
+
+  .relation-actions {
+    @extend %flex-center-nowrap;
+
+    border-#{$end-direction}: $border;
   }
 
   .claim-title {

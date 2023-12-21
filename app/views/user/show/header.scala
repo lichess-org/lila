@@ -143,7 +143,81 @@ object header:
             href     := s"${reportRoutes.form}?username=${u.username}",
             dataIcon := licon.CautionTriangle
           )
-        )
+        ),
+        div(cls := "user-actions dropdown")(
+          a(
+            cls := "text",
+            titleOrText(trans.list.txt()),
+            dataIcon := licon.List
+          ),
+          div(cls := "dropdown-window")(
+            (ctx is u) option frag(
+              a(
+                cls := "text",
+                href := routes.Account.profile,
+                titleOrText(trans.editProfile.txt()),
+                dataIcon := licon.Gear
+              )(
+                trans.editProfile.txt()
+              ),
+              a(
+                cls := "text",
+                href := routes.Relation.blocks(),
+                titleOrText(trans.listBlockedPlayers.txt()),
+                dataIcon := licon.NotAllowed
+              )(
+                trans.listBlockedPlayers.txt()
+              )
+            ),
+            isGranted(_.UserModView) option
+              a(
+                cls := "text",
+                href := routes.User.mod(u.username),
+                titleOrText("Mod zone (Hotkey: m)"),
+                dataIcon := licon.Agent
+              )(
+                "Mod zone (Hotkey: m)"
+              ),
+            a(
+              cls := "text",
+              href := routes.User.tv(u.username),
+              titleOrText(trans.watchGames.txt()),
+              dataIcon := licon.AnalogTv
+            )(
+              trans.watchGames.txt()
+            ),
+            !ctx.is(u) option views.html.relation.actions(
+              u.light,
+              relation = social.relation,
+              followable = social.followable,
+              blocked = social.blocked
+            ),
+            a(
+              cls := "text",
+              href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
+              titleOrText(trans.openingExplorer.txt()),
+              dataIcon := licon.Book
+            )(
+              trans.openingExplorer.txt()
+            ),
+            a(
+              cls := "text",
+              href := routes.User.download(u.username),
+              titleOrText(trans.exportGames.txt()),
+              dataIcon := licon.Download
+            )(
+              trans.exportGames.txt()
+            ),
+            (ctx.isAuth && ctx.kid.no && !ctx.is(u)) option a(
+              cls := "text",
+              titleOrText(trans.reportXToModerators.txt(u.username)),
+              href := s"${reportRoutes.form}?username=${u.username}",
+              dataIcon := licon.CautionTriangle
+            )(
+              trans.reportXToModerators.txt(u.username)
+            )
+          )
+        ),
       ),
       !ctx.is(u) option noteZone(u, social.notes),
       isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
