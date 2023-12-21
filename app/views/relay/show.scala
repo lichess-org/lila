@@ -53,7 +53,7 @@ object show:
         )
       ),
       zoomable = true,
-      csp = analysisCsp.withWikiBooks.some,
+      csp = analysisCsp.withLcc.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = rt.fullName,
@@ -61,9 +61,8 @@ object show:
           description = shorten(rt.tour.description, 152)
         )
         .some
-    )(
+    ):
       frag(
         main(cls := "analyse"),
         views.html.study.bits.streamers(streamers)
       )
-    )

@@ -271,6 +271,9 @@ GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.str
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 
+# Proxy
+POST  /broadcast/proxy                        controllers.RelayRound.proxy
+
 # Learn
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score

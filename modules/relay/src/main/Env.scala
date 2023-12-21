@@ -90,3 +90,4 @@ private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.
   val round = mainDb(CollName("relay"))
   val tour  = mainDb(CollName("relay_tour"))
   val delay = yoloDb(CollName("relay_delay"))
+  val proxy = yoloDb(CollName("relay_proxy"))

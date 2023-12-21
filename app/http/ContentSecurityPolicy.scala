@@ -85,6 +85,8 @@ case class ContentSecurityPolicy(
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
 
+  def withLcc = copy(connectSrc = "1.pool.livechesscloud.com" :: connectSrc)
+
   def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
 
   def withInlineIconFont = copy(fontSrc = "data:" :: fontSrc)
