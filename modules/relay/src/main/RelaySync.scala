@@ -130,7 +130,7 @@ final private class RelaySync(
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
-    val newEndTag = game.end
+    val newEndTag = game.ending
       .ifFalse(gameTags(_.Result).isDefined)
       .filterNot(end => chapter.tags(_.Result).has(end.resultText))
       .map(end => Tag(_.Result, end.resultText))

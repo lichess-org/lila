@@ -71,7 +71,7 @@ final private class RelayFetch(
             .map: res =>
               res -> rt.round
                 .withSync(_ addLog SyncLog.event(res.nbMoves, none))
-                .copy(finished = games.forall(_.end.isDefined))
+                .copy(finished = games.forall(_.ending.isDefined))
         .recover:
           case e: Exception =>
             e.match {
@@ -263,5 +263,5 @@ private[relay] object RelayFetch:
                 comments = Comments.empty,
                 children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
               ),
-              end = res.end
+              ending = res.end
             )

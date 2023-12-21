@@ -55,16 +55,20 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     def putIfNew(upstream: UpstreamUrl, games: RelayGames): Funit =
       val newPgn = RelayGame.iso.from(games).toPgnStr
-      getPgn(upstream, Seconds(0)).flatMap:
+      getLatestPgn(upstream).flatMap:
         case Some(latestPgn) if latestPgn == newPgn => funit
         case _ =>
-          val doc = $doc("_id" -> idOf(upstream, nowInstant), "at" -> nowInstant, "pgn" -> newPgn)
+          val now = nowInstant
+          val doc = $doc("_id" -> idOf(upstream, now), "at" -> now, "pgn" -> newPgn)
           colls.delay:
             _.insert.one(doc).void
 
     def get(upstream: UpstreamUrl, delay: Seconds): Fu[Option[RelayGames]] =
       getPgn(upstream, delay).map2: pgn =>
         RelayGame.iso.to(MultiPgn.split(pgn, Max(999)))
+
+    private def getLatestPgn(upstream: UpstreamUrl): Fu[Option[PgnStr]] =
+      getPgn(upstream, Seconds(0))
 
     private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
