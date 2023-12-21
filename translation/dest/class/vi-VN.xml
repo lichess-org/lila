@@ -79,8 +79,8 @@ Mật khẩu: %3$s</string>
   </plurals>
   <string name="students">Học viên</string>
   <string name="progress">Tiến trình</string>
-  <string name="noStudents">Không có học viên nào trong lớp.</string>
-  <string name="noRemovedStudents">Không học viên nào được loại bỏ.</string>
+  <string name="noStudents">Chưa có học viên nào trong lớp.</string>
+  <string name="noRemovedStudents">Không có học viên nào bị loại bỏ.</string>
   <string name="overDays">Qua nhiều ngày</string>
   <string name="timePlaying">Thời gian chơi</string>
   <string name="variantXOverLastY">%1$s qua %2$s cuối</string>
@@ -91,7 +91,7 @@ Mật khẩu: %3$s</string>
   <string name="classNews">Tin tức mới về lớp học</string>
   <string name="editNews">Sửa tin tức</string>
   <string name="notifyAllStudents">Thông báo tất cả học viên</string>
-  <string name="nothingHere">Không có gì ở đây.</string>
+  <string name="nothingHere">Chưa có gì ở đây.</string>
   <string name="newsEdit1">Tất cả các tin tức lớp học trong một lĩnh vực đơn lẻ.</string>
   <string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Đừng xóa tin tức trước đó.</string>
   <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
