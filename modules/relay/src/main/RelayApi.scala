@@ -266,24 +266,26 @@ final class RelayApi(
         if v then r.withSync(_.play) else r.withSync(_.pause)
       .void
 
-  def update(from: RelayRound)(f: RelayRound => RelayRound): Fu[RelayRound] =
+  def reFetchAndUpdate(round: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
+    byId(round.id).orFail(s"Relay round ${round.id} not found").flatMap(update(_)(f))
+
+  def update(from: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
     val round = f(from).pipe: r =>
       if r.sync.upstream != from.sync.upstream then r.withSync(_.clearLog) else r
-    studyApi.rename(round.studyId, round.name into StudyName) >> {
-      if round == from then fuccess(round)
-      else
-        for
-          _ <- roundRepo.coll.update.one($id(round.id), round).void
-          _ <- (round.sync.playing != from.sync.playing) so
-            sendToContributors(round.id, "relaySync", jsonView sync round)
-          _ <- (round.finished != from.finished) so denormalizeTourActive(round.tourId)
-        yield
-          round.sync.log.events.lastOption
-            .ifTrue(round.sync.log != from.sync.log)
-            .foreach: event =>
-              sendToContributors(round.id, "relayLog", Json.toJsObject(event))
-          round
-    }
+    if round == from then fuccess(round)
+    else
+      for
+        _ <- (from.name != round.name) so studyApi.rename(round.studyId, round.name into StudyName)
+        _ <- roundRepo.coll.update.one($id(round.id), round).void
+        _ <- (round.sync.playing != from.sync.playing) so
+          sendToContributors(round.id, "relaySync", jsonView sync round)
+        _ <- (round.finished != from.finished) so denormalizeTourActive(round.tourId)
+      yield
+        round.sync.log.events.lastOption
+          .ifTrue(round.sync.log != from.sync.log)
+          .foreach: event =>
+            sendToContributors(round.id, "relayLog", Json.toJsObject(event))
+        round
 
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>
