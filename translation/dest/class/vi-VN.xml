@@ -81,9 +81,9 @@ Mật khẩu: %3$s</string>
   <string name="progress">Tiến trình</string>
   <string name="noStudents">Chưa có học viên nào trong lớp.</string>
   <string name="noRemovedStudents">Không có học viên nào bị loại bỏ.</string>
-  <string name="overDays">Qua nhiều ngày</string>
+  <string name="overDays">Qua số ngày</string>
   <string name="timePlaying">Thời gian chơi</string>
-  <string name="variantXOverLastY">%1$s qua %2$s cuối</string>
+  <string name="variantXOverLastY">%1$s qua %2$s qua</string>
   <string name="winrate">Tỉ lệ thắng</string>
   <string name="na">Không xác định</string>
   <string name="overview">Tổng quan</string>
