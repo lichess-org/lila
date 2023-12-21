@@ -41,21 +41,22 @@ final private class RelayFetch(
     relays
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
-        // TODO parallel
-        relays.traverse_ { rt =>
-          if rt.round.sync.ongoing then
-            processRelay(rt) flatMap: updating =>
-              api.reFetchAndUpdate(rt.round)(updating.reRun).void
-          else if rt.round.hasStarted then
-            logger.info(s"Finish by lack of activity ${rt.round}")
-            api.update(rt.round)(_.finish).void
-          else if rt.round.shouldGiveUp then
-            val msg = "Finish for lack of start"
-            logger.info(s"$msg ${rt.round}")
-            if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
-            api.update(rt.round)(_.finish).void
-          else funit
-        }
+        relays
+          .map: rt =>
+            if rt.round.sync.ongoing then
+              processRelay(rt) flatMap: updating =>
+                api.reFetchAndUpdate(rt.round)(updating.reRun)
+            else if rt.round.hasStarted then
+              logger.info(s"Finish by lack of activity ${rt.round}")
+              api.update(rt.round)(_.finish)
+            else if rt.round.shouldGiveUp then
+              val msg = "Finish for lack of start"
+              logger.info(s"$msg ${rt.round}")
+              if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+              api.update(rt.round)(_.finish)
+            else funit
+          .parallel
+          .void
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow
