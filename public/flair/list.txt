@@ -3183,6 +3183,7 @@ symbols.mens-room
 symbols.minus
 symbols.mobile-phone-off
 symbols.move-blunder
+symbols.move-brilliant
 symbols.multiply
 symbols.name-badge
 symbols.new-button
