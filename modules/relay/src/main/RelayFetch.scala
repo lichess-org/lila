@@ -167,7 +167,7 @@ final private class RelayFetch(
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap: round =>
           round.pairings.zipWithIndex
-            .traverse: (pairing, i) =>
+            .map: (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
@@ -178,6 +178,7 @@ final private class RelayFetch(
                       GameJson(moves = Nil, result = none)
                     } map { _.toPgn(pairing.tags) }
                 .map(number -> _)
+            .parallel
             .map: results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
     } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
