@@ -2410,6 +2410,15 @@ object I18nKeys:
     val `playedNbRunsOfPuzzleStorm` = I18nKey("storm:playedNbRunsOfPuzzleStorm")
 
   object ublog:
+    val `communityBlog` = I18nKey("ublog:communityBlog")
+    val `allBlogTopic` = I18nKey("ublog:allBlogTopic")
+    val `friendBlog` = I18nKey("ublog:friendBlog")
+    val `likedBlog` = I18nKey("ublog:likedBlog")
+    val `blogTopic` = I18nKey("ublog:blogTopic")
+    val `lichessOfficialBlog` = I18nKey("ublog:lichessOfficialBlog")
+    val `continueReadingPost` = I18nKey("ublog:continueReadingPost")
+    val `lichessBlogPostsFromXYear` = I18nKey("ublog:lichessBlogPostsFromXYear")
+    val `previousBlogPosts` = I18nKey("ublog:previousBlogPosts")
     val `xBlog` = I18nKey("ublog:xBlog")
     val `newPost` = I18nKey("ublog:newPost")
     val `editYourBlogPost` = I18nKey("ublog:editYourBlogPost")
