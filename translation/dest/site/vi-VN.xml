@@ -488,7 +488,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
   <string name="onlinePlayers">Các kỳ thủ đang trực tuyến</string>
-  <string name="activePlayers">Các kỳ thủ tích cực</string>
+  <string name="activePlayers">Những kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ có xếp hạng nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
   <plurals name="nbGamesInPlay">
