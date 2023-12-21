@@ -25,7 +25,8 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
       .fold(
         err => fuccess(Left(err)),
         games =>
-          sync(rt, games)
+          sync
+            .updateStudyChapters(rt, games)
             .map: res =>
               SyncLog.event(res.nbMoves, none)
             .recover:

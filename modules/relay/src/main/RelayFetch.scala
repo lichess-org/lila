@@ -36,35 +36,32 @@ final private class RelayFetch(
 
   private val maxRelaysToSync = Max(50)
 
-  private def syncRelays(official: Boolean) =
+  private def syncRelays(official: Boolean): Funit =
     val relays = if official then api.toSyncOfficial(maxRelaysToSync) else api.toSyncUser(maxRelaysToSync)
     relays
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
-        relays.traverse: rt =>
+        // TODO parallel
+        relays.traverse_ { rt =>
           if rt.round.sync.ongoing then
-            processRelay(rt) flatMap: newRelay =>
-              // #TODO #FIXME
-              // This overwrites the round fully. Race condition:
-              // 1. A sync starts with a very slow source
-              // 2. The relay sync is changed by a user
-              // 3. The sync finishes and overwrites the relay sync changes
-              // TODO fetch latest sync and apply diff?
-              api.update(rt.round)(_ => newRelay)
+            processRelay(rt) flatMap: updating =>
+              api.reFetchAndUpdate(rt.round)(updating.reRun).void
           else if rt.round.hasStarted then
             logger.info(s"Finish by lack of activity ${rt.round}")
-            api.update(rt.round)(_.finish)
+            api.update(rt.round)(_.finish).void
           else if rt.round.shouldGiveUp then
             val msg = "Finish for lack of start"
             logger.info(s"$msg ${rt.round}")
             if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
-            api.update(rt.round)(_.finish)
-          else fuccess(rt.round)
-      .void
+            api.update(rt.round)(_.finish).void
+          else funit
+        }
 
   // no writing the relay; only reading!
-  private def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
-    if !rt.round.sync.playing then fuccess(rt.round.withSync(_.play))
+  // this can take a long time if the source is slow
+  private def processRelay(rt: RelayRound.WithTour): Fu[Updating[RelayRound]] =
+    val updating = Updating(rt.round)
+    if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play)))
     else
       fetchGames(rt)
         .map(games => rt.tour.players.fold(games)(_ update games))
@@ -76,52 +73,60 @@ final private class RelayFetch(
             .withTimeoutError(7 seconds, SyncResult.Timeout)
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map: res =>
-              res -> rt.round
-                .withSync(_ addLog SyncLog.event(res.nbMoves, none))
-                .copy(finished = games.forall(_.ending.isDefined))
+              res -> updating:
+                _.withSync(_ addLog SyncLog.event(res.nbMoves, none))
+                  .copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
         .recover:
           case e: Exception =>
-            e.match {
+            val result = e.match
               case SyncResult.Timeout =>
                 if rt.tour.official then logger.info(s"Sync timeout ${rt.round}")
                 SyncResult.Timeout
               case _ =>
                 if rt.tour.official then logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
                 SyncResult.Error(e.getMessage)
-            } -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
-        .map: (result, newRelay) =>
-          afterSync(result, newRelay withTour rt.tour)
+            result -> updating:
+              _.withSync(_ addLog SyncLog.event(0, e.some))
+        .map: (result, updatingRelay) =>
+          afterSync(result, rt.tour, updatingRelay)
 
-  private def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
+  private def afterSync(
+      result: SyncResult,
+      tour: RelayTour,
+      updating: Updating[RelayRound]
+  ): Updating[RelayRound] =
+    val round = updating.current
     result match
-      case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
-      case result: SyncResult.Ok =>
-        lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(result.nbMoves)
-        if !rt.round.hasStarted && !rt.tour.official then irc.broadcastStart(rt.round.id, rt.fullName)
-        continueRelay(rt.round.ensureStarted.resume withTour rt.tour)
-      case _ => continueRelay(rt)
+      case result: SyncResult.Ok if result.nbMoves > 0 =>
+        lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
+        if !round.hasStarted && !tour.official then
+          irc.broadcastStart(round.id, round.withTour(tour).fullName)
+        continueRelay(tour, updating(_.ensureStarted.resume))
+      case _ => continueRelay(tour, updating)
 
-  private def continueRelay(rt: RelayRound.WithTour): RelayRound =
-    rt.round.sync.upstream.fold(rt.round): upstream =>
+  private def continueRelay(tour: RelayTour, updating: Updating[RelayRound]): Updating[RelayRound] =
+    val round = updating.current
+    round.sync.upstream.fold(updating): upstream =>
       val seconds: Seconds =
-        if rt.round.sync.log.alwaysFails then
-          rt.round.sync.log.events.lastOption
+        if round.sync.log.alwaysFails then
+          round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
-            .ifTrue(rt.tour.official && rt.round.shouldHaveStarted)
+            .ifTrue(tour.official && round.shouldHaveStarted)
             .filterNot(_ contains "Cannot parse moves")
             .filterNot(_ contains "Found an empty PGN")
-            .foreach { irc.broadcastError(rt.round.id, rt.fullName, _) }
+            .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(60)
-        else rt.round.sync.period | Seconds(if upstream.local then 3 else 6)
-      rt.round.withSync:
-        _.copy(
-          nextAt = nowInstant plusSeconds {
-            seconds.atLeast {
-              if rt.round.sync.log.justTimedOut then 10 else 2
-            }.value
-          } some
-        )
+        else round.sync.period | Seconds(if upstream.local then 3 else 6)
+      updating:
+        _.withSync:
+          _.copy(
+            nextAt = nowInstant plusSeconds {
+              seconds.atLeast {
+                if round.sync.log.justTimedOut then 10 else 2
+              }.value
+            } some
+          )
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,
