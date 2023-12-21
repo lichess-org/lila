@@ -65,7 +65,8 @@ final private class RelayFetch(
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))
         .flatMap: games =>
-          sync(rt, games)
+          sync
+            .updateStudyChapters(rt, games)
             .withTimeoutError(7 seconds, SyncResult.Timeout)
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map: res =>

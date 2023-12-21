@@ -14,7 +14,7 @@ final private class RelaySync(
     leaderboard: RelayLeaderboardApi
 )(using Executor):
 
-  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
+  def updateStudyChapters(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
     study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
     chapters       <- chapterRepo.orderedByStudy(study.id)
     sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
