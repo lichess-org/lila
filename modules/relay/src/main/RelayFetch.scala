@@ -142,18 +142,19 @@ final private class RelayFetch(
           gameRepo.withInitialFens flatMap { games =>
             if games.size == ids.size then
               val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
-              games.traverse { (game, fen) =>
-                pgnDump(game, fen, pgnFlags).dmap(_.render)
-              } dmap MultiPgn.apply
+              games
+                .traverse: (game, fen) =>
+                  pgnDump(game, fen, pgnFlags).dmap(_.render)
+                .dmap(MultiPgn.apply)
             else
               throw LilaInvalid:
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
           } flatMap:
             RelayFetch.multiPgnToGames(_).toFuture
       case url: UpstreamUrl =>
-        delayer(url, rt, doFetchUrl)
+        delayer(url, rt, fetchFromUpstream)
 
-  private def doFetchUrl(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
+  private def fetchFromUpstream(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
     import RelayFetch.DgtJson.*
     formatApi get upstream.withRound flatMap {
       case RelayFormat.SingleFile(doc) =>
