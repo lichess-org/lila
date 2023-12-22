@@ -12,6 +12,7 @@
   <string name="ifMoveNotDetected">Eğer bir hamle algılanmadıysa</string>
   <string name="reloadThisPage">Sayfayı yeniden yükle</string>
   <string name="dgtConfigure">DGT - Yapılandır</string>
+  <string name="lichessConnectivity">Lichess bağlantısı</string>
   <string name="useWebSocketUrl" comment="useWebSocketUrl&#10;&#10;%1$s = ws://localhost:1982/api/v1.0&#10;(this is a URL)&#10;%2$s = LiveChess&#10;&#10;Complete string: Use &quot;ws://localhost:1982/api/v1.0&quot; unless LiveChess is running on a different machine or different port.&#10;&#10;LiveChess is a move broadcasting technology by the DGT Company, used by many third parties.">%2$s farklı bir bilgisayarda veya portta çalışmıyorsa \"%1$s\" sayfasını kullanın.</string>
   <string name="configureVoiceNarration">Hamlelerin seslendirilişini yapılandırın, böylece tahtaya odaklanmaya devam edebilirsiniz.</string>
   <string name="announceAllMoves">Bütün Hamleleri Seslendir</string>
