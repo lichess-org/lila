@@ -372,6 +372,7 @@
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
+  <string name="importGameDataPrivacyWarning">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกมแบบส่วนตัว โปรดใช้หน้ากรณีศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -469,6 +470,7 @@
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
   <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
+  <string name="flair">รูปตกแต่ง</string>
   <string name="youCanHideFlair">มันมีการตั้งค่าที่ทำให้ไม่สามารถเห็นรูปตกแต่งของผู้ใช้ได้ทั้งเวบไซต์</string>
   <string name="biography">ชีวประวัติ</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือภูมิภาค</string>
@@ -703,6 +705,7 @@
   <string name="withFriends">กับเพื่อนๆ</string>
   <string name="withEverybody">กับทุกคน</string>
   <string name="kidMode">โหมดเด็ก</string>
+  <string name="kidModeIsEnabled">โหมดเด็กถูกเปิดใช้งาน</string>
   <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
   <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">บัญชีของคุณได้รับการจัดการ ถามครูหมากรุกของคุณเกี่ยวกับการยกระดับโหมดเด็ก</string>
@@ -812,6 +815,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
+  <string name="showUnreadLichessMessage">คุณได้รับข้อความส่วนตัวจาก Lichess</string>
+  <string name="clickHereToReadIt">คลิกที่นี้เพื่ออ่าน</string>
   <string name="sorry">ขออภัย :(</string>
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
   <string name="why">ทำไม?</string>
@@ -833,6 +838,7 @@
   <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">บุลเล็ต</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">บลิตซ์</string>
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>
