@@ -82,7 +82,8 @@ object UblogForm:
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0)
+        views = UblogPost.Views(0),
+        rankAdjustDays = none
       )
 
     def update(user: User, prev: UblogPost) =
