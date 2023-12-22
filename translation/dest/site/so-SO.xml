@@ -241,6 +241,10 @@
   <string name="accountRegisteredWithoutEmail">Akoonka %s wuxuu diwaangashanyay bilaa iimayl.</string>
   <string name="rank">Darajo</string>
   <string name="rankX">Darajo: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Qiimayntu waxay is bedeshaa daqiiqo kasta</item>
+    <item quantity="other">Qiimayntu waxay is bedeshaa %s daqiiqo kasta</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s halxiraalaha</item>
     <item quantity="other">%s xujooyinka</item>

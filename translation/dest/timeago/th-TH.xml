@@ -41,4 +41,11 @@
   <plurals name="nbYearsAgo">
     <item quantity="other">%s ปีที่แล้ว</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="other">เหลือ %s นาที</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="other">เหลือ %s ชั่วโมง</item>
+  </plurals>
+  <string name="completed">เสร็จสมบูรณ์</string>
 </resources>
