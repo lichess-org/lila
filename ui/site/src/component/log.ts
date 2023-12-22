@@ -44,6 +44,10 @@ export default function makeLog(): LichessLog {
     await store?.put(nextKey, msg);
   };
 
+  log.trace = async (...args: any[]) => {
+    lichess.log(new Error().stack?.split('\n').slice(2).join('\n'), args);
+  };
+
   log.clear = async () => {
     await ready;
     await store?.clear();

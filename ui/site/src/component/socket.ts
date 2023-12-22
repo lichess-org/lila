@@ -62,9 +62,10 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage = makeStorage.make('surl17');
+  storage: LichessStorage;
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
+  private baseUrls = document.body.dataset.socketDomains!.split(',');
 
   static defaultOptions: Options = {
     idle: false,
@@ -88,6 +89,9 @@ export default class StrongSocket {
     version: number | false,
     settings: Partial<Settings> = {},
   ) {
+    const socketChangeTtl = Number(document.body.dataset.socketChangeTtl);
+    this.storage = makeStorage.make('surl17', socketChangeTtl > 0 ? socketChangeTtl : 30 * 60 * 1000);
+
     this.settings = {
       receive: settings.receive,
       events: settings.events || {},
@@ -121,13 +125,7 @@ export default class StrongSocket {
     try {
       const ws = (this.ws = new WebSocket(fullUrl));
       ws.onerror = e => this.onError(e);
-      ws.onclose = () => {
-        this.pubsub.emit('socket.close');
-        if (this.autoReconnect) {
-          this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
-          this.scheduleConnect(this.options.autoReconnectDelay);
-        }
-      };
+      ws.onclose = e => this.onClose(e, fullUrl);
       ws.onopen = () => {
         this.debug('connected to ' + fullUrl);
         this.onSuccess();
@@ -148,7 +146,7 @@ export default class StrongSocket {
         this.handle(m);
       };
     } catch (e) {
-      this.onError(e);
+      this.onClose({ code: 4000, reason: String(e) } as CloseEvent, fullUrl);
     }
     this.scheduleConnect(this.options.pingMaxLag);
   };
@@ -197,7 +195,11 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      this.tryOtherUrl = true;
+      if (!this.tryOtherUrl) {
+        // if this was set earlier, we've already logged the error
+        this.tryOtherUrl = true;
+        lichess.log(`socket.ts: Timeout ${delay}ms, rotating to ${this.baseUrl()}`);
+      }
       this.connect();
     }, delay);
   };
@@ -294,6 +296,17 @@ export default class StrongSocket {
   onError = (e: unknown) => {
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
+  };
+
+  onClose = (e: CloseEvent, url: string) => {
+    this.pubsub.emit('socket.close');
+    if (this.autoReconnect) {
+      this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
+      this.scheduleConnect(this.options.autoReconnectDelay);
+    }
+    if (e.wasClean && e.code < 1002) return;
+
+    lichess.log(`socket.ts: Unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
@@ -319,12 +332,16 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
-    const baseUrls = document.body.dataset.socketDomains!.split(',');
     let url = this.storage.get();
-    if (!url || this.tryOtherUrl) {
-      url = baseUrls[Math.floor(Math.random() * baseUrls.length)];
+    if (!url) {
+      url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
+      this.storage.set(url);
+    } else if (this.tryOtherUrl) {
+      const i = this.baseUrls.findIndex(u => u === url);
+      url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
     }
+    this.tryOtherUrl = false;
     return url;
   };
 

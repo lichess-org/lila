@@ -14,11 +14,23 @@ const builder = (storage: Storage): LichessStorageHelper => {
         }),
       ),
     remove: (k: string) => storage.removeItem(k),
-    make: (k: string) => ({
-      get: () => api.get(k),
-      set: (v: any) => api.set(k, v),
+    make: (k: string, ttl?: number) => ({
+      get: () => {
+        if (!ttl) return api.get(k);
+        const birthday = Number(api.get(`${k}-ttl`));
+        if (!birthday) api.set(`${k}-ttl`, String(Date.now()));
+        else if (Date.now() - birthday > ttl) api.remove(k);
+        return api.get(k);
+      },
+      set: (v: any) => {
+        api.set(k, v);
+        if (ttl) api.set(`${k}-ttl`, String(Date.now()));
+      },
       fire: (v?: string) => api.fire(k, v),
-      remove: () => api.remove(k),
+      remove: () => {
+        api.remove(k);
+        if (ttl) api.remove(`${k}-ttl`);
+      },
       listen: (f: (e: LichessStorageEvent) => void) =>
         window.addEventListener('storage', e => {
           if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
