@@ -203,7 +203,7 @@ final class Ublog(env: Env) extends LilaController(env):
             for
               _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays)
               _ <- env.mod.logApi.ublogRankAdjust(post.created.by, post.id, ~rankAdjustDays)
-              _ <- env.ublog.rank.recomputePostRank(post.id)
+              _ <- env.ublog.rank.recomputePostRank(post)
             yield Redirect(urlOfPost(post)).flashSuccess
         )
   }

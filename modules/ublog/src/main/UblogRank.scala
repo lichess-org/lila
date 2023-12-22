@@ -81,59 +81,17 @@ final class UblogRank(
                 then timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
               } inject likes
 
-  def recomputePostRank(postId: UblogPostId): Funit =
-    colls.post
-      .aggregateOne(): framework =>
-        import framework.*
-        Match($id(postId)) -> List(
-          PipelineOperator:
-            $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
-          ,
-          UnwindField("blog"),
-          Project(
-            $doc(
-              "tier"           -> "$blog.tier",
-              "likes"          -> $doc("$size" -> "$likers"),
-              "at"             -> "$lived.at",
-              "language"       -> true,
-              "title"          -> true,
-              "imageId"        -> "$image.id",
-              "rankAdjustDays" -> true
-            )
-          )
-        )
-      .map: docOption =>
-        for
-          doc      <- docOption
-          id       <- doc.getAsOpt[UblogPostId]("_id")
-          likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
-          liveAt   <- doc.getAsOpt[Instant]("at")
-          tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
-          language <- doc.getAsOpt[Language]("language")
-          title    <- doc string "title"
-          adjust   = ~doc.int("rankAdjustDays")
-          hasImage = doc.contains("imageId")
-        yield (id, likes, liveAt, tier, language, title, hasImage, adjust)
-      .flatMap:
-        case None => fuccess(none)
-        case Some((id, likes, liveAt, tier, language, title, hasImage, adjust)) =>
-          colls.post.update
-            .one(
-              $id(postId),
-              $set(
-                "rank" -> computeRank(likes, liveAt, language, tier, hasImage, adjust)
-              )
-            )
-            .void
+  def recomputePostRank(post: UblogPost): Funit =
+    recomputeRankOfAllPostsOfBlog(post.blog, post.id.some)
 
-  def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
-    colls.blog.byId[UblogBlog](blogId.full) flatMapz recomputeRankOfAllPostsOfBlog
+  def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id, only: Option[UblogPostId] = none): Funit =
+    colls.blog.byId[UblogBlog](blogId.full).flatMapz(recomputeRankOfAllPostsOfBlog(_, only))
 
-  def recomputeRankOfAllPostsOfBlog(blog: UblogBlog): Funit =
+  def recomputeRankOfAllPostsOfBlog(blog: UblogBlog, only: Option[UblogPostId]): Funit =
     colls.post
       .find(
-        $doc("blog" -> blog.id),
-        $doc("likes" -> true, "lived" -> true, "language" -> true).some
+        $doc("blog" -> blog.id) ++ only.so($id),
+        $doc(List("likes", "lived", "language", "rankAdjustDays", "image").map(_ -> BSONBoolean(true))).some
       )
       .cursor[Bdoc](ReadPref.sec)
       .list(500)
@@ -160,7 +118,7 @@ final class UblogRank(
       .sort($sort desc "tier")
       .cursor[UblogBlog](ReadPref.sec)
       .documentSource()
-      .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog)
+      .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog(_, none))
       .runWith(lila.common.LilaStream.sinkCount)
       .map(nb => println(s"Recomputed rank of $nb blogs"))
 
