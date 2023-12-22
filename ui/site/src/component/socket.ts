@@ -62,7 +62,7 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage;
+  storage: LichessStorage = makeStorage.make('surl17', 30 * 60 * 1000);
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
   private baseUrls = document.body.dataset.socketDomains!.split(',');
@@ -89,9 +89,6 @@ export default class StrongSocket {
     version: number | false,
     settings: Partial<Settings> = {},
   ) {
-    const socketChangeTtl = Number(document.body.dataset.socketChangeTtl);
-    this.storage = makeStorage.make('surl17', socketChangeTtl > 0 ? socketChangeTtl : 30 * 60 * 1000);
-
     this.settings = {
       receive: settings.receive,
       events: settings.events || {},
