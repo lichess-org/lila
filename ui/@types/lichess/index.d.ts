@@ -79,7 +79,6 @@ interface Lichess {
 
 interface LichessLog {
   (...args: any[]): Promise<void>;
-  trace(...args: any[]): Promise<void>;
   clear(): Promise<void>;
   get(): Promise<string>;
 }
