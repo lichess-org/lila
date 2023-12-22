@@ -15,6 +15,7 @@ import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
+import RelayFormat.CanProxy
 import lila.common.config.Max
 
 final private class RelayFetch(
@@ -27,6 +28,8 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo
 )(using Executor, Scheduler):
+
+  import RelayFetch.*
 
   LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(25 seconds)):
     syncRelays(official = true)
@@ -156,12 +159,12 @@ final private class RelayFetch(
               throw LilaInvalid:
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
           } flatMap:
-            RelayFetch.multiPgnToGames(_).toFuture
+            multiPgnToGames(_).toFuture
       case url: UpstreamUrl =>
-        delayer(url, rt, fetchFromUpstream)
+        delayer(url, rt, fetchFromUpstream(using CanProxy(rt.tour.official)))
 
-  private def fetchFromUpstream(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
-    import RelayFetch.DgtJson.*
+  private def fetchFromUpstream(using canProxy: CanProxy)(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
+    import DgtJson.*
     formatApi get upstream.withRound flatMap {
       case RelayFormat.SingleFile(doc) =>
         doc.format match
@@ -188,17 +191,17 @@ final private class RelayFetch(
             .parallel
             .map: results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
-    } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
+    } flatMap { multiPgnToGames(_).toFuture }
 
-  private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from formatApi.httpGet(url)
+  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr from formatApi.httpGet(url)
 
-  private def httpGetJson[A: Reads](url: URL): Fu[A] = for
+  private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] = for
     str  <- formatApi.httpGet(url)
     json <- Future(Json parse str) // Json.parse throws exceptions (!)
     data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
 
-private[relay] object RelayFetch:
+private object RelayFetch:
 
   def maxChapters(tour: RelayTour) = Max:
     lila.study.Study.maxChapters * (if tour.official then 2 else 1)

@@ -24,19 +24,25 @@ final private class RelayFormatApi(
   import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl
 
-  private val cache = cacheApi[UpstreamUrl.WithRound, RelayFormat](8, "relay.format"):
-    _.refreshAfterWrite(10 minutes).expireAfterAccess(20 minutes).buildAsyncFuture(guessFormat)
+  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](32, "relay.format"):
+    _.refreshAfterWrite(10 minutes)
+      .expireAfterAccess(20 minutes)
+      .buildAsyncFuture: (url, proxy) =>
+        guessFormat(url)(using proxy)
 
-  def get(upstream: UpstreamUrl.WithRound): Fu[RelayFormat] = cache get upstream
+  def get(upstream: UpstreamUrl.WithRound)(using proxy: CanProxy): Fu[RelayFormat] =
+    cache get (upstream -> proxy)
 
-  def refresh(upstream: UpstreamUrl.WithRound): Unit = cache invalidate upstream
+  def refresh(upstream: UpstreamUrl.WithRound): Unit =
+    CanProxy.from(List(false, true)) foreach: proxy =>
+      cache invalidate (upstream -> proxy)
 
-  private def guessFormat(upstream: UpstreamUrl.WithRound): Fu[RelayFormat] = {
+  private def guessFormat(upstream: UpstreamUrl.WithRound)(using CanProxy): Fu[RelayFormat] = {
 
     val originalUrl = URL parse upstream.url
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
-    def guessLcc(url: URL): Fu[Option[RelayFormat]] =
+    def guessLcc(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
       url.toString match
         case UpstreamUrl.LccRegex(id) =>
           guessManyFiles:
@@ -44,15 +50,14 @@ final private class RelayFormatApi(
               s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
         case _ => fuccess(none)
 
-    def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
+    def guessSingleFile(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
       List(
         url.some,
         !url.pathSegments.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
-      ).flatten.distinct.findM(looksLikePgn) dmap2 { (u: URL) =>
+      ).flatten.distinct.findM(looksLikePgn) dmap2: (u: URL) =>
         SingleFile(pgnDoc(u))
-      }
 
-    def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
+    def guessManyFiles(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
       (List(url) ::: mostCommonIndexNames
         .filterNot(url.pathSegments.contains)
         .map(addPart(url, _)))
@@ -61,9 +66,8 @@ final private class RelayFormatApi(
           val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
           looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
+            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2:
               ManyFiles(index, _)
-            }
 
     guessLcc(originalUrl) orElse
       guessSingleFile(originalUrl) orElse
@@ -72,7 +76,7 @@ final private class RelayFormatApi(
     logger.info(s"guessed format of $upstream: $format")
   }
 
-  private[relay] def httpGet(url: URL): Fu[String] =
+  private[relay] def httpGet(url: URL)(using CanProxy): Fu[String] =
     val (req, proxy) = addProxy(url):
       ws.url(url.toString)
         .withRequestTimeout(4.seconds)
@@ -84,11 +88,14 @@ final private class RelayFormatApi(
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
-  private def addProxy(url: URL)(ws: StandaloneWSRequest): (StandaloneWSRequest, Option[String]) =
+  private def addProxy(url: URL)(ws: StandaloneWSRequest)(using
+      allowed: CanProxy
+  ): (StandaloneWSRequest, Option[String]) =
     def server = for
       hostPort <- proxyHostPort.get()
-      creds    <- proxyCredentials.get()
+      if allowed.yes
       if proxyDomainRegex.get().unanchored.matches(url.host.toString)
+      creds <- proxyCredentials.get()
     yield DefaultWSProxyServer(
       host = hostPort.host,
       port = hostPort.port,
@@ -97,19 +104,22 @@ final private class RelayFormatApi(
     )
     server.foldLeft(ws)(_ withProxyServer _) -> server.map(_.host)
 
-  private def looksLikePgn(body: String): Boolean =
+  private def looksLikePgn(body: String)(using CanProxy): Boolean =
     MultiPgn.split(PgnStr(body), Max(1)).value.headOption so: pgn =>
       lila.study.PgnImport(pgn, Nil).isRight
-  private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url) map looksLikePgn
+  private def looksLikePgn(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url) map looksLikePgn
 
   private def looksLikeJson(body: String): Boolean =
     try Json.parse(body) != JsNull
     catch case _: Exception => false
-  private def looksLikeJson(url: URL): Fu[Boolean] = httpGet(url) map looksLikeJson
+  private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url) map looksLikeJson
 
 sealed private trait RelayFormat
 
 private object RelayFormat:
+
+  opaque type CanProxy = Boolean
+  object CanProxy extends YesNo[CanProxy]
 
   enum DocFormat:
     case Json, Pgn
