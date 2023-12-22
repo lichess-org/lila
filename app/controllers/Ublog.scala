@@ -200,12 +200,9 @@ final class Ublog(env: Env) extends LilaController(env):
         .fold(
           _ => Redirect(urlOfPost(post)).flashFailure,
           rankAdjustDays =>
-            val user = post.blog match
-              case UblogBlog.Id.User(userId) => userId.some
-              case _                         => none
             for
               _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays)
-              _ <- env.mod.logApi.ublogRankAdjust(user, post.id, ~rankAdjustDays)
+              _ <- env.mod.logApi.ublogRankAdjust(post.created.by, post.id, ~rankAdjustDays)
               _ <- env.ublog.rank.recomputePostRank(post.id)
             yield Redirect(urlOfPost(post)).flashSuccess
         )
