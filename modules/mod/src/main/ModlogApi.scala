@@ -225,10 +225,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def appealPost(user: UserId)(using me: Me) = add:
     Modlog(me, user.some, Modlog.appealPost, details = none)
 
-  def ublogRankAdjust(user: Option[UserId], postId: UblogPostId, adjust: Int)(using
-      Me.Id
-  ) = add:
-    Modlog(user, Modlog.ublogRankAdjust, details = s"$postId $adjust".some)
+  def ublogRankAdjust(user: UserId, postId: UblogPostId, adjust: Int)(using me: Me) = add:
+    Modlog(me.some, Modlog.ublogRankAdjust, details = s"$postId by $user, $adjust".some)
 
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
