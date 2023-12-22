@@ -121,7 +121,11 @@ final private class RelayFetch(
             .filterNot(_ contains "Found an empty PGN")
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(60)
-        else round.sync.period | Seconds(if upstream.local then 3 else 6)
+        else
+          round.sync.period | Seconds:
+            if upstream.local then 3
+            else if upstream.asUrl.exists(_.isLcc) && !tour.official then 10
+            else 5
       updating:
         _.withSync:
           _.copy(
