@@ -1,9 +1,11 @@
 package lila.ublog
 
+import java.time.Duration;
 import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
@@ -39,12 +41,13 @@ final class UblogRank(
               UnwindField("blog"),
               Project(
                 $doc(
-                  "tier"     -> "$blog.tier",
-                  "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
-                  "at"       -> "$lived.at",
-                  "language" -> true,
-                  "title"    -> true,
-                  "imageId"  -> "$image.id"
+                  "tier"           -> "$blog.tier",
+                  "likes"          -> $doc("$size" -> "$likers"), // do not use denormalized field
+                  "at"             -> "$lived.at",
+                  "language"       -> true,
+                  "title"          -> true,
+                  "imageId"        -> "$image.id",
+                  "rankAdjustDays" -> true
                 )
               )
             )
@@ -57,11 +60,12 @@ final class UblogRank(
               tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
               language <- doc.getAsOpt[Language]("language")
               title    <- doc string "title"
+              adjust   = ~doc.int("rankAdjustDays")
               hasImage = doc.contains("imageId")
-            yield (id, likes, liveAt, tier, language, title, hasImage)
+            yield (id, likes, liveAt, tier, language, title, hasImage, adjust)
           .flatMap:
-            case None                                                       => fuccess(UblogPost.Likes(0))
-            case Some((id, likes, liveAt, tier, language, title, hasImage)) =>
+            case None => fuccess(UblogPost.Likes(0))
+            case Some((id, likes, liveAt, tier, language, title, hasImage, adjust)) =>
               // Multiple updates may race to set denormalized likes and rank,
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended
@@ -70,12 +74,57 @@ final class UblogRank(
                 $id(postId),
                 $set(
                   "likes" -> likes,
-                  "rank"  -> computeRank(likes, liveAt, language, tier, hasImage)
+                  "rank"  -> computeRank(likes, liveAt, language, tier, hasImage, adjust)
                 )
               ) andDo {
                 if res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW
                 then timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
               } inject likes
+
+  def recomputePostRank(postId: UblogPostId): Funit =
+    colls.post
+      .aggregateOne(): framework =>
+        import framework.*
+        Match($id(postId)) -> List(
+          PipelineOperator:
+            $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
+          ,
+          UnwindField("blog"),
+          Project(
+            $doc(
+              "tier"           -> "$blog.tier",
+              "likes"          -> $doc("$size" -> "$likers"),
+              "at"             -> "$lived.at",
+              "language"       -> true,
+              "title"          -> true,
+              "imageId"        -> "$image.id",
+              "rankAdjustDays" -> true
+            )
+          )
+        )
+      .map: docOption =>
+        for
+          doc      <- docOption
+          id       <- doc.getAsOpt[UblogPostId]("_id")
+          likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
+          liveAt   <- doc.getAsOpt[Instant]("at")
+          tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
+          language <- doc.getAsOpt[Language]("language")
+          title    <- doc string "title"
+          adjust   = ~doc.int("rankAdjustDays")
+          hasImage = doc.contains("imageId")
+        yield (id, likes, liveAt, tier, language, title, hasImage, adjust)
+      .flatMap:
+        case None => fuccess(none)
+        case Some((id, likes, liveAt, tier, language, title, hasImage, adjust)) =>
+          colls.post.update
+            .one(
+              $id(postId),
+              $set(
+                "rank" -> computeRank(likes, liveAt, language, tier, hasImage, adjust)
+              )
+            )
+            .void
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
     colls.blog.byId[UblogBlog](blogId.full) flatMapz recomputeRankOfAllPostsOfBlog
@@ -95,10 +144,15 @@ final class UblogRank(
             doc.getAsOpt[UblogPost.Likes]("likes"),
             doc.getAsOpt[UblogPost.Recorded]("lived"),
             doc.getAsOpt[Language]("language"),
-            doc.contains("image").some
-          ).tupled so { (id, likes, lived, language, hasImage) =>
+            doc.contains("image").some,
+            doc.int("rankAdjustDays")
+          ).tupled so { (id, likes, lived, language, hasImage, adjust) =>
             colls.post
-              .updateField($id(id), "rank", computeRank(likes, lived.at, language, blog.tier, hasImage))
+              .updateField(
+                $id(id),
+                "rank",
+                computeRank(likes, lived.at, language, blog.tier, hasImage, adjust)
+              )
               .void
           }
 
@@ -114,14 +168,22 @@ final class UblogRank(
 
   def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
     post.lived.map: lived =>
-      computeRank(post.likes, lived.at, post.language, blog.tier, post.image.nonEmpty)
+      computeRank(
+        post.likes,
+        lived.at,
+        post.language,
+        blog.tier,
+        post.image.nonEmpty,
+        ~post.rankAdjustDays
+      )
 
   private def computeRank(
       likes: UblogPost.Likes,
       liveAt: Instant,
       language: Language,
       tier: UblogBlog.Tier,
-      hasImage: Boolean
+      hasImage: Boolean,
+      days: Int
   ) = UblogPost.RankDate {
     import UblogBlog.Tier.*
     if tier < LOW || !hasImage then liveAt minusMonths 3
@@ -134,9 +196,9 @@ final class UblogRank(
           case BEST   => 15
           case _      => 0
 
-        val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
+        val adjustBonus = 24 * days
+        val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
+        val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
 
-        val langBonus = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
-
-        (tierBase + likesBonus + langBonus).toInt
+        (tierBase + likesBonus + langBonus + adjustBonus).toInt
   }
