@@ -145,7 +145,7 @@ final class UblogRank(
             doc.getAsOpt[UblogPost.Recorded]("lived"),
             doc.getAsOpt[Language]("language"),
             doc.contains("image").some,
-            doc.int("rankAdjustDays")
+            (~doc.int("rankAdjustDays")).some
           ).tupled so { (id, likes, lived, language, hasImage, adjust) =>
             colls.post
               .updateField(
