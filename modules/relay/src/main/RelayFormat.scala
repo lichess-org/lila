@@ -1,17 +1,25 @@
 package lila.relay
 
 import io.mola.galimatias.URL
+import com.softwaremill.tagging.*
+import scala.util.matching.Regex
 import play.api.libs.json.*
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSRequest, DefaultWSProxyServer }
 import play.api.libs.ws.DefaultBodyReadables.*
 import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn
-import lila.memo.CacheApi
 import lila.memo.CacheApi.*
-import lila.common.config.Max
+import lila.memo.{ CacheApi, SettingStore }
+import lila.common.config.{ Max, Credentials, HostPort }
 
-final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using Executor):
+final private class RelayFormatApi(
+    ws: StandaloneWSClient,
+    cacheApi: CacheApi,
+    proxyCredentials: SettingStore[Option[Credentials]] @@ ProxyCredentials,
+    proxyHostPort: SettingStore[Option[HostPort]] @@ ProxyHostPort,
+    proxyDomainRegex: SettingStore[Regex] @@ ProxyDomainRegex
+)(using Executor):
 
   import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl
@@ -65,14 +73,29 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
   }
 
   private[relay] def httpGet(url: URL): Fu[String] =
-    ws.url(url.toString)
-      .withRequestTimeout(4.seconds)
-      .withFollowRedirects(false)
+    val (req, proxy) = addProxy(url):
+      ws.url(url.toString)
+        .withRequestTimeout(4.seconds)
+        .withFollowRedirects(false)
+    req
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res.body)
         else fufail(s"[${res.status}] $url")
-      .monSuccess(_.relay.httpGet(url.host.toString))
+      .monSuccess(_.relay.httpGet(url.host.toString, proxy))
+
+  private def addProxy(url: URL)(ws: StandaloneWSRequest): (StandaloneWSRequest, Option[String]) =
+    def server = for
+      hostPort <- proxyHostPort.get()
+      creds    <- proxyCredentials.get()
+      if proxyDomainRegex.get().unanchored.matches(url.host.toString)
+    yield DefaultWSProxyServer(
+      host = hostPort.host,
+      port = hostPort.port,
+      principal = Some(creds.user),
+      password = Some(creds.password.value)
+    )
+    server.foldLeft(ws)(_ withProxyServer _) -> server.map(_.host)
 
   private def looksLikePgn(body: String): Boolean =
     MultiPgn.split(PgnStr(body), Max(1)).value.headOption so: pgn =>
