@@ -139,22 +139,20 @@ final class UblogRank(
       .list(500)
       .flatMap:
         _.traverse_ : doc =>
-          (
-            doc.string("_id"),
-            doc.getAsOpt[UblogPost.Likes]("likes"),
-            doc.getAsOpt[UblogPost.Recorded]("lived"),
-            doc.getAsOpt[Language]("language"),
-            doc.contains("image").some,
-            (~doc.int("rankAdjustDays")).some
-          ).tupled so { (id, likes, lived, language, hasImage, adjust) =>
-            colls.post
-              .updateField(
-                $id(id),
-                "rank",
-                computeRank(likes, lived.at, language, blog.tier, hasImage, adjust)
-              )
-              .void
-          }
+          ~(for
+            id       <- doc.string("_id")
+            likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
+            lived    <- doc.getAsOpt[UblogPost.Recorded]("lived")
+            language <- doc.getAsOpt[Language]("language")
+            hasImage = doc.contains("image")
+            adjust   = ~doc.int("rankAdjustDays")
+          yield colls.post
+            .updateField(
+              $id(id),
+              "rank",
+              computeRank(likes, lived.at, language, blog.tier, hasImage, adjust)
+            )
+            .void)
 
   def recomputeRankOfAllPosts: Funit =
     colls.blog
