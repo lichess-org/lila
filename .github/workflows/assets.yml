@@ -50,7 +50,8 @@ jobs:
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:
           XZ_OPT: '-0'
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: lila-assets
           path: assets.tar.xz
+          compression-level: 0 # already compressed
