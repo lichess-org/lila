@@ -31,10 +31,10 @@ final private class RelayFetch(
 
   import RelayFetch.*
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(25 seconds)):
+  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(15 seconds)):
     syncRelays(official = true)
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(40 seconds)):
+  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(33 seconds)):
     syncRelays(official = false)
 
   private val maxRelaysToSync = Max(50)
