@@ -187,6 +187,8 @@ final private class RelayFetch(
                     httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
                       GameJson(moves = Nil, result = none)
                     } map { _.toPgn(pairing.tags) }
+                .recover: _ =>
+                  PgnStr(s"${pairing.tags}\n\n${pairing.result}")
                 .map(number -> _)
             .parallel
             .map: results =>
@@ -232,7 +234,7 @@ private object RelayFetch:
     given Reads[RoundJson]        = Json.reads
 
     case class GameJson(moves: List[String], result: Option[String]):
-      def toPgn(extraTags: Tags = Tags.empty) =
+      def toPgn(extraTags: Tags = Tags.empty): PgnStr =
         val strMoves = moves
           .map(_ split ' ')
           .mapWithIndex: (move, index) =>
