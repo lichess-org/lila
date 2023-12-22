@@ -126,11 +126,7 @@ object post:
 
   private def rankAdjust(blog: UblogBlog, post: UblogPost)(using PageContext) =
     env.ublog.rank.computeRank(blog, post) map: rank =>
-      form(
-        cls    := "ublog-post__meta",
-        method := "post",
-        action := routes.Ublog.rankAdjust(post.id)
-      )(
+      postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
         "Rank date:",
         span(cls := "ublog-post__meta__date")(semanticDate(rank.value)),
         s"adjust${post.rankAdjustDays.nonEmpty so "ed"} by",
@@ -141,9 +137,9 @@ object post:
             min         := -180,
             max         := 180,
             placeholder := "Days",
-            value       := post.rankAdjustDays.fold("")(_.toString)
+            value       := post.rankAdjustDays.so(_.toString)
           ),
-          input(tpe := "submit", cls := "button button-empty text", value := "SUBMIT")
+          form3.submit("Submit")(cls := "button-empty")
         )
       )
 
