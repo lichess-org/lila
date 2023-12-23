@@ -29,6 +29,7 @@ final class RoundMobile(
     prefApi: lila.pref.PrefApi,
     takebacker: Takebacker,
     moretimer: Moretimer,
+    isOfferingRematch: IsOfferingRematch,
     chatApi: lila.chat.ChatApi
 )(using Executor, lila.user.FlairApi):
 
@@ -61,11 +62,14 @@ final class RoundMobile(
       chatLines    <- chat.map(_.chat) soFu lila.chat.JsonView.asyncLines
     yield
       def playerJson(color: Color) =
-        val player = game player color
+        val pov = Pov(game, color)
         jsonView
-          .player(player, users(color))
-          .add("isGone" -> (game.forceDrawable && use.socketStatus.exists(_.isGone(player.color))))
-          .add("onGame" -> (player.isAi || use.socketStatus.exists(_.onGame(player.color))))
+          .player(pov.player, users(color))
+          .add("isGone" -> (game.forceDrawable && use.socketStatus.exists(_.isGone(pov.color))))
+          .add("onGame" -> (pov.player.isAi || use.socketStatus.exists(_.onGame(pov.color))))
+          .add("offeringRematch" -> isOfferingRematch(pov))
+          .add("offeringDraw" -> pov.player.isOfferingDraw)
+          .add("proposingTakeback" -> pov.player.isProposingTakeback)
       Json
         .obj(
           "game" -> {
