@@ -91,7 +91,7 @@ object index:
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
-            h1(trans.ublog.communityBlog()),
+            h1(trans.ublog.communityBlogs()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "ublog-lang",

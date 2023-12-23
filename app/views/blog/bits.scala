@@ -15,16 +15,16 @@ object bits:
       ctx.kid.no option a(
         cls  := active.has("community").option("active"),
         href := langHref(routes.Ublog.communityAll())
-      )(trans.ublog.communityBlog()),
+      )(trans.ublog.communityBlogs()),
       ctx.kid.no option a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)(
         trans.ublog.blogTopics()
       ),
       (ctx.isAuth && ctx.kid.no) option a(
         cls  := active.has("friends").option("active"),
         href := routes.Ublog.friends()
-      )(trans.ublog.friendBlog()),
+      )(trans.ublog.friendBlogs()),
       ctx.kid.no option a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())(
-        trans.ublog.likedBlog()
+        trans.ublog.likedBlogs()
       ),
       ctx.me
         .ifTrue(ctx.kid.no)
