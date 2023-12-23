@@ -200,7 +200,7 @@
   </plurals>
   <string name="time">Waqtiga</string>
   <string name="rating">Qiimaynta</string>
-  <string name="ratingStats">Daraasada qiinqaynta</string>
+  <string name="ratingStats">Daraasada qiimaynta</string>
   <string name="username">Magaca-akoon</string>
   <string name="usernameOrEmail">Magac-akoon ama iimayl</string>
   <string name="changeUsername">Beddel magac-akoonka</string>
