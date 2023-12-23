@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
+  <string name="orLetYourOpponentScanQrCode">Oder looss däi Géigner dëse QR-Code scannen</string>
   <string name="waiting">Waarden</string>
   <string name="yourTurn">Du bass drun</string>
   <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
