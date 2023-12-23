@@ -65,30 +65,32 @@
   }
 
   .details {
-    @extend %flex-between;
+    @extend %flex-between, %box-neat;
 
     $c-bg: mix($c-good, $c-bg-box, 10%);
     --c-font: #{$c-good};
     --c-bg: #{$c-bg};
 
-    border-radius: 99px;
-    padding: 0.7em 1.7em;
-    margin-bottom: 3rem;
-    font-size: 2em;
+    padding: $block-gap 4vw;
+    margin-bottom: 4rem;
+    font-size: 1.5em;
+    @include breakpoint($mq-xx-small) {
+      font-size: 2em;
+    }
     background: var(--c-bg);
     border: 1px solid var(--c-font);
-    gap: 0.3em 1em;
 
     > div {
+      flex: 0 1 auto;
       @extend %flex-center, %roboto;
-
-      justify-content: center;
-      flex-grow: 1;
 
       &::before {
         color: var(--c-font);
         font-size: 6rem;
         margin-#{$end-direction}: 0.2em;
+        @include breakpoint($mq-not-xx-small) {
+          display: none;
+        }
       }
 
       div {
@@ -101,10 +103,10 @@
     }
 
     .mode {
+      text-align: $end-direction;
       font-weight: bold;
+      font-size: 0.8em;
       color: var(--c-font);
-      text-transform: uppercase;
-      text-align: center;
     }
   }
 
