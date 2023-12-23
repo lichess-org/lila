@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="learnChess">Baro jesta</string>
+  <string name="byPlaying">adigoo ciyaaraya!</string>
+  <string name="menu">Kala dooro</string>
+  <string name="progressX">Horumar: %s</string>
+  <string name="resetMyProgress">Soo bilow horumarkayga</string>
+  <string name="youWillLoseAllYourProgress">Wuu lumayaa horumarkaagi!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ciyaar!</string>
+  <string name="chessPieces">Dhagxanta jesta</string>
   <string name="theRook">Qalcadda</string>
   <string name="itMovesInStraightLines">Waxay u dhaqaaqdaa toos afarta jiho</string>
   <string name="rookIntro">Qalcaddu waa mid awood badan. Diyaar ma u tahay in ad masmusho?</string>
+  <string name="rookGoal">Taabo qalcadda si ad u dishid xidigta!</string>
+  <string name="grabAllTheStars">Dil xidigaha oo dhan!</string>
+  <string name="theFewerMoves">Dhaqaaqa yaree si aad dhibco badan u heshid!</string>
+  <string name="useTwoRooks">Isticmaal laba qalcadood si aad howsha u dedejisid!</string>
+  <string name="rookComplete">Hambalyo! Waad ku takhasustay qalcadda.</string>
   <string name="theBishop">Maroodiga</string>
   <string name="itMovesDiagonally">Wuxu u socdaa janjeedh</string>
+  <string name="bishopIntro">Hadana waxan baranaynaa sida maroodiga loo wado!</string>
+  <string name="youNeedBothBishops">Hal maroodi oo jago cad, 
+iyo hal maroodi oo jago madow.
+Waad u baahantay labadaba!</string>
+  <string name="bishopComplete">Hambalyo! Waad maamuli taqaan maroodiga.</string>
   <string name="theQueen">Abaanduulaha</string>
   <string name="queenCombinesRookAndBishop">Abaanduule = qalcad + maroodi</string>
+  <string name="queenIntro">Dhaqaxa ugu awoodda badan jesta. Mundane abaanduule!</string>
+  <string name="queenComplete">Hambalyo! Abaanfuulaha waxba kaagama qarsoona.</string>
   <string name="theKing">Boqorka</string>
+  <string name="theMostImportantPiece">Dhagaxa ugu muhiimsan</string>
+  <string name="kingIntro">Boqorkaad tahay. Haddii ad dagaalka ku dhimatid, ciyaartu waa guuldarro.</string>
+  <string name="theKingIsSlow">Boqorku wuu gaabiyaa.</string>
+  <string name="lastOne">Kii ugu dambeeyay!</string>
+  <string name="kingComplete">Imika waad maamuli kartaa maamulaha!</string>
   <string name="theKnight">Faraska</string>
+  <string name="itMovesInAnLShape">Sida L oo kaluu u dhaqaaqaa</string>
+  <string name="knightIntro">Waa wax kaa fikirinaya. Farasku dhagax khiyaamo badan.</string>
+  <string name="knightsHaveAFancyWay">Farduhu waxay yaqaanaan si yar oo ay u boodboodaan!</string>
+  <string name="knightsCanJumpOverObstacles">Farduhu waxay ka boodi karaan wax hor yaalla!
+U gas oo dhulka la goo xidigaha!</string>
+  <string name="knightComplete">Hambalyo! Waad ku takhasustay faraska.</string>
   <string name="thePawn">Askariga</string>
+  <string name="itMovesForwardOnly">Hore uun buu u socon karaa</string>
+  <string name="pawnIntro">Askartu wey jilicsanyiin, laakiin wey xoogaysan karaan.</string>
+  <string name="pawnsMoveOneSquareOnly">Askartu waxay dhaqaaqaan hal jago. Balse markay gaadhaan looxa dhiniciisa kale, waxay noqdaan dhagax awood badan!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Inta badan waxa fiican in laga dhigao abaanduule. Balse marmarka qaar faras baa ku haboon!</string>
+  <string name="pawnsMoveForward">Askartu toos bay u socdaan, 
+balse janjeedh bay wax u dilaan!</string>
+  <string name="captureThenPromote">Dil, ka dibna dallac!</string>
+  <string name="useAllThePawns">Isticmaal askarta oo dhan!
+Uma baahnid dallacaad.</string>
   <string name="puzzles">Halxiraalaha</string>
   <string name="awesome">Cajiib!</string>
-  <string name="excellent">Wanaag!</string>
+  <string name="excellent">Khatar!</string>
   <string name="greatJob">Shaqo wanaagsan!</string>
-  <string name="perfect">Kaamil ah!</string>
-  <string name="outstanding">Wacan!</string>
-  <string name="wayToGo">Jidka loo maro!</string>
+  <string name="perfect">Kaamil!</string>
+  <string name="outstanding">Heer sare!</string>
+  <string name="wayToGo">Ku soco!</string>
 </resources>
