@@ -246,8 +246,8 @@
     <item quantity="other">Qiimayntu waxay is bedeshaa %s daqiiqo kasta</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s halxiraalaha</item>
-    <item quantity="other">%s xujooyinka</item>
+    <item quantity="one">%s xujooyinka</item>
+    <item quantity="other">%s xujo</item>
   </plurals>
   <string name="gamesPlayed">Ciyaaraha dhamaaday</string>
   <plurals name="nbGamesWithYou">
@@ -313,7 +313,7 @@
   <string name="points">Dhibco</string>
   <string name="averageOpponent">Horjeedaha celceliska ah</string>
   <string name="isPrivate">Gaar ah</string>
-  <string name="puzzles">Halxiraalaha</string>
+  <string name="puzzles">Xujooyin</string>
   <string name="importedByX">Waxa soo geliyey %s</string>
   <string name="invalidUsernameOrPassword">Magacan-akoonkan ama iimayl khaldan</string>
   <string name="sound">Cod</string>
