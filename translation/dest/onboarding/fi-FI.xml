@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatNowSuggestions">Mitä seuraavaksi? Tässä pari ehdotusta:</string>
+  <string name="learnChessRules">Opi shakin säännöt</string>
+  <string name="improveWithChessTacticsPuzzles">Kehity ratkomalla taktiikkatehtäviä.</string>
+  <string name="playTheArtificialIntelligence">Pelaa tekoälyä vastaan.</string>
+</resources>
