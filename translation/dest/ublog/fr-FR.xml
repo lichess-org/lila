@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
   <string name="inappropriateContentAccountClosed">Toute conduite inappropriée peut aboutir à la fermeture de votre compte.</string>
   <string name="blogTips">Conseils pratiques pour rédiger de bons messages</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Discuter de cet article de blogue dans le forum</string>
+  <string name="discussThisBlogPostInTheForum">Discuter de cet article de blogue dans le forum</string>
 </resources>
