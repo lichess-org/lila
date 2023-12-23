@@ -49,5 +49,5 @@
   <string name="safeAndRespectfulContent">Prosím, dbajte na to aby vaše príspevky neboli pohoršujúce a rešpektovali ostatných. Nekopírujte príspevky niekoho iného.</string>
   <string name="inappropriateContentAccountClosed">Akýkoľvek nevhodný obsah môže mať za následok zrušenie Vášho účtu.</string>
   <string name="blogTips">Naše jednoduché tipy ako písať skvelé blogové príspevky</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskutovať o tomto príspevku na fóre</string>
+  <string name="discussThisBlogPostInTheForum">Diskutovať o tomto príspevku na fóre</string>
 </resources>
