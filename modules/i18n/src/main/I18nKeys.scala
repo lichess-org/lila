@@ -2415,7 +2415,7 @@ object I18nKeys:
     val `allBlogTopic` = I18nKey("ublog:allBlogTopic")
     val `friendBlog` = I18nKey("ublog:friendBlog")
     val `likedBlog` = I18nKey("ublog:likedBlog")
-    val `blogTopic` = I18nKey("ublog:blogTopic")
+    val `blogTopics` = I18nKey("ublog:blogTopics")
     val `lichessOfficialBlog` = I18nKey("ublog:lichessOfficialBlog")
     val `continueReadingPost` = I18nKey("ublog:continueReadingPost")
     val `lichessBlogPostsFromXYear` = I18nKey("ublog:lichessBlogPostsFromXYear")
