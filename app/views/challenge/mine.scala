@@ -49,7 +49,7 @@ object mine:
                 else
                   div(cls := "invite")(
                     div(
-                      h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl(), ": "),
+                      h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl()),
                       br,
                       p(cls := "challenge-id-form")(
                         input(
@@ -85,13 +85,10 @@ object mine:
                       )
                     ),
                     div(cls := "qr-code-invite")(
-                      h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode(), ": "),
-                      br,
-                      p(cls := "qr-code")(
-                        img(
-                          src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
-                          alt := "QR Code"
-                        )
+                      h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode()),
+                      img(
+                        src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
+                        alt := "QR Code"
                       )
                     )
                   )

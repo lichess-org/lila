@@ -8,32 +8,19 @@
   }
 
   .qr-code-invite {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 1em 0;
-
-    .qr-code {
-      @extend %box-radius;
-      @include padding-direction(2em, 2em, 1em, 2em);
-      background: $c-bg-zebra;
-      margin: 1em;
-      flex: 1 1 auto;
-    }
+    @extend %flex-between-nowrap;
+    gap: $block-gap;
   }
 
   .invite {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    gap: $block-gap;
+    grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
 
     > div {
-      @extend %box-radius;
-      @include padding-direction(2em, 2em, 1em, 2em);
-
+      @extend %box-neat;
+      padding: $block-gap;
       background: $c-bg-zebra;
-      margin: 1em;
-      flex: 1 1 auto;
     }
 
     p.error {
