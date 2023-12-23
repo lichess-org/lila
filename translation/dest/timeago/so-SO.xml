@@ -26,8 +26,8 @@
     <item quantity="other">%s bilood gudohood</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">%s sanad gudihii</item>
-    <item quantity="other">%s sanadood gudohood</item>
+    <item quantity="one">%s sano gudihii</item>
+    <item quantity="other">%s sano gudohood</item>
   </plurals>
   <string name="rightNow">immika</string>
   <plurals name="nbMinutesAgo">
@@ -51,8 +51,8 @@
     <item quantity="other">%s bilood ka hor</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="one">%s sanad ka hor</item>
-    <item quantity="other">%s sanadood ka hor</item>
+    <item quantity="one">%s sano ka hor</item>
+    <item quantity="other">%s sano ka hor</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
     <item quantity="one">%s mirir baa hadhay</item>
