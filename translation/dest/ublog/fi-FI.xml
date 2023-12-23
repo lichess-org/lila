@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="blogTopics">Blogin aiheet</string>
+  <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
+  <string name="continueReadingPost">Jatka tämän kirjoituksen lukemista</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-blogikirjoitukset vuodelta %s</string>
+  <string name="previousBlogPosts">Edelliset blogikirjoitukset</string>
   <string name="xBlog">Käyttäjän %s blogi</string>
   <string name="newPost">Uusi kirjoitus</string>
   <string name="editYourBlogPost">Muokkaa blogikirjoitustasi</string>
