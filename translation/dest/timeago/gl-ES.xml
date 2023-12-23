@@ -54,6 +54,10 @@
     <item quantity="one">Hai %s ano</item>
     <item quantity="other">Hai %s anos</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuto restante</item>
+    <item quantity="other">%s minutos restantes</item>
+  </plurals>
   <plurals name="nbHoursRemaining">
     <item quantity="one">%s hora restante</item>
     <item quantity="other">%s horas restantes</item>
