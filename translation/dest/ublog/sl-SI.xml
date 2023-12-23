@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogi skupnosti</string>
+  <string name="friendBlogs">Blogi prijateljev</string>
+  <string name="likedBlogs">Všečkane objave v spletnem dnevniku</string>
+  <string name="blogTopics">Teme bloga</string>
+  <string name="lichessOfficialBlog">Uradni blog Lichess</string>
+  <string name="continueReadingPost">Nadaljujte z branjem te objave</string>
+  <string name="lichessBlogPostsFromXYear">Objave v spletnem dnevniku Lichess v %s</string>
+  <string name="previousBlogPosts">Prejšnje objave v spletnem dnevniku</string>
   <string name="xBlog">%s blog</string>
   <string name="newPost">Nova objava</string>
   <string name="editYourBlogPost">Uredi svojo objavo v blogu</string>
