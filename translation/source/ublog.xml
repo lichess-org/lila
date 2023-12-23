@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="communityBlog">Community blogs</string>
-  <string name="allBlogTopic">All blog topics</string>
   <string name="friendBlog">Friends blogs</string>
   <string name="likedBlog">Liked blog posts</string>
   <string name="blogTopics">Blog topics</string>

@@ -133,7 +133,7 @@ object index:
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
         div(cls := "page-menu__content box")(
-          boxTop(h1(trans.ublog.allBlogTopic())),
+          boxTop(h1(trans.ublog.blogTopics())),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(

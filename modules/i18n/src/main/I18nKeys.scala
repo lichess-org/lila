@@ -2412,7 +2412,6 @@ object I18nKeys:
 
   object ublog:
     val `communityBlog` = I18nKey("ublog:communityBlog")
-    val `allBlogTopic` = I18nKey("ublog:allBlogTopic")
     val `friendBlog` = I18nKey("ublog:friendBlog")
     val `likedBlog` = I18nKey("ublog:likedBlog")
     val `blogTopics` = I18nKey("ublog:blogTopics")
