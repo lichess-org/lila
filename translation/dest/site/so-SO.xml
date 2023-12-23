@@ -45,10 +45,10 @@
   <string name="forceDraw">Baraaje dalbo</string>
   <string name="talkInChat">Fadlan si wanaagsan u isticmal luuqa!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Qofka ugu horreeya ee laynkan soo raacaa kula ciyaaraya.</string>
-  <string name="whiteResigned">Caddaanki wuu isdhiibay</string>
-  <string name="blackResigned">Madow wa iscasilay</string>
-  <string name="whiteLeftTheGame">Cadaan wuu ka baxay ciyaarta</string>
-  <string name="blackLeftTheGame">Madow wuu ka baxay ciyaarta</string>
+  <string name="whiteResigned">Caddaankaa isdhiibay</string>
+  <string name="blackResigned">Madowgaa isdhiibay</string>
+  <string name="whiteLeftTheGame">Cadaankaa ka baxay ciyaarta</string>
+  <string name="blackLeftTheGame">Madowgaa ka baxay ciyaarta</string>
   <string name="whiteDidntMove">Cadaanku muu dhaqaaqin</string>
   <string name="blackDidntMove">Madowgu muu dhaqaaqin</string>
   <string name="requestAComputerAnalysis">Dalbo in computer falanqeeyo</string>
@@ -84,7 +84,7 @@
   <string name="unknown">Lama garanayo</string>
   <string name="database">Keydka weyn</string>
   <string name="whiteDrawBlack">Caddaan / Baraaje / Madow</string>
-  <string name="averageRatingX">Darajada isku celceliska ah: %s</string>
+  <string name="averageRatingX">Qiimaynta isku celceliska ah: %s</string>
   <string name="recentGames">Ciyaarihii ugu bambeeyey</string>
   <string name="topGames">Ciyaaraha ugu sareeya</string>
   <string name="masterDbExplanation">Ciyaaraha MD ee %1$s+ ciyaartoyda FIDE ee %2$s ilaa %3$s</string>
@@ -199,7 +199,7 @@
     <item quantity="other">%s mirir</item>
   </plurals>
   <string name="time">Waqtiga</string>
-  <string name="rating">Qiimayn</string>
+  <string name="rating">Qiimaynta</string>
   <string name="ratingStats">Daraasada qiinqaynta</string>
   <string name="username">Magaca-akoon</string>
   <string name="usernameOrEmail">Magac-akoon ama iimayl</string>
@@ -256,14 +256,14 @@
   </plurals>
   <string name="cancel">Ka noqo</string>
   <string name="whiteTimeOut">Wakhtigii ba ka dhamaaday cadaanka</string>
-  <string name="blackTimeOut">Wakhtigii ba ka dhamaaday madowga</string>
+  <string name="blackTimeOut">Wakhtigaa ka dhacay madowga</string>
   <string name="drawOfferSent">La dir dalbasho baraaje</string>
-  <string name="drawOfferAccepted">La aqbal baraaje</string>
-  <string name="drawOfferCanceled">Laga noqoy dalbasho baraaje</string>
+  <string name="drawOfferAccepted">Waa la aqbalay baraaje</string>
+  <string name="drawOfferCanceled">Waa laga noqday dalbasho baraaje</string>
   <string name="whiteOffersDraw">Cadaankaa dalbaday baraaje</string>
   <string name="blackOffersDraw">Madowgaa dalbaday baraaje</string>
   <string name="whiteDeclinesDraw">Caddaanku wudu diiday baraaje</string>
-  <string name="blackDeclinesDraw">Madowgu wudu diiday baraaje</string>
+  <string name="blackDeclinesDraw">Madowgu wuu diiday baraaje</string>
   <string name="yourOpponentOffersADraw">Horjeedahaagu wuxu kaa dalbaday baraaje</string>
   <string name="accept">Aqbal</string>
   <string name="decline">Diid</string>
@@ -271,7 +271,7 @@
   <string name="eventInProgress">Ciyaarta hadda</string>
   <string name="finished">Dhameystiray</string>
   <string name="abortGame">Tuur ciyaartan</string>
-  <string name="gameAborted">La tuur ciyaartan</string>
+  <string name="gameAborted">Ciyaartan waa la tuuray</string>
   <string name="standard">Heerka</string>
   <string name="unlimited">Bilaa xad</string>
   <string name="mode">Nooca</string>
@@ -282,9 +282,9 @@
   <string name="thisGameIsRated">Ciyaartani way qiimaysantay</string>
   <string name="rematch">Ku celi</string>
   <string name="rematchOfferSent">La dir codsi ku celin ah</string>
-  <string name="rematchOfferAccepted">La aqbal codsi ku celin ah</string>
-  <string name="rematchOfferCanceled">Laga noqoy codsi ku celin ah</string>
-  <string name="rematchOfferDeclined">La diid codsi ku celin ah</string>
+  <string name="rematchOfferAccepted">Waa la aqbalay codsi ku celin ah</string>
+  <string name="rematchOfferCanceled">Waa laga noqday codsi ku celin ah</string>
+  <string name="rematchOfferDeclined">Waa la diiday codsi ku celin ah</string>
   <string name="cancelRematchOffer">Ka noqo codsi ku celin ah</string>
   <string name="viewRematch">Eeg ciyaarta ku celinta ah</string>
   <string name="confirmMove">Hubso tallaabada</string>
@@ -339,10 +339,12 @@
   <string name="never">Marna</string>
   <string name="victory">Guulayso</string>
   <string name="opponent">Horjeede</string>
+  <string name="learnMenu">Baro</string>
   <string name="community">Bulshada</string>
   <string name="tools">Qalabka</string>
   <string name="increment">Taran</string>
   <string name="watchGames">Daawo ciyaaro</string>
+  <string name="watch">Daawo</string>
   <string name="aboutSimulImage">50 ciyaarood Fischer wuxuu ka keenay 47 guulood, 2 baraaje iyo 1 guuldarro.</string>
   <string name="create">Abuur</string>
   <string name="correspondenceChess">Jes maalinle ah</string>
@@ -360,6 +362,7 @@
   <string name="usernameSuffixInvalid">Magacan-akoonku waa inuu ku dhamaado xaraf ama tiro.</string>
   <string name="usernameCharsInvalid">Magacan-akoonka waxa u banana xarfo, tiro, xarriiq hoose, iyo xarriiq isku xidhe ah. Xarriiquhu iskuma xigi karaan.</string>
   <string name="usernameUnacceptable">Magacan-akoonkan lama aqbali karo.</string>
+  <string name="chessBasics">Aasaaska jesta</string>
   <string name="coaches">Tababarayaal</string>
   <string name="next">Xiga</string>
   <string name="solution">Xalka</string>
