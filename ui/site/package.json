@@ -70,7 +70,8 @@
         "src/streamer.ts": "streamer",
         "src/soundMove.ts": "soundMove",
         "src/diagnostic.ts": "diagnostic",
-        "src/flairPicker.ts": "flairPicker"
+        "src/flairPicker.ts": "flairPicker",
+        "src/dailyFeed.ts": "dailyFeed"
       }
     },
     "copy": [

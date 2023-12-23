@@ -32,6 +32,8 @@ trait AssetHelper extends HasEnv:
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
+  def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+
   def cssTag(name: String)(using ctx: Context): Frag =
     cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
 

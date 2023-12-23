@@ -17,7 +17,7 @@ object dailyFeed:
       title = title,
       active = "news",
       moreCss = cssTag("dailyFeed"),
-      moreJs = edit option jsModule("flatpickr")
+      moreJs = edit option frag(jsModule("flatpickr"), jsModule("dailyFeed"))
     )
 
   def index(updates: List[Update])(using PageContext) =
@@ -44,7 +44,7 @@ object dailyFeed:
         .filter(_.published || editor)
         .map: update =>
           div(cls := "daily-feed__update", id := update.id)(
-            iconTag(licon.StarOutline),
+            flairOrStar(update),
             div(cls := "daily-feed__update__content")(
               st.section(cls := "daily-feed__update__day")(
                 h2(a(href := s"#${update.id}")(momentFromNow(update.at))),
@@ -67,7 +67,7 @@ object dailyFeed:
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
-          iconTag(licon.StarOutline),
+          flairOrStar(update),
           div(
             a(cls := "daily-feed__update__day", href := s"/feed#${update.id}"):
               momentFromNow(update.at)
@@ -82,6 +82,10 @@ object dailyFeed:
             "All updates »"
       )
     )
+
+  private def flairOrStar(up: Update) =
+    up.flair.fold(iconTag(licon.StarOutline)): f =>
+      updateFlair(f)(cls := "daily-feed__update__flair")
 
   def create(form: Form[?])(using PageContext) =
     layout("Lichess updates: New", true):
@@ -136,8 +140,15 @@ object dailyFeed:
         "Content",
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 10)),
+      form3.group(form("flair"), "Icon", half = false): field =>
+        form3.flairPicker(field, Flair from form("flair").value, label = frag("Update icon")):
+          span(cls := "flair-container".some):
+            Flair.from(form("flair").value).map(updateFlair).map(_(cls := "uflair"))
+      ,
       form3.action(form3.submit("Save"))
     )
+
+  private def updateFlair(flair: Flair) = img(src := flairSrc(flair))
 
   def atom(ups: List[Update])(using Lang) =
     import views.html.base.atom.{ atomDate, category }

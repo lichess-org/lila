@@ -35,6 +35,17 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       border-radius: 50%;
       color: #fff;
     }
+    &__flair {
+      float: $start-direction;
+      width: 32px;
+      height: 32px;
+      padding: 5px;
+      margin-top: -5px;
+      margin-#{$start-direction}: -42px;
+      background: $c-bg-box;
+      border: 2px solid $c-contours;
+      border-radius: 50%;
+    }
     &__day {
       @extend %flex-center;
       display: inline;
