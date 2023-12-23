@@ -145,6 +145,23 @@ trait UserHelper extends HasEnv:
       modIcon = false
     )
 
+  def lightUserSpan(
+      user: LightUser,
+      cssClass: Option[String] = None,
+      withOnline: Boolean = true,
+      withTitle: Boolean = true,
+      params: String = ""
+  )(using Lang): Tag =
+    span(
+      cls      := userClass(user.id, cssClass, withOnline),
+      dataHref := userUrl(user.name)
+    )(
+      withOnline so lineIcon(user.isPatron),
+      titleTag(user.title),
+      user.name,
+      user.flair.map(userFlair)
+    )
+
   def titleTag(title: Option[UserTitle]): Option[Frag] =
     title.map: t =>
       frag(userTitleTag(t), nbsp)

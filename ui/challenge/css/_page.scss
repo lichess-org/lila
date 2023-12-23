@@ -7,11 +7,6 @@
     }
   }
 
-  .qr-code-invite {
-    @extend %flex-between-nowrap;
-    gap: $block-gap;
-  }
-
   .invite {
     display: grid;
     gap: $block-gap;
@@ -23,9 +18,30 @@
       background: $c-bg-zebra;
     }
 
-    p.error {
-      color: $c-bad;
-      margin-top: 1em;
+    &__qrcode {
+      @extend %flex-between-nowrap;
+      gap: $block-gap;
+    }
+
+    &__user {
+      @include breakpoint($mq-x-small) {
+        grid-area: 1 / 2 / 3 / 2;
+      }
+      &__recent {
+        @extend %flex-center;
+        margin-top: 1em;
+        gap: 0.5em;
+        .button {
+          background: none;
+          border: $border;
+          text-align: $start-direction;
+          text-transform: none;
+        }
+      }
+      .error {
+        color: $c-bad;
+        margin-top: 1em;
+      }
     }
   }
 

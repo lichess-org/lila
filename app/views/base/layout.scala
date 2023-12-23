@@ -214,7 +214,6 @@ object layout:
   )
 
   private val dataVapid         = attr("data-vapid")
-  private val dataUser          = attr("data-user")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
