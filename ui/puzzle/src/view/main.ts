@@ -144,10 +144,11 @@ function session(ctrl: PuzzleCtrl) {
     current = ctrl.data.puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd =
-        round.ratingDiff && ctrl.opts.showRatings && round.ratingDiff > 0
-          ? '+' + round.ratingDiff
-          : round.ratingDiff;
+      const rd = !ctrl.opts.showRatings
+        ? ''
+        : round.ratingDiff && round.ratingDiff > 0
+        ? '+' + round.ratingDiff
+        : round.ratingDiff;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
