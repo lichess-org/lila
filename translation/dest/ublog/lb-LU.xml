@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogge vun der Communautéit</string>
+  <string name="friendBlogs">Blogge vun de Kolleegen</string>
+  <string name="blogTopics">Blog-Theemen</string>
+  <string name="lichessOfficialBlog">Offizielle Lichess-Blog</string>
+  <string name="continueReadingPost">Virufuere mam Liese vun dësem Bäitrag</string>
+  <string name="previousBlogPosts">Virege Blog-Bäitrag</string>
   <string name="xBlog">%s säi Blog</string>
   <string name="newPost">Neie Bäitrag</string>
   <string name="editYourBlogPost">Beaarbecht däi Blog-Bäitrag</string>
