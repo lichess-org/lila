@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import { Millis } from '../clock/clockCtrl';
 import { Position } from '../interfaces';
 import { CorresClockController } from './corresClockCtrl';
@@ -47,20 +47,10 @@ export default function (
     direction = document.dir == 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
   return h(
     'div.rclock.rclock-correspondence.rclock-' + position,
-    {
-      class: {
-        outoftime: millis <= 0,
-        running: runningColor === color,
-      },
-    },
+    { class: { outoftime: millis <= 0, running: runningColor === color } },
     [
-      ctrl.data.showBar
-        ? h('div.bar', [
-            h('span', {
-              attrs: { style: `width: ${ctrl.timePercent(color)}%` },
-            }),
-          ])
-        : null,
+      ctrl.data.showBar &&
+        h('div.bar', [h('span', { attrs: { style: `width: ${ctrl.timePercent(color)}%` } })]),
       h('div.time', {
         attrs: direction && { style: `direction: ${direction}` },
         hook: {
@@ -68,7 +58,7 @@ export default function (
           postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
         },
       }),
-      isPlayer ? null : moretime(ctrl.root),
+      !isPlayer && moretime(ctrl.root),
     ],
   );
 }

@@ -17,8 +17,8 @@
   <string name="youHaveLifetime">Du häsch es läbelangs Gönnerkonto. Das isch grossartig!</string>
   <string name="patronUntil">Du häsch es Gönnerkonto bis %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Falls du nöd erneuere tuesch, wird dis Konto in es Regulärs umgwandlet.</string>
-  <string name="weAreNonProfit">Mir sind e \"Non-Profit-Organisation\", will mir glaubed, dass jede sött Zuegang zu ere gratis, \"Wältklass Schach Plattform\" ha.</string>
-  <string name="weRelyOnSupport">Mir sind uf d\'Underschtützig vu so Lüt wie du agwise, zum das möglich z\'mache. Wänn dir Lichess g\'fallt, chasch du eus underschtütze, indem du schpändisch und so en Lichess Gönner wirsch!</string>
+  <string name="weAreNonProfit">Als \"Non-Profit-Organisation\" glaubed mir, dass jede sött Zuegang zunere gratis, \"Wältklass Schach Plattform\" ha.</string>
+  <string name="weRelyOnSupport">Mir sind uf Underschtützig vu Lüt wie du agwise, um das z\'ermögliche. Wänn dir Lichess g\'fallt, chasch eus underschtütze, idem du schpändsch und en Lichess Gönner wirsch!</string>
   <string name="lifetime">Läbeslang</string>
   <string name="payLifetimeOnce">Zahl eimal %s und wird für immer en Lichess Gönner!</string>
   <string name="lifetimePatron">Läbeslange Lichess Gönner</string>
@@ -30,12 +30,12 @@
   <string name="pleaseEnterAmountInX">Bitte gib en Betrag in %s i</string>
   <string name="withCreditCard">Kreditcharte</string>
   <string name="logInToDonate">Amälde zum Schpände</string>
-  <string name="weAreSmallTeam">Mir sind es chlises Team, drum macht dini Underschtützig en riese Underschid!</string>
-  <string name="celebratedPatrons">Die g\'firete Gönner, wo Lichess möglich mached</string>
+  <string name="weAreSmallTeam">Mir sind es chlises Team, drum hät dini Underschtützig e grossi Würkig!</string>
+  <string name="celebratedPatrons">Gönner wo Lichess möglich mached</string>
   <string name="whereMoneyGoes">Wohi flüsst das Gäld?</string>
   <string name="serversAndDeveloper">Ganz zerscht in leischtigsstarchi Server. 
 Dänn zahled mir en Vollzit-Entwickler: %s, de Gründer vu Lichess.</string>
-  <string name="costBreakdown">Da die detailliert Choschte Uufteilig</string>
+  <string name="costBreakdown">Da die detailliert Choschte-Ufteilig</string>
   <string name="officialNonProfit">Isch Lichess e offizielli Non-Profit-Organisation?</string>
   <string name="actOfCreation">Ja, da isch d\'Gründigsurkund (uf französisch)</string>
   <string name="changeMonthlySupport">Chann ich mini monetlichi Underschtützig ändere/chünde?</string>

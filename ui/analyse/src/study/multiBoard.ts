@@ -121,9 +121,7 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
   return h('label.playing', [
     h('input', {
       attrs: { type: 'checkbox', checked: ctrl.playing },
-      hook: bind('change', e => {
-        ctrl.setPlaying((e.target as HTMLInputElement).checked);
-      }),
+      hook: bind('change', e => ctrl.setPlaying((e.target as HTMLInputElement).checked)),
     }),
     ctrl.trans.noarg('playing'),
   ]);
@@ -140,10 +138,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton(ctrl.trans.noarg('next'), licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
     pagerButton(ctrl.trans.noarg('last'), licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     h('button.fbt', {
-      attrs: {
-        'data-icon': licon.Search,
-        title: 'Search',
-      },
+      attrs: { 'data-icon': licon.Search, title: 'Search' },
       hook: bind('click', () => lichess.pubsub.emit('study.search.open')),
     }),
   ]);
@@ -157,11 +152,7 @@ function pagerButton(
   ctrl: MultiBoardCtrl,
 ): VNode {
   return h('button.fbt', {
-    attrs: {
-      'data-icon': icon,
-      disabled: !enable,
-      title: text,
-    },
+    attrs: { 'data-icon': icon, disabled: !enable, title: text },
     hook: bind('mousedown', click, ctrl.redraw),
   });
 }
@@ -170,9 +161,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
   h(
     `a.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
     {
-      attrs: {
-        'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
-      },
+      attrs: { 'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}` },
       class: {
         active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow(),
       },

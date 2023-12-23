@@ -56,8 +56,9 @@ trait ResponseBuilder(using Executor)
     json = TooManyRequests(jsonError(msg))
   )
 
-  val jsonOkBody   = Json.obj("ok" -> true)
-  val jsonOkResult = JsonOk(jsonOkBody)
+  val jsonOkBody             = Json.obj("ok" -> true)
+  val jsonOkResult           = JsonOk(jsonOkBody)
+  def jsonOkMsg(msg: String) = JsonOk(Json.obj("ok" -> msg))
 
   def JsonOk(body: JsValue): Result               = Ok(body) as JSON
   def JsonOk[A: Writes](body: A): Result          = Ok(Json toJson body) as JSON
@@ -101,16 +102,14 @@ trait ResponseBuilder(using Executor)
         Unauthorized(jsonError("Login required"))
     )
 
-  private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
-
   def authorizationFailed(using ctx: Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then Forbidden.page(views.html.site.message.authFailed)
     else
       fuccess:
         render:
-          case Accepts.Json() => forbiddenJsonResult
-          case _              => Results.Forbidden("Authorization failed")
+          case Accepts.Json() => forbiddenJson()
+          case _              => forbiddenText()
 
   def serverError(msg: String)(using ctx: Context): Fu[Result] =
     negotiate(
@@ -120,12 +119,12 @@ trait ResponseBuilder(using Executor)
 
   def notForBotAccounts(using Context) = negotiate(
     Forbidden.page(views.html.site.message.noBot),
-    Forbidden(jsonError("This API endpoint is not for Bot accounts."))
+    forbiddenJson("This API endpoint is not for Bot accounts.")
   )
 
   def notForLameAccounts(using Context, Me) = negotiate(
     Forbidden.page(views.html.site.message.noLame),
-    Forbidden(jsonError("The access to this resource is restricted."))
+    forbiddenJson("The access to this resource is restricted.")
   )
 
   def playbanJsonError(ban: lila.playban.TempBan) =

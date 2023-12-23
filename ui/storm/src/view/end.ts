@@ -1,11 +1,10 @@
 import StormCtrl from '../ctrl';
 import { getNow } from 'puz/util';
 import renderHistory from 'puz/view/history';
-import { h, VNode } from 'snabbdom';
 import { numberSpread } from 'common/number';
-import { onInsert } from 'common/snabbdom';
+import { onInsert, LooseVNodes, looseH as h } from 'common/snabbdom';
 
-const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
+const renderEnd = (ctrl: StormCtrl): LooseVNodes => [...renderSummary(ctrl), renderHistory(ctrl)];
 
 const newHighI18n = {
   day: 'newDailyHighscore',
@@ -14,32 +13,27 @@ const newHighI18n = {
   allTime: 'newAllTimeHighscore',
 };
 
-const renderSummary = (ctrl: StormCtrl): VNode[] => {
+const renderSummary = (ctrl: StormCtrl): LooseVNodes => {
   const run = ctrl.runStats();
   const high = ctrl.vm.response?.newHigh;
   const accuracy = (100 * (run.moves - run.errors)) / run.moves;
   const noarg = ctrl.trans.noarg;
   const scoreSteps = Math.min(run.score, 50);
   return [
-    ...(high
-      ? [
-          h(
-            'div.storm--end__high.storm--end__high-daily.bar-glider',
-            h('div.storm--end__high__content', [
-              h('div.storm--end__high__text', [
-                h('strong', noarg(newHighI18n[high.key])),
-                high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null,
-              ]),
-            ]),
-          ),
-        ]
-      : []),
+    high &&
+      h(
+        'div.storm--end__high.storm--end__high-daily.bar-glider',
+        h('div.storm--end__high__content', [
+          h('div.storm--end__high__text', [
+            h('strong', noarg(newHighI18n[high.key])),
+            high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null,
+          ]),
+        ]),
+      ),
     h('div.storm--end__score', [
       h(
         'span.storm--end__score__number',
-        {
-          hook: onInsert(el => numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score)),
-        },
+        { hook: onInsert(el => numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score)) },
         '0',
       ),
       h('p', noarg('puzzlesSolved')),
@@ -61,9 +55,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
     ]),
     h(
       'a.storm-play-again.button',
-      {
-        attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {},
-      },
+      { attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {} },
       noarg('playAgain'),
     ),
   ];

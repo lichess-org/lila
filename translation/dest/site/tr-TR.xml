@@ -272,7 +272,6 @@
   <string name="playingRightNow">Şu an oynanıyor</string>
   <string name="eventInProgress">Şu anda oynanıyor</string>
   <string name="finished">Bitti</string>
-  <string name="finishesX">%s sona erecek</string>
   <string name="abortGame">Oyunu iptal et</string>
   <string name="gameAborted">Oyun iptal edildi</string>
   <string name="standard">Standart</string>
@@ -405,7 +404,7 @@
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
   <string name="importGameCaveat">Varyasyonlar silinecek. Varyasyonları saklamak için bir çalışma aracılığıyla PGN\'yi içe aktarın.</string>
-  <string name="importGameCaveat2">Bu PGN herkes tarafından erişilebilir. Bir oyunu özel olarak içe aktarmak isterseniz bir çalışma kullanın.</string>
+  <string name="importGameDataPrivacyWarning">Bu PGN herkes tarafından erişilebilir. Bir oyunu özel olarak yüklemek istiyorsanız bir çalışma kullanın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
@@ -858,9 +857,10 @@
     <item quantity="one">ve %s önceki varyantları kaydedin</item>
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichess size bir özel mesaj gönderdi.</string>
+  <string name="clickHereToReadIt">Okumak için buraya tıklayın</string>
   <string name="sorry">Üzgünüz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
-  <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
@@ -880,6 +880,7 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Kurşun</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
   <string name="rapid">Hızlı</string>
   <string name="classical">Klasik</string>

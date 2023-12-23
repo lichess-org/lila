@@ -18,7 +18,7 @@ object layout:
       moreJs = infiniteScrollTag,
       wrapClass = "full-screen-force",
       openGraph = openGraph
-    ) {
+    ):
       main(cls := "video page-menu force-ltr")(
         st.aside(cls := "page-menu__menu")(
           views.html.site.bits.subnav(
@@ -44,4 +44,3 @@ object layout:
         ),
         div(cls := "page-menu__content box")(body)
       )
-    }

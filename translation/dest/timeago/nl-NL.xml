@@ -54,4 +54,13 @@
     <item quantity="one">%s jaar geleden</item>
     <item quantity="other">%s jaar geleden</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuut resterend</item>
+    <item quantity="other">%s minuten resterend</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s uur resterend</item>
+    <item quantity="other">%s uur resterend</item>
+  </plurals>
+  <string name="completed">voltooid</string>
 </resources>

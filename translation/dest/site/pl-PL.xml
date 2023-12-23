@@ -302,7 +302,6 @@
   <string name="playingRightNow">W toku</string>
   <string name="eventInProgress">W toku</string>
   <string name="finished">Zakończone</string>
-  <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Partia została przerwana</string>
   <string name="standard">Standard</string>
@@ -461,7 +460,7 @@
   <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <string name="importGameCaveat">Warianty zostaną usunięte. Aby je zachować, zaimportuj plik PGN jako opracowanie.</string>
-  <string name="importGameCaveat2">Ten zapis PGN będzie dostępny publicznie. Aby zaimportować partię tylko dla siebie, stwórz prywatne opracowanie.</string>
+  <string name="importGameDataPrivacyWarning">Ten zapis PGN będzie dostępny publicznie. Aby zaimportować partię tylko dla siebie, stwórz prywatne opracowanie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -573,7 +572,7 @@
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
-  <string name="setFlair">Ustaw swój emblemat:</string>
+  <string name="setFlair">Ustaw swój emblemat</string>
   <string name="flair">Emblemat</string>
   <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>
   <string name="biography">O mnie</string>
@@ -945,9 +944,10 @@
     <item quantity="many">i zapisz %s wariantów warunkowych</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Otrzymałeś prywatną wiadomość od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknij tutaj, aby ją odczytać</string>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
-  <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
   <string name="why">Dlaczego?</string>
   <string name="pleasantChessExperience">Naszym celem jest zapewnienie wszystkim przyjemności z gry.</string>
   <string name="goodPractice">W tym celu musimy zapewnić przestrzeganie dobrych praktyk przez wszystkich graczy.</string>
@@ -967,6 +967,7 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Szybkie</string>
   <string name="classical">Klasyczne</string>

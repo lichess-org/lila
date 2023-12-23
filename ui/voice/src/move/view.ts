@@ -35,12 +35,7 @@ export function claritySetting(clarity: Prop<number>, redraw: () => void) {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
     h('input#voice-clarity', {
-      attrs: {
-        type: 'range',
-        min: 0,
-        max: 2,
-        step: 1,
-      },
+      attrs: { type: 'range', min: 0, max: 2, step: 1 },
       hook: rangeConfig(clarity, val => {
         clarity(val);
         redraw();

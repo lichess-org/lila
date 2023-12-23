@@ -12,15 +12,15 @@
   <string name="cannotChallengeDueToProvisionalXRating">Non podes desafiar dado que a túa puntuación en %s é provisional.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só acepta desafíos de amigos.</string>
   <string name="declineGeneric">Neste momento non acepto desafíos.</string>
-  <string name="declineLater" comment="One of the standard replies which players can use to decline challenges.">Agora mesmo non podo. Por favor, téntao máis tarde.</string>
-  <string name="declineTooFast" comment="One of the standard replies which players can use to decline challenges.">Paréceme pouco tempo. Proba cun ritmo máis lento.</string>
-  <string name="declineTooSlow" comment="One of the standard replies which players can use to decline challenges.">Paréceme moito tempo. Proba cun ritmo máis rápido.</string>
-  <string name="declineTimeControl" comment="One of the standard replies which players can use to decline challenges.">Non acepto desafíos a este ritmo.</string>
-  <string name="declineRated" comment="One of the standard replies which players can use to decline challenges.">Por favor, rétame a unha partida puntuada.</string>
-  <string name="declineCasual" comment="One of the standard replies which players can use to decline challenges.">Por favor, rétame a unha partida amigable.</string>
-  <string name="declineStandard" comment="One of the standard replies which players can use to decline challenges.">Agora mesmo non acepto desafíos en variantes.</string>
-  <string name="declineVariant" comment="One of the standard replies which players can use to decline challenges.">Neste momento non me apetece xogar esa variante.</string>
+  <string name="declineLater">Agora mesmo non podo. Por favor, téntao máis tarde.</string>
+  <string name="declineTooFast">Paréceme pouco tempo. Proba cun ritmo máis lento.</string>
+  <string name="declineTooSlow">Paréceme moito tempo. Proba cun ritmo máis rápido.</string>
+  <string name="declineTimeControl">Non acepto desafíos a este ritmo.</string>
+  <string name="declineRated">Por favor, rétame a unha partida puntuada.</string>
+  <string name="declineCasual">Por favor, rétame a unha partida amigable.</string>
+  <string name="declineStandard">Agora mesmo non acepto desafíos en variantes.</string>
+  <string name="declineVariant">Neste momento non me apetece xogar esa variante.</string>
   <string name="declineNoBot">Non acepto desafíos de bots.</string>
   <string name="declineOnlyBot">Só acepto desafíos de bots.</string>
-  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">Ou convida a un usuario de Lichess:</string>
+  <string name="inviteLichessUser">Ou convida a un usuario de Lichess:</string>
 </resources>

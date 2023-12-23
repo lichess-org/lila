@@ -169,17 +169,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
       },
     },
     [
-      h(
-        'span.icon',
-        tour.perf
-          ? {
-              attrs: {
-                'data-icon': iconOf(tour),
-                title: tour.perf.name,
-              },
-            }
-          : {},
-      ),
+      h('span.icon', tour.perf ? { attrs: { 'data-icon': iconOf(tour), title: tour.perf.name } } : {}),
       h('span.body', [
         h('span.name', i18nName(tour)),
         h('span.infos', [
@@ -190,13 +180,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
             tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament'),
           ]),
           tour.nbPlayers
-            ? h(
-                'span.nb-players',
-                {
-                  attrs: { 'data-icon': licon.User },
-                },
-                tour.nbPlayers,
-              )
+            ? h('span.nb-players', { attrs: { 'data-icon': licon.User } }, tour.nbPlayers)
             : null,
         ]),
       ]),
@@ -226,9 +210,7 @@ function renderTimeline() {
     time.setUTCMinutes(time.getUTCMinutes() + minutesBetween);
   }
   timeHeaders.push(
-    h('div.timeheader.now', {
-      attrs: { style: startDirection() + ': ' + leftPos(now) + 'px' },
-    }),
+    h('div.timeheader.now', { attrs: { style: startDirection() + ': ' + leftPos(now) + 'px' } }),
   );
 
   return h('div.timeline', timeHeaders);

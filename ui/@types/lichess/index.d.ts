@@ -199,7 +199,7 @@ interface Pubsub {
 }
 
 interface LichessStorageHelper {
-  make(k: string): LichessStorage;
+  make(k: string, ttl?: number): LichessStorage;
   boolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
@@ -305,6 +305,7 @@ declare namespace Editor {
     orientation?: Color;
     onChange?: (fen: string) => void;
     inlineCastling?: boolean;
+    coordinates?: boolean;
   }
 
   export interface OpeningPosition {

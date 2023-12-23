@@ -302,7 +302,6 @@
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершён</string>
-  <string name="finishesX">завершится %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
@@ -461,7 +460,7 @@
   <string name="importGame">Импортировать партию</string>
   <string name="importGameExplanation">Вставьте запись партии в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <string name="importGameCaveat">Варианты будут удалены. Чтобы их сохранить, импортируйте PGN в студии.</string>
-  <string name="importGameCaveat2">Этот PGN-файл может быть доступен публично. Чтобы импортировать игру приватно, используйте студию.</string>
+  <string name="importGameDataPrivacyWarning">Этот PGN-файл может быть доступен публично. Чтобы импортировать игру приватно, используйте студию.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
@@ -573,7 +572,7 @@
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
   <string name="lastName">Фамилия</string>
-  <string name="setFlair">Задайте свой эмодзи:</string>
+  <string name="setFlair">Задайте свой эмодзи</string>
   <string name="flair">Эмодзи</string>
   <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
   <string name="biography">О себе</string>
@@ -946,9 +945,10 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
+  <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
-  <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
   <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
@@ -968,6 +968,7 @@
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Пуля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>

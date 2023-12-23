@@ -54,4 +54,13 @@
     <item quantity="one">%s år siden</item>
     <item quantity="other">%s år siden</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minut tilbage</item>
+    <item quantity="other">%s minutter tilbage</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s time tilbage</item>
+    <item quantity="other">%s timer tilbage</item>
+  </plurals>
+  <string name="completed">afsluttet</string>
 </resources>

@@ -271,7 +271,6 @@
   <string name="playingRightNow">Играещи сега</string>
   <string name="eventInProgress">Играещи сега</string>
   <string name="finished">Приключи</string>
-  <string name="finishesX">свършва след %s</string>
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
   <string name="standard">Обикновен</string>
@@ -847,7 +846,6 @@
   </plurals>
   <string name="sorry">Съжалявам :(</string>
   <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
-  <string name="timeoutExpires">Принудителната почивка приключва %s.</string>
   <string name="why">Защо?</string>
   <string name="pleasantChessExperience">Стремим се да доставим приятно удоволствие от Шаха на всеки.</string>
   <string name="goodPractice">С тази цел трябва да подсигурим, че всички играчи спазват добри практики.</string>

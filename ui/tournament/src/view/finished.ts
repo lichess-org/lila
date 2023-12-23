@@ -14,9 +14,7 @@ import { MaybeVNodes } from 'common/snabbdom';
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
-      hook: {
-        insert: _ => lichess.asset.loadIife('javascripts/confetti.js'),
-      },
+      hook: { insert: _ => lichess.asset.loadIife('javascripts/confetti.js') },
     });
   return undefined;
 }
@@ -47,11 +45,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         ? [
             h(
               'a',
-              {
-                attrs: {
-                  href: `/tournament/${data.id}/teams`,
-                },
-              },
+              { attrs: { href: `/tournament/${data.id}/teams` } },
               trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length),
             ),
             h('br'),
@@ -59,13 +53,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         : []),
       h(
         'a.text',
-        {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/tournament/${data.id}/games`,
-            download: true,
-          },
-        },
+        { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
         'Download all games',
       ),
       data.me &&
@@ -83,11 +71,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h(
         'a.text',
         {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/tournament/${data.id}/results`,
-            download: true,
-          },
+          attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
         },
         'Download results as NDJSON',
       ),
@@ -105,12 +89,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h('br'),
       h(
         'a.text',
-        {
-          attrs: {
-            'data-icon': licon.InfoCircle,
-            href: 'https://lichess.org/api#tag/Arena-tournaments',
-          },
-        },
+        { attrs: { 'data-icon': licon.InfoCircle, href: 'https://lichess.org/api#tag/Arena-tournaments' } },
         'Arena API documentation',
       ),
     ]),

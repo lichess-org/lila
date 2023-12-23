@@ -1,89 +1,82 @@
 package lila.blog
 
-import java.time.LocalDate
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.common.config.Max
+import play.api.data.Form
 
 object DailyFeed:
 
-  case class Update(@Key("_id") day: LocalDate, content: Markdown, public: Boolean):
+  type ID = String
 
-    lazy val rendered: Html = renderer(s"dailyFeed:${day}")(content)
+  case class Update(@Key("_id") id: ID, content: Markdown, public: Boolean, at: Instant):
+    lazy val rendered: Html = renderer(s"dailyFeed:${id}")(content)
+    lazy val dateStr        = dateFormatter print at
+    lazy val title          = "Daily update - " + dateStr
+    def published           = public && at.isBeforeNow
+    def future              = at.isAfterNow
 
-    lazy val instant: Instant = day.atStartOfDay.instant
+  private val renderer      = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
+  private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
-    lazy val dayString: String = day.toString
+  type GetLastUpdates = () => List[Update]
 
-    lazy val title = "Daily update - " + dayString
-
-    lazy val isFresh = instant isAfter nowInstant.minusDays(1)
-
-  private val renderer = lila.common.MarkdownRender(
-    autoLink = false,
-    list = true,
-    table = true,
-    strikeThrough = true,
-    header = true
-  )
-
-  type GetLastUpdate = () => Option[Update]
+  import ornicar.scalalib.ThreadLocalRandom
+  def makeId = ThreadLocalRandom nextString 6
 
 final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
-  import DailyFeed.Update
+  import DailyFeed.*
 
-  private given BSONHandler[LocalDate] = quickHandler[LocalDate](
-    { case BSONString(s) => LocalDate.parse(s) },
-    d => BSONString(d.toString)
-  )
+  private val max = Max(50)
+
   private given BSONDocumentHandler[Update] = Macros.handler
 
   private object cache:
-    private var mutableLastUpdate: Option[Update] = None
-    val store = cacheApi[Max, List[Update]](4, "dailyFeed.updates"):
-      _.expireAfterWrite(1 minute).buildAsyncFuture: nb =>
+    private var mutableLastUpdates: List[Update] = Nil
+    val store = cacheApi.unit[List[Update]]:
+      _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
         coll
           .find($empty)
-          .sort($sort.desc("_id"))
+          .sort($sort.desc("at"))
           .cursor[Update]()
-          .list(nb.value)
+          .list(max.value)
           .addEffect: ups =>
-            mutableLastUpdate = ups.headOption
-    def clear()                             = store.underlying.synchronous.invalidateAll()
-    def lastUpdate: DailyFeed.GetLastUpdate = () => mutableLastUpdate
-    store.get(Max(1)) // populate lastUpdate
+            mutableLastUpdates = ups.filter(_.published).take(7)
+    def clear() =
+      store.underlying.synchronous.invalidateAll()
+      store.get({}) // populate lastUpdate
+    def lastUpdate: DailyFeed.GetLastUpdates = () => mutableLastUpdates
+    store.get({}) // populate lastUpdate
 
-  export cache.store.{ get as recent }
   export cache.lastUpdate
 
-  def get(day: LocalDate): Fu[Option[Update]] = coll.one[Update]($id(day))
+  def recent: Fu[List[Update]] = cache.store.get({})
 
-  def set(update: Update, from: Option[Update]): Funit = for
-    _ <- from.filter(_.day != update.day).so(up => coll.delete.one($id(up.day)).void)
-    _ <- coll.update.one($id(update.day), update, upsert = true).void andDo cache.clear()
-  yield ()
+  def recentPublished = recent.map(_.filter(_.published))
 
-  def delete(id: LocalDate): Funit =
+  def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
+
+  def set(update: Update): Funit =
+    coll.update.one($id(update.id), update, upsert = true).void andDo cache.clear()
+
+  def delete(id: ID): Funit =
     coll.delete.one($id(id)).void andDo cache.clear()
 
-  def form(from: Option[Update]) =
+  case class UpdateData(content: Markdown, public: Boolean, at: Instant):
+    def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at)
+
+  def form(from: Option[Update]): Form[UpdateData] =
     import play.api.data.*
     import play.api.data.Forms.*
     import lila.common.Form.*
     val form = Form:
       mapping(
-        "day" -> ISODate.mapping
-          .verifying(
-            "There is already an update for this day",
-            day => from.exists(_.day == day) || !existsBlocking(day)
-          ),
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
-        "public"  -> boolean
-      )(Update.apply)(unapply)
-    from.fold(form)(form.fill)
-
-  private def existsBlocking(day: LocalDate): Boolean =
-    coll.exists($id(day)).await(1.second, "dailyFeed.existsBlocking")
+        "public"  -> boolean,
+        "at"      -> ISOInstantOrTimestamp.mapping
+      )(UpdateData.apply)(unapply)
+    from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at)))

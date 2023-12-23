@@ -54,7 +54,7 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
   <string name="allowChatHelp">jan musi li ken toki lon tomo toki</string>
   <string name="arenaStreaks">nanpa pona sin pi pini pona poka</string>
   <string name="arenaStreaksHelp">jan li pini pona lon tenpo 2, pini pona kama li pana e nanpa pona 4, li pana ala e nanpa pona 2.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Berserk ala ken</string>
+  <string name="noBerserkAllowed">Berserk ala ken</string>
   <string name="averagePerformance">meso wawa</string>
   <string name="averageScore">meso nanpa</string>
 </resources>

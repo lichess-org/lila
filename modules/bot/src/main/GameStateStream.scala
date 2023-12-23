@@ -26,10 +26,7 @@ import lila.common.{ Bus, HTTPRequest }
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
-)(using
-    ec: Executor,
-    system: ActorSystem
-):
+)(using ec: Executor, system: ActorSystem):
   import GameStateStream.*
 
   private val blueprint =
@@ -44,15 +41,13 @@ final class GameStateStream(
     // terminate previous one if any
     Bus.publish(PoisonPill, uniqChan(init.game pov as))
 
-    blueprint mapMaterializedValue { queue =>
+    blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(
         Props(mkActor(init, as, User(me, me.isBot), queue)),
         name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom nextString 8}"
       )
-      queue.watchCompletion().addEffectAnyway {
+      queue.watchCompletion() addEffectAnyway:
         actor ! PoisonPill
-      }
-    }
 
   private def uniqChan(pov: Pov)(using req: RequestHeader) =
     s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
@@ -128,15 +123,13 @@ final class GameStateStream(
     def pushChatLine(username: UserName, text: String, player: Boolean) =
       queue offer jsonView.chatLine(username, text, player).some
 
-    def opponentGone(claimInSeconds: Option[Int]) = queue offer {
+    def opponentGone(claimInSeconds: Option[Int]) = queue.offer:
       claimInSeconds.fold(jsonView.opponentGoneIsBack)(jsonView.opponentGoneClaimIn).some
-    }
 
     def onGameOver(g: Option[Game]) =
-      g.so(pushState)
-        .andDo:
-          gameOver = true
-          self ! PoisonPill
+      g.so(pushState) andDo:
+        gameOver = true
+        self ! PoisonPill
 
 private object GameStateStream:
 

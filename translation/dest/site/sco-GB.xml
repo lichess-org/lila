@@ -230,7 +230,6 @@
   <string name="playingRightNow">Spielin richt noo</string>
   <string name="eventInProgress">Spielin richt noo</string>
   <string name="finished">Feenisht</string>
-  <string name="finishesX">feenshes %s</string>
   <string name="abortGame">Misgae gemm</string>
   <string name="gameAborted">Gemm misgane</string>
   <string name="standard">Ordinar</string>

@@ -16,7 +16,7 @@
     "ceval": "workspace:*",
     "chart.js": "=4.4.0",
     "chess": "workspace:*",
-    "chessops": "^0.12.7",
+    "chessops": "^0.13.0",
     "common": "workspace:*",
     "keyboardMove": "workspace:*",
     "nvui": "workspace:*",

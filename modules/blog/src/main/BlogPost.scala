@@ -20,7 +20,8 @@ case class MiniPost(
     date: LocalDate,
     image: String,
     forKids: Boolean
-)
+):
+  def isOld = date.isBefore(LocalDate.now.minusDays(7))
 
 object MiniPost:
 

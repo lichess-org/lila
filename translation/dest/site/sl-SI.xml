@@ -301,7 +301,6 @@
   <string name="playingRightNow">Trenutno se igra</string>
   <string name="eventInProgress">Pravkar poteka</string>
   <string name="finished">Končano</string>
-  <string name="finishesX">končal %s</string>
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
   <string name="standard">Običajno</string>
@@ -460,6 +459,7 @@
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
   <string name="importGameCaveat">Variante bodo izbrisane. Če jih želite obdržat, uvozite PGN kot študijo.</string>
+  <string name="importGameDataPrivacyWarning">Ta PGN je javno dostopen. Za zasebni uvoz igre uporabite študijo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvožena igra</item>
     <item quantity="two">%s uvoženi igri</item>
@@ -571,7 +571,7 @@
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
-  <string name="setFlair">Določite svoj okus:</string>
+  <string name="setFlair">Določite svoj okus</string>
   <string name="flair">Simbol</string>
   <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
   <string name="biography">Biografija</string>
@@ -936,9 +936,10 @@
     <item quantity="few">in shranite %s predpotezne variante</item>
     <item quantity="other">in shranite %s predpoteznih variant</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Prejeli ste zasebno sporočilo od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknite tukaj, če ga želite prebrati</string>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
-  <string name="timeoutExpires">Omejitev poteče čez %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>
@@ -958,6 +959,7 @@
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Hitri šah</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hitropotezni šah</string>
   <string name="rapid">Pospešeni</string>
   <string name="classical">Klasični šah</string>

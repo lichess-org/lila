@@ -287,7 +287,6 @@
   <string name="playingRightNow">În desfășurare...</string>
   <string name="eventInProgress">În desfășurare</string>
   <string name="finished">Terminat</string>
-  <string name="finishesX">se termină %s</string>
   <string name="abortGame">Abandonați partida</string>
   <string name="gameAborted">Partidă abandonată</string>
   <string name="standard">Standard</string>
@@ -433,7 +432,7 @@
   <string name="importGame">Importați partida</string>
   <string name="importGameExplanation">Copiați o partidă în format PGN pentru a putea apoi sa o rejucati, sa cereti o analiză a computerului, sa folositi functia de chat și sa obtineti un URL pentru distribuire.</string>
   <string name="importGameCaveat">Variațiile vor fi șterse. Pentru a le păstra, importați PGN-ul printr-un studiu.</string>
-  <string name="importGameCaveat2">Acest PGN poate fi accesat public. Pentru a importa un joc în mod privat, folosește un studiu.</string>
+  <string name="importGameDataPrivacyWarning">Acest PGN poate fi accesat public. Pentru a importa un joc în mod privat, folosește un studiu.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
@@ -901,7 +900,6 @@
   </plurals>
   <string name="sorry">Scuze :(</string>
   <string name="weHadToTimeYouOutForAWhile">Am fost nevoiți să suspendăm activitatea pentru puțin timp.</string>
-  <string name="timeoutExpires">Suspendarea se termină %s.</string>
   <string name="why">De ce?</string>
   <string name="pleasantChessExperience">Dorim să oferim o experiență plăcută tuturor jucătorilor de șah.</string>
   <string name="goodPractice">Ca acest lucru să se întâmple, trebuie să ne asigurăm că toți jucătorii respectă bunele practici.</string>

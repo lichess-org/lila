@@ -243,7 +243,6 @@
   <string name="playingRightNow">आता खेळत आहे</string>
   <string name="eventInProgress">आता खेळत आहेत</string>
   <string name="finished">समाप्त</string>
-  <string name="finishesX">समाप्ती %s</string>
   <string name="abortGame">डाव बंद करा</string>
   <string name="gameAborted">डाव बंद केला गेला</string>
   <string name="standard">मानक</string>
@@ -811,7 +810,6 @@
   </plurals>
   <string name="sorry">माफ करा</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
-  <string name="timeoutExpires">आपला प्रतिबंध समाप्त होईल %s.</string>
   <string name="why">कारण?</string>
   <string name="pleasantChessExperience">प्रत्येकासाठी एक सुखद बुद्धिबळ अनुभव देण्याचे आमचे ध्येय आहे.</string>
   <string name="goodPractice">त्या दृष्टीने, आम्ही हे सुनिश्चित केले पाहिजे की सर्व खेळाडूंनी चांगल्या कार्यपद्धतीचे अनुसरण केले आहे.</string>

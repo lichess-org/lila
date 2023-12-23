@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">У пэўных абставінах, калі гуляючы супраць уліковых запісаў ботаў, рэйтангавая партыя можа не прыводзіць да змены рэйтынгу. Калі ўстаноўлена, што гулец злоўжывае бота дзеля павялячэння рэйтынгу.</string>
   <string name="errorPage">Старонка памылкі</string>
   <string name="reportErrorPage">Калі вы траміце на старонку з памылкай, вы можаце паведаміць пра яе:</string>
+  <string name="wantBroadcastTournament">Я хачу трансляваць турнір</string>
+  <string name="learnHowToMakeBroadcasts">Дазнайцеся, як карыстацца трансляцыямі Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">Вы можаце звязацца з камандай трансляцый пра афіцыйныя эфіры.</string>
   <string name="banAppeal">Абскарджанне бана ўліковага запісу ці абмежавання IP-адраса</string>
   <string name="engineAppeal">Выкарыстанне рухавіка або несумленная гульня</string>
   <string name="sendAppealTo">Вы можаце накіраваць апеляцыю праз %s.</string>

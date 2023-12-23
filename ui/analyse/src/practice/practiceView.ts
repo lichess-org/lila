@@ -88,9 +88,7 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
           ctrl.isMyTurn()
             ? h(
                 'a',
-                {
-                  hook: bind('click', () => root.practice!.hint(), ctrl.redraw),
-                },
+                { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
                 root.trans.noarg(
                   hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint',
                 ),

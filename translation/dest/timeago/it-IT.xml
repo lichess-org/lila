@@ -54,4 +54,5 @@
     <item quantity="one">%s anno fa</item>
     <item quantity="other">%s anni fa</item>
   </plurals>
+  <string name="completed">completato</string>
 </resources>

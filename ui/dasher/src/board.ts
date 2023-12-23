@@ -30,10 +30,7 @@ export class BoardCtrl {
   setIs3d = (v: boolean) => {
     this.data.is3d = v;
     xhr
-      .text('/pref/is3d', {
-        body: xhr.form({ is3d: v }),
-        method: 'post',
-      })
+      .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
       .then(lichess.reload, _ => lichess.announce({ msg: 'Failed to save geometry  preference' }));
     this.redraw();
   };
@@ -78,13 +75,7 @@ export function view(ctrl: BoardCtrl): VNode {
         : [
             h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom, '%']),
             h('input.range', {
-              attrs: {
-                type: 'range',
-                min: 0,
-                max: 100,
-                step: 1,
-                value: ctrl.readZoom(),
-              },
+              attrs: { type: 'range', min: 0, max: 100, step: 1, value: ctrl.readZoom() },
               hook: {
                 insert(vnode) {
                   const input = vnode.elm as HTMLInputElement;

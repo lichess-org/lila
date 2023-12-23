@@ -152,6 +152,9 @@ trait dsl:
   def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
     $doc((if add then "$addToSet" else "$pull") -> $doc(key -> value))
 
+  def $ifNull(expr: Bdoc, replacement: Bdoc): Bdoc =
+    $doc("$ifNull" -> $arr(expr, replacement))
+
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
 

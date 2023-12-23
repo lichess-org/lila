@@ -79,6 +79,7 @@ POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id, v: Boolean)
 POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId)
+POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.rankAdjust(id)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id)
 
 # User
@@ -119,17 +120,16 @@ GET   /blog/community                  controllers.Ublog.communityAll(page: Int 
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
 GET   /feed                            controllers.DailyFeed.index
 GET   /feed/new                        controllers.DailyFeed.createForm
 POST  /feed/new                        controllers.DailyFeed.create
-GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
-GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
-POST  /feed/:day/edit                  controllers.DailyFeed.update(day)
-POST  /feed/:day/delete                controllers.DailyFeed.delete(day)
+GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
+GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
+POST  /feed/:id/edit                  controllers.DailyFeed.update(id)
+POST  /feed/:id/delete                controllers.DailyFeed.delete(id)
 GET   /feed.atom                       controllers.DailyFeed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
@@ -260,6 +260,7 @@ POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(to
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
+GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId)
@@ -268,6 +269,8 @@ POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundI
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
+GET   /api/broadcast                          controllers.RelayTour.apiIndex
+GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -692,7 +695,6 @@ POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id)
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id)
 POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
-GET   /api/broadcast                   controllers.RelayTour.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create

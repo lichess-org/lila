@@ -1,7 +1,7 @@
 package lila.chat
 
 import lila.hub.actorApi.shutup.PublicSource
-import lila.user.User
+import lila.user.{ Me, User }
 import reactivemongo.api.bson.BSONDocumentHandler
 
 sealed trait AnyChat:
@@ -10,7 +10,7 @@ sealed trait AnyChat:
 
   val loginRequired: Boolean
 
-  def forUser(u: Option[User]): AnyChat
+  def forMe(using Option[Me], AllMessages): AnyChat
 
   def isEmpty = lines.isEmpty
 
@@ -28,8 +28,8 @@ case class UserChat(
 
   val loginRequired = true
 
-  def forUser(u: Option[User]): UserChat =
-    if u.so(_.marks.troll) then this
+  def forMe(using me: Option[Me], all: AllMessages): UserChat =
+    if all.yes || me.exists(_.marks.troll) then this
     else copy(lines = lines.filterNot(_.troll))
 
   def markDeleted(u: User) = copy(
@@ -63,8 +63,8 @@ case class MixedChat(
 
   val loginRequired = false
 
-  def forUser(u: Option[User]): MixedChat =
-    if u.so(_.marks.troll) then this
+  def forMe(using me: Option[Me], all: AllMessages): MixedChat =
+    if all.yes || me.exists(_.marks.troll) then this
     else
       copy(lines = lines.filter:
         case l: UserLine   => !l.troll

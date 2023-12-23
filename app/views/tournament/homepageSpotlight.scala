@@ -33,7 +33,7 @@ object homepageSpotlight:
                 span(cls := "more")(
                   trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
                   " • ",
-                  if tour.isStarted then trans.finishesX(momentFromNow(tour.finishesAt))
+                  if tour.isStarted then timeRemaining(tour.finishesAt)
                   else momentFromNow(tour.startsAt)
                 )
               )

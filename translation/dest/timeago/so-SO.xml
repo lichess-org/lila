@@ -10,9 +10,58 @@
     <item quantity="one">%s daqiiqo gudaheed</item>
     <item quantity="other">%s daqiiqadood gudohood</item>
   </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s saacad gudeheed</item>
+    <item quantity="other">%s saacadood gudohood</item>
+  </plurals>
   <plurals name="inNbDays">
     <item quantity="one">%s maalin gudeheed</item>
     <item quantity="other">%s maalmood gudohood</item>
   </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s usbuuc gudihii</item>
+    <item quantity="other">%s usbuuc gudohood</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s bil gudeheed</item>
+    <item quantity="other">%s bilood gudohood</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s sanad gudihii</item>
+    <item quantity="other">%s sanadood gudohood</item>
+  </plurals>
   <string name="rightNow">immika</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s daqiiqad ka hor</item>
+    <item quantity="other">%s daqiiqadood ka hor</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s saacad ka hor</item>
+    <item quantity="other">%s saacadood ka hor</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s maalin ka hor</item>
+    <item quantity="other">%s maalmood ka hor</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s usbuuc ka hor</item>
+    <item quantity="other">%s usbuuc ka hor</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s bil ka hor</item>
+    <item quantity="other">%s bilood ka hor</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s sanad ka hor</item>
+    <item quantity="other">%s sanadood ka hor</item>
+  </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s daqiiqaa hadhay</item>
+    <item quantity="other">%s daqiiqaa hadhay</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s saac baa hadhay</item>
+    <item quantity="other">%s saac baa hadhay</item>
+  </plurals>
+  <string name="completed">dhamaad</string>
 </resources>

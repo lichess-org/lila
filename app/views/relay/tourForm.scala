@@ -57,7 +57,7 @@ object tourForm:
       moreCss = cssTag("relay.form")
     )(menu match
       case Some(active) =>
-        main(cls := "page-small page-menu")(
+        main(cls := "page page-menu")(
           tour.pageMenu(active),
           div(cls := "page-menu__content box box-pad")(body)
         )
@@ -67,7 +67,15 @@ object tourForm:
   private def inner(form: Form[Data])(using Context) = frag(
     div(cls := "form-group")(bits.howToUse),
     form3.globalError(form),
-    form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),
+    form3.split(
+      form3.group(form("name"), tournamentName(), half = true)(form3.input(_)(autofocus)),
+      isGranted(_.Relay) option form3.group(
+        form("spotlight.title"),
+        "Homepage spotlight custom tournament name",
+        help = raw("Leave empty to use the tournament name").some,
+        half = true
+      )(form3.input(_))
+    ),
     form3.group(form("description"), tournamentDescription())(form3.textarea(_)(rows := 2)),
     form3.group(
       form("markdown"),
@@ -87,18 +95,38 @@ object tourForm:
         help = automaticLeaderboardHelp().some,
         half = true
       ),
-      if isGranted(_.Relay) then
-        form3.group(
-          form("tier"),
-          raw("Official Lichess broadcast tier"),
-          help = raw("Feature on /broadcast - for admins only").some,
-          half = true
-        )(form3.select(_, RelayTour.Tier.options))
-      else form3.hidden(form("tier"))
+      form3.group(
+        form("players"),
+        replace(),
+        help = replaceHelp().some,
+        half = true
+      )(form3.textarea(_)(rows := 3))
     ),
-    form3.group(
-      form("players"),
-      replace(),
-      help = replaceHelp().some
-    )(form3.textarea(_)(rows := 3))
+    if isGranted(_.Relay) then
+      frag(
+        form3.split(
+          form3.group(
+            form("tier"),
+            raw("Official Lichess broadcast tier"),
+            help = raw("Feature on /broadcast - for admins only").some,
+            half = true
+          )(form3.select(_, RelayTour.Tier.options))
+        ),
+        form3.split(
+          form3.checkbox(
+            form("spotlight.enabled"),
+            "Show a homepage spotlight",
+            help = raw("As a Big Blue Button - for admins only").some,
+            half = true
+          ),
+          form3.group(
+            form("spotlight.lang"),
+            "Homepage spotlight language",
+            help = raw("Only show to users who speak this language. English is shown to everyone.").some,
+            half = true
+          ):
+            form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+        )
+      )
+    else form3.hidden(form("tier"))
   )

@@ -1,7 +1,7 @@
 package lila.user
 
 import play.api.i18n.Lang
-
+import lila.i18n.Language
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
@@ -39,7 +39,8 @@ case class User(
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def realLang = lang flatMap Lang.get
+  def realLang: Option[Lang]     = lang flatMap Lang.get
+  def language: Option[Language] = realLang.map(Language.apply)
 
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 

@@ -278,7 +278,6 @@
   <string name="playingRightNow">Upravo igraju</string>
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
-  <string name="finishesX">završava %s</string>
   <string name="abortGame">Prekini igru</string>
   <string name="gameAborted">Igra prekinuta</string>
   <string name="standard">Standardno</string>
@@ -868,7 +867,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   </plurals>
   <string name="sorry">Oprosti :(</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
-  <string name="timeoutExpires">Vrijeme izbačaja ističe za %s.</string>
   <string name="why">Zašto?</string>
   <string name="pleasantChessExperience">Nama je u cilju da pružimo ugodno šahovsko iskustvo.</string>
   <string name="goodPractice">Stoga moramo osigurati da svi igrači dobro postupaju.</string>

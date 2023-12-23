@@ -3182,6 +3182,12 @@ symbols.mending-heart
 symbols.mens-room
 symbols.minus
 symbols.mobile-phone-off
+symbols.move-blunder
+symbols.move-brilliant
+symbols.move-dubious
+symbols.move-good
+symbols.move-interesting
+symbols.move-mistake
 symbols.multiply
 symbols.name-badge
 symbols.new-button
@@ -3214,7 +3220,9 @@ symbols.play-or-pause-button
 symbols.plus
 symbols.potable-water
 symbols.purple-heart
+symbols.puzzle-racer
 symbols.puzzle-storm
+symbols.puzzle-streak
 symbols.question-mark
 symbols.radio-button
 symbols.rainbow-flag

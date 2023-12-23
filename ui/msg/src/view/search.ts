@@ -9,10 +9,7 @@ import { hookMobileMousedown } from 'common/device';
 export const renderInput = (ctrl: MsgCtrl): VNode =>
   h('div.msg-app__side__search', [
     h('input', {
-      attrs: {
-        value: '',
-        placeholder: ctrl.trans.noarg('searchOrStartNewDiscussion'),
-      },
+      attrs: { value: '', placeholder: ctrl.trans.noarg('searchOrStartNewDiscussion') },
       hook: {
         insert(vnode) {
           const input = vnode.elm as HTMLInputElement;
@@ -63,10 +60,7 @@ export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
 function renderUser(ctrl: MsgCtrl, user: User): VNode {
   return h(
     'div.msg-app__side__contact',
-    {
-      key: user.id,
-      hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
-    },
+    { key: user.id, hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)) },
     [
       userIcon(user, 'msg-app__side__contact__icon'),
       h('div.msg-app__side__contact__user', [

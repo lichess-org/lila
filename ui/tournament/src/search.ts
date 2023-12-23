@@ -6,10 +6,7 @@ import TournamentController from './ctrl';
 export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
     class: { active: ctrl.searching },
-    attrs: {
-      'data-icon': ctrl.searching ? licon.X : licon.Search,
-      title: 'Search tournament players',
-    },
+    attrs: { 'data-icon': ctrl.searching ? licon.X : licon.Search, title: 'Search tournament players' },
     hook: bind('click', ctrl.toggleSearch, ctrl.redraw),
   });
 }
@@ -18,9 +15,7 @@ export function input(ctrl: TournamentController): VNode {
   return h(
     'div.search',
     h('input', {
-      attrs: {
-        spellcheck: 'false',
-      },
+      attrs: { spellcheck: 'false' },
       hook: onInsert((el: HTMLInputElement) => {
         lichess.asset
           .userComplete({

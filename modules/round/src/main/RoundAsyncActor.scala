@@ -416,7 +416,7 @@ final private[round] class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
+    if Game.isBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone makeChan gameId
@@ -470,7 +470,7 @@ final private[round] class RoundAsyncActor(
 object RoundAsyncActor:
 
   case class HasUserId(userId: UserId, promise: Promise[Boolean])
-  case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
+  case class SetGameInfo(game: Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop
   case object WsBoot

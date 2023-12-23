@@ -272,7 +272,6 @@
   <string name="playingRightNow">Pågår</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Slutt</string>
-  <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
@@ -406,7 +405,7 @@
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN\'en via ein studie.</string>
-  <string name="importGameCaveat2">Denne PGN er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
+  <string name="importGameDataPrivacyWarning">Denne PGN-fila er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte parti</item>
@@ -508,7 +507,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
-  <string name="setFlair">Vel ikonet ditt:</string>
+  <string name="setFlair">Vel ikonet ditt</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Det finst ei innstilling for å skjule alle brukarikonar på heile nettstaden.</string>
   <string name="biography">Biografi</string>
@@ -673,7 +672,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
   <string name="aboutSimulImage">Mot 50 motspelarar, fekk Fischer 47 sigrar, to remisar og eit tap.</string>
-  <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
+  <string name="aboutSimulRealLife">Konseptet er henta frå verkelege framsyningar der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
   <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
@@ -765,7 +764,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="zeroAdvertisement">Annonsefri</string>
   <string name="fullFeatured">Alle funksjonar</string>
   <string name="phoneAndTablet">Mobiltelefon og nettbrett</string>
-  <string name="bulletBlitzClassical">kvikksjakk, lynsjakk, saktesjakk</string>
+  <string name="bulletBlitzClassical">Bullet, lynsjakk, saktesjakk</string>
   <string name="correspondenceChess">Fjernsjakk</string>
   <string name="onlineAndOfflinePlay">Spel online og offline</string>
   <string name="viewTheSolution">Vis løysinga</string>
@@ -863,9 +862,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har fått ei privat melding frå Lichess.</string>
+  <string name="clickHereToReadIt">Klikk her for å lesa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
-  <string name="timeoutExpires">Timeouten tek slutt %s.</string>
   <string name="why">Kvifor?</string>
   <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spelarane respekterar god praksis.</string>
@@ -885,6 +885,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>

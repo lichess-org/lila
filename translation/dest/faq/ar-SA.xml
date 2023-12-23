@@ -54,6 +54,7 @@
 وفي حالات نادرة قد يكون من الصعب تحديد ذلك تلقائيًا (سلسلة من التحركات القسرية) وبشكل افتراضي، فإننا نقف دائمًا إلى جانب اللاعب الذي لم ينته وقته.
 
 ضع في اعتبارك أن كش ملك ممكن مع كل من الحصان أو الفيل إذا كان لدى الخصم قطعة أو بيدق يمكنها صد ملكه.</string>
+  <string name="fideHandbook">دليل الاتحاد الدَّوْليّ للشطرنج</string>
   <string name="fideHandbookX">دليل \"الاتحاد الدولي للشطرنج\" %s</string>
   <string name="discoveringEnPassant">لماذا يمكنك أن يأكل بيدق الاخر عندما يكون قد سلك بالفعل؟ (الأخذ بالتجاوز)</string>
   <string name="explainingEnPassant">إنها نقلة قانونية تُعرف باسم \"الأخذ بالتجاوز\". وتقدم ويكيبيديا مقالة %1$s:
@@ -138,4 +139,28 @@
   <string name="lichessCanOptionnalySendPopUps">يرسل Lichess بشكل إختياري إشعارات منبثقة، على سبيل المثال عندما تحصل على رسالة خاصة أو عندما يكون دورك في اللعب.
 اضغط على زر القفل بجانب رابط lichess.org في متصفحك.
 ثم اختر إما تفعيل أو تعطيل الإشعارات من موقعنا.</string>
+  <string name="enableAutoplayForSoundsQ">تمكين التشغيل التلقائي للأصوات؟</string>
+  <string name="enableAutoplayForSoundsA">يمكن لمعظم المتصفحات منع تشغيل الصوت على الصفحات المحملة حديثًا وذل لحماية المستخدمين. تخيل لو كان بإمكان كل موقع ويب أن يفاجئك بإعلان صوتي فور دخولك.
+
+تظهر أيقونة كتم الصوت الحمراء عندما يمنع متصفحك موقعنا من تشغيل الصوت، يزال هذا القيد عادة بمجرد النقر في أي مكان، لكن في بعض متصفحات الأجهزة المحمولة، لا يعد سحب القطعة بمثابة نقرة، لذا يجب عليك النقر على الرقعة لتشغيل الصوت في بداية كل مباراة تلعبها.
+
+نعرض الرمز الأحمر لتنبيهك عند حدوث ذلك، في كثير من الأحيان يمكنك السماح لنا بتشغيل الأصوات عن طريق متصفحك، وفيما يلي تعليمات للقيام بذلك على الإصدارات الحديثة من بعض المتصفحات الشائعة.</string>
+  <string name="desktop">سطح المكتب</string>
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. اذهب إلى lichess.org
+2. اضغط Ctrl-i في نظامي Linux/Windows أو cmd-i على MacOS
+3. انقر فوق علامة تبويب الأذونات
+4. اختر السماح للصوت والفيديو على lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. انتقل إلى lichess.org
+2. انقر على أيقونة القُفْل في شريط العنوان
+3. انقر فوق إعدادات الموقع
+4.اختر السماح بالصوت</string>
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. انتقل إلى lichess.org
+2. انقر على Safari في شريط القوائم
+3. انقر فوق إعدادات lichess.org ...
+4. اختر السماح للاجراءات التلقائي</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. انقر فوق النُّقَط الثلاث في الزاوية اليمنى العلوية
+2. اختر الإعدادات
+3. انقر على ملفات تعريف الارتباط و أذونات الموقع
+4. مرر للأسفل وانقر على Media Autoplay
+5. أضف lichess.org للقائمة المسموح بها</string>
 </resources>

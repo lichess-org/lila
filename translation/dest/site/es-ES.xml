@@ -272,7 +272,6 @@
   <string name="playingRightNow">En juego ahora mismo</string>
   <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
-  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Estándar</string>
@@ -405,7 +404,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y un enlace para compartir.</string>
   <string name="importGameCaveat">Las variaciones serán borradas. Para mantenerlas, importa el PGN a través de un estudio.</string>
-  <string name="importGameCaveat2">Este PGN puede ser accedido públicamente. Para importar un juego privadamente, utiliza un estudio.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN es de acceso público. Para importar una partida de forma privada, utiliza un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -507,7 +506,7 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
-  <string name="setFlair">Configura tu entorno:</string>
+  <string name="setFlair">Configura tu entorno</string>
   <string name="flair">Entorno</string>
   <string name="youCanHideFlair">Existe una opción para ocultar la configuración de entorno en todo el sitio.</string>
   <string name="biography">Biografía</string>
@@ -862,9 +861,10 @@
     <item quantity="one">y ahorra %s línea de premovimiento</item>
     <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has recibido un mensaje privado de Lichess.</string>
+  <string name="clickHereToReadIt">Haz clic aquí para leerlo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
-  <string name="timeoutExpires">La suspensión expira en %s.</string>
   <string name="why">¿Por qué?</string>
   <string name="pleasantChessExperience">Nuestro objetivo es proporcionar una experiencia agradable a todo el mundo.</string>
   <string name="goodPractice">Para ello, debemos asegurarnos de que todos los jugadores se comportan como es debido.</string>
@@ -884,6 +884,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>

@@ -8,7 +8,7 @@ interface ElementWithDate extends Element {
 }
 
 // past, future, divisor, at least
-const units: [string | undefined, string, number, number][] = [
+const agoUnits: [string | undefined, string, number, number][] = [
   ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
   ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
   ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],
@@ -24,12 +24,20 @@ const toDate = (input: DateLike): Date =>
   input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
 
 // format the diff second to *** time ago
-const formatDiff = (seconds: number): string => {
+const formatAgo = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
   const strIndex = seconds < 0 ? 1 : 0;
-  const unit = units.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
+  const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
   return siteTrans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
 };
+
+// format the diff second to *** time remaining
+const formatRemaining = (seconds: number): string =>
+  seconds < 1
+    ? siteTrans.noarg('completed')
+    : seconds < 3600
+    ? siteTrans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
+    : siteTrans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
 
 export const formatter = memoize(() =>
   window.Intl
@@ -48,7 +56,7 @@ export const formatter = memoize(() =>
     : (d: Date) => d.toLocaleString(),
 );
 
-export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).getTime()) / 1000);
+export const format = (date: DateLike) => formatAgo((Date.now() - toDate(date).getTime()) / 1000);
 
 export const findAndRender = (parent?: HTMLElement) =>
   requestAnimationFrame(() => {
@@ -67,9 +75,12 @@ export const findAndRender = (parent?: HTMLElement) =>
           cl.add('set');
           if (abs || cl.contains('once')) cl.remove('timeago');
         }
-        if (!abs) {
+        if (cl.contains('remaining')) {
+          const diff = (node.lichessDate.getTime() - now) / 1000;
+          node.textContent = formatRemaining(diff);
+        } else if (!abs) {
           const diff = (now - node.lichessDate.getTime()) / 1000;
-          node.textContent = formatDiff(diff);
+          node.textContent = formatAgo(diff);
           if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
         }
       });
