@@ -2,13 +2,12 @@
 <resources>
   <string name="justNow">hadda</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">%s ilbidhiqsi
- gudihii</item>
-    <item quantity="other">%s ilbidhiqsi gudohood</item>
+    <item quantity="one">%s sikin gudihii</item>
+    <item quantity="other">%s sikin gudohood</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">%s daqiiqo gudaheed</item>
-    <item quantity="other">%s daqiiqadood gudohood</item>
+    <item quantity="one">%s mirir gudihii</item>
+    <item quantity="other">%s mirir gudohood</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">%s saacad gudeheed</item>
@@ -32,8 +31,8 @@
   </plurals>
   <string name="rightNow">immika</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">%s daqiiqad ka hor</item>
-    <item quantity="other">%s daqiiqadood ka hor</item>
+    <item quantity="one">%s mirir ka hor</item>
+    <item quantity="other">%s mirir ka hor</item>
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="one">%s saacad ka hor</item>
@@ -56,12 +55,12 @@
     <item quantity="other">%s sanadood ka hor</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
-    <item quantity="one">%s daqiiqaa hadhay</item>
-    <item quantity="other">%s daqiiqaa hadhay</item>
+    <item quantity="one">%s mirir baa hadhay</item>
+    <item quantity="other">%s mirir baa hadhay</item>
   </plurals>
   <plurals name="nbHoursRemaining">
-    <item quantity="one">%s saac baa hadhay</item>
-    <item quantity="other">%s saac baa hadhay</item>
+    <item quantity="one">%s saacad baa hadhay</item>
+    <item quantity="other">%s saacadood baa hadhay</item>
   </plurals>
   <string name="completed">dhamaad</string>
 </resources>
