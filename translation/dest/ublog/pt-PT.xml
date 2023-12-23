@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogs da comunidade</string>
+  <string name="friendBlogs">Blogs de amigos</string>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nova publicação</string>
   <string name="editYourBlogPost">Modificar a tua publicação</string>
