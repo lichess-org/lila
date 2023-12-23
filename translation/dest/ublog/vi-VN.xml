@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Các Blog của cộng đồng</string>
+  <string name="friendBlogs">Các Blog của bạn bè</string>
+  <string name="likedBlogs">Các Blog đã thích</string>
+  <string name="blogTopics">Các chủ đề Blog</string>
+  <string name="lichessOfficialBlog">Blog chính thức của Lichess</string>
+  <string name="continueReadingPost">Tiếp tục đọc bài đăng này</string>
+  <string name="lichessBlogPostsFromXYear">Bài đăng blog của Lichess trong năm %s</string>
+  <string name="previousBlogPosts">Bài blog trước</string>
   <string name="xBlog">Bài viết của %s</string>
   <string name="newPost">Bài đăng mới</string>
   <string name="editYourBlogPost">Chỉnh sửa bài đăng của bạn</string>
@@ -40,5 +48,5 @@
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai khác.</string>
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
   <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Thảo luận về bài blog này trong diễn đàn</string>
+  <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
 </resources>
