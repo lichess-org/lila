@@ -8,6 +8,7 @@ object I18nKeys:
   val `toInviteSomeoneToPlayGiveThisUrl` = I18nKey("toInviteSomeoneToPlayGiveThisUrl")
   val `gameOver` = I18nKey("gameOver")
   val `waitingForOpponent` = I18nKey("waitingForOpponent")
+  val `orLetYourOpponentScanQrCode` = I18nKey("orLetYourOpponentScanQrCode")
   val `waiting` = I18nKey("waiting")
   val `yourTurn` = I18nKey("yourTurn")
   val `aiNameLevelAiLevel` = I18nKey("aiNameLevelAiLevel")
