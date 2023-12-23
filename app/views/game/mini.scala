@@ -55,8 +55,8 @@ object mini:
 
   def renderState(pov: Pov)(using me: Option[Me]) =
     val fen =
-      if me.exists(pov.player.userId.has) && pov.player.blindfold.nonEmpty ||
-        me.exists(pov.opponent.userId.has) && pov.opponent.blindfold.nonEmpty
+      if me.exists(pov.player.isUser) && pov.player.blindfold.nonEmpty ||
+        me.exists(pov.opponent.isUser) && pov.opponent.blindfold.nonEmpty
       then "8/8/8/8/8/8/8/8"
       else Fen.writeBoardAndColor(pov.game.situation).value
 
