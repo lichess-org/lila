@@ -15,5 +15,5 @@
   </plurals>
   <string name="imageCredit">เครดิตภาพ</string>
   <string name="deleteImage">ลบรูปภาพ</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
+  <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
 </resources>
