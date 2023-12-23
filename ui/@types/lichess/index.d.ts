@@ -199,7 +199,7 @@ interface Pubsub {
 }
 
 interface LichessStorageHelper {
-  make(k: string): LichessStorage;
+  make(k: string, ttl?: number): LichessStorage;
   boolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
