@@ -49,5 +49,5 @@
   <string name="safeAndRespectfulContent">Публикуйте только безопасный и уважительный контент, пожалуйста. Не копируйте чужой контент.</string>
   <string name="inappropriateContentAccountClosed">Неуместное содержание может стать причиной закрытия вашего аккаунта.</string>
   <string name="blogTips">Наши простые советы по написанию отличных записей в блоге</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Обсудить эту запись в блоге на форуме</string>
+  <string name="discussThisBlogPostInTheForum">Обсудить эту запись в блоге на форуме</string>
 </resources>
