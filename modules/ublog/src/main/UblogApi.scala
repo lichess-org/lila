@@ -147,6 +147,11 @@ final class UblogApi(
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
 
+  def setRankAdjust(id: UblogPostId, adjust: Int): Funit =
+    colls.post.update
+      .one($id(id), if adjust == 0 then $unset("rankAdjustDays") else $set("rankAdjustDays" -> adjust))
+      .void
+
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
 

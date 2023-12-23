@@ -405,7 +405,7 @@
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai rivederla,
 analizzarla con il computer, commentarla in chat, e condividerla tramite un indirizzo URL.</string>
   <string name="importGameCaveat">Le varianti saranno cancellate. Per salvarle, importa il PGN in uno studio.</string>
-  <string name="importGameDataPrivacyWarning">Questo PGN è accessibile dal pubblico. Per importare un gioco privatamente, utilizza uno studio.</string>
+  <string name="importGameDataPrivacyWarning">Questo PGN è accessibile pubblicamente. Per importare una partita privatamente, utilizza uno studio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>
     <item quantity="other">%s partite importate</item>

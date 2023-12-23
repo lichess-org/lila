@@ -19,7 +19,7 @@ private object StudyFlatTree:
       path.lastId.flatMap { readBranch(data, _) } map:
         _.copy(children = children | Branches.empty)
 
-    def toNodeWithChildren1(child: Option[NewTree]): Option[NewTree] =
+    def toNodeWithChild(child: Option[NewTree]): Option[NewTree] =
       readNewBranch(data, path).map(NewTree(_, child, Nil))
 
   object reader:
@@ -61,7 +61,7 @@ private object StudyFlatTree:
       xs.nonEmpty so
         xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
           flat
-            .toNodeWithChildren1(roots.get(flat.path))
+            .toNodeWithChild(roots.get(flat.path))
             .fold(roots): node =>
               roots
                 .removed(flat.path)

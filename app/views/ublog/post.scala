@@ -100,6 +100,7 @@ object post:
                 dataIcon := licon.CautionTriangle
               )
           ),
+          !ctx.is(user) && isGranted(_.ModerateBlog) option rankAdjust(blog, post),
           div(cls := "ublog-post__topics")(
             post.topics.map: topic =>
               a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
@@ -120,6 +121,25 @@ object post:
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
           )
+        )
+      )
+
+  private def rankAdjust(blog: UblogBlog, post: UblogPost)(using PageContext) =
+    env.ublog.rank.computeRank(blog, post) map: rank =>
+      postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
+        "Rank date:",
+        span(cls := "ublog-post__meta__date")(semanticDate(rank.value)),
+        s"adjust${post.rankAdjustDays.nonEmpty so "ed"} by",
+        span(
+          input(
+            tpe         := "number",
+            name        := "value",
+            min         := -180,
+            max         := 180,
+            placeholder := "Days",
+            value       := post.rankAdjustDays.so(_.toString)
+          ),
+          form3.submit("Submit")(cls := "button-empty")
         )
       )
 

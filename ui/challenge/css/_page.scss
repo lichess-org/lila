@@ -7,17 +7,20 @@
     }
   }
 
+  .qr-code-invite {
+    @extend %flex-between-nowrap;
+    gap: $block-gap;
+  }
+
   .invite {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    gap: $block-gap;
+    grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
 
     > div {
-      @extend %box-radius;
-      @include padding-direction(2em, 2em, 1em, 2em);
-
+      @extend %box-neat;
+      padding: $block-gap;
       background: $c-bg-zebra;
-      margin: 1em;
-      flex: 1 1 auto;
     }
 
     p.error {

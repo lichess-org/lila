@@ -86,6 +86,7 @@ object LangList:
     Lang("sa", "IN")  -> "संस्कृत",
     Lang("sk", "SK")  -> "Slovenčina",
     Lang("sl", "SI")  -> "Slovenščina",
+    Lang("so", "SO")  -> "Af Soomaali",
     Lang("sq", "AL")  -> "Shqip",
     Lang("sr", "SP")  -> "Српски језик",
     Lang("sv", "SE")  -> "Svenska",

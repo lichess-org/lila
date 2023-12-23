@@ -259,7 +259,8 @@ object mon:
     def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
     def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
-    def httpGet(host: String)                      = future("relay.http.get", tags("host" -> host))
+    def httpGet(host: String, proxy: Option[String]) =
+      future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
     def chats(username: String)   = counter("bot.chats").withTag("name", username)

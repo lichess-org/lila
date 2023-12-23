@@ -40,5 +40,5 @@
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai khác.</string>
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
   <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
-  <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
+  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Thảo luận về bài blog này trong diễn đàn</string>
 </resources>
