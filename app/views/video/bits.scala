@@ -57,15 +57,14 @@ object bits:
 
   def notFound(control: lila.video.UserControl)(using PageContext) =
     layout(title = "Video not found", control = control)(
-      div(cls := "content_box_top")(
-        a(cls := "is4 text", dataIcon := licon.Back, href := routes.Video.index)("Video library")
-      ),
-      div(cls := "not_found")(
-        h1("Video Not Found!"),
-        br,
-        br,
-        a(cls := "big button text", dataIcon := licon.Back, href := routes.Video.index)(
-          "Return to the video library"
+      boxTop(
+        h1(
+          a(
+            cls      := "is4 text",
+            dataIcon := licon.Back,
+            href     := s"${routes.Video.index}"
+          ),
+          "Video Not Found!"
         )
       )
     )
