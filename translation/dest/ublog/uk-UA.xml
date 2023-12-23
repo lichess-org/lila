@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Дописи спільноти</string>
+  <string name="friendBlogs">Дописи друзів</string>
+  <string name="likedBlogs">Вподобані публікації дописів</string>
+  <string name="blogTopics">Теми дописів</string>
+  <string name="lichessOfficialBlog">Офіційний блог Lichess</string>
+  <string name="continueReadingPost">Продовжити читання цієї історії</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
   <string name="editYourBlogPost">Редагувати ваш запис</string>
