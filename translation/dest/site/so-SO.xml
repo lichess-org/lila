@@ -49,8 +49,8 @@
   <string name="blackResigned">Madow wa iscasilay</string>
   <string name="whiteLeftTheGame">Cadaan wuu ka baxay ciyaarta</string>
   <string name="blackLeftTheGame">Madow wuu ka baxay ciyaarta</string>
-  <string name="whiteDidntMove">Cadaan waxba ma dhaqaaqijin</string>
-  <string name="blackDidntMove">Madow waxba ma dhaqaajin</string>
+  <string name="whiteDidntMove">Cadaanku muu dhaqaaqin</string>
+  <string name="blackDidntMove">Madowgu muu dhaqaaqin</string>
   <string name="requestAComputerAnalysis">Dalbo in computer falanqeeyo</string>
   <string name="computerAnalysis">Falanqaynta computerka</string>
   <string name="computerAnalysisAvailable">falanqaynta computerka wa diyaar</string>
@@ -62,7 +62,7 @@
   <string name="calculatingMoves">Cabirid dhaqdhaqaaq...</string>
   <string name="engineFailed">Qalad adeege</string>
   <string name="cloudAnalysis">Falanqayn hawo</string>
-  <string name="goDeeper">Gudaha usii gal</string>
+  <string name="goDeeper">Sii gudagal</string>
   <string name="showThreat">Tus khatarta</string>
   <string name="inLocalBrowser">aaladdaada</string>
   <string name="toggleLocalEvaluation">Dooro flanqaynta aaladdaada</string>
@@ -75,7 +75,7 @@
   <string name="variantLoss">Guukdarro nooc</string>
   <string name="variantWin">Nooc badis</string>
   <string name="insufficientMaterial">Qalab yari</string>
-  <string name="pawnMove">Guurid askari</string>
+  <string name="pawnMove">Dhaqaaq askari</string>
   <string name="capture">Qabasho</string>
   <string name="close">Xidh</string>
   <string name="winning">Guuleysta</string>
@@ -89,10 +89,10 @@
   <string name="topGames">Ciyaaraha ugu sareeya</string>
   <string name="masterDbExplanation">Ciyaaraha MD ee %1$s+ ciyaartoyda FIDE ee %2$s ilaa %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mayd %s badh-tallaabo gudeheed</item>
-    <item quantity="other">Mayd %s badh-tallaabo gudohood</item>
+    <item quantity="one">Mayd %s badh-dhaqaaq gudihii</item>
+    <item quantity="other">Mayd %s badh-dhaqaaq gudohood</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\" la soo gaabiyey, kuna salaysan tirada badh-tallaabood ee ka hadhay qabashada ama tallaabada askari ee xigta</string>
+  <string name="dtzWithRounding">DTZ50\" la soo gaabiyey, kuna salaysan tirada badh-dhaqaaq ee ka hadhay qabashada ama dhaqaaqa askari ee xiga</string>
   <string name="noGameFound">Ciyaari ma jirto</string>
   <string name="maxDepthReached">Muggii ugu weynaa la gaadh!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Malaha kaga soo dar ciyaaro kale meesha doorashada?</string>
@@ -100,9 +100,9 @@
   <string name="openingExplorer">Furitaan baadhaha</string>
   <string name="openingEndgameExplorer">Furitaan/dhamaad baadhaha</string>
   <string name="xOpeningExplorer">Furitaan baadhaha %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Ciyaar tallaabada ugu horeysa ee furitaan/dhamaad-baadhaha</string>
-  <string name="winPreventedBy50MoveRule">Badis uu hor istaagay xeerka 50 tallaabo</string>
-  <string name="lossSavedBy50MoveRule">Guuldarro uu hor istaagay xeerka 50 tallaabo</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Ciyaar dhaqaaqa ugu horeeya ee furitaan/dhamaad-baadhaha</string>
+  <string name="winPreventedBy50MoveRule">Xeerka 50 tallaabo ayaa diiday guul</string>
+  <string name="lossSavedBy50MoveRule">Xeerka 50 tallaabo ayaa diiday guuldarro</string>
   <string name="winOr50MovesByPriorMistake">Guul ama 50 tallaabo khalad hore dartii</string>
   <string name="lossOr50MovesByPriorMistake">Guuldarro ama 50 tallaabo khalad hore dartii</string>
   <string name="allSet">Diyaar!</string>
@@ -148,7 +148,7 @@
     <item quantity="other">%s ciyaartoy</item>
   </plurals>
   <string name="drawByMutualAgreement">Heshiis baraaje</string>
-  <string name="fiftyMovesWithoutProgress">Konton tallaabo bilaa natiijo</string>
+  <string name="fiftyMovesWithoutProgress">Konton dhaqaaq bilaa natiijo</string>
   <string name="currentGames">Ciyaaraha hadda</string>
   <plurals name="nbGames">
     <item quantity="one">%s ciyaar</item>
@@ -182,9 +182,9 @@
   <string name="variant">Farac</string>
   <string name="variants">Faracyada</string>
   <string name="timeControl">Xadka wakhtiga</string>
-  <string name="realTime">Isla imika</string>
+  <string name="realTime">Imika</string>
   <string name="correspondence">Maalinle</string>
-  <string name="daysPerTurn">Maalmood tallaabadiiba</string>
+  <string name="daysPerTurn">Maalmood doorkiiba</string>
   <string name="oneDay">Hal maalin</string>
   <plurals name="nbDays">
     <item quantity="one">%s maalin</item>
@@ -246,8 +246,8 @@
     <item quantity="other">Qiimayntu waxay is bedeshaa %s daqiiqo kasta</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s halxiraalaha</item>
-    <item quantity="other">%s xujooyinka</item>
+    <item quantity="one">%s xujooyinka</item>
+    <item quantity="other">%s xujo</item>
   </plurals>
   <string name="gamesPlayed">Ciyaaraha dhamaaday</string>
   <plurals name="nbGamesWithYou">
@@ -273,7 +273,7 @@
   <string name="abortGame">Tuur ciyaartan</string>
   <string name="gameAborted">La tuur ciyaartan</string>
   <string name="standard">Heerka</string>
-  <string name="unlimited">Xadidneyn</string>
+  <string name="unlimited">Bilaa xad</string>
   <string name="mode">Nooca</string>
   <string name="casual">Aan qiimaysnayn</string>
   <string name="rated">Qiimasan</string>
@@ -297,8 +297,13 @@
   <string name="composeMessage">Farriin samee</string>
   <string name="subject">Hordhac</string>
   <string name="send">Dir</string>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ciyaaraya</item>
+    <item quantity="other">%s ciyaaraya</item>
+  </plurals>
   <string name="yourOpponentProposesATakeback">Horjeedahaagu wuxuu kaa dalbaday ka noqosho</string>
   <string name="backToTournament">Ku noqo tartanka</string>
+  <string name="backToGame">Ku noqo ciyaarta</string>
   <string name="siteDescription">Jes bilaash ah oo onlayn ah. Ku ciyaar jes madal nadiif ah. Uma baahna diwaangelin, ma leh xayeysiis, umana baahna adeeg kale. La ciyaar jes aaladdaada, asxaabtaada amma dadka hawada ku jira.</string>
   <string name="xJoinedTeamY">%1$s wuxu ku biiray kooxda %2$s</string>
   <string name="location">Goobta</string>
@@ -313,8 +318,14 @@
   <string name="points">Dhibco</string>
   <string name="averageOpponent">Horjeedaha celceliska ah</string>
   <string name="isPrivate">Gaar ah</string>
-  <string name="puzzles">Halxiraalaha</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ciyaar baa socota</item>
+    <item quantity="other">%s ciyaarood baa socda</item>
+  </plurals>
+  <string name="puzzles">Xujooyin</string>
   <string name="importedByX">Waxa soo geliyey %s</string>
+  <string name="notes">Qoraalada</string>
+  <string name="typePrivateNotesHere">Halkan ku qor qoraalo kuu gooni ah</string>
   <string name="invalidUsernameOrPassword">Magacan-akoonkan ama iimayl khaldan</string>
   <string name="sound">Cod</string>
   <string name="never">Marna</string>
@@ -325,6 +336,10 @@
   <string name="watchGames">Daawo ciyaaro</string>
   <string name="aboutSimulImage">50 ciyaarood Fischer wuxuu ka keenay 47 guulood, 2 baraaje iyo 1 guuldarro.</string>
   <string name="create">Abuur</string>
+  <string name="correspondenceChess">Jes maalinle ah</string>
+  <string name="viewTheSolution">Xalka eeg</string>
+  <string name="quickPairing">Kulan degdeg ah</string>
+  <string name="lobby">Dooro kulan</string>
   <string name="anonymous">Qarsoodi</string>
   <string name="yourScore">Dhibcahaaga: %s</string>
   <string name="language">Luqadda</string>
@@ -342,7 +357,10 @@
   <string name="sorry">Waan ka xumahay :(</string>
   <string name="why">Waayo?</string>
   <string name="lifetimeScore">Dhibcaha abid</string>
+  <string name="correspondenceDesc">Jes maalinle ah: hal ama dhowr cisho dhaqaaqiiba</string>
+  <string name="puzzleDesc">Tababaraha xeeladaha jesta</string>
   <string name="gameVsX">Ciyaarta &gt;&lt; %1$s</string>
+  <string name="showHelpDialog">Caawintan tus</string>
   <string name="hangOn">Is deji!</string>
   <string name="gameInProgress">Waxaad la ciyaaraysaa hadda %s.</string>
   <string name="abortTheGame">Tuur ciyaarta</string>
