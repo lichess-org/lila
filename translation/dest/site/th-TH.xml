@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ URL นี้เพื่อเชิญคนมาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
+  <string name="orLetYourOpponentScanQrCode">หรือให้คู่แข่งคุณสแกน QR code นี้</string>
   <string name="waiting">กำลังรอ</string>
   <string name="yourTurn">ตาคุณ</string>
   <string name="aiNameLevelAiLevel">%1$s ระดับ %2$s</string>
