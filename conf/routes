@@ -267,6 +267,7 @@ GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundI
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId)
+POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
