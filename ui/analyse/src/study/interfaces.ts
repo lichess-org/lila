@@ -106,6 +106,11 @@ export interface StudyChapter {
   features: StudyChapterFeatures;
   description?: string;
   relay?: StudyChapterRelay;
+  serverEval?: StudyChapterServerEval;
+}
+
+export interface StudyChapterServerEval {
+  path: string;
 }
 
 export interface StudyChapterRelay {
