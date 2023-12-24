@@ -13,6 +13,7 @@ GET   /account/info                    controllers.Account.info
 
 # Timeline
 GET   /timeline                        controllers.Timeline.home
+GET   /api/timeline                    controllers.Timeline.api
 POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel)
 
 # Search
