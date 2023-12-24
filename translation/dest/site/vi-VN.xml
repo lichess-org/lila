@@ -146,7 +146,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
-  <string name="currentGames">Những ván cờ đang chơi</string>
+  <string name="currentGames">Các ván cờ đang diễn ra</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
