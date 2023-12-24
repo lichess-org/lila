@@ -41,7 +41,7 @@
   <string name="xShieldArena">Giải đấu Khiên %s</string>
   <string name="xShield">Khiên %s</string>
   <string name="xTeamBattle">Giải đa Đội %s</string>
-  <string name="eliteXArena">Giải đấu %s Chuyên Nghiệp</string>
+  <string name="eliteXArena">Đấu trường %s Chuyên Nghiệp</string>
   <string name="eliteX">%s Chuyên nghiệp</string>
   <string name="xArena">Đấu trường %s</string>
 </resources>
