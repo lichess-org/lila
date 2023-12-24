@@ -32,7 +32,7 @@
   <string name="doNotReportInForum">Vui lòng không báo cáo người chơi trong diễn đàn.</string>
   <string name="doNotSendReportEmails">Vui lòng không gửi cho chúng tôi email báo cáo.</string>
   <string name="doNotMessageModerators">Vui lòng không gửi tin nhắn trực tiếp đến các quản trị viên.</string>
-  <string name="onlyReports">Chỉ những báo cáo người chơi thông qua biểu mẫu báo cáo mới có hiệu quả.</string>
+  <string name="onlyReports">Chỉ báo cáo những kỳ thủ thông qua biểu mẫu báo cáo mới có hiệu lực.</string>
   <string name="wantReportBug">Tôi muốn gửi báo cáo về một lỗi</string>
   <string name="reportBugInForum">Trong diễn đàn phản hồi Lichess</string>
   <string name="reportWebsiteIssue">Bằng một vấn đề (issue) về trang web Lichess trên Github</string>
