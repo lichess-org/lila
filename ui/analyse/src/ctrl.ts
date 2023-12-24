@@ -323,6 +323,8 @@ export default class AnalyseCtrl {
       });
   });
 
+  serverMainline = () => this.mainline.slice(0, game.playedTurns(this.data) + 1);
+
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
