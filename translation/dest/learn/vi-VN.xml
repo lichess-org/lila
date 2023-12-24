@@ -119,7 +119,7 @@ của mọi ván cờ!
 Hãy đi nước bất kỳ để tiếp tục.</string>
   <string name="firstPlaceTheRooks">Đầu tiên hãy đặt những quân xe!
 Chúng nằm ở các góc bàn cờ.</string>
-  <string name="thenPlaceTheKnights">Rồi đặt những quân Mã! 
+  <string name="thenPlaceTheKnights">Rồi đặt các quân Mã! 
 Ngay cạnh quân Xe.</string>
   <string name="placeTheBishops">Đặt quân Tượng!
 Ngay cạnh quân Mã.</string>
@@ -214,7 +214,7 @@ trong 2 nước!</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
   <string name="videos">Các video</string>
-  <string name="watchInstructiveChessVideos">Xem những video hướng dẫn chơi cờ</string>
+  <string name="watchInstructiveChessVideos">Xem các video hướng dẫn chơi cờ</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>
