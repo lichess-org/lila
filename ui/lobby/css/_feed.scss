@@ -35,6 +35,10 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       border-radius: 50%;
       color: #fff;
     }
+    > i::before {
+      position: relative;
+      top: -2px;
+    }
     &__flair {
       float: $start-direction;
       width: 32px;
