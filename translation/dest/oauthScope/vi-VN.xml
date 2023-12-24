@@ -23,7 +23,7 @@
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Tham gia và rời khỏi đội</string>
   <string name="teamLead">Quản lý các đội bạn đứng đầu: gửi tin nhắn riêng, xóa thành viên</string>
   <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Đọc người chơi đã theo dõi</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Theo dõi và bỏ theo dõi những người chới khác</string>
+  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Theo dõi và bỏ theo dõi những người chơi khác</string>
   <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Gửi tin nhắn riêng đến những người chơi khác</string>
   <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Chơi với bàn cờ API</string>
   <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Chơi cờ với bot API</string>
