@@ -45,7 +45,7 @@ function analysisButton(ctrl: RoundController): VNode | false {
 function rematchButtons(ctrl: RoundController): LooseVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
-    disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
+    disabled = !me && !d.opponent.onGame,
     them = !!d.opponent.offeringRematch && !disabled,
     noarg = ctrl.noarg;
   if (!game.rematchable(d)) return [];
@@ -74,10 +74,9 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
             else if (d.player.offeringRematch) {
               d.player.offeringRematch = false;
               ctrl.socket.send('rematch-no');
-            } else if (d.opponent.onGame || !d.clock) {
+            } else if (d.opponent.onGame) {
               d.player.offeringRematch = true;
               ctrl.socket.send('rematch-yes');
-              if (!disabled && !d.opponent.onGame) ctrl.challengeRematch();
             }
           },
           ctrl.redraw,
