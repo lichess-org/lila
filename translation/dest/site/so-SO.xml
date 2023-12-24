@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">La ciyaar saaxiib</string>
-  <string name="playWithTheMachine">La ciyaar aaladdaada</string>
+  <string name="playWithTheMachine">La ciyaar komyuutar</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Si aad u casuumtid qof kula ciyaara, u dir laynkan</string>
   <string name="gameOver">Ciyaarti way dhamaatay</string>
   <string name="waitingForOpponent">Sugaya herjeede cusub</string>
@@ -310,7 +310,7 @@
   </plurals>
   <string name="backToTournament">Ku noqo tartanka</string>
   <string name="backToGame">Ku noqo ciyaarta</string>
-  <string name="siteDescription">Jes bilaash ah oo onlayn ah. Ku ciyaar jes madal nadiif ah. Uma baahna diwaangelin, ma leh xayeysiis, umana baahna adeeg kale. La ciyaar jes aaladdaada, asxaabtaada amma dadka hawada ku jira.</string>
+  <string name="siteDescription">Ciyaarta jesta oo onlayn ah bilaashna ah. Ku ciyaar jes madal nadiif ah. Uma baahna diwaangelin, ma leh xayeysiis, umana baahna adeeg kale. La ciyaar jes komyuutarka, asxaabtaada amma dadka hawada ku jira.</string>
   <string name="xJoinedTeamY">%1$s wuxu ku biiray kooxda %2$s</string>
   <string name="location">Goobta</string>
   <string name="reset">Dib u dajin</string>
