@@ -21,7 +21,7 @@ final class Timeline(env: Env) extends LilaController(env):
           yield html.timeline.entries(entries)
         else
           for
-            entries <- env.timeline.entryApi.moreUserEntries(me, Max(30))
+            entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
           yield html.timeline.more(entries)
       ,
@@ -30,7 +30,11 @@ final class Timeline(env: Env) extends LilaController(env):
         // mobile app that do not send nb are vulnerable to XSS in
         // timeline entries.
         entries <- env.timeline.entryApi
-          .moreUserEntries(me, Max(getInt("nb") | 0 atMost env.apiTimelineSetting.get()))
+          .moreUserEntries(
+            me,
+            Max(getInt("nb") | 0 atMost env.apiTimelineSetting.get()),
+            since = getTimestamp("since")
+          )
         users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
         userMap = users.mapBy(_.id)
       yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
