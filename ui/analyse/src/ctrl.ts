@@ -637,7 +637,7 @@ export default class AnalyseCtrl {
           if (this.retro) this.retro.onCeval();
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
-          this.evalCache.onCeval();
+          this.evalCache.onLocalCeval();
         }
         this.redraw();
       }
@@ -865,7 +865,7 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet(): boolean {
+  canEvalGet = (): boolean => {
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support threefold repetition
@@ -878,12 +878,12 @@ export default class AnalyseCtrl {
       fens.add(fen);
     }
     return true;
-  }
+  };
 
-  instanciateEvalCache() {
+  instanciateEvalCache = () => {
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
-      canGet: () => this.canEvalGet(),
+      canGet: this.canEvalGet,
       canPut: () =>
         !!(
           this.ceval?.cacheable() &&
@@ -895,7 +895,7 @@ export default class AnalyseCtrl {
       send: this.opts.socketSend,
       receive: this.onNewCeval,
     });
-  }
+  };
 
   closeTools = () => {
     if (this.retro) this.retro = undefined;

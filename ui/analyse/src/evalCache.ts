@@ -66,14 +66,14 @@ type AwaitingEval = null;
 const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
-  fetchedByFen: Map<Fen, CachedEval | AwaitingEval> = new Map();
-  upgradable = prop(false);
+  private fetchedByFen: Map<Fen, CachedEval | AwaitingEval> = new Map();
+  private upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
     lichess.pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
   }
 
-  onCeval = throttle(500, () => {
+  onLocalCeval = throttle(500, () => {
     const node = this.opts.getNode(),
       ev = node.ceval;
     const fetched = this.fetchedByFen.get(node.fen);
@@ -88,6 +88,7 @@ export default class EvalCache {
       this.opts.send('evalPut', toPutData(this.opts.variant, ev));
     }
   });
+
   fetch = (path: Tree.Path, multiPv: number): void => {
     const node = this.opts.getNode();
     if ((node.ceval && node.ceval.cloud) || !this.opts.canGet()) return;
@@ -105,9 +106,11 @@ export default class EvalCache {
     if (this.upgradable()) obj.up = true;
     this.opts.send('evalGet', obj);
   };
+
   onCloudEval = (serverEval: CachedEval) => {
     this.fetchedByFen.set(serverEval.fen, serverEval);
     this.opts.receive(toCeval(serverEval), serverEval.path);
   };
+
   clear = () => this.fetchedByFen.clear();
 }
