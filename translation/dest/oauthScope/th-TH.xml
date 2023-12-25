@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">ถูกสร้างเมื่อ %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">ใช้งานล่าสุด: %s</string>
+</resources>
