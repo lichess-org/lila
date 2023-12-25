@@ -62,9 +62,11 @@ function toCeval(e: Tree.ServerEval): Tree.ClientEval {
   return res;
 }
 
-export default class EvalCache {
-  fetchedByFen: Dictionary<CachedEval> = {};
+type AwaitingEval = null;
+const awaitingEval: AwaitingEval = null;
 
+export default class EvalCache {
+  fetchedByFen: Map<Fen, CachedEval | AwaitingEval> = new Map();
   upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
@@ -74,11 +76,11 @@ export default class EvalCache {
   onCeval = throttle(500, () => {
     const node = this.opts.getNode(),
       ev = node.ceval;
-    const fetched = this.fetchedByFen[node.fen];
+    const fetched = this.fetchedByFen.get(node.fen);
     if (
       ev &&
       !ev.cloud &&
-      node.fen in this.fetchedByFen &&
+      this.fetchedByFen.has(node.fen) &&
       (!fetched || fetched.depth < ev.depth) &&
       qualityCheck(ev) &&
       this.opts.canPut()
@@ -89,11 +91,11 @@ export default class EvalCache {
   fetch = (path: Tree.Path, multiPv: number): void => {
     const node = this.opts.getNode();
     if ((node.ceval && node.ceval.cloud) || !this.opts.canGet()) return;
-    const serverEval = this.fetchedByFen[node.fen];
-    if (serverEval) return this.opts.receive(toCeval(serverEval), path);
-    else if (node.fen in this.fetchedByFen) return;
+    const fetched = this.fetchedByFen.get(node.fen);
+    if (fetched) return this.opts.receive(toCeval(fetched), path);
+    else if (fetched === awaitingEval) return;
     // waiting for response
-    else this.fetchedByFen[node.fen] = undefined; // mark as waiting
+    else this.fetchedByFen.set(node.fen, awaitingEval); // mark as waiting
     const obj: EvalGetData = {
       fen: node.fen,
       path,
@@ -104,10 +106,8 @@ export default class EvalCache {
     this.opts.send('evalGet', obj);
   };
   onCloudEval = (serverEval: CachedEval) => {
-    this.fetchedByFen[serverEval.fen] = serverEval;
+    this.fetchedByFen.set(serverEval.fen, serverEval);
     this.opts.receive(toCeval(serverEval), serverEval.path);
   };
-  clear = () => {
-    this.fetchedByFen = {};
-  };
+  clear = () => this.fetchedByFen.clear();
 }
