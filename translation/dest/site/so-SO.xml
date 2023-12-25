@@ -53,8 +53,8 @@
   <string name="blackDidntMove">Madowgu muu dhaqaaqin</string>
   <string name="requestAComputerAnalysis">Dalbo falanqayn komyuutar</string>
   <string name="computerAnalysis">Falanqayn komyuutar</string>
-  <string name="computerAnalysisAvailable">Falanqayn komyuutar waa diyaar</string>
-  <string name="computerAnalysisDisabled">falanqayn computerka maleh</string>
+  <string name="computerAnalysisAvailable">Falanqayn komyuutar baa jirta</string>
+  <string name="computerAnalysisDisabled">Falanqayn komyuutar ma furna</string>
   <string name="analysis">Looxa falanqaynta</string>
   <string name="depthX">Mug %s</string>
   <string name="usingServerAnalysis">Miciinsi falanqayn adeege</string>
@@ -117,11 +117,11 @@
   <string name="bestMoveArrow">Falaadha tallaabada ugu fiican</string>
   <string name="showVariationArrows">Tus falaadhaha faracyada</string>
   <string name="evaluationGauge">Qiinqaynta tallaabada</string>
-  <string name="multipleLines">Waddooyin</string>
-  <string name="cpus">CPU</string>
-  <string name="memory">Baaxad</string>
+  <string name="multipleLines">Shaxo badan</string>
+  <string name="cpus">CPUyada</string>
+  <string name="memory">Baaxadda</string>
   <string name="infiniteAnalysis">Falanqayn bilaa xad ah</string>
-  <string name="removesTheDepthLimit">Mug bilaa xad ah oo aaladdaada kululaynaya</string>
+  <string name="removesTheDepthLimit">Mug bilaa xad ah oo komyuutarkaaga kululaynaya</string>
   <string name="blunder">Qalad</string>
   <string name="mistake">Qalad</string>
   <string name="inaccuracy">Khalad</string>
@@ -168,7 +168,7 @@
   <string name="rememberMe">Ha ka bixin</string>
   <string name="youNeedAnAccountToDoThat">Akoon baad u baahanahay</string>
   <string name="signUp">Is diwaangeli</string>
-  <string name="computersAreNotAllowedToPlay">Kombiyuutar iyo qof qish kombiyuutar isticmaalaya lama ogola. Fadlan ha isticmaalin qish kombiyuutar ama caawin qof kale markad ciyaaraysid. Iyana ogow in samays akoono badan aad looga soo hor jeedo oo haddii ad samaysid akoonkaaga la xidhi karo.</string>
+  <string name="computersAreNotAllowedToPlay">Komyuutar iyo qof qish komyuutar isticmaalaya lama ogola. Fadlan ha isticmaalin qish komyuutar ama caawin qof kale markad ciyaaraysid. Iyana ogow in samayska akoono badan aad looga soo hor jeedo, oo haddii ad sidaa samaysid akoonkaaga la xidhi karo.</string>
   <string name="games">Ciyaaraha</string>
   <string name="forum">Barta bulshada</string>
   <string name="xPostedInForumY">%1$s ayaa ku soo qoray sheekada %2$s</string>
