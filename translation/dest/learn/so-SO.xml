@@ -82,6 +82,16 @@ Balse waad is difaaci kartaa!</string>
   <string name="checkInOne">Jeg hal mar</string>
   <string name="attackTheOpponentsKing">Weerar boqorka horjeedahaaga</string>
   <string name="checkInOneIntro">Si ad u jegtid horjeedahaaga, weerar boqorkiisa. Wuu ku qasbanyay in uu difaaco!</string>
+  <string name="checkInOneGoal">Hal mar ku shiish boqorka horjeedahaag!</string>
+  <string name="checkInOneComplete">Hambalyo! Waad jegtay horjeedahaaga, kuna qasabtay in uu difaaco boqorkiisa!</string>
+  <string name="outOfCheck">Ka bax jeg</string>
+  <string name="defendYourKing">Difaac boqorkaaga</string>
+  <string name="outOfCheckIntro">Jeg baad ku jirtaa! Waa in ad ka orodo ama dhufays ka gasho weerarka.</string>
+  <string name="escapeWithTheKing">La orod boqorka!</string>
+  <string name="theKingCannotEscapeButBlock">Boqorku ma ordi karo, 
+balse dhufays baad gelin kartaa!</string>
+  <string name="youCanGetOutOfCheckByTaking">Waxad jeg kaga bixi kartaa in ad disho dhagaxa weerarka ah.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Faraskani jeg difaaca soo dhaafay buu kugu hayaa!</string>
   <string name="puzzles">Halxiraalaha</string>
   <string name="awesome">Cajiib!</string>
   <string name="excellent">Khatar!</string>
