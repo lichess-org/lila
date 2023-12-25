@@ -9,6 +9,9 @@ import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
 import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 import StudyCtrl from './studyCtrl';
+import { CachedEval } from '../interfaces';
+import { WinningChances } from 'ceval/src/types';
+import { povChances } from 'ceval/src/winningChances';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -16,14 +19,18 @@ export class MultiBoardCtrl {
   pager?: Paginator<ChapterPreview>;
   playing = false;
 
+  private winningChances: Map<Fen, WinningChances> = new Map();
+
   constructor(
     readonly studyId: string,
     readonly redraw: () => void,
     readonly trans: Trans,
+    private readonly send: SocketSend,
+    private readonly variant: () => VariantKey,
   ) {}
 
   addNode = (pos: Position, node: Tree.Node) => {
-    const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
+    const cp = this.pager?.currentPageResults.find(cp => cp.id == pos.chapterId);
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
@@ -49,19 +56,27 @@ export class MultiBoardCtrl {
     if (changed) this.redraw();
   };
 
-  reload = (onInsert?: boolean) => {
+  reload = async (onInsert?: boolean) => {
     if (this.pager && !onInsert) {
       this.loading = true;
       this.redraw();
     }
-    xhrLoad(this.studyId, this.page, this.playing).then(p => {
-      this.pager = p;
-      if (p.nbPages < this.page) {
-        if (!p.nbPages) this.page = 1;
-        else this.setPage(p.nbPages);
-      }
-      this.loading = false;
-      this.redraw();
+    this.pager = await xhrLoad(this.studyId, this.page, this.playing);
+    if (this.pager.nbPages < this.page) {
+      if (!this.pager.nbPages) this.page = 1;
+      else this.setPage(this.pager.nbPages);
+    }
+    this.loading = false;
+    this.redraw();
+
+    this.pager.currentPageResults.forEach(cp => {
+      this.send('evalGet', {
+        fen: cp.fen,
+        path: 'multiboard',
+        variant: this.variant(),
+        mpv: 1,
+        up: true,
+      });
     });
   };
 
@@ -82,6 +97,19 @@ export class MultiBoardCtrl {
   setPlaying = (v: boolean) => {
     this.playing = v;
     this.reload();
+  };
+
+  onCloudEval = (d: CachedEval) => {
+    d.pvs.slice(0, 1).forEach(pv => {
+      console.log(pv, d.fen);
+      this.winningChances.set(d.fen, povChances('white', pv));
+      this.redraw();
+    });
+  };
+
+  getWinningChances = (preview: ChapterPreview): WinningChances | undefined => {
+    // console.log('getWinningChances', preview.fen, this.winningChances.get(preview.fen));
+    return this.winningChances.get(preview.fen);
   };
 }
 
@@ -113,7 +141,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
   const ctrl = study.multiBoard;
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
-    h('div.now-playing', pager.currentPageResults.map(makePreview(study))),
+    h('div.now-playing', pager.currentPageResults.map(makePreview(study, ctrl.getWinningChances))),
   ];
 }
 
@@ -157,7 +185,9 @@ function pagerButton(
   });
 }
 
-const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
+type GetWinningChances = (preview: ChapterPreview) => WinningChances | undefined;
+
+const makePreview = (study: StudyCtrl, winningChances: GetWinningChances) => (preview: ChapterPreview) =>
   h(
     `a.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
     {
@@ -196,6 +226,7 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
       boardPlayer(preview, CgOpposite(preview.orientation)),
       h('span.cg-wrap'),
       boardPlayer(preview, preview.orientation),
+      winningChances(preview),
     ],
   );
 

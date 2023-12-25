@@ -164,7 +164,8 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
       ctrl.mergeAnalysisData(data);
     },
     evalHit(e: CachedEval) {
-      ctrl.evalCache.onCloudEval(e);
+      if (e.path == 'multiboard') ctrl.study?.multiBoard.onCloudEval(e);
+      else ctrl.evalCache.onCloudEval;
     },
   };
 

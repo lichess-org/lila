@@ -107,9 +107,9 @@ export default class EvalCache {
     this.opts.send('evalGet', obj);
   };
 
-  onCloudEval = (serverEval: CachedEval) => {
-    this.fetchedByFen.set(serverEval.fen, serverEval);
-    this.opts.receive(toCeval(serverEval), serverEval.path);
+  onCloudEval = (ev: CachedEval) => {
+    this.fetchedByFen.set(ev.fen, ev);
+    this.opts.receive(toCeval(ev), ev.path);
   };
 
   clear = () => this.fetchedByFen.clear();

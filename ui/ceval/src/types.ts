@@ -8,6 +8,8 @@ export interface Eval {
   mate?: number;
 }
 
+export type WinningChances = number;
+
 export interface Work {
   variant: VariantKey;
   threads: number;
