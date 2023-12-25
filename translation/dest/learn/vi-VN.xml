@@ -71,7 +71,7 @@ Nhưng không cần phải phong cấp đâu.</string>
   <string name="takeTheBlackPieces">Hãy ăn lấy quân đen!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Ăn lấy quân đen!
 Nhưng đừng để mất quân của bạn.</string>
-  <string name="captureComplete">Xin chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
+  <string name="captureComplete">Chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
   <string name="protection">Phòng thủ</string>
   <string name="keepYourPiecesSafe">Giữ an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân đang bị đối thủ tấn công và phòng thủ cho chúng!</string>
@@ -117,7 +117,7 @@ bằng một cách mà đối phương không thể phòng thủ!</string>
   <string name="thisIsTheInitialPosition">Đây là thế trận ban đầu 
 của mọi ván cờ!
 Hãy đi nước bất kỳ để tiếp tục.</string>
-  <string name="firstPlaceTheRooks">Đầu tiên hãy đặt những quân xe!
+  <string name="firstPlaceTheRooks">Đầu tiên hãy đặt các quân xe!
 Chúng nằm ở các góc bàn cờ.</string>
   <string name="thenPlaceTheKnights">Rồi đặt các quân Mã! 
 Ngay cạnh quân Xe.</string>
