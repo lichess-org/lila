@@ -195,7 +195,10 @@ export default class StrongSocket {
       if (!this.tryOtherUrl) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
-        lichess.log(`socket.ts: Timeout ${delay}ms, rotating to ${this.baseUrl()}`);
+        const sri = this.settings.params?.sri;
+        lichess.log(
+          `socket.ts:${sri ? ' sri ' + sri : ''} timeout ${delay}ms, rotating to ${this.baseUrl()}`,
+        );
       }
       this.connect();
     }, delay);
@@ -303,7 +306,7 @@ export default class StrongSocket {
     }
     if (e.wasClean && e.code < 1002) return;
 
-    lichess.log(`socket.ts: Unclean close ${e.code} ${url} ${e.reason}`);
+    lichess.log(`socket.ts:${sri ? ' sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
