@@ -1,9 +1,11 @@
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
+import { defined } from 'common';
 import { renderClock, fenColor } from 'common/mini-board';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
@@ -98,16 +100,13 @@ export class MultiBoardCtrl {
 
   onCloudEval = (d: CachedEval) => {
     d.pvs.slice(0, 1).forEach(pv => {
-      console.log(pv, d.fen);
       this.winningChances.set(d.fen, povChances('white', pv));
       this.redraw();
     });
   };
 
-  getWinningChances = (preview: ChapterPreview): WinningChances | undefined => {
-    // console.log('getWinningChances', preview.fen, this.winningChances.get(preview.fen));
-    return this.winningChances.get(preview.fen);
-  };
+  getWinningChances = (preview: ChapterPreview): WinningChances | undefined =>
+    this.winningChances.get(preview.fen);
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
@@ -221,10 +220,21 @@ const makePreview = (study: StudyCtrl, winningChances: GetWinningChances) => (pr
     },
     [
       boardPlayer(preview, CgOpposite(preview.orientation)),
-      h('span.cg-wrap'),
+      h('span.cg-gauge', [h('span.mini-game__board', h('span.cg-wrap')), evalGauge(winningChances(preview))]),
       boardPlayer(preview, preview.orientation),
-      winningChances(preview),
     ],
+  );
+
+const evalGauge = (chances?: WinningChances): VNode =>
+  h(
+    'span.mini-game__gauge',
+    { class: { defined: defined(chances) } },
+    defined(chances) &&
+      h('span.mini-game__gauge__black', {
+        attrs: {
+          style: `height: ${((1 - chances) / 2) * 100}%`,
+        },
+      }),
   );
 
 const userName = (u: ChapterPreviewPlayer) =>
