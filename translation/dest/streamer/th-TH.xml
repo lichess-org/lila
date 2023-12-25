@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">สตรีมเมอร์ของ Lichess</string>
+  <string name="lichessStreamer">สตรีมเมอร์ของ Lichess</string>
   <string name="live">สด</string>
   <string name="offline">ออฟไลน์</string>
   <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">กำลังถ่ายทอดสดอยู่ขณะนี้: %s</string>
