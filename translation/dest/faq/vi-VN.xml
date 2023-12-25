@@ -29,7 +29,7 @@
   <string name="pleaseReadFairPlayPage">Để biết thêm thông tin, vui lòng đọc %s</string>
   <string name="fairPlayPage">trang chơi công bằng</string>
   <string name="youCanUseOpeningBookNoEngine">Trên Lichess, sự khác biệt chính trong các quy tắc cho cờ qua thư là sách khai cuộc được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư nhưng Lichess thì không.</string>
-  <string name="gameplay">Lối Chơi</string>
+  <string name="gameplay">Cách Chơi</string>
   <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các định giờ khác được quyết định thế nào?</string>
   <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính = %1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
