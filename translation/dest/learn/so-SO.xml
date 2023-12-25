@@ -50,6 +50,38 @@ balse janjeedh bay wax u dilaan!</string>
   <string name="captureThenPromote">Dil, ka dibna dallac!</string>
   <string name="useAllThePawns">Isticmaal askarta oo dhan!
 Uma baahnid dallacaad.</string>
+  <string name="aPawnOnTheSecondRank">Askari jiidda labaad joogi wuxu guuri karaa 2 jago hal mar!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Dil xidigaha oo dhan!
+Looma baahna dallacaad.</string>
+  <string name="pawnComplete">Hambalyo! Waxa kuuguma qarsoona askarta.</string>
+  <string name="pawnPromotion">Dallicidda askariga</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Askarigaagi wuxu gaadhay looxa dhamaadkiisii!</string>
+  <string name="itNowPromotesToAStrongerPiece">Imika wuxu u dallacmayaa dhagax awood badan.</string>
+  <string name="selectThePieceYouWant">Dooro dhagaxa ad rabtid!</string>
+  <string name="fundamentals">Aasaaska</string>
+  <string name="capture">Dilidda</string>
+  <string name="takeTheEnemyPieces">Dil ciidanka colkaaga</string>
+  <string name="captureIntro">Hel horjeedahaaga dhagxantiisa aan difaaca lahayn oo dil!</string>
+  <string name="takeTheBlackPieces">Dil dhagxanta madmadow!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Dil dhagxanta madmadow!
+Oo kuwaagana ilaali.</string>
+  <string name="captureComplete">Hambalyo! Imika waad taqaan sida loogu dagaalamo dhagxanta jesta!</string>
+  <string name="protection">Ilaalin</string>
+  <string name="keepYourPiecesSafe">Dhagxantaada ilaali</string>
+  <string name="protectionIntro">U fiirso dhagxanta uu horjeedahaagu weerarayo, oo iska difaac!</string>
+  <string name="protectionComplete">Hambalyo! Dhagax ad badbasdisay waa dhagax ad colka ka dishay oo kale!</string>
+  <string name="escape">Waa lagusoo weeraray!
+Ka orod khatarta!</string>
+  <string name="noEscape">Meel loo ordaa ma jirto,
+Balse waad is difaaci kartaa!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ha yeelin in lagaa dilo dhagxan bilaa difaac ah!</string>
+  <string name="combat">Dagaal</string>
+  <string name="captureAndDefendPieces">Dil oo difaac dhagxanta</string>
+  <string name="combatIntro">Dagaalyahanka fiicani wuu yaqaan weerarka iyo difaacaba!</string>
+  <string name="combatComplete">Hambalyo! Imika waad taqaan sida loogu dagaalamo dhagxanta jesta!</string>
+  <string name="checkInOne">Jeg hal mar</string>
+  <string name="attackTheOpponentsKing">Weerar boqorka horjeedahaaga</string>
+  <string name="checkInOneIntro">Si ad u jegtid horjeedahaaga, weerar boqorkiisa. Wuu ku qasbanyay in uu difaaco!</string>
   <string name="puzzles">Halxiraalaha</string>
   <string name="awesome">Cajiib!</string>
   <string name="excellent">Khatar!</string>
