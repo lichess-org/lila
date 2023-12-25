@@ -102,6 +102,8 @@
   <string name="playFirstOpeningEndgameExplorerMove">เล่นการเปิดเกม/จบเกม-ค้นหาตาเดิน</string>
   <string name="winPreventedBy50MoveRule">พลาดชัยชนะเนื่องจากกฎการเดิน 50 รอบ</string>
   <string name="lossSavedBy50MoveRule">รอดจากการแพ้ด้วยกฎการเดิน 50 รอบ</string>
+  <string name="winOr50MovesByPriorMistake">ชนะหรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
+  <string name="lossOr50MovesByPriorMistake">แพ้หรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
   <string name="allSet">พร้อมลุย!</string>
   <string name="importPgn">ป้อน PGN</string>
   <string name="delete">ลบ</string>
