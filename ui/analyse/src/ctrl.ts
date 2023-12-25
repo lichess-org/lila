@@ -28,7 +28,7 @@ import { TreeView } from './treeView/treeView';
 import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
-import { make as makeEvalCache, EvalCache } from './evalCache';
+import EvalCache from './evalCache';
 import { make as makeFork, ForkCtrl } from './fork';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
@@ -881,7 +881,7 @@ export default class AnalyseCtrl {
   }
 
   instanciateEvalCache() {
-    this.evalCache = makeEvalCache({
+    this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: () => this.canEvalGet(),
       canPut: () =>
