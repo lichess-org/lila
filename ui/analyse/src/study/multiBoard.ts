@@ -39,6 +39,7 @@ export class MultiBoardCtrl {
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
       cp.lastMoveAt = undefined;
+      this.requestCloudEval(cp);
       this.redraw();
     }
   };
@@ -69,15 +70,11 @@ export class MultiBoardCtrl {
     this.loading = false;
     this.redraw();
 
-    this.pager.currentPageResults.forEach(cp => {
-      this.send('evalGet', {
-        fen: cp.fen,
-        path: 'multiboard',
-        variant: this.variant(),
-        mpv: 1,
-        up: true,
-      });
-    });
+    this.pager.currentPageResults.forEach(this.requestCloudEval);
+  };
+
+  private requestCloudEval = (cp: ChapterPreview) => {
+    this.send('evalGet', { fen: cp.fen, path: 'multiboard', variant: this.variant(), mpv: 1, up: true });
   };
 
   reloadEventually = debounce(this.reload, 1000);
