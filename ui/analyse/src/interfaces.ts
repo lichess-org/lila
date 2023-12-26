@@ -74,12 +74,17 @@ export interface ServerEvalData {
   division?: Division;
 }
 
-export interface CachedEval {
+export interface EvalHit {
   fen: Fen;
   knodes: number;
   depth: number;
   pvs: Tree.PvDataServer[];
   path: string;
+}
+
+export interface EvalHitMulti extends EvalScore {
+  fen: Fen;
+  depth: number;
 }
 
 // similar, but not identical, to game/Game

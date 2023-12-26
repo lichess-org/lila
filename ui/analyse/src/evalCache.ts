@@ -1,6 +1,6 @@
 import { defined, prop } from 'common';
 import throttle from 'common/throttle';
-import { CachedEval, EvalGetData, EvalPutData } from './interfaces';
+import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import { AnalyseSocketSend } from './socket';
 
 export interface EvalCacheOpts {
@@ -66,7 +66,7 @@ type AwaitingEval = null;
 const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
-  private fetchedByFen: Map<Fen, CachedEval | AwaitingEval> = new Map();
+  private fetchedByFen: Map<Fen, EvalHit | AwaitingEval> = new Map();
   private upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
@@ -107,7 +107,7 @@ export default class EvalCache {
     this.opts.send('evalGet', obj);
   };
 
-  onCloudEval = (ev: CachedEval) => {
+  onCloudEval = (ev: EvalHit) => {
     this.fetchedByFen.set(ev.fen, ev);
     this.opts.receive(toCeval(ev), ev.path);
   };

@@ -1,4 +1,4 @@
-import { Eval, WinningChances } from './types';
+import { WinningChances } from './types';
 
 const toPov = (color: Color, diff: number): number => (color === 'white' ? diff : -diff);
 
@@ -19,16 +19,17 @@ const mateWinningChances = (mate: number): WinningChances => {
   return rawWinningChances(signed);
 };
 
-const evalWinningChances = (ev: Eval): WinningChances =>
+const evalWinningChances = (ev: EvalScore): WinningChances =>
   typeof ev.mate !== 'undefined' ? mateWinningChances(ev.mate) : cpWinningChances(ev.cp!);
 
 // winning chances for a color
 // 1  infinitely winning
 // -1 infinitely losing
-export const povChances = (color: Color, ev: Eval): WinningChances => toPov(color, evalWinningChances(ev));
+export const povChances = (color: Color, ev: EvalScore): WinningChances =>
+  toPov(color, evalWinningChances(ev));
 
 // computes the difference, in winning chances, between two evaluations
 // 1  = e1 is infinitely better than e2
 // -1 = e1 is infinitely worse  than e2
-export const povDiff = (color: Color, e1: Eval, e2: Eval): number =>
+export const povDiff = (color: Color, e1: EvalScore, e2: EvalScore): number =>
   (povChances(color, e1) - povChances(color, e2)) / 2;

@@ -11,7 +11,7 @@ import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
 import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 import StudyCtrl from './studyCtrl';
-import { CachedEval } from '../interfaces';
+import { EvalHitMulti } from '../interfaces';
 import { WinningChances } from 'ceval/src/types';
 import { povChances } from 'ceval/src/winningChances';
 
@@ -41,7 +41,7 @@ export class MultiBoardCtrl {
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
       cp.lastMoveAt = undefined;
-      this.requestCloudEval(cp);
+      this.requestCloudEvals();
       this.redraw();
     }
   };
@@ -72,11 +72,16 @@ export class MultiBoardCtrl {
     this.loading = false;
     this.redraw();
 
-    this.pager.currentPageResults.forEach(this.requestCloudEval);
+    this.requestCloudEvals();
   };
 
-  private requestCloudEval = (cp: ChapterPreview) => {
-    this.send('evalGet', { fen: cp.fen, path: 'multiboard', variant: this.variant(), mpv: 1, up: true });
+  private requestCloudEvals = () => {
+    if (this.pager?.currentPageResults.length) {
+      this.send('evalGetMulti', {
+        fens: this.pager?.currentPageResults.map(c => c.fen),
+        variant: this.variant(),
+      });
+    }
   };
 
   reloadEventually = debounce(this.reload, 1000);
@@ -98,11 +103,9 @@ export class MultiBoardCtrl {
     this.reload();
   };
 
-  onCloudEval = (d: CachedEval) => {
-    d.pvs.slice(0, 1).forEach(pv => {
-      this.winningChances.set(d.fen, povChances('white', pv));
-      this.redraw();
-    });
+  onCloudEval = (d: EvalHitMulti) => {
+    this.winningChances.set(d.fen, povChances('white', d));
+    this.redraw();
   };
 
   getWinningChances = (preview: ChapterPreview): WinningChances | undefined =>
