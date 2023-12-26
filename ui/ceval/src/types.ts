@@ -51,7 +51,7 @@ export interface BrowserEngineInfo extends EngineInfo {
   obsoletedBy?: Feature;
 }
 
-export type Requires = Feature | 'recentFirefoxOrNotBrave';
+export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };
