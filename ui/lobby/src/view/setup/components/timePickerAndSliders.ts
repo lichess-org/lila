@@ -113,7 +113,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
           setupCtrl.timeMode() === 'realTime'
             ? h('div.increment-choice.range', [
                 `${trans('incrementInSeconds')}: `,
-                h('span', setupCtrl.increment()),
+                h('span', setupCtrl.increment().toString()),
                 inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
               ])
             : setupCtrl.timeMode() === 'correspondence' &&
