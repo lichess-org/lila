@@ -90,10 +90,7 @@
   &__gauge {
     position: relative;
     flex: 0 0 5%;
-    background: transparent;
-    &.defined {
-      background: if($theme-light, #fff, #a0a0a0);
-    }
+    background: if($theme-light, #fff, #a0a0a0);
     border: $border;
     border-left: 0;
     overflow: hidden;

@@ -223,21 +223,23 @@ const makePreview = (study: StudyCtrl, winningChances: GetWinningChances) => (pr
     },
     [
       boardPlayer(preview, CgOpposite(preview.orientation)),
-      h('span.cg-gauge', [h('span.mini-game__board', h('span.cg-wrap')), evalGauge(winningChances(preview))]),
+      h('span.cg-gauge', [h('span.mini-game__board', h('span.cg-wrap')), evalGauge(preview, winningChances)]),
       boardPlayer(preview, preview.orientation),
     ],
   );
 
-const evalGauge = (chances?: WinningChances): VNode =>
+const evalGauge = (chap: ChapterPreview, winningChances: GetWinningChances): VNode =>
   h(
     'span.mini-game__gauge',
-    { class: { defined: defined(chances) } },
-    defined(chances) &&
-      h('span.mini-game__gauge__black', {
-        attrs: {
-          style: `height: ${((1 - chances) / 2) * 100}%`,
+    h('span.mini-game__gauge__black', {
+      hook: {
+        postpatch(old, vnode) {
+          const chances = winningChances(chap) ?? old.data?.chances;
+          vnode.data!.chances = chances;
+          (vnode.elm as HTMLElement).style.height = `${((1 - (chances || 0)) / 2) * 100}%`;
         },
-      }),
+      },
+    }),
   );
 
 const userName = (u: ChapterPreviewPlayer) =>
