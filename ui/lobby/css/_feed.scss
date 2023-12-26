@@ -21,31 +21,23 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       display: none;
     }
 
-    > i {
-      font-size: 13px;
-      float: $start-direction;
-      width: 32px;
-      height: 32px;
-      margin-top: -5px;
-      margin-#{$start-direction}: -42px;
-      line-height: 27px;
-      text-align: center;
-      background-color: $c-contours;
-      border: 3px solid $c-bg-box;
-      border-radius: 50%;
-      color: #fff;
-    }
-    &__flair {
+    &__marker {
       float: $start-direction;
       width: 32px;
       height: 32px;
       padding: 5px;
       margin-top: -5px;
       margin-#{$start-direction}: -42px;
-      background: $c-bg-box;
-      border: 2px solid $c-contours;
+      background-color: $c-contours;
+      border: 3px solid $c-bg-box;
       border-radius: 50%;
+
+      &.nobg {
+        background: $c-bg-box;
+        border: 2px solid $c-contours;
+      }
     }
+
     &__day {
       @extend %flex-center;
       display: inline;
