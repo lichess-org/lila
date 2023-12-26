@@ -30,7 +30,7 @@ export default function makeLog(): LichessLog {
   }
 
   const log: any = async (...args: any[]) => {
-    const msg = args.map(stringify).join(' ');
+    const msg = `${lichess.info.commit.substr(0, 7)} - ${args.map(stringify).join(' ')}`;
     let nextKey = Date.now();
     console.log(...args);
     if (nextKey === lastKey) {
@@ -53,7 +53,7 @@ export default function makeLog(): LichessLog {
   log.get = async (): Promise<string> => {
     await ready;
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
-    return keys.map((k, i) => `${new Date(k).toISOString()} - ${vals[i]}`).join('\n');
+    return keys.map((k, i) => `${new Date(k).toISOString()} ${vals[i]}`).join('\n');
   };
 
   window.addEventListener('error', async e => {
