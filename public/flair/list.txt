@@ -3289,6 +3289,7 @@ symbols.white-large-square
 symbols.white-medium-small-square
 symbols.white-question-mark
 symbols.white-square-button
+symbols.white-star
 symbols.wireless
 symbols.womens-room
 symbols.yellow-heart
