@@ -1,4 +1,4 @@
-import { winningChances, Eval, CevalCtrl } from 'ceval';
+import { winningChances, CevalCtrl } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
@@ -96,10 +96,12 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if (outcome && outcome.winner) verdict = 'goodMove';
     else {
       const isFiftyMoves = node.fen.split(' ')[4] === '100';
-      const nodeEval: Eval =
+      const nodeEval: EvalScore =
         tbhitToEval(node.tbhit) ||
-        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves ? { cp: 0 } : (node.ceval as Eval));
-      const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
+        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves
+          ? { cp: 0 }
+          : (node.ceval as EvalScore));
+      const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);

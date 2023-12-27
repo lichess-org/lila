@@ -3,11 +3,6 @@ import { Prop } from 'common';
 import { Feature } from 'common/device';
 import CevalCtrl from './ctrl';
 
-export interface Eval {
-  cp?: number;
-  mate?: number;
-}
-
 export type WinningChances = number;
 
 export interface Work {

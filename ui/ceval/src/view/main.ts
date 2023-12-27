@@ -3,7 +3,7 @@ import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { bind, LooseVNodes, looseH as h } from 'common/snabbdom';
 import { defined, notNull } from 'common';
-import { Eval, ParentCtrl, NodeEvals, CevalState } from '../types';
+import { ParentCtrl, NodeEvals, CevalState } from '../types';
 import { VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
@@ -116,7 +116,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 
 const serverNodes = 4e6;
 
-export function getBestEval(evs: NodeEvals): Eval | undefined {
+export function getBestEval(evs: NodeEvals): EvalScore | undefined {
   const serverEv = evs.server,
     localEv = evs.client;
 

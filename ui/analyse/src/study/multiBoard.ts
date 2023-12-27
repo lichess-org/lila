@@ -3,13 +3,14 @@ import * as licon from 'common/licon';
 import { renderClock, fenColor } from 'common/mini-board';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
 import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 import StudyCtrl from './studyCtrl';
-import { CachedEval } from '../interfaces';
+import { EvalHitMulti } from '../interfaces';
 import { WinningChances } from 'ceval/src/types';
 import { povChances } from 'ceval/src/winningChances';
 
@@ -39,6 +40,7 @@ export class MultiBoardCtrl {
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
       cp.lastMoveAt = undefined;
+      this.requestCloudEvals();
       this.redraw();
     }
   };
@@ -69,15 +71,16 @@ export class MultiBoardCtrl {
     this.loading = false;
     this.redraw();
 
-    this.pager.currentPageResults.forEach(cp => {
-      this.send('evalGet', {
-        fen: cp.fen,
-        path: 'multiboard',
+    this.requestCloudEvals();
+  };
+
+  private requestCloudEvals = () => {
+    if (this.pager?.currentPageResults.length) {
+      this.send('evalGetMulti', {
+        fens: this.pager?.currentPageResults.map(c => c.fen),
         variant: this.variant(),
-        mpv: 1,
-        up: true,
       });
-    });
+    }
   };
 
   reloadEventually = debounce(this.reload, 1000);
@@ -99,18 +102,13 @@ export class MultiBoardCtrl {
     this.reload();
   };
 
-  onCloudEval = (d: CachedEval) => {
-    d.pvs.slice(0, 1).forEach(pv => {
-      console.log(pv, d.fen);
-      this.winningChances.set(d.fen, povChances('white', pv));
-      this.redraw();
-    });
+  onCloudEval = (d: EvalHitMulti) => {
+    this.winningChances.set(d.fen, povChances('white', d));
+    this.redraw();
   };
 
-  getWinningChances = (preview: ChapterPreview): WinningChances | undefined => {
-    // console.log('getWinningChances', preview.fen, this.winningChances.get(preview.fen));
-    return this.winningChances.get(preview.fen);
-  };
+  getWinningChances = (preview: ChapterPreview): WinningChances | undefined =>
+    this.winningChances.get(preview.fen);
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
@@ -224,10 +222,23 @@ const makePreview = (study: StudyCtrl, winningChances: GetWinningChances) => (pr
     },
     [
       boardPlayer(preview, CgOpposite(preview.orientation)),
-      h('span.cg-wrap'),
+      h('span.cg-gauge', [h('span.mini-game__board', h('span.cg-wrap')), evalGauge(preview, winningChances)]),
       boardPlayer(preview, preview.orientation),
-      winningChances(preview),
     ],
+  );
+
+const evalGauge = (chap: ChapterPreview, winningChances: GetWinningChances): VNode =>
+  h(
+    'span.mini-game__gauge',
+    h('span.mini-game__gauge__black', {
+      hook: {
+        postpatch(old, vnode) {
+          const chances = winningChances(chap) ?? old.data?.chances;
+          vnode.data!.chances = chances;
+          (vnode.elm as HTMLElement).style.height = `${((1 - (chances || 0)) / 2) * 100}%`;
+        },
+      },
+    }),
   );
 
 const userName = (u: ChapterPreviewPlayer) =>
