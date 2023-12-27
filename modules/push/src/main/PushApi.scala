@@ -47,32 +47,31 @@ final private class PushApi(
     else
       game.userIds.traverse_ { userId =>
         Pov(game, userId) so: pov =>
-          IfAway(pov):
-            maybePush(
-              userId,
-              _.finish,
-              NotificationPref.GameEvent,
-              data = LazyFu: () =>
-                for
-                  nbMyTurn <- gameRepo.countWhereUserTurn(userId)
-                  opponent <- asyncOpponentName(pov)
-                yield Data(
-                  title = pov.win match
-                    case Some(true)  => "You won!"
-                    case Some(false) => "You lost."
-                    case _           => "It's a draw."
-                  ,
-                  body = s"Your game with $opponent is over.",
-                  stacking = Stacking.GameFinish,
-                  urgency = Urgency.VeryLow,
-                  payload = payload(userId)(
-                    "type"   -> "gameFinish",
-                    "gameId" -> game.id.value,
-                    "fullId" -> pov.fullId.value
-                  ),
-                  iosBadge = nbMyTurn.some.filter(0 <=)
-                )
+          val data = LazyFu: () =>
+            for
+              nbMyTurn <- gameRepo.countWhereUserTurn(userId)
+              opponent <- asyncOpponentName(pov)
+            yield Data(
+              title = pov.win match
+                case Some(true)  => "You won!"
+                case Some(false) => "You lost."
+                case _           => "It's a draw."
+              ,
+              body = s"Your game with $opponent is over.",
+              stacking = Stacking.GameFinish,
+              urgency = Urgency.VeryLow,
+              payload = payload(userId)(
+                "type"   -> "gameFinish",
+                "gameId" -> game.id.value,
+                "fullId" -> pov.fullId.value
+              ),
+              iosBadge = nbMyTurn.some.filter(0 <=),
+              firebaseMod = offlineRoundNotif
             )
+          for
+            _ <- IfAway(pov)(maybePush(userId, _.finish, NotificationPref.GameEvent, data))
+            _ <- alwaysPushFirebaseData(userId, _.finish, data)
+          yield ()
       }
 
   def move(move: MoveEvent): Funit =
