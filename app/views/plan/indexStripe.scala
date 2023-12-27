@@ -138,6 +138,12 @@ object indexStripe:
               )
             ),
             tr(
+              th("Stripe"),
+              td:
+                a(href := "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"):
+                  "Manage your subscription and download your invoices and receipts"
+            ),
+            tr(
               th,
               td(a(href := routes.Plan.list)(viewOthers()))
             )
