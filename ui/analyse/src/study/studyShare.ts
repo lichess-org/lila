@@ -44,8 +44,6 @@ export class StudyShare {
   studyId = this.data.id;
 
   variantKey = this.data.chapter.setup.variant.key as VariantKey;
-
-  isEngine = this.analyse.excludeCommentsAndEngineAnalysis();
   chapter = this.currentChapter;
   isPrivate = () => this.data.visibility === 'private';
   cloneable = () => this.data.features.cloneable;
@@ -55,7 +53,6 @@ export class StudyShare {
 
 //This will be the helper function for the writePgnClipboard function
 async function removeEngineComments(url: string): Promise<void> {
-  console.log('Hello from removeEngineComments');
   const regex = /{[^}]*}/g;
   const pgn = await xhrText(url);
   const newPgn = pgn.replace(regex, '');
@@ -65,8 +62,7 @@ async function removeEngineComments(url: string): Promise<void> {
 async function writePgnClipboard(url: string, ctrl: StudyShare): Promise<void> {
   // Firefox does not support `ClipboardItem`
   console.log('Hello from writePgnClipboard');
-  //? This if statement doesn't seem to detect the on and off toggle properly
-  if (ctrl.isEngine) {
+  if (ctrl.analyse.excludeCommentsAndEngineAnalysis()) {
     return removeEngineComments(url);
   }
   if (typeof ClipboardItem === 'undefined') {
