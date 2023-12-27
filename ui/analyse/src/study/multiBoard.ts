@@ -1,10 +1,9 @@
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import { renderClock, fenColor } from 'common/mini-board';
-import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { VNode } from 'snabbdom';
-import { looseH as h } from 'common/snabbdom';
+import { bind, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
