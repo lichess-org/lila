@@ -55,7 +55,7 @@ const filterKids = (children: VNodeKids): VNodeChildElement[] =>
      h('div', [ isKid ? h('div', 'kid') : null ])
    'true' values are filtered out of children array same as 'false' (for || case)
 */
-export function looseH(sel: string, dataOrKids?: VNodeData | null | VNodeKids, kids?: VNodeKids): VNode {
+export function looseH(sel: string, dataOrKids?: VNodeData | VNodeKids, kids?: VNodeKids): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
   if (!kidFilter(dataOrKids)) return snabH(sel);
   if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids!))
