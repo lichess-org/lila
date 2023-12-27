@@ -38,9 +38,9 @@ export const dataIcon = (icon: string): Attrs => ({
 
 export const iconTag = (icon: string) => snabH('i', { attrs: dataIcon(icon) });
 
-export type LooseVNodes = (MaybeVNode | boolean)[];
 type LooseVNode = VNode | string | undefined | null | boolean;
-export type VNodeKids = LooseVNode | LooseVNode[];
+export type LooseVNodes = LooseVNode[];
+export type VNodeKids = LooseVNode | LooseVNodes;
 
 // '' may be falsy but it's a valid VNode
 // 0 may be falsy but it's a valid VNode
