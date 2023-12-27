@@ -52,7 +52,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
             'ratingX',
             !ctrl.streak && ctrl.mode === 'play'
               ? h('span.hidden', ctrl.trans.noarg('hidden'))
-              : h('strong', puzzle.rating),
+              : h('strong', `${puzzle.rating}`),
           ),
         ),
       h('p', ctrl.trans.vdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
@@ -94,7 +94,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
       : h(
           'div.puzzle__side__streak__score.text',
           { attrs: dataIcon(licon.ArrowThruApple) },
-          streak.data.index,
+          `${streak.data.index}`,
         ),
   );
 
