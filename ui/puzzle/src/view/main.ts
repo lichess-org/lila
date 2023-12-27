@@ -159,7 +159,7 @@ function session(ctrl: PuzzleCtrl) {
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
           },
         },
-        rd,
+        `${rd}`,
       );
     }),
     rounds.find(r => r.id == current)
@@ -167,7 +167,7 @@ function session(ctrl: PuzzleCtrl) {
       : h(
           'a.result-cursor.current',
           { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          ctrl.streak?.data.index,
+          `${ctrl.streak?.data.index ?? 0}`,
         ),
   ]);
 }

@@ -48,8 +48,6 @@ object Client:
   object Key extends OpaqueString[Key]
   opaque type Version = String
   object Version extends OpaqueString[Version]
-  opaque type Python = String
-  object Python extends OpaqueString[Python]
 
   case class Instance(version: Version, ip: IpAddress, seenAt: Instant):
 
