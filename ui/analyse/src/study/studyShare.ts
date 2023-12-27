@@ -7,6 +7,7 @@ import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
+import AnalyseCtrl from '../ctrl';
 
 function fromPly(ctrl: StudyShare): VNode {
   const renderedMove = renderIndexAndMove({ withDots: true, showEval: false }, ctrl.currentNode());
@@ -37,12 +38,14 @@ export class StudyShare {
     readonly relay: RelayCtrl | undefined,
     readonly redraw: () => void,
     readonly trans: Trans,
+    readonly analyse: AnalyseCtrl,
   ) {}
 
   studyId = this.data.id;
 
   variantKey = this.data.chapter.setup.variant.key as VariantKey;
 
+  isEngine = this.analyse.excludeCommentsAndEngineAnalysis();
   chapter = this.currentChapter;
   isPrivate = () => this.data.visibility === 'private';
   cloneable = () => this.data.features.cloneable;
@@ -50,8 +53,22 @@ export class StudyShare {
   gamebook = this.data.chapter.gamebook;
 }
 
-async function writePgnClipboard(url: string): Promise<void> {
+//This will be the helper function for the writePgnClipboard function
+async function removeEngineComments(url: string): Promise<void> {
+  console.log('Hello from removeEngineComments');
+  const regex = /{[^}]*}/g;
+  const pgn = await xhrText(url);
+  const newPgn = pgn.replace(regex, '');
+  return navigator.clipboard.writeText(newPgn);
+}
+
+async function writePgnClipboard(url: string, ctrl: StudyShare): Promise<void> {
   // Firefox does not support `ClipboardItem`
+  console.log('Hello from writePgnClipboard');
+  //? This if statement doesn't seem to detect the on and off toggle properly
+  if (ctrl.isEngine) {
+    return removeEngineComments(url);
+  }
   if (typeof ClipboardItem === 'undefined') {
     const pgn = await xhrText(url);
     return navigator.clipboard.writeText(pgn);
@@ -142,7 +159,7 @@ export function view(ctrl: StudyShare): VNode {
                       1000,
                     );
                   };
-                  writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
+                  writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`, ctrl).then(
                     () => iconFeedback(true),
                     err => {
                       console.log(err);

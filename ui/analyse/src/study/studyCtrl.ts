@@ -100,6 +100,7 @@ export default class StudyCtrl {
   search: SearchCtrl;
   practice?: StudyPracticeCtrl;
   gamebookPlay?: GamebookPlayCtrl;
+  analyse: AnalyseCtrl;
 
   constructor(
     readonly data: StudyData,
@@ -151,6 +152,7 @@ export default class StudyCtrl {
     this.relay =
       relayData &&
       new RelayCtrl(this.data.id, relayData, this.send, this.redraw, this.members, this.data.chapter);
+    this.analyse = ctrl;
     this.multiBoard = new MultiBoardCtrl(this.data.id, this.redraw, this.ctrl.trans);
     this.form = new StudyForm(
       (d, isNew) => {
@@ -214,6 +216,7 @@ export default class StudyCtrl {
       this.relay,
       this.redraw,
       ctrl.trans,
+      this.analyse,
     );
 
     this.practice = practiceData && new StudyPractice(ctrl, data, practiceData);

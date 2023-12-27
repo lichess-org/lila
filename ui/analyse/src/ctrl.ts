@@ -99,6 +99,7 @@ export default class AnalyseCtrl {
   variationArrowsProp = storedBooleanProp('analyse.show-variation-arrows', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showComputer = storedBooleanProp('analyse.show-computer', true);
+  excludeCommentsAndEngineAnalysis = storedBooleanProp('analyse.excludeCommentsAndEngineAnalysis', false);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -807,6 +808,19 @@ export default class AnalyseCtrl {
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
     lichess.pubsub.emit('analysis.comp.toggle', value);
+  };
+
+  private onToggleEngineAndComments() {
+    this.resetAutoShapes();
+  }
+
+  toggleEngineAndComments = () => {
+    const value = !this.excludeCommentsAndEngineAnalysis();
+    this.excludeCommentsAndEngineAnalysis(value);
+    this.onToggleEngineAndComments();
+    console.log('toggleEngineAndComments', value);
+    console.log(this.excludeCommentsAndEngineAnalysis());
+    lichess.pubsub.emit('analysis.engineAndComments.toggle', value);
   };
 
   mergeAnalysisData(data: ServerEvalData) {

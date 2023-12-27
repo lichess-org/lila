@@ -106,6 +106,7 @@ object I18nKeys:
   val `delete` = I18nKey("delete")
   val `deleteThisImportedGame` = I18nKey("deleteThisImportedGame")
   val `replayMode` = I18nKey("replayMode")
+  val `excludeCommentsAndEngineAnalysis` = I18nKey("excludeCommentsAndEngineAnalysis")
   val `realtimeReplay` = I18nKey("realtimeReplay")
   val `byCPL` = I18nKey("byCPL")
   val `openStudy` = I18nKey("openStudy")
