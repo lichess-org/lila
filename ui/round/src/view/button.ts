@@ -76,8 +76,8 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
               ctrl.socket.send('rematch-no');
             } else if (d.opponent.onGame || !d.clock) {
               d.player.offeringRematch = true;
-              ctrl.socket.send('rematch-yes');
-              if (!disabled && !d.opponent.onGame) ctrl.challengeRematch();
+              if (d.opponent.onGame) ctrl.socket.send('rematch-yes');
+              else if (!disabled && !d.opponent.onGame) ctrl.challengeRematch();
             }
           },
           ctrl.redraw,
