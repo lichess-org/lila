@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">בלוגים מהקהילה</string>
+  <string name="friendBlogs">בלוגים של חברים</string>
+  <string name="likedBlogs">בלוגים שאהבת</string>
+  <string name="blogTopics">נושאי הבלוגים</string>
+  <string name="lichessOfficialBlog">הבלוג הרשמי של Lichess</string>
+  <string name="continueReadingPost">המשך קריאה של הבלוג</string>
+  <string name="lichessBlogPostsFromXYear">בלוגים של Lichess ב־%s</string>
+  <string name="previousBlogPosts">בלוגים קודמים</string>
   <string name="xBlog">הבלוג של %s</string>
   <string name="newPost">פוסט חדש</string>
   <string name="editYourBlogPost">עריכת הפוסט</string>

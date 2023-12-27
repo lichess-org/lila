@@ -30,7 +30,7 @@
   <string name="numberOfRoundsHelp">Số vòng đấu lẻ cho phép cân bằng màu quân trắng-đen tốt nhất.</string>
   <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
   <string name="forbiddenPairings">Ghép cặp bị cấm</string>
-  <string name="forbiddenPairingsHelp">Tên người dùng của những người chơi không được với nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
+  <string name="forbiddenPairingsHelp">Tên người dùng của những kỳ thủ không được đấu với nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
   <string name="newSwiss">Giải đấu hệ Thụy Sĩ mới</string>
   <string name="swissVsArenaQ">Khi nào nên chơi giải hệ Thụy Sĩ thay vì giải Đấu trường?</string>
   <string name="swissVsArenaA">Trong một giải đấu hệ Thụy Sĩ, tất cả người chơi chơi cùng số lượng ván đấu, và chỉ chơi mỗi người một lần.

@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">لطفا فقط مطالب ایمن و محترمانه منتشر کنید. مطالب دیگران را کپی نکنید.</string>
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
   <string name="blogTips">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">راجع‌به این نوشته در انجمن بحث کنید</string>
+  <string name="discussThisBlogPostInTheForum">راجع‌به این نوشته در انجمن بحث کنید</string>
 </resources>

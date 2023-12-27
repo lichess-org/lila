@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Gemeenskapsblogs</string>
+  <string name="friendBlogs">Vriendblogs</string>
+  <string name="blogTopics">Blog-onderwerpe</string>
+  <string name="lichessOfficialBlog">Amptelike Lichess-Blog</string>
+  <string name="previousBlogPosts">Vorige blog-plasings</string>
   <string name="xBlog">%s se webjoernaal</string>
   <string name="newPost">Nuwe inskrywing</string>
   <string name="editYourBlogPost">Bewerk jou webjoernaal se inskrywing</string>

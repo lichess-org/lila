@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Eztabaidatu artikulu honi buruz foroan</string>
+  <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>
 </resources>

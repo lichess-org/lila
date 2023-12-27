@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Gemeinschaftlichi Tagebüecher</string>
+  <string name="friendBlogs">Tagebüecher vu Fründe</string>
+  <string name="likedBlogs">Bevorzugti Tagebuech Biträg</string>
+  <string name="blogTopics">Tagebuech Theme</string>
+  <string name="lichessOfficialBlog">Offiziells Lichess Tagebuech</string>
+  <string name="continueReadingPost">De Bitrag witer läse</string>
+  <string name="lichessBlogPostsFromXYear">Lichess Tagebuech Biträg in %s</string>
+  <string name="previousBlogPosts">Vorherigi Tagebuech Biträg</string>
   <string name="xBlog">%s\'s Blog</string>
   <string name="newPost">Neue Bitrag</string>
   <string name="editYourBlogPost">Bearbeit din Blog Bitrag</string>
@@ -43,5 +51,5 @@
   <string name="safeAndRespectfulContent">Bitte nur sicheri und reschpäktvolli Inhält poschte. Kopier nöd Inhält vu öpper anderem.</string>
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
   <string name="blogTips">Euseri simple Ratschläg, zum tolli Biträg poschte</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskutier de Blogbitrag im Forum</string>
+  <string name="discussThisBlogPostInTheForum">Diskutier de Blogbitrag im Forum</string>
 </resources>
