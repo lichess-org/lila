@@ -299,6 +299,11 @@ final private class RoundAsyncActor(
     case RematchYes(playerId) => handle(playerId)(rematcher.yes)
     case RematchNo(playerId)  => handle(playerId)(rematcher.no)
 
+    case lila.game.actorApi.NotifyRematch(newGame) =>
+      fuccess:
+        publish:
+          rematcher.redirectEvents(newGame)
+
     case TakebackYes(playerId) =>
       handle(playerId): pov =>
         takebacker.yes(~takebackSituation)(pov) map: (events, situation) =>
