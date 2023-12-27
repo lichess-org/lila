@@ -55,7 +55,7 @@ final class RoundMobile(
       initialFen <- gameRepo.initialFen(game)
       myPlayer = id.playerId.flatMap(game.player(_))
       users        <- game.userIdPair.traverse(_ so lightUserGet)
-      prefs        <- use.prefs soFu prefApi.byId(game.userIdPair)
+      prefs        <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
       chat         <- use.chat so getPlayerChat(game, myPlayer.exists(_.hasUser))

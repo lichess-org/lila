@@ -213,12 +213,11 @@ final class GameRepo(val coll: Coll)(using Executor):
         // important, hits the index!
         Query.nowPlaying(userId) ++ $doc(
           "$or" ->
-            List(0, 1).map { rem =>
+            List(0, 1).map: rem =>
               $doc(
                 s"${Game.BSONFields.playingUids}.$rem" -> userId,
                 Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
               )
-            }
         )
       )
       .dmap(_.toInt)
