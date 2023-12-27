@@ -70,7 +70,7 @@ final private class PushApi(
                     "gameId" -> game.id.value,
                     "fullId" -> pov.fullId.value
                   ),
-                  iosBadge = nbMyTurn.some.filter(0 <)
+                  iosBadge = nbMyTurn.some.filter(0 <=)
                 )
             )
       }
@@ -93,7 +93,7 @@ final private class PushApi(
                   stacking = Stacking.GameMove,
                   urgency = Urgency.Normal,
                   payload = payload,
-                  iosBadge = nbMyTurn.some.filter(0 <),
+                  iosBadge = nbMyTurn.some.filter(0 <=),
                   firebaseMod = offlineRoundNotif
                 )
               IfAway(pov)(maybePush(userId, _.move, NotificationPref.GameEvent, data)) >>
