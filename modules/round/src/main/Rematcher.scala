@@ -110,9 +110,9 @@ final private class Rematcher(
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None     => lila.game.Player.make(color, users(!color))
 
-  private def redirectEvents(game: Game): Events =
+  def redirectEvents(game: Game): Events =
     val ownerRedirects = ByColor: color =>
-      Event.RedirectOwner(color, game fullIdOf color, AnonCookie.json(game pov color))
+      Event.RedirectOwner(!color, game fullIdOf color, AnonCookie.json(game pov color))
     val spectatorRedirect = Event.RematchTaken(game.id)
     spectatorRedirect :: ownerRedirects.toList
 
