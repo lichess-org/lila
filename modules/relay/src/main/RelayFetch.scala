@@ -222,15 +222,19 @@ private object RelayFetch:
       def fullName = some {
         List(fname, mname, lname).flatten mkString " "
       }.filter(_.nonEmpty)
-    case class RoundJsonPairing(white: PairingPlayer, black: PairingPlayer, result: String):
+    case class RoundJsonPairing(
+        white: Option[PairingPlayer],
+        black: Option[PairingPlayer],
+        result: Option[String]
+    ):
       import chess.format.pgn.*
       def tags = Tags:
         List(
-          white.fullName map { Tag(_.White, _) },
-          white.title map { Tag(_.WhiteTitle, _) },
-          black.fullName map { Tag(_.Black, _) },
-          black.title map { Tag(_.BlackTitle, _) },
-          Tag(_.Result, result).some
+          white.flatMap(_.fullName) map { Tag(_.White, _) },
+          white.flatMap(_.title) map { Tag(_.WhiteTitle, _) },
+          black.flatMap(_.fullName) map { Tag(_.Black, _) },
+          black.flatMap(_.title) map { Tag(_.BlackTitle, _) },
+          result.map(Tag(_.Result, _))
         ).flatten
     case class RoundJson(pairings: List[RoundJsonPairing])
     given Reads[PairingPlayer]    = Json.reads
