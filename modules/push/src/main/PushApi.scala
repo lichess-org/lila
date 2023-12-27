@@ -80,24 +80,28 @@ final private class PushApi(
       proxyRepo.game(move.gameId) flatMap:
         _.filter(_.playable) so: game =>
           game.sans.lastOption.so: sanMove =>
-            val pov = Pov(game, game.player.color)
-            game.player.userId so: userId =>
-              val data = LazyFu: () =>
+            game.povs.traverse_ { pov =>
+              game.player.userId so: userId =>
+                val data = LazyFu: () =>
+                  for
+                    nbMyTurn <- gameRepo.countWhereUserTurn(userId)
+                    opponent <- asyncOpponentName(pov)
+                    payload  <- corresGamePayload(pov, "gameMove", userId)
+                  yield Data(
+                    title = "It's your turn!",
+                    body = s"$opponent played $sanMove",
+                    stacking = Stacking.GameMove,
+                    urgency = if pov.isMyTurn then Urgency.Normal else Urgency.Low,
+                    payload = payload,
+                    iosBadge = nbMyTurn.some.filter(0 <=),
+                    firebaseMod = offlineRoundNotif
+                  )
                 for
-                  nbMyTurn <- gameRepo.countWhereUserTurn(userId)
-                  opponent <- asyncOpponentName(pov)
-                  payload  <- corresGamePayload(pov, "gameMove", userId)
-                yield Data(
-                  title = "It's your turn!",
-                  body = s"$opponent played $sanMove",
-                  stacking = Stacking.GameMove,
-                  urgency = Urgency.Normal,
-                  payload = payload,
-                  iosBadge = nbMyTurn.some.filter(0 <=),
-                  firebaseMod = offlineRoundNotif
-                )
-              IfAway(pov)(maybePush(userId, _.move, NotificationPref.GameEvent, data)) >>
-                alwaysPushFirebaseData(userId, _.move, data)
+                  _ <- pov.isMyTurn.so:
+                    IfAway(pov)(maybePush(userId, _.move, NotificationPref.GameEvent, data))
+                  _ <- alwaysPushFirebaseData(userId, _.move, data)
+                yield ()
+            }
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):

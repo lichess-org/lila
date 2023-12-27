@@ -565,6 +565,7 @@ case class Game(
   def blackPov                                         = pov(Black)
   def playerPov(p: Player)                             = pov(p.color)
   def loserPov                                         = loser map playerPov
+  def povs: ByColor[Pov]                               = ByColor(pov)
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
