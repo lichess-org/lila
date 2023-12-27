@@ -92,7 +92,7 @@ final class RoundMobile(
         .add("takebackable" -> takebackable)
         .add("moretimeable" -> moretimeable)
         .add("youAre", myPlayer.map(_.color))
-        .add("prefs", myPlayer.flatMap(p => prefs.map(_(p.color))).map(prefsJson(game, _)))
+        .add("prefs", use.prefs so myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _)))
         .add(
           "chat",
           chat.map: c =>
