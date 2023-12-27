@@ -43,7 +43,8 @@ type LooseVNode = VNodeChildElement | boolean;
 type VNodeKids = LooseVNode | LooseVNode[];
 
 // '' may be falsy but it's a valid VNode
-const kidFilter = (x: any): boolean => (x && x !== true) || x === '';
+// 0 may be falsy but it's a valid VNode
+const kidFilter = (x: any): boolean => (x && x !== true) || x === '' || x === 0;
 
 const filterKids = (children: VNodeKids): VNodeChildElement[] =>
   (Array.isArray(children) ? children : [children]).filter(kidFilter) as VNodeChildElement[];
