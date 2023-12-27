@@ -76,7 +76,7 @@ object dailyFeed:
           )
         ),
       div(cls := "daily-feed__update")(
-        iconTag(licon.StarOutline),
+        marker(),
         div:
           a(cls := "daily-feed__update__day", href := "/feed"):
             "All updates »"
@@ -144,7 +144,7 @@ object dailyFeed:
       form3.action(form3.submit("Save"))
     )
 
-  private def marker(flair: Option[Flair], customClass: Option[String] = none) =
+  private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =
     img(
       src := flairSrc(flair getOrElse Flair("symbols.white-star")),
       cls := customClass getOrElse s"daily-feed__update__marker ${flair.nonEmpty so " nobg"}"
