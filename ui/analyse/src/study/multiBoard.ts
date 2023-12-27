@@ -77,7 +77,7 @@ export class MultiBoardCtrl {
     if (this.pager?.currentPageResults.length) {
       this.send('evalGetMulti', {
         fens: this.pager?.currentPageResults.map(c => c.fen),
-        variant: this.variant(),
+        ...(this.variant() != 'standard' ? { variant: this.variant() } : {}),
       });
     }
   };
