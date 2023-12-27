@@ -21,7 +21,7 @@ import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.{ Socket, SocketVersion, SocketSend, GetVersion, UserLagCache }
 
-final private[round] class RoundAsyncActor(
+final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: GameId,
     socketSend: SocketSend,
@@ -301,30 +301,26 @@ final private[round] class RoundAsyncActor(
 
     case TakebackYes(playerId) =>
       handle(playerId): pov =>
-        takebacker.yes(~takebackSituation)(pov) map { (events, situation) =>
+        takebacker.yes(~takebackSituation)(pov) map: (events, situation) =>
           takebackSituation = situation.some
           events
-        }
     case TakebackNo(playerId) =>
       handle(playerId): pov =>
-        takebacker.no(~takebackSituation)(pov) map { (events, situation) =>
+        takebacker.no(~takebackSituation)(pov) map: (events, situation) =>
           takebackSituation = situation.some
           events
-        }
 
     case Moretime(playerId, duration) =>
       handle(playerId): pov =>
-        moretimer(pov, duration) flatMapz { progress =>
+        moretimer(pov, duration) flatMapz: progress =>
           proxy save progress inject progress.events
-        }
 
     case ForecastPlay(lastMove) =>
       handle: game =>
-        forecastApi.nextMove(game, lastMove) map { mOpt =>
+        forecastApi.nextMove(game, lastMove) map: mOpt =>
           mOpt.foreach: move =>
             this ! HumanPlay(game.player.id, move, blur = false)
           Nil
-        }
 
     case LilaStop(promise) =>
       proxy

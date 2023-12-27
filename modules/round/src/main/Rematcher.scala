@@ -56,9 +56,8 @@ final private class Rematcher(
     fuccess(List(Event.RematchOffer(by = none)))
 
   private def rematchExists(pov: Pov)(nextId: GameId): Fu[Events] =
-    gameRepo game nextId flatMap {
+    gameRepo game nextId flatMap:
       _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
-    }
 
   private def rematchCreate(pov: Pov): Fu[Events] =
     rematches.offer(pov.ref) map { _ =>
