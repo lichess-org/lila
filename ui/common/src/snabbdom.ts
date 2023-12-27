@@ -57,8 +57,8 @@ const filterKids = (children: VNodeKids): VNodeChildElement[] =>
 */
 export function looseH(sel: string, dataOrKids?: VNodeData | null | VNodeKids, kids?: VNodeKids): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
-  if (!dataOrKids) return snabH(sel);
-  if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids))
+  if (!kidFilter(dataOrKids)) return snabH(sel);
+  if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids!))
     return snabH(sel, filterKids(dataOrKids as VNodeKids));
   else return snabH(sel, dataOrKids as VNodeData);
 }
