@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Bun venit!</string>
+  <string name="welcomeToLichess">Bine ai venit pe lichess.org!</string>
+  <string name="thisIsYourProfilePage">Aceasta este pagina ta de profil.</string>
+  <string name="learnChessRules">Învață regulile șahului</string>
+  <string name="playOpponentsFromAroundTheWorld">Joacă împotriva adversarilor din întreaga lume.</string>
+  <string name="followYourFriendsOnLichess">Urmărește-ți prietenii pe Lichess.</string>
+  <string name="playInTournaments">Joacă în turnee.</string>
+  <string name="exploreTheSiteAndHaveFun">Explorează site-ul și distrează-te :)</string>
+</resources>
