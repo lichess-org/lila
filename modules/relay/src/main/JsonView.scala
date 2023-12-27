@@ -20,16 +20,18 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
         "id"          -> t.id,
         "name"        -> t.name,
         "slug"        -> t.slug,
-        "description" -> t.description
+        "description" -> t.description,
+        "createdAt"   -> t.createdAt
       )
       .add("official" -> t.official)
 
   given OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
-        "id"   -> r.id,
-        "name" -> r.name,
-        "slug" -> r.slug
+        "id"        -> r.id,
+        "name"      -> r.name,
+        "slug"      -> r.slug,
+        "createdAt" -> r.createdAt
       )
       .add("finished" -> r.finished)
       .add("ongoing" -> (r.hasStarted && !r.finished))
