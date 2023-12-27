@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">Ju lutemi, postoni vetëm lëndë të parrezik dhe të respektuar. Mos kopjoni lëndën e dikujt tjetër.</string>
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskutojeni në forum këtë postim blogu</string>
+  <string name="discussThisBlogPostInTheForum">Diskutojeni në forum këtë postim blogu</string>
 </resources>

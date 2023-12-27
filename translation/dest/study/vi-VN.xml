@@ -28,7 +28,7 @@
     <item quantity="other">%s Thành viên</item>
   </plurals>
   <string name="inviteToTheStudy">Mời vào nghiên cứu</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và những người tích cực muốn tham gia nghiên cứu này.</string>
   <string name="searchByUsername">Tìm kiếm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>

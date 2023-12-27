@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Xác thực 2 bước</string>
   <string name="twoFactorHelp">Xác thực 2 bước sẽ thêm một lớp bảo mật cho tài khoản của bạn.</string>
-  <string name="twoFactorAppRecommend">Tải ứng dụng để xác minh 2 bước. Chúng tôi đề xuất những ứng dụng sau:</string>
+  <string name="twoFactorAppRecommend">Tải ứng dụng để xác minh 2 bước. Chúng tôi đề xuất các ứng dụng sau:</string>
   <string name="scanTheCode">Quét mã QR bằng ứng dụng.</string>
   <string name="enterPassword">Nhập mật khẩu của bạn và mã xác thực do ứng dụng tạo để hoàn tất thiết lập. Bạn sẽ cần mã xác thực mỗi khi đăng nhập.</string>
   <string name="ifYouCannotScanEnterX">Nếu bạn không thể quét mã, hãy nhập khóa bí mật %s vào ứng dụng của bạn.</string>

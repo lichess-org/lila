@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
+  <string name="orLetYourOpponentScanQrCode">یان با بەرامبەرەکەت ئەم QR کۆدە سکان بکات</string>
   <string name="waiting">چاوەڕوانی</string>
   <string name="yourTurn">سەرەی تۆیە</string>
   <string name="aiNameLevelAiLevel">%1$s ئاست %2$s</string>

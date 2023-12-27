@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="likedBlogs">Ŝatitaj blogafiŝoj</string>
   <string name="xBlog">Blogo de %s</string>
   <string name="newPost">Nova afiŝo</string>
   <string name="editYourBlogPost">Redakti vian blogafiŝon</string>

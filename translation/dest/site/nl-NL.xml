@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
+  <string name="orLetYourOpponentScanQrCode">Of laat je tegenstander deze QR-code scannen</string>
   <string name="waiting">Even geduld a.u.b.</string>
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -404,7 +405,7 @@
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
-  <string name="importGameDataPrivacyWarning">Deze PGN kan toegankelijk zijn voor het publiek. Gebruik een studie om een partij privé te importeren.</string>
+  <string name="importGameDataPrivacyWarning">Deze PGN kan toegankelijk zijn voor iedereen. Gebruik een studie om een partij privé te importeren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>

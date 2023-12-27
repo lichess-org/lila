@@ -39,7 +39,7 @@ Mật khẩu: %3$s</string>
   <string name="inviteALichessAccount">Mời một tài khoản Lichess</string>
   <string name="inviteDesc1">Nếu học viên đã có tài khoản Lichess, bạn có thể mời họ vào lớp.</string>
   <string name="inviteDesc2">Họ sẽ nhận được một tin nhắn trên Lichess với một liên kết để tham gia lớp học.</string>
-  <string name="inviteDesc3">Quan trọng: chỉ mời những sinh viên mà bạn biết và là những người thực sự muốn tham gia lớp học.</string>
+  <string name="inviteDesc3">Quan trọng: chỉ mời những học viên mà bạn biết và là những người thực sự muốn tham gia lớp học.</string>
   <string name="inviteDesc4">Không bao giờ gửi lời mời không mong muốn đến người chơi tùy ý.</string>
   <string name="createANewLichessAccount">Tạo một tài khoản Lichess mới</string>
   <string name="createDesc1">Nếu học viên chưa có tài khoản Lichess, bạn có thể tạo một tài khoản cho họ tại đây.</string>

@@ -137,13 +137,13 @@ Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu 
   <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpiel wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder eme Underbruch verlore worde sind. Unabhängig devo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Neuschtart chömmed, will bim Abefahre vum Syschtem werded alli Partie abbroche und mer chann es Schpiel unfair verlüre.</string>
   <string name="howToThreeDots">Wiä chan ich...</string>
-  <string name="enableDisableNotificationPopUps">Benochrichtigungs-Popups aktiviärä oder deaktiviärä?</string>
+  <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktiviere oder deaktiviere?</string>
   <string name="viewSiteInformationPopUp">Site Informations-Popup azeige</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benachrichtigunga versände, zum Bischpil wänn du am Zug bisch oder wänn du e privati Nachricht übercho häsch.
+  <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benachrichtigunge versände, zum Bischpil wänn du am Zug bisch oder wänn du e privati Nachricht übercho häsch.
 
 Klick uf s\'Schlosssymbol, näbe de lichess.org Adrässe, i de URL-Lischte vu dim Browser.
 
-Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert wärde sölled.</string>
+Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert werde sölled.</string>
   <string name="enableAutoplayForSoundsQ">Autoplay für de Ton aktiviere?</string>
   <string name="enableAutoplayForSoundsA">Die meischte Browser chönd - zum de Nutzer schütze - d\'Tonwidergab uf ere frisch gladene Site verhindere. Stell dir vor, jedi Website chönnt dich direkt mit Audio-Werbig stresse!
 

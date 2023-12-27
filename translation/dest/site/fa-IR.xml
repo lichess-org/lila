@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
+  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف شما این QR کد را اسکن کند</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -100,6 +101,7 @@
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
   <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
   <string name="xOpeningExplorer">حرکت گشاینده %s برای تنوع مورد بررسی</string>
+  <string name="playFirstOpeningEndgameExplorerMove">اولین حرکت اکسپلورر شروع/آخر بازی را بازی کن</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
@@ -506,6 +508,7 @@
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
   <string name="setFlair">تعیین کردن شکلک</string>
+  <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
   <string name="biography">زندگی نامه</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
@@ -679,6 +682,7 @@
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
   <string name="simulAddExtraTimePerPlayer">به ازای پیوستن هر بازیکن، به زمان اولیه خود اضافه کنید.</string>
+  <string name="simulHostExtraTimePerPlayer">زمان اضافه میزبان به ازای بازیکن</string>
   <string name="lichessTournaments">مسابقات لی چس</string>
   <string name="tournamentFAQ">سوالات متداول مسابقات</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>

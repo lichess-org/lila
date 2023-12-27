@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT дошка</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Вимоги до дошки DGT</string>
+  <string name="dgtBoardLimitations">Обмеження дошки DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Ця сторінка дозволяє приєднати вашу DGT дошку до Lichess і використовувати її для гри.</string>
+  <string name="toConnectTheDgtBoard">Для підключення до DGT Electronic Board вам необхідно встановити %s.</string>
+  <string name="downloadHere">Ви можете завантажити програмне забезпечення тут: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Якщо %1$s запущено на цьому комп\'ютері, ви можете перевірити своє підключення до нього за допомогою %2$s.</string>
   <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Налагодження</string>
 </resources>

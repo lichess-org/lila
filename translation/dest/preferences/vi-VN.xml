@@ -54,7 +54,7 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (Ván cờ hay, chơi hay lắm) sau khi hòa hoặc thua</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
   <string name="scrollOnTheBoardToReplayMoves">Cuộn con chuột trên bàn cờ để xem lại nước đi</string>
-  <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả những ván cờ qua thư</string>
+  <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả các ván cờ qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
   <string name="notifyInboxMsg">Tin nhắn mới</string>
   <string name="notifyForumMention">Bạn được nhắc đến trong một bình luận trên diễn đàn</string>
