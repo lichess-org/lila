@@ -782,6 +782,7 @@
   <string name="withFriends">Cu prietenii</string>
   <string name="withEverybody">Cu toată lumea</string>
   <string name="kidMode">Mod pentru copii</string>
+  <string name="kidModeIsEnabled">Modul %s este activat.</string>
   <string name="kidModeExplanation">În modul „copil”, toate modalitățile de comunicare sunt dezactivate. Activează asta pentru copilul tău sau pentru școlari, pentru a-i proteja de alți utilizatori ai internetului.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">În modul „copil”, sigla paginii va avea iconița %s, în felul acesta vei ști când copiii tăi sunt în siguranță.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Contul tău este gestionat. Întreabă-ți profesorul de șah despre scoaterea modului copil.</string>
