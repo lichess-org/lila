@@ -19,7 +19,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
       ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
           attrs: { 'data-time': game.c[color], 'data-managed': 1 },
         })
-      : h('span.mini-game__result', game.winner ? (game.winner == color ? 1 : 0) : '½'),
+      : h('span.mini-game__result', game.winner ? (game.winner == color ? '1' : '0') : '½'),
   ]);
 }
 

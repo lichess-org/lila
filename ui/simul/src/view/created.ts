@@ -84,7 +84,10 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                 'thead',
                 h(
                   'tr',
-                  h('th', { attrs: { colspan: 3 } }, [h('strong', candidates.length), ' candidate players']),
+                  h('th', { attrs: { colspan: 3 } }, [
+                    h('strong', `${candidates.length}`),
+                    ' candidate players',
+                  ]),
                 ),
               ),
               h(
@@ -116,7 +119,10 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
               h('thead', [
                 h(
                   'tr',
-                  h('th', { attrs: { colspan: 3 } }, [h('strong', accepted.length), ' accepted players']),
+                  h('th', { attrs: { colspan: 3 } }, [
+                    h('strong', `${accepted.length}`),
+                    ' accepted players',
+                  ]),
                 ),
                 isHost &&
                   candidates.length > 0 &&
