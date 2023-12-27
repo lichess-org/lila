@@ -1,7 +1,7 @@
 import { initial as initialBoardFen } from 'chessground/fen';
 import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
-import { EvalGetData, EvalPutData, ServerEvalData, EvalHitMulti } from './interfaces';
+import { EvalGetData, EvalPutData, ServerEvalData, EvalHitMulti, EvalHitMultiArray } from './interfaces';
 import { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import { FormData as StudyFormData } from './study/studyForm';
 
@@ -164,8 +164,8 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
       ctrl.mergeAnalysisData(data);
     },
     evalHit: ctrl.evalCache.onCloudEval,
-    evalHitMulti(e: EvalHitMulti) {
-      ctrl.study?.multiBoard.onCloudEval(e);
+    evalHitMulti(e: EvalHitMulti | EvalHitMultiArray) {
+      if (ctrl.study) ('multi' in e ? e.multi : [e]).forEach(ctrl.study.multiBoard.onCloudEval);
     },
   };
 

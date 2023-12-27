@@ -87,6 +87,10 @@ export interface EvalHitMulti extends EvalScore {
   depth: number;
 }
 
+export interface EvalHitMultiArray {
+  multi: EvalHitMulti[];
+}
+
 // similar, but not identical, to game/Game
 export interface Game {
   id: string;
