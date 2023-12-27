@@ -118,9 +118,8 @@ final class Challenge(
           case None                  => tryRematch
           case Some(c) if c.accepted => tryRematch
           case Some(c) =>
-            api.accept(c, none) map {
+            api.accept(c, none) map:
               _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
-            }
       }
     }
 

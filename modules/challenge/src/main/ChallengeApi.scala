@@ -137,10 +137,10 @@ final class ChallengeApi(
             join <- joiner(c, me)
             result <- join match
               case Right(pov) =>
-                repo.accept(c) andDo {
+                repo.accept(c) inject:
                   uncacheAndNotify(c)
                   Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
-                } inject Right(pov.some)
+                  Right(pov.some)
               case Left(err) => fuccess(Left(err))
           yield result
 

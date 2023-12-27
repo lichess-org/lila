@@ -112,14 +112,10 @@ final private class Rematcher(
       case None     => lila.game.Player.make(color, users(!color))
 
   private def redirectEvents(game: Game): Events =
-    val whiteId = game fullIdOf White
-    val blackId = game fullIdOf Black
-    List(
-      Event.RedirectOwner(White, blackId, AnonCookie.json(game pov Black)),
-      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game pov White)),
-      // tell spectators about the rematch
-      Event.RematchTaken(game.id)
-    )
+    val ownerRedirects = ByColor: color =>
+      Event.RedirectOwner(color, game fullIdOf color, AnonCookie.json(game pov color))
+    val spectatorRedirect = Event.RematchTaken(game.id)
+    spectatorRedirect :: ownerRedirects.toList
 
 object Rematcher:
   // returns a new chess game with the same Situation as the previous game
