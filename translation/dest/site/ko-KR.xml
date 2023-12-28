@@ -448,6 +448,7 @@
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">하얀 말로 우승</string>
   <string name="blackWins">검은 말로 우승</string>
+  <string name="drawRate">무승부 비율</string>
   <string name="draws">무승부</string>
   <string name="nextXTournament">다음 %s 대회:</string>
   <string name="averageOpponent">상대의 평균 승점</string>
