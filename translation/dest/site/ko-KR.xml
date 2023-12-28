@@ -800,6 +800,7 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
+  <string name="clickHereToReadIt">클릭하여 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
   <string name="why">왜 그런가요?</string>
