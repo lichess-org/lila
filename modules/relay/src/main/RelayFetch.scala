@@ -1,8 +1,8 @@
 package lila.relay
 
 import akka.actor.*
-import chess.Ply
-import chess.format.pgn.{ Tags, SanStr, PgnStr }
+import chess.{ Outcome, Ply }
+import chess.format.pgn.{ Tag, Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*

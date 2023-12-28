@@ -70,9 +70,8 @@ final private class RelaySync(
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] =
     updateChapterTags(tour, study, chapter, game) zip
-      updateChapterTree(study, chapter, game) map { (tagUpdate, nbMoves) =>
+      updateChapterTree(study, chapter, game) map: (tagUpdate, nbMoves) =>
         SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
-      }
 
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =

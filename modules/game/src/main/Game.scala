@@ -6,6 +6,7 @@ import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{
+  Outcome,
   ByColor,
   Ply,
   Castles,
@@ -409,6 +410,8 @@ case class Game(
   def loser = winner map opponent
 
   def winnerColor: Option[Color] = winner.map(_.color)
+
+  def outcome: Option[Outcome] = finished option Outcome(winnerColor)
 
   def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
