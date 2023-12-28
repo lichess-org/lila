@@ -117,7 +117,7 @@ object HTTPRequest:
 
   def apiVersion(req: RequestHeader): Option[ApiVersion] =
     accepts(req).flatMap:
-      case LichobileVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
+      case LichobileVersionHeaderPattern(v) => ApiVersion from v.toIntOption
       case _                                => none
 
   private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
