@@ -322,6 +322,9 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 연구</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 친선 다면기</item>
+  </plurals>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
   <string name="noDrawBeforeSwissLimit">스위스 토너먼트에서는 30수 전에 무승부를 할 수 없습니다.</string>
