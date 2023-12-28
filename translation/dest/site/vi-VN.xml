@@ -246,14 +246,14 @@
   <string name="whiteTimeOut">Trắng hết giờ</string>
   <string name="blackTimeOut">Đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
-  <string name="drawOfferAccepted">Đồng ý hoà</string>
+  <string name="drawOfferAccepted">Đề nghị hoà được chấp nhận</string>
   <string name="drawOfferCanceled">Đã hủy bỏ đề nghị hoà</string>
   <string name="whiteOffersDraw">Trắng đề nghị hòa</string>
   <string name="blackOffersDraw">Đen đề nghị hòa</string>
   <string name="whiteDeclinesDraw">Trắng từ chối hòa</string>
   <string name="blackDeclinesDraw">Đen từ chối hòa</string>
   <string name="yourOpponentOffersADraw">Đối thủ xin hoà</string>
-  <string name="accept">Đồng ý</string>
+  <string name="accept">Chấp nhận</string>
   <string name="decline">Từ chối</string>
   <string name="playingRightNow">Đang diễn ra</string>
   <string name="eventInProgress">Đang diễn ra</string>
@@ -713,7 +713,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
   <string name="kidModeIsEnabled">Chế độ trẻ em đã được bật.</string>
-  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
+  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học viên trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng Lichess có một biểu tượng %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
   <string name="enableKidMode">Kích hoạt chế độ Trẻ em</string>
