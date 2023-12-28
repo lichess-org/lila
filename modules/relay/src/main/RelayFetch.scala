@@ -242,7 +242,10 @@ private object RelayFetch:
     given Reads[RoundJson]        = Json.reads
 
     case class GameJson(moves: List[String], result: Option[String]):
+      def outcome = result.flatMap(Outcome.fromResult)
       def toPgn(extraTags: Tags = Tags.empty): PgnStr =
+        val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
+        val tags       = outcomeTag.foldLeft(extraTags)(_ + _)
         val strMoves = moves
           .map(_ split ' ')
           .mapWithIndex: (move, index) =>
@@ -250,11 +253,11 @@ private object RelayFetch:
               .Move(
                 ply = Ply(index + 1),
                 san = SanStr(~move.headOption),
-                secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
+                secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
               )
               .render
           .mkString(" ")
-        PgnStr(s"$extraTags\n\n$strMoves")
+        PgnStr(s"$tags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
   object multiPgnToGames:
@@ -283,9 +286,13 @@ private object RelayFetch:
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
           index =>
+            val fixedTags = // remove wrong ongoing result tag if the board has a mate on it
+              if res.end.isDefined && res.tags(_.Result).has("*") then
+                Tags(res.tags.value.filter(_ != Tag(_.Result, "*")))
+              else res.tags
             RelayGame(
               index = index,
-              tags = res.tags,
+              tags = fixedTags,
               variant = res.variant,
               root = res.root.copy(
                 comments = Comments.empty,
