@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Chơi với bạn bè</string>
   <string name="playWithTheMachine">Chơi với máy tính</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
-  <string name="gameOver">Ván cờ kết thúc</string>
+  <string name="gameOver">Kết thúc ván cờ</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="orLetYourOpponentScanQrCode">Hoặc để đối thủ của bạn quét mã QR này</string>
   <string name="waiting">Đang chờ</string>
@@ -771,7 +771,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="notificationsX">Thông báo: %1$s</string>
   <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">Còn %s giây để đi nước đầu tiên</item>
+    <item quantity="other">Còn  %s giây để đi nước đầu tiên</item>
   </plurals>
   <string name="practiceWithComputer">Luyện tập với máy tính</string>
   <string name="anotherWasX">Nước đi khác là %s</string>
