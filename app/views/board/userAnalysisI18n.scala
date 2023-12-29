@@ -74,6 +74,7 @@ object userAnalysisI18n:
     trans.makeAStudy,
     trans.clearSavedMoves,
     trans.replayMode,
+    trans.toggleCommentsAndEngineAnalysis,
     trans.slow,
     trans.fast,
     trans.realtimeReplay,

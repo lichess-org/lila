@@ -71,6 +71,7 @@ object jsI18n:
         trans.memory,
         trans.engineManager,
         trans.replayMode,
+        trans.toggleCommentsAndEngineAnalysis,
         trans.slow,
         trans.fast,
         trans.realtimeReplay,

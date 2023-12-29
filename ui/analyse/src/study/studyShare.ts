@@ -51,7 +51,6 @@ export class StudyShare {
   gamebook = this.data.chapter.gamebook;
 }
 
-//This will be the helper function for the writePgnClipboard function
 async function removeEngineComments(url: string): Promise<void> {
   const regex = /{[^}]*}/g;
   const pgn = await xhrText(url);
@@ -61,7 +60,6 @@ async function removeEngineComments(url: string): Promise<void> {
 
 async function writePgnClipboard(url: string, ctrl: StudyShare): Promise<void> {
   // Firefox does not support `ClipboardItem`
-  console.log('Hello from writePgnClipboard');
   if (ctrl.analyse.excludeCommentsAndEngineAnalysis()) {
     return removeEngineComments(url);
   }

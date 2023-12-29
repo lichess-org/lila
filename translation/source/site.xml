@@ -111,7 +111,7 @@
   <string name="delete">Delete</string>
   <string name="deleteThisImportedGame">Delete this imported game?</string>
   <string name="replayMode">Replay mode</string>
-  <string name="excludeCommentsAndEngineAnalysis">Exclude comments and engine analysis</string>
+  <string name="toggleCommentsAndEngineAnalysis">Toggle comments and engine analysis</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">By CPL</string>
   <string name="openStudy">Open study</string>

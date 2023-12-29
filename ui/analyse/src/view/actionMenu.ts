@@ -56,12 +56,10 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
 }
 
 //Makes sense to use study controller here as its a study option
-//TODO: Make this a proper button like the rest of the items in the actionMenu.
 function excludeCommentsAndEngineAnalysisToggle(ctrl: AnalyseCtrl): VNode {
-  // Make a new toggle button for option noarg("excludeCommentsAndEngineAnalysis")
   return ctrlToggle(
     {
-      name: 'excludeCommentsAndEngineAnalysis',
+      name: ctrl.trans.noarg('toggleCommentsAndEngineAnalysis'),
       id: 'excludeCommentsAndEngineAnalysis',
       checked: ctrl.excludeCommentsAndEngineAnalysis(),
       change: ctrl.toggleEngineAndComments,
@@ -252,9 +250,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...displayConfig,
     ...cevalConfig,
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
-    /* Make a new button to toggle option noarg("excludeCommentsAndEngineAnalysis")*/
     ...(ctrl.study
-      ? [h('h2', noarg('excludeCommentsAndEngineAnalysis')), excludeCommentsAndEngineAnalysisToggle(ctrl)]
+      ? [h('h2', noarg('toggleCommentsAndEngineAnalysis')), excludeCommentsAndEngineAnalysisToggle(ctrl)]
       : []),
     canContinue &&
       h('div.continue-with.none.g_' + d.game.id, [
