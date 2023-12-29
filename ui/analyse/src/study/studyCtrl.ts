@@ -153,7 +153,6 @@ export default class StudyCtrl {
       relayData &&
       new RelayCtrl(this.data.id, relayData, this.send, this.redraw, this.members, this.data.chapter);
     this.analyse = ctrl;
-    this.multiBoard = new MultiBoardCtrl(this.data.id, this.redraw, this.ctrl.trans);
     this.multiBoard = new MultiBoardCtrl(
       this.data.id,
       this.redraw,
