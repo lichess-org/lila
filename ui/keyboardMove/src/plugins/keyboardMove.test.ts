@@ -17,7 +17,7 @@ const unexpectedErrorThrower = (name: string) => () => {
   throw new Error(`unexpected call to ${name}()`);
 };
 const defaultCtrl = {
-  clock: unexpectedErrorThrower('clock'),
+  speakClock: unexpectedErrorThrower('clock'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   next: unexpectedErrorThrower('next'),
@@ -140,7 +140,7 @@ describe('keyboardMove', () => {
       input,
       ctrl: {
         ...defaultCtrl,
-        clock: () => ({ millisOf: mockMillisOf }) as any,
+        speakClock: () => ({ millisOf: mockMillisOf }) as any,
       },
     }) as any;
 

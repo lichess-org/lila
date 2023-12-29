@@ -12,7 +12,6 @@ case class Pref(
     theme3d: String,
     pieceSet3d: String,
     soundSet: String,
-    blindfold: Int,
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
@@ -79,8 +78,6 @@ case class Pref(
       case Animation.NONE => 0
       case Animation.SLOW => 120
       case _              => 70
-
-  def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
@@ -262,12 +259,6 @@ object Pref:
       LETTER -> "PGN letter (K, Q, R, B, N)"
     )
 
-  object Blindfold extends BooleanPref:
-    override val choices = Seq(
-      NO  -> "What? No!",
-      YES -> "Yes, hide the pieces"
-    )
-
   object AutoThreefold:
     val NEVER  = 1
     val TIME   = 2
@@ -445,7 +436,6 @@ object Pref:
     theme3d = Theme3d.default.name,
     pieceSet3d = PieceSet3d.default.name,
     soundSet = SoundSet.default.key,
-    blindfold = Blindfold.NO,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.ALWAYS,
     takeback = Takeback.ALWAYS,

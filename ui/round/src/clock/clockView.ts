@@ -37,7 +37,7 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
           h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
           renderBerserk(ctrl, player.color, position),
           isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
-          tourRank(ctrl, player.color, position),
+          clockSide(ctrl, player.color, position),
         ],
   );
 }
@@ -131,12 +131,15 @@ const goBerserk = (ctrl: RoundController) => {
   });
 };
 
-const tourRank = (ctrl: RoundController, color: Color, position: Position) => {
+const clockSide = (ctrl: RoundController, color: Color, position: Position) => {
+  console.log('dooky');
   const d = ctrl.data,
     ranks = d.tournament?.ranks || d.swiss?.ranks;
-  return (
+  return h('div.clock-side', [
     ranks &&
-    !showBerserk(ctrl, color) &&
-    h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color])
-  );
+      !showBerserk(ctrl, color) &&
+      h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]),
+    (color === d.player.color ? d.player.blindfold : d.opponent.blindfold) &&
+      h('span.clock-blindfold', { attrs: { 'data-icon': licon.Blindfold, title: 'Blindfolded' } }),
+  ]);
 };

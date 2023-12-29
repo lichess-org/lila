@@ -52,7 +52,7 @@ final class JsonView(rematches: Rematches):
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> Fen.write(pov.game.chess),
+        "fen"      -> maybeFen(pov),
         "color"    -> pov.color,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
@@ -83,6 +83,9 @@ final class JsonView(rematches: Rematches):
       .add("winner" -> pov.game.winnerColor)
       .add("ratingDiff" -> pov.player.ratingDiff)
 
+  def maybeFen(pov: Pov) =
+    if pov.player.blindfold.isEmpty then Fen.write(pov.game.chess).value else "8/8/8/8/8/8/8/8"
+
   def player(p: Player, user: Option[LightUser]) =
     Json
       .obj()
@@ -92,6 +95,7 @@ final class JsonView(rematches: Rematches):
       .add("name", p.name)
       .add("provisional" -> p.provisional)
       .add("aiLevel" -> p.aiLevel)
+      .add("blindfold" -> p.blindfold)
 
 object JsonView:
 

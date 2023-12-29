@@ -94,7 +94,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
         theme(ctrl),
       ]),
       h(
-        'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
+        'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
         {
           hook:
             'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)

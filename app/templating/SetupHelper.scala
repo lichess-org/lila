@@ -316,12 +316,6 @@ trait SetupHelper:
       (Pref.ResizeHandle.ALWAYS, trans.always.txt())
     )
 
-  def translatedBlindfoldChoices(using Lang) =
-    List(
-      Pref.Blindfold.NO  -> trans.no.txt(),
-      Pref.Blindfold.YES -> trans.yes.txt()
-    )
-
   def translatedBooleanIntChoices(using Lang) =
     List(
       0 -> trans.no.txt(),

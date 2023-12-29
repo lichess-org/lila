@@ -62,8 +62,7 @@ object PrefForm:
         "replay"        -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
         fields.zen.map2(optional),
-        "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"    -> checkedNumber(Pref.Blindfold.choices)
+        "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices))
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
         "moveEvent" -> optional(numberIn(Set(0, 1, 2))),
@@ -106,8 +105,7 @@ object PrefForm:
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
-      resizeHandle: Option[Int],
-      blindfold: Int
+      resizeHandle: Option[Int]
   )
 
   case class BehaviorData(
@@ -157,7 +155,6 @@ object PrefForm:
         destination = display.destination == 1,
         coords = display.coords,
         replay = display.replay,
-        blindfold = display.blindfold,
         challenge = challenge,
         message = message,
         studyInvite = studyInvite | Pref.default.studyInvite,
@@ -188,7 +185,6 @@ object PrefForm:
           coords = pref.coords,
           replay = pref.replay,
           captured = if pref.captured then 1 else 0,
-          blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
           pieceNotation = pref.pieceNotation.some

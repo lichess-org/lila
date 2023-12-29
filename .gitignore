@@ -31,7 +31,7 @@ ui/nvui/**/*.js
 ui/nvui/**/*.d.ts
 ui/puz/**/*.js
 ui/puz/**/*.d.ts
-ui/voice/@build/crowdv
+ui/voice/.build/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log

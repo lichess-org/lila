@@ -102,6 +102,14 @@
       margin-top: $block-gap;
     }
 
+    span.user-blindfold {
+      display: block;
+    }
+
+    span.clock-blindfold {
+      display: none;
+    }
+
     @include breakpoint($mq-short) {
       #{$moves-tag} {
         display: flex;

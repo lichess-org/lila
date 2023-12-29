@@ -20,6 +20,7 @@ case class Player(
     provisional: RatingProvisional = RatingProvisional.No,
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
+    blindfold: Option[Int] = None,
     name: Option[String] = None
 ) derives Eq:
 
@@ -40,6 +41,10 @@ case class Player(
       Player.UserInfo(id, ra, provisional)
 
   def wins = ~isWinner
+
+  def setBlindfold(current: Boolean, onMove: Int = 0) = // onMove must be less than 2 to get credit
+    if blindfold.nonEmpty == current then this
+    else copy(blindfold = current option onMove)
 
   def goBerserk = copy(berserk = true)
 
@@ -149,6 +154,7 @@ object Player:
     val blursBits         = "l"
     val holdAlert         = "h"
     val berserk           = "be"
+    val blindfold         = "bf"
     val name              = "na"
 
   def from(light: LightGame, color: Color, ids: String, doc: Bdoc): Player =
@@ -167,6 +173,7 @@ object Player:
       provisional = p.provisional,
       blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
       berserk = p.berserk,
+      blindfold = doc int blindfold,
       name = doc string name
     )
 
@@ -181,5 +188,6 @@ object Player:
       ratingDiff        -> p.ratingDiff,
       provisional       -> p.provisional.yes.option(true),
       blursBits         -> p.blurs.nonEmpty.so(p.blurs),
+      blindfold         -> p.blindfold,
       name              -> p.name
     )

@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import idleTimer from './idle-timer';
+import idleTimer from './idleTimer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';

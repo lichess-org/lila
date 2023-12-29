@@ -1,8 +1,8 @@
 import { uciToMove } from 'chessground/util';
-import { fenColor } from 'common/mini-board';
+import { fenColor } from 'common/miniBoard';
 import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
-import clockWidget from './clock-widget';
+import clockWidget from './clockWidget';
 import StrongSocket from './socket';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {

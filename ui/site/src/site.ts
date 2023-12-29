@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
-import * as miniBoard from 'common/mini-board';
-import * as miniGame from './component/mini-game';
+import * as miniBoard from 'common/miniBoard';
+import * as miniGame from './component/miniGame';
 import * as timeago from './component/timeago';
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
@@ -12,7 +12,7 @@ import powertip from './component/powertip';
 import pubsub from './component/pubsub';
 import serviceWorker from './component/serviceWorker';
 import StrongSocket from './component/socket';
-import topBar from './component/top-bar';
+import topBar from './component/topBar';
 import watchers from './component/watchers';
 import { requestIdleCallback } from './component/functions';
 import { siteTrans } from './component/trans';

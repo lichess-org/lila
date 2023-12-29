@@ -29,7 +29,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
       free: false,
       color: opts.movable!.color,
       dests: opts.movable!.dests,
-      showDests: ctrl.pref.destination,
+      showDests: ctrl.pref.destination && !ctrl.blindfold(),
       rookCastle: ctrl.pref.rookCastle,
     },
     draggable: {

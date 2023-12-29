@@ -43,7 +43,9 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           online: false,
           line: false,
         }),
-        !!rating && h('rating', `${rating + (player.provisional ? '?' : '')}`),
+        player.blindfold &&
+          h('span.user-blindfold', { attrs: { 'data-icon': licon.Blindfold, title: 'Blindfolded' } }),
+        !!rating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {

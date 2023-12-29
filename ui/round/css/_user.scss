@@ -33,6 +33,10 @@
     justify-content: center;
   }
 
+  .user-blindfold {
+    display: none;
+  }
+
   @keyframes connecting {
     0% {
       opacity: 0.1;

@@ -53,6 +53,7 @@ final class JsonView(
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
+      .add("blindfold" -> p.blindfold)
       .add("blurs" -> (withFlags.blurs so blurs(g, p)))
 
   def playerJson(
@@ -112,9 +113,8 @@ final class JsonView(
             .add("keyboardMove" -> (!flags.nvui && pref.hasKeyboardMove))
             .add("voiceMove" -> (!flags.nvui && pref.hasVoice))
             .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
-            .add("blindfold" -> pref.isBlindfold)
             .add("highlight" -> pref.highlight)
-            .add("destination" -> (pref.destination && !pref.isBlindfold))
+            .add("destination" -> pref.destination)
             .add("enablePremove" -> pref.premove)
             .add("showCaptured" -> pref.captured)
             .add("submitMove" -> submitMovePref(pref, game, flags.nvui))
@@ -209,7 +209,7 @@ final class JsonView(
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
               .add("highlight" -> pref.highlight)
-              .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("destination" -> pref.destination)
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured)
         )
@@ -290,7 +290,7 @@ final class JsonView(
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
-          .add("destination" -> (pref.destination && !pref.isBlindfold)),
+          .add("destination" -> pref.destination),
         "userAnalysis" -> true
       )
 

@@ -2,5 +2,5 @@
 
 VOICE_DIR=$(dirname "${BASH_SOURCE:-$0}")
 
-cd "$VOICE_DIR/@build"
+cd "$VOICE_DIR/.build"
 pnpm -s dev "$@"

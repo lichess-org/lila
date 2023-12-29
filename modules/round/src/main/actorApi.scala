@@ -44,10 +44,9 @@ package round:
   case class ResignForce(playerId: GamePlayerId)
   case class DrawForce(playerId: GamePlayerId)
   case class DrawClaim(playerId: GamePlayerId)
-  case class DrawYes(playerId: GamePlayerId)
-  case class DrawNo(playerId: GamePlayerId)
-  case class TakebackYes(playerId: GamePlayerId)
-  case class TakebackNo(playerId: GamePlayerId)
+  case class Blindfold(playerId: GamePlayerId, blindfold: Boolean)
+  case class Draw(playerId: GamePlayerId, draw: Boolean)
+  case class Takeback(playerId: GamePlayerId, takeback: Boolean)
   object Moretime:
     val defaultDuration = 15.seconds
   case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
