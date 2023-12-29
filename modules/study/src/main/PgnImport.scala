@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.{ Centis, ErrorStr, Node as PgnNode }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Status, Outcome }
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
@@ -20,8 +20,8 @@ object PgnImport:
   )
 
   case class End(
-      status: chess.Status,
-      winner: Option[chess.Color],
+      status: Status,
+      outcome: Outcome,
       resultText: String,
       statusText: String
   )
@@ -43,14 +43,14 @@ object PgnImport:
               crazyData = replay.setup.situation.board.crazyData,
               children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
             )
-            val end: Option[End] = (game.finished option game.status).map { status =>
+            val end: Option[End] = (game.finished option game.status).map: status =>
+              val outcome = Outcome(game.winnerColor)
               End(
                 status = status,
-                winner = game.winnerColor,
-                resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
+                outcome = outcome,
+                resultText = chess.Outcome.showResult(outcome.some),
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
-            }
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root
               else
