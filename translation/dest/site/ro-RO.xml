@@ -900,6 +900,8 @@
     <item quantity="few">și salvează %s variațiile cu mutare anticipată</item>
     <item quantity="other">și salvează %s variațiile cu mutare anticipată</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Ați primit un mesaj privat de la Lichess.</string>
+  <string name="clickHereToReadIt">Click aici pentru a-l citi</string>
   <string name="sorry">Scuze :(</string>
   <string name="weHadToTimeYouOutForAWhile">Am fost nevoiți să suspendăm activitatea pentru puțin timp.</string>
   <string name="why">De ce?</string>
