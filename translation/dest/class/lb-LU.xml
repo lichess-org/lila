@@ -92,7 +92,7 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
   <string name="newsEdit3">Trenn déi verschidden Nouvellë mat ---
 Doduerch gëtt eng hotizontal Linn ugewisen.</string>
   <string name="invite">Invitéieren</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Du goufs vum %s invitéiert.</string>
+  <string name="youHaveBeenInvitedByX">Du goufs vum %s invitéiert.</string>
   <string name="youAcceptedThisInvitation">Du hues dës Invitatioun ugeholl.</string>
   <string name="youDeclinedThisInvitation">Du hues dës Invitatioun ofgeleent.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>

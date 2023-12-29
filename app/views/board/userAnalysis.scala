@@ -41,7 +41,7 @@ object userAnalysis:
             views.html.board.bits.explorerAndCevalConfig
         )
       ),
-      csp = analysisCsp.withWikiBooks.some,
+      csp = analysisCsp.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess analysis board",

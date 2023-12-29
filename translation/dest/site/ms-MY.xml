@@ -249,7 +249,6 @@
   <string name="playingRightNow">Sedang bermain sekarang</string>
   <string name="eventInProgress">Sedang bermain sekarang</string>
   <string name="finished">Tamat</string>
-  <string name="finishesX">tamat dalam %s</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standard</string>
@@ -719,7 +718,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   </plurals>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami terpaksa memberikan time out buat sementara.</string>
-  <string name="timeoutExpires">Timeout berakhir %s.</string>
   <string name="why">Kenapa?</string>
   <string name="pleasantChessExperience">Matlamat kami adalah untuk memberikan pengalaman catur yang baik untuk semua.</string>
   <string name="goodPractice">Dengan itu, kami perlu memastikan semua pemain mengikuti amalan yang baik.</string>
@@ -741,7 +739,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="congratsYouWon">Tahniah, anda menang!</string>
   <string name="timeAlmostUp">Masa hampir habis!</string>
   <string name="download">Muat turun</string>
-  <string name="welcome">Selamat Datang!</string>
   <string name="estimatedStart">Anggaran masa bermula</string>
   <string name="inYourLocalTimezone">Dalam zon waktu anda</string>
   <string name="tournChat">Ruangan sembang pertandingan</string>

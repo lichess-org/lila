@@ -30,7 +30,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
-)(using Executor, lila.user.UserFlairApi.Getter)(using scheduler: Scheduler):
+)(using Executor, lila.user.FlairApi.Getter)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -49,6 +49,14 @@ final class RoundSocket(
     gameIds.traverse: id =>
       rounds.getOrMake(id).getGame dmap { id -> _ }
 
+  def getMany(gameIds: List[GameId]): Fu[List[GameAndSocketStatus]] =
+    gameIds
+      .traverse: id =>
+        gameAndStatusIfPresent(id).orElse:
+          roundDependencies.gameRepo game id map2: g =>
+            GameAndSocketStatus(g, SocketStatus.default)
+      .map(_.flatten)
+
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
   // get the proxied version of the game
@@ -59,8 +67,8 @@ final class RoundSocket(
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId).so(_ updateGame f)
 
-  def statusIfPresent(gameId: GameId): Fu[Option[SocketStatus]] =
-    rounds.askIfPresent[SocketStatus](gameId)(GetSocketStatus.apply)
+  def gameAndStatusIfPresent(gameId: GameId): Fu[Option[GameAndSocketStatus]] =
+    rounds.askIfPresent[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
@@ -137,7 +145,7 @@ final class RoundSocket(
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.json(game.game, anyId, game.socket.some)
+        data <- mobileSocket.online(game.game, anyId, game.socket)
       yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
@@ -160,7 +168,14 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) andDo send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame", "roundUnplayed"):
+  Bus.subscribeFun(
+    "tvSelect",
+    "roundSocket",
+    "tourStanding",
+    "startGame",
+    "finishGame",
+    "roundUnplayed"
+  ):
     case TvSelect(gameId, speed, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>

@@ -71,7 +71,7 @@ final class StreamerApi(
           q = $id(s.streamer.id),
           u = $set(
             "liveAt"         -> nowInstant,
-            "lastStreamLang" -> Lang.get(s.lang).map(_.language)
+            "lastStreamLang" -> s.language
           )
         )
       }.parallel
@@ -146,14 +146,14 @@ final class StreamerApi(
       coll.update.one($id(s.id), $set("picture" -> pic.id)).void
     }
 
-  // unapprove after a week if you never streamed
+  // unapprove after 6 weeks if you never streamed (was originally 1 week)
   def autoDemoteFakes: Funit =
     coll.update
       .one(
         $doc(
           "liveAt" $exists false,
           "approval.granted" -> true,
-          "approval.lastGrantedAt" $lt nowInstant.minusWeeks(1)
+          "approval.lastGrantedAt" $lt nowInstant.minusWeeks(6)
         ),
         $set(
           "approval.granted" -> false,

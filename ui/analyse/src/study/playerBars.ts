@@ -14,10 +14,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const tags = study.data.chapter.tags,
-    playerNames = {
-      white: findTag(tags, 'white')!,
-      black: findTag(tags, 'black')!,
-    };
+    playerNames = { white: findTag(tags, 'white')!, black: findTag(tags, 'black')! };
 
   const clocks = renderClocks(ctrl),
     ticking = !isFinished(study.data.chapter) && ctrl.turnColor(),
@@ -50,22 +47,16 @@ function renderPlayer(
   const title = findTag(tags, `${color}title`),
     elo = hideRatings ? undefined : findTag(tags, `${color}elo`),
     result = resultOf(tags, color === 'white');
-  return h(
-    `div.study__player.study__player-${top ? 'top' : 'bot'}`,
-    {
-      class: { ticking },
-    },
-    [
-      h('div.left', [
-        result && h('span.result', result),
-        h('span.info', [
-          title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
-          h('span.name', playerNames[color]),
-          elo && h('span.elo', elo),
-        ]),
+  return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+    h('div.left', [
+      result && h('span.result', result),
+      h('span.info', [
+        title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
+        h('span.name', playerNames[color]),
+        elo && h('span.elo', elo),
       ]),
-      materialDiffs[top ? 0 : 1],
-      clocks?.[color === 'white' ? 0 : 1],
-    ],
-  );
+    ]),
+    materialDiffs[top ? 0 : 1],
+    clocks?.[color === 'white' ? 0 : 1],
+  ]);
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogs fra fællesskabet</string>
+  <string name="friendBlogs">Venners blogs</string>
   <string name="xBlog">Blog - %s</string>
   <string name="newPost">Nyt indlæg</string>
   <string name="editYourBlogPost">Rediger dit blogindlæg</string>

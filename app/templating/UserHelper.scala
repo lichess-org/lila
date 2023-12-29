@@ -10,7 +10,7 @@ import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs, UserFlairApi }
+import lila.user.{ User, UserPerfs, FlairApi }
 
 trait UserHelper extends HasEnv:
   self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
@@ -145,6 +145,23 @@ trait UserHelper extends HasEnv:
       modIcon = false
     )
 
+  def lightUserSpan(
+      user: LightUser,
+      cssClass: Option[String] = None,
+      withOnline: Boolean = true,
+      withTitle: Boolean = true,
+      params: String = ""
+  )(using Lang): Tag =
+    span(
+      cls      := userClass(user.id, cssClass, withOnline),
+      dataHref := userUrl(user.name)
+    )(
+      withOnline so lineIcon(user.isPatron),
+      titleTag(user.title),
+      user.name,
+      user.flair.map(userFlair)
+    )
+
   def titleTag(title: Option[UserTitle]): Option[Frag] =
     title.map: t =>
       frag(userTitleTag(t), nbsp)
@@ -158,7 +175,7 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean,
       truncate: Option[Int],
       title: Option[UserTitle],
-      flair: Option[UserFlair],
+      flair: Option[Flair],
       params: String,
       modIcon: Boolean
   )(using Lang): Tag =
@@ -227,14 +244,9 @@ trait UserHelper extends HasEnv:
       name
     )
 
-  def userFlair(user: User): Option[Tag] =
-    user.flair.map(userFlair)
+  def userFlair(user: User): Option[Tag] = user.flair.map(userFlair)
 
-  def userFlair(flair: UserFlair): Tag =
-    img(
-      cls := "uflair",
-      src := staticAssetUrl(s"flair/img/$flair.webp")
-    )
+  def userFlair(flair: Flair): Tag = img(cls := "uflair", src := flairSrc(flair))
 
   private def renderRating(perf: Perf): Frag =
     frag(" (", perf.intRating, perf.provisional.yes option "?", ")")

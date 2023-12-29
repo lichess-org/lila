@@ -2,7 +2,7 @@
 <resources>
   <string name="challengesX">Challenges: %1$s</string>
   <string name="challengeToPlay">Challenge to a game</string>
-  <string name="challengeDeclined">Challenge declined</string>
+  <string name="challengeDeclined">Challenge declined.</string>
   <string name="challengeAccepted">Challenge accepted!</string>
   <string name="challengeCanceled">Challenge cancelled.</string>
   <string name="registerToSendChallenges">Please register to send challenges to this user.</string>
@@ -22,5 +22,5 @@
   <string name="declineVariant">I'm not willing to play this variant right now.</string>
   <string name="declineNoBot">I'm not accepting challenges from bots.</string>
   <string name="declineOnlyBot">I'm only accepting challenges from bots.</string>
-  <string name="inviteLichessUser">Or invite a Lichess User:</string>
+  <string name="inviteLichessUser">Or invite a Lichess user:</string>
 </resources>

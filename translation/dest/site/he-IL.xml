@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
+  <string name="orLetYourOpponentScanQrCode">אפשר גם לתת ליריבך לסרוק את קוד ה־QR הזה</string>
   <string name="waiting">ממתין</string>
   <string name="yourTurn">תורך</string>
   <string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>
@@ -302,7 +303,6 @@
   <string name="playingRightNow">מתקיים עכשיו</string>
   <string name="eventInProgress">מתקיים עכשיו</string>
   <string name="finished">הסתיים</string>
-  <string name="finishesX">נגמר %s</string>
   <string name="abortGame">ביטול המשחק</string>
   <string name="gameAborted">המשחק בוטל</string>
   <string name="standard">רגיל</string>
@@ -461,6 +461,7 @@
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
   <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
+  <string name="importGameDataPrivacyWarning">ה־PGN הזה זמין לציבור. כדי לייצא את המשחק באופן פרטי, השתמשו בלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>
     <item quantity="two">%s משחקים מיובאים</item>
@@ -551,6 +552,7 @@
   <string name="movesPlayed">מהלכים ששוחקו</string>
   <string name="whiteWins">ניצחונות כלבן</string>
   <string name="blackWins">ניצחונות כשחור</string>
+  <string name="drawRate">שיעור תוצאות התיקו</string>
   <string name="draws">תוצאות תיקו</string>
   <string name="nextXTournament">טורניר ה%s הבא:</string>
   <string name="averageOpponent">יריב ממוצע</string>
@@ -571,6 +573,9 @@
   <string name="editProfile">עריכת פרופיל</string>
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
+  <string name="setFlair">הגדירו את הסמליל שלכם</string>
+  <string name="flair">סמליל</string>
+  <string name="youCanHideFlair">ישנה הגדרה שמאפשרת להסתיר את כל הסמלילים באתר.</string>
   <string name="biography">ביוגרפיה</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או אזור</string>
   <string name="thankYou">תודות מקרב לב</string>
@@ -760,6 +765,7 @@
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
   <string name="keyMoveBackwardOrForward">גלול אחורה/קדימה</string>
   <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
+  <string name="keyCycleSelectedVariation">מחזור הוריאציה שנבחרה </string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
   <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
@@ -767,6 +773,13 @@
   <string name="keyNextBlunder">הטעות הגסה הבאה</string>
   <string name="keyNextMistake">הטעות הבאה</string>
   <string name="keyNextInaccuracy">אי־הדיוק הבא</string>
+  <string name="keyPreviousBranch">הענף הקודם</string>
+  <string name="keyNextBranch">הענף הבא</string>
+  <string name="toggleVariationArrows">הפעלת חצי הווריאנטים</string>
+  <string name="cyclePreviousOrNextVariation">מחזור הוריאנט הקודם/הבא</string>
+  <string name="toggleGlyphAnnotations">הפעלת סמלי ההערות</string>
+  <string name="variationArrowsInfo">חצי הווריאנטים מאפשרים ניווט קל ללא צורך ברשימת המסעים.</string>
+  <string name="playSelectedMove">שחקו את המהלך שנבחר</string>
   <string name="newTournament">טורניר חדש</string>
   <string name="tournamentHomeTitle">טורנירי שחמט הכוללים משחקים עם מגבלות זמן וסוגי שחמט מגוונים</string>
   <string name="tournamentHomeDescription">שחק בטורנירי שחמט מהירים! הצטרף לטורניר רשמי ומתוכנן, או צור אחד משלך. Bullet, Blitz, Threecheck, Chess960, King of the Hill, Classical, ואפשרויות נוספות של משחקי שחמט מהנים.</string>
@@ -811,6 +824,7 @@
   <string name="withFriends">עם חברים</string>
   <string name="withEverybody">עם כולם</string>
   <string name="kidMode">מצב ילדים</string>
+  <string name="kidModeIsEnabled">מצב ילדים מופעל.</string>
   <string name="kidModeExplanation">בשביל הבטיחות. במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעילו אופציה זו עבור ילדיכם ועבור תלמידי בית ספר. זאת כדי להגן עליהם מפני משתמשים אחרים.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'ס מקבל אייקון %s, כדי שתדעו שילדיכם מוגנים.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">החשבון שלך מנוהל. תוכל/י לבקש מהמורה שלך לשחמט להסיר את מצב הילדים.</string>
@@ -932,9 +946,10 @@
     <item quantity="many">ושמרו %s המשכים מוגדרים מראש</item>
     <item quantity="other">ושמרו %s המשכים מוגדרים מראש</item>
   </plurals>
+  <string name="showUnreadLichessMessage">קיבלתם הודעה פרטית מ-Lichess.</string>
+  <string name="clickHereToReadIt">לחצו כאן כדי לקרוא אותה</string>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
-  <string name="timeoutExpires">ההשעיה תסתיים %s.</string>
   <string name="why">למה?</string>
   <string name="pleasantChessExperience">אנחנו מנסים לספק חווית שח נעימה לכולם.</string>
   <string name="goodPractice">בעקבות זאת, אנחנו חייבים לוודא שכל השחקנים ינהגו בכבוד.</string>
@@ -954,6 +969,7 @@
   <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
   <string name="edit">עריכה</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
@@ -994,9 +1010,6 @@
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ/י כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
-  <string name="welcome">ברוכים הבאים!</string>
-  <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
-כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
   <string name="coachManager">הגדרות עבור מאמנים</string>
   <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">ביטול הטורניר</string>
@@ -1056,4 +1069,8 @@
   <string name="switchSides">הפוך צד</string>
   <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
   <string name="ourEventTips">הטיפים שלנו לארגון אירועים</string>
+  <string name="instructions">הוראות</string>
+  <string name="showMeEverything">הראו לי הכל</string>
+  <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
+כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
 </resources>

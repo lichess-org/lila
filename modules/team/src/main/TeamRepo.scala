@@ -16,9 +16,14 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def byOrderedIds(ids: Seq[TeamId]) = coll.byOrderedIds[Team, TeamId](ids)(_.id)
 
+  private val lightProjection = $doc("name" -> true, "flair" -> true)
+
+  def light(id: TeamId): Fu[Option[LightTeam]] =
+    coll.one[LightTeam]($id(id), lightProjection)
+
   def lightsByIds(ids: Iterable[TeamId]): Fu[List[LightTeam]] =
     coll
-      .find($inIds(ids) ++ enabledSelect, $doc("name" -> true).some)
+      .find($inIds(ids) ++ enabledSelect, lightProjection.some)
       .sort(sortPopular)
       .cursor[LightTeam](ReadPref.sec)
       .list(100)
@@ -32,19 +37,12 @@ final class TeamRepo(val coll: Coll)(using Executor):
       .cursor[Team](ReadPref.sec)
       .list(100)
 
-  def name(id: TeamId): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(id), "name")
-
-  def mini(id: TeamId): Fu[Option[Team.Mini]] =
-    name(id) map2 { Team.Mini(id, _) }
-
   private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
-    coll.countSel(
+    coll.countSel:
       $doc(
         "createdAt" $gt nowInstant.minus(duration),
         "createdBy" -> userId
       )
-    )
 
   def incMembers(teamId: TeamId, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void

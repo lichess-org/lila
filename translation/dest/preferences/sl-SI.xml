@@ -57,6 +57,7 @@
   <string name="notifyForumMention">Omenili so vas v komentarju na forumu</string>
   <string name="notifyInvitedStudy">Povabilo k študiji</string>
   <string name="notifyGameEvent">Novo v korespondenčnih partijah</string>
+  <string name="notifyChallenge">Izzivi</string>
   <string name="notifyTournamentSoon">Turnir se bo kmalu začel</string>
   <string name="notifyTimeAlarm">Potekel vam bo čas</string>
   <string name="notifyBell">Zvočno obvestilo znotraj Lichess</string>

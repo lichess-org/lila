@@ -6,31 +6,19 @@ import { toggle } from 'common/controls';
 import { richHTML } from 'common/richText';
 import { option, plural } from '../../view/util';
 import { view as descView } from '../description';
-import { StudyCtrl } from '../interfaces';
 import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
+import StudyCtrl from '../studyCtrl';
 
-function selector(data: StudyPracticeData) {
-  return h(
+const selector = (data: StudyPracticeData) =>
+  h(
     'select.selector',
-    {
-      hook: bind('change', e => {
-        location.href = '/practice/' + (e.target as HTMLInputElement).value;
-      }),
-    },
+    { hook: bind('change', e => (location.href = '/practice/' + (e.target as HTMLInputElement).value)) },
     [
-      h(
-        'option',
-        {
-          attrs: { disabled: true, selected: true },
-        },
-        'Practice list',
-      ),
+      h('option', { attrs: { disabled: true, selected: true } }, 'Practice list'),
       ...data.structure.map(section =>
         h(
           'optgroup',
-          {
-            attrs: { label: section.name },
-          },
+          { attrs: { label: section.name } },
           section.studies.map(study =>
             option(section.id + '/' + study.slug + '/' + study.id, '', study.name),
           ),
@@ -38,7 +26,6 @@ function selector(data: StudyPracticeData) {
       ),
     ],
   );
-}
 
 function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   const goal = practice.goal();
@@ -64,7 +51,7 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
 export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   if (ctrl.vm.loading) return [h('div.feedback', spinner())];
   const p = ctrl.practice!,
-    gb = ctrl.gamebookPlay(),
+    gb = ctrl.gamebookPlay,
     pinned = ctrl.data.chapter.description;
   if (gb) return pinned ? [h('div.feedback.ongoing', [h('div.comment', { hook: richHTML(pinned) })])] : [];
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
@@ -74,24 +61,17 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
         h(
           'a.feedback.win',
           ctrl.nextChapter()
-            ? {
-                hook: bind('click', ctrl.goToNextChapter),
-              }
-            : {
-                attrs: { href: '/practice' },
-              },
+            ? { hook: bind('click', ctrl.goToNextChapter) }
+            : { attrs: { href: '/practice' } },
           [h('span', 'Success!'), ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'],
         ),
       ];
     case false:
       return [
-        h(
-          'a.feedback.fail',
-          {
-            hook: bind('click', p.reset, ctrl.redraw),
-          },
-          [h('span', [renderGoal(p, p.goal().moves!)]), h('strong', 'Click to retry')],
-        ),
+        h('a.feedback.fail', { hook: bind('click', p.reset, ctrl.redraw) }, [
+          h('span', [renderGoal(p, p.goal().moves!)]),
+          h('strong', 'Click to retry'),
+        ]),
       ];
     default:
       return [
@@ -144,10 +124,7 @@ export function side(ctrl: StudyCtrl): VNode {
               'a.ps__chapter',
               {
                 key: chapter.id,
-                attrs: {
-                  href: data.url + '/' + chapter.id,
-                  'data-id': chapter.id,
-                },
+                attrs: { href: data.url + '/' + chapter.id, 'data-id': chapter.id },
                 class: { active, loading },
               },
               [
@@ -165,13 +142,7 @@ export function side(ctrl: StudyCtrl): VNode {
         .reduce((a, b) => a.concat(b), []),
     ),
     h('div.finally', [
-      h('a.back', {
-        attrs: {
-          'data-icon': licon.LessThan,
-          href: '/practice',
-          title: 'More practice',
-        },
-      }),
+      h('a.back', { attrs: { 'data-icon': licon.LessThan, href: '/practice', title: 'More practice' } }),
       thunk('select.selector', selector, [data]),
     ]),
   ]);

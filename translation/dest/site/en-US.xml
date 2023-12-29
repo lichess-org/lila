@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
+  <string name="orLetYourOpponentScanQrCode">Or let your opponent scan this QR code</string>
   <string name="waiting">Waiting</string>
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Playing right now</string>
   <string name="eventInProgress">Playing right now</string>
   <string name="finished">Finished</string>
-  <string name="finishesX">finishes %s</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
@@ -406,6 +406,7 @@
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
   <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
+  <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -507,7 +508,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">First name</string>
   <string name="lastName">Last name</string>
-  <string name="setFlair">Set your flair:</string>
+  <string name="setFlair">Set your flair</string>
+  <string name="flair">Flair</string>
   <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>
   <string name="biography">Biography</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Region or country</string>
@@ -747,6 +749,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>
   <string name="kidMode">Kid mode</string>
+  <string name="kidModeIsEnabled">Child-mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
@@ -860,9 +863,10 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>
   </plurals>
+  <string name="showUnreadLichessMessage">You have received a private message from Lichess.</string>
+  <string name="clickHereToReadIt">Click here to read it</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
-  <string name="timeoutExpires">The timeout expires %s.</string>
   <string name="why">Why?</string>
   <string name="pleasantChessExperience">We aim to provide a pleasant chess experience for everyone.</string>
   <string name="goodPractice">To that effect, we must ensure that all players follow good practice.</string>
@@ -882,6 +886,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
   <string name="edit">Edit</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
@@ -922,9 +927,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
   <string name="clickToRevealEmailAddress">[Click to reveal email address.]</string>
   <string name="download">Download</string>
-  <string name="welcome">Welcome!</string>
-  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
-All operating costs, development, and content are funded solely by user donations.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Cancel the tournament</string>
@@ -985,4 +987,6 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organizing events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
+  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
+All operating costs, development, and content are funded solely by user donations.</string>
 </resources>

@@ -43,11 +43,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
           'div.pocket-c2',
           h('piece.' + role + '.' + color, {
             class: { premove: activeColor && preDropRole === role },
-            attrs: {
-              'data-role': role,
-              'data-color': color,
-              'data-nb': nb,
-            },
+            attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),
       );

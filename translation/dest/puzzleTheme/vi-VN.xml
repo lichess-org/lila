@@ -17,7 +17,7 @@
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
-  <string name="bodenMateDescription">Hai Tượng tấn công trên các đường chéo chéo nhau chiếu hết một quân vua bị kẹt bởi đồng đội của nó.</string>
+  <string name="bodenMateDescription">Hai quân Tượng tấn công trên các đường chéo chéo nhau chiếu hết một quân vua bị kẹt bởi đồng đội của nó.</string>
   <string name="castling">Nhập thành</string>
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
@@ -66,7 +66,7 @@
   <string name="masterVsMaster">Ván đấu giữa 2 kiện tướng</string>
   <string name="masterVsMasterDescription">Câu đố từ các ván đấu giữa hai người chơi có danh hiệu.</string>
   <string name="mate">Chiếu hết</string>
-  <string name="mateDescription">Chiến thắng trò chơi với phong cách.</string>
+  <string name="mateDescription">Chiến thắng ván cờ với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
   <string name="mateIn1Description">Chiếu hết trong một nước cờ.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
@@ -107,7 +107,7 @@
   <string name="skewerDescription">Một mô típ liên quan tới việc một quân cờ có giá trị cao bị tấn công buộc phải di chuyển khỏi vị trí, dẫn tới một quân cờ giá trị thấp hơn ở phía sau bị tấn công hoặc ăn, ngược lại so với ghim.</string>
   <string name="smotheredMate">Chiếu kiểu kẹt</string>
   <string name="smotheredMateDescription">Một nước chiếu hết với quân mã mà trong đó vua đối phương không thể di chuyển vì bị bao vây bởi chính các quân cờ khác của họ.</string>
-  <string name="superGM">Ván đấu từ Siêu Đại Kiện Tướng</string>
+  <string name="superGM">Các ván đấu từ Siêu Đại Kiện Tướng</string>
   <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kì thủ giỏi nhất trên thế giới.</string>
   <string name="trappedPiece">Quân bị bẫy</string>
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>
@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Một quân cờ tấn công hoặc phòng thủ một ô sau một quân cờ khác của đối phương.</string>
   <string name="zugzwang">Cưỡng ép</string>
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi ấy đều hại họ.</string>
-  <string name="healthyMix">Kết hợp lành mạnh</string>
+  <string name="healthyMix">Phối hợp nhịp nhàng</string>
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
   <string name="playerGames">Ván đấu của các người chơi</string>
   <string name="playerGamesDescription">Những câu đố từ các ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>

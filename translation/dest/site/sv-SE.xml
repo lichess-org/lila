@@ -272,7 +272,6 @@
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Slut</string>
-  <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
@@ -405,6 +404,7 @@
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
+  <string name="importGameDataPrivacyWarning">Denna PGN kan nås av allmänheten. För att importera ett parti privat, använd en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
@@ -506,8 +506,9 @@
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
-  <string name="setFlair">Ställ in din ikon:</string>
-  <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarikoner över hela webbplatsen.</string>
+  <string name="setFlair">Ställ in din flair</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tack!</string>
@@ -746,6 +747,7 @@
   <string name="withFriends">Med vänner</string>
   <string name="withEverybody">Med alla</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="kidModeIsEnabled">Barnsäkert läge är aktiverat.</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ditt konto hanteras. Fråga din schacklärare om att ta bort barnläget.</string>
@@ -859,9 +861,10 @@
     <item quantity="one">och spara %s linje av förhandsdrag</item>
     <item quantity="other">och spara %s linje av förhandsdrag</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har fått ett privat meddelande från Lichess.</string>
+  <string name="clickHereToReadIt">Klicka här för att läsa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
-  <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
   <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse till alla.</string>
   <string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>
@@ -881,6 +884,7 @@
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snabbschack</string>
   <string name="classical">Classical</string>
@@ -921,9 +925,6 @@
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
-  <string name="welcome">Välkommen!</string>
-  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
-Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="coachManager">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
@@ -984,4 +985,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Visa mig allt</string>
+  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
+Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
 </resources>

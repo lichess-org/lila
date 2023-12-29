@@ -7,9 +7,11 @@
   <string name="enterPassword">Ange ditt lösenord och autentiseringskoden som genereras av appen för att slutföra installationen. Du behöver en autentiseringskod varje gång du loggar in.</string>
   <string name="ifYouCannotScanEnterX">Om du inte kan skanna koden, ange hemligheten %s i din app.</string>
   <string name="authenticationCode">Autentiseringskod</string>
+  <string name="ifYouLoseAccessTwoFactor">Obs: Om du förlorar åtkomst till dina tvåfaktorsautentiseringskoder, kan du göra en %s via e-post.</string>
   <string name="enableTwoFactor">Aktivera tvåfaktorsautentisering</string>
   <string name="disableTwoFactor">Inaktivera tvåfaktorsautentisering</string>
   <string name="twoFactorEnabled">Tvåfaktorsautentisering aktiverad</string>
+  <string name="twoFactorToDisable">Du behöver ditt lösenord och en autentiseringskod från din autentiseringapp för att inaktivera tvåfaktorsautentisering.</string>
   <string name="openTwoFactorApp">Öppna tvåfaktorsautentiseringsappen på din enhet för att visa din autentiseringskod och verifiera din identitet.</string>
   <string name="setupReminder">Aktivera tvåfaktorsautentisering för att skydda ditt konto på https://lichess.org/account/twofactor.
 Du fick detta meddelande eftersom ditt konto har särskilda ansvarsområden som teamledare, coach, lärare eller streamer</string>

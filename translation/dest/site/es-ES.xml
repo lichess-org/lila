@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
+  <string name="orLetYourOpponentScanQrCode">O deja que tu oponente escanee este código QR</string>
   <string name="waiting">Esperando</string>
   <string name="yourTurn">Tu turno</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">En juego ahora mismo</string>
   <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
-  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Estándar</string>
@@ -405,6 +405,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y un enlace para compartir.</string>
   <string name="importGameCaveat">Las variaciones serán borradas. Para mantenerlas, importa el PGN a través de un estudio.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN es de acceso público. Para importar una partida de forma privada, utiliza un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -506,7 +507,8 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
-  <string name="setFlair">Configura tu entorno:</string>
+  <string name="setFlair">Configura tu entorno</string>
+  <string name="flair">Entorno</string>
   <string name="youCanHideFlair">Existe una opción para ocultar la configuración de entorno en todo el sitio.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o región</string>
@@ -746,6 +748,7 @@
   <string name="withFriends">Con mis amigos</string>
   <string name="withEverybody">Con todo el mundo</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">El modo infantil está activado.</string>
   <string name="kidModeExplanation">Por seguridad, en el modo infantil se desactivan todas las comunicaciones con otros usuarios. Activa esto para proteger a los menores de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tu cuenta está administrada. Pídele a tu profesor de ajedrez que desactive el modo para niños.</string>
@@ -859,9 +862,10 @@
     <item quantity="one">y ahorra %s línea de premovimiento</item>
     <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has recibido un mensaje privado de Lichess.</string>
+  <string name="clickHereToReadIt">Haz clic aquí para leerlo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
-  <string name="timeoutExpires">La suspensión expira en %s.</string>
   <string name="why">¿Por qué?</string>
   <string name="pleasantChessExperience">Nuestro objetivo es proporcionar una experiencia agradable a todo el mundo.</string>
   <string name="goodPractice">Para ello, debemos asegurarnos de que todos los jugadores se comportan como es debido.</string>
@@ -881,6 +885,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
@@ -921,9 +926,6 @@
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
   <string name="clickToRevealEmailAddress">[Haz clic para mostrar el correo electrónico]</string>
   <string name="download">Descargar</string>
-  <string name="welcome">¡Bienvenido!</string>
-  <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
-Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="coachManager">Gestor de entrenador</string>
   <string name="streamerManager">Gestor de emisiones</string>
   <string name="cancelTournament">Cancelar el torneo</string>
@@ -984,4 +986,6 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="ourEventTips">Nuestros consejos para organizar eventos</string>
   <string name="instructions">Instrucciones</string>
   <string name="showMeEverything">Mostrarme todo</string>
+  <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
+Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
 </resources>

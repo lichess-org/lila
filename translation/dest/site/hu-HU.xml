@@ -271,7 +271,6 @@
   <string name="playingRightNow">Játszma folyamatban</string>
   <string name="eventInProgress">Éppen zajlik</string>
   <string name="finished">Befejezett</string>
-  <string name="finishesX">véget ér: %s</string>
   <string name="abortGame">Játszma elvetése</string>
   <string name="gameAborted">Játszma elvetve</string>
   <string name="standard">Hagyományos</string>
@@ -846,7 +845,6 @@
   </plurals>
   <string name="sorry">Sajnáljuk</string>
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
-  <string name="timeoutExpires">Feloldás %s múlva.</string>
   <string name="why">Miért?</string>
   <string name="pleasantChessExperience">Célunk mindenki számára jó felhasználói élményt biztosítani.</string>
   <string name="goodPractice">Ennek érdekében minden játékosnak követnie kell megfelelő magatartást.</string>
@@ -906,9 +904,6 @@
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
   <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
   <string name="download">Letöltés</string>
-  <string name="welcome">Üdvözlünk!</string>
-  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
-Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="coachManager">Edzői vezérlőpult</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
   <string name="cancelTournament">Versenykiírás törlése</string>
@@ -967,4 +962,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="switchSides">Oldal megfordítása</string>
   <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
   <string name="ourEventTips">Tippjeink események szervezéséhez</string>
+  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
+Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
 </resources>

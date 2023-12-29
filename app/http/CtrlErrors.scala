@@ -15,6 +15,9 @@ trait CtrlErrors extends ControllerHelpers:
   def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
   def notFoundText(msg: String = "Not found"): Result = Results.NotFound(msg)
 
+  def forbiddenJson(msg: String = "You can't do that"): Result = Forbidden(jsonError(msg)) as JSON
+  def forbiddenText(msg: String = "You can't do that"): Result = Results.Forbidden(msg)
+
   private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
     __.json update (

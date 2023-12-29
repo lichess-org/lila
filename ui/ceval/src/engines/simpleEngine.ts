@@ -22,19 +22,19 @@ export class SimpleEngine extends LegacyBot implements CevalEngine {
     return !this.worker
       ? CevalState.Initial
       : this.failed
-        ? CevalState.Failed
-        : !this.protocol.engineName
-          ? CevalState.Loading
-          : this.protocol.isComputing()
-            ? CevalState.Computing
-            : CevalState.Idle;
+      ? CevalState.Failed
+      : !this.protocol.engineName
+      ? CevalState.Loading
+      : this.protocol.isComputing()
+      ? CevalState.Computing
+      : CevalState.Idle;
   }
 
   start(work: Work) {
     this.protocol.compute(work);
 
     if (!this.worker) {
-      this.worker = new Worker(lichess.assetUrl(this.url, { sameDomain: true }));
+      this.worker = new Worker(lichess.asset.url(this.url, { sameDomain: true }));
       this.worker.addEventListener('message', e => this.protocol.received(e.data), true);
       this.worker.addEventListener(
         'error',

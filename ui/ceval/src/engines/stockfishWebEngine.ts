@@ -45,7 +45,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
 
   async boot() {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
-    const makeModule = await import(lichess.assetUrl(`${root}/${js}`, { version }));
+    const makeModule = await import(lichess.asset.url(`${root}/${js}`, { version }));
 
     const module: StockfishWeb = await new Promise((resolve, reject) => {
       makeModule
@@ -53,7 +53,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
           wasmMemory: sharedWasmMemory(this.info.minMem!),
           onError: (msg: string) => reject(new Error(msg)),
           locateFile: (name: string) =>
-            lichess.assetUrl(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
+            lichess.asset.url(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
         })
         .then(resolve)
         .catch(reject);
@@ -81,7 +81,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
       if (!nnueBuffer || nnueBuffer.byteLength < 128 * 1024) {
         const req = new XMLHttpRequest();
 
-        req.open('get', lichess.assetUrl(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
+        req.open('get', lichess.asset.url(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 

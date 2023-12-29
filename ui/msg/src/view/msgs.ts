@@ -10,12 +10,7 @@ import MsgCtrl from '../ctrl';
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h(
     'div.msg-app__convo__msgs',
-    {
-      hook: {
-        insert: setupMsgs(ctrl, true),
-        postpatch: setupMsgs(ctrl, false),
-      },
-    },
+    { hook: { insert: setupMsgs(ctrl, true), postpatch: setupMsgs(ctrl, false) } },
     [
       h('div.msg-app__convo__msgs__init'),
       h('div.msg-app__convo__msgs__content', [
@@ -24,9 +19,7 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
               'button.msg-app__convo__msgs__more.button.button-empty',
               {
                 key: 'more',
-                attrs: {
-                  type: 'button',
-                },
+                attrs: { type: 'button' },
                 hook: bind('click', _ => {
                   scroller.setMarker();
                   ctrl.getMore();
@@ -70,21 +63,12 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 function groupMsgs(msgs: Msg[]): Daily[] {
   let prev: Msg = msgs[0];
   if (!prev) return [{ date: new Date(), msgs: [] }];
-  const dailies: Daily[] = [
-    {
-      date: prev.date,
-      msgs: [[prev]],
-    },
-  ];
+  const dailies: Daily[] = [{ date: prev.date, msgs: [[prev]] }];
   msgs.slice(1).forEach(msg => {
     if (sameDay(msg.date, prev.date)) {
       if (msg.user == prev.user) dailies[0].msgs[0].unshift(msg);
       else dailies[0].msgs.unshift([msg]);
-    } else
-      dailies.unshift({
-        date: msg.date,
-        msgs: [[msg]],
-      });
+    } else dailies.unshift({ date: msg.date, msgs: [[msg]] });
     prev = msg;
   });
   return dailies;

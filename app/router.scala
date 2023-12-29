@@ -70,6 +70,7 @@ object ReverseRouterConversions:
   given Conversion[UserId, UserStr]                                  = _ into UserStr
   given Conversion[ForumCategId, String]                             = _.value
   given Conversion[ForumTopicId, String]                             = _.value
+  given Conversion[lila.i18n.Language, String]                       = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
   given reportIdConv: Conversion[Report.Id, String]                  = _.value
@@ -79,3 +80,4 @@ object ReverseRouterConversions:
   given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
   given perfKeyConv: Conversion[Perf.Key, String]                    = _.value
   given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
+  given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString

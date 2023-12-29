@@ -35,27 +35,14 @@ export const userLink = (u: AnyUser): VNode =>
     'a',
     {
       // can't be inlined because of thunks
-      class: {
-        'user-link': true,
-        ulpt: u.name != 'ghost',
-        online: !!u.online,
-      },
-      attrs: {
-        href: `/@/${u.name}`,
-        ...u.attrs,
-      },
+      class: { 'user-link': true, ulpt: u.name != 'ghost', online: !!u.online },
+      attrs: { href: `/@/${u.name}`, ...u.attrs },
     },
-    [userLine(u), ...fullName(u), userRating(u)],
+    [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `],
   );
 
 export const userFlair = (u: HasFlair): VNode | undefined =>
-  u.flair
-    ? h('img.uflair', {
-        attrs: {
-          src: lichess.flairSrc(u.flair),
-        },
-      })
-    : undefined;
+  u.flair ? h('img.uflair', { attrs: { src: lichess.asset.flairSrc(u.flair) } }) : undefined;
 
 export const userLine = (u: HasLine): VNode | undefined =>
   u.line !== false
@@ -74,7 +61,7 @@ export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined => {
   if (u.rating) {
-    const rating = `${u.rating}${u.provisional ? '?' : ''} `;
+    const rating = `${u.rating}${u.provisional ? '?' : ''}`;
     return u.brackets !== false ? `(${rating})` : rating;
   }
   return undefined;

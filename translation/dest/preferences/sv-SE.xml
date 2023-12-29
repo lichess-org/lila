@@ -15,7 +15,7 @@
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-läge</string>
   <string name="showPlayerRatings">Visa spelarens rating</string>
-  <string name="showFlairs">Visa spelarikoner</string>
+  <string name="showFlairs">Visa spelarflairs</string>
   <string name="explainShowPlayerRatings">Detta gör det möjligt att dölja all rating från webbplatsen, för att fokusera på schackspelet. Partiet kan fortfarande vara med rating, detta handlar bara om vad du får se.</string>
   <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
   <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>

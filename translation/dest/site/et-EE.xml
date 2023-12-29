@@ -262,7 +262,6 @@
   <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
-  <string name="finishesX">lõppeb %s</string>
   <string name="abortGame">Katkesta mäng</string>
   <string name="gameAborted">Mäng katkestatud</string>
   <string name="standard">Standard</string>
@@ -826,7 +825,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="sorry">Vabandust :(</string>
   <string name="weHadToTimeYouOutForAWhile">Me pidime su natukeseks ära blokeerima.</string>
-  <string name="timeoutExpires">Blokeering aegub %s.</string>
   <string name="why">Miks?</string>
   <string name="pleasantChessExperience">Me tahame pakkuda häid malekogemusi kõigile.</string>
   <string name="goodPractice">Selleks peame olema kindlad, et kõik meie kasutajad järgivad reegleid.</string>
@@ -886,9 +884,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
   <string name="download">Lae alla</string>
-  <string name="welcome">Tere tulemast!</string>
-  <string name="lichessPatronInfo">Lichess on heategevuslik ja täiesti tasuta avatud lähtekoodiga tarkvara.
-Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
   <string name="coachManager">Treeneri seaded</string>
   <string name="streamerManager">Striimeri seaded</string>
   <string name="cancelTournament">Tühista turniir</string>
@@ -947,4 +942,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="switchSides">Vaheta pooli</string>
   <string name="closingAccountWithdrawAppeal">Konto sulgemine tühistab teie kaebuse</string>
   <string name="ourEventTips">Meie nõuanded ürituste korraldamiseks</string>
+  <string name="lichessPatronInfo">Lichess on heategevuslik ja täiesti tasuta avatud lähtekoodiga tarkvara.
+Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
 </resources>

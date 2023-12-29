@@ -150,10 +150,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       'section.save',
       h(
         'button.button.button-green.text',
-        {
-          attrs: dataIcon(licon.Checkmark),
-          hook: bind('click', ctrl.toggleOpen),
-        },
+        { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
         ctrl.root.trans.noarg('allSet'),
       ),
     ),
@@ -352,12 +349,8 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
-              .userComplete({
-                input,
-                tag: 'span',
-                onSelect: v => onSelect(v.name),
-              })
+            lichess.asset
+              .userComplete({ input, tag: 'span', onSelect: v => onSelect(v.name) })
               .then(() => input.focus()),
           ),
         }),
@@ -371,27 +364,19 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             ...ctrl.data.playerName.previous(),
           ]),
         ].map(name =>
-          h(
-            'div',
-            {
-              key: name,
-            },
-            [
-              h(
-                `button.button${nameToOptionalColor(name)}`,
-                {
-                  hook: bind('click', () => onSelect(name)),
-                },
-                name,
-              ),
-              name && ctrl.data.playerName.previous().includes(name)
-                ? h('button.remove', {
-                    attrs: dataIcon(licon.X),
-                    hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-                  })
-                : null,
-            ],
-          ),
+          h('div', { key: name }, [
+            h(
+              `button.button${nameToOptionalColor(name)}`,
+              { hook: bind('click', () => onSelect(name)) },
+              name,
+            ),
+            name && ctrl.data.playerName.previous().includes(name)
+              ? h('button.remove', {
+                  attrs: dataIcon(licon.X),
+                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                })
+              : null,
+          ]),
         ),
       ),
     ],

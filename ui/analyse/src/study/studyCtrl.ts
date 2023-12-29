@@ -4,22 +4,21 @@ import { prop, defined } from 'common';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
-import { ctrl as memberCtrl } from './studyMembers';
-import practiceCtrl from './practice/studyPracticeCtrl';
+import { StudyMemberCtrl } from './studyMembers';
+import StudyPractice from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
-import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
-import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
-import { ctrl as studyFormCtrl } from './studyForm';
+import { CommentForm } from './commentForm';
+import { GlyphForm } from './studyGlyph';
+import { StudyForm } from './studyForm';
 import TopicsCtrl from './topics';
-import { ctrl as notifCtrl } from './notif';
-import { ctrl as shareCtrl } from './studyShare';
-import { ctrl as tagsCtrl } from './studyTags';
+import { NotifCtrl } from './notif';
+import { StudyShare } from './studyShare';
+import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import {
-  StudyCtrl,
   StudyVm,
   Tab,
   ToolTab,
@@ -46,6 +45,7 @@ import { storedMap, storedBooleanProp } from 'common/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
+import { GamebookOverride } from './gamebook/interfaces';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -78,24 +78,40 @@ interface Handlers {
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-export default function (
-  data: StudyData,
-  ctrl: AnalyseCtrl,
-  tagTypes: TagTypes,
-  practiceData?: StudyPracticeData,
-  relayData?: RelayData,
-): StudyCtrl {
-  const send = ctrl.socket.send;
-  const redraw = ctrl.redraw;
+export default class StudyCtrl {
+  relayRecProp = storedBooleanProp('analyse.relay.rec', true);
+  nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
+  chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
+  vm: StudyVm;
+  notif: NotifCtrl;
+  members: StudyMemberCtrl;
+  chapters: StudyChaptersCtrl;
+  relay?: RelayCtrl;
+  multiBoard: MultiBoardCtrl;
+  form: StudyForm;
+  commentForm: CommentForm;
+  glyphForm: GlyphForm;
+  topics: TopicsCtrl;
+  serverEval: ServerEval;
+  share: StudyShare;
+  tags: TagsForm;
+  studyDesc: DescriptionCtrl;
+  chapterDesc: DescriptionCtrl;
+  search: SearchCtrl;
+  practice?: StudyPracticeCtrl;
+  gamebookPlay?: GamebookPlayCtrl;
 
-  const relayRecProp = storedBooleanProp('analyse.relay.rec', true);
-  const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
-  const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
-
-  const vm: StudyVm = (() => {
+  constructor(
+    readonly data: StudyData,
+    readonly ctrl: AnalyseCtrl,
+    tagTypes: TagTypes,
+    practiceData?: StudyPracticeData,
+    private readonly relayData?: RelayData,
+  ) {
+    this.notif = new NotifCtrl(ctrl.redraw);
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
-    return {
+    this.vm = {
       loading: false,
       tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
       toolTab: prop<ToolTab>('tags'),
@@ -103,7 +119,7 @@ export default function (
       // path is at ctrl.path
       mode: {
         sticky: sticked,
-        write: relayData ? relayRecProp() : nonRelayRecMapProp(data.id),
+        write: relayData ? this.relayRecProp() : this.nonRelayRecMapProp(data.id),
       },
       // how many events missed because sync=off
       behind: 0,
@@ -111,661 +127,621 @@ export default function (
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
     };
-  })();
 
-  const notif = notifCtrl(redraw);
+    this.members = new StudyMemberCtrl({
+      initDict: data.members,
+      myId: practiceData ? undefined : ctrl.opts.userId,
+      ownerId: data.ownerId,
+      send: this.send,
+      tab: this.vm.tab,
+      startTour: this.startTour,
+      notif: this.notif,
+      onBecomingContributor: () => (this.vm.mode.write = !relayData || this.relayRecProp()),
+      admin: data.admin,
+      redraw: ctrl.redraw,
+      trans: ctrl.trans,
+    });
+    this.chapters = new StudyChaptersCtrl(
+      data.chapters,
+      this.send,
+      () => this.setTab('chapters'),
+      chapterId => xhr.chapterConfig(data.id, chapterId),
+      this.ctrl,
+    );
+    this.relay =
+      relayData &&
+      new RelayCtrl(this.data.id, relayData, this.send, this.redraw, this.members, this.data.chapter);
+    this.multiBoard = new MultiBoardCtrl(
+      this.data.id,
+      this.redraw,
+      this.ctrl.trans,
+      this.ctrl.socket.send,
+      () => this.data.chapter.setup.variant.key,
+    );
+    this.form = new StudyForm(
+      (d, isNew) => {
+        this.send('editStudy', d);
+        if (
+          isNew &&
+          data.chapter.setup.variant.key === 'standard' &&
+          ctrl.mainline.length === 1 &&
+          !data.chapter.setup.fromFen &&
+          !this.relay
+        )
+          this.chapters.newForm.openInitial();
+      },
+      () => data,
+      ctrl.trans,
+      this.redraw,
+      this.relay,
+    );
+    this.commentForm = new CommentForm(ctrl);
+    this.glyphForm = new GlyphForm(ctrl);
+    this.tags = new TagsForm(this, tagTypes);
+    this.studyDesc = new DescriptionCtrl(
+      data.description,
+      debounce(t => {
+        data.description = t;
+        this.send('descStudy', t);
+      }, 500),
+      this.redraw,
+    );
+    this.chapterDesc = new DescriptionCtrl(
+      data.chapter.description,
+      debounce(t => {
+        data.chapter.description = t;
+        this.send('descChapter', { id: this.vm.chapterId, desc: t });
+      }, 500),
+      this.redraw,
+    );
 
-  const startTour = () => tours.study(ctrl);
+    this.serverEval = new ServerEval(ctrl, () => this.vm.chapterId);
 
-  const setTab = (tab: Tab) => {
-    relay?.tourShow.disable();
-    vm.tab(tab);
-    redraw();
+    this.search = new SearchCtrl(
+      this.relay?.fullRoundName() || data.name,
+      this.chapters.list,
+      this.setChapter,
+      this.redraw,
+    );
+
+    this.topics = new TopicsCtrl(
+      topics => this.send('setTopics', topics),
+      () => data.topics || [],
+      ctrl.trans,
+      this.redraw,
+    );
+
+    this.share = new StudyShare(
+      data,
+      this.currentChapter,
+      this.currentNode,
+      this.onMainline,
+      this.bottomColor,
+      this.relay,
+      this.redraw,
+      ctrl.trans,
+    );
+
+    this.practice = practiceData && new StudyPractice(ctrl, data, practiceData);
+
+    if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
+    else if (this.data.chapter.relay && !defined(this.ctrl.requestInitialPly))
+      this.ctrl.userJump(this.data.chapter.relay.path);
+
+    this.configureAnalysis();
+
+    this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
+    if (this.members.canContribute()) this.form.openIfNew();
+
+    this.instanciateGamebookPlay();
+  }
+
+  send = this.ctrl.socket.send;
+  redraw = this.ctrl.redraw;
+
+  startTour = () => tours.study(this.ctrl);
+
+  setTab = (tab: Tab) => {
+    this.relay?.tourShow(false);
+    this.vm.tab(tab);
+    this.redraw();
   };
 
-  const members = memberCtrl({
-    initDict: data.members,
-    myId: practiceData ? undefined : ctrl.opts.userId,
-    ownerId: data.ownerId,
-    send,
-    tab: vm.tab,
-    startTour,
-    notif,
-    onBecomingContributor() {
-      vm.mode.write = !relayData || relayRecProp();
-    },
-    admin: data.admin,
-    redraw,
-    trans: ctrl.trans,
-  });
+  currentChapter = (): StudyChapterMeta => this.chapters.get(this.vm.chapterId)!;
 
-  const chapters = new StudyChaptersCtrl(
-    data.chapters,
-    send,
-    () => setTab('chapters'),
-    chapterId => xhr.chapterConfig(data.id, chapterId),
-    ctrl,
-  );
+  isChapterOwner = (): boolean => this.ctrl.opts.userId === this.data.chapter.ownerId;
 
-  const currentChapter = (): StudyChapterMeta => chapters.get(vm.chapterId)!;
+  isWriting = (): boolean => this.vm.mode.write && !this.isGamebookPlay();
 
-  const isChapterOwner = (): boolean => ctrl.opts.userId === data.chapter.ownerId;
-
-  const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
-
-  const relay = relayData
-    ? new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter)
-    : undefined;
-
-  const form = studyFormCtrl(
-    (d, isNew) => {
-      send('editStudy', d);
-      if (
-        isNew &&
-        data.chapter.setup.variant.key === 'standard' &&
-        ctrl.mainline.length === 1 &&
-        !data.chapter.setup.fromFen &&
-        !relay
-      )
-        chapters.newForm.openInitial();
-    },
-    () => data,
-    ctrl.trans,
-    redraw,
-    relay,
-  );
-
-  const isWriting = (): boolean => vm.mode.write && !isGamebookPlay();
-
-  function makeChange(...args: StudySocketSendParams): boolean {
-    if (isWriting()) {
-      send(...args);
+  makeChange = (...args: StudySocketSendParams): boolean => {
+    if (this.isWriting()) {
+      this.send(...args);
       return true;
     }
-    return (vm.mode.sticky = false);
-  }
+    return (this.vm.mode.sticky = false);
+  };
 
-  const commentForm: CommentForm = commentFormCtrl(ctrl);
-  const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
-  const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
-  const studyDesc = new DescriptionCtrl(
-    data.description,
-    debounce(t => {
-      data.description = t;
-      send('descStudy', t);
-    }, 500),
-    redraw,
-  );
-  const chapterDesc = new DescriptionCtrl(
-    data.chapter.description,
-    debounce(t => {
-      data.chapter.description = t;
-      send('descChapter', { id: vm.chapterId, desc: t });
-    }, 500),
-    redraw,
-  );
+  addChapterId = <T>(req: T): T & { ch: string } => ({
+    ...req,
+    ch: this.vm.chapterId,
+  });
 
-  const serverEval = new ServerEval(ctrl, () => vm.chapterId);
+  isGamebookPlay = () =>
+    this.data.chapter.gamebook &&
+    this.vm.gamebookOverride !== 'analyse' &&
+    (this.vm.gamebookOverride === 'play' || !this.members.canContribute());
 
-  const search = new SearchCtrl(relay?.fullRoundName() || data.name, chapters.list, setChapter, redraw);
-
-  const topics: TopicsCtrl = new TopicsCtrl(
-    topics => send('setTopics', topics),
-    () => data.topics || [],
-    ctrl.trans,
-    redraw,
-  );
-
-  function addChapterId<T>(req: T): T & { ch: string } {
-    return {
-      ...req,
-      ch: vm.chapterId,
-    };
-  }
-
-  const isGamebookPlay = () =>
-    data.chapter.gamebook &&
-    vm.gamebookOverride !== 'analyse' &&
-    (vm.gamebookOverride === 'play' || !members.canContribute());
-
-  if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
-  else if (data.chapter.relay && !defined(ctrl.requestInitialPly)) ctrl.userJump(data.chapter.relay.path);
-
-  function configureAnalysis() {
-    const canContribute = members.canContribute();
+  configureAnalysis = () => {
+    const canContribute = this.members.canContribute();
     // unwrite if member lost privileges
-    vm.mode.write = vm.mode.write && canContribute;
-    lichess.pubsub.emit('chat.writeable', data.features.chat);
+    this.vm.mode.write = this.vm.mode.write && canContribute;
+    lichess.pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
-    lichess.pubsub.emit('chat.permissions', { local: canContribute && !relayData?.tour.official });
-    lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
+    lichess.pubsub.emit('chat.permissions', { local: canContribute && !this.relayData?.tour.official });
+    lichess.pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
-      !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
-    if (!computer) ctrl.getCeval().enabled(false);
-    ctrl.getCeval().allowed(computer);
-    if (!data.chapter.features.explorer) ctrl.explorer.disable();
-    ctrl.explorer.allowed(data.chapter.features.explorer);
-  }
-  configureAnalysis();
+      !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    if (!computer) this.ctrl.getCeval().enabled(false);
+    this.ctrl.getCeval().allowed(computer);
+    if (!this.data.chapter.features.explorer) this.ctrl.explorer.disable();
+    this.ctrl.explorer.allowed(this.data.chapter.features.explorer);
+  };
 
-  function configurePractice() {
-    if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
-    if (data.chapter.practice) ctrl.restartPractice();
-    if (practice) practice.onLoad();
-  }
+  configurePractice = () => {
+    if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
+    if (this.data.chapter.practice) this.ctrl.restartPractice();
+    this.practice?.onLoad();
+  };
 
-  function onReload(d: ReloadData) {
+  onReload = (d: ReloadData) => {
     const s = d.study!;
-    const prevPath = ctrl.path;
-    const sameChapter = data.chapter.id === s.chapter.id;
-    vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
-    if (vm.mode.sticky) vm.behind = 0;
-    data.position = s.position;
-    data.name = s.name;
-    data.visibility = s.visibility;
-    data.features = s.features;
-    data.settings = s.settings;
-    data.chapter = s.chapter;
-    data.likes = s.likes;
-    data.liked = s.liked;
-    data.description = s.description;
-    chapterDesc.set(data.chapter.description);
-    studyDesc.set(data.description);
-    document.title = data.name;
-    members.dict(s.members);
-    chapters.list(s.chapters);
-    ctrl.flipped = chapterFlipMapProp(data.chapter.id);
+    const prevPath = this.ctrl.path;
+    const sameChapter = this.data.chapter.id === s.chapter.id;
+    this.vm.mode.sticky =
+      (this.vm.mode.sticky && s.features.sticky) || (!this.data.features.sticky && s.features.sticky);
+    if (this.vm.mode.sticky) this.vm.behind = 0;
+    this.data.position = s.position;
+    this.data.name = s.name;
+    this.data.visibility = s.visibility;
+    this.data.features = s.features;
+    this.data.settings = s.settings;
+    this.data.chapter = s.chapter;
+    this.data.likes = s.likes;
+    this.data.liked = s.liked;
+    this.data.description = s.description;
+    this.chapterDesc.set(this.data.chapter.description);
+    this.studyDesc.set(this.data.description);
+    document.title = this.data.name;
+    this.members.dict(s.members);
+    this.chapters.list(s.chapters);
+    this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
-    const merge = !vm.mode.write && sameChapter;
-    ctrl.reloadData(d.analysis, merge);
-    vm.gamebookOverride = undefined;
-    configureAnalysis();
-    vm.loading = false;
+    const merge = !this.vm.mode.write && sameChapter;
+    this.ctrl.reloadData(d.analysis, merge);
+    this.vm.gamebookOverride = undefined;
+    this.configureAnalysis();
+    this.vm.loading = false;
 
-    instanciateGamebookPlay();
-    if (relay) relay.applyChapterRelay(data.chapter, s.chapter.relay);
+    this.instanciateGamebookPlay();
+    this.relay?.applyChapterRelay(this.data.chapter, s.chapter.relay);
 
     let nextPath: Tree.Path;
 
-    if (vm.mode.sticky) {
-      vm.chapterId = data.position.chapterId;
+    if (this.vm.mode.sticky) {
+      this.vm.chapterId = this.data.position.chapterId;
       nextPath =
-        (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
+        (this.vm.justSetChapterId === this.vm.chapterId && this.chapters.localPaths[this.vm.chapterId]) ||
+        this.data.position.path;
     } else {
       nextPath = sameChapter
         ? prevPath
-        : data.chapter.relay
-        ? data.chapter.relay!.path
-        : chapters.localPaths[vm.chapterId] || treePath.root;
+        : this.data.chapter.relay
+        ? this.data.chapter.relay!.path
+        : this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
-    ctrl.userJump(ctrl.tree.longestValidPath(nextPath));
+    this.ctrl.userJump(this.ctrl.tree.longestValidPath(nextPath));
 
-    vm.justSetChapterId = undefined;
+    this.vm.justSetChapterId = undefined;
 
-    configurePractice();
-    serverEval.reset();
-    commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
-    redraw();
-    ctrl.startCeval();
-  }
+    this.configurePractice();
+    this.serverEval.reset();
+    this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
+    this.redraw();
+    this.ctrl.startCeval();
+  };
 
-  const xhrReload = throttlePromiseDelay(
+  xhrReload = throttlePromiseDelay(
     () => 700,
     () => {
-      vm.loading = true;
+      this.vm.loading = true;
       return xhr
-        .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
-        .then(onReload, lichess.reload);
+        .reload(
+          this.practice ? 'practice/load' : 'study',
+          this.data.id,
+          this.vm.mode.sticky ? undefined : this.vm.chapterId,
+        )
+        .then(this.onReload, lichess.reload);
     },
   );
 
-  const onSetPath = throttle(300, (path: Tree.Path) => {
-    if (vm.mode.sticky && path !== data.position.path)
-      makeChange(
-        'setPath',
-        addChapterId({
-          path,
-        }),
-      );
+  onSetPath = throttle(300, (path: Tree.Path) => {
+    if (this.vm.mode.sticky && path !== this.data.position.path)
+      this.makeChange('setPath', this.addChapterId({ path }));
   });
 
-  ctrl.flipped = chapterFlipMapProp(data.chapter.id);
-  if (members.canContribute()) form.openIfNew();
+  currentNode = () => this.ctrl.node;
+  onMainline = () => this.ctrl.tree.pathIsMainline(this.ctrl.path);
+  bottomColor = () =>
+    this.ctrl.flipped ? opposite(this.data.chapter.setup.orientation) : this.data.chapter.setup.orientation;
 
-  const currentNode = () => ctrl.node;
-  const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
-  const bottomColor = () =>
-    ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation;
-
-  const share = shareCtrl(
-    data,
-    currentChapter,
-    currentNode,
-    onMainline,
-    bottomColor,
-    relay,
-    redraw,
-    ctrl.trans,
-  );
-
-  const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
-
-  let gamebookPlay: GamebookPlayCtrl | undefined;
-
-  function instanciateGamebookPlay() {
-    if (!isGamebookPlay()) return (gamebookPlay = undefined);
-    if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
-    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
-    vm.mode.sticky = false;
+  instanciateGamebookPlay = () => {
+    if (!this.isGamebookPlay()) return (this.gamebookPlay = undefined);
+    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
+    this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.ctrl.trans, this.redraw);
+    this.vm.mode.sticky = false;
     return undefined;
-  }
-  instanciateGamebookPlay();
+  };
 
-  function mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>) {
+  mutateCgConfig = (config: Required<Pick<CgConfig, 'drawable'>>) => {
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
-      if (vm.mode.write) {
-        ctrl.tree.setShapes(shapes, ctrl.path);
-        makeChange(
+      if (this.vm.mode.write) {
+        this.ctrl.tree.setShapes(shapes, this.ctrl.path);
+        this.makeChange(
           'shapes',
-          addChapterId({
-            path: ctrl.path,
+          this.addChapterId({
+            path: this.ctrl.path,
             shapes,
           }),
         );
       }
-      gamebookPlay && gamebookPlay.onShapeChange(shapes);
+      this.gamebookPlay?.onShapeChange(shapes);
     };
-  }
+  };
 
-  function wrongChapter(serverData: WithPosition & { s?: boolean }): boolean {
-    if (serverData.p.chapterId !== vm.chapterId) {
+  wrongChapter = (serverData: WithPosition & { s?: boolean }): boolean => {
+    if (serverData.p.chapterId !== this.vm.chapterId) {
       // sticky should really be on the same chapter
-      if (vm.mode.sticky && serverData.s) xhrReload();
+      if (this.vm.mode.sticky && serverData.s) this.xhrReload();
       return true;
     }
     return false;
-  }
-
-  function setMemberActive(who?: { u: string }) {
-    who && members.setActive(who.u);
-    vm.updatedAt = Date.now();
-  }
-
-  function withPosition<T>(obj: T): T & { ch: string; path: string } {
-    return { ...obj, ch: vm.chapterId, path: ctrl.path };
-  }
-
-  const likeToggler = debounce(() => send('like', { liked: data.liked }), 1000);
-
-  function setChapter(id: string, force?: boolean) {
-    const alreadySet = id === vm.chapterId && !force;
-    if (relay?.tourShow.active) {
-      relay.tourShow.disable();
-      if (alreadySet) redraw();
-    }
-    if (alreadySet) return;
-    if (!vm.mode.sticky || !makeChange('setChapter', id)) {
-      vm.mode.sticky = false;
-      if (!vm.behind) vm.behind = 1;
-      vm.chapterId = id;
-      xhrReload();
-    }
-    vm.loading = true;
-    vm.nextChapterId = id;
-    vm.justSetChapterId = id;
-    redraw();
-  }
-
-  const [prevChapter, nextChapter] = [-1, +1].map(delta => (): StudyChapterMeta | undefined => {
-    const chs = chapters.list();
-    const i = chs.findIndex(ch => ch.id === vm.chapterId);
-    return i < 0 ? undefined : chs[i + delta];
-  });
-  const hasNextChapter = () => {
-    const chs = chapters.list();
-    return chs[chs.length - 1].id != vm.chapterId;
   };
 
-  const socketHandlers: Handlers = {
-    path(d) {
+  setMemberActive = (who?: { u: string }) => {
+    who && this.members.setActive(who.u);
+    this.vm.updatedAt = Date.now();
+  };
+
+  withPosition = <T>(obj: T): T & { ch: string; path: string } => ({
+    ...obj,
+    ch: this.vm.chapterId,
+    path: this.ctrl.path,
+  });
+
+  likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
+
+  setChapter = (id: string, force?: boolean) => {
+    const alreadySet = id === this.vm.chapterId && !force;
+    if (this.relay?.tourShow()) {
+      this.relay.tourShow(false);
+      if (alreadySet) this.redraw();
+    }
+    if (alreadySet) return;
+    if (!this.vm.mode.sticky || !this.makeChange('setChapter', id)) {
+      this.vm.mode.sticky = false;
+      if (!this.vm.behind) this.vm.behind = 1;
+      this.vm.chapterId = id;
+      this.xhrReload();
+    }
+    this.vm.loading = true;
+    this.vm.nextChapterId = id;
+    this.vm.justSetChapterId = id;
+    this.redraw();
+  };
+
+  private deltaChapter = (delta: number): StudyChapterMeta | undefined => {
+    const chs = this.chapters.list();
+    const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
+    return i < 0 ? undefined : chs[i + delta];
+  };
+  prevChapter = () => this.deltaChapter(-1);
+  nextChapter = () => this.deltaChapter(+1);
+  hasNextChapter = () => {
+    const chs = this.chapters.list();
+    return chs[chs.length - 1].id != this.vm.chapterId;
+  };
+
+  isUpdatedRecently = () => Date.now() - this.vm.updatedAt < 300 * 1000;
+  toggleLike = () => {
+    this.data.liked = !this.data.liked;
+    this.redraw();
+    this.likeToggler();
+  };
+  position = () => this.data.position;
+  canJumpTo = (path: Tree.Path) =>
+    this.gamebookPlay
+      ? this.gamebookPlay.canJumpTo(path)
+      : this.data.chapter.conceal === undefined ||
+        this.isChapterOwner() ||
+        treePath.contains(this.ctrl.path, path) || // can always go back
+        this.ctrl.tree.lastMainlineNode(path).ply <= this.data.chapter.conceal!;
+  onJump = () => {
+    if (this.gamebookPlay) this.gamebookPlay.onJump();
+    else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook
+    this.practice?.onJump();
+  };
+  onFlip = () => this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
+
+  setPath = (path: Tree.Path, node: Tree.Node) => {
+    this.onSetPath(path);
+    this.commentForm.onSetPath(this.vm.chapterId, path, node);
+  };
+  deleteNode = (path: Tree.Path) =>
+    this.makeChange(
+      'deleteNode',
+      this.addChapterId({
+        path,
+        jumpTo: this.ctrl.path,
+      }),
+    );
+  promote = (path: Tree.Path, toMainline: boolean) =>
+    this.makeChange(
+      'promote',
+      this.addChapterId({
+        toMainline,
+        path,
+      }),
+    );
+  forceVariation = (path: Tree.Path, force: boolean) =>
+    this.makeChange(
+      'forceVariation',
+      this.addChapterId({
+        force,
+        path,
+      }),
+    );
+  toggleSticky = () => {
+    this.vm.mode.sticky = !this.vm.mode.sticky && this.data.features.sticky;
+    this.xhrReload();
+  };
+  toggleWrite = () => {
+    this.vm.mode.write = !this.vm.mode.write && this.members.canContribute();
+    if (this.relayData) this.relayRecProp(this.vm.mode.write);
+    else this.nonRelayRecMapProp(this.data.id, this.vm.mode.write);
+    this.xhrReload();
+  };
+  goToPrevChapter = () => {
+    const chapter = this.prevChapter();
+    if (chapter) this.setChapter(chapter.id);
+  };
+  goToNextChapter = () => {
+    const chapter = this.nextChapter();
+    if (chapter) this.setChapter(chapter.id);
+  };
+  setGamebookOverride = (o: GamebookOverride) => {
+    this.vm.gamebookOverride = o;
+    this.instanciateGamebookPlay();
+    this.configureAnalysis();
+    this.ctrl.userJump(this.ctrl.path);
+    if (!o) this.xhrReload();
+  };
+  explorerGame = (gameId: string, insert: boolean) =>
+    this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
+  onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
+  looksNew = () => {
+    const cs = this.chapters.list();
+    return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
+  };
+  trans = this.ctrl.trans;
+  socketHandler = (t: string, d: any) => {
+    const handler = (this.socketHandlers as any as SocketHandlers)[t];
+    if (handler) {
+      handler(d);
+      return true;
+    }
+    return !!this.relay && this.relay.socketHandler(t, d);
+  };
+
+  socketHandlers: Handlers = {
+    path: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (!vm.mode.sticky) {
-        vm.behind++;
-        return redraw();
+      this.setMemberActive(who);
+      if (!this.vm.mode.sticky) {
+        this.vm.behind++;
+        return this.redraw();
       }
-      if (position.chapterId !== data.position.chapterId || !ctrl.tree.pathExists(position.path)) {
-        return xhrReload();
+      if (position.chapterId !== this.data.position.chapterId || !this.ctrl.tree.pathExists(position.path)) {
+        return this.xhrReload();
       }
-      data.position.path = position.path;
+      this.data.position.path = position.path;
       if (who && who.s === lichess.sri) return;
-      ctrl.userJump(position.path);
-      redraw();
+      this.ctrl.userJump(position.path);
+      this.redraw();
     },
-    addNode(d) {
+    addNode: d => {
       const position = d.p,
         node = d.n,
         who = d.w,
         sticky = d.s;
-      setMemberActive(who);
-      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addNode(d.p, d.n);
-      if (sticky && !vm.mode.sticky) vm.behind++;
-      if (wrongChapter(d)) {
-        if (sticky && !vm.mode.sticky) redraw();
+      this.setMemberActive(who);
+      if (this.vm.toolTab() == 'multiBoard' || this.relay?.tourShow()) this.multiBoard.addNode(d.p, d.n);
+      if (sticky && !this.vm.mode.sticky) this.vm.behind++;
+      if (this.wrongChapter(d)) {
+        if (sticky && !this.vm.mode.sticky) this.redraw();
         return;
       }
       if (sticky && who && who.s === lichess.sri) {
-        data.position.path = position.path + node.id;
+        this.data.position.path = position.path + node.id;
         return;
       }
-      if (relay) relay.applyChapterRelay(data.chapter, d.relay);
-      const newPath = ctrl.tree.addNode(node, position.path);
-      if (!newPath) return xhrReload();
-      ctrl.tree.addDests(d.d, newPath);
-      if (sticky) data.position.path = newPath;
+      this.relay?.applyChapterRelay(this.data.chapter, d.relay);
+      const newPath = this.ctrl.tree.addNode(node, position.path);
+      if (!newPath) return this.xhrReload();
+      this.ctrl.tree.addDests(d.d, newPath);
+      if (sticky) this.data.position.path = newPath;
       if (
-        (sticky && vm.mode.sticky) ||
-        (position.path === ctrl.path && position.path === treePath.fromNodeList(ctrl.mainline))
+        (sticky && this.vm.mode.sticky) ||
+        (position.path === this.ctrl.path && position.path === treePath.fromNodeList(this.ctrl.mainline))
       )
-        ctrl.jump(newPath);
-      redraw();
+        this.ctrl.jump(newPath);
+      this.redraw();
     },
-    deleteNode(d) {
+    deleteNode: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
       // deleter already has it done
       if (who && who.s === lichess.sri) return;
-      if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
-      ctrl.tree.deleteNodeAt(position.path);
-      if (vm.mode.sticky) ctrl.jump(ctrl.path);
-      redraw();
+      if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
+      this.ctrl.tree.deleteNodeAt(position.path);
+      if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
+      this.redraw();
     },
-    promote(d) {
+    promote: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
       if (who && who.s === lichess.sri) return;
-      if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
-      ctrl.tree.promoteAt(position.path, d.toMainline);
-      if (vm.mode.sticky) ctrl.jump(ctrl.path);
-      ctrl.treeVersion++;
-      redraw();
+      if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
+      this.ctrl.tree.promoteAt(position.path, d.toMainline);
+      if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
+      this.ctrl.treeVersion++;
+      this.redraw();
     },
-    reload: xhrReload,
-    changeChapter(d) {
-      setMemberActive(d.w);
-      if (!vm.mode.sticky) vm.behind++;
-      data.position = d.p;
-      if (vm.mode.sticky) xhrReload();
-      else redraw();
+    reload: this.xhrReload,
+    changeChapter: d => {
+      this.setMemberActive(d.w);
+      if (!this.vm.mode.sticky) this.vm.behind++;
+      this.data.position = d.p;
+      if (this.vm.mode.sticky) this.xhrReload();
+      else this.redraw();
     },
-    updateChapter(d) {
-      setMemberActive(d.w);
-      xhrReload();
+    updateChapter: d => {
+      this.setMemberActive(d.w);
+      this.xhrReload();
     },
-    descChapter(d) {
-      setMemberActive(d.w);
+    descChapter: d => {
+      this.setMemberActive(d.w);
       if (d.w && d.w.s === lichess.sri) return;
-      if (data.chapter.id === d.chapterId) {
-        data.chapter.description = d.desc;
-        chapterDesc.set(d.desc);
+      if (this.data.chapter.id === d.chapterId) {
+        this.data.chapter.description = d.desc;
+        this.chapterDesc.set(d.desc);
       }
-      redraw();
+      this.redraw();
     },
-    descStudy(d) {
-      setMemberActive(d.w);
+    descStudy: d => {
+      this.setMemberActive(d.w);
       if (d.w && d.w.s === lichess.sri) return;
-      data.description = d.desc;
-      studyDesc.set(d.desc);
-      redraw();
+      this.data.description = d.desc;
+      this.studyDesc.set(d.desc);
+      this.redraw();
     },
-    setTopics(d) {
-      setMemberActive(d.w);
-      data.topics = d.topics;
-      redraw();
+    setTopics: d => {
+      this.setMemberActive(d.w);
+      this.data.topics = d.topics;
+      this.redraw();
     },
-    addChapter(d) {
-      setMemberActive(d.w);
-      if (d.s && !vm.mode.sticky) vm.behind++;
-      if (d.s) data.position = d.p;
+    addChapter: d => {
+      this.setMemberActive(d.w);
+      if (d.s && !this.vm.mode.sticky) this.vm.behind++;
+      if (d.s) this.data.position = d.p;
       else if (d.w && d.w.s === lichess.sri) {
-        vm.mode.write = relayData ? relayRecProp() : nonRelayRecMapProp(data.id);
-        vm.chapterId = d.p.chapterId;
+        this.vm.mode.write = this.relayData ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
+        this.vm.chapterId = d.p.chapterId;
       }
-      xhrReload();
+      this.xhrReload();
     },
-    members(d) {
-      members.update(d);
-      configureAnalysis();
-      redraw();
+    members: d => {
+      this.members.update(d);
+      this.configureAnalysis();
+      this.redraw();
     },
-    chapters(d) {
-      chapters.list(d);
-      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addResult(d);
-      if (!currentChapter()) {
-        vm.chapterId = d[0].id;
-        if (!vm.mode.sticky) xhrReload();
+    chapters: d => {
+      this.chapters.list(d);
+      if (this.vm.toolTab() == 'multiBoard' || this.relay?.tourShow()) this.multiBoard.addResult(d);
+      if (!this.currentChapter()) {
+        this.vm.chapterId = d[0].id;
+        if (!this.vm.mode.sticky) this.xhrReload();
       }
-      redraw();
+      this.redraw();
     },
-    shapes(d) {
+    shapes: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (d.p.chapterId !== vm.chapterId) return;
-      if (who && who.s === lichess.sri) return redraw(); // update shape indicator in column move view
-      ctrl.tree.setShapes(d.s, ctrl.path);
-      if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
-      redraw();
+      this.setMemberActive(who);
+      if (d.p.chapterId !== this.vm.chapterId) return;
+      if (who && who.s === lichess.sri) return this.redraw(); // update shape indicator in column move view
+      this.ctrl.tree.setShapes(d.s, this.ctrl.path);
+      if (this.ctrl.path === position.path) this.ctrl.withCg(cg => cg.setShapes(d.s));
+      this.redraw();
     },
-    validationError(d) {
+    validationError: d => {
       alert(d.error);
     },
-    setComment(d) {
+    setComment: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
-      ctrl.tree.setCommentAt(d.c, position.path);
-      redraw();
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      this.ctrl.tree.setCommentAt(d.c, position.path);
+      this.redraw();
     },
-    setTags(d) {
-      setMemberActive(d.w);
-      if (d.chapterId !== vm.chapterId) return;
-      data.chapter.tags = d.tags;
-      redraw();
+    setTags: d => {
+      this.setMemberActive(d.w);
+      if (d.chapterId !== this.vm.chapterId) return;
+      this.data.chapter.tags = d.tags;
+      this.redraw();
     },
-    deleteComment(d) {
+    deleteComment: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
-      ctrl.tree.deleteCommentAt(d.id, position.path);
-      redraw();
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      this.ctrl.tree.deleteCommentAt(d.id, position.path);
+      this.redraw();
     },
-    glyphs(d) {
+    glyphs: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
-      ctrl.tree.setGlyphsAt(d.g, position.path);
-      if (ctrl.path === position.path) ctrl.setAutoShapes();
-      redraw();
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      this.ctrl.tree.setGlyphsAt(d.g, position.path);
+      if (this.ctrl.path === position.path) this.ctrl.setAutoShapes();
+      this.redraw();
     },
-    clock(d) {
+    clock: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
-      ctrl.tree.setClockAt(d.c, position.path);
-      redraw();
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      this.ctrl.tree.setClockAt(d.c, position.path);
+      this.redraw();
     },
-    forceVariation(d) {
+    forceVariation: d => {
       const position = d.p,
         who = d.w;
-      setMemberActive(who);
-      if (wrongChapter(d)) return;
-      ctrl.tree.forceVariationAt(position.path, d.force);
-      redraw();
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      this.ctrl.tree.forceVariationAt(position.path, d.force);
+      this.redraw();
     },
-    conceal(d) {
-      if (wrongChapter(d)) return;
-      data.chapter.conceal = d.ply;
-      redraw();
+    conceal: d => {
+      if (this.wrongChapter(d)) return;
+      this.data.chapter.conceal = d.ply;
+      this.redraw();
     },
-    liking(d) {
-      data.likes = d.l.likes;
-      if (d.w && d.w.s === lichess.sri) data.liked = d.l.me;
-      redraw();
+    liking: d => {
+      this.data.likes = d.l.likes;
+      if (d.w && d.w.s === lichess.sri) this.data.liked = d.l.me;
+      this.redraw();
     },
     error(msg: string) {
       alert(msg);
-    },
-  };
-
-  return {
-    data,
-    form,
-    setTab,
-    members,
-    chapters,
-    notif,
-    commentForm,
-    glyphForm,
-    serverEval,
-    share,
-    tags,
-    studyDesc,
-    chapterDesc,
-    topics,
-    search,
-    vm,
-    relay,
-    multiBoard,
-    isUpdatedRecently() {
-      return Date.now() - vm.updatedAt < 300 * 1000;
-    },
-    toggleLike() {
-      data.liked = !data.liked;
-      redraw();
-      likeToggler();
-    },
-    position() {
-      return data.position;
-    },
-    currentChapter,
-    isChapterOwner,
-    canJumpTo(path: Tree.Path) {
-      if (gamebookPlay) return gamebookPlay.canJumpTo(path);
-      return (
-        data.chapter.conceal === undefined ||
-        isChapterOwner() ||
-        treePath.contains(ctrl.path, path) || // can always go back
-        ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!
-      );
-    },
-    onJump() {
-      if (gamebookPlay) gamebookPlay.onJump();
-      else chapters.localPaths[vm.chapterId] = ctrl.path; // don't remember position on gamebook
-      if (practice) practice.onJump();
-    },
-    onFlip() {
-      chapterFlipMapProp(data.chapter.id, ctrl.flipped);
-    },
-    withPosition,
-    setPath(path, node) {
-      onSetPath(path);
-      commentForm.onSetPath(vm.chapterId, path, node);
-    },
-    deleteNode(path) {
-      makeChange(
-        'deleteNode',
-        addChapterId({
-          path,
-          jumpTo: ctrl.path,
-        }),
-      );
-    },
-    promote(path, toMainline) {
-      makeChange(
-        'promote',
-        addChapterId({
-          toMainline,
-          path,
-        }),
-      );
-    },
-    forceVariation(path, force) {
-      makeChange(
-        'forceVariation',
-        addChapterId({
-          force,
-          path,
-        }),
-      );
-    },
-    setChapter,
-    toggleSticky() {
-      vm.mode.sticky = !vm.mode.sticky && data.features.sticky;
-      xhrReload();
-    },
-    toggleWrite() {
-      vm.mode.write = !vm.mode.write && members.canContribute();
-      if (relayData) relayRecProp(vm.mode.write);
-      else nonRelayRecMapProp(data.id, vm.mode.write);
-      xhrReload();
-    },
-    isWriting,
-    makeChange,
-    startTour,
-    userJump: ctrl.userJump,
-    currentNode,
-    practice,
-    gamebookPlay: () => gamebookPlay,
-    prevChapter,
-    nextChapter,
-    hasNextChapter,
-    goToPrevChapter() {
-      const chapter = prevChapter();
-      if (chapter) setChapter(chapter.id);
-    },
-    goToNextChapter() {
-      const chapter = nextChapter();
-      if (chapter) setChapter(chapter.id);
-    },
-    setGamebookOverride(o) {
-      vm.gamebookOverride = o;
-      instanciateGamebookPlay();
-      configureAnalysis();
-      ctrl.userJump(ctrl.path);
-      if (!o) xhrReload();
-    },
-    mutateCgConfig,
-    explorerGame(gameId: string, insert: boolean) {
-      makeChange('explorerGame', withPosition({ gameId, insert }));
-    },
-    onPremoveSet() {
-      if (gamebookPlay) gamebookPlay.onPremoveSet();
-    },
-    looksNew() {
-      const cs = chapters.list();
-      return cs.length == 1 && cs[0].name == 'Chapter 1' && !currentChapter().ongoing;
-    },
-    redraw,
-    trans: ctrl.trans,
-    socketHandler: (t: string, d: any) => {
-      const handler = (socketHandlers as any as SocketHandlers)[t];
-      if (handler) {
-        handler(d);
-        return true;
-      }
-      return !!relay && relay.socketHandler(t, d);
     },
   };
 }

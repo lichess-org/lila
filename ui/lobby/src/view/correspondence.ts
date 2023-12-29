@@ -23,20 +23,12 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     tds([
       h('span.is.color-icon.' + (seek.color || 'random')),
       seek.rating
-        ? h(
-            'span.ulpt',
-            {
-              attrs: { 'data-href': '/@/' + seek.username },
-            },
-            seek.username,
-          )
+        ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
         : 'Anonymous',
       seek.rating && !ctrl.opts.hideRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? ctrl.trans.pluralSame('nbDays', seek.days) : '∞',
       h('span', [
-        h('span.varicon', {
-          attrs: { 'data-icon': perfIcons[seek.perf.key] },
-        }),
+        h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),
         noarg(seek.mode === 1 ? 'rated' : 'casual'),
       ]),
     ]),
@@ -67,12 +59,13 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
 export default function (ctrl: LobbyController): MaybeVNodes {
   return [
     h('table.hooks__list', [
-      h('thead', [
+      h(
+        'thead',
         h(
           'tr',
           ['', 'player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header))),
         ),
-      ]),
+      ),
       h(
         'tbody',
         {

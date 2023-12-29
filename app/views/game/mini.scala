@@ -38,14 +38,14 @@ object mini:
       link: Option[String] = None,
       showRatings: Boolean = true
   )(using Lang): Tag =
-    val game   = pov.game
-    val isLive = game.isBeingPlayed
-    val tag    = if link.isDefined then a else span
+    import pov.game
+    val tag                                    = if link.isDefined then a else span
+    def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
     tag(
       href            := link,
       cls             := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
-      dataLive        := isLive.option(game.id),
-      dataTimeControl := game.clock.map(_.config).fold("correspondence")(_.show),
+      dataLive        := game.isBeingPlayed.option(game.id),
+      dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl(_)),
       renderState(pov)
     )(
       renderPlayer(!pov, withRating = showRatings),

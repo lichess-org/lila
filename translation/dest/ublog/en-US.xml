@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Community blogs</string>
+  <string name="friendBlogs">Friends\' blogs</string>
+  <string name="likedBlogs">Liked blog posts</string>
+  <string name="blogTopics">Blog topics</string>
+  <string name="lichessOfficialBlog">Lichess Official Blog</string>
+  <string name="continueReadingPost">Continue reading this post</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blog posts in %s</string>
+  <string name="previousBlogPosts">Previous blog posts</string>
   <string name="xBlog">%s\'s Blog</string>
   <string name="newPost">New post</string>
   <string name="editYourBlogPost">Edit your blog post</string>

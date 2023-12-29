@@ -106,4 +106,21 @@
     <item quantity="many">منذ %s سنة</item>
     <item quantity="other">منذ %s سنة</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="zero">%sدقيقة متبقية</item>
+    <item quantity="one">%sدقيقة متبقية</item>
+    <item quantity="two">%sدقيقتان متبقيتان</item>
+    <item quantity="few">%sدقائق متبقية</item>
+    <item quantity="many">%sدقيقة متبقية</item>
+    <item quantity="other">%sدقائق متبقية</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="zero">%sساعة متبقية</item>
+    <item quantity="one">%sساعة واحدة متبقية</item>
+    <item quantity="two">%sساعتان متبقيتان</item>
+    <item quantity="few">%s ساعات متبقية</item>
+    <item quantity="many">%sساعة متبقية</item>
+    <item quantity="other">%sساعة متبقية</item>
+  </plurals>
+  <string name="completed">مكتمل</string>
 </resources>

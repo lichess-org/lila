@@ -302,7 +302,6 @@
   <string name="playingRightNow">Vyksta šiuo metu</string>
   <string name="eventInProgress">Vyksta šiuo metu</string>
   <string name="finished">Baigėsi</string>
-  <string name="finishesX">baigiasi %s</string>
   <string name="abortGame">Nutraukti partiją</string>
   <string name="gameAborted">Partija nutraukta</string>
   <string name="standard">Standartinis</string>
@@ -935,7 +934,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   </plurals>
   <string name="sorry">Atsiprašome :(</string>
   <string name="weHadToTimeYouOutForAWhile">Turėjome jus laikinai apriboti.</string>
-  <string name="timeoutExpires">Apribojimas baigiasi %s.</string>
   <string name="why">Kodėl?</string>
   <string name="pleasantChessExperience">Mes stengiamės suteikti galimybę visiems patirti šachmatų malonumą.</string>
   <string name="goodPractice">Dėl to turime užtikrinti, kad visi žaidėjai laikytųsi gerųjų praktikų.</string>
@@ -995,9 +993,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
   <string name="clickToRevealEmailAddress">[spustelėkite norėdami pamatyti el. pašto adresą]</string>
   <string name="download">Atsisiųsti</string>
-  <string name="welcome">Sveiki atvykę!</string>
-  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
-Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="coachManager">Trenerių valdymas</string>
   <string name="streamerManager">Transliuotojų valdymas</string>
   <string name="cancelTournament">Atšaukti turnyrą</string>
@@ -1056,4 +1051,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="switchSides">Pakeisti puses</string>
   <string name="closingAccountWithdrawAppeal">paskyras</string>
   <string name="ourEventTips">Mūsų patarimai organizuojant renginius</string>
+  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
+Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
 </resources>

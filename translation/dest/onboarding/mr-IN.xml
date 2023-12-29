@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="welcome">सुस्वागतम!</string>
+  <string name="welcomeToLichess">Lichess.org वर स्वागत!</string>
+  <string name="learnChessRules">बुद्धीबळाचे नियम शिका</string>
+</resources>

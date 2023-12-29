@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Трансляції</string>
   <string name="myBroadcasts">Мої трансляції</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s трансляція</item>
     <item quantity="few">%s трансляції</item>
     <item quantity="many">%s трансляцій</item>
@@ -10,10 +10,15 @@
   </plurals>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="newBroadcast">Нова трансляція</string>
+  <string name="aboutBroadcasts">Про трансляцію</string>
+  <string name="noRoundsYet">Поки що немає раундів.</string>
+  <string name="howToUseLichessBroadcasts">Як користуватися Lichess трансляціями.</string>
+  <string name="theNewRoundHelp">У новому раунді будуть ті самі учасники та редактори, що й у попередньому.</string>
   <string name="addRound">Додати тур</string>
   <string name="ongoing">Поточні</string>
   <string name="upcoming">Майбутні</string>
   <string name="completed">Завершені</string>
+  <string name="completedHelp">Lichess виявляє завершення раунду на основі ігор. Використовуйте цей перемикач якщо немає джерела.</string>
   <string name="roundName">Назва туру</string>
   <string name="roundNumber">Номер туру</string>
   <string name="tournamentName">Назва турніру</string>
@@ -37,4 +42,14 @@
   <string name="editRoundStudy">Редагувати дослідження туру</string>
   <string name="deleteTournament">Видалити турнір</string>
   <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Автоматична таблиця лідерів</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Розрахунки та показ простої таблиці лідерів на основі результатів гри</string>
+  <string name="replace">Опціонально: замінити імена гравців, рейтинги та заголовки</string>
+  <string name="replaceHelp">Один рядок на одного гравця, приклад форматування нижче:
+Справжнє ім\'я; ім\'я на заміну; замінити рейтинг (опціонально); замінити звання (опціонально)
+Приклад:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Період у секундах</string>
+  <string name="periodInSecondsHelp">Опціонально: час очікування між запитами. Мінімально 2 с, максимально 60 с. За замовчуванням - автоматично, виходячи з кількості запитів глядачів.</string>
 </resources>

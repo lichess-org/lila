@@ -238,7 +238,6 @@
   <string name="playingRightNow">Si ghjoca avà</string>
   <string name="eventInProgress">Si ghjoca avà</string>
   <string name="finished">Finita</string>
-  <string name="finishesX">finisce %s</string>
   <string name="abortGame">Aburtì a partita</string>
   <string name="gameAborted">Partita aburtita</string>
   <string name="standard">Classica</string>
@@ -793,7 +792,6 @@
   </plurals>
   <string name="sorry">Scusate :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi avemu messu fora pè un mumentu.</string>
-  <string name="timeoutExpires">A suspensione finisce %s.</string>
   <string name="why">Perchè?</string>
   <string name="pleasantChessExperience">Vulemu prupone una stonda di scacchi piacevule pè tutti.</string>
   <string name="goodPractice">A tale scopu, vulemu assicurà chì tutti i ghjucadori seguitinu e bone pratiche.</string>
@@ -850,8 +848,6 @@
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
   <string name="clickToRevealEmailAddress">[Clicheghja pè palisà l\' indirizzu mail]</string>
   <string name="download">Telecaricà</string>
-  <string name="welcome">Benvenutu!</string>
-  <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
   <string name="coachManager">Respunsevule di l\' allinadori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
@@ -908,4 +904,5 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucadori di Lichess</string>
   <string name="switchSides">Invertì a scacchera</string>
   <string name="closingAccountWithdrawAppeal">Chjude u vostru contu cancellerà a vostra chjama</string>
+  <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
 </resources>

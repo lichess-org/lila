@@ -225,7 +225,6 @@
   <string name="playingRightNow">ఆట ఆడుతున్నారు</string>
   <string name="eventInProgress">ఆట ఆడుతున్నారు</string>
   <string name="finished">పూర్తయింది</string>
-  <string name="finishesX">మిగిలిన సమయం %s</string>
   <string name="abortGame">ఆట ఆగిపోయింది</string>
   <string name="gameAborted">గేమ్ ఆగిపోయినది</string>
   <string name="standard">ప్రామాణికం</string>

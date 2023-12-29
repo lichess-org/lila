@@ -21,12 +21,12 @@ import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.{ Socket, SocketVersion, SocketSend, GetVersion, UserLagCache }
 
-final private[round] class RoundAsyncActor(
+final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using Executor, lila.user.UserFlairApi.Getter)(using proxy: GameProxy)
+)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
 
   import RoundSocket.Protocol
@@ -299,32 +299,33 @@ final private[round] class RoundAsyncActor(
     case RematchYes(playerId) => handle(playerId)(rematcher.yes)
     case RematchNo(playerId)  => handle(playerId)(rematcher.no)
 
+    case lila.game.actorApi.NotifyRematch(newGame) =>
+      fuccess:
+        publish:
+          rematcher.redirectEvents(newGame)
+
     case TakebackYes(playerId) =>
       handle(playerId): pov =>
-        takebacker.yes(~takebackSituation)(pov) map { (events, situation) =>
+        takebacker.yes(~takebackSituation)(pov) map: (events, situation) =>
           takebackSituation = situation.some
           events
-        }
     case TakebackNo(playerId) =>
       handle(playerId): pov =>
-        takebacker.no(~takebackSituation)(pov) map { (events, situation) =>
+        takebacker.no(~takebackSituation)(pov) map: (events, situation) =>
           takebackSituation = situation.some
           events
-        }
 
     case Moretime(playerId, duration) =>
       handle(playerId): pov =>
-        moretimer(pov, duration) flatMapz { progress =>
+        moretimer(pov, duration) flatMapz: progress =>
           proxy save progress inject progress.events
-        }
 
     case ForecastPlay(lastMove) =>
       handle: game =>
-        forecastApi.nextMove(game, lastMove) map { mOpt =>
+        forecastApi.nextMove(game, lastMove) map: mOpt =>
           mOpt.foreach: move =>
             this ! HumanPlay(game.player.id, move, blur = false)
           Nil
-        }
 
     case LilaStop(promise) =>
       proxy
@@ -416,7 +417,7 @@ final private[round] class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
+    if Game.isBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone makeChan gameId
@@ -459,7 +460,7 @@ final private[round] class RoundAsyncActor(
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
-      logger.info(s"Round client error $name: ${e.getMessage}")
+      logger.debug(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client.increment()
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
@@ -470,7 +471,7 @@ final private[round] class RoundAsyncActor(
 object RoundAsyncActor:
 
   case class HasUserId(userId: UserId, promise: Promise[Boolean])
-  case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
+  case class SetGameInfo(game: Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop
   case object WsBoot

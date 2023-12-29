@@ -25,12 +25,32 @@
   <string name="makeSureToCopy">ให้แน่ใจว่าคุณคัดลอกหรือเขียนพาสเวิร์ดไปแล้ว คุณจะไม่สามารถเห็นพาสเวิร์ดได้อีก</string>
   <string name="passwordX">พาสเวิร์ด %s</string>
   <string name="realName">ชื่อจริง</string>
+  <string name="addStudent">เพิ่มนักเรียน</string>
+  <string name="lichessProfileXCreatedForY">โปรไฟล์ Lichess %1$s ถูกสร้างสำหรับ %2$s</string>
+  <string name="studentCredentials">นักเรียน: %1$s
+ชื่อผู้ใช้: %2$s
+รหัสผ่าน: %3$s</string>
+  <string name="inviteALichessAccount">เชิญบัญชี Lichess</string>
+  <string name="inviteDesc1">ถ้านักเรียนของคุณมีบัญชี Lichess แล้ว คุณสามารถเชิญพวกเขาเข้าชั้นเรียนได้</string>
+  <string name="inviteDesc2">เขาจะได้รับข้อความจาก Lichess พร้อมลิ้งค์เข้าร่วมชั้นเรียน</string>
+  <string name="inviteDesc3">โปรดเชิญเฉพาะคนที่คุณรู้จักและคนที่ต้องการเข้าร่วมการศึกษานี้จริงๆ</string>
   <string name="createANewLichessAccount">สร้างบัญชี Lichess ใหม่</string>
+  <string name="lichessUsername">ชี่อผู้ใช้ Lichess</string>
+  <string name="generateANewUsername">สร้างชื่อผู้ใช้ใหม่</string>
+  <string name="noStudents">ยังไม่มีนักเรียนในชั้นเรียน</string>
   <string name="winrate">อัตราชนะ</string>
   <string name="overview">ภาพรวม</string>
   <string name="news">ข่าวสาร</string>
+  <string name="editNews">แก้ไขข่าวสาร</string>
+  <string name="notifyAllStudents">แจ้งเตือนนักเรียนทุกคน</string>
   <string name="nothingHere">ยังไม่มีอะไรที่นี่</string>
+  <string name="invite">เชิญ</string>
+  <string name="youHaveBeenInvitedByX">คุณได้รับคำเชิญจาก %s</string>
+  <string name="youAcceptedThisInvitation">คุณได้รับคำเชิญ</string>
+  <string name="youDeclinedThisInvitation">คุณได้ปฎิเสธคำเชิญ</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">หรือ</string>
   <string name="createMultipleAccounts">สร้างบัญชี Lichess หลายบัญชีในครั้งเดียว</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">ใช้แบบฟอร์มนี้</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">สร้างชั้นเรียนเพิ่ม</string>
+  <string name="anInvitationHasBeenSentToX">ส่งคำเชิญให้ %s แล้ว</string>
 </resources>

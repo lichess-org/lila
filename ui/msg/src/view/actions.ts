@@ -47,11 +47,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   nodes.push(
     h(`button.${cls}.bad`, {
       key: 'delete',
-      attrs: {
-        'data-icon': licon.Trash,
-        type: 'button',
-        title: ctrl.trans.noarg('delete'),
-      },
+      attrs: { 'data-icon': licon.Trash, type: 'button', title: ctrl.trans.noarg('delete') },
       hook: bind('click', withConfirm(ctrl.delete)),
     }),
   );

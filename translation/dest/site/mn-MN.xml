@@ -225,7 +225,6 @@
   <string name="playingRightNow">Яг одоо тоглож байна</string>
   <string name="eventInProgress">Энэ мөчид тэмцээн, нэгэн зэрэг үзэсгэлэн буюу үйл явдал үргэлжилж байгааг харуулж байна.</string>
   <string name="finished">Өндөрлөсөн тэмцээнүүд</string>
-  <string name="finishesX">%s дуусна</string>
   <string name="abortGame">Өргийг цуцлах</string>
   <string name="gameAborted">Өрөг цуцлагдлаа</string>
   <string name="standard">Стандарт</string>
@@ -723,7 +722,6 @@
   <string name="unsubscribe">Дэмжихээ болих</string>
   <string name="congratsYouWon">Баяр хүргье мундаг аа, чи ялчихлаа!</string>
   <string name="download">Татаж суулгах</string>
-  <string name="welcome">Тавтай морил!</string>
   <string name="cancelTournament">Хударсан бол тэмцээнийг цуцлах</string>
   <string name="tournDescription">Тэмцээний тайлбар</string>
   <string name="onlyMembersOfTeam">Зөвхөн багийн хүмүүс шүү</string>

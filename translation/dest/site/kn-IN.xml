@@ -270,7 +270,6 @@
   <string name="playingRightNow">ಆಟ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
   <string name="eventInProgress">ಆಟಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ</string>
   <string name="finished">ಮುಕ್ತಾಯಗೊಂಡಿದೆ</string>
-  <string name="finishesX">%s ಗಳಲ್ಲಿ ಮುಕ್ತಾಯಗೊಳ್ಳಲಿದೆ</string>
   <string name="abortGame">ಆಟವನ್ನು ತ್ಯಜಿಸು</string>
   <string name="gameAborted">ಆಟವನ್ನು ತ್ಯಜಿಸಲಾಗಿದೆ</string>
   <string name="standard">ಸಾಮಾನ್ಯ</string>
@@ -845,7 +844,6 @@
   </plurals>
   <string name="sorry">ಕ್ಷಮಿಸಿ :(</string>
   <string name="weHadToTimeYouOutForAWhile">ನಿಮ್ಮ ಪ್ರವೇಶವನ್ನು ಸ್ವಲ್ಪ ಹೊತ್ತು ತಡೆಹಿಡಿಯಬೇಕಾಗಿ ಬಂದಿದೆ.</string>
-  <string name="timeoutExpires">ನಿಮ್ಮ ನಿಷೇಧ ಕೊನೆಗೊಳ್ಳಲು ಇರುವ ಬಾಕಿ ಸಮಯ %s.</string>
   <string name="why">ಯಾಕೆ?</string>
   <string name="pleasantChessExperience">ಎಲ್ಲರಿಗೂ ಆನಂದದಾಯಕವಾದ ಚೆಸ್ ಅನುಭವವನ್ನು ಕೊಡಬೇಕು ಎಂಬುದು ನಮ್ಮ ಆಶಯವಾಗಿದೆ.</string>
   <string name="goodPractice">ಅದರ ಸಲುವಾಗಿ, ಎಲ್ಲಾ ಆಟಗಾರರೂ ಒಳ್ಳೆಯ ಅಭ್ಯಾಸಗಳನ್ನು ಅನುಸರಿಸುತ್ತಿದ್ದಾರೆ ಎಂಬುದನ್ನು ನಾವು ಖಚಿತಪಡಿಸಬೇಕಾಗಿದೆ.</string>
@@ -904,9 +902,6 @@
   <string name="timeAlmostUp">ಸಮಯ ಮುಗಿಯುತ್ತಾ ಬರುತ್ತಿದೆ!</string>
   <string name="clickToRevealEmailAddress">[ಇಮೇಲ್ ವಿಳಾಸ ತೋರಿಸಲು ಇಲ್ಲಿ ಒತ್ತಿ]</string>
   <string name="download">ಡೌನ್ಲೋಡ್</string>
-  <string name="welcome">ಸುಸ್ವಾಗತ!</string>
-  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
-ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="coachManager">ಕೋಚ್ ಪ್ರೊಫೈಲ್ ಸಲಕರಣೆಗಳು</string>
   <string name="streamerManager">ನೇರಪ್ರಸಾರ ವ್ಯವಸ್ಥಾಪಕ</string>
   <string name="cancelTournament">ಪಂದ್ಯಾವಳಿಯನ್ನು ರದ್ದುಪಡಿಸಿ</string>
@@ -964,4 +959,6 @@
   <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
   <string name="closingAccountWithdrawAppeal">ಖಾತೆ ಮುಚ್ಚಿದರೆ ನಿಮ್ಮ ಮನವಿಯನ್ನು ಹಿಂಪಡೆಯಲಾಗುವುದು</string>
   <string name="ourEventTips">ಈವೆಂಟ್‌ಗಳನ್ನು ಆಯೋಜಿಸಲು ನಮ್ಮ ಸಲಹೆಗಳು</string>
+  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
+ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
 </resources>

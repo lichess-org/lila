@@ -259,7 +259,8 @@ object mon:
     def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
     def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
-    def httpGet(host: String)                      = future("relay.http.get", tags("host" -> host))
+    def httpGet(host: String, proxy: Option[String]) =
+      future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
     def chats(username: String)   = counter("bot.chats").withTag("name", username)
@@ -547,6 +548,7 @@ object mon:
         ()
       val move         = send("move")
       val takeback     = send("takeback")
+      val draw         = send("draw")
       val corresAlarm  = send("corresAlarm")
       val finish       = send("finish")
       val message      = send("message")
@@ -560,6 +562,7 @@ object mon:
         val accept = send("challengeAccept")
     val googleTokenTime             = timer("push.send.googleToken").withoutTags()
     def firebaseStatus(status: Int) = counter("push.firebase.status").withTag("status", status)
+    def firebaseType(typ: String)   = counter("push.firebase.msgType").withTag("type", typ)
   object fishnet:
     object client:
       object result:
@@ -607,9 +610,8 @@ object mon:
     object sequencer:
       val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
   object api:
-    val userGames = counter("api.cost").withTag("endpoint", "userGames")
-    val users     = counter("api.cost").withTag("endpoint", "users")
-    val activity  = counter("api.cost").withTag("endpoint", "activity")
+    val users    = counter("api.cost").withTag("endpoint", "users")
+    val activity = counter("api.cost").withTag("endpoint", "activity")
     object challenge:
       object bulk:
         def scheduleNb(byUserId: String) = counter("api.challenge.bulk.schedule.nb").withTag("by", byUserId)

@@ -1,4 +1,4 @@
-import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
+import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
 import CevalCtrl from '../ctrl';
 import { LegacyBot } from './legacyBot';
 import { SimpleEngine } from './simpleEngine';
@@ -6,19 +6,25 @@ import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
-import { isAndroid, isIOS, isIPad, hasFeature } from 'common/device';
+import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
-import { pow2floor } from '../util';
 import { lichessRules } from 'chessops/compat';
 
 export class Engines {
-  private localEngines: BrowserEngineInfo[];
-  private localEngineMap: Map<string, WithMake>;
-  private externalEngines: ExternalEngineInfo[];
-  private selectProp: StoredProp<string>;
   private _active: EngineInfo | undefined = undefined;
+  localEngines: BrowserEngineInfo[];
+  localEngineMap: Map<string, WithMake>;
+  externalEngines: ExternalEngineInfo[];
+  selectProp: StoredProp<string>;
+  browserSupport: Requires[] = features().slice();
 
   constructor(private ctrl?: CevalCtrl) {
+    if (
+      ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) ||
+      lichess.storage.get('ceval.lsfw.forceEnable') === 'true'
+    ) {
+      this.browserSupport.push('allowLsfw'); // lsfw is https://github.com/lichess-org/lila-stockfish-web
+    }
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl?.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
@@ -41,7 +47,7 @@ export class Engines {
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
         tech: 'NNUE',
-        requires: ['simd', 'webWorkerDynamicImport'],
+        requires: ['simd', 'allowLsfw'],
         variants: [key],
         assets: {
           version: 'sfw003',
@@ -69,7 +75,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
+            requires: ['simd', 'allowLsfw'],
             minMem: 1536,
             assets: {
               version: 'sfw003',
@@ -85,7 +91,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             tech: 'NNUE',
-            requires: ['simd', 'webWorkerDynamicImport'],
+            requires: ['simd', 'allowLsfw'],
             minMem: 2048,
             assets: {
               version: 'sfw003',
@@ -119,7 +125,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+ HCE',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: ['simd', 'webWorkerDynamicImport'],
+            requires: ['simd', 'allowLsfw'],
             variants: variants.map(v => v[0]),
             assets: {
               version: 'sfw003',
@@ -137,6 +143,7 @@ export class Engines {
             short: 'SF 11 MV',
             tech: 'HCE',
             requires: ['sharedMem'],
+            minThreads: 1,
             variants: variants.map(v => v[0]),
             assets: {
               version: 'a022fa',
@@ -157,6 +164,7 @@ export class Engines {
             short: 'SF 11',
             tech: 'HCE',
             requires: ['sharedMem'],
+            minThreads: 1,
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish.wasm',
@@ -189,6 +197,7 @@ export class Engines {
             name: 'Stockfish WASM',
             short: 'Stockfish',
             tech: 'HCE',
+            minThreads: 1,
             maxThreads: 1,
             requires: ['wasm'],
             obsoletedBy: 'sharedMem',
@@ -206,6 +215,7 @@ export class Engines {
             name: 'Stockfish JS',
             short: 'Stockfish',
             tech: 'HCE',
+            minThreads: 1,
             maxThreads: 1,
             obsoletedBy: 'wasm',
             assets: {
@@ -219,8 +229,8 @@ export class Engines {
       ]
         .filter(
           e =>
-            (e.info.requires ?? []).map(req => hasFeature(req)).every(x => !!x) &&
-            !(e.info.obsoletedBy && hasFeature(e.info.obsoletedBy)),
+            e.info.requires?.every((req: Requires) => this.browserSupport.includes(req)) &&
+            !(e.info.obsoletedBy && this.browserSupport.includes(e.info.obsoletedBy as Feature)),
         )
         .map(e => [e.info.id, { info: withDefaults(e.info as BrowserEngineInfo), make: e.make }]),
     );
@@ -293,11 +303,10 @@ export class Engines {
 }
 
 function maxHashMB() {
-  if (navigator.deviceMemory) return Math.min(1024, pow2floor(navigator.deviceMemory * 128));
-  else if (isAndroid()) return 64; // budget androids are easy to crash @ 128
+  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
   else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIOS()) return 32;
-  return 256; // this is safe, mostly desktop firefox / mac safari users here
+  return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 const maxHash = maxHashMB();
 
@@ -311,9 +320,10 @@ function externalEngineSupports(e: EngineInfo, v: VariantKey) {
 
 const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
   variants: ['standard', 'chess960', 'fromPosition'],
-  maxThreads: navigator.hardwareConcurrency ?? 1,
   minMem: 1024,
   maxHash,
+  minThreads: 2,
+  maxThreads: 32,
   ...engine,
 });
 

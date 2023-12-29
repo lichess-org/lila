@@ -1,11 +1,10 @@
 import * as chart from 'chart.js';
-import 'chartjs-adapter-date-fns';
-import { addMonths } from 'date-fns';
+import 'chartjs-adapter-dayjs-4';
+import dayjs from 'dayjs';
 import { OpeningPage } from './interfaces';
 
 chart.Chart.register(
   chart.LineController,
-  chart.CategoryScale,
   chart.LinearScale,
   chart.PointElement,
   chart.LineElement,
@@ -15,18 +14,17 @@ chart.Chart.register(
   chart.TimeScale,
 );
 
-const firstDate = new Date('2017-01-01');
+const firstDate = dayjs('2017-01-01');
 
 export const renderHistoryChart = (data: OpeningPage) => {
   if (!data.history.find(p => p > 0)) return;
-  const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;
+  const canvas = $('.opening__popularity__chart')[0] as HTMLCanvasElement;
   new chart.Chart(canvas, {
     type: 'line',
     data: {
-      labels: data.history.map((_, i) => addMonths(firstDate, i)),
       datasets: [
         {
-          data: data.history,
+          data: data.history.map((n, i) => ({ x: firstDate.add(i, 'M').valueOf(), y: n })),
           borderColor: 'hsla(37,74%,43%,1)',
           backgroundColor: 'hsla(37,74%,43%,0.5)',
           fill: true,
@@ -39,7 +37,7 @@ export const renderHistoryChart = (data: OpeningPage) => {
         x: {
           type: 'time',
           time: {
-            tooltipFormat: 'MMMM yyyy',
+            tooltipFormat: 'MMMM YYYY',
           },
           display: false,
         },
@@ -52,16 +50,12 @@ export const renderHistoryChart = (data: OpeningPage) => {
       },
       // https://www.chartjs.org/docs/latest/configuration/responsive.html
       // responsive: false, // just doesn't work
-      hover: {
+      interaction: {
         mode: 'index',
         intersect: false,
       },
-      plugins: {
-        tooltip: {
-          mode: 'index',
-          intersect: false,
-        },
-      },
+      parsing: false,
+      normalized: true,
     },
   });
 };

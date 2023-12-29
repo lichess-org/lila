@@ -5,7 +5,8 @@ import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { StudyCtrl, Topic } from './interfaces';
+import { Topic } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export default class TopicsCtrl {
   open = prop(false);
@@ -20,21 +21,15 @@ export default class TopicsCtrl {
 
 export const view = (ctrl: StudyCtrl): VNode =>
   h('div.study__topics', [
-    ...ctrl.topics.getTopics().map(topic =>
-      h(
-        'a.topic',
-        {
-          attrs: { href: `/study/topic/${encodeURIComponent(topic)}/hot` },
-        },
-        topic,
+    ...ctrl.topics
+      .getTopics()
+      .map(topic =>
+        h('a.topic', { attrs: { href: `/study/topic/${encodeURIComponent(topic)}/hot` } }, topic),
       ),
-    ),
     ctrl.members.canContribute()
       ? h(
           'a.manage',
-          {
-            hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw),
-          },
+          { hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw) },
           ctrl.trans.noarg('manageTopics'),
         )
       : null,
@@ -65,18 +60,10 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
         [
           h(
             'textarea',
-            {
-              hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)),
-            },
+            { hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)) },
             ctrl.getTopics().join(', ').replace(/[<>]/g, ''),
           ),
-          h(
-            'button.button',
-            {
-              type: 'submit',
-            },
-            ctrl.trans.noarg('save'),
-          ),
+          h('button.button', { type: 'submit' }, ctrl.trans.noarg('save')),
         ],
       ),
     ],
@@ -87,12 +74,9 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
   });
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
-  lichess.loadCssPath('tagify');
-  lichess.loadIife('npm/tagify/tagify.min.js').then(() => {
-    const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, {
-      pattern: /.{2,}/,
-      maxTags: 30,
-    }));
+  lichess.asset.loadCssPath('tagify');
+  lichess.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
+    const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, { pattern: /.{2,}/, maxTags: 30 }));
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {
       const term = (e.detail as Tagify.TagData).value.trim();

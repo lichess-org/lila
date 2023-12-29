@@ -7,6 +7,7 @@
   <string name="enterPassword">Introduce o teu contrasinal e o código de autenticación xerado pola aplicación para completar a configuración. Necesitarás un código de autenticación cada vez que comeces a sesión.</string>
   <string name="ifYouCannotScanEnterX">Se non podes escanear o código, introduce a chave secreta %s na túa aplicación.</string>
   <string name="authenticationCode">Código de autenticación</string>
+  <string name="ifYouLoseAccessTwoFactor">Nota: se perdes o acceso ós teus códigos de autenticación en dous pasos, podes %s usando o correo electrónico.</string>
   <string name="enableTwoFactor">Activar a autenticación en dous pasos</string>
   <string name="disableTwoFactor">Desactivar a autenticación en dous pasos</string>
   <string name="twoFactorEnabled">A autenticación en dous pasos está activada</string>

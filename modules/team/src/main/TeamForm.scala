@@ -45,7 +45,7 @@ final private[team] class TeamForm(
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
 
-  val create = Form:
+  def create(using lila.user.Me) = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -53,13 +53,14 @@ final private[team] class TeamForm(
       Fields.description,
       Fields.descPrivate,
       Fields.request,
+      lila.user.FlairApi.formPair,
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha)
 
-  def edit(team: Team) = Form(
+  def edit(team: Team)(using lila.user.Me) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -68,7 +69,8 @@ final private[team] class TeamForm(
       Fields.request,
       Fields.chat,
       Fields.forum,
-      Fields.hideMembers
+      Fields.hideMembers,
+      lila.user.FlairApi.formPair
     )(TeamEdit.apply)(unapply)
   ) fill TeamEdit(
     password = team.password,
@@ -78,7 +80,8 @@ final private[team] class TeamForm(
     request = !team.open,
     chat = team.chat,
     forum = team.forum,
-    hideMembers = team.hideMembers.has(true)
+    hideMembers = team.hideMembers.has(true),
+    flair = team.flair
   )
 
   def request(team: Team) = Form(
@@ -107,7 +110,7 @@ final private[team] class TeamForm(
     single:
       "userId" -> lila.user.UserForm.historicalUsernameField
 
-  def createWithCaptcha = withCaptcha(create)
+  def createWithCaptcha(using lila.user.Me) = withCaptcha(create)
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints minLength 3, Constraints maxLength 9000))
@@ -134,6 +137,7 @@ private[team] case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
+    flair: Option[Flair],
     gameId: GameId,
     move: String
 ):
@@ -147,7 +151,8 @@ private[team] case class TeamEdit(
     request: Boolean,
     chat: Team.Access,
     forum: Team.Access,
-    hideMembers: Boolean
+    hideMembers: Boolean,
+    flair: Option[Flair]
 ):
 
   def isOpen = !request

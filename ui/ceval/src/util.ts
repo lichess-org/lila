@@ -1,4 +1,6 @@
 import { type Dialog, domDialog } from 'common/dialog';
+import { isMobile } from 'common/device';
+import { memoize } from 'common/common';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
@@ -17,11 +19,12 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   return variant === 'threeCheck' && san.includes('+');
 }
 
-export const pow2floor = (n: number) => {
-  let pow2 = 1;
-  while (pow2 * 2 <= n) pow2 *= 2;
-  return pow2;
-};
+export function constrain(n: number, constraints: { min?: number; max?: number }): number {
+  const min = constraints.min ?? n;
+  const max = constraints.max ?? n;
+  return Math.max(min, Math.min(max, n));
+}
+export const fewerCores = memoize<boolean>(() => isMobile() || navigator.userAgent.includes('CrOS'));
 
 export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {
   let shrink = 4; // 32767 -> 24576 -> 16384 -> 12288 -> 8192 -> 6144 -> etc
@@ -40,10 +43,13 @@ export function showEngineError(engine: string, error: string) {
   domDialog({
     class: 'engine-error',
     htmlText:
-      `<h2>${lichess.escapeHtml(engine)} <bad>error</bad></h2><pre tabindex="0" class="err">` +
-      `${lichess.escapeHtml(error)}</pre><h2>Things to try</h2><ul>` +
-      '<li>Decrease memory slider in engine settings</li><li>Clear site settings for lichess.org</li>' +
-      '<li>Select another engine</li><li>Update your browser</li></ul>',
+      `<h2>${lichess.escapeHtml(engine)} <bad>error</bad></h2>` + error.includes('Status 503')
+        ? `<p>Your external engine does not appear to be connected.</p>
+          <p>Please check the network and restart your provider if possible.</p>`
+        : `${lichess.escapeHtml(error)}</pre><h2>Things to try</h2><ul>
+          <li>Decrease memory slider in engine settings</li>
+          <li>Clear site settings for lichess.org</li>
+          <li>Select another engine</li><li>Update your browser</li></ul>`,
   }).then((dlg: Dialog) => {
     const select = () =>
       setTimeout(() => {

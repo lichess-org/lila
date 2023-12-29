@@ -1,13 +1,17 @@
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import { renderClock, fenColor } from 'common/mini-board';
-import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
+import { bind, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import StudyCtrl from './studyCtrl';
+import { EvalHitMulti } from '../interfaces';
+import { WinningChances } from 'ceval/src/types';
+import { povChances } from 'ceval/src/winningChances';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -15,14 +19,18 @@ export class MultiBoardCtrl {
   pager?: Paginator<ChapterPreview>;
   playing = false;
 
+  private winningChances: Map<Fen, WinningChances> = new Map();
+
   constructor(
     readonly studyId: string,
     readonly redraw: () => void,
     readonly trans: Trans,
+    private readonly send: SocketSend,
+    private readonly variant: () => VariantKey,
   ) {}
 
   addNode = (pos: Position, node: Tree.Node) => {
-    const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
+    const cp = this.pager?.currentPageResults.find(cp => cp.id == pos.chapterId);
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
@@ -31,6 +39,7 @@ export class MultiBoardCtrl {
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
       cp.lastMoveAt = undefined;
+      this.requestCloudEvals();
       this.redraw();
     }
   };
@@ -48,20 +57,29 @@ export class MultiBoardCtrl {
     if (changed) this.redraw();
   };
 
-  reload = (onInsert?: boolean) => {
+  reload = async (onInsert?: boolean) => {
     if (this.pager && !onInsert) {
       this.loading = true;
       this.redraw();
     }
-    xhrLoad(this.studyId, this.page, this.playing).then(p => {
-      this.pager = p;
-      if (p.nbPages < this.page) {
-        if (!p.nbPages) this.page = 1;
-        else this.setPage(p.nbPages);
-      }
-      this.loading = false;
-      this.redraw();
-    });
+    this.pager = await xhrLoad(this.studyId, this.page, this.playing);
+    if (this.pager.nbPages < this.page) {
+      if (!this.pager.nbPages) this.page = 1;
+      else this.setPage(this.pager.nbPages);
+    }
+    this.loading = false;
+    this.redraw();
+
+    this.requestCloudEvals();
+  };
+
+  private requestCloudEvals = () => {
+    if (this.pager?.currentPageResults.length) {
+      this.send('evalGetMulti', {
+        fens: this.pager?.currentPageResults.map(c => c.fen),
+        ...(this.variant() != 'standard' ? { variant: this.variant() } : {}),
+      });
+    }
   };
 
   reloadEventually = debounce(this.reload, 1000);
@@ -82,6 +100,14 @@ export class MultiBoardCtrl {
     this.playing = v;
     this.reload();
   };
+
+  onCloudEval = (d: EvalHitMulti) => {
+    this.winningChances.set(d.fen, povChances('white', d));
+    this.redraw();
+  };
+
+  getWinningChances = (preview: ChapterPreview): WinningChances | undefined =>
+    this.winningChances.get(preview.fen);
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
@@ -112,7 +138,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
   const ctrl = study.multiBoard;
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
-    h('div.now-playing', pager.currentPageResults.map(makePreview(study))),
+    h('div.now-playing', pager.currentPageResults.map(makePreview(study, ctrl.getWinningChances))),
   ];
 }
 
@@ -120,9 +146,7 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
   return h('label.playing', [
     h('input', {
       attrs: { type: 'checkbox', checked: ctrl.playing },
-      hook: bind('change', e => {
-        ctrl.setPlaying((e.target as HTMLInputElement).checked);
-      }),
+      hook: bind('change', e => ctrl.setPlaying((e.target as HTMLInputElement).checked)),
     }),
     ctrl.trans.noarg('playing'),
   ]);
@@ -139,10 +163,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton(ctrl.trans.noarg('next'), licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
     pagerButton(ctrl.trans.noarg('last'), licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     h('button.fbt', {
-      attrs: {
-        'data-icon': licon.Search,
-        title: 'Search',
-      },
+      attrs: { 'data-icon': licon.Search, title: 'Search' },
       hook: bind('click', () => lichess.pubsub.emit('study.search.open')),
     }),
   ]);
@@ -156,25 +177,20 @@ function pagerButton(
   ctrl: MultiBoardCtrl,
 ): VNode {
   return h('button.fbt', {
-    attrs: {
-      'data-icon': icon,
-      disabled: !enable,
-      title: text,
-    },
+    attrs: { 'data-icon': icon, disabled: !enable, title: text },
     hook: bind('mousedown', click, ctrl.redraw),
   });
 }
 
-const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
+type GetWinningChances = (preview: ChapterPreview) => WinningChances | undefined;
+
+const makePreview = (study: StudyCtrl, winningChances: GetWinningChances) => (preview: ChapterPreview) =>
   h(
     `a.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
     {
-      attrs: {
-        'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
-      },
+      attrs: { 'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}` },
       class: {
-        active:
-          !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
+        active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow(),
       },
       hook: {
         insert(vnode) {
@@ -205,9 +221,23 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
     },
     [
       boardPlayer(preview, CgOpposite(preview.orientation)),
-      h('span.cg-wrap'),
+      h('span.cg-gauge', [h('span.mini-game__board', h('span.cg-wrap')), evalGauge(preview, winningChances)]),
       boardPlayer(preview, preview.orientation),
     ],
+  );
+
+const evalGauge = (chap: ChapterPreview, winningChances: GetWinningChances): VNode =>
+  h(
+    'span.mini-game__gauge',
+    h('span.mini-game__gauge__black', {
+      hook: {
+        postpatch(old, vnode) {
+          const chances = winningChances(chap) ?? old.data?.chances;
+          vnode.data!.chances = chances;
+          (vnode.elm as HTMLElement).style.height = `${((1 - (chances || 0)) / 2) * 100}%`;
+        },
+      },
+    }),
   );
 
 const userName = (u: ChapterPreviewPlayer) =>

@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
+  <string name="orLetYourOpponentScanQrCode">Или дайте вашему сопернику отсканировать этот QR-код</string>
   <string name="waiting">Ожидание</string>
   <string name="yourTurn">Ваш ход</string>
   <string name="aiNameLevelAiLevel">%1$s уровня %2$s</string>
@@ -302,7 +303,6 @@
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершён</string>
-  <string name="finishesX">завершится %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
@@ -461,6 +461,7 @@
   <string name="importGame">Импортировать партию</string>
   <string name="importGameExplanation">Вставьте запись партии в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <string name="importGameCaveat">Варианты будут удалены. Чтобы их сохранить, импортируйте PGN в студии.</string>
+  <string name="importGameDataPrivacyWarning">Этот PGN-файл может быть доступен публично. Чтобы импортировать игру приватно, используйте студию.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
@@ -572,8 +573,9 @@
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
   <string name="lastName">Фамилия</string>
-  <string name="setFlair">Задайте свой флаер:</string>
-  <string name="youCanHideFlair">Эта настройка скрывает все флаеры пользователей на всём сайте.</string>
+  <string name="setFlair">Задайте свой эмодзи</string>
+  <string name="flair">Эмодзи</string>
+  <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
   <string name="biography">О себе</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Страна или регион</string>
   <string name="thankYou">Спасибо!</string>
@@ -822,6 +824,7 @@
   <string name="withFriends">С друзьями</string>
   <string name="withEverybody">Со всеми</string>
   <string name="kidMode">Детский режим</string>
+  <string name="kidModeIsEnabled">Детский режим включён.</string>
   <string name="kidModeExplanation">Это для безопасности. В детском режиме отключены все коммуникации на сайте. Включите его для ваших детей и учеников, чтобы защитить их от других пользователей интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детском режиме к логотипу lichess добавляется значок в виде %s, чтобы вы знали, что ваши дети находятся в безопасности.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ваш аккаунт находится под управлением. Спросите своего учителя по шахматам об удалении детского режима.</string>
@@ -943,9 +946,10 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
+  <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
-  <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
   <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
@@ -965,6 +969,7 @@
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Пуля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>
@@ -1005,9 +1010,6 @@
   <string name="timeAlmostUp">Время почти истекло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
   <string name="download">Загрузить</string>
-  <string name="welcome">Добро пожаловать!</string>
-  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
-Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
@@ -1068,4 +1070,6 @@
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>
+  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
+Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
 </resources>

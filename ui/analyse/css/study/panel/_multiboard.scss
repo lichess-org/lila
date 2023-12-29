@@ -79,3 +79,40 @@
     }
   }
 }
+.mini-game {
+  .cg-gauge {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  &__board {
+    flex: 1 1 auto;
+  }
+  &__gauge {
+    position: relative;
+    flex: 0 0 5%;
+    background: if($theme-light, #fff, #a0a0a0);
+    border: $border;
+    border-left: 0;
+    overflow: hidden;
+    @extend %box-radius-right;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      #{$start-direction}: 0;
+      #{$end-direction}: 0;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
+    }
+
+    &__black {
+      display: block;
+      width: 100%;
+      height: 50%;
+      background: if($theme-light, #888, #666);
+      transition: height 1s;
+    }
+  }
+}

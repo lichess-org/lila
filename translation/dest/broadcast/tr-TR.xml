@@ -2,12 +2,14 @@
 <resources>
   <string name="broadcasts">Canlı Turnuvalar</string>
   <string name="myBroadcasts">Canlı Turnuvalarım</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s canlı turnuva</item>
     <item quantity="other">%s canlı turnuva</item>
   </plurals>
   <string name="liveBroadcasts">Canlı Turnuva Yayınları</string>
   <string name="newBroadcast">Canlı Turnuva Ekle</string>
+  <string name="aboutBroadcasts">Canlı Turnuvalar hakkında</string>
+  <string name="howToUseLichessBroadcasts">Lichess Canlı Turnuvaları nasıl kullanılır.</string>
   <string name="addRound">Bir tur ekle</string>
   <string name="ongoing">Devam eden turnuvalar</string>
   <string name="upcoming">Yaklaşan turnuvalar</string>

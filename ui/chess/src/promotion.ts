@@ -23,18 +23,7 @@ const PROMOTABLE_ROLES: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
 export function promote(g: CgApi, key: Key, role: cg.Role): void {
   const piece = g.state.pieces.get(key);
   if (piece && piece.role == 'pawn') {
-    g.setPieces(
-      new Map([
-        [
-          key,
-          {
-            color: piece.color,
-            role,
-            promoted: true,
-          },
-        ],
-      ]),
-    );
+    g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
   }
 }
 
@@ -136,11 +125,7 @@ export class PromotionCtrl {
       g.setAutoShapes([
         {
           orig: dest,
-          piece: {
-            color: cgUtil.opposite(g.state.turnColor),
-            role,
-            opacity: 0.8,
-          },
+          piece: { color: cgUtil.opposite(g.state.turnColor), role, opacity: 0.8 },
           brush: '',
         } as DrawShape,
       ]),
@@ -166,9 +151,7 @@ export class PromotionCtrl {
         return h(
           'square',
           {
-            attrs: {
-              style: 'top: ' + top + '%;left: ' + left + '%',
-            },
+            attrs: { style: 'top: ' + top + '%;left: ' + left + '%' },
             hook: bind('click', e => {
               e.stopPropagation();
               this.finish(serverRole);

@@ -44,5 +44,5 @@ export async function makeRound(ctrl: LocalPlayCtrl): Promise<SocketSend> {
     onChange: (d: RoundData) => d, //console.log(d),
     local: true,
   };
-  return lichess.loadEsm('round', { init: opts });
+  return lichess.asset.loadEsm('round', { init: opts });
 }

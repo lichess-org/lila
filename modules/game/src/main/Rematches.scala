@@ -24,7 +24,7 @@ final class Rematches(idGenerator: IdGenerator)(using Executor):
 
   def prevGameIdOffering = offeredReverseLookup.getIfPresent
 
-  def get                         = cache.getIfPresent
+  inline def get                  = cache.getIfPresent
   def getOffered(prev: GameId)    = get(prev) collect { case o: NextGame.Offered => o }
   def getAccepted(prev: GameId)   = get(prev) collect { case a: NextGame.Accepted => a }
   def getAcceptedId(prev: GameId) = getAccepted(prev).map(_.nextId)

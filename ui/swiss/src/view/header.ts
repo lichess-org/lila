@@ -15,9 +15,7 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
   if (next.in > oneDayInSeconds)
     return h('div.clock', [
       h('time.timeago.shy', {
-        attrs: {
-          datetime: Date.now() + next.in * 1000,
-        },
+        attrs: { datetime: Date.now() + next.in * 1000 },
         hook: {
           insert(vnode) {
             (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + next.in * 1000));
@@ -30,9 +28,7 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
       'span.shy',
       ctrl.data.status == 'created' ? ctrl.trans.noarg('startingIn') : ctrl.trans.noarg('nextRound'),
     ),
-    h('span.time.text', {
-      hook: startClock(next.in + 1),
-    }),
+    h('span.time.text', { hook: startClock(next.in + 1) }),
   ]);
 }
 
@@ -51,17 +47,7 @@ export default function (ctrl: SwissCtrl): VNode {
       'h1',
       greatPlayer
         ? [
-            h(
-              'a',
-              {
-                attrs: {
-                  href: greatPlayer.url,
-                  target: '_blank',
-                  rel: 'noopener',
-                },
-              },
-              greatPlayer.name,
-            ),
+            h('a', { attrs: { href: greatPlayer.url, target: '_blank', rel: 'noopener' } }, greatPlayer.name),
             ' Tournament',
           ]
         : [ctrl.data.name],

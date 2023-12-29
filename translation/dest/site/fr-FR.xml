@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
+  <string name="orLetYourOpponentScanQrCode">Ou laissez votre adversaire scanner ce code QR</string>
   <string name="waiting">En attente</string>
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">En cours</string>
   <string name="eventInProgress">Parties en cours</string>
   <string name="finished">Terminé</string>
-  <string name="finishesX">se termine dans %s</string>
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
   <string name="standard">Standard</string>
@@ -405,6 +405,7 @@
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <string name="importGameCaveat">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
+  <string name="importGameDataPrivacyWarning">Cette partie en format PGN n\'est pas privée. Pour importer une partie en privé, utilisez une étude.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
@@ -506,7 +507,8 @@
   <string name="editProfile">Modifier le profil</string>
   <string name="firstName">Prénom</string>
   <string name="lastName">Nom</string>
-  <string name="setFlair">Choisissez votre émoji :</string>
+  <string name="setFlair">Choisir votre émoji</string>
+  <string name="flair">Émoji</string>
   <string name="youCanHideFlair">Un paramètre permet de cacher les émojis d\'un utilisateur sur tout le site.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou région</string>
@@ -689,6 +691,7 @@
   <string name="keyboardShortcuts">Raccourcis clavier</string>
   <string name="keyMoveBackwardOrForward">avancer/reculer</string>
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
+  <string name="keyCycleSelectedVariation">Changer de variante</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
   <string name="keyRequestComputerAnalysis">Demandez une analyse informatique, apprenez de vos erreurs</string>
@@ -745,6 +748,7 @@
   <string name="withFriends">Avec mes amis</string>
   <string name="withEverybody">Avec tout le monde</string>
   <string name="kidMode">Mode enfants</string>
+  <string name="kidModeIsEnabled">Le mode enfant est activé.</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les écoliers, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Votre compte est géré. Demandez à votre professeur d\'échecs de désactiver le mode enfant.</string>
@@ -858,9 +862,10 @@
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Vous avez reçu un message privé de Lichess.</string>
+  <string name="clickHereToReadIt">Cliquez ici pour le lire.</string>
   <string name="sorry">Désolé :(</string>
   <string name="weHadToTimeYouOutForAWhile">Nous avons dû temporairement vous suspendre.</string>
-  <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience du jeu d\'échecs.</string>
   <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs adoptent les bonnes pratiques.</string>
@@ -880,6 +885,7 @@
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapide</string>
   <string name="classical">Classique</string>
@@ -920,9 +926,6 @@
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
   <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse courriel]</string>
   <string name="download">Télécharger</string>
-  <string name="welcome">Bienvenue !</string>
-  <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
-Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
   <string name="coachManager">Configuration des paramètres Coach</string>
   <string name="streamerManager">Configuration des paramètres Streamer</string>
   <string name="cancelTournament">Annuler le tournoi</string>
@@ -983,4 +986,6 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="ourEventTips">Nos conseils pour l\'organisation d\'événements</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Tout afficher</string>
+  <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
+Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
 </resources>

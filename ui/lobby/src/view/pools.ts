@@ -25,31 +25,18 @@ export function render(ctrl: LobbyController) {
     .map(pool => {
       const active = !!member && member.id === pool.id,
         transp = !!member && !active;
-      return h(
-        'div',
-        {
-          class: {
-            active,
-            transp: !active && transp,
-          },
-          attrs: { 'data-id': pool.id },
-        },
-        [
-          h('div.clock', `${pool.lim}+${pool.inc}`),
-          active && member!.range && !ctrl.opts.hideRatings
-            ? h('div.range', member.range.replace('-', '–'))
-            : h('div.perf', pool.perf),
-          active ? spinner() : null,
-        ],
-      );
+      return h('div', { class: { active, transp: !active && transp }, attrs: { 'data-id': pool.id } }, [
+        h('div.clock', `${pool.lim}+${pool.inc}`),
+        active && member!.range && !ctrl.opts.hideRatings
+          ? h('div.range', member.range.replace('-', '–'))
+          : h('div.perf', pool.perf),
+        active ? spinner() : null,
+      ]);
     })
     .concat(
       h(
         'div.custom',
-        {
-          class: { transp: !!member },
-          attrs: { 'data-id': 'custom' },
-        },
+        { class: { transp: !!member }, attrs: { 'data-id': 'custom' } },
         ctrl.trans.noarg('custom'),
       ),
     );

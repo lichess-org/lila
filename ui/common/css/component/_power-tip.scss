@@ -44,10 +44,12 @@
         }
       }
       &__flag {
+        @extend %flex-center;
+        margin-#{$start-direction}: 0.5ch;
         flex: 1 1 auto;
         overflow: hidden;
-        line-height: 1em;
         font-size: 0.9em;
+        color: $c-font-dim;
       }
       signal {
         flex: 0 0 auto;

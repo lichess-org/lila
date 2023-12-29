@@ -7,7 +7,7 @@ case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[UserTitle],
-    flair: Option[lila.Lila.UserFlair],
+    flair: Option[lila.Lila.Flair],
     isPatron: Boolean
 ):
 

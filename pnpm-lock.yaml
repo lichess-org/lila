@@ -104,8 +104,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -143,8 +143,8 @@ importers:
         specifier: ^0.2.13
         version: 0.2.13
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -181,6 +181,9 @@ importers:
 
   ui/chart:
     dependencies:
+      '@juggle/resize-observer':
+        specifier: ^3.4.0
+        version: 3.4.0
       '@types/highcharts':
         specifier: '=4.2.57'
         version: 4.2.57
@@ -272,14 +275,14 @@ importers:
   ui/dgt:
     dependencies:
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
 
   ui/editor:
     dependencies:
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -497,8 +500,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -509,17 +512,17 @@ importers:
         specifier: ^3.1.6
         version: 3.1.9
       chart.js:
-        specifier: '=3.9.1'
-        version: 3.9.1
-      chartjs-adapter-date-fns:
-        specifier: '=2.0.1'
-        version: 2.0.1(chart.js@3.9.1)
+        specifier: '=4.4.0'
+        version: 4.4.0
+      chartjs-adapter-dayjs-4:
+        specifier: ^1.0.4
+        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.10)
       common:
         specifier: workspace:*
         version: link:../common
-      date-fns:
-        specifier: ^2.29.3
-        version: 2.30.0
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
@@ -542,8 +545,8 @@ importers:
   ui/puz:
     dependencies:
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -560,14 +563,14 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: '=3.9.1'
-        version: 3.9.1
+        specifier: '=4.4.0'
+        version: 4.4.0
       chess:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -593,8 +596,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -728,8 +731,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.7
-        version: 0.12.8
+        specifier: ^0.13.0
+        version: 0.13.0
       common:
         specifier: workspace:*
         version: link:../common
@@ -1512,6 +1515,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: false
 
+  /@juggle/resize-observer@3.4.0:
+    resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
+    dev: false
+
   /@kurkle/color@0.3.2:
     resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
     dev: false
@@ -2186,10 +2193,6 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /chart.js@3.9.1:
-    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
-    dev: false
-
   /chart.js@4.4.0:
     resolution: {integrity: sha512-vQEj6d+z0dcsKLlQvbKIMYFHd3t8W/7L2vfJIbYcfyPcRx92CsHqECpueN8qVGNlKyDcr5wBrYAYKnfu/9Q1hQ==}
     engines: {pnpm: '>=7'}
@@ -2197,12 +2200,15 @@ packages:
       '@kurkle/color': 0.3.2
     dev: false
 
-  /chartjs-adapter-date-fns@2.0.1(chart.js@3.9.1):
-    resolution: {integrity: sha512-v3WV9rdnQ05ce3A0ZCjzUekJCAbfm6+3HqSoeY2BIkdMYZoYr/4T+ril1tZyDl869lz6xdNVMXejUFT9YKpw4A==}
+  /chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.0)(dayjs@1.11.10):
+    resolution: {integrity: sha512-yy9BAYW4aNzPVrCWZetbILegTRb7HokhgospPoC3b5iZ5qdlqNmXts2KdSp6AqnjkPAp/YWyHDxLvIvwt5x81w==}
+    engines: {node: '>=10'}
     peerDependencies:
-      chart.js: '>=2.8.0'
+      chart.js: '>=4.0.1'
+      dayjs: ^1.9.7
     dependencies:
-      chart.js: 3.9.1
+      chart.js: 4.4.0
+      dayjs: 1.11.10
     dev: false
 
   /chartjs-plugin-datalabels@2.2.0(chart.js@4.4.0):
@@ -2227,6 +2233,12 @@ packages:
   /chessops@0.12.8:
     resolution: {integrity: sha512-/9pkJa++RU1WiIa/pH4AdFh6ulcxeMlkYm7sc4xAb1jjcmu6MlsOSTjtOUhUXcw5aVJAIrWY2IwPNucNJLCpFw==}
     deprecated: Version published from wrong branch
+    dependencies:
+      '@badrap/result': 0.2.13
+    dev: false
+
+  /chessops@0.13.0:
+    resolution: {integrity: sha512-1hEY22Ajp3nxMItLhUSgPWYWdTIAeVurCrN6EJMgYjqyV9jWK2Q8u2B28beDMbcB4ORWRCVpoxds5cFSp5BJQA==}
     dependencies:
       '@badrap/result': 0.2.13
     dev: false
@@ -2394,6 +2406,10 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.23.2
+    dev: false
+
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
     dev: false
 
   /debounce-promise@3.1.2:

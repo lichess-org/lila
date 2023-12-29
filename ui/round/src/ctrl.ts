@@ -16,7 +16,7 @@ import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import { ClockController } from './clock/clockCtrl';
-import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
+import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
 import * as atomic from './atomic';
@@ -616,7 +616,7 @@ export default class RoundController {
     lichess.pubsub.emit('challenge-app.open');
     if (lichess.once('rematch-challenge'))
       setTimeout(() => {
-        lichess.hopscotch(function () {
+        lichess.asset.hopscotch(function () {
           window.hopscotch
             .configure({
               i18n: { doneBtn: 'OK, got it' },
@@ -639,7 +639,7 @@ export default class RoundController {
 
   private makeCorrespondenceClock = (): void => {
     if (this.data.correspondence && !this.corresClock)
-      this.corresClock = makeCorresClock(this, this.data.correspondence, this.socket.outoftime);
+      this.corresClock = new CorresClockController(this, this.data.correspondence, this.socket.outoftime);
   };
 
   private corresClockTick = (): void => {

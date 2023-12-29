@@ -102,7 +102,7 @@ Also verlang de Titel nöd.</string>
   <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
   <string name="ownerUniqueTrophies">Die Trophäe isch einzigartig i de Gschicht vo Lichess, niemert usser em %1$s wird si jemals ha.</string>
   <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Partie vumene %s mit Berserk gschpillt- und gunne hät.</string>
-  <string name="aHourlyBulletTournament">e schtündlichi Bullet Arena</string>
+  <string name="aHourlyBulletTournament">es schtündlichs Bullet-Turnier</string>
   <string name="goldenZeeExplanation">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
   <string name="lichessRatings">Lichess-Wertige</string>
   <string name="whichRatingSystemUsedByLichess">Was für es Wertigs-System benutzt Lichess?</string>
@@ -135,15 +135,15 @@ Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu 
   <string name="enableZenMode">Aktivier de Zen-Modus i de %1$s oder truck %2$s während de Partie.</string>
   <string name="displayPreferences">Azeige-Ischtellige</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpiel wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönnd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder Underbrüch verlore worde sind. Unabhängig devoo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Lichess Neustart chömmed, will bim Abefahre vum Syschtem werded alli Partie eifach abbroche und mer chann so unfair verlüre.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder eme Underbruch verlore worde sind. Unabhängig devo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Neuschtart chömmed, will bim Abefahre vum Syschtem werded alli Partie abbroche und mer chann es Schpiel unfair verlüre.</string>
   <string name="howToThreeDots">Wiä chan ich...</string>
-  <string name="enableDisableNotificationPopUps">Benochrichtigungs-Popups aktiviärä oder deaktiviärä?</string>
+  <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktiviere oder deaktiviere?</string>
   <string name="viewSiteInformationPopUp">Site Informations-Popup azeige</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benachrichtigunga versände, zum Bischpil wänn du am Zug bisch oder wänn du e privati Nachricht übercho häsch.
+  <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benachrichtigunge versände, zum Bischpil wänn du am Zug bisch oder wänn du e privati Nachricht übercho häsch.
 
 Klick uf s\'Schlosssymbol, näbe de lichess.org Adrässe, i de URL-Lischte vu dim Browser.
 
-Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert wärde sölled.</string>
+Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert werde sölled.</string>
   <string name="enableAutoplayForSoundsQ">Autoplay für de Ton aktiviere?</string>
   <string name="enableAutoplayForSoundsA">Die meischte Browser chönd - zum de Nutzer schütze - d\'Tonwidergab uf ere frisch gladene Site verhindere. Stell dir vor, jedi Website chönnt dich direkt mit Audio-Werbig stresse!
 
@@ -151,19 +151,19 @@ Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass liche
 
 Das roti Symbol macht dich druf ufmerksam, dass das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
   <string name="desktop">Desktop</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Gang zu Lichess.org
+  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gang zu Lichess.org
 2. Taschte Ctrl-i bi Linux / Windos oder cmd-i bi MacOS
 3. Klick de Tab \"Permissions\"
 4. Erlaub \"Audio and Video\" uf Lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. Gang zu Lichess.org
+  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gang zu Lichess.org
 2. Klick i de Adrässzile ufs Schloss-Icon
 3. Klick d\'Site \"Settings\"
 4. Erlaub \"Sound\"</string>
-  <string name="enableAutoplayForSoundsSafari">1. Gang zu Lichess.org
+  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gang zu Lichess.org
 2. Klick ide Menuezile uf \"Safari\"
 3. Klick \"Settings für lichess.org\"...
 4. Erlaub \"All Autoplay\"</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klick uf die 3 Pünkt ganz obe, im rächte Egge
+  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klick uf die 3 Pünkt ganz obe, im rächte Egge
 2. Klick \"Settings\"
 3. Klick \"Cookies and Site Permissions\"
 4. Scroll abwärts und klick \"Media autoplay\"

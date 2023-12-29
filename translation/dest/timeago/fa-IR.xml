@@ -54,4 +54,13 @@
     <item quantity="one">%s سال پیش</item>
     <item quantity="other">%s سال پیش</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s دقیقه باقی مانده است</item>
+    <item quantity="other">%s دقیقه باقی مانده است</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s ساعت باقی مانده است</item>
+    <item quantity="other">%s ساعت باقی مانده است</item>
+  </plurals>
+  <string name="completed">کامل شده</string>
 </resources>

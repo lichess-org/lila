@@ -24,7 +24,7 @@ final class Study(
     prismicC: Prismic
 ) extends LilaController(env):
 
-  private given lila.user.UserFlairApi = env.user.flairApi
+  private given lila.user.FlairApi = env.user.flairApi
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
@@ -539,7 +539,7 @@ final class Study(
   )
 
   def privateForbiddenText = Forbidden("This study is now private")
-  def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
+  def privateForbiddenJson = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
     Forbidden.page(html.site.message.privateStudy(study)),
     privateForbiddenJson

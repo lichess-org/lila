@@ -62,7 +62,7 @@
   <string name="studyPgn">Tutkielman PGN</string>
   <string name="downloadAllGames">Lataa kaikki pelit</string>
   <string name="chapterPgn">Luvun PGN</string>
-  <string name="copyChapterPgn">Kopioi PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopioi PGN</string>
   <string name="copyChapterPgnDescription">Kopioi tämän luvun PGN leikepöydälle.</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
@@ -131,7 +131,7 @@
   <string name="deleteTheStudyChatHistory">Haluatko poistaa tutkielman keskusteluhistorian? Et voi palauttaa sitä enää!</string>
   <string name="deleteStudy">Poista tutkielma</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Poistetaanko koko tutkielma? Et voi palauttaa sitä enää. Vahvista poisto kirjoittamalla tutkielman nimen: %s</string>
-  <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>
+  <string name="whereDoYouWantToStudyThat">Missä haluat tutkia tätä?</string>
   <string name="goodMove">Hyvä siirto</string>
   <string name="mistake">Virhe</string>
   <string name="brilliantMove">Loistava siirto</string>

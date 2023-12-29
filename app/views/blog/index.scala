@@ -25,13 +25,13 @@ object index:
         bits.menu(none, "lichess".some),
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
-            h1("Lichess Official Blog"),
-            a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
+            h1(trans.ublog.lichessOfficialBlog()),
+            views.html.site.bits.atomLink(routes.Blog.atom)
           ),
           primaryPost map { post =>
             frag(
               latestPost(post),
-              h2("Previous blog posts")
+              h2(trans.ublog.previousBlogPosts())
             )
           },
           div(cls := "blog-cards box__pad list infinite-scroll")(
@@ -53,7 +53,7 @@ object index:
       main(cls := "page-menu")(
         bits.menu(year.some, none),
         div(cls := "page-menu__content box box-pad force-ltr")(
-          boxTop(h1(s"Lichess blog posts from $year")),
+          boxTop(h1(trans.ublog.lichessBlogPostsFromXYear(year))),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })
           )
@@ -85,7 +85,8 @@ object index:
           href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
           dataIcon := licon.PlayTriangle
         )(
-          " Continue reading this post"
+          " ",
+          trans.ublog.continueReadingPost()
         )
       )
     )

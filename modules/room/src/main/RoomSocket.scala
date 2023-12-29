@@ -10,7 +10,7 @@ import lila.socket.Socket.{ makeMessage }
 import lila.common.Json.given
 
 import play.api.libs.json.*
-import lila.user.{ Me, UserFlairApi }
+import lila.user.{ Me, FlairApi }
 
 object RoomSocket:
 
@@ -88,7 +88,7 @@ object RoomSocket:
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using UserFlairApi.Getter)(using
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairApi.Getter)(using
       Executor
   ) =
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan):

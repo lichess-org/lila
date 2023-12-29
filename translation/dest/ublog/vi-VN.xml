@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Các Blog của cộng đồng</string>
+  <string name="friendBlogs">Các Blog của bạn bè</string>
+  <string name="likedBlogs">Các Blog đã thích</string>
+  <string name="blogTopics">Các chủ đề Blog</string>
+  <string name="lichessOfficialBlog">Blog chính thức của Lichess</string>
+  <string name="continueReadingPost">Tiếp tục đọc bài đăng này</string>
+  <string name="lichessBlogPostsFromXYear">Bài đăng blog của Lichess trong năm %s</string>
+  <string name="previousBlogPosts">Bài blog trước</string>
   <string name="xBlog">Bài viết của %s</string>
   <string name="newPost">Bài đăng mới</string>
   <string name="editYourBlogPost">Chỉnh sửa bài đăng của bạn</string>
@@ -12,7 +20,7 @@
   <string name="createBlogDiscussion">Cho phép bình luận</string>
   <string name="createBlogDiscussionHelp">Một chủ đề diễn đàn sẽ được tạo để mọi người bình luận vào bài đăng của bạn</string>
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
-  <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư, trong các bài đăng nháp của bạn</string>
+  <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư trong các bài đăng nháp của bạn</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="other">Đã đăng %s bài Blog</item>
   </plurals>

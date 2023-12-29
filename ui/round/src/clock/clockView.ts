@@ -4,7 +4,8 @@ import * as game from 'game';
 import RoundController from '../ctrl';
 import { bind, justIcon } from '../util';
 import { ClockElements, ClockController, Millis } from './clockCtrl';
-import { h, Hooks } from 'snabbdom';
+import { Hooks } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import { Position } from '../interfaces';
 
 export function renderClock(ctrl: RoundController, player: game.Player, position: Position) {
@@ -28,28 +29,12 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
     // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
     // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
     `div.rclock.rclock-${position}.rclock-${player.color}`,
-    {
-      class: {
-        outoftime: millis <= 0,
-        running: isRunning,
-        emerg: millis < clock.emergMs,
-      },
-    },
+    { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < clock.emergMs } },
     clock.opts.nvui
-      ? [
-          h('div.time', {
-            attrs: { role: 'timer' },
-            hook: timeHook,
-          }),
-        ]
+      ? [h('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
           clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
-          h('div.time', {
-            class: {
-              hour: millis > 3600 * 1000,
-            },
-            hook: timeHook,
-          }),
+          h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
           renderBerserk(ctrl, player.color, position),
           isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
           tourRank(ctrl, player.color, position),
@@ -141,10 +126,7 @@ const goBerserk = (ctrl: RoundController) => {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
   return h('button.fbt.go-berserk', {
-    attrs: {
-      title: 'GO BERSERK! Half the time, no increment, bonus point',
-      'data-icon': licon.Berserk,
-    },
+    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', 'data-icon': licon.Berserk },
     hook: bind('click', ctrl.goBerserk),
   });
 };
@@ -152,13 +134,9 @@ const goBerserk = (ctrl: RoundController) => {
 const tourRank = (ctrl: RoundController, color: Color, position: Position) => {
   const d = ctrl.data,
     ranks = d.tournament?.ranks || d.swiss?.ranks;
-  return ranks && !showBerserk(ctrl, color)
-    ? h(
-        'div.tour-rank.' + position,
-        {
-          attrs: { title: 'Current tournament rank' },
-        },
-        '#' + ranks[color],
-      )
-    : null;
+  return (
+    ranks &&
+    !showBerserk(ctrl, color) &&
+    h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color])
+  );
 };

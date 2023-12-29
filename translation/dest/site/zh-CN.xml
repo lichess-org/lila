@@ -257,7 +257,6 @@
   <string name="playingRightNow">正在对局</string>
   <string name="eventInProgress">正在进行</string>
   <string name="finished">已结束</string>
-  <string name="finishesX">结束：%s</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">标准国际象棋</string>
@@ -473,7 +472,7 @@
   <string name="editProfile">编辑个人资料</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
-  <string name="setFlair">设置你的图标:</string>
+  <string name="setFlair">设置你的图标</string>
   <string name="youCanHideFlair">有一个设置可以隐藏整个站点上的所有用户图标。</string>
   <string name="biography">个人简介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或地区</string>
@@ -815,7 +814,6 @@
   </plurals>
   <string name="sorry">抱歉 :(</string>
   <string name="weHadToTimeYouOutForAWhile">我们必须将你停止一段时间。</string>
-  <string name="timeoutExpires">剩余时间：%s</string>
   <string name="why">为什么？</string>
   <string name="pleasantChessExperience">我们致力于为所有人提供一个愉悦的下棋体验。</string>
   <string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
@@ -875,8 +873,6 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
-  <string name="welcome">欢迎！</string>
-  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="coachManager">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
@@ -935,4 +931,6 @@
   <string name="switchSides">更换所持颜色</string>
   <string name="closingAccountWithdrawAppeal">关闭账户将撤回你的上诉</string>
   <string name="ourEventTips">举办赛事的小建议</string>
+  <string name="showMeEverything">全部展示</string>
+  <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
 </resources>

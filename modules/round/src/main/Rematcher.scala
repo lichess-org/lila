@@ -56,9 +56,8 @@ final private class Rematcher(
     fuccess(List(Event.RematchOffer(by = none)))
 
   private def rematchExists(pov: Pov)(nextId: GameId): Fu[Events] =
-    gameRepo game nextId flatMap {
+    gameRepo game nextId flatMap:
       _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
-    }
 
   private def rematchCreate(pov: Pov): Fu[Events] =
     rematches.offer(pov.ref) map { _ =>
@@ -111,15 +110,11 @@ final private class Rematcher(
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None     => lila.game.Player.make(color, users(!color))
 
-  private def redirectEvents(game: Game): Events =
-    val whiteId = game fullIdOf White
-    val blackId = game fullIdOf Black
-    List(
-      Event.RedirectOwner(White, blackId, AnonCookie.json(game pov Black)),
-      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game pov White)),
-      // tell spectators about the rematch
-      Event.RematchTaken(game.id)
-    )
+  def redirectEvents(game: Game): Events =
+    val ownerRedirects = ByColor: color =>
+      Event.RedirectOwner(!color, game fullIdOf color, AnonCookie.json(game pov color))
+    val spectatorRedirect = Event.RematchTaken(game.id)
+    spectatorRedirect :: ownerRedirects.toList
 
 object Rematcher:
   // returns a new chess game with the same Situation as the previous game

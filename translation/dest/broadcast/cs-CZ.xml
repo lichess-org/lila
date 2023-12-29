@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Přenosy</string>
   <string name="myBroadcasts">Moje vysílání</string>
-  <plurals name="nbBroadcasts" comment="Appears on player profiles. Shows the number of broadcasts [ see https://lichess.org/broadcast ] the player has organised.">
+  <plurals name="nbBroadcasts">
     <item quantity="one">%s vysílání</item>
     <item quantity="few">%s vysílání</item>
     <item quantity="many">%s vysílání</item>

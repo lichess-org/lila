@@ -12,6 +12,7 @@ export interface EditorState {
   fen: string;
   legalFen: string | undefined;
   playable: boolean;
+  enPassantOptions: string[];
 }
 
 export type Redraw = () => void;

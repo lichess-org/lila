@@ -11,22 +11,14 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     'tr',
     {
       key: userId,
-      class: {
-        me: ctrl.data.me?.id == userId,
-        active: ctrl.playerInfoId === userId,
-      },
+      class: { me: ctrl.data.me?.id == userId, active: ctrl.playerInfoId === userId },
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
       h(
         'td.rank',
         player.absent && ctrl.data.status != 'finished'
-          ? h('i', {
-              attrs: {
-                'data-icon': licon.Pause,
-                title: 'Absent',
-              },
-            })
+          ? h('i', { attrs: { 'data-icon': licon.Pause, title: 'Absent' } })
           : [player.rank],
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
@@ -44,13 +36,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                 ? h(p, title('Late'), '½')
                 : h(
                     'a.glpt.' + (p.o ? 'ongoing' : p.w === true ? 'win' : p.w === false ? 'loss' : 'draw'),
-                    {
-                      attrs: {
-                        key: p.g,
-                        href: `/${p.g}`,
-                      },
-                      hook: onInsert(lichess.powertip.manualGame),
-                    },
+                    { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(lichess.powertip.manualGame) },
                     p.o ? '*' : p.w === true ? '1' : p.w === false ? '0' : '½',
                   ),
             )
@@ -76,26 +62,11 @@ export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): V
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
     'table.slist.swiss__standing' + (klass ? '.' + klass : ''),
-    {
-      class: {
-        loading: !pag.currentPageResults,
-        long: ctrl.data.round > 10,
-        xlong: ctrl.data.round > 20,
-      },
-    },
-    [
-      h(
-        'tbody',
-        {
-          hook: {
-            insert: preloadUserTips,
-            update(_, vnode) {
-              preloadUserTips(vnode);
-            },
-          },
-        },
-        tableBody,
-      ),
-    ],
+    { class: { loading: !pag.currentPageResults, long: ctrl.data.round > 10, xlong: ctrl.data.round > 20 } },
+    h(
+      'tbody',
+      { hook: { insert: preloadUserTips, update: (_, vnode) => preloadUserTips(vnode) } },
+      tableBody,
+    ),
   );
 }

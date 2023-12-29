@@ -16,7 +16,7 @@ export class ZfBot implements Libot {
   zf: Zerofish;
 
   get imageUrl() {
-    return lichess.assetUrl(`lifat/bots/images/${this.image}`, { noVersion: true });
+    return lichess.asset.url(`lifat/bots/images/${this.image}`, { noVersion: true });
   }
 
   constructor(info: BotInfo, zf: Zerofish) {

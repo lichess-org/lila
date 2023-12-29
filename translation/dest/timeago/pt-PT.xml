@@ -10,7 +10,7 @@
     <item quantity="other">em %s minutos</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">em %s horas</item>
+    <item quantity="one">em %s hora</item>
     <item quantity="other">em %s horas</item>
   </plurals>
   <plurals name="inNbDays">
@@ -54,4 +54,13 @@
     <item quantity="one">há %s ano</item>
     <item quantity="other">há %s anos</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuto restante</item>
+    <item quantity="other">%s minutos restantes</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s hora restante</item>
+    <item quantity="other">%s horas restantes</item>
+  </plurals>
+  <string name="completed">concluído</string>
 </resources>

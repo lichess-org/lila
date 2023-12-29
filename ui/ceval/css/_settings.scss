@@ -35,11 +35,12 @@
       margin-#{$start-direction}: 1ch;
     }
 
-    input[type='range'] {
+    input[type='range'],
+    span {
       cursor: pointer;
       flex: 1 4 auto;
       padding: 0;
-      height: 1.6em;
+      height: 21px; // important
       width: 100%;
       margin: 0 1ch;
     }
@@ -79,6 +80,53 @@
       &:hover {
         color: #bbb;
         outline: 2px solid #bbb;
+      }
+    }
+
+    span {
+      position: relative;
+
+      input[type='range'] {
+        height: 100%;
+        margin: 0;
+      }
+    }
+
+    .tick {
+      position: absolute;
+      top: -12.5px; // 12.5px above the track. track is 21px high
+      height: 46px; // extend 12.5px below the track
+      border-color: $c-primary;
+
+      div {
+        position: absolute;
+        left: -4px; // centers the rotated right angle at x = 0
+        width: 9px;
+        height: 9px;
+        border-left: 3px solid $c-primary;
+        border-bottom: 3px solid $c-primary;
+
+        &:hover {
+          border-color: mix(#fff, $c-primary, 20%);
+        }
+
+        &.arrow-down {
+          transform: rotate(-45deg);
+          top: 0;
+        }
+
+        &.arrow-up {
+          transform: rotate(135deg);
+          bottom: 0;
+        }
+      }
+
+      &.recommended div {
+        border-color: $c-secondary;
+
+        &:hover {
+          border-color: mix(#fff, $c-secondary, 20%);
+        }
       }
     }
   }

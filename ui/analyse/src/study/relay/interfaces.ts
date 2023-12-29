@@ -38,11 +38,6 @@ export interface RelaySync {
   delay?: number;
 }
 
-export interface RelayTourShow {
-  active: boolean;
-  disable(): void;
-}
-
 export interface LogEvent {
   id: string;
   moves: number;

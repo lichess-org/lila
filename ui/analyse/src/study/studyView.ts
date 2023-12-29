@@ -2,12 +2,12 @@ import * as commentForm from './commentForm';
 import * as glyphForm from './studyGlyph';
 import * as practiceView from './practice/studyPracticeView';
 import AnalyseCtrl from '../ctrl';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { iconTag, bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { rounds as relayTourRounds } from './relay/relayTourView';
-import { StudyCtrl, Tab, ToolTab } from './interfaces';
+import { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
 import { view as chapterView } from './studyChapters';
@@ -22,6 +22,7 @@ import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
+import StudyCtrl from './studyCtrl';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -47,7 +48,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
         opts.ctrl.redraw,
       ),
     },
-    [opts.count ? h('count.data-count', { attrs: { 'data-count': opts.count } }) : null, opts.icon],
+    [!!opts.count && h('count.data-count', { attrs: { 'data-count': opts.count } }), opts.icon],
   );
 }
 
@@ -59,34 +60,27 @@ function buttons(root: AnalyseCtrl): VNode {
   return h('div.study__buttons', [
     h('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
-      showSticky
-        ? h(
-            'a.mode.sync',
-            {
-              attrs: { title: noarg('allSyncMembersRemainOnTheSamePosition') },
-              class: { on: ctrl.vm.mode.sticky },
-              hook: bind('click', ctrl.toggleSticky),
-            },
-            [ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'), 'SYNC'],
-          )
-        : null,
-      ctrl.members.canContribute()
-        ? h(
-            'a.mode.write',
-            {
-              attrs: { title: noarg('shareChanges') },
-              class: { on: ctrl.vm.mode.write },
-              hook: bind('click', ctrl.toggleWrite),
-            },
-            [h('i.is'), 'REC'],
-          )
-        : null,
-      toolButton({
-        ctrl,
-        tab: 'tags',
-        hint: noarg('pgnTags'),
-        icon: iconTag(licon.Tag),
-      }),
+      !!showSticky &&
+        h(
+          'a.mode.sync',
+          {
+            attrs: { title: noarg('allSyncMembersRemainOnTheSamePosition') },
+            class: { on: ctrl.vm.mode.sticky },
+            hook: bind('click', ctrl.toggleSticky),
+          },
+          [ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'), 'SYNC'],
+        ),
+      ctrl.members.canContribute() &&
+        h(
+          'a.mode.write',
+          {
+            attrs: { title: noarg('shareChanges') },
+            class: { on: ctrl.vm.mode.write },
+            hook: bind('click', ctrl.toggleWrite),
+          },
+          [h('i.is'), 'REC'],
+        ),
+      toolButton({ ctrl, tab: 'tags', hint: noarg('pgnTags'), icon: iconTag(licon.Tag) }),
       toolButton({
         ctrl,
         tab: 'comments',
@@ -97,15 +91,14 @@ function buttons(root: AnalyseCtrl): VNode {
         },
         count: (root.node.comments || []).length,
       }),
-      canContribute
-        ? toolButton({
-            ctrl,
-            tab: 'glyphs',
-            hint: noarg('annotateWithGlyphs'),
-            icon: h('i.glyph-icon'),
-            count: (root.node.glyphs || []).length,
-          })
-        : null,
+      canContribute &&
+        toolButton({
+          ctrl,
+          tab: 'glyphs',
+          hint: noarg('annotateWithGlyphs'),
+          icon: h('i.glyph-icon'),
+          count: (root.node.glyphs || []).length,
+        }),
       toolButton({
         ctrl,
         tab: 'serverEval',
@@ -113,24 +106,14 @@ function buttons(root: AnalyseCtrl): VNode {
         icon: iconTag(licon.BarChart),
         count: root.data.analysis && '✓',
       }),
-      toolButton({
-        ctrl,
-        tab: 'multiBoard',
-        hint: 'Multiboard',
-        icon: iconTag(licon.Multiboard),
-      }),
-      toolButton({
-        ctrl,
-        tab: 'share',
-        hint: noarg('shareAndExport'),
-        icon: iconTag(licon.NodeBranching),
-      }),
-      !ctrl.relay && !ctrl.data.chapter.gamebook
-        ? h('span.help', {
-            attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
-            hook: bind('click', ctrl.startTour),
-          })
-        : null,
+      toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
+      toolButton({ ctrl, tab: 'share', hint: noarg('shareAndExport'), icon: iconTag(licon.NodeBranching) }),
+      !ctrl.relay &&
+        !ctrl.data.chapter.gamebook &&
+        h('span.help', {
+          attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
+          hook: bind('click', ctrl.startTour),
+        }),
     ]),
     h('div.right', [gbOverrideButton(ctrl)]),
   ]);
@@ -162,13 +145,14 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
-    tourShow = ctrl.relay?.tourShow;
+    tourShow = ctrl.relay?.tourShow,
+    tourShown = !!tourShow && tourShow();
 
   const makeTab = (key: Tab, name: string) =>
     h(
       `span.${key}`,
       {
-        class: { active: !tourShow?.active && activeTab === key },
+        class: { active: !tourShown && activeTab === key },
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => ctrl.setTab(key)),
       },
@@ -180,52 +164,37 @@ export function side(ctrl: StudyCtrl): VNode {
     h(
       'span.relay-tour.text',
       {
-        class: { active: tourShow.active },
-        hook: bind(
-          'mousedown',
-          () => {
-            tourShow.active = true;
-          },
-          ctrl.redraw,
-        ),
-        attrs: {
-          ...dataIcon(licon.RadioTower),
-          role: 'tab',
-        },
+        class: { active: tourShown },
+        hook: bind('mousedown', () => tourShow(true), ctrl.redraw),
+        attrs: { ...dataIcon(licon.RadioTower), role: 'tab' },
       },
       'Broadcast',
     );
 
   const chaptersTab =
-    tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
-      ? null
-      : makeTab(
-          'chapters',
-          ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),
-        );
+    (tourShow && ctrl.looksNew() && !ctrl.members.canContribute()) ||
+    makeTab(
+      'chapters',
+      ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),
+    );
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
     chaptersTab,
-    !tourTab || ctrl.members.canContribute() || ctrl.data.admin
-      ? makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size()))
-      : null,
+    (!tourTab || ctrl.members.canContribute() || ctrl.data.admin) &&
+      makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
     h('span.search.narrow', {
-      attrs: {
-        ...dataIcon(licon.Search),
-        title: 'Search',
-      },
+      attrs: { ...dataIcon(licon.Search), title: 'Search' },
       hook: bind('click', () => ctrl.search.open(true)),
     }),
-    ctrl.members.isOwner()
-      ? h('span.more.narrow', {
-          attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
-          hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
-        })
-      : null,
+    ctrl.members.isOwner() &&
+      h('span.more.narrow', {
+        attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
+        hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
+      }),
   ]);
 
-  const content = tourShow?.active
+  const content = tourShown
     ? relayTourRounds(ctrl)
     : (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
@@ -251,7 +220,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
           {
             hook: bind('click', () => {
               ctrl.vm.toolTab('glyphs');
-              ctrl.userJump(path);
+              ctrl.ctrl.userJump(path);
             }),
           },
           ctrl.trans.noarg('annotateWithGlyphs'),
@@ -261,14 +230,14 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
 }
 
 export const overboard = (ctrl: StudyCtrl) =>
-  ctrl.chapters.newForm.vm.open
+  ctrl.chapters.newForm.isOpen()
     ? chapterNewFormView(ctrl.chapters.newForm)
     : ctrl.chapters.editForm.current()
     ? chapterEditFormView(ctrl.chapters.editForm)
     : ctrl.members.inviteForm.open()
     ? inviteFormView(ctrl.members.inviteForm)
     : ctrl.topics.open()
-    ? topicsFormView(ctrl.topics, ctrl.members.myId)
+    ? topicsFormView(ctrl.topics, ctrl.members.opts.myId)
     : ctrl.form.open()
     ? studyFormView(ctrl.form)
     : ctrl.search.open()
@@ -279,7 +248,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
-  if (study.gamebookPlay())
+  if (study.gamebookPlay)
     return [gbPlayButtons(ctrl), descView(study, true), descView(study, false), metadata(study)];
   let panel;
   switch (toolTab) {

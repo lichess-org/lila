@@ -54,7 +54,7 @@ object show:
       ),
       robots = s.isPublic,
       zoomable = true,
-      csp = analysisCsp.withPeer.withWikiBooks.some,
+      csp = analysisCsp.withPeer.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,

@@ -36,7 +36,7 @@ import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
-import { view as cevalView, renderEval, Eval } from 'ceval';
+import { view as cevalView, renderEval } from 'ceval';
 import * as control from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
@@ -87,24 +87,13 @@ export function initModule(ctrl: AnalyseController) {
           h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
           h('h2', 'Moves'),
-          h(
-            'p.moves',
-            {
-              attrs: {
-                role: 'log',
-                'aria-live': 'off',
-              },
-            },
-            renderCurrentLine(ctrl, style),
-          ),
+          h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
           ...(!ctrl.studyPractice
             ? [
                 h(
                   'button',
                   {
-                    attrs: {
-                      'aria-pressed': `${ctrl.explorer.enabled()}`,
-                    },
+                    attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
                   ctrl.trans.noarg('openingExplorerAndTablebase'),
@@ -118,12 +107,7 @@ export function initModule(ctrl: AnalyseController) {
           h('h2', 'Current position'),
           h(
             'p.position.lastMove',
-            {
-              attrs: {
-                'aria-live': 'assertive',
-                'aria-atomic': 'true',
-              },
-            },
+            { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
@@ -144,12 +128,7 @@ export function initModule(ctrl: AnalyseController) {
               h('label', [
                 'Command input',
                 h('input.move.mousetrap', {
-                  attrs: {
-                    name: 'move',
-                    type: 'text',
-                    autocomplete: 'off',
-                    autofocus: true,
-                  },
+                  attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
                 }),
               ]),
             ],
@@ -196,10 +175,7 @@ export function initModule(ctrl: AnalyseController) {
           h(
             'div.boardstatus',
             {
-              attrs: {
-                'aria-live': 'polite',
-                'aria-atomic': 'true',
-              },
+              attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' },
             },
             '',
           ),
@@ -312,7 +288,7 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   }
 }
 
-function evalInfo(bestEv: Eval | undefined): string {
+function evalInfo(bestEv: EvalScore | undefined): string {
   if (bestEv) {
     if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
     else if (defined(bestEv.mate))
@@ -367,18 +343,10 @@ function renderResult(ctrl: AnalyseController): VNode[] {
     }
     return [
       h('h2', 'Game status'),
-      h(
-        'div.status',
-        {
-          attrs: {
-            role: 'status',
-            'aria-live': 'assertive',
-            'aria-atomic': 'true',
-          },
-        },
-
-        [h('div.result', result), h('div.status', viewStatus(ctrl))],
-      ),
+      h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
+        h('div.result', result),
+        h('div.status', viewStatus(ctrl)),
+      ]),
     ];
   }
   return [];
@@ -473,12 +441,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
           .map(node =>
             h(
               'option',
-              {
-                attrs: {
-                  value: node.ply,
-                  selected: node.ply === ctrl.node.ply,
-                },
-              },
+              { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
               [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
                 ' ',
               ),
@@ -501,17 +464,13 @@ function requestAnalysisButton(
     'button',
     {
       hook: bind('click', _ =>
-        xhr
-          .text(`/${ctrl.data.game.id}/request-analysis`, {
-            method: 'post',
-          })
-          .then(
-            () => {
-              inProgress(true);
-              notify('Server-side analysis in progress');
-            },
-            _ => notify('Cannot run server-side analysis'),
-          ),
+        xhr.text(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+          () => {
+            inProgress(true);
+            notify('Server-side analysis in progress');
+          },
+          () => notify('Cannot run server-side analysis'),
+        ),
       ),
     },
     'Request a computer analysis',
@@ -560,9 +519,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     ? h('span', [
         h(
           'a',
-          {
-            attrs: { href: '/@/' + user.username },
-          },
+          { attrs: { href: '/@/' + user.username } },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,

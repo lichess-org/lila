@@ -23,13 +23,14 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  resizePolyfill,
 } from './common';
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
-
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
@@ -199,14 +200,14 @@ const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } =
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
-function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: string[]) {
+function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: string[]) {
   $('div.advice-summary').on('mouseenter', 'div.symbol', function (this: HTMLElement) {
     const symbol = this.getAttribute('data-symbol');
     const playerColorBit = this.getAttribute('data-color') == 'white' ? 1 : 0;
     const acplDataset = chart.data.datasets[0];
     if (symbol == '??' || symbol == '?!' || symbol == '?') {
-      acplDataset.hoverBackgroundColor = hoverColors;
-      acplDataset.borderColor = hoverColors;
+      acplDataset.pointHoverBackgroundColor = hoverColors;
+      acplDataset.pointBorderColor = hoverColors;
       const points = mainline
         .map((node, i) =>
           node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit
@@ -219,9 +220,9 @@ function christmasTree(chart: Chart, mainline: Tree.Node[], hoverColors: string[
     }
   });
   $('div.advice-summary').on('mouseleave', 'div.symbol', function (this: HTMLElement) {
-    if (chart.getActiveElements().length) chart.setActiveElements([]);
-    chart.data.datasets[0].hoverBackgroundColor = orangeAccent;
-    chart.data.datasets[0].borderColor = orangeAccent;
+    chart.setActiveElements([]);
+    chart.data.datasets[0].pointHoverBackgroundColor = orangeAccent;
+    chart.data.datasets[0].pointBorderColor = orangeAccent;
     chart.update('none');
   });
 }

@@ -1,0 +1,16 @@
+name: Validate Flair
+
+on:
+  push:
+    paths:
+      - 'public/flair/**'
+  pull_request:
+    paths:
+      - 'public/flair/**'
+
+jobs:
+  validate-flair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./bin/validate-flair public/flair/img/

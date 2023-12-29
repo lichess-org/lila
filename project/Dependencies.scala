@@ -17,8 +17,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.5"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.6.11"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.3"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.2"
@@ -77,14 +76,14 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.4"
+    val version = "2.2.5"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
   }
 
   object kamon {
-    val version    = "2.6.6"
+    val version    = "2.7.0"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

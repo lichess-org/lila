@@ -271,7 +271,6 @@
   <string name="playingRightNow">Играещи сега</string>
   <string name="eventInProgress">Играещи сега</string>
   <string name="finished">Приключи</string>
-  <string name="finishesX">свършва след %s</string>
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
   <string name="standard">Обикновен</string>
@@ -847,7 +846,6 @@
   </plurals>
   <string name="sorry">Съжалявам :(</string>
   <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
-  <string name="timeoutExpires">Принудителната почивка приключва %s.</string>
   <string name="why">Защо?</string>
   <string name="pleasantChessExperience">Стремим се да доставим приятно удоволствие от Шаха на всеки.</string>
   <string name="goodPractice">С тази цел трябва да подсигурим, че всички играчи спазват добри практики.</string>
@@ -907,8 +905,6 @@
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
   <string name="download">Изтегли</string>
-  <string name="welcome">Добре дошли!</string>
-  <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
   <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмяна на турнира</string>
@@ -965,4 +961,5 @@
   <string name="switchSides">Смени страната</string>
   <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
   <string name="ourEventTips">Нашите съвети за организиране на събития</string>
+  <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
 </resources>

@@ -15,12 +15,7 @@ const hasFreq = (freq: 'shield' | 'marathon', d: TournamentData) => d.schedule?.
 
 function clock(d: TournamentData): VNode | undefined {
   if (d.isFinished) return;
-  if (d.secondsToFinish)
-    return h('div.clock', [
-      h('div.time', {
-        hook: startClock(d.secondsToFinish),
-      }),
-    ]);
+  if (d.secondsToFinish) return h('div.clock', [h('div.time', { hook: startClock(d.secondsToFinish) })]);
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds)
       return h('div.clock', [
@@ -41,9 +36,7 @@ function clock(d: TournamentData): VNode | undefined {
       ]);
     return h('div.clock.clock-created', [
       h('span.shy', 'Starting in'),
-      h('span.time.text', {
-        hook: startClock(d.secondsToStart),
-      }),
+      h('span.time.text', { hook: startClock(d.secondsToStart) }),
     ]);
   }
   return undefined;
@@ -53,13 +46,8 @@ function image(d: TournamentData): VNode | undefined {
   if (d.isFinished) return;
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
-  if (s && s.iconImg)
-    return h('img.img', {
-      attrs: { src: lichess.assetUrl('images/' + s.iconImg) },
-    });
-  return h('i.img', {
-    attrs: dataIcon(s?.iconFont || licon.Trophy),
-  });
+  if (s && s.iconImg) return h('img.img', { attrs: { src: lichess.asset.url('images/' + s.iconImg) } });
+  return h('i.img', { attrs: dataIcon(s?.iconFont || licon.Trophy) });
 }
 
 function title(ctrl: TournamentController) {
@@ -67,13 +55,7 @@ function title(ctrl: TournamentController) {
   if (hasFreq('marathon', d)) return h('h1', [h('i.fire-trophy', licon.Globe), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
-      h(
-        'a.shield-trophy',
-        {
-          attrs: { href: '/tournament/shields' },
-        },
-        perfIcons[d.perf.key],
-      ),
+      h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),
       d.fullName,
     ]);
   return h(
@@ -82,13 +64,7 @@ function title(ctrl: TournamentController) {
       ? [
           h(
             'a',
-            {
-              attrs: {
-                href: d.greatPlayer.url,
-                target: '_blank',
-                rel: 'noopener',
-              },
-            },
+            { attrs: { href: d.greatPlayer.url, target: '_blank', rel: 'noopener' } },
             d.greatPlayer.name,
           ),
           ' Arena',

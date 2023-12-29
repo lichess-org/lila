@@ -1,41 +1,37 @@
-import { Controller, Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
+import { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'common/licon';
-import { dataIcon, onInsert, MaybeVNode } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { dataIcon, onInsert, MaybeVNode, looseH as h } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
 import * as router from 'common/router';
 import { userLink } from 'common/userLink';
 import PuzzleStreak from '../streak';
+import PuzzleCtrl from '../ctrl';
 
-export function puzzleBox(ctrl: Controller): VNode {
-  const data = ctrl.getData();
+export function puzzleBox(ctrl: PuzzleCtrl): VNode {
+  const data = ctrl.data;
   return h('div.puzzle__side__metas', [
     puzzleInfos(ctrl, data.puzzle),
     gameInfos(ctrl, data.game, data.puzzle),
   ]);
 }
 
-const angleImg = (ctrl: Controller): string => {
-  const angle = ctrl.getData().angle;
+const angleImg = (ctrl: PuzzleCtrl): string => {
+  const angle = ctrl.data.angle;
   const name = angle.opening ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
-  return lichess.assetUrl(`images/puzzle-themes/${name}.svg`);
+  return lichess.asset.url(`images/puzzle-themes/${name}.svg`);
 };
 
-const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
+const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
   h('div.infos.puzzle', [
-    h('img.infos__angle-img', {
-      attrs: {
-        src: angleImg(ctrl),
-        alt: ctrl.getData().angle.name,
-      },
-    }),
+    h('img.infos__angle-img', { attrs: { src: angleImg(ctrl), alt: ctrl.data.angle.name } }),
     h('div', [
       h(
         'p',
         ctrl.trans.vdom(
           'puzzleId',
-          ctrl.streak && ctrl.vm.mode === 'play'
+          ctrl.streak && ctrl.mode === 'play'
             ? h('span.hidden', ctrl.trans.noarg('hidden'))
             : h(
                 'a',
@@ -49,22 +45,21 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
               ),
         ),
       ),
-      ctrl.showRatings
-        ? h(
-            'p',
-            ctrl.trans.vdom(
-              'ratingX',
-              !ctrl.streak && ctrl.vm.mode === 'play'
-                ? h('span.hidden', ctrl.trans.noarg('hidden'))
-                : h('strong', puzzle.rating),
-            ),
-          )
-        : null,
+      ctrl.opts.showRatings &&
+        h(
+          'p',
+          ctrl.trans.vdom(
+            'ratingX',
+            !ctrl.streak && ctrl.mode === 'play'
+              ? h('span.hidden', ctrl.trans.noarg('hidden'))
+              : h('strong', `${puzzle.rating}`),
+          ),
+        ),
       h('p', ctrl.trans.vdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
     ]),
   ]);
 
-function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
+function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
   return h('div.infos', { attrs: dataIcon(perfIcons[game.perf.key]) }, [
     h('div', [
@@ -72,25 +67,15 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
         'p',
         ctrl.trans.vdom(
           'fromGameLink',
-          ctrl.vm.mode == 'play'
+          ctrl.mode == 'play'
             ? h('span', gameName)
-            : h(
-                'a',
-                {
-                  attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` },
-                },
-                gameName,
-              ),
+            : h('a', { attrs: { href: `/${game.id}/${ctrl.pov}#${puzzle.initialPly}` } }, gameName),
         ),
       ),
       h(
         'div.players',
         game.players.map(p => {
-          const user = {
-            ...p,
-            rating: ctrl.showRatings ? p.rating : undefined,
-            line: false,
-          };
+          const user = { ...p, rating: ctrl.opts.showRatings ? p.rating : undefined, line: false };
           return h('div.player.color-icon.is.text.' + p.color, userLink(user));
         }),
       ),
@@ -103,69 +88,57 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
     'div.puzzle__side__streak',
     streak.data.index == 0
       ? h('div.puzzle__side__streak__info', [
-          h(
-            'h1.text',
-            {
-              attrs: dataIcon(licon.ArrowThruApple),
-            },
-            'Puzzle Streak',
-          ),
+          h('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
           h('p', noarg('streakDescription')),
         ])
       : h(
           'div.puzzle__side__streak__score.text',
-          {
-            attrs: dataIcon(licon.ArrowThruApple),
-          },
-          streak.data.index,
+          { attrs: dataIcon(licon.ArrowThruApple) },
+          `${streak.data.index}`,
         ),
   );
 
-export const userBox = (ctrl: Controller): VNode => {
-  const data = ctrl.getData(),
+export const userBox = (ctrl: PuzzleCtrl): VNode => {
+  const data = ctrl.data,
     noarg = ctrl.trans.noarg;
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', noarg('toGetPersonalizedPuzzles')),
       h('a.button', { attrs: { href: router.withLang('/signup') } }, noarg('signUp')),
     ]);
-  const diff = ctrl.vm.round?.ratingDiff,
+  const diff = ctrl.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';
   return h('div.puzzle__side__user', [
-    !data.replay && !ctrl.streak && data.user
-      ? h('div.puzzle__side__config__toggle', [
-          h('div.switch', [
-            h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
-              attrs: {
-                type: 'checkbox',
-                checked: ctrl.rated(),
-                disabled: ctrl.vm.lastFeedback != 'init',
-              },
-              hook: {
-                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
-              },
-            }),
-            h('label', { attrs: { for: ratedId } }),
-          ]),
-          h('label', { attrs: { for: ratedId } }, noarg('rated')),
-        ])
-      : undefined,
+    !data.replay &&
+      !ctrl.streak &&
+      data.user &&
+      h('div.puzzle__side__config__toggle', [
+        h('div.switch', [
+          h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
+            attrs: { type: 'checkbox', checked: ctrl.rated(), disabled: ctrl.lastFeedback != 'init' },
+            hook: {
+              insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
+            },
+          }),
+          h('label', { attrs: { for: ratedId } }),
+        ]),
+        h('label', { attrs: { for: ratedId } }, noarg('rated')),
+      ]),
     h(
       'div.puzzle__side__user__rating',
       ctrl.rated()
-        ? ctrl.showRatings
-          ? h('strong', [
+        ? ctrl.opts.showRatings &&
+            h('strong', [
               data.user.rating - (diff || 0),
               ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
               ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
             ])
-          : null
         : h('p.puzzle__side__user__rating__casual', noarg('yourPuzzleRatingWillNotChange')),
     ),
   ]);
 };
 
-export const streakBox = (ctrl: Controller) =>
+export const streakBox = (ctrl: PuzzleCtrl) =>
   h('div.puzzle__side__user', renderStreak(ctrl.streak!, ctrl.trans.noarg));
 
 const difficulties: [PuzzleDifficulty, number][] = [
@@ -181,20 +154,15 @@ const colors = [
   ['white', 'asWhite'],
 ];
 
-export function replay(ctrl: Controller): MaybeVNode {
-  const replay = ctrl.getData().replay;
+export function replay(ctrl: PuzzleCtrl): MaybeVNode {
+  const replay = ctrl.data.replay;
   if (!replay) return;
-  const i = replay.i + (ctrl.vm.mode == 'play' ? 0 : 1);
+  const i = replay.i + (ctrl.mode == 'play' ? 0 : 1);
   return h('div.puzzle__side__replay', [
-    h(
-      'a',
-      {
-        attrs: {
-          href: `/training/dashboard/${replay.days}`,
-        },
-      },
-      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles`],
-    ),
+    h('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, [
+      '« ',
+      `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles`,
+    ]),
     h('div.puzzle__side__replay__bar', {
       attrs: {
         style: `--p:${replay.of ? Math.round((100 * i) / replay.of) : 1}%`,
@@ -204,23 +172,20 @@ export function replay(ctrl: Controller): MaybeVNode {
   ]);
 }
 
-export function config(ctrl: Controller): MaybeVNode {
+export function config(ctrl: PuzzleCtrl): MaybeVNode {
   const autoNextId = 'puzzle-toggle-autonext',
     noarg = ctrl.trans.noarg,
-    data = ctrl.getData();
+    data = ctrl.data;
   return h('div.puzzle__side__config', [
     h('div.puzzle__side__config__toggle', [
       h('div.switch', [
         h(`input#${autoNextId}.cmn-toggle.cmn-toggle--subtle`, {
-          attrs: {
-            type: 'checkbox',
-            checked: ctrl.autoNext(),
-          },
+          attrs: { type: 'checkbox', checked: ctrl.autoNext() },
           hook: {
             insert: vnode =>
               (vnode.elm as HTMLElement).addEventListener('change', () => {
                 ctrl.autoNext(!ctrl.autoNext());
-                if (ctrl.autoNext() && ctrl.vm.resultSent && !ctrl.streak) {
+                if (ctrl.autoNext() && ctrl.resultSent && !ctrl.streak) {
                   ctrl.nextPuzzle();
                 }
               }),
@@ -234,23 +199,12 @@ export function config(ctrl: Controller): MaybeVNode {
   ]);
 }
 
-export const renderDifficultyForm = (ctrl: Controller): VNode =>
+export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
   h(
     'form.puzzle__side__config__difficulty',
-    {
-      attrs: {
-        action: `/training/difficulty/${ctrl.getData().angle.key}`,
-        method: 'post',
-      },
-    },
+    { attrs: { action: `/training/difficulty/${ctrl.data.angle.key}`, method: 'post' } },
     [
-      h(
-        'label',
-        {
-          attrs: { for: 'puzzle-difficulty' },
-        },
-        ctrl.trans.noarg('difficultyLevel'),
-      ),
+      h('label', { attrs: { for: 'puzzle-difficulty' } }, ctrl.trans.noarg('difficultyLevel')),
       h(
         'select#puzzle-difficulty.puzzle__difficulty__selector',
         {
@@ -265,7 +219,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
             {
               attrs: {
                 value: key,
-                selected: key == ctrl.settings.difficulty,
+                selected: key == ctrl.opts.settings.difficulty,
                 title:
                   !!delta &&
                   ctrl.trans.pluralSame(
@@ -281,7 +235,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
     ],
   );
 
-export const renderColorForm = (ctrl: Controller): VNode =>
+export const renderColorForm = (ctrl: PuzzleCtrl): VNode =>
   h(
     'div.puzzle__side__config__color',
     h(
@@ -289,12 +243,9 @@ export const renderColorForm = (ctrl: Controller): VNode =>
       colors.map(([key, i18n]) =>
         h('div', [
           h(
-            `a.label.color-${key}${key === (ctrl.settings.color || 'random') ? '.active' : ''}`,
+            `a.label.color-${key}${key === (ctrl.opts.settings.color || 'random') ? '.active' : ''}`,
             {
-              attrs: {
-                href: `/training/${ctrl.getData().angle.key}/${key}`,
-                title: ctrl.trans.noarg(i18n),
-              },
+              attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: ctrl.trans.noarg(i18n) },
             },
             h('i'),
           ),

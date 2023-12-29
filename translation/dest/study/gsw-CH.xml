@@ -62,7 +62,7 @@
   <string name="studyPgn">Schtudie PGN</string>
   <string name="downloadAllGames">Lad alli Partie abe</string>
   <string name="chapterPgn">Kapitel PGN</string>
-  <string name="copyChapterPgn">PGN kopiere</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN kopiere</string>
   <string name="copyChapterPgnDescription">PGN-Kapitel id Zwüscheablag kopiere.</string>
   <string name="downloadGame">Lad die Partie abe</string>
   <string name="studyUrl">Schtudie URL</string>
@@ -109,8 +109,8 @@
   <string name="urlOfTheGame">URL vu de Partie</string>
   <string name="loadAGameFromXOrY">Partie vu %1$s oder %2$s lade</string>
   <string name="createChapter">Kapitäl ärschtelä</string>
-  <string name="createStudy">Schtuudiä ärschtelä</string>
-  <string name="editStudy">Schtuudiä bearbeitä</string>
+  <string name="createStudy">Schtudie erschtelle</string>
+  <string name="editStudy">Schtudie bearbeite</string>
   <string name="visibility">Sichtbarkeit</string>
   <string name="public">Öffentlich</string>
   <string name="unlisted">Unglischtet</string>
@@ -128,10 +128,10 @@
   <string name="start">Schtart</string>
   <string name="save">Schpeichärä</string>
   <string name="clearChat">Tschätt löschä</string>
-  <string name="deleteTheStudyChatHistory">Tschättverlauf vu de Schtudie lösche? Das chann nüme rückgängig gmacht werde!</string>
-  <string name="deleteStudy">Schtuudiä löschä</string>
+  <string name="deleteTheStudyChatHistory">Chatverlauf vu de Schtudie lösche? Das chann nüme rückgängig gmacht werde!</string>
+  <string name="deleteStudy">Schtudie lösche</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die ganz Schtudie lösche? Es git keis Zrugg! Gib zur Beschtätigung de Name vu de Schtudie i: %s</string>
-  <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
+  <string name="whereDoYouWantToStudyThat">Welli Schtudie wottsch bruche?</string>
   <string name="goodMove">Guete Zug</string>
   <string name="mistake">Fähler</string>
   <string name="brilliantMove">Briliantä Zug</string>

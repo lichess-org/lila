@@ -1,11 +1,13 @@
 package views.html.team
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
+import play.api.i18n.Lang
 
 object form:
 
@@ -16,45 +18,45 @@ object form:
       title = newTeam.txt(),
       moreCss = cssTag("team"),
       moreJs = captchaTag
-    ) {
+    ):
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(newTeam()),
-          postForm(cls := "form3", action := routes.Team.create)(
+          postForm(cls := "form3", action := teamRoutes.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
             entryFields(form, none),
             textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
-              a(href := routes.Team.home(1))(trans.cancel()),
+              a(href := teamRoutes.home(1))(trans.cancel()),
               form3.submit(newTeam())
             )
           )
         )
       )
-    }
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
+    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
+          boxTop(h1("Edit team ", a(href := teamRoutes.show(t.id))(t.name))),
           standardFlash,
-          t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
+          t.enabled option postForm(cls := "form3", action := teamRoutes.update(t.id))(
+            flairField(form, t),
             entryFields(form, t.some),
             textFields(form),
             accessFields(form),
             form3.actions(
-              a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
+              a(href := teamRoutes.show(t.id))(trans.cancel()),
               form3.submit(trans.apply())
             )
           ),
           hr,
           (t.enabled && (member.exists(_.hasPerm(_.Admin)) || isGranted(_.ManageTeam))) option
-            postForm(cls := "inline", action := routes.Team.disable(t.id))(
+            postForm(cls := "inline", action := teamRoutes.disable(t.id))(
               explainInput,
               submitButton(
                 dataIcon := licon.CautionCircle,
@@ -63,7 +65,7 @@ object form:
               )(closeTeam())
             ),
           isGranted(_.ManageTeam) option
-            postForm(cls := "inline", action := routes.Team.close(t.id))(
+            postForm(cls := "inline", action := teamRoutes.close(t.id))(
               explainInput,
               submitButton(
                 dataIcon := licon.Trash,
@@ -72,7 +74,7 @@ object form:
               )(trans.delete())
             ),
           (t.disabled && isGranted(_.ManageTeam)) option
-            postForm(cls := "inline", action := routes.Team.disable(t.id))(
+            postForm(cls := "inline", action := teamRoutes.disable(t.id))(
               explainInput,
               submitButton(
                 cls      := "button button-empty explain",
@@ -81,9 +83,12 @@ object form:
             )
         )
       )
-    }
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
+
+  private def flairField(form: Form[?], team: Team)(using Context) =
+    form3.flairPickerGroup(form("flair"), Flair from form("flair").value, label = trans.setFlair()):
+      span(cls := "flair-container".some)(team.name, teamFlair(team))
 
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(

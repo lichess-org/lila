@@ -7,7 +7,7 @@
   <string name="motifs">கருக்கள்</string>
   <string name="advanced">மேம்படுத்தபட்ட</string>
   <string name="lengths">நீளங்கள்</string>
-  <string name="mates">மேட்ஸ்</string>
+  <string name="mates">முழுத்தடைகள்</string>
   <string name="goals">இலக்குகள்</string>
   <string name="origin">தோற்றம்</string>
   <string name="specialMoves">சிறப்பு நகர்வுகள்</string>
@@ -53,6 +53,10 @@
   </plurals>
   <string name="harder">கடினமானது</string>
   <string name="hardest">மிகக்கடினமானது</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">உங்கள் புதிர் மதிப்பீட்டைவிட ஒரு புள்ளி மேலே</item>
+    <item quantity="other">உங்கள் புதிர் மதிப்பீட்டைவிட %s புள்ளிகள் அதிகம்</item>
+  </plurals>
   <string name="example">எடுத்துக்காட்டு</string>
   <string name="addAnotherTheme">வேறொரு வார்ப்புருவைச் சேர்</string>
   <string name="nextPuzzle">அடுத்த புதிர்</string>
@@ -75,6 +79,14 @@
   <string name="fromMyGamesNone">தரவுத்தளத்தில் உங்களுக்குரிய புதிர்கள் ஏதுமில்லை, ஆனாலும் லீசெஸ் உங்களை மிகவும் விரும்புகின்றது!</string>
   <string name="fromXGamesFound">%2$s விளையாட்டுக்களில் %1$s புதிர்கள் உள்ளன</string>
   <string name="puzzleDashboardDescription">பயிற்சி, பகுப்பாய்வு, முன்னேற்றம்</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s விளையாடியது</item>
+    <item quantity="other">%s விளையாடியது</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">மீள விளையாட %s</item>
+    <item quantity="other">மீள விளையாட %s</item>
+  </plurals>
   <string name="percentSolved">%s தீர்க்கப்பட்டது</string>
   <string name="noPuzzlesToShow">காட்சிப்படுத்துவதற்கு எதுவுமில்லை. முதலில் சில புதிர்களைத் தீர்க்கவும்!</string>
   <string name="improvementAreasDescription">உங்கள் முன்னேற்றத்தை உகப்பாக்க இவற்றைப் பயிலவும்!</string>

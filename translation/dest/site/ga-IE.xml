@@ -306,7 +306,6 @@
   <string name="playingRightNow">Á imirt anois</string>
   <string name="eventInProgress">Á imirt anois</string>
   <string name="finished">Críochnaithe</string>
-  <string name="finishesX">ag críochnú i %s</string>
   <string name="abortGame">Éirigh as</string>
   <string name="gameAborted">Éiríodh as an chluiche</string>
   <string name="standard">Caighdeán</string>
@@ -949,7 +948,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   </plurals>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn tú a chur ar fionraí ar feadh tréimhse.</string>
-  <string name="timeoutExpires">Beidh an tréimhse fionraithe thart %s.</string>
   <string name="why">Cén fáth?</string>
   <string name="pleasantChessExperience">Ba mhaith linn atmaisféar maith fichille a chur ar fáil do chách.</string>
   <string name="goodPractice">De bhrí sin, ní mór dúinn a chinntiú go leanann gach ficheallaí dea-chleachtas.</string>
@@ -1008,9 +1006,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
   <string name="clickToRevealEmailAddress">[Cliceáil chun seoladh ríomhphoist a nochtadh]</string>
   <string name="download">Íoslódáil</string>
-  <string name="welcome">Fáilte!</string>
-  <string name="lichessPatronInfo">Is carthanas é Lichess, agus agus bogearraí foinse oscailte go hiomlán saor in aisce.
-Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
   <string name="coachManager">Socruithe cóitseál a bhainistiú</string>
   <string name="streamerManager">Socruithe sruthanna a bhainistiú</string>
   <string name="cancelTournament">Cuir an comórtas ar ceal</string>
@@ -1069,4 +1064,6 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="switchSides">Athraigh taobhanna</string>
   <string name="closingAccountWithdrawAppeal">Má dhúnann tú do chuntas tarraingeofar siar d’achomharc</string>
   <string name="ourEventTips">Ár leideanna chun imeachtaí a eagrú</string>
+  <string name="lichessPatronInfo">Is carthanas é Lichess, agus agus bogearraí foinse oscailte go hiomlán saor in aisce.
+Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
 </resources>

@@ -2,28 +2,28 @@
   {
     "uid": "#babyhoward",
     "name": "Baby Howard",
-    "description": "Baby Howard is a bot that plays random moves.",
+    "description": "Baby Howard just learned how the pieces move. Now he wants blood.",
     "image": "baby-howard.webp",
     "netName": "maia-1100.pb"
   },
   {
     "uid": "#coral",
     "name": "Coral",
-    "description": "Coral is a simple bot that plays random moves.",
+    "description": "Coral may slither like a snake, but she's actually a sweetheart.",
     "image": "coral.webp",
     "netName": "maia-1100.pb"
   },
   {
     "uid": "#beatrice",
     "name": "Beatrice",
-    "description": "Beatrice is a bot that plays random moves.",
+    "description": "If you dip your pieces in honey, Beatrice will be a problem.",
     "image": "beatrice.webp",
     "netName": "maia-1200.pb"
   },
   {
     "uid": "#nacho",
     "name": "Nacho",
-    "description": "",
+    "description": "Nacho is a verified feline grandmaster. If he tries to eat your head, do not let him.",
     "image": "nacho.webp",
     "netName": "maia-1200.pb"
   },

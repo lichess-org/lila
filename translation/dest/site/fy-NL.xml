@@ -193,7 +193,6 @@
   <string name="playingRightNow">No oan it spylje</string>
   <string name="eventInProgress">No dwaande</string>
   <string name="finished">Dien</string>
-  <string name="finishesX">dien %s</string>
   <string name="abortGame">Ferlit it spul</string>
   <string name="gameAborted">Spul ferlitte</string>
   <string name="standard">Standert</string>

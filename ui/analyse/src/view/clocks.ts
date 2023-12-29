@@ -34,13 +34,7 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
 }
 
 const renderClock = (centis: number | undefined, active: boolean, cls: string, showTenths: boolean): VNode =>
-  h(
-    'div.analyse__clock.' + cls,
-    {
-      class: { active },
-    },
-    clockContent(centis, showTenths),
-  );
+  h('div.analyse__clock.' + cls, { class: { active } }, clockContent(centis, showTenths));
 
 function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {
   if (!centis && centis !== 0) return ['-'];

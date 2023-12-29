@@ -72,11 +72,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           (loading ? chartLoader() : ''),
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
-    lichess.loadEsm<ChartGame>('chart.game').then(m =>
-      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.mainline, ctrl.trans).then(chart => {
-        advChart = chart;
-      }),
-    );
+    lichess.asset.loadEsm<ChartGame>('chart.game').then(m => {
+      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline(), ctrl.trans).then(
+        chart => {
+          advChart = chart;
+        },
+      );
+    });
   }
 
   const storage = lichess.storage.make('analysis.panel');
@@ -88,7 +90,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .filter('.' + panel)
       .addClass('active');
     if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
-      lichess.loadEsm<ChartGame>('chart.game').then(m => {
+      lichess.asset.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
         m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.trans, ctrl.opts.hunter);
       });

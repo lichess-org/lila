@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mode</string>
   <string name="showPlayerRatings">Show player ratings</string>
   <string name="showFlairs">Show player flairs</string>
-  <string name="explainShowPlayerRatings">This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see.</string>
+  <string name="explainShowPlayerRatings">This hides all ratings from Lichess, to help focus on the chess. Rated games still impact your rating, this is only about what you get to see.</string>
   <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="inGameOnly">In-game only</string>

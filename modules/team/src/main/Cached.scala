@@ -4,7 +4,7 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
-import lila.hub.LightTeam.TeamName
+import lila.hub.LightTeam
 
 final class Cached(
     teamRepo: TeamRepo,
@@ -13,16 +13,24 @@ final class Cached(
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
-  val nameCache = cacheApi.sync[TeamId, Option[TeamName]](
-    name = "team.name",
-    initialCapacity = 32768,
-    compute = teamRepo.name,
+  val lightCache = cacheApi.sync[TeamId, Option[LightTeam]](
+    name = "team.light",
+    initialCapacity = 32_768,
+    compute = teamRepo.light,
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Access(10 minutes)
+    expireAfter = Syncache.ExpireAfter.Write(10 minutes)
   )
 
-  export nameCache.{ preloadSet, sync as blockingTeamName }
+  val async = LightTeam.Getter(lightCache.async)
+  val sync  = LightTeam.GetterSync(lightCache.sync)
+
+  export lightCache.{ preloadSet, preloadMany }
+
+  val lightApi = new LightTeam.Api:
+    def async = Cached.this.async
+    def sync  = Cached.this.sync
+    export lightCache.{ preloadSet as preload }
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
@@ -70,7 +78,7 @@ final class Cached(
           nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
         yield nbReqs
 
-  val forumAccess = cacheApi[TeamId, Team.Access](1024, "team.forum.access"):
+  val forumAccess = cacheApi[TeamId, Team.Access](1_024, "team.forum.access"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):

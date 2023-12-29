@@ -1,23 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
-import { prop, Prop } from 'common';
-import { bindSubmit, bindNonPassive } from 'common/snabbdom';
+import { prop } from 'common';
+import { bindSubmit, bindNonPassive, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';
 import { Redraw } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
-
-export interface StudyFormCtrl {
-  open: Prop<boolean>;
-  openIfNew(): void;
-  save(data: FormData, isNew: boolean): void;
-  getData(): StudyData;
-  isNew(): boolean;
-  trans: Trans;
-  redraw: Redraw;
-  relay?: RelayCtrl;
-}
 
 export interface FormData {
   name: string;
@@ -39,66 +28,42 @@ interface Select {
 }
 type Choice = [string, string];
 
-const select = (s: Select): VNode =>
-  h('div.form-group.form-half', [
-    h(
-      'label.form-label',
-      {
-        attrs: { for: 'study-' + s.key },
-      },
-      s.name,
-    ),
-    h(
-      `select#study-${s.key}.form-control`,
-      s.choices.map(function (o) {
-        return h(
-          'option',
-          {
-            attrs: {
-              value: o[0],
-              selected: s.selected === o[0],
-            },
-          },
-          o[1],
-        );
-      }),
-    ),
-  ]);
+export class StudyForm {
+  initAt = Date.now();
+  open = prop(false);
 
-export function ctrl(
-  save: (data: FormData, isNew: boolean) => void,
-  getData: () => StudyData,
-  trans: Trans,
-  redraw: Redraw,
-  relay?: RelayCtrl,
-): StudyFormCtrl {
-  const initAt = Date.now();
+  constructor(
+    private readonly doSave: (data: FormData, isNew: boolean) => void,
+    readonly getData: () => StudyData,
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+    readonly relay?: RelayCtrl,
+  ) {}
 
-  function isNew(): boolean {
-    const d = getData();
-    return d.from === 'scratch' && !!d.isNew && Date.now() - initAt < 9000;
-  }
+  isNew = (): boolean => {
+    const d = this.getData();
+    return d.from === 'scratch' && !!d.isNew && Date.now() - this.initAt < 9000;
+  };
 
-  const open = prop(false);
-
-  return {
-    open,
-    openIfNew() {
-      if (isNew()) open(true);
-    },
-    save(data: FormData, isNew: boolean) {
-      save(data, isNew);
-      open(false);
-    },
-    getData,
-    isNew,
-    trans,
-    redraw,
-    relay,
+  openIfNew = () => {
+    if (this.isNew()) this.open(true);
+  };
+  save = (data: FormData, isNew: boolean) => {
+    this.doSave(data, isNew);
+    this.open(false);
   };
 }
 
-export function view(ctrl: StudyFormCtrl): VNode {
+const select = (s: Select): VNode =>
+  h('div.form-group.form-half', [
+    h('label.form-label', { attrs: { for: 'study-' + s.key } }, s.name),
+    h(
+      `select#study-${s.key}.form-control`,
+      s.choices.map(o => h('option', { attrs: { value: o[0], selected: s.selected === o[0] } }, o[1])),
+    ),
+  ]);
+
+export function view(ctrl: StudyForm): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const updateName = (vnode: VNode, isUpdate: boolean) => {
@@ -153,10 +118,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
           h('div.form-group' + (ctrl.relay ? '.none' : ''), [
             h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
             h('input#study-name.form-control', {
-              attrs: {
-                minlength: 3,
-                maxlength: 100,
-              },
+              attrs: { minlength: 3, maxlength: 100 },
               hook: {
                 insert: vnode => updateName(vnode, false),
                 postpatch: (_, vnode) => updateName(vnode, true),
@@ -229,36 +191,30 @@ export function view(ctrl: StudyFormCtrl): VNode {
               selected: '' + data.settings.description,
             }),
           ]),
-          ctrl.relay
-            ? h('div.form-actions-secondary', [
-                h(
-                  'a.text',
-                  {
-                    attrs: {
-                      'data-icon': licon.RadioTower,
-                      href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
-                    },
+          ctrl.relay &&
+            h('div.form-actions-secondary', [
+              h(
+                'a.text',
+                {
+                  attrs: {
+                    'data-icon': licon.RadioTower,
+                    href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
                   },
-                  'Tournament settings',
-                ),
-                h(
-                  'a.text',
-                  {
-                    attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` },
-                  },
-                  'Round settings',
-                ),
-              ])
-            : null,
+                },
+                'Tournament settings',
+              ),
+              h(
+                'a.text',
+                { attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` } },
+                'Round settings',
+              ),
+            ]),
           h('div.form-actions', [
             h('div', { attrs: { style: 'display: flex' } }, [
               h(
                 'form',
                 {
-                  attrs: {
-                    action: '/study/' + data.id + '/delete',
-                    method: 'post',
-                  },
+                  attrs: { action: '/study/' + data.id + '/delete', method: 'post' },
                   hook: bindNonPassive(
                     'submit',
                     _ =>
@@ -268,29 +224,19 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 },
                 [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))],
               ),
-              isNew
-                ? null
-                : h(
-                    'form',
-                    {
-                      attrs: {
-                        action: '/study/' + data.id + '/clear-chat',
-                        method: 'post',
-                      },
-                      hook: bindNonPassive('submit', _ =>
-                        confirm(ctrl.trans.noarg('deleteTheStudyChatHistory')),
-                      ),
-                    },
-                    [h(emptyRedButton, ctrl.trans.noarg('clearChat'))],
-                  ),
+              !isNew &&
+                h(
+                  'form',
+                  {
+                    attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
+                    hook: bindNonPassive('submit', _ =>
+                      confirm(ctrl.trans.noarg('deleteTheStudyChatHistory')),
+                    ),
+                  },
+                  [h(emptyRedButton, ctrl.trans.noarg('clearChat'))],
+                ),
             ]),
-            h(
-              'button.button',
-              {
-                attrs: { type: 'submit' },
-              },
-              ctrl.trans.noarg(isNew ? 'start' : 'save'),
-            ),
+            h('button.button', { attrs: { type: 'submit' } }, ctrl.trans.noarg(isNew ? 'start' : 'save')),
           ]),
         ],
       ),

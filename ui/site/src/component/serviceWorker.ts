@@ -1,12 +1,10 @@
-import { assetUrl, jsModule } from './assets';
+import { url as assetUrl, jsModule } from './assets';
 import { storage } from './storage';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
   const workerUrl = new URL(
-    assetUrl(jsModule('serviceWorker'), {
-      sameDomain: true,
-    }),
+    assetUrl(jsModule('serviceWorker'), { sameDomain: true }),
     self.location.href, // eslint-disable-line no-restricted-globals
   );
   workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);

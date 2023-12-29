@@ -69,16 +69,18 @@ final class TeamApi(
       team
 
   def update(old: Team, edit: TeamEdit)(using me: Me): Funit =
-    val team = old.copy(
-      password = edit.password,
-      intro = edit.intro,
-      description = edit.description,
-      descPrivate = edit.descPrivate,
-      open = edit.isOpen,
-      chat = edit.chat,
-      forum = edit.forum,
-      hideMembers = Some(edit.hideMembers)
-    )
+    val team = old
+      .copy(
+        password = edit.password,
+        intro = edit.intro,
+        description = edit.description,
+        descPrivate = edit.descPrivate,
+        open = edit.isOpen,
+        chat = edit.chat,
+        forum = edit.forum,
+        hideMembers = Some(edit.hideMembers),
+        flair = edit.flair
+      )
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(old)
@@ -87,6 +89,7 @@ final class TeamApi(
     yield
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
+      cached.lightCache.invalidate(team.id)
       indexer ! InsertTeam(team)
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =

@@ -1,24 +1,10 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import { emojiPicker } from './emojiPicker';
+import flairPicker from './component/flairPicker';
 
 lichess.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
-    const details = this;
-    const parent = $(details).parent();
-    const close = () => details.removeAttribute('open');
-    const onEmojiSelect = (i?: { id: string; src: string }) => {
-      parent.find('input[name="flair"]').val(i?.id ?? '');
-      parent.find('.user-link .uflair').remove();
-      if (i) parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
-      close();
-    };
-    parent.find('.emoji-remove').on('click', e => {
-      e.preventDefault();
-      onEmojiSelect();
-      $(e.target).remove();
-    });
-    $(details).on('toggle', () => emojiPicker(details.querySelector('.emoji-picker')!, close, onEmojiSelect));
+    flairPicker(this);
   });
 
   const localPrefs: [string, string, string, boolean][] = [
@@ -75,6 +61,24 @@ lichess.load.then(() => {
     form.find('input').on('change', checkDanger);
     submit.on('click', function (this: HTMLElement) {
       return !isDanger || confirm(this.title);
+    });
+  });
+
+  $('form.dirty-alert').each(function (this: HTMLFormElement) {
+    const form = this;
+    const serialize = () => {
+      const data = new FormData(form);
+      return Array.from(data.keys())
+        .map(k => `${k}=${data.get(k)}`)
+        .join('&');
+    };
+    let clean = serialize();
+    $(form).on('submit', () => {
+      clean = serialize();
+    });
+    window.addEventListener('beforeunload', e => {
+      if (clean != serialize() && !confirm('You have unsaved changes. Are you sure you want to leave?'))
+        e.preventDefault();
     });
   });
 });

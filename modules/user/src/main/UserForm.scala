@@ -44,29 +44,27 @@ final class UserForm:
 
   def profileOf(user: User) = profile fill user.profileOrDefault
 
-  val flair = Form[Option[UserFlair]]:
-    single("flair" -> optional(text.into[UserFlair].verifying(UserFlairApi.exists)))
+  def flair(using Me) = Form[Option[Flair]]:
+    single(FlairApi.formPair)
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
 object UserForm:
 
-  val note = Form(
+  val note = Form:
     mapping(
       "text"     -> cleanText(minLength = 3, maxLength = 2000),
       "noteType" -> text
     )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ =>
       none
     )
-  )
 
-  val apiNote = Form(
+  val apiNote = Form:
     mapping(
       "text" -> cleanText(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
       "dox"  -> default(boolean, false)
     )(NoteData.apply)(unapply)
-  )
 
   case class NoteData(text: String, mod: Boolean, dox: Boolean)
 

@@ -10,7 +10,7 @@ final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
     teamOf: SwissId => Fu[Option[TeamId]]
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.user.UserFlairApi.Getter):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.user.FlairApi.Getter):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 

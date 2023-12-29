@@ -18,6 +18,7 @@
   <string name="onetime">รายครั้ง</string>
   <string name="otherAmount">อื่นๆ</string>
   <string name="withCreditCard">บัตรเครดิต</string>
+  <string name="logInToDonate">เข้าสู่ระบบเพี่อบริจาคเงิน</string>
   <string name="contactSupport">ติดต่อ Lichess support</string>
   <string name="noPatronFeatures">ไม่ เพราะ Lichess นั้นฟรี ตลอดไป และสำหรับทุกคน นั่นเป็นคำสัญญา
 อย่างไรก็ตาม ผู้อุปถัมภ์จะได้รับสิทธิ์ในการอวดด้วยไอคอนโปรไฟล์ใหม่สุดเจ๋ง</string>

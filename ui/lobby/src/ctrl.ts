@@ -277,7 +277,7 @@ export default class LobbyController implements ParentCtrl {
   hasPool = (id: string) => this.pools.some(p => p.id === id);
 
   showSetupModal = async (gameType: GameType, opts?: SetupConstraints, friendUser?: string) => {
-    if (!this.setupCtrl) this.setupCtrl = await lichess.loadEsm<SetupCtrl>('gameSetup', { init: this });
+    if (!this.setupCtrl) this.setupCtrl = await lichess.asset.loadEsm<SetupCtrl>('gameSetup', { init: this });
     this.leavePool();
     this.setupCtrl.openModal(gameType, opts, friendUser);
     this.redraw();

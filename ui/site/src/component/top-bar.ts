@@ -24,7 +24,8 @@ export default function () {
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {
       const handler = (e: Event) => {
-        if ($p[0]?.contains(e.target as HTMLElement)) return;
+        const target = e.target as HTMLElement;
+        if (!target.isConnected || $p[0]?.contains(target)) return;
         $p.removeClass('shown');
         $('html').off('click', handler);
       };

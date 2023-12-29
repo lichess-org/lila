@@ -7,10 +7,10 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/debounce-promise": "^3.1.6",
-    "chart.js": "=3.9.1",
-    "chartjs-adapter-date-fns": "=2.0.1",
+    "chart.js": "=4.4.0",
+    "chartjs-adapter-dayjs-4": "^1.0.4",
     "common": "workspace:*",
-    "date-fns": "^2.29.3",
+    "dayjs": "^1.11.10",
     "debounce-promise": "^3.1.2",
     "lichess-pgn-viewer": "^2.0.1"
   },

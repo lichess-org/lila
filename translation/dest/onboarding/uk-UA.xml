@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="welcome">Фу!</string>
+  <string name="welcomeToLichess">Ласкаво просимо на lichess.org!</string>
+  <string name="thisIsYourProfilePage">Перевірте свою сторінку профілю.</string>
+  <string name="enabledKidModeSuggestion">Буде використовувати дочірній обліковий запис? Ви можете увімкнути %s.</string>
+  <string name="whatNowSuggestions">Що зараз? Ось кілька пропозицій:</string>
+  <string name="learnChessRules">Вивчайте шахові правила</string>
+  <string name="improveWithChessTacticsPuzzles">Покращуйтесь із шаховою тактичною головоломкою.</string>
+  <string name="playTheArtificialIntelligence">Зіграйте штучний інтелект.</string>
+  <string name="playOpponentsFromAroundTheWorld">Грайте з гравцями з усього світу</string>
+  <string name="followYourFriendsOnLichess">Слідкуйте за своїми друзями на Lichess.</string>
+  <string name="playInTournaments">Грайте в турнірах.</string>
+  <string name="learnFromXAndY">Вивчайте з %1$s та %2$s.</string>
+  <string name="configureLichess">Налаштуйте Lichess на свій смак.</string>
+  <string name="exploreTheSiteAndHaveFun">Досліджуйте сайт і веселіться :)</string>
+</resources>

@@ -1,5 +1,5 @@
 import { VNode, Attrs } from 'snabbdom';
-import { onInsert, lh as h, MaybeVNodes } from './snabbdom';
+import { onInsert, looseH as h, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -33,8 +33,8 @@ export interface DomDialogOpts extends DialogOpts {
 }
 
 export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: MaybeVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
-  onInsert?: (dialog: Dialog) => void; // if onInsert supplied, call show()/showModal() manually
+  vnodes?: LooseVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
+  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 
 // Action can be any "clickable" client button, usually to dismiss the dialog
@@ -50,9 +50,9 @@ export interface Action {
 export const ready = lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
-  dialogPolyfill = (await import(lichess.assetUrl('npm/dialog-polyfill.esm.js')).catch(() => undefined))
-    ?.default;
-  return dialogPolyfill !== undefined;
+  registerPolyfill = (await import(lichess.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+    ?.default.registerDialog;
+  return registerPolyfill !== undefined;
 });
 
 // if no 'show' in opts, you must call show or showModal on the resolved promise
@@ -138,7 +138,7 @@ class DialogWrapper implements Dialog {
     readonly view: HTMLElement,
     readonly o: DialogOpts,
   ) {
-    if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
+    registerPolyfill?.(dialog); // ios < 15.4
 
     const justThen = Date.now();
     const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
@@ -213,7 +213,7 @@ function assets(o: DialogOpts) {
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    o.cssPath ? lichess.loadCssPath(o.cssPath) : Promise.resolve(),
+    o.cssPath ? lichess.asset.loadCssPath(o.cssPath) : Promise.resolve(),
   ]);
 }
 
@@ -241,4 +241,4 @@ const focusQuery = ['button', 'input', 'select', 'textarea']
   .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
   .join(',');
 
-let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
+let registerPolyfill: (dialog: HTMLDialogElement) => void;

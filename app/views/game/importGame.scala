@@ -27,11 +27,12 @@ object importGame:
     ):
       main(cls := "importer page-small box box-pad")(
         h1(cls := "box__top")(trans.importGame()),
-        p(cls := "explanation")(trans.importGameExplanation()),
-        p:
+        p(cls := "explanation")(
+          trans.importGameExplanation(),
+          br,
           a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault()):
             trans.importGameCaveat()
-        ,
+        ),
         standardFlash,
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
@@ -52,9 +53,9 @@ object importGame:
             help = Some(analyseHelp),
             disabled = ctx.isAnon
           ),
-                   a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault()):
-            trans.importGameCaveat()
-        ,
+          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault(1)):
+            trans.importGameDataPrivacyWarning()
+          ,
           form3.action(form3.submit(trans.importGame(), licon.UploadCloud.some))
         )
       )

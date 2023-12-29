@@ -70,6 +70,7 @@
   <string name="makeMainLine">Fer que siga la linia prencipal</string>
   <string name="deleteFromHere">Borrar a partir d\'aquí</string>
   <string name="forceVariation">Fer que siga variant</string>
+  <string name="copyVariationPgn">Copiar lo PGN d\'a variant</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variant perdedera</string>
   <string name="variantWin">Variant ganadera</string>
@@ -99,6 +100,7 @@
   <string name="openingExplorer">Explorador d\'obriduras</string>
   <string name="openingEndgameExplorer">Explorador d\'obriduras/finals</string>
   <string name="xOpeningExplorer">Explorador d\'a obridura %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Chugar lo primer movimiento de l\'explorador d\'obriduras/finals</string>
   <string name="winPreventedBy50MoveRule">La regla d\'os 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla d\'os 50 movimientos priva la redota</string>
   <string name="winOr50MovesByPriorMistake">Victora u taulas per 50 movimientos a causa d\'una error anterior</string>
@@ -114,12 +116,14 @@
   <string name="openStudy">Ubrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la millor chugada</string>
+  <string name="showVariationArrows">Amostrar las flechas d\'as variants</string>
   <string name="evaluationGauge">Indicador d\'avaluación</string>
   <string name="multipleLines">Multiples linias</string>
   <string name="cpus">Procesadors</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Elimina lo limite de profundidat de l\'analisi y fa treballar de firme lo tuyo ordinador</string>
+  <string name="engineManager">Chestión de modulos</string>
   <string name="blunder">Error grieu</string>
   <string name="mistake">Error</string>
   <string name="inaccuracy">Imprecisión</string>
@@ -151,6 +155,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
     <item quantity="other">%s Partidas</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">puntuación %1$s en %2$s partida</item>
+    <item quantity="other">puntuación %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s partida favorita</item>
@@ -264,7 +272,6 @@
   <string name="playingRightNow">En chuego agora mesmo</string>
   <string name="eventInProgress">Se ye chugando agora</string>
   <string name="finished">Rematau</string>
-  <string name="finishesX">remata %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Standard</string>
@@ -340,6 +347,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s estudio</item>
     <item quantity="other">%s estudios</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultania</item>
+    <item quantity="other">%s simultanias</item>
   </plurals>
   <string name="viewTournament">Veyer torneyo</string>
   <string name="backToTournament">Tornar a lo torneyo</string>
@@ -473,6 +484,7 @@
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
+  <string name="drawRate">Percentache de taulas</string>
   <string name="draws">Taulas</string>
   <string name="nextXTournament">Siguient torneyo %s:</string>
   <string name="averageOpponent">Oponent meyo</string>
@@ -493,7 +505,11 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
+  <string name="setFlair">Define lo tuyo estilo</string>
+  <string name="flair">Estilo</string>
+  <string name="youCanHideFlair">I hai un achuste pa amagar toz es estilos d\'usuario en tot lo puesto web.</string>
   <string name="biography">Biografía</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País u rechión</string>
   <string name="thankYou">Gracias!</string>
   <string name="socialMediaLinks">Vinclos a rez socials</string>
   <string name="oneUrlPerLine">Una URL per linia.</string>
@@ -645,8 +661,10 @@
   <string name="simultaneousExhibitions">Exhibicions simultanias</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color de l\'anfitrión: %s</string>
+  <string name="yourPendingSimuls">Las tuyas simultanias pendients</string>
   <string name="createdSimuls">Nuevas simultanias creadas</string>
   <string name="hostANewSimul">Crear una nueva simultania</string>
+  <string name="signUpToHostOrJoinASimul">Rechistra-te pa organizar u unir-te a una simultania</string>
   <string name="noSimulFound">Simultania no trobada</string>
   <string name="noSimulExplanation">Esta exhibición simultania no existe.</string>
   <string name="returnToSimulHomepage">Tornar a la pachina de simultanias</string>
@@ -671,8 +689,21 @@
   <string name="keyboardShortcuts">Alcorces d\'o teclau</string>
   <string name="keyMoveBackwardOrForward">movimiento enta zaga y enta adebant</string>
   <string name="keyGoToStartOrEnd">ir a l\'inicio/fin</string>
+  <string name="keyCycleSelectedVariation">Cambia la variant seleccionada</string>
   <string name="keyShowOrHideComments">amostrar/amagar comentarios</string>
   <string name="keyEnterOrExitVariation">dentrar/salir d\'a variant</string>
+  <string name="keyRequestComputerAnalysis">Demanda una analisi d\'ordinador, aprende d\'as tuyas errors</string>
+  <string name="keyNextLearnFromYourMistakes">Siguient (Aprende d\'as tuyas errors)</string>
+  <string name="keyNextBlunder">Siguient error grieu</string>
+  <string name="keyNextMistake">Siguient error</string>
+  <string name="keyNextInaccuracy">Siguient imprecisión</string>
+  <string name="keyPreviousBranch">Branca anterior</string>
+  <string name="keyNextBranch">Siguient branca</string>
+  <string name="toggleVariationArrows">Amuestra/amaga las flechas d\'as variants</string>
+  <string name="cyclePreviousOrNextVariation">Cambia a la variant anterior/siguient</string>
+  <string name="toggleGlyphAnnotations">Amuestra/amaga las anotacions con simbolos</string>
+  <string name="variationArrowsInfo">Las flechas de variants te permiten navegar sin fer servir la lista de movimientos.</string>
+  <string name="playSelectedMove">chuga lo movimiento triau</string>
   <string name="newTournament">Nuevo torneyo</string>
   <string name="tournamentHomeTitle">Torneyos d\'escaques con diferents variants y controls de tiempo</string>
   <string name="tournamentHomeDescription">Chuga torneyos d\'escaques rapidos! Une-te a un torneyo oficial programau u crea lo tuyo propio. Bala, Lampado, Clasico, Escaques960, Rei d\'o Pueyo, Tres escaques y muitas mas opcions pa que no remate la diversión con os escaques.</string>
@@ -688,6 +719,7 @@
   <string name="yourPerfTypeRatingIsRating">La tuya puntuación en %1$s ye %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Yes millor que lo %1$s d\'os chugadors de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ye millor que %2$s de %3$s chugadors.</string>
+  <string name="betterThanPercentPlayers">Millor que lo %1$s d\'os chugadors de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tiens una puntuación de %s  establida.</string>
   <string name="yourRating">La tuya puntuación</string>
   <string name="cumulative">Acumulau</string>
@@ -714,6 +746,7 @@
   <string name="withFriends">Con os míos amigos</string>
   <string name="withEverybody">Con toz</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">Modo infantil activau.</string>
   <string name="kidModeExplanation">Per seguridat, en o modo infantil se desactivan totas las comunicacions con atros usuarios. Activa esto pa protecher a los menors d\'atros usuarios d\'Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En o modo infantil, lo logo de lichess tiene un icono de %s, indicando que los ninos son seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">La tuya cuenta ye administrada. Demanda-le a lo tuyo mayestro abandonar lo modo pa ninos.</string>
@@ -770,6 +803,7 @@
   <string name="invalidFen">FEN invalido</string>
   <string name="custom">Personalizada</string>
   <string name="notifications">Notificacions</string>
+  <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo pa fer lo primer movimiento</item>
@@ -826,9 +860,10 @@
     <item quantity="one">y cabida %s linia de premovimiento</item>
     <item quantity="other">y cabida %s linias de premovimiento</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has recibiu un mensache privau de Lichess.</string>
+  <string name="clickHereToReadIt">Fe clic aquí pa leyer-lo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos habiu de que suspender-te temporalment.</string>
-  <string name="timeoutExpires">La suspensión expira en %s.</string>
   <string name="why">Per qué?</string>
   <string name="pleasantChessExperience">Lo nuestro obchectivo ye proporcionar una experiencia agradable a toz.</string>
   <string name="goodPractice">Pa ixo, hemos d\'asegurar-nos que toz los chugadors se comportan como cal.</string>
@@ -848,6 +883,8 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapidas</string>
   <string name="classical">Clasica</string>
   <string name="ultraBulletDesc">Partidas increyiblement rapidas: menos de 30 segundos</string>
@@ -887,9 +924,6 @@
   <string name="timeAlmostUp">Cuasi ha rematau lo tiempo!</string>
   <string name="clickToRevealEmailAddress">[Fe clic pa veyer l\'adreza de correu-e]</string>
   <string name="download">Descargar</string>
-  <string name="welcome">Bienveniu/da!</string>
-  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
-Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
   <string name="coachManager">Configuración pa entrenadors</string>
   <string name="streamerManager">Configuración pa streamers</string>
   <string name="cancelTournament">Cancelar lo torneyo</string>
@@ -944,4 +978,8 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="switchSides">Cambiar de color</string>
   <string name="closingAccountWithdrawAppeal">Si zarras la tuya cuenta s\'eliminará la tuya apelación</string>
   <string name="ourEventTips">Los nuestros consellos pa organizar eventos</string>
+  <string name="instructions">Instruccions</string>
+  <string name="showMeEverything">Amuestra-me-lo tot</string>
+  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
+Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
 </resources>

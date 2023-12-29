@@ -1,22 +1,28 @@
 import { isTouchDevice } from 'common/device';
-import { domDialog, ready } from 'common/dialog';
+import { domDialog } from 'common/dialog';
+import * as licon from 'common/licon';
 
 export default async function initModule() {
-  const [logs] = await Promise.all([lichess.log.get(), ready]);
+  const logs = await lichess.log.get();
   const text =
     `Browser: ${navigator.userAgent}\n` +
-    `Cores: ${navigator.hardwareConcurrency}\n` +
-    `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}\n` +
-    `Screen: ${window.screen.width}x${window.screen.height}\n` +
-    `Lang: ${navigator.language}` +
-    (logs ? `\n\n${logs}` : '');
+    `Cores: ${navigator.hardwareConcurrency}, ` +
+    `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
+    `Screen: ${window.screen.width}x${window.screen.height}, ` +
+    `Lang: ${navigator.language}\n` +
+    `Engine: ${lichess.storage.get('ceval.engine')}, ` +
+    `Threads: ${lichess.storage.get('ceval.threads')}` +
+    `\n\n${logs ?? ''}`.trim();
 
   const dlg = await domDialog({
     class: 'diagnostic',
     cssPath: 'diagnostic',
     htmlText:
       `<h2>Diagnostics</h2><pre tabindex="0" class="err">${lichess.escapeHtml(text)}</pre>` +
-      (logs ? `<button class="clear button">Clear Logs</button>` : ''),
+      '<span><button class="copy button">copy to clipboard</button>' +
+      (logs
+        ? '&nbsp;&nbsp;<button class="clear button button-empty button-red">clear logs</button></span>'
+        : '</span>'),
   });
   const select = () =>
     setTimeout(() => {
@@ -26,6 +32,13 @@ export default async function initModule() {
       window.getSelection()?.addRange(range);
     }, 0);
   $('.err', dlg.view).on('focus', select);
-  $('.clear', dlg.view).on('click', () => lichess.log.clear().then(lichess.reload));
+  $('.clear', dlg.view).on('click', () => lichess.log.clear().then(dlg.close));
+  $('.copy', dlg.view).on('click', () =>
+    navigator.clipboard
+      .writeText(text)
+      .then(() =>
+        $('.copy', dlg.view).replaceWith($(`<span>COPIED <i data-icon='${licon.Checkmark}'/></span>`)),
+      ),
+  );
   dlg.showModal();
 }

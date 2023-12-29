@@ -1,31 +1,37 @@
 import * as xhr from 'common/xhr';
 import { supportsSystemTheme } from 'common/theme';
+import { memoize } from 'common';
 
-export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
+export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
+
+const version = memoize(() => document.body.getAttribute('data-asset-version'));
+
+export const url = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
-  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
-    version = opts.version || document.body.getAttribute('data-asset-version');
-  return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
+  const base = opts.sameDomain ? '' : baseUrl(),
+    v = opts.version || version();
+  return `${base}/assets${opts.noVersion ? '' : '/_' + v}/${path}`;
 };
 
-export const flairSrc = (flair: Flair) => lichess.assetUrl(`flair/img/${flair}.webp`, { noVersion: true });
+// bump flairs version if a flair is changed only (not added or removed)
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
 const loadedCss = new Map<string, Promise<void>>();
-export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> => {
-  if (!loadedCss.has(url)) {
+export const loadCss = (href: string, media?: 'dark' | 'light'): Promise<void> => {
+  if (!loadedCss.has(href)) {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
-    el.href = assetUrl(lichess.debug ? `${url}?_=${Date.now()}` : url);
+    el.href = url(lichess.debug ? `${href}?_=${Date.now()}` : href);
     if (media) el.media = `(prefers-color-scheme: ${media})`;
     loadedCss.set(
-      url,
+      href,
       new Promise<void>(resolve => {
         el.onload = () => resolve();
       }),
     );
     document.head.append(el);
   }
-  return loadedCss.get(url)!;
+  return loadedCss.get(href)!;
 };
 
 export const loadCssPath = async (key: string): Promise<void> => {
@@ -48,16 +54,16 @@ export const jsModule = (name: string) => `compiled/${name}${document.body.datas
 
 const scriptCache = new Map<string, Promise<void>>();
 
-export const loadIife = (url: string, opts: AssetUrlOpts = {}): Promise<void> => {
-  if (!scriptCache.has(url)) scriptCache.set(url, xhr.script(assetUrl(url, opts)));
-  return scriptCache.get(url)!;
+export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
+  if (!scriptCache.has(u)) scriptCache.set(u, xhr.script(url(u, opts)));
+  return scriptCache.get(u)!;
 };
 
 export async function loadEsm<T, ModuleOpts = any>(
   name: string,
   opts?: { init?: ModuleOpts; url?: AssetUrlOpts },
 ): Promise<T> {
-  const module = await import(assetUrl(jsModule(name), opts?.url));
+  const module = await import(url(jsModule(name), opts?.url));
   return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);
 }
 
@@ -73,4 +79,4 @@ export const hopscotch = () => {
   });
 };
 
-export const embedChessground = () => import(assetUrl('npm/chessground.min.js'));
+export const embedChessground = () => import(url('npm/chessground.min.js'));

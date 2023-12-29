@@ -31,7 +31,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    flairApi: lila.user.UserFlairApi,
+    flairApi: lila.user.FlairApi,
     timeline: lila.hub.actors.Timeline,
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
@@ -82,8 +82,8 @@ final class Env(
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
-  private given lila.user.UserFlairApi.Getter = flairApi.getter
-  lazy val roundSocket: RoundSocket           = wire[RoundSocket]
+  private given lila.user.FlairApi.Getter = flairApi.getter
+  lazy val roundSocket: RoundSocket       = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
     gameRepo allPlaying userId foreach:
@@ -199,5 +199,5 @@ final class Env(
     if pov.game.abortableByUser then tellRound(pov.gameId, Abort(pov.playerId))
     else if pov.game.resignable then tellRound(pov.gameId, Resign(pov.playerId))
 
-trait SelfReportEndGame
-trait SelfReportMarkUser
+private trait SelfReportEndGame
+private trait SelfReportMarkUser

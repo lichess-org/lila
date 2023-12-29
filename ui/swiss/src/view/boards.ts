@@ -19,10 +19,7 @@ const renderBoard =
       `div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`,
       {
         key: board.id,
-        attrs: {
-          'data-state': `${board.fen},${board.orientation},${board.lastMove}`,
-          'data-live': board.id,
-        },
+        attrs: { 'data-state': `${board.fen},${board.orientation},${board.lastMove}`, 'data-live': board.id },
         hook: {
           insert(vnode) {
             lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
@@ -31,11 +28,7 @@ const renderBoard =
       },
       [
         boardPlayer(board, opposite(board.orientation), opts),
-        h('a.cg-wrap', {
-          attrs: {
-            href: `/${board.id}/${board.orientation}`,
-          },
-        }),
+        h('a.cg-wrap', { attrs: { href: `/${board.id}/${board.orientation}` } }),
         boardPlayer(board, board.orientation, opts),
       ],
     );

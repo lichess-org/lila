@@ -301,7 +301,6 @@
   <string name="playingRightNow">Právě se hraje</string>
   <string name="eventInProgress">Právě se hraje</string>
   <string name="finished">Dokončeno</string>
-  <string name="finishesX">končí za %s</string>
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
   <string name="standard">Standard</string>
@@ -930,7 +929,6 @@
   </plurals>
   <string name="sorry">Omlouváme se :(</string>
   <string name="weHadToTimeYouOutForAWhile">Museli jsme tě odpojit na chvíli.</string>
-  <string name="timeoutExpires">Odpojení skončí za %s.</string>
   <string name="why">Proč?</string>
   <string name="pleasantChessExperience">Snažíme se všem poskytnout příjemnou hru.</string>
   <string name="goodPractice">Proto se musíme ujistit, že se všichni chovají správně.</string>
@@ -990,9 +988,6 @@
   <string name="timeAlmostUp">Čas vám běží!</string>
   <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
   <string name="download">Stáhnout</string>
-  <string name="welcome">Vítej!</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
-Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="coachManager">Nastavení trenéra</string>
   <string name="streamerManager">Nastavení streamera</string>
   <string name="cancelTournament">Zrušit turnaj</string>
@@ -1050,4 +1045,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="switchSides">Prohodit strany</string>
   <string name="closingAccountWithdrawAppeal">Uzavřením vašeho účtu stáhnete vaše odvolání</string>
   <string name="ourEventTips">Naše tipy pro organizování akcí</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
+Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
 </resources>

@@ -220,7 +220,6 @@
   <string name="playingRightNow">Maglalaro ngayon</string>
   <string name="eventInProgress">Naglalaro ngayon</string>
   <string name="finished">Tapos na</string>
-  <string name="finishesX">matatapos ng %s</string>
   <string name="abortGame">Itigil ang laro</string>
   <string name="gameAborted">Ang laro ay natigil</string>
   <string name="standard">Pamantayan</string>
@@ -773,7 +772,6 @@
   </plurals>
   <string name="sorry">Pasensya na :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kinailangan naming tapusin ang oras mo pansamantala.</string>
-  <string name="timeoutExpires">Ang pagtatapos ng oras ay magwawakas sa loob ng %s.</string>
   <string name="why">Bakit?</string>
   <string name="pleasantChessExperience">Nilalayon naming makapagbigay ng isang nakalulugod na karanasan sa ahedres para sa lahat.</string>
   <string name="goodPractice">Sa ganoong kahulugan, kailangan naming siguruhin na ang lahat ng mga manlalaro ay susunod sa mabuting gawi.</string>
@@ -830,9 +828,6 @@
   <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
   <string name="clickToRevealEmailAddress">[Mag-click upang ipakita ang email address]</string>
   <string name="download">Download</string>
-  <string name="welcome">Maligayang pagdating!</string>
-  <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
-Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
   <string name="coachManager">Tagapamahala ng coach</string>
   <string name="streamerManager">Tagapamahala ng streamer</string>
   <string name="cancelTournament">Kanselahin ang paligsahan</string>
@@ -890,4 +885,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="lichessDbExplanation">Na-rate na mga laro na pinakita mula sa lahat ng manlalaro ng Lichess</string>
   <string name="switchSides">Lumipat ng sides</string>
   <string name="closingAccountWithdrawAppeal">Ang pagsasara ng iyong account ay babawiin ang iyong apela</string>
+  <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
+Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
 </resources>

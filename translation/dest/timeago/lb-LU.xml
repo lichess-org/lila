@@ -54,4 +54,12 @@
     <item quantity="one">virun %s Joer</item>
     <item quantity="other">virun %s Joer</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s Minutt iwwereg</item>
+    <item quantity="other">%s Minutten iwwereg</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s Stonn iwwereg</item>
+    <item quantity="other">%s Stonnen iwwereg</item>
+  </plurals>
 </resources>

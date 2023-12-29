@@ -250,7 +250,6 @@
   <string name="playingRightNow">Bermain saat ini</string>
   <string name="eventInProgress">Mainkan sekarang</string>
   <string name="finished">Selesai</string>
-  <string name="finishesX">berakhir dalam %s</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standar</string>
@@ -791,7 +790,6 @@
   </plurals>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
-  <string name="timeoutExpires">Batas waktu berakhir %s lagi.</string>
   <string name="why">Mengapa?</string>
   <string name="pleasantChessExperience">Kami bertujuan dan menjaga untuk memberikan pengalaman catur yang menyenangkan bagi semua orang.</string>
   <string name="goodPractice">Untuk itu, kami harus memastikan bahwa semua pemain harus mengikuti perlakuan yang baik.</string>
@@ -850,9 +848,6 @@
   <string name="timeAlmostUp">Waktu hampir habis!</string>
   <string name="clickToRevealEmailAddress">[Klik untuk memunculkan alamat email]</string>
   <string name="download">Unduh</string>
-  <string name="welcome">Wilujeng sumping!</string>
-  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
-Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
   <string name="coachManager">Manajer pelatih</string>
   <string name="streamerManager">Manajer stream</string>
   <string name="cancelTournament">Batalkan turnamen</string>
@@ -910,4 +905,6 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
   <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
+  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
+Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
 </resources>

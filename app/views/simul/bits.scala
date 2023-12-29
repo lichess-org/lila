@@ -35,11 +35,11 @@ object bits:
       )
     )
 
-  def allCreated(simuls: Seq[lila.simul.Simul])(using Lang) =
+  def allCreated(simuls: Seq[lila.simul.Simul], withName: Boolean = true)(using Lang) =
     table(cls := "slist"):
       simuls.map: simul =>
         tr(
-          td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
+          withName option td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
           td(cls := "text", dataIcon := licon.Clock)(simul.clock.config.show),
           td(cls := "text", dataIcon := licon.User)(simul.applicants.size)

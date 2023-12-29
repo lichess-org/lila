@@ -16,9 +16,13 @@ object ApiVersion extends OpaqueInt[ApiVersion]:
 
 opaque type AssetVersion = String
 object AssetVersion extends OpaqueString[AssetVersion]:
-  var current        = random
-  def change()       = current = random
+  private var stored = random
+  def current        = stored
+  def change() =
+    stored = random
+    Bus.publish(Changed(current), "assetVersion")
   private def random = AssetVersion(SecureRandom nextString 6)
+  case class Changed(version: AssetVersion)
 
 opaque type Bearer = String
 object Bearer extends OpaqueString[Bearer]:
@@ -90,6 +94,12 @@ case class Preload[A](value: Option[A]) extends AnyVal:
 object Preload:
   def apply[A](value: A): Preload[A] = Preload(value.some)
   def none[A]                        = Preload[A](None)
+
+final class LazyFu[A](run: () => Fu[A]):
+  lazy val value: Fu[A]             = run()
+  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value dmap f)
+object LazyFu:
+  def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
 
 enum LpvEmbed:
   case PublicPgn(pgn: PgnStr)

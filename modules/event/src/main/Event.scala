@@ -1,7 +1,7 @@
 package lila.event
 
 import play.api.i18n.Lang
-import ornicar.scalalib.ThreadLocalRandom
+import lila.i18n.Language
 
 case class Event(
     _id: String,
@@ -10,7 +10,7 @@ case class Event(
     description: Option[Markdown],
     homepageHours: Double,
     url: String,
-    lang: Lang,
+    lang: Language,
     enabled: Boolean,
     createdBy: UserId,
     createdAt: Instant,
@@ -25,10 +25,8 @@ case class Event(
 
   def willStartLater = startsAt.isAfterNow
 
-  def secondsToStart =
-    willStartLater option {
-      (startsAt.toSeconds - nowSeconds).toInt
-    }
+  def secondsToStart = willStartLater option:
+    (startsAt.toSeconds - nowSeconds).toInt
 
   def featureSince = startsAt minusMinutes (homepageHours * 60).toInt
 
@@ -46,4 +44,5 @@ case class Event(
 
 object Event:
 
+  import ornicar.scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom nextString 8

@@ -14,7 +14,7 @@ object kid:
       active = "kid"
     ):
       div(cls := "box box-pad")(
-        h1(cls := "box__top")(trans.kidMode()),
+        h1(cls := "box__top")(if u.kid then trans.kidModeIsEnabled() else trans.kidMode()),
         standardFlash,
         p(trans.kidModeExplanation()),
         br,

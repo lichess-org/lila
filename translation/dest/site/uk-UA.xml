@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
+  <string name="orLetYourOpponentScanQrCode">Або дайте вашому супернику просканувати цей QR-код</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
@@ -302,7 +303,6 @@
   <string name="playingRightNow">Грається зараз</string>
   <string name="eventInProgress">Грається просто зараз</string>
   <string name="finished">Завершено</string>
-  <string name="finishesX">завершиться %s</string>
   <string name="abortGame">Скасувати гру</string>
   <string name="gameAborted">Гру скасовано</string>
   <string name="standard">Стандартний</string>
@@ -462,6 +462,7 @@
   <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
+  <string name="importGameDataPrivacyWarning">Цей PGN може бути у вільному доступі. Для імпорту гри в приватному режимі використовуйте студії.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
     <item quantity="few">%s імпортовані гри</item>
@@ -573,7 +574,8 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
-  <string name="setFlair">Оберіть свій тотем:</string>
+  <string name="setFlair">Оберіть свій тотем</string>
+  <string name="flair">Аватар</string>
   <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна чи область</string>
@@ -818,6 +820,7 @@
   <string name="withFriends">Друзям</string>
   <string name="withEverybody">Будь-кому</string>
   <string name="kidMode">Дитячий режим</string>
+  <string name="kidModeIsEnabled">Дитячий режим активовано.</string>
   <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі усе спілкування на сайті вимкнено. Увімкніть цю функцію для ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб ви знали, що ваші діти в безпеці.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ваш обліковий запис керується. Попросіть вашого вчителя шахів вимкнути дитячий режим.</string>
@@ -939,9 +942,10 @@
     <item quantity="many">і зберегти %s послідовностей</item>
     <item quantity="other">і зберегти %s послідовностей</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Ви отримали особисте повідомлення від Lichess.</string>
+  <string name="clickHereToReadIt">Натисніть тут, щоб прочитати</string>
   <string name="sorry">Вибачте :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам довелося забанити вас на певний час.</string>
-  <string name="timeoutExpires">Вам залишилося відпочивати ще %s.</string>
   <string name="why">Чому?</string>
   <string name="pleasantChessExperience">Ми хочемо, щоб усім було приємно грати у нас в шахи.</string>
   <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці добре поводяться.</string>
@@ -1001,8 +1005,6 @@
   <string name="timeAlmostUp">Час майже скінчився!</string>
   <string name="clickToRevealEmailAddress">[Натисніть щоб побачити електронну адресу]</string>
   <string name="download">Завантаження</string>
-  <string name="welcome">Вітаємо!</string>
-  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
   <string name="coachManager">Тренерські налаштування</string>
   <string name="streamerManager">Стрімерські налаштування</string>
   <string name="cancelTournament">Скасувати турнір</string>
@@ -1060,4 +1062,5 @@
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
   <string name="ourEventTips">Наші поради щодо організації подій</string>
+  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
 </resources>

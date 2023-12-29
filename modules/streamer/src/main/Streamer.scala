@@ -4,6 +4,7 @@ import cats.derived.*
 
 import lila.memo.PicfitImage
 import lila.user.User
+import lila.i18n.Language
 
 case class Streamer(
     _id: Streamer.Id,
@@ -19,7 +20,7 @@ case class Streamer(
     liveAt: Option[Instant], // last seen streaming
     createdAt: Instant,
     updatedAt: Instant,
-    lastStreamLang: Option[String] // valid 2 char language code or None
+    lastStreamLang: Option[Language]
 ):
 
   inline def id = _id

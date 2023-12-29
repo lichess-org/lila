@@ -7,10 +7,13 @@ $section-margin-more: 5vh;
   overflow: hidden;
 
   h1 {
-    @extend %break-word-hard, %zalgoverflow;
+    @extend %break-word-hard, %zalgoverflow, %flex-center;
 
     unicode-bidi: plaintext;
-    display: flex;
+
+    .uflair {
+      transform: none;
+    }
   }
 
   .mchat {
@@ -58,6 +61,7 @@ $section-margin-more: 5vh;
     .user-link {
       display: inline-block;
       vertical-align: bottom;
+      padding-#{$end-direction}: 0.25em;
     }
   }
 

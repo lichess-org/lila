@@ -271,7 +271,6 @@
   <string name="playingRightNow">Այս պահին խաղում են</string>
   <string name="eventInProgress">Խաղում են այս պահին</string>
   <string name="finished">Ավարտվել է</string>
-  <string name="finishesX">ավարտվում է %s</string>
   <string name="abortGame">Կասեցնել խաղը</string>
   <string name="gameAborted">Խաղը կասեցված է</string>
   <string name="standard">Ստանդարտ</string>
@@ -845,7 +844,6 @@
   </plurals>
   <string name="sorry">Ներողություն :(</string>
   <string name="weHadToTimeYouOutForAWhile">Մենք ստիպված ենք անջատել Ձեզ որոշ ժամանակով։</string>
-  <string name="timeoutExpires">Դուք կարող եք վերադառնալ %s անց։</string>
   <string name="why">Ինչու՞</string>
   <string name="pleasantChessExperience">Մեր նպատակը շախմատը բոլորի համար հետաքրքիր դարձնելն է։</string>
   <string name="goodPractice">Դրան հասնելու համար մենք պետք է այնպես անենք, որ բոլոր խաղացողները հետևեն բարեկրթության կանոններին։</string>
@@ -905,9 +903,6 @@
   <string name="timeAlmostUp">Ժամանակը գրեթե սպառվել է</string>
   <string name="clickToRevealEmailAddress">[Սեղմեք՝ էլեկտրոնային փոստի հասցեն բացելու համար]</string>
   <string name="download">Ներբեռնել</string>
-  <string name="welcome">Բարի՜ գալուստ։</string>
-  <string name="lichessPatronInfo">Lichess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
-Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
   <string name="coachManager">Մարզիչների համար</string>
   <string name="streamerManager">Սթրիմերների համար</string>
   <string name="cancelTournament">Չեղարկել մրցաշարը</string>
@@ -965,4 +960,6 @@
   <string name="switchSides">Փոխել կողմը</string>
   <string name="closingAccountWithdrawAppeal">Ձեր մասնակցային հաշվի փակումը կչեղարկի Ձեր դիմումը</string>
   <string name="ourEventTips">Մեր խորհուրդները միջոցառումներ կազմակերպելու հարցում</string>
+  <string name="lichessPatronInfo">Lichess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
+Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
 </resources>

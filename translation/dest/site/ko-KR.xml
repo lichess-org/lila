@@ -254,7 +254,6 @@
   <string name="playingRightNow">대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료</string>
-  <string name="finishesX">%s 남음</string>
   <string name="abortGame">게임 중단</string>
   <string name="gameAborted">게임 중단됨</string>
   <string name="standard">표준</string>
@@ -799,7 +798,6 @@
   </plurals>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
-  <string name="timeoutExpires">타임아웃은 %s 후에 후에 만료됩니다.</string>
   <string name="why">왜 그런가요?</string>
   <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
   <string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
@@ -859,9 +857,6 @@
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
   <string name="clickToRevealEmailAddress">[이메일 주소를 보려면 클릭]</string>
   <string name="download">다운로드</string>
-  <string name="welcome">환영합니다!</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
-모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="coachManager">코치 설정</string>
   <string name="streamerManager">스트리머 설정</string>
   <string name="cancelTournament">토너먼트 취소</string>
@@ -921,4 +916,6 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
+모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
 </resources>

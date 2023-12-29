@@ -55,4 +55,6 @@
   <string name="allowChatHelp">Дазволіць гульцам абмеркаванне ў чаце</string>
   <string name="arenaStreaks">Серыі Арэны</string>
   <string name="arenaStreaksHelp">Пасля 2 перамог запар, наступныя перамогі прынясуць 4 ачкі, замест 2.</string>
+  <string name="noBerserkAllowed">Берсерк не дазволены</string>
+  <string name="myTournaments">Мае турніры</string>
 </resources>

@@ -1,7 +1,7 @@
 package lila.user
 
 import play.api.i18n.Lang
-
+import lila.i18n.Language
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
@@ -21,7 +21,7 @@ case class User(
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
-    flair: Option[UserFlair] = None,
+    flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty
 ):
@@ -39,7 +39,8 @@ case class User(
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def realLang = lang flatMap Lang.get
+  def realLang: Option[Lang]     = lang flatMap Lang.get
+  def language: Option[Language] = realLang.map(Language.apply)
 
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
@@ -190,7 +191,7 @@ object User:
   case class Speaker(
       username: UserName,
       title: Option[UserTitle],
-      flair: Option[UserFlair],
+      flair: Option[Flair],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
@@ -307,7 +308,7 @@ object User:
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
-        flair = r.getO[UserFlair](flair).filter(UserFlairApi.exists),
+        flair = r.getO[Flair](flair).filter(FlairApi.exists),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
 

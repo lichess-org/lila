@@ -1,56 +1,45 @@
 import { h, VNode } from 'snabbdom';
-import { Redraw, Close, bind, header } from './util';
+import { Close, header } from './util';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-
-export interface BoardCtrl {
-  data: BoardData;
-  trans: Trans;
-  setIs3d(v: boolean): void;
-  readZoom(): number;
-  setZoom(v: number): void;
-  close(): void;
-}
+import { bind, Redraw } from 'common/snabbdom';
 
 export interface BoardData {
   is3d: boolean;
 }
 
-export type PublishZoom = (v: number) => void;
+export class BoardCtrl {
+  constructor(
+    readonly data: BoardData,
+    readonly trans: Trans,
+    readonly redraw: Redraw,
+    readonly close: Close,
+  ) {}
 
-export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
-  const readZoom = () => parseInt(window.getComputedStyle(document.body).getPropertyValue('--zoom'));
+  readZoom = () => parseInt(window.getComputedStyle(document.body).getPropertyValue('--zoom'));
 
-  const saveZoom = debounce(
+  saveZoom = debounce(
     () =>
       xhr
-        .text('/pref/zoom?v=' + readZoom(), { method: 'post' })
+        .text('/pref/zoom?v=' + this.readZoom(), { method: 'post' })
         .catch(() => lichess.announce({ msg: 'Failed to save zoom' })),
     1000,
   );
 
-  return {
-    data,
-    trans,
-    setIs3d(v: boolean) {
-      data.is3d = v;
-      xhr
-        .text('/pref/is3d', {
-          body: xhr.form({ is3d: v }),
-          method: 'post',
-        })
-        .then(lichess.reload, _ => lichess.announce({ msg: 'Failed to save geometry  preference' }));
-      redraw();
-    },
-    readZoom,
-    setZoom(v: number) {
-      document.body.style.setProperty('--zoom', v.toString());
-      window.dispatchEvent(new Event('resize'));
-      redraw();
-      saveZoom();
-    },
-    close,
+  setIs3d = (v: boolean) => {
+    this.data.is3d = v;
+    xhr
+      .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
+      .then(lichess.reload, _ => lichess.announce({ msg: 'Failed to save geometry  preference' }));
+    this.redraw();
+  };
+
+  setZoom = (v: number) => {
+    document.body.style.setProperty('--zoom', v.toString());
+    window.dispatchEvent(new Event('resize'));
+    this.redraw();
+    this.saveZoom();
   };
 }
 
@@ -86,13 +75,7 @@ export function view(ctrl: BoardCtrl): VNode {
         : [
             h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom, '%']),
             h('input.range', {
-              attrs: {
-                type: 'range',
-                min: 0,
-                max: 100,
-                step: 1,
-                value: ctrl.readZoom(),
-              },
+              attrs: { type: 'range', min: 0, max: 100, step: 1, value: ctrl.readZoom() },
               hook: {
                 insert(vnode) {
                   const input = vnode.elm as HTMLInputElement;

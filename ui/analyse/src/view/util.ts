@@ -21,13 +21,4 @@ export function titleNameToId(titleName: string): string {
 }
 
 export const option = (value: string, current: string | undefined, name: string) =>
-  h(
-    'option',
-    {
-      attrs: {
-        value: value,
-        selected: value === current,
-      },
-    },
-    name,
-  );
+  h('option', { attrs: { value: value, selected: value === current } }, name);

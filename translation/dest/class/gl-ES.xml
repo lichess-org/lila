@@ -100,7 +100,7 @@ Aquí está a ligazón para acceder.</string>
   <string name="newsEdit3">Separa as novas con ---
 Amosará unha liña separadora horizontal.</string>
   <string name="invite">Convidar</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Fuches convidado por %s.</string>
+  <string name="youHaveBeenInvitedByX">Fuches convidado por %s.</string>
   <string name="youAcceptedThisInvitation">Aceptaches esta invitación.</string>
   <string name="youDeclinedThisInvitation">Rexeitaches esta invitación.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>

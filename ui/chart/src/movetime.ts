@@ -23,10 +23,12 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  resizePolyfill,
 } from './common';
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 
+resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
 export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: Trans, hunter: boolean) {

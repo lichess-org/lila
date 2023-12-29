@@ -3,10 +3,7 @@ import { Prop } from 'common';
 import { Feature } from 'common/device';
 import CevalCtrl from './ctrl';
 
-export interface Eval {
-  cp?: number;
-  mate?: number;
-}
+export type WinningChances = number;
 
 export interface Work {
   variant: VariantKey;
@@ -31,10 +28,11 @@ export interface EngineInfo {
   tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
   short?: string;
   variants?: VariantKey[];
+  minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
-  requires?: Feature[];
-  isBot?: boolean;
+  requires?: Requires[];
+  isBot?: boolean; // TODO remove
 }
 
 export interface ExternalEngineInfo extends EngineInfo {
@@ -46,8 +44,10 @@ export interface ExternalEngineInfo extends EngineInfo {
 export interface BrowserEngineInfo extends EngineInfo {
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string };
-  obsoletedBy?: 'sharedMem' | 'wasm';
+  obsoletedBy?: Feature;
 }
+
+export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };

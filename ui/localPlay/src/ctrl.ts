@@ -18,7 +18,7 @@ export class Ctrl {
     readonly opts: LocalPlayOpts,
     readonly redraw: () => void,
   ) {
-    this.loaded = lichess.loadEsm<LibotCtrl>('libot').then(libot => {
+    this.loaded = lichess.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
       this.libot.setBot('coral');
     });

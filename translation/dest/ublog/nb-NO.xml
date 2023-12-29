@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogger fra fellesskapet</string>
+  <string name="friendBlogs">Venners blogger</string>
+  <string name="likedBlogs">Likte blogginnlegg</string>
+  <string name="blogTopics">Bloggemner</string>
+  <string name="lichessOfficialBlog">Offisiell blogg for Lichess</string>
+  <string name="continueReadingPost">Fortsett å lese dette innlegget</string>
+  <string name="lichessBlogPostsFromXYear">Blogginnlegg fra Lichess i %s</string>
+  <string name="previousBlogPosts">Tidligere blogginnlegg</string>
   <string name="xBlog">Bloggen til %s</string>
   <string name="newPost">Nytt innlegg</string>
   <string name="editYourBlogPost">Rediger blogginnlegget ditt</string>
@@ -43,5 +51,5 @@
   <string name="safeAndRespectfulContent">Legg bare ut innlegg som er trygge og respektfulle. Ikke kopier andres innhold.</string>
   <string name="inappropriateContentAccountClosed">Upassende innhold kan føre til at brukerkontoen din blir stengt.</string>
   <string name="blogTips">Våre enkle tips for å skrive gode blogginnlegg</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskuter dette blogginnlegget i forumet</string>
+  <string name="discussThisBlogPostInTheForum">Diskuter dette blogginnlegget i forumet</string>
 </resources>

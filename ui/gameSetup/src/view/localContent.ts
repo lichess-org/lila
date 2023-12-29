@@ -15,7 +15,7 @@ export default function localContent(ctrl: SetupCtrl): MaybeVNodes {
       'div#bot-view',
       {
         key: 'bot-view',
-        hook: onInsert(el => new BotDeck(el as HTMLDivElement)),
+        hook: onInsert(el => new BotDeck(el as HTMLDivElement, bot => console.log(bot))),
       },
       [spinnerVdom()],
     ),
@@ -32,11 +32,16 @@ class BotDeck {
   userMidY: number;
   startAngle = 0;
   startMag = 0;
-  handRotation: number = 0;
+  dragMag = 0;
+  dragAngle: number = 0;
+  rect: DOMRect;
   selectedCard: HTMLDivElement | null = null;
 
-  constructor(readonly view: HTMLDivElement) {
-    lichess.loadEsm<Libots>('libot', { init: { stubs: true } }).then(bots => {
+  constructor(
+    readonly view: HTMLDivElement,
+    readonly select: (bot: Libot) => void,
+  ) {
+    lichess.asset.loadEsm<Libots>('libot', { init: { stubs: true } }).then(bots => {
       this.view.innerHTML = '';
       this.bots = bots;
       for (const bot of this.bots.sort()) this.createCard(bot);
@@ -46,6 +51,7 @@ class BotDeck {
 
   createCard(bot: Libot) {
     const card = document.createElement('div');
+    card.id = bot.uid;
     card.classList.add('card');
     const img = document.createElement('img');
     img.src = bot.imageUrl;
@@ -64,6 +70,7 @@ class BotDeck {
   }
 
   placeCards() {
+    this.rect = this.view.getBoundingClientRect();
     const radius = this.view.offsetWidth;
     const containerHeight = this.view.offsetHeight;
 
@@ -75,26 +82,32 @@ class BotDeck {
     const hovered = $as<HTMLElement>($('.card.pull'));
     const hoveredIndex = this.cards.findIndex(x => x == hovered);
     this.cards.forEach((card, cardIndex) => {
-      const angleNudge =
-        !hovered || cardIndex == hoveredIndex
-          ? 0
-          : cardIndex < hoveredIndex
-          ? 0 //(-Math.PI * 0.25) / visibleCards
-          : (Math.PI * 0.5) / visibleCards;
-      let angle =
-        beginAngle + angleNudge + this.handRotation + ((Math.PI / 4) * (cardIndex + 0.5)) / visibleCards;
-      const mag = 15 + radius + ($(card).hasClass('pull') ? 40 : 0);
-      const x = this.userMidX + mag * Math.sin(angle) - 64;
-      const y = this.userMidY - mag * Math.cos(angle);
-      if (cardIndex === hoveredIndex) angle -= Math.PI / 8;
-      card.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
+      const angleNudge = !hovered || cardIndex <= hoveredIndex ? 0 : (Math.PI * 0.5) / visibleCards;
+      const angle =
+        beginAngle + angleNudge + this.dragAngle + ((Math.PI / 4) * (cardIndex + 0.5)) / visibleCards;
+      this.transform(card, angle);
     });
   }
 
+  transform(card: HTMLDivElement, angle: number) {
+    const hovered = card.classList.contains('pull');
+    const mag = 15 + this.view.offsetWidth + (hovered ? 40 + this.dragMag - this.startMag : 0);
+    const x = this.userMidX + mag * Math.sin(angle) - 64;
+    const y = this.userMidY - mag * Math.cos(angle);
+    if (hovered) angle -= Math.PI / 8;
+    card.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
+  }
+
   clientToOrigin(client: [number, number]): [number, number] {
-    const originX = client[0] - this.view.offsetLeft - this.userMidX;
-    const originY = this.view.offsetTop + this.userMidY - client[1];
+    const originX = client[0] - (this.rect.left + window.scrollX) - this.userMidX;
+    const originY = this.rect.top + window.scrollY + this.userMidY - client[1];
     return [originX, originY];
+  }
+
+  originToClient(origin: [number, number]): [number, number] {
+    const clientX = this.rect.left + window.scrollX + this.userMidX + origin[0];
+    const clientY = this.rect.top + window.scrollY + this.userMidY - origin[1];
+    return [clientX, clientY];
   }
 
   getAngle(client: [number, number]): number {
@@ -118,8 +131,8 @@ class BotDeck {
   startDrag(e: PointerEvent): void {
     e.preventDefault();
 
-    this.startAngle = this.getAngle([e.clientX, e.clientY]) - this.handRotation;
-    this.startMag = this.getMag([e.clientX, e.clientY]);
+    this.startAngle = this.getAngle([e.clientX, e.clientY]) - this.dragAngle;
+    this.dragMag = this.startMag = this.getMag([e.clientX, e.clientY]);
 
     this.selectedCard = e.currentTarget as HTMLDivElement;
 
@@ -132,15 +145,22 @@ class BotDeck {
 
     const newAngle = this.getAngle([e.clientX, e.clientY]);
 
-    this.handRotation = newAngle - this.startAngle;
+    this.dragMag = this.getMag([e.clientX, e.clientY]);
+    this.dragAngle = newAngle - this.startAngle;
     this.placeCards();
   }
 
   endDrag(e: PointerEvent): void {
     if (this.selectedCard) {
       this.selectedCard.releasePointerCapture(e.pointerId);
+      if (this.dragMag - this.startMag > 20) {
+        console.log(this.selectedCard);
+        this.select(this.bots.bots[this.selectedCard!.id.slice(1)]);
+      }
     }
+    this.startMag = this.dragMag = this.startAngle = this.dragAngle = 0;
     this.selectedCard = null;
+    this.placeCards();
   }
 
   animate() {

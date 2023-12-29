@@ -272,7 +272,6 @@
   <string name="playingRightNow">Қазір ойнап отыр</string>
   <string name="eventInProgress">Қазір болып жатыр</string>
   <string name="finished">Аяқталды</string>
-  <string name="finishesX">%s аяқталады</string>
   <string name="abortGame">Ойынды тоқтату</string>
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
@@ -850,7 +849,6 @@
   </plurals>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
-  <string name="timeoutExpires">Шектеудің аяқталуына %s қалды.</string>
   <string name="why">Себебі қандай?</string>
   <string name="pleasantChessExperience">Біз әрбіреудің ойны жайлы өтуін мақсат етеміз.</string>
   <string name="goodPractice">Сол үшін барлық ойыншылардың тәртібін қадағалауға тура келеді.</string>
@@ -910,9 +908,6 @@
   <string name="timeAlmostUp">Уақыт таусылғалы тұр!</string>
   <string name="clickToRevealEmailAddress">[поштаны көрсету үшін шертіңіз]</string>
   <string name="download">Жүктеп алу</string>
-  <string name="welcome">Қол келдіңіз!</string>
-  <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
-Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
   <string name="coachManager">Бапкер басқармасы</string>
   <string name="streamerManager">Стример басқармасы</string>
   <string name="cancelTournament">Жарысты болдырмау</string>
@@ -971,4 +966,6 @@
   <string name="switchSides">Түсті ауыстыру</string>
   <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
   <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
+  <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
+Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
 </resources>

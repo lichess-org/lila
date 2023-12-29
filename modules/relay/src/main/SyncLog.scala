@@ -29,8 +29,8 @@ object SyncLog:
       error: Option[String],
       at: Instant
   ):
-    def isOk      = error.isEmpty
-    def isKo      = error.nonEmpty
+    export error.{ isEmpty as isOk, nonEmpty as isKo }
+    def hasMoves  = moves > 0
     def isTimeout = error has SyncResult.Timeout.getMessage
 
   def event(moves: Int, e: Option[Exception]) =

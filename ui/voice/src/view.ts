@@ -1,6 +1,5 @@
-import { h } from 'snabbdom';
 import * as licon from 'common/licon';
-import { onInsert, bind } from 'common/snabbdom';
+import { onInsert, bind, looseH as h } from 'common/snabbdom';
 import { snabDialog, type Dialog } from 'common/dialog';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
@@ -26,15 +25,14 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
     ]),
-    ctrl.showPrefs()
-      ? h('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showPrefs(false))) }, [
-          deviceSelector(ctrl, redraw),
-          langSetting(ctrl),
-          ...(ctrl.module()?.prefNodes(redraw) ?? []),
-          pushTalkSetting(ctrl),
-        ])
-      : null,
-    ctrl.showHelp() ? renderHelpModal(ctrl) : null,
+    ctrl.showPrefs() &&
+      h('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showPrefs(false))) }, [
+        deviceSelector(ctrl, redraw),
+        langSetting(ctrl),
+        ...(ctrl.module()?.prefNodes(redraw) ?? []),
+        pushTalkSetting(ctrl),
+      ]),
+    ctrl.showHelp() && renderHelpModal(ctrl),
   ]);
 }
 
@@ -67,29 +65,28 @@ function pushTalkSetting(ctrl: VoiceCtrl) {
 }
 
 function langSetting(ctrl: VoiceCtrl) {
-  return supportedLangs.length < 2
-    ? null
-    : h('div.voice-setting', [
-        h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
-        h(
-          'select#voice-lang',
-          {
-            attrs: { name: 'lang' },
-            hook: bind('change', e => ctrl.lang((e.target as HTMLSelectElement).value)),
-          },
-          [
-            ...supportedLangs.map(l =>
-              h(
-                'option',
-                {
-                  attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] },
-                },
-                l[1],
-              ),
+  return (
+    supportedLangs.length > 1 &&
+    h('div.voice-setting', [
+      h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      h(
+        'select#voice-lang',
+        {
+          attrs: { name: 'lang' },
+          hook: bind('change', e => ctrl.lang((e.target as HTMLSelectElement).value)),
+        },
+        [
+          ...supportedLangs.map(l =>
+            h(
+              'option',
+              { attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] } },
+              l[1],
             ),
-          ],
-        ),
-      ]);
+          ),
+        ],
+      ),
+    ])
+  );
 }
 
 const nullMic: MediaDeviceInfo = {
@@ -109,11 +106,10 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
       {
         hook: onInsert((el: HTMLSelectElement) => {
           el.addEventListener('change', () => ctrl.micId(el.value));
-          if (devices === undefined)
-            lichess.mic.getMics().then(ds => {
-              devices = ds.length ? ds : [nullMic];
-              redraw();
-            });
+          lichess.mic.getMics().then(ds => {
+            devices = ds.length ? ds : [nullMic];
+            redraw();
+          });
         }),
       },
       devices.map(d =>
@@ -167,7 +163,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       const grammar =
         ctrl.moduleId === 'coords'
           ? []
-          : await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+          : await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(

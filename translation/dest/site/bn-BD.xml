@@ -245,7 +245,6 @@
   <string name="playingRightNow">এই মুহূর্তে খেলছেন</string>
   <string name="eventInProgress">এই মুহূর্তে খেলতেছে</string>
   <string name="finished">সমাপ্ত</string>
-  <string name="finishesX">শেষ করেছে %s</string>
   <string name="abortGame">খেলা বন্ধ করুন</string>
   <string name="gameAborted">খেলা বন্ধ করা হয়েছে</string>
   <string name="standard">আদর্শ</string>
@@ -808,7 +807,6 @@
   </plurals>
   <string name="sorry">দুঃখিত :(</string>
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
-  <string name="timeoutExpires">সময় লাগবে %s.</string>
   <string name="why">কেন</string>
   <string name="pleasantChessExperience">আমাদের লক্ষ্য প্রত্যেকের জন্য একটি আনন্দদায়ক দাবা খেলার অভিজ্ঞতা দেয়া।</string>
   <string name="goodPractice">সেই লক্ষ্যে আমাদের অবশ্যই নিশ্চিত করতে হবে যে সমস্ত খেলোয়াড় ভাল অভ্যাস চর্চা করে।</string>
@@ -865,9 +863,6 @@
   <string name="timeAlmostUp">সময় প্রায় শেষ!</string>
   <string name="clickToRevealEmailAddress">[ইমেইল অ্যাড্রেস দেখতে ক্লিক করুন]</string>
   <string name="download">ডাউনলোড করুন</string>
-  <string name="welcome">স্বাগতম!</string>
-  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
-সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
   <string name="coachManager">প্রশিক্ষক ব্যবস্থাপনা</string>
   <string name="streamerManager">সম্প্রচার নিয়ন্ত্রণ</string>
   <string name="cancelTournament">টুর্নামেন্ট বাতিল করুন</string>
@@ -914,4 +909,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>
   <string name="switchSides">পক্ষ পরিবর্তন করুন</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
+  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
+সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
 </resources>

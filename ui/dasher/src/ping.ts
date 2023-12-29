@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
-
-import { Redraw, defined } from './util';
+import { Redraw } from 'common/snabbdom';
+import { defined } from 'common';
 
 export class PingCtrl {
   ping: number | undefined;
@@ -48,27 +48,16 @@ const showMillis = (name: string, m?: number) => [
 ];
 
 export const view = (ctrl: PingCtrl): VNode =>
-  h(
-    'a.status',
-    {
-      attrs: { href: '/lag' },
-      hook: { insert: ctrl.connect, destroy: ctrl.disconnect },
-    },
-    [
-      signalBars(ctrl),
-      h(
-        'span.ping',
-        {
-          attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') },
-        },
-        showMillis('PING', ctrl.ping),
-      ),
-      h(
-        'span.server',
-        {
-          attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') },
-        },
-        showMillis('SERVER', ctrl.server),
-      ),
-    ],
-  );
+  h('a.status', { attrs: { href: '/lag' }, hook: { insert: ctrl.connect, destroy: ctrl.disconnect } }, [
+    signalBars(ctrl),
+    h(
+      'span.ping',
+      { attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') } },
+      showMillis('PING', ctrl.ping),
+    ),
+    h(
+      'span.server',
+      { attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') } },
+      showMillis('SERVER', ctrl.server),
+    ),
+  ]);

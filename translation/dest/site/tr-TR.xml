@@ -272,7 +272,6 @@
   <string name="playingRightNow">Şu an oynanıyor</string>
   <string name="eventInProgress">Şu anda oynanıyor</string>
   <string name="finished">Bitti</string>
-  <string name="finishesX">%s sona erecek</string>
   <string name="abortGame">Oyunu iptal et</string>
   <string name="gameAborted">Oyun iptal edildi</string>
   <string name="standard">Standart</string>
@@ -405,6 +404,7 @@
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
   <string name="importGameCaveat">Varyasyonlar silinecek. Varyasyonları saklamak için bir çalışma aracılığıyla PGN\'yi içe aktarın.</string>
+  <string name="importGameDataPrivacyWarning">Bu PGN herkes tarafından erişilebilir. Bir oyunu özel olarak yüklemek istiyorsanız bir çalışma kullanın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
@@ -659,8 +659,10 @@
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
+  <string name="yourPendingSimuls">Bekleyen simultane oyunlarınız</string>
   <string name="createdSimuls">Yeni oluşturulan eş zamanlı gösteriler</string>
   <string name="hostANewSimul">Eş zamanlı gösteri düzenle</string>
+  <string name="signUpToHostOrJoinASimul">Bir simultane oyuna katılmak veya ev sahipliği yapmak için kayıt olun</string>
   <string name="noSimulFound">Eş zamanlı gösteri bulunamadı</string>
   <string name="noSimulExplanation">Eş zamanlı gösteri yok.</string>
   <string name="returnToSimulHomepage">Eş zamanlı gösteri sayfasına geri dön</string>
@@ -685,6 +687,7 @@
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
   <string name="keyGoToStartOrEnd">başa/sona git</string>
+  <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
@@ -695,6 +698,8 @@
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
   <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>
+  <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
+  <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
   <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
@@ -738,6 +743,7 @@
   <string name="withFriends">Yalnızca arkadaşlarımla</string>
   <string name="withEverybody">Herkes ile</string>
   <string name="kidMode">Çocuk modu</string>
+  <string name="kidModeIsEnabled">Çocuk modu etkin.</string>
   <string name="kidModeExplanation">Bu mod çocuğunuzun güvenliği ile ilgilidir. Tüm site bağlantıları devre dışı bırakılır. Eğer çocuklarınızı veya okul öğrencilerinizi diğer internet kullanıcılarına karşı korumak istiyorsanız, bu modu etkinleştirin.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess.org logosu yerine %s belirir, bilin ki çocuğunuz güvendedir :)</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Hesabınız kısıtlandı. Çocuk modunu kaldırmak için satranç öğretmeninize danışın.</string>
@@ -851,9 +857,10 @@
     <item quantity="one">ve %s önceki varyantları kaydedin</item>
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichess size bir özel mesaj gönderdi.</string>
+  <string name="clickHereToReadIt">Okumak için buraya tıklayın</string>
   <string name="sorry">Üzgünüz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
-  <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
@@ -873,6 +880,7 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
   <string name="rapid">Hızlı</string>
   <string name="classical">Klasik</string>
@@ -913,8 +921,6 @@
   <string name="timeAlmostUp">Zaman dolmak üzere!</string>
   <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
   <string name="download">İndir</string>
-  <string name="welcome">Hoş geldiniz!</string>
-  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
   <string name="coachManager">Eğitmen ayarları</string>
   <string name="streamerManager">Yayıncı ayarları</string>
   <string name="cancelTournament">Turnuvayı iptal et</string>
@@ -974,4 +980,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="ourEventTips">Etkinlik düzenlemek için ipuçlarımız</string>
   <string name="instructions">Talimatlar</string>
   <string name="showMeEverything">Bana her şeyi göster</string>
+  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
 </resources>

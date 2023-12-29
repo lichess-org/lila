@@ -24,10 +24,15 @@ trait AssetHelper extends HasEnv:
 
   def assetVersion = AssetVersion.current
 
+  // bump flairs version if a flair is changed only (not added or removed)
+  val flairVersion = "______2"
+
   def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
   def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
+
+  def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
     cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
@@ -41,9 +46,8 @@ trait AssetHelper extends HasEnv:
     else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
 
   private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
-    cssAt(
+    cssAt:
       s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
-    )
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
@@ -63,16 +67,16 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def jsModule(name: String): Frag =
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets so ".min"}.js"))
   def jsModuleInit(name: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name')"))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name')"))
   def jsModuleInit(name: String, text: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:$text})"))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:$text})"))
   def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(json))
   def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:$text})", nonce))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:$text})", nonce))
   def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
     jsModule(name),
-    embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
+    embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
   )
   def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
     jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))

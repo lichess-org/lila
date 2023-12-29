@@ -75,12 +75,9 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {
-          attrs: {
-            placeholder: ctrl.trans.noarg('searchByUsername'),
-            spellcheck: 'false',
-          },
+          attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
+            lichess.asset
               .userComplete({
                 input,
                 tag: 'span',
@@ -100,12 +97,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
             candidates.map(function (username: string) {
               return h(
                 'span.button.button-metal',
-                {
-                  key: username,
-                  hook: bind('click', _ => {
-                    ctrl.invite(username);
-                  }),
-                },
+                { key: username, hook: bind('click', () => ctrl.invite(username)) },
                 username,
               );
             }),

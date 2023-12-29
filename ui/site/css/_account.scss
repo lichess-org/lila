@@ -274,10 +274,3 @@
 .page-menu__content {
   overflow: hidden; // prevents pre overflow (personal-data)
 }
-
-.emoji-details {
-  position: relative;
-  // ensure the emoji picker is above the text and its licon
-  z-index: 1;
-  margin-bottom: 1em;
-}

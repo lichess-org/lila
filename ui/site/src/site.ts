@@ -15,7 +15,6 @@ import StrongSocket from './component/socket';
 import topBar from './component/top-bar';
 import watchers from './component/watchers';
 import { requestIdleCallback } from './component/functions';
-import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector } from 'common';
@@ -99,7 +98,7 @@ lichess.load.then(() => {
     $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
-        userComplete({
+        lichess.asset.userComplete({
           input: this,
           friend: !!this.dataset.friend,
           tag: this.dataset.tag as any,
@@ -138,7 +137,7 @@ lichess.load.then(() => {
 
     if (setBlind && !lichess.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
-    if (showDebug) lichess.loadEsm('diagnostic');
+    if (showDebug) lichess.asset.loadEsm('diagnostic');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));

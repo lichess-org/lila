@@ -4,7 +4,7 @@ import { bind } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 import AnalyseCtrl from '../ctrl';
 import { nodeFullName } from '../view/util';
-import { StudyCtrl } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export type AuthorObj = {
   id: string;
@@ -15,13 +15,7 @@ export type Author = AuthorObj | string;
 function authorDom(author: Author): string | VNode {
   if (!author) return 'Unknown';
   if (typeof author === 'string') return author;
-  return h(
-    'span.user-link.ulpt',
-    {
-      attrs: { 'data-href': '/@/' + author.id },
-    },
-    author.name,
-  );
+  return h('span.user-link.ulpt', { attrs: { 'data-href': '/@/' + author.id } }, author.name);
 }
 
 export const isAuthorObj = (author: Author): author is AuthorObj => typeof author === 'object';
@@ -45,13 +39,10 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       return h('div.study__comment.' + comment.id, [
         study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {
-              attrs: {
-                'data-icon': licon.Trash,
-                title: 'Delete',
-              },
+              attrs: { 'data-icon': licon.Trash, title: 'Delete' },
               hook: bind(
                 'click',
-                _ => {
+                () => {
                   if (confirm('Delete ' + authorText(by) + "'s comment?"))
                     study.commentForm.delete(chapter.id, ctrl.path, comment.id);
                 },
