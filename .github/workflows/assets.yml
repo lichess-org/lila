@@ -47,10 +47,9 @@ jobs:
       - run: ./ui/build --no-install -p
       - run: cd ui && pnpm run test && cd -
       - run: mkdir assets && mv public assets/ && cp bin/download-lifat LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
-      - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
-        env:
-          XZ_OPT: '-0'
-      - uses: actions/upload-artifact@v3
+      - run: cd assets && tar --zstd -cvpf ../assets.tar.zst . && cd -
+      - uses: actions/upload-artifact@v4
         with:
           name: lila-assets
-          path: assets.tar.xz
+          path: assets.tar.zst
+          compression-level: 0 # already compressed

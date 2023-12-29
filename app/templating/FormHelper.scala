@@ -7,6 +7,8 @@ import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.common.licon
+import scalatags.generic.TypedTag
+import scalatags.text.Builder
 
 trait FormHelper:
   self: I18nHelper =>
@@ -264,25 +266,28 @@ trait FormHelper:
       )
 
     private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
-    def flairPicker(field: Field, current: Option[Flair])(view: Frag)(using ctx: Context) =
+    def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
       form3.group(field, trans.flair(), half = true): f =>
-        frag(
-          details(cls := "form-control emoji-details")(
-            summary(cls := "button button-metal button-no-upper")(
-              trans.setFlair(),
-              ":",
-              nbsp,
-              view
-            ),
-            hidden(f, current.map(_.value)),
-            div(
-              cls := "flair-picker",
-              (!ctx.me.exists(_.isAdmin)).option(exceptEmojis)
-            )
+        flairPicker(f, current, label)(view)
+
+    def flairPicker(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using ctx: Context): Frag =
+      frag(
+        details(cls := "form-control emoji-details")(
+          summary(cls := "button button-metal button-no-upper")(
+            label,
+            ":",
+            nbsp,
+            view
           ),
-          current.isDefined option p:
-            button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
-        )
+          hidden(field, current.map(_.value)),
+          div(
+            cls := "flair-picker",
+            (!ctx.me.exists(_.isAdmin)).option(exceptEmojis)
+          )
+        ),
+        current.isDefined option p:
+          button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+      )
 
     object file:
       def image(name: String): Frag =

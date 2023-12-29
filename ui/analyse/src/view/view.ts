@@ -2,13 +2,13 @@ import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindNonPassive, onInsert, dataIcon, looseH as h } from 'common/snabbdom';
+import { bind, bindNonPassive, onInsert, dataIcon, looseH as h, VNodeKids } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/device';
 import { playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
-import { VNode, VNodeChildren } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
 import { view as actionMenu } from './actionMenu';
@@ -259,10 +259,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 
 export default function (deps?: typeof studyDeps) {
   function renderResult(ctrl: AnalyseCtrl): VNode[] {
-    const render = (result: string, status: VNodeChildren) => [
-      h('div.result', result),
-      h('div.status', status),
-    ];
+    const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
     if (ctrl.data.game.status.id >= 30) {
       let result;
       switch (ctrl.data.game.winner) {

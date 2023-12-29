@@ -18,8 +18,11 @@ export class Engines {
   browserSupport: Requires[] = features().slice();
 
   constructor(private ctrl: CevalCtrl) {
-    if ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) {
-      this.browserSupport.push('recentFirefoxOrNotBrave');
+    if (
+      ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) ||
+      lichess.storage.get('ceval.lsfw.forceEnable') === 'true'
+    ) {
+      this.browserSupport.push('allowLsfw'); // lsfw is https://github.com/lichess-org/lila-stockfish-web
     }
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
@@ -43,7 +46,7 @@ export class Engines {
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
         tech: 'NNUE',
-        requires: ['simd', 'recentFirefoxOrNotBrave'],
+        requires: ['simd', 'allowLsfw'],
         variants: [key],
         assets: {
           version: 'sfw003',
@@ -71,7 +74,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: ['simd', 'recentFirefoxOrNotBrave'],
+            requires: ['simd', 'allowLsfw'],
             minMem: 1536,
             assets: {
               version: 'sfw003',
@@ -87,7 +90,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 40MB',
             short: 'SF 16 · 40MB',
             tech: 'NNUE',
-            requires: ['simd', 'recentFirefoxOrNotBrave'],
+            requires: ['simd', 'allowLsfw'],
             minMem: 2048,
             assets: {
               version: 'sfw003',
@@ -121,7 +124,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+ HCE',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: ['simd', 'recentFirefoxOrNotBrave'],
+            requires: ['simd', 'allowLsfw'],
             variants: variants.map(v => v[0]),
             assets: {
               version: 'sfw003',

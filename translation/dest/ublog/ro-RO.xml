@@ -46,5 +46,5 @@
   <string name="safeAndRespectfulContent">Vă rugăm să postați numai conținut sigur și respectuos. Nu copiați conținutul altcuiva.</string>
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
   <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Discută această postare pe forum</string>
+  <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
 </resources>

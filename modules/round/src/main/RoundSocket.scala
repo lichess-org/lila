@@ -168,7 +168,14 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) andDo send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame", "roundUnplayed"):
+  Bus.subscribeFun(
+    "tvSelect",
+    "roundSocket",
+    "tourStanding",
+    "startGame",
+    "finishGame",
+    "roundUnplayed"
+  ):
     case TvSelect(gameId, speed, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>

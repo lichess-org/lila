@@ -1,6 +1,8 @@
 package controllers
 
 import play.api.i18n.Lang
+import play.api.data.Form
+import play.api.data.Forms.*
 import views.*
 
 import lila.app.{ given, * }
@@ -185,6 +187,23 @@ final class Ublog(env: Env) extends LilaController(env):
               _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
               _    <- env.mod.logApi.blogTier(user, UblogBlog.Tier.name(tier))
             yield Redirect(urlOfBlog(blog)).flashSuccess
+        )
+  }
+
+  def rankAdjust(postId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
+    Found(env.ublog.api.getPost(UblogPostId(postId))): post =>
+      Form:
+        single:
+          "value" -> optional(number)
+      .bindFromRequest()
+        .fold(
+          _ => Redirect(urlOfPost(post)).flashFailure,
+          rankAdjustDays =>
+            for
+              _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays)
+              _ <- env.mod.logApi.ublogRankAdjust(post.created.by, post.id, ~rankAdjustDays)
+              _ <- env.ublog.rank.recomputePostRank(post)
+            yield Redirect(urlOfPost(post)).flashSuccess
         )
   }
 

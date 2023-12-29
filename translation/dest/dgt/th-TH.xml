@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="textToSpeech">การแปลงข้อความเป็นเสียง</string>
+  <string name="keywords">คีย์เวิร์ด</string>
+</resources>

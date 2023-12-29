@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">Ủng hộ</string>
   <string name="donateAsX">Ủng hộ bằng tài khoản %s</string>
-  <string name="lichessPatron">Bảo trợ Lichess</string>
+  <string name="lichessPatron">Người bảo trợ Lichess</string>
   <string name="freeAccount">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành một Người bảo trợ Lichess</string>
   <string name="xBecamePatron">%s đã trở thành một Người bảo trợ Lichess</string>
@@ -45,9 +45,9 @@ Hoặc bạn có thể %s.</string>
   <string name="lichessIsRegisteredWith">Lichess được đăng ký với %s.</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
   <string name="onlyDonationFromAbove">Xin lưu ý rằng chỉ có hình thức ủng hộ ở trên mới được cấp trạng thái Người bảo trợ.</string>
-  <string name="patronFeatures">Có tính năng nào được dành riêng cho những Người bảo trợ không?</string>
+  <string name="patronFeatures">Có những tính năng nào được dành riêng cho những Người bảo trợ không?</string>
   <string name="noPatronFeatures">Không, bởi vì Lichess hoàn toàn miễn phí, mãi mãi và dành cho tất cả mọi người. Đó là lời hứa của chúng tôi.
-Tuy nhiên, Patron được quyền khoe khoang với những cánh Người bảo trợ mới thú vị hiển thị trên hồ sơ của bạn.</string>
+Tuy nhiên, Patron được quyền khoe khoang với những đôi cánh Người bảo trợ mới thú vị hiển thị trên hồ sơ của bạn.</string>
   <string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
   <plurals name="patronForMonths">
     <item quantity="other">Bảo trợ Lichess trong %s tháng</item>
@@ -58,8 +58,8 @@ Tuy nhiên, Patron được quyền khoe khoang với những cánh Người b�
   <string name="nextPayment">Lần thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Ủng hộ thêm ngay bây giờ</string>
-  <string name="giftPatronWingsShort">Tặng cánh Người bảo trợ</string>
-  <string name="giftPatronWings">Tặng cánh Người bảo trợ cho kỳ thủ</string>
+  <string name="giftPatronWingsShort">Tặng đôi cánh Người bảo trợ</string>
+  <string name="giftPatronWings">Tặng đôi cánh Người bảo trợ cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi số tiền hàng tháng (%s)</string>
   <string name="cancelSupport">Hủy sự ủng hộ của bạn</string>

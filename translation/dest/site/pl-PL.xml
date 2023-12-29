@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
+  <string name="orLetYourOpponentScanQrCode">Lub pozwól przeciwnikowi zeskanować ten kod QR</string>
   <string name="waiting">Oczekiwanie</string>
   <string name="yourTurn">Twój ruch</string>
   <string name="aiNameLevelAiLevel">%1$s poziom %2$s</string>
@@ -437,10 +438,10 @@
   <string name="mustBeInTeam">Musisz należeć do klubu %s</string>
   <string name="youAreNotInTeam">Nie należysz do klubu %s</string>
   <string name="backToGame">Wróć do partii</string>
-  <string name="siteDescription">Darmowe szachy online. Zagraj w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
+  <string name="siteDescription">Proste w obsłudze szachy online dla wszystkich. Nie trzeba zakładać konta, nie ma reklam, bez instalacji. Możesz grać z komputerem, z kimś, kogo znasz - albo z nieznajomymi.</string>
   <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
   <string name="xCreatedTeamY">%1$s założył klub %2$s</string>
-  <string name="startedStreaming">rozpoczął streaming</string>
+  <string name="startedStreaming">rozpoczyna nadawanie na żywo</string>
   <string name="xStartedStreaming">%s rozpoczął streaming</string>
   <string name="averageElo">Średni ranking</string>
   <string name="location">Miejsce</string>

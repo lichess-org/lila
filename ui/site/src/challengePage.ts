@@ -53,6 +53,17 @@ export function initModule(opts: ChallengeOpts) {
           onSelect: () => setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100),
         });
       });
+    $(selector)
+      .find('.invite__user__recent button')
+      .on('click', function (this: HTMLButtonElement) {
+        $(selector)
+          .find('input.friend-autocomplete')
+          .val(this.dataset.user!)
+          .parents('form')
+          .each(function (this: HTMLFormElement) {
+            this.submit();
+          });
+      });
   }
 
   init();

@@ -17,7 +17,7 @@ object dailyFeed:
       title = title,
       active = "news",
       moreCss = cssTag("dailyFeed"),
-      moreJs = edit option jsModule("flatpickr")
+      moreJs = edit option frag(jsModule("flatpickr"), jsModule("dailyFeed"))
     )
 
   def index(updates: List[Update])(using PageContext) =
@@ -44,7 +44,7 @@ object dailyFeed:
         .filter(_.published || editor)
         .map: update =>
           div(cls := "daily-feed__update", id := update.id)(
-            iconTag(licon.StarOutline),
+            marker(update.flair),
             div(cls := "daily-feed__update__content")(
               st.section(cls := "daily-feed__update__day")(
                 h2(a(href := s"#${update.id}")(momentFromNow(update.at))),
@@ -67,7 +67,7 @@ object dailyFeed:
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
-          iconTag(licon.StarOutline),
+          marker(update.flair),
           div(
             a(cls := "daily-feed__update__day", href := s"/feed#${update.id}"):
               momentFromNow(update.at)
@@ -76,7 +76,7 @@ object dailyFeed:
           )
         ),
       div(cls := "daily-feed__update")(
-        iconTag(licon.StarOutline),
+        marker(),
         div:
           a(cls := "daily-feed__update__day", href := "/feed"):
             "All updates »"
@@ -136,7 +136,18 @@ object dailyFeed:
         "Content",
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 10)),
+      form3.group(form("flair"), "Icon", half = false): field =>
+        form3.flairPicker(field, Flair from form("flair").value, label = frag("Update icon")):
+          span(cls := "flair-container"):
+            Flair.from(form("flair").value).map(f => marker(f.some, "uflair".some))
+      ,
       form3.action(form3.submit("Save"))
+    )
+
+  private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =
+    img(
+      src := flairSrc(flair getOrElse Flair("symbols.white-star")),
+      cls := customClass getOrElse s"daily-feed__update__marker ${flair.nonEmpty so " nobg"}"
     )
 
   def atom(ups: List[Update])(using Lang) =

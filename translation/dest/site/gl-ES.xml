@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -690,6 +691,7 @@
   <string name="keyboardShortcuts">Atallos do teclado</string>
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
+  <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
   <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
@@ -700,6 +702,7 @@
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama seguinte</string>
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
+  <string name="cyclePreviousOrNextVariation">Variante anterior/seguinte</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
   <string name="playSelectedMove">facer a xogada seleccionada</string>
@@ -773,7 +776,7 @@
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
-  <string name="xLikesY">a %1$s gústalle %2$s</string>
+  <string name="xLikesY">A %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>

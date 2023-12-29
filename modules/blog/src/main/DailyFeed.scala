@@ -7,12 +7,19 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.common.config.Max
 import play.api.data.Form
+import lila.user.Me
 
 object DailyFeed:
 
   type ID = String
 
-  case class Update(@Key("_id") id: ID, content: Markdown, public: Boolean, at: Instant):
+  case class Update(
+      @Key("_id") id: ID,
+      content: Markdown,
+      public: Boolean,
+      at: Instant,
+      flair: Option[Flair]
+  ):
     lazy val rendered: Html = renderer(s"dailyFeed:${id}")(content)
     lazy val dateStr        = dateFormatter print at
     lazy val title          = "Daily update - " + dateStr
@@ -66,10 +73,10 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   def delete(id: ID): Funit =
     coll.delete.one($id(id)).void andDo cache.clear()
 
-  case class UpdateData(content: Markdown, public: Boolean, at: Instant):
-    def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at)
+  case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
+    def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
 
-  def form(from: Option[Update]): Form[UpdateData] =
+  def form(from: Option[Update])(using Me): Form[UpdateData] =
     import play.api.data.*
     import play.api.data.Forms.*
     import lila.common.Form.*
@@ -77,6 +84,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
       mapping(
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
         "public"  -> boolean,
-        "at"      -> ISOInstantOrTimestamp.mapping
+        "at"      -> ISOInstantOrTimestamp.mapping,
+        lila.user.FlairApi.formPair
       )(UpdateData.apply)(unapply)
-    from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at)))
+    from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))

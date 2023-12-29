@@ -144,10 +144,11 @@ function session(ctrl: PuzzleCtrl) {
     current = ctrl.data.puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd =
-        round.ratingDiff && ctrl.opts.showRatings && round.ratingDiff > 0
-          ? '+' + round.ratingDiff
-          : round.ratingDiff;
+      const rd = !ctrl.opts.showRatings
+        ? ''
+        : round.ratingDiff && round.ratingDiff > 0
+        ? '+' + round.ratingDiff
+        : round.ratingDiff;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
@@ -158,7 +159,7 @@ function session(ctrl: PuzzleCtrl) {
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
           },
         },
-        rd,
+        `${rd}`,
       );
     }),
     rounds.find(r => r.id == current)
@@ -166,7 +167,7 @@ function session(ctrl: PuzzleCtrl) {
       : h(
           'a.result-cursor.current',
           { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          ctrl.streak?.data.index,
+          `${ctrl.streak?.data.index ?? 0}`,
         ),
   ]);
 }

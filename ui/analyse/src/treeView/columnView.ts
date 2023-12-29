@@ -205,11 +205,11 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   };
   //I hardcoded the root path, I'm not sure if there's a better way for that to be done
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
-
+  const blackStarts = (root.ply & 1) === 1;
   return h('div.tview2.tview2-column', { hook: mainHook(ctrl) }, [
     !isEmpty(commentTags) && h('interrupt', commentTags),
-    root.ply & 1 && moveView.renderIndex(root.ply, false),
-    root.ply & 1 && emptyMove(),
+    blackStarts && moveView.renderIndex(root.ply, false),
+    blackStarts && emptyMove(),
     ...(renderChildrenOf(ctx, root, { parentPath: '', isMainline: true }) || []),
   ]);
 }

@@ -126,7 +126,7 @@ const comboZone = (ctrl: RacerCtrl) =>
   h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]);
 
 const playerScore = (ctrl: RacerCtrl): VNode =>
-  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.myScore() || 0)]);
+  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', `${ctrl.myScore() || 0}`)]);
 
 const renderLink = (ctrl: RacerCtrl) =>
   h('div.puz-side__link', [

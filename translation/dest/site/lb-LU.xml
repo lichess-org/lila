@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
+  <string name="orLetYourOpponentScanQrCode">Oder looss däi Géigner dëse QR-Code scannen</string>
   <string name="waiting">Waarden</string>
   <string name="yourTurn">Du bass drun</string>
   <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
@@ -484,6 +485,7 @@
   <string name="movesPlayed">Zich gespillt</string>
   <string name="whiteWins">Wäiss Victoiren</string>
   <string name="blackWins">Schwaarz Victoiren</string>
+  <string name="drawRate">Remisquot</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
@@ -505,6 +507,7 @@
   <string name="firstName">Virnumm</string>
   <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="oneUrlPerLine">Eng URL pro Zeil.</string>
@@ -967,6 +970,8 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="switchSides">Faarf wiesselen</string>
   <string name="closingAccountWithdrawAppeal">Däin Benotzerkonto zou ze maachen wäert och däin Asproch zeréckzéihen</string>
   <string name="ourEventTips">Eis Tipps fir d\'Organiséieren vun Turnéier</string>
+  <string name="instructions">Instruktiounen</string>
+  <string name="showMeEverything">Alles weisen</string>
   <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
 All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
 </resources>

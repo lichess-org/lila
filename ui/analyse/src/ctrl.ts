@@ -28,7 +28,7 @@ import { TreeView } from './treeView/treeView';
 import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
-import { make as makeEvalCache, EvalCache } from './evalCache';
+import EvalCache from './evalCache';
 import { make as makeFork, ForkCtrl } from './fork';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
@@ -323,6 +323,8 @@ export default class AnalyseCtrl {
         path: this.path,
       });
   });
+
+  serverMainline = () => this.mainline.slice(0, game.playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
@@ -636,7 +638,7 @@ export default class AnalyseCtrl {
           if (this.retro) this.retro.onCeval();
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
-          this.evalCache.onCeval();
+          this.evalCache.onLocalCeval();
         }
         this.redraw();
       }
@@ -877,7 +879,7 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet(): boolean {
+  canEvalGet = (): boolean => {
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support threefold repetition
@@ -890,12 +892,12 @@ export default class AnalyseCtrl {
       fens.add(fen);
     }
     return true;
-  }
+  };
 
-  instanciateEvalCache() {
-    this.evalCache = makeEvalCache({
+  instanciateEvalCache = () => {
+    this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
-      canGet: () => this.canEvalGet(),
+      canGet: this.canEvalGet,
       canPut: () =>
         !!(
           this.ceval?.cacheable() &&
@@ -907,7 +909,7 @@ export default class AnalyseCtrl {
       send: this.opts.socketSend,
       receive: this.onNewCeval,
     });
-  }
+  };
 
   closeTools = () => {
     if (this.retro) this.retro = undefined;

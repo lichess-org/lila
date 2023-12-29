@@ -3,10 +3,7 @@ import { Prop } from 'common';
 import { Feature } from 'common/device';
 import CevalCtrl from './ctrl';
 
-export interface Eval {
-  cp?: number;
-  mate?: number;
-}
+export type WinningChances = number;
 
 export interface Work {
   variant: VariantKey;
@@ -49,7 +46,7 @@ export interface BrowserEngineInfo extends EngineInfo {
   obsoletedBy?: Feature;
 }
 
-export type Requires = Feature | 'recentFirefoxOrNotBrave';
+export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };

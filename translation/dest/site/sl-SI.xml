@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
+  <string name="orLetYourOpponentScanQrCode">Ali pa naj vaš nasprotnik skenira to QR kodo</string>
   <string name="waiting">Čakam</string>
   <string name="yourTurn">Ti si na potezi</string>
   <string name="aiNameLevelAiLevel">%1$s, stopnja: %2$s</string>

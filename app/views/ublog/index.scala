@@ -91,7 +91,7 @@ object index:
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
-            h1("Community blogs"),
+            h1(trans.ublog.communityBlogs()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "ublog-lang",
@@ -133,7 +133,7 @@ object index:
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
         div(cls := "page-menu__content box")(
-          boxTop(h1("All blog topics")),
+          boxTop(h1(trans.ublog.blogTopics())),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(

@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
+  <string name="orLetYourOpponentScanQrCode">Hoặc để đối thủ của bạn quét mã QR này</string>
   <string name="waiting">Đang chờ</string>
   <string name="yourTurn">Đến lượt bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
@@ -70,7 +71,7 @@
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="copyVariationPgn">Sao chép biến PGN</string>
-  <string name="move">Các nước đi</string>
+  <string name="move">Nước đi</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Nước chiếu hết theo luật</string>
   <string name="insufficientMaterial">Thiếu quân để chiếu hết</string>
@@ -145,7 +146,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
-  <string name="currentGames">Những ván cờ đang chơi</string>
+  <string name="currentGames">Các ván cờ đang diễn ra</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -487,8 +488,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
   <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
-  <string name="onlinePlayers">Các kỳ thủ đang trực tuyến</string>
-  <string name="activePlayers">Các kỳ thủ tích cực</string>
+  <string name="onlinePlayers">Các kỳ thủ trực tuyến</string>
+  <string name="activePlayers">Những kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ có xếp hạng nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
   <plurals name="nbGamesInPlay">
@@ -510,7 +511,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="posts">Số bài viết</string>
   <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
-  <string name="replies">Bình luận</string>
+  <string name="replies">Số bình luận</string>
   <string name="replyToThisTopic">Bình luận chủ đề này</string>
   <string name="reply">Trả lời</string>
   <string name="message">Tin nhắn</string>
@@ -636,7 +637,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="returnToSimulHomepage">Trở về trang chủ cờ đồng loạt</string>
   <string name="aboutSimul">Cờ đồng loạt gồm một người duy nhất chơi cùng lúc với nhiều người khác.</string>
   <string name="aboutSimulImage">Trong số 50 đối thủ, Fischer thắng 47, hoà 2 và thua 1.</string>
-  <string name="aboutSimulRealLife">Ý tưởng được lấy từ các sự kiện có thật. Trong đời thực, một người chủ trì cờ đồng loạt sẽ di chuyển từ bàn này qua bàn khác và đánh một nước mỗi bàn.</string>
+  <string name="aboutSimulRealLife">Ý tưởng được lấy từ những sự kiện có thật. Trong đời thực, một người chủ trì cờ đồng loạt sẽ di chuyển từ bàn này qua bàn khác và đánh một nước mỗi bàn.</string>
   <string name="aboutSimulRules">Khi cờ đồng loạt bắt đầu, mỗi người chơi sẽ bắt đầu ván cờ với người chủ trì. Cờ đồng loạt kết thúc khi tất cả các ván cờ hoàn tất.</string>
   <string name="aboutSimulSettings">Cờ đồng loạt luôn không tính xếp hạng. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
   <string name="create">Tạo</string>
@@ -672,7 +673,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
   <string name="tournamentHomeTitle">Giải đấu cờ vua với nhiều thiết lập thời gian và biến thể phong phú</string>
-  <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua nhịp độ nhanh! Tham gia một giải đấu chính thức hoặc tự tạo giải đấu của bạn. Cờ Siêu Chớp, cờ Chớp, cờ Nhanh, cờ Chậm, Chess960, King of the Hill, Threecheck và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
+  <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua nhịp độ nhanh! Tham gia một giải đấu chính thức hoặc tự tạo giải đấu của bạn. Cờ Đạn, cờ Chớp, cờ Nhanh, cờ Chậm, Chess960, King of the Hill, Threecheck và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
   <string name="tournamentNotFound">Không tìm thấy giải đấu</string>
   <string name="tournamentDoesNotExist">Giải đấu này không tồn tại.</string>
   <string name="tournamentMayHaveBeenCanceled">Giải đấu có thể đã bị huỷ, nếu tất cả người chơi rời giải trước khi giải đấu bắt đầu.</string>
@@ -945,5 +946,5 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
   <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
-Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
+Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
 </resources>

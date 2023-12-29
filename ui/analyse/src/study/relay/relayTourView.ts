@@ -63,9 +63,9 @@ const leaderboard = (relay: RelayCtrl): VNode[] => {
             players.map(player =>
               h('tr', [
                 h('th', player.name),
-                withRating ? h('td', player.rating) : undefined,
-                h('td', player.score),
-                h('td', player.played),
+                withRating ? h('td', `${player.rating}`) : undefined,
+                h('td', `${player.score}`),
+                h('td', `${player.played}`),
               ]),
             ),
           ),
@@ -92,7 +92,7 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
           ' ',
           round.ongoing
             ? study.trans.noarg('playingRightNow')
-            : round.startsAt &&
+            : !!round.startsAt &&
               h(
                 'time.timeago',
                 { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },

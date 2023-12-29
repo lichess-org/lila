@@ -41,6 +41,7 @@
   </plurals>
   <string name="newTeamBattle">การสู้แบบทีมใหม่</string>
   <string name="customStartDate">กำหนดเวลาแข่งเอง</string>
+  <string name="customStartDateHelp">ในเขตเวลาท้องถิ่นของคุณ สิ่งนี้จะแทนที่การตั้งค่า \"เวลาก่อนเริ่มทัวร์นาเมนต์\"</string>
   <string name="allowBerserk">อนุญาตให้เบอร์เซิร์ก</string>
   <string name="allowBerserkHelp">ผู้เล่นจะสามารถลดเวลาเล่นของตัวเองครึ่งหนึ่งเพี่อที่จะได้คะแนนเพิ่ม 1 คะแนนถ้าชนะ</string>
   <string name="allowChatHelp">ผู้เล่นจะสามารถพูดคุยในห้องแชตได้</string>

@@ -106,6 +106,11 @@ export interface StudyChapter {
   features: StudyChapterFeatures;
   description?: string;
   relay?: StudyChapterRelay;
+  serverEval?: StudyChapterServerEval;
+}
+
+export interface StudyChapterServerEval {
+  path: string;
 }
 
 export interface StudyChapterRelay {
@@ -117,7 +122,7 @@ export interface StudyChapterRelay {
 interface StudyChapterSetup {
   gameId?: string;
   variant: {
-    key: string;
+    key: VariantKey;
     name: string;
   };
   orientation: Color;

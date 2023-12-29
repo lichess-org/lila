@@ -32,7 +32,7 @@
   <string name="doNotReportInForum">Vui lòng không báo cáo người chơi trong diễn đàn.</string>
   <string name="doNotSendReportEmails">Vui lòng không gửi cho chúng tôi email báo cáo.</string>
   <string name="doNotMessageModerators">Vui lòng không gửi tin nhắn trực tiếp đến các quản trị viên.</string>
-  <string name="onlyReports">Chỉ những báo cáo người chơi thông qua biểu mẫu báo cáo mới có hiệu quả.</string>
+  <string name="onlyReports">Chỉ báo cáo những kỳ thủ thông qua biểu mẫu báo cáo mới có hiệu lực.</string>
   <string name="wantReportBug">Tôi muốn gửi báo cáo về một lỗi</string>
   <string name="reportBugInForum">Trong diễn đàn phản hồi Lichess</string>
   <string name="reportWebsiteIssue">Bằng một vấn đề (issue) về trang web Lichess trên Github</string>
@@ -64,7 +64,7 @@
   <string name="falsePositives">Những giá trị dương do đánh giá sai đôi khi vẫn xẩy ra và chúng tôi xin thứ lỗi vì điều đó.</string>
   <string name="ifLegit">Nếu khiếu nại của bạn hợp lệ, chúng tôi sẽ dỡ bỏ lệnh cấm sớm nhất có thể.</string>
   <string name="accountLost">Tuy nhiên nếu bạn quả thực dùng máy tính trợ giúp, dù chỉ một lần, tài khoản của bạn sẽ bị mất.</string>
-  <string name="doNotDeny">Đừng phủ nhận đã lừa dối. Nếu bạn muốn được phép tạo một tài khoản mới, chỉ cần thừa nhận những gì bạn đã làm và cho thấy rằng bạn hiểu rằng đó là một sai lầm.</string>
+  <string name="doNotDeny">Đừng phủ nhận đã gian lận. Nếu bạn muốn được phép tạo một tài khoản mới, chỉ cần thừa nhận những gì bạn đã làm và chứng tỏ bạn hiểu rằng đó là một sai lầm.</string>
   <string name="otherRestriction">Hạn chế khác</string>
   <string name="collaboration">Cộng tác, hợp pháp, thương mại</string>
   <string name="monetizing">Kiếm tiền với Lichess</string>

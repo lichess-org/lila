@@ -8,6 +8,7 @@ object I18nKeys:
   val `toInviteSomeoneToPlayGiveThisUrl` = I18nKey("toInviteSomeoneToPlayGiveThisUrl")
   val `gameOver` = I18nKey("gameOver")
   val `waitingForOpponent` = I18nKey("waitingForOpponent")
+  val `orLetYourOpponentScanQrCode` = I18nKey("orLetYourOpponentScanQrCode")
   val `waiting` = I18nKey("waiting")
   val `yourTurn` = I18nKey("yourTurn")
   val `aiNameLevelAiLevel` = I18nKey("aiNameLevelAiLevel")
@@ -2411,6 +2412,14 @@ object I18nKeys:
     val `playedNbRunsOfPuzzleStorm` = I18nKey("storm:playedNbRunsOfPuzzleStorm")
 
   object ublog:
+    val `communityBlogs` = I18nKey("ublog:communityBlogs")
+    val `friendBlogs` = I18nKey("ublog:friendBlogs")
+    val `likedBlogs` = I18nKey("ublog:likedBlogs")
+    val `blogTopics` = I18nKey("ublog:blogTopics")
+    val `lichessOfficialBlog` = I18nKey("ublog:lichessOfficialBlog")
+    val `continueReadingPost` = I18nKey("ublog:continueReadingPost")
+    val `lichessBlogPostsFromXYear` = I18nKey("ublog:lichessBlogPostsFromXYear")
+    val `previousBlogPosts` = I18nKey("ublog:previousBlogPosts")
     val `xBlog` = I18nKey("ublog:xBlog")
     val `newPost` = I18nKey("ublog:newPost")
     val `editYourBlogPost` = I18nKey("ublog:editYourBlogPost")

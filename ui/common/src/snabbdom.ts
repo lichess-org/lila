@@ -38,12 +38,13 @@ export const dataIcon = (icon: string): Attrs => ({
 
 export const iconTag = (icon: string) => snabH('i', { attrs: dataIcon(icon) });
 
-export type LooseVNodes = (MaybeVNode | boolean)[];
-type LooseVNode = VNodeChildElement | boolean;
-type VNodeKids = LooseVNode | LooseVNode[];
+type LooseVNode = VNode | string | undefined | null | boolean;
+export type LooseVNodes = LooseVNode[];
+export type VNodeKids = LooseVNode | LooseVNodes;
 
 // '' may be falsy but it's a valid VNode
-const kidFilter = (x: any): boolean => (x && x !== true) || x === '';
+// 0 may be falsy but it's a valid VNode
+const kidFilter = (x: VNodeData | VNodeKids): boolean => (x && x !== true) || x === '';
 
 const filterKids = (children: VNodeKids): VNodeChildElement[] =>
   (Array.isArray(children) ? children : [children]).filter(kidFilter) as VNodeChildElement[];
@@ -54,10 +55,10 @@ const filterKids = (children: VNodeKids): VNodeChildElement[] =>
      h('div', [ isKid ? h('div', 'kid') : null ])
    'true' values are filtered out of children array same as 'false' (for || case)
 */
-export function looseH(sel: string, dataOrKids?: VNodeData | null | VNodeKids, kids?: VNodeKids): VNode {
+export function looseH(sel: string, dataOrKids?: VNodeData | VNodeKids, kids?: VNodeKids): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
-  if (!dataOrKids) return snabH(sel);
-  if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids))
+  if (!kidFilter(dataOrKids)) return snabH(sel);
+  if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids!))
     return snabH(sel, filterKids(dataOrKids as VNodeKids));
   else return snabH(sel, dataOrKids as VNodeData);
 }

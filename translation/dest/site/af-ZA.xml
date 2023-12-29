@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Nooi iemand vir \'n spel, gebruik hierdie URL</string>
   <string name="gameOver">Spel Verby</string>
   <string name="waitingForOpponent">Wag vir uitdager</string>
+  <string name="orLetYourOpponentScanQrCode">Of laat jou opponent hierdie QR-kode skandeer</string>
   <string name="waiting">Wagtend</string>
   <string name="yourTurn">Jou beurt</string>
   <string name="aiNameLevelAiLevel">%1$s vlak %2$s</string>

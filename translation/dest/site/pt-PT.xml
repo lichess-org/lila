@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -405,6 +406,7 @@
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
 análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="importGameCaveat">As variações serão apagadas. Para mantê-las, importe o PGN através de um estudo.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN pode ser acessada pelo público. Para importar um jogo de forma privada, use um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>

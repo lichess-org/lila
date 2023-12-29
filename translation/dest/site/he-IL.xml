@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
+  <string name="orLetYourOpponentScanQrCode">אפשר גם לתת ליריבך לסרוק את קוד ה־QR הזה</string>
   <string name="waiting">ממתין</string>
   <string name="yourTurn">תורך</string>
   <string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>

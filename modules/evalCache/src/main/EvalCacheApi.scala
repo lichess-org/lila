@@ -15,15 +15,16 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   def getEvalJson(variant: Variant, fen: Fen.Epd, multiPv: MultiPv): Fu[Option[JsObject]] =
     getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv) map {
       _.map { JsonView.writeEval(_, fen) }
-    } addEffect { res =>
-      Fen
-        .readPly(fen)
-        .foreach: ply =>
-          lila.mon.evalCache.request(ply.value, res.isDefined).increment()
-    }
+    } addEffect monitorRequest(fen)
 
   def getSinglePvEval(variant: Variant, fen: Fen.Epd): Fu[Option[Eval]] =
     getEval(Id(variant, SmallFen.make(variant, fen.simple)), MultiPv(1))
+
+  private def monitorRequest(fen: Fen.Epd)(res: Option[Any]) =
+    Fen
+      .readPly(fen)
+      .foreach: ply =>
+        lila.mon.evalCache.request(ply.value, res.isDefined).increment()
 
   private[evalCache] def drop(variant: Variant, fen: Fen.Epd): Funit =
     val id = Id(variant, SmallFen.make(variant, fen.simple))

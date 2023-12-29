@@ -31,7 +31,7 @@ object profile:
                 .group(form("bio"), trans.biography(), half = true, help = trans.biographyDescription().some):
                   f => form3.textarea(f)(rows := 5)
             ,
-            form3.flairPicker(form("flair"), u.flair)(
+            form3.flairPickerGroup(form("flair"), u.flair, label = trans.setFlair())(
               userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
             ):
               p(cls := "form-help"):

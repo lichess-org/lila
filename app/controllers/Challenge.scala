@@ -8,6 +8,7 @@ import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
 import lila.common.{ Bearer, IpAddress, Template, Preload }
+import lila.common.config.Max
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
@@ -59,9 +60,13 @@ final class Challenge(
         html =
           val color = get("color") flatMap chess.Color.fromName
           if mine then
-            error match
-              case Some(e) => BadRequest.page(html.challenge.mine(c, json, e.some, color))
-              case None    => Ok.page(html.challenge.mine(c, json, none, color))
+            ctx.userId
+              .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
+              .flatMap(env.user.lightUserApi.asyncManyFallback)
+              .flatMap: friends =>
+                error match
+                  case Some(e) => BadRequest.page(html.challenge.mine(c, json, friends, e.some, color))
+                  case None    => Ok.page(html.challenge.mine(c, json, friends, none, color))
           else
             Ok.pageAsync:
               c.challengerUserId.so(env.user.api.withPerf(_, c.perfType)) map:
@@ -113,9 +118,8 @@ final class Challenge(
           case None                  => tryRematch
           case Some(c) if c.accepted => tryRematch
           case Some(c) =>
-            api.accept(c, none) map {
+            api.accept(c, none) map:
               _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
-            }
       }
     }
 

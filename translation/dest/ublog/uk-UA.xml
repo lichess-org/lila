@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Дописи спільноти</string>
+  <string name="friendBlogs">Дописи друзів</string>
+  <string name="likedBlogs">Вподобані публікації дописів</string>
+  <string name="blogTopics">Теми дописів</string>
+  <string name="lichessOfficialBlog">Офіційний блог Lichess</string>
+  <string name="continueReadingPost">Продовжити читання цієї історії</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
   <string name="editYourBlogPost">Редагувати ваш запис</string>
@@ -49,5 +55,5 @@
   <string name="safeAndRespectfulContent">Будь ласка, публікуйте тільки безпечний і шанобливий контент. Не копіюйте чужий контент.</string>
   <string name="inappropriateContentAccountClosed">Невідповідності в дописі можуть спричинити блокування профілю.</string>
   <string name="blogTips">Наші прості поради для написання хороших дописів</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Обговорити цей допис блогу на форумі</string>
+  <string name="discussThisBlogPostInTheForum">Обговорити цей допис блогу на форумі</string>
 </resources>

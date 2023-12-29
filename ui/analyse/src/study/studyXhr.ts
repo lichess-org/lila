@@ -1,4 +1,4 @@
-import { StudyChapterConfig, ReloadData } from './interfaces';
+import { StudyChapterConfig, ReloadData, ChapterPreview } from './interfaces';
 import * as xhr from 'common/xhr';
 
 export const reload = (baseUrl: string, id: string, chapterId?: string): Promise<ReloadData> => {
@@ -26,5 +26,9 @@ export const importPgn = (studyId: string, data: any) =>
     body: xhr.form(data),
   });
 
-export const multiBoard = (studyId: string, page: number, playing: boolean) =>
+export const multiBoard = (
+  studyId: string,
+  page: number,
+  playing: boolean,
+): Promise<Paginator<ChapterPreview>> =>
   xhr.json(`/study/${studyId}/multi-board?page=${page}&playing=${playing}`);

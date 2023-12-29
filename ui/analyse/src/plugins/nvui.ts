@@ -36,7 +36,7 @@ import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
-import { view as cevalView, renderEval, Eval } from 'ceval';
+import { view as cevalView, renderEval } from 'ceval';
 import * as control from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
@@ -288,7 +288,7 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   }
 }
 
-function evalInfo(bestEv: Eval | undefined): string {
+function evalInfo(bestEv: EvalScore | undefined): string {
   if (bestEv) {
     if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
     else if (defined(bestEv.mate))

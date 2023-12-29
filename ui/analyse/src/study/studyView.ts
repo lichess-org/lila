@@ -48,7 +48,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
         opts.ctrl.redraw,
       ),
     },
-    [opts.count && h('count.data-count', { attrs: { 'data-count': opts.count } }), opts.icon],
+    [!!opts.count && h('count.data-count', { attrs: { 'data-count': opts.count } }), opts.icon],
   );
 }
 
@@ -60,7 +60,7 @@ function buttons(root: AnalyseCtrl): VNode {
   return h('div.study__buttons', [
     h('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
-      showSticky &&
+      !!showSticky &&
         h(
           'a.mode.sync',
           {
