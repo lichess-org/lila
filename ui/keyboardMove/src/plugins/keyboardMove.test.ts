@@ -135,18 +135,17 @@ describe('keyboardMove', () => {
 
   test('reads out clock', () => {
     input.value = 'clock';
-    const mockMillisOf = jest.fn(_ => 1000);
+    const speakClock = jest.fn();
     const keyboardMovePlugin = keyboardMove({
       input,
       ctrl: {
         ...defaultCtrl,
-        speakClock: () => ({ millisOf: mockMillisOf }) as any,
+        speakClock,
       },
     }) as any;
 
     keyboardMovePlugin(startingFen, toMap({}), true);
-
-    expect(mockMillisOf.mock.calls.length).toBe(2);
+    expect(speakClock.mock.calls.length).toBe(1);
     expect(input.value).toBe('');
   });
 
