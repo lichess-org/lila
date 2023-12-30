@@ -62,5 +62,5 @@
     <item quantity="one">%s Stunden verbleiben</item>
     <item quantity="other">%s Stunden übrig</item>
   </plurals>
-  <string name="completed">vervollständigt</string>
+  <string name="completed">abgeschlossen</string>
 </resources>
