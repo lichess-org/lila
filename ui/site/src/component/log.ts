@@ -29,8 +29,8 @@ export default function makeLog(): LichessLog {
     return !val || typeof val === 'string' ? String(val) : JSON.stringify(val);
   }
 
-  const log: any = async (...args: any[]) => {
-    const msg = `${lichess.info.commit.substr(0, 7)} - ${args.map(stringify).join(' ')}`;
+  const log: LichessLog = async (...args: any[]) => {
+    const msg = `#${lichess.info.commit.substr(0, 7)} - ${args.map(stringify).join(' ')}`;
     let nextKey = Date.now();
     console.log(...args);
     if (nextKey === lastKey) {
@@ -53,18 +53,19 @@ export default function makeLog(): LichessLog {
   log.get = async (): Promise<string> => {
     await ready;
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
-    return keys.map((k, i) => `${new Date(k).toISOString()} ${vals[i]}`).join('\n');
+    return keys.map((k, i) => `${new Date(k).toISOString().replace(/[TZ]/g, ' ')}${vals[i]}`).join('\n');
   };
 
+  function terseHref(): string {
+    return window.location.href.replace(/^(https:\/\/)?lichess\.org\//, '/');
+  }
+
   window.addEventListener('error', async e => {
-    log(
-      `${window.location.href} - ${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${
-        e.error?.stack ?? ''
-      }`.trim(),
-    );
+    const loc = e.filename ? ` - (${e.filename}:${e.lineno}:${e.colno})` : '';
+    log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
   });
   window.addEventListener('unhandledrejection', async e => {
-    log(`${window.location.href} - ${e.reason}\n${e.reason.stack ?? ''}`.trim());
+    log(`${terseHref()} - ${e.reason}`);
   });
 
   return log;
