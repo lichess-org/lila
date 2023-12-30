@@ -198,7 +198,9 @@ export default class StrongSocket {
       if (!this.tryOtherUrl) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
-        lichess.log(`sri ${this.settings.params!.sri}timeout ${delay}ms, trying ${this.baseUrl()}`);
+        lichess.log(
+          `sri ${this.settings.params!.sri}timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`,
+        );
       }
       this.connect();
     }, delay);
