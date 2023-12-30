@@ -1,5 +1,11 @@
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
 
+const dbInfo = {
+  store: 'log',
+  version: 1,
+  upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
+};
+
 export default function makeLog(): LichessLog {
   let store: ObjectStorage<string, number>;
   let resolveReady: () => void;
@@ -9,20 +15,21 @@ export default function makeLog(): LichessLog {
   const keep = 1000; // trimmed on startup
   const ready = new Promise<void>(resolve => (resolveReady = resolve));
 
-  objectStorage<string, number>({ store: 'log' })
+  objectStorage<string, number>(dbInfo)
     .then(async s => {
-      const keys = await s.list();
-      if (keys.length > keep) {
-        await s.remove(IDBKeyRange.upperBound(keys[keys.length - keep], true));
+      try {
+        const keys = await s.list();
+        if (keys.length > keep) {
+          await s.remove(IDBKeyRange.upperBound(keys[keys.length - keep], true));
+        }
+        store = s;
+      } catch (e) {
+        s.clear();
       }
-      store = s;
       resolveReady();
     })
     .catch(() => {
       resolveReady();
-      objectStorage<string, number>({ store: 'log' })
-        .then(s => s.clear())
-        .catch(() => {});
     });
 
   function stringify(val: any): string {
