@@ -76,6 +76,11 @@ final class PgnDump(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
         )
+      ) ::: (!chapter.tags.exists(_.Date)).so(
+        List(
+          Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+          Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
+        )
       ) :::
         flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
         flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
