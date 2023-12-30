@@ -1,5 +1,5 @@
 {
-  "name": "gameSetup",
+  "name": "setup",
   "version": "2.0.0",
   "private": true,
   "author": "Thibault Duplessis",
@@ -19,7 +19,7 @@
   "lichess": {
     "modules": {
       "esm": {
-        "src/main.ts": "gameSetup"
+        "src/main.ts": "setup"
       }
     }
   }

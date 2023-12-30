@@ -18,7 +18,7 @@
     "common": "workspace:*",
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
-    "gameSetup": "workspace:*",
+    "setup": "workspace:*",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

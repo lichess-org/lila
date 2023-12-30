@@ -299,18 +299,6 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1
 
-  ui/gameSetup:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-      libot:
-        specifier: workspace:*
-        version: link:../libot
-      snabbdom:
-        specifier: ^3.5.1
-        version: 3.5.1
-
   ui/insight:
     dependencies:
       '@types/highcharts':
@@ -400,9 +388,9 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
-      gameSetup:
+      setup:
         specifier: workspace:*
-        version: link:../gameSetup
+        version: link:../setup
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -643,6 +631,18 @@ importers:
       types-serviceworker:
         specifier: ^0.0.1
         version: 0.0.1
+
+  ui/setup:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+      libot:
+        specifier: workspace:*
+        version: link:../libot
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
 
   ui/simul:
     dependencies:

@@ -6,7 +6,7 @@ import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
 import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember, LobbyMe } from './interfaces';
-import { ParentCtrl, SetupConstraints, GameType, GameSetup, SetupCtrl } from 'gameSetup';
+import { ParentCtrl, SetupConstraints, GameType, GameSetup, SetupCtrl } from 'setup';
 import LobbySocket from './socket';
 import Filter from './filter';
 import disableDarkBoard from './disableDarkBoard';
@@ -277,7 +277,7 @@ export default class LobbyController implements ParentCtrl {
   hasPool = (id: string) => this.pools.some(p => p.id === id);
 
   showSetupModal = async (gameType: GameType, opts?: SetupConstraints, friendUser?: string) => {
-    if (!this.setupCtrl) this.setupCtrl = await lichess.asset.loadEsm<SetupCtrl>('gameSetup', { init: this });
+    if (!this.setupCtrl) this.setupCtrl = await lichess.asset.loadEsm<SetupCtrl>('setup', { init: this });
     this.leavePool();
     this.setupCtrl.openModal(gameType, opts, friendUser);
     this.redraw();

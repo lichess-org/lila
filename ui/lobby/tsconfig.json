@@ -8,6 +8,6 @@
   "references": [
     { "path": "../common/tsconfig.json" },
     { "path": "../dasher/tsconfig.json" },
-    { "path": "../gameSetup/tsconfig.json" }
+    { "path": "../setup/tsconfig.json" }
   ]
 }
