@@ -51,12 +51,12 @@
   <string name="skipHelp">در هر مسابقه می‌توانید یک حرکت را رد کنید:</string>
   <string name="skipExplanation">این حرکت را رَد کنید تا توالی حرکات درست خود را حفظ کنید! در هر مسابقه فقط یک بار قابل استفاده است.</string>
   <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">معماهای ناموفق</string>
-  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">معماهای با سرعت کم</string>
-  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">پازل قبلا رد شده است</string>
+  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">معماهای طولانی</string>
+  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">معما با حرکت رَدشده</string>
   <string name="thisWeek">این هفته</string>
   <string name="thisMonth">این ماه</string>
-  <string name="allTime">بهترین رکورد</string>
-  <string name="clickToReload">بارگذاری مجدد</string>
+  <string name="allTime">از ابتدا تا کنون</string>
+  <string name="clickToReload">برای بارگذاری مجدد، بزنید</string>
   <string name="thisRunHasExpired">وقت به پایان رسیده است!</string>
-  <string name="thisRunWasOpenedInAnotherTab">در تب دیگری باز شده است!</string>
+  <string name="thisRunWasOpenedInAnotherTab">این دور، در زبانه دیگری باز شده بود!</string>
 </resources>
