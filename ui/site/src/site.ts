@@ -27,7 +27,7 @@ lichess.info = info;
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
-  const showDebug = location.hash === '#debug';
+  const showDebug = location.hash.startsWith('#debug');
 
   requestAnimationFrame(() => {
     miniBoard.initAll();

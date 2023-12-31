@@ -1,6 +1,7 @@
-import { objectStorage, ObjectStorage } from 'common/objectStorage';
+import { objectStorage, ObjectStorage, DbInfo } from 'common/objectStorage';
 
-const dbInfo = {
+const dbInfo: DbInfo = {
+  db: 'log--db',
   store: 'log',
   version: 1,
   upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
@@ -24,11 +25,14 @@ export default function makeLog(): LichessLog {
         }
         store = s;
       } catch (e) {
+        console.error(e);
         s.clear();
       }
       resolveReady();
     })
-    .catch(() => {
+    .catch(e => {
+      console.error(e);
+      window.indexedDB.deleteDatabase(dbInfo.db!);
       resolveReady();
     });
 
@@ -59,6 +63,7 @@ export default function makeLog(): LichessLog {
 
   log.get = async (): Promise<string> => {
     await ready;
+    if (!store) return '';
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
     return keys.map((k, i) => `${new Date(k).toISOString().replace(/[TZ]/g, ' ')}${vals[i]}`).join('\n');
   };

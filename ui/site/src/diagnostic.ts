@@ -14,6 +14,8 @@ export default async function initModule() {
     `Threads: ${lichess.storage.get('ceval.threads')}` +
     (logs ? `\n\n${logs}` : '');
 
+  processQueryParams();
+
   const dlg = await domDialog({
     class: 'diagnostic',
     cssPath: 'diagnostic',
@@ -41,4 +43,16 @@ export default async function initModule() {
       ),
   );
   dlg.showModal();
+}
+
+function processQueryParams() {
+  for (const p of location.hash.split('?')[1]?.split('&') ?? []) {
+    const [op, value] = [p.slice(0, p.indexOf('=')), p.slice(p.indexOf('=') + 1)];
+    if (op !== 'set' || !value) continue;
+    const kvPair = atob(value).split('=');
+    if (kvPair[0] === 'pingInterval') {
+      const interval = parseInt(kvPair[1]);
+      if (interval > 249) lichess.storage.set('socket.ping.interval', `${interval}`);
+    }
+  }
 }
