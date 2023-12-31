@@ -22,34 +22,34 @@
   <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">امتیاز</string>
   <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">حرکت‌ها</string>
   <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">دقت</string>
-  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">ترکیب</string>
+  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">توالی</string>
   <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">زمان</string>
   <string name="timePerMove">زمان برای هر حرکت</string>
-  <string name="highestSolved">سخت‌ترین معمای حل‌شده</string>
-  <string name="puzzlesPlayed">معماها بازی شدند</string>
+  <string name="highestSolved">امتیازدارترین معمای حل‌شده</string>
+  <string name="puzzlesPlayed">معماهای بازی‌شده</string>
   <string name="newRun">دور جدید (میانبر: Space)</string>
-  <string name="endRun">پایان دور (میانبر: Enter)</string>
+  <string name="endRun">پایان‌دهی دور (میانبر: Enter)</string>
   <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">بالاترین امتیازها</string>
   <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">مشاهده بهترین دورها</string>
   <string name="bestRunOfDay">بهترین دور روز</string>
   <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">دورها</string>
   <string name="getReady">آماده شوید!</string>
-  <string name="waitingForMorePlayers">منتظرم بازیکنان بیشتری بپیوندند...</string>
-  <string name="raceComplete">رقابت کامل شد!</string>
+  <string name="waitingForMorePlayers">در حال انتظار برای پیوستن بازیکنان بیشتر...</string>
+  <string name="raceComplete">مسابقه تمام شد!</string>
   <string name="spectating">در حال تماشا</string>
-  <string name="joinTheRace">به رقابت بپیوندید!</string>
-  <string name="startTheRace">رقابت را شروع کنید</string>
-  <string name="yourRankX">جایگاه شما: %s</string>
-  <string name="waitForRematch">منتظر بمانید تا حریف دیگری برای شما پیدا کنیم</string>
-  <string name="nextRace">رقابت بعدی</string>
-  <string name="joinRematch">ورود به بازی مجدد</string>
+  <string name="joinTheRace">به مسابقه بپیوندید!</string>
+  <string name="startTheRace">شروع مسابقه</string>
+  <string name="yourRankX">رتبه شما: %s</string>
+  <string name="waitForRematch">برای بازی مجدد منتظر بمانید</string>
+  <string name="nextRace">مسابقه بعدی</string>
+  <string name="joinRematch">پیوستن به بازی مجدد</string>
   <string name="waitingToStart">انتظار برای شروع</string>
-  <string name="createNewGame">یک بازی جدید ایجاد کنید</string>
-  <string name="joinPublicRace">به یک رقابت عمومی بپیوندید</string>
-  <string name="raceYourFriends">با دوستان خود رقابت کنید</string>
-  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">ناديده گرفتن</string>
-  <string name="skipHelp">در هر رقابت می‌توانید یک حرکت را رد کنید:</string>
-  <string name="skipExplanation">از این حرکت چشم‌پوشی کنید تا ترکیب خود را حفظ نمایید! فقط یک بار در هر رقابت قابل استفاده است.</string>
+  <string name="createNewGame">ایجاد مسابقه جدید</string>
+  <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
+  <string name="raceYourFriends">با دوستان خود مسابقه دهید</string>
+  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">رد کردن</string>
+  <string name="skipHelp">در هر مسابقه می‌توانید یک حرکت را رد کنید:</string>
+  <string name="skipExplanation">این حرکت را رَد کنید تا توالی حرکات درست خود را حفظ کنید! در هر مسابقه فقط یک بار قابل استفاده است.</string>
   <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">معماهای ناموفق</string>
   <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">معماهای با سرعت کم</string>
   <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">پازل قبلا رد شده است</string>
