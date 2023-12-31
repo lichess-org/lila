@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import * as cs from 'chess';
 import { from as src, to as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
-import { MoveRootCtrl } from 'common/moveRootCtrl';
+import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import { VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';

@@ -23,7 +23,7 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { MoveRootCtrl } from 'common/moveRootCtrl';
+import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import * as renderUser from './view/user';
