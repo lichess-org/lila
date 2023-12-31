@@ -337,7 +337,6 @@ interface Window {
   readonly UserComplete: any;
   readonly Sortable: any;
   readonly Peer: any;
-  readonly Highcharts: any;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;

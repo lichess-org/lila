@@ -46,7 +46,7 @@ export class BackgroundCtrl {
     lichess.announce({ msg: `Failed to save background preference: ${err}` });
 
   private reloadAllTheThings = () => {
-    if ($('canvas').length || window.Highcharts) lichess.reload();
+    if ($('canvas').length) lichess.reload();
   };
 
   get = () => this.data.current;

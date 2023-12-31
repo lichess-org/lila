@@ -16,7 +16,6 @@
   "dependencies": {
     "@badrap/result": "^0.2.13",
     "@types/debounce-promise": "^3.1.6",
-    "@types/highcharts": "=4.2.57",
     "@types/yaireo__tagify": "^4.17.3",
     "@yaireo/tagify": "^4.17.9",
     "ceval": "workspace:*",

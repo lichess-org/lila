@@ -57,7 +57,10 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
       responsive: true,
       maintainAspectRatio: false,
       animation: false,
-      interaction: { mode: 'index' },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
       plugins: {
         legend: {
           labels: { color: tooltipFontColor },

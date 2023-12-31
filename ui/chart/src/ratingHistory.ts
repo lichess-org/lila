@@ -58,9 +58,6 @@ const oneDay = 24 * 60 * 60 * 1000;
 
 export async function initModule({ data, singlePerfName }: Opts) {
   $('.spinner').remove();
-  const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</a>`;
-  const buttons = ['1m', '3m', '6m', 'YTD', '1y', 'all'].map(s => timeBtn(s));
-  $('.time-selector-buttons').html(buttons.join(''));
 
   const $el = $('canvas.rating-history');
   const singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
@@ -72,6 +69,7 @@ export async function initModule({ data, singlePerfName }: Opts) {
   const startDate = allData.startDate;
   const endDate = allData.endDate;
   const weeklyData = makeDatasets(7, data, singlePerfName);
+  const biweeklyData = makeDatasets(14, data, singlePerfName);
   const threeMonthsAgo = dayjs(endDate).subtract(3, 'M').valueOf();
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial == threeMonthsAgo;
@@ -199,7 +197,7 @@ export async function initModule({ data, singlePerfName }: Opts) {
   };
   if (handlesSlider) {
     const slider = noUiSlider.create(handlesSlider, opts);
-    slider.on('update', values => {
+    const slide = (values: (number | string)[]) => {
       $('.time-selector-buttons button').removeClass('active');
       if ($el.hasClass('panning')) return;
       const [min, max] = values.map(v => Number(v));
@@ -208,25 +206,30 @@ export async function initModule({ data, singlePerfName }: Opts) {
       const chartYear = yearDiff(chart.scales.x.max, chart.scales.x.min);
       const sliderYear = yearDiff(max, min);
       if (Math.abs(chartYear - sliderYear) >= 1) {
-        zoomedOut = dayjs(max).diff(min, 'year') >= 2;
-        chart.data.datasets = zoomedOut ? weeklyData.ds : allData.ds;
+        zoomedOut = sliderYear >= 2;
+        const newDs = zoomedOut ? (sliderYear >= 4 ? biweeklyData.ds : weeklyData.ds) : allData.ds;
+        if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
       if (chart.scales.x.min != min || chart.scales.x.max != max)
         chart.zoomScale('x', { min: min, max: max });
-    });
+    };
+    slider.on('update', slide);
     // Disable events while dragging for a slight performance boost
     slider.on('start', () => toggleEvents(chart, true));
     slider.on('end', () => toggleEvents(chart, false));
     lichess.pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max]);
     });
+    const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</a>`;
+    const buttons = ['1m', '3m', '6m', 'YTD', '1y', 'all'].map(s => timeBtn(s));
+    $('.time-selector-buttons').html(buttons.join(''));
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
       slider.set([min, endDate]);
       chart.zoomScale('x', { min: min, max: endDate });
     };
-    $('.time-selector-buttons').on('click', 'button', function (this: HTMLButtonElement) {
+    $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
       let min;
       if (this.textContent == 'all') min = dayjs(startDate);
       if (this.textContent == '1y') min = dayjs(endDate).subtract(1, 'year');

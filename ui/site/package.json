@@ -10,7 +10,6 @@
     "@toast-ui/editor": "=3.1.7",
     "@types/debounce-promise": "^3.1.6",
     "@types/fnando__sparkline": "^0.3.4",
-    "@types/highcharts": "=4.2.57",
     "@types/yaireo__tagify": "^4.17.0",
     "@types/zxcvbn": "^4.4.1",
     "@yaireo/tagify": "^4.17.6",
@@ -19,7 +18,6 @@
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.13",
-    "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "lichess-pgn-viewer": "^2.0.1",
     "prop-types": "^15.8.1",
@@ -77,10 +75,6 @@
       {
         "src": "node_modules/hopscotch/dist/**",
         "dest": "../../public/npm/hopscotch/dist"
-      },
-      {
-        "src": "node_modules/highcharts/*.js",
-        "dest": "../../public/npm/highcharts-4.2.5"
       },
       {
         "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
