@@ -6,7 +6,7 @@
   <string name="progressX">پیشرفت: %s</string>
   <string name="resetMyProgress">تنظیم مجدد پیشرفت من</string>
   <string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
-  <string name="play">بازی کن!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
   <string name="chessPieces">مهره های شطرنج</string>
   <string name="theRook">رخ</string>
   <string name="itMovesInStraightLines">در خط های مستقیم حرکت میکند</string>
@@ -200,7 +200,7 @@ Pawn = 1</string>
   <string name="getAFreeLichessAccount">یک حساب کاربری رایگان در لیچس دریافت کنید</string>
   <string name="practice">تمرین</string>
   <string name="learnCommonChessPositions">وضعیت های متداول شطرنج را یاد بگیرید</string>
-  <string name="puzzles">معما</string>
+  <string name="puzzles">معماها</string>
   <string name="exerciseYourTacticalSkills">مهارت های تاکتیکی تان را تمرین کنید</string>
   <string name="videos">ویدیو ها</string>
   <string name="watchInstructiveChessVideos">فیلم های آموزنده شطرنج را ببینید</string>
@@ -224,6 +224,6 @@ Pawn = 1</string>
   <string name="next">بعدی</string>
   <string name="nextX">بعدی%s</string>
   <string name="backToMenu">برگشت به منو</string>
-  <string name="puzzleFailed">Puzzle failed!</string>
+  <string name="puzzleFailed">در حل معما موفق نشدید!</string>
   <string name="retry">تلاش مجدد</string>
 </resources>
