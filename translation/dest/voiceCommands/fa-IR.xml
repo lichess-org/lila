@@ -2,4 +2,5 @@
 <resources>
   <string name="voiceCommands">دستورات صوتی</string>
   <string name="watchTheVideoTutorial">ویدئوی آموزشی را تماشا کنید</string>
+  <string name="showPuzzleSolution">نشان دادن راه‌حل معما</string>
 </resources>
