@@ -8,7 +8,6 @@
   }
 
   &__list {
-    overflow-wrap: anywhere;
     &__entry {
       @extend %flex-center-nowrap;
       gap: $block-gap;
@@ -20,6 +19,7 @@
       }
 
       &__desc {
+        @extend %break-word;
         flex: 1 1 auto;
       }
 
