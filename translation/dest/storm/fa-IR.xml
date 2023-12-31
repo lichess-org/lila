@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">برای شروع حرکت کنید</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">شما در تمام معماها با مهره‌های سفید بازی می‌کنید</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">شما در تمام معماها با مهره‌های سیاه بازی می‌کنید</string>
-  <string name="puzzlesSolved">معماها حل شد</string>
+  <string name="moveToStart">شروع کنید</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">شما در همه معماها با مهره سفید بازی می‌کنید</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">شما در همه معماها با مهره سیاه بازی می‌کنید</string>
+  <string name="puzzlesSolved">معما حل شد</string>
   <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">رکورد جدید روزانه!</string>
   <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">رکورد جدید هفتگی!</string>
   <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">رکورد جدید ماهانه!</string>
   <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">بالاترین امتیاز از ابتدا تا کنون!</string>
-  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">بالاترین امتیاز پیشین %s بود</string>
-  <string name="playAgain">دوباره بازی کنید</string>
+  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">بالاترین امتیاز قبلی %s بود</string>
+  <string name="playAgain">دوباره بازی کن</string>
   <plurals name="xRuns">
-    <item quantity="one">1 دور</item>
+    <item quantity="one">یک دور</item>
     <item quantity="other">%s دور</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
