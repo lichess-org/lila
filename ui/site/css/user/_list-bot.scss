@@ -8,6 +8,7 @@
   }
 
   &__list {
+    overflow-wrap: anywhere;
     &__entry {
       @extend %flex-center-nowrap;
       gap: $block-gap;

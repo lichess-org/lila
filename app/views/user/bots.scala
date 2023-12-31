@@ -39,7 +39,7 @@ object bots:
       )
 
   private def botTable(users: List[User.WithPerfs])(using ctx: Context) =
-    div(cls := "bots__list", style := "overflow-wrap: anywhere")(
+    div(cls := "bots__list")(
       users.map: u =>
         div(cls := "bots__list__entry")(
           div(cls := "bots__list__entry__desc")(
