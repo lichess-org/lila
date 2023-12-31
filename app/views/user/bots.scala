@@ -38,26 +38,27 @@ object bots:
             )
       )
 
-  private def botTable(users: List[User.WithPerfs])(using ctx: Context) = div(cls := "bots__list")(
-    users.map: u =>
-      div(cls := "bots__list__entry")(
-        div(cls := "bots__list__entry__desc")(
-          div(cls := "bots__list__entry__head")(
-            userLink(u),
-            ctx.pref.showRatings option div(cls := "bots__list__entry__rating"):
-              u.perfs.bestAny3Perfs.map { showPerfRating(u.perfs, _) }
+  private def botTable(users: List[User.WithPerfs])(using ctx: Context) =
+    div(cls := "bots__list", style := "overflow-wrap: anywhere")(
+      users.map: u =>
+        div(cls := "bots__list__entry")(
+          div(cls := "bots__list__entry__desc")(
+            div(cls := "bots__list__entry__head")(
+              userLink(u),
+              ctx.pref.showRatings option div(cls := "bots__list__entry__rating"):
+                u.perfs.bestAny3Perfs.map { showPerfRating(u.perfs, _) }
+            ),
+            u.profile
+              .ifTrue(ctx.kid.no)
+              .ifTrue(!u.marks.troll || ctx.is(u))
+              .flatMap(_.nonEmptyBio)
+              .map { bio => td(shorten(bio, 400)) }
           ),
-          u.profile
-            .ifTrue(ctx.kid.no)
-            .ifTrue(!u.marks.troll || ctx.is(u))
-            .flatMap(_.nonEmptyBio)
-            .map { bio => td(shorten(bio, 400)) }
-        ),
-        a(
-          dataIcon := licon.Swords,
-          cls      := List("bots__list__entry__play button button-empty text" -> true),
-          st.title := trans.challenge.challengeToPlay.txt(),
-          href     := s"${routes.Lobby.home}?user=${u.username}#friend"
-        )(trans.play())
-      )
-  )
+          a(
+            dataIcon := licon.Swords,
+            cls      := List("bots__list__entry__play button button-empty text" -> true),
+            st.title := trans.challenge.challengeToPlay.txt(),
+            href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+          )(trans.play())
+        )
+    )
