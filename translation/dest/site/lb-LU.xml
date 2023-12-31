@@ -425,8 +425,8 @@
   <string name="follow">Followen</string>
   <string name="following">Folgend</string>
   <string name="unfollow">Unfollowen</string>
-  <string name="followX">%s followen</string>
-  <string name="unfollowX">%s unfollowen</string>
+  <string name="followX">Dem %s followen</string>
+  <string name="unfollowX">Dem %s net méi followen</string>
   <string name="block">Blockéieren</string>
   <string name="blocked">Geblockt</string>
   <string name="unblock">Spär ophiewen</string>
@@ -762,7 +762,7 @@
   <string name="gameAnalysis">Analys vun der Partie</string>
   <string name="xHostsY">%1$s huet %2$s kreéiert</string>
   <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
-  <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="xLikesY">Dem %1$s gefält %2$s</string>
   <string name="quickPairing">Schnell Paarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
