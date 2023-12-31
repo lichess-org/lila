@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Жиі қойылатын сұрақтар</string>
-  <string name="frequentlyAskedQuestions">Жиі қойылатын сұрақтар</string>
+  <string name="faqAbbreviation">Сұрақ-Жауап</string>
+  <string name="frequentlyAskedQuestions">Сұрақ-Жауап</string>
   <string name="whyIsLichessCalledLichess">Личес неге Личес деп аталады?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес деген live/light/libre деген сөз бен chess сөзінің қосындысы. Ол %1$s деп оқылады.</string>
   <string name="leechess">ли-чес</string>
