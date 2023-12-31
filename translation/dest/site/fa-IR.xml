@@ -96,7 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">بازی‌های بیشتری از لیست ترجیحات لحاظ شوند؟</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به گزینگان ترجیحات، وجود داشته باشه؟</string>
   <string name="openings">گشایش</string>
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
   <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
@@ -529,7 +529,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
-  <string name="puzzles">پازل ها</string>
+  <string name="puzzles">معماها</string>
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
@@ -889,8 +889,8 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>
   <string name="classical">کلاسیک</string>
-  <string name="ultraBulletDesc">بازی های سریع دیوانه وار : کمتر از 30 ثانیه</string>
-  <string name="bulletDesc">بازی های فوق سریع : کمتر از 3 دقیقه</string>
+  <string name="ultraBulletDesc">بازی‌های سریعِ دیوانه‌وار: کمتر از 30 ثانیه</string>
+  <string name="bulletDesc">بازی‌های خیلی سریع: کمتر از 3 دقیقه</string>
   <string name="blitzDesc">بازی های سریع : 3 تا 8 دقیقه</string>
   <string name="rapidDesc">بازی های رپید ( سرعتی ) : 8 تا 25 دقیقه</string>
   <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
