@@ -69,6 +69,7 @@
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
   <string name="forceVariation">변화 강제하기</string>
+  <string name="copyVariationPgn">변동 PGN 복사</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
@@ -653,6 +654,7 @@
   <string name="keyNextBlunder">다음 블런더</string>
   <string name="keyNextMistake">다음 실수</string>
   <string name="keyNextInaccuracy">다음 부정확한 수</string>
+  <string name="variationArrowsInfo">변형 화살표를 사용하면 이동 목록을 사용하지 않고 탐색이 가능합니다.</string>
   <string name="playSelectedMove">선택한 수 두기</string>
   <string name="newTournament">새로운 토너먼트</string>
   <string name="tournamentHomeTitle">다양한 제한시간과 게임방식을 지원하는 체스 토너먼트</string>
