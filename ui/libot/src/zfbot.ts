@@ -31,7 +31,6 @@ export class ZfBot implements Libot {
     const ctx = this.ctx;
     const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
     const p = { ply: chess.halfmoves, material: Chops.Material.fromBoard(chess.board) };
-
     const zeroMove = this.netName ? this.zf.goZero(fen) : Promise.resolve(undefined);
     if (chance(ctx.zeroChance(p))) return (await zeroMove) ?? '0000';
     const fishMove = this.zf.goFish(fen, {
