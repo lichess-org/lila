@@ -25,6 +25,6 @@
   <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">디버그</string>
   <string name="verboseLogging" comment="Verbose in this context means to log errors and events in much more detail than standard. This is a function to help with resolving issues in how the software is working (debugging).">상세 로깅</string>
   <string name="toSeeConsoleMessage">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
-  <string name="playWithDgtBoard">DGT 보드로 게임을 해 보세요.</string>
+  <string name="playWithDgtBoard">DGT 보드로 게임하기</string>
   <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">설정</string>
 </resources>
